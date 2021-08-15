@@ -20,10 +20,12 @@ Here is an example of what it can do so far::
     >>> 
 
 There's still a lot to be done:
+
     * Get iterators working - a lot of exiv2_'s classes have ``begin`` and ``end`` methods that return iterators over the class's private data.
     * Build with different versions of exiv2_.
     * Build for Windows.
     * Package for PyPI_.
+    * Error handling.
 
 Dependencies
 ------------
@@ -44,6 +46,12 @@ These files can then be compiled and linked using ``setup.py``::
 
     python3 setup.py build
     sudo python3 setup.py install
+
+Problems?
+---------
+
+I think it's a bit early in the project to be using the "issues" page.
+Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 
 
 .. _exiv2:             https://www.exiv2.org/getting-started.html
