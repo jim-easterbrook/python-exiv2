@@ -48,7 +48,9 @@ exiv2_lib_dirs = exiv2_flags['-L']
 # create extension modules list
 ext_modules = []
 mod_src_dir = 'swig'
-extra_compile_args = ['-O3', '-Wno-unused-variable', '-Wno-deprecated-declarations', '-Werror']
+extra_compile_args = [
+    '-O3', '-Wno-unused-variable', '-Wno-deprecated-declarations',
+    '-Wno-unused-but-set-variable', '-Werror']
 libraries = [x.replace('-l', '') for x in exiv2_libs]
 library_dirs = [x.replace('-L', '') for x in exiv2_lib_dirs]
 include_dirs = [x.replace('-I', '') for x in exiv2_include]
