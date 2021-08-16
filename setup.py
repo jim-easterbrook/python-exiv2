@@ -22,6 +22,10 @@ import os
 import subprocess
 import sys
 
+# python-exiv2 version
+with open('README.rst') as rst:
+    version = rst.readline().split()[-1]
+
 # get exiv2 library config
 cmd = ['pkg-config', '--modversion', 'exiv2']
 FNULL = open(os.devnull, 'w')
@@ -62,9 +66,13 @@ for file_name in os.listdir(mod_src_dir):
         extra_compile_args = extra_compile_args,
         ))
 
+with open('README.rst') as ldf:
+    long_description = ldf.read()
+
 setup(name = 'exiv2',
-      version = '0.0.0',
+      version = version,
       description = 'Python interface to libexiv2',
+      long_description = long_description,
       author = 'Jim Easterbrook',
       author_email = 'jim@jim-easterbrook.me.uk',
       url = 'https://github.com/jim-easterbrook/python-exiv2',
@@ -88,4 +96,7 @@ setup(name = 'exiv2',
       ext_modules = ext_modules,
       packages = ['exiv2'],
       package_dir = {'exiv2' : mod_src_dir},
+      data_files = [
+          ('share/python-exiv2', ['LICENSE', 'README.rst']),
+          ],
       )

@@ -25,9 +25,9 @@ import sys
 def main(argv=None):
     # get root dir
     root = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
-##    # get python-gphoto2 version
-##    with open(os.path.join(root, 'README.rst')) as rst:
-##        version = rst.readline().split()[-1]
+    # get python-exiv2 version
+    with open(os.path.join(root, 'README.rst')) as rst:
+        version = rst.readline().split()[-1]
     # get exiv2 library config
     cmd = ['pkg-config', '--modversion', 'exiv2']
     FNULL = open(os.devnull, 'w')
@@ -72,7 +72,7 @@ def main(argv=None):
     # create init module
     init_file = os.path.join(root, output_dir, '__init__.py')
     with open(init_file, 'w') as im:
-##        im.write('__version__ = "{}"\n\n'.format(version))
+        im.write('__version__ = "{}"\n\n'.format(version))
         for name in ext_names:
             im.write('from exiv2.{} import *\n'.format(name))
         im.write('''
