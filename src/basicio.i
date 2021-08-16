@@ -20,9 +20,7 @@
 #pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
 #pragma SWIG nowarn=362     // operator= ignored
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
 %import "types.i"
 
@@ -32,5 +30,4 @@
 %ignore Exiv2::BasicIo::read;
 %ignore Exiv2::readFile;
 
-%include "exiv2/config.h"
 %include "exiv2/basicio.hpp"

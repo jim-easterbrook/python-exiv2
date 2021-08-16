@@ -19,25 +19,17 @@
 
 #pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
 %import "metadatum.i"
 %import "properties.i"
 
 %include "std_string.i"
 
-%feature("python:slot", "mp_subscript", functype="binaryfunc") Exiv2::XmpData::__getitem__;
-%extend Exiv2::XmpData {
-    Exiv2::Xmpdatum& __getitem__(const std::string& key) {
-        return (*($self))[key];
-    }
-}
+GETITEM(Exiv2::XmpData, Exiv2::Xmpdatum)
 
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;
 %ignore Exiv2::XmpData::findKey(XmpKey const &) const;
 
-%include "exiv2/config.h"
 %include "exiv2/xmp.hpp"

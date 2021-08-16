@@ -20,9 +20,6 @@
 #pragma SWIG nowarn=362     // operator= ignored
 #pragma SWIG nowarn=503     // Can't wrap 'X' unless renamed to a valid identifier.
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
-%include "exiv2/config.h"
 %include "exiv2/types.hpp"

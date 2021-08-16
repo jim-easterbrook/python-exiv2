@@ -20,9 +20,7 @@
 #pragma SWIG nowarn=325     // Nested struct not currently supported (X ignored)
 #pragma SWIG nowarn=362     // operator= ignored
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
 %import "metadatum.i";
 
@@ -36,5 +34,4 @@
 %immutable Exiv2::TagInfo::title_;
 %immutable Exiv2::TagInfo::desc_;
 
-%include "exiv2/config.h"
 %include "exiv2/tags.hpp"

@@ -20,9 +20,7 @@
 #pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
 #pragma SWIG nowarn=362     // operator= ignored
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
 %import "types.i"
 %import "value.i"
@@ -32,5 +30,4 @@
 
 %auto_ptr(Exiv2::Key)
 
-%include "exiv2/config.h"
 %include "exiv2/metadatum.hpp"

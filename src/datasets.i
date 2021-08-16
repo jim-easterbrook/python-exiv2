@@ -19,9 +19,7 @@
 
 #pragma SWIG nowarn=362     // operator= ignored
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
 %import "metadatum.i"
 
@@ -41,5 +39,4 @@
 
 %ignore Exiv2::IptcDataSets;
 
-%include "exiv2/config.h"
 %include "exiv2/datasets.hpp"

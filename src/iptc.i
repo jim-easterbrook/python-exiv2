@@ -19,21 +19,14 @@
 
 #pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
 %import "datasets.i"
 %import "metadatum.i"
 
 %include "std_string.i"
 
-%feature("python:slot", "mp_subscript", functype="binaryfunc") Exiv2::IptcData::__getitem__;
-%extend Exiv2::IptcData {
-    Exiv2::Iptcdatum& __getitem__(const std::string& key) {
-        return (*($self))[key];
-    }
-}
+GETITEM(Exiv2::IptcData, Exiv2::Iptcdatum)
 
 %ignore Exiv2::IptcData::begin() const;
 %ignore Exiv2::IptcData::end() const;
@@ -42,5 +35,4 @@
 %ignore Exiv2::IptcData::findId(uint16_t,uint16_t) const;
 %ignore Exiv2::IptcParser::encode;
 
-%include "exiv2/config.h"
 %include "exiv2/iptc.hpp"

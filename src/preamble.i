@@ -15,31 +15,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%module(package="exiv2") value
+%{
+#include "exiv2/exiv2.hpp"
+%}
+%import "exiv2/config.h"
 
-#pragma SWIG nowarn=325     // Nested struct not currently supported (X ignored)
-#pragma SWIG nowarn=362     // operator= ignored
-#pragma SWIG nowarn=403     // Class 'X' might be abstract, no constructors generated, Method Y might not be implemented.
-
-%include "preamble.i"
-
-%import "types.i"
-
-%include "std_auto_ptr.i"
-
-%auto_ptr(Exiv2::AsciiValue)
-%auto_ptr(Exiv2::CommentValue)
-%auto_ptr(Exiv2::DataValue)
-%auto_ptr(Exiv2::DateValue)
-%auto_ptr(Exiv2::LangAltValue)
-%auto_ptr(Exiv2::StringValue)
-%auto_ptr(Exiv2::StringValueBase)
-%auto_ptr(Exiv2::TimeValue)
-%auto_ptr(Exiv2::Value)
-%auto_ptr(Exiv2::XmpArrayValue)
-%auto_ptr(Exiv2::XmpTextValue)
-
-%ignore Exiv2::getValue;
-%ignore Exiv2::Value::dataArea;
-
-%include "exiv2/value.hpp"
+// Macro to provide operator[] equivalent
+%define GETITEM(class, ret_type)
+%feature("python:slot", "mp_subscript", functype="binaryfunc") class::__getitem__;
+%extend class {
+    ret_type& __getitem__(const std::string& key) {
+        return (*($self))[key];
+    }
+}
+%enddef

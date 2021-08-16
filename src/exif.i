@@ -20,21 +20,14 @@
 #pragma SWIG nowarn=362     // operator= ignored
 #pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
 %import "metadatum.i"
 %import "tags.i"
 
 %include "std_string.i"
 
-%feature("python:slot", "mp_subscript", functype="binaryfunc") Exiv2::ExifData::__getitem__;
-%extend Exiv2::ExifData {
-    Exiv2::Exifdatum& __getitem__(const std::string& key) {
-        return (*($self))[key];
-    }
-}
+GETITEM(Exiv2::ExifData, Exiv2::Exifdatum)
 
 %ignore Exiv2::ExifData::begin() const;
 %ignore Exiv2::ExifData::end() const;
@@ -42,5 +35,4 @@
 %ignore Exiv2::Exifdatum::dataArea;
 %ignore Exiv2::ExifThumbC::copy;
 
-%include "exiv2/config.h"
 %include "exiv2/exif.hpp"

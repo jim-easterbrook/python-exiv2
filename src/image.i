@@ -19,9 +19,7 @@
 
 #pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
 
-%{
-#include "exiv2/exiv2.hpp"
-%}
+%include "preamble.i"
 
 %import "basicio.i";
 %import "exif.i";
@@ -39,5 +37,4 @@
 %ignore Exiv2::Image::xmpData() const;
 %ignore Exiv2::Image::xmpPacket() const;
 
-%include "exiv2/config.h"
 %include "exiv2/image.hpp"
