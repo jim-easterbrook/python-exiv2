@@ -33,7 +33,7 @@ Here is an example of what it can do so far::
     >>> data = image.exifData()
     >>> data['Exif.Image.Artist']._print()
     'Jim Easterbrook'
-    >>> 
+    >>>
 
 There's still a lot to be done:
 
@@ -42,6 +42,28 @@ There's still a lot to be done:
     * Package for PyPI_.
     * Error handling.
     * Example files.
+
+Documentation
+-------------
+
+The libexiv2_ library is well documented for C++ users, in Doxygen_ format.
+Recent versions of SWIG_ can convert this documentation to pydoc_ format in the Python interface::
+
+    pydoc3 exiv2.Image.exifData
+
+    Help on method_descriptor in exiv2.Image:
+
+    exiv2.Image.exifData = exifData(...)
+        Returns an ExifData instance containing currently buffered
+            Exif data.
+
+        The contained Exif data may have been read from the image by
+        a previous call to readMetadata() or added directly. The Exif
+        data in the returned instance will be written to the image when
+        writeMetadata() is called.
+
+        :rtype: :py:class:`ExifData`
+        :return: modifiable ExifData instance containing Exif values
 
 Iterators
 ---------
@@ -62,36 +84,36 @@ It is quite easy to use::
     >>> b = data.begin()
     >>> b.curr().key()
     'Exif.Image.ProcessingSoftware'
-    >>> 
+    >>>
 
 The Python iterators also have a ``next`` method that increments the iterator as well as returning the list value.
 This can be used to iterate over the data in a very C++ like style::
 
     >>> data = image.exifData()
     >>> b = data.begin()
-    >>> e = data.end()                     
-    >>> while b != e:                    
+    >>> e = data.end()
+    >>> while b != e:
     ...     b.next().key()
-    ... 
+    ...
     'Exif.Image.ProcessingSoftware'
     'Exif.Image.ImageDescription'
     [skip 227 lines]
     'Exif.Thumbnail.JPEGInterchangeFormat'
     'Exif.Thumbnail.JPEGInterchangeFormatLength'
-    >>> 
+    >>>
 
 You can also iterate in a more Pythonic style::
 
     >>> data = image.exifData()
     >>> for item in data:
     ...     item.key()
-    ... 
+    ...
     'Exif.Image.ProcessingSoftware'
     'Exif.Image.ImageDescription'
     [skip 227 lines]
     'Exif.Thumbnail.JPEGInterchangeFormat'
     'Exif.Thumbnail.JPEGInterchangeFormatLength'
-    >>> 
+    >>>
 
 I think this is much better.
 
@@ -121,7 +143,7 @@ Problems?
 I think it's a bit early in the project to be using the "issues" page.
 Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 
-
+.. _Doxygen:           https://www.doxygen.nl/
 .. _exiv2:             https://www.exiv2.org/getting-started.html
 .. _gexiv2:            https://wiki.gnome.org/Projects/gexiv2
 .. _libexiv2:          https://www.exiv2.org/doc/index.html
@@ -130,4 +152,5 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _PyGObject:         https://pygobject.readthedocs.io/en/latest/
 .. _PyPI:              https://pypi.org/
 .. _SWIG:              http://swig.org/
+.. _pydoc:             https://docs.python.org/3/library/pydoc.html
 .. _Python3:           https://www.python.org/
