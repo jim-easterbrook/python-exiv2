@@ -3,7 +3,7 @@ python-exiv2 v\ 0.0.0
 
 python-exiv2 is a low level interface (or binding) to the exiv2_ C++ library.
 It is built using SWIG_ to automatically generate the interface code.
-The intention is to give direct access to all of the top-level classes in exiv2_, but with additional "Pythonic" helpers where necessary.
+The intention is to give direct access to all of the top-level classes in libexiv2_, but with additional "Pythonic" helpers where necessary.
 
 .. contents::
     :backlinks: top
@@ -22,7 +22,7 @@ This new project is potentially very useful, providing a simple interface with f
 For more complicated metadata operations I think a lower level interface is required, which is where this project comes in.
 
 **This project is at a very early stage of development.**
-I've managed to get it to build and run with exiv2_ v0.26 (as that's what's installed on my main Linux computer) but it's not yet very useful.
+I've managed to get it to build and run with libexiv2_ v0.26 (as that's what's installed on my main Linux computer) but it's not yet very useful.
 Here is an example of what it can do so far::
 
     Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
@@ -68,11 +68,11 @@ Recent versions of SWIG_ can convert this documentation to pydoc_ format in the 
 Iterators
 ---------
 
-Several libexiv2_'s classes use C++ iterators to expose private data, for example the ``ExifData`` class has a private member of ``std::list<Exifdatum>`` type.
+Several libexiv2_ classes use C++ iterators to expose private data, for example the ``ExifData`` class has a private member of ``std::list<Exifdatum>`` type.
 The classes have public ``begin`` and ``end`` methods that return ``std::list`` iterators.
 In C++ you can dereference one of these iterators to access the ``Exifdatum`` object, but Python doesn't have a dereference operator.
 
-This Python interface converts a ``std::list`` iterator to a Python object that has a ``curr`` method to return the list value.
+This Python interface converts the ``std::list`` iterator to a Python object that has a ``curr`` method to return the list value.
 It is quite easy to use::
 
     Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
@@ -121,7 +121,7 @@ Dependencies
 ------------
 
 Currently the only way to install python-exiv2 is to compile it from source.
-This requires swig_, the "development headers" of exiv2_ and Python3_, and the usual GNU C++ compiler and linker.
+This requires swig_, the "development headers" of libexiv2_ and Python3_, and the usual GNU C++ compiler and linker.
 These should all be installable with your operating system's package manager.
 
 Building python-exiv2
