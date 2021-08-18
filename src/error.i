@@ -21,4 +21,7 @@
 
 %include "std_except.i"
 
+// Python defines a replacement for this exception
+%ignore Exiv2::AnyError;
+
 %include "exiv2/error.hpp"

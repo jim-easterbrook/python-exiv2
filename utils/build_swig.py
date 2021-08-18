@@ -76,6 +76,14 @@ def main(argv=None):
     init_file = os.path.join(root, output_dir, '__init__.py')
     with open(init_file, 'w') as im:
         im.write('__version__ = "{}"\n\n'.format(version))
+        im.write('''
+class AnyError(Exception):
+    """Python exception raised by exiv2 library errors
+
+    """
+    pass
+
+''')
         for name in ext_names:
             im.write('from exiv2.{} import *\n'.format(name))
         im.write('''

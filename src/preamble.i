@@ -20,9 +20,38 @@
 %}
 %import "exiv2/config.h"
 
+// Get exception defined in __init__.py
+%{
+PyObject *PyExc_AnyError = NULL;
+%}
+%init %{
+{
+  PyObject *module = PyImport_ImportModule("exiv2");
+  if (module != NULL) {
+    PyExc_AnyError = PyObject_GetAttrString(module, "AnyError");
+    Py_DECREF(module);
+  }
+  if (PyExc_AnyError == NULL)
+    return NULL;
+}
+%}
+
+// Macro to catch C++ exception and raise Python one instead
+%define CATCH_EXCEPTION(do_something)
+%exception do_something {
+    try {
+        $action
+    } catch (Exiv2::AnyError &e) {
+        PyErr_SetString(PyExc_AnyError, const_cast<char*>(e.what()));
+        SWIG_fail;
+    }
+}
+%enddef
+
 // Macro to provide operator[] equivalent
 %define GETITEM(class, ret_type)
-%feature("python:slot", "mp_subscript", functype="binaryfunc") class::__getitem__;
+%feature("python:slot", "mp_subscript",
+         functype="binaryfunc") class::__getitem__;
 %extend class {
     ret_type& __getitem__(const std::string& key) {
         return (*($self))[key];
