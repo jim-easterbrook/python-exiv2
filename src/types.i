@@ -19,7 +19,14 @@
 
 #pragma SWIG nowarn=362     // operator= ignored
 #pragma SWIG nowarn=503     // Can't wrap 'X' unless renamed to a valid identifier.
+#pragma SWIG nowarn=509     // Overloaded method X effectively ignored, as it is shadowed by Y.
 
 %include "preamble.i"
+
+%include "stdint.i"
+%include "std_pair.i"
+
+%template(URational) std::pair<uint32_t, uint32_t>;
+%template(Rational) std::pair<int32_t, int32_t>;
 
 %include "exiv2/types.hpp"
