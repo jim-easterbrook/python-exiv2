@@ -27,6 +27,7 @@
 %include "std_string.i"
 
 GETITEM(Exiv2::XmpData, Exiv2::Xmpdatum)
+ITERATOR(Exiv2::XmpData, Exiv2::Xmpdatum, XmpDataIterator)
 
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;
