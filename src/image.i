@@ -21,7 +21,8 @@
 
 %include "preamble.i"
 
-%import "basicio.i";
+%import "exiv2/basicio.hpp";
+
 %import "exif.i";
 %import "iptc.i";
 %import "tags.i";
@@ -30,6 +31,7 @@
 %include "std_string.i"
 %include "std_auto_ptr.i"
 
+%auto_ptr(Exiv2::BasicIo)
 %auto_ptr(Exiv2::Image)
 
 %ignore Exiv2::Image::exifData() const;
