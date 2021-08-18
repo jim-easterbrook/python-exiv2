@@ -26,6 +26,7 @@
 %import "types.i"
 
 %include "std_auto_ptr.i"
+%include "std_string.i"
 
 %auto_ptr(Exiv2::AsciiValue)
 %auto_ptr(Exiv2::CommentValue)
