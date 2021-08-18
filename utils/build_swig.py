@@ -57,7 +57,7 @@ def main(argv=None):
     print('file_names', file_names)
     # make options list
     swig_opts = ['-c++', '-python', '-py3', '-O', '-I/usr/include',
-                 '-Wextra', '-Werror', '-builtin', '-doxygen']
+                 '-Wextra', '-Werror', '-builtin']
     output_dir = os.path.join(root, 'swig')
     os.makedirs(output_dir, exist_ok=True)
     version_opts = ['-outdir', output_dir]
@@ -65,6 +65,9 @@ def main(argv=None):
     # do each swig module
     for ext_name in ext_names:
         cmd = ['swig'] + swig_opts + version_opts
+        # -doxygen flag causes a syntax error on error.hpp
+        if ext_name not in ('error', ):
+            cmd.append('-doxygen')
         cmd += ['-o', os.path.join(root, output_dir, ext_name + '_wrap.cxx')]
         cmd += [os.path.join(root, 'src', ext_name + '.i')]
         print(' '.join(cmd))
