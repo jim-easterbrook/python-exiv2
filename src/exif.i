@@ -96,19 +96,6 @@ ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
                     return SWIG_Py_Void();
                 }
                 break;
-            case Exiv2::unsignedByte:
-            case Exiv2::undefined:
-                if (value <= UINT8_MAX) {
-                    (*($self))[key] = (uint8_t)value;
-                    return SWIG_Py_Void();
-                }
-                break;
-            case Exiv2::signedByte:
-                if (value <= INT8_MAX) {
-                    (*($self))[key] = (int8_t)value;
-                    return SWIG_Py_Void();
-                }
-                break;
             default:
                 msg = key + ": cannot convert 'unsigned int' to '";
                 msg += std::string(Exiv2::TypeInfo::typeName(type_id));
@@ -153,18 +140,6 @@ ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
             case Exiv2::unsignedShort:
                 if (value >= 0 && value <= UINT16_MAX) {
                     (*($self))[key] = (uint16_t)value;
-                    return SWIG_Py_Void();
-                }
-                break;
-            case Exiv2::signedByte:
-                if (value >= INT8_MIN && value <= INT8_MAX) {
-                    (*($self))[key] = (int8_t)value;
-                    return SWIG_Py_Void();
-                }
-                break;
-            case Exiv2::unsignedByte:
-                if (value >= 0 && value <= UINT8_MAX) {
-                    (*($self))[key] = (uint8_t)value;
                     return SWIG_Py_Void();
                 }
                 break;
