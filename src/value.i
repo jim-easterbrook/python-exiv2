@@ -25,8 +25,10 @@
 
 %import "types.i"
 
+%include "stdint.i"
 %include "std_auto_ptr.i"
 %include "std_string.i"
+%include "std_vector.i"
 
 %auto_ptr(Exiv2::AsciiValue)
 %auto_ptr(Exiv2::CommentValue)
@@ -44,5 +46,24 @@ STR(Exiv2::Value, toString)
 
 %ignore Exiv2::getValue;
 %ignore Exiv2::Value::dataArea;
+%ignore Exiv2::ValueType::clone;
 
 %include "exiv2/value.hpp"
+
+%template(UShortValueList) std::vector<uint16_t>;
+%template(ULongValueList) std::vector<uint32_t>;
+%template(URationalValueList) std::vector<Exiv2::URational>;
+%template(ShortValueList) std::vector<int16_t>;
+%template(LongValueList) std::vector<int32_t>;
+%template(RationalValueList) std::vector<Exiv2::Rational>;
+%template(FloatValueList) std::vector<float>;
+%template(DoubleValueList) std::vector<double>;
+
+%template(UShortValue) Exiv2::ValueType<uint16_t>;
+%template(ULongValue) Exiv2::ValueType<uint32_t>;
+%template(URationalValue) Exiv2::ValueType<Exiv2::URational>;
+%template(ShortValue) Exiv2::ValueType<int16_t>;
+%template(LongValue) Exiv2::ValueType<int32_t>;
+%template(RationalValue) Exiv2::ValueType<Exiv2::Rational>;
+%template(FloatValue) Exiv2::ValueType<float>;
+%template(DoubleValue) Exiv2::ValueType<double>;
