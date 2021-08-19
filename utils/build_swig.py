@@ -22,49 +22,32 @@ import subprocess
 import sys
 
 
+# get root dir
+root = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
+# get exiv2 library config
+exec(open(os.path.join(root, 'utils', 'exiv2_cfg.py')).read())
+
+
 def main(argv=None):
-    # get root dir
-    root = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
+    print(exiv2_cfg)
     # get python-exiv2 version
     with open(os.path.join(root, 'README.rst')) as rst:
         version = rst.readline().split()[-1]
-    # get exiv2 library config
-    cmd = ['pkg-config', '--modversion', 'exiv2']
-    FNULL = open(os.devnull, 'w')
-    try:
-        exiv2_version = subprocess.check_output(
-            cmd, stderr=FNULL, universal_newlines=True).split('.')
-        exiv2_version = tuple(map(int, exiv2_version))
-    except Exception:
-        print('ERROR: command "{}" failed'.format(' '.join(cmd)))
-        raise
-    print('exiv2_version', exiv2_version)
-    exiv2_flags = defaultdict(list)
-    for flag in subprocess.check_output(
-            ['pkg-config', '--cflags', '--libs', 'exiv2'],
-            universal_newlines=True).split():
-        exiv2_flags[flag[:2]].append(flag)
-    print('exiv2_flags', exiv2_flags)
-    exiv2_include  = exiv2_flags['-I']
-    exiv2_libs     = exiv2_flags['-l']
-    exiv2_lib_dirs = exiv2_flags['-L']
     # get list of modules (Python) and extensions (SWIG)
     file_names = os.listdir(os.path.join(root, 'src'))
     file_names = [x for x in file_names if x != 'preamble.i']
     file_names.sort()
     file_names = [os.path.splitext(x) for x in file_names]
     ext_names = [x[0] for x in file_names if x[1] == '.i']
-    print('file_names', file_names)
     # make options list
-    swig_opts = ['-c++', '-python', '-py3', '-O', '-I/usr/include',
-                 '-Wextra', '-Werror', '-builtin']
     output_dir = os.path.join(root, 'swig')
     os.makedirs(output_dir, exist_ok=True)
-    version_opts = ['-outdir', output_dir]
-    version_opts += exiv2_include
+    swig_opts = ['-c++', '-python', '-py3', '-O', '-I/usr/include',
+                 '-Wextra', '-Werror', '-builtin', '-outdir', output_dir]
+    swig_opts += exiv2_cfg['include_dirs']
     # do each swig module
     for ext_name in ext_names:
-        cmd = ['swig'] + swig_opts + version_opts
+        cmd = ['swig'] + swig_opts
         # -doxygen flag causes a syntax error on error.hpp
         if ext_name not in ('error', ):
             cmd.append('-doxygen')
