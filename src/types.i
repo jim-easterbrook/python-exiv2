@@ -26,7 +26,7 @@
 %include "stdint.i"
 %include "std_pair.i"
 
+%include "exiv2/types.hpp"
+
 %template(URational) std::pair<uint32_t, uint32_t>;
 %template(Rational) std::pair<int32_t, int32_t>;
-
-%include "exiv2/types.hpp"
