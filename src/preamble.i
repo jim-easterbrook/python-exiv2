@@ -36,17 +36,18 @@ PyObject *PyExc_AnyError = NULL;
 }
 %}
 
-// Macro to catch C++ exception and raise Python one instead
-%define CATCH_EXCEPTION(do_something)
-%exception do_something {
+// Catch all C++ exceptions
+%exception {
     try {
         $action
-    } catch (Exiv2::AnyError &e) {
-        PyErr_SetString(PyExc_AnyError, const_cast<char*>(e.what()));
+    } catch(Exiv2::AnyError &e) {
+        PyErr_SetString(PyExc_AnyError, e.what());
+        SWIG_fail;
+    } catch(std::exception &e) {
+        PyErr_SetString(PyExc_RuntimeError, e.what());
         SWIG_fail;
     }
 }
-%enddef
 
 // Macro to provide operator[] equivalent
 %define GETITEM(class, ret_type)
