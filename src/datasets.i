@@ -28,7 +28,6 @@
 %include "std_string.i"
 
 %auto_ptr(Exiv2::IptcKey)
-%template(Exiv2Dictionary) std::map<std::string, std::string>;
 
 %immutable Exiv2::RecordInfo::name_;
 %immutable Exiv2::RecordInfo::desc_;
@@ -37,6 +36,6 @@
 %immutable Exiv2::DataSet::desc_;
 %immutable Exiv2::DataSet::photoshop_;
 
-%ignore Exiv2::IptcDataSets;
-
 %include "exiv2/datasets.hpp"
+
+%template(Exiv2Dictionary) std::map<std::string, std::string>;
