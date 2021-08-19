@@ -59,6 +59,16 @@ PyObject *PyExc_AnyError = NULL;
 }
 %enddef
 
+// Macro to provide __str__
+%define STR(class, method)
+%feature("python:slot", "tp_str", functype="reprfunc") class::__str__;
+%extend class {
+    std::string __str__() {
+        return $self->method();
+    }
+}
+%enddef
+
 // Macro to provide a Python iterator over a C++ class with begin/end methods
 %define ITERATOR(parent_class, item_type, iter_class)
 // Make parent class iterable

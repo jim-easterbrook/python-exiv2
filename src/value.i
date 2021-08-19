@@ -40,6 +40,8 @@
 %auto_ptr(Exiv2::XmpArrayValue)
 %auto_ptr(Exiv2::XmpTextValue)
 
+STR(Exiv2::Value, toString)
+
 %ignore Exiv2::getValue;
 %ignore Exiv2::Value::dataArea;
 

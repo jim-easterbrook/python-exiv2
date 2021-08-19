@@ -30,4 +30,6 @@
 
 %auto_ptr(Exiv2::Key)
 
+STR(Exiv2::Key, key)
+
 %include "exiv2/metadatum.hpp"
