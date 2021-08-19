@@ -65,6 +65,21 @@ Recent versions of SWIG_ can convert this documentation to pydoc_ format in the 
         :rtype: :py:class:`ExifData`
         :return: modifiable ExifData instance containing Exif values
 
+Assignment
+----------
+
+libexiv2_ stores metadata values in a generalised container whose type is set by the type of a value assigned to it, for example::
+
+    exifData["Exif.Image.SamplesPerPixel"] = uint16_t(162);
+
+This forces the ``Exif.Image.SamplesPerPixel`` value to be an unsigned short.
+Python doesn't have such specific integer types, so python-exiv2 converts any integer to the default type for the tag being set.
+The Python equivalent of the above is simpler, but means you cannot force a value to have a type other than its default::
+
+    exifData["Exif.Image.SamplesPerPixel"] = 162
+
+If the value is out of range, or cannot be converted for any other reason, a Python exception is raised.
+
 Iterators
 ---------
 
