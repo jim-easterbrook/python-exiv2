@@ -48,6 +48,11 @@ STR(Exiv2::Value, toString)
 %ignore Exiv2::Value::dataArea;
 %ignore Exiv2::ValueType::clone;
 
+// Ignore ambiguous or unusable constructors
+%ignore Exiv2::ValueType::ValueType(TypeId);
+%ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder);
+%ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder, TypeId);
+
 %include "exiv2/value.hpp"
 
 %template(UShortValueList) std::vector<uint16_t>;
