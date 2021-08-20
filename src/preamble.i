@@ -20,19 +20,21 @@
 %}
 %import "exiv2/config.h"
 
-// Get exception defined in __init__.py
+// Get exception and logger defined in __init__.py
 %{
-PyObject *PyExc_AnyError = NULL;
+PyObject* PyExc_AnyError = NULL;
+PyObject* logger = NULL;
 %}
 %init %{
 {
-  PyObject *module = PyImport_ImportModule("exiv2");
-  if (module != NULL) {
-    PyExc_AnyError = PyObject_GetAttrString(module, "AnyError");
-    Py_DECREF(module);
-  }
-  if (PyExc_AnyError == NULL)
-    return NULL;
+    PyObject *module = PyImport_ImportModule("exiv2");
+    if (module != NULL) {
+        PyExc_AnyError = PyObject_GetAttrString(module, "AnyError");
+        logger = PyObject_GetAttrString(module, "_logger");
+        Py_DECREF(module);
+    }
+    if (PyExc_AnyError == NULL || logger == NULL)
+        return NULL;
 }
 %}
 

@@ -1,4 +1,4 @@
-# python-gphoto2 - Python interface to exiv2
+# python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
 # Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
@@ -58,19 +58,21 @@ def main(argv=None):
     # create init module
     init_file = os.path.join(root, output_dir, '__init__.py')
     with open(init_file, 'w') as im:
-        im.write('__version__ = "{}"\n\n'.format(version))
         im.write('''
-class AnyError(Exception):
-    """Python exception raised by exiv2 library errors
+import logging
 
-    """
+_logger = logging.getLogger(__name__)
+
+class AnyError(Exception):
+    """Python exception raised by exiv2 library errors"""
     pass
 
 ''')
+        im.write('__version__ = "{}"\n\n'.format(version))
         for name in ext_names:
             im.write('from exiv2.{} import *\n'.format(name))
         im.write('''
-__all__ = dir()
+__all__ = [x for x in dir() if x[0] != '_']
 ''')
     return 0
 
