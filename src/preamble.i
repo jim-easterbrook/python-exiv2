@@ -20,6 +20,10 @@
 %}
 %import "exiv2/config.h"
 
+#ifndef SWIG_DOXYGEN
+%feature("autodoc", "2");
+#endif
+
 // Get exception and logger defined in __init__.py
 %{
 PyObject* PyExc_AnyError = NULL;

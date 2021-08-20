@@ -29,7 +29,6 @@ exec(open(os.path.join(root, 'utils', 'exiv2_cfg.py')).read())
 
 
 def main(argv=None):
-    print(exiv2_cfg)
     # get python-exiv2 version
     with open(os.path.join(root, 'README.rst')) as rst:
         version = rst.readline().split()[-1]
@@ -39,6 +38,18 @@ def main(argv=None):
     file_names.sort()
     file_names = [os.path.splitext(x) for x in file_names]
     ext_names = [x[0] for x in file_names if x[1] == '.i']
+    # get SWIG version
+    cmd = ['swig', '-version']
+    try:
+        swig_version = str(
+            subprocess.check_output(cmd, universal_newlines=True))
+    except Exception:
+        print('ERROR: command "{}" failed'.format(' '.join(cmd)))
+        raise
+    for line in swig_version.splitlines():
+        if 'Version' in line:
+            swig_version = tuple(map(int, line.split()[-1].split('.')))
+            break
     # make options list
     output_dir = os.path.join(root, 'swig')
     os.makedirs(output_dir, exist_ok=True)
@@ -48,9 +59,11 @@ def main(argv=None):
     # do each swig module
     for ext_name in ext_names:
         cmd = ['swig'] + swig_opts
-        # -doxygen flag causes a syntax error on error.hpp
-        if ext_name not in ('error', ):
-            cmd.append('-doxygen')
+        # use -doxygen ?
+        if swig_version >= (4, 0, 0):
+            # -doxygen flag causes a syntax error on error.hpp
+            if ext_name not in ('error', ):
+                cmd += ['-doxygen', '-DSWIG_DOXYGEN']
         cmd += ['-o', os.path.join(root, output_dir, ext_name + '_wrap.cxx')]
         cmd += [os.path.join(root, 'src', ext_name + '.i')]
         print(' '.join(cmd))
