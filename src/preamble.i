@@ -91,6 +91,7 @@ PyObject* logger = NULL;
 }
 %ignore iter_class ## Stop;
 %ignore iter_class::ptr;
+%feature("docstring") iter_class::curr "returns the current 'this' object"
 %inline %{
 class iter_class ## Stop {};
 class iter_class {
