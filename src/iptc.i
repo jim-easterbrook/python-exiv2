@@ -40,8 +40,8 @@ STR(Exiv2::Iptcdatum, toString)
         IptcKey k = IptcKey(key);
         TypeId type_id = IptcDataSets::dataSetType(k.tag(), k.record());
         if (type_id != rhs.typeId()) {
-            EXV_WARNING << key << ": type change from '" <<
-                TypeInfo::typeName(type_id) << "' to '" <<
+            EXV_WARNING << key << " (default type '" <<
+                TypeInfo::typeName(type_id) << "') set to '" <<
                 rhs.typeName() << "'.\n";
         }
         (*($self))[key] = rhs;
@@ -52,8 +52,8 @@ STR(Exiv2::Iptcdatum, toString)
         IptcKey k = IptcKey(key);
         TypeId type_id = IptcDataSets::dataSetType(k.tag(), k.record());
         if (type_id != value.typeId()) {
-            EXV_WARNING << key << ": type change from '" <<
-                TypeInfo::typeName(type_id) << "' to '" <<
+            EXV_WARNING << key << " (default type '" <<
+                TypeInfo::typeName(type_id) << "') set to '" <<
                 TypeInfo::typeName(value.typeId()) << "'.\n";
         }
         (*($self))[key] = value;

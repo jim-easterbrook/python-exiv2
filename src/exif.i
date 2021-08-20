@@ -39,8 +39,8 @@ ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
         using namespace Exiv2;
         TypeId type_id = ExifKey(key).defaultTypeId();
         if (type_id != rhs.typeId()) {
-            EXV_WARNING << key << ": type change from '" <<
-                TypeInfo::typeName(type_id) << "' to '" <<
+            EXV_WARNING << key << " (default type '" <<
+                TypeInfo::typeName(type_id) << "') set to '" <<
                 rhs.typeName() << "'.\n";
         }
         (*($self))[key] = rhs;
@@ -50,8 +50,8 @@ ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
         using namespace Exiv2;
         TypeId type_id = ExifKey(key).defaultTypeId();
         if (type_id != value.typeId()) {
-            EXV_WARNING << key << ": type change from '" <<
-                TypeInfo::typeName(type_id) << "' to '" <<
+            EXV_WARNING << key << " (default type '" <<
+                TypeInfo::typeName(type_id) << "') set to '" <<
                 TypeInfo::typeName(value.typeId()) << "'.\n";
         }
         (*($self))[key] = value;
