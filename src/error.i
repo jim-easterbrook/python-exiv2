@@ -21,6 +21,18 @@
 
 %include "std_except.i"
 
+// Set Python logger as Exiv2 log handler
+%{
+static void log_to_python(int level, const char* msg) {
+    PyObject* res = PyObject_CallMethod(
+        logger, "log", "(is)", (level + 1) * 10, msg);
+    Py_XDECREF(res);
+};
+%}
+%init %{
+Exiv2::LogMsg::setHandler(&log_to_python);
+%}
+
 // Python defines a replacement for this exception
 %ignore Exiv2::AnyError;
 
