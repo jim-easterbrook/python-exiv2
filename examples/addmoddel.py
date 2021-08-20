@@ -43,9 +43,9 @@ def main():
         # metadatum for a given key already exists, its value is
         # overwritten. Otherwise a new tag is added.
         exifData["Exif.Image.Model"] = "Test 1"                 # AsciiValue
-        exifData["Exif.Image.SamplesPerPixel"] = 162            # UShortValue
-        exifData["Exif.Image.XResolution"] = 2                  # LongValue
-        exifData["Exif.Image.YResolution"] = 2, 3               # Rational
+        exifData["Exif.Image.SamplesPerPixel"] = exiv2.UShortValue(162) # UShortValue
+        exifData["Exif.Image.XResolution"] = exiv2.LongValue(-2)        # LongValue
+        exifData["Exif.Image.YResolution"] = exiv2.RationalValue((-2, 3)) # Rational
         print("Added a few tags the quick way.")
 
         # Create a ASCII string value (note the use of create)

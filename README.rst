@@ -40,7 +40,6 @@ There's still a lot to be done:
     * Build with different versions of libexiv2_.
     * Build for Windows.
     * Package for PyPI_.
-    * Error handling.
     * Example files.
 
 Documentation
@@ -73,12 +72,11 @@ libexiv2_ stores metadata values in a generalised container whose type is set by
     exifData["Exif.Image.SamplesPerPixel"] = uint16_t(162);
 
 This forces the ``Exif.Image.SamplesPerPixel`` value to be an unsigned short.
-Python doesn't have such specific integer types, so python-exiv2 converts any integer to the default type for the tag being set.
-The Python equivalent of the above is simpler, but means you cannot force a value to have a type other than its default::
+Python doesn't have such specific integer types, so you need to create a value of the appropriate type and assign that::
 
-    exifData["Exif.Image.SamplesPerPixel"] = 162
+    exifData["Exif.Image.SamplesPerPixel"] = exiv2.UShortValue(162)
 
-If the value is out of range, or cannot be converted for any other reason, a Python exception is raised.
+This allows you to set the value to any type, just like in C++, but the Python interface warns you if you set a type that isn't the default for that tag.
 
 Iterators
 ---------
@@ -131,6 +129,12 @@ You can also iterate in a more Pythonic style::
     >>>
 
 I think this is much better.
+
+Error handling
+--------------
+
+libexiv2_ has a multilevel warning system a bit like Python's standard logger.
+The Python interface redirects all Exiv2 messages to Python logging with an appropriate log level.
 
 Dependencies
 ------------
