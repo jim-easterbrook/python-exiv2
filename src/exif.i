@@ -29,70 +29,8 @@
 %import "tags.i"
 
 GETITEM(Exiv2::ExifData, Exiv2::Exifdatum)
+SETITEM(Exiv2::ExifData, Exiv2::Exifdatum, ExifKey(key).defaultTypeId())
 ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
-
-%feature("python:slot", "mp_ass_subscript",
-         functype="objobjargproc") Exiv2::ExifData::__setitem__;
-
-%extend Exiv2::ExifData {
-    PyObject* __setitem__(const std::string& key, const Exiv2::Value &value) {
-        using namespace Exiv2;
-        Exifdatum* datum = &(*$self)[key];
-        TypeId old_type = datum->typeId();
-        if (old_type == invalidTypeId)
-            old_type = ExifKey(key).defaultTypeId();
-        datum->setValue(&value);
-        TypeId new_type = datum->typeId();
-        if (new_type != old_type) {
-            EXV_WARNING << key << ": changed type from '" <<
-                TypeInfo::typeName(old_type) << "' to '" <<
-                TypeInfo::typeName(new_type) << "'.\n";
-        }
-        return SWIG_Py_Void();
-    }
-    PyObject* __setitem__(const std::string& key, const std::string &value) {
-        using namespace Exiv2;
-        Exifdatum* datum = &(*$self)[key];
-        TypeId old_type = datum->typeId();
-        if (old_type == invalidTypeId)
-            old_type = ExifKey(key).defaultTypeId();
-        if (datum->setValue(value) != 0) {
-            EXV_ERROR << key << ": cannot set type '" <<
-                TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
-        }
-        TypeId new_type = datum->typeId();
-        if (new_type != old_type) {
-            EXV_WARNING << key << ": changed type from '" <<
-                TypeInfo::typeName(old_type) << "' to '" <<
-                TypeInfo::typeName(new_type) << "'.\n";
-        }
-        return SWIG_Py_Void();
-    }
-    PyObject* __setitem__(const std::string& key, PyObject* value) {
-        using namespace Exiv2;
-        Exifdatum* datum = &(*$self)[key];
-        TypeId old_type = datum->typeId();
-        if (old_type == invalidTypeId)
-            old_type = ExifKey(key).defaultTypeId();
-        // Get equivalent of Python "str(value)"
-        PyObject* py_str = PyObject_Str(value);
-        if (py_str == NULL)
-            return NULL;
-        char* c_str = SWIG_Python_str_AsChar(py_str);
-        Py_DECREF(py_str);
-        if (datum->setValue(c_str) != 0) {
-            EXV_ERROR << key << ": cannot set type '" <<
-                TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
-        }
-        TypeId new_type = datum->typeId();
-        if (new_type != old_type) {
-            EXV_WARNING << key << ": changed type from '" <<
-                TypeInfo::typeName(old_type) << "' to '" <<
-                TypeInfo::typeName(new_type) << "'.\n";
-        }
-        return SWIG_Py_Void();
-    }
-}
 
 %ignore Exiv2::ExifData::begin() const;
 %ignore Exiv2::ExifData::end() const;

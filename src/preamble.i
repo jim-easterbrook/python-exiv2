@@ -139,3 +139,64 @@ public:
         SWIGTYPE_p_ ## iter_class, SWIG_POINTER_OWN);
 };
 %enddef
+
+// Macro for use in SETITEM
+%define NEW_TYPE_WARN()
+        TypeId new_type = datum->typeId();
+        if (new_type != old_type) {
+            EXV_WARNING << key << ": changed type from '" <<
+                TypeInfo::typeName(old_type) << "' to '" <<
+                TypeInfo::typeName(new_type) << "'.\n";
+        }
+%enddef
+
+// Macro to provide operator= equivalent
+%define SETITEM(class, datum_type, default_type)
+%feature("python:slot", "mp_ass_subscript",
+         functype="objobjargproc") class::__setitem__;
+
+%extend class {
+    PyObject* __setitem__(const std::string& key, const Exiv2::Value &value) {
+        using namespace Exiv2;
+        datum_type* datum = &(*$self)[key];
+        TypeId old_type = datum->typeId();
+        if (old_type == invalidTypeId)
+            old_type = default_type;
+        datum->setValue(&value);
+        NEW_TYPE_WARN()
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key, const std::string &value) {
+        using namespace Exiv2;
+        datum_type* datum = &(*$self)[key];
+        TypeId old_type = datum->typeId();
+        if (old_type == invalidTypeId)
+            old_type = default_type;
+        if (datum->setValue(value) != 0) {
+            EXV_ERROR << key << ": cannot set type '" <<
+                TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
+        }
+        NEW_TYPE_WARN()
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key, PyObject* value) {
+        using namespace Exiv2;
+        datum_type* datum = &(*$self)[key];
+        TypeId old_type = datum->typeId();
+        if (old_type == invalidTypeId)
+            old_type = default_type;
+        // Get equivalent of Python "str(value)"
+        PyObject* py_str = PyObject_Str(value);
+        if (py_str == NULL)
+            return NULL;
+        char* c_str = SWIG_Python_str_AsChar(py_str);
+        Py_DECREF(py_str);
+        if (datum->setValue(c_str) != 0) {
+            EXV_ERROR << key << ": cannot set type '" <<
+                TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
+        }
+        NEW_TYPE_WARN()
+        return SWIG_Py_Void();
+    }
+}
+%enddef
