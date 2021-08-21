@@ -37,7 +37,7 @@ def main():
         iptcData["Iptc.Application2.Keywords"] = "Yet another keyword"
         iptcData["Iptc.Application2.DateCreated"] = "2004-8-3"
         iptcData["Iptc.Application2.Urgency"] = exiv2.UShortValue(1)
-        iptcData["Iptc.Envelope.ModelVersion"] = exiv2.UShortValue(42)
+        iptcData["Iptc.Envelope.ModelVersion"] = 42
         iptcData["Iptc.Envelope.TimeSent"] = "14:41:0-05:00"
         iptcData["Iptc.Application2.RasterizedCaption"] = "230 42 34 2 90 84 23 146"
         iptcData["Iptc.0x0009.0x0001"] = "Who am I?"

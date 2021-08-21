@@ -67,16 +67,19 @@ Recent versions of SWIG_ can convert this documentation to pydoc_ format in the 
 Assignment
 ----------
 
-libexiv2_ stores metadata values in a generalised container whose type is set by the type of a value assigned to it, for example::
+libexiv2_ stores metadata values in a generalised container whose type can be set by the type of a value assigned to it, for example::
 
     exifData["Exif.Image.SamplesPerPixel"] = uint16_t(162);
 
 This forces the ``Exif.Image.SamplesPerPixel`` value to be an unsigned short.
-Python doesn't have such specific integer types, so you need to create a value of the appropriate type and assign that::
+Python doesn't have such specific integer types, so if you want to set the type you need to create an exiv2 value of the appropriate type and assign that::
 
     exifData["Exif.Image.SamplesPerPixel"] = exiv2.UShortValue(162)
 
 This allows you to set the value to any type, just like in C++, but the Python interface warns you if you set a type that isn't the default for that tag.
+Otherwise you can set the value to any Python object and let libgexiv2_ convert the string representation of that object to the appropriate type::
+
+    exifData["Exif.Image.SamplesPerPixel"] = 162
 
 Iterators
 ---------

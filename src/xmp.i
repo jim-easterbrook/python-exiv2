@@ -81,7 +81,7 @@ ITERATOR(Exiv2::XmpData, Exiv2::Xmpdatum, XmpDataIterator)
         Py_DECREF(py_str);
         if (datum->setValue(c_str) != 0) {
             EXV_ERROR << key << ": cannot set type '" <<
-                TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
+                TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
         }
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
