@@ -151,7 +151,7 @@ public:
 %enddef
 
 // Macro to provide operator= equivalent
-%define SETITEM(class, datum_type, default_type)
+%define SETITEM(class, datum_type, key_type, default_type)
 %feature("python:slot", "mp_ass_subscript",
          functype="objobjargproc") class::__setitem__;
 
@@ -196,6 +196,16 @@ public:
                 TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
         }
         NEW_TYPE_WARN()
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key) {
+        using namespace Exiv2;
+        class::iterator pos = $self->findKey(key_type(key));
+        if (pos == $self->end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return NULL;
+        }
+        $self->erase(pos);
         return SWIG_Py_Void();
     }
 }

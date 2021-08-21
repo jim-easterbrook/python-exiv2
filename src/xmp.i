@@ -28,7 +28,8 @@
 %import "properties.i"
 
 GETITEM(Exiv2::XmpData, Exiv2::Xmpdatum)
-SETITEM(Exiv2::XmpData, Exiv2::Xmpdatum, XmpProperties::propertyType(XmpKey(key)))
+SETITEM(Exiv2::XmpData, Exiv2::Xmpdatum,
+        Exiv2::XmpKey, XmpProperties::propertyType(XmpKey(key)))
 ITERATOR(Exiv2::XmpData, Exiv2::Xmpdatum, XmpDataIterator)
 
 %ignore Exiv2::XmpData::begin() const;

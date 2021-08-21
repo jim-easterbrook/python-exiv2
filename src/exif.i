@@ -29,7 +29,8 @@
 %import "tags.i"
 
 GETITEM(Exiv2::ExifData, Exiv2::Exifdatum)
-SETITEM(Exiv2::ExifData, Exiv2::Exifdatum, ExifKey(key).defaultTypeId())
+SETITEM(Exiv2::ExifData, Exiv2::Exifdatum,
+        Exiv2::ExifKey, ExifKey(key).defaultTypeId())
 ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
 
 %ignore Exiv2::ExifData::begin() const;
