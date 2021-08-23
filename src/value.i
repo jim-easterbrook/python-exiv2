@@ -30,20 +30,36 @@
 %include "std_string.i"
 %include "std_vector.i"
 
-%auto_ptr(Exiv2::AsciiValue)
-%auto_ptr(Exiv2::CommentValue)
-%auto_ptr(Exiv2::DataValue)
-%auto_ptr(Exiv2::DateValue)
-%auto_ptr(Exiv2::LangAltValue)
-%auto_ptr(Exiv2::StringValue)
-%auto_ptr(Exiv2::StringValueBase)
-%auto_ptr(Exiv2::TimeValue)
 %auto_ptr(Exiv2::Value)
-%auto_ptr(Exiv2::XmpArrayValue)
-%auto_ptr(Exiv2::XmpTextValue)
-
 STR(Exiv2::Value, toString)
 
+// Macro for subclasses of Exiv2::Value
+%define VALUE_SUBCLASS(type_name)
+%feature("docstring") type_name::downCast
+    "Convert general 'Exiv2::Value' to specific 'type_name'."
+%extend type_name {
+    static std::auto_ptr<type_name> downCast(const Exiv2::Value& value) {
+        Exiv2::Value::AutoPtr v = value.clone();
+        type_name* pv = dynamic_cast<type_name*>(v.release());
+        if (pv == 0)
+            throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
+        return std::auto_ptr<type_name>(pv);
+    }
+}
+%auto_ptr(type_name)
+%enddef
+
+VALUE_SUBCLASS(Exiv2::DataValue)
+VALUE_SUBCLASS(Exiv2::DateValue)
+VALUE_SUBCLASS(Exiv2::TimeValue)
+VALUE_SUBCLASS(Exiv2::AsciiValue)
+VALUE_SUBCLASS(Exiv2::CommentValue)
+VALUE_SUBCLASS(Exiv2::StringValue)
+VALUE_SUBCLASS(Exiv2::LangAltValue)
+VALUE_SUBCLASS(Exiv2::XmpArrayValue)
+VALUE_SUBCLASS(Exiv2::XmpTextValue)
+
+%ignore Exiv2::StringValueBase;
 %ignore Exiv2::getValue;
 %ignore Exiv2::Value::dataArea;
 
@@ -56,16 +72,7 @@ STR(Exiv2::Value, toString)
 
 // Macro to apply templates to Exiv2::ValueType
 %define VALUETYPE(type_name, T)
-%extend Exiv2::ValueType<T> {
-    static std::auto_ptr<Exiv2::ValueType<T>> downCast(const Exiv2::Value& value) {
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<T>* pv = dynamic_cast<Exiv2::ValueType<T>*>(v.release());
-        if (pv == 0)
-            throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr<Exiv2::ValueType<T>>(pv);
-    }
-}
-%auto_ptr(Exiv2::type_name)
+VALUE_SUBCLASS(Exiv2::ValueType<T>)
 %template(type_name) Exiv2::ValueType<T>;
 %template(type_name ## List) std::vector<T>;
 %template(type_name ## AutoPtr) std::auto_ptr<Exiv2::type_name>;
