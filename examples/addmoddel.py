@@ -88,10 +88,10 @@ def main():
             raise exiv2.AnyError("Key not found")
         # Get a copy of the value
         v = pos.curr().getValue()
-##        # Downcast the Value pointer to its actual type
-##        rv = exiv2.URationalValue()
-##        # Modify the value directly through the interface of URationalValue
-##        rv.value_[2] = 88,77
+        # Downcast the Value pointer to its actual type
+        rv = exiv2.URationalValue.downCast(v)
+        # Modify the value directly through the interface of URationalValue
+        rv.value_[2] = 88,77
 
         # **************************************************************
         # Delete metadata from the Exif data container

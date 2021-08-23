@@ -56,6 +56,15 @@ STR(Exiv2::Value, toString)
 
 // Macro to apply templates to Exiv2::ValueType
 %define VALUETYPE(type_name, T)
+%extend Exiv2::ValueType<T> {
+    static std::auto_ptr<Exiv2::ValueType<T>> downCast(const Exiv2::Value& value) {
+        Exiv2::Value::AutoPtr v = value.clone();
+        Exiv2::ValueType<T>* pv = dynamic_cast<Exiv2::ValueType<T>*>(v.release());
+        if (pv == 0)
+            throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
+        return std::auto_ptr<Exiv2::ValueType<T>>(pv);
+    }
+}
 %auto_ptr(Exiv2::type_name)
 %template(type_name) Exiv2::ValueType<T>;
 %template(type_name ## List) std::vector<T>;
