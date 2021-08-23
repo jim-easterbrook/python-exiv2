@@ -32,6 +32,7 @@ GETITEM(Exiv2::ExifData, Exiv2::Exifdatum)
 SETITEM(Exiv2::ExifData, Exiv2::Exifdatum,
         Exiv2::ExifKey, ExifKey(key).defaultTypeId())
 ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
+STR(Exiv2::Exifdatum, toString)
 
 %ignore Exiv2::ExifData::begin() const;
 %ignore Exiv2::ExifData::end() const;

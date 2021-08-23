@@ -31,6 +31,7 @@ GETITEM(Exiv2::XmpData, Exiv2::Xmpdatum)
 SETITEM(Exiv2::XmpData, Exiv2::Xmpdatum,
         Exiv2::XmpKey, XmpProperties::propertyType(XmpKey(key)))
 ITERATOR(Exiv2::XmpData, Exiv2::Xmpdatum, XmpDataIterator)
+STR(Exiv2::Xmpdatum, toString)
 
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;
