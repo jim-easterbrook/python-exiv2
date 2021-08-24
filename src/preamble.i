@@ -117,15 +117,15 @@ public:
         this->ptr = ptr;
         this->end = end;
     }
-    const item_type curr() {
+    const item_type* curr() {
         if (this->ptr == this->end)
             throw iter_class ## Stop();
-        return *this->ptr;
+        return &(*this->ptr);
     }
-    const item_type next() {
+    const item_type* next() {
         if (this->ptr == this->end)
             throw iter_class ## Stop();
-        return *(this->ptr++);
+        return &(*(this->ptr++));
     }
     bool operator==(const iter_class &other) const {
         return other.ptr == this->ptr;
