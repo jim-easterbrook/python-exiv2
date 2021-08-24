@@ -17,14 +17,10 @@
 
 %module(package="exiv2") version
 
-//#pragma SWIG nowarn=362     // operator= ignored
-
 %include "preamble.i"
 
 %include "std_string.i"
 
-%ignore exv_grep_keys_t;
-%ignore Exiv2_grep_key_t;
 %ignore Exiv2::dumpLibraryInfo;
 
 %include "exiv2/version.hpp"
