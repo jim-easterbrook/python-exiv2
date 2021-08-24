@@ -38,12 +38,12 @@ STR(Exiv2::Value, toString)
 %feature("docstring") type_name::downCast
     "Convert general 'Exiv2::Value' to specific 'type_name'."
 %extend type_name {
-    static std::auto_ptr<type_name> downCast(const Exiv2::Value& value) {
+    static std::auto_ptr< type_name > downCast(const Exiv2::Value& value) {
         Exiv2::Value::AutoPtr v = value.clone();
-        type_name* pv = dynamic_cast<type_name*>(v.release());
+        type_name* pv = dynamic_cast< type_name* >(v.release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr<type_name>(pv);
+        return std::auto_ptr< type_name >(pv);
     }
 }
 %auto_ptr(type_name)
