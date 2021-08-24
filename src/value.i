@@ -52,14 +52,15 @@ STR(Exiv2::Value, toString)
 VALUE_SUBCLASS(Exiv2::DataValue)
 VALUE_SUBCLASS(Exiv2::DateValue)
 VALUE_SUBCLASS(Exiv2::TimeValue)
+VALUE_SUBCLASS(Exiv2::StringValueBase)
 VALUE_SUBCLASS(Exiv2::AsciiValue)
 VALUE_SUBCLASS(Exiv2::CommentValue)
 VALUE_SUBCLASS(Exiv2::StringValue)
+VALUE_SUBCLASS(Exiv2::XmpValue)
 VALUE_SUBCLASS(Exiv2::LangAltValue)
 VALUE_SUBCLASS(Exiv2::XmpArrayValue)
 VALUE_SUBCLASS(Exiv2::XmpTextValue)
 
-%ignore Exiv2::StringValueBase;
 %ignore Exiv2::getValue;
 %ignore Exiv2::Value::dataArea;
 
