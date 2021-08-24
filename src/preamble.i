@@ -18,7 +18,21 @@
 %{
 #include "exiv2/exiv2.hpp"
 %}
+
+// Parts of the interface vary with the C++ version used to build libexiv2
+#undef __cplusplus
+#define __cplusplus 199711L
+
 %import "exiv2/config.h"
+#ifdef _MSC_VER
+# ifdef EXV_MSVC_CONFIGURE
+   %import "exiv2/exv_msvc_configure.h"
+# else
+   %import "exiv2/exv_msvc.h"
+# endif
+#else
+  %import "exiv2/exv_conf.h"
+#endif
 
 #ifndef SWIG_DOXYGEN
 %feature("autodoc", "2");

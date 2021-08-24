@@ -30,7 +30,7 @@ exec(open('utils/exiv2_cfg.py').read())
 ext_modules = []
 mod_src_dir = 'swig'
 extra_compile_args = exiv2_cfg['extra_compile_args'] + [
-    '-O3', '-Wno-unused-variable', '-Wno-deprecated-declarations',
+    '-O3', '-std=c++98', '-Wno-unused-variable', '-Wno-deprecated-declarations',
     '-Wno-unused-but-set-variable', '-Werror']
 for file_name in os.listdir(mod_src_dir):
     if file_name[-9:] != '_wrap.cxx':
