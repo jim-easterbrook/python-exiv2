@@ -26,6 +26,13 @@
 %include "stdint.i"
 %include "std_pair.i"
 
+// Memory efficient conversion of Exiv2::DataBuf return values
+%typemap(out) Exiv2::DataBuf {
+    std::pair<Exiv2::byte*, long> buf = $1.release();
+    $result = SWIG_NewPointerObj(
+        new $type(buf.first, buf.second), $&1_descriptor, SWIG_POINTER_OWN);
+}
+
 %include "exiv2/types.hpp"
 
 %template(URational) std::pair<uint32_t, uint32_t>;

@@ -37,7 +37,5 @@ STR(Exiv2::Exifdatum, toString)
 %ignore Exiv2::ExifData::begin() const;
 %ignore Exiv2::ExifData::end() const;
 %ignore Exiv2::ExifData::findKey(ExifKey const &) const;
-%ignore Exiv2::Exifdatum::dataArea;
-%ignore Exiv2::ExifThumbC::copy;
 
 %include "exiv2/exif.hpp"
