@@ -26,12 +26,36 @@
 %include "stdint.i"
 %include "std_pair.i"
 
+// Add __len__ to Exiv2::DataBuf
+%feature("python:slot", "sq_length", functype="lenfunc") Exiv2::DataBuf::__len__;
+%extend Exiv2::DataBuf {
+    long __len__() {return $self->size_;}
+}
 // Memory efficient conversion of Exiv2::DataBuf return values
 %typemap(out) Exiv2::DataBuf {
     std::pair<Exiv2::byte*, long> buf = $1.release();
     $result = SWIG_NewPointerObj(
         new $type(buf.first, buf.second), $&1_descriptor, SWIG_POINTER_OWN);
 }
+// Expose Exiv2::DataBuf contents as a Python buffer
+%feature("python:bf_getbuffer",
+         functype="getbufferproc") Exiv2::DataBuf "Exiv2_DataBuf_getbuf";
+%{
+static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+    Exiv2::DataBuf* self = 0;
+    int res = SWIG_ConvertPtr(
+        exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
+    if (!SWIG_IsOK(res)) {
+        PyErr_SetNone(PyExc_BufferError);
+        view->obj = NULL;
+        return -1;
+    }
+    return PyBuffer_FillInfo(view, exporter, self->pData_, self->size_, 1, flags);
+    }
+%}
+// Hide parts of Exiv2::DataBuf that Python shouldn't see
+%ignore Exiv2::DataBuf::pData_;
+%ignore Exiv2::DataBuf::size_;
 
 %include "exiv2/types.hpp"
 
