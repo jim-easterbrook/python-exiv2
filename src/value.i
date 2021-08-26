@@ -62,7 +62,6 @@ VALUE_SUBCLASS(Exiv2::XmpArrayValue)
 VALUE_SUBCLASS(Exiv2::XmpTextValue)
 
 %ignore Exiv2::getValue;
-%ignore Exiv2::Value::dataArea;
 
 // Ignore ambiguous or unusable constructors
 %ignore Exiv2::ValueType::ValueType(TypeId);
