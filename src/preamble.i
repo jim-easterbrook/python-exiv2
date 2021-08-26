@@ -119,12 +119,12 @@ public:
 %}
 // Convert iterator parameters
 %typemap(in) parent_class::iterator (int res = 0, void *argp) {
-    res = SWIG_ConvertPtr($input, &argp, SWIGTYPE_p_ ## iter_class, 0);
+    res = SWIG_ConvertPtr($input, &argp, SWIGTYPE_p_ ## iter_class ## Ptr, 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, int, $symname, $argnum);
+        %argument_fail(res, iter_class ## Ptr, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref("$type", $symname, $argnum);
+        %argument_nullref(iter_class ## Ptr, $symname, $argnum);
     }
     $1 = (reinterpret_cast<iter_class ## Ptr*>(argp))->ptr;
 };
