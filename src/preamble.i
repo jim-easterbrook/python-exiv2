@@ -163,7 +163,7 @@ public:
         this->end = new iter_class ## Ptr(parent->end());
     }
     const item_type* __next__() throw (iter_class ## Stop) {
-        if (this->ptr == this->end)
+        if (*this->ptr == *this->end)
             throw iter_class ## Stop();
         return this->ptr->next();
     }
