@@ -28,8 +28,14 @@
 %import "tags.i";
 %import "xmp.i";
 
+%include "pybuffer.i"
 %include "std_string.i"
 %include "std_auto_ptr.i"
+
+%pybuffer_binary(const Exiv2::byte* data, long size)
+%typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
+    $1 = PyObject_CheckBuffer($input);
+}
 
 %auto_ptr(Exiv2::BasicIo)
 %auto_ptr(Exiv2::Image)
