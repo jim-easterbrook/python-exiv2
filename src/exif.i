@@ -22,11 +22,17 @@
 
 %include "preamble.i"
 
+%include "pybuffer.i"
 %include "stdint.i"
 %include "std_string.i"
 
 %import "metadatum.i"
 %import "tags.i"
+
+%pybuffer_binary(const Exiv2::byte* buf, long size)
+%typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
+    $1 = PyObject_CheckBuffer($input);
+}
 
 GETITEM(Exiv2::ExifData, Exiv2::Exifdatum)
 SETITEM(Exiv2::ExifData, Exiv2::Exifdatum,
