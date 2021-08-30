@@ -21,6 +21,8 @@
 
 %include "std_string.i"
 
+%ignore Exiv2::exv_grep_keys_t;
+%ignore Exiv2::Exiv2_grep_key_t;
 %ignore Exiv2::dumpLibraryInfo;
 
 %include "exiv2/version.hpp"
