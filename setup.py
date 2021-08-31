@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 import os
 
 
@@ -77,6 +77,7 @@ setup(name = 'exiv2',
       packages = ['exiv2'],
       package_dir = {'exiv2' : mod_src_dir},
       data_files = [
-          ('share/python-exiv2', ['LICENSE', 'README.rst']),
+          ('', ['LICENSE', 'README.rst']),
           ],
+      zip_safe = False,
       )
