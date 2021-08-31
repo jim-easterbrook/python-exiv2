@@ -77,7 +77,7 @@ Python doesn't have such specific integer types, so if you want to set the type 
     exifData["Exif.Image.SamplesPerPixel"] = exiv2.UShortValue(162)
 
 This allows you to set the value to any type, just like in C++, but the Python interface warns you if you set a type that isn't the default for that tag.
-Otherwise you can set the value to any Python object and let libgexiv2_ convert the string representation of that object to the appropriate type::
+Otherwise you can set the value to any Python object and let libexiv2_ convert the string representation of that object to the appropriate type::
 
     exifData["Exif.Image.SamplesPerPixel"] = 162
 
@@ -132,6 +132,14 @@ You can also iterate in a more Pythonic style::
     >>>
 
 I think this is much better.
+
+Warning: segmentation faults
+----------------------------
+
+It is easy to crash python-exiv2 if you delete objects which contain data that another object is pointing to.
+For example, deleting an ``Image`` after extracting its metadata can cause a segfault when the metadata is accessed.
+Ideally the Python interface to libexiv2 would use Python objects' reference counts to ensure this doesn't happen, preventing the deletion of the ``Image`` object until all references to it have been deleted.
+Unfortunately I haven't found a sensible way to do this in the Python interface, so some care is needed when using it.
 
 Error handling
 --------------
