@@ -40,6 +40,41 @@
 %auto_ptr(Exiv2::BasicIo)
 %auto_ptr(Exiv2::Image)
 
+// Make image types available
+%inline %{
+struct ImageType {
+    enum {
+        bmp =   Exiv2::ImageType::bmp,
+        cr2 =   Exiv2::ImageType::cr2,
+        crw =   Exiv2::ImageType::crw,
+        eps =   Exiv2::ImageType::eps,
+        exv =   Exiv2::ImageType::exv,
+        gif =   Exiv2::ImageType::gif,
+        jp2 =   Exiv2::ImageType::jp2,
+        jpeg =  Exiv2::ImageType::jpeg,
+        mrw =   Exiv2::ImageType::mrw,
+        none =  Exiv2::ImageType::none,
+        orf =   Exiv2::ImageType::orf,
+        pgf =   Exiv2::ImageType::pgf,
+        png =   Exiv2::ImageType::png,
+        psd =   Exiv2::ImageType::psd,
+        raf =   Exiv2::ImageType::raf,
+        rw2 =   Exiv2::ImageType::rw2,
+        tga =   Exiv2::ImageType::tga,
+        tiff =  Exiv2::ImageType::tiff,
+        xmp =   Exiv2::ImageType::xmp,
+#ifdef EXV_ENABLE_VIDEO
+        asf =   Exiv2::ImageType::asf,
+        mkv =   Exiv2::ImageType::mkv,
+        qtime = Exiv2::ImageType::qtime,
+        riff =  Exiv2::ImageType::riff,
+        webp =  Exiv2::ImageType::webp,
+#endif
+    };
+};
+%}
+%ignore Exiv2::ImageType::none;
+
 %ignore Exiv2::Image::exifData() const;
 %ignore Exiv2::Image::iptcData() const;
 %ignore Exiv2::Image::xmpData() const;
