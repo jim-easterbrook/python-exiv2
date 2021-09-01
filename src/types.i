@@ -17,6 +17,8 @@
 
 %module(package="exiv2") types
 
+#pragma SWIG nowarn=202     // Could not evaluate expression...
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=362     // operator= ignored
 #pragma SWIG nowarn=503     // Can't wrap 'X' unless renamed to a valid identifier.
 #pragma SWIG nowarn=509     // Overloaded method X effectively ignored, as it is shadowed by Y.
@@ -56,6 +58,9 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 // Hide parts of Exiv2::DataBuf that Python shouldn't see
 %ignore Exiv2::DataBuf::pData_;
 %ignore Exiv2::DataBuf::size_;
+
+// Ignore slice stuff that SWIG can't understand
+%ignore makeSlice;
 
 %include "exiv2/types.hpp"
 

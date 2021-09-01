@@ -17,6 +17,7 @@
 
 %module(package="exiv2") metadatum
 
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
 #pragma SWIG nowarn=362     // operator= ignored
 

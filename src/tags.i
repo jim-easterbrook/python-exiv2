@@ -17,6 +17,7 @@
 
 %module(package="exiv2") tags
 
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=325     // Nested struct not currently supported (X ignored)
 #pragma SWIG nowarn=362     // operator= ignored
 

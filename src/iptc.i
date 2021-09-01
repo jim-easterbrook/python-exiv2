@@ -17,6 +17,7 @@
 
 %module(package="exiv2") iptc
 
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
 
 %include "preamble.i"
@@ -38,6 +39,7 @@ STR(Exiv2::Iptcdatum, toString)
 %ignore Exiv2::IptcData::findKey(IptcKey const &) const;
 %ignore Exiv2::IptcData::findId(uint16_t) const;
 %ignore Exiv2::IptcData::findId(uint16_t,uint16_t) const;
+%ignore Exiv2::IptcData::printStructure;
 %ignore Exiv2::IptcParser::encode;
 
 %include "exiv2/iptc.hpp"

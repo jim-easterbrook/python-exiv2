@@ -17,6 +17,7 @@
 
 %module(package="exiv2") exif
 
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=362     // operator= ignored
 #pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
 

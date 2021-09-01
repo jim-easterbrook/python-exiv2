@@ -17,6 +17,8 @@
 
 %module(package="exiv2") version
 
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
+
 %include "preamble.i"
 
 %include "std_string.i"

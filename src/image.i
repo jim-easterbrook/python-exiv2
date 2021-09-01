@@ -17,6 +17,7 @@
 
 %module(package="exiv2") image
 
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
 
 %include "preamble.i"

@@ -17,6 +17,7 @@
 
 %module(package="exiv2") xmp
 
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
 
 %include "preamble.i"
@@ -37,4 +38,5 @@ STR(Exiv2::Xmpdatum, toString)
 %ignore Exiv2::XmpData::end() const;
 %ignore Exiv2::XmpData::findKey(XmpKey const &) const;
 
-%include "exiv2/xmp.hpp"
+//%include "exiv2/xmp.hpp"
+%include "exiv2/xmp_exiv2.hpp"

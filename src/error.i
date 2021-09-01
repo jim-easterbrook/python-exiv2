@@ -17,6 +17,8 @@
 
 %module(package="exiv2") error
 
+#pragma SWIG nowarn=305     // Bad constant value (ignored).
+
 %include "preamble.i"
 
 %include "std_except.i"
@@ -35,5 +37,7 @@ Exiv2::LogMsg::setHandler(&log_to_python);
 
 // Python defines a replacement for this exception
 %ignore Exiv2::AnyError;
+
+%ignore Exiv2::errMsg;
 
 %include "exiv2/error.hpp"

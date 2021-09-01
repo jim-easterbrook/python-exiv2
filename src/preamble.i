@@ -23,7 +23,11 @@
 #undef __cplusplus
 #define __cplusplus 199711L
 
+// Recent libexiv2 uses __attribute__, which SWIG doesn't understand
+#define __attribute__(x)
+
 %import "exiv2/config.h"
+%import "exiv2/exiv2lib_export.h"
 #ifdef _MSC_VER
 # ifdef EXV_MSVC_CONFIGURE
    %import "exiv2/exv_msvc_configure.h"
