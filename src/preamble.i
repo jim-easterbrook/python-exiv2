@@ -19,26 +19,8 @@
 #include "exiv2/exiv2.hpp"
 %}
 
-// Parts of the interface vary with the C++ version used to build libexiv2
-#undef __cplusplus
-#define __cplusplus 199711L
-
-// Recent libexiv2 uses __attribute__, which SWIG doesn't understand
-#define __attribute__(x)
-
-%import "exiv2/config.h"
-#ifdef HAS_EXIV2LIB_EXPORT
-%import "exiv2/exiv2lib_export.h"
-#endif
-#ifdef _MSC_VER
-# ifdef EXV_MSVC_CONFIGURE
-   %import "exiv2/exv_msvc_configure.h"
-# else
-   %import "exiv2/exv_msvc.h"
-# endif
-#else
-  %import "exiv2/exv_conf.h"
-#endif
+// EXIV2API prepends every function declaration
+#define EXIV2API
 
 #ifndef SWIG_DOXYGEN
 %feature("autodoc", "2");
