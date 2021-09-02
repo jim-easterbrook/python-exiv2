@@ -31,7 +31,9 @@ config.read('libexiv2.ini')
 
 # create extension modules list
 ext_modules = []
-mod_src_dir = os.path.join(sys.platform, 'swig')
+exiv2_root = 'libexiv2_' + config['libexiv2']['version']
+mod_src_dir = os.path.join(exiv2_root, 'swig')
+lib_dir = os.path.join(exiv2_root, sys.platform, 'lib')
 extra_compile_args = [
     '-std=c++98', '-O3', '-Wno-unused-variable', '-Wno-deprecated-declarations',
     '-Wno-unused-but-set-variable', '-Wno-deprecated', '-Werror']
@@ -48,15 +50,6 @@ for file_name in os.listdir(mod_src_dir):
         libraries = ['exiv2'],
         library_dirs = library_dirs,
         ))
-
-# list any shared library files to be included
-package_data = {}
-if not config.getboolean('libexiv2', 'using_system'):
-    for file_name in os.listdir(mod_src_dir):
-        if (file_name.startswith('libexiv2.so')
-                and len(file_name.split('.')) == 3):
-            package_data = {'': [file_name]}
-            break
 
 with open('README.rst') as ldf:
     long_description = ldf.read()
@@ -89,6 +82,7 @@ setup(name = 'exiv2',
       packages = ['exiv2'],
       package_dir = {'exiv2': mod_src_dir},
       include_package_data = True,
-      package_data = package_data,
+      package_data = {'': ['libexiv2.*']},
+      exclude_package_data = {'': ['*.cxx']},
       zip_safe = False,
       )

@@ -50,6 +50,7 @@ def main():
     include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
     include_dirs = include_dirs or ['/usr/include']
     config['libexiv2']['include_dirs'] = ' '.join(include_dirs)
+    config['libexiv2']['version'] = pkg_config('exiv2', 'modversion')[0]
     # save config file
     with open(config_path, 'w') as file:
         config.write(file)

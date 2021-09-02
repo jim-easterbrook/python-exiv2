@@ -1,6 +1,4 @@
-libexiv2.ini
-
 build
 dist
 exiv2.egg-info
-linux
+libexiv2*

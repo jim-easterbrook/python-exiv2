@@ -22,12 +22,13 @@ import sys
 
 
 def main():
-    if len(sys.argv) != 2:
-        print('Usage: {} libexiv2_dir'.format(sys.argv[0]))
+    if len(sys.argv) != 3:
+        print('Usage: {} libexiv2_dir version'.format(sys.argv[0]))
         return 1;
+    version = sys.argv[2]
     # get top level directories
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
-    target = os.path.join(home, sys.platform)
+    target = os.path.join(home, 'libexiv2_' + version, sys.platform)
     if os.path.isdir(target):
         shutil.rmtree(target)
     # find library and include files
@@ -35,7 +36,7 @@ def main():
     incl_dir = None
     for root, dirs, files in os.walk(os.path.join(home, sys.argv[1])):
         for file in files:
-            if file == 'libexiv2.dll' or file.startswith('libexiv2.so'):
+            if file.startswith('libexiv2.'):
                 lib_files.append(os.path.normpath(os.path.join(root, file)))
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)
@@ -49,7 +50,7 @@ def main():
         config['libexiv2'] = {}
     config['libexiv2']['using_system'] = 'False'
     # copy library
-    dest = os.path.join(target, 'swig')
+    dest = os.path.join(target, 'lib')
     config['libexiv2']['library_dirs'] = dest
     os.makedirs(dest, exist_ok=True)
     for file in lib_files:
@@ -59,6 +60,7 @@ def main():
     config['libexiv2']['include_dirs'] = os.path.dirname(dest)
     shutil.copytree(incl_dir, dest)
     # save config file
+    config['libexiv2']['version'] = version
     with open(config_path, 'w') as file:
         config.write(file)
     return 0

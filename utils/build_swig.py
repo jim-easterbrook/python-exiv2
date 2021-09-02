@@ -24,9 +24,8 @@ import sys
 
 
 def main(argv=None):
-    # get top level directories
+    # get top level directory
     root = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
-    output_dir = os.path.join(root, sys.platform, 'swig')
     # get python-exiv2 version
     with open(os.path.join(root, 'README.rst')) as rst:
         version = rst.readline().split()[-1]
@@ -52,13 +51,13 @@ def main(argv=None):
     config = configparser.ConfigParser()
     config.read(os.path.join(root, 'libexiv2.ini'))
     # make options list
+    output_dir = os.path.join(
+        root, 'libexiv2_' + config['libexiv2']['version'], 'swig')
     os.makedirs(output_dir, exist_ok=True)
     swig_opts = ['-c++', '-python', '-py3']
     swig_opts += ['-builtin', '-O', '-Wextra', '-Werror']
     incl_dir = config['libexiv2']['include_dirs']
     swig_opts.append('-I' + incl_dir)
-    if os.path.exists(os.path.join(incl_dir, 'exiv2', 'exiv2lib_export.h')):
-        swig_opts.append('-DHAS_EXIV2LIB_EXPORT')
     if os.path.exists(os.path.join(incl_dir, 'exiv2', 'xmp_exiv2.hpp')):
         swig_opts.append('-DHAS_XMP_EXIV2')
     swig_opts += ['-outdir', output_dir]
@@ -70,12 +69,12 @@ def main(argv=None):
             # -doxygen flag causes a syntax error on error.hpp
             if ext_name not in ('error', ):
                 cmd += ['-doxygen', '-DSWIG_DOXYGEN']
-        cmd += ['-o', os.path.join(root, output_dir, ext_name + '_wrap.cxx')]
+        cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
         cmd += [os.path.join(root, 'src', ext_name + '.i')]
         print(' '.join(cmd))
         subprocess.check_output(cmd)
     # create init module
-    init_file = os.path.join(root, output_dir, '__init__.py')
+    init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
         if not config.getboolean('libexiv2', 'using_system'):
             im.write('''
@@ -103,6 +102,15 @@ class AnyError(Exception):
         im.write('''
 __all__ = [x for x in dir() if x[0] != '_']
 ''')
+    # link to library
+    if config.getboolean('libexiv2', 'using_system'):
+        return 0
+    lib_dir = config['libexiv2']['library_dirs']
+    for file in os.listdir(lib_dir):
+        src = os.path.join(lib_dir, file)
+        if os.path.islink(src):
+            continue
+        os.symlink(src, os.path.join(output_dir, file))
     return 0
 
 
