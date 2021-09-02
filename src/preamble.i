@@ -21,6 +21,9 @@
 
 // EXIV2API prepends every function declaration
 #define EXIV2API
+// Older versions of libexiv2 define these as well
+#define EXV_DLLLOCAL
+#define EXV_DLLPUBLIC
 
 #ifndef SWIG_DOXYGEN
 %feature("autodoc", "2");
