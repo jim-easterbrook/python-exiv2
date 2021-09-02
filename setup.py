@@ -15,8 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import configparser
 from setuptools import setup, Extension
 import os
+import sys
 
 
 # python-exiv2 version
@@ -24,14 +26,16 @@ with open('README.rst') as rst:
     version = rst.readline().split()[-1]
 
 # get exiv2 library config
-exec(open('utils/exiv2_cfg.py').read())
+config = configparser.ConfigParser()
+config.read('libexiv2.ini')
 
 # create extension modules list
 ext_modules = []
-mod_src_dir = 'swig'
-extra_compile_args = exiv2_cfg['extra_compile_args'] + [
-    '-O3', '-Wno-unused-variable', '-Wno-deprecated-declarations',
+mod_src_dir = os.path.join(sys.platform, 'swig')
+extra_compile_args = [
+    '-std=c++98', '-O3', '-Wno-unused-variable', '-Wno-deprecated-declarations',
     '-Wno-unused-but-set-variable', '-Wno-deprecated', '-Werror']
+library_dirs = config['libexiv2']['library_dirs'].split()
 for file_name in os.listdir(mod_src_dir):
     if file_name[-9:] != '_wrap.cxx':
         continue
@@ -39,12 +43,21 @@ for file_name in os.listdir(mod_src_dir):
     ext_modules.append(Extension(
         '_' + ext_name,
         sources = [os.path.join(mod_src_dir, file_name)],
-        include_dirs = exiv2_cfg['include_dirs'],
+        include_dirs = config['libexiv2']['include_dirs'].split(),
         extra_compile_args = extra_compile_args,
-        libraries = exiv2_cfg['libraries'],
-        library_dirs = exiv2_cfg['library_dirs'],
-        extra_link_args = exiv2_cfg['extra_link_args'],
+        libraries = ['exiv2'],
+        library_dirs = library_dirs,
         ))
+
+# list any shared library files to be included
+data_files = [('', ['LICENSE', 'README.rst'])]
+if not config.getboolean('libexiv2', 'using_system'):
+    lib_files = []
+    lib_dir = os.path.join(sys.platform, 'lib')
+    for file_name in os.listdir(lib_dir):
+        if file_name.startswith('libexiv2.so') and len(file_name.split('.')) == 3:
+            lib_files.append(os.path.join(lib_dir, file_name))
+    data_files.append(('lib', lib_files))
 
 with open('README.rst') as ldf:
     long_description = ldf.read()
@@ -75,9 +88,7 @@ setup(name = 'exiv2',
       ext_package = 'exiv2',
       ext_modules = ext_modules,
       packages = ['exiv2'],
-      package_dir = {'exiv2' : mod_src_dir},
-      data_files = [
-          ('', ['LICENSE', 'README.rst']),
-          ],
+      package_dir = {'exiv2': mod_src_dir},
+      data_files = data_files,
       zip_safe = False,
       )

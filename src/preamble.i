@@ -27,7 +27,9 @@
 #define __attribute__(x)
 
 %import "exiv2/config.h"
+#ifdef HAS_EXIV2LIB_EXPORT
 %import "exiv2/exiv2lib_export.h"
+#endif
 #ifdef _MSC_VER
 # ifdef EXV_MSVC_CONFIGURE
    %import "exiv2/exv_msvc_configure.h"

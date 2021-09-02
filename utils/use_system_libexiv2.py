@@ -1,4 +1,4 @@
-# python-exiv2 - Python interface to libexiv2
+# python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
 # Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
@@ -15,7 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import configparser
+import os
 import subprocess
+import sys
 
 
 def pkg_config(library, option):
@@ -27,11 +30,26 @@ def pkg_config(library, option):
         raise
 
 
-exiv2_cfg = {
-    'version': pkg_config('exiv2', 'modversion')[0].split('.'),
-    'include_dirs': [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')],
-    'extra_compile_args': pkg_config('exiv2', 'cflags-only-other'),
-    'libraries': [x[2:] for x in pkg_config('exiv2', 'libs-only-l')],
-    'library_dirs': [x[2:] for x in pkg_config('exiv2', 'libs-only-L')],
-    'extra_link_args': pkg_config('exiv2', 'libs-only-other'),
-    }
+def main():
+    # get top level dir
+    home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
+    # open config file
+    config_path = os.path.join(home, 'libexiv2.ini')
+    config = configparser.ConfigParser()
+    config.read(config_path)
+    if 'libexiv2' not in config:
+        config['libexiv2'] = {}
+    config['libexiv2']['using_system'] = 'True'
+    library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
+    config['libexiv2']['library_dirs'] = ' '.join(library_dirs)
+    include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
+    include_dirs = include_dirs or ['/usr/include']
+    config['libexiv2']['include_dirs'] = ' '.join(include_dirs)
+    # save config file
+    with open(config_path, 'w') as file:
+        config.write(file)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -16,19 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from collections import defaultdict
+import configparser
 import os
 import re
 import subprocess
 import sys
 
 
-# get root dir
-root = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
-# get exiv2 library config
-exec(open(os.path.join(root, 'utils', 'exiv2_cfg.py')).read())
-
-
 def main(argv=None):
+    # get top level directories
+    root = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
+    output_dir = os.path.join(root, sys.platform, 'swig')
     # get python-exiv2 version
     with open(os.path.join(root, 'README.rst')) as rst:
         version = rst.readline().split()[-1]
@@ -50,12 +48,20 @@ def main(argv=None):
         if 'Version' in line:
             swig_version = tuple(map(int, line.split()[-1].split('.')))
             break
+    # get config
+    config = configparser.ConfigParser()
+    config.read(os.path.join(root, 'libexiv2.ini'))
     # make options list
-    output_dir = os.path.join(root, 'swig')
     os.makedirs(output_dir, exist_ok=True)
-    swig_opts = ['-c++', '-python', '-py3', '-O', '-I/usr/include',
-                 '-Wextra', '-Werror', '-builtin', '-outdir', output_dir]
-    swig_opts += exiv2_cfg['include_dirs']
+    swig_opts = ['-c++', '-python', '-py3']
+    swig_opts += ['-builtin', '-O', '-Wextra', '-Werror']
+    incl_dir = config['libexiv2']['include_dirs']
+    swig_opts.append('-I' + incl_dir)
+    if os.path.exists(os.path.join(incl_dir, 'exiv2', 'exiv2lib_export.h')):
+        swig_opts.append('-DHAS_EXIV2LIB_EXPORT')
+    if os.path.exists(os.path.join(incl_dir, 'exiv2', 'xmp_exiv2.hpp')):
+        swig_opts.append('-DHAS_XMP_EXIV2')
+    swig_opts += ['-outdir', output_dir]
     # do each swig module
     for ext_name in ext_names:
         cmd = ['swig'] + swig_opts
@@ -71,6 +77,16 @@ def main(argv=None):
     # create init module
     init_file = os.path.join(root, output_dir, '__init__.py')
     with open(init_file, 'w') as im:
+        if not config.getboolean('libexiv2', 'using_system'):
+            im.write('''
+# import libexiv2 shared library directly to avoid setting LD_LIBRARY_PATH
+import os
+_lib_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+from ctypes import cdll
+for _file in os.listdir(_lib_dir):
+    if _file.startswith('libexiv2'):
+        cdll.LoadLibrary(os.path.join(_lib_dir, _file))
+''')
         im.write('''
 import logging
 

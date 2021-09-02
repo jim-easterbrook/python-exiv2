@@ -1,2 +1,6 @@
+libexiv2.ini
+
 build
-swig
+dist
+exiv2.egg-info
+linux
