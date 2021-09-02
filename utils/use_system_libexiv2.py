@@ -17,6 +17,7 @@
 
 import configparser
 import os
+import shutil
 import subprocess
 import sys
 
@@ -33,6 +34,10 @@ def pkg_config(library, option):
 def main():
     # get top level dir
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
+    # remove previous library files
+    target = os.path.join(home, sys.platform)
+    if os.path.isdir(target):
+        shutil.rmtree(target)
     # open config file
     config_path = os.path.join(home, 'libexiv2.ini')
     config = configparser.ConfigParser()
