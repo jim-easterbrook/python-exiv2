@@ -28,6 +28,8 @@ def main():
     # get top level directories
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
     target = os.path.join(home, sys.platform)
+    if os.path.isdir(target):
+        shutil.rmtree(target)
     # find library and include files
     lib_files = []
     incl_dir = None
@@ -47,18 +49,14 @@ def main():
         config['libexiv2'] = {}
     config['libexiv2']['using_system'] = 'False'
     # copy library
-    dest = os.path.join(target, 'lib')
+    dest = os.path.join(target, 'swig')
     config['libexiv2']['library_dirs'] = dest
-    if os.path.isdir(dest):
-        shutil.rmtree(dest)
     os.makedirs(dest, exist_ok=True)
     for file in lib_files:
         shutil.copy2(file, dest, follow_symlinks=False)
     # copy include files
     dest = os.path.join(target, 'include', 'exiv2')
     config['libexiv2']['include_dirs'] = os.path.dirname(dest)
-    if os.path.isdir(dest):
-        shutil.rmtree(dest)
     shutil.copytree(incl_dir, dest)
     # save config file
     with open(config_path, 'w') as file:

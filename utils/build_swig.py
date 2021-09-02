@@ -81,7 +81,7 @@ def main(argv=None):
             im.write('''
 # import libexiv2 shared library directly to avoid setting LD_LIBRARY_PATH
 import os
-_lib_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+_lib_dir = os.path.dirname(__file__)
 from ctypes import cdll
 for _file in os.listdir(_lib_dir):
     if _file.startswith('libexiv2'):

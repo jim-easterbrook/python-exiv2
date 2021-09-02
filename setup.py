@@ -50,14 +50,13 @@ for file_name in os.listdir(mod_src_dir):
         ))
 
 # list any shared library files to be included
-data_files = [('', ['LICENSE', 'README.rst'])]
+package_data = {}
 if not config.getboolean('libexiv2', 'using_system'):
-    lib_files = []
-    lib_dir = os.path.join(sys.platform, 'lib')
-    for file_name in os.listdir(lib_dir):
-        if file_name.startswith('libexiv2.so') and len(file_name.split('.')) == 3:
-            lib_files.append(os.path.join(lib_dir, file_name))
-    data_files.append(('lib', lib_files))
+    for file_name in os.listdir(mod_src_dir):
+        if (file_name.startswith('libexiv2.so')
+                and len(file_name.split('.')) == 3):
+            package_data = {'': [file_name]}
+            break
 
 with open('README.rst') as ldf:
     long_description = ldf.read()
@@ -89,6 +88,7 @@ setup(name = 'exiv2',
       ext_modules = ext_modules,
       packages = ['exiv2'],
       package_dir = {'exiv2': mod_src_dir},
-      data_files = data_files,
+      include_package_data = True,
+      package_data = package_data,
       zip_safe = False,
       )
