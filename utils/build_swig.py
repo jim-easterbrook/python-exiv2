@@ -76,7 +76,8 @@ def main(argv=None):
     # create init module
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
-        if not config.getboolean('libexiv2', 'using_system'):
+        if sys.platform == 'linux' and not config.getboolean(
+                                                'libexiv2', 'using_system'):
             im.write('''
 # import libexiv2 shared library directly to avoid setting LD_LIBRARY_PATH
 import os

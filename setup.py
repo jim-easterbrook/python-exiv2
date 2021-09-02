@@ -34,9 +34,13 @@ ext_modules = []
 exiv2_root = 'libexiv2_' + config['libexiv2']['version']
 mod_src_dir = os.path.join(exiv2_root, 'swig')
 lib_dir = os.path.join(exiv2_root, sys.platform, 'lib')
-extra_compile_args = [
-    '-std=c++98', '-O3', '-Wno-unused-variable', '-Wno-deprecated-declarations',
-    '-Wno-unused-but-set-variable', '-Wno-deprecated', '-Werror']
+if sys.platform == 'linux':
+    extra_compile_args = [
+        '-std=c++98', '-O3', '-Wno-unused-variable',
+        '-Wno-deprecated-declarations', '-Wno-unused-but-set-variable',
+        '-Wno-deprecated', '-Werror']
+elif sys.platform == 'win32':
+    extra_compile_args = ['/wd4101', '/wd4290']
 library_dirs = config['libexiv2']['library_dirs'].split()
 for file_name in os.listdir(mod_src_dir):
     if file_name[-9:] != '_wrap.cxx':
@@ -82,7 +86,7 @@ setup(name = 'exiv2',
       packages = ['exiv2'],
       package_dir = {'exiv2': mod_src_dir},
       include_package_data = True,
-      package_data = {'': ['libexiv2.*']},
+      package_data = {'': ['exiv2.dll', 'libexiv2.*']},
       exclude_package_data = {'': ['*.cxx']},
       zip_safe = False,
       )
