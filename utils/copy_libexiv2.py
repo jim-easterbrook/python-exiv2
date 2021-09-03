@@ -36,12 +36,9 @@ def main():
     incl_dir = None
     for root, dirs, files in os.walk(os.path.join(home, sys.argv[1])):
         for file in files:
-            if sys.platform == 'win32':
-                if file in ['exiv2.lib', 'exiv2.dll']:
-                    lib_files.append(os.path.normpath(os.path.join(root, file)))
-            else:
-                if file.startswith('libexiv2.'):
-                    lib_files.append(os.path.normpath(os.path.join(root, file)))
+            if file in ['libexiv2.so', 'libexiv2.dylib',
+                        'exiv2.lib', 'exiv2.dll']:
+                lib_files.append(os.path.normpath(os.path.join(root, file)))
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)
     # open config file
@@ -56,7 +53,7 @@ def main():
     config['libexiv2']['library_dirs'] = dest
     os.makedirs(dest, exist_ok=True)
     for file in lib_files:
-        shutil.copy2(file, dest, follow_symlinks=False)
+        shutil.copy2(file, dest)
     # copy include files
     dest = os.path.join(target, 'include', 'exiv2')
     config['libexiv2']['include_dirs'] = os.path.dirname(dest)
