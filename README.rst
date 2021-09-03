@@ -160,14 +160,16 @@ Building python-exiv2
 ---------------------
 
 Once you've cloned the GitHub repository, or downloaded and unpacked a source archive, switch to the python-exiv2 directory.
-If you are using the libexiv2_ installed by your operating system you just need to build python-exiv2 and install it as follows::
+The ``setup.py`` script used to install python-exiv2 will use the libexiv2_ installed by your operating system if it can find it.
+This usually reuires the "development headers" package to be installed.
+In this case you just need to build python-exiv2 and install it as follows::
 
     python3 setup.py bdist_wheel
-    sudo python3 -m pip install dist/exiv2-0.0.0-cp36-cp36m-linux_x86_64.whl
+    sudo python3 -m pip install dist/python_exiv2-0.1.0-cp36-cp36m-linux_x86_64.whl
 
-(The name of the wheel file will depend on your Python version and system architecture.)
+(The name of the wheel file will depend on the python-exiv2 version, your Python version, and the system architecture.)
 
-If you are using a downloaded copy of libexiv2_ then a few more steps are required.
+If you want to use a downloaded copy of libexiv2_ then a few more steps are required.
 First you need to copy some files using the ``copy_libexiv2.py`` script.
 This has two parameters: the exiv2 directory and the exiv2 version.
 For example::
@@ -175,14 +177,9 @@ For example::
     python3 utils/copy_libexiv2.py ../exiv2-0.27.4-Linux64 0.27.4
 
 This copies the exiv2 header files and runtime library to the directory ``libexiv2_0.27.4/linux/``.
-Next you need to tell the build system to use this local copy::
-
-    python3 utils/pre_build.py libexiv2_0.27.4
-
-Now you can run ``setup.py`` as before::
-
-    python3 setup.py bdist_wheel
-    sudo python3 -m pip install dist/exiv2-0.0.0-cp36-cp36m-linux_x86_64.whl
+Now you can run ``setup.py`` as before.
+Note that ``setup.py`` will still use the system installed version of libexiv2_ if it can find it.
+Uninstalling the "development headers" package will prevent this.
 
 When you try to import exiv2 into Python it's possible you might get an error like ``OSError: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by /usr/lib64/python3.6/site-packages/exiv2/libexiv2.so.0.27.4)``.
 This happens if the downloaded copy of libexiv2_ was built for a newer version of the GNU C library than is installed on your computer.

@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import configparser
 from setuptools import setup, Extension
 import os
 import subprocess
@@ -23,28 +22,40 @@ import sys
 
 
 def pkg_config(library, option):
-    cmd = ['pkg-config', '--' + option, library]
+    cmd = ['xpkg-config', '--' + option, library]
     try:
         return subprocess.check_output(cmd, universal_newlines=True).split()
     except Exception:
-        error('ERROR: command "%s" failed', ' '.join(cmd))
-        raise
+        print('ERROR: command "{}" failed'.format(' '.join(cmd)))
+        return None
 
-# get source directory and config
-if os.path.exists('pre_build'):
-    # building with a local copy of libexiv2
-    mod_src_dir = os.path.join('pre_build', 'swig')
-    config = configparser.ConfigParser()
-    config.read(os.path.join('pre_build', 'config.ini'))
-    library_dirs = config['libexiv2']['library_dirs'].split()
-    include_dirs = config['libexiv2']['include_dirs'].split()
-else:
-    # building with system installed libexiv2
-    exiv2_version = pkg_config('exiv2', 'modversion')[0]
-    mod_src_dir = os.path.join('libexiv2_' + exiv2_version, 'swig')
-    library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
-    include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
-    include_dirs = include_dirs or ['/usr/include']
+if sys.platform != 'win32':
+    # attempt to use installed libexiv2
+    exiv2_version = pkg_config('exiv2', 'modversion')
+    if exiv2_version:
+        exiv2_version = exiv2_version[0]
+        mod_src_dir = os.path.join('libexiv2_' + exiv2_version, 'swig')
+        library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
+        include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
+        include_dirs = include_dirs or ['/usr/include']
+
+if not exiv2_version:
+    # installed libexiv2 not found, use our own
+    exiv2_version = '0.0'
+    for name in os.listdir('.'):
+        if name.startswith('libexiv2_'):
+            exiv2_version = max(exiv2_version, name.split('_', 1)[1])
+    exiv2_dir = 'libexiv2_' + exiv2_version
+    mod_src_dir = os.path.join(exiv2_dir, 'swig')
+    library_dirs = [os.path.join(exiv2_dir, sys.platform, 'lib')]
+    include_dirs = [os.path.join(exiv2_dir, sys.platform, 'include')]
+    # link libraries into package
+    for name in os.listdir(library_dirs[0]):
+        if name == 'exiv2.lib':
+            continue
+        dest = os.path.join(mod_src_dir, name)
+        if not os.path.exists(dest):
+            os.symlink(os.path.join('..', sys.platform, 'lib', name), dest)
 
 # create extension modules list
 ext_modules = []
@@ -55,6 +66,8 @@ if sys.platform == 'linux':
         '-Wno-deprecated', '-Werror']
 elif sys.platform == 'win32':
     extra_compile_args = ['/wd4101', '/wd4290']
+elif sys.platform == 'darwin':
+    extra_compile_args = []
 for file_name in os.listdir(mod_src_dir):
     if file_name[-9:] != '_wrap.cxx':
         continue
@@ -68,9 +81,8 @@ for file_name in os.listdir(mod_src_dir):
         library_dirs = library_dirs,
         ))
 
-command_options = {}
-
 # set options for building source distributions
+command_options = {}
 command_options['sdist'] = {
     'formats' : ('setup.py', 'zip'),
     }
@@ -110,7 +122,7 @@ setup(name = 'python-exiv2',
       packages = ['exiv2'],
       package_dir = {'exiv2': mod_src_dir},
       include_package_data = True,
-      package_data = {'': ['exiv2.dll', 'libexiv2.*']},
+      package_data = {'': ['*.dll', 'libexiv2.*']},
       exclude_package_data = {'': ['*.cxx']},
       zip_safe = False,
       )
