@@ -149,7 +149,8 @@ The Python interface redirects all Exiv2 messages to Python logging with an appr
 Dependencies
 ------------
 
-Eventually you will be able to install python-exiv2 with a single ``pip install exiv2`` command on many computers.
+Eventually you will be able to install python-exiv2 with a single ``pip install python-exiv2`` command on many computers.
+(Currently this works on some Linux computers - do let me know if it works for you.)
 Until then the only way to install python-exiv2 is to compile it from source.
 This requires the "development headers" of Python3_, and an appropriate compiler & linker (GNU C++ on Linux, `Visual C++`_ on Windows).
 You will also need a pre-built libexiv2_, either the one provided with your operating system, or one downloaded from https://www.exiv2.org/download.html.
