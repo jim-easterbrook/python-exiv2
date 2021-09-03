@@ -1,6 +1,6 @@
 build
 dist
-exiv2.egg-info
+python_exiv2.egg-info
 libexiv2_*/win32
 libexiv2_*/linux
 pre_build

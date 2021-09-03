@@ -72,7 +72,7 @@ command_options = {}
 
 # set options for building source distributions
 command_options['sdist'] = {
-    'formats' : ('setup.py', 'gztar, zip'),
+    'formats' : ('setup.py', 'zip'),
     }
 
 with open('README.rst') as rst:
@@ -81,7 +81,7 @@ with open('README.rst') as rst:
 with open('README.rst') as ldf:
     long_description = ldf.read()
 
-setup(name = 'exiv2',
+setup(name = 'python-exiv2',
       version = py_exiv2_version,
       description = 'Python interface to libexiv2',
       long_description = long_description,
