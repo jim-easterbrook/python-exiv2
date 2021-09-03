@@ -36,11 +36,11 @@ def main():
     incl_dir = None
     for root, dirs, files in os.walk(os.path.join(home, sys.argv[1])):
         for file in files:
-            if sys.platform == 'linux':
-                if file.startswith('libexiv2.'):
-                    lib_files.append(os.path.normpath(os.path.join(root, file)))
-            elif sys.platform == 'win32':
+            if sys.platform == 'win32':
                 if file in ['exiv2.lib', 'exiv2.dll']:
+                    lib_files.append(os.path.normpath(os.path.join(root, file)))
+            else:
+                if file.startswith('libexiv2.'):
                     lib_files.append(os.path.normpath(os.path.join(root, file)))
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)

@@ -37,8 +37,6 @@ def main(argv=None):
                 break
             message += line + '\n'
     repo = git.Repo()
-    print(message)
-    return 0
     tag = repo.create_tag(py_exiv2_version, message=message)
     remote = repo.remotes.origin
     remote.push(tags=True)
