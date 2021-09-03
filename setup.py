@@ -68,6 +68,13 @@ for file_name in os.listdir(mod_src_dir):
         library_dirs = library_dirs,
         ))
 
+command_options = {}
+
+# set options for building source distributions
+command_options['sdist'] = {
+    'formats' : ('setup.py', 'gztar, zip'),
+    }
+
 with open('README.rst') as rst:
     py_exiv2_version = rst.readline().split()[-1]
 
@@ -97,6 +104,7 @@ setup(name = 'exiv2',
           ],
       platforms = ['POSIX', 'MacOS'],
       license = 'GNU GPL',
+      command_options = command_options,
       ext_package = 'exiv2',
       ext_modules = ext_modules,
       packages = ['exiv2'],

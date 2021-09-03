@@ -1,0 +1,5 @@
+recursive-include src *
+recursive-include utils *
+recursive-include libexiv2* *.py *.cxx
+recursive-include examples *
+prune pre_build
