@@ -32,25 +32,24 @@ def pkg_config(library, option):
 
 
 def main():
-    # get top level dir
+    # get libexiv2 version
+    version = pkg_config('exiv2', 'modversion')[0]
+    # create directory
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
-    # remove previous library files
-    target = os.path.join(home, sys.platform)
-    if os.path.isdir(target):
-        shutil.rmtree(target)
+    target = os.path.join(home, 'libexiv2_' + version)
+    os.makedirs(target, exist_ok=True)
     # open config file
-    config_path = os.path.join(home, 'libexiv2.ini')
+    config_path = os.path.join(target, 'config.ini')
     config = configparser.ConfigParser()
     config.read(config_path)
     if 'libexiv2' not in config:
         config['libexiv2'] = {}
-    config['libexiv2']['using_system'] = 'True'
     library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
     config['libexiv2']['library_dirs'] = ' '.join(library_dirs)
     include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
     include_dirs = include_dirs or ['/usr/include']
     config['libexiv2']['include_dirs'] = ' '.join(include_dirs)
-    config['libexiv2']['version'] = pkg_config('exiv2', 'modversion')[0]
+    config['libexiv2']['version'] = version
     # save config file
     with open(config_path, 'w') as file:
         config.write(file)

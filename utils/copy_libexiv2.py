@@ -24,7 +24,7 @@ import sys
 def main():
     if len(sys.argv) != 3:
         print('Usage: {} libexiv2_dir version'.format(sys.argv[0]))
-        return 1;
+        return 1
     version = sys.argv[2]
     # get top level directories
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
@@ -45,7 +45,7 @@ def main():
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)
     # open config file
-    config_path = os.path.join(home, 'libexiv2.ini')
+    config_path = os.path.join(home, 'libexiv2_' + version, 'config.ini')
     config = configparser.ConfigParser()
     config.read(config_path)
     if 'libexiv2' not in config:

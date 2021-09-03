@@ -23,14 +23,21 @@ import subprocess
 import sys
 
 
-def main(argv=None):
-    # get top level directory
-    root = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
+def main():
+    if len(sys.argv) != 2:
+        print('Usage: {} libexiv2_dir'.format(sys.argv[0]))
+        return 1
+    # get directories
+    home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
+    target = os.path.abspath(sys.argv[1])
+    # get config
+    config = configparser.ConfigParser()
+    config.read(os.path.join(target, 'config.ini'))
     # get python-exiv2 version
-    with open(os.path.join(root, 'README.rst')) as rst:
-        version = rst.readline().split()[-1]
+    with open(os.path.join(home, 'README.rst')) as rst:
+        py_exiv2_version = rst.readline().split()[-1]
     # get list of modules (Python) and extensions (SWIG)
-    file_names = os.listdir(os.path.join(root, 'src'))
+    file_names = os.listdir(os.path.join(home, 'src'))
     file_names = [x for x in file_names if x != 'preamble.i']
     file_names.sort()
     file_names = [os.path.splitext(x) for x in file_names]
@@ -47,15 +54,11 @@ def main(argv=None):
         if 'Version' in line:
             swig_version = tuple(map(int, line.split()[-1].split('.')))
             break
-    # get config
-    config = configparser.ConfigParser()
-    config.read(os.path.join(root, 'libexiv2.ini'))
     # make options list
-    output_dir = os.path.join(
-        root, 'libexiv2_' + config['libexiv2']['version'], 'swig')
+    output_dir = os.path.join(target, 'swig')
     os.makedirs(output_dir, exist_ok=True)
-    swig_opts = ['-c++', '-python', '-py3']
-    swig_opts += ['-builtin', '-O', '-Wextra', '-Werror']
+    swig_opts = ['-c++', '-python', '-py3', '-builtin', '-O',
+                 '-Wextra', '-Werror']
     incl_dir = config['libexiv2']['include_dirs']
     swig_opts.append('-I' + incl_dir)
     if os.path.exists(os.path.join(incl_dir, 'exiv2', 'xmp_exiv2.hpp')):
@@ -70,25 +73,24 @@ def main(argv=None):
             if ext_name not in ('error', ):
                 cmd += ['-doxygen', '-DSWIG_DOXYGEN']
         cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
-        cmd += [os.path.join(root, 'src', ext_name + '.i')]
+        cmd += [os.path.join(home, 'src', ext_name + '.i')]
         print(' '.join(cmd))
         subprocess.check_output(cmd)
     # create init module
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
-        if sys.platform == 'linux' and not config.getboolean(
-                                                'libexiv2', 'using_system'):
-            im.write('''
-# import libexiv2 shared library directly to avoid setting LD_LIBRARY_PATH
-import os
-_lib_dir = os.path.dirname(__file__)
-from ctypes import cdll
-for _file in os.listdir(_lib_dir):
-    if _file.startswith('libexiv2'):
-        cdll.LoadLibrary(os.path.join(_lib_dir, _file))
-''')
         im.write('''
 import logging
+import sys
+
+if sys.platform == 'linux':
+    import os
+    _dir = os.path.dirname(__file__)
+    for _file in os.listdir(_dir):
+        if _file.startswith('libexiv2.so'):
+            # import libexiv2 shared library (avoids setting LD_LIBRARY_PATH)
+            from ctypes import cdll
+            cdll.LoadLibrary(os.path.join(_dir, _file))
 
 _logger = logging.getLogger(__name__)
 
@@ -97,21 +99,12 @@ class AnyError(Exception):
     pass
 
 ''')
-        im.write('__version__ = "{}"\n\n'.format(version))
+        im.write('__version__ = "{}"\n\n'.format(py_exiv2_version))
         for name in ext_names:
             im.write('from exiv2.{} import *\n'.format(name))
         im.write('''
 __all__ = [x for x in dir() if x[0] != '_']
 ''')
-    # link to library
-    if config.getboolean('libexiv2', 'using_system'):
-        return 0
-    lib_dir = config['libexiv2']['library_dirs']
-    for file in os.listdir(lib_dir):
-        src = os.path.join(lib_dir, file)
-        if os.path.islink(src):
-            continue
-        os.symlink(src, os.path.join(output_dir, file))
     return 0
 
 

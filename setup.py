@@ -18,22 +18,36 @@
 import configparser
 from setuptools import setup, Extension
 import os
+import subprocess
 import sys
 
 
-# python-exiv2 version
-with open('README.rst') as rst:
-    version = rst.readline().split()[-1]
+def pkg_config(library, option):
+    cmd = ['pkg-config', '--' + option, library]
+    try:
+        return subprocess.check_output(cmd, universal_newlines=True).split()
+    except Exception:
+        error('ERROR: command "%s" failed', ' '.join(cmd))
+        raise
 
-# get exiv2 library config
-config = configparser.ConfigParser()
-config.read('libexiv2.ini')
+# get source directory and config
+if os.path.exists('pre_build'):
+    # building with a local copy of libexiv2
+    mod_src_dir = os.path.join('pre_build', 'swig')
+    config = configparser.ConfigParser()
+    config.read(os.path.join('pre_build', 'config.ini'))
+    library_dirs = config['libexiv2']['library_dirs'].split()
+    include_dirs = config['libexiv2']['include_dirs'].split()
+else:
+    # building with system installed libexiv2
+    exiv2_version = pkg_config('exiv2', 'modversion')[0]
+    mod_src_dir = os.path.join('libexiv2_' + exiv2_version, 'swig')
+    library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
+    include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
+    include_dirs = include_dirs or ['/usr/include']
 
 # create extension modules list
 ext_modules = []
-exiv2_root = 'libexiv2_' + config['libexiv2']['version']
-mod_src_dir = os.path.join(exiv2_root, 'swig')
-lib_dir = os.path.join(exiv2_root, sys.platform, 'lib')
 if sys.platform == 'linux':
     extra_compile_args = [
         '-std=c++98', '-O3', '-Wno-unused-variable',
@@ -41,7 +55,6 @@ if sys.platform == 'linux':
         '-Wno-deprecated', '-Werror']
 elif sys.platform == 'win32':
     extra_compile_args = ['/wd4101', '/wd4290']
-library_dirs = config['libexiv2']['library_dirs'].split()
 for file_name in os.listdir(mod_src_dir):
     if file_name[-9:] != '_wrap.cxx':
         continue
@@ -49,17 +62,20 @@ for file_name in os.listdir(mod_src_dir):
     ext_modules.append(Extension(
         '_' + ext_name,
         sources = [os.path.join(mod_src_dir, file_name)],
-        include_dirs = config['libexiv2']['include_dirs'].split(),
+        include_dirs = include_dirs,
         extra_compile_args = extra_compile_args,
         libraries = ['exiv2'],
         library_dirs = library_dirs,
         ))
 
+with open('README.rst') as rst:
+    py_exiv2_version = rst.readline().split()[-1]
+
 with open('README.rst') as ldf:
     long_description = ldf.read()
 
 setup(name = 'exiv2',
-      version = version,
+      version = py_exiv2_version,
       description = 'Python interface to libexiv2',
       long_description = long_description,
       author = 'Jim Easterbrook',
