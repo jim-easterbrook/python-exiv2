@@ -21,9 +21,9 @@ This new project is potentially very useful, providing a simple interface with f
 
 For more complicated metadata operations I think a lower level interface is required, which is where this project comes in.
 
-**This project is at a very early stage of development.**
-I've managed to get it to build and run with libexiv2_ v0.26 (as that's what's installed on my main Linux computer) but it's not yet very useful.
-Here is an example of what it can do so far::
+**This project is at an early stage of development.**
+I've managed to get it to build and run with libexiv2_ v0.26 and v0.27.4 on Linux, and v0.27.4 on Windows.
+Here is an example of what it can do::
 
     Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
     Type "help", "copyright", "credits" or "license" for more information.
@@ -37,10 +37,9 @@ Here is an example of what it can do so far::
 
 There's still a lot to be done:
 
-    * Build with different versions of libexiv2_.
-    * Build for Windows.
     * Package for PyPI_.
-    * Example files.
+    * Create "wheels" for different Python versions.
+    * More example files.
 
 Documentation
 -------------
@@ -150,22 +149,54 @@ The Python interface redirects all Exiv2 messages to Python logging with an appr
 Dependencies
 ------------
 
-Currently the only way to install python-exiv2 is to compile it from source.
-This requires swig_, the "development headers" of libexiv2_ and Python3_, and the usual GNU C++ compiler and linker.
-These should all be installable with your operating system's package manager.
+Eventually you will be able to install python-exiv2 with a single ``pip install exiv2`` command on many computers.
+Until then the only way to install python-exiv2 is to compile it from source.
+This requires the "development headers" of Python3_, and an appropriate compiler & linker (GNU C++ on Linux, `Visual C++`_ on Windows).
+You will also need a pre-built libexiv2_, either the one provided with your operating system, or one downloaded from https://www.exiv2.org/download.html.
+
 
 Building python-exiv2
 ---------------------
 
-Once you've cloned the GitHub repository, or downloaded and unpacked a source archive, switch to the python-exiv2 directory and run::
+Once you've cloned the GitHub repository, or downloaded and unpacked a source archive, switch to the python-exiv2 directory.
+If you are using the libexiv2_ installed by your operating system you just need to build python-exiv2 and install it as follows::
 
-    python3 utils/build_swig.py
+    python3 setup.py bdist_wheel
+    sudo python3 -m pip install dist/exiv2-0.0.0-cp36-cp36m-linux_x86_64.whl
 
-This should run swig_ on each interface file in ``src`` to generate ``.py`` and ``.cxx`` files in ``swig``.
-These files can then be compiled and linked using ``setup.py``::
+(The name of the wheel file will depend on your Python version and system architecture.)
 
-    python3 setup.py build
-    sudo python3 setup.py install
+If you are using a downloaded copy of libexiv2_ then a few more steps are required.
+First you need to copy some files using the ``copy_libexiv2.py`` script.
+This has two parameters: the exiv2 directory and the exiv2 version.
+For example::
+
+    python3 utils/copy_libexiv2.py ../exiv2-0.27.4-Linux64 0.27.4
+
+This copies the exiv2 header files and runtime library to the directory ``libexiv2_0.27.4/linux/``.
+Next you need to tell the build system to use this local copy::
+
+    python3 utils/pre_build.py libexiv2_0.27.4
+
+Now you can run ``setup.py`` as before::
+
+    python3 setup.py bdist_wheel
+    sudo python3 -m pip install dist/exiv2-0.0.0-cp36-cp36m-linux_x86_64.whl
+
+When you try to import exiv2 into Python it's possible you might get an error like ``OSError: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by /usr/lib64/python3.6/site-packages/exiv2/libexiv2.so.0.27.4)``.
+This happens if the downloaded copy of libexiv2_ was built for a newer version of the GNU C library than is installed on your computer.
+In this case the only option is to build libexiv2_ from source.
+
+Download the exiv2 source archive, then follow the build instructions in ``README.md``, but make sure you install to a local directory rather than ``/usr/local``::
+
+    $ mkdir build && cd build
+    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../local_install
+    $ cmake --build .
+    $ make install
+
+Then, back in your python-exiv2 directory, copy sources from the newly created local directory::
+
+    python3 utils/copy_libexiv2.py ../exiv2-0.27.4-Source/local_install 0.27.4
 
 Problems?
 ---------
@@ -184,3 +215,4 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _SWIG:              http://swig.org/
 .. _pydoc:             https://docs.python.org/3/library/pydoc.html
 .. _Python3:           https://www.python.org/
+.. _Visual C++:        https://wiki.python.org/moin/WindowsCompilers
