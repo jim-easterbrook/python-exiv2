@@ -26,19 +26,27 @@ def main():
         print('Usage: {} libexiv2_dir version'.format(sys.argv[0]))
         return 1
     version = sys.argv[2]
-    # get top level directories
+    platform = sys.platform
+    # get top level directory
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
-    target = os.path.join(home, 'libexiv2_' + version, sys.platform)
-    if os.path.isdir(target):
-        shutil.rmtree(target)
     # find library and include files
     lib_files = []
     incl_dir = None
+    new_platform = platform
     for root, dirs, files in os.walk(os.path.join(home, sys.argv[1])):
         for file in files:
             if file in ['libexiv2.so', 'libexiv2.dylib',
                         'exiv2.lib', 'exiv2.dll']:
                 lib_files.append(os.path.normpath(os.path.join(root, file)))
+                if file == 'exiv2.dll' and platform != 'win32':
+                    new_platform = 'win32'
+                elif file == 'libexiv2.so' and platform != 'linux':
+                    new_platform = 'linux'
+                elif file == 'libexiv2.dylib' and platform != 'darwin':
+                    new_platform = 'darwin'
+                if platform != new_platform:
+                    print('platform {} -> {}'.format(platform, new_platform))
+                    platform = new_platform
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)
     # open config file
@@ -48,6 +56,10 @@ def main():
     if 'libexiv2' not in config:
         config['libexiv2'] = {}
     config['libexiv2']['using_system'] = 'False'
+    # get output directory
+    target = os.path.join(home, 'libexiv2_' + version, platform)
+    if os.path.isdir(target):
+        shutil.rmtree(target)
     # copy library
     dest = os.path.join(target, 'lib')
     config['libexiv2']['library_dirs'] = dest
