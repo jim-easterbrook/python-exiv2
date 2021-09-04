@@ -3,3 +3,5 @@ recursive-include utils *
 recursive-include libexiv2* *
 recursive-include examples *
 global-exclude *.ini
+
+include CHANGELOG.txt LICENSE
