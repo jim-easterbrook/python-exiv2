@@ -1,4 +1,4 @@
-python-exiv2 v\ 0.1.0
+python-exiv2 v\ 0.2.0
 =====================
 
 python-exiv2 is a low level interface (or binding) to the exiv2_ C++ library.
@@ -146,30 +146,40 @@ Error handling
 libexiv2_ has a multilevel warning system a bit like Python's standard logger.
 The Python interface redirects all Exiv2 messages to Python logging with an appropriate log level.
 
-Dependencies
+Installation
 ------------
 
-Eventually you will be able to install python-exiv2 with a single ``pip install python-exiv2`` command on many computers.
-(Currently this works on some Linux computers - do let me know if it works for you.)
-Until then the only way to install python-exiv2 is to compile it from source.
+Eventually you will be able to install python-exiv2 with a simple ``pip3 install python-exiv2`` command on most computers.
+Until then the installation process includes a compilation step.
 This requires the "development headers" of Python3_, and an appropriate compiler & linker (GNU C++ on Linux, `Visual C++`_ on Windows).
-You will also need a pre-built libexiv2_, either the one provided with your operating system, or one downloaded from https://www.exiv2.org/download.html.
 
+Once you've installed the necessary compiler you can run the ``pip3`` command (or ``pip`` if you don't have Python 2 on your computer), for example::
+
+    sudo pip3 install python-exiv2
+
+Leave out the ``sudo`` if you're on Windows.
+On other operating systems you can install for a single user with the ``--user`` option::
+
+    sudo pip3 install python-exiv2
+
+Since version 0.2.0 the python-exiv2 package on PyPI includes a copy of the libexiv2_ library and its header files, so you don't need to install your own.
+If a system installed version of libexiv2_ is available it will be used instead, as it's more likely to be compatible with your operating system.
 
 Building python-exiv2
 ---------------------
 
-Once you've cloned the GitHub repository, or downloaded and unpacked a source archive, switch to the python-exiv2 directory.
+If you want customise your installation of python-exiv2 you can build it yourself.
+Download and unpack a source archive from PyPI_ or GitHub_, then switch to the python-exiv2 directory.
 The ``setup.py`` script used to install python-exiv2 will use the libexiv2_ installed by your operating system if it can find it.
-This usually reuires the "development headers" package to be installed.
+This usually requires the "development headers" package to be installed.
 In this case you just need to build python-exiv2 and install it as follows::
 
     python3 setup.py bdist_wheel
-    sudo python3 -m pip install dist/python_exiv2-0.1.0-cp36-cp36m-linux_x86_64.whl
+    sudo pip3 install dist/python_exiv2-0.2.0-cp36-cp36m-linux_x86_64.whl
 
 (The name of the wheel file will depend on the python-exiv2 version, your Python version, and the system architecture.)
 
-If you want to use a downloaded copy of libexiv2_ then a few more steps are required.
+If you want to use your own downloaded copy of libexiv2_ then a few more steps are required.
 First you need to copy some files using the ``copy_libexiv2.py`` script.
 This has two parameters: the exiv2 directory and the exiv2 version.
 For example::
@@ -196,6 +206,8 @@ Then, back in your python-exiv2 directory, copy sources from the newly created l
 
     python3 utils/copy_libexiv2.py ../exiv2-0.27.4-Source/local_install 0.27.4
 
+Then run ``setup.py`` as before.
+
 Problems?
 ---------
 
@@ -205,11 +217,12 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _Doxygen:           https://www.doxygen.nl/
 .. _exiv2:             https://www.exiv2.org/getting-started.html
 .. _gexiv2:            https://wiki.gnome.org/Projects/gexiv2
+.. _GitHub:            https://github.com/jim-easterbrook/python-exiv2
 .. _libexiv2:          https://www.exiv2.org/doc/index.html
 .. _pyexiv2 (new):     https://github.com/LeoHsiao1/pyexiv2
 .. _pyexiv2 (old):     https://launchpad.net/pyexiv2
 .. _PyGObject:         https://pygobject.readthedocs.io/en/latest/
-.. _PyPI:              https://pypi.org/
+.. _PyPI:              https://pypi.org/project/python-exiv2/
 .. _SWIG:              http://swig.org/
 .. _pydoc:             https://docs.python.org/3/library/pydoc.html
 .. _Python3:           https://www.python.org/
