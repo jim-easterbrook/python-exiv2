@@ -17,6 +17,7 @@
 
 from setuptools import setup, Extension
 import os
+import shutil
 import subprocess
 import sys
 
@@ -59,7 +60,11 @@ if not (mod_src_dir and os.path.exists(mod_src_dir)):
                 continue
             dest = os.path.join(mod_src_dir, name)
             if not os.path.exists(dest):
-                os.symlink(os.path.join('..', sys.platform, 'lib', name), dest)
+                if sys.platform == 'win32':
+                    shutil.copy2(os.path.join(lib_dir, name), dest)
+                else:
+                    os.symlink(
+                        os.path.join('..', sys.platform, 'lib', name), dest)
         break
 
 if not os.path.exists(mod_src_dir):
