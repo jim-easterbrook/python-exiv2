@@ -85,12 +85,11 @@ import sys
 
 if sys.platform == 'linux':
     import os
-    _dir = os.path.dirname(__file__)
-    for _file in os.listdir(_dir):
-        if _file.startswith('libexiv2.so'):
-            # import libexiv2 shared library (avoids setting LD_LIBRARY_PATH)
-            from ctypes import cdll
-            cdll.LoadLibrary(os.path.join(_dir, _file))
+    _lib = os.path.join(os.path.dirname(__file__), 'libexiv2.so')
+    if os.path.exists(_lib):
+        # import libexiv2 shared library (avoids setting LD_LIBRARY_PATH)
+        from ctypes import cdll
+        cdll.LoadLibrary(_lib)
 
 _logger = logging.getLogger(__name__)
 
