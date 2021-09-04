@@ -22,12 +22,13 @@ import sys
 
 
 def pkg_config(library, option):
-    cmd = ['xpkg-config', '--' + option, library]
+    cmd = ['pkg-config', '--' + option, library]
     try:
         return subprocess.check_output(cmd, universal_newlines=True).split()
     except Exception:
-        print('ERROR: command "{}" failed'.format(' '.join(cmd)))
         return None
+
+mod_src_dir = None
 
 if sys.platform != 'win32':
     # attempt to use installed libexiv2
@@ -39,23 +40,31 @@ if sys.platform != 'win32':
         include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
         include_dirs = include_dirs or ['/usr/include']
 
-if not exiv2_version:
+if not (mod_src_dir and os.path.exists(mod_src_dir)):
     # installed libexiv2 not found, use our own
-    exiv2_version = '0.0'
     for name in os.listdir('.'):
-        if name.startswith('libexiv2_'):
-            exiv2_version = max(exiv2_version, name.split('_', 1)[1])
-    exiv2_dir = 'libexiv2_' + exiv2_version
-    mod_src_dir = os.path.join(exiv2_dir, 'swig')
-    library_dirs = [os.path.join(exiv2_dir, sys.platform, 'lib')]
-    include_dirs = [os.path.join(exiv2_dir, sys.platform, 'include')]
-    # link libraries into package
-    for name in os.listdir(library_dirs[0]):
-        if name == 'exiv2.lib':
+        if not name.startswith('libexiv2_'):
             continue
-        dest = os.path.join(mod_src_dir, name)
-        if not os.path.exists(dest):
-            os.symlink(os.path.join('..', sys.platform, 'lib', name), dest)
+        mod_src_dir = os.path.join(name, 'swig')
+        lib_dir = os.path.join(name, sys.platform, 'lib')
+        inc_dir = os.path.join(name, sys.platform, 'include')
+        if not (os.path.exists(lib_dir) and os.path.exists(inc_dir)):
+            continue
+        exiv2_version = name.split('_', 1)[1]
+        library_dirs = [lib_dir]
+        include_dirs = [inc_dir]
+        # link libraries into package
+        for name in os.listdir(lib_dir):
+            if name == 'exiv2.lib':
+                continue
+            dest = os.path.join(mod_src_dir, name)
+            if not os.path.exists(dest):
+                os.symlink(os.path.join('..', sys.platform, 'lib', name), dest)
+        break
+
+if not os.path.exists(mod_src_dir):
+    print('ERROR: No SWIG source for libexiv2 version {}'.format(exiv2_version))
+    sys.exit(1)
 
 # create extension modules list
 ext_modules = []

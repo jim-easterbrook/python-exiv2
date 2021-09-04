@@ -55,7 +55,6 @@ def main():
     config.read(config_path)
     if 'libexiv2' not in config:
         config['libexiv2'] = {}
-    config['libexiv2']['using_system'] = 'False'
     # get output directory
     target = os.path.join(home, 'libexiv2_' + version, platform)
     if os.path.isdir(target):
