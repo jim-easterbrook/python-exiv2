@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.2.1:
+  1/ Fix symlink problem when installing on Windows.
+
 Changes in v0.2.0:
   1/ "Source" distribution now includes pre-built libexiv2 library and headers.
   2/ Installation might work on MacOS. (Untested as I don't have a Mac.)
