@@ -1,0 +1,24 @@
+name: Build on Ubuntu
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install exiv2
+        run: |
+          sudo apt-get update
+          sudo apt-get install libexiv2-dev
+          pkg-config --modversion exiv2
+      - name: Install SWIG
+        run: sudo apt-get install swig
+      - name: Install setuptools
+        run: |
+          pip3 install setuptools wheel
+      - name: Run SWIG
+        run: python3 utils/build_swig.py system
+      - name: Build wheel
+        run: |
+          python3 setup.py bdist_wheel
