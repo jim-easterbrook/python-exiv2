@@ -37,11 +37,14 @@ if sys.platform != 'win32':
     if exiv2_version:
         exiv2_version = exiv2_version[0]
         mod_src_dir = os.path.join('libexiv2_' + exiv2_version, 'swig')
-        library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
-        include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
-        include_dirs = include_dirs or ['/usr/include']
+        if os.path.exists(mod_src_dir):
+            library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
+            include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
+            include_dirs = include_dirs or ['/usr/include']
+        else:
+            mod_src_dir = None
 
-if not (mod_src_dir and os.path.exists(mod_src_dir)):
+if not mod_src_dir:
     # installed libexiv2 not found, use our own
     for name in os.listdir('.'):
         if not name.startswith('libexiv2_'):
@@ -50,6 +53,7 @@ if not (mod_src_dir and os.path.exists(mod_src_dir)):
         lib_dir = os.path.join(name, sys.platform, 'lib')
         inc_dir = os.path.join(name, sys.platform, 'include')
         if not (os.path.exists(lib_dir) and os.path.exists(inc_dir)):
+            mod_src_dir = None
             continue
         exiv2_version = name.split('_', 1)[1]
         library_dirs = [lib_dir]
@@ -67,7 +71,7 @@ if not (mod_src_dir and os.path.exists(mod_src_dir)):
                         os.path.join('..', sys.platform, 'lib', name), dest)
         break
 
-if not os.path.exists(mod_src_dir):
+if not mod_src_dir:
     print('ERROR: No SWIG source for libexiv2 version {}'.format(exiv2_version))
     sys.exit(1)
 
@@ -101,11 +105,9 @@ command_options['sdist'] = {
     'formats' : ('setup.py', 'zip'),
     }
 
-with open('README.rst') as rst:
-    py_exiv2_version = rst.readline().split()[-1]
-
 with open('README.rst') as ldf:
     long_description = ldf.read()
+py_exiv2_version = long_description.splitlines()[0].split()[-1]
 
 setup(name = 'python-exiv2',
       version = py_exiv2_version,
