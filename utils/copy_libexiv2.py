@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import configparser
 import os
 import shutil
 import sys
@@ -49,30 +48,18 @@ def main():
                     platform = new_platform
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)
-    # open config file
-    config_path = os.path.join(home, 'libexiv2_' + version, 'config.ini')
-    config = configparser.ConfigParser()
-    config.read(config_path)
-    if 'libexiv2' not in config:
-        config['libexiv2'] = {}
     # get output directory
     target = os.path.join(home, 'libexiv2_' + version, platform)
     if os.path.isdir(target):
         shutil.rmtree(target)
     # copy library
     dest = os.path.join(target, 'lib')
-    config['libexiv2']['library_dirs'] = dest
     os.makedirs(dest, exist_ok=True)
     for file in lib_files:
         shutil.copy2(file, dest)
     # copy include files
     dest = os.path.join(target, 'include', 'exiv2')
-    config['libexiv2']['include_dirs'] = os.path.dirname(dest)
     shutil.copytree(incl_dir, dest)
-    # save config file
-    config['libexiv2']['version'] = version
-    with open(config_path, 'w') as file:
-        config.write(file)
     return 0
 
 

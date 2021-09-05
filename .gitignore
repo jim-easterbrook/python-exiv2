@@ -1,7 +1,6 @@
 build
 dist
 python_exiv2.egg-info
-libexiv2_*/config.ini
 libexiv2_*/swig/*.dll
 libexiv2_*/swig/*.dylib
 libexiv2_*/swig/*.so

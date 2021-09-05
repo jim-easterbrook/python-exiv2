@@ -15,24 +15,39 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from collections import defaultdict
-import configparser
 import os
-import re
 import subprocess
 import sys
 
 
+def pkg_config(library, option):
+    cmd = ['pkg-config', '--' + option, library]
+    try:
+        return subprocess.check_output(cmd, universal_newlines=True).split()
+    except Exception:
+        error('ERROR: command "%s" failed', ' '.join(cmd))
+        raise
+
+
 def main():
+    # get version
     if len(sys.argv) != 2:
-        print('Usage: {} libexiv2_dir'.format(sys.argv[0]))
+        print('Usage: {} version | "system"'.format(sys.argv[0]))
         return 1
     # get directories
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
-    target = os.path.abspath(sys.argv[1])
+    if sys.argv[1] == 'system':
+        exiv2_version = pkg_config('exiv2', 'modversion')[0]
+    else:
+        exiv2_version = sys.argv[1]
+    target = os.path.abspath('libexiv2_' + exiv2_version)
     # get config
-    config = configparser.ConfigParser()
-    config.read(os.path.join(target, 'config.ini'))
+    if sys.argv[1] == 'system':
+        incl_dir = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
+        incl_dir = incl_dir or ['/usr/include']
+        incl_dir = incl_dir[0]
+    else:
+        incl_dir = os.path.join(target, sys.platform, 'include')
     # get python-exiv2 version
     with open(os.path.join(home, 'README.rst')) as rst:
         py_exiv2_version = rst.readline().split()[-1]
@@ -59,7 +74,6 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
     swig_opts = ['-c++', '-python', '-py3', '-builtin', '-O',
                  '-Wextra', '-Werror']
-    incl_dir = config['libexiv2']['include_dirs']
     swig_opts.append('-I' + incl_dir)
     if os.path.exists(os.path.join(incl_dir, 'exiv2', 'xmp_exiv2.hpp')):
         swig_opts.append('-DHAS_XMP_EXIV2')
