@@ -64,13 +64,6 @@ struct ImageType {
         tga =   Exiv2::ImageType::tga,
         tiff =  Exiv2::ImageType::tiff,
         xmp =   Exiv2::ImageType::xmp,
-#ifdef EXV_ENABLE_VIDEO
-        asf =   Exiv2::ImageType::asf,
-        mkv =   Exiv2::ImageType::mkv,
-        qtime = Exiv2::ImageType::qtime,
-        riff =  Exiv2::ImageType::riff,
-        webp =  Exiv2::ImageType::webp,
-#endif
     };
 };
 %}
