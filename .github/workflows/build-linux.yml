@@ -12,13 +12,21 @@ jobs:
           sudo apt-get update
           sudo apt-get install libexiv2-dev
           pkg-config --modversion exiv2
-      - name: Install SWIG
-        run: sudo apt-get install swig
-      - name: Install setuptools
+      - name: Install tools
         run: |
-          pip3 install setuptools wheel
+          sudo apt-get install swig
+          pip3 install setuptools wheel auditwheel
       - name: Run SWIG
         run: python3 utils/build_swig.py system
       - name: Build wheel
         run: |
           python3 setup.py bdist_wheel
+      - name: Process wheel
+        run: |
+          auditwheel show dist/*.whl
+          auditwheel repair dist/*.whl
+      - name: Store results
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-wheel
+          path: dist/
