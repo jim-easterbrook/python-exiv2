@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Download Windows release
         run: |
-          wget https://www.exiv2.org/builds/exiv2-0.27.4-2019msvc64.zip
+          wget -nv https://www.exiv2.org/builds/exiv2-0.27.4-2019msvc64.zip
           unzip exiv2-0.27.4-2019msvc64.zip
       - name: Copy required files
         run: python3 utils/copy_libexiv2.py exiv2-0.27.4-2019msvc64 0.27.4
