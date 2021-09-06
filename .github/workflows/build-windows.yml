@@ -1,4 +1,4 @@
-name: Build Windows sdist
+name: Build Windows wheels
 on: workflow_dispatch
 
 jobs:
@@ -18,9 +18,13 @@ jobs:
         with:
           name: exiv2-windows
           path: libexiv2_*/win32/
+          retention-days: 1
   build:
     needs: fetch
     runs-on: windows-2019
+    strategy:
+      matrix:
+        python-version: ['3.5', '3.6', '3.7', '3.8', '3.9']
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -28,6 +32,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: exiv2-windows
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: 'x64'
       - name: Build wheel
         run: |
           pip3 install setuptools wheel
