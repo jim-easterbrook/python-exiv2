@@ -19,7 +19,7 @@ jobs:
         uses: RalfG/python-wheels-manylinux-build@v0.3.4
         with:
           python-versions: 'cp36-cp36m'
-          system-packages: 'libexiv2-devel'
+          system-packages: 'exiv2-devel'
       - name: Store results
         uses: actions/upload-artifact@v2
         with:
