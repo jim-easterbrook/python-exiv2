@@ -25,7 +25,7 @@ def pkg_config(library, option):
     try:
         return subprocess.check_output(cmd, universal_newlines=True).split()
     except Exception:
-        error('ERROR: command "%s" failed', ' '.join(cmd))
+        print('ERROR: command "{}" failed'.format(' '.join(cmd)))
         raise
 
 
