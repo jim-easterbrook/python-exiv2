@@ -1,0 +1,26 @@
+name: Build Linux "manylinux" wheels
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install exiv2
+        run: |
+          sudo apt-get update
+          sudo apt-get install libexiv2-dev
+      - name: Run SWIG
+        run: |
+          sudo apt-get install swig
+          python3 utils/build_swig.py system
+      - name: Build wheels
+        uses: RalfG/python-wheels-manylinux-build@v0.3.4
+        with:
+          python-versions: 'cp36-cp36m'
+      - name: Store results
+        uses: actions/upload-artifact@v2
+        with:
+          name: manylinux-wheel
+          path: dist/*.whl
