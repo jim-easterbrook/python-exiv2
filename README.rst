@@ -22,7 +22,7 @@ This new project is potentially very useful, providing a simple interface with f
 For more complicated metadata operations I think a lower level interface is required, which is where this project comes in.
 
 **This project is at an early stage of development.**
-I've managed to get it to build and run with libexiv2_ v0.26 and v0.27.4 on Linux, and v0.27.4 on Windows.
+It is already usable, but please email jim@jim-easterbrook.me.uk if it doesn't work for you.
 Here is an example of what it can do::
 
     Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
@@ -35,19 +35,13 @@ Here is an example of what it can do::
     'Jim Easterbrook'
     >>>
 
-There's still a lot to be done:
-
-    * Package for PyPI_.
-    * Create "wheels" for different Python versions.
-    * More example files.
-
 Documentation
 -------------
 
 The libexiv2_ library is well documented for C++ users, in Doxygen_ format.
 Recent versions of SWIG_ can convert this documentation to pydoc_ format in the Python interface::
 
-    pydoc3 exiv2.Image.exifData
+    $ pydoc3 exiv2.Image.exifData
 
     Help on method_descriptor in exiv2.Image:
 
@@ -149,20 +143,24 @@ The Python interface redirects all Exiv2 messages to Python logging with an appr
 Installation
 ------------
 
-Eventually you will be able to install python-exiv2 with a simple ``pip3 install python-exiv2`` command on most computers.
-Until then the installation process includes a compilation step.
-This requires the "development headers" of Python3_, and an appropriate compiler & linker (GNU C++ on Linux, `Visual C++`_ on Windows).
+Python "wheels" are available for Windows Python versions from 3.5 to 3.9.
+These include the libexiv2 library and should not need any other software to be installed.
+They can be installed with ``pip``, for example::
+
+    C:\Users\Jim>"c:\Program Files\Python38\python.exe" -m pip install python-exiv2
+
+On other operating systems the installation process includes a compilation step.
+This requires the "development headers" of Python3_, and an appropriate compiler & linker (GNU C++ on Linux).
 
 Once you've installed the necessary compiler you can run the ``pip3`` command (or ``pip`` if you don't have Python 2 on your computer), for example::
 
     sudo pip3 install python-exiv2
 
-Leave out the ``sudo`` if you're on Windows.
-On other operating systems you can install for a single user with the ``--user`` option::
+You can install for a single user with the ``--user`` option::
 
-    sudo pip3 install python-exiv2
+    pip3 install --user python-exiv2
 
-Since version 0.2.0 the python-exiv2 package on PyPI includes a copy of the libexiv2_ library and its header files, so you don't need to install your own.
+Since version 0.2.0 the python-exiv2 package on PyPI includes a copy of the libexiv2_ library and its header files, so you might not need to install your own.
 If a system installed version of libexiv2_ is available it will be used instead, as it's more likely to be compatible with your operating system.
 
 Building python-exiv2
