@@ -1,0 +1,39 @@
+name: Build Windows sdist
+on: workflow_dispatch
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Download Windows release
+        run: |
+          wget -nv https://www.exiv2.org/builds/exiv2-0.27.4-2019msvc64.zip
+          unzip exiv2-0.27.4-2019msvc64.zip
+      - name: Copy required files
+        run: python3 utils/copy_libexiv2.py exiv2-0.27.4-2019msvc64 0.27.4
+      - name: Store intermediate files
+        uses: actions/upload-artifact@v2
+        with:
+          name: exiv2-windows
+          path: libexiv2_*/win32/
+  build:
+    needs: fetch
+    runs-on: windows-2019
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Fetch intermediate files
+        uses: actions/download-artifact@v2
+        with:
+          name: exiv2-windows
+      - name: Build wheel
+        run: |
+          pip3 install setuptools wheel
+          python3 setup.py bdist_wheel
+      - name: Store results
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-wheel
+          path: dist/*.whl
