@@ -12,7 +12,7 @@ jobs:
         with:
           python-versions: 'cp36-cp36m cp37-cp37m cp38-cp38 cp39-cp39'
           system-packages: 'exiv2-devel swig'
-          pre-build-command: 'python3 utils/build_swig.py system'
+          pre-build-command: 'python utils/build_swig.py system'
       - name: Store results
         uses: actions/upload-artifact@v2
         with:
