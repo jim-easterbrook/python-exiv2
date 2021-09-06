@@ -30,8 +30,11 @@ def pkg_config(library, option):
         return None
 
 mod_src_dir = None
+platform = sys.platform
+if platform == 'win32' and 'GCC' in sys.version:
+    platform = 'mingw'
 
-if sys.platform != 'win32':
+if platform != 'win32':
     # attempt to use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
     if exiv2_version:
@@ -49,13 +52,13 @@ if not mod_src_dir:
     for name in os.listdir('.'):
         if not name.startswith('libexiv2_'):
             continue
+        exiv2_version = name.split('_', 1)[1]
         mod_src_dir = os.path.join(name, 'swig')
-        lib_dir = os.path.join(name, sys.platform, 'lib')
-        inc_dir = os.path.join(name, sys.platform, 'include')
+        lib_dir = os.path.join(name, platform, 'lib')
+        inc_dir = os.path.join(name, platform, 'include')
         if not (os.path.exists(lib_dir) and os.path.exists(inc_dir)):
             mod_src_dir = None
             continue
-        exiv2_version = name.split('_', 1)[1]
         library_dirs = [lib_dir]
         include_dirs = [inc_dir]
         # link libraries into package
@@ -64,11 +67,11 @@ if not mod_src_dir:
                 continue
             dest = os.path.join(mod_src_dir, name)
             if not os.path.exists(dest):
-                if sys.platform == 'win32':
+                if platform == 'win32':
                     shutil.copy2(os.path.join(lib_dir, name), dest)
                 else:
                     os.symlink(
-                        os.path.join('..', sys.platform, 'lib', name), dest)
+                        os.path.join('..', platform, 'lib', name), dest)
         break
 
 if not mod_src_dir:
@@ -77,15 +80,14 @@ if not mod_src_dir:
 
 # create extension modules list
 ext_modules = []
-if sys.platform == 'linux':
+extra_compile_args = []
+if platform in ('linux', 'mingw'):
     extra_compile_args = [
         '-std=c++98', '-O3', '-Wno-unused-variable',
         '-Wno-deprecated-declarations', '-Wno-unused-but-set-variable',
         '-Wno-deprecated', '-Werror']
-elif sys.platform == 'win32':
+if platform == 'win32':
     extra_compile_args = ['/wd4101', '/wd4290']
-elif sys.platform == 'darwin':
-    extra_compile_args = []
 for file_name in os.listdir(mod_src_dir):
     if file_name[-9:] != '_wrap.cxx':
         continue
