@@ -11,8 +11,8 @@ jobs:
         uses: RalfG/python-wheels-manylinux-build@v0.3.4
         with:
           python-versions: 'cp36-cp36m cp37-cp37m cp38-cp38 cp39-cp39'
-          system-packages: 'python3 python3-devel exiv2-devel swig pkgconfig'
-          pre-build-command: 'python3 utils/build_swig.py system'
+          system-packages: 'exiv2-devel exiv2-libs'
+          pre-build-command: 'yum -y install python3 swig && python3 utils/build_swig.py system'
       - name: Store results
         uses: actions/upload-artifact@v2
         with:
