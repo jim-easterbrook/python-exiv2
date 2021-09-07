@@ -8,6 +8,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
+      - name: Install exiv2
+        run: |
+          sudo apt-get update
+          sudo apt-get install libexiv2-dev
+          pkg-config --modversion exiv2
+
       - uses: actions/setup-python@v2
 
       - name: Install cibuildwheel
