@@ -25,7 +25,9 @@ import sys
 def pkg_config(library, option):
     cmd = ['pkg-config', '--' + option, library]
     try:
-        return subprocess.check_output(cmd, universal_newlines=True).split()
+        return subprocess.Popen(
+            cmd, stdout=subprocess.PIPE,
+            universal_newlines=True).communicate()[0].split()
     except Exception:
         print('ERROR: command "%s" failed' % ' '.join(cmd))
         raise
