@@ -18,5 +18,5 @@
 # Short script to run in Docker manylinux container
 # Installs python3 and swig, then runs build_swig.py
 
-yum -y install python3 swig
-python3 utils/build_swig.py system
+yum -y install swig
+python utils/build_swig.py system

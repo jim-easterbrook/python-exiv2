@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import print_function
+
 import os
 import subprocess
 import sys
@@ -25,14 +27,14 @@ def pkg_config(library, option):
     try:
         return subprocess.check_output(cmd, universal_newlines=True).split()
     except Exception:
-        print('ERROR: command "{}" failed'.format(' '.join(cmd)))
+        print('ERROR: command "%s" failed' % ' '.join(cmd))
         raise
 
 
 def main():
     # get version
     if len(sys.argv) != 2:
-        print('Usage: {} version | "system"'.format(sys.argv[0]))
+        print('Usage: %s version | "system"' % sys.argv[0])
         return 1
     # get directories
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
@@ -63,7 +65,7 @@ def main():
         swig_version = str(
             subprocess.check_output(cmd, universal_newlines=True))
     except Exception:
-        print('ERROR: command "{}" failed'.format(' '.join(cmd)))
+        print('ERROR: command "%s" failed' % ' '.join(cmd))
         raise
     for line in swig_version.splitlines():
         if 'Version' in line:
@@ -71,7 +73,8 @@ def main():
             break
     # make options list
     output_dir = os.path.join(target, 'swig')
-    os.makedirs(output_dir, exist_ok=True)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     swig_opts = ['-c++', '-python', '-py3', '-builtin', '-O',
                  '-Wextra', '-Werror']
     swig_opts.append('-I' + incl_dir)
@@ -112,9 +115,9 @@ class AnyError(Exception):
     pass
 
 ''')
-        im.write('__version__ = "{}"\n\n'.format(py_exiv2_version))
+        im.write('__version__ = "%s"\n\n' % py_exiv2_version)
         for name in ext_names:
-            im.write('from exiv2.{} import *\n'.format(name))
+            im.write('from exiv2.%s import *\n' % name)
         im.write('''
 __all__ = [x for x in dir() if x[0] != '_']
 ''')
