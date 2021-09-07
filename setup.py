@@ -26,7 +26,8 @@ def pkg_config(library, option):
     cmd = ['pkg-config', '--' + option, library]
     try:
         return subprocess.check_output(cmd, universal_newlines=True).split()
-    except Exception:
+    except Exception as ex:
+        print(str(ex))
         return None
 
 mod_src_dir = None
@@ -41,6 +42,7 @@ if platform != 'win32':
         exiv2_version = exiv2_version[0]
         mod_src_dir = os.path.join('libexiv2_' + exiv2_version, 'swig')
         if os.path.exists(mod_src_dir):
+            print('Using system installed libexiv2 v{}'.format(exiv2_version))
             library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
             include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
             include_dirs = include_dirs or ['/usr/include']
@@ -59,6 +61,7 @@ if not mod_src_dir:
         if not (os.path.exists(lib_dir) and os.path.exists(inc_dir)):
             mod_src_dir = None
             continue
+        print('Using included libexiv2 v{}'.format(exiv2_version))
         library_dirs = [lib_dir]
         include_dirs = [inc_dir]
         # link libraries into package
