@@ -64,8 +64,9 @@ def main():
     # get SWIG version
     cmd = ['swig', '-version']
     try:
-        swig_version = str(
-            subprocess.check_output(cmd, universal_newlines=True))
+        swig_version = str(subprocess.Popen(
+            cmd, stdout=subprocess.PIPE,
+            universal_newlines=True).communicate()[0])
     except Exception:
         print('ERROR: command "%s" failed' % ' '.join(cmd))
         raise
@@ -94,7 +95,7 @@ def main():
         cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
         cmd += [os.path.join(home, 'src', ext_name + '.i')]
         print(' '.join(cmd))
-        subprocess.check_output(cmd)
+        subprocess.check_call(cmd)
     # create init module
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
