@@ -8,14 +8,22 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - uses: actions/setup-python@v2
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.1.1
         env:
-          CIBW_BEFORE_ALL: yum -y install exiv2-devel
           CIBW_ARCHS: auto64
           CIBW_SKIP: pp37-macosx_x86_64
+          CIBW_BEFORE_ALL: >
+            wget -nv https://www.exiv2.org/builds/exiv2-0.27.4-Source.tar.gz &&
+            tar xf exiv2-0.27.4-Source.tar.gz &&
+            cd exiv2-0.27.4-Source &&
+            mkdir build &&
+            cd build &&
+            cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../exiv2 &&
+            cmake --build . &&
+            make install &&
+            cd ../.. &&
+            python3 utils/copy_libexiv2.py exiv2 0.27.4
 
       - name: Store results
         uses: actions/upload-artifact@v2
