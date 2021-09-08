@@ -3448,12 +3448,10 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_Exiv2__LogMsg swig_types[2]
 #define SWIGTYPE_p_SwigPyObject swig_types[3]
 #define SWIGTYPE_p_char swig_types[4]
-#define SWIGTYPE_p_f_int_p_q_const__char__void swig_types[5]
-#define SWIGTYPE_p_std__exception swig_types[6]
-#define SWIGTYPE_p_std__ostream swig_types[7]
-#define SWIGTYPE_p_std__ostringstream swig_types[8]
-static swig_type_info *swig_types[10];
-static swig_module_info swig_module = {swig_types, 9, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__exception swig_types[5]
+#define SWIGTYPE_p_std__ostream swig_types[6]
+static swig_type_info *swig_types[8];
+static swig_module_info swig_module = {swig_types, 7, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3735,230 +3733,9 @@ SWIG_AsVal_int (PyObject * obj, int *val)
   return res;
 }
 
-
-SWIGINTERN swig_type_info*
-SWIG_pchar_descriptor(void)
-{
-  static int init = 0;
-  static swig_type_info* info = 0;
-  if (!init) {
-    info = SWIG_TypeQuery("_p_char");
-    init = 1;
-  }
-  return info;
-}
-
-
-SWIGINTERN int
-SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
-{
-#if PY_VERSION_HEX>=0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-  if (PyBytes_Check(obj))
-#else
-  if (PyUnicode_Check(obj))
-#endif
-#else  
-  if (PyString_Check(obj))
-#endif
-  {
-    char *cstr; Py_ssize_t len;
-    int ret = SWIG_OK;
-#if PY_VERSION_HEX>=0x03000000
-#if !defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-    if (!alloc && cptr) {
-        /* We can't allow converting without allocation, since the internal
-           representation of string in Python 3 is UCS-2/UCS-4 but we require
-           a UTF-8 representation.
-           TODO(bhy) More detailed explanation */
-        return SWIG_RuntimeError;
-    }
-    obj = PyUnicode_AsUTF8String(obj);
-    if (!obj)
-      return SWIG_TypeError;
-    if (alloc)
-      *alloc = SWIG_NEWOBJ;
-#endif
-    if (PyBytes_AsStringAndSize(obj, &cstr, &len) == -1)
-      return SWIG_TypeError;
-#else
-    if (PyString_AsStringAndSize(obj, &cstr, &len) == -1)
-      return SWIG_TypeError;
-#endif
-    if (cptr) {
-      if (alloc) {
-	if (*alloc == SWIG_NEWOBJ) {
-	  *cptr = reinterpret_cast< char* >(memcpy(new char[len + 1], cstr, sizeof(char)*(len + 1)));
-	  *alloc = SWIG_NEWOBJ;
-	} else {
-	  *cptr = cstr;
-	  *alloc = SWIG_OLDOBJ;
-	}
-      } else {
-#if PY_VERSION_HEX>=0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-	*cptr = PyBytes_AsString(obj);
-#else
-	assert(0); /* Should never reach here with Unicode strings in Python 3 */
-#endif
-#else
-	*cptr = SWIG_Python_str_AsChar(obj);
-        if (!*cptr)
-          ret = SWIG_TypeError;
-#endif
-      }
-    }
-    if (psize) *psize = len + 1;
-#if PY_VERSION_HEX>=0x03000000 && !defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-    Py_XDECREF(obj);
-#endif
-    return ret;
-  } else {
-#if defined(SWIG_PYTHON_2_UNICODE)
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-#error "Cannot use both SWIG_PYTHON_2_UNICODE and SWIG_PYTHON_STRICT_BYTE_CHAR at once"
-#endif
-#if PY_VERSION_HEX<0x03000000
-    if (PyUnicode_Check(obj)) {
-      char *cstr; Py_ssize_t len;
-      if (!alloc && cptr) {
-        return SWIG_RuntimeError;
-      }
-      obj = PyUnicode_AsUTF8String(obj);
-      if (!obj)
-        return SWIG_TypeError;
-      if (PyString_AsStringAndSize(obj, &cstr, &len) != -1) {
-        if (cptr) {
-          if (alloc) *alloc = SWIG_NEWOBJ;
-          *cptr = reinterpret_cast< char* >(memcpy(new char[len + 1], cstr, sizeof(char)*(len + 1)));
-        }
-        if (psize) *psize = len + 1;
-
-        Py_XDECREF(obj);
-        return SWIG_OK;
-      } else {
-        Py_XDECREF(obj);
-      }
-    }
-#endif
-#endif
-
-    swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-    if (pchar_descriptor) {
-      void* vptr = 0;
-      if (SWIG_ConvertPtr(obj, &vptr, pchar_descriptor, 0) == SWIG_OK) {
-	if (cptr) *cptr = (char *) vptr;
-	if (psize) *psize = vptr ? (strlen((char *)vptr) + 1) : 0;
-	if (alloc) *alloc = SWIG_OLDOBJ;
-	return SWIG_OK;
-      }
-    }
-  }
-  return SWIG_TypeError;
-}
-
-
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN int _wrap_new_LogMsg(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::LogMsg::Level arg1 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::LogMsg *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_LogMsg")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_LogMsg", 1, 1, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_LogMsg" "', argument " "1"" of type '" "Exiv2::LogMsg::Level""'");
-  } 
-  arg1 = static_cast< Exiv2::LogMsg::Level >(val1);
-  {
-    try {
-      result = (Exiv2::LogMsg *)new Exiv2::LogMsg(arg1);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__LogMsg, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_LogMsg(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LogMsg *arg1 = (Exiv2::LogMsg *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_LogMsg", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LogMsg, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_LogMsg" "', argument " "1"" of type '" "Exiv2::LogMsg *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::LogMsg * >(argp1);
-  {
-    try {
-      delete arg1;
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LogMsg_os(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LogMsg *arg1 = (Exiv2::LogMsg *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::ostringstream *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LogMsg_os", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LogMsg, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LogMsg_os" "', argument " "1"" of type '" "Exiv2::LogMsg *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::LogMsg * >(argp1);
-  {
-    try {
-      result = (std::ostringstream *) &(arg1)->os();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostringstream, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::LogMsg::Level arg1 ;
@@ -3976,37 +3753,6 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
   {
     try {
       Exiv2::LogMsg::setLevel(arg1);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LogMsg_setHandler(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LogMsg::Handler arg1 = (Exiv2::LogMsg::Handler) 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  {
-    int res = SWIG_ConvertFunctionPtr(swig_obj[0], (void**)(&arg1), SWIGTYPE_p_f_int_p_q_const__char__void);
-    if (!SWIG_IsOK(res)) {
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "LogMsg_setHandler" "', argument " "1"" of type '" "Exiv2::LogMsg::Handler""'"); 
-    }
-  }
-  {
-    try {
-      Exiv2::LogMsg::setHandler(arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4044,73 +3790,6 @@ fail:
   return NULL;
 }
 
-
-SWIGINTERN PyObject *_wrap_LogMsg_handler(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LogMsg::Handler result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LogMsg_handler", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::LogMsg::Handler)Exiv2::LogMsg::handler();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewFunctionPtrObj((void *)(result), SWIGTYPE_p_f_int_p_q_const__char__void);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LogMsg_defaultHandler(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  int arg1 ;
-  char *arg2 = (char *) 0 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  int res2 ;
-  char *buf2 = 0 ;
-  int alloc2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LogMsg_defaultHandler", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "LogMsg_defaultHandler" "', argument " "1"" of type '" "int""'");
-  } 
-  arg1 = static_cast< int >(val1);
-  res2 = SWIG_AsCharPtrAndSize(swig_obj[1], &buf2, NULL, &alloc2);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LogMsg_defaultHandler" "', argument " "2"" of type '" "char const *""'");
-  }
-  arg2 = reinterpret_cast< char * >(buf2);
-  {
-    try {
-      Exiv2::LogMsg::defaultHandler(arg1,(char const *)arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
-  return resultobj;
-fail:
-  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
-  return NULL;
-}
-
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_LogMsg) /* defines _wrap_delete_LogMsg_destructor_closure */
 
 SWIGINTERN PyObject *_wrap___lshift__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -4171,25 +3850,7 @@ static PyMethodDef SwigMethods[] = {
 		"level: enum Exiv2::LogMsg::Level\n"
 		"\n"
 		""},
-	 { "LogMsg_setHandler", _wrap_LogMsg_setHandler, METH_O, "\n"
-		"LogMsg_setHandler(handler)\n"
-		"\n"
-		"Parameters\n"
-		"----------\n"
-		"handler: Exiv2::LogMsg::Handler\n"
-		"\n"
-		""},
 	 { "LogMsg_level", _wrap_LogMsg_level, METH_NOARGS, "LogMsg_level() -> Exiv2::LogMsg::Level"},
-	 { "LogMsg_handler", _wrap_LogMsg_handler, METH_NOARGS, "LogMsg_handler() -> Exiv2::LogMsg::Handler"},
-	 { "LogMsg_defaultHandler", _wrap_LogMsg_defaultHandler, METH_VARARGS, "\n"
-		"LogMsg_defaultHandler(level, s)\n"
-		"\n"
-		"Parameters\n"
-		"----------\n"
-		"level: int\n"
-		"s: char const *\n"
-		"\n"
-		""},
 	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
 		"__lshift__(os, error) -> std::ostream &\n"
 		"\n"
@@ -4213,25 +3874,7 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		"level: enum Exiv2::LogMsg::Level\n"
 		"\n"
 		""},
-	 { "LogMsg_setHandler", _wrap_LogMsg_setHandler, METH_O, "\n"
-		"setHandler(handler)\n"
-		"\n"
-		"Parameters\n"
-		"----------\n"
-		"handler: Exiv2::LogMsg::Handler\n"
-		"\n"
-		""},
 	 { "LogMsg_level", _wrap_LogMsg_level, METH_NOARGS, "level() -> Exiv2::LogMsg::Level"},
-	 { "LogMsg_handler", _wrap_LogMsg_handler, METH_NOARGS, "handler() -> Exiv2::LogMsg::Handler"},
-	 { "LogMsg_defaultHandler", _wrap_LogMsg_defaultHandler, METH_VARARGS, "\n"
-		"defaultHandler(level, s)\n"
-		"\n"
-		"Parameters\n"
-		"----------\n"
-		"level: int\n"
-		"s: char const *\n"
-		"\n"
-		""},
 	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
 		"__lshift__(os, error) -> std::ostream &\n"
 		"\n"
@@ -4246,7 +3889,7 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 
 static SwigPyGetSet LogMsg___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__LogMsg_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"LogMsg", &LogMsg___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Exiv2::LogMsg::setLevel", &LogMsg___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -4265,34 +3908,15 @@ SwigPyBuiltin__Exiv2__LogMsg_richcompare(PyObject *self, PyObject *other, int op
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LogMsg_methods[] = {
-  { "os", _wrap_LogMsg_os, METH_NOARGS, "os(self) -> std::ostringstream &" },
   { "setLevel", (PyCFunction)(void(*)(void))_wrap_LogMsg_setLevel, METH_STATIC|METH_O, "\n"
-		"setLevel(level)\n"
+		"Exiv2::LogMsg::setLevel(level)\n"
 		"\n"
 		"Parameters\n"
 		"----------\n"
 		"level: enum Exiv2::LogMsg::Level\n"
 		"\n"
 		"" },
-  { "setHandler", (PyCFunction)(void(*)(void))_wrap_LogMsg_setHandler, METH_STATIC|METH_O, "\n"
-		"setHandler(handler)\n"
-		"\n"
-		"Parameters\n"
-		"----------\n"
-		"handler: Exiv2::LogMsg::Handler\n"
-		"\n"
-		"" },
   { "level", (PyCFunction)(void(*)(void))_wrap_LogMsg_level, METH_STATIC|METH_NOARGS, "level() -> Exiv2::LogMsg::Level" },
-  { "handler", (PyCFunction)(void(*)(void))_wrap_LogMsg_handler, METH_STATIC|METH_NOARGS, "handler() -> Exiv2::LogMsg::Handler" },
-  { "defaultHandler", (PyCFunction)(void(*)(void))_wrap_LogMsg_defaultHandler, METH_STATIC|METH_VARARGS, "\n"
-		"defaultHandler(level, s)\n"
-		"\n"
-		"Parameters\n"
-		"----------\n"
-		"level: int\n"
-		"s: char const *\n"
-		"\n"
-		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -4307,7 +3931,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LogMsg_type = {
     "exiv2.error.LogMsg",                     /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_LogMsg_destructor_closure,   /* tp_dealloc */
+    SwigPyBuiltin_BadDealloc,                 /* tp_dealloc */
     (printfunc) 0,                            /* tp_print */
     (getattrfunc) 0,                          /* tp_getattr */
     (setattrfunc) 0,                          /* tp_setattr */
@@ -4346,7 +3970,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LogMsg_type = {
     (descrgetfunc) 0,                         /* tp_descr_get */
     (descrsetfunc) 0,                         /* tp_descr_set */
     offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_LogMsg,                         /* tp_init */
+    SwigPyBuiltin_BadInit,                    /* tp_init */
     (allocfunc) 0,                            /* tp_alloc */
     (newfunc) 0,                              /* tp_new */
     (freefunc) 0,                             /* tp_free */
@@ -4495,10 +4119,8 @@ static swig_type_info _swigt__p_Exiv2__BasicErrorT_char_t = {"_p_Exiv2__BasicErr
 static swig_type_info _swigt__p_Exiv2__LogMsg = {"_p_Exiv2__LogMsg", "Exiv2::LogMsg *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__LogMsg_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_f_int_p_q_const__char__void = {"_p_f_int_p_q_const__char__void", "void (*)(int,char const *)|Exiv2::LogMsg::Handler", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__exception = {"_p_std__exception", "std::exception *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__ostringstream = {"_p_std__ostringstream", "std::ostringstream *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__AnyError,
@@ -4506,10 +4128,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__LogMsg,
   &_swigt__p_SwigPyObject,
   &_swigt__p_char,
-  &_swigt__p_f_int_p_q_const__char__void,
   &_swigt__p_std__exception,
   &_swigt__p_std__ostream,
-  &_swigt__p_std__ostringstream,
 };
 
 static swig_cast_info _swigc__p_Exiv2__AnyError[] = {  {&_swigt__p_Exiv2__AnyError, 0, 0, 0},{0, 0, 0, 0}};
@@ -4517,10 +4137,8 @@ static swig_cast_info _swigc__p_Exiv2__BasicErrorT_char_t[] = {  {&_swigt__p_Exi
 static swig_cast_info _swigc__p_Exiv2__LogMsg[] = {  {&_swigt__p_Exiv2__LogMsg, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_f_int_p_q_const__char__void[] = {  {&_swigt__p_f_int_p_q_const__char__void, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__exception[] = {  {&_swigt__p_std__exception, 0, 0, 0},  {&_swigt__p_Exiv2__AnyError, _p_Exiv2__AnyErrorTo_p_std__exception, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__ostringstream[] = {  {&_swigt__p_std__ostringstream, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__AnyError,
@@ -4528,10 +4146,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__LogMsg,
   _swigc__p_SwigPyObject,
   _swigc__p_char,
-  _swigc__p_f_int_p_q_const__char__void,
   _swigc__p_std__exception,
   _swigc__p_std__ostream,
-  _swigc__p_std__ostringstream,
 };
 
 

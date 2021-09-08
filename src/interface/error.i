@@ -39,5 +39,11 @@ Exiv2::LogMsg::setHandler(&log_to_python);
 %ignore Exiv2::AnyError;
 
 %ignore Exiv2::errMsg;
+%ignore Exiv2::LogMsg::LogMsg;
+%ignore Exiv2::LogMsg::~LogMsg;
+%ignore Exiv2::LogMsg::os;
+%ignore Exiv2::LogMsg::handler;
+%ignore Exiv2::LogMsg::setHandler;
+%ignore Exiv2::LogMsg::defaultHandler;
 
 %include "exiv2/error.hpp"
