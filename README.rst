@@ -143,16 +143,21 @@ The Python interface redirects all Exiv2 messages to Python logging with an appr
 Installation
 ------------
 
+Windows
+^^^^^^^
+
 Python "wheels" are available for Windows Python versions from 3.5 to 3.9.
 These include the libexiv2 library and should not need any other software to be installed.
 They can be installed with ``pip``, for example::
 
     C:\Users\Jim>"c:\Program Files\Python38\python.exe" -m pip install python-exiv2
 
-On other operating systems the installation process includes a compilation step.
-This requires the "development headers" of Python3_, and an appropriate compiler & linker (GNU C++ on Linux).
+Linux
+^^^^^
 
-Once you've installed the necessary compiler you can run the ``pip3`` command (or ``pip`` if you don't have Python 2 on your computer), for example::
+Python "wheels" are available for Linux Python versions from 3.6 to 3.10.
+These include the libexiv2 library and should not need any other software to be installed.
+They can be installed with ``pip``, for example::
 
     sudo pip3 install python-exiv2
 
@@ -160,8 +165,11 @@ You can install for a single user with the ``--user`` option::
 
     pip3 install --user python-exiv2
 
-Since version 0.2.0 the python-exiv2 package on PyPI includes a copy of the libexiv2_ library and its header files, so you might not need to install your own.
-If a system installed version of libexiv2_ is available it will be used instead, as it's more likely to be compatible with your operating system.
+If the available wheels are not compatible with your operating system then pip will download the python-exiv2 source and attempt to compile it.
+This requires the "development headers" of Python3_ and an appropriate compiler & linker to be installed.
+
+If the development headers of libexiv2 are installed then pip will try to build python-exiv2 to use the installed version.
+Otherwise it will use the copy included in the download, which may not be compatible with your operating system.
 
 Building python-exiv2
 ---------------------
@@ -172,8 +180,8 @@ The ``setup.py`` script used to install python-exiv2 will use the libexiv2_ inst
 This usually requires the "development headers" package to be installed.
 In this case you just need to build python-exiv2 and install it as follows::
 
-    python3 setup.py bdist_wheel
-    sudo pip3 install dist/python_exiv2-0.2.0-cp36-cp36m-linux_x86_64.whl
+    pip wheel -v .
+    sudo pip3 install python_exiv2-0.2.3-cp36-cp36m-linux_x86_64.whl
 
 (The name of the wheel file will depend on the python-exiv2 version, your Python version, and the system architecture.)
 
@@ -185,8 +193,8 @@ For example::
     python3 utils/copy_libexiv2.py ../exiv2-0.27.4-Linux64 0.27.4
 
 This copies the exiv2 header files and runtime library to the directory ``libexiv2_0.27.4/linux/``.
-Now you can run ``setup.py`` as before.
-Note that ``setup.py`` will still use the system installed version of libexiv2_ if it can find it.
+Now you can run ``pip`` as before.
+Note that ``pip`` will still use the system installed version of libexiv2_ if it can find it.
 Uninstalling the "development headers" package will prevent this.
 
 When you try to import exiv2 into Python it's possible you might get an error like ``OSError: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by /usr/lib64/python3.6/site-packages/exiv2/libexiv2.so.0.27.4)``.
@@ -204,7 +212,7 @@ Then, back in your python-exiv2 directory, copy sources from the newly created l
 
     python3 utils/copy_libexiv2.py ../exiv2-0.27.4-Source/local_install 0.27.4
 
-Then run ``setup.py`` as before.
+Then run ``pip`` as before.
 
 Problems?
 ---------

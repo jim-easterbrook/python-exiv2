@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.2.3:
+  1/ Python "wheels" are now available for Linux Python 3.6 to 3.10
+
 Changes in v0.2.2:
   1/ Python "wheels" are now available for Windows Python 3.5 to 3.9
 
