@@ -34,29 +34,27 @@ def pkg_config(library, option):
 
 
 def main():
-    # get version
+    # get version to SWIG
     if len(sys.argv) != 2:
         print('Usage: %s version | "system"' % sys.argv[0])
         return 1
-    # get directories
-    home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
+    # get exiv2 version
     if sys.argv[1] == 'system':
         exiv2_version = pkg_config('exiv2', 'modversion')[0]
     else:
         exiv2_version = sys.argv[1]
-    target = os.path.abspath('libexiv2_' + exiv2_version)
     # get config
     if sys.argv[1] == 'system':
         incl_dir = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
         incl_dir = incl_dir or ['/usr/include']
         incl_dir = incl_dir[0]
     else:
-        incl_dir = os.path.join(target, sys.platform, 'include')
+        incl_dir = os.path.join('libexiv2_' + exiv2_version, sys.platform, 'include')
     # get python-exiv2 version
-    with open(os.path.join(home, 'README.rst')) as rst:
+    with open('README.rst') as rst:
         py_exiv2_version = rst.readline().split()[-1]
     # get list of modules (Python) and extensions (SWIG)
-    interface_dir = os.path.join(home, 'src', 'interface')
+    interface_dir = os.path.join('src', 'interface')
     file_names = os.listdir(interface_dir)
     file_names = [x for x in file_names if x != 'preamble.i']
     file_names.sort()
@@ -76,7 +74,7 @@ def main():
             swig_version = tuple(map(int, line.split()[-1].split('.')))
             break
     # make options list
-    output_dir = os.path.join(target, 'swig')
+    output_dir = os.path.join('src', 'swig_' + exiv2_version)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     swig_opts = ['-c++', '-python', '-py3', '-builtin', '-O',

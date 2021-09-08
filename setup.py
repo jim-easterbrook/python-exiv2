@@ -40,7 +40,7 @@ if platform != 'win32':
     exiv2_version = pkg_config('exiv2', 'modversion')
     if exiv2_version:
         exiv2_version = exiv2_version[0]
-        mod_src_dir = os.path.join('libexiv2_' + exiv2_version, 'swig')
+        mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
         if os.path.exists(mod_src_dir):
             print('Using system installed libexiv2 v{}'.format(exiv2_version))
             library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
@@ -55,7 +55,7 @@ if not mod_src_dir:
         if not name.startswith('libexiv2_'):
             continue
         exiv2_version = name.split('_', 1)[1]
-        mod_src_dir = os.path.join(name, 'swig')
+        mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
         lib_dir = os.path.join(name, platform, 'lib')
         inc_dir = os.path.join(name, platform, 'include')
         if not (os.path.exists(lib_dir) and os.path.exists(inc_dir)):
@@ -74,7 +74,8 @@ if not mod_src_dir:
                     shutil.copy2(os.path.join(lib_dir, name), dest)
                 else:
                     os.symlink(
-                        os.path.join('..', platform, 'lib', name), dest)
+                        os.path.join('..', '..', 'libexiv2_' + exiv2_version,
+                                     platform, 'lib', name), dest)
         break
 
 if not mod_src_dir:
