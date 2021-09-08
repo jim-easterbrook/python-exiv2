@@ -16,7 +16,7 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir dist
         env:
-          CIBW_BEFORE_ALL: yum install exiv2-devel
+          CIBW_BEFORE_ALL: yum -y install exiv2-devel
           CIBW_ARCHS: auto64
           CIBW_SKIP: pp37-macosx_x86_64
 
