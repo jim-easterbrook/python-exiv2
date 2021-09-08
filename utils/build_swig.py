@@ -56,7 +56,8 @@ def main():
     with open(os.path.join(home, 'README.rst')) as rst:
         py_exiv2_version = rst.readline().split()[-1]
     # get list of modules (Python) and extensions (SWIG)
-    file_names = os.listdir(os.path.join(home, 'src'))
+    interface_dir = os.path.join(home, 'src', 'interface')
+    file_names = os.listdir(interface_dir)
     file_names = [x for x in file_names if x != 'preamble.i']
     file_names.sort()
     file_names = [os.path.splitext(x) for x in file_names]
@@ -93,7 +94,7 @@ def main():
             if ext_name not in ('error', ):
                 cmd += ['-doxygen', '-DSWIG_DOXYGEN']
         cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
-        cmd += [os.path.join(home, 'src', ext_name + '.i')]
+        cmd += [os.path.join(interface_dir, ext_name + '.i')]
         print(' '.join(cmd))
         subprocess.check_call(cmd)
     # create init module
