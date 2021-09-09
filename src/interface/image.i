@@ -45,6 +45,8 @@
 // Potentially blocking calls allow Python threads
 %thread Exiv2::Image::readMetadata;
 %thread Exiv2::Image::writeMetadata;
+%thread Exiv2::ImageFactory::create;
+%thread Exiv2::ImageFactory::open;
 
 // Make image types available
 %inline %{

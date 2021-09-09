@@ -7424,7 +7424,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
   arg2 = static_cast< bool >(val2);
   {
     try {
-      result = Exiv2::ImageFactory::open((std::string const &)*arg1,arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = Exiv2::ImageFactory::open((std::string const &)*arg1,arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7464,7 +7468,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   }
   {
     try {
-      result = Exiv2::ImageFactory::open((std::string const &)*arg1);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = Exiv2::ImageFactory::open((std::string const &)*arg1);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7507,7 +7515,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_2(PyObject *self, Py_ssize_t 
   }
   {
     try {
-      result = Exiv2::ImageFactory::open((unsigned char const *)arg1,arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = Exiv2::ImageFactory::open((unsigned char const *)arg1,arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7548,7 +7560,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_3(PyObject *self, Py_ssize_t 
   }
   {
     try {
-      result = Exiv2::ImageFactory::open(arg1);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = Exiv2::ImageFactory::open(arg1);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7649,7 +7665,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
   }
   {
     try {
-      result = Exiv2::ImageFactory::create(arg1,(std::string const &)*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = Exiv2::ImageFactory::create(arg1,(std::string const &)*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7684,7 +7704,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_1(PyObject *self, Py_ssize_
   arg1 = static_cast< int >(val1);
   {
     try {
-      result = Exiv2::ImageFactory::create(arg1);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = Exiv2::ImageFactory::create(arg1);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7733,7 +7757,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_2(PyObject *self, Py_ssize_
   }
   {
     try {
-      result = Exiv2::ImageFactory::create(arg1,arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = Exiv2::ImageFactory::create(arg1,arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
