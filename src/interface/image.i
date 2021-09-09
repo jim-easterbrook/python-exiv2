@@ -49,9 +49,7 @@
 %thread Exiv2::ImageFactory::open;
 
 // Make image types available
-%inline %{
-struct ImageType {
-    enum {
+ENUM(ImageType,
         bmp =   Exiv2::ImageType::bmp,
         cr2 =   Exiv2::ImageType::cr2,
         crw =   Exiv2::ImageType::crw,
@@ -70,10 +68,7 @@ struct ImageType {
         rw2 =   Exiv2::ImageType::rw2,
         tga =   Exiv2::ImageType::tga,
         tiff =  Exiv2::ImageType::tiff,
-        xmp =   Exiv2::ImageType::xmp,
-    };
-};
-%}
+        xmp =   Exiv2::ImageType::xmp);
 %ignore Exiv2::ImageType::none;
 
 // Ignore const versions of methods

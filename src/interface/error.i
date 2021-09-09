@@ -42,6 +42,7 @@ Exiv2::LogMsg::setHandler(&log_to_python);
 
 // Ignore anything that's unusable from Python
 %ignore Exiv2::errMsg;
+%ignore Exiv2::ErrorCode;
 %ignore Exiv2::LogMsg::LogMsg;
 %ignore Exiv2::LogMsg::~LogMsg;
 %ignore Exiv2::LogMsg::os;

@@ -3563,9 +3563,6 @@ PyObject* logger = NULL;
 #include <string>
 
 
-  #define SWIG_From_long   PyInt_FromLong 
-
-
 SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
@@ -4793,7 +4790,6 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "CPLUSPLUS11",SWIG_From_long(static_cast< long >(201103L)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "EXIV2_MAJOR_VERSION",SWIG_From_int(static_cast< int >((0))));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "EXIV2_MINOR_VERSION",SWIG_From_int(static_cast< int >((26))));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "EXIV2_PATCH_VERSION",SWIG_From_int(static_cast< int >((0))));

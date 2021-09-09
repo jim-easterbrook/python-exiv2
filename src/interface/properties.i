@@ -30,6 +30,11 @@
 
 %auto_ptr(Exiv2::XmpKey)
 
+// Make Xmp category more Pythonic
+ENUM(XmpCategory,
+        Internal = Exiv2::xmpInternal,
+        External = Exiv2::xmpExternal);
+
 %immutable Exiv2::XmpPropertyInfo::name_;
 %immutable Exiv2::XmpPropertyInfo::title_;
 %immutable Exiv2::XmpPropertyInfo::xmpValueType_;

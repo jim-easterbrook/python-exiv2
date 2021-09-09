@@ -51743,7 +51743,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "TimeValue", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "TimeValue");
   d = md;
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "LARGE_INT",SWIG_From_int(static_cast< int >(1000000)));
   
   /* type 'Exiv2::ValueType< uint16_t >' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type;

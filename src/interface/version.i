@@ -26,5 +26,6 @@
 %ignore exv_grep_keys_t;
 %ignore Exiv2_grep_key_t;
 %ignore Exiv2::dumpLibraryInfo;
+%ignore CPLUSPLUS11;
 
 %include "exiv2/version.hpp"

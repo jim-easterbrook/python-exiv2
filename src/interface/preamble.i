@@ -232,3 +232,16 @@ public:
     }
 }
 %enddef
+
+// Macro to make enums more Pythonic
+%define ENUM(name, contents...)
+%inline %{
+struct name {
+    enum {contents};
+};
+%}
+%immutable name;
+%ignore name::name;
+%ignore name::~name;
+%ignore Exiv2::name;
+%enddef

@@ -3640,27 +3640,7 @@ PyObject* logger = NULL;
 
 
 struct ImageType {
-    enum {
-        bmp =   Exiv2::ImageType::bmp,
-        cr2 =   Exiv2::ImageType::cr2,
-        crw =   Exiv2::ImageType::crw,
-        eps =   Exiv2::ImageType::eps,
-        exv =   Exiv2::ImageType::exv,
-        gif =   Exiv2::ImageType::gif,
-        jp2 =   Exiv2::ImageType::jp2,
-        jpeg =  Exiv2::ImageType::jpeg,
-        mrw =   Exiv2::ImageType::mrw,
-        none =  Exiv2::ImageType::none,
-        orf =   Exiv2::ImageType::orf,
-        pgf =   Exiv2::ImageType::pgf,
-        png =   Exiv2::ImageType::png,
-        psd =   Exiv2::ImageType::psd,
-        raf =   Exiv2::ImageType::raf,
-        rw2 =   Exiv2::ImageType::rw2,
-        tga =   Exiv2::ImageType::tga,
-        tiff =  Exiv2::ImageType::tiff,
-        xmp =   Exiv2::ImageType::xmp,
-    };
+    enum {bmp =   Exiv2::ImageType::bmp,cr2 =   Exiv2::ImageType::cr2,crw =   Exiv2::ImageType::crw,eps =   Exiv2::ImageType::eps,exv =   Exiv2::ImageType::exv,gif =   Exiv2::ImageType::gif,jp2 =   Exiv2::ImageType::jp2,jpeg =  Exiv2::ImageType::jpeg,mrw =   Exiv2::ImageType::mrw,none =  Exiv2::ImageType::none,orf =   Exiv2::ImageType::orf,pgf =   Exiv2::ImageType::pgf,png =   Exiv2::ImageType::png,psd =   Exiv2::ImageType::psd,raf =   Exiv2::ImageType::raf,rw2 =   Exiv2::ImageType::rw2,tga =   Exiv2::ImageType::tga,tiff =  Exiv2::ImageType::tiff,xmp =   Exiv2::ImageType::xmp};
 };
 
 
@@ -4256,63 +4236,6 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN int _wrap_new_ImageType(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  ImageType *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_ImageType")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_ImageType", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (ImageType *)new ImageType();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ImageType, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_ImageType(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ImageType *arg1 = (ImageType *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_ImageType", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ImageType, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ImageType" "', argument " "1"" of type '" "ImageType *""'"); 
-  }
-  arg1 = reinterpret_cast< ImageType * >(argp1);
-  {
-    try {
-      delete arg1;
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ImageType) /* defines _wrap_delete_ImageType_destructor_closure */
-
 SWIGINTERN PyObject *_wrap_NativePreview_position__set(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::NativePreview *arg1 = (Exiv2::NativePreview *) 0 ;
@@ -8543,9 +8466,7 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 	 { NULL, NULL, 0, NULL }
 };
 
-static SwigPyGetSet ImageType___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__ImageType_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &ImageType___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -8578,7 +8499,7 @@ static PyHeapTypeObject SwigPyBuiltin__ImageType_type = {
     "exiv2.image.ImageType",                  /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_ImageType_destructor_closure,/* tp_dealloc */
+    SwigPyBuiltin_BadDealloc,                 /* tp_dealloc */
     (printfunc) 0,                            /* tp_print */
     (getattrfunc) 0,                          /* tp_getattr */
     (setattrfunc) 0,                          /* tp_setattr */
@@ -8617,7 +8538,7 @@ static PyHeapTypeObject SwigPyBuiltin__ImageType_type = {
     (descrgetfunc) 0,                         /* tp_descr_get */
     (descrsetfunc) 0,                         /* tp_descr_set */
     offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_ImageType,                      /* tp_init */
+    SwigPyBuiltin_BadInit,                    /* tp_init */
     (allocfunc) 0,                            /* tp_alloc */
     (newfunc) 0,                              /* tp_new */
     (freefunc) 0,                             /* tp_free */

@@ -59,8 +59,54 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 %ignore Exiv2::DataBuf::pData_;
 %ignore Exiv2::DataBuf::size_;
 
+// Make various enums more Pythonic
+ENUM(AccessMode,
+        none =      Exiv2::amNone,
+        Read =      Exiv2::amRead,
+        Write =     Exiv2::amWrite,
+        ReadWrite = Exiv2::amReadWrite);
+
+ENUM(MetadataId,
+        none =       Exiv2::mdNone,
+        Exif =       Exiv2::mdExif,
+        Iptc =       Exiv2::mdIptc,
+        Comment =    Exiv2::mdComment,
+        Xmp =        Exiv2::mdXmp,
+        IccProfile = Exiv2::mdIccProfile);
+
+ENUM(TypeId,
+        unsignedByte =     Exiv2::unsignedByte,
+        asciiString =      Exiv2::asciiString,
+        unsignedShort =    Exiv2::unsignedShort,
+        unsignedLong =     Exiv2::unsignedLong,
+        unsignedRational = Exiv2::unsignedRational,
+        signedByte =       Exiv2::signedByte,
+        undefined =        Exiv2::undefined,
+        signedShort =      Exiv2::signedShort,
+        signedLong =       Exiv2::signedLong,
+        signedRational =   Exiv2::signedRational,
+        tiffFloat =        Exiv2::tiffFloat,
+        tiffDouble =       Exiv2::tiffDouble,
+        tiffIfd =          Exiv2::tiffIfd,
+        string =           Exiv2::string,
+        date =             Exiv2::date,
+        time =             Exiv2::time,
+        comment =          Exiv2::comment,
+        directory =        Exiv2::directory,
+        xmpText =          Exiv2::xmpText,
+        xmpAlt =           Exiv2::xmpAlt,
+        xmpBag =           Exiv2::xmpBag,
+        xmpSeq =           Exiv2::xmpSeq,
+        langAlt =          Exiv2::langAlt,
+        invalidTypeId =    Exiv2::invalidTypeId,
+        lastTypeId =       Exiv2::lastTypeId);
+
 // Ignore slice stuff that SWIG can't understand
 %ignore makeSlice;
+
+// Ignore enums that Python doesn't need
+%ignore Exiv2::ByteOrder;
+%ignore Exiv2::WriteMethod;
 
 %include "exiv2/types.hpp"
 
