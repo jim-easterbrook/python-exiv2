@@ -3463,70 +3463,69 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_Exiv2__LangAltValue swig_types[16]
 #define SWIGTYPE_p_Exiv2__MemIo swig_types[17]
 #define SWIGTYPE_p_Exiv2__NativePreview swig_types[18]
-#define SWIGTYPE_p_Exiv2__PrintStructureOption swig_types[19]
-#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[20]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[21]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[22]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[23]
-#define SWIGTYPE_p_Exiv2__Value swig_types[24]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[25]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[26]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[27]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[28]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[29]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[30]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[31]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[32]
-#define SWIGTYPE_p_Exiv2__XPathIo swig_types[33]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[34]
-#define SWIGTYPE_p_Exiv2__XmpData swig_types[35]
-#define SWIGTYPE_p_Exiv2__XmpKey swig_types[36]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[37]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[38]
-#define SWIGTYPE_p_ImageType swig_types[39]
-#define SWIGTYPE_p_NsRegistry swig_types[40]
-#define SWIGTYPE_p_SwigPyObject swig_types[41]
-#define SWIGTYPE_p_ValueList swig_types[42]
-#define SWIGTYPE_p_ValueType swig_types[43]
-#define SWIGTYPE_p_allocator_type swig_types[44]
-#define SWIGTYPE_p_char swig_types[45]
-#define SWIGTYPE_p_const_iterator swig_types[46]
-#define SWIGTYPE_p_difference_type swig_types[47]
-#define SWIGTYPE_p_first_type swig_types[48]
-#define SWIGTYPE_p_int swig_types[49]
-#define SWIGTYPE_p_iterator swig_types[50]
-#define SWIGTYPE_p_key_type swig_types[51]
-#define SWIGTYPE_p_long_long swig_types[52]
-#define SWIGTYPE_p_mapped_type swig_types[53]
-#define SWIGTYPE_p_second_type swig_types[54]
-#define SWIGTYPE_p_short swig_types[55]
-#define SWIGTYPE_p_signed_char swig_types[56]
-#define SWIGTYPE_p_size_type swig_types[57]
-#define SWIGTYPE_p_std__auto_ptrT_Exiv2__BasicIo_t swig_types[58]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[59]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[60]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[61]
-#define SWIGTYPE_p_std__ostream swig_types[62]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[63]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[64]
-#define SWIGTYPE_p_std__setT_std__string_t swig_types[65]
-#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[66]
-#define SWIGTYPE_p_std__string swig_types[67]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[68]
-#define SWIGTYPE_p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t swig_types[69]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[70]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[71]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[72]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[73]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[74]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[75]
-#define SWIGTYPE_p_unsigned_char swig_types[76]
-#define SWIGTYPE_p_unsigned_int swig_types[77]
-#define SWIGTYPE_p_unsigned_long_long swig_types[78]
-#define SWIGTYPE_p_unsigned_short swig_types[79]
-#define SWIGTYPE_p_value_type swig_types[80]
-static swig_type_info *swig_types[82];
-static swig_module_info swig_module = {swig_types, 81, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[19]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[20]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[21]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[22]
+#define SWIGTYPE_p_Exiv2__Value swig_types[23]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[24]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[25]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[26]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[27]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[28]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[29]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[30]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[31]
+#define SWIGTYPE_p_Exiv2__XPathIo swig_types[32]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[33]
+#define SWIGTYPE_p_Exiv2__XmpData swig_types[34]
+#define SWIGTYPE_p_Exiv2__XmpKey swig_types[35]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[36]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[37]
+#define SWIGTYPE_p_ImageType swig_types[38]
+#define SWIGTYPE_p_NsRegistry swig_types[39]
+#define SWIGTYPE_p_SwigPyObject swig_types[40]
+#define SWIGTYPE_p_ValueList swig_types[41]
+#define SWIGTYPE_p_ValueType swig_types[42]
+#define SWIGTYPE_p_allocator_type swig_types[43]
+#define SWIGTYPE_p_char swig_types[44]
+#define SWIGTYPE_p_const_iterator swig_types[45]
+#define SWIGTYPE_p_difference_type swig_types[46]
+#define SWIGTYPE_p_first_type swig_types[47]
+#define SWIGTYPE_p_int swig_types[48]
+#define SWIGTYPE_p_iterator swig_types[49]
+#define SWIGTYPE_p_key_type swig_types[50]
+#define SWIGTYPE_p_long_long swig_types[51]
+#define SWIGTYPE_p_mapped_type swig_types[52]
+#define SWIGTYPE_p_second_type swig_types[53]
+#define SWIGTYPE_p_short swig_types[54]
+#define SWIGTYPE_p_signed_char swig_types[55]
+#define SWIGTYPE_p_size_type swig_types[56]
+#define SWIGTYPE_p_std__auto_ptrT_Exiv2__BasicIo_t swig_types[57]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[58]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[59]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[60]
+#define SWIGTYPE_p_std__ostream swig_types[61]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[62]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[63]
+#define SWIGTYPE_p_std__setT_std__string_t swig_types[64]
+#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[65]
+#define SWIGTYPE_p_std__string swig_types[66]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[67]
+#define SWIGTYPE_p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t swig_types[68]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[69]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[70]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[71]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[72]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[73]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[74]
+#define SWIGTYPE_p_unsigned_char swig_types[75]
+#define SWIGTYPE_p_unsigned_int swig_types[76]
+#define SWIGTYPE_p_unsigned_long_long swig_types[77]
+#define SWIGTYPE_p_unsigned_short swig_types[78]
+#define SWIGTYPE_p_value_type swig_types[79]
+static swig_type_info *swig_types[81];
+static swig_module_info swig_module = {swig_types, 80, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4067,22 +4066,6 @@ SWIG_From_std_string  (const std::string& s)
 
 
 SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
-
-
-SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
   int r;
@@ -4100,6 +4083,22 @@ SWIGINTERNINLINE PyObject*
   SWIG_From_bool  (bool value)
 {
   return PyBool_FromLong(value ? 1 : 0);
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_int (PyObject * obj, int *val)
+{
+  long v;
+  int res = SWIG_AsVal_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v < INT_MIN || v > INT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< int >(v);
+    }
+  }  
+  return res;
 }
 
 
@@ -4725,187 +4724,6 @@ SWIGINTERN PyObject *_wrap_delete_Image(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_printStructure__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
-  std::ostream *arg2 = 0 ;
-  Exiv2::PrintStructureOption arg3 ;
-  int arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  int val4 ;
-  int ecode4 = 0 ;
-  
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_printStructure" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_printStructure" "', argument " "2"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_printStructure" "', argument " "2"" of type '" "std::ostream &""'"); 
-  }
-  arg2 = reinterpret_cast< std::ostream * >(argp2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Image_printStructure" "', argument " "3"" of type '" "Exiv2::PrintStructureOption""'");
-  } 
-  arg3 = static_cast< Exiv2::PrintStructureOption >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Image_printStructure" "', argument " "4"" of type '" "int""'");
-  } 
-  arg4 = static_cast< int >(val4);
-  {
-    try {
-      (arg1)->printStructure(*arg2,arg3,arg4);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_printStructure__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
-  std::ostream *arg2 = 0 ;
-  Exiv2::PrintStructureOption arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_printStructure" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_printStructure" "', argument " "2"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_printStructure" "', argument " "2"" of type '" "std::ostream &""'"); 
-  }
-  arg2 = reinterpret_cast< std::ostream * >(argp2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Image_printStructure" "', argument " "3"" of type '" "Exiv2::PrintStructureOption""'");
-  } 
-  arg3 = static_cast< Exiv2::PrintStructureOption >(val3);
-  {
-    try {
-      (arg1)->printStructure(*arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_printStructure__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
-  std::ostream *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_printStructure" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_printStructure" "', argument " "2"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_printStructure" "', argument " "2"" of type '" "std::ostream &""'"); 
-  }
-  arg2 = reinterpret_cast< std::ostream * >(argp2);
-  {
-    try {
-      (arg1)->printStructure(*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_printStructure(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[5] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Image_printStructure", 0, 4, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_Image_printStructure__SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_Image_printStructure__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
-    PyObject *retobj = _wrap_Image_printStructure__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Image_printStructure'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Image::printStructure(std::ostream &,Exiv2::PrintStructureOption,int)\n"
-    "    Exiv2::Image::printStructure(std::ostream &,Exiv2::PrintStructureOption)\n"
-    "    Exiv2::Image::printStructure(std::ostream &)\n");
-  return 0;
 }
 
 
@@ -9182,13 +9000,6 @@ SwigPyBuiltin__Exiv2__Image_richcompare(PyObject *self, PyObject *other, int op)
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
-  { "printStructure", _wrap_Image_printStructure, METH_VARARGS, "\n"
-		"Print out the structure of image file.\n"
-		":raises: Error if reading of the file fails or the image data is\n"
-		"          not valid (does not look like data of the specific image type).\n"
-		"Warning: This function is not thread safe and intended for exiv2 -pS for debugging.\n"
-		"You may need to put the stream into binary mode (see src/actions.cpp)\n"
-		"" },
   { "readMetadata", _wrap_Image_readMetadata, METH_NOARGS, "\n"
 		"Read all metadata supported by a specific image format from the\n"
 		"    image. Before this method is called, the image metadata will be\n"
@@ -10212,7 +10023,6 @@ static swig_type_info _swigt__p_Exiv2__IptcKey = {"_p_Exiv2__IptcKey", "Exiv2::I
 static swig_type_info _swigt__p_Exiv2__Key = {"_p_Exiv2__Key", "Exiv2::Key *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__LangAltValue = {"_p_Exiv2__LangAltValue", "Exiv2::LangAltValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__NativePreview = {"_p_Exiv2__NativePreview", "Exiv2::NativePreview *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__NativePreview_clientdata, 0};
-static swig_type_info _swigt__p_Exiv2__PrintStructureOption = {"_p_Exiv2__PrintStructureOption", "enum Exiv2::PrintStructureOption *|Exiv2::PrintStructureOption *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__StringValue = {"_p_Exiv2__StringValue", "Exiv2::StringValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__StringValueBase = {"_p_Exiv2__StringValueBase", "Exiv2::StringValueBase *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__TimeValue = {"_p_Exiv2__TimeValue", "Exiv2::TimeValue *", 0, 0, (void*)0, 0};
@@ -10293,7 +10103,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__LangAltValue,
   &_swigt__p_Exiv2__MemIo,
   &_swigt__p_Exiv2__NativePreview,
-  &_swigt__p_Exiv2__PrintStructureOption,
   &_swigt__p_Exiv2__RemoteIo,
   &_swigt__p_Exiv2__StringValue,
   &_swigt__p_Exiv2__StringValueBase,
@@ -10378,7 +10187,6 @@ static swig_cast_info _swigc__p_Exiv2__IptcKey[] = {  {&_swigt__p_Exiv2__IptcKey
 static swig_cast_info _swigc__p_Exiv2__Key[] = {  {&_swigt__p_Exiv2__IptcKey, _p_Exiv2__IptcKeyTo_p_Exiv2__Key, 0, 0},  {&_swigt__p_Exiv2__Key, 0, 0, 0},  {&_swigt__p_Exiv2__XmpKey, _p_Exiv2__XmpKeyTo_p_Exiv2__Key, 0, 0},  {&_swigt__p_Exiv2__ExifKey, _p_Exiv2__ExifKeyTo_p_Exiv2__Key, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LangAltValue[] = {  {&_swigt__p_Exiv2__LangAltValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__NativePreview[] = {  {&_swigt__p_Exiv2__NativePreview, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__PrintStructureOption[] = {  {&_swigt__p_Exiv2__PrintStructureOption, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValue[] = {  {&_swigt__p_Exiv2__StringValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValueBase[] = {  {&_swigt__p_Exiv2__CommentValue, _p_Exiv2__CommentValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__StringValueBase, 0, 0, 0},  {&_swigt__p_Exiv2__StringValue, _p_Exiv2__StringValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__AsciiValue, _p_Exiv2__AsciiValueTo_p_Exiv2__StringValueBase, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__TimeValue[] = {  {&_swigt__p_Exiv2__TimeValue, 0, 0, 0},{0, 0, 0, 0}};
@@ -10459,7 +10267,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__LangAltValue,
   _swigc__p_Exiv2__MemIo,
   _swigc__p_Exiv2__NativePreview,
-  _swigc__p_Exiv2__PrintStructureOption,
   _swigc__p_Exiv2__RemoteIo,
   _swigc__p_Exiv2__StringValue,
   _swigc__p_Exiv2__StringValueBase,
@@ -11335,12 +11142,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "NativePreview", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "NativePreview");
   d = md;
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "kpsNone",SWIG_From_int(static_cast< int >(Exiv2::kpsNone)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "kpsBasic",SWIG_From_int(static_cast< int >(Exiv2::kpsBasic)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "kpsXMP",SWIG_From_int(static_cast< int >(Exiv2::kpsXMP)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "kpsRecursive",SWIG_From_int(static_cast< int >(Exiv2::kpsRecursive)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "kpsIccProfile",SWIG_From_int(static_cast< int >(Exiv2::kpsIccProfile)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "kpsIptcErase",SWIG_From_int(static_cast< int >(Exiv2::kpsIptcErase)));
   
   /* type 'Exiv2::Image' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__Image_type;

@@ -76,9 +76,14 @@ struct ImageType {
 %}
 %ignore Exiv2::ImageType::none;
 
+// Ignore const versions of methods
 %ignore Exiv2::Image::exifData() const;
 %ignore Exiv2::Image::iptcData() const;
 %ignore Exiv2::Image::xmpData() const;
 %ignore Exiv2::Image::xmpPacket() const;
+
+// Ignore stuff Python can't use
+%ignore Exiv2::Image::printStructure;
+%ignore Exiv2::PrintStructureOption;
 
 %include "exiv2/image.hpp"
