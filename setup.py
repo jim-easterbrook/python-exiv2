@@ -35,7 +35,7 @@ platform = sys.platform
 if platform == 'win32' and 'GCC' in sys.version:
     platform = 'mingw'
 
-if platform != 'win32':
+if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     # attempt to use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
     if exiv2_version:
@@ -51,17 +51,23 @@ if platform != 'win32':
 
 if not mod_src_dir:
     # installed libexiv2 not found, use our own
-    for name in os.listdir('.'):
-        if not name.startswith('libexiv2_'):
-            continue
-        exiv2_version = name.split('_', 1)[1]
-        mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
-        lib_dir = os.path.join(name, platform, 'lib')
-        inc_dir = os.path.join(name, platform, 'include')
-        if not (os.path.exists(lib_dir) and os.path.exists(inc_dir)):
-            mod_src_dir = None
-            continue
+    if 'EXIV2_VERSION' in os.environ:
+        exiv2_version = os.environ['EXIV2_VERSION']
+    else:
+        exiv2_version = None
+        for name in os.listdir('.'):
+            if not name.startswith('libexiv2_'):
+                continue
+            lib_dir = os.path.join(name, platform, 'lib')
+            inc_dir = os.path.join(name, platform, 'include')
+            if os.path.exists(lib_dir) and os.path.exists(inc_dir):
+                exiv2_version = name.split('_', 1)[1]
+                break
+    if exiv2_version:
         print('Using included libexiv2 v{}'.format(exiv2_version))
+        mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
+        lib_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'lib')
+        inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
         library_dirs = [lib_dir]
         include_dirs = [inc_dir]
         # link libraries into package
@@ -76,7 +82,6 @@ if not mod_src_dir:
                     os.symlink(
                         os.path.join('..', '..', 'libexiv2_' + exiv2_version,
                                      platform, 'lib', name), dest)
-        break
 
 if not mod_src_dir:
     print('ERROR: No SWIG source for libexiv2 version {}'.format(exiv2_version))
