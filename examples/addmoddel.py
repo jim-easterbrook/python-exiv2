@@ -49,7 +49,7 @@ def main():
         print("Added a few tags the quick way.")
 
         # Create a ASCII string value (note the use of create)
-        v = exiv2.Value.create(exiv2.asciiString)
+        v = exiv2.Value.create(exiv2.TypeId.asciiString)
         # Set the value to a string
         v.read("1999:12:31 23:59:59")
         # Add the value together with its key to the Exif data container

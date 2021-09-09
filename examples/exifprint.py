@@ -71,8 +71,7 @@ def main():
         image.readMetadata()
         exifData = image.exifData()
         if exifData.empty():
-            raise exiv2.AnyError(exiv2.kerErrorMessage,
-                                 "No Exif data found in file")
+            raise exiv2.AnyError("No Exif data found in file")
 
         end = exifData.end()
         i = exifData.begin()
