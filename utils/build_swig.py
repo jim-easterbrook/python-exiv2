@@ -102,13 +102,13 @@ def main():
 import logging
 import sys
 
-if sys.platform == 'linux':
+if sys.platform == 'win32':
     import os
-    _lib = os.path.join(os.path.dirname(__file__), 'libexiv2.so')
-    if os.path.exists(_lib):
-        # import libexiv2 shared library (avoids setting LD_LIBRARY_PATH)
-        from ctypes import cdll
-        cdll.LoadLibrary(_lib)
+    _dir = os.path.join(os.path.dirname(__file__), 'lib')
+    if hasattr(os, 'add_dll_directory'):
+        os.add_dll_directory(_dir)
+    else:
+        os.environ['PATH'] = _dir + ';' + os.environ['PATH']
 
 _logger = logging.getLogger(__name__)
 

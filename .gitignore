@@ -4,6 +4,3 @@ python_exiv2.egg-info
 libexiv2_*/darwin
 libexiv2_*/linux
 libexiv2_*/win32
-src/swig_*/*.dll
-src/swig_*/*.dylib
-src/swig_*/*.so

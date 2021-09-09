@@ -34,20 +34,21 @@ def main():
     new_platform = platform
     for root, dirs, files in os.walk(os.path.join(home, sys.argv[1])):
         for file in files:
-            if file in ['libexiv2.so', 'libexiv2.dylib',
-                        'exiv2.lib', 'exiv2.dll']:
-                lib_files.append(os.path.normpath(os.path.join(root, file)))
-                if file == 'exiv2.dll' and platform != 'win32':
-                    new_platform = 'win32'
-                elif file == 'libexiv2.so' and platform != 'linux':
-                    new_platform = 'linux'
-                elif file == 'libexiv2.dylib' and platform != 'darwin':
-                    new_platform = 'darwin'
-                if platform != new_platform:
-                    print('platform {} -> {}'.format(platform, new_platform))
-                    platform = new_platform
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)
+                continue
+            if file == 'exiv2.dll':
+                new_platform = 'win32'
+            elif file == 'libexiv2.dylib':
+                new_platform = 'darwin'
+            elif file.startswith('libexiv2.so'):
+                new_platform = 'linux'
+            else:
+                continue
+            lib_files.append(os.path.normpath(os.path.join(root, file)))
+            if platform != new_platform:
+                print('platform {} -> {}'.format(platform, new_platform))
+                platform = new_platform
     # get output directory
     target = os.path.join(home, 'libexiv2_' + version, platform)
     if os.path.isdir(target):
@@ -56,7 +57,7 @@ def main():
     dest = os.path.join(target, 'lib')
     os.makedirs(dest, exist_ok=True)
     for file in lib_files:
-        shutil.copy2(file, dest)
+        shutil.copy2(file, dest, follow_symlinks=False)
     # copy include files
     dest = os.path.join(target, 'include', 'exiv2')
     shutil.copytree(incl_dir, dest)

@@ -35,6 +35,10 @@ platform = sys.platform
 if platform == 'win32' and 'GCC' in sys.version:
     platform = 'mingw'
 
+packages = ['exiv2']
+package_dir = {}
+package_data = {}
+
 if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     # attempt to use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
@@ -46,6 +50,7 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
             library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
             include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
             include_dirs = include_dirs or ['/usr/include']
+            extra_link_args = []
         else:
             mod_src_dir = None
 
@@ -70,22 +75,26 @@ if not mod_src_dir:
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
         library_dirs = [lib_dir]
         include_dirs = [inc_dir]
-        # link libraries into package
-        for name in os.listdir(lib_dir):
-            if name == 'exiv2.lib':
-                continue
-            dest = os.path.join(mod_src_dir, name)
-            if not os.path.exists(dest):
-                if platform == 'win32':
-                    shutil.copy2(os.path.join(lib_dir, name), dest)
-                else:
-                    os.symlink(
-                        os.path.join('..', '..', 'libexiv2_' + exiv2_version,
-                                     platform, 'lib', name), dest)
+        if platform == 'linux':
+            extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
+        else:
+            extra_link_args = []
+        # add exiv2.lib package for libexiv2 binary
+        packages.append('exiv2.lib')
+        package_dir['exiv2.lib'] = lib_dir
+        package_data['exiv2.lib'] = ['*.dll', '*.dylib']
+        if platform == 'linux':
+            # choose the libexiv2.so.?? version
+            for name in os.listdir(lib_dir):
+                if len(name.split('.')) == 3:
+                    package_data['exiv2.lib'] = [name]
+
 
 if not mod_src_dir:
     print('ERROR: No SWIG source for libexiv2 version {}'.format(exiv2_version))
     sys.exit(1)
+
+package_dir['exiv2'] = mod_src_dir
 
 # create extension modules list
 ext_modules = []
@@ -108,6 +117,7 @@ for file_name in os.listdir(mod_src_dir):
         extra_compile_args = extra_compile_args,
         libraries = ['exiv2'],
         library_dirs = library_dirs,
+        extra_link_args = extra_link_args,
         ))
 
 # set options for building source distributions
@@ -146,10 +156,8 @@ setup(name = 'python-exiv2',
       command_options = command_options,
       ext_package = 'exiv2',
       ext_modules = ext_modules,
-      packages = ['exiv2'],
-      package_dir = {'exiv2': mod_src_dir},
-      include_package_data = True,
-      package_data = {'': ['*.dll', 'libexiv2.*']},
-      exclude_package_data = {'': ['*.cxx']},
+      packages = packages,
+      package_dir = package_dir,
+      package_data = package_data,
       zip_safe = False,
       )
