@@ -15,7 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%module(package="exiv2") image
+%module(package="exiv2", threads="1") image
+%nothread;
 
 #pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
@@ -40,6 +41,10 @@
 
 %auto_ptr(Exiv2::BasicIo)
 %auto_ptr(Exiv2::Image)
+
+// Potentially blocking calls allow Python threads
+%thread Exiv2::Image::readMetadata;
+%thread Exiv2::Image::writeMetadata;
 
 // Make image types available
 %inline %{

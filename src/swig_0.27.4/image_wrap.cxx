@@ -13,6 +13,7 @@
 #define SWIGPYTHON
 #endif
 
+#define SWIG_PYTHON_THREADS
 #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
 #define SWIGPYTHON_BUILTIN
 
@@ -4923,7 +4924,11 @@ SWIGINTERN PyObject *_wrap_Image_readMetadata(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
     try {
-      (arg1)->readMetadata();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        (arg1)->readMetadata();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4954,7 +4959,11 @@ SWIGINTERN PyObject *_wrap_Image_writeMetadata(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
     try {
-      (arg1)->writeMetadata();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        (arg1)->writeMetadata();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -11350,6 +11359,9 @@ SWIG_init(void) {
   PyModule_AddObject(m, "ImageFactory", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "ImageFactory");
   d = md;
+  
+  /* Initialize threading */
+  SWIG_PYTHON_INITIALIZE_THREADS;
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else
