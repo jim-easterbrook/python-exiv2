@@ -26,9 +26,11 @@
 // Set Python logger as Exiv2 log handler
 %{
 static void log_to_python(int level, const char* msg) {
+    PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject* res = PyObject_CallMethod(
         logger, "log", "(is)", (level + 1) * 10, msg);
     Py_XDECREF(res);
+    PyGILState_Release(gstate);
 };
 %}
 %init %{
@@ -38,6 +40,7 @@ Exiv2::LogMsg::setHandler(&log_to_python);
 // Python defines a replacement for this exception
 %ignore Exiv2::AnyError;
 
+// Ignore anything that's unusable from Python
 %ignore Exiv2::errMsg;
 %ignore Exiv2::LogMsg::LogMsg;
 %ignore Exiv2::LogMsg::~LogMsg;
@@ -45,5 +48,6 @@ Exiv2::LogMsg::setHandler(&log_to_python);
 %ignore Exiv2::LogMsg::handler;
 %ignore Exiv2::LogMsg::setHandler;
 %ignore Exiv2::LogMsg::defaultHandler;
+%ignore Exiv2::operator<<;
 
 %include "exiv2/error.hpp"

@@ -3449,9 +3449,8 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_SwigPyObject swig_types[3]
 #define SWIGTYPE_p_char swig_types[4]
 #define SWIGTYPE_p_std__exception swig_types[5]
-#define SWIGTYPE_p_std__ostream swig_types[6]
-static swig_type_info *swig_types[8];
-static swig_module_info swig_module = {swig_types, 7, 0, 0, 0, 0};
+static swig_type_info *swig_types[7];
+static swig_module_info swig_module = {swig_types, 6, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3570,9 +3569,11 @@ PyObject* logger = NULL;
 
 
 static void log_to_python(int level, const char* msg) {
+    PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject* res = PyObject_CallMethod(
         logger, "log", "(is)", (level + 1) * 10, msg);
     Py_XDECREF(res);
+    PyGILState_Release(gstate);
 };
 
 
@@ -3791,54 +3792,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap___lshift__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  Exiv2::AnyError *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  std::ostream *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "__lshift__", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__AnyError,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::AnyError const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::AnyError const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::AnyError * >(argp2);
-  {
-    try {
-      result = (std::ostream *) &Exiv2::operator <<(*arg1,(Exiv2::AnyError const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
@@ -3851,15 +3804,6 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "LogMsg_level", _wrap_LogMsg_level, METH_NOARGS, "LogMsg_level() -> Exiv2::LogMsg::Level"},
-	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
-		"__lshift__(os, error) -> std::ostream &\n"
-		"\n"
-		"Parameters\n"
-		"----------\n"
-		"os: std::ostream &\n"
-		"error: Exiv2::AnyError const &\n"
-		"\n"
-		""},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -3875,15 +3819,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		"\n"
 		""},
 	 { "LogMsg_level", _wrap_LogMsg_level, METH_NOARGS, "level() -> Exiv2::LogMsg::Level"},
-	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
-		"__lshift__(os, error) -> std::ostream &\n"
-		"\n"
-		"Parameters\n"
-		"----------\n"
-		"os: std::ostream &\n"
-		"error: Exiv2::AnyError const &\n"
-		"\n"
-		""},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -4114,13 +4049,12 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__LogMsg_clientdata = {0, 0, 0, 
 static void *_p_Exiv2__AnyErrorTo_p_std__exception(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((std::exception *)  ((Exiv2::AnyError *) x));
 }
-static swig_type_info _swigt__p_Exiv2__AnyError = {"_p_Exiv2__AnyError", "Exiv2::AnyError *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__BasicErrorT_char_t = {"_p_Exiv2__BasicErrorT_char_t", "Exiv2::Error *|Exiv2::BasicError< char > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__LogMsg = {"_p_Exiv2__LogMsg", "Exiv2::LogMsg *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__LogMsg_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__exception = {"_p_std__exception", "std::exception *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__AnyError = {"_p_Exiv2__AnyError", 0, 0, 0, 0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__AnyError,
@@ -4129,16 +4063,14 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_SwigPyObject,
   &_swigt__p_char,
   &_swigt__p_std__exception,
-  &_swigt__p_std__ostream,
 };
 
-static swig_cast_info _swigc__p_Exiv2__AnyError[] = {  {&_swigt__p_Exiv2__AnyError, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__BasicErrorT_char_t[] = {  {&_swigt__p_Exiv2__BasicErrorT_char_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LogMsg[] = {  {&_swigt__p_Exiv2__LogMsg, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__AnyError[] = {{&_swigt__p_Exiv2__AnyError, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__exception[] = {  {&_swigt__p_std__exception, 0, 0, 0},  {&_swigt__p_Exiv2__AnyError, _p_Exiv2__AnyErrorTo_p_std__exception, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__AnyError,
@@ -4147,7 +4079,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_SwigPyObject,
   _swigc__p_char,
   _swigc__p_std__exception,
-  _swigc__p_std__ostream,
 };
 
 
