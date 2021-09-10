@@ -33,6 +33,9 @@
 %include "pybuffer.i"
 %include "std_string.i"
 %include "std_auto_ptr.i"
+#ifdef EXV_UNICODE_PATH
+%include "std_wstring.i"
+#endif
 
 %pybuffer_binary(const Exiv2::byte* data, long size)
 %typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {

@@ -26,6 +26,9 @@
 %include "pybuffer.i"
 %include "stdint.i"
 %include "std_string.i"
+#ifdef EXV_UNICODE_PATH
+%include "std_wstring.i"
+#endif
 
 %import "metadatum.i"
 %import "tags.i"
