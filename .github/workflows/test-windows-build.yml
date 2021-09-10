@@ -26,8 +26,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: vcpkg install zlib --triplet=x64-windows
-#        run: vcpkg install zlib libiconv expat --triplet=x64-windows
+        run: vcpkg install zlib libiconv expat --triplet=x64-windows
 
       - name: Fetch Exiv2 source
         uses: actions/download-artifact@v2
