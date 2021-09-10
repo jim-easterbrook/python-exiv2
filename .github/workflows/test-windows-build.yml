@@ -1,0 +1,41 @@
+name: Test build Windows exiv2
+on: workflow_dispatch
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Download Exiv2 source
+        run: |
+          wget -nv https://www.exiv2.org/builds/exiv2-0.27.4-Source.tar.gz
+          tar xf exiv2-0.27.4-Source.tar.gz
+
+      - name: Store downloaded files
+        uses: actions/upload-artifact@v2
+        with:
+          name: exiv2-source
+          path: exiv2-0.27.4-Source
+          retention-days: 1
+
+  build:
+    needs: fetch
+    runs-on: windows-2019
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Fetch downloaded files
+        uses: actions/download-artifact@v2
+        with:
+          name: exiv2-source
+
+      - name: Compile Exiv2
+        run: |
+          cd exiv2-0.27.4-Source
+          mkdir build
+          cd build
+          cmake .. -G "Visual Studio 16 2019" -A x64
+          cmake --build . --config Release
