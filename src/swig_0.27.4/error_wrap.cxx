@@ -3444,13 +3444,12 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_Exiv2__AnyError swig_types[0]
-#define SWIGTYPE_p_Exiv2__BasicErrorT_char_t swig_types[1]
-#define SWIGTYPE_p_Exiv2__LogMsg swig_types[2]
-#define SWIGTYPE_p_SwigPyObject swig_types[3]
-#define SWIGTYPE_p_char swig_types[4]
-#define SWIGTYPE_p_std__exception swig_types[5]
-static swig_type_info *swig_types[7];
-static swig_module_info swig_module = {swig_types, 6, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__LogMsg swig_types[1]
+#define SWIGTYPE_p_SwigPyObject swig_types[2]
+#define SWIGTYPE_p_char swig_types[3]
+#define SWIGTYPE_p_std__exception swig_types[4]
+static swig_type_info *swig_types[6];
+static swig_module_info swig_module = {swig_types, 5, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4049,7 +4048,6 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__LogMsg_clientdata = {0, 0, 0, 
 static void *_p_Exiv2__AnyErrorTo_p_std__exception(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((std::exception *)  ((Exiv2::AnyError *) x));
 }
-static swig_type_info _swigt__p_Exiv2__BasicErrorT_char_t = {"_p_Exiv2__BasicErrorT_char_t", "Exiv2::Error *|Exiv2::BasicError< char > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__LogMsg = {"_p_Exiv2__LogMsg", "Exiv2::LogMsg *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__LogMsg_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -4058,14 +4056,12 @@ static swig_type_info _swigt__p_Exiv2__AnyError = {"_p_Exiv2__AnyError", 0, 0, 0
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__AnyError,
-  &_swigt__p_Exiv2__BasicErrorT_char_t,
   &_swigt__p_Exiv2__LogMsg,
   &_swigt__p_SwigPyObject,
   &_swigt__p_char,
   &_swigt__p_std__exception,
 };
 
-static swig_cast_info _swigc__p_Exiv2__BasicErrorT_char_t[] = {  {&_swigt__p_Exiv2__BasicErrorT_char_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LogMsg[] = {  {&_swigt__p_Exiv2__LogMsg, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -4074,7 +4070,6 @@ static swig_cast_info _swigc__p_std__exception[] = {  {&_swigt__p_std__exception
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__AnyError,
-  _swigc__p_Exiv2__BasicErrorT_char_t,
   _swigc__p_Exiv2__LogMsg,
   _swigc__p_SwigPyObject,
   _swigc__p_char,
