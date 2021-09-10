@@ -34,19 +34,13 @@ jobs:
       - name: Extract Exiv2 source
         run: bash -c "tar xf exiv2-0.27.4-Source.tar.gz"
 
-      - name: List files
-        run: dir exiv2-0.27.4-Source
-
       - name: Install dependencies
         run: vcpkg install zlib libiconv expat --triplet=x64-windows
-
-      - name: List files
-        run: dir exiv2-0.27.4-Source
 
       - name: Compile Exiv2
         run: |
           cd exiv2-0.27.4-Source
           mkdir build
           cd build
-          cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake
-          cmake --build . --config Release
+          cmake .. -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 16 2019" -A x64 -DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake
+          cmake --build .
