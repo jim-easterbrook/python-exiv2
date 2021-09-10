@@ -25,7 +25,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-#      - name: Install dependencies
+      - name: Install dependencies
+        run: vcpkg install zlib --triplet=x64-windows
 #        run: vcpkg install zlib libiconv expat --triplet=x64-windows
 
       - name: Fetch Exiv2 source
@@ -44,7 +45,8 @@ jobs:
 
       - name: Configure build
         working-directory: ./exiv2-0.27.4-Source/build
-        run: cmake .. -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 16 2019" -A x64
+        run: cmake .. -DCMAKE_BUILD_TYPE=Release \
+                -G "Visual Studio 16 2019" -A x64
 #        run: cmake .. -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 16 2019" -A x64 -DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake
 
       - name: Compile Exiv2
