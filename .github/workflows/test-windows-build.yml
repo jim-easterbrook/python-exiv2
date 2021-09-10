@@ -47,6 +47,7 @@ jobs:
         env:
           CMAKE_TOOLCHAIN_FILE: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
         run: cmake .. -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_INSTALL_PREFIX=../local_install \
                 -DEXIV2_ENABLE_WIN_UNICODE=ON \
                 -DEXIV2_BUILD_SAMPLES=OFF \
                 -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
@@ -54,4 +55,10 @@ jobs:
 
       - name: Compile Exiv2
         working-directory: ./exiv2-0.27.4-Source/build
-        run: cmake --build .
+        run: cmake --build . --config Release
+
+      - name: Store results
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-exiv2
+          path: ./exiv2-0.27.4-Source/local_install
