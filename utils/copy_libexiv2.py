@@ -37,7 +37,7 @@ def main():
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)
                 continue
-            if file == 'exiv2.dll':
+            if file in ('exiv2.dll', 'exiv2.lib'):
                 new_platform = 'win32'
             elif file == 'libexiv2.dylib':
                 new_platform = 'darwin'
