@@ -65,8 +65,7 @@ jobs:
 
       - name: Install Exiv2
         working-directory: ./exiv2-0.27.4-Source/build
-        run: cmake --install . --config Release \
-                -DCMAKE_INSTALL_PREFIX=../local_install
+        run: cmake --install . --config Release --prefix ../local_install
 
       - name: Store results
         uses: actions/upload-artifact@v2
