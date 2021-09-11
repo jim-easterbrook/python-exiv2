@@ -47,8 +47,7 @@ jobs:
         working-directory: ./exiv2-0.27.4-Source/build
         run: |
           pip install conan
-          conan remote add conancenter https://center.conan.io
-          conan install .. --build missing --profile msvc2019Release64
+          conan install .. --build missing
 
       - name: Configure build
         working-directory: ./exiv2-0.27.4-Source/build
