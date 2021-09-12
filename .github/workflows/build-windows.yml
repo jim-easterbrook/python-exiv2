@@ -7,20 +7,79 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Download Windows release
+
+      - name: Download Exiv2 source
+        run: wget -nv https://www.exiv2.org/builds/exiv2-0.27.4-Source.tar.gz
+
+      - name: Store downloaded file
+        uses: actions/upload-artifact@v2
+        with:
+          name: exiv2-source
+          path: ./exiv2*.tar.gz
+          retention-days: 1
+
+  compile:
+    needs: fetch
+    runs-on: windows-2019
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Fetch Exiv2 source
+        uses: actions/download-artifact@v2
+        with:
+          name: exiv2-source
+          path: ./
+
+      - name: Extract Exiv2 source
+        shell: bash
         run: |
-          wget -nv https://www.exiv2.org/builds/exiv2-0.27.4-2019msvc64.zip
-          unzip exiv2-0.27.4-2019msvc64.zip
+          tar xf exiv2-0.27.4-Source.tar.gz
+          cp conanfile.py exiv2-0.27.4-Source/
+
+      - name: Make directories
+        working-directory: ./exiv2-0.27.4-Source
+        run: |
+          mkdir build
+          mkdir local_install
+
+      - name: Install dependencies
+        working-directory: ./exiv2-0.27.4-Source/build
+        run: |
+          pip install conan
+          conan install .. --build missing
+
+      - name: Configure build
+        working-directory: ./exiv2-0.27.4-Source/build
+        run: cmake .. -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_INSTALL_PREFIX=../local_install \
+                -DEXIV2_ENABLE_WIN_UNICODE=ON \
+                -DEXIV2_BUILD_SAMPLES=OFF \
+                -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
+                -DEXIV2_ENABLE_BMFF=OFF \
+                -G "Visual Studio 16 2019" -A x64
+
+      - name: Compile Exiv2
+        working-directory: ./exiv2-0.27.4-Source/build
+        run: cmake --build . --config Release
+
+      - name: Install Exiv2
+        working-directory: ./exiv2-0.27.4-Source/build
+        run: cmake --install . --config Release --prefix ../local_install
+
       - name: Copy required files
-        run: python3 utils/copy_libexiv2.py exiv2-0.27.4-2019msvc64 0.27.4
+        run: python3 utils/copy_libexiv2.py \
+               exiv2-0.27.4-Source/local_install 0.27.4
+
       - name: Store intermediate files
         uses: actions/upload-artifact@v2
         with:
           name: exiv2-windows
           path: libexiv2_*/win32/
           retention-days: 1
-  build:
-    needs: fetch
+
+  wheels:
+    needs: compile
     runs-on: windows-2019
     strategy:
       matrix:
@@ -28,15 +87,18 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+
       - name: Fetch intermediate files
         uses: actions/download-artifact@v2
         with:
           name: exiv2-windows
+
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
           architecture: 'x64'
+
       - name: Build wheel
         run: |
           pip3 install setuptools wheel
@@ -44,6 +106,7 @@ jobs:
           pip wheel -v .
         env:
           EXIV2_VERSION: 0.27.4
+
       - name: Store results
         uses: actions/upload-artifact@v2
         with:
