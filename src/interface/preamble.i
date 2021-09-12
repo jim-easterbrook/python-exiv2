@@ -19,6 +19,9 @@
 #include "exiv2/exiv2.hpp"
 %}
 
+%import "exiv2/config.h"
+%import "exiv2/exv_conf.h"
+
 // EXIV2API prepends every function declaration
 #define EXIV2API
 // Older versions of libexiv2 define these as well
