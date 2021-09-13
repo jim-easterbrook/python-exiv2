@@ -95,8 +95,8 @@ def main():
         cmd = ['swig'] + swig_opts
         # use -doxygen ?
         if swig_version >= (4, 0, 0):
-            # -doxygen flag causes a syntax error on error.hpp
-            if ext_name not in ('error', ):
+            # -doxygen flag causes a syntax error on error.hpp in v0.26
+            if exiv2_version > "0.26" or ext_name not in ('error', ):
                 cmd += ['-doxygen', '-DSWIG_DOXYGEN']
         cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
         cmd += [os.path.join(interface_dir, ext_name + '.i')]
