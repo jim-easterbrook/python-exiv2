@@ -44,12 +44,19 @@ def main():
     else:
         exiv2_version = sys.argv[1]
     # get config
+    platform = sys.platform
+    if platform == 'win32' and 'GCC' in sys.version:
+        platform = 'mingw'
     if sys.argv[1] == 'system':
         incl_dir = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
         incl_dir = incl_dir or ['/usr/include']
         incl_dir = incl_dir[0]
     else:
-        incl_dir = os.path.join('libexiv2_' + exiv2_version, sys.platform, 'include')
+        incl_dir = os.path.join(
+            'libexiv2_' + exiv2_version, platform, 'include')
+        if not os.path.exists(incl_dir):
+            incl_dir = os.path.join(
+                'libexiv2_' + exiv2_version, 'linux', 'include')
     # get python-exiv2 version
     with open('README.rst') as rst:
         py_exiv2_version = rst.readline().split()[-1]
@@ -102,7 +109,7 @@ def main():
 import logging
 import sys
 
-if sys.platform == 'win32':
+if sys.platform == 'win32' and 'GCC' not in sys.version:
     import os
     _dir = os.path.join(os.path.dirname(__file__), 'lib')
     if hasattr(os, 'add_dll_directory'):
