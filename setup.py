@@ -30,6 +30,21 @@ def pkg_config(library, option):
         print(str(ex))
         return None
 
+def get_exv_unicode_path(inc_dir):
+    result = False
+    with open(os.path.join(inc_dir, 'exiv2', 'exv_conf.h')) as cnf:
+        for line in cnf.readlines():
+            if 'EXV_UNICODE_PATH' not in line:
+                continue
+            words = line.split()
+            if words[1] != 'EXV_UNICODE_PATH':
+                continue
+            if words[0] == '#define':
+                result = True
+            elif words[0] == '#undef':
+                result = False
+    return result
+
 mod_src_dir = None
 platform = sys.platform
 if platform == 'win32' and 'GCC' in sys.version:
@@ -45,12 +60,14 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     if exiv2_version:
         exiv2_version = exiv2_version[0]
         mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
+        library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
+        include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
+        include_dirs = include_dirs or ['/usr/include']
+        if get_exv_unicode_path(include_dirs[0]):
+            mod_src_dir += '_EUP'
+        extra_link_args = []
         if os.path.exists(mod_src_dir):
             print('Using system installed libexiv2 v{}'.format(exiv2_version))
-            library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
-            include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
-            include_dirs = include_dirs or ['/usr/include']
-            extra_link_args = []
         else:
             mod_src_dir = None
 
@@ -73,6 +90,8 @@ if not mod_src_dir:
         mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
         lib_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'lib')
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
+        if get_exv_unicode_path(inc_dir):
+            mod_src_dir += '_EUP'
         library_dirs = [lib_dir]
         include_dirs = [inc_dir]
         if platform == 'linux':
