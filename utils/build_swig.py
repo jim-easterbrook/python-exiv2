@@ -80,32 +80,38 @@ def main():
         if 'Version' in line:
             swig_version = tuple(map(int, line.split()[-1].split('.')))
             break
-    # make options list
-    output_dir = os.path.join('src', 'swig_' + exiv2_version)
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    swig_opts = ['-c++', '-python', '-py3', '-builtin', '-O',
-                 '-Wextra', '-Werror']
-    swig_opts.append('-I' + incl_dir)
-    if os.path.exists(os.path.join(incl_dir, 'exiv2', 'xmp_exiv2.hpp')):
-        swig_opts.append('-DHAS_XMP_EXIV2')
-    swig_opts += ['-outdir', output_dir]
-    # do each swig module
-    for ext_name in ext_names:
-        cmd = ['swig'] + swig_opts
-        # use -doxygen ?
-        if swig_version >= (4, 0, 0):
-            # -doxygen flag causes a syntax error on error.hpp in v0.26
-            if exiv2_version > "0.26" or ext_name not in ('error', ):
-                cmd += ['-doxygen', '-DSWIG_DOXYGEN']
-        cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
-        cmd += [os.path.join(interface_dir, ext_name + '.i')]
-        print(' '.join(cmd))
-        subprocess.check_call(cmd)
-    # create init module
-    init_file = os.path.join(output_dir, '__init__.py')
-    with open(init_file, 'w') as im:
-        im.write('''
+    # swig with and without EXV_UNICODE_PATH defined
+    for exv_unicode_path in (False, True):
+        # make options list
+        output_dir = os.path.join('src', 'swig_' + exiv2_version)
+        if exv_unicode_path:
+            output_dir += '_EUP'
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        swig_opts = ['-c++', '-python', '-py3', '-builtin', '-O',
+                     '-Wextra', '-Werror']
+        swig_opts.append('-I' + incl_dir)
+        if os.path.exists(os.path.join(incl_dir, 'exiv2', 'xmp_exiv2.hpp')):
+            swig_opts.append('-DHAS_XMP_EXIV2')
+        if exv_unicode_path:
+            swig_opts.append('-DEXV_UNICODE_PATH')
+        swig_opts += ['-outdir', output_dir]
+        # do each swig module
+        for ext_name in ext_names:
+            cmd = ['swig'] + swig_opts
+            # use -doxygen ?
+            if swig_version >= (4, 0, 0):
+                # -doxygen flag causes a syntax error on error.hpp in v0.26
+                if exiv2_version > "0.26" or ext_name not in ('error', ):
+                    cmd += ['-doxygen', '-DSWIG_DOXYGEN']
+            cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
+            cmd += [os.path.join(interface_dir, ext_name + '.i')]
+            print(' '.join(cmd))
+            subprocess.check_call(cmd)
+        # create init module
+        init_file = os.path.join(output_dir, '__init__.py')
+        with open(init_file, 'w') as im:
+            im.write('''
 import logging
 import sys
 
@@ -124,10 +130,10 @@ class AnyError(Exception):
     pass
 
 ''')
-        im.write('__version__ = "%s"\n\n' % py_exiv2_version)
-        for name in ext_names:
-            im.write('from exiv2.%s import *\n' % name)
-        im.write('''
+            im.write('__version__ = "%s"\n\n' % py_exiv2_version)
+            for name in ext_names:
+                im.write('from exiv2.%s import *\n' % name)
+            im.write('''
 __all__ = [x for x in dir() if x[0] != '_']
 ''')
     return 0

@@ -4620,7 +4620,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_0(Exiv2::ExifData *self,st
         if (old_type == invalidTypeId)
             old_type = ExifKey(key).defaultTypeId();
         datum->setValue(&value);
-        /*@SWIG:src/interface/preamble.i,169,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,166,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4640,7 +4640,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_1(Exiv2::ExifData *self,st
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,169,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,166,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4666,7 +4666,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_2(Exiv2::ExifData *self,st
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,169,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,166,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
