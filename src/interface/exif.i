@@ -26,8 +26,10 @@
 %include "pybuffer.i"
 %include "stdint.i"
 %include "std_string.i"
+#ifndef SWIGIMPORTED
 #ifdef EXV_UNICODE_PATH
 %include "std_wstring.i"
+#endif
 #endif
 
 %import "metadatum.i"
