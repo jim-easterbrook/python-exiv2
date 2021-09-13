@@ -4793,7 +4793,6 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "EXIV2_MAJOR_VERSION",SWIG_From_int(static_cast< int >((0))));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "EXIV2_MINOR_VERSION",SWIG_From_int(static_cast< int >((26))));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "EXIV2_PATCH_VERSION",SWIG_From_int(static_cast< int >((0))));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "EXIV2_VERSION",SWIG_From_int(static_cast< int >(((((0)) << 16)|(((26)) << 8)|((0))))));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else
