@@ -26,6 +26,8 @@ def main():
         return 1
     version = sys.argv[2]
     platform = sys.platform
+    if platform == 'win32' and 'GCC' in sys.version:
+        platform = 'mingw'
     # get top level directory
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
     # find library and include files
@@ -39,6 +41,8 @@ def main():
                 continue
             if file in ('exiv2.dll', 'exiv2.lib'):
                 new_platform = 'win32'
+            elif file in ('libexiv2.dll', 'libexiv2.dll.a'):
+                new_platform = 'mingw'
             elif file == 'libexiv2.dylib':
                 new_platform = 'darwin'
             elif file.startswith('libexiv2.so'):
