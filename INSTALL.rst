@@ -1,7 +1,7 @@
 Installation
 ============
 
-As mentioned in :doc:`README`, on most computers `python-exiv2`_ can be installed with a simple pip_ command::
+As mentioned in `<README.rst>`_, on most computers `python-exiv2`_ can be installed with a simple pip_ command::
 
     C:\>pip install python-exiv2
     Collecting python-exiv2
