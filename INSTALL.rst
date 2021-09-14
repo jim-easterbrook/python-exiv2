@@ -201,6 +201,29 @@ Back in your python-exiv2 directory, copy your newly compiled libexiv2 from the 
 
 Then build and install a wheel as before.
 
+Running SWIG
+------------
+
+You should only need to run SWIG_ if your version of libexiv2 is not covered by the range of SWIG output files included in the python-exiv2 sources.
+Note that versions of SWIG lower than 4.0.0 may not work correctly on the highly complex libexiv2 header files.
+
+After you've run ``copy_libexiv2.py`` you can run ``build_swig.py`` on the local copy of libexiv2::
+
+    $ python3 utils/build_swig.py 0.27.4
+
+Or you can run it on the system installed libexiv2::
+
+    $ python3 utils/build_swig.py system
+
+The ``build_swig.py`` script generates two sets of files, e.g. ``src/swig_0.27.4`` and ``src/swig_0.27.4_EUP``.
+These are built with and without the ``EXV_UNICODE_PATH`` option set.
+The appropriate set is automatically selected when python-exiv2 is built.
+
+After running ``build_swig.py`` you can build and install a wheel as before::
+
+    $ EXIV2_VERSION=0.27.4 pip wheel .
+    $ sudo pip install python_exiv2-0.3.1-cp36-cp36m-linux_x86_64.whl 
+
 
 .. _build instructions:
     https://github.com/exiv2/exiv2#2
@@ -212,9 +235,10 @@ Then build and install a wheel as before.
 .. _GitHub:       https://github.com/jim-easterbrook/python-exiv2/releases
 .. _libexiv2:     https://www.exiv2.org/getting-started.html
 .. _libiconv:     https://www.gnu.org/software/libiconv/
-.. _Visual C++ 14.2 standalone:
-    https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019
 .. _pip:          https://pip.pypa.io/
 .. _python-exiv2: https://github.com/jim-easterbrook/python-exiv2
+.. _SWIG:         http://www.swig.org/
+.. _Visual C++ 14.2 standalone:
+    https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019
 .. _wheel:        https://www.python.org/dev/peps/pep-0427/
 .. _zlib:         https://zlib.net/
