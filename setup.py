@@ -25,7 +25,7 @@ import sys
 def pkg_config(library, option):
     cmd = ['pkg-config', '--' + option, library]
     try:
-        return subprocess.check_output(cmd, universal_newlines=True).split()
+        return subprocess.check_output(cmd, universal_newlines=True).strip()
     except Exception as ex:
         print(str(ex))
         return None
@@ -58,12 +58,13 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     # attempt to use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
     if exiv2_version:
-        exiv2_version = exiv2_version[0]
         mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
-        library_dirs = [x[2:] for x in pkg_config('exiv2', 'libs-only-L')]
-        include_dirs = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
-        include_dirs = include_dirs or ['/usr/include']
-        if get_exv_unicode_path(include_dirs[0]):
+        lib_dir = pkg_config('exiv2', 'libs-only-L')[2:]
+        lib_dir = lib_dir and lib_dir.replace(r'\ ', ' ')
+        inc_dir = pkg_config('exiv2', 'cflags-only-I')[2:]
+        inc_dir = inc_dir and inc_dir.replace(r'\ ', ' ')
+        inc_dir = inc_dir or '/usr/include'
+        if get_exv_unicode_path(inc_dir):
             mod_src_dir += '_EUP'
         extra_link_args = []
         if os.path.exists(mod_src_dir):
@@ -92,8 +93,6 @@ if not mod_src_dir:
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
         if get_exv_unicode_path(inc_dir):
             mod_src_dir += '_EUP'
-        library_dirs = [lib_dir]
-        include_dirs = [inc_dir]
         if platform == 'linux':
             extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
         else:
@@ -132,10 +131,10 @@ for file_name in os.listdir(mod_src_dir):
     ext_modules.append(Extension(
         '_' + ext_name,
         sources = [os.path.join(mod_src_dir, file_name)],
-        include_dirs = include_dirs,
+        include_dirs = [inc_dir],
         extra_compile_args = extra_compile_args,
         libraries = ['exiv2'],
-        library_dirs = library_dirs,
+        library_dirs = [lib_dir],
         extra_link_args = extra_link_args,
         ))
 
