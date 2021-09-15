@@ -45,6 +45,10 @@ def get_exv_unicode_path(inc_dir):
                 result = False
     return result
 
+def get_mod_src_dir(exiv2_version):
+    return os.path.join(
+        'src', 'swig_' + '.'.join(exiv2_version.split('.')[:2]))
+
 mod_src_dir = None
 platform = sys.platform
 if platform == 'win32' and 'GCC' in sys.version:
@@ -58,7 +62,7 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     # attempt to use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
     if exiv2_version:
-        mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
+        mod_src_dir = get_mod_src_dir(exiv2_version)
         lib_dir = pkg_config('exiv2', 'libs-only-L')[2:]
         lib_dir = lib_dir and lib_dir.replace(r'\ ', ' ')
         inc_dir = pkg_config('exiv2', 'cflags-only-I')[2:]
@@ -88,7 +92,7 @@ if not mod_src_dir:
                 break
     if exiv2_version:
         print('Using included libexiv2 v{}'.format(exiv2_version))
-        mod_src_dir = os.path.join('src', 'swig_' + exiv2_version)
+        mod_src_dir = get_mod_src_dir(exiv2_version)
         lib_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'lib')
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
         if get_exv_unicode_path(inc_dir):
