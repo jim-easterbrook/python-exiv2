@@ -45,9 +45,19 @@ def get_exv_unicode_path(inc_dir):
                 result = False
     return result
 
+# get list of available swigged versions
+swigged_versions = []
+for name in os.listdir('src'):
+    parts = name.split('_')
+    if parts[0] == 'swig' and parts[1] not in swigged_versions:
+        swigged_versions.append(parts[1])
+swigged_versions.sort(reverse=True)
+
 def get_mod_src_dir(exiv2_version):
-    return os.path.join(
-        'src', 'swig_' + '.'.join(exiv2_version.split('.')[:2]))
+    for version in swigged_versions:
+        if exiv2_version >= version:
+            return os.path.join('src', 'swig_' + version)
+    return None
 
 mod_src_dir = None
 platform = sys.platform
@@ -63,18 +73,16 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     exiv2_version = pkg_config('exiv2', 'modversion')
     if exiv2_version:
         mod_src_dir = get_mod_src_dir(exiv2_version)
-        lib_dir = pkg_config('exiv2', 'libs-only-L')[2:]
-        lib_dir = lib_dir and lib_dir.replace(r'\ ', ' ')
-        inc_dir = pkg_config('exiv2', 'cflags-only-I')[2:]
-        inc_dir = inc_dir and inc_dir.replace(r'\ ', ' ')
-        inc_dir = inc_dir or '/usr/include'
-        if get_exv_unicode_path(inc_dir):
-            mod_src_dir += '_EUP'
-        extra_link_args = []
-        if os.path.exists(mod_src_dir):
+        if mod_src_dir:
+            lib_dir = pkg_config('exiv2', 'libs-only-L')[2:]
+            lib_dir = lib_dir and lib_dir.replace(r'\ ', ' ')
+            inc_dir = pkg_config('exiv2', 'cflags-only-I')[2:]
+            inc_dir = inc_dir and inc_dir.replace(r'\ ', ' ')
+            inc_dir = inc_dir or '/usr/include'
+            if get_exv_unicode_path(inc_dir):
+                mod_src_dir += '_EUP'
+            extra_link_args = []
             print('Using system installed libexiv2 v{}'.format(exiv2_version))
-        else:
-            mod_src_dir = None
 
 if not mod_src_dir:
     # installed libexiv2 not found, use our own
@@ -95,7 +103,7 @@ if not mod_src_dir:
         mod_src_dir = get_mod_src_dir(exiv2_version)
         lib_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'lib')
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
-        if get_exv_unicode_path(inc_dir):
+        if mod_src_dir and get_exv_unicode_path(inc_dir):
             mod_src_dir += '_EUP'
         if platform == 'linux':
             extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']

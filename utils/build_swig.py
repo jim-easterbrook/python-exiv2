@@ -86,8 +86,7 @@ def main():
     # swig with and without EXV_UNICODE_PATH defined
     for exv_unicode_path in (False, True):
         # make options list
-        output_dir = os.path.join(
-            'src', 'swig_' + '.'.join(exiv2_version.split('.')[:2]))
+        output_dir = os.path.join('src', 'swig_' + exiv2_version)
         if exv_unicode_path:
             output_dir += '_EUP'
         if not os.path.exists(output_dir):
