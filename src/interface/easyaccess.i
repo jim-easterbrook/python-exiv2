@@ -61,18 +61,20 @@ WRAP(serialNumber)
 WRAP(focalLength)
 WRAP(afPoint)
 
-// Ignore functions introduced in libexiv2 0.27.4
-%ignore Exiv2::dateTimeOriginal;
-%ignore Exiv2::shutterSpeedValue;
-%ignore Exiv2::apertureValue;
-%ignore Exiv2::brightnessValue;
-%ignore Exiv2::exposureBiasValue;
-%ignore Exiv2::maxApertureValue;
-%ignore Exiv2::lightSource;
-%ignore Exiv2::flash;
-%ignore Exiv2::subjectArea;
-%ignore Exiv2::flashEnergy;
-%ignore Exiv2::exposureIndex;
-%ignore Exiv2::sensingMethod;
+// Functions introduced in libexiv2 0.27.4
+#if EXIV2_VERSION_HEX >= 0x001b0400
+WRAP(dateTimeOriginal)
+WRAP(shutterSpeedValue)
+WRAP(apertureValue)
+WRAP(brightnessValue)
+WRAP(exposureBiasValue)
+WRAP(maxApertureValue)
+WRAP(lightSource)
+WRAP(flash)
+WRAP(subjectArea)
+WRAP(flashEnergy)
+WRAP(exposureIndex)
+WRAP(sensingMethod)
+#endif
 
 %include "exiv2/easyaccess.hpp"

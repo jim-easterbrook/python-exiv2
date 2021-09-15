@@ -37,17 +37,22 @@ def main():
     image.readMetadata()
     exifData = image.exifData()
 
-    for name in ('orientation', 'isoSpeed', 'flashBias', 'exposureMode',
-                 'sceneMode', 'macroMode', 'imageQuality', 'whiteBalance',
-                 'lensName', 'saturation', 'sharpness', 'contrast',
-                 'sceneCaptureType', 'meteringMode', 'make', 'model',
-                 'exposureTime', 'fNumber', 'subjectDistance',
-                 'serialNumber', 'focalLength', 'afPoint'):
-        datum = getattr(exiv2, name)(exifData)
-        if datum:
-            print('{:16s} {:28s} {:s}'.format(name, datum.key(), datum._print()))
-        else:
-            print(name)
+    for name in ('make', 'model', 'dateTimeOriginal', 'exposureTime',
+                 'apertureValue', 'exposureBiasValue', 'exposureIndex', 'flash',
+                 'flashBias', 'flashEnergy', 'focalLength', 'subjectDistance',
+                 'isoSpeed', 'exposureMode', 'meteringMode', 'macroMode',
+                 'imageQuality', 'whiteBalance', 'orientation', 'sceneMode',
+                 'sceneCaptureType', 'lensName', 'saturation', 'sharpness',
+                 'contrast', 'fNumber', 'serialNumber', 'afPoint',
+                 'shutterSpeedValue', 'brightnessValue', 'maxApertureValue',
+                 'lightSource', 'subjectArea', 'sensingMethod'):
+        if hasattr(exiv2, name):
+            datum = getattr(exiv2, name)(exifData)
+            if datum:
+                print('{:18s}: {:30s}: {:s}'.format(
+                    name, datum.key(), datum._print()))
+            else:
+                print(name)
 
     return 0
 
