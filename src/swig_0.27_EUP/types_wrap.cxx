@@ -3450,29 +3450,27 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_MetadataId swig_types[4]
 #define SWIGTYPE_p_SwigPyObject swig_types[5]
 #define SWIGTYPE_p_TypeId swig_types[6]
-#define SWIGTYPE_p_bool swig_types[7]
-#define SWIGTYPE_p_char swig_types[8]
-#define SWIGTYPE_p_first_type swig_types[9]
-#define SWIGTYPE_p_int swig_types[10]
-#define SWIGTYPE_p_long_long swig_types[11]
-#define SWIGTYPE_p_second_type swig_types[12]
-#define SWIGTYPE_p_short swig_types[13]
-#define SWIGTYPE_p_signed_char swig_types[14]
-#define SWIGTYPE_p_std__istream swig_types[15]
-#define SWIGTYPE_p_std__ostream swig_types[16]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[17]
-#define SWIGTYPE_p_std__pairT_unsigned_char_p_long_t swig_types[18]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[19]
-#define SWIGTYPE_p_std__string swig_types[20]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[21]
-#define SWIGTYPE_p_std__wstring swig_types[22]
-#define SWIGTYPE_p_tm swig_types[23]
-#define SWIGTYPE_p_unsigned_char swig_types[24]
-#define SWIGTYPE_p_unsigned_int swig_types[25]
-#define SWIGTYPE_p_unsigned_long_long swig_types[26]
-#define SWIGTYPE_p_unsigned_short swig_types[27]
-static swig_type_info *swig_types[29];
-static swig_module_info swig_module = {swig_types, 28, 0, 0, 0, 0};
+#define SWIGTYPE_p_char swig_types[7]
+#define SWIGTYPE_p_first_type swig_types[8]
+#define SWIGTYPE_p_int swig_types[9]
+#define SWIGTYPE_p_long_long swig_types[10]
+#define SWIGTYPE_p_second_type swig_types[11]
+#define SWIGTYPE_p_short swig_types[12]
+#define SWIGTYPE_p_signed_char swig_types[13]
+#define SWIGTYPE_p_std__istream swig_types[14]
+#define SWIGTYPE_p_std__ostream swig_types[15]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[16]
+#define SWIGTYPE_p_std__pairT_unsigned_char_p_long_t swig_types[17]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[18]
+#define SWIGTYPE_p_std__string swig_types[19]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[20]
+#define SWIGTYPE_p_tm swig_types[21]
+#define SWIGTYPE_p_unsigned_char swig_types[22]
+#define SWIGTYPE_p_unsigned_int swig_types[23]
+#define SWIGTYPE_p_unsigned_long_long swig_types[24]
+#define SWIGTYPE_p_unsigned_short swig_types[25]
+static swig_type_info *swig_types[27];
+static swig_module_info swig_module = {swig_types, 26, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3841,60 +3839,6 @@ SWIG_FromCharPtr(const char *cptr)
 
 SWIGINTERN long Exiv2_DataBuf___len__(Exiv2::DataBuf *self){return self->size_;}
 
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_unsigned_SS_short  (unsigned short value)
-{    
-  return SWIG_From_unsigned_SS_long  (value);
-}
-
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_unsigned_SS_int  (unsigned int value)
-{
-  return PyInt_FromSize_t((size_t) value);
-}
-
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-#endif
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_short  (short value)
-{    
-  return SWIG_From_long  (value);
-}
-
-
-  #define SWIG_From_double   PyFloat_FromDouble 
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_float  (float value)
-{    
-  return SWIG_From_double  (value);
-}
-
-
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
 {
@@ -3943,112 +3887,9 @@ SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val)
 }
 
 
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
-{
-  unsigned long v;
-  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v > USHRT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< unsigned short >(v);
-    }
-  }  
-  return res;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
-{
-  unsigned long v;
-  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v > UINT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< unsigned int >(v);
-    }
-  }  
-  return res;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_short (PyObject * obj, short *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < SHRT_MIN || v > SHRT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< short >(v);
-    }
-  }  
-  return res;
-}
-
-
-/* Getting isfinite working pre C99 across multiple platforms is non-trivial. Users can provide SWIG_isfinite on older platforms. */
-#ifndef SWIG_isfinite
-/* isfinite() is a macro for C99 */
-# if defined(isfinite)
-#  define SWIG_isfinite(X) (isfinite(X))
-# elif defined(__cplusplus) && __cplusplus >= 201103L
-/* Use a template so that this works whether isfinite() is std::isfinite() or
- * in the global namespace.  The reality seems to vary between compiler
- * versions.
- *
- * Make sure namespace std exists to avoid compiler warnings.
- *
- * extern "C++" is required as this fragment can end up inside an extern "C" { } block
- */
-namespace std { }
-extern "C++" template<typename T>
-inline int SWIG_isfinite_func(T x) {
-  using namespace std;
-  return isfinite(x);
-}
-#  define SWIG_isfinite(X) (SWIG_isfinite_func(X))
-# elif defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2))
-#  define SWIG_isfinite(X) (__builtin_isfinite(X))
-# elif defined(__clang__) && defined(__has_builtin)
-#  if __has_builtin(__builtin_isfinite)
-#   define SWIG_isfinite(X) (__builtin_isfinite(X))
-#  endif
-# elif defined(_MSC_VER)
-#  define SWIG_isfinite(X) (_finite(X))
-# elif defined(__sun) && defined(__SVR4)
-#  include <ieeefp.h>
-#  define SWIG_isfinite(X) (finite(X))
-# endif
+#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
+#  define SWIG_LONG_LONG_AVAILABLE
 #endif
-
-
-/* Accept infinite as a valid float value unless we are unable to check if a value is finite */
-#ifdef SWIG_isfinite
-# define SWIG_Float_Overflow_Check(X) ((X < -FLT_MAX || X > FLT_MAX) && SWIG_isfinite(X))
-#else
-# define SWIG_Float_Overflow_Check(X) ((X < -FLT_MAX || X > FLT_MAX))
-#endif
-
-
-SWIGINTERN int
-SWIG_AsVal_float (PyObject * obj, float *val)
-{
-  double v;
-  int res = SWIG_AsVal_double (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if (SWIG_Float_Overflow_Check(v)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< float >(v);
-    }
-  }  
-  return res;
-}
 
 
 #ifdef SWIG_LONG_LONG_AVAILABLE
@@ -4230,6 +4071,29 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 
 
 
+
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > UINT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< unsigned int >(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_unsigned_SS_int  (unsigned int value)
+{
+  return PyInt_FromSize_t((size_t) value);
+}
 
 
 namespace swig {
@@ -5482,366 +5346,6 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DataBuf) /* defines _wrap_delete_DataBuf_
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_DataBuf___len__) /* defines _wrap_DataBuf___len___lenfunc_closure */
 
-SWIGINTERN PyObject *_wrap_getUShort(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  uint16_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getUShort", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getUShort" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getUShort" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = (uint16_t)Exiv2::getUShort((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getULong(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  uint32_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getULong", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getULong" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getULong" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = (uint32_t)Exiv2::getULong((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getULongLong(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  uint64_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getULongLong", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getULongLong" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getULongLong" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = (uint64_t)Exiv2::getULongLong((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getURational(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  Exiv2::URational result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getURational", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getURational" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getURational" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = Exiv2::getURational((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj((new Exiv2::URational(static_cast< const Exiv2::URational& >(result))), SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getShort(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  int16_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getShort", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getShort" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getShort" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = (int16_t)Exiv2::getShort((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_short(static_cast< short >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getLong(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  int32_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getLong", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getLong" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getLong" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = (int32_t)Exiv2::getLong((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getRational(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  Exiv2::Rational result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getRational", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getRational" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getRational" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = Exiv2::getRational((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj((new Exiv2::Rational(static_cast< const Exiv2::Rational& >(result))), SWIGTYPE_p_std__pairT_int_int_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getFloat(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  float result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getFloat", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getFloat" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getFloat" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = (float)Exiv2::getFloat((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_float(static_cast< float >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getDouble(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::ByteOrder arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "getDouble", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getDouble" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "getDouble" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  {
-    try {
-      result = (double)Exiv2::getDouble((unsigned char const *)arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap___lshift____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   std::ostream *arg1 = 0 ;
@@ -6093,540 +5597,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_us2Data(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  uint16_t arg2 ;
-  Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  unsigned short val2 ;
-  int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "us2Data", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "us2Data" "', argument " "1"" of type '" "Exiv2::byte *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_short(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "us2Data" "', argument " "2"" of type '" "uint16_t""'");
-  } 
-  arg2 = static_cast< uint16_t >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "us2Data" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  {
-    try {
-      result = (long)Exiv2::us2Data(arg1,arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ul2Data(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  uint32_t arg2 ;
-  Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  unsigned int val2 ;
-  int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ul2Data", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ul2Data" "', argument " "1"" of type '" "Exiv2::byte *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ul2Data" "', argument " "2"" of type '" "uint32_t""'");
-  } 
-  arg2 = static_cast< uint32_t >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ul2Data" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  {
-    try {
-      result = (long)Exiv2::ul2Data(arg1,arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ur2Data(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::URational arg2 ;
-  Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ur2Data", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ur2Data" "', argument " "1"" of type '" "Exiv2::byte *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ur2Data" "', argument " "2"" of type '" "Exiv2::URational""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ur2Data" "', argument " "2"" of type '" "Exiv2::URational""'");
-    } else {
-      Exiv2::URational * temp = reinterpret_cast< Exiv2::URational * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ur2Data" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  {
-    try {
-      result = (long)Exiv2::ur2Data(arg1,arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_s2Data(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  int16_t arg2 ;
-  Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  short val2 ;
-  int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "s2Data", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "s2Data" "', argument " "1"" of type '" "Exiv2::byte *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_short(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "s2Data" "', argument " "2"" of type '" "int16_t""'");
-  } 
-  arg2 = static_cast< int16_t >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "s2Data" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  {
-    try {
-      result = (long)Exiv2::s2Data(arg1,arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_l2Data(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  int32_t arg2 ;
-  Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "l2Data", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "l2Data" "', argument " "1"" of type '" "Exiv2::byte *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "l2Data" "', argument " "2"" of type '" "int32_t""'");
-  } 
-  arg2 = static_cast< int32_t >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "l2Data" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  {
-    try {
-      result = (long)Exiv2::l2Data(arg1,arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_r2Data(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  Exiv2::Rational arg2 ;
-  Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "r2Data", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "r2Data" "', argument " "1"" of type '" "Exiv2::byte *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__pairT_int_int_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "r2Data" "', argument " "2"" of type '" "Exiv2::Rational""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "r2Data" "', argument " "2"" of type '" "Exiv2::Rational""'");
-    } else {
-      Exiv2::Rational * temp = reinterpret_cast< Exiv2::Rational * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "r2Data" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  {
-    try {
-      result = (long)Exiv2::r2Data(arg1,arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_f2Data(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  float arg2 ;
-  Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  float val2 ;
-  int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "f2Data", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "f2Data" "', argument " "1"" of type '" "Exiv2::byte *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_float(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "f2Data" "', argument " "2"" of type '" "float""'");
-  } 
-  arg2 = static_cast< float >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "f2Data" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  {
-    try {
-      result = (long)Exiv2::f2Data(arg1,arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_d2Data(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  double arg2 ;
-  Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "d2Data", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "d2Data" "', argument " "1"" of type '" "Exiv2::byte *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "d2Data" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "d2Data" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  {
-    try {
-      result = (long)Exiv2::d2Data(arg1,arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_hexdump__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
-  long arg3 ;
-  long arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
-  long val4 ;
-  int ecode4 = 0 ;
-  
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "hexdump" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "hexdump" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "hexdump" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "hexdump" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_long(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "hexdump" "', argument " "4"" of type '" "long""'");
-  } 
-  arg4 = static_cast< long >(val4);
-  {
-    try {
-      Exiv2::hexdump(*arg1,(unsigned char const *)arg2,arg3,arg4);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_hexdump__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
-  long arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "hexdump" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "hexdump" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "hexdump" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "hexdump" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  {
-    try {
-      Exiv2::hexdump(*arg1,(unsigned char const *)arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_hexdump(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[5] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "hexdump", 0, 4, argv))) SWIG_fail;
-  --argc;
-  if (argc == 3) {
-    PyObject *retobj = _wrap_hexdump__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
-    PyObject *retobj = _wrap_hexdump__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'hexdump'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::hexdump(std::ostream &,Exiv2::byte const *,long,long)\n"
-    "    Exiv2::hexdump(std::ostream &,Exiv2::byte const *,long)\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_isHex__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -6829,285 +5799,6 @@ SWIGINTERN PyObject *_wrap_exifTime(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_exvGettext(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  char *arg1 = (char *) 0 ;
-  int res1 ;
-  char *buf1 = 0 ;
-  int alloc1 = 0 ;
-  PyObject *swig_obj[1] ;
-  char *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_AsCharPtrAndSize(swig_obj[0], &buf1, NULL, &alloc1);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "exvGettext" "', argument " "1"" of type '" "char const *""'");
-  }
-  arg1 = reinterpret_cast< char * >(buf1);
-  {
-    try {
-      result = (char *)Exiv2::exvGettext((char const *)arg1);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_FromCharPtr((const char *)result);
-  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
-  return resultobj;
-fail:
-  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_s2ws(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::wstring result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__string,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "s2ws" "', argument " "1"" of type '" "std::string const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "s2ws" "', argument " "1"" of type '" "std::string const &""'"); 
-  }
-  arg1 = reinterpret_cast< std::string * >(argp1);
-  {
-    try {
-      result = Exiv2::s2ws((std::string const &)*arg1);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj((new std::wstring(static_cast< const std::wstring& >(result))), SWIGTYPE_p_std__wstring, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ws2s(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::wstring *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::string result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__wstring,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ws2s" "', argument " "1"" of type '" "std::wstring const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ws2s" "', argument " "1"" of type '" "std::wstring const &""'"); 
-  }
-  arg1 = reinterpret_cast< std::wstring * >(argp1);
-  {
-    try {
-      result = Exiv2::ws2s((std::wstring const &)*arg1);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj((new std::string(static_cast< const std::string& >(result))), SWIGTYPE_p_std__string, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_parseLong(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  bool *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "parseLong", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__string,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "parseLong" "', argument " "1"" of type '" "std::string const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "parseLong" "', argument " "1"" of type '" "std::string const &""'"); 
-  }
-  arg1 = reinterpret_cast< std::string * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_bool,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "parseLong" "', argument " "2"" of type '" "bool &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "parseLong" "', argument " "2"" of type '" "bool &""'"); 
-  }
-  arg2 = reinterpret_cast< bool * >(argp2);
-  {
-    try {
-      result = (long)Exiv2::parseLong((std::string const &)*arg1,*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_parseFloat(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  bool *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  float result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "parseFloat", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__string,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "parseFloat" "', argument " "1"" of type '" "std::string const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "parseFloat" "', argument " "1"" of type '" "std::string const &""'"); 
-  }
-  arg1 = reinterpret_cast< std::string * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_bool,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "parseFloat" "', argument " "2"" of type '" "bool &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "parseFloat" "', argument " "2"" of type '" "bool &""'"); 
-  }
-  arg2 = reinterpret_cast< bool * >(argp2);
-  {
-    try {
-      result = (float)Exiv2::parseFloat((std::string const &)*arg1,*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_float(static_cast< float >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_parseRational(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  bool *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  Exiv2::Rational result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "parseRational", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__string,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "parseRational" "', argument " "1"" of type '" "std::string const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "parseRational" "', argument " "1"" of type '" "std::string const &""'"); 
-  }
-  arg1 = reinterpret_cast< std::string * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_bool,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "parseRational" "', argument " "2"" of type '" "bool &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "parseRational" "', argument " "2"" of type '" "bool &""'"); 
-  }
-  arg2 = reinterpret_cast< bool * >(argp2);
-  {
-    try {
-      result = Exiv2::parseRational((std::string const &)*arg1,*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj((new Exiv2::Rational(static_cast< const Exiv2::Rational& >(result))), SWIGTYPE_p_std__pairT_int_int_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_floatToRationalCast(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  float arg1 ;
-  float val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::Rational result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  ecode1 = SWIG_AsVal_float(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "floatToRationalCast" "', argument " "1"" of type '" "float""'");
-  } 
-  arg1 = static_cast< float >(val1);
-  {
-    try {
-      result = Exiv2::floatToRationalCast(arg1);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj((new Exiv2::Rational(static_cast< const Exiv2::Rational& >(result))), SWIGTYPE_p_std__pairT_int_int_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
   return NULL;
 }
 
@@ -7662,15 +6353,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "TypeInfo_typeName", _wrap_TypeInfo_typeName, METH_O, " Return the name of the type, 0 if unknown."},
 	 { "TypeInfo_typeId", _wrap_TypeInfo_typeId, METH_O, " Return the type id for a type name"},
 	 { "TypeInfo_typeSize", _wrap_TypeInfo_typeSize, METH_O, " Return the size in bytes of one element of this type"},
-	 { "getUShort", _wrap_getUShort, METH_VARARGS, " Read a 2 byte unsigned short value from the data buffer"},
-	 { "getULong", _wrap_getULong, METH_VARARGS, " Read a 4 byte unsigned long value from the data buffer"},
-	 { "getULongLong", _wrap_getULongLong, METH_VARARGS, " Read a 8 byte unsigned long value from the data buffer"},
-	 { "getURational", _wrap_getURational, METH_VARARGS, " Read an 8 byte unsigned rational value from the data buffer"},
-	 { "getShort", _wrap_getShort, METH_VARARGS, " Read a 2 byte signed short value from the data buffer"},
-	 { "getLong", _wrap_getLong, METH_VARARGS, " Read a 4 byte signed long value from the data buffer"},
-	 { "getRational", _wrap_getRational, METH_VARARGS, " Read an 8 byte signed rational value from the data buffer"},
-	 { "getFloat", _wrap_getFloat, METH_VARARGS, " Read a 4 byte single precision floating point value (IEEE 754 binary32) from the data buffer"},
-	 { "getDouble", _wrap_getDouble, METH_VARARGS, " Read an 8 byte double precision floating point value (IEEE 754 binary64) from the data buffer"},
 	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
 		"Output operator for our fake rational\n"
@@ -7689,43 +6371,6 @@ static PyMethodDef SwigMethods[] = {
 		"*Overload 2:*\n"
 		"Input operator for our fake unsigned rational\n"
 		""},
-	 { "us2Data", _wrap_us2Data, METH_VARARGS, "\n"
-		"Convert an unsigned short to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "ul2Data", _wrap_ul2Data, METH_VARARGS, "\n"
-		"Convert an unsigned long to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "ur2Data", _wrap_ur2Data, METH_VARARGS, "\n"
-		"Convert an unsigned rational to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "s2Data", _wrap_s2Data, METH_VARARGS, "\n"
-		"Convert a signed short to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "l2Data", _wrap_l2Data, METH_VARARGS, "\n"
-		"Convert a signed long to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "r2Data", _wrap_r2Data, METH_VARARGS, "\n"
-		"Convert a signed rational to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "f2Data", _wrap_f2Data, METH_VARARGS, "\n"
-		"Convert a single precision floating point (IEEE 754 binary32) float\n"
-		"       to data, write the data to the buffer, return number of bytes written.\n"
-		""},
-	 { "d2Data", _wrap_d2Data, METH_VARARGS, "\n"
-		"Convert a double precision floating point (IEEE 754 binary64) double\n"
-		"       to data, write the data to the buffer, return number of bytes written.\n"
-		""},
-	 { "hexdump", _wrap_hexdump, METH_VARARGS, "\n"
-		"Print len bytes from buf in hex and ASCII format to the given\n"
-		"       stream, prefixed with the position in the buffer adjusted by\n"
-		"       offset.\n"
-		""},
 	 { "isHex", _wrap_isHex, METH_VARARGS, "\n"
 		"Return true if str is a hex number starting with prefix followed\n"
 		"       by size hex digits, false otherwise. If size is 0, any number of\n"
@@ -7735,65 +6380,6 @@ static PyMethodDef SwigMethods[] = {
 		"Converts a string in the form \"%Y:%m:%d %H:%M:%S\", e.g.,\n"
 		"       \"2007:05:24 12:31:55\" to broken down time format,\n"
 		"       returns 0 if successful, else 1.\n"
-		""},
-	 { "exvGettext", _wrap_exvGettext, METH_O, "\n"
-		"Translate a string using the gettext framework. This wrapper hides\n"
-		"       all the implementation details from the interface.\n"
-		""},
-	 { "s2ws", _wrap_s2ws, METH_O, " Convert an std::string s to a unicode string returned as a std::wstring."},
-	 { "ws2s", _wrap_ws2s, METH_O, " Convert a unicode std::wstring s to an std::string."},
-	 { "parseLong", _wrap_parseLong, METH_VARARGS, "\n"
-		"Return a *long* set to the value represented by *s*.\n"
-		"\n"
-		"Besides strings that represent *long* values, the function also\n"
-		"handles *float*, *Rational* and boolean\n"
-		"(see also: stringTo(const std::string& s, bool& ok)).\n"
-		"\n"
-		":type s: string\n"
-		":param s:  String to parse\n"
-		":type ok: boolean\n"
-		":param ok: Output variable indicating the success of the operation.\n"
-		":rtype: int\n"
-		":return: Returns the *long* value represented by *s* and sets *ok*\n"
-		"            to ``true`` if the conversion was successful or ``false`` if not.\n"
-		""},
-	 { "parseFloat", _wrap_parseFloat, METH_VARARGS, "\n"
-		"Return a *float* set to the value represented by *s*.\n"
-		"\n"
-		"Besides strings that represent *float* values, the function also\n"
-		"handles *long*, *Rational* and boolean\n"
-		"(see also: stringTo(const std::string& s, bool& ok)).\n"
-		"\n"
-		":type s: string\n"
-		":param s:  String to parse\n"
-		":type ok: boolean\n"
-		":param ok: Output variable indicating the success of the operation.\n"
-		":rtype: float\n"
-		":return: Returns the *float* value represented by *s* and sets *ok*\n"
-		"            to ``true`` if the conversion was successful or ``false`` if not.\n"
-		""},
-	 { "parseRational", _wrap_parseRational, METH_VARARGS, "\n"
-		"Return a *Rational* set to the value represented by *s*.\n"
-		"\n"
-		"Besides strings that represent *Rational* values, the function also\n"
-		"handles *long*, *float* and boolean\n"
-		"(see also: stringTo(const std::string& s, bool& ok)).\n"
-		"Uses floatToRationalCast(float f) if the string can be parsed into a\n"
-		"*float*.\n"
-		"\n"
-		":type s: string\n"
-		":param s:  String to parse\n"
-		":type ok: boolean\n"
-		":param ok: Output variable indicating the success of the operation.\n"
-		":rtype: :py:class:`Rational`\n"
-		":return: Returns the *Rational* value represented by *s* and sets *ok*\n"
-		"            to ``true`` if the conversion was successful or ``false`` if not.\n"
-		""},
-	 { "floatToRationalCast", _wrap_floatToRationalCast, METH_O, "\n"
-		"Very simple conversion of a *float* to a *Rational*.\n"
-		"\n"
-		"Test it with the values that you expect and check the implementation\n"
-		"to see if this is really what you want!\n"
 		""},
 	 { NULL, NULL, 0, NULL }
 };
@@ -7804,15 +6390,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "TypeInfo_typeName", _wrap_TypeInfo_typeName, METH_O, " Return the name of the type, 0 if unknown."},
 	 { "TypeInfo_typeId", _wrap_TypeInfo_typeId, METH_O, " Return the type id for a type name"},
 	 { "TypeInfo_typeSize", _wrap_TypeInfo_typeSize, METH_O, " Return the size in bytes of one element of this type"},
-	 { "getUShort", _wrap_getUShort, METH_VARARGS, " Read a 2 byte unsigned short value from the data buffer"},
-	 { "getULong", _wrap_getULong, METH_VARARGS, " Read a 4 byte unsigned long value from the data buffer"},
-	 { "getULongLong", _wrap_getULongLong, METH_VARARGS, " Read a 8 byte unsigned long value from the data buffer"},
-	 { "getURational", _wrap_getURational, METH_VARARGS, " Read an 8 byte unsigned rational value from the data buffer"},
-	 { "getShort", _wrap_getShort, METH_VARARGS, " Read a 2 byte signed short value from the data buffer"},
-	 { "getLong", _wrap_getLong, METH_VARARGS, " Read a 4 byte signed long value from the data buffer"},
-	 { "getRational", _wrap_getRational, METH_VARARGS, " Read an 8 byte signed rational value from the data buffer"},
-	 { "getFloat", _wrap_getFloat, METH_VARARGS, " Read a 4 byte single precision floating point value (IEEE 754 binary32) from the data buffer"},
-	 { "getDouble", _wrap_getDouble, METH_VARARGS, " Read an 8 byte double precision floating point value (IEEE 754 binary64) from the data buffer"},
 	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
 		"Output operator for our fake rational\n"
@@ -7831,43 +6408,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		"*Overload 2:*\n"
 		"Input operator for our fake unsigned rational\n"
 		""},
-	 { "us2Data", _wrap_us2Data, METH_VARARGS, "\n"
-		"Convert an unsigned short to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "ul2Data", _wrap_ul2Data, METH_VARARGS, "\n"
-		"Convert an unsigned long to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "ur2Data", _wrap_ur2Data, METH_VARARGS, "\n"
-		"Convert an unsigned rational to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "s2Data", _wrap_s2Data, METH_VARARGS, "\n"
-		"Convert a signed short to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "l2Data", _wrap_l2Data, METH_VARARGS, "\n"
-		"Convert a signed long to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "r2Data", _wrap_r2Data, METH_VARARGS, "\n"
-		"Convert a signed rational to data, write the data to the buffer,\n"
-		"       return number of bytes written.\n"
-		""},
-	 { "f2Data", _wrap_f2Data, METH_VARARGS, "\n"
-		"Convert a single precision floating point (IEEE 754 binary32) float\n"
-		"       to data, write the data to the buffer, return number of bytes written.\n"
-		""},
-	 { "d2Data", _wrap_d2Data, METH_VARARGS, "\n"
-		"Convert a double precision floating point (IEEE 754 binary64) double\n"
-		"       to data, write the data to the buffer, return number of bytes written.\n"
-		""},
-	 { "hexdump", _wrap_hexdump, METH_VARARGS, "\n"
-		"Print len bytes from buf in hex and ASCII format to the given\n"
-		"       stream, prefixed with the position in the buffer adjusted by\n"
-		"       offset.\n"
-		""},
 	 { "isHex", _wrap_isHex, METH_VARARGS, "\n"
 		"Return true if str is a hex number starting with prefix followed\n"
 		"       by size hex digits, false otherwise. If size is 0, any number of\n"
@@ -7877,65 +6417,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		"Converts a string in the form \"%Y:%m:%d %H:%M:%S\", e.g.,\n"
 		"       \"2007:05:24 12:31:55\" to broken down time format,\n"
 		"       returns 0 if successful, else 1.\n"
-		""},
-	 { "exvGettext", _wrap_exvGettext, METH_O, "\n"
-		"Translate a string using the gettext framework. This wrapper hides\n"
-		"       all the implementation details from the interface.\n"
-		""},
-	 { "s2ws", _wrap_s2ws, METH_O, " Convert an std::string s to a unicode string returned as a std::wstring."},
-	 { "ws2s", _wrap_ws2s, METH_O, " Convert a unicode std::wstring s to an std::string."},
-	 { "parseLong", _wrap_parseLong, METH_VARARGS, "\n"
-		"Return a *long* set to the value represented by *s*.\n"
-		"\n"
-		"Besides strings that represent *long* values, the function also\n"
-		"handles *float*, *Rational* and boolean\n"
-		"(see also: stringTo(const std::string& s, bool& ok)).\n"
-		"\n"
-		":type s: string\n"
-		":param s:  String to parse\n"
-		":type ok: boolean\n"
-		":param ok: Output variable indicating the success of the operation.\n"
-		":rtype: int\n"
-		":return: Returns the *long* value represented by *s* and sets *ok*\n"
-		"            to ``true`` if the conversion was successful or ``false`` if not.\n"
-		""},
-	 { "parseFloat", _wrap_parseFloat, METH_VARARGS, "\n"
-		"Return a *float* set to the value represented by *s*.\n"
-		"\n"
-		"Besides strings that represent *float* values, the function also\n"
-		"handles *long*, *Rational* and boolean\n"
-		"(see also: stringTo(const std::string& s, bool& ok)).\n"
-		"\n"
-		":type s: string\n"
-		":param s:  String to parse\n"
-		":type ok: boolean\n"
-		":param ok: Output variable indicating the success of the operation.\n"
-		":rtype: float\n"
-		":return: Returns the *float* value represented by *s* and sets *ok*\n"
-		"            to ``true`` if the conversion was successful or ``false`` if not.\n"
-		""},
-	 { "parseRational", _wrap_parseRational, METH_VARARGS, "\n"
-		"Return a *Rational* set to the value represented by *s*.\n"
-		"\n"
-		"Besides strings that represent *Rational* values, the function also\n"
-		"handles *long*, *float* and boolean\n"
-		"(see also: stringTo(const std::string& s, bool& ok)).\n"
-		"Uses floatToRationalCast(float f) if the string can be parsed into a\n"
-		"*float*.\n"
-		"\n"
-		":type s: string\n"
-		":param s:  String to parse\n"
-		":type ok: boolean\n"
-		":param ok: Output variable indicating the success of the operation.\n"
-		":rtype: :py:class:`Rational`\n"
-		":return: Returns the *Rational* value represented by *s* and sets *ok*\n"
-		"            to ``true`` if the conversion was successful or ``false`` if not.\n"
-		""},
-	 { "floatToRationalCast", _wrap_floatToRationalCast, METH_O, "\n"
-		"Very simple conversion of a *float* to a *Rational*.\n"
-		"\n"
-		"Test it with the values that you expect and check the implementation\n"
-		"to see if this is really what you want!\n"
 		""},
 	 { NULL, NULL, 0, NULL }
 };
@@ -9259,7 +7740,15 @@ static SwigPyGetSet URational___dict___getset = { SwigPyObject_get___dict__, 0 }
 static SwigPyGetSet URational_second_getset = { _wrap_URational_second_get, _wrap_URational_second_set };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__std__pairT_uint32_t_uint32_t_t_getset[] = {
     { (char *)"first", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)"", &URational_first_getset },
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Read a 2 byte unsigned short value from the data buffer", &URational___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"*Overload 1:*\n"
+		"Output operator for our fake rational\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"Output operator for our fake unsigned rational\n"
+		"", &URational___dict___getset },
     { (char *)"second", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)"", &URational_second_getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
@@ -9696,7 +8185,6 @@ static swig_type_info _swigt__p_Exiv2__TypeInfo = {"_p_Exiv2__TypeInfo", "Exiv2:
 static swig_type_info _swigt__p_MetadataId = {"_p_MetadataId", "MetadataId *", 0, 0, (void*)&SwigPyBuiltin__MetadataId_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_TypeId = {"_p_TypeId", "TypeId *", 0, 0, (void*)&SwigPyBuiltin__TypeId_clientdata, 0};
-static swig_type_info _swigt__p_bool = {"_p_bool", "bool *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "intptr_t *|int *|int_least32_t *|int_fast32_t *|int32_t *|int_fast16_t *", 0, 0, (void*)0, 0};
@@ -9711,7 +8199,6 @@ static swig_type_info _swigt__p_std__pairT_unsigned_char_p_long_t = {"_p_std__pa
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< uint32_t,uint32_t > *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)&SwigPyBuiltin__std__pairT_uint32_t_uint32_t_t_clientdata, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_unsigned_char_t = {"_p_std__vectorT_unsigned_char_t", "std::vector< unsigned char > *|Exiv2::Blob *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__wstring = {"_p_std__wstring", "std::wstring *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_tm = {"_p_tm", "tm *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *|Exiv2::byte *|uint_least8_t *|uint_fast8_t *|uint8_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "uintptr_t *|uint_least32_t *|uint_fast32_t *|uint32_t *|unsigned int *|uint_fast16_t *", 0, 0, (void*)0, 0};
@@ -9726,7 +8213,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_MetadataId,
   &_swigt__p_SwigPyObject,
   &_swigt__p_TypeId,
-  &_swigt__p_bool,
   &_swigt__p_char,
   &_swigt__p_first_type,
   &_swigt__p_int,
@@ -9741,7 +8227,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
   &_swigt__p_std__string,
   &_swigt__p_std__vectorT_unsigned_char_t,
-  &_swigt__p_std__wstring,
   &_swigt__p_tm,
   &_swigt__p_unsigned_char,
   &_swigt__p_unsigned_int,
@@ -9756,7 +8241,6 @@ static swig_cast_info _swigc__p_Exiv2__TypeInfo[] = {  {&_swigt__p_Exiv2__TypeIn
 static swig_cast_info _swigc__p_MetadataId[] = {  {&_swigt__p_MetadataId, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_TypeId[] = {  {&_swigt__p_TypeId, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_bool[] = {  {&_swigt__p_bool, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
@@ -9771,7 +8255,6 @@ static swig_cast_info _swigc__p_std__pairT_unsigned_char_p_long_t[] = {  {&_swig
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_unsigned_char_t[] = {  {&_swigt__p_std__vectorT_unsigned_char_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__wstring[] = {  {&_swigt__p_std__wstring, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_tm[] = {  {&_swigt__p_tm, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0, 0, 0},{0, 0, 0, 0}};
@@ -9786,7 +8269,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_MetadataId,
   _swigc__p_SwigPyObject,
   _swigc__p_TypeId,
-  _swigc__p_bool,
   _swigc__p_char,
   _swigc__p_first_type,
   _swigc__p_int,
@@ -9801,7 +8283,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
   _swigc__p_std__string,
   _swigc__p_std__vectorT_unsigned_char_t,
-  _swigc__p_std__wstring,
   _swigc__p_tm,
   _swigc__p_unsigned_char,
   _swigc__p_unsigned_int,

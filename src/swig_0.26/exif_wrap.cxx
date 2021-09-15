@@ -3453,56 +3453,55 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_Exiv2__DateValue swig_types[7]
 #define SWIGTYPE_p_Exiv2__ExifData swig_types[8]
 #define SWIGTYPE_p_Exiv2__ExifKey swig_types[9]
-#define SWIGTYPE_p_Exiv2__ExifParser swig_types[10]
-#define SWIGTYPE_p_Exiv2__ExifThumb swig_types[11]
-#define SWIGTYPE_p_Exiv2__ExifThumbC swig_types[12]
-#define SWIGTYPE_p_Exiv2__Exifdatum swig_types[13]
-#define SWIGTYPE_p_Exiv2__Key swig_types[14]
-#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[15]
-#define SWIGTYPE_p_Exiv2__Metadatum swig_types[16]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[17]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[18]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[19]
-#define SWIGTYPE_p_Exiv2__Value swig_types[20]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[21]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[22]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[23]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[24]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[25]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[26]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[27]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[28]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[29]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[30]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[31]
-#define SWIGTYPE_p_SwigPyObject swig_types[32]
-#define SWIGTYPE_p_ValueList swig_types[33]
-#define SWIGTYPE_p_ValueType swig_types[34]
-#define SWIGTYPE_p_allocator_type swig_types[35]
-#define SWIGTYPE_p_char swig_types[36]
-#define SWIGTYPE_p_const_iterator swig_types[37]
-#define SWIGTYPE_p_difference_type swig_types[38]
-#define SWIGTYPE_p_first_type swig_types[39]
-#define SWIGTYPE_p_int swig_types[40]
-#define SWIGTYPE_p_iterator swig_types[41]
-#define SWIGTYPE_p_long_long swig_types[42]
-#define SWIGTYPE_p_second_type swig_types[43]
-#define SWIGTYPE_p_short swig_types[44]
-#define SWIGTYPE_p_signed_char swig_types[45]
-#define SWIGTYPE_p_size_type swig_types[46]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[47]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t__iterator swig_types[48]
-#define SWIGTYPE_p_std__ostream swig_types[49]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[50]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[51]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[52]
-#define SWIGTYPE_p_unsigned_char swig_types[53]
-#define SWIGTYPE_p_unsigned_int swig_types[54]
-#define SWIGTYPE_p_unsigned_long_long swig_types[55]
-#define SWIGTYPE_p_unsigned_short swig_types[56]
-#define SWIGTYPE_p_value_type swig_types[57]
-static swig_type_info *swig_types[59];
-static swig_module_info swig_module = {swig_types, 58, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__ExifThumb swig_types[10]
+#define SWIGTYPE_p_Exiv2__ExifThumbC swig_types[11]
+#define SWIGTYPE_p_Exiv2__Exifdatum swig_types[12]
+#define SWIGTYPE_p_Exiv2__Key swig_types[13]
+#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[14]
+#define SWIGTYPE_p_Exiv2__Metadatum swig_types[15]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[16]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[17]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[18]
+#define SWIGTYPE_p_Exiv2__Value swig_types[19]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[20]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[21]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[22]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[23]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[24]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[25]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[26]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[27]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[28]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[29]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[30]
+#define SWIGTYPE_p_SwigPyObject swig_types[31]
+#define SWIGTYPE_p_ValueList swig_types[32]
+#define SWIGTYPE_p_ValueType swig_types[33]
+#define SWIGTYPE_p_allocator_type swig_types[34]
+#define SWIGTYPE_p_char swig_types[35]
+#define SWIGTYPE_p_const_iterator swig_types[36]
+#define SWIGTYPE_p_difference_type swig_types[37]
+#define SWIGTYPE_p_first_type swig_types[38]
+#define SWIGTYPE_p_int swig_types[39]
+#define SWIGTYPE_p_iterator swig_types[40]
+#define SWIGTYPE_p_long_long swig_types[41]
+#define SWIGTYPE_p_second_type swig_types[42]
+#define SWIGTYPE_p_short swig_types[43]
+#define SWIGTYPE_p_signed_char swig_types[44]
+#define SWIGTYPE_p_size_type swig_types[45]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[46]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t__iterator swig_types[47]
+#define SWIGTYPE_p_std__ostream swig_types[48]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[49]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[50]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[51]
+#define SWIGTYPE_p_unsigned_char swig_types[52]
+#define SWIGTYPE_p_unsigned_int swig_types[53]
+#define SWIGTYPE_p_unsigned_long_long swig_types[54]
+#define SWIGTYPE_p_unsigned_short swig_types[55]
+#define SWIGTYPE_p_value_type swig_types[56]
+static swig_type_info *swig_types[58];
+static swig_module_info swig_module = {swig_types, 57, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -7599,450 +7598,15 @@ SWIGPY_GETITERFUNC_CLOSURE(_wrap_ExifData___iter__) /* defines _wrap_ExifData___
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifData) /* defines _wrap_delete_ExifData_destructor_closure */
 
-SWIGINTERN PyObject *_wrap_ExifParser_decode(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ExifData *arg1 = 0 ;
-  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
-  uint32_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  Exiv2::ByteOrder result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ExifParser_decode", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__ExifData,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifParser_decode" "', argument " "1"" of type '" "Exiv2::ExifData &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifParser_decode" "', argument " "1"" of type '" "Exiv2::ExifData &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifParser_decode" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExifParser_decode" "', argument " "3"" of type '" "uint32_t""'");
-  } 
-  arg3 = static_cast< uint32_t >(val3);
-  {
-    try {
-      result = (Exiv2::ByteOrder)Exiv2::ExifParser::decode(*arg1,(unsigned char const *)arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifParser_encode__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::Blob *arg1 = 0 ;
-  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
-  uint32_t arg3 ;
-  Exiv2::ByteOrder arg4 ;
-  Exiv2::ExifData *arg5 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  int val4 ;
-  int ecode4 = 0 ;
-  void *argp5 = 0 ;
-  int res5 = 0 ;
-  Exiv2::WriteMethod result;
-  
-  if ((nobjs < 5) || (nobjs > 5)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifParser_encode" "', argument " "1"" of type '" "Exiv2::Blob &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifParser_encode" "', argument " "1"" of type '" "Exiv2::Blob &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Blob * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifParser_encode" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExifParser_encode" "', argument " "3"" of type '" "uint32_t""'");
-  } 
-  arg3 = static_cast< uint32_t >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "ExifParser_encode" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg4 = static_cast< Exiv2::ByteOrder >(val4);
-  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_Exiv2__ExifData,  0  | 0);
-  if (!SWIG_IsOK(res5)) {
-    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "ExifParser_encode" "', argument " "5"" of type '" "Exiv2::ExifData const &""'"); 
-  }
-  if (!argp5) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifParser_encode" "', argument " "5"" of type '" "Exiv2::ExifData const &""'"); 
-  }
-  arg5 = reinterpret_cast< Exiv2::ExifData * >(argp5);
-  {
-    try {
-      result = (Exiv2::WriteMethod)Exiv2::ExifParser::encode(*arg1,(unsigned char const *)arg2,arg3,arg4,(Exiv2::ExifData const &)*arg5);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifParser_encode__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::Blob *arg1 = 0 ;
-  Exiv2::ByteOrder arg2 ;
-  Exiv2::ExifData *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifParser_encode" "', argument " "1"" of type '" "Exiv2::Blob &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifParser_encode" "', argument " "1"" of type '" "Exiv2::Blob &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Blob * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifParser_encode" "', argument " "2"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg2 = static_cast< Exiv2::ByteOrder >(val2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_Exiv2__ExifData,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExifParser_encode" "', argument " "3"" of type '" "Exiv2::ExifData const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifParser_encode" "', argument " "3"" of type '" "Exiv2::ExifData const &""'"); 
-  }
-  arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
-  {
-    try {
-      Exiv2::ExifParser::encode(*arg1,arg2,(Exiv2::ExifData const &)*arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifParser_encode(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[6] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "ExifParser_encode", 0, 5, argv))) SWIG_fail;
-  --argc;
-  if (argc == 3) {
-    PyObject *retobj = _wrap_ExifParser_encode__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 5) {
-    PyObject *retobj = _wrap_ExifParser_encode__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifParser_encode'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::ExifParser::encode(Exiv2::Blob &,Exiv2::byte const *,uint32_t,Exiv2::ByteOrder,Exiv2::ExifData const &)\n"
-    "    Exiv2::ExifParser::encode(Exiv2::Blob &,Exiv2::ByteOrder,Exiv2::ExifData const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN int _wrap_new_ExifParser(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::ExifParser *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_ExifParser")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_ExifParser", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::ExifParser *)new Exiv2::ExifParser();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ExifParser, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_ExifParser(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ExifParser *arg1 = (Exiv2::ExifParser *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_ExifParser", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ExifParser, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExifParser" "', argument " "1"" of type '" "Exiv2::ExifParser *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ExifParser * >(argp1);
-  {
-    try {
-      delete arg1;
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifParser) /* defines _wrap_delete_ExifParser_destructor_closure */
-
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
-	 { "ExifParser_decode", _wrap_ExifParser_decode, METH_VARARGS, "\n"
-		"Decode metadata from a buffer *pData* of length *size*\n"
-		"       with binary Exif data to the provided metadata container.\n"
-		"\n"
-		"       The buffer must start with a TIFF header. Return byte order\n"
-		"       in which the data is encoded.\n"
-		"\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData: Exif metadata container.\n"
-		":type pData: Exiv2::byte\n"
-		":param pData: 	  Pointer to the data buffer. Must point to data in\n"
-		"                    binary Exif format; no checks are performed.\n"
-		":type size: int\n"
-		":param size: 	  Length of the data buffer\n"
-		":rtype: int\n"
-		":return: Byte order in which the data is encoded.\n"
-		""},
-	 { "ExifParser_encode", _wrap_ExifParser_encode, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Encode Exif metadata from the provided metadata to binary Exif\n"
-		"       format.\n"
-		"\n"
-		"The original binary Exif data in the memory block *pData*, *size*\n"
-		"is parsed and updated in-place if possible (\"non-intrusive\"\n"
-		"writing). If that is not possible (e.g., if new tags were added), the\n"
-		"entire Exif structure is re-written to the *blob* (\"intrusive\"\n"
-		"writing). The return value indicates which write method was used. If\n"
-		"it is ``wmNonIntrusive``, the original memory *pData*, *size*\n"
-		"contains the result and *blob* is empty. If the return value is\n"
-		"``wmIntrusive``, a new Exif structure was created and returned in\n"
-		"*blob*. The memory block *pData*, *size* may be partly updated in\n"
-		"this case and should not be used anymore.\n"
-		"\n"
-		"Encode is a lossy operation. It attempts to fit the Exif data into a\n"
-		"binary block suitable as the payload of a JPEG APP1 Exif segment,\n"
-		"which can be at most 65527 bytes large. Encode omits IFD0 tags that\n"
-		"are \"not recorded\" in compressed images according to the Exif 2.2\n"
-		"specification. It also doesn't write tags in groups which do not occur\n"
-		"in JPEG images. If the resulting binary block is larger than allowed,\n"
-		"it further deletes specific large preview tags, unknown tags larger\n"
-		"than 4kB and known tags larger than 40kB. The operation succeeds even\n"
-		"if the end result is still larger than the allowed size. Application\n"
-		"should therefore always check the size of the *blob*.\n"
-		"\n"
-		":type blob: Exiv2::Blob\n"
-		":param blob:      Container for the binary Exif data if \"intrusive\"\n"
-		"                     writing is necessary. Empty otherwise.\n"
-		":type pData: Exiv2::byte\n"
-		":param pData:     Pointer to the binary Exif data buffer. Must\n"
-		"                     point to data in Exif format; no checks are\n"
-		"                     performed. Will be modified if \"non-intrusive\"\n"
-		"                     writing is possible.\n"
-		":type size: int\n"
-		":param size:      Length of the data buffer.\n"
-		":type byteOrder: int\n"
-		":param byteOrder: Byte order to use.\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData:  Exif metadata container.\n"
-		"\n"
-		":rtype: int\n"
-		":return: Write method used.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Encode metadata from the provided metadata to Exif format.\n"
-		"\n"
-		"Encode Exif metadata from the *ExifData* container to binary Exif\n"
-		"format in the *blob*, encoded in *byteOrder*.\n"
-		"\n"
-		"This simpler encode method uses \"intrusive\" writing, i.e., it builds\n"
-		"the binary representation of the metadata from scratch. It does not\n"
-		"attempt \"non-intrusive\", i.e., in-place updating. It's better to use\n"
-		"the other encode() method, if the metadata is already available in\n"
-		"binary format, in order to allow for \"non-intrusive\" updating of the\n"
-		"existing binary representation.\n"
-		"\n"
-		"This is just an inline wrapper for\n"
-		"ExifParser::encode(blob, 0, 0, byteOrder, exifData).\n"
-		"\n"
-		":type blob: Exiv2::Blob\n"
-		":param blob:      Container for the binary Exif data.\n"
-		":type byteOrder: int\n"
-		":param byteOrder: Byte order to use.\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData:  Exif metadata container.\n"
-		""},
 	 { NULL, NULL, 0, NULL }
 };
 
 static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
-	 { "ExifParser_decode", _wrap_ExifParser_decode, METH_VARARGS, "\n"
-		"Decode metadata from a buffer *pData* of length *size*\n"
-		"       with binary Exif data to the provided metadata container.\n"
-		"\n"
-		"       The buffer must start with a TIFF header. Return byte order\n"
-		"       in which the data is encoded.\n"
-		"\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData: Exif metadata container.\n"
-		":type pData: Exiv2::byte\n"
-		":param pData: 	  Pointer to the data buffer. Must point to data in\n"
-		"                    binary Exif format; no checks are performed.\n"
-		":type size: int\n"
-		":param size: 	  Length of the data buffer\n"
-		":rtype: int\n"
-		":return: Byte order in which the data is encoded.\n"
-		""},
-	 { "ExifParser_encode", _wrap_ExifParser_encode, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Encode Exif metadata from the provided metadata to binary Exif\n"
-		"       format.\n"
-		"\n"
-		"The original binary Exif data in the memory block *pData*, *size*\n"
-		"is parsed and updated in-place if possible (\"non-intrusive\"\n"
-		"writing). If that is not possible (e.g., if new tags were added), the\n"
-		"entire Exif structure is re-written to the *blob* (\"intrusive\"\n"
-		"writing). The return value indicates which write method was used. If\n"
-		"it is ``wmNonIntrusive``, the original memory *pData*, *size*\n"
-		"contains the result and *blob* is empty. If the return value is\n"
-		"``wmIntrusive``, a new Exif structure was created and returned in\n"
-		"*blob*. The memory block *pData*, *size* may be partly updated in\n"
-		"this case and should not be used anymore.\n"
-		"\n"
-		"Encode is a lossy operation. It attempts to fit the Exif data into a\n"
-		"binary block suitable as the payload of a JPEG APP1 Exif segment,\n"
-		"which can be at most 65527 bytes large. Encode omits IFD0 tags that\n"
-		"are \"not recorded\" in compressed images according to the Exif 2.2\n"
-		"specification. It also doesn't write tags in groups which do not occur\n"
-		"in JPEG images. If the resulting binary block is larger than allowed,\n"
-		"it further deletes specific large preview tags, unknown tags larger\n"
-		"than 4kB and known tags larger than 40kB. The operation succeeds even\n"
-		"if the end result is still larger than the allowed size. Application\n"
-		"should therefore always check the size of the *blob*.\n"
-		"\n"
-		":type blob: Exiv2::Blob\n"
-		":param blob:      Container for the binary Exif data if \"intrusive\"\n"
-		"                     writing is necessary. Empty otherwise.\n"
-		":type pData: Exiv2::byte\n"
-		":param pData:     Pointer to the binary Exif data buffer. Must\n"
-		"                     point to data in Exif format; no checks are\n"
-		"                     performed. Will be modified if \"non-intrusive\"\n"
-		"                     writing is possible.\n"
-		":type size: int\n"
-		":param size:      Length of the data buffer.\n"
-		":type byteOrder: int\n"
-		":param byteOrder: Byte order to use.\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData:  Exif metadata container.\n"
-		"\n"
-		":rtype: int\n"
-		":return: Write method used.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Encode metadata from the provided metadata to Exif format.\n"
-		"\n"
-		"Encode Exif metadata from the *ExifData* container to binary Exif\n"
-		"format in the *blob*, encoded in *byteOrder*.\n"
-		"\n"
-		"This simpler encode method uses \"intrusive\" writing, i.e., it builds\n"
-		"the binary representation of the metadata from scratch. It does not\n"
-		"attempt \"non-intrusive\", i.e., in-place updating. It's better to use\n"
-		"the other encode() method, if the metadata is already available in\n"
-		"binary format, in order to allow for \"non-intrusive\" updating of the\n"
-		"existing binary representation.\n"
-		"\n"
-		"This is just an inline wrapper for\n"
-		"ExifParser::encode(blob, 0, 0, byteOrder, exifData).\n"
-		"\n"
-		":type blob: Exiv2::Blob\n"
-		":param blob:      Container for the binary Exif data.\n"
-		":type byteOrder: int\n"
-		":param byteOrder: Byte order to use.\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData:  Exif metadata container.\n"
-		""},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -9587,328 +9151,6 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ExifData_type = {
 
 SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__ExifData_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__ExifData_type};
 
-static SwigPyGetSet ExifParser___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__ExifParser_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"Decode metadata from a buffer *pData* of length *size*\n"
-		"       with binary Exif data to the provided metadata container.\n"
-		"\n"
-		"       The buffer must start with a TIFF header. Return byte order\n"
-		"       in which the data is encoded.\n"
-		"\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData: Exif metadata container.\n"
-		":type pData: Exiv2::byte\n"
-		":param pData: 	  Pointer to the data buffer. Must point to data in\n"
-		"                    binary Exif format; no checks are performed.\n"
-		":type size: int\n"
-		":param size: 	  Length of the data buffer\n"
-		":rtype: int\n"
-		":return: Byte order in which the data is encoded.\n"
-		"", &ExifParser___dict___getset },
-    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
-};
-
-SWIGINTERN PyObject *
-SwigPyBuiltin__Exiv2__ExifParser_richcompare(PyObject *self, PyObject *other, int op) {
-  PyObject *result = NULL;
-  if (!result) {
-    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
-      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
-    } else {
-      result = Py_NotImplemented;
-      Py_INCREF(result);
-    }
-  }
-  return result;
-}
-
-SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ExifParser_methods[] = {
-  { "decode", (PyCFunction)(void(*)(void))_wrap_ExifParser_decode, METH_STATIC|METH_VARARGS, "\n"
-		"Decode metadata from a buffer *pData* of length *size*\n"
-		"       with binary Exif data to the provided metadata container.\n"
-		"\n"
-		"       The buffer must start with a TIFF header. Return byte order\n"
-		"       in which the data is encoded.\n"
-		"\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData: Exif metadata container.\n"
-		":type pData: Exiv2::byte\n"
-		":param pData: 	  Pointer to the data buffer. Must point to data in\n"
-		"                    binary Exif format; no checks are performed.\n"
-		":type size: int\n"
-		":param size: 	  Length of the data buffer\n"
-		":rtype: int\n"
-		":return: Byte order in which the data is encoded.\n"
-		"" },
-  { "encode", (PyCFunction)(void(*)(void))_wrap_ExifParser_encode, METH_STATIC|METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Encode Exif metadata from the provided metadata to binary Exif\n"
-		"       format.\n"
-		"\n"
-		"The original binary Exif data in the memory block *pData*, *size*\n"
-		"is parsed and updated in-place if possible (\"non-intrusive\"\n"
-		"writing). If that is not possible (e.g., if new tags were added), the\n"
-		"entire Exif structure is re-written to the *blob* (\"intrusive\"\n"
-		"writing). The return value indicates which write method was used. If\n"
-		"it is ``wmNonIntrusive``, the original memory *pData*, *size*\n"
-		"contains the result and *blob* is empty. If the return value is\n"
-		"``wmIntrusive``, a new Exif structure was created and returned in\n"
-		"*blob*. The memory block *pData*, *size* may be partly updated in\n"
-		"this case and should not be used anymore.\n"
-		"\n"
-		"Encode is a lossy operation. It attempts to fit the Exif data into a\n"
-		"binary block suitable as the payload of a JPEG APP1 Exif segment,\n"
-		"which can be at most 65527 bytes large. Encode omits IFD0 tags that\n"
-		"are \"not recorded\" in compressed images according to the Exif 2.2\n"
-		"specification. It also doesn't write tags in groups which do not occur\n"
-		"in JPEG images. If the resulting binary block is larger than allowed,\n"
-		"it further deletes specific large preview tags, unknown tags larger\n"
-		"than 4kB and known tags larger than 40kB. The operation succeeds even\n"
-		"if the end result is still larger than the allowed size. Application\n"
-		"should therefore always check the size of the *blob*.\n"
-		"\n"
-		":type blob: Exiv2::Blob\n"
-		":param blob:      Container for the binary Exif data if \"intrusive\"\n"
-		"                     writing is necessary. Empty otherwise.\n"
-		":type pData: Exiv2::byte\n"
-		":param pData:     Pointer to the binary Exif data buffer. Must\n"
-		"                     point to data in Exif format; no checks are\n"
-		"                     performed. Will be modified if \"non-intrusive\"\n"
-		"                     writing is possible.\n"
-		":type size: int\n"
-		":param size:      Length of the data buffer.\n"
-		":type byteOrder: int\n"
-		":param byteOrder: Byte order to use.\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData:  Exif metadata container.\n"
-		"\n"
-		":rtype: int\n"
-		":return: Write method used.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Encode metadata from the provided metadata to Exif format.\n"
-		"\n"
-		"Encode Exif metadata from the *ExifData* container to binary Exif\n"
-		"format in the *blob*, encoded in *byteOrder*.\n"
-		"\n"
-		"This simpler encode method uses \"intrusive\" writing, i.e., it builds\n"
-		"the binary representation of the metadata from scratch. It does not\n"
-		"attempt \"non-intrusive\", i.e., in-place updating. It's better to use\n"
-		"the other encode() method, if the metadata is already available in\n"
-		"binary format, in order to allow for \"non-intrusive\" updating of the\n"
-		"existing binary representation.\n"
-		"\n"
-		"This is just an inline wrapper for\n"
-		"ExifParser::encode(blob, 0, 0, byteOrder, exifData).\n"
-		"\n"
-		":type blob: Exiv2::Blob\n"
-		":param blob:      Container for the binary Exif data.\n"
-		":type byteOrder: int\n"
-		":param byteOrder: Byte order to use.\n"
-		":type exifData: :py:class:`ExifData`\n"
-		":param exifData:  Exif metadata container.\n"
-		"" },
-  { NULL, NULL, 0, NULL } /* Sentinel */
-};
-
-static PyHeapTypeObject SwigPyBuiltin__Exiv2__ExifParser_type = {
-  {
-#if PY_VERSION_HEX >= 0x03000000
-    PyVarObject_HEAD_INIT(NULL, 0)
-#else
-    PyObject_HEAD_INIT(NULL)
-    0,                                        /* ob_size */
-#endif
-    "exiv2.exif.ExifParser",                  /* tp_name */
-    sizeof(SwigPyObject),                     /* tp_basicsize */
-    0,                                        /* tp_itemsize */
-    _wrap_delete_ExifParser_destructor_closure,                   /* tp_dealloc */
-    (printfunc) 0,                            /* tp_print */
-    (getattrfunc) 0,                          /* tp_getattr */
-    (setattrfunc) 0,                          /* tp_setattr */
-#if PY_VERSION_HEX >= 0x03000000
-    0,                                        /* tp_compare */
-#else
-    (cmpfunc) 0,                              /* tp_compare */
-#endif
-    (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__Exiv2__ExifParser_type.as_number,             /* tp_as_number */
-    &SwigPyBuiltin__Exiv2__ExifParser_type.as_sequence,           /* tp_as_sequence */
-    &SwigPyBuiltin__Exiv2__ExifParser_type.as_mapping,            /* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
-    (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
-    (getattrofunc) 0,                         /* tp_getattro */
-    (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__Exiv2__ExifParser_type.as_buffer,             /* tp_as_buffer */
-#if PY_VERSION_HEX >= 0x03000000
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
-#else
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
-#endif
-    "\n"
-		"Stateless parser class for Exif data. Images use this class to\n"
-		"       decode and encode binary Exif data.\n"
-		"\n"
-		"Notes: Encode is lossy and is not the inverse of decode.\n"
-		"",/* tp_doc */
-    (traverseproc) 0,                         /* tp_traverse */
-    (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__Exiv2__ExifParser_richcompare,                 /* tp_richcompare */
-    0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
-    (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__Exiv2__ExifParser_methods, /* tp_methods */
-    0,                                        /* tp_members */
-    SwigPyBuiltin__Exiv2__ExifParser_getset,  /* tp_getset */
-    0,                                        /* tp_base */
-    0,                                        /* tp_dict */
-    (descrgetfunc) 0,                         /* tp_descr_get */
-    (descrsetfunc) 0,                         /* tp_descr_set */
-    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_ExifParser,                     /* tp_init */
-    (allocfunc) 0,                            /* tp_alloc */
-    (newfunc) 0,                              /* tp_new */
-    (freefunc) 0,                             /* tp_free */
-    (inquiry) 0,                              /* tp_is_gc */
-    (PyObject *) 0,                           /* tp_bases */
-    (PyObject *) 0,                           /* tp_mro */
-    (PyObject *) 0,                           /* tp_cache */
-    (PyObject *) 0,                           /* tp_subclasses */
-    (PyObject *) 0,                           /* tp_weaklist */
-    (destructor) 0,                           /* tp_del */
-    (int) 0,                                  /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    (destructor) 0,                           /* tp_finalize */
-#endif
-#if PY_VERSION_HEX >= 0x03080000
-    (vectorcallfunc) 0,                       /* tp_vectorcall */
-#endif
-#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
-    0,                                        /* tp_print */
-#endif
-#ifdef COUNT_ALLOCS
-    (Py_ssize_t) 0,                           /* tp_allocs */
-    (Py_ssize_t) 0,                           /* tp_frees */
-    (Py_ssize_t) 0,                           /* tp_maxalloc */
-    0,                                        /* tp_prev */
-    0,                                        /* tp_next */
-#endif
-  },
-#if PY_VERSION_HEX >= 0x03050000
-  {
-    (unaryfunc) 0,                            /* am_await */
-    (unaryfunc) 0,                            /* am_aiter */
-    (unaryfunc) 0,                            /* am_anext */
-  },
-#endif
-  {
-    (binaryfunc) 0,                           /* nb_add */
-    (binaryfunc) 0,                           /* nb_subtract */
-    (binaryfunc) 0,                           /* nb_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_remainder */
-    (binaryfunc) 0,                           /* nb_divmod */
-    (ternaryfunc) 0,                          /* nb_power */
-    (unaryfunc) 0,                            /* nb_negative */
-    (unaryfunc) 0,                            /* nb_positive */
-    (unaryfunc) 0,                            /* nb_absolute */
-    (inquiry) 0,                              /* nb_nonzero */
-    (unaryfunc) 0,                            /* nb_invert */
-    (binaryfunc) 0,                           /* nb_lshift */
-    (binaryfunc) 0,                           /* nb_rshift */
-    (binaryfunc) 0,                           /* nb_and */
-    (binaryfunc) 0,                           /* nb_xor */
-    (binaryfunc) 0,                           /* nb_or */
-#if PY_VERSION_HEX < 0x03000000
-    (coercion) 0,                             /* nb_coerce */
-#endif
-    (unaryfunc) 0,                            /* nb_int */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* nb_reserved */
-#else
-    (unaryfunc) 0,                            /* nb_long */
-#endif
-    (unaryfunc) 0,                            /* nb_float */
-#if PY_VERSION_HEX < 0x03000000
-    (unaryfunc) 0,                            /* nb_oct */
-    (unaryfunc) 0,                            /* nb_hex */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_add */
-    (binaryfunc) 0,                           /* nb_inplace_subtract */
-    (binaryfunc) 0,                           /* nb_inplace_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_inplace_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_remainder */
-    (ternaryfunc) 0,                          /* nb_inplace_power */
-    (binaryfunc) 0,                           /* nb_inplace_lshift */
-    (binaryfunc) 0,                           /* nb_inplace_rshift */
-    (binaryfunc) 0,                           /* nb_inplace_and */
-    (binaryfunc) 0,                           /* nb_inplace_xor */
-    (binaryfunc) 0,                           /* nb_inplace_or */
-    (binaryfunc) 0,                           /* nb_floor_divide */
-    (binaryfunc) 0,                           /* nb_true_divide */
-    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
-    (binaryfunc) 0,                           /* nb_inplace_true_divide */
-    (unaryfunc) 0,                            /* nb_index */
-#if PY_VERSION_HEX >= 0x03050000
-    (binaryfunc) 0,                           /* nb_matrix_multiply */
-    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
-#endif
-  },
-  {
-    (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
-  },
-  {
-    (lenfunc) 0,                              /* sq_length */
-    (binaryfunc) 0,                           /* sq_concat */
-    (ssizeargfunc) 0,                         /* sq_repeat */
-    (ssizeargfunc) 0,                         /* sq_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_slice */
-#else
-    (ssizessizeargfunc) 0,                    /* sq_slice */
-#endif
-    (ssizeobjargproc) 0,                      /* sq_ass_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_ass_slice */
-#else
-    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
-#endif
-    (objobjproc) 0,                           /* sq_contains */
-    (binaryfunc) 0,                           /* sq_inplace_concat */
-    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
-  },
-  {
-#if PY_VERSION_HEX < 0x03000000
-    (readbufferproc) 0,                       /* bf_getreadbuffer */
-    (writebufferproc) 0,                      /* bf_getwritebuffer */
-    (segcountproc) 0,                         /* bf_getsegcount */
-    (charbufferproc) 0,                       /* bf_getcharbuffer */
-#endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
-  },
-    (PyObject *) 0,                           /* ht_name */
-    (PyObject *) 0,                           /* ht_slots */
-#if PY_VERSION_HEX >= 0x03030000
-    (PyObject *) 0,                           /* ht_qualname */
-    0,                                        /* ht_cached_keys */
-#endif
-};
-
-SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__ExifParser_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__ExifParser_type};
-
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
@@ -10006,7 +9248,6 @@ static swig_type_info _swigt__p_Exiv2__DataValue = {"_p_Exiv2__DataValue", "Exiv
 static swig_type_info _swigt__p_Exiv2__DateValue = {"_p_Exiv2__DateValue", "Exiv2::DateValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ExifData = {"_p_Exiv2__ExifData", "Exiv2::ExifData *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifData_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__ExifKey = {"_p_Exiv2__ExifKey", "Exiv2::ExifKey *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ExifParser = {"_p_Exiv2__ExifParser", "Exiv2::ExifParser *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifParser_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__ExifThumb = {"_p_Exiv2__ExifThumb", "Exiv2::ExifThumb *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifThumb_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__ExifThumbC = {"_p_Exiv2__ExifThumbC", "Exiv2::ExifThumbC *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifThumbC_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__Exifdatum = {"_p_Exiv2__Exifdatum", "Exiv2::Exifdatum *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__Exifdatum_clientdata, 0};
@@ -10066,7 +9307,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__DateValue,
   &_swigt__p_Exiv2__ExifData,
   &_swigt__p_Exiv2__ExifKey,
-  &_swigt__p_Exiv2__ExifParser,
   &_swigt__p_Exiv2__ExifThumb,
   &_swigt__p_Exiv2__ExifThumbC,
   &_swigt__p_Exiv2__Exifdatum,
@@ -10126,7 +9366,6 @@ static swig_cast_info _swigc__p_Exiv2__DataValue[] = {  {&_swigt__p_Exiv2__DataV
 static swig_cast_info _swigc__p_Exiv2__DateValue[] = {  {&_swigt__p_Exiv2__DateValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifData[] = {  {&_swigt__p_Exiv2__ExifData, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifKey[] = {  {&_swigt__p_Exiv2__ExifKey, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ExifParser[] = {  {&_swigt__p_Exiv2__ExifParser, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifThumb[] = {  {&_swigt__p_Exiv2__ExifThumb, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifThumbC[] = {  {&_swigt__p_Exiv2__ExifThumb, _p_Exiv2__ExifThumbTo_p_Exiv2__ExifThumbC, 0, 0},  {&_swigt__p_Exiv2__ExifThumbC, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Exifdatum[] = {  {&_swigt__p_Exiv2__Exifdatum, 0, 0, 0},{0, 0, 0, 0}};
@@ -10186,7 +9425,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__DateValue,
   _swigc__p_Exiv2__ExifData,
   _swigc__p_Exiv2__ExifKey,
-  _swigc__p_Exiv2__ExifParser,
   _swigc__p_Exiv2__ExifThumb,
   _swigc__p_Exiv2__ExifThumbC,
   _swigc__p_Exiv2__Exifdatum,
@@ -11142,29 +10380,6 @@ SWIG_init(void) {
   Py_INCREF(builtin_pytype);
   PyModule_AddObject(m, "ExifData", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "ExifData");
-  d = md;
-  
-  /* type 'Exiv2::ExifParser' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__ExifParser_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
-  builtin_pytype->tp_new = PyType_GenericNew;
-  builtin_base_count = 0;
-  builtin_bases[builtin_base_count] = NULL;
-  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
-  PyDict_SetItemString(d, "this", this_descr);
-  PyDict_SetItemString(d, "thisown", thisown_descr);
-  if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'ExifParser'.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "ExifParser", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "ExifParser");
   d = md;
 #if PY_VERSION_HEX >= 0x03000000
   return m;

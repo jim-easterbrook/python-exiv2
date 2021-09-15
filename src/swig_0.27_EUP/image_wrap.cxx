@@ -8489,56 +8489,6 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ImageFactory) /* defines _wrap_delete_ImageFactory_destructor_closure */
 
-SWIGINTERN PyObject *_wrap_append(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Blob *arg1 = 0 ;
-  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
-  uint32_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "append", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "append" "', argument " "1"" of type '" "Exiv2::Blob &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "append" "', argument " "1"" of type '" "Exiv2::Blob &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Blob * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "append" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "append" "', argument " "3"" of type '" "uint32_t""'");
-  } 
-  arg3 = static_cast< uint32_t >(val3);
-  {
-    try {
-      Exiv2::append(*arg1,(unsigned char const *)arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
@@ -8778,7 +8728,6 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"             false if the data does not match\n"
 		""},
-	 { "append", _wrap_append, METH_VARARGS, " Append *len* bytes pointed to by *buf* to *blob*."},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -9021,7 +8970,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		"\n"
 		"             false if the data does not match\n"
 		""},
-	 { "append", _wrap_append, METH_VARARGS, " Append *len* bytes pointed to by *buf* to *blob*."},
 	 { NULL, NULL, 0, NULL }
 };
 

@@ -107,6 +107,33 @@ ENUM(TypeId,
 // Ignore enums that Python doesn't need
 %ignore Exiv2::ByteOrder;
 %ignore Exiv2::WriteMethod;
+%ignore Exiv2::getDouble;
+%ignore Exiv2::getFloat;
+%ignore Exiv2::getLong;
+%ignore Exiv2::getRational;
+%ignore Exiv2::getShort;
+%ignore Exiv2::getULong;
+%ignore Exiv2::getULongLong;
+%ignore Exiv2::getURational;
+%ignore Exiv2::getUShort;
+%ignore Exiv2::getValue;
+%ignore Exiv2::d2Data;
+%ignore Exiv2::f2Data;
+%ignore Exiv2::l2Data;
+%ignore Exiv2::r2Data;
+%ignore Exiv2::s2Data;
+%ignore Exiv2::ul2Data;
+%ignore Exiv2::ur2Data;
+%ignore Exiv2::us2Data;
+%ignore Exiv2::toData;
+%ignore Exiv2::floatToRationalCast;
+%ignore Exiv2::hexdump;
+%ignore Exiv2::parseLong;
+%ignore Exiv2::parseFloat;
+%ignore Exiv2::parseRational;
+%ignore Exiv2::s2ws;
+%ignore Exiv2::ws2s;
+%ignore Exiv2::exvGettext;
 
 %include "exiv2/types.hpp"
 

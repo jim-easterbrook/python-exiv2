@@ -40,6 +40,6 @@ STR(Exiv2::Iptcdatum, toString)
 %ignore Exiv2::IptcData::findId(uint16_t) const;
 %ignore Exiv2::IptcData::findId(uint16_t,uint16_t) const;
 %ignore Exiv2::IptcData::printStructure;
-%ignore Exiv2::IptcParser::encode;
+%ignore Exiv2::IptcParser;
 
 %include "exiv2/iptc.hpp"

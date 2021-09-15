@@ -49,5 +49,6 @@ STR(Exiv2::Exifdatum, toString)
 %ignore Exiv2::ExifData::begin() const;
 %ignore Exiv2::ExifData::end() const;
 %ignore Exiv2::ExifData::findKey(ExifKey const &) const;
+%ignore Exiv2::ExifParser;
 
 %include "exiv2/exif.hpp"

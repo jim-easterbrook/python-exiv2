@@ -37,6 +37,8 @@ STR(Exiv2::Xmpdatum, toString)
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;
 %ignore Exiv2::XmpData::findKey(XmpKey const &) const;
+%ignore Exiv2::XmpParser::decode;
+%ignore Exiv2::XmpParser::encode;
 
 #if EXIV2_VERSION_HEX >= 0x001b0000
 %include "exiv2/xmp_exiv2.hpp"

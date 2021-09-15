@@ -3500,21 +3500,20 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[54]
 #define SWIGTYPE_p_std__setT_std__string_t swig_types[55]
 #define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[56]
-#define SWIGTYPE_p_std__string swig_types[57]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[58]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[59]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[60]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[61]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[62]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[63]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[64]
-#define SWIGTYPE_p_unsigned_char swig_types[65]
-#define SWIGTYPE_p_unsigned_int swig_types[66]
-#define SWIGTYPE_p_unsigned_long_long swig_types[67]
-#define SWIGTYPE_p_unsigned_short swig_types[68]
-#define SWIGTYPE_p_value_type swig_types[69]
-static swig_type_info *swig_types[71];
-static swig_module_info swig_module = {swig_types, 70, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[57]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[58]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[59]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[60]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[61]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[62]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[63]
+#define SWIGTYPE_p_unsigned_char swig_types[64]
+#define SWIGTYPE_p_unsigned_int swig_types[65]
+#define SWIGTYPE_p_unsigned_long_long swig_types[66]
+#define SWIGTYPE_p_unsigned_short swig_types[67]
+#define SWIGTYPE_p_value_type swig_types[68]
+static swig_type_info *swig_types[70];
+static swig_module_info swig_module = {swig_types, 69, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4591,86 +4590,6 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_3(Exiv2::XmpData *self,std:
 SWIGINTERN XmpDataIterator Exiv2_XmpData___iter__(Exiv2::XmpData *self){
         return XmpDataIterator(self);
     }
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    long v = PyInt_AsLong(obj);
-    if (v >= 0) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      return SWIG_OverflowError;
-    }
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    unsigned long v = PyLong_AsUnsignedLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    unsigned long v = PyLong_AsUnsignedLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, ULONG_MAX)) {
-	if (val) *val = (unsigned long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
-{
-  unsigned long v;
-  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v > USHRT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< unsigned short >(v);
-    }
-  }  
-  return res;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
-{
-  unsigned long v;
-  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v > UINT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< unsigned int >(v);
-    }
-  }  
-  return res;
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6860,249 +6779,6 @@ SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpData___iter__) /* defines _wrap_XmpData___it
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpData) /* defines _wrap_delete_XmpData_destructor_closure */
 
-SWIGINTERN PyObject *_wrap_XmpParser_decode(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpData *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  int result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpParser_decode", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__XmpData,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpParser_decode" "', argument " "1"" of type '" "Exiv2::XmpData &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpParser_decode" "', argument " "1"" of type '" "Exiv2::XmpData &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpParser_decode" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpParser_decode" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (int)Exiv2::XmpParser::decode(*arg1,(std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpParser_encode__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  Exiv2::XmpData *arg2 = 0 ;
-  uint16_t arg3 ;
-  uint32_t arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  unsigned short val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  int result;
-  
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__string,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpParser_encode" "', argument " "1"" of type '" "std::string &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpParser_encode" "', argument " "1"" of type '" "std::string &""'"); 
-  }
-  arg1 = reinterpret_cast< std::string * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__XmpData,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpParser_encode" "', argument " "2"" of type '" "Exiv2::XmpData const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpParser_encode" "', argument " "2"" of type '" "Exiv2::XmpData const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::XmpData * >(argp2);
-  ecode3 = SWIG_AsVal_unsigned_SS_short(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpParser_encode" "', argument " "3"" of type '" "uint16_t""'");
-  } 
-  arg3 = static_cast< uint16_t >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "XmpParser_encode" "', argument " "4"" of type '" "uint32_t""'");
-  } 
-  arg4 = static_cast< uint32_t >(val4);
-  {
-    try {
-      result = (int)Exiv2::XmpParser::encode(*arg1,(Exiv2::XmpData const &)*arg2,arg3,arg4);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpParser_encode__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  Exiv2::XmpData *arg2 = 0 ;
-  uint16_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  unsigned short val3 ;
-  int ecode3 = 0 ;
-  int result;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__string,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpParser_encode" "', argument " "1"" of type '" "std::string &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpParser_encode" "', argument " "1"" of type '" "std::string &""'"); 
-  }
-  arg1 = reinterpret_cast< std::string * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__XmpData,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpParser_encode" "', argument " "2"" of type '" "Exiv2::XmpData const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpParser_encode" "', argument " "2"" of type '" "Exiv2::XmpData const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::XmpData * >(argp2);
-  ecode3 = SWIG_AsVal_unsigned_SS_short(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpParser_encode" "', argument " "3"" of type '" "uint16_t""'");
-  } 
-  arg3 = static_cast< uint16_t >(val3);
-  {
-    try {
-      result = (int)Exiv2::XmpParser::encode(*arg1,(Exiv2::XmpData const &)*arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpParser_encode__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  Exiv2::XmpData *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  int result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__string,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpParser_encode" "', argument " "1"" of type '" "std::string &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpParser_encode" "', argument " "1"" of type '" "std::string &""'"); 
-  }
-  arg1 = reinterpret_cast< std::string * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__XmpData,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpParser_encode" "', argument " "2"" of type '" "Exiv2::XmpData const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpParser_encode" "', argument " "2"" of type '" "Exiv2::XmpData const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::XmpData * >(argp2);
-  {
-    try {
-      result = (int)Exiv2::XmpParser::encode(*arg1,(Exiv2::XmpData const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpParser_encode(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[5] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpParser_encode", 0, 4, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_XmpParser_encode__SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_XmpParser_encode__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
-    PyObject *retobj = _wrap_XmpParser_encode__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpParser_encode'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::XmpParser::encode(std::string &,Exiv2::XmpData const &,uint16_t,uint32_t)\n"
-    "    Exiv2::XmpParser::encode(std::string &,Exiv2::XmpData const &,uint16_t)\n"
-    "    Exiv2::XmpParser::encode(std::string &,Exiv2::XmpData const &)\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::XmpParser::XmpLockFct arg1 = (Exiv2::XmpParser::XmpLockFct) 0 ;
@@ -7308,50 +6984,6 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpParser) /* defines _wrap_delete_XmpPar
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
-	 { "XmpParser_decode", _wrap_XmpParser_decode, METH_VARARGS, "\n"
-		"Decode XMP metadata from an XMP packet *xmpPacket* into\n"
-		"       *xmpData*. The format of the XMP packet must follow the\n"
-		"       XMP specification. This method clears any previous contents\n"
-		"       of *xmpData*.\n"
-		"\n"
-		":type xmpData: :py:class:`XmpData`\n"
-		":param xmpData:   Container for the decoded XMP properties\n"
-		":type xmpPacket: string\n"
-		":param xmpPacket: The raw XMP packet to decode\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            1 if XMP support has not been compiled-in;\n"
-		"\n"
-		"            2 if the XMP toolkit failed to initialize;\n"
-		"\n"
-		"            3 if the XMP toolkit failed and raised an XMP_Error\n"
-		""},
-	 { "XmpParser_encode", _wrap_XmpParser_encode, METH_VARARGS, "\n"
-		"Encode (serialize) XMP metadata from *xmpData* into a\n"
-		"       string xmpPacket. The XMP packet returned in the string\n"
-		"       follows the XMP specification. This method only modifies\n"
-		"       *xmpPacket* if the operations succeeds (return code 0).\n"
-		"\n"
-		":type xmpPacket: string\n"
-		":param xmpPacket:   Reference to a string to hold the encoded XMP\n"
-		"                       packet.\n"
-		":type xmpData: :py:class:`XmpData`\n"
-		":param xmpData:     XMP properties to encode.\n"
-		":type formatFlags: int, optional\n"
-		":param formatFlags: Flags that control the format of the XMP packet,\n"
-		"                       see enum XmpFormatFlags.\n"
-		":type padding: int, optional\n"
-		":param padding:     Padding length.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            1 if XMP support has not been compiled-in;\n"
-		"\n"
-		"            2 if the XMP toolkit failed to initialize;\n"
-		"\n"
-		"            3 if the XMP toolkit failed and raised an XMP_Error\n"
-		""},
 	 { "XmpParser_initialize", _wrap_XmpParser_initialize, METH_VARARGS, "\n"
 		"      Initialize the XMP Toolkit.\n"
 		"\n"
@@ -7415,50 +7047,6 @@ static PyMethodDef SwigMethods[] = {
 static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
-	 { "XmpParser_decode", _wrap_XmpParser_decode, METH_VARARGS, "\n"
-		"Decode XMP metadata from an XMP packet *xmpPacket* into\n"
-		"       *xmpData*. The format of the XMP packet must follow the\n"
-		"       XMP specification. This method clears any previous contents\n"
-		"       of *xmpData*.\n"
-		"\n"
-		":type xmpData: :py:class:`XmpData`\n"
-		":param xmpData:   Container for the decoded XMP properties\n"
-		":type xmpPacket: string\n"
-		":param xmpPacket: The raw XMP packet to decode\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            1 if XMP support has not been compiled-in;\n"
-		"\n"
-		"            2 if the XMP toolkit failed to initialize;\n"
-		"\n"
-		"            3 if the XMP toolkit failed and raised an XMP_Error\n"
-		""},
-	 { "XmpParser_encode", _wrap_XmpParser_encode, METH_VARARGS, "\n"
-		"Encode (serialize) XMP metadata from *xmpData* into a\n"
-		"       string xmpPacket. The XMP packet returned in the string\n"
-		"       follows the XMP specification. This method only modifies\n"
-		"       *xmpPacket* if the operations succeeds (return code 0).\n"
-		"\n"
-		":type xmpPacket: string\n"
-		":param xmpPacket:   Reference to a string to hold the encoded XMP\n"
-		"                       packet.\n"
-		":type xmpData: :py:class:`XmpData`\n"
-		":param xmpData:     XMP properties to encode.\n"
-		":type formatFlags: int, optional\n"
-		":param formatFlags: Flags that control the format of the XMP packet,\n"
-		"                       see enum XmpFormatFlags.\n"
-		":type padding: int, optional\n"
-		":param padding:     Padding length.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            1 if XMP support has not been compiled-in;\n"
-		"\n"
-		"            2 if the XMP toolkit failed to initialize;\n"
-		"\n"
-		"            3 if the XMP toolkit failed and raised an XMP_Error\n"
-		""},
 	 { "XmpParser_initialize", _wrap_XmpParser_initialize, METH_VARARGS, "\n"
 		"      Initialize the XMP Toolkit.\n"
 		"\n"
@@ -8465,23 +8053,55 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__XmpData_clientdata = {0, 0, 0,
 static SwigPyGetSet XmpParser___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpParser_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"Decode XMP metadata from an XMP packet *xmpPacket* into\n"
-		"       *xmpData*. The format of the XMP packet must follow the\n"
-		"       XMP specification. This method clears any previous contents\n"
-		"       of *xmpData*.\n"
+		"      Initialize the XMP Toolkit.\n"
 		"\n"
-		":type xmpData: :py:class:`XmpData`\n"
-		":param xmpData:   Container for the decoded XMP properties\n"
-		":type xmpPacket: string\n"
-		":param xmpPacket: The raw XMP packet to decode\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
+		"      Calling this method is usually not needed, as encode() and\n"
+		"      decode() will initialize the XMP Toolkit if necessary.\n"
 		"\n"
-		"            1 if XMP support has not been compiled-in;\n"
+		"      The function takes optional pointers to a callback function\n"
+		"      *xmpLockFct* and related data *pLockData* that the parser\n"
+		"      uses when XMP namespaces are subsequently registered.\n"
 		"\n"
-		"            2 if the XMP toolkit failed to initialize;\n"
+		"      The initialize() function itself still is not thread-safe and\n"
+		"      needs to be called in a thread-safe manner (e.g., on program\n"
+		"      startup), but if used with suitable additional locking\n"
+		"      parameters, any subsequent registration of namespaces will be\n"
+		"      thread-safe.\n"
 		"\n"
-		"            3 if the XMP toolkit failed and raised an XMP_Error\n"
+		"      Example usage on Windows using a critical section:\n"
+		"\n"
+		"      .. code-block:: c++\n"
+		"\n"
+		"          void main()\n"
+		"          {\n"
+		"              struct XmpLock\n"
+		"              {\n"
+		"                  CRITICAL_SECTION cs;\n"
+		"                  XmpLock()  { InitializeCriticalSection(&cs); }\n"
+		"                  ~XmpLock() { DeleteCriticalSection(&cs); }\n"
+		"\n"
+		"                  static void LockUnlock(void* pData, bool fLock)\n"
+		"                  {\n"
+		"                      XmpLock* pThis = reinterpret_cast<XmpLock*>(pData);\n"
+		"                      if (pThis)\n"
+		"                      {\n"
+		"                          (fLock) ? EnterCriticalSection(&pThis->cs)\n"
+		"                                  : LeaveCriticalSection(&pThis->cs);\n"
+		"                      }\n"
+		"                  }\n"
+		"              } xmpLock;\n"
+		"\n"
+		"Pass the locking mechanism to the XMP parser on initialization.\n"
+		"Note however that this call itself is still not thread-safe.\n"
+		"              Exiv2::XmpParser::initialize(XmpLock::LockUnlock, &xmpLock);\n"
+		"\n"
+		"Program continues here, subsequent registrations of XMP\n"
+		"namespaces are serialized using xmpLock.\n"
+		"\n"
+		"          }\n"
+		"\n"
+		"      :rtype: boolean\n"
+		"      :return: True if the initialization was successful, else false.\n"
 		"", &XmpParser___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
@@ -8501,50 +8121,6 @@ SwigPyBuiltin__Exiv2__XmpParser_richcompare(PyObject *self, PyObject *other, int
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpParser_methods[] = {
-  { "decode", (PyCFunction)(void(*)(void))_wrap_XmpParser_decode, METH_STATIC|METH_VARARGS, "\n"
-		"Decode XMP metadata from an XMP packet *xmpPacket* into\n"
-		"       *xmpData*. The format of the XMP packet must follow the\n"
-		"       XMP specification. This method clears any previous contents\n"
-		"       of *xmpData*.\n"
-		"\n"
-		":type xmpData: :py:class:`XmpData`\n"
-		":param xmpData:   Container for the decoded XMP properties\n"
-		":type xmpPacket: string\n"
-		":param xmpPacket: The raw XMP packet to decode\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            1 if XMP support has not been compiled-in;\n"
-		"\n"
-		"            2 if the XMP toolkit failed to initialize;\n"
-		"\n"
-		"            3 if the XMP toolkit failed and raised an XMP_Error\n"
-		"" },
-  { "encode", (PyCFunction)(void(*)(void))_wrap_XmpParser_encode, METH_STATIC|METH_VARARGS, "\n"
-		"Encode (serialize) XMP metadata from *xmpData* into a\n"
-		"       string xmpPacket. The XMP packet returned in the string\n"
-		"       follows the XMP specification. This method only modifies\n"
-		"       *xmpPacket* if the operations succeeds (return code 0).\n"
-		"\n"
-		":type xmpPacket: string\n"
-		":param xmpPacket:   Reference to a string to hold the encoded XMP\n"
-		"                       packet.\n"
-		":type xmpData: :py:class:`XmpData`\n"
-		":param xmpData:     XMP properties to encode.\n"
-		":type formatFlags: int, optional\n"
-		":param formatFlags: Flags that control the format of the XMP packet,\n"
-		"                       see enum XmpFormatFlags.\n"
-		":type padding: int, optional\n"
-		":param padding:     Padding length.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            1 if XMP support has not been compiled-in;\n"
-		"\n"
-		"            2 if the XMP toolkit failed to initialize;\n"
-		"\n"
-		"            3 if the XMP toolkit failed and raised an XMP_Error\n"
-		"" },
   { "initialize", (PyCFunction)(void(*)(void))_wrap_XmpParser_initialize, METH_STATIC|METH_VARARGS, "\n"
 		"      Initialize the XMP Toolkit.\n"
 		"\n"
@@ -8941,7 +8517,6 @@ static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__setT_std__string_t = {"_p_std__setT_std__string_t", "std::set< std::string > *|Exiv2::StringSet *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__setT_std__string_t__const_iterator = {"_p_std__setT_std__string_t__const_iterator", "std::set< std::string >::const_iterator *|Exiv2::StringSet_i *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t = {"_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t", "Exiv2::XmpMetadata *|std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator = {"_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator", "std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator *|Exiv2::XmpData::iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t = {"_p_std__vectorT_std__string_std__allocatorT_std__string_t_t", "std::vector< std::string,std::allocator< std::string > > *|Exiv2::StringVector *", 0, 0, (void*)0, 0};
@@ -9013,7 +8588,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
   &_swigt__p_std__setT_std__string_t,
   &_swigt__p_std__setT_std__string_t__const_iterator,
-  &_swigt__p_std__string,
   &_swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t,
   &_swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator,
   &_swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t,
@@ -9085,7 +8659,6 @@ static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pai
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__setT_std__string_t[] = {  {&_swigt__p_std__setT_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__setT_std__string_t__const_iterator[] = {  {&_swigt__p_std__setT_std__string_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t[] = {  {&_swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator[] = {  {&_swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_std__string_std__allocatorT_std__string_t_t[] = {  {&_swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -9157,7 +8730,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
   _swigc__p_std__setT_std__string_t,
   _swigc__p_std__setT_std__string_t__const_iterator,
-  _swigc__p_std__string,
   _swigc__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t,
   _swigc__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator,
   _swigc__p_std__vectorT_std__string_std__allocatorT_std__string_t_t,
