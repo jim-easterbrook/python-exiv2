@@ -80,6 +80,9 @@ def main():
         if 'Version' in line:
             swig_version = tuple(map(int, line.split()[-1].split('.')))
             break
+    # convert exiv2 version to hex
+    exiv2_version_hex = '0x{:02x}{:02x}{:02x}{:02x}'.format(
+        *map(int, (exiv2_version + '.0.0').split('.')[:4]))
     # swig with and without EXV_UNICODE_PATH defined
     for exv_unicode_path in (False, True):
         # make options list
@@ -91,10 +94,9 @@ def main():
         swig_opts = ['-c++', '-python', '-py3', '-builtin', '-O',
                      '-Wextra', '-Werror']
         swig_opts.append('-I' + incl_dir)
-        if os.path.exists(os.path.join(incl_dir, 'exiv2', 'xmp_exiv2.hpp')):
-            swig_opts.append('-DHAS_XMP_EXIV2')
         if exv_unicode_path:
             swig_opts.append('-DEXV_UNICODE_PATH')
+        swig_opts.append('-DEXIV2_VERSION_HEX=' + exiv2_version_hex)
         swig_opts += ['-outdir', output_dir]
         # do each swig module
         for ext_name in ext_names:
