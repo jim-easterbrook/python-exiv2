@@ -8973,73 +8973,6 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Value) /* defines _wrap_delete_Value_dest
 
 SWIGPY_REPRFUNC_CLOSURE(_wrap_Value___str__) /* defines _wrap_Value___str___reprfunc_closure */
 
-SWIGINTERN PyObject *_wrap___lshift____SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  Exiv2::Value *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  std::ostream *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::Value * >(argp2);
-  {
-    try {
-      result = (std::ostream *) &Exiv2::operator <<(*arg1,(Exiv2::Value const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap___lshift__(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "__lshift__", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    PyObject *retobj = _wrap___lshift____SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
 SWIGINTERN int _wrap_new_DataValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::TypeId arg1 ;
@@ -40312,20 +40245,6 @@ static PyMethodDef SwigMethods[] = {
 		":return: Auto-pointer to the newly created Value. The caller owns this\n"
 		"            copy and the auto-pointer ensures that it will be deleted.\n"
 		""},
-	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Output operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Output operator for our fake unsigned rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"Output operator for Value types\n"
-		""},
 	 { "DataValue_downCast", _wrap_DataValue_downCast, METH_O, "Convert general 'Exiv2::Value' to specific 'Exiv2::DataValue'."},
 	 { "StringValueBase_downCast", _wrap_StringValueBase_downCast, METH_O, "Convert general 'Exiv2::Value' to specific 'Exiv2::StringValueBase'."},
 	 { "StringValue_downCast", _wrap_StringValue_downCast, METH_O, "Convert general 'Exiv2::Value' to specific 'Exiv2::StringValue'."},
@@ -40401,20 +40320,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		":rtype: Exiv2::Value::AutoPtr\n"
 		":return: Auto-pointer to the newly created Value. The caller owns this\n"
 		"            copy and the auto-pointer ensures that it will be deleted.\n"
-		""},
-	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Output operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Output operator for our fake unsigned rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"Output operator for Value types\n"
 		""},
 	 { "DataValue_downCast", _wrap_DataValue_downCast, METH_O, "Convert general 'Exiv2::Value' to specific 'Exiv2::DataValue'."},
 	 { "StringValueBase_downCast", _wrap_StringValueBase_downCast, METH_O, "Convert general 'Exiv2::Value' to specific 'Exiv2::StringValueBase'."},
@@ -41073,20 +40978,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__Value_clientdata = {0, 0, 0, 0
 
 static SwigPyGetSet DataValue___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__DataValue_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"Output operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Output operator for our fake unsigned rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"Output operator for Value types\n"
-		"", &DataValue___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &DataValue___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 

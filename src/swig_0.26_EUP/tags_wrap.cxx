@@ -5750,73 +5750,6 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifKey) /* defines _wrap_delete_ExifKey_destructor_closure */
 
-SWIGINTERN PyObject *_wrap___lshift____SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  Exiv2::TagInfo *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  std::ostream *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__TagInfo,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::TagInfo const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::TagInfo const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::TagInfo * >(argp2);
-  {
-    try {
-      result = (std::ostream *) &Exiv2::operator <<(*arg1,(Exiv2::TagInfo const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap___lshift__(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "__lshift__", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    PyObject *retobj = _wrap___lshift____SWIG_5(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
@@ -5839,37 +5772,6 @@ static PyMethodDef SwigMethods[] = {
 		"Return true if *groupName* is a TIFF or Exif IFD, else false.\n"
 		"       This is used to differentiate between standard Exif IFDs\n"
 		"       and IFDs associated with the makernote.\n"
-		""},
-	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Output operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Output operator for our fake unsigned rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"Output operator for Value types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 4:*\n"
-		"Output operator for Key types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 5:*\n"
-		"\n"
-		"     Output operator for Metadatum types, writing the interpreted\n"
-		"            tag value.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 6:*\n"
-		"Output operator for TagInfo\n"
 		""},
 	 { NULL, NULL, 0, NULL }
 };
@@ -5896,37 +5798,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		"Return true if *groupName* is a TIFF or Exif IFD, else false.\n"
 		"       This is used to differentiate between standard Exif IFDs\n"
 		"       and IFDs associated with the makernote.\n"
-		""},
-	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Output operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Output operator for our fake unsigned rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"Output operator for Value types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 4:*\n"
-		"Output operator for Key types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 5:*\n"
-		"\n"
-		"     Output operator for Metadatum types, writing the interpreted\n"
-		"            tag value.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 6:*\n"
-		"Output operator for TagInfo\n"
 		""},
 	 { NULL, NULL, 0, NULL }
 };

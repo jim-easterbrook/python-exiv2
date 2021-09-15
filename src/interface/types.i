@@ -104,7 +104,7 @@ ENUM(TypeId,
 // Ignore slice stuff that SWIG can't understand
 %ignore makeSlice;
 
-// Ignore enums that Python doesn't need
+// Ignore stuff that Python doesn't need
 %ignore Exiv2::ByteOrder;
 %ignore Exiv2::WriteMethod;
 %ignore Exiv2::getDouble;
@@ -134,6 +134,7 @@ ENUM(TypeId,
 %ignore Exiv2::s2ws;
 %ignore Exiv2::ws2s;
 %ignore Exiv2::exvGettext;
+%ignore Exiv2::operator<<;
 
 %include "exiv2/types.hpp"
 

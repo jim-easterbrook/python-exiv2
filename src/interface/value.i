@@ -70,6 +70,8 @@ VALUE_SUBCLASS(Exiv2::XmpTextValue)
 %ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder);
 %ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder, TypeId);
 
+%ignore Exiv2::operator<<;
+
 %include "exiv2/value.hpp"
 
 // Macro to apply templates to Exiv2::ValueType

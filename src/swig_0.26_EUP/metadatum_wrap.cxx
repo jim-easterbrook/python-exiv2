@@ -4798,53 +4798,6 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Key) /* defines _wrap_delete_Key_destruct
 
 SWIGPY_REPRFUNC_CLOSURE(_wrap_Key___str__) /* defines _wrap_Key___str___reprfunc_closure */
 
-SWIGINTERN PyObject *_wrap___lshift____SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  Exiv2::Key *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  std::ostream *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Key,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::Key const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::Key const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::Key * >(argp2);
-  {
-    try {
-      result = (std::ostream *) &Exiv2::operator <<(*arg1,(Exiv2::Key const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_Metadatum(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
@@ -6073,84 +6026,6 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Metadatum) /* defines _wrap_delete_Metadatum_destructor_closure */
 
-SWIGINTERN PyObject *_wrap___lshift____SWIG_4(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  Exiv2::Metadatum *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  std::ostream *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Metadatum,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__lshift__" "', argument " "2"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::Metadatum * >(argp2);
-  {
-    try {
-      result = (std::ostream *) &Exiv2::operator <<(*arg1,(Exiv2::Metadatum const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap___lshift__(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "__lshift__", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_Exiv2__Key, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_1;
-    return _wrap___lshift____SWIG_3(self, argc, argv);
-  }
-check_1:
-  
-  if (argc == 2) {
-    PyObject *retobj = _wrap___lshift____SWIG_4(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
 SWIGINTERN PyObject *_wrap_cmpMetadataByTag(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Metadatum *arg1 = 0 ;
@@ -6246,32 +6121,6 @@ fail:
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
-	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Output operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Output operator for our fake unsigned rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"Output operator for Value types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 4:*\n"
-		"Output operator for Key types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 5:*\n"
-		"\n"
-		"     Output operator for Metadatum types, writing the interpreted\n"
-		"            tag value.\n"
-		""},
 	 { "cmpMetadataByTag", _wrap_cmpMetadataByTag, METH_VARARGS, "\n"
 		"Compare two metadata by tag. Return true if the tag of metadatum\n"
 		"       lhs is less than that of rhs.\n"
@@ -6286,32 +6135,6 @@ static PyMethodDef SwigMethods[] = {
 static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
-	 { "__lshift__", _wrap___lshift__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Output operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Output operator for our fake unsigned rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"Output operator for Value types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 4:*\n"
-		"Output operator for Key types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 5:*\n"
-		"\n"
-		"     Output operator for Metadatum types, writing the interpreted\n"
-		"            tag value.\n"
-		""},
 	 { "cmpMetadataByTag", _wrap_cmpMetadataByTag, METH_VARARGS, "\n"
 		"Compare two metadata by tag. Return true if the tag of metadatum\n"
 		"       lhs is less than that of rhs.\n"
@@ -6563,32 +6386,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__Key_clientdata = {0, 0, 0, 0, 
 
 static SwigPyGetSet Metadatum___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Metadatum_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"Output operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Output operator for our fake unsigned rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"Output operator for Value types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 4:*\n"
-		"Output operator for Key types\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 5:*\n"
-		"\n"
-		"     Output operator for Metadatum types, writing the interpreted\n"
-		"            tag value.\n"
-		"", &Metadatum___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Destructor", &Metadatum___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
