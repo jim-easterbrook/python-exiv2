@@ -15,9 +15,10 @@ class AnyError(Exception):
     """Python exception raised by exiv2 library errors"""
     pass
 
-__version__ = "0.3.2"
+__version__ = "0.4.0"
 
 from exiv2.datasets import *
+from exiv2.easyaccess import *
 from exiv2.error import *
 from exiv2.exif import *
 from exiv2.image import *
