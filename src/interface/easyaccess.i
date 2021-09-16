@@ -19,6 +19,9 @@
 
 %include "preamble.i"
 
+// Doxygen comments are lost in the function wrapping & renaming
+%feature("autodoc", "2");
+
 %define WRAP(function)
 %rename(function) deref_ ## function;
 %ignore Exiv2::function;
@@ -34,8 +37,8 @@ const Exiv2::Exifdatum* deref_ ## function(const Exiv2::ExifData& ed) {
 %enddef
 
 %typemap(out) const Exiv2::Exifdatum* %{
-    $result = $1 ? SWIG_NewPointerObj(SWIG_as_voidptr($1),
-                                      $1_descriptor, 0) : SWIG_Py_Void();
+    $result = $1 ? SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, 0)
+                 : SWIG_Py_Void();
 %}
 
 WRAP(orientation)

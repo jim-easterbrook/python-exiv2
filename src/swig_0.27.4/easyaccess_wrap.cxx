@@ -3900,8 +3900,8 @@ SWIGINTERN PyObject *_wrap_orientation(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -3939,8 +3939,8 @@ SWIGINTERN PyObject *_wrap_isoSpeed(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -3978,8 +3978,8 @@ SWIGINTERN PyObject *_wrap_flashBias(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4017,8 +4017,8 @@ SWIGINTERN PyObject *_wrap_exposureMode(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4056,8 +4056,8 @@ SWIGINTERN PyObject *_wrap_sceneMode(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4095,8 +4095,8 @@ SWIGINTERN PyObject *_wrap_macroMode(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4134,8 +4134,8 @@ SWIGINTERN PyObject *_wrap_imageQuality(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4173,8 +4173,8 @@ SWIGINTERN PyObject *_wrap_whiteBalance(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4212,8 +4212,8 @@ SWIGINTERN PyObject *_wrap_lensName(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4251,8 +4251,8 @@ SWIGINTERN PyObject *_wrap_saturation(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4290,8 +4290,8 @@ SWIGINTERN PyObject *_wrap_sharpness(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4329,8 +4329,8 @@ SWIGINTERN PyObject *_wrap_contrast(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4368,8 +4368,8 @@ SWIGINTERN PyObject *_wrap_sceneCaptureType(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4407,8 +4407,8 @@ SWIGINTERN PyObject *_wrap_meteringMode(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4446,8 +4446,8 @@ SWIGINTERN PyObject *_wrap_make(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4485,8 +4485,8 @@ SWIGINTERN PyObject *_wrap_model(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4524,8 +4524,8 @@ SWIGINTERN PyObject *_wrap_exposureTime(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4563,8 +4563,8 @@ SWIGINTERN PyObject *_wrap_fNumber(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4602,8 +4602,8 @@ SWIGINTERN PyObject *_wrap_subjectDistance(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4641,8 +4641,8 @@ SWIGINTERN PyObject *_wrap_serialNumber(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4680,8 +4680,8 @@ SWIGINTERN PyObject *_wrap_focalLength(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4719,8 +4719,8 @@ SWIGINTERN PyObject *_wrap_afPoint(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4758,8 +4758,8 @@ SWIGINTERN PyObject *_wrap_dateTimeOriginal(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4797,8 +4797,8 @@ SWIGINTERN PyObject *_wrap_shutterSpeedValue(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4836,8 +4836,8 @@ SWIGINTERN PyObject *_wrap_apertureValue(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4875,8 +4875,8 @@ SWIGINTERN PyObject *_wrap_brightnessValue(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4914,8 +4914,8 @@ SWIGINTERN PyObject *_wrap_exposureBiasValue(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4953,8 +4953,8 @@ SWIGINTERN PyObject *_wrap_maxApertureValue(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -4992,8 +4992,8 @@ SWIGINTERN PyObject *_wrap_lightSource(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -5031,8 +5031,8 @@ SWIGINTERN PyObject *_wrap_flash(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -5070,8 +5070,8 @@ SWIGINTERN PyObject *_wrap_subjectArea(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -5109,8 +5109,8 @@ SWIGINTERN PyObject *_wrap_flashEnergy(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -5148,8 +5148,8 @@ SWIGINTERN PyObject *_wrap_exposureIndex(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -5187,8 +5187,8 @@ SWIGINTERN PyObject *_wrap_sensingMethod(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result),
-    SWIGTYPE_p_Exiv2__Exifdatum, 0) : SWIG_Py_Void();
+  resultobj = result ? SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0)
+  :SWIG_Py_Void();
   
   return resultobj;
 fail:
@@ -5199,80 +5199,556 @@ fail:
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
-	 { "orientation", _wrap_orientation, METH_O, NULL},
-	 { "isoSpeed", _wrap_isoSpeed, METH_O, NULL},
-	 { "flashBias", _wrap_flashBias, METH_O, NULL},
-	 { "exposureMode", _wrap_exposureMode, METH_O, NULL},
-	 { "sceneMode", _wrap_sceneMode, METH_O, NULL},
-	 { "macroMode", _wrap_macroMode, METH_O, NULL},
-	 { "imageQuality", _wrap_imageQuality, METH_O, NULL},
-	 { "whiteBalance", _wrap_whiteBalance, METH_O, NULL},
-	 { "lensName", _wrap_lensName, METH_O, NULL},
-	 { "saturation", _wrap_saturation, METH_O, NULL},
-	 { "sharpness", _wrap_sharpness, METH_O, NULL},
-	 { "contrast", _wrap_contrast, METH_O, NULL},
-	 { "sceneCaptureType", _wrap_sceneCaptureType, METH_O, NULL},
-	 { "meteringMode", _wrap_meteringMode, METH_O, NULL},
-	 { "make", _wrap_make, METH_O, NULL},
-	 { "model", _wrap_model, METH_O, NULL},
-	 { "exposureTime", _wrap_exposureTime, METH_O, NULL},
-	 { "fNumber", _wrap_fNumber, METH_O, NULL},
-	 { "subjectDistance", _wrap_subjectDistance, METH_O, NULL},
-	 { "serialNumber", _wrap_serialNumber, METH_O, NULL},
-	 { "focalLength", _wrap_focalLength, METH_O, NULL},
-	 { "afPoint", _wrap_afPoint, METH_O, NULL},
-	 { "dateTimeOriginal", _wrap_dateTimeOriginal, METH_O, NULL},
-	 { "shutterSpeedValue", _wrap_shutterSpeedValue, METH_O, NULL},
-	 { "apertureValue", _wrap_apertureValue, METH_O, NULL},
-	 { "brightnessValue", _wrap_brightnessValue, METH_O, NULL},
-	 { "exposureBiasValue", _wrap_exposureBiasValue, METH_O, NULL},
-	 { "maxApertureValue", _wrap_maxApertureValue, METH_O, NULL},
-	 { "lightSource", _wrap_lightSource, METH_O, NULL},
-	 { "flash", _wrap_flash, METH_O, NULL},
-	 { "subjectArea", _wrap_subjectArea, METH_O, NULL},
-	 { "flashEnergy", _wrap_flashEnergy, METH_O, NULL},
-	 { "exposureIndex", _wrap_exposureIndex, METH_O, NULL},
-	 { "sensingMethod", _wrap_sensingMethod, METH_O, NULL},
+	 { "orientation", _wrap_orientation, METH_O, "\n"
+		"orientation(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "isoSpeed", _wrap_isoSpeed, METH_O, "\n"
+		"isoSpeed(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "flashBias", _wrap_flashBias, METH_O, "\n"
+		"flashBias(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "exposureMode", _wrap_exposureMode, METH_O, "\n"
+		"exposureMode(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "sceneMode", _wrap_sceneMode, METH_O, "\n"
+		"sceneMode(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "macroMode", _wrap_macroMode, METH_O, "\n"
+		"macroMode(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "imageQuality", _wrap_imageQuality, METH_O, "\n"
+		"imageQuality(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "whiteBalance", _wrap_whiteBalance, METH_O, "\n"
+		"whiteBalance(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "lensName", _wrap_lensName, METH_O, "\n"
+		"lensName(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "saturation", _wrap_saturation, METH_O, "\n"
+		"saturation(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "sharpness", _wrap_sharpness, METH_O, "\n"
+		"sharpness(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "contrast", _wrap_contrast, METH_O, "\n"
+		"contrast(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "sceneCaptureType", _wrap_sceneCaptureType, METH_O, "\n"
+		"sceneCaptureType(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "meteringMode", _wrap_meteringMode, METH_O, "\n"
+		"meteringMode(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "make", _wrap_make, METH_O, "\n"
+		"make(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "model", _wrap_model, METH_O, "\n"
+		"model(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "exposureTime", _wrap_exposureTime, METH_O, "\n"
+		"exposureTime(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "fNumber", _wrap_fNumber, METH_O, "\n"
+		"fNumber(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "subjectDistance", _wrap_subjectDistance, METH_O, "\n"
+		"subjectDistance(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "serialNumber", _wrap_serialNumber, METH_O, "\n"
+		"serialNumber(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "focalLength", _wrap_focalLength, METH_O, "\n"
+		"focalLength(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "afPoint", _wrap_afPoint, METH_O, "\n"
+		"afPoint(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "dateTimeOriginal", _wrap_dateTimeOriginal, METH_O, "\n"
+		"dateTimeOriginal(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "shutterSpeedValue", _wrap_shutterSpeedValue, METH_O, "\n"
+		"shutterSpeedValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "apertureValue", _wrap_apertureValue, METH_O, "\n"
+		"apertureValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "brightnessValue", _wrap_brightnessValue, METH_O, "\n"
+		"brightnessValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "exposureBiasValue", _wrap_exposureBiasValue, METH_O, "\n"
+		"exposureBiasValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "maxApertureValue", _wrap_maxApertureValue, METH_O, "\n"
+		"maxApertureValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "lightSource", _wrap_lightSource, METH_O, "\n"
+		"lightSource(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "flash", _wrap_flash, METH_O, "\n"
+		"flash(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "subjectArea", _wrap_subjectArea, METH_O, "\n"
+		"subjectArea(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "flashEnergy", _wrap_flashEnergy, METH_O, "\n"
+		"flashEnergy(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "exposureIndex", _wrap_exposureIndex, METH_O, "\n"
+		"exposureIndex(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "sensingMethod", _wrap_sensingMethod, METH_O, "\n"
+		"sensingMethod(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
 	 { NULL, NULL, 0, NULL }
 };
 
 static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
-	 { "orientation", _wrap_orientation, METH_O, NULL},
-	 { "isoSpeed", _wrap_isoSpeed, METH_O, NULL},
-	 { "flashBias", _wrap_flashBias, METH_O, NULL},
-	 { "exposureMode", _wrap_exposureMode, METH_O, NULL},
-	 { "sceneMode", _wrap_sceneMode, METH_O, NULL},
-	 { "macroMode", _wrap_macroMode, METH_O, NULL},
-	 { "imageQuality", _wrap_imageQuality, METH_O, NULL},
-	 { "whiteBalance", _wrap_whiteBalance, METH_O, NULL},
-	 { "lensName", _wrap_lensName, METH_O, NULL},
-	 { "saturation", _wrap_saturation, METH_O, NULL},
-	 { "sharpness", _wrap_sharpness, METH_O, NULL},
-	 { "contrast", _wrap_contrast, METH_O, NULL},
-	 { "sceneCaptureType", _wrap_sceneCaptureType, METH_O, NULL},
-	 { "meteringMode", _wrap_meteringMode, METH_O, NULL},
-	 { "make", _wrap_make, METH_O, NULL},
-	 { "model", _wrap_model, METH_O, NULL},
-	 { "exposureTime", _wrap_exposureTime, METH_O, NULL},
-	 { "fNumber", _wrap_fNumber, METH_O, NULL},
-	 { "subjectDistance", _wrap_subjectDistance, METH_O, NULL},
-	 { "serialNumber", _wrap_serialNumber, METH_O, NULL},
-	 { "focalLength", _wrap_focalLength, METH_O, NULL},
-	 { "afPoint", _wrap_afPoint, METH_O, NULL},
-	 { "dateTimeOriginal", _wrap_dateTimeOriginal, METH_O, NULL},
-	 { "shutterSpeedValue", _wrap_shutterSpeedValue, METH_O, NULL},
-	 { "apertureValue", _wrap_apertureValue, METH_O, NULL},
-	 { "brightnessValue", _wrap_brightnessValue, METH_O, NULL},
-	 { "exposureBiasValue", _wrap_exposureBiasValue, METH_O, NULL},
-	 { "maxApertureValue", _wrap_maxApertureValue, METH_O, NULL},
-	 { "lightSource", _wrap_lightSource, METH_O, NULL},
-	 { "flash", _wrap_flash, METH_O, NULL},
-	 { "subjectArea", _wrap_subjectArea, METH_O, NULL},
-	 { "flashEnergy", _wrap_flashEnergy, METH_O, NULL},
-	 { "exposureIndex", _wrap_exposureIndex, METH_O, NULL},
-	 { "sensingMethod", _wrap_sensingMethod, METH_O, NULL},
+	 { "orientation", _wrap_orientation, METH_O, "\n"
+		"orientation(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "isoSpeed", _wrap_isoSpeed, METH_O, "\n"
+		"isoSpeed(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "flashBias", _wrap_flashBias, METH_O, "\n"
+		"flashBias(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "exposureMode", _wrap_exposureMode, METH_O, "\n"
+		"exposureMode(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "sceneMode", _wrap_sceneMode, METH_O, "\n"
+		"sceneMode(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "macroMode", _wrap_macroMode, METH_O, "\n"
+		"macroMode(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "imageQuality", _wrap_imageQuality, METH_O, "\n"
+		"imageQuality(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "whiteBalance", _wrap_whiteBalance, METH_O, "\n"
+		"whiteBalance(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "lensName", _wrap_lensName, METH_O, "\n"
+		"lensName(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "saturation", _wrap_saturation, METH_O, "\n"
+		"saturation(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "sharpness", _wrap_sharpness, METH_O, "\n"
+		"sharpness(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "contrast", _wrap_contrast, METH_O, "\n"
+		"contrast(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "sceneCaptureType", _wrap_sceneCaptureType, METH_O, "\n"
+		"sceneCaptureType(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "meteringMode", _wrap_meteringMode, METH_O, "\n"
+		"meteringMode(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "make", _wrap_make, METH_O, "\n"
+		"make(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "model", _wrap_model, METH_O, "\n"
+		"model(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "exposureTime", _wrap_exposureTime, METH_O, "\n"
+		"exposureTime(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "fNumber", _wrap_fNumber, METH_O, "\n"
+		"fNumber(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "subjectDistance", _wrap_subjectDistance, METH_O, "\n"
+		"subjectDistance(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "serialNumber", _wrap_serialNumber, METH_O, "\n"
+		"serialNumber(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "focalLength", _wrap_focalLength, METH_O, "\n"
+		"focalLength(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "afPoint", _wrap_afPoint, METH_O, "\n"
+		"afPoint(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "dateTimeOriginal", _wrap_dateTimeOriginal, METH_O, "\n"
+		"dateTimeOriginal(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "shutterSpeedValue", _wrap_shutterSpeedValue, METH_O, "\n"
+		"shutterSpeedValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "apertureValue", _wrap_apertureValue, METH_O, "\n"
+		"apertureValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "brightnessValue", _wrap_brightnessValue, METH_O, "\n"
+		"brightnessValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "exposureBiasValue", _wrap_exposureBiasValue, METH_O, "\n"
+		"exposureBiasValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "maxApertureValue", _wrap_maxApertureValue, METH_O, "\n"
+		"maxApertureValue(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "lightSource", _wrap_lightSource, METH_O, "\n"
+		"lightSource(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "flash", _wrap_flash, METH_O, "\n"
+		"flash(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "subjectArea", _wrap_subjectArea, METH_O, "\n"
+		"subjectArea(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "flashEnergy", _wrap_flashEnergy, METH_O, "\n"
+		"flashEnergy(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "exposureIndex", _wrap_exposureIndex, METH_O, "\n"
+		"exposureIndex(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
+	 { "sensingMethod", _wrap_sensingMethod, METH_O, "\n"
+		"sensingMethod(ed) -> Exiv2::Exifdatum const *\n"
+		"\n"
+		"Parameters\n"
+		"----------\n"
+		"ed: Exiv2::ExifData const &\n"
+		"\n"
+		""},
 	 { NULL, NULL, 0, NULL }
 };
 
