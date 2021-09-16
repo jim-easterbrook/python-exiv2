@@ -16,6 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.4.0:
+  1/ "Easy Access" functions have been added to the interface.
+  2/ Some unlikely to be used classes and functions have been removed from the
+     interface.
+  3/ MinGW installation is now more likely to work.
+
 Changes in v0.3.1:
   1/ Windows: file names can include non-ascii characters.
   2/ Linux: improved linking of libexiv2.so when it's included in Python
