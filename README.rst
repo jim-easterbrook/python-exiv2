@@ -1,4 +1,4 @@
-python-exiv2 v\ 0.4.0
+python-exiv2 v\ 0.4.1
 =====================
 
 python-exiv2 is a low level interface (or binding) to the exiv2_ C++ library.
@@ -20,10 +20,7 @@ A more recent development is `pyexiv2 (new)`_.
 This new project is potentially very useful, providing a simple interface with functions to read and modify metadata using Python ``dict`` parameters.
 
 For more complicated metadata operations I think a lower level interface is required, which is where this project comes in.
-
-**This project is at an early stage of development.**
-It is already usable, but please email jim@jim-easterbrook.me.uk if it doesn't work for you.
-Here is an example of what it can do::
+Here is an example of its use::
 
     Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
     Type "help", "copyright", "credits" or "license" for more information.
@@ -114,8 +111,8 @@ This can be used to iterate over the data in a very C++ like style::
 You can also iterate in a more Pythonic style::
 
     >>> data = image.exifData()
-    >>> for item in data:
-    ...     item.key()
+    >>> for datum in data:
+    ...     datum.key()
     ...
     'Exif.Image.ProcessingSoftware'
     'Exif.Image.ImageDescription'
@@ -123,8 +120,6 @@ You can also iterate in a more Pythonic style::
     'Exif.Thumbnail.JPEGInterchangeFormat'
     'Exif.Thumbnail.JPEGInterchangeFormatLength'
     >>>
-
-I think this is much better.
 
 Warning: segmentation faults
 ----------------------------
@@ -139,6 +134,7 @@ Error handling
 
 libexiv2_ has a multilevel warning system a bit like Python's standard logger.
 The Python interface redirects all Exiv2 messages to Python logging with an appropriate log level.
+The ``exiv2.LogMsg.setLevel`` function can be used to control what severity of messages are logged.
 
 Installation
 ------------
@@ -164,7 +160,6 @@ For more information, and details of how to compile python-exiv2 and libexiv2, s
 Problems?
 ---------
 
-I think it's a bit early in the project to be using the "issues" page.
 Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 
 .. _Doxygen:           https://www.doxygen.nl/
