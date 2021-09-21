@@ -91,7 +91,8 @@ def main():
             output_dir += '_EUP'
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
-        swig_opts = ['-c++', '-python', '-py3', '-builtin', '-O',
+        swig_opts = ['-c++', '-python', '-py3', '-builtin',
+                     '-fastdispatch', '-fastproxy',
                      '-Wextra', '-Werror']
         swig_opts.append('-I' + incl_dir)
         if exv_unicode_path:

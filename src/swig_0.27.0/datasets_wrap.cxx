@@ -7384,6 +7384,198 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IptcKey_key(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcKey *arg1 = (Exiv2::IptcKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcKey_key", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcKey_key" "', argument " "1"" of type '" "Exiv2::IptcKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcKey * >(argp1);
+  {
+    try {
+      result = ((Exiv2::IptcKey const *)arg1)->key();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcKey_familyName(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcKey *arg1 = (Exiv2::IptcKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  char *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcKey_familyName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcKey_familyName" "', argument " "1"" of type '" "Exiv2::IptcKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcKey * >(argp1);
+  {
+    try {
+      result = (char *)((Exiv2::IptcKey const *)arg1)->familyName();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcKey_groupName(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcKey *arg1 = (Exiv2::IptcKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcKey_groupName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcKey_groupName" "', argument " "1"" of type '" "Exiv2::IptcKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcKey * >(argp1);
+  {
+    try {
+      result = ((Exiv2::IptcKey const *)arg1)->groupName();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcKey_tagName(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcKey *arg1 = (Exiv2::IptcKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcKey_tagName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcKey_tagName" "', argument " "1"" of type '" "Exiv2::IptcKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcKey * >(argp1);
+  {
+    try {
+      result = ((Exiv2::IptcKey const *)arg1)->tagName();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcKey_tagLabel(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcKey *arg1 = (Exiv2::IptcKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcKey_tagLabel", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcKey_tagLabel" "', argument " "1"" of type '" "Exiv2::IptcKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcKey * >(argp1);
+  {
+    try {
+      result = ((Exiv2::IptcKey const *)arg1)->tagLabel();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcKey_tag(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcKey *arg1 = (Exiv2::IptcKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  uint16_t result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcKey_tag", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcKey_tag" "', argument " "1"" of type '" "Exiv2::IptcKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcKey * >(argp1);
+  {
+    try {
+      result = (uint16_t)((Exiv2::IptcKey const *)arg1)->tag();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IptcKey_clone(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::IptcKey *arg1 = (Exiv2::IptcKey *) 0 ;
@@ -10114,6 +10306,15 @@ SwigPyBuiltin__Exiv2__IptcKey_richcompare(PyObject *self, PyObject *other, int o
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__IptcKey_methods[] = {
+  { "key", _wrap_IptcKey_key, METH_NOARGS, "" },
+  { "familyName", _wrap_IptcKey_familyName, METH_NOARGS, "" },
+  { "groupName", _wrap_IptcKey_groupName, METH_NOARGS, "\n"
+		"Return the name of the group (the second part of the key).\n"
+		"       For IPTC keys, the group name is the record name.\n"
+		"" },
+  { "tagName", _wrap_IptcKey_tagName, METH_NOARGS, "" },
+  { "tagLabel", _wrap_IptcKey_tagLabel, METH_NOARGS, "" },
+  { "tag", _wrap_IptcKey_tag, METH_NOARGS, "" },
   { "clone", _wrap_IptcKey_clone, METH_NOARGS, "" },
   { "recordName", _wrap_IptcKey_recordName, METH_NOARGS, " Return the name of the record" },
   { "record", _wrap_IptcKey_record, METH_NOARGS, " Return the record id" },

@@ -3986,6 +3986,24 @@ SWIG_From_std_string  (const std::string& s)
   return SWIG_FromCharPtrAndSize(s.data(), s.size());
 }
 
+
+  #define SWIG_From_long   PyInt_FromLong 
+
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_unsigned_SS_short  (unsigned short value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -5567,6 +5585,198 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_XmpKey_key(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpKey *arg1 = (Exiv2::XmpKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpKey_key", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpKey_key" "', argument " "1"" of type '" "Exiv2::XmpKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
+  {
+    try {
+      result = ((Exiv2::XmpKey const *)arg1)->key();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpKey_familyName(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpKey *arg1 = (Exiv2::XmpKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  char *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpKey_familyName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpKey_familyName" "', argument " "1"" of type '" "Exiv2::XmpKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
+  {
+    try {
+      result = (char *)((Exiv2::XmpKey const *)arg1)->familyName();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpKey_groupName(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpKey *arg1 = (Exiv2::XmpKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpKey_groupName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpKey_groupName" "', argument " "1"" of type '" "Exiv2::XmpKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
+  {
+    try {
+      result = ((Exiv2::XmpKey const *)arg1)->groupName();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpKey_tagName(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpKey *arg1 = (Exiv2::XmpKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpKey_tagName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpKey_tagName" "', argument " "1"" of type '" "Exiv2::XmpKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
+  {
+    try {
+      result = ((Exiv2::XmpKey const *)arg1)->tagName();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpKey_tagLabel(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpKey *arg1 = (Exiv2::XmpKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpKey_tagLabel", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpKey_tagLabel" "', argument " "1"" of type '" "Exiv2::XmpKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
+  {
+    try {
+      result = ((Exiv2::XmpKey const *)arg1)->tagLabel();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpKey_tag(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpKey *arg1 = (Exiv2::XmpKey *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  uint16_t result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpKey_tag", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpKey, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpKey_tag" "', argument " "1"" of type '" "Exiv2::XmpKey const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
+  {
+    try {
+      result = (uint16_t)((Exiv2::XmpKey const *)arg1)->tag();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_XmpKey_clone(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpKey *arg1 = (Exiv2::XmpKey *) 0 ;
@@ -6950,6 +7160,15 @@ SwigPyBuiltin__Exiv2__XmpKey_richcompare(PyObject *self, PyObject *other, int op
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpKey_methods[] = {
+  { "key", _wrap_XmpKey_key, METH_NOARGS, "" },
+  { "familyName", _wrap_XmpKey_familyName, METH_NOARGS, "" },
+  { "groupName", _wrap_XmpKey_groupName, METH_NOARGS, "\n"
+		"Return the name of the group (the second part of the key).\n"
+		"       For XMP keys, the group name is the schema prefix name.\n"
+		"" },
+  { "tagName", _wrap_XmpKey_tagName, METH_NOARGS, "" },
+  { "tagLabel", _wrap_XmpKey_tagLabel, METH_NOARGS, "" },
+  { "tag", _wrap_XmpKey_tag, METH_NOARGS, " Properties don't have a tag number. Return 0." },
   { "clone", _wrap_XmpKey_clone, METH_NOARGS, "" },
   { "ns", _wrap_XmpKey_ns, METH_NOARGS, " Return the schema namespace for the prefix of the key" },
   { NULL, NULL, 0, NULL } /* Sentinel */
