@@ -94,6 +94,9 @@ class iter_class ## Ptr {
 public:
     parent_class::iterator ptr;
     iter_class ## Ptr(parent_class::iterator ptr) : ptr(ptr) {}
+    const item_type* operator->() {
+        return &(*this->ptr);
+    }
     const item_type* curr() {
         return &(*this->ptr);
     }
