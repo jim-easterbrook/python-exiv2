@@ -23,6 +23,8 @@
 
 %include "preamble.i"
 
+%ignore Exiv2::HttpIo::operator=;
+
 %import "exiv2/basicio.hpp";
 
 %import "exif.i";

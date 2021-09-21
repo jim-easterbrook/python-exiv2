@@ -18,7 +18,6 @@
 %module(package="exiv2") datasets
 
 #pragma SWIG nowarn=305     // Bad constant value (ignored).
-#pragma SWIG nowarn=362     // operator= ignored
 
 %include "preamble.i"
 

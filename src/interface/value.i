@@ -19,7 +19,6 @@
 
 #pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=325     // Nested struct not currently supported (X ignored)
-#pragma SWIG nowarn=362     // operator= ignored
 #pragma SWIG nowarn=403     // Class 'X' might be abstract, no constructors generated, Method Y might not be implemented.
 
 %include "preamble.i"
@@ -71,6 +70,7 @@ VALUE_SUBCLASS(Exiv2::XmpTextValue)
 %ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder, TypeId);
 
 %ignore Exiv2::operator<<;
+%ignore Exiv2::Value::operator=;
 
 %include "exiv2/value.hpp"
 

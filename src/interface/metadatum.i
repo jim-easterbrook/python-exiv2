@@ -19,7 +19,6 @@
 
 #pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
-#pragma SWIG nowarn=362     // operator= ignored
 
 %include "preamble.i"
 
@@ -32,5 +31,8 @@
 %auto_ptr(Exiv2::Key)
 
 STR(Exiv2::Key, key)
+
+%ignore Exiv2::Key::operator=;
+%ignore Exiv2::Metadatum::operator=;
 
 %include "exiv2/metadatum.hpp"
