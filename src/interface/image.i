@@ -86,6 +86,8 @@ ENUM(ImageType,
 
 // Ignore stuff Python can't use
 %ignore Exiv2::Image::printStructure;
+%ignore Exiv2::Image::printTiffStructure;
+%ignore Exiv2::Image::printIFDStructure;
 %ignore Exiv2::PrintStructureOption;
 %ignore Exiv2::append;
 
