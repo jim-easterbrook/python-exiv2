@@ -4816,33 +4816,29 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
 SWIGINTERN std::string Exiv2_Value___str__(Exiv2::Value *self){
         return self->toString();
     }
-SWIGINTERN std::auto_ptr< Exiv2::DataValue > Exiv2_DataValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::DataValue* pv = dynamic_cast< Exiv2::DataValue* >(v.release());
+SWIGINTERN Exiv2::DataValue *Exiv2_DataValue_downCast(Exiv2::Value const &value){
+        Exiv2::DataValue* pv = dynamic_cast< Exiv2::DataValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::DataValue >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::StringValueBase > Exiv2_StringValueBase_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::StringValueBase* pv = dynamic_cast< Exiv2::StringValueBase* >(v.release());
+SWIGINTERN Exiv2::StringValueBase *Exiv2_StringValueBase_downCast(Exiv2::Value const &value){
+        Exiv2::StringValueBase* pv = dynamic_cast< Exiv2::StringValueBase* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::StringValueBase >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::StringValue > Exiv2_StringValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::StringValue* pv = dynamic_cast< Exiv2::StringValue* >(v.release());
+SWIGINTERN Exiv2::StringValue *Exiv2_StringValue_downCast(Exiv2::Value const &value){
+        Exiv2::StringValue* pv = dynamic_cast< Exiv2::StringValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::StringValue >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::AsciiValue > Exiv2_AsciiValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::AsciiValue* pv = dynamic_cast< Exiv2::AsciiValue* >(v.release());
+SWIGINTERN Exiv2::AsciiValue *Exiv2_AsciiValue_downCast(Exiv2::Value const &value){
+        Exiv2::AsciiValue* pv = dynamic_cast< Exiv2::AsciiValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::AsciiValue >(pv);
+        return pv;
     }
 
 
@@ -4854,54 +4850,47 @@ SWIG_FromCharPtr(const char *cptr)
   return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
 }
 
-SWIGINTERN std::auto_ptr< Exiv2::CommentValue > Exiv2_CommentValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::CommentValue* pv = dynamic_cast< Exiv2::CommentValue* >(v.release());
+SWIGINTERN Exiv2::CommentValue *Exiv2_CommentValue_downCast(Exiv2::Value const &value){
+        Exiv2::CommentValue* pv = dynamic_cast< Exiv2::CommentValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::CommentValue >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::XmpValue > Exiv2_XmpValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::XmpValue* pv = dynamic_cast< Exiv2::XmpValue* >(v.release());
+SWIGINTERN Exiv2::XmpValue *Exiv2_XmpValue_downCast(Exiv2::Value const &value){
+        Exiv2::XmpValue* pv = dynamic_cast< Exiv2::XmpValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::XmpValue >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::XmpTextValue > Exiv2_XmpTextValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::XmpTextValue* pv = dynamic_cast< Exiv2::XmpTextValue* >(v.release());
+SWIGINTERN Exiv2::XmpTextValue *Exiv2_XmpTextValue_downCast(Exiv2::Value const &value){
+        Exiv2::XmpTextValue* pv = dynamic_cast< Exiv2::XmpTextValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::XmpTextValue >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::XmpArrayValue > Exiv2_XmpArrayValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::XmpArrayValue* pv = dynamic_cast< Exiv2::XmpArrayValue* >(v.release());
+SWIGINTERN Exiv2::XmpArrayValue *Exiv2_XmpArrayValue_downCast(Exiv2::Value const &value){
+        Exiv2::XmpArrayValue* pv = dynamic_cast< Exiv2::XmpArrayValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::XmpArrayValue >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::LangAltValue > Exiv2_LangAltValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::LangAltValue* pv = dynamic_cast< Exiv2::LangAltValue* >(v.release());
+SWIGINTERN Exiv2::LangAltValue *Exiv2_LangAltValue_downCast(Exiv2::Value const &value){
+        Exiv2::LangAltValue* pv = dynamic_cast< Exiv2::LangAltValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::LangAltValue >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::DateValue > Exiv2_DateValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::DateValue* pv = dynamic_cast< Exiv2::DateValue* >(v.release());
+SWIGINTERN Exiv2::DateValue *Exiv2_DateValue_downCast(Exiv2::Value const &value){
+        Exiv2::DateValue* pv = dynamic_cast< Exiv2::DateValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::DateValue >(pv);
+        return pv;
     }
-SWIGINTERN std::auto_ptr< Exiv2::TimeValue > Exiv2_TimeValue_downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::TimeValue* pv = dynamic_cast< Exiv2::TimeValue* >(v.release());
+SWIGINTERN Exiv2::TimeValue *Exiv2_TimeValue_downCast(Exiv2::Value const &value){
+        Exiv2::TimeValue* pv = dynamic_cast< Exiv2::TimeValue* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::TimeValue >(pv);
+        return pv;
     }
 
 SWIGINTERN int
@@ -4919,12 +4908,11 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
-SWIGINTERN std::auto_ptr< Exiv2::ValueType< uint16_t > > Exiv2_ValueType_Sl_uint16_t_Sg__downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<uint16_t>* pv = dynamic_cast< Exiv2::ValueType<uint16_t>* >(v.release());
+SWIGINTERN Exiv2::ValueType< uint16_t > *Exiv2_ValueType_Sl_uint16_t_Sg__downCast(Exiv2::Value const &value){
+        Exiv2::ValueType<uint16_t>* pv = dynamic_cast< Exiv2::ValueType<uint16_t>* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::ValueType<uint16_t> >(pv);
+        return pv;
     }
 
 #include <functional>
@@ -6054,12 +6042,11 @@ SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
   return res;
 }
 
-SWIGINTERN std::auto_ptr< Exiv2::ValueType< uint32_t > > Exiv2_ValueType_Sl_uint32_t_Sg__downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<uint32_t>* pv = dynamic_cast< Exiv2::ValueType<uint32_t>* >(v.release());
+SWIGINTERN Exiv2::ValueType< uint32_t > *Exiv2_ValueType_Sl_uint32_t_Sg__downCast(Exiv2::Value const &value){
+        Exiv2::ValueType<uint32_t>* pv = dynamic_cast< Exiv2::ValueType<uint32_t>* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::ValueType<uint32_t> >(pv);
+        return pv;
     }
 
 SWIGINTERNINLINE PyObject*
@@ -6202,12 +6189,11 @@ SWIGINTERN void std_vector_Sl_uint32_t_Sg__insert__SWIG_1(std::vector< uint32_t 
 	};
       }
     
-SWIGINTERN std::auto_ptr< Exiv2::ValueType< Exiv2::URational > > Exiv2_ValueType_Sl_Exiv2_URational_Sg__downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<Exiv2::URational>* pv = dynamic_cast< Exiv2::ValueType<Exiv2::URational>* >(v.release());
+SWIGINTERN Exiv2::ValueType< Exiv2::URational > *Exiv2_ValueType_Sl_Exiv2_URational_Sg__downCast(Exiv2::Value const &value){
+        Exiv2::ValueType<Exiv2::URational>* pv = dynamic_cast< Exiv2::ValueType<Exiv2::URational>* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::ValueType<Exiv2::URational> >(pv);
+        return pv;
     }
 
       namespace swig {
@@ -6329,12 +6315,11 @@ SWIG_AsVal_short (PyObject * obj, short *val)
   return res;
 }
 
-SWIGINTERN std::auto_ptr< Exiv2::ValueType< int16_t > > Exiv2_ValueType_Sl_int16_t_Sg__downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<int16_t>* pv = dynamic_cast< Exiv2::ValueType<int16_t>* >(v.release());
+SWIGINTERN Exiv2::ValueType< int16_t > *Exiv2_ValueType_Sl_int16_t_Sg__downCast(Exiv2::Value const &value){
+        Exiv2::ValueType<int16_t>* pv = dynamic_cast< Exiv2::ValueType<int16_t>* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::ValueType<int16_t> >(pv);
+        return pv;
     }
 
 SWIGINTERNINLINE PyObject *
@@ -6467,12 +6452,11 @@ SWIGINTERN std::vector< short >::iterator std_vector_Sl_int16_t_Sg__erase__SWIG_
 SWIGINTERN std::vector< short >::iterator std_vector_Sl_int16_t_Sg__erase__SWIG_1(std::vector< int16_t > *self,std::vector< short >::iterator first,std::vector< short >::iterator last){ return self->erase(first, last); }
 SWIGINTERN std::vector< short >::iterator std_vector_Sl_int16_t_Sg__insert__SWIG_0(std::vector< int16_t > *self,std::vector< short >::iterator pos,std::vector< short >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_int16_t_Sg__insert__SWIG_1(std::vector< int16_t > *self,std::vector< short >::iterator pos,std::vector< short >::size_type n,std::vector< short >::value_type const &x){ self->insert(pos, n, x); }
-SWIGINTERN std::auto_ptr< Exiv2::ValueType< int32_t > > Exiv2_ValueType_Sl_int32_t_Sg__downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<int32_t>* pv = dynamic_cast< Exiv2::ValueType<int32_t>* >(v.release());
+SWIGINTERN Exiv2::ValueType< int32_t > *Exiv2_ValueType_Sl_int32_t_Sg__downCast(Exiv2::Value const &value){
+        Exiv2::ValueType<int32_t>* pv = dynamic_cast< Exiv2::ValueType<int32_t>* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::ValueType<int32_t> >(pv);
+        return pv;
     }
 
       namespace swig {
@@ -6578,12 +6562,11 @@ SWIGINTERN std::vector< int >::iterator std_vector_Sl_int32_t_Sg__erase__SWIG_0(
 SWIGINTERN std::vector< int >::iterator std_vector_Sl_int32_t_Sg__erase__SWIG_1(std::vector< int32_t > *self,std::vector< int >::iterator first,std::vector< int >::iterator last){ return self->erase(first, last); }
 SWIGINTERN std::vector< int >::iterator std_vector_Sl_int32_t_Sg__insert__SWIG_0(std::vector< int32_t > *self,std::vector< int >::iterator pos,std::vector< int >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_int32_t_Sg__insert__SWIG_1(std::vector< int32_t > *self,std::vector< int >::iterator pos,std::vector< int >::size_type n,std::vector< int >::value_type const &x){ self->insert(pos, n, x); }
-SWIGINTERN std::auto_ptr< Exiv2::ValueType< Exiv2::Rational > > Exiv2_ValueType_Sl_Exiv2_Rational_Sg__downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<Exiv2::Rational>* pv = dynamic_cast< Exiv2::ValueType<Exiv2::Rational>* >(v.release());
+SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *Exiv2_ValueType_Sl_Exiv2_Rational_Sg__downCast(Exiv2::Value const &value){
+        Exiv2::ValueType<Exiv2::Rational>* pv = dynamic_cast< Exiv2::ValueType<Exiv2::Rational>* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::ValueType<Exiv2::Rational> >(pv);
+        return pv;
     }
 
       namespace swig {
@@ -6749,12 +6732,11 @@ SWIG_AsVal_float (PyObject * obj, float *val)
   return res;
 }
 
-SWIGINTERN std::auto_ptr< Exiv2::ValueType< float > > Exiv2_ValueType_Sl_float_Sg__downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<float>* pv = dynamic_cast< Exiv2::ValueType<float>* >(v.release());
+SWIGINTERN Exiv2::ValueType< float > *Exiv2_ValueType_Sl_float_Sg__downCast(Exiv2::Value const &value){
+        Exiv2::ValueType<float>* pv = dynamic_cast< Exiv2::ValueType<float>* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::ValueType<float> >(pv);
+        return pv;
     }
 
 namespace swig {
@@ -6880,12 +6862,11 @@ SWIGINTERN std::vector< float >::iterator std_vector_Sl_float_Sg__erase__SWIG_0(
 SWIGINTERN std::vector< float >::iterator std_vector_Sl_float_Sg__erase__SWIG_1(std::vector< float > *self,std::vector< float >::iterator first,std::vector< float >::iterator last){ return self->erase(first, last); }
 SWIGINTERN std::vector< float >::iterator std_vector_Sl_float_Sg__insert__SWIG_0(std::vector< float > *self,std::vector< float >::iterator pos,std::vector< float >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_float_Sg__insert__SWIG_1(std::vector< float > *self,std::vector< float >::iterator pos,std::vector< float >::size_type n,std::vector< float >::value_type const &x){ self->insert(pos, n, x); }
-SWIGINTERN std::auto_ptr< Exiv2::ValueType< double > > Exiv2_ValueType_Sl_double_Sg__downCast(Exiv2::Value const &value){
-        Exiv2::Value::AutoPtr v = value.clone();
-        Exiv2::ValueType<double>* pv = dynamic_cast< Exiv2::ValueType<double>* >(v.release());
+SWIGINTERN Exiv2::ValueType< double > *Exiv2_ValueType_Sl_double_Sg__downCast(Exiv2::Value const &value){
+        Exiv2::ValueType<double>* pv = dynamic_cast< Exiv2::ValueType<double>* >(value.clone().release());
         if (pv == 0)
             throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
-        return std::auto_ptr< Exiv2::ValueType<double> >(pv);
+        return pv;
     }
 
 namespace swig {
@@ -10078,7 +10059,7 @@ SWIGINTERN PyObject *_wrap_DataValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::DataValue > result;
+  Exiv2::DataValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -10092,7 +10073,7 @@ SWIGINTERN PyObject *_wrap_DataValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_DataValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::DataValue *)Exiv2_DataValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -10101,9 +10082,7 @@ SWIGINTERN PyObject *_wrap_DataValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__DataValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DataValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -10940,7 +10919,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_downCast(PyObject *self, PyObject *ar
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::StringValueBase > result;
+  Exiv2::StringValueBase *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -10954,7 +10933,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_downCast(PyObject *self, PyObject *ar
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_StringValueBase_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::StringValueBase *)Exiv2_StringValueBase_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -10963,9 +10942,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_downCast(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__StringValueBase, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__StringValueBase, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -11135,7 +11112,7 @@ SWIGINTERN PyObject *_wrap_StringValue_downCast(PyObject *self, PyObject *args) 
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::StringValue > result;
+  Exiv2::StringValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -11149,7 +11126,7 @@ SWIGINTERN PyObject *_wrap_StringValue_downCast(PyObject *self, PyObject *args) 
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_StringValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::StringValue *)Exiv2_StringValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -11158,9 +11135,7 @@ SWIGINTERN PyObject *_wrap_StringValue_downCast(PyObject *self, PyObject *args) 
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__StringValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__StringValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -11556,7 +11531,7 @@ SWIGINTERN PyObject *_wrap_AsciiValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::AsciiValue > result;
+  Exiv2::AsciiValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -11570,7 +11545,7 @@ SWIGINTERN PyObject *_wrap_AsciiValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_AsciiValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::AsciiValue *)Exiv2_AsciiValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -11579,9 +11554,7 @@ SWIGINTERN PyObject *_wrap_AsciiValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__AsciiValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__AsciiValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -12201,7 +12174,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_downCast(PyObject *self, PyObject *args)
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::CommentValue > result;
+  Exiv2::CommentValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -12215,7 +12188,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_downCast(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_CommentValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::CommentValue *)Exiv2_CommentValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -12224,9 +12197,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_downCast(PyObject *self, PyObject *args)
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__CommentValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__CommentValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -12834,7 +12805,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::XmpValue > result;
+  Exiv2::XmpValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -12848,7 +12819,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_XmpValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::XmpValue *)Exiv2_XmpValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -12857,9 +12828,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__XmpValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -13582,7 +13551,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_downCast(PyObject *self, PyObject *args)
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::XmpTextValue > result;
+  Exiv2::XmpTextValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -13596,7 +13565,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_downCast(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_XmpTextValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::XmpTextValue *)Exiv2_XmpTextValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -13605,9 +13574,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_downCast(PyObject *self, PyObject *args)
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__XmpTextValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpTextValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -14332,7 +14299,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_downCast(PyObject *self, PyObject *args
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::XmpArrayValue > result;
+  Exiv2::XmpArrayValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -14346,7 +14313,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_downCast(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_XmpArrayValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::XmpArrayValue *)Exiv2_XmpArrayValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -14355,9 +14322,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_downCast(PyObject *self, PyObject *args
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__XmpArrayValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpArrayValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -15283,7 +15248,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_downCast(PyObject *self, PyObject *args)
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::LangAltValue > result;
+  Exiv2::LangAltValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -15297,7 +15262,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_downCast(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_LangAltValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::LangAltValue *)Exiv2_LangAltValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -15306,9 +15271,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_downCast(PyObject *self, PyObject *args)
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__LangAltValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -16291,7 +16254,7 @@ SWIGINTERN PyObject *_wrap_DateValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::DateValue > result;
+  Exiv2::DateValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -16305,7 +16268,7 @@ SWIGINTERN PyObject *_wrap_DateValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_DateValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::DateValue *)Exiv2_DateValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -16314,9 +16277,7 @@ SWIGINTERN PyObject *_wrap_DateValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__DateValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -17443,7 +17404,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::TimeValue > result;
+  Exiv2::TimeValue *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -17457,7 +17418,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_TimeValue_downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::TimeValue *)Exiv2_TimeValue_downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -17466,9 +17427,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__TimeValue, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -18514,7 +18473,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_downCast(PyObject *self, PyObject *args) 
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::ValueType< uint16_t > > result;
+  Exiv2::ValueType< uint16_t > *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -18528,7 +18487,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_downCast(PyObject *self, PyObject *args) 
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_ValueType_Sl_uint16_t_Sg__downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< uint16_t > *)Exiv2_ValueType_Sl_uint16_t_Sg__downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -18537,9 +18496,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_downCast(PyObject *self, PyObject *args) 
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -21786,7 +21743,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::ValueType< uint32_t > > result;
+  Exiv2::ValueType< uint32_t > *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -21800,7 +21757,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_ValueType_Sl_uint32_t_Sg__downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< uint32_t > *)Exiv2_ValueType_Sl_uint32_t_Sg__downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -21809,9 +21766,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -25068,7 +25023,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_downCast(PyObject *self, PyObject *arg
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::ValueType< Exiv2::URational > > result;
+  Exiv2::ValueType< Exiv2::URational > *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -25082,7 +25037,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_downCast(PyObject *self, PyObject *arg
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_ValueType_Sl_Exiv2_URational_Sg__downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< Exiv2::URational > *)Exiv2_ValueType_Sl_Exiv2_URational_Sg__downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -25091,9 +25046,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_downCast(PyObject *self, PyObject *arg
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -28380,7 +28333,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::ValueType< int16_t > > result;
+  Exiv2::ValueType< int16_t > *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -28394,7 +28347,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_ValueType_Sl_int16_t_Sg__downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< int16_t > *)Exiv2_ValueType_Sl_int16_t_Sg__downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -28403,9 +28356,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_short_t, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_short_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -31652,7 +31603,7 @@ SWIGINTERN PyObject *_wrap_LongValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::ValueType< int32_t > > result;
+  Exiv2::ValueType< int32_t > *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -31666,7 +31617,7 @@ SWIGINTERN PyObject *_wrap_LongValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_ValueType_Sl_int32_t_Sg__downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< int32_t > *)Exiv2_ValueType_Sl_int32_t_Sg__downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -31675,9 +31626,7 @@ SWIGINTERN PyObject *_wrap_LongValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_int_t, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_int_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -34934,7 +34883,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_downCast(PyObject *self, PyObject *args
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::ValueType< Exiv2::Rational > > result;
+  Exiv2::ValueType< Exiv2::Rational > *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -34948,7 +34897,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_downCast(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_ValueType_Sl_Exiv2_Rational_Sg__downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< Exiv2::Rational > *)Exiv2_ValueType_Sl_Exiv2_Rational_Sg__downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -34957,9 +34906,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_downCast(PyObject *self, PyObject *args
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -38246,7 +38193,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_downCast(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::ValueType< float > > result;
+  Exiv2::ValueType< float > *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -38260,7 +38207,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_downCast(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_ValueType_Sl_float_Sg__downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< float > *)Exiv2_ValueType_Sl_float_Sg__downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -38269,9 +38216,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_downCast(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_float_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -41518,7 +41463,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_downCast(PyObject *self, PyObject *args) 
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  std::auto_ptr< Exiv2::ValueType< double > > result;
+  Exiv2::ValueType< double > *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -41532,7 +41477,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_downCast(PyObject *self, PyObject *args) 
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = Exiv2_ValueType_Sl_double_Sg__downCast((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< double > *)Exiv2_ValueType_Sl_double_Sg__downCast((Exiv2::Value const &)*arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -41541,9 +41486,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_downCast(PyObject *self, PyObject *args) 
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_POINTER_OWN |  0 );
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_double_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
