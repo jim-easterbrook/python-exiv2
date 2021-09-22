@@ -18,14 +18,9 @@
 %module(package="exiv2", threads="1") image
 %nothread;
 
-#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
 
 %include "preamble.i"
-
-%ignore Exiv2::HttpIo::operator=;
-
-%import "exiv2/basicio.hpp";
 
 %import "exif.i";
 %import "iptc.i";
@@ -90,5 +85,13 @@ ENUM(ImageType,
 %ignore Exiv2::Image::printIFDStructure;
 %ignore Exiv2::PrintStructureOption;
 %ignore Exiv2::append;
+
+// Ignore anything using BasicIo - we only need higher level stuff
+%ignore Exiv2::Image::io;
+%ignore Exiv2::ImageFactory::createIo;
+%ignore Exiv2::ImageFactory::open(BasicIo::AutoPtr);
+%ignore Exiv2::ImageFactory::create(int, BasicIo::AutoPtr);
+%ignore Exiv2::ImageFactory::getType(BasicIo&);
+%ignore Exiv2::ImageFactory::checkType;
 
 %include "exiv2/image.hpp"
