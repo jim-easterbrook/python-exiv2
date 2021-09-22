@@ -83,86 +83,63 @@ PyObject* logger = NULL;
 
 // Macro to provide a Python iterator over a C++ class with begin/end methods
 %define ITERATOR(parent_class, item_type, iter_class)
+// Convert iterator parameters
+%typemap(in) parent_class::iterator (int res = 0, void *argp) %{
+    res = SWIG_ConvertPtr($input, &argp, SWIGTYPE_p_ ## iter_class, 0);
+    if (!SWIG_IsOK(res)) {
+        %argument_fail(res, iter_class, $symname, $argnum);
+    }
+    if (!argp) {
+        %argument_nullref(iter_class, $symname, $argnum);
+    }
+    $1 = (reinterpret_cast<iter_class*>(argp))->ptr;
+%};
+// Convert iterator return values
+%typemap(out) parent_class::iterator %{
+    $result = SWIG_NewPointerObj(
+        new iter_class(result), SWIGTYPE_p_ ## iter_class, SWIG_POINTER_OWN);
+%};
 // Define a simple class to wrap parent_class::iterator
-%ignore iter_class ## Ptr::ptr;
-%ignore iter_class ## Ptr::iter_class ## Ptr;
-%feature("docstring") iter_class ## Ptr
+%ignore iter_class::ptr;
+%ignore iter_class::iter_class;
+%feature("docstring") iter_class
     "Python wrapper for parent_class::iterator"
-%feature("docstring") iter_class ## Ptr::curr "returns the current 'this' object"
+%feature("python:slot", "tp_iternext",
+         functype="iternextfunc") iter_class::__next__;
 %inline %{
-class iter_class ## Ptr {
+class iter_class {
 public:
     parent_class::iterator ptr;
-    iter_class ## Ptr(parent_class::iterator ptr) : ptr(ptr) {}
-    const item_type* operator->() {
+    iter_class(parent_class::iterator ptr) : ptr(ptr) {}
+    item_type* operator->() const {
         return &(*this->ptr);
     }
-    const item_type* curr() {
-        return &(*this->ptr);
+    parent_class::iterator __next__() {
+        return this->ptr++;
     }
-    const item_type* next() {
-        return &(*(this->ptr++));
-    }
-    bool operator==(const iter_class ## Ptr &other) const {
+    bool operator==(const iter_class &other) const {
         return other.ptr == this->ptr;
     }
-    bool operator!=(const iter_class ## Ptr &other) const {
+    bool operator!=(const iter_class &other) const {
         return other.ptr != this->ptr;
     }
 };
 %}
-// Convert iterator parameters
-%typemap(in) parent_class::iterator (int res = 0, void *argp) {
-    res = SWIG_ConvertPtr($input, &argp, SWIGTYPE_p_ ## iter_class ## Ptr, 0);
-    if (!SWIG_IsOK(res)) {
-        %argument_fail(res, iter_class ## Ptr, $symname, $argnum);
-    }
-    if (!argp) {
-        %argument_nullref(iter_class ## Ptr, $symname, $argnum);
-    }
-    $1 = (reinterpret_cast<iter_class ## Ptr*>(argp))->ptr;
-};
-// Convert iterator return values
-%typemap(out) parent_class::iterator {
-    $result = SWIG_NewPointerObj(
-        new iter_class ## Ptr(result),
-        SWIGTYPE_p_ ## iter_class ## Ptr, SWIG_POINTER_OWN);
-};
-
 // Make parent class iterable
 %feature("python:slot", "tp_iter", functype="getiterfunc") parent_class::__iter__;
-%feature("python:slot", "tp_iternext",
-         functype="iternextfunc") iter_class::__next__;
-%ignore iter_class ## Stop;
-%ignore iter_class::ptr;
-%feature("docstring") iter_class "Python iterator over parent_class"
 %extend parent_class {
-    iter_class __iter__() {
-        return iter_class($self);
+    PyObject* __iter__() {
+        PyObject* iterator = SWIG_Python_NewPointerObj(
+            NULL, new iter_class($self->begin()),
+            SWIGTYPE_p_ ## iter_class, SWIG_POINTER_OWN);
+        PyObject* callable = PyObject_GetAttrString(iterator, "__next__");
+        Py_DECREF(iterator);
+        PyObject* sentinel = SWIG_Python_NewPointerObj(
+            NULL, new iter_class($self->end()),
+            SWIGTYPE_p_ ## iter_class, SWIG_POINTER_OWN);
+        return PyCallIter_New(callable, sentinel);
     }
 }
-%typemap(throws) iter_class ## Stop {
-    PyErr_SetNone(PyExc_StopIteration);
-    SWIG_fail;
-}
-%inline %{
-class iter_class ## Stop {};
-class iter_class {
-private:
-    iter_class ## Ptr* ptr;
-    iter_class ## Ptr* end;
-public:
-    iter_class(parent_class* parent) {
-        this->ptr = new iter_class ## Ptr(parent->begin());
-        this->end = new iter_class ## Ptr(parent->end());
-    }
-    const item_type* __next__() throw (iter_class ## Stop) {
-        if (*this->ptr == *this->end)
-            throw iter_class ## Stop();
-        return this->ptr->next();
-    }
-};
-%}
 %enddef
 
 // Macro for use in SETITEM

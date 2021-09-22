@@ -78,8 +78,8 @@ Several libexiv2_ classes use C++ iterators to expose private data, for example 
 The classes have public ``begin`` and ``end`` methods that return ``std::list`` iterators.
 In C++ you can dereference one of these iterators to access the ``Exifdatum`` object, but Python doesn't have a dereference operator.
 
-This Python interface converts the ``std::list`` iterator to a Python object that has a ``curr`` method to return the list value.
-It is quite easy to use::
+This Python interface converts the ``std::list`` iterator to a Python object that has access to all the ``Exifdatum`` object's methods.
+For example::
 
     Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
     Type "help", "copyright", "credits" or "license" for more information.
@@ -88,26 +88,31 @@ It is quite easy to use::
     >>> image.readMetadata()
     >>> data = image.exifData()
     >>> b = data.begin()
-    >>> b.curr().key()
+    >>> b.key()
     'Exif.Image.ProcessingSoftware'
     >>>
 
-The Python iterators also have a ``next`` method that increments the iterator as well as returning the list value.
-This can be used to iterate over the data in a very C++ like style::
+The Python objects can be used to iterate over the data in a very C++ like style::
 
     >>> data = image.exifData()
     >>> b = data.begin()
     >>> e = data.end()
     >>> while b != e:
-    ...     b.next().key()
+    ...     b.key()
+    ...     next(b)
     ...
     'Exif.Image.ProcessingSoftware'
+    <Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>
     'Exif.Image.ImageDescription'
-    [skip 227 lines]
+    <Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>
+    [skip 227 line pairs]
     'Exif.Thumbnail.JPEGInterchangeFormat'
+    <Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>
     'Exif.Thumbnail.JPEGInterchangeFormatLength'
+    <Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>
     >>>
 
+The ``<Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>`` lines are the Python interpreter showing the return value of ``next(b)``.
 You can also iterate in a more Pythonic style::
 
     >>> data = image.exifData()

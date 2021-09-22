@@ -76,10 +76,9 @@ def main():
         end = exifData.end()
         i = exifData.begin()
         while i != end:
-            item = i.next()
             print('{:44s} {:04x} {:9s} {:3d} {:s}'.format(
-                item.key(), item.tag(), item.typeName(), item.count(),
-                item.toString()))
+                i.key(), i.tag(), i.typeName(), i.count(), i.toString()))
+            next(i)
 
         return 0
     except exiv2.AnyError as e:
