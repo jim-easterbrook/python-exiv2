@@ -131,9 +131,13 @@ ext_modules = []
 extra_compile_args = []
 if platform in ('linux', 'mingw'):
     extra_compile_args = [
-        '-std=c++98', '-O3', '-Wno-unused-variable',
+        '-O3', '-Wno-unused-variable',
         '-Wno-deprecated-declarations', '-Wno-unused-but-set-variable',
         '-Wno-deprecated', '-Werror']
+    if exiv2_version >= '0.27.5':
+        extra_compile_args.append('-std=c++11')
+    else:
+        extra_compile_args.append('-std=c++98')
 if platform == 'win32':
     extra_compile_args = ['/wd4101', '/wd4290']
 for file_name in os.listdir(mod_src_dir):
