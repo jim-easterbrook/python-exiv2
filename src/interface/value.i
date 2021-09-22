@@ -78,7 +78,6 @@ VALUE_SUBCLASS(Exiv2::XmpTextValue)
 VALUE_SUBCLASS(Exiv2::ValueType<T>)
 %template(type_name) Exiv2::ValueType<T>;
 %template(type_name ## List) std::vector<T>;
-%template(type_name ## AutoPtr) std::auto_ptr<Exiv2::type_name>;
 %enddef
 
 VALUETYPE(UShortValue, uint16_t)

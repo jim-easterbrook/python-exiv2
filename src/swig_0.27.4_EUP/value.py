@@ -95,11 +95,3 @@ class _SwigNonDynamicMeta(type):
 
 
 
-
-
-
-
-
-
-
-
