@@ -17,7 +17,6 @@
 
 %module(package="exiv2") properties
 
-#pragma SWIG nowarn=305     // Bad constant value (ignored).
 #pragma SWIG nowarn=325     // Nested struct not currently supported (X ignored)
 
 %include "preamble.i"
@@ -41,5 +40,8 @@ ENUM(XmpCategory,
 %immutable Exiv2::XmpNsInfo::ns_;
 %immutable Exiv2::XmpNsInfo::prefix_;
 %immutable Exiv2::XmpNsInfo::desc_;
+
+%ignore Exiv2::XmpProperties::rwLock_;
+%ignore Exiv2::XmpProperties::nsRegistry_;
 
 %include "exiv2/properties.hpp"
