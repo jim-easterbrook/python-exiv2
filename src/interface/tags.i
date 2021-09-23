@@ -17,19 +17,15 @@
 
 %module(package="exiv2") tags
 
-#pragma SWIG nowarn=305     // Bad constant value (ignored).
-#pragma SWIG nowarn=325     // Nested struct not currently supported (X ignored)
-
 %include "preamble.i"
 
 %import "metadatum.i";
 
 wrap_auto_unique_ptr(Exiv2::ExifKey);
 
-%immutable Exiv2::GroupInfo::ifdName_;
-%immutable Exiv2::GroupInfo::groupName_;
-%immutable Exiv2::TagInfo::name_;
-%immutable Exiv2::TagInfo::title_;
-%immutable Exiv2::TagInfo::desc_;
+%ignore Exiv2::GroupInfo::GroupInfo;
+%ignore Exiv2::TagInfo::TagInfo;
 
+%immutable;
 %include "exiv2/tags.hpp"
+%mutable;
