@@ -17,8 +17,6 @@
 
 %module(package="exiv2") properties
 
-#pragma SWIG nowarn=325     // Nested struct not currently supported (X ignored)
-
 %include "preamble.i"
 
 %import "datasets.i"
@@ -31,17 +29,14 @@ ENUM(XmpCategory,
         Internal = Exiv2::xmpInternal,
         External = Exiv2::xmpExternal);
 
-%immutable Exiv2::XmpPropertyInfo::name_;
-%immutable Exiv2::XmpPropertyInfo::title_;
-%immutable Exiv2::XmpPropertyInfo::xmpValueType_;
-%immutable Exiv2::XmpPropertyInfo::desc_;
-%immutable Exiv2::XmpNsInfo::ns_;
-%immutable Exiv2::XmpNsInfo::prefix_;
-%immutable Exiv2::XmpNsInfo::desc_;
-
 // Ignore "internal" stuff
 %ignore Exiv2::XmpProperties::rwLock_;
 %ignore Exiv2::XmpProperties::mutex_;
 %ignore Exiv2::XmpProperties::nsRegistry_;
 
+%ignore Exiv2::XmpPropertyInfo::XmpPropertyInfo;
+%ignore Exiv2::XmpNsInfo::XmpNsInfo;
+
+%immutable;
 %include "exiv2/properties.hpp"
+%mutable;

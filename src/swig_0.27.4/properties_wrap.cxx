@@ -3827,157 +3827,6 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
-SWIGINTERN int
-SWIG_AsVal_double (PyObject *obj, double *val)
-{
-  int res = SWIG_TypeError;
-  if (PyFloat_Check(obj)) {
-    if (val) *val = PyFloat_AsDouble(obj);
-    return SWIG_OK;
-#if PY_VERSION_HEX < 0x03000000
-  } else if (PyInt_Check(obj)) {
-    if (val) *val = (double) PyInt_AsLong(obj);
-    return SWIG_OK;
-#endif
-  } else if (PyLong_Check(obj)) {
-    double v = PyLong_AsDouble(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    double d = PyFloat_AsDouble(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = d;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      long v = PyLong_AsLong(obj);
-      if (!PyErr_Occurred()) {
-	if (val) *val = v;
-	return SWIG_AddCast(SWIG_AddCast(SWIG_OK));
-      } else {
-	PyErr_Clear();
-      }
-    }
-  }
-#endif
-  return res;
-}
-
-
-#include <float.h>
-
-
-#include <math.h>
-
-
-SWIGINTERNINLINE int
-SWIG_CanCastAsInteger(double *d, double min, double max) {
-  double x = *d;
-  if ((min <= x && x <= max)) {
-   double fx = floor(x);
-   double cx = ceil(x);
-   double rd =  ((x - fx) < 0.5) ? fx : cx; /* simple rint */
-   if ((errno == EDOM) || (errno == ERANGE)) {
-     errno = 0;
-   } else {
-     double summ, reps, diff;
-     if (rd < x) {
-       diff = x - rd;
-     } else if (rd > x) {
-       diff = rd - x;
-     } else {
-       return 1;
-     }
-     summ = rd + x;
-     reps = diff/summ;
-     if (reps < 8*DBL_EPSILON) {
-       *d = rd;
-       return 1;
-     }
-   }
-  }
-  return 0;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_long (PyObject *obj, long* val)
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    if (val) *val = PyInt_AsLong(obj);
-    return SWIG_OK;
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    long v = PyLong_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    long v = PyInt_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, LONG_MAX)) {
-	if (val) *val = (long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
-
-
 SWIGINTERNINLINE PyObject *
 SWIG_From_std_string  (const std::string& s)
 {
@@ -4121,36 +3970,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpPropertyInfo_typeId__set(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpPropertyInfo *arg1 = (Exiv2::XmpPropertyInfo *) 0 ;
-  Exiv2::TypeId arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpPropertyInfo_typeId__set" "', argument " "1"" of type '" "Exiv2::XmpPropertyInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpPropertyInfo_typeId__set" "', argument " "2"" of type '" "Exiv2::TypeId""'");
-  } 
-  arg2 = static_cast< Exiv2::TypeId >(val2);
-  if (arg1) (arg1)->typeId_ = arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpPropertyInfo_typeId__get(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpPropertyInfo *arg1 = (Exiv2::XmpPropertyInfo *) 0 ;
@@ -4167,36 +3986,6 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo_typeId__get(PyObject *self, PyObject 
   arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
   result = (Exiv2::TypeId) ((arg1)->typeId_);
   resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpPropertyInfo_xmpCategory__set(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpPropertyInfo *arg1 = (Exiv2::XmpPropertyInfo *) 0 ;
-  Exiv2::XmpCategory arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpPropertyInfo_xmpCategory__set" "', argument " "1"" of type '" "Exiv2::XmpPropertyInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpPropertyInfo_xmpCategory__set" "', argument " "2"" of type '" "Exiv2::XmpCategory""'");
-  } 
-  arg2 = static_cast< Exiv2::XmpCategory >(val2);
-  if (arg1) (arg1)->xmpCategory_ = arg2;
-  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -4244,30 +4033,6 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo_desc__get(PyObject *self, PyObject *a
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN int _wrap_new_XmpPropertyInfo(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpPropertyInfo *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XmpPropertyInfo")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_XmpPropertyInfo", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::XmpPropertyInfo *)new Exiv2::XmpPropertyInfo();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpPropertyInfo, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
 }
 
 
@@ -4467,36 +4232,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpNsInfo_xmpPropertyInfo__set(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpNsInfo *arg1 = (Exiv2::XmpNsInfo *) 0 ;
-  Exiv2::XmpPropertyInfo *arg2 = (Exiv2::XmpPropertyInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpNsInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpNsInfo_xmpPropertyInfo__set" "', argument " "1"" of type '" "Exiv2::XmpNsInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2,SWIGTYPE_p_Exiv2__XmpPropertyInfo, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpNsInfo_xmpPropertyInfo__set" "', argument " "2"" of type '" "Exiv2::XmpPropertyInfo const *""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp2);
-  if (arg1) (arg1)->xmpPropertyInfo_ = (Exiv2::XmpPropertyInfo const *)arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpNsInfo_xmpPropertyInfo__get(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpNsInfo *arg1 = (Exiv2::XmpNsInfo *) 0 ;
@@ -4538,30 +4273,6 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo_desc__get(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN int _wrap_new_XmpNsInfo(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpNsInfo *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XmpNsInfo")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_XmpNsInfo", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::XmpNsInfo *)new Exiv2::XmpNsInfo();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpNsInfo, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
 }
 
 
@@ -6206,17 +5917,17 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__XmpCategory_clientdata = {0, 0, 0, 0,
 static SwigPyGetSet XmpPropertyInfo_xmpValueType__getset = { _wrap_XmpPropertyInfo_xmpValueType__get, 0 };
 static SwigPyGetSet XmpPropertyInfo_name__getset = { _wrap_XmpPropertyInfo_name__get, 0 };
 static SwigPyGetSet XmpPropertyInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
-static SwigPyGetSet XmpPropertyInfo_typeId__getset = { _wrap_XmpPropertyInfo_typeId__get, _wrap_XmpPropertyInfo_typeId__set };
+static SwigPyGetSet XmpPropertyInfo_typeId__getset = { _wrap_XmpPropertyInfo_typeId__get, 0 };
 static SwigPyGetSet XmpPropertyInfo_title__getset = { _wrap_XmpPropertyInfo_title__get, 0 };
-static SwigPyGetSet XmpPropertyInfo_xmpCategory__getset = { _wrap_XmpPropertyInfo_xmpCategory__get, _wrap_XmpPropertyInfo_xmpCategory__set };
+static SwigPyGetSet XmpPropertyInfo_xmpCategory__getset = { _wrap_XmpPropertyInfo_xmpCategory__get, 0 };
 static SwigPyGetSet XmpPropertyInfo_desc__getset = { _wrap_XmpPropertyInfo_desc__get, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpPropertyInfo_getset[] = {
     { (char *)"xmpValueType_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" XMP value type (for info only)", &XmpPropertyInfo_xmpValueType__getset },
     { (char *)"name_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Property name", &XmpPropertyInfo_name__getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Comparison operator for name", &XmpPropertyInfo___dict___getset },
-    { (char *)"typeId_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" Exiv2 default type for the property", &XmpPropertyInfo_typeId__getset },
+    { (char *)"typeId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Exiv2 default type for the property", &XmpPropertyInfo_typeId__getset },
     { (char *)"title_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Property title or label", &XmpPropertyInfo_title__getset },
-    { (char *)"xmpCategory_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" Category (internal or external)", &XmpPropertyInfo_xmpCategory__getset },
+    { (char *)"xmpCategory_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Category (internal or external)", &XmpPropertyInfo_xmpCategory__getset },
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Property description", &XmpPropertyInfo_desc__getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
@@ -6294,7 +6005,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpPropertyInfo_type = {
     (descrgetfunc) 0,                         /* tp_descr_get */
     (descrsetfunc) 0,                         /* tp_descr_set */
     offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_XmpPropertyInfo,                /* tp_init */
+    SwigPyBuiltin_BadInit,                    /* tp_init */
     (allocfunc) 0,                            /* tp_alloc */
     (newfunc) 0,                              /* tp_new */
     (freefunc) 0,                             /* tp_free */
@@ -6436,7 +6147,7 @@ static SwigPyGetSet XmpNsInfo___dict___getset = { SwigPyObject_get___dict__, 0 }
 static SwigPyGetSet XmpNsInfo_desc__getset = { _wrap_XmpNsInfo_desc__get, 0 };
 static SwigPyGetSet XmpNsInfo_ns__getset = { _wrap_XmpNsInfo_ns__get, 0 };
 static SwigPyGetSet XmpNsInfo_prefix__getset = { _wrap_XmpNsInfo_prefix__get, 0 };
-static SwigPyGetSet XmpNsInfo_xmpPropertyInfo__getset = { _wrap_XmpNsInfo_xmpPropertyInfo__get, _wrap_XmpNsInfo_xmpPropertyInfo__set };
+static SwigPyGetSet XmpNsInfo_xmpPropertyInfo__getset = { _wrap_XmpNsInfo_xmpPropertyInfo__get, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpNsInfo_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
 		"*Overload 1:*\n"
@@ -6450,7 +6161,7 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpNsInfo_getset[] = {
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Brief description of the namespace", &XmpNsInfo_desc__getset },
     { (char *)"ns_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Namespace", &XmpNsInfo_ns__getset },
     { (char *)"prefix_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" (Preferred) prefix", &XmpNsInfo_prefix__getset },
-    { (char *)"xmpPropertyInfo_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" List of known properties", &XmpNsInfo_xmpPropertyInfo__getset },
+    { (char *)"xmpPropertyInfo_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" List of known properties", &XmpNsInfo_xmpPropertyInfo__getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -6535,7 +6246,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpNsInfo_type = {
     (descrgetfunc) 0,                         /* tp_descr_get */
     (descrsetfunc) 0,                         /* tp_descr_set */
     offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_XmpNsInfo,                      /* tp_init */
+    SwigPyBuiltin_BadInit,                    /* tp_init */
     (allocfunc) 0,                            /* tp_alloc */
     (newfunc) 0,                              /* tp_new */
     (freefunc) 0,                             /* tp_free */
