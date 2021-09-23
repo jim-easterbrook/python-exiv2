@@ -4,6 +4,8 @@ python-exiv2 v\ 0.5.0
 python-exiv2 is a low level interface (or binding) to the exiv2_ C++ library.
 It is built using SWIG_ to automatically generate the interface code.
 The intention is to give direct access to all of the top-level classes in libexiv2_, but with additional "Pythonic" helpers where necessary.
+Not everything in libexiv2 is available in the Python interface.
+If you need something that's not there, please let me know.
 
 .. contents::
     :backlinks: top
