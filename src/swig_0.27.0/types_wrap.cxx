@@ -3612,7 +3612,10 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
         view->obj = NULL;
         return -1;
     }
-    return PyBuffer_FillInfo(view, exporter, self->pData_, self->size_, 1, flags);
+
+
+    return PyBuffer_FillInfo(
+        view, exporter, self->pData_, self->size_, 1, flags);
     }
 
 

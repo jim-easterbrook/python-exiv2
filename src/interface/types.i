@@ -30,7 +30,11 @@
 // Add __len__ to Exiv2::DataBuf
 %feature("python:slot", "sq_length", functype="lenfunc") Exiv2::DataBuf::__len__;
 %extend Exiv2::DataBuf {
+#if EXIV2_VERSION_HEX < 0x01000000
     long __len__() {return $self->size_;}
+#else
+    long __len__() {return $self->size();}
+#endif
 }
 // Memory efficient conversion of Exiv2::DataBuf return values
 %typemap(out) Exiv2::DataBuf {
@@ -51,9 +55,20 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
         view->obj = NULL;
         return -1;
     }
-    return PyBuffer_FillInfo(view, exporter, self->pData_, self->size_, 1, flags);
+%}
+#if EXIV2_VERSION_HEX < 0x01000000
+%{
+    return PyBuffer_FillInfo(
+        view, exporter, self->pData_, self->size_, 1, flags);
     }
 %}
+#else
+%{
+    return PyBuffer_FillInfo(
+        view, exporter, self->data(), self->size(), 1, flags);
+    }
+%}
+#endif
 // Hide parts of Exiv2::DataBuf that Python shouldn't see
 %ignore Exiv2::DataBuf::pData_;
 %ignore Exiv2::DataBuf::size_;
