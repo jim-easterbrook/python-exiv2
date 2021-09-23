@@ -29,20 +29,18 @@
 
 %include "pybuffer.i"
 %include "std_string.i"
-%include "std_auto_ptr.i"
 #ifndef SWIGIMPORTED
 #ifdef EXV_UNICODE_PATH
 %include "std_wstring.i"
 #endif
 #endif
 
+wrap_auto_unique_ptr(Exiv2::Image);
+
 %pybuffer_binary(const Exiv2::byte* data, long size)
 %typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
     $1 = PyObject_CheckBuffer($input);
 }
-
-%auto_ptr(Exiv2::BasicIo)
-%auto_ptr(Exiv2::Image)
 
 // Potentially blocking calls allow Python threads
 %thread Exiv2::Image::readMetadata;
@@ -90,7 +88,9 @@ ENUM(ImageType,
 %ignore Exiv2::Image::io;
 %ignore Exiv2::ImageFactory::createIo;
 %ignore Exiv2::ImageFactory::open(BasicIo::AutoPtr);
+%ignore Exiv2::ImageFactory::open(BasicIo::UniquePtr);
 %ignore Exiv2::ImageFactory::create(int, BasicIo::AutoPtr);
+%ignore Exiv2::ImageFactory::create(int, BasicIo::UniquePtr);
 %ignore Exiv2::ImageFactory::getType(BasicIo&);
 %ignore Exiv2::ImageFactory::checkType;
 

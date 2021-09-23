@@ -24,9 +24,7 @@
 
 %import "metadatum.i";
 
-%include "std_auto_ptr.i"
-
-%auto_ptr(Exiv2::ExifKey)
+wrap_auto_unique_ptr(Exiv2::ExifKey);
 
 %immutable Exiv2::GroupInfo::ifdName_;
 %immutable Exiv2::GroupInfo::groupName_;

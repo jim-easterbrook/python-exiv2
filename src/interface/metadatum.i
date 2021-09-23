@@ -26,9 +26,8 @@
 %import "value.i"
 
 %include "std_string.i"
-%include "std_auto_ptr.i"
 
-%auto_ptr(Exiv2::Key)
+wrap_auto_unique_ptr(Exiv2::Key);
 
 STR(Exiv2::Key, key)
 

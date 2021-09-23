@@ -24,9 +24,7 @@
 %import "datasets.i"
 %import "metadatum.i"
 
-%include "std_auto_ptr.i"
-
-%auto_ptr(Exiv2::XmpKey)
+wrap_auto_unique_ptr(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
 ENUM(XmpCategory,
@@ -41,7 +39,9 @@ ENUM(XmpCategory,
 %immutable Exiv2::XmpNsInfo::prefix_;
 %immutable Exiv2::XmpNsInfo::desc_;
 
+// Ignore "internal" stuff
 %ignore Exiv2::XmpProperties::rwLock_;
+%ignore Exiv2::XmpProperties::mutex_;
 %ignore Exiv2::XmpProperties::nsRegistry_;
 
 %include "exiv2/properties.hpp"

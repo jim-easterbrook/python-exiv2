@@ -26,11 +26,11 @@
 %import "types.i"
 
 %include "stdint.i"
-%include "std_auto_ptr.i"
 %include "std_string.i"
 %include "std_vector.i"
 
-%auto_ptr(Exiv2::Value)
+wrap_auto_unique_ptr(Exiv2::Value);
+
 STR(Exiv2::Value, toString)
 
 // Macro for subclasses of Exiv2::Value
@@ -45,7 +45,7 @@ STR(Exiv2::Value, toString)
         return pv;
     }
 }
-%auto_ptr(type_name)
+wrap_auto_unique_ptr(type_name)
 %enddef
 
 VALUE_SUBCLASS(Exiv2::DataValue)

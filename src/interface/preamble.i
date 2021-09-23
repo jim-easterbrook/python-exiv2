@@ -225,3 +225,21 @@ struct name {
 %ignore name::~name;
 %ignore Exiv2::name;
 %enddef
+
+// Stuff to handle auto_ptr or unique_ptr
+#if EXIV2_VERSION_HEX < 0x001b0500
+%define wrap_auto_unique_ptr(pointed_type)
+%include "std_auto_ptr.i"
+%auto_ptr(pointed_type)
+%enddef
+#else
+template <typename T>
+struct std::unique_ptr {};
+%define wrap_auto_unique_ptr(pointed_type)
+%typemap(out) std::unique_ptr<pointed_type> %{
+    $result = SWIG_NewPointerObj(
+        (&$1)->release(), SWIG_TypeQuery(#pointed_type "*"), SWIG_POINTER_OWN);
+%}
+%template() std::unique_ptr<pointed_type>;
+%enddef
+#endif

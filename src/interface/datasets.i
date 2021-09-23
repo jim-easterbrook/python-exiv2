@@ -23,11 +23,10 @@
 
 %import "metadatum.i"
 
-%include "std_auto_ptr.i"
 %include "std_map.i"
 %include "std_string.i"
 
-%auto_ptr(Exiv2::IptcKey)
+wrap_auto_unique_ptr(Exiv2::IptcKey);
 
 %immutable Exiv2::RecordInfo::name_;
 %immutable Exiv2::RecordInfo::desc_;
