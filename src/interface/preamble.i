@@ -85,7 +85,7 @@ PyObject* logger = NULL;
 %define ITERATOR(parent_class, item_type, iter_class)
 // Convert iterator parameters
 %typemap(in) parent_class::iterator (int res = 0, void *argp) %{
-    res = SWIG_ConvertPtr($input, &argp, SWIGTYPE_p_ ## iter_class, 0);
+    res = SWIG_ConvertPtr($input, &argp, $descriptor(iter_class *), 0);
     if (!SWIG_IsOK(res)) {
         %argument_fail(res, iter_class, $symname, $argnum);
     }
@@ -97,7 +97,7 @@ PyObject* logger = NULL;
 // Convert iterator return values
 %typemap(out) parent_class::iterator %{
     $result = SWIG_NewPointerObj(
-        new iter_class(result), SWIGTYPE_p_ ## iter_class, SWIG_POINTER_OWN);
+        new iter_class(result), $descriptor(iter_class *), SWIG_POINTER_OWN);
 %};
 // Define a simple class to wrap parent_class::iterator
 %ignore iter_class::ptr;
@@ -131,12 +131,12 @@ public:
     PyObject* __iter__() {
         PyObject* iterator = SWIG_Python_NewPointerObj(
             NULL, new iter_class($self->begin()),
-            SWIGTYPE_p_ ## iter_class, SWIG_POINTER_OWN);
+            $descriptor(iter_class *), SWIG_POINTER_OWN);
         PyObject* callable = PyObject_GetAttrString(iterator, "__next__");
         Py_DECREF(iterator);
         PyObject* sentinel = SWIG_Python_NewPointerObj(
             NULL, new iter_class($self->end()),
-            SWIGTYPE_p_ ## iter_class, SWIG_POINTER_OWN);
+            $descriptor(iter_class *), SWIG_POINTER_OWN);
         return PyCallIter_New(callable, sentinel);
     }
 }
@@ -238,7 +238,7 @@ struct std::unique_ptr {};
 %define wrap_auto_unique_ptr(pointed_type)
 %typemap(out) std::unique_ptr<pointed_type> %{
     $result = SWIG_NewPointerObj(
-        (&$1)->release(), SWIG_TypeQuery(#pointed_type "*"), SWIG_POINTER_OWN);
+        (&$1)->release(), $descriptor(pointed_type *), SWIG_POINTER_OWN);
 %}
 %template() std::unique_ptr<pointed_type>;
 %enddef
