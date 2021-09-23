@@ -17,8 +17,6 @@
 
 %module(package="exiv2") datasets
 
-#pragma SWIG nowarn=305     // Bad constant value (ignored).
-
 %include "preamble.i"
 
 %import "metadatum.i"
@@ -28,13 +26,12 @@
 
 wrap_auto_unique_ptr(Exiv2::IptcKey);
 
-%immutable Exiv2::RecordInfo::name_;
-%immutable Exiv2::RecordInfo::desc_;
-%immutable Exiv2::DataSet::name_;
-%immutable Exiv2::DataSet::title_;
-%immutable Exiv2::DataSet::desc_;
-%immutable Exiv2::DataSet::photoshop_;
+%ignore Exiv2::RecordInfo::RecordInfo;
+%ignore Exiv2::DataSet::DataSet;
+%ignore Exiv2::IptcDataSets::IptcDataSets;
 
+%immutable;
 %include "exiv2/datasets.hpp"
+%mutable;
 
 %template(Exiv2Dictionary) std::map<std::string, std::string>;
