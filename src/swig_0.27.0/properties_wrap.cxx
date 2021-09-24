@@ -4942,20 +4942,12 @@ fail:
 SWIGINTERN PyObject *_wrap_XmpProperties_registeredNamespaces(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Dictionary *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
+  Exiv2::Dictionary temp1 ;
   
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpProperties_registeredNamespaces" "', argument " "1"" of type '" "Exiv2::Dictionary &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpProperties_registeredNamespaces" "', argument " "1"" of type '" "Exiv2::Dictionary &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Dictionary * >(argp1);
+  
+  arg1 = &temp1;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpProperties_registeredNamespaces", 0, 0, 0)) SWIG_fail;
   {
     try {
       Exiv2::XmpProperties::registeredNamespaces(*arg1);
@@ -4968,6 +4960,16 @@ SWIGINTERN PyObject *_wrap_XmpProperties_registeredNamespaces(PyObject *self, Py
     }
   }
   resultobj = SWIG_Py_Void();
+  {
+    PyObject* dict = PyDict_New();
+    Exiv2::Dictionary::iterator e = arg1->end();
+    for (Exiv2::Dictionary::iterator i = arg1->begin(); i != e; ++i) {
+      PyDict_SetItem(dict,
+        PyUnicode_FromString(i->first.c_str()),
+        PyUnicode_FromString(i->second.c_str()));
+    }
+    resultobj = SWIG_Python_AppendOutput(resultobj, dict);
+  }
   return resultobj;
 fail:
   return NULL;
@@ -5580,7 +5582,7 @@ static PyMethodDef SwigMethods[] = {
 		"Notes: This invalidates XMP keys generated in any custom namespace.\n"
 		""},
 	 { "XmpProperties_lookupNsRegistry", _wrap_XmpProperties_lookupNsRegistry, METH_O, "          Get the registered namespace for a specific *prefix* from the registry."},
-	 { "XmpProperties_registeredNamespaces", _wrap_XmpProperties_registeredNamespaces, METH_O, "          Get all registered namespaces (for both Exiv2 and XMPsdk)"},
+	 { "XmpProperties_registeredNamespaces", _wrap_XmpProperties_registeredNamespaces, METH_NOARGS, "          Get all registered namespaces (for both Exiv2 and XMPsdk)"},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -5700,7 +5702,7 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		"Notes: This invalidates XMP keys generated in any custom namespace.\n"
 		""},
 	 { "XmpProperties_lookupNsRegistry", _wrap_XmpProperties_lookupNsRegistry, METH_O, "          Get the registered namespace for a specific *prefix* from the registry."},
-	 { "XmpProperties_registeredNamespaces", _wrap_XmpProperties_registeredNamespaces, METH_O, "          Get all registered namespaces (for both Exiv2 and XMPsdk)"},
+	 { "XmpProperties_registeredNamespaces", _wrap_XmpProperties_registeredNamespaces, METH_NOARGS, "          Get all registered namespaces (for both Exiv2 and XMPsdk)"},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -6525,7 +6527,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
 		"Notes: This invalidates XMP keys generated in any custom namespace.\n"
 		"" },
   { "lookupNsRegistry", (PyCFunction)(void(*)(void))_wrap_XmpProperties_lookupNsRegistry, METH_STATIC|METH_O, "          Get the registered namespace for a specific *prefix* from the registry." },
-  { "registeredNamespaces", (PyCFunction)(void(*)(void))_wrap_XmpProperties_registeredNamespaces, METH_STATIC|METH_O, "          Get all registered namespaces (for both Exiv2 and XMPsdk)" },
+  { "registeredNamespaces", (PyCFunction)(void(*)(void))_wrap_XmpProperties_registeredNamespaces, METH_STATIC|METH_NOARGS, "          Get all registered namespaces (for both Exiv2 and XMPsdk)" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

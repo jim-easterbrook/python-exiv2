@@ -29,6 +29,21 @@ ENUM(XmpCategory,
         Internal = Exiv2::xmpInternal,
         External = Exiv2::xmpExternal);
 
+// Get registeredNamespaces to return a Python dict
+%typemap(in, numinputs=0) Exiv2::Dictionary &nsDict (Exiv2::Dictionary temp) %{
+    $1 = &temp;
+%}
+%typemap(argout) Exiv2::Dictionary &nsDict {
+    PyObject* dict = PyDict_New();
+    Exiv2::Dictionary::iterator e = $1->end();
+    for (Exiv2::Dictionary::iterator i = $1->begin(); i != e; ++i) {
+        PyDict_SetItem(dict,
+            PyUnicode_FromString(i->first.c_str()),
+            PyUnicode_FromString(i->second.c_str()));
+    }
+    $result = SWIG_Python_AppendOutput($result, dict);
+}
+
 // Ignore "internal" stuff
 %ignore Exiv2::XmpProperties::rwLock_;
 %ignore Exiv2::XmpProperties::mutex_;
