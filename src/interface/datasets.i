@@ -21,9 +21,6 @@
 
 %import "metadatum.i"
 
-%include "std_map.i"
-%include "std_string.i"
-
 wrap_auto_unique_ptr(Exiv2::IptcKey);
 
 %ignore Exiv2::RecordInfo::RecordInfo;
@@ -33,5 +30,3 @@ wrap_auto_unique_ptr(Exiv2::IptcKey);
 %immutable;
 %include "exiv2/datasets.hpp"
 %mutable;
-
-%template(Exiv2Dictionary) std::map<std::string, std::string>;
