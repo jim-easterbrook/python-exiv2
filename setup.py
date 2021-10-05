@@ -17,7 +17,6 @@
 
 from setuptools import setup, Extension
 import os
-import shutil
 import subprocess
 import sys
 
@@ -134,7 +133,7 @@ if platform in ('linux', 'mingw'):
         '-O3', '-Wno-unused-variable',
         '-Wno-deprecated-declarations', '-Wno-unused-but-set-variable',
         '-Wno-deprecated', '-Werror']
-    if exiv2_version >= '0.27.5':
+    if exiv2_version >= '1.0.0':
         extra_compile_args.append('-std=c++11')
     else:
         extra_compile_args.append('-std=c++98')

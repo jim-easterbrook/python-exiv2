@@ -227,7 +227,7 @@ struct name {
 %enddef
 
 // Stuff to handle auto_ptr or unique_ptr
-#if EXIV2_VERSION_HEX < 0x001b0500
+#if EXIV2_VERSION_HEX < 0x01000000
 %define wrap_auto_unique_ptr(pointed_type)
 %include "std_auto_ptr.i"
 %auto_ptr(pointed_type)
