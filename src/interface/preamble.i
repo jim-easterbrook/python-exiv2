@@ -84,26 +84,25 @@ PyObject* logger = NULL;
 // Macro to provide a Python iterator over a C++ class with begin/end methods
 %define ITERATOR(parent_class, item_type, iter_class)
 // Convert iterator parameters
-%typemap(in) parent_class::iterator (int res = 0, void *argp) %{
-    res = SWIG_ConvertPtr($input, &argp, $descriptor(iter_class *), 0);
+%typemap(in) parent_class::iterator (int res = 0, iter_class *argp) %{
+    res = SWIG_ConvertPtr($input, (void**)&argp, $descriptor(iter_class*), 0);
     if (!SWIG_IsOK(res)) {
         %argument_fail(res, iter_class, $symname, $argnum);
     }
     if (!argp) {
         %argument_nullref(iter_class, $symname, $argnum);
     }
-    $1 = (reinterpret_cast<iter_class*>(argp))->ptr;
+    $1 = argp->ptr;
 %};
 // Convert iterator return values
 %typemap(out) parent_class::iterator %{
     $result = SWIG_NewPointerObj(
-        new iter_class(result), $descriptor(iter_class *), SWIG_POINTER_OWN);
+        new iter_class($1), $descriptor(iter_class*), SWIG_POINTER_OWN);
 %};
 // Define a simple class to wrap parent_class::iterator
 %ignore iter_class::ptr;
 %ignore iter_class::iter_class;
-%feature("docstring") iter_class
-    "Python wrapper for parent_class::iterator"
+%feature("docstring") iter_class "Python wrapper for parent_class::iterator"
 %feature("python:slot", "tp_iternext",
          functype="iternextfunc") iter_class::__next__;
 %inline %{
@@ -131,12 +130,12 @@ public:
     PyObject* __iter__() {
         PyObject* iterator = SWIG_Python_NewPointerObj(
             NULL, new iter_class($self->begin()),
-            $descriptor(iter_class *), SWIG_POINTER_OWN);
+            $descriptor(iter_class*), SWIG_POINTER_OWN);
         PyObject* callable = PyObject_GetAttrString(iterator, "__next__");
         Py_DECREF(iterator);
         PyObject* sentinel = SWIG_Python_NewPointerObj(
             NULL, new iter_class($self->end()),
-            $descriptor(iter_class *), SWIG_POINTER_OWN);
+            $descriptor(iter_class*), SWIG_POINTER_OWN);
         return PyCallIter_New(callable, sentinel);
     }
 }
