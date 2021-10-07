@@ -24,7 +24,7 @@ jobs:
             mkdir build &&
             cd build &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
-              -DCMAKE_INSTALL_PREFIX=/usr \
+              -DCMAKE_INSTALL_PREFIX=/project/exiv2-install \
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
               -DEXIV2_BUILD_SAMPLES=OFF \
               -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
@@ -32,7 +32,8 @@ jobs:
             cmake --build . &&
             make install &&
             cd ../.. &&
-            python utils/build_swig.py system
+            python utils/copy_libexiv2.py /project/exiv2-install 0.27.4 &&
+            python utils/build_swig.py 0.27.4
 
       - name: Store results
         uses: actions/upload-artifact@v2
