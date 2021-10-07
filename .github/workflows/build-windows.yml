@@ -112,3 +112,28 @@ jobs:
         with:
           name: windows-wheel
           path: ./*.whl
+
+  test:
+    needs: wheels
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2016, windows-2019]
+        python-version: ['3.5', '3.6', '3.7', '3.8', '3.9']
+    steps:
+      - name: Fetch wheel files
+        uses: actions/download-artifact@v2
+        with:
+          name: windows-wheel
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: 'x64'
+
+      - name: Install wheel
+        run: pip3 install *-cp`echo ${{ matrix.python-version }}|sed 's/\.//'`*.whl
+
+      - name: Test installation
+        run: python3 -c "import exiv2; print(exiv2.__version__, exiv2.versionString())"
