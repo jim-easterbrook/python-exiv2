@@ -4522,7 +4522,7 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_0(Exiv2::XmpData *self,std:
         if (old_type == invalidTypeId)
             old_type = XmpProperties::propertyType(XmpKey(key));
         datum->setValue(&value);
-        /*@SWIG:src/interface/preamble.i,146,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4542,7 +4542,7 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_1(Exiv2::XmpData *self,std:
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,146,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4568,7 +4568,7 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_2(Exiv2::XmpData *self,std:
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,146,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -7491,7 +7491,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
-  void *argp2 ;
+  XmpDataIterator *argp2 ;
   PyObject *swig_obj[2] ;
   SwigValueWrapper< std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator > result;
   
@@ -7503,14 +7503,14 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
   
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_XmpDataIterator, 0);
+  res2 = SWIG_ConvertPtr(swig_obj[0], (void**)&argp2, SWIGTYPE_p_XmpDataIterator, 0);
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
   }
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
   }
-  arg2 = (reinterpret_cast<XmpDataIterator*>(argp2))->ptr;
+  arg2 = argp2->ptr;
   
   {
     try {

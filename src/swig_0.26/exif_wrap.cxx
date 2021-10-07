@@ -4615,7 +4615,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_0(Exiv2::ExifData *self,st
         if (old_type == invalidTypeId)
             old_type = ExifKey(key).defaultTypeId();
         datum->setValue(&value);
-        /*@SWIG:src/interface/preamble.i,146,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4635,7 +4635,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_1(Exiv2::ExifData *self,st
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,146,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4661,7 +4661,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_2(Exiv2::ExifData *self,st
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,146,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -8595,7 +8595,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
-  void *argp2 ;
+  ExifDataIterator *argp2 ;
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -8605,14 +8605,14 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
   
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ExifDataIterator, 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], (void**)&argp2, SWIGTYPE_p_ExifDataIterator, 0);
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
-  arg2 = (reinterpret_cast<ExifDataIterator*>(argp2))->ptr;
+  arg2 = argp2->ptr;
   
   {
     try {
@@ -8643,9 +8643,9 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
-  void *argp2 ;
+  ExifDataIterator *argp2 ;
   int res3 = 0 ;
-  void *argp3 ;
+  ExifDataIterator *argp3 ;
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > result;
   
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
@@ -8655,24 +8655,24 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
   
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ExifDataIterator, 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], (void**)&argp2, SWIGTYPE_p_ExifDataIterator, 0);
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
-  arg2 = (reinterpret_cast<ExifDataIterator*>(argp2))->ptr;
+  arg2 = argp2->ptr;
   
   
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ExifDataIterator, 0);
+  res3 = SWIG_ConvertPtr(swig_obj[2], (void**)&argp3, SWIGTYPE_p_ExifDataIterator, 0);
   if (!SWIG_IsOK(res3)) {
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifDataIterator""'");
   }
   if (!argp3) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifDataIterator""'");
   }
-  arg3 = (reinterpret_cast<ExifDataIterator*>(argp3))->ptr;
+  arg3 = argp3->ptr;
   
   {
     try {
