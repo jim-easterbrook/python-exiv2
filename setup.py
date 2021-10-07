@@ -112,8 +112,8 @@ if not mod_src_dir:
         packages.append('exiv2.lib')
         package_dir['exiv2.lib'] = lib_dir
         package_data['exiv2.lib'] = ['*.dll', '*.dylib']
-        if platform == 'linux':
-            # choose the libexiv2.so.?? version
+        if platform in ['linux', 'darwin']:
+            # choose the libexiv2.so.?? or libexiv2.??.dylib version
             for name in os.listdir(lib_dir):
                 if len(name.split('.')) == 3:
                     package_data['exiv2.lib'] = [name]

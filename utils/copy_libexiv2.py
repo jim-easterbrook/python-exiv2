@@ -43,7 +43,7 @@ def main():
                 new_platform = 'win32'
             elif file in ('libexiv2.dll', 'libexiv2.dll.a'):
                 new_platform = 'mingw'
-            elif file == 'libexiv2.dylib':
+            elif file.endswith('.dylib'):
                 new_platform = 'darwin'
             elif file.startswith('libexiv2.so'):
                 new_platform = 'linux'
