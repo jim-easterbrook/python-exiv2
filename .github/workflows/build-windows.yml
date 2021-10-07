@@ -46,8 +46,8 @@ jobs:
       - name: Install dependencies
         working-directory: ./exiv2-0.27.4-Source/build
         run: |
-          pip install wheel
-          pip install conan
+          pip install --disable-pip-version-check wheel
+          pip install --disable-pip-version-check conan
           conan install .. --build missing
 
       - name: Configure build
@@ -102,7 +102,7 @@ jobs:
 
       - name: Build wheel
         run: |
-          pip3 install setuptools wheel
+          pip3 install --disable-pip-version-check setuptools wheel
           python3 utils/build_swig.py 0.27.4
           pip wheel -v .
         env:
@@ -134,7 +134,7 @@ jobs:
           architecture: 'x64'
 
       - name: Install wheel
-        run: pip3 install --no-index --find-links=. python-exiv2
+        run: pip3 install --disable-pip-version-check --no-index --find-links=. python-exiv2
 
       - name: Test installation
         run: python3 -c "import exiv2; print(exiv2.__version__, exiv2.versionString())"
