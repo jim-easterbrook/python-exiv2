@@ -104,8 +104,10 @@ if not mod_src_dir:
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
         if mod_src_dir and get_exv_unicode_path(inc_dir):
             mod_src_dir += '_EUP'
-        if platform in ['linux', 'darwin']:
+        if platform == 'linux':
             extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
+        elif platform == 'darwin':
+            extra_link_args = ['-Wl,-rpath,@loader_path/lib']
         else:
             extra_link_args = []
         # add exiv2.lib package for libexiv2 binary
