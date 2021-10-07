@@ -104,7 +104,7 @@ if not mod_src_dir:
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
         if mod_src_dir and get_exv_unicode_path(inc_dir):
             mod_src_dir += '_EUP'
-        if platform == 'linux':
+        if platform in ['linux', 'darwin']:
             extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
         else:
             extra_link_args = []
@@ -128,7 +128,7 @@ package_dir['exiv2'] = mod_src_dir
 # create extension modules list
 ext_modules = []
 extra_compile_args = []
-if platform in ('linux', 'mingw'):
+if platform in ('linux', 'darwin', 'mingw'):
     extra_compile_args = [
         '-O3', '-Wno-unused-variable',
         '-Wno-deprecated-declarations', '-Wno-unused-but-set-variable',
