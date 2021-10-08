@@ -133,9 +133,11 @@ extra_compile_args = []
 if platform in ('linux', 'darwin', 'mingw'):
     extra_compile_args = [
         '-O3', '-Wno-unused-variable',
-        '-Wno-deprecated-declarations', '-Wno-deprecated', '-Werror']
+        '-Wno-deprecated-declarations', '-Wno-deprecated']
     if platform in ['linux', 'mingw']:
         extra_compile_args.append('-Wno-unused-but-set-variable')
+    if 'PYTHON_EXIV2_STRICT' in os.environ:
+        extra_compile_args.append('-Werror')
     if exiv2_version >= '1.0.0':
         extra_compile_args.append('-std=c++11')
     else:
