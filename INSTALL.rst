@@ -20,7 +20,7 @@ Use installed libexiv2
 
 In the example above, pip_ installs a "binary wheel_".
 This is pre-compiled and includes a copy of the libexiv2_ library, which makes installation quick and easy.
-Wheels for `python-exiv2`_ are available for Windows (Python 3.5 to 3.9) and Linux (Python 3.6 to 3.10).
+Wheels for `python-exiv2`_ are available for Windows (Python 3.5 to 3.9) and Linux & MacOS (Python 3.6 to 3.10).
 
 If your computer already has libexiv2_ installed (typically by your operating system's "package manager") then pip_ might be able to compile `python-exiv2`_ to use it.
 First you need to check what version of python-exiv2 you have::
@@ -124,7 +124,7 @@ Build your own libexiv2
 -----------------------
 
 In some circumstances a pre-built libexiv2_ supplied by the exiv2 project may not be suitable.
-For example, the Linux build might use newer libraries than are installed on your computer, or you might need the Windows Unicode path option that's not enabled.
+For example, the Linux build might use newer libraries than are installed on your computer, or you might need the Windows Unicode path option that's not enabled by default.
 
 Building libexiv2 requires CMake_.
 This should be available from your operating system's package manager.

@@ -71,7 +71,7 @@ Python doesn't have such specific integer types, so if you want to set the type 
     exifData["Exif.Image.SamplesPerPixel"] = exiv2.UShortValue(162)
 
 This allows you to set the value to any type, just like in C++, but the Python interface warns you if you set a type that isn't the default for that tag.
-Otherwise you can set the value to any Python object and let libexiv2_ convert the string representation of that object to the appropriate type::
+Alternatively you can use any Python object and let libexiv2_ convert the string representation of that object to the appropriate type::
 
     # Python
     exifData["Exif.Image.SamplesPerPixel"] = 162
@@ -149,14 +149,14 @@ The ``exiv2.LogMsg.setLevel`` function can be used to control what severity of m
 Installation
 ------------
 
-Python "wheels" are available for Windows (Python 3.5 to 3.9) and Linux (Python 3.6 to 3.10).
+Python "wheels" are available for Windows (Python 3.5 to 3.9) and Linux & MacOS (Python 3.6 to 3.10).
 These include the libexiv2 library and should not need any other software to be installed.
 They can be installed with Python's pip_ package.
 For example, on Windows::
 
     C:\Users\Jim>pip install python-exiv2
 
-or on Linux::
+or on Linux or MacOS::
 
     $ sudo pip3 install python-exiv2
 
