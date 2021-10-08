@@ -98,7 +98,7 @@ if not mod_src_dir:
                 exiv2_version = name.split('_', 1)[1]
                 break
     if exiv2_version:
-        print('Using included libexiv2 v{}'.format(exiv2_version))
+        print('Using local copy of libexiv2 v{}'.format(exiv2_version))
         mod_src_dir = get_mod_src_dir(exiv2_version)
         lib_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'lib')
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')

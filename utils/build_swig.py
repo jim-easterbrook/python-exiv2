@@ -118,12 +118,13 @@ def main():
 import logging
 import sys
 
-if sys.platform == 'win32' and 'GCC' not in sys.version:
+if sys.platform == 'win32':
     import os
     _dir = os.path.join(os.path.dirname(__file__), 'lib')
-    if hasattr(os, 'add_dll_directory'):
-        os.add_dll_directory(_dir)
-    os.environ['PATH'] = _dir + ';' + os.environ['PATH']
+    if os.path.isdir(_dir):
+        if hasattr(os, 'add_dll_directory'):
+            os.add_dll_directory(_dir)
+        os.environ['PATH'] = _dir + ';' + os.environ['PATH']
 
 _logger = logging.getLogger(__name__)
 
