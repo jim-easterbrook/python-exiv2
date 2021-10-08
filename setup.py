@@ -134,7 +134,7 @@ if platform in ('linux', 'darwin', 'mingw'):
     extra_compile_args = [
         '-O3', '-Wno-unused-variable',
         '-Wno-deprecated-declarations', '-Wno-deprecated', '-Werror']
-    if platform == 'linux':
+    if platform in ['linux', 'mingw']:
         extra_compile_args.append('-Wno-unused-but-set-variable')
     if exiv2_version >= '1.0.0':
         extra_compile_args.append('-std=c++11')

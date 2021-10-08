@@ -118,7 +118,7 @@ def main():
 import logging
 import sys
 
-if sys.platform == 'win32':
+if sys.platform == 'win32' and 'GCC' not in sys.version:
     import os
     _dir = os.path.join(os.path.dirname(__file__), 'lib')
     if hasattr(os, 'add_dll_directory'):
