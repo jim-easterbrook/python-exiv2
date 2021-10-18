@@ -16,6 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.5.2:
+  1/ Fix several memory leaks.
+  2/ Create binary wheels for MacOS (as well as Linux and Windows).
+  3/ Fix problems installing on MSYS2 / MinGW.
+
 Changes in v0.5.1:
   1/ Fix undefined symbol problem with Linux binary wheels.
   2/ XmpProperties.registeredNamespaces() returns a Python dict.
