@@ -8832,11 +8832,10 @@ SWIGINTERN PyObject *_wrap_Value_dataArea(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -18291,11 +18290,10 @@ SWIGINTERN PyObject *_wrap_UShortValue_dataArea(PyObject *self, PyObject *args) 
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -21504,11 +21502,10 @@ SWIGINTERN PyObject *_wrap_ULongValue_dataArea(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -24727,11 +24724,10 @@ SWIGINTERN PyObject *_wrap_URationalValue_dataArea(PyObject *self, PyObject *arg
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -27980,11 +27976,10 @@ SWIGINTERN PyObject *_wrap_ShortValue_dataArea(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -31193,11 +31188,10 @@ SWIGINTERN PyObject *_wrap_LongValue_dataArea(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -34416,11 +34410,10 @@ SWIGINTERN PyObject *_wrap_RationalValue_dataArea(PyObject *self, PyObject *args
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -37669,11 +37662,10 @@ SWIGINTERN PyObject *_wrap_FloatValue_dataArea(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -40882,11 +40874,10 @@ SWIGINTERN PyObject *_wrap_DoubleValue_dataArea(PyObject *self, PyObject *args) 
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;

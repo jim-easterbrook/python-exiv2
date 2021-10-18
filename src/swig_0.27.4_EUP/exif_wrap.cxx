@@ -6328,11 +6328,10 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_dataArea(PyObject *self, PyObject *a
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -7955,11 +7954,10 @@ SWIGINTERN PyObject *_wrap_Exifdatum_dataArea(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;
@@ -8063,11 +8061,10 @@ SWIGINTERN PyObject *_wrap_ExifThumbC_copy(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    std::pair<Exiv2::byte*, long> buf = (&result)->release();
-    resultobj = SWIG_NewPointerObj(
-      new Exiv2::DataBuf(buf.first, buf.second), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
+  
   return resultobj;
 fail:
   return NULL;

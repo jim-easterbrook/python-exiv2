@@ -37,11 +37,10 @@
 #endif
 }
 // Memory efficient conversion of Exiv2::DataBuf return values
-%typemap(out) Exiv2::DataBuf {
-    std::pair<Exiv2::byte*, long> buf = $1.release();
+%typemap(out) Exiv2::DataBuf %{
     $result = SWIG_NewPointerObj(
-        new $type(buf.first, buf.second), $&1_descriptor, SWIG_POINTER_OWN);
-}
+        new $type($1), $&1_descriptor, SWIG_POINTER_OWN);
+%}
 // Expose Exiv2::DataBuf contents as a Python buffer
 %feature("python:bf_getbuffer",
          functype="getbufferproc") Exiv2::DataBuf "Exiv2_DataBuf_getbuf";
