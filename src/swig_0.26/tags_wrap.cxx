@@ -4543,7 +4543,16 @@ SWIGINTERN PyObject *_wrap_ExifTags_groupList(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
+  {
+    const Exiv2::GroupInfo* gi = result;
+    PyObject* list = PyList_New(0);
+    while (gi->tagList_ != 0) {
+      PyList_Append(list, SWIG_NewPointerObj(
+          SWIG_as_voidptr(gi), SWIGTYPE_p_Exiv2__GroupInfo, 0));
+      ++gi;
+    }
+    resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -4581,7 +4590,16 @@ SWIGINTERN PyObject *_wrap_ExifTags_tagList(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
+  {
+    const Exiv2::TagInfo* ti = result;
+    PyObject* list = PyList_New(0);
+    while (ti->tag_ != 0xFFFF) {
+      PyList_Append(list, SWIG_NewPointerObj(
+          SWIG_as_voidptr(ti), SWIGTYPE_p_Exiv2__TagInfo, 0));
+      ++ti;
+    }
+    resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
+  }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
 fail:
