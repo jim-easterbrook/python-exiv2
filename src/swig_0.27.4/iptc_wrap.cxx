@@ -4568,7 +4568,7 @@ SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_0(Exiv2::IptcData *self,st
         if (old_type == invalidTypeId)
             old_type = IptcDataSets::dataSetType(datum->tag(), datum->record());
         datum->setValue(&value);
-        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4588,7 +4588,7 @@ SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_1(Exiv2::IptcData *self,st
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4614,7 +4614,7 @@ SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_2(Exiv2::IptcData *self,st
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,145,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4643,7 +4643,10 @@ SWIGINTERN PyObject *Exiv2_IptcData___iter__(Exiv2::IptcData *self){
         PyObject* sentinel = SWIG_Python_NewPointerObj(
             NULL, new IptcDataIterator(self->end()),
             SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-        return PyCallIter_New(callable, sentinel);
+        iterator = PyCallIter_New(callable, sentinel);
+        Py_DECREF(callable);
+        Py_DECREF(sentinel);
+        return iterator;
     }
 #ifdef __cplusplus
 extern "C" {

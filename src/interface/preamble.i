@@ -136,7 +136,10 @@ public:
         PyObject* sentinel = SWIG_Python_NewPointerObj(
             NULL, new iter_class($self->end()),
             $descriptor(iter_class*), SWIG_POINTER_OWN);
-        return PyCallIter_New(callable, sentinel);
+        iterator = PyCallIter_New(callable, sentinel);
+        Py_DECREF(callable);
+        Py_DECREF(sentinel);
+        return iterator;
     }
 }
 %enddef
