@@ -139,6 +139,23 @@ class AnyError(Exception):
             im.write('''
 __all__ = [x for x in dir() if x[0] != '_']
 ''')
+        # create main module
+        main_file = os.path.join(output_dir, '__main__.py')
+        with open(main_file, 'w') as im:
+            im.write('''
+import os
+import sys
+import exiv2
+
+def main():
+    print('libexiv2 version:', exiv2.versionString())
+    print('python-exiv2 version:', exiv2.__version__)
+    print('python-exiv2 examples:',
+          os.path.join(os.path.dirname(__file__), 'examples'))
+
+if __name__ == "__main__":
+    sys.exit(main())
+''')
     return 0
 
 
