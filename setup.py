@@ -63,9 +63,9 @@ platform = sys.platform
 if platform == 'win32' and 'GCC' in sys.version:
     platform = 'mingw'
 
-packages = ['exiv2']
-package_dir = {}
-package_data = {}
+packages = ['exiv2', 'exiv2.examples']
+package_dir = {'exiv2.examples': 'examples'}
+package_data = {'exiv2.examples': ['*.py', '*.rst']}
 
 if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     # attempt to use installed libexiv2
