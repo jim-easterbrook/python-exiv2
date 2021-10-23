@@ -10,13 +10,13 @@ jobs:
 
       - name: Download libexiv2
         run: |
-          wget -nv https://www.exiv2.org/builds/exiv2-0.27.4-Source.tar.gz
-          tar xf exiv2-0.27.4-Source.tar.gz
-          cp conanfile.py exiv2-0.27.4-Source/
+          wget -nv https://www.exiv2.org/builds/exiv2-0.27.5-Source.tar.gz
+          tar xf exiv2-0.27.5-Source.tar.gz
+          cp conanfile.py exiv2-0.27.5-Source/
 
       - name: Make directories
         run: |
-          mkdir exiv2-0.27.4-Source/build
+          mkdir exiv2-0.27.5-Source/build
           mkdir exiv2
 
       - name: Build wheels
@@ -27,7 +27,7 @@ jobs:
           CIBW_BEFORE_ALL: >
             brew install ninja &&
             pip3 install conan &&
-            cd exiv2-0.27.4-Source/build &&
+            cd exiv2-0.27.5-Source/build &&
             conan profile new --detect default &&
             conan install .. --build missing &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
@@ -40,8 +40,8 @@ jobs:
             cmake --build . --config Release &&
             cmake --build . --target install &&
             cd ../.. &&
-            python3 utils/copy_libexiv2.py exiv2 0.27.4 &&
-            python3 utils/build_swig.py 0.27.4
+            python3 utils/copy_libexiv2.py exiv2 0.27.5 &&
+            python3 utils/build_swig.py 0.27.5
 
       - name: Store results
         uses: actions/upload-artifact@v2

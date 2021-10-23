@@ -10,8 +10,8 @@ jobs:
 
       - name: Download libexiv2
         run: |
-          wget -nv https://www.exiv2.org/builds/exiv2-0.27.4-Source.tar.gz
-          tar xf exiv2-0.27.4-Source.tar.gz
+          wget -nv https://www.exiv2.org/builds/exiv2-0.27.5-Source.tar.gz
+          tar xf exiv2-0.27.5-Source.tar.gz
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.1.1
@@ -20,7 +20,7 @@ jobs:
           CIBW_SKIP: pp37-manylinux_x86_64
           CIBW_BEFORE_ALL: >
             yum install -y zlib-devel expat-devel &&
-            cd exiv2-0.27.4-Source &&
+            cd exiv2-0.27.5-Source &&
             mkdir build &&
             cd build &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
@@ -32,8 +32,8 @@ jobs:
             cmake --build . &&
             make install &&
             cd ../.. &&
-            python utils/copy_libexiv2.py /project/exiv2-install 0.27.4 &&
-            python utils/build_swig.py 0.27.4
+            python utils/copy_libexiv2.py /project/exiv2-install 0.27.5 &&
+            python utils/build_swig.py 0.27.5
 
       - name: Store results
         uses: actions/upload-artifact@v2
