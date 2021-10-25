@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.6.0:
+  1/ Add Exiv2::PreviewManager to Python interface.
+
 Changes in v0.5.3:
   1/ Binary wheels use libexiv2 version 0.27.5.
 
