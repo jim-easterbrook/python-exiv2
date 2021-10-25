@@ -22,10 +22,10 @@
 
 %include "preamble.i"
 
+%include "std_string.i"
+
 %import "types.i"
 %import "value.i"
-
-%include "std_string.i"
 
 wrap_auto_unique_ptr(Exiv2::Key);
 

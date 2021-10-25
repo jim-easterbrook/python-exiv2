@@ -3634,6 +3634,9 @@ PyObject* PyExc_AnyError = NULL;
 PyObject* logger = NULL;
 
 
+#include <string>
+
+
 struct ImageType {
     enum {bmp =   Exiv2::ImageType::bmp,cr2 =   Exiv2::ImageType::cr2,crw =   Exiv2::ImageType::crw,eps =   Exiv2::ImageType::eps,exv =   Exiv2::ImageType::exv,gif =   Exiv2::ImageType::gif,jp2 =   Exiv2::ImageType::jp2,jpeg =  Exiv2::ImageType::jpeg,mrw =   Exiv2::ImageType::mrw,none =  Exiv2::ImageType::none,orf =   Exiv2::ImageType::orf,pgf =   Exiv2::ImageType::pgf,png =   Exiv2::ImageType::png,psd =   Exiv2::ImageType::psd,raf =   Exiv2::ImageType::raf,rw2 =   Exiv2::ImageType::rw2,tga =   Exiv2::ImageType::tga,tiff =  Exiv2::ImageType::tiff,xmp =   Exiv2::ImageType::xmp};
 };

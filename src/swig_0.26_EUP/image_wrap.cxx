@@ -3635,6 +3635,9 @@ PyObject* PyExc_AnyError = NULL;
 PyObject* logger = NULL;
 
 
+#include <string>
+
+
 #if PY_VERSION_HEX >= 0x03020000
 # define SWIGPY_UNICODE_ARG(obj) ((PyObject*) (obj))
 #else
@@ -3643,9 +3646,6 @@ PyObject* logger = NULL;
 
 
 #include <cwchar>
-
-
-#include <string>
 
 
 struct ImageType {

@@ -22,11 +22,6 @@
 
 %include "preamble.i"
 
-%import "exif.i";
-%import "iptc.i";
-%import "tags.i";
-%import "xmp.i";
-
 %include "pybuffer.i"
 %include "std_string.i"
 #ifndef SWIGIMPORTED
@@ -34,6 +29,11 @@
 %include "std_wstring.i"
 #endif
 #endif
+
+%import "exif.i";
+%import "iptc.i";
+%import "tags.i";
+%import "xmp.i";
 
 wrap_auto_unique_ptr(Exiv2::Image);
 

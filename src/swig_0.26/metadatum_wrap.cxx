@@ -3606,6 +3606,9 @@ PyObject* PyExc_AnyError = NULL;
 PyObject* logger = NULL;
 
 
+#include <string>
+
+
 SWIGINTERN swig_type_info*
 SWIG_pchar_descriptor(void)
 {
@@ -3985,9 +3988,6 @@ SWIG_From_float  (float value)
 {    
   return SWIG_From_double  (value);
 }
-
-
-#include <string>
 
 
 namespace swig {

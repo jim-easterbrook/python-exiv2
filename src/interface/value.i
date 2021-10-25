@@ -23,11 +23,11 @@
 
 %include "preamble.i"
 
-%import "types.i"
-
 %include "stdint.i"
 %include "std_string.i"
 %include "std_vector.i"
+
+%import "types.i"
 
 wrap_auto_unique_ptr(Exiv2::Value);
 

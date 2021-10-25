@@ -3631,6 +3631,9 @@ PyObject* PyExc_AnyError = NULL;
 PyObject* logger = NULL;
 
 
+#include <stdint.h>		// Use the C99 official header
+
+
 #include <string>
 
 
@@ -3640,6 +3643,17 @@ PyObject* logger = NULL;
 # define SWIGPY_SLICE_ARG(obj) ((PyObject*) (obj))
 #else
 # define SWIGPY_SLICE_ARG(obj) ((PySliceObject*) (obj))
+#endif
+
+
+#include <typeinfo>
+#include <stdexcept>
+
+
+#if defined(__GNUC__)
+#  if __GNUC__ == 2 && __GNUC_MINOR <= 96
+#     define SWIG_STD_NOMODERN_STL
+#  endif
 #endif
 
 
