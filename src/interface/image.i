@@ -49,8 +49,15 @@ wrap_auto_unique_ptr(Exiv2::Image);
 %thread Exiv2::ImageFactory::open;
 
 // Make image types available
+#ifdef EXV_ENABLE_BMFF
+#define BMFF bmff = Exiv2::ImageType::bmff,
+#else
+#define BMFF
+#endif
+
 ENUM(ImageType,
         bmp =   Exiv2::ImageType::bmp,
+        BMFF
         cr2 =   Exiv2::ImageType::cr2,
         crw =   Exiv2::ImageType::crw,
         eps =   Exiv2::ImageType::eps,
