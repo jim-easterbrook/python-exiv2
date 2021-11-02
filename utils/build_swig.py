@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import shutil
 import subprocess
 import sys
 
@@ -85,6 +86,7 @@ def main():
     file_names = [x for x in file_names if x != 'preamble.i']
     file_names.sort()
     file_names = [os.path.splitext(x) for x in file_names]
+    mod_names = [x[0] + x[1] for x in file_names if x[1] == '.py']
     ext_names = [x[0] for x in file_names if x[1] == '.i']
     # get SWIG version
     cmd = ['swig', '-version']
@@ -102,10 +104,15 @@ def main():
     # convert exiv2 version to hex
     exiv2_version_hex = '0x{:02x}{:02x}{:02x}{:02x}'.format(
         *map(int, (exiv2_version + '.0.0').split('.')[:4]))
-    # make options list
+    # create output dir
     output_dir = os.path.join('src', 'swig_' + exiv2_version)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
+    # copy Python modules
+    for mod_name in mod_names:
+        shutil.copy2(os.path.join('src', 'interface', mod_name),
+                     os.path.join(output_dir, mod_name))
+    # make options list
     swig_opts = ['-c++', '-python', '-py3', '-builtin',
                  '-fastdispatch', '-fastproxy',
                  '-Wextra', '-Werror']
@@ -154,23 +161,6 @@ class AnyError(Exception):
             im.write('from exiv2.%s import *\n' % name)
         im.write('''
 __all__ = [x for x in dir() if x[0] != '_']
-''')
-    # create main module
-    main_file = os.path.join(output_dir, '__main__.py')
-    with open(main_file, 'w') as im:
-        im.write('''
-import os
-import sys
-import exiv2
-
-def main():
-    print('libexiv2 version:', exiv2.versionString())
-    print('python-exiv2 version:', exiv2.__version__)
-    print('python-exiv2 examples:',
-          os.path.join(os.path.dirname(__file__), 'examples'))
-
-if __name__ == "__main__":
-    sys.exit(main())
 ''')
     return 0
 
