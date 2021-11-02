@@ -29,21 +29,6 @@ def pkg_config(library, option):
         print(str(ex))
         return None
 
-def get_exv_unicode_path(inc_dir):
-    result = False
-    with open(os.path.join(inc_dir, 'exiv2', 'exv_conf.h')) as cnf:
-        for line in cnf.readlines():
-            if 'EXV_UNICODE_PATH' not in line:
-                continue
-            words = line.split()
-            if words[1] != 'EXV_UNICODE_PATH':
-                continue
-            if words[0] == '#define':
-                result = True
-            elif words[0] == '#undef':
-                result = False
-    return result
-
 # get list of available swigged versions
 swigged_versions = []
 for name in os.listdir('src'):
@@ -78,8 +63,6 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
             inc_dir = pkg_config('exiv2', 'cflags-only-I')[2:]
             inc_dir = inc_dir and inc_dir.replace(r'\ ', ' ')
             inc_dir = inc_dir or '/usr/include'
-            if get_exv_unicode_path(inc_dir):
-                mod_src_dir += '_EUP'
             extra_link_args = []
             print('Using system installed libexiv2 v{}'.format(exiv2_version))
 
@@ -102,8 +85,6 @@ if not mod_src_dir:
         mod_src_dir = get_mod_src_dir(exiv2_version)
         lib_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'lib')
         inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
-        if mod_src_dir and get_exv_unicode_path(inc_dir):
-            mod_src_dir += '_EUP'
         if platform == 'linux':
             extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
         elif platform == 'darwin':

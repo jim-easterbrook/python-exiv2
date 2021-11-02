@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
-
 import os
 import subprocess
 import sys
@@ -35,14 +33,16 @@ def pkg_config(library, option):
 
 def main():
     # get version to SWIG
-    if len(sys.argv) != 2:
-        print('Usage: %s version | "system"' % sys.argv[0])
+    if len(sys.argv) < 2 or len(sys.argv) > 3:
+        print('Usage: %s version | "system" ["minimal"]' % sys.argv[0])
         return 1
     # get exiv2 version
     if sys.argv[1] == 'system':
         exiv2_version = pkg_config('exiv2', 'modversion')[0]
     else:
         exiv2_version = sys.argv[1]
+    # minimal build?
+    minimal = len(sys.argv) >= 3 and sys.argv[2] == 'minimal'
     # get config
     platform = sys.platform
     if platform == 'win32' and 'GCC' in sys.version:
@@ -57,6 +57,25 @@ def main():
         if not os.path.exists(incl_dir):
             incl_dir = os.path.join(
                 'libexiv2_' + exiv2_version, 'linux', 'include')
+    # get exiv2 build options
+    options = {
+        'EXV_ENABLE_BMFF'  : False,
+        'EXV_ENABLE_VIDEO' : False,
+        'EXV_UNICODE_PATH' : False,
+        }
+    if not minimal:
+        with open(os.path.join(incl_dir, 'exiv2', 'exv_conf.h')) as cnf:
+            for line in cnf.readlines():
+                for key in options:
+                    if key not in line:
+                        continue
+                    words = line.split()
+                    if words[1] != key:
+                        continue
+                    if words[0] == '#define':
+                        options[key] = True
+                    elif words[0] == '#undef':
+                        options[key] = False
     # get python-exiv2 version
     with open('README.rst') as rst:
         py_exiv2_version = rst.readline().split()[-1]
@@ -83,38 +102,35 @@ def main():
     # convert exiv2 version to hex
     exiv2_version_hex = '0x{:02x}{:02x}{:02x}{:02x}'.format(
         *map(int, (exiv2_version + '.0.0').split('.')[:4]))
-    # swig with and without EXV_UNICODE_PATH defined
-    for exv_unicode_path in (False, True):
-        # make options list
-        output_dir = os.path.join('src', 'swig_' + exiv2_version)
-        if exv_unicode_path:
-            output_dir += '_EUP'
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-        swig_opts = ['-c++', '-python', '-py3', '-builtin',
-                     '-fastdispatch', '-fastproxy',
-                     '-Wextra', '-Werror']
-        swig_opts.append('-I' + incl_dir)
-        if exv_unicode_path:
-            swig_opts.append('-DEXV_UNICODE_PATH')
-        swig_opts.append('-DEXIV2_VERSION_HEX=' + exiv2_version_hex)
-        swig_opts += ['-outdir', output_dir]
-        # do each swig module
-        for ext_name in ext_names:
-            cmd = ['swig'] + swig_opts
-            # use -doxygen ?
-            if swig_version >= (4, 0, 0):
-                # -doxygen flag causes a syntax error on error.hpp in v0.26
-                if exiv2_version > "0.26" or ext_name not in ('error', ):
-                    cmd += ['-doxygen', '-DSWIG_DOXYGEN']
-            cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
-            cmd += [os.path.join(interface_dir, ext_name + '.i')]
-            print(' '.join(cmd))
-            subprocess.check_call(cmd)
-        # create init module
-        init_file = os.path.join(output_dir, '__init__.py')
-        with open(init_file, 'w') as im:
-            im.write('''
+    # make options list
+    output_dir = os.path.join('src', 'swig_' + exiv2_version)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    swig_opts = ['-c++', '-python', '-py3', '-builtin',
+                 '-fastdispatch', '-fastproxy',
+                 '-Wextra', '-Werror']
+    swig_opts.append('-I' + incl_dir)
+    for key in options:
+        if options[key]:
+            swig_opts.append('-D' + key)
+    swig_opts.append('-DEXIV2_VERSION_HEX=' + exiv2_version_hex)
+    swig_opts += ['-outdir', output_dir]
+    # do each swig module
+    for ext_name in ext_names:
+        cmd = ['swig'] + swig_opts
+        # use -doxygen ?
+        if swig_version >= (4, 0, 0):
+            # -doxygen flag causes a syntax error on error.hpp in v0.26
+            if exiv2_version > "0.26" or ext_name not in ('error', ):
+                cmd += ['-doxygen', '-DSWIG_DOXYGEN']
+        cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
+        cmd += [os.path.join(interface_dir, ext_name + '.i')]
+        print(' '.join(cmd))
+        subprocess.check_call(cmd)
+    # create init module
+    init_file = os.path.join(output_dir, '__init__.py')
+    with open(init_file, 'w') as im:
+        im.write('''
 import logging
 import sys
 
@@ -133,16 +149,16 @@ class AnyError(Exception):
     pass
 
 ''')
-            im.write('__version__ = "%s"\n\n' % py_exiv2_version)
-            for name in ext_names:
-                im.write('from exiv2.%s import *\n' % name)
-            im.write('''
+        im.write('__version__ = "%s"\n\n' % py_exiv2_version)
+        for name in ext_names:
+            im.write('from exiv2.%s import *\n' % name)
+        im.write('''
 __all__ = [x for x in dir() if x[0] != '_']
 ''')
-        # create main module
-        main_file = os.path.join(output_dir, '__main__.py')
-        with open(main_file, 'w') as im:
-            im.write('''
+    # create main module
+    main_file = os.path.join(output_dir, '__main__.py')
+    with open(main_file, 'w') as im:
+        im.write('''
 import os
 import sys
 import exiv2
