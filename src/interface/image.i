@@ -95,3 +95,9 @@ ENUM(ImageType,
 %ignore Exiv2::ImageFactory::checkType;
 
 %include "exiv2/image.hpp"
+
+// Include enableBMFF function added in libexiv2 0.27.4
+#if EXIV2_VERSION_HEX >= 0x001b0400
+#undef EXV_ENABLE_BMFF // Don't need any of the other stuff in bmffimage.hpp
+%include "exiv2/bmffimage.hpp"
+#endif
