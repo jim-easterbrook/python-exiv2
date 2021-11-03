@@ -34,35 +34,56 @@ wrap_auto_unique_ptr(Exiv2::Value);
 STR(Exiv2::Value, toString)
 
 // Macro for subclasses of Exiv2::Value
-%define VALUE_SUBCLASS(type_name)
+%define VALUE_SUBCLASS(type_name, part_name)
 %feature("docstring") type_name::downCast
     "Convert general 'Exiv2::Value' to specific 'type_name'."
 %newobject type_name::downCast;
 %extend type_name {
     static type_name* downCast(const Exiv2::Value& value) {
         type_name* pv = dynamic_cast< type_name* >(value.clone().release());
-        if (pv == 0)
-            throw Exiv2::Error(Exiv2::kerErrorMessage, "Downcast failed");
+        if (pv == 0) {
+            std::string msg = "Cannot cast type '";
+            msg += Exiv2::TypeInfo::typeName(value.typeId());
+            msg += "' to type_name.";
+            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
+        }
+        return pv;
+    }
+    part_name(const Exiv2::Value& value) {
+        type_name* pv = dynamic_cast< type_name* >(value.clone().release());
+        if (pv == 0) {
+            std::string msg = "Cannot cast type '";
+            msg += Exiv2::TypeInfo::typeName(value.typeId());
+            msg += "' to type '";
+            msg += Exiv2::TypeInfo::typeName(type_name().typeId());
+            msg += "'.";
+            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
+        }
         return pv;
     }
 }
 wrap_auto_unique_ptr(type_name)
 %enddef
 
-VALUE_SUBCLASS(Exiv2::DataValue)
-VALUE_SUBCLASS(Exiv2::DateValue)
-VALUE_SUBCLASS(Exiv2::TimeValue)
-VALUE_SUBCLASS(Exiv2::StringValueBase)
-VALUE_SUBCLASS(Exiv2::AsciiValue)
-VALUE_SUBCLASS(Exiv2::CommentValue)
-VALUE_SUBCLASS(Exiv2::StringValue)
-VALUE_SUBCLASS(Exiv2::XmpValue)
-VALUE_SUBCLASS(Exiv2::LangAltValue)
-VALUE_SUBCLASS(Exiv2::XmpArrayValue)
-VALUE_SUBCLASS(Exiv2::XmpTextValue)
+VALUE_SUBCLASS(Exiv2::DataValue, DataValue)
+VALUE_SUBCLASS(Exiv2::DateValue, DateValue)
+VALUE_SUBCLASS(Exiv2::TimeValue, TimeValue)
+VALUE_SUBCLASS(Exiv2::StringValueBase, StringValueBase)
+VALUE_SUBCLASS(Exiv2::AsciiValue, AsciiValue)
+VALUE_SUBCLASS(Exiv2::CommentValue, CommentValue)
+VALUE_SUBCLASS(Exiv2::StringValue, StringValue)
+VALUE_SUBCLASS(Exiv2::XmpValue, XmpValue)
+VALUE_SUBCLASS(Exiv2::LangAltValue, LangAltValue)
+VALUE_SUBCLASS(Exiv2::XmpArrayValue, XmpArrayValue)
+VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
 
 %ignore Exiv2::getValue;
 %ignore LARGE_INT;
+
+// Some classes wrongly appear to be abstract to SWIG
+%feature("notabstract") Exiv2::LangAltValue;
+%feature("notabstract") Exiv2::XmpArrayValue;
+%feature("notabstract") Exiv2::XmpTextValue;
 
 // Ignore ambiguous or unusable constructors
 %ignore Exiv2::ValueType::ValueType(TypeId);
@@ -76,7 +97,7 @@ VALUE_SUBCLASS(Exiv2::XmpTextValue)
 
 // Macro to apply templates to Exiv2::ValueType
 %define VALUETYPE(type_name, T)
-VALUE_SUBCLASS(Exiv2::ValueType<T>)
+VALUE_SUBCLASS(Exiv2::ValueType<T>, type_name)
 %template(type_name) Exiv2::ValueType<T>;
 %template(type_name ## List) std::vector<T>;
 %enddef
