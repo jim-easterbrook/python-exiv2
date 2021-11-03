@@ -89,7 +89,7 @@ def main():
         # Get a copy of the value
         v = pos.getValue()
         # Downcast the Value pointer to its actual type
-        rv = exiv2.URationalValue.downCast(v)
+        rv = exiv2.URationalValue(v)
         # Modify the value directly through the interface of URationalValue
         rv.value_[2] = 88,77
 
