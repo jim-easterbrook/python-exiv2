@@ -43,6 +43,9 @@ STR(Exiv2::Value, toString)
             msg += "' to type_name.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace part_name.downCast(value) with copy constructor "
+            "part_name(value).");
         return pv;
     }
     part_name(const Exiv2::Value& value) {

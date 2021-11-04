@@ -4830,6 +4830,9 @@ SWIGINTERN Exiv2::DataValue *Exiv2_DataValue_downCast(Exiv2::Value const &value)
             msg += "' to Exiv2::DataValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace DataValue.downCast(value) with copy constructor "
+            "DataValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::DataValue *new_Exiv2_DataValue__SWIG_5(Exiv2::Value const &value){
@@ -4852,6 +4855,9 @@ SWIGINTERN Exiv2::StringValueBase *Exiv2_StringValueBase_downCast(Exiv2::Value c
             msg += "' to Exiv2::StringValueBase.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace StringValueBase.downCast(value) with copy constructor "
+            "StringValueBase(value).");
         return pv;
     }
 SWIGINTERN Exiv2::StringValue *Exiv2_StringValue_downCast(Exiv2::Value const &value){
@@ -4862,6 +4868,9 @@ SWIGINTERN Exiv2::StringValue *Exiv2_StringValue_downCast(Exiv2::Value const &va
             msg += "' to Exiv2::StringValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace StringValue.downCast(value) with copy constructor "
+            "StringValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::StringValue *new_Exiv2_StringValue__SWIG_2(Exiv2::Value const &value){
@@ -4884,6 +4893,9 @@ SWIGINTERN Exiv2::AsciiValue *Exiv2_AsciiValue_downCast(Exiv2::Value const &valu
             msg += "' to Exiv2::AsciiValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace AsciiValue.downCast(value) with copy constructor "
+            "AsciiValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_2(Exiv2::Value const &value){
@@ -4916,6 +4928,9 @@ SWIGINTERN Exiv2::CommentValue *Exiv2_CommentValue_downCast(Exiv2::Value const &
             msg += "' to Exiv2::CommentValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace CommentValue.downCast(value) with copy constructor "
+            "CommentValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value const &value){
@@ -4938,6 +4953,9 @@ SWIGINTERN Exiv2::XmpValue *Exiv2_XmpValue_downCast(Exiv2::Value const &value){
             msg += "' to Exiv2::XmpValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace XmpValue.downCast(value) with copy constructor "
+            "XmpValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::XmpTextValue *Exiv2_XmpTextValue_downCast(Exiv2::Value const &value){
@@ -4948,6 +4966,9 @@ SWIGINTERN Exiv2::XmpTextValue *Exiv2_XmpTextValue_downCast(Exiv2::Value const &
             msg += "' to Exiv2::XmpTextValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace XmpTextValue.downCast(value) with copy constructor "
+            "XmpTextValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::XmpTextValue *new_Exiv2_XmpTextValue__SWIG_2(Exiv2::Value const &value){
@@ -4970,6 +4991,9 @@ SWIGINTERN Exiv2::XmpArrayValue *Exiv2_XmpArrayValue_downCast(Exiv2::Value const
             msg += "' to Exiv2::XmpArrayValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace XmpArrayValue.downCast(value) with copy constructor "
+            "XmpArrayValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_2(Exiv2::Value const &value){
@@ -4992,6 +5016,9 @@ SWIGINTERN Exiv2::LangAltValue *Exiv2_LangAltValue_downCast(Exiv2::Value const &
             msg += "' to Exiv2::LangAltValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace LangAltValue.downCast(value) with copy constructor "
+            "LangAltValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::LangAltValue *new_Exiv2_LangAltValue__SWIG_2(Exiv2::Value const &value){
@@ -5014,6 +5041,9 @@ SWIGINTERN Exiv2::DateValue *Exiv2_DateValue_downCast(Exiv2::Value const &value)
             msg += "' to Exiv2::DateValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace DateValue.downCast(value) with copy constructor "
+            "DateValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_2(Exiv2::Value const &value){
@@ -5036,6 +5066,9 @@ SWIGINTERN Exiv2::TimeValue *Exiv2_TimeValue_downCast(Exiv2::Value const &value)
             msg += "' to Exiv2::TimeValue.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace TimeValue.downCast(value) with copy constructor "
+            "TimeValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_5(Exiv2::Value const &value){
@@ -5074,6 +5107,9 @@ SWIGINTERN Exiv2::ValueType< uint16_t > *Exiv2_ValueType_Sl_uint16_t_Sg__downCas
             msg += "' to Exiv2::ValueType<uint16_t>.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace UShortValue.downCast(value) with copy constructor "
+            "UShortValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_4(Exiv2::Value const &value){
@@ -6224,6 +6260,9 @@ SWIGINTERN Exiv2::ValueType< uint32_t > *Exiv2_ValueType_Sl_uint32_t_Sg__downCas
             msg += "' to Exiv2::ValueType<uint32_t>.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace ULongValue.downCast(value) with copy constructor "
+            "ULongValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_4(Exiv2::Value const &value){
@@ -6387,6 +6426,9 @@ SWIGINTERN Exiv2::ValueType< Exiv2::URational > *Exiv2_ValueType_Sl_Exiv2_URatio
             msg += "' to Exiv2::ValueType<Exiv2::URational>.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace URationalValue.downCast(value) with copy constructor "
+            "URationalValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_4(Exiv2::Value const &value){
@@ -6529,6 +6571,9 @@ SWIGINTERN Exiv2::ValueType< int16_t > *Exiv2_ValueType_Sl_int16_t_Sg__downCast(
             msg += "' to Exiv2::ValueType<int16_t>.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace ShortValue.downCast(value) with copy constructor "
+            "ShortValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_4(Exiv2::Value const &value){
@@ -6682,6 +6727,9 @@ SWIGINTERN Exiv2::ValueType< int32_t > *Exiv2_ValueType_Sl_int32_t_Sg__downCast(
             msg += "' to Exiv2::ValueType<int32_t>.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace LongValue.downCast(value) with copy constructor "
+            "LongValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_4(Exiv2::Value const &value){
@@ -6808,6 +6856,9 @@ SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *Exiv2_ValueType_Sl_Exiv2_Rationa
             msg += "' to Exiv2::ValueType<Exiv2::Rational>.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace RationalValue.downCast(value) with copy constructor "
+            "RationalValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_4(Exiv2::Value const &value){
@@ -6994,6 +7045,9 @@ SWIGINTERN Exiv2::ValueType< float > *Exiv2_ValueType_Sl_float_Sg__downCast(Exiv
             msg += "' to Exiv2::ValueType<float>.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace FloatValue.downCast(value) with copy constructor "
+            "FloatValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_4(Exiv2::Value const &value){
@@ -7140,6 +7194,9 @@ SWIGINTERN Exiv2::ValueType< double > *Exiv2_ValueType_Sl_double_Sg__downCast(Ex
             msg += "' to Exiv2::ValueType<double>.";
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
+        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
+            "Replace DoubleValue.downCast(value) with copy constructor "
+            "DoubleValue(value).");
         return pv;
     }
 SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_4(Exiv2::Value const &value){
