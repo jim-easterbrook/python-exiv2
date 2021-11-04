@@ -216,7 +216,8 @@ public:
 %enddef
 
 // Macro to make enums more Pythonic
-%define ENUM(name, contents...)
+%define ENUM(name, doc, contents...)
+%feature("docstring") name doc
 %inline %{
 struct name {
     enum {contents};

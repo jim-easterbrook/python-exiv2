@@ -6019,7 +6019,7 @@ static PyHeapTypeObject SwigPyBuiltin__AccessMode_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::AccessMode",                           /* tp_doc */
+    "An identifier for each mode of metadata support.",           /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__AccessMode_richcompare,    /* tp_richcompare */
@@ -6229,7 +6229,7 @@ static PyHeapTypeObject SwigPyBuiltin__MetadataId_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::MetadataId",                           /* tp_doc */
+    "An identifier for each type of metadata.",                   /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__MetadataId_richcompare,    /* tp_richcompare */
@@ -6439,7 +6439,12 @@ static PyHeapTypeObject SwigPyBuiltin__TypeId_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::TypeId",                               /* tp_doc */
+    "\n"
+		"Exiv2 value type identifiers.\n"
+		"\n"
+		"Used primarily as identifiers when creating Exiv2 Value instances. See\n"
+		"exiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.\n"
+		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__TypeId_richcompare,        /* tp_richcompare */

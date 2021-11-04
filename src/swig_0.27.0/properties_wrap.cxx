@@ -5761,7 +5761,7 @@ static PyHeapTypeObject SwigPyBuiltin__XmpCategory_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::XmpCategory",                          /* tp_doc */
+    "Category of an XMP property.",           /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__XmpCategory_richcompare,   /* tp_richcompare */

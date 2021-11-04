@@ -69,13 +69,13 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 %ignore Exiv2::DataBuf::operator=;
 
 // Make various enums more Pythonic
-ENUM(AccessMode,
+ENUM(AccessMode, "An identifier for each mode of metadata support.",
         none =      Exiv2::amNone,
         Read =      Exiv2::amRead,
         Write =     Exiv2::amWrite,
         ReadWrite = Exiv2::amReadWrite);
 
-ENUM(MetadataId,
+ENUM(MetadataId, "An identifier for each type of metadata.",
         none =       Exiv2::mdNone,
         Exif =       Exiv2::mdExif,
         Iptc =       Exiv2::mdIptc,
@@ -83,7 +83,9 @@ ENUM(MetadataId,
         Xmp =        Exiv2::mdXmp,
         IccProfile = Exiv2::mdIccProfile);
 
-ENUM(TypeId,
+ENUM(TypeId, "Exiv2 value type identifiers.\n"
+"\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
+"\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.",
         unsignedByte =     Exiv2::unsignedByte,
         asciiString =      Exiv2::asciiString,
         unsignedShort =    Exiv2::unsignedShort,

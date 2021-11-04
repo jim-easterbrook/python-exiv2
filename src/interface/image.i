@@ -55,7 +55,7 @@ wrap_auto_unique_ptr(Exiv2::Image);
 #define BMFF
 #endif
 
-ENUM(ImageType,
+ENUM(ImageType, "Supported image formats.",
         bmp =   Exiv2::ImageType::bmp,
         BMFF
         cr2 =   Exiv2::ImageType::cr2,

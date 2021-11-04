@@ -25,7 +25,7 @@
 wrap_auto_unique_ptr(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
-ENUM(XmpCategory,
+ENUM(XmpCategory, "Category of an XMP property.",
         Internal = Exiv2::xmpInternal,
         External = Exiv2::xmpExternal);
 

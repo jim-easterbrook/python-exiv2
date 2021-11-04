@@ -7601,7 +7601,7 @@ static PyHeapTypeObject SwigPyBuiltin__ImageType_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::ImageType",                            /* tp_doc */
+    "Supported image formats.",               /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__ImageType_richcompare,     /* tp_richcompare */
