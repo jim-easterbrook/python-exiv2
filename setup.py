@@ -113,7 +113,7 @@ ext_modules = []
 extra_compile_args = []
 if platform in ('linux', 'darwin', 'mingw'):
     extra_compile_args = [
-        '-O3', '-Wno-unused-variable',
+        '-O3', '-Wno-unused-variable', '-Wno-unused-function',
         '-Wno-deprecated-declarations', '-Wno-deprecated']
     if platform in ['linux', 'mingw']:
         extra_compile_args.append('-Wno-unused-but-set-variable')

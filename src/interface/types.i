@@ -22,20 +22,82 @@
 %include "stdint.i"
 %include "std_pair.i"
 
-// Add __len__ to Exiv2::DataBuf
-%feature("python:slot", "sq_length", functype="lenfunc") Exiv2::DataBuf::__len__;
+// Make Exiv2::DataBuf behave more like a tuple of ints
+%feature("python:slot", "mp_length", functype="lenfunc") Exiv2::DataBuf::__len__;
+%feature("python:slot", "mp_subscript",
+         functype="binaryfunc") Exiv2::DataBuf::__getitem__;
 %extend Exiv2::DataBuf {
 #if EXIV2_VERSION_HEX < 0x01000000
-    long __len__() {return $self->size_;}
+    long __len__() {
+        return $self->size_;
+    }
+    PyObject* __getitem__(PyObject* idx) {
+        if (PySlice_Check(idx)) {
+            Py_ssize_t i1, i2, di, sl;
+            if (PySlice_GetIndicesEx(idx, $self->size_, &i1, &i2, &di, &sl))
+                return NULL;
+            PyObject* result = PyTuple_New(sl);
+            Exiv2::byte* ptr = $self->pData_ + i1;
+            for (Py_ssize_t i = 0; i < sl; ++i) {
+                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
+                ptr += di;
+            }
+            return result;
+        }
+        if (PyLong_Check(idx)) {
+            long i = PyLong_AsLong(idx);
+            if (i < 0)
+                i += $self->size_;
+            if ((i < 0) || (i >= $self->size_)) {
+                PyErr_SetString(PyExc_IndexError, "index out of range");
+                return NULL;
+            }
+            return PyLong_FromLong((long)*($self->pData_ + i));
+        }
+        return PyErr_Format(PyExc_TypeError,
+            "indices must be integers or slices, not %s",
+            Py_TYPE(idx)->tp_name);
+    }
 #else
-    long __len__() {return $self->size();}
+    long __len__() {
+        return $self->size();
+    }
+    PyObject* __getitem__(PyObject* idx) {
+        if (PySlice_Check(idx)) {
+            Py_ssize_t i1, i2, di, sl;
+            if (PySlice_GetIndicesEx(idx, $self->size(), &i1, &i2, &di, &sl))
+                return NULL;
+            PyObject* result = PyTuple_New(sl);
+            Exiv2::byte* ptr = $self->data() + i1;
+            for (Py_ssize_t i = 0; i < sl; ++i) {
+                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
+                ptr += di;
+            }
+            return result;
+        }
+        if (PyLong_Check(idx)) {
+            long i = PyLong_AsLong(idx);
+            if (i < 0)
+                i += $self->size();
+            if ((i < 0) || (i >= $self->size())) {
+                PyErr_SetString(PyExc_IndexError, "index out of range");
+                return NULL;
+            }
+            return PyLong_FromLong((long)*($self->data() + i));
+        }
+        return PyErr_Format(PyExc_TypeError,
+            "indices must be integers or slices, not %s",
+            Py_TYPE(idx)->tp_name);
+    }
 #endif
 }
+
 // Memory efficient conversion of Exiv2::DataBuf return values
 %typemap(out) Exiv2::DataBuf %{
     $result = SWIG_NewPointerObj(
         new $type($1), $&1_descriptor, SWIG_POINTER_OWN);
 %}
+
 // Expose Exiv2::DataBuf contents as a Python buffer
 %feature("python:bf_getbuffer",
          functype="getbufferproc") Exiv2::DataBuf "Exiv2_DataBuf_getbuf";
@@ -63,6 +125,7 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 }
 %}
 #endif
+
 // Hide parts of Exiv2::DataBuf that Python shouldn't see
 %ignore Exiv2::DataBuf::pData_;
 %ignore Exiv2::DataBuf::size_;

@@ -3838,7 +3838,36 @@ SWIG_FromCharPtr(const char *cptr)
 
   #define SWIG_From_long   PyInt_FromLong 
 
-SWIGINTERN long Exiv2_DataBuf___len__(Exiv2::DataBuf *self){return self->size_;}
+SWIGINTERN long Exiv2_DataBuf___len__(Exiv2::DataBuf *self){
+        return self->size_;
+    }
+SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *idx){
+        if (PySlice_Check(idx)) {
+            Py_ssize_t i1, i2, di, sl;
+            if (PySlice_GetIndicesEx(idx, self->size_, &i1, &i2, &di, &sl))
+                return NULL;
+            PyObject* result = PyTuple_New(sl);
+            Exiv2::byte* ptr = self->pData_ + i1;
+            for (Py_ssize_t i = 0; i < sl; ++i) {
+                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
+                ptr += di;
+            }
+            return result;
+        }
+        if (PyLong_Check(idx)) {
+            long i = PyLong_AsLong(idx);
+            if (i < 0)
+                i += self->size_;
+            if ((i < 0) || (i >= self->size_)) {
+                PyErr_SetString(PyExc_IndexError, "index out of range");
+                return NULL;
+            }
+            return PyLong_FromLong((long)*(self->pData_ + i));
+        }
+        return PyErr_Format(PyExc_TypeError,
+            "indices must be integers or slices, not %s",
+            Py_TYPE(idx)->tp_name);
+    }
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
@@ -5185,6 +5214,41 @@ SWIGINTERN PyObject *_wrap_DataBuf___len__(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataBuf___getitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[2] ;
+  PyObject *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf___getitem__" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
+  arg2 = swig_obj[0];
+  {
+    try {
+      result = (PyObject *)Exiv2_DataBuf___getitem__(arg1,arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -6887,6 +6951,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
 		"" },
   { "reset", _wrap_DataBuf_reset, METH_VARARGS, " Reset value" },
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },
+  { "__getitem__", _wrap_DataBuf___getitem__, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -7039,12 +7104,12 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataBuf_type = {
 #endif
   },
   {
-    (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
+    _wrap_DataBuf___len___lenfunc_closure,    /* mp_length */
+    _wrap_DataBuf___getitem__,                /* mp_subscript */
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    _wrap_DataBuf___len___lenfunc_closure,    /* sq_length */
+    (lenfunc) 0,                              /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */
