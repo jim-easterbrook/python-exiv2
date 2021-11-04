@@ -116,6 +116,7 @@ ENUM(TypeId,
 // Ignore DataBufRef auxiliary type
 %ignore Exiv2::DataBufRef;
 %ignore Exiv2::DataBuf::DataBuf(const DataBufRef&);
+%ignore Exiv2::DataBuf::DataBuf(const DataBuf&);
 %ignore Exiv2::DataBuf::operator DataBufRef;
 
 // Ignore stuff that Python doesn't need
