@@ -16,6 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.7.0:
+  1/ Add a constructor to Value subclasses that downcasts a Value.
+  2/ Deprecated the Value subclass downCast() static method.
+  3/ Include enableBMFF function when libexiv2 version >= 0.27.4.
+
 Changes in v0.6.0:
   1/ Add Exiv2::PreviewManager to Python interface.
 
