@@ -17,9 +17,6 @@
 
 %module(package="exiv2") iptc
 
-#pragma SWIG nowarn=305     // Bad constant value (ignored).
-#pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
-
 %include "preamble.i"
 
 %include "stdint.i"
@@ -34,6 +31,7 @@ SETITEM(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
 ITERATOR(Exiv2::IptcData, Exiv2::Iptcdatum, IptcDataIterator)
 STR(Exiv2::Iptcdatum, toString)
 
+%ignore Exiv2::IptcData::operator[];
 %ignore Exiv2::IptcData::begin() const;
 %ignore Exiv2::IptcData::end() const;
 %ignore Exiv2::IptcData::findKey(IptcKey const &) const;

@@ -17,9 +17,6 @@
 
 %module(package="exiv2") xmp
 
-#pragma SWIG nowarn=305     // Bad constant value (ignored).
-#pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
-
 %include "preamble.i"
 
 %include "stdint.i"
@@ -34,6 +31,7 @@ SETITEM(Exiv2::XmpData, Exiv2::Xmpdatum,
 ITERATOR(Exiv2::XmpData, Exiv2::Xmpdatum, XmpDataIterator)
 STR(Exiv2::Xmpdatum, toString)
 
+%ignore Exiv2::XmpData::operator[];
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;
 %ignore Exiv2::XmpData::findKey(XmpKey const &) const;

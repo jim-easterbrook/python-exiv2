@@ -17,9 +17,6 @@
 
 %module(package="exiv2") exif
 
-#pragma SWIG nowarn=305     // Bad constant value (ignored).
-#pragma SWIG nowarn=389     // operator[] ignored (consider using %extend)
-
 %include "preamble.i"
 
 %include "pybuffer.i"
@@ -45,6 +42,7 @@ SETITEM(Exiv2::ExifData, Exiv2::Exifdatum,
 ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
 STR(Exiv2::Exifdatum, toString)
 
+%ignore Exiv2::ExifData::operator[];
 %ignore Exiv2::ExifData::begin() const;
 %ignore Exiv2::ExifData::end() const;
 %ignore Exiv2::ExifData::findKey(ExifKey const &) const;

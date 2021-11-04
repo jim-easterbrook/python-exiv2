@@ -48,6 +48,7 @@ wrap_auto_unique_ptr(Exiv2::ExifKey);
 }
 
 %ignore Exiv2::GroupInfo::GroupInfo;
+%ignore Exiv2::GroupInfo::GroupName;
 %ignore Exiv2::TagInfo::TagInfo;
 
 %immutable;

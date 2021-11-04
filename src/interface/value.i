@@ -18,7 +18,6 @@
 %module(package="exiv2") value
 
 #pragma SWIG nowarn=305     // Bad constant value (ignored).
-#pragma SWIG nowarn=325     // Nested struct not currently supported (X ignored)
 
 %include "preamble.i"
 
@@ -89,8 +88,13 @@ VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
 %ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder);
 %ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder, TypeId);
 
+// Ignore stuff Python can't use or SWIG can't handle
 %ignore Exiv2::operator<<;
 %ignore Exiv2::Value::operator=;
+%ignore Exiv2::CommentValue::CharsetInfo;
+%ignore Exiv2::CommentValue::CharsetTable;
+%ignore Exiv2::DateValue::Date;
+%ignore Exiv2::TimeValue::Time;
 
 %include "exiv2/value.hpp"
 

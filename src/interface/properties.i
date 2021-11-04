@@ -51,6 +51,8 @@ ENUM(XmpCategory,
 
 %ignore Exiv2::XmpPropertyInfo::XmpPropertyInfo;
 %ignore Exiv2::XmpNsInfo::XmpNsInfo;
+%ignore Exiv2::XmpNsInfo::Prefix;
+%ignore Exiv2::XmpNsInfo::Ns;
 
 %immutable;
 %include "exiv2/properties.hpp"
