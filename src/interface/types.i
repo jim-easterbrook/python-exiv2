@@ -149,6 +149,7 @@ ENUM(TypeId,
 %ignore Exiv2::ws2s;
 %ignore Exiv2::exvGettext;
 %ignore Exiv2::operator<<;
+%ignore Exiv2::operator>>;
 
 %include "exiv2/types.hpp"
 

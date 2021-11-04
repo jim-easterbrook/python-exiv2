@@ -3457,19 +3457,18 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_second_type swig_types[11]
 #define SWIGTYPE_p_short swig_types[12]
 #define SWIGTYPE_p_signed_char swig_types[13]
-#define SWIGTYPE_p_std__istream swig_types[14]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[15]
-#define SWIGTYPE_p_std__pairT_unsigned_char_p_long_t swig_types[16]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[17]
-#define SWIGTYPE_p_std__string swig_types[18]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[19]
-#define SWIGTYPE_p_tm swig_types[20]
-#define SWIGTYPE_p_unsigned_char swig_types[21]
-#define SWIGTYPE_p_unsigned_int swig_types[22]
-#define SWIGTYPE_p_unsigned_long_long swig_types[23]
-#define SWIGTYPE_p_unsigned_short swig_types[24]
-static swig_type_info *swig_types[26];
-static swig_module_info swig_module = {swig_types, 25, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[14]
+#define SWIGTYPE_p_std__pairT_unsigned_char_p_long_t swig_types[15]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[16]
+#define SWIGTYPE_p_std__string swig_types[17]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[18]
+#define SWIGTYPE_p_tm swig_types[19]
+#define SWIGTYPE_p_unsigned_char swig_types[20]
+#define SWIGTYPE_p_unsigned_int swig_types[21]
+#define SWIGTYPE_p_unsigned_long_long swig_types[22]
+#define SWIGTYPE_p_unsigned_short swig_types[23]
+static swig_type_info *swig_types[25];
+static swig_module_info swig_module = {swig_types, 24, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5348,132 +5347,6 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DataBuf) /* defines _wrap_delete_DataBuf_
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_DataBuf___len__) /* defines _wrap_DataBuf___len___lenfunc_closure */
 
-SWIGINTERN PyObject *_wrap___rshift____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::istream *arg1 = 0 ;
-  Exiv2::Rational *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  std::istream *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__istream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__rshift__" "', argument " "1"" of type '" "std::istream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__rshift__" "', argument " "1"" of type '" "std::istream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::istream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__pairT_int_int_t,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__rshift__" "', argument " "2"" of type '" "Exiv2::Rational &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__rshift__" "', argument " "2"" of type '" "Exiv2::Rational &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::Rational * >(argp2);
-  {
-    try {
-      result = (std::istream *) &Exiv2::operator >>(*arg1,*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__istream, 0 |  0 );
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap___rshift____SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::istream *arg1 = 0 ;
-  Exiv2::URational *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  std::istream *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__istream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__rshift__" "', argument " "1"" of type '" "std::istream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__rshift__" "', argument " "1"" of type '" "std::istream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::istream * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__rshift__" "', argument " "2"" of type '" "Exiv2::URational &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__rshift__" "', argument " "2"" of type '" "Exiv2::URational &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::URational * >(argp2);
-  {
-    try {
-      result = (std::istream *) &Exiv2::operator >>(*arg1,*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__istream, 0 |  0 );
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap___rshift__(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "__rshift__", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v = 0;
-    {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_std__pairT_int_int_t, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_1;
-    return _wrap___rshift____SWIG_0(self, argc, argv);
-  }
-check_1:
-  
-  if (argc == 2) {
-    PyObject *retobj = _wrap___rshift____SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
 SWIGINTERN PyObject *_wrap_isHex__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -6230,15 +6103,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "TypeInfo_typeName", _wrap_TypeInfo_typeName, METH_O, " Return the name of the type, 0 if unknown."},
 	 { "TypeInfo_typeId", _wrap_TypeInfo_typeId, METH_O, " Return the type id for a type name"},
 	 { "TypeInfo_typeSize", _wrap_TypeInfo_typeSize, METH_O, " Return the size in bytes of one element of this type"},
-	 { "__rshift__", _wrap___rshift__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Input operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Input operator for our fake unsigned rational\n"
-		""},
 	 { "isHex", _wrap_isHex, METH_VARARGS, "\n"
 		"Return true if str is a hex number starting with prefix followed\n"
 		"       by size hex digits, false otherwise. If size is 0, any number of\n"
@@ -6258,15 +6122,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "TypeInfo_typeName", _wrap_TypeInfo_typeName, METH_O, " Return the name of the type, 0 if unknown."},
 	 { "TypeInfo_typeId", _wrap_TypeInfo_typeId, METH_O, " Return the type id for a type name"},
 	 { "TypeInfo_typeSize", _wrap_TypeInfo_typeSize, METH_O, " Return the size in bytes of one element of this type"},
-	 { "__rshift__", _wrap___rshift__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Input operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Input operator for our fake unsigned rational\n"
-		""},
 	 { "isHex", _wrap_isHex, METH_VARARGS, "\n"
 		"Return true if str is a hex number starting with prefix followed\n"
 		"       by size hex digits, false otherwise. If size is 0, any number of\n"
@@ -7600,13 +7455,9 @@ static SwigPyGetSet URational_second_getset = { _wrap_URational_second_get, _wra
 SWIGINTERN PyGetSetDef SwigPyBuiltin__std__pairT_uint32_t_uint32_t_t_getset[] = {
     { (char *)"first", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)"", &URational_first_getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"Input operator for our fake rational\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Input operator for our fake unsigned rational\n"
+		"Return true if str is a hex number starting with prefix followed\n"
+		"       by size hex digits, false otherwise. If size is 0, any number of\n"
+		"       digits is allowed and all are checked.\n"
 		"", &URational___dict___getset },
     { (char *)"second", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)"", &URational_second_getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
@@ -8051,7 +7902,6 @@ static swig_type_info _swigt__p_long_long = {"_p_long_long", "int_least64_t *|in
 static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_short = {"_p_short", "short *|int_least16_t *|int16_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "signed char *|int_least8_t *|int_fast8_t *|int8_t *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__istream = {"_p_std__istream", "std::istream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t", "Exiv2::Rational *|std::pair< int32_t,int32_t > *|std::pair< int,int > *", 0, 0, (void*)&SwigPyBuiltin__std__pairT_int32_t_int32_t_t_clientdata, 0};
 static swig_type_info _swigt__p_std__pairT_unsigned_char_p_long_t = {"_p_std__pairT_unsigned_char_p_long_t", "std::pair< unsigned char *,long > *|std::pair< Exiv2::byte *,long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< uint32_t,uint32_t > *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)&SwigPyBuiltin__std__pairT_uint32_t_uint32_t_t_clientdata, 0};
@@ -8078,7 +7928,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_second_type,
   &_swigt__p_short,
   &_swigt__p_signed_char,
-  &_swigt__p_std__istream,
   &_swigt__p_std__pairT_int_int_t,
   &_swigt__p_std__pairT_unsigned_char_p_long_t,
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
@@ -8105,7 +7954,6 @@ static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0}
 static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__istream[] = {  {&_swigt__p_std__istream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pairT_int_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_unsigned_char_p_long_t[] = {  {&_swigt__p_std__pairT_unsigned_char_p_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -8132,7 +7980,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_second_type,
   _swigc__p_short,
   _swigc__p_signed_char,
-  _swigc__p_std__istream,
   _swigc__p_std__pairT_int_int_t,
   _swigc__p_std__pairT_unsigned_char_p_long_t,
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
