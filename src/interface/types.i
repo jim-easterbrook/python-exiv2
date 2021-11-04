@@ -17,11 +17,6 @@
 
 %module(package="exiv2") types
 
-#pragma SWIG nowarn=202     // Could not evaluate expression...
-#pragma SWIG nowarn=305     // Bad constant value (ignored).
-#pragma SWIG nowarn=503     // Can't wrap 'X' unless renamed to a valid identifier.
-#pragma SWIG nowarn=509     // Overloaded method X effectively ignored, as it is shadowed by Y.
-
 %include "preamble.i"
 
 %include "stdint.i"
@@ -117,6 +112,11 @@ ENUM(TypeId,
 
 // Ignore slice stuff that SWIG can't understand
 %ignore makeSlice;
+
+// Ignore DataBufRef auxiliary type
+%ignore Exiv2::DataBufRef;
+%ignore Exiv2::DataBuf::DataBuf(const DataBufRef&);
+%ignore Exiv2::DataBuf::operator DataBufRef;
 
 // Ignore stuff that Python doesn't need
 %ignore Exiv2::ByteOrder;
