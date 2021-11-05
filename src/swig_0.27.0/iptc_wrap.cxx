@@ -4613,6 +4613,42 @@ SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_1(Exiv2::IptcData *self,st
         self->erase(pos);
         return SWIG_Py_Void();
     }
+SWIGINTERN PyObject *Exiv2_IptcData_keys(Exiv2::IptcData *self){
+        using namespace Exiv2;
+        long len = self->count();
+        PyObject* result = PyList_New(len);
+        Exiv2::IptcData::iterator datum = self->begin();
+        for (long i = 0; i < len; i++)
+            PyList_SET_ITEM(result, i, PyUnicode_FromString(
+                (datum++)->key().c_str()));
+        return result;
+    }
+SWIGINTERN PyObject *Exiv2_IptcData_values(Exiv2::IptcData *self){
+        using namespace Exiv2;
+        long len = self->count();
+        PyObject* result = PyList_New(len);
+        Exiv2::IptcData::iterator datum = self->begin();
+        for (long i = 0; i < len; i++)
+            PyList_SET_ITEM(result, i, SWIG_Python_NewPointerObj(
+                NULL, ((datum++)->getValue()).release(),
+                SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN));
+        return result;
+    }
+SWIGINTERN PyObject *Exiv2_IptcData_items(Exiv2::IptcData *self){
+        using namespace Exiv2;
+        long len = self->count();
+        PyObject* result = PyList_New(len);
+        Exiv2::IptcData::iterator datum = self->begin();
+        for (long i = 0; i < len; i++) {
+            PyList_SET_ITEM(result, i, PyTuple_Pack(
+                2, PyUnicode_FromString(datum->key().c_str()),
+                SWIG_Python_NewPointerObj(
+                    NULL, (datum->getValue()).release(),
+                    SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN)));
+            datum++;
+        }
+        return result;
+    }
 SWIGINTERN PyObject *Exiv2_IptcData___iter__(Exiv2::IptcData *self){
         PyObject* iterator = SWIG_Python_NewPointerObj(
             NULL, new IptcDataIterator(self->begin()),
@@ -8325,6 +8361,102 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IptcData_keys(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_keys", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_keys" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_IptcData_keys(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_values(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_values", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_values" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_IptcData_values(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_items(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_items", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_items" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_IptcData_items(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IptcData___iter__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
@@ -9063,6 +9195,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__IptcData_methods[] = {
   { "__len__", _wrap_IptcData___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_IptcData___getitem__, METH_O, "" },
   { "__setitem__", _wrap_IptcData___setitem__, METH_VARARGS, "" },
+  { "keys", _wrap_IptcData_keys, METH_NOARGS, "" },
+  { "values", _wrap_IptcData_values, METH_NOARGS, "" },
+  { "items", _wrap_IptcData_items, METH_NOARGS, "" },
   { "__iter__", _wrap_IptcData___iter__, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };

@@ -133,7 +133,6 @@ public:
 }
 %enddef
 
-// Macro for use in MAPPING_METHODS
 // Macro to provide Python mapping methods
 %define MAPPING_METHODS(class, datum_type, key_type, default_type)
 %feature("python:slot", "mp_length",
@@ -197,6 +196,42 @@ public:
         }
         $self->erase(pos);
         return SWIG_Py_Void();
+    }
+    PyObject* keys() {
+        using namespace Exiv2;
+        long len = $self->count();
+        PyObject* result = PyList_New(len);
+        class::iterator datum = $self->begin();
+        for (long i = 0; i < len; i++)
+            PyList_SET_ITEM(result, i, PyUnicode_FromString(
+                (datum++)->key().c_str()));
+        return result;
+    }
+    PyObject* values() {
+        using namespace Exiv2;
+        long len = $self->count();
+        PyObject* result = PyList_New(len);
+        class::iterator datum = $self->begin();
+        for (long i = 0; i < len; i++)
+            PyList_SET_ITEM(result, i, SWIG_Python_NewPointerObj(
+                NULL, ((datum++)->getValue()).release(),
+                $descriptor(Exiv2::Value*), SWIG_POINTER_OWN));
+        return result;
+    }
+    PyObject* items() {
+        using namespace Exiv2;
+        long len = $self->count();
+        PyObject* result = PyList_New(len);
+        class::iterator datum = $self->begin();
+        for (long i = 0; i < len; i++) {
+            PyList_SET_ITEM(result, i, PyTuple_Pack(
+                2, PyUnicode_FromString(datum->key().c_str()),
+                SWIG_Python_NewPointerObj(
+                    NULL, (datum->getValue()).release(),
+                    $descriptor(Exiv2::Value*), SWIG_POINTER_OWN)));
+            datum++;
+        }
+        return result;
     }
 }
 %enddef
