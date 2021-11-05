@@ -4607,6 +4607,9 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
+SWIGINTERN long Exiv2_ExifData___len__(Exiv2::ExifData *self){
+        return self->count();
+    }
 SWIGINTERN Exiv2::Exifdatum &Exiv2_ExifData___getitem__(Exiv2::ExifData *self,std::string const &key){
         return (*(self))[key];
     }
@@ -4617,7 +4620,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_0(Exiv2::ExifData *self,st
         if (old_type == invalidTypeId)
             old_type = ExifKey(key).defaultTypeId();
         datum->setValue(&value);
-        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,137,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4637,7 +4640,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_1(Exiv2::ExifData *self,st
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,137,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4663,7 +4666,7 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_2(Exiv2::ExifData *self,st
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,137,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -8999,6 +9002,38 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_ExifData___len__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ExifData *arg1 = (Exiv2::ExifData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ExifData___len__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData___len__" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
+  {
+    try {
+      result = (long)Exiv2_ExifData___len__(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_ExifData___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ExifData *arg1 = (Exiv2::ExifData *) 0 ;
@@ -9397,6 +9432,8 @@ fail:
   return NULL;
 }
 
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_ExifData___len__) /* defines _wrap_ExifData___len___lenfunc_closure */
 
 SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_ExifData___setitem__) /* defines _wrap_ExifData___setitem___objobjargproc_closure */
 
@@ -10638,6 +10675,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ExifData_methods[] = {
 		"" },
   { "empty", _wrap_ExifData_empty, METH_NOARGS, " Return true if there is no Exif metadata" },
   { "count", _wrap_ExifData_count, METH_NOARGS, " Get the number of metadata entries" },
+  { "__len__", _wrap_ExifData___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_ExifData___getitem__, METH_O, "" },
   { "__setitem__", _wrap_ExifData___setitem__, METH_VARARGS, "" },
   { "__iter__", _wrap_ExifData___iter__, METH_NOARGS, "" },
@@ -10799,7 +10837,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ExifData_type = {
 #endif
   },
   {
-    (lenfunc) 0,                              /* mp_length */
+    _wrap_ExifData___len___lenfunc_closure,   /* mp_length */
     _wrap_ExifData___getitem__,               /* mp_subscript */
     _wrap_ExifData___setitem___objobjargproc_closure,             /* mp_ass_subscript */
   },

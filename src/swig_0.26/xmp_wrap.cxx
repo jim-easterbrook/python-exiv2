@@ -4512,6 +4512,9 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
+SWIGINTERN long Exiv2_XmpData___len__(Exiv2::XmpData *self){
+        return self->count();
+    }
 SWIGINTERN Exiv2::Xmpdatum &Exiv2_XmpData___getitem__(Exiv2::XmpData *self,std::string const &key){
         return (*(self))[key];
     }
@@ -4522,7 +4525,7 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_0(Exiv2::XmpData *self,std:
         if (old_type == invalidTypeId)
             old_type = XmpProperties::propertyType(XmpKey(key));
         datum->setValue(&value);
-        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,137,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4542,7 +4545,7 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_1(Exiv2::XmpData *self,std:
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << value << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,137,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -4568,7 +4571,7 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_2(Exiv2::XmpData *self,std:
             EXV_ERROR << key << ": cannot set type '" <<
                 TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
         }
-        /*@SWIG:src/interface/preamble.i,148,NEW_TYPE_WARN@*/
+        /*@SWIG:src/interface/preamble.i,137,NEW_TYPE_WARN@*/
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
             EXV_WARNING << key << ": changed type from '" <<
@@ -7932,6 +7935,38 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_XmpData___len__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData___len__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___len__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = (long)Exiv2_XmpData___len__(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_XmpData___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
@@ -8330,6 +8365,8 @@ fail:
   return NULL;
 }
 
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_XmpData___len__) /* defines _wrap_XmpData___len___lenfunc_closure */
 
 SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_XmpData___setitem__) /* defines _wrap_XmpData___setitem___objobjargproc_closure */
 
@@ -9258,6 +9295,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpData_methods[] = {
 		"" },
   { "setPacket", _wrap_XmpData_setPacket, METH_O, " setPacket" },
   { "xmpPacket", _wrap_XmpData_xmpPacket, METH_NOARGS, "" },
+  { "__len__", _wrap_XmpData___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_XmpData___getitem__, METH_O, "" },
   { "__setitem__", _wrap_XmpData___setitem__, METH_VARARGS, "" },
   { "__iter__", _wrap_XmpData___iter__, METH_NOARGS, "" },
@@ -9417,7 +9455,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpData_type = {
 #endif
   },
   {
-    (lenfunc) 0,                              /* mp_length */
+    _wrap_XmpData___len___lenfunc_closure,    /* mp_length */
     _wrap_XmpData___getitem__,                /* mp_subscript */
     _wrap_XmpData___setitem___objobjargproc_closure,              /* mp_ass_subscript */
   },

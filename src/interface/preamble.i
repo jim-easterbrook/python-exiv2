@@ -60,17 +60,6 @@ PyObject* logger = NULL;
     }
 }
 
-// Macro to provide operator[] equivalent
-%define GETITEM(class, ret_type)
-%feature("python:slot", "mp_subscript",
-         functype="binaryfunc") class::__getitem__;
-%extend class {
-    ret_type& __getitem__(const std::string& key) {
-        return (*($self))[key];
-    }
-}
-%enddef
-
 // Macro to provide __str__
 %define STR(class, method)
 %feature("python:slot", "tp_str", functype="reprfunc") class::__str__;
@@ -144,7 +133,7 @@ public:
 }
 %enddef
 
-// Macro for use in SETITEM
+// Macro for use in MAPPING_METHODS
 %define NEW_TYPE_WARN()
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
@@ -154,12 +143,22 @@ public:
         }
 %enddef
 
-// Macro to provide operator= equivalent
-%define SETITEM(class, datum_type, key_type, default_type)
+// Macro to provide Python mapping methods
+%define MAPPING_METHODS(class, datum_type, key_type, default_type)
+%feature("python:slot", "mp_length",
+         functype="lenfunc") class::__len__;
+%feature("python:slot", "mp_subscript",
+         functype="binaryfunc") class::__getitem__;
 %feature("python:slot", "mp_ass_subscript",
          functype="objobjargproc") class::__setitem__;
 
 %extend class {
+    long __len__() {
+        return $self->count();
+    }
+    datum_type& __getitem__(const std::string& key) {
+        return (*($self))[key];
+    }
     PyObject* __setitem__(const std::string& key, const Exiv2::Value &value) {
         using namespace Exiv2;
         datum_type* datum = &(*$self)[key];
