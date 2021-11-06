@@ -65,7 +65,7 @@ libexiv2_ stores metadata values in a generalised container whose type can be se
     exifData["Exif.Image.SamplesPerPixel"] = uint16_t(162);
 
 This forces the ``Exif.Image.SamplesPerPixel`` value to be an unsigned short.
-Python doesn't have such specific integer types, so if you want to set the type you need to create an exiv2 value of the appropriate type and assign that::
+Python doesn't have such specific integer types, so if you need to set the type you can create an exiv2 value of the appropriate type and assign that::
 
     # Python
     exifData["Exif.Image.SamplesPerPixel"] = exiv2.UShortValue(162)
@@ -79,11 +79,11 @@ Alternatively you can use any Python object and let libexiv2_ convert the string
 Iterators
 ---------
 
-Several libexiv2_ classes use C++ iterators to expose private data, for example the ``ExifData`` class has a private member of ``std::list<Exifdatum>`` type.
-The classes have public ``begin`` and ``end`` methods that return ``std::list`` iterators.
+The ``Exiv2::ExifData``, ``Exiv2::IptcData``, and ``Exiv2::XmpData`` classes use C++ iterators to expose private data, for example the ``ExifData`` class has a private member of ``std::list<Exifdatum>`` type.
+The classes have public ``begin()``, ``end()``, and ``findKey()`` methods that return ``std::list`` iterators.
 In C++ you can dereference one of these iterators to access the ``Exifdatum`` object, but Python doesn't have a dereference operator.
 
-This Python interface converts the ``std::list`` iterator to a Python object that has access to all the ``Exifdatum`` object's methods.
+This Python interface converts the ``std::list`` iterator to a Python object that has access to all the ``Exifdatum`` object's methods without dereferencing.
 For example::
 
     Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
@@ -97,7 +97,10 @@ For example::
     'Exif.Image.ProcessingSoftware'
     >>>
 
-The Python objects can be used to iterate over the data in a very C++ like style::
+Before using an iterator you must ensure that it is not equal to the ``end()`` value.
+Failure to do so may produce a segmentation fault, just like a C++ program would.
+
+You can iterate over the data in a very C++ like style::
 
     >>> data = image.exifData()
     >>> b = data.begin()
@@ -130,6 +133,18 @@ You can also iterate in a more Pythonic style::
     'Exif.Thumbnail.JPEGInterchangeFormat'
     'Exif.Thumbnail.JPEGInterchangeFormatLength'
     >>>
+
+The data container classes are like a cross between a Python list_ of ``Metadatum`` objects and a Python dict_ of ``(key, Value)`` pairs.
+(One way in which they are not like a dict_ is that you can have more than one member with the same key.)
+This allows them to be used in a very Pythonic style::
+
+    data = image.exifData()
+    print(data['Exif.Image.ImageDescription'].toString())
+    if 'Exif.Image.ProcessingSoftware' in data:
+        del data['Exif.Image.ProcessingSoftware']
+    print(data[0].key())
+    print(data[-1].key())
+    print(data.keys())
 
 Warning: segmentation faults
 ----------------------------
@@ -172,11 +187,13 @@ Problems?
 
 Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 
+.. _dict:              https://docs.python.org/3/library/stdtypes.html#dict
 .. _Doxygen:           https://www.doxygen.nl/
 .. _exiv2:             https://www.exiv2.org/getting-started.html
 .. _gexiv2:            https://wiki.gnome.org/Projects/gexiv2
 .. _GitHub:            https://github.com/jim-easterbrook/python-exiv2
 .. _libexiv2:          https://www.exiv2.org/doc/index.html
+.. _list:              https://docs.python.org/3/library/stdtypes.html#list
 .. _pip:               https://pip.pypa.io/
 .. _pyexiv2 (new):     https://github.com/LeoHsiao1/pyexiv2
 .. _pyexiv2 (old):     https://launchpad.net/pyexiv2
