@@ -25,9 +25,9 @@
 %import "metadatum.i"
 %import "properties.i"
 
-MAPPING_METHODS(Exiv2::XmpData, Exiv2::Xmpdatum,
-                Exiv2::XmpKey, XmpProperties::propertyType(XmpKey(key)))
-ITERATOR(Exiv2::XmpData, Exiv2::Xmpdatum, XmpDataIterator)
+DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
+             XmpProperties::propertyType(XmpKey(key)))
+DATA_ITERATOR(XmpData, Xmpdatum)
 STR(Exiv2::Xmpdatum, toString)
 
 %ignore Exiv2::XmpData::operator[];

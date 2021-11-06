@@ -36,9 +36,8 @@
     $1 = PyObject_CheckBuffer($input);
 }
 
-MAPPING_METHODS(Exiv2::ExifData, Exiv2::Exifdatum,
-                Exiv2::ExifKey, ExifKey(key).defaultTypeId())
-ITERATOR(Exiv2::ExifData, Exiv2::Exifdatum, ExifDataIterator)
+DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
+DATA_ITERATOR(ExifData, Exifdatum)
 STR(Exiv2::Exifdatum, toString)
 
 %ignore Exiv2::ExifData::operator[];

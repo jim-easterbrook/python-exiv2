@@ -25,9 +25,9 @@
 %import "datasets.i"
 %import "metadatum.i"
 
-MAPPING_METHODS(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
-                IptcDataSets::dataSetType(datum->tag(), datum->record()))
-ITERATOR(Exiv2::IptcData, Exiv2::Iptcdatum, IptcDataIterator)
+DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
+             IptcDataSets::dataSetType(datum->tag(), datum->record()))
+DATA_ITERATOR(IptcData, Iptcdatum)
 STR(Exiv2::Iptcdatum, toString)
 
 %ignore Exiv2::IptcData::operator[];

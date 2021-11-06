@@ -70,96 +70,122 @@ PyObject* logger = NULL;
 }
 %enddef
 
-// Macro to provide a Python iterator over a C++ class with begin/end methods
-%define ITERATOR(parent_class, item_type, iter_class)
+// Macro to wrap C++ iterator with a Python friendly class
+%define DATA_ITERATOR(parent_class, item_type)
 // Convert iterator parameters
-%typemap(in) parent_class::iterator (int res = 0, iter_class *argp) %{
-    res = SWIG_ConvertPtr($input, (void**)&argp, $descriptor(iter_class*), 0);
+%typemap(in) Exiv2::parent_class::iterator (int res = 0,
+                                            parent_class ## Iterator *argp) %{
+    res = SWIG_ConvertPtr($input, (void**)&argp,
+                          $descriptor(parent_class ## Iterator*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, iter_class, $symname, $argnum);
+        %argument_fail(res, parent_class ## Iterator, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(iter_class, $symname, $argnum);
+        %argument_nullref(parent_class ## Iterator, $symname, $argnum);
     }
     $1 = argp->ptr;
 %};
 // Convert iterator return values
-%typemap(out) parent_class::iterator %{
+%typemap(out) Exiv2::parent_class::iterator %{
     $result = SWIG_NewPointerObj(
-        new iter_class($1), $descriptor(iter_class*), SWIG_POINTER_OWN);
+        new parent_class ## Iterator($1),
+        $descriptor(parent_class ## Iterator*), SWIG_POINTER_OWN);
 %};
 // Define a simple class to wrap parent_class::iterator
-%ignore iter_class::ptr;
-%ignore iter_class::iter_class;
-%feature("docstring") iter_class "Python wrapper for parent_class::iterator"
+%ignore parent_class ## Iterator::ptr;
+%ignore parent_class ## Iterator::parent_class ## Iterator;
+%feature("docstring") parent_class ## Iterator
+         "Python wrapper for Exiv2::parent_class::iterator"
 %feature("python:slot", "tp_iternext",
-         functype="iternextfunc") iter_class::__next__;
+         functype="iternextfunc") parent_class ## Iterator::__next__;
 %inline %{
-class iter_class {
+class parent_class ## Iterator {
 public:
-    parent_class::iterator ptr;
-    iter_class(parent_class::iterator ptr) : ptr(ptr) {}
-    item_type* operator->() const {
+    Exiv2::parent_class::iterator ptr;
+    parent_class ## Iterator(Exiv2::parent_class::iterator ptr) : ptr(ptr) {}
+    Exiv2::item_type* operator->() const {
         return &(*this->ptr);
     }
-    parent_class::iterator __next__() {
+    Exiv2::parent_class::iterator __next__() {
         return this->ptr++;
     }
-    bool operator==(const iter_class &other) const {
+    bool operator==(const parent_class ## Iterator &other) const {
         return other.ptr == this->ptr;
     }
-    bool operator!=(const iter_class &other) const {
+    bool operator!=(const parent_class ## Iterator &other) const {
         return other.ptr != this->ptr;
     }
 };
 %}
-// Make parent class iterable
-%feature("python:slot", "tp_iter", functype="getiterfunc") parent_class::__iter__;
-%extend parent_class {
-    PyObject* __iter__() {
-        PyObject* iterator = SWIG_Python_NewPointerObj(
-            NULL, new iter_class($self->begin()),
-            $descriptor(iter_class*), SWIG_POINTER_OWN);
-        PyObject* callable = PyObject_GetAttrString(iterator, "__next__");
-        Py_DECREF(iterator);
-        PyObject* sentinel = SWIG_Python_NewPointerObj(
-            NULL, new iter_class($self->end()),
-            $descriptor(iter_class*), SWIG_POINTER_OWN);
-        iterator = PyCallIter_New(callable, sentinel);
-        Py_DECREF(callable);
-        Py_DECREF(sentinel);
-        return iterator;
-    }
-}
 %enddef
 
-// Macro to provide Python mapping methods
-%define MAPPING_METHODS(class, datum_type, key_type, default_type)
-%feature("python:slot", "mp_length",
-         functype="lenfunc") class::__len__;
+// Macro to provide Python list and dict methods for Exiv2 data
+%define DATA_LISTMAP(class, datum_type, key_type, default_type_func)
 %feature("python:slot", "mp_subscript",
-         functype="binaryfunc") class::__getitem__;
+         functype="binaryfunc") Exiv2::class::__getitem__;
 %feature("python:slot", "mp_ass_subscript",
-         functype="objobjargproc") class::__setitem__;
-%extend class {
-    long __len__() {
-        return $self->count();
+         functype="objobjargproc") Exiv2::class::__setitem__;
+%feature("python:slot", "sq_length",
+         functype="lenfunc") Exiv2::class::__len__;
+%feature("python:slot", "sq_item",
+         functype="ssizeargfunc") Exiv2::class::_sq_item;
+%feature("python:slot", "sq_contains",
+         functype="objobjproc") Exiv2::class::__contains__;
+%{
+static PyObject* class ## _getitem_idx(Exiv2::class* self, long idx,
+                                       swig_type_info* datum_descriptor) {
+    using namespace Exiv2;
+    long len = self->count();
+    if ((idx < -len) || (idx >= len))
+        return PyErr_Format(PyExc_IndexError, "index %d out of range", idx);
+    if (idx < 0)
+        idx += len;
+    class::iterator pos;
+    if (idx > (len / 2)) {
+        pos = self->end();
+        idx = len - idx;
+        while (idx > 0) {
+            pos--;
+            idx--;
+        }
     }
-    datum_type& __getitem__(const std::string& key) {
-        return (*($self))[key];
+    else {
+        pos = self->begin();
+        while (idx > 0) {
+            pos++;
+            idx--;
+        }
+    }
+    return SWIG_Python_NewPointerObj(
+        NULL, SWIG_as_voidptr(&(*pos)), datum_descriptor, 0);
+}
+%}
+%extend Exiv2::class {
+    PyObject* __getitem__(PyObject* key_idx) {
+        using namespace Exiv2;
+        if (PyLong_Check(key_idx))
+            // Index by integer
+            return class ## _getitem_idx(
+                $self, PyLong_AsLong(key_idx), $descriptor(Exiv2::datum_type*));
+        if (PyUnicode_Check(key_idx))
+            // Lookup by key
+            return SWIG_Python_NewPointerObj(
+                NULL, SWIG_as_voidptr(&(*$self)[PyUnicode_AsUTF8(key_idx)]),
+                $descriptor(Exiv2::datum_type*), 0);
+        return PyErr_Format(PyExc_TypeError,
+            "indices must be int or str, not %s", Py_TYPE(key_idx)->tp_name);
     }
     PyObject* __setitem__(const std::string& key, PyObject* value) {
         using namespace Exiv2;
         datum_type* datum = &(*$self)[key];
         TypeId old_type = datum->typeId();
         if (old_type == invalidTypeId)
-            old_type = default_type;
+            old_type = default_type_func;
         Exiv2::Value* c_value = NULL;
         if (SWIG_IsOK(SWIG_ConvertPtr(value, (void**)(&c_value),
-                                      $descriptor(Exiv2::Value*), 0))) {
+                                      $descriptor(Exiv2::Value*), 0)))
             // value is an Exiv2::Value
             datum->setValue(c_value);
-        }
         else {
             char* c_str = NULL;
             if (PyUnicode_Check(value)) {
@@ -174,10 +200,10 @@ public:
                 c_str = PyUnicode_AsUTF8(py_str);
                 Py_DECREF(py_str);
             }
-            if (datum->setValue(c_str) != 0) {
-                EXV_ERROR << key << ": cannot set type '" <<
-                    TypeInfo::typeName(old_type) << "' from '" << c_str << "'.\n";
-            }
+            if (datum->setValue(c_str) != 0)
+                return PyErr_Format(PyExc_ValueError,
+                    "%s: cannot set type '%s' to value '%s'",
+                    key.c_str(), TypeInfo::typeName(old_type), c_str);
         }
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
@@ -187,7 +213,11 @@ public:
         }
         return SWIG_Py_Void();
     }
+#if defined(SWIGPYTHON_BUILTIN)
     PyObject* __setitem__(const std::string& key) {
+#else
+    PyObject* __delitem__(const std::string& key) {
+#endif
         using namespace Exiv2;
         class::iterator pos = $self->findKey(key_type(key));
         if (pos == $self->end()) {
@@ -196,6 +226,17 @@ public:
         }
         $self->erase(pos);
         return SWIG_Py_Void();
+    }
+    long __len__() {
+        return $self->count();
+    }
+    PyObject* _sq_item(long i) {
+        return class ## _getitem_idx($self, i, $descriptor(Exiv2::datum_type*));
+    }
+    int __contains__(const std::string& key) {
+        using namespace Exiv2;
+        class::iterator pos = $self->findKey(key_type(key));
+        return (pos == $self->end()) ? 0 : 1;
     }
     PyObject* keys() {
         using namespace Exiv2;
