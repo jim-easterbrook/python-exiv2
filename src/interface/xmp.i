@@ -27,7 +27,9 @@
 
 DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
              XmpProperties::propertyType(XmpKey(key)))
+#ifndef SWIGIMPORTED
 DATA_ITERATOR(XmpData, Xmpdatum)
+#endif
 STR(Exiv2::Xmpdatum, toString)
 
 %ignore Exiv2::XmpData::operator[];

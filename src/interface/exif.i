@@ -37,7 +37,9 @@
 }
 
 DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
+#ifndef SWIGIMPORTED
 DATA_ITERATOR(ExifData, Exifdatum)
+#endif
 STR(Exiv2::Exifdatum, toString)
 
 %ignore Exiv2::ExifData::operator[];

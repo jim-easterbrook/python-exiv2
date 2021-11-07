@@ -27,7 +27,9 @@
 
 DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
              IptcDataSets::dataSetType(datum->tag(), datum->record()))
+#ifndef SWIGIMPORTED
 DATA_ITERATOR(IptcData, Iptcdatum)
+#endif
 STR(Exiv2::Iptcdatum, toString)
 
 %ignore Exiv2::IptcData::operator[];
