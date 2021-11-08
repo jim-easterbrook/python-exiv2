@@ -25,12 +25,12 @@
 %import "metadatum.i"
 %import "properties.i"
 
+#ifndef SWIGIMPORTED
 DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
              XmpProperties::propertyType(XmpKey(key)))
-#ifndef SWIGIMPORTED
 DATA_ITERATOR(XmpData, Xmpdatum)
-#endif
 STR(Exiv2::Xmpdatum, toString)
+#endif
 
 %ignore Exiv2::XmpData::operator[];
 %ignore Exiv2::XmpData::begin() const;

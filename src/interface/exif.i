@@ -36,11 +36,11 @@
     $1 = PyObject_CheckBuffer($input);
 }
 
-DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
 #ifndef SWIGIMPORTED
+DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
 DATA_ITERATOR(ExifData, Exifdatum)
-#endif
 STR(Exiv2::Exifdatum, toString)
+#endif
 
 %ignore Exiv2::ExifData::operator[];
 %ignore Exiv2::ExifData::begin() const;

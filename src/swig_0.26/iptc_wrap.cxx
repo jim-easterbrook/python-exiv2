@@ -3656,20 +3656,24 @@ static PyObject* IptcData_getitem_idx(Exiv2::IptcData* self, long idx,
 
 
 class IptcDataIterator {
-public:
+private:
     Exiv2::IptcData::iterator ptr;
+public:
     IptcDataIterator(Exiv2::IptcData::iterator ptr) : ptr(ptr) {}
     Exiv2::Iptcdatum* operator->() const {
-        return &(*this->ptr);
+        return &(*ptr);
+    }
+    Exiv2::IptcData::iterator operator*() const {
+        return ptr;
     }
     Exiv2::IptcData::iterator __next__() {
-        return this->ptr++;
+        return ptr++;
     }
     bool operator==(const IptcDataIterator &other) const {
-        return other.ptr == this->ptr;
+        return *other == ptr;
     }
     bool operator!=(const IptcDataIterator &other) const {
-        return other.ptr != this->ptr;
+        return *other != ptr;
     }
 };
 
@@ -7716,7 +7720,7 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcDataIterator""'");
   }
-  arg2 = argp2->ptr;
+  arg2 = **argp2;
   
   {
     try {

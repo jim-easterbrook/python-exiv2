@@ -74,46 +74,50 @@ PyObject* logger = NULL;
 %define DATA_ITERATOR(parent_class, item_type)
 // Convert iterator parameters
 %typemap(in) Exiv2::parent_class::iterator (int res = 0,
-                                            parent_class ## Iterator *argp) %{
+                                            parent_class##Iterator *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
-                          $descriptor(parent_class ## Iterator*), 0);
+                          $descriptor(parent_class##Iterator*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, parent_class ## Iterator, $symname, $argnum);
+        %argument_fail(res, parent_class##Iterator, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(parent_class ## Iterator, $symname, $argnum);
+        %argument_nullref(parent_class##Iterator, $symname, $argnum);
     }
-    $1 = argp->ptr;
+    $1 = **argp;
 %};
 // Convert iterator return values
 %typemap(out) Exiv2::parent_class::iterator %{
     $result = SWIG_NewPointerObj(
-        new parent_class ## Iterator($1),
-        $descriptor(parent_class ## Iterator*), SWIG_POINTER_OWN);
+        new parent_class##Iterator($1),
+        $descriptor(parent_class##Iterator*), SWIG_POINTER_OWN);
 %};
 // Define a simple class to wrap parent_class::iterator
-%ignore parent_class ## Iterator::ptr;
-%ignore parent_class ## Iterator::parent_class ## Iterator;
-%feature("docstring") parent_class ## Iterator
+%ignore parent_class##Iterator::operator*;
+%ignore parent_class##Iterator::parent_class##Iterator;
+%feature("docstring") parent_class##Iterator
          "Python wrapper for Exiv2::parent_class::iterator"
 %feature("python:slot", "tp_iternext",
-         functype="iternextfunc") parent_class ## Iterator::__next__;
+         functype="iternextfunc") parent_class##Iterator::__next__;
 %inline %{
-class parent_class ## Iterator {
-public:
+class parent_class##Iterator {
+private:
     Exiv2::parent_class::iterator ptr;
-    parent_class ## Iterator(Exiv2::parent_class::iterator ptr) : ptr(ptr) {}
+public:
+    parent_class##Iterator(Exiv2::parent_class::iterator ptr) : ptr(ptr) {}
     Exiv2::item_type* operator->() const {
-        return &(*this->ptr);
+        return &(*ptr);
+    }
+    Exiv2::parent_class::iterator operator*() const {
+        return ptr;
     }
     Exiv2::parent_class::iterator __next__() {
-        return this->ptr++;
+        return ptr++;
     }
-    bool operator==(const parent_class ## Iterator &other) const {
-        return other.ptr == this->ptr;
+    bool operator==(const parent_class##Iterator &other) const {
+        return *other == ptr;
     }
-    bool operator!=(const parent_class ## Iterator &other) const {
-        return other.ptr != this->ptr;
+    bool operator!=(const parent_class##Iterator &other) const {
+        return *other != ptr;
     }
 };
 %}

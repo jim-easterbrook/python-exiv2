@@ -3652,20 +3652,24 @@ static PyObject* ExifData_getitem_idx(Exiv2::ExifData* self, long idx,
 
 
 class ExifDataIterator {
-public:
+private:
     Exiv2::ExifData::iterator ptr;
+public:
     ExifDataIterator(Exiv2::ExifData::iterator ptr) : ptr(ptr) {}
     Exiv2::Exifdatum* operator->() const {
-        return &(*this->ptr);
+        return &(*ptr);
+    }
+    Exiv2::ExifData::iterator operator*() const {
+        return ptr;
     }
     Exiv2::ExifData::iterator __next__() {
-        return this->ptr++;
+        return ptr++;
     }
     bool operator==(const ExifDataIterator &other) const {
-        return other.ptr == this->ptr;
+        return *other == ptr;
     }
     bool operator!=(const ExifDataIterator &other) const {
-        return other.ptr != this->ptr;
+        return *other != ptr;
     }
 };
 
@@ -8667,7 +8671,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
-  arg2 = argp2->ptr;
+  arg2 = **argp2;
   
   {
     try {
@@ -8719,7 +8723,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
-  arg2 = argp2->ptr;
+  arg2 = **argp2;
   
   
   res3 = SWIG_ConvertPtr(swig_obj[2], (void**)&argp3,
@@ -8730,7 +8734,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   if (!argp3) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifDataIterator""'");
   }
-  arg3 = argp3->ptr;
+  arg3 = **argp3;
   
   {
     try {

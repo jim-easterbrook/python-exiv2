@@ -25,12 +25,12 @@
 %import "datasets.i"
 %import "metadatum.i"
 
+#ifndef SWIGIMPORTED
 DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
              IptcDataSets::dataSetType(datum->tag(), datum->record()))
-#ifndef SWIGIMPORTED
 DATA_ITERATOR(IptcData, Iptcdatum)
-#endif
 STR(Exiv2::Iptcdatum, toString)
+#endif
 
 %ignore Exiv2::IptcData::operator[];
 %ignore Exiv2::IptcData::begin() const;

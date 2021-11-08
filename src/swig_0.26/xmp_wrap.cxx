@@ -3660,20 +3660,24 @@ static PyObject* XmpData_getitem_idx(Exiv2::XmpData* self, long idx,
 
 
 class XmpDataIterator {
-public:
+private:
     Exiv2::XmpData::iterator ptr;
+public:
     XmpDataIterator(Exiv2::XmpData::iterator ptr) : ptr(ptr) {}
     Exiv2::Xmpdatum* operator->() const {
-        return &(*this->ptr);
+        return &(*ptr);
+    }
+    Exiv2::XmpData::iterator operator*() const {
+        return ptr;
     }
     Exiv2::XmpData::iterator __next__() {
-        return this->ptr++;
+        return ptr++;
     }
     bool operator==(const XmpDataIterator &other) const {
-        return other.ptr == this->ptr;
+        return *other == ptr;
     }
     bool operator!=(const XmpDataIterator &other) const {
-        return other.ptr != this->ptr;
+        return *other != ptr;
     }
 };
 
@@ -7542,7 +7546,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
   }
-  arg2 = argp2->ptr;
+  arg2 = **argp2;
   
   {
     try {
