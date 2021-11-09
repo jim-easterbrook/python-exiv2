@@ -285,39 +285,6 @@ public:
         Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
         return (pos == base->end()) ? 0 : 1;
     }
-    PyObject* keys() {
-        long len = base->count();
-        PyObject* result = PyList_New(len);
-        Exiv2::base_class::iterator datum = base->begin();
-        for (long i = 0; i < len; i++)
-            PyList_SET_ITEM(result, i, PyUnicode_FromString(
-                (datum++)->key().c_str()));
-        return result;
-    }
-    PyObject* values() {
-        long len = base->count();
-        PyObject* result = PyList_New(len);
-        Exiv2::base_class::iterator datum = base->begin();
-        for (long i = 0; i < len; i++)
-            PyList_SET_ITEM(result, i, SWIG_Python_NewPointerObj(
-                NULL, ((datum++)->getValue()).release(),
-                SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN));
-        return result;
-    }
-    PyObject* items() {
-        long len = base->count();
-        PyObject* result = PyList_New(len);
-        Exiv2::base_class::iterator datum = base->begin();
-        for (long i = 0; i < len; i++) {
-            PyList_SET_ITEM(result, i, PyTuple_Pack(
-                2, PyUnicode_FromString(datum->key().c_str()),
-                SWIG_Python_NewPointerObj(
-                    NULL, (datum->getValue()).release(),
-                    SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN)));
-            datum++;
-        }
-        return result;
-    }
 };
 %}
 %enddef

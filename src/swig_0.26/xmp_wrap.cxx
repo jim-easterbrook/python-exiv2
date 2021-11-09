@@ -4623,39 +4623,6 @@ public:
         Exiv2::XmpData::iterator pos = base->findKey(Exiv2::XmpKey(key));
         return (pos == base->end()) ? 0 : 1;
     }
-    PyObject* keys() {
-        long len = base->count();
-        PyObject* result = PyList_New(len);
-        Exiv2::XmpData::iterator datum = base->begin();
-        for (long i = 0; i < len; i++)
-            PyList_SET_ITEM(result, i, PyUnicode_FromString(
-                (datum++)->key().c_str()));
-        return result;
-    }
-    PyObject* values() {
-        long len = base->count();
-        PyObject* result = PyList_New(len);
-        Exiv2::XmpData::iterator datum = base->begin();
-        for (long i = 0; i < len; i++)
-            PyList_SET_ITEM(result, i, SWIG_Python_NewPointerObj(
-                NULL, ((datum++)->getValue()).release(),
-                SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN));
-        return result;
-    }
-    PyObject* items() {
-        long len = base->count();
-        PyObject* result = PyList_New(len);
-        Exiv2::XmpData::iterator datum = base->begin();
-        for (long i = 0; i < len; i++) {
-            PyList_SET_ITEM(result, i, PyTuple_Pack(
-                2, PyUnicode_FromString(datum->key().c_str()),
-                SWIG_Python_NewPointerObj(
-                    NULL, (datum->getValue()).release(),
-                    SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN)));
-            datum++;
-        }
-        return result;
-    }
 };
 
 
@@ -6734,102 +6701,6 @@ SWIGINTERN PyObject *_wrap_XmpData___contains__(PyObject *self, PyObject *args) 
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_keys(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_keys", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_keys" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (PyObject *)(arg1)->keys();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_values(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_values", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_values" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (PyObject *)(arg1)->values();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_items(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_items", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_items" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (PyObject *)(arg1)->items();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  return resultobj;
-fail:
   return NULL;
 }
 
@@ -9408,9 +9279,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__XmpDataWrap_methods[] = {
   { "__len__", _wrap_XmpData___len__, METH_NOARGS, "" },
   { "_sq_item", _wrap_XmpData__sq_item, METH_O, "" },
   { "__contains__", _wrap_XmpData___contains__, METH_O, "" },
-  { "keys", _wrap_XmpData_keys, METH_NOARGS, "" },
-  { "values", _wrap_XmpData_values, METH_NOARGS, "" },
-  { "items", _wrap_XmpData_items, METH_NOARGS, "" },
   { "add", _wrap_XmpData_add, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
 		"\n"
