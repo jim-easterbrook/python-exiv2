@@ -4500,6 +4500,7 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
 class IptcDataWrap {
 private:
     Exiv2::IptcData* base;
+    Exiv2::IptcData::iterator iter_pos;
 public:
     IptcDataWrap(Exiv2::IptcData& base) {
         this->base = &base;
@@ -4512,6 +4513,17 @@ public:
     }
     Exiv2::IptcData* operator*() {
         return base;
+    }
+    IptcDataWrap* __iter__() {
+        iter_pos = base->begin();
+        return this;
+    }
+    Exiv2::Iptcdatum* __next__() {
+        if (iter_pos == base->end()) {
+            PyErr_SetNone(PyExc_StopIteration);
+            return NULL;
+        }
+        return &(*(iter_pos++));
     }
     Exiv2::Iptcdatum* __getitem__(long idx) {
         long len = base->count();
@@ -6256,6 +6268,73 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IptcData___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcDataWrap *arg1 = (IptcDataWrap *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  IptcDataWrap *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcData___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataWrap, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___iter__" "', argument " "1"" of type '" "IptcDataWrap *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcDataWrap * >(argp1);
+  {
+    try {
+      result = (IptcDataWrap *)(arg1)->__iter__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcDataWrap, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___next__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcDataWrap *arg1 = (IptcDataWrap *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Exiv2::Iptcdatum *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcData___next__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataWrap, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___next__" "', argument " "1"" of type '" "IptcDataWrap *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcDataWrap * >(argp1);
+  {
+    try {
+      result = (Exiv2::Iptcdatum *)(arg1)->__next__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  
+  if (!result) SWIG_fail;
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IptcData___getitem____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IptcDataWrap *arg1 = (IptcDataWrap *) 0 ;
@@ -7529,6 +7608,10 @@ fail:
   return NULL;
 }
 
+
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData___iter__) /* defines _wrap_IptcData___iter___getiterfunc_closure */
+
+SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_IptcData___next__) /* defines _wrap_IptcData___next___iternextfunc_closure */
 
 SWIGPY_BINARYFUNC_CLOSURE(_wrap_IptcData___getitem__) /* defines _wrap_IptcData___getitem___binaryfunc_closure */
 
@@ -9230,6 +9313,8 @@ SwigPyBuiltin__IptcDataWrap_richcompare(PyObject *self, PyObject *other, int op)
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__IptcDataWrap_methods[] = {
   { "__deref__", _wrap_IptcData___deref__, METH_NOARGS, "" },
+  { "__iter__", _wrap_IptcData___iter__, METH_NOARGS, "" },
+  { "__next__", _wrap_IptcData___next__, METH_NOARGS, "" },
   { "__getitem__", _wrap_IptcData___getitem__, METH_VARARGS, "" },
   { "__setitem__", _wrap_IptcData___setitem__, METH_VARARGS, "" },
   { "__len__", _wrap_IptcData___len__, METH_NOARGS, "" },
@@ -9326,8 +9411,8 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataWrap_type = {
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__IptcDataWrap_richcompare,  /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
-    (iternextfunc) 0,                         /* tp_iternext */
+    _wrap_IptcData___iter___getiterfunc_closure,                  /* tp_iter */
+    _wrap_IptcData___next___iternextfunc_closure,                 /* tp_iternext */
     SwigPyBuiltin__IptcDataWrap_methods,      /* tp_methods */
     0,                                        /* tp_members */
     SwigPyBuiltin__IptcDataWrap_getset,       /* tp_getset */

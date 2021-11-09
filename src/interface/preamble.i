@@ -138,6 +138,10 @@ public:
     $1 = **argp;
 %};
 // Python slots
+%feature("python:slot", "tp_iter",
+         functype="getiterfunc") base_class##Wrap::__iter__;
+%feature("python:slot", "tp_iternext",
+         functype="iternextfunc") base_class##Wrap::__next__;
 %feature("python:slot", "mp_subscript",
          functype="binaryfunc") base_class##Wrap::__getitem__;
 %feature("python:slot", "mp_ass_subscript",
@@ -162,6 +166,7 @@ public:
 class base_class##Wrap {
 private:
     Exiv2::base_class* base;
+    Exiv2::base_class::iterator iter_pos;
 public:
     base_class##Wrap(Exiv2::base_class& base) {
         this->base = &base;
@@ -174,6 +179,17 @@ public:
     }
     Exiv2::base_class* operator*() {
         return base;
+    }
+    base_class##Wrap* __iter__() {
+        iter_pos = base->begin();
+        return this;
+    }
+    Exiv2::datum_type* __next__() {
+        if (iter_pos == base->end()) {
+            PyErr_SetNone(PyExc_StopIteration);
+            return NULL;
+        }
+        return &(*(iter_pos++));
     }
     Exiv2::datum_type* __getitem__(long idx) {
         long len = base->count();
