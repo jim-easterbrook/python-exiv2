@@ -142,9 +142,9 @@ This allows them to be used in a very Pythonic style::
     print(data['Exif.Image.ImageDescription'].toString())
     if 'Exif.Image.ProcessingSoftware' in data:
         del data['Exif.Image.ProcessingSoftware']
-    print(data[0].key())
-    print(data[-1].key())
-    print(data.keys())
+    data = image.iptcData()
+    while 'Iptc.Application2.Keywords' in data:
+        del data['Iptc.Application2.Keywords']
 
 Warning: segmentation faults
 ----------------------------
