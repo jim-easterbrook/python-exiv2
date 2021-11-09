@@ -26,9 +26,9 @@
 %import "metadatum.i"
 
 #ifndef SWIGIMPORTED
+DATA_ITERATOR(IptcData, Iptcdatum)
 DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
              IptcDataSets::dataSetType(datum->tag(), datum->record()))
-DATA_ITERATOR(IptcData, Iptcdatum)
 STR(Exiv2::Iptcdatum, toString)
 #endif
 

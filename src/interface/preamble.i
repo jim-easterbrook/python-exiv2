@@ -124,161 +124,186 @@ public:
 %enddef
 
 // Macro to provide Python list and dict methods for Exiv2 data
-%define DATA_LISTMAP(class, datum_type, key_type, default_type_func)
+%define DATA_LISTMAP(base_class, datum_type, key_type, default_type_func)
+// typemap for input parameters
+%typemap(in) Exiv2::base_class& (int res = 0, base_class##Wrap *argp) %{
+    res = SWIG_ConvertPtr($input, (void**)&argp,
+                          $descriptor(base_class##Wrap*), 0);
+    if (!SWIG_IsOK(res)) {
+        %argument_fail(res, base_class##Wrap, $symname, $argnum);
+    }
+    if (!argp) {
+        %argument_nullref(base_class##Wrap, $symname, $argnum);
+    }
+    $1 = **argp;
+%};
+// Python slots
 %feature("python:slot", "mp_subscript",
-         functype="binaryfunc") Exiv2::class::__getitem__;
+         functype="binaryfunc") base_class##Wrap::__getitem__;
 %feature("python:slot", "mp_ass_subscript",
-         functype="objobjargproc") Exiv2::class::__setitem__;
+         functype="objobjargproc") base_class##Wrap::__setitem__;
 %feature("python:slot", "sq_length",
-         functype="lenfunc") Exiv2::class::__len__;
+         functype="lenfunc") base_class##Wrap::__len__;
 %feature("python:slot", "sq_item",
-         functype="ssizeargfunc") Exiv2::class::_sq_item;
+         functype="ssizeargfunc") base_class##Wrap::_sq_item;
 %feature("python:slot", "sq_contains",
-         functype="objobjproc") Exiv2::class::__contains__;
-%{
-static PyObject* class ## _getitem_idx(Exiv2::class* self, long idx,
-                                       swig_type_info* datum_descriptor) {
-    using namespace Exiv2;
-    long len = self->count();
-    if ((idx < -len) || (idx >= len))
-        return PyErr_Format(PyExc_IndexError, "index %d out of range", idx);
-    if (idx < 0)
-        idx += len;
-    class::iterator pos;
-    if (idx > (len / 2)) {
-        pos = self->end();
-        idx = len - idx;
-        while (idx > 0) {
-            pos--;
-            idx--;
-        }
-    }
-    else {
-        pos = self->begin();
-        while (idx > 0) {
-            pos++;
-            idx--;
-        }
-    }
-    return SWIG_Python_NewPointerObj(
-        NULL, SWIG_as_voidptr(&(*pos)), datum_descriptor, 0);
-}
+         functype="objobjproc") base_class##Wrap::__contains__;
+// wrapper class
+%rename(base_class) base_class##Wrap;
+%ignore Exiv2::base_class;
+%ignore base_class##Wrap::base_class##Wrap(Exiv2::base_class&);
+%ignore base_class##Wrap::operator*;
+%ignore base_class##Wrap::_old_type;
+%ignore base_class##Wrap::_warn_type_change;
+%typemap(ret) Exiv2::datum_type* %{
+    if (!$1) SWIG_fail;
 %}
-%extend Exiv2::class {
-    PyObject* __getitem__(PyObject* key_idx) {
-        using namespace Exiv2;
-        if (PyLong_Check(key_idx))
-            // Index by integer
-            return class ## _getitem_idx(
-                $self, PyLong_AsLong(key_idx), $descriptor(Exiv2::datum_type*));
-        if (PyUnicode_Check(key_idx))
-            // Lookup by key
-            return SWIG_Python_NewPointerObj(
-                NULL, SWIG_as_voidptr(&(*$self)[PyUnicode_AsUTF8(key_idx)]),
-                $descriptor(Exiv2::datum_type*), 0);
-        return PyErr_Format(PyExc_TypeError,
-            "indices must be int or str, not %s", Py_TYPE(key_idx)->tp_name);
+%inline %{
+class base_class##Wrap {
+private:
+    Exiv2::base_class* base;
+public:
+    base_class##Wrap(Exiv2::base_class& base) {
+        this->base = &base;
+    }
+    base_class##Wrap() {
+        this->base = new Exiv2::base_class();
+    }
+    Exiv2::base_class* operator->() {
+        return base;
+    }
+    Exiv2::base_class* operator*() {
+        return base;
+    }
+    Exiv2::datum_type* __getitem__(long idx) {
+        long len = base->count();
+        if ((idx < -len) || (idx >= len)) {
+            PyErr_Format(PyExc_IndexError, "index %d out of range", idx);
+            return NULL;
+        }
+        if (idx < 0)
+            idx += len;
+        Exiv2::base_class::iterator pos;
+        if (idx > (len / 2)) {
+            pos = base->end();
+            idx = len - idx;
+            while (idx > 0) {
+                pos--;
+                idx--;
+            }
+        }
+        else {
+            pos = base->begin();
+            while (idx > 0) {
+                pos++;
+                idx--;
+            }
+        }
+        return &(*pos);
+    }
+    Exiv2::datum_type* __getitem__(const std::string& key) {
+        return &(*base)[key];
+    }
+    PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
+        Exiv2::datum_type* datum = &(*base)[key];
+        Exiv2::TypeId old_type = _old_type(key, datum);
+        datum->setValue(value);
+        _warn_type_change(old_type, datum);
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key, const std::string& value) {
+        Exiv2::datum_type* datum = &(*base)[key];
+        Exiv2::TypeId old_type = _old_type(key, datum);
+        if (datum->setValue(value) != 0)
+            return PyErr_Format(PyExc_ValueError,
+                "%s: cannot set type '%s' to value '%s'",
+                key.c_str(), Exiv2::TypeInfo::typeName(old_type), value.c_str());
+        _warn_type_change(old_type, datum);
+        return SWIG_Py_Void();
     }
     PyObject* __setitem__(const std::string& key, PyObject* value) {
+        // Get equivalent of Python "str(value)"
+        PyObject* py_str = PyObject_Str(value);
+        if (py_str == NULL)
+            return NULL;
+        char* c_str = PyUnicode_AsUTF8(py_str);
+        Py_DECREF(py_str);
+        return __setitem__(key, c_str);
+    }
+    Exiv2::TypeId _old_type(const std::string& key, Exiv2::datum_type* datum) {
         using namespace Exiv2;
-        datum_type* datum = &(*$self)[key];
         TypeId old_type = datum->typeId();
-        if (old_type == invalidTypeId)
+        if (old_type == Exiv2::invalidTypeId)
             old_type = default_type_func;
-        Exiv2::Value* c_value = NULL;
-        if (SWIG_IsOK(SWIG_ConvertPtr(value, (void**)(&c_value),
-                                      $descriptor(Exiv2::Value*), 0)))
-            // value is an Exiv2::Value
-            datum->setValue(c_value);
-        else {
-            char* c_str = NULL;
-            if (PyUnicode_Check(value)) {
-                // value is already a string
-                c_str = PyUnicode_AsUTF8(value);
-            }
-            else {
-                // Get equivalent of Python "str(value)"
-                PyObject* py_str = PyObject_Str(value);
-                if (py_str == NULL)
-                    return NULL;
-                c_str = PyUnicode_AsUTF8(py_str);
-                Py_DECREF(py_str);
-            }
-            if (datum->setValue(c_str) != 0)
-                return PyErr_Format(PyExc_ValueError,
-                    "%s: cannot set type '%s' to value '%s'",
-                    key.c_str(), TypeInfo::typeName(old_type), c_str);
-        }
+        return old_type;
+    }
+    void _warn_type_change(Exiv2::TypeId old_type, Exiv2::datum_type* datum) {
+        using namespace Exiv2;
         TypeId new_type = datum->typeId();
         if (new_type != old_type) {
-            EXV_WARNING << key << ": changed type from '" <<
+            EXV_WARNING << datum->key() << ": changed type from '" <<
                 TypeInfo::typeName(old_type) << "' to '" <<
                 TypeInfo::typeName(new_type) << "'.\n";
         }
-        return SWIG_Py_Void();
     }
 #if defined(SWIGPYTHON_BUILTIN)
     PyObject* __setitem__(const std::string& key) {
 #else
     PyObject* __delitem__(const std::string& key) {
 #endif
-        using namespace Exiv2;
-        class::iterator pos = $self->findKey(key_type(key));
-        if (pos == $self->end()) {
+        Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
+        if (pos == base->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
         }
-        $self->erase(pos);
+        base->erase(pos);
         return SWIG_Py_Void();
     }
     long __len__() {
-        return $self->count();
+        return base->count();
     }
-    PyObject* _sq_item(long i) {
-        return class ## _getitem_idx($self, i, $descriptor(Exiv2::datum_type*));
+    Exiv2::datum_type* _sq_item(long idx) {
+        return __getitem__(idx);
     }
     int __contains__(const std::string& key) {
-        using namespace Exiv2;
-        class::iterator pos = $self->findKey(key_type(key));
-        return (pos == $self->end()) ? 0 : 1;
+        Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
+        return (pos == base->end()) ? 0 : 1;
     }
     PyObject* keys() {
-        using namespace Exiv2;
-        long len = $self->count();
+        long len = base->count();
         PyObject* result = PyList_New(len);
-        class::iterator datum = $self->begin();
+        Exiv2::base_class::iterator datum = base->begin();
         for (long i = 0; i < len; i++)
             PyList_SET_ITEM(result, i, PyUnicode_FromString(
                 (datum++)->key().c_str()));
         return result;
     }
     PyObject* values() {
-        using namespace Exiv2;
-        long len = $self->count();
+        long len = base->count();
         PyObject* result = PyList_New(len);
-        class::iterator datum = $self->begin();
+        Exiv2::base_class::iterator datum = base->begin();
         for (long i = 0; i < len; i++)
             PyList_SET_ITEM(result, i, SWIG_Python_NewPointerObj(
                 NULL, ((datum++)->getValue()).release(),
-                $descriptor(Exiv2::Value*), SWIG_POINTER_OWN));
+                SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN));
         return result;
     }
     PyObject* items() {
-        using namespace Exiv2;
-        long len = $self->count();
+        long len = base->count();
         PyObject* result = PyList_New(len);
-        class::iterator datum = $self->begin();
+        Exiv2::base_class::iterator datum = base->begin();
         for (long i = 0; i < len; i++) {
             PyList_SET_ITEM(result, i, PyTuple_Pack(
                 2, PyUnicode_FromString(datum->key().c_str()),
                 SWIG_Python_NewPointerObj(
                     NULL, (datum->getValue()).release(),
-                    $descriptor(Exiv2::Value*), SWIG_POINTER_OWN)));
+                    SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN)));
             datum++;
         }
         return result;
     }
-}
+};
+%}
 %enddef
 
 // Macro to make enums more Pythonic

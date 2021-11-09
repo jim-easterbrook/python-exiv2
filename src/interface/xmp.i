@@ -26,9 +26,9 @@
 %import "properties.i"
 
 #ifndef SWIGIMPORTED
+DATA_ITERATOR(XmpData, Xmpdatum)
 DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
              XmpProperties::propertyType(XmpKey(key)))
-DATA_ITERATOR(XmpData, Xmpdatum)
 STR(Exiv2::Xmpdatum, toString)
 #endif
 

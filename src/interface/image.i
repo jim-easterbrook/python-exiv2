@@ -48,6 +48,45 @@ wrap_auto_unique_ptr(Exiv2::Image);
 %thread Exiv2::ImageFactory::create;
 %thread Exiv2::ImageFactory::open;
 
+// Wrap data classes, duplicate of definitions in exif.i etc.
+#ifndef SWIGIMPORTED
+DATA_ITERATOR(ExifData, Exifdatum)
+DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
+
+DATA_ITERATOR(IptcData, Iptcdatum)
+DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
+             IptcDataSets::dataSetType(datum->tag(), datum->record()))
+
+DATA_ITERATOR(XmpData, Xmpdatum)
+DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
+             XmpProperties::propertyType(XmpKey(key)))
+
+%rename(exifData) Exiv2::Image::exifDataEx;
+%rename(iptcData) Exiv2::Image::iptcDataEx;
+%rename(xmpData) Exiv2::Image::xmpDataEx;
+
+%ignore Exiv2::Image::exifData;
+%ignore Exiv2::Image::iptcData;
+%ignore Exiv2::Image::xmpData;
+
+%newobject Exiv2::Image::exifDataEx;
+%newobject Exiv2::Image::iptcDataEx;
+%newobject Exiv2::Image::xmpDataEx;
+%extend Exiv2::Image {
+    ExifDataWrap* exifDataEx() {
+        return new ExifDataWrap($self->exifData());
+    }
+    IptcDataWrap* iptcDataEx() {
+        return new IptcDataWrap($self->iptcData());
+    }
+    XmpDataWrap* xmpDataEx() {
+        return new XmpDataWrap($self->xmpData());
+    }
+}
+
+#endif
+
+
 // Make image types available
 #ifdef EXV_ENABLE_BMFF
 #define BMFF bmff = Exiv2::ImageType::bmff,
