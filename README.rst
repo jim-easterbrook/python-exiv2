@@ -110,17 +110,17 @@ You can iterate over the data in a very C++ like style::
     ...     next(b)
     ...
     'Exif.Image.ProcessingSoftware'
-    <Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>
+    <Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>
     'Exif.Image.ImageDescription'
-    <Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>
+    <Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>
     [skip 227 line pairs]
     'Exif.Thumbnail.JPEGInterchangeFormat'
-    <Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>
+    <Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>
     'Exif.Thumbnail.JPEGInterchangeFormatLength'
-    <Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>
+    <Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>
     >>>
 
-The ``<Swig Object of type 'ExifDataIterator *' at 0x7f2cbf6c2fb8>`` lines are the Python interpreter showing the return value of ``next(b)``.
+The ``<Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>`` lines are the Python interpreter showing the return value of ``next(b)``.
 You can also iterate in a more Pythonic style::
 
     >>> data = image.exifData()

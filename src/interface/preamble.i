@@ -110,8 +110,8 @@ public:
     Exiv2::parent_class::iterator operator*() const {
         return ptr;
     }
-    Exiv2::parent_class::iterator __next__() {
-        return ptr++;
+    Exiv2::item_type* __next__() {
+        return &(*ptr++);
     }
     bool operator==(const parent_class##Iterator &other) const {
         return *other == ptr;

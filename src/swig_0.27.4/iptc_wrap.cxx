@@ -3638,8 +3638,8 @@ public:
     Exiv2::IptcData::iterator operator*() const {
         return ptr;
     }
-    Exiv2::IptcData::iterator __next__() {
-        return ptr++;
+    Exiv2::Iptcdatum* __next__() {
+        return &(*ptr++);
     }
     bool operator==(const IptcDataIterator &other) const {
         return *other == ptr;
@@ -4700,7 +4700,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___next__(PyObject *self, PyObject *a
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  Exiv2::Iptcdatum *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator___next__", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
@@ -4710,7 +4710,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___next__(PyObject *self, PyObject *a
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   {
     try {
-      result = (arg1)->__next__();
+      result = (Exiv2::Iptcdatum *)(arg1)->__next__();
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4719,11 +4719,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___next__(PyObject *self, PyObject *a
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj(
-    new IptcDataIterator(result),
-    SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
   return resultobj;
 fail:
   return NULL;

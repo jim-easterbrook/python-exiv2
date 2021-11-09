@@ -3642,8 +3642,8 @@ public:
     Exiv2::XmpData::iterator operator*() const {
         return ptr;
     }
-    Exiv2::XmpData::iterator __next__() {
-        return ptr++;
+    Exiv2::Xmpdatum* __next__() {
+        return &(*ptr++);
     }
     bool operator==(const XmpDataIterator &other) const {
         return *other == ptr;
@@ -4654,7 +4654,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___next__(PyObject *self, PyObject *ar
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator > result;
+  Exiv2::Xmpdatum *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "XmpDataIterator___next__", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIterator, 0 |  0 );
@@ -4664,7 +4664,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___next__(PyObject *self, PyObject *ar
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   {
     try {
-      result = (arg1)->__next__();
+      result = (Exiv2::Xmpdatum *)(arg1)->__next__();
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4673,11 +4673,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___next__(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  
-  resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result),
-    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
-  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
