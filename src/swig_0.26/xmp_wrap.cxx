@@ -4505,12 +4505,19 @@ class XmpDataWrap {
 private:
     Exiv2::XmpData* base;
     Exiv2::XmpData::iterator iter_pos;
+    PyObject* image;
 public:
-    XmpDataWrap(Exiv2::XmpData& base) {
+    XmpDataWrap(Exiv2::XmpData& base, PyObject* image) {
         this->base = &base;
+        Py_INCREF(image);
+        this->image = image;
     }
     XmpDataWrap() {
-        this->base = new Exiv2::XmpData();
+        base = new Exiv2::XmpData();
+        image = NULL;
+    }
+    ~XmpDataWrap() {
+        Py_XDECREF(image);
     }
     Exiv2::XmpData* operator->() {
         return base;
@@ -6060,6 +6067,37 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_delete_XmpData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_XmpData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpData" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
+  {
+    try {
+      delete arg1;
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_XmpData___deref__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
@@ -6545,37 +6583,6 @@ SWIGINTERN PyObject *_wrap_XmpData___contains__(PyObject *self, PyObject *args) 
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_XmpData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_XmpData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpData" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      delete arg1;
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
   return NULL;
 }
 
@@ -7174,6 +7181,8 @@ fail:
 }
 
 
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpData) /* defines _wrap_delete_XmpData_destructor_closure */
+
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpData___iter__) /* defines _wrap_XmpData___iter___getiterfunc_closure */
 
 SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_XmpData___next__) /* defines _wrap_XmpData___next___iternextfunc_closure */
@@ -7183,8 +7192,6 @@ SWIGPY_LENFUNC_CLOSURE(_wrap_XmpData___len__) /* defines _wrap_XmpData___len___l
 SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_XmpData___setitem__) /* defines _wrap_XmpData___setitem___objobjargproc_closure */
 
 SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_XmpData___contains__) /* defines _wrap_XmpData___contains___objobjproc_closure */
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpData) /* defines _wrap_delete_XmpData_destructor_closure */
 
 SWIGINTERN int _wrap_new_Xmpdatum__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;

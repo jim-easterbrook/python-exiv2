@@ -153,7 +153,7 @@ public:
 // wrapper class
 %rename(base_class) base_class##Wrap;
 %ignore Exiv2::base_class;
-%ignore base_class##Wrap::base_class##Wrap(Exiv2::base_class&);
+%ignore base_class##Wrap::base_class##Wrap(Exiv2::base_class&, PyObject*);
 %ignore base_class##Wrap::operator*;
 %ignore base_class##Wrap::_old_type;
 %ignore base_class##Wrap::_warn_type_change;
@@ -167,12 +167,19 @@ class base_class##Wrap {
 private:
     Exiv2::base_class* base;
     Exiv2::base_class::iterator iter_pos;
+    PyObject* image;
 public:
-    base_class##Wrap(Exiv2::base_class& base) {
+    base_class##Wrap(Exiv2::base_class& base, PyObject* image) {
         this->base = &base;
+        Py_INCREF(image);
+        this->image = image;
     }
     base_class##Wrap() {
-        this->base = new Exiv2::base_class();
+        base = new Exiv2::base_class();
+        image = NULL;
+    }
+    ~base_class##Wrap() {
+        Py_XDECREF(image);
     }
     Exiv2::base_class* operator->() {
         return base;

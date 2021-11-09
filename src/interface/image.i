@@ -72,15 +72,20 @@ DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
 %newobject Exiv2::Image::exifDataEx;
 %newobject Exiv2::Image::iptcDataEx;
 %newobject Exiv2::Image::xmpDataEx;
+
+%typemap(in, numinputs=0) PyObject* image %{
+    $1 = self;
+%}
+
 %extend Exiv2::Image {
-    ExifDataWrap* exifDataEx() {
-        return new ExifDataWrap($self->exifData());
+    ExifDataWrap* exifDataEx(PyObject* image) {
+        return new ExifDataWrap($self->exifData(), image);
     }
-    IptcDataWrap* iptcDataEx() {
-        return new IptcDataWrap($self->iptcData());
+    IptcDataWrap* iptcDataEx(PyObject* image) {
+        return new IptcDataWrap($self->iptcData(), image);
     }
-    XmpDataWrap* xmpDataEx() {
-        return new XmpDataWrap($self->xmpData());
+    XmpDataWrap* xmpDataEx(PyObject* image) {
+        return new XmpDataWrap($self->xmpData(), image);
     }
 }
 
