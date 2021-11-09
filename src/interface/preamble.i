@@ -142,14 +142,12 @@ public:
          functype="getiterfunc") base_class##Wrap::__iter__;
 %feature("python:slot", "tp_iternext",
          functype="iternextfunc") base_class##Wrap::__next__;
+%feature("python:slot", "mp_length",
+         functype="lenfunc") base_class##Wrap::__len__;
 %feature("python:slot", "mp_subscript",
          functype="binaryfunc") base_class##Wrap::__getitem__;
 %feature("python:slot", "mp_ass_subscript",
          functype="objobjargproc") base_class##Wrap::__setitem__;
-%feature("python:slot", "sq_length",
-         functype="lenfunc") base_class##Wrap::__len__;
-%feature("python:slot", "sq_item",
-         functype="ssizeargfunc") base_class##Wrap::_sq_item;
 %feature("python:slot", "sq_contains",
          functype="objobjproc") base_class##Wrap::__contains__;
 // wrapper class
@@ -159,7 +157,9 @@ public:
 %ignore base_class##Wrap::operator*;
 %ignore base_class##Wrap::_old_type;
 %ignore base_class##Wrap::_warn_type_change;
-%typemap(ret) Exiv2::datum_type* %{
+%feature("docstring") base_class##Wrap
+         "Python wrapper for Exiv2::parent_class"
+%typemap(ret) Exiv2::datum_type* __next__ %{
     if (!$1) SWIG_fail;
 %}
 %inline %{
@@ -191,31 +191,8 @@ public:
         }
         return &(*(iter_pos++));
     }
-    Exiv2::datum_type* __getitem__(long idx) {
-        long len = base->count();
-        if ((idx < -len) || (idx >= len)) {
-            PyErr_Format(PyExc_IndexError, "index %d out of range", idx);
-            return NULL;
-        }
-        if (idx < 0)
-            idx += len;
-        Exiv2::base_class::iterator pos;
-        if (idx > (len / 2)) {
-            pos = base->end();
-            idx = len - idx;
-            while (idx > 0) {
-                pos--;
-                idx--;
-            }
-        }
-        else {
-            pos = base->begin();
-            while (idx > 0) {
-                pos++;
-                idx--;
-            }
-        }
-        return &(*pos);
+    long __len__() {
+        return base->count();
     }
     Exiv2::datum_type* __getitem__(const std::string& key) {
         return &(*base)[key];
@@ -274,12 +251,6 @@ public:
         }
         base->erase(pos);
         return SWIG_Py_Void();
-    }
-    long __len__() {
-        return base->count();
-    }
-    Exiv2::datum_type* _sq_item(long idx) {
-        return __getitem__(idx);
     }
     int __contains__(const std::string& key) {
         Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
