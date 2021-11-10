@@ -50,14 +50,9 @@ wrap_auto_unique_ptr(Exiv2::Image);
 
 // Wrap data classes, duplicate of definitions in exif.i etc.
 #ifndef SWIGIMPORTED
-DATA_ITERATOR(ExifData, Exifdatum)
 DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
-
-DATA_ITERATOR(IptcData, Iptcdatum)
 DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
              IptcDataSets::dataSetType(datum->tag(), datum->record()))
-
-DATA_ITERATOR(XmpData, Xmpdatum)
 DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
              XmpProperties::propertyType(XmpKey(key)))
 

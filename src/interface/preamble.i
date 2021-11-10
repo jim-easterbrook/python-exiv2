@@ -70,62 +70,27 @@ PyObject* logger = NULL;
 }
 %enddef
 
-// Macro to wrap C++ iterator with a Python friendly class
-%define DATA_ITERATOR(parent_class, item_type)
-// Convert iterator parameters
-%typemap(in) Exiv2::parent_class::iterator (int res = 0,
-                                            parent_class##Iterator *argp) %{
+// Macro to provide Python list and dict methods for Exiv2 data
+%define DATA_LISTMAP(base_class, datum_type, key_type, default_type_func)
+// base_class##Iterator typemaps
+%typemap(in) Exiv2::base_class::iterator (int res = 0,
+                                          base_class##Iterator *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
-                          $descriptor(parent_class##Iterator*), 0);
+                          $descriptor(base_class##Iterator*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, parent_class##Iterator, $symname, $argnum);
+        %argument_fail(res, base_class##Iterator, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(parent_class##Iterator, $symname, $argnum);
+        %argument_nullref(base_class##Iterator, $symname, $argnum);
     }
     $1 = **argp;
 %};
-// Convert iterator return values
-%typemap(out) Exiv2::parent_class::iterator %{
+%typemap(out) Exiv2::base_class::iterator %{
     $result = SWIG_NewPointerObj(
-        new parent_class##Iterator($1),
-        $descriptor(parent_class##Iterator*), SWIG_POINTER_OWN);
+        new base_class##Iterator($1),
+        $descriptor(base_class##Iterator*), SWIG_POINTER_OWN);
 %};
-// Define a simple class to wrap parent_class::iterator
-%ignore parent_class##Iterator::operator*;
-%ignore parent_class##Iterator::parent_class##Iterator;
-%feature("docstring") parent_class##Iterator
-         "Python wrapper for Exiv2::parent_class::iterator"
-%feature("python:slot", "tp_iternext",
-         functype="iternextfunc") parent_class##Iterator::__next__;
-%inline %{
-class parent_class##Iterator {
-private:
-    Exiv2::parent_class::iterator ptr;
-public:
-    parent_class##Iterator(Exiv2::parent_class::iterator ptr) : ptr(ptr) {}
-    Exiv2::item_type* operator->() const {
-        return &(*ptr);
-    }
-    Exiv2::parent_class::iterator operator*() const {
-        return ptr;
-    }
-    Exiv2::item_type* __next__() {
-        return &(*ptr++);
-    }
-    bool operator==(const parent_class##Iterator &other) const {
-        return *other == ptr;
-    }
-    bool operator!=(const parent_class##Iterator &other) const {
-        return *other != ptr;
-    }
-};
-%}
-%enddef
-
-// Macro to provide Python list and dict methods for Exiv2 data
-%define DATA_LISTMAP(base_class, datum_type, key_type, default_type_func)
-// typemap for input parameters
+// base_class##Wrap typemaps
 %typemap(in) Exiv2::base_class& (int res = 0, base_class##Wrap *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
                           $descriptor(base_class##Wrap*), 0);
@@ -137,7 +102,10 @@ public:
     }
     $1 = **argp;
 %};
-// Python slots
+// base_class##Iterator Python slots
+%feature("python:slot", "tp_iternext",
+         functype="iternextfunc") base_class##Iterator::__next__;
+// base_class##Wrap Python slots
 %feature("python:slot", "tp_iter",
          functype="getiterfunc") base_class##Wrap::__iter__;
 %feature("python:slot", "tp_iternext",
@@ -150,7 +118,12 @@ public:
          functype="objobjargproc") base_class##Wrap::__setitem__;
 %feature("python:slot", "sq_contains",
          functype="objobjproc") base_class##Wrap::__contains__;
-// wrapper class
+// base_class##Iterator features
+%ignore base_class##Iterator::operator*;
+%ignore base_class##Iterator::base_class##Iterator;
+%feature("docstring") base_class##Iterator
+         "Python wrapper for Exiv2::base_class::iterator"
+// base_class##Wrap features
 %rename(base_class) base_class##Wrap;
 %ignore Exiv2::base_class;
 %ignore base_class##Wrap::base_class##Wrap(Exiv2::base_class&, PyObject*);
@@ -163,6 +136,29 @@ public:
     if (!$1) SWIG_fail;
 %}
 %inline %{
+// Wrapper for Exiv2::base_class::iterator
+class base_class##Iterator {
+private:
+    Exiv2::base_class::iterator ptr;
+public:
+    base_class##Iterator(Exiv2::base_class::iterator ptr) : ptr(ptr) {}
+    Exiv2::datum_type* operator->() const {
+        return &(*ptr);
+    }
+    Exiv2::base_class::iterator operator*() const {
+        return ptr;
+    }
+    Exiv2::datum_type* __next__() {
+        return &(*ptr++);
+    }
+    bool operator==(const base_class##Iterator &other) const {
+        return *other == ptr;
+    }
+    bool operator!=(const base_class##Iterator &other) const {
+        return *other != ptr;
+    }
+};
+// Wrapper for Exiv2::base_class
 class base_class##Wrap {
 private:
     Exiv2::base_class* base;

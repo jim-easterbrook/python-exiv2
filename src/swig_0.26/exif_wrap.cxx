@@ -3623,6 +3623,7 @@ PyObject* logger = NULL;
 #include <string>
 
 
+// Wrapper for Exiv2::ExifData::iterator
 class ExifDataIterator {
 private:
     Exiv2::ExifData::iterator ptr;
@@ -3642,6 +3643,108 @@ public:
     }
     bool operator!=(const ExifDataIterator &other) const {
         return *other != ptr;
+    }
+};
+// Wrapper for Exiv2::ExifData
+class ExifDataWrap {
+private:
+    Exiv2::ExifData* base;
+    Exiv2::ExifData::iterator iter_pos;
+    PyObject* image;
+public:
+    ExifDataWrap(Exiv2::ExifData& base, PyObject* image) {
+        this->base = &base;
+        Py_INCREF(image);
+        this->image = image;
+    }
+    ExifDataWrap() {
+        base = new Exiv2::ExifData();
+        image = NULL;
+    }
+    ~ExifDataWrap() {
+        Py_XDECREF(image);
+    }
+    Exiv2::ExifData* operator->() {
+        return base;
+    }
+    Exiv2::ExifData* operator*() {
+        return base;
+    }
+    ExifDataWrap* __iter__() {
+        iter_pos = base->begin();
+        return this;
+    }
+    Exiv2::Exifdatum* __next__() {
+        if (iter_pos == base->end()) {
+            PyErr_SetNone(PyExc_StopIteration);
+            return NULL;
+        }
+        return &(*(iter_pos++));
+    }
+    long __len__() {
+        return base->count();
+    }
+    Exiv2::Exifdatum* __getitem__(const std::string& key) {
+        return &(*base)[key];
+    }
+    PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
+        Exiv2::Exifdatum* datum = &(*base)[key];
+        Exiv2::TypeId old_type = _old_type(key, datum);
+        datum->setValue(value);
+        _warn_type_change(old_type, datum);
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key, const std::string& value) {
+        Exiv2::Exifdatum* datum = &(*base)[key];
+        Exiv2::TypeId old_type = _old_type(key, datum);
+        if (datum->setValue(value) != 0)
+            return PyErr_Format(PyExc_ValueError,
+                "%s: cannot set type '%s' to value '%s'",
+                key.c_str(), Exiv2::TypeInfo::typeName(old_type), value.c_str());
+        _warn_type_change(old_type, datum);
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key, PyObject* value) {
+        // Get equivalent of Python "str(value)"
+        PyObject* py_str = PyObject_Str(value);
+        if (py_str == NULL)
+            return NULL;
+        char* c_str = PyUnicode_AsUTF8(py_str);
+        Py_DECREF(py_str);
+        return __setitem__(key, c_str);
+    }
+    Exiv2::TypeId _old_type(const std::string& key, Exiv2::Exifdatum* datum) {
+        using namespace Exiv2;
+        TypeId old_type = datum->typeId();
+        if (old_type == Exiv2::invalidTypeId)
+            old_type = ExifKey(key).defaultTypeId();
+        return old_type;
+    }
+    void _warn_type_change(Exiv2::TypeId old_type, Exiv2::Exifdatum* datum) {
+        using namespace Exiv2;
+        TypeId new_type = datum->typeId();
+        if (new_type != old_type) {
+            EXV_WARNING << datum->key() << ": changed type from '" <<
+                TypeInfo::typeName(old_type) << "' to '" <<
+                TypeInfo::typeName(new_type) << "'.\n";
+        }
+    }
+#if 1
+    PyObject* __setitem__(const std::string& key) {
+#else
+    PyObject* __delitem__(const std::string& key) {
+#endif
+        Exiv2::ExifData::iterator pos = base->findKey(Exiv2::ExifKey(key));
+        if (pos == base->end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return NULL;
+        }
+        base->erase(pos);
+        return SWIG_Py_Void();
+    }
+    int __contains__(const std::string& key) {
+        Exiv2::ExifData::iterator pos = base->findKey(Exiv2::ExifKey(key));
+        return (pos == base->end()) ? 0 : 1;
     }
 };
 
@@ -4492,109 +4595,6 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
 	};
       }
     
-
-class ExifDataWrap {
-private:
-    Exiv2::ExifData* base;
-    Exiv2::ExifData::iterator iter_pos;
-    PyObject* image;
-public:
-    ExifDataWrap(Exiv2::ExifData& base, PyObject* image) {
-        this->base = &base;
-        Py_INCREF(image);
-        this->image = image;
-    }
-    ExifDataWrap() {
-        base = new Exiv2::ExifData();
-        image = NULL;
-    }
-    ~ExifDataWrap() {
-        Py_XDECREF(image);
-    }
-    Exiv2::ExifData* operator->() {
-        return base;
-    }
-    Exiv2::ExifData* operator*() {
-        return base;
-    }
-    ExifDataWrap* __iter__() {
-        iter_pos = base->begin();
-        return this;
-    }
-    Exiv2::Exifdatum* __next__() {
-        if (iter_pos == base->end()) {
-            PyErr_SetNone(PyExc_StopIteration);
-            return NULL;
-        }
-        return &(*(iter_pos++));
-    }
-    long __len__() {
-        return base->count();
-    }
-    Exiv2::Exifdatum* __getitem__(const std::string& key) {
-        return &(*base)[key];
-    }
-    PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
-        Exiv2::Exifdatum* datum = &(*base)[key];
-        Exiv2::TypeId old_type = _old_type(key, datum);
-        datum->setValue(value);
-        _warn_type_change(old_type, datum);
-        return SWIG_Py_Void();
-    }
-    PyObject* __setitem__(const std::string& key, const std::string& value) {
-        Exiv2::Exifdatum* datum = &(*base)[key];
-        Exiv2::TypeId old_type = _old_type(key, datum);
-        if (datum->setValue(value) != 0)
-            return PyErr_Format(PyExc_ValueError,
-                "%s: cannot set type '%s' to value '%s'",
-                key.c_str(), Exiv2::TypeInfo::typeName(old_type), value.c_str());
-        _warn_type_change(old_type, datum);
-        return SWIG_Py_Void();
-    }
-    PyObject* __setitem__(const std::string& key, PyObject* value) {
-        // Get equivalent of Python "str(value)"
-        PyObject* py_str = PyObject_Str(value);
-        if (py_str == NULL)
-            return NULL;
-        char* c_str = PyUnicode_AsUTF8(py_str);
-        Py_DECREF(py_str);
-        return __setitem__(key, c_str);
-    }
-    Exiv2::TypeId _old_type(const std::string& key, Exiv2::Exifdatum* datum) {
-        using namespace Exiv2;
-        TypeId old_type = datum->typeId();
-        if (old_type == Exiv2::invalidTypeId)
-            old_type = ExifKey(key).defaultTypeId();
-        return old_type;
-    }
-    void _warn_type_change(Exiv2::TypeId old_type, Exiv2::Exifdatum* datum) {
-        using namespace Exiv2;
-        TypeId new_type = datum->typeId();
-        if (new_type != old_type) {
-            EXV_WARNING << datum->key() << ": changed type from '" <<
-                TypeInfo::typeName(old_type) << "' to '" <<
-                TypeInfo::typeName(new_type) << "'.\n";
-        }
-    }
-#if 1
-    PyObject* __setitem__(const std::string& key) {
-#else
-    PyObject* __delitem__(const std::string& key) {
-#endif
-        Exiv2::ExifData::iterator pos = base->findKey(Exiv2::ExifKey(key));
-        if (pos == base->end()) {
-            PyErr_SetString(PyExc_KeyError, key.c_str());
-            return NULL;
-        }
-        base->erase(pos);
-        return SWIG_Py_Void();
-    }
-    int __contains__(const std::string& key) {
-        Exiv2::ExifData::iterator pos = base->findKey(Exiv2::ExifKey(key));
-        return (pos == base->end()) ? 0 : 1;
-    }
-};
-
 SWIGINTERN std::string Exiv2_Exifdatum___str__(Exiv2::Exifdatum *self){
         return self->toString();
     }
@@ -4776,6 +4776,9 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator___next__(PyObject *self, PyObject *a
     }
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
+  
+  if (!result) SWIG_fail;
+  
   return resultobj;
 fail:
   return NULL;

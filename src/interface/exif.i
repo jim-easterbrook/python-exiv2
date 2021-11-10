@@ -37,7 +37,6 @@
 }
 
 #ifndef SWIGIMPORTED
-DATA_ITERATOR(ExifData, Exifdatum)
 DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
 STR(Exiv2::Exifdatum, toString)
 #endif
