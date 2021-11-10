@@ -3664,15 +3664,18 @@ class XmpDataWrap {
 private:
     Exiv2::XmpData* base;
     PyObject* image;
+    bool iterator_invalid;
 public:
     XmpDataWrap(Exiv2::XmpData& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
         this->image = image;
+        _invalidate_iterators(false);
     }
     XmpDataWrap() {
         base = new Exiv2::XmpData();
         image = NULL;
+        _invalidate_iterators(false);
     }
     ~XmpDataWrap() {
         Py_XDECREF(image);
@@ -3684,6 +3687,7 @@ public:
         return base;
     }
     Exiv2::XmpData::iterator __iter__() {
+        _invalidate_iterators(false);
         return base->begin();
     }
     long __len__() {
@@ -3745,17 +3749,29 @@ public:
             return NULL;
         }
         base->erase(pos);
+        _invalidate_iterators();
         return SWIG_Py_Void();
     }
     int __contains__(const std::string& key) {
         Exiv2::XmpData::iterator pos = base->findKey(Exiv2::XmpKey(key));
         return (pos == base->end()) ? 0 : 1;
     }
+    void _invalidate_iterators(bool value = true) {
+        iterator_invalid = value;
+    }
+    bool _iterators_invalid() {
+        return iterator_invalid;
+    }
 };
 // Implementation of XmpData##Iterator methods that use XmpData##Wrap
 bool XmpDataIterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
         PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
+        return true;
+    }
+    if (parent->_iterators_invalid()) {
+        PyErr_SetString(PyExc_RuntimeError,
+                        "iterator may have been invalidated");
         return true;
     }
     return false;
@@ -4643,7 +4659,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___deref__(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator___deref__", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator___deref__", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator___deref__","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator___deref__","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4680,7 +4698,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___next__(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator___next__", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator___next__", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator___next__","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator___next__","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4732,7 +4752,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___eq__(PyObject *self, PyObject *args
   }
   arg2 = reinterpret_cast< XmpDataIterator * >(argp2);
   
-  if (strcmp("XmpDataIterator___eq__", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator___eq__", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator___eq__","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator___eq__","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4783,7 +4805,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___ne__(PyObject *self, PyObject *args
   }
   arg2 = reinterpret_cast< XmpDataIterator * >(argp2);
   
-  if (strcmp("XmpDataIterator___ne__", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator___ne__", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator___ne__","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator___ne__","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4821,7 +4845,9 @@ SWIGINTERN PyObject *_wrap_delete_XmpDataIterator(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("delete_XmpDataIterator", "delete_""XmpData" "Iterator"))
+  if (strcmp("delete_XmpDataIterator", "delete_""XmpData""Iterator") &&
+    strcmp("delete_XmpDataIterator","XmpData""Iterator___eq__") &&
+    strcmp("delete_XmpDataIterator","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4864,7 +4890,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_setValue__SWIG_0(PyObject *self, Py_s
   }
   arg2 = reinterpret_cast< Exiv2::Value * >(argp2);
   
-  if (strcmp("XmpDataIterator_setValue", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_setValue", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_setValue","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_setValue","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4913,7 +4941,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_setValue__SWIG_1(PyObject *self, Py_s
     arg2 = ptr;
   }
   
-  if (strcmp("XmpDataIterator_setValue", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_setValue", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_setValue","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_setValue","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5003,7 +5033,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_copy(PyObject *self, PyObject *args) 
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
   
-  if (strcmp("XmpDataIterator_copy", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_copy", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_copy","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_copy","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5058,7 +5090,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_write__SWIG_0(PyObject *self, Py_ssiz
   }
   arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   
-  if (strcmp("XmpDataIterator_write", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_write", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_write","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_write","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5105,7 +5139,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_write__SWIG_1(PyObject *self, Py_ssiz
   }
   arg2 = reinterpret_cast< std::ostream * >(argp2);
   
-  if (strcmp("XmpDataIterator_write", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_write", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_write","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_write","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5170,7 +5206,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_key(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_key", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_key", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_key","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_key","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5207,7 +5245,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_familyName(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_familyName", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_familyName", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_familyName","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_familyName","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5244,7 +5284,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_groupName(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_groupName", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_groupName", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_groupName","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_groupName","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5281,7 +5323,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tagName(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_tagName", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_tagName", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_tagName","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_tagName","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5318,7 +5362,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tagLabel(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_tagLabel", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_tagLabel", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_tagLabel","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_tagLabel","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5355,7 +5401,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tag(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_tag", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_tag", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_tag","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_tag","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5392,7 +5440,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeId(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_typeId", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_typeId", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_typeId","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_typeId","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5429,7 +5479,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeName(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_typeName", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_typeName", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_typeName","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_typeName","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5466,7 +5518,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeSize(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_typeSize", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_typeSize", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_typeSize","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_typeSize","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5503,7 +5557,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_count(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_count", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_count", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_count","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_count","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5540,7 +5596,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_size(PyObject *self, PyObject *args) 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_size", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_size", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_size","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_size","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5576,7 +5634,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toString__SWIG_0(PyObject *self, Py_s
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_toString", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_toString", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_toString","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_toString","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5620,7 +5680,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toString__SWIG_1(PyObject *self, Py_s
   } 
   arg2 = static_cast< long >(val2);
   
-  if (strcmp("XmpDataIterator_toString", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_toString", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_toString","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_toString","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5692,7 +5754,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toLong__SWIG_0(PyObject *self, Py_ssi
   } 
   arg2 = static_cast< long >(val2);
   
-  if (strcmp("XmpDataIterator_toLong", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_toLong", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_toLong","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_toLong","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5728,7 +5792,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toLong__SWIG_1(PyObject *self, Py_ssi
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_toLong", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_toLong", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_toLong","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_toLong","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5800,7 +5866,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toFloat__SWIG_0(PyObject *self, Py_ss
   } 
   arg2 = static_cast< long >(val2);
   
-  if (strcmp("XmpDataIterator_toFloat", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_toFloat", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5836,7 +5904,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toFloat__SWIG_1(PyObject *self, Py_ss
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_toFloat", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_toFloat", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5908,7 +5978,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toRational__SWIG_0(PyObject *self, Py
   } 
   arg2 = static_cast< long >(val2);
   
-  if (strcmp("XmpDataIterator_toRational", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_toRational", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_toRational","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_toRational","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5944,7 +6016,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toRational__SWIG_1(PyObject *self, Py
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_toRational", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_toRational", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_toRational","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_toRational","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6009,7 +6083,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_getValue(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_getValue", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_getValue", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_getValue","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_getValue","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6048,7 +6124,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_value(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator_value", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator_value", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator_value","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator_value","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6085,7 +6163,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___str__(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator___str__", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator___str__", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator___str__","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator___str__","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6129,7 +6209,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator__print__SWIG_0(PyObject *self, Py_ssi
   }
   arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   
-  if (strcmp("XmpDataIterator__print", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator__print", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator__print","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator__print","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6165,7 +6247,9 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator__print__SWIG_1(PyObject *self, Py_ssi
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator__print", "delete_""XmpData" "Iterator"))
+  if (strcmp("XmpDataIterator__print", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator__print","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator__print","XmpData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6882,6 +6966,9 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
   }
   arg2 = **argp2;
+  
+  
+  arg1->_invalidate_iterators();
   
   {
     try {

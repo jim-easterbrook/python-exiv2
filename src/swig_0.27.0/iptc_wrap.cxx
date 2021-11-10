@@ -3660,15 +3660,18 @@ class IptcDataWrap {
 private:
     Exiv2::IptcData* base;
     PyObject* image;
+    bool iterator_invalid;
 public:
     IptcDataWrap(Exiv2::IptcData& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
         this->image = image;
+        _invalidate_iterators(false);
     }
     IptcDataWrap() {
         base = new Exiv2::IptcData();
         image = NULL;
+        _invalidate_iterators(false);
     }
     ~IptcDataWrap() {
         Py_XDECREF(image);
@@ -3680,6 +3683,7 @@ public:
         return base;
     }
     Exiv2::IptcData::iterator __iter__() {
+        _invalidate_iterators(false);
         return base->begin();
     }
     long __len__() {
@@ -3741,17 +3745,29 @@ public:
             return NULL;
         }
         base->erase(pos);
+        _invalidate_iterators();
         return SWIG_Py_Void();
     }
     int __contains__(const std::string& key) {
         Exiv2::IptcData::iterator pos = base->findKey(Exiv2::IptcKey(key));
         return (pos == base->end()) ? 0 : 1;
     }
+    void _invalidate_iterators(bool value = true) {
+        iterator_invalid = value;
+    }
+    bool _iterators_invalid() {
+        return iterator_invalid;
+    }
 };
 // Implementation of IptcData##Iterator methods that use IptcData##Wrap
 bool IptcDataIterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
         PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
+        return true;
+    }
+    if (parent->_iterators_invalid()) {
+        PyErr_SetString(PyExc_RuntimeError,
+                        "iterator may have been invalidated");
         return true;
     }
     return false;
@@ -4689,7 +4705,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___deref__(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator___deref__", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator___deref__", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator___deref__","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator___deref__","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4726,7 +4744,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___next__(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator___next__", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator___next__", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator___next__","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator___next__","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4778,7 +4798,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___eq__(PyObject *self, PyObject *arg
   }
   arg2 = reinterpret_cast< IptcDataIterator * >(argp2);
   
-  if (strcmp("IptcDataIterator___eq__", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator___eq__", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator___eq__","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator___eq__","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4829,7 +4851,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___ne__(PyObject *self, PyObject *arg
   }
   arg2 = reinterpret_cast< IptcDataIterator * >(argp2);
   
-  if (strcmp("IptcDataIterator___ne__", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator___ne__", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator___ne__","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator___ne__","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4867,7 +4891,9 @@ SWIGINTERN PyObject *_wrap_delete_IptcDataIterator(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("delete_IptcDataIterator", "delete_""IptcData" "Iterator"))
+  if (strcmp("delete_IptcDataIterator", "delete_""IptcData""Iterator") &&
+    strcmp("delete_IptcDataIterator","IptcData""Iterator___eq__") &&
+    strcmp("delete_IptcDataIterator","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4910,7 +4936,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_setValue__SWIG_0(PyObject *self, Py_
   }
   arg2 = reinterpret_cast< Exiv2::Value * >(argp2);
   
-  if (strcmp("IptcDataIterator_setValue", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_setValue", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_setValue","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_setValue","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -4959,7 +4987,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_setValue__SWIG_1(PyObject *self, Py_
     arg2 = ptr;
   }
   
-  if (strcmp("IptcDataIterator_setValue", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_setValue", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_setValue","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_setValue","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5049,7 +5079,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_copy(PyObject *self, PyObject *args)
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
   
-  if (strcmp("IptcDataIterator_copy", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_copy", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_copy","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_copy","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5104,7 +5136,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_write__SWIG_0(PyObject *self, Py_ssi
   }
   arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   
-  if (strcmp("IptcDataIterator_write", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_write", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_write","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_write","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5151,7 +5185,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_write__SWIG_1(PyObject *self, Py_ssi
   }
   arg2 = reinterpret_cast< std::ostream * >(argp2);
   
-  if (strcmp("IptcDataIterator_write", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_write", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_write","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_write","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5216,7 +5252,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_key(PyObject *self, PyObject *args) 
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_key", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_key", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_key","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_key","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5253,7 +5291,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_recordName(PyObject *self, PyObject 
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_recordName", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_recordName", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_recordName","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_recordName","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5290,7 +5330,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_record(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_record", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_record", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_record","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_record","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5327,7 +5369,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_familyName(PyObject *self, PyObject 
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_familyName", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_familyName", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_familyName","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_familyName","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5364,7 +5408,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_groupName(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_groupName", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_groupName", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_groupName","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_groupName","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5401,7 +5447,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_tagName(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_tagName", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_tagName", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_tagName","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_tagName","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5438,7 +5486,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_tagLabel(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_tagLabel", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_tagLabel", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_tagLabel","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_tagLabel","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5475,7 +5525,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_tag(PyObject *self, PyObject *args) 
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_tag", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_tag", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_tag","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_tag","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5512,7 +5564,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_typeId(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_typeId", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_typeId", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_typeId","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_typeId","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5549,7 +5603,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_typeName(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_typeName", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_typeName", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_typeName","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_typeName","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5586,7 +5642,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_typeSize(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_typeSize", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_typeSize", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_typeSize","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_typeSize","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5623,7 +5681,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_count(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_count", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_count", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_count","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_count","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5660,7 +5720,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_size(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_size", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_size", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_size","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_size","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5696,7 +5758,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toString__SWIG_0(PyObject *self, Py_
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_toString", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_toString", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_toString","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_toString","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5740,7 +5804,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toString__SWIG_1(PyObject *self, Py_
   } 
   arg2 = static_cast< long >(val2);
   
-  if (strcmp("IptcDataIterator_toString", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_toString", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_toString","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_toString","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5812,7 +5878,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toLong__SWIG_0(PyObject *self, Py_ss
   } 
   arg2 = static_cast< long >(val2);
   
-  if (strcmp("IptcDataIterator_toLong", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_toLong", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_toLong","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_toLong","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5848,7 +5916,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toLong__SWIG_1(PyObject *self, Py_ss
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_toLong", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_toLong", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_toLong","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_toLong","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5920,7 +5990,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toFloat__SWIG_0(PyObject *self, Py_s
   } 
   arg2 = static_cast< long >(val2);
   
-  if (strcmp("IptcDataIterator_toFloat", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_toFloat", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_toFloat","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_toFloat","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -5956,7 +6028,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toFloat__SWIG_1(PyObject *self, Py_s
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_toFloat", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_toFloat", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_toFloat","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_toFloat","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6028,7 +6102,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toRational__SWIG_0(PyObject *self, P
   } 
   arg2 = static_cast< long >(val2);
   
-  if (strcmp("IptcDataIterator_toRational", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_toRational", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_toRational","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_toRational","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6064,7 +6140,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toRational__SWIG_1(PyObject *self, P
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_toRational", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_toRational", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_toRational","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_toRational","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6129,7 +6207,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_getValue(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_getValue", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_getValue", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_getValue","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_getValue","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6168,7 +6248,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_value(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator_value", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator_value", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator_value","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator_value","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6205,7 +6287,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___str__(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator___str__", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator___str__", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator___str__","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator___str__","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6249,7 +6333,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator__print__SWIG_0(PyObject *self, Py_ss
   }
   arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   
-  if (strcmp("IptcDataIterator__print", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator__print", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator__print","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator__print","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -6285,7 +6371,9 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator__print__SWIG_1(PyObject *self, Py_ss
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
   
-  if (strcmp("IptcDataIterator__print", "delete_""IptcData" "Iterator"))
+  if (strcmp("IptcDataIterator__print", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator__print","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator__print","IptcData""Iterator___ne__"))
   if (arg1->_ptr_invalid())
   SWIG_fail;
   
@@ -7002,6 +7090,9 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcDataIterator""'");
   }
   arg2 = **argp2;
+  
+  
+  arg1->_invalidate_iterators();
   
   {
     try {
