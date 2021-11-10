@@ -91,6 +91,12 @@ PyObject* logger = NULL;
         new base_class##Iterator($1, arg1),
         $descriptor(base_class##Iterator*), SWIG_POINTER_OWN);
 %};
+// Check iterator before dereferencing it
+%typemap(check) base_class##Iterator* %{
+    if (strcmp("$symname", "delete_" #base_class "Iterator"))
+        if ($1->_ptr_invalid())
+            SWIG_fail;
+%};
 // base_class##Wrap typemaps
 %typemap(in) Exiv2::base_class& (int res = 0, base_class##Wrap *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
@@ -119,6 +125,7 @@ PyObject* logger = NULL;
 // base_class##Iterator features
 %ignore base_class##Iterator::operator*;
 %ignore base_class##Iterator::base_class##Iterator;
+%ignore base_class##Iterator::_ptr_invalid;
 %feature("docstring") base_class##Iterator
          "Python wrapper for Exiv2::base_class::iterator"
 // base_class##Wrap features
@@ -149,13 +156,18 @@ public:
     Exiv2::base_class::iterator operator*() const {
         return ptr;
     }
-    Exiv2::datum_type* __next__();
+    Exiv2::datum_type* __next__() {
+        if (_ptr_invalid())
+            return NULL;
+        return &(*ptr++);
+    }
     bool operator==(const base_class##Iterator &other) const {
         return *other == ptr;
     }
     bool operator!=(const base_class##Iterator &other) const {
         return *other != ptr;
     }
+    bool _ptr_invalid();
 };
 // Wrapper for Exiv2::base_class
 class base_class##Wrap {
@@ -251,12 +263,12 @@ public:
     }
 };
 // Implementation of base_class##Iterator methods that use base_class##Wrap
-Exiv2::datum_type* base_class##Iterator::__next__() {
+bool base_class##Iterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
-        PyErr_SetNone(PyExc_StopIteration);
-        return NULL;
+        PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
+        return true;
     }
-    return &(*ptr++);
+    return false;
 };
 %}
 %enddef

@@ -3638,13 +3638,18 @@ public:
     Exiv2::ExifData::iterator operator*() const {
         return ptr;
     }
-    Exiv2::Exifdatum* __next__();
+    Exiv2::Exifdatum* __next__() {
+        if (_ptr_invalid())
+            return NULL;
+        return &(*ptr++);
+    }
     bool operator==(const ExifDataIterator &other) const {
         return *other == ptr;
     }
     bool operator!=(const ExifDataIterator &other) const {
         return *other != ptr;
     }
+    bool _ptr_invalid();
 };
 // Wrapper for Exiv2::ExifData
 class ExifDataWrap {
@@ -3740,12 +3745,12 @@ public:
     }
 };
 // Implementation of ExifData##Iterator methods that use ExifData##Wrap
-Exiv2::Exifdatum* ExifDataIterator::__next__() {
+bool ExifDataIterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
-        PyErr_SetNone(PyExc_StopIteration);
-        return NULL;
+        PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
+        return true;
     }
-    return &(*ptr++);
+    return false;
 };
 
 
@@ -4732,6 +4737,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator___deref__(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___deref__" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator___deref__", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (Exiv2::Exifdatum *)((ExifDataIterator const *)arg1)->operator ->();
@@ -4764,6 +4774,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator___next__(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___next__" "', argument " "1"" of type '" "ExifDataIterator *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator___next__", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (Exiv2::Exifdatum *)(arg1)->__next__();
@@ -4811,6 +4826,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator___eq__(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifDataIterator___eq__" "', argument " "2"" of type '" "ExifDataIterator const &""'"); 
   }
   arg2 = reinterpret_cast< ExifDataIterator * >(argp2);
+  
+  if (strcmp("ExifDataIterator___eq__", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (bool)((ExifDataIterator const *)arg1)->operator ==((ExifDataIterator const &)*arg2);
@@ -4857,6 +4877,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator___ne__(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifDataIterator___ne__" "', argument " "2"" of type '" "ExifDataIterator const &""'"); 
   }
   arg2 = reinterpret_cast< ExifDataIterator * >(argp2);
+  
+  if (strcmp("ExifDataIterator___ne__", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (bool)((ExifDataIterator const *)arg1)->operator !=((ExifDataIterator const &)*arg2);
@@ -4890,6 +4915,11 @@ SWIGINTERN PyObject *_wrap_delete_ExifDataIterator(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExifDataIterator" "', argument " "1"" of type '" "ExifDataIterator *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("delete_ExifDataIterator", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       delete arg1;
@@ -4928,6 +4958,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_setValue__SWIG_0(PyObject *self, Py_
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifDataIterator_setValue" "', argument " "2"" of type '" "Exiv2::Value const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::Value * >(argp2);
+  
+  if (strcmp("ExifDataIterator_setValue", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       (*arg1)->setValue((Exiv2::Value const *)arg2);
@@ -4972,6 +5007,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_setValue__SWIG_1(PyObject *self, Py_
     }
     arg2 = ptr;
   }
+  
+  if (strcmp("ExifDataIterator_setValue", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (int)(*arg1)->setValue((std::string const &)*arg2);
@@ -5057,6 +5097,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_setDataArea(PyObject *self, PyObject
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExifDataIterator_setDataArea" "', argument " "3"" of type '" "long""'");
   } 
   arg3 = static_cast< long >(val3);
+  
+  if (strcmp("ExifDataIterator_setDataArea", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (int)(*arg1)->setDataArea((Exiv2::byte const *)arg2,arg3);
@@ -5089,6 +5134,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_key(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_key" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_key", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->key();
@@ -5121,6 +5171,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_familyName(PyObject *self, PyObject 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_familyName" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_familyName", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (char *)(*arg1)->familyName();
@@ -5153,6 +5208,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_groupName(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_groupName" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_groupName", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->groupName();
@@ -5185,6 +5245,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_tagName(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_tagName" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_tagName", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->tagName();
@@ -5217,6 +5282,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_tagLabel(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_tagLabel" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_tagLabel", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->tagLabel();
@@ -5249,6 +5319,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_tag(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_tag" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_tag", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (uint16_t)(*arg1)->tag();
@@ -5281,6 +5356,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_ifdId(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_ifdId" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_ifdId", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (int)(*arg1)->ifdId();
@@ -5313,6 +5393,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_ifdName(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_ifdName" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_ifdName", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (char *)(*arg1)->ifdName();
@@ -5345,6 +5430,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_idx(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_idx" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_idx", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (int)(*arg1)->idx();
@@ -5393,6 +5483,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_copy(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExifDataIterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  
+  if (strcmp("ExifDataIterator_copy", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (long)(*arg1)->copy(arg2,arg3);
@@ -5443,6 +5538,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_write__SWIG_0(PyObject *self, Py_ssi
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExifDataIterator_write" "', argument " "3"" of type '" "Exiv2::ExifData const *""'"); 
   }
   arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
+  
+  if (strcmp("ExifDataIterator_write", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
@@ -5485,6 +5585,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_write__SWIG_1(PyObject *self, Py_ssi
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifDataIterator_write" "', argument " "2"" of type '" "std::ostream &""'"); 
   }
   arg2 = reinterpret_cast< std::ostream * >(argp2);
+  
+  if (strcmp("ExifDataIterator_write", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2);
@@ -5545,6 +5650,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_typeId(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_typeId" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_typeId", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (Exiv2::TypeId)(*arg1)->typeId();
@@ -5577,6 +5687,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_typeName(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_typeName" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_typeName", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (char *)(*arg1)->typeName();
@@ -5609,6 +5724,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_typeSize(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_typeSize" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_typeSize", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (long)(*arg1)->typeSize();
@@ -5641,6 +5761,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_count(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_count" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_count", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (long)(*arg1)->count();
@@ -5673,6 +5798,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_size(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_size" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_size", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (long)(*arg1)->size();
@@ -5704,6 +5834,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_toString__SWIG_0(PyObject *self, Py_
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_toString" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_toString", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->toString();
@@ -5743,6 +5878,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_toString__SWIG_1(PyObject *self, Py_
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifDataIterator_toString" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  
+  if (strcmp("ExifDataIterator_toString", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->toString(arg2);
@@ -5810,6 +5950,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_toLong__SWIG_0(PyObject *self, Py_ss
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifDataIterator_toLong" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  
+  if (strcmp("ExifDataIterator_toLong", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (long)(*arg1)->toLong(arg2);
@@ -5841,6 +5986,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_toLong__SWIG_1(PyObject *self, Py_ss
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_toLong" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_toLong", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (long)(*arg1)->toLong();
@@ -5908,6 +6058,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_toFloat__SWIG_0(PyObject *self, Py_s
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifDataIterator_toFloat" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  
+  if (strcmp("ExifDataIterator_toFloat", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (float)(*arg1)->toFloat(arg2);
@@ -5939,6 +6094,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_toFloat__SWIG_1(PyObject *self, Py_s
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_toFloat" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_toFloat", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (float)(*arg1)->toFloat();
@@ -6006,6 +6166,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_toRational__SWIG_0(PyObject *self, P
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifDataIterator_toRational" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  
+  if (strcmp("ExifDataIterator_toRational", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->toRational(arg2);
@@ -6037,6 +6202,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_toRational__SWIG_1(PyObject *self, P
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_toRational" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_toRational", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->toRational();
@@ -6097,6 +6267,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_getValue(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_getValue" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_getValue", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->getValue();
@@ -6131,6 +6306,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_value(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_value" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_value", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (Exiv2::Value *) &(*arg1)->value();
@@ -6163,6 +6343,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_sizeDataArea(PyObject *self, PyObjec
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_sizeDataArea" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_sizeDataArea", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (long)(*arg1)->sizeDataArea();
@@ -6195,6 +6380,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_dataArea(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_dataArea" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator_dataArea", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->dataArea();
@@ -6230,6 +6420,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator___str__(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___str__" "', argument " "1"" of type '" "ExifDataIterator *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator___str__", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = Exiv2_Exifdatum___str__((Exiv2::Exifdatum*)(arg1)->operator ->());
@@ -6269,6 +6464,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator__print__SWIG_0(PyObject *self, Py_ss
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifDataIterator__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
+  
+  if (strcmp("ExifDataIterator__print", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->print((Exiv2::ExifData const *)arg2);
@@ -6300,6 +6500,11 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator__print__SWIG_1(PyObject *self, Py_ss
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator__print" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator__print", "delete_""ExifData" "Iterator"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
   {
     try {
       result = (*arg1)->print();
