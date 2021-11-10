@@ -85,9 +85,10 @@ PyObject* logger = NULL;
     }
     $1 = **argp;
 %};
+// "out" typemap assumes arg1 is always the base_class##Wrap parent
 %typemap(out) Exiv2::base_class::iterator %{
     $result = SWIG_NewPointerObj(
-        new base_class##Iterator($1),
+        new base_class##Iterator($1, arg1),
         $descriptor(base_class##Iterator*), SWIG_POINTER_OWN);
 %};
 // base_class##Wrap typemaps
@@ -102,14 +103,11 @@ PyObject* logger = NULL;
     }
     $1 = **argp;
 %};
-// base_class##Iterator Python slots
-%feature("python:slot", "tp_iternext",
-         functype="iternextfunc") base_class##Iterator::__next__;
-// base_class##Wrap Python slots
+// Python slots
 %feature("python:slot", "tp_iter",
          functype="getiterfunc") base_class##Wrap::__iter__;
 %feature("python:slot", "tp_iternext",
-         functype="iternextfunc") base_class##Wrap::__next__;
+         functype="iternextfunc") base_class##Iterator::__next__;
 %feature("python:slot", "mp_length",
          functype="lenfunc") base_class##Wrap::__len__;
 %feature("python:slot", "mp_subscript",
@@ -136,21 +134,22 @@ PyObject* logger = NULL;
     if (!$1) SWIG_fail;
 %}
 %inline %{
+class base_class##Wrap;
 // Wrapper for Exiv2::base_class::iterator
 class base_class##Iterator {
 private:
     Exiv2::base_class::iterator ptr;
+    base_class##Wrap* parent;
 public:
-    base_class##Iterator(Exiv2::base_class::iterator ptr) : ptr(ptr) {}
+    base_class##Iterator(Exiv2::base_class::iterator ptr,
+                         base_class##Wrap* parent) : ptr(ptr), parent(parent) {}
     Exiv2::datum_type* operator->() const {
         return &(*ptr);
     }
     Exiv2::base_class::iterator operator*() const {
         return ptr;
     }
-    Exiv2::datum_type* __next__() {
-        return &(*ptr++);
-    }
+    Exiv2::datum_type* __next__();
     bool operator==(const base_class##Iterator &other) const {
         return *other == ptr;
     }
@@ -162,7 +161,6 @@ public:
 class base_class##Wrap {
 private:
     Exiv2::base_class* base;
-    Exiv2::base_class::iterator iter_pos;
     PyObject* image;
 public:
     base_class##Wrap(Exiv2::base_class& base, PyObject* image) {
@@ -183,16 +181,8 @@ public:
     Exiv2::base_class* operator*() {
         return base;
     }
-    base_class##Wrap* __iter__() {
-        iter_pos = base->begin();
-        return this;
-    }
-    Exiv2::datum_type* __next__() {
-        if (iter_pos == base->end()) {
-            PyErr_SetNone(PyExc_StopIteration);
-            return NULL;
-        }
-        return &(*(iter_pos++));
+    Exiv2::base_class::iterator __iter__() {
+        return base->begin();
     }
     long __len__() {
         return base->count();
@@ -259,6 +249,14 @@ public:
         Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
         return (pos == base->end()) ? 0 : 1;
     }
+};
+// Implementation of base_class##Iterator methods that use base_class##Wrap
+Exiv2::datum_type* base_class##Iterator::__next__() {
+    if (ptr == (*parent)->end()) {
+        PyErr_SetNone(PyExc_StopIteration);
+        return NULL;
+    }
+    return &(*ptr++);
 };
 %}
 %enddef

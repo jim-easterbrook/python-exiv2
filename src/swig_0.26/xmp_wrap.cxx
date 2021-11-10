@@ -3631,21 +3631,22 @@ PyObject* logger = NULL;
 #include <string>
 
 
+class XmpDataWrap;
 // Wrapper for Exiv2::XmpData::iterator
 class XmpDataIterator {
 private:
     Exiv2::XmpData::iterator ptr;
+    XmpDataWrap* parent;
 public:
-    XmpDataIterator(Exiv2::XmpData::iterator ptr) : ptr(ptr) {}
+    XmpDataIterator(Exiv2::XmpData::iterator ptr,
+                         XmpDataWrap* parent) : ptr(ptr), parent(parent) {}
     Exiv2::Xmpdatum* operator->() const {
         return &(*ptr);
     }
     Exiv2::XmpData::iterator operator*() const {
         return ptr;
     }
-    Exiv2::Xmpdatum* __next__() {
-        return &(*ptr++);
-    }
+    Exiv2::Xmpdatum* __next__();
     bool operator==(const XmpDataIterator &other) const {
         return *other == ptr;
     }
@@ -3657,7 +3658,6 @@ public:
 class XmpDataWrap {
 private:
     Exiv2::XmpData* base;
-    Exiv2::XmpData::iterator iter_pos;
     PyObject* image;
 public:
     XmpDataWrap(Exiv2::XmpData& base, PyObject* image) {
@@ -3678,16 +3678,8 @@ public:
     Exiv2::XmpData* operator*() {
         return base;
     }
-    XmpDataWrap* __iter__() {
-        iter_pos = base->begin();
-        return this;
-    }
-    Exiv2::Xmpdatum* __next__() {
-        if (iter_pos == base->end()) {
-            PyErr_SetNone(PyExc_StopIteration);
-            return NULL;
-        }
-        return &(*(iter_pos++));
+    Exiv2::XmpData::iterator __iter__() {
+        return base->begin();
     }
     long __len__() {
         return base->count();
@@ -3754,6 +3746,14 @@ public:
         Exiv2::XmpData::iterator pos = base->findKey(Exiv2::XmpKey(key));
         return (pos == base->end()) ? 0 : 1;
     }
+};
+// Implementation of XmpData##Iterator methods that use XmpData##Wrap
+Exiv2::Xmpdatum* XmpDataIterator::__next__() {
+    if (ptr == (*parent)->end()) {
+        PyErr_SetNone(PyExc_StopIteration);
+        return NULL;
+    }
+    return &(*ptr++);
 };
 
 
@@ -6139,7 +6139,7 @@ SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  XmpDataWrap *result = 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator > result;
   
   if (!SWIG_Python_UnpackTuple(args, "XmpData___iter__", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
@@ -6149,7 +6149,7 @@ SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
   {
     try {
-      result = (XmpDataWrap *)(arg1)->__iter__();
+      result = (arg1)->__iter__();
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -6158,41 +6158,10 @@ SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___next__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::Xmpdatum *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "XmpData___next__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___next__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (Exiv2::Xmpdatum *)(arg1)->__next__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
-  
-  if (!result) SWIG_fail;
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIterator(result, arg1),
+    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
 fail:
@@ -6752,7 +6721,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result),
+    new XmpDataIterator(result, arg1),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -6850,7 +6819,7 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result),
+    new XmpDataIterator(result, arg1),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -6886,7 +6855,7 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result),
+    new XmpDataIterator(result, arg1),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -6934,7 +6903,7 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result),
+    new XmpDataIterator(result, arg1),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -7187,8 +7156,6 @@ fail:
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpData) /* defines _wrap_delete_XmpData_destructor_closure */
 
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpData___iter__) /* defines _wrap_XmpData___iter___getiterfunc_closure */
-
-SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_XmpData___next__) /* defines _wrap_XmpData___next___iternextfunc_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_XmpData___len__) /* defines _wrap_XmpData___len___lenfunc_closure */
 
@@ -9114,7 +9081,6 @@ SwigPyBuiltin__XmpDataWrap_richcompare(PyObject *self, PyObject *other, int op) 
 SWIGINTERN PyMethodDef SwigPyBuiltin__XmpDataWrap_methods[] = {
   { "__deref__", _wrap_XmpData___deref__, METH_NOARGS, "" },
   { "__iter__", _wrap_XmpData___iter__, METH_NOARGS, "" },
-  { "__next__", _wrap_XmpData___next__, METH_NOARGS, "" },
   { "__len__", _wrap_XmpData___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_XmpData___getitem__, METH_O, "" },
   { "__setitem__", _wrap_XmpData___setitem__, METH_VARARGS, "" },
@@ -9207,7 +9173,7 @@ static PyHeapTypeObject SwigPyBuiltin__XmpDataWrap_type = {
     SwigPyBuiltin__XmpDataWrap_richcompare,   /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
     _wrap_XmpData___iter___getiterfunc_closure,                   /* tp_iter */
-    _wrap_XmpData___next___iternextfunc_closure,                  /* tp_iternext */
+    (iternextfunc) 0,                         /* tp_iternext */
     SwigPyBuiltin__XmpDataWrap_methods,       /* tp_methods */
     0,                                        /* tp_members */
     SwigPyBuiltin__XmpDataWrap_getset,        /* tp_getset */
