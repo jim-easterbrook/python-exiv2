@@ -61,9 +61,9 @@ def main():
         rv = exiv2.URationalValue()
         # Set two rational components from a string
         rv.read("1/2 1/3")
-        # Add more elements through the extended interface of rational value
-        rv.value_.push_back((2,3))
-        rv.value_.push_back((3,4))
+        # Add more elements directly
+        rv += 2, 3
+        rv += 3, 4
         # Add the key and value pair to the Exif data
         key = exiv2.ExifKey("Exif.Image.PrimaryChromaticities")
         exifData.add(key, rv)
@@ -90,8 +90,8 @@ def main():
         v = pos.getValue()
         # Downcast the Value pointer to its actual type
         rv = exiv2.URationalValue(v)
-        # Modify the value directly through the interface of URationalValue
-        rv.value_[2] = 88,77
+        # Modify the value directly
+        rv[2] = 88, 77
 
         # **************************************************************
         # Delete metadata from the Exif data container

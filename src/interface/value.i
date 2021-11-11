@@ -21,7 +21,6 @@
 
 %include "stdint.i"
 %include "std_string.i"
-%include "std_vector.i"
 
 %import "types.i"
 
@@ -53,6 +52,7 @@ wrap_auto_unique_ptr(Exiv2::Value);
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
+%ignore type_name::value_;
 %feature("docstring") type_name::downCast
     "Convert general 'Exiv2::Value' to specific 'type_name'."
 %newobject type_name::downCast;
@@ -123,7 +123,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     }
 }
 %template(type_name) Exiv2::ValueType<item_type>;
-%template(type_name ## List) std::vector<item_type>;
 %enddef // VALUETYPE
 
 // Add Python slots to Exiv2::Value base class
