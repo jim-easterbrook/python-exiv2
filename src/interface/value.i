@@ -27,7 +27,24 @@
 
 wrap_auto_unique_ptr(Exiv2::Value);
 
-STR(Exiv2::Value, toString)
+// Add Python slots to Exiv2::Value base class
+%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
+%feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::__len__;
+%extend Exiv2::Value {
+    std::string __str__() {return $self->toString();}
+    long __len__() {return $self->count();}
+}
+
+// typemap for Exiv2::DateValue::Date struct
+%typemap(out) Exiv2::DateValue::Date %{
+    $result = Py_BuildValue("(iii)", $1.year, $1.month, $1.day);
+%}
+
+// typemap for Exiv2::TimeValue::Time struct
+%typemap(out) Exiv2::TimeValue::Time %{
+    $result = Py_BuildValue(
+        "(iiiii)", $1.hour, $1.minute, $1.second, $1.tzHour, $1.tzMinute);
+%}
 
 // Macro for subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
@@ -62,7 +79,47 @@ STR(Exiv2::Value, toString)
     }
 }
 wrap_auto_unique_ptr(type_name)
-%enddef
+%enddef // VALUE_SUBCLASS
+
+// Subscript macro for classes that can hold multiple values
+// typemap assumes arg1 points to self
+%typemap(check) long multi_idx %{
+    if ($1 < 0 || $1 >= arg1->count()) {
+        PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
+        SWIG_fail;
+    }
+%}
+%define SUBSCRIPT_MULTI(type_name, item_type, method)
+%feature("python:slot", "sq_item",
+         functype="ssizeargfunc") type_name::__getitem__;
+%extend type_name {
+    item_type __getitem__(long multi_idx) {
+        return $self->method(multi_idx);
+    }
+}
+%enddef // SUBSCRIPT_MULTI
+
+// Subscript macro for classes that can only hold one value
+// typemap assumes arg1 points to self
+%typemap(check) long single_idx %{
+    if ($1 < 0 || $1 >= (arg1->count() ? 1 : 0)) {
+        PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
+        SWIG_fail;
+    }
+%}
+%define SUBSCRIPT_SINGLE(type_name, item_type, method)
+%feature("python:slot", "sq_length", functype="lenfunc") type_name::__len__;
+%feature("python:slot", "sq_item",
+         functype="ssizeargfunc") type_name::__getitem__;
+%extend type_name {
+    long __len__() {
+        return $self->count() ? 1 : 0;
+    }
+    item_type __getitem__(long single_idx) {
+        return $self->method();
+    }
+}
+%enddef // SUBSCRIPT_SINGLE
 
 VALUE_SUBCLASS(Exiv2::DataValue, DataValue)
 VALUE_SUBCLASS(Exiv2::DateValue, DateValue)
@@ -75,6 +132,12 @@ VALUE_SUBCLASS(Exiv2::XmpValue, XmpValue)
 VALUE_SUBCLASS(Exiv2::LangAltValue, LangAltValue)
 VALUE_SUBCLASS(Exiv2::XmpArrayValue, XmpArrayValue)
 VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
+
+SUBSCRIPT_SINGLE(Exiv2::DateValue, Exiv2::DateValue::Date, getDate)
+SUBSCRIPT_SINGLE(Exiv2::TimeValue, Exiv2::TimeValue::Time, getTime)
+SUBSCRIPT_SINGLE(Exiv2::StringValueBase, std::string, toString)
+SUBSCRIPT_MULTI(Exiv2::XmpArrayValue, std::string, toString)
+SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 
 %ignore Exiv2::getValue;
 %ignore LARGE_INT;
@@ -100,10 +163,11 @@ VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
 %include "exiv2/value.hpp"
 
 // Macro to apply templates to Exiv2::ValueType
-%define VALUETYPE(type_name, T)
-VALUE_SUBCLASS(Exiv2::ValueType<T>, type_name)
-%template(type_name) Exiv2::ValueType<T>;
-%template(type_name ## List) std::vector<T>;
+%define VALUETYPE(type_name, item_type)
+VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
+SUBSCRIPT_MULTI(Exiv2::ValueType<item_type>, item_type, value_.at)
+%template(type_name) Exiv2::ValueType<item_type>;
+%template(type_name ## List) std::vector<item_type>;
 %enddef
 
 VALUETYPE(UShortValue, uint16_t)
