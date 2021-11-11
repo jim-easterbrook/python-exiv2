@@ -27,26 +27,31 @@
 
 wrap_auto_unique_ptr(Exiv2::Value);
 
-// Add Python slots to Exiv2::Value base class
-%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
-%feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::__len__;
-%extend Exiv2::Value {
-    std::string __str__() {return $self->toString();}
-    long __len__() {return $self->count();}
-}
-
-// typemap for Exiv2::DateValue::Date struct
+// ---- Typemaps ----
 %typemap(out) Exiv2::DateValue::Date %{
     $result = Py_BuildValue("(iii)", $1.year, $1.month, $1.day);
 %}
-
-// typemap for Exiv2::TimeValue::Time struct
 %typemap(out) Exiv2::TimeValue::Time %{
     $result = Py_BuildValue(
         "(iiiii)", $1.hour, $1.minute, $1.second, $1.tzHour, $1.tzMinute);
 %}
+// for indexing multi-value values, assumes arg1 points to self
+%typemap(check) long multi_idx %{
+    if ($1 < 0 || $1 >= arg1->count()) {
+        PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
+        SWIG_fail;
+    }
+%}
+// for indexing single-value values, assumes arg1 points to self
+%typemap(check) long single_idx %{
+    if ($1 < 0 || $1 >= (arg1->count() ? 1 : 0)) {
+        PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
+        SWIG_fail;
+    }
+%}
 
-// Macro for subclasses of Exiv2::Value
+// ---- Macros ----
+// Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
 %feature("docstring") type_name::downCast
     "Convert general 'Exiv2::Value' to specific 'type_name'."
@@ -81,32 +86,7 @@ wrap_auto_unique_ptr(Exiv2::Value);
 wrap_auto_unique_ptr(type_name)
 %enddef // VALUE_SUBCLASS
 
-// Subscript macro for classes that can hold multiple values
-// typemap assumes arg1 points to self
-%typemap(check) long multi_idx %{
-    if ($1 < 0 || $1 >= arg1->count()) {
-        PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
-        SWIG_fail;
-    }
-%}
-%define SUBSCRIPT_MULTI(type_name, item_type, method)
-%feature("python:slot", "sq_item",
-         functype="ssizeargfunc") type_name::__getitem__;
-%extend type_name {
-    item_type __getitem__(long multi_idx) {
-        return $self->method(multi_idx);
-    }
-}
-%enddef // SUBSCRIPT_MULTI
-
 // Subscript macro for classes that can only hold one value
-// typemap assumes arg1 points to self
-%typemap(check) long single_idx %{
-    if ($1 < 0 || $1 >= (arg1->count() ? 1 : 0)) {
-        PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
-        SWIG_fail;
-    }
-%}
 %define SUBSCRIPT_SINGLE(type_name, item_type, method)
 %feature("python:slot", "sq_length", functype="lenfunc") type_name::__len__;
 %feature("python:slot", "sq_item",
@@ -120,6 +100,33 @@ wrap_auto_unique_ptr(type_name)
     }
 }
 %enddef // SUBSCRIPT_SINGLE
+
+// Macro for subclases of Exiv2::ValueType
+%define VALUETYPE(type_name, item_type)
+VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
+%feature("python:slot", "sq_item",
+         functype="ssizeargfunc") Exiv2::ValueType<item_type>::__getitem__;
+%feature("python:slot", "sq_ass_item",
+         functype="ssizeobjargproc") Exiv2::ValueType<item_type>::__setitem__;
+%extend Exiv2::ValueType<item_type> {
+    item_type __getitem__(long multi_idx) {
+        return $self->value_.at(multi_idx);
+    }
+    void __setitem__(long multi_idx, item_type value) {
+        $self->value_.at(multi_idx) = value;
+    }
+}
+%template(type_name) Exiv2::ValueType<item_type>;
+%template(type_name ## List) std::vector<item_type>;
+%enddef // VALUETYPE
+
+// Add Python slots to Exiv2::Value base class
+%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
+%feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::__len__;
+%extend Exiv2::Value {
+    std::string __str__() {return $self->toString();}
+    long __len__() {return $self->count();}
+}
 
 VALUE_SUBCLASS(Exiv2::DataValue, DataValue)
 VALUE_SUBCLASS(Exiv2::DateValue, DateValue)
@@ -136,8 +143,16 @@ VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
 SUBSCRIPT_SINGLE(Exiv2::DateValue, Exiv2::DateValue::Date, getDate)
 SUBSCRIPT_SINGLE(Exiv2::TimeValue, Exiv2::TimeValue::Time, getTime)
 SUBSCRIPT_SINGLE(Exiv2::StringValueBase, std::string, toString)
-SUBSCRIPT_MULTI(Exiv2::XmpArrayValue, std::string, toString)
 SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
+
+// XmpArrayValue holds multiple values but is read-only
+%feature("python:slot", "sq_item",
+         functype="ssizeargfunc") Exiv2::XmpArrayValue::__getitem__;
+%extend Exiv2::XmpArrayValue {
+    std::string __getitem__(long multi_idx) {
+        return $self->toString(multi_idx);
+    }
+}
 
 %ignore Exiv2::getValue;
 %ignore LARGE_INT;
@@ -161,14 +176,6 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 %ignore Exiv2::TimeValue::Time;
 
 %include "exiv2/value.hpp"
-
-// Macro to apply templates to Exiv2::ValueType
-%define VALUETYPE(type_name, item_type)
-VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
-SUBSCRIPT_MULTI(Exiv2::ValueType<item_type>, item_type, value_.at)
-%template(type_name) Exiv2::ValueType<item_type>;
-%template(type_name ## List) std::vector<item_type>;
-%enddef
 
 VALUETYPE(UShortValue, uint16_t)
 VALUETYPE(ULongValue, uint32_t)
