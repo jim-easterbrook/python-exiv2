@@ -143,7 +143,6 @@ PyObject* logger = NULL;
 %ignore base_class##Wrap::_old_type;
 %ignore base_class##Wrap::_warn_type_change;
 %ignore base_class##Wrap::_invalidate_iterators;
-%ignore base_class##Wrap::_iterators_invalid;
 %feature("docstring") base_class##Wrap
          "Python wrapper for Exiv2::parent_class"
 %typemap(ret) Exiv2::datum_type* __next__ %{
@@ -158,7 +157,8 @@ private:
     base_class##Wrap* parent;
 public:
     base_class##Iterator(Exiv2::base_class::iterator ptr,
-                         base_class##Wrap* parent) : ptr(ptr), parent(parent) {}
+                         base_class##Wrap* parent);
+    ~base_class##Iterator();
     Exiv2::datum_type* operator->() const {
         return &(*ptr);
     }
@@ -180,21 +180,23 @@ public:
 };
 // Wrapper for Exiv2::base_class
 class base_class##Wrap {
+friend class base_class##Iterator;
 private:
     Exiv2::base_class* base;
     PyObject* image;
-    bool iterator_invalid;
+    bool iterator_invalided;
+    int iterator_count;
 public:
     base_class##Wrap(Exiv2::base_class& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
         this->image = image;
-        _invalidate_iterators(false);
+        iterator_count = 0;
     }
     base_class##Wrap() {
         base = new Exiv2::base_class();
         image = NULL;
-        _invalidate_iterators(false);
+        iterator_count = 0;
     }
     ~base_class##Wrap() {
         Py_XDECREF(image);
@@ -206,7 +208,6 @@ public:
         return base;
     }
     Exiv2::base_class::iterator __iter__() {
-        _invalidate_iterators(false);
         return base->begin();
     }
     long __len__() {
@@ -268,27 +269,35 @@ public:
             return NULL;
         }
         base->erase(pos);
-        _invalidate_iterators();
+        iterator_invalided = true;
         return SWIG_Py_Void();
     }
     int __contains__(const std::string& key) {
         Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
         return (pos == base->end()) ? 0 : 1;
     }
-    void _invalidate_iterators(bool value = true) {
-        iterator_invalid = value;
-    }
-    bool _iterators_invalid() {
-        return iterator_invalid;
+    void _invalidate_iterators() {
+        iterator_invalided = true;
     }
 };
 // Implementation of base_class##Iterator methods that use base_class##Wrap
+base_class##Iterator::base_class##Iterator(
+        Exiv2::base_class::iterator ptr, base_class##Wrap* parent) {
+    this->ptr = ptr;
+    this->parent = parent;
+    if (parent->iterator_count == 0)
+        parent->iterator_invalided = false;
+    parent->iterator_count++;
+};
+base_class##Iterator::~base_class##Iterator() {
+    parent->iterator_count--;
+};
 bool base_class##Iterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
         PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
         return true;
     }
-    if (parent->_iterators_invalid()) {
+    if (parent->iterator_invalided) {
         PyErr_SetString(PyExc_RuntimeError,
                         "iterator may have been invalidated");
         return true;
