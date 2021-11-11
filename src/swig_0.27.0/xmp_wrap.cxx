@@ -3644,7 +3644,7 @@ public:
     Exiv2::Xmpdatum* operator->() const {
         return &(*ptr);
     }
-    Exiv2::XmpData::iterator operator*() const {
+    Exiv2::XmpData::iterator _unwrap() const {
         return ptr;
     }
     Exiv2::Xmpdatum* __next__() {
@@ -3653,10 +3653,10 @@ public:
         return &(*ptr++);
     }
     bool operator==(const XmpDataIterator &other) const {
-        return *other == ptr;
+        return other._unwrap() == ptr;
     }
     bool operator!=(const XmpDataIterator &other) const {
-        return *other != ptr;
+        return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
 };
@@ -3686,7 +3686,7 @@ public:
     Exiv2::XmpData* operator->() {
         return base;
     }
-    Exiv2::XmpData* operator*() {
+    Exiv2::XmpData* _unwrap() {
         return base;
     }
     Exiv2::XmpData::iterator __iter__() {
@@ -6975,7 +6975,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   
   arg1->_invalidate_iterators();

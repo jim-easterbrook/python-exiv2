@@ -83,7 +83,7 @@ PyObject* logger = NULL;
     if (!argp) {
         %argument_nullref(base_class##Iterator, $symname, $argnum);
     }
-    $1 = **argp;
+    $1 = argp->_unwrap();
 %};
 // "check" typemap assumes arg1 is always the base_class##Wrap parent
 %typemap(check) Exiv2::base_class::iterator pos,
@@ -114,7 +114,7 @@ PyObject* logger = NULL;
     if (!argp) {
         %argument_nullref(base_class##Wrap, $symname, $argnum);
     }
-    $1 = **argp;
+    $1 = argp->_unwrap();
 %};
 // Python slots
 %feature("python:slot", "tp_iter",
@@ -130,8 +130,8 @@ PyObject* logger = NULL;
 %feature("python:slot", "sq_contains",
          functype="objobjproc") base_class##Wrap::__contains__;
 // base_class##Iterator features
-%ignore base_class##Iterator::operator*;
 %ignore base_class##Iterator::base_class##Iterator;
+%ignore base_class##Iterator::_unwrap;
 %ignore base_class##Iterator::_ptr_invalid;
 %feature("docstring") base_class##Iterator
          "Python wrapper for Exiv2::base_class::iterator"
@@ -139,7 +139,7 @@ PyObject* logger = NULL;
 %rename(base_class) base_class##Wrap;
 %ignore Exiv2::base_class;
 %ignore base_class##Wrap::base_class##Wrap(Exiv2::base_class&, PyObject*);
-%ignore base_class##Wrap::operator*;
+%ignore base_class##Wrap::_unwrap;
 %ignore base_class##Wrap::_old_type;
 %ignore base_class##Wrap::_warn_type_change;
 %ignore base_class##Wrap::_invalidate_iterators;
@@ -162,7 +162,7 @@ public:
     Exiv2::datum_type* operator->() const {
         return &(*ptr);
     }
-    Exiv2::base_class::iterator operator*() const {
+    Exiv2::base_class::iterator _unwrap() const {
         return ptr;
     }
     Exiv2::datum_type* __next__() {
@@ -171,10 +171,10 @@ public:
         return &(*ptr++);
     }
     bool operator==(const base_class##Iterator &other) const {
-        return *other == ptr;
+        return other._unwrap() == ptr;
     }
     bool operator!=(const base_class##Iterator &other) const {
-        return *other != ptr;
+        return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
 };
@@ -204,7 +204,7 @@ public:
     Exiv2::base_class* operator->() {
         return base;
     }
-    Exiv2::base_class* operator*() {
+    Exiv2::base_class* _unwrap() {
         return base;
     }
     Exiv2::base_class::iterator __iter__() {

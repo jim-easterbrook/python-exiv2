@@ -3636,7 +3636,7 @@ public:
     Exiv2::Exifdatum* operator->() const {
         return &(*ptr);
     }
-    Exiv2::ExifData::iterator operator*() const {
+    Exiv2::ExifData::iterator _unwrap() const {
         return ptr;
     }
     Exiv2::Exifdatum* __next__() {
@@ -3645,10 +3645,10 @@ public:
         return &(*ptr++);
     }
     bool operator==(const ExifDataIterator &other) const {
-        return *other == ptr;
+        return other._unwrap() == ptr;
     }
     bool operator!=(const ExifDataIterator &other) const {
-        return *other != ptr;
+        return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
 };
@@ -3678,7 +3678,7 @@ public:
     Exiv2::ExifData* operator->() {
         return base;
     }
-    Exiv2::ExifData* operator*() {
+    Exiv2::ExifData* _unwrap() {
         return base;
     }
     Exiv2::ExifData::iterator __iter__() {
@@ -7319,7 +7319,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   
   arg1->_invalidate_iterators();
@@ -7374,7 +7374,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   
   res3 = SWIG_ConvertPtr(swig_obj[2], (void**)&argp3,
@@ -7385,7 +7385,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   if (!argp3) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifDataIterator""'");
   }
-  arg3 = **argp3;
+  arg3 = argp3->_unwrap();
   
   
   arg1->_invalidate_iterators();
@@ -9272,7 +9272,7 @@ SWIGINTERN int _wrap_new_ExifThumbC(PyObject *self, PyObject *args, PyObject *kw
   if (!argp1) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ExifThumbC" "', argument " "1"" of type '" "ExifDataWrap""'");
   }
-  arg1 = **argp1;
+  arg1 = argp1->_unwrap();
   
   {
     try {
@@ -9491,7 +9491,7 @@ SWIGINTERN int _wrap_new_ExifThumb(PyObject *self, PyObject *args, PyObject *kwa
   if (!argp1) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ExifThumb" "', argument " "1"" of type '" "ExifDataWrap""'");
   }
-  arg1 = **argp1;
+  arg1 = argp1->_unwrap();
   
   {
     try {

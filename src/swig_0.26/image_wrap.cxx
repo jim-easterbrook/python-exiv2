@@ -3660,7 +3660,7 @@ public:
     Exiv2::Exifdatum* operator->() const {
         return &(*ptr);
     }
-    Exiv2::ExifData::iterator operator*() const {
+    Exiv2::ExifData::iterator _unwrap() const {
         return ptr;
     }
     Exiv2::Exifdatum* __next__() {
@@ -3669,10 +3669,10 @@ public:
         return &(*ptr++);
     }
     bool operator==(const ExifDataIterator &other) const {
-        return *other == ptr;
+        return other._unwrap() == ptr;
     }
     bool operator!=(const ExifDataIterator &other) const {
-        return *other != ptr;
+        return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
 };
@@ -3702,7 +3702,7 @@ public:
     Exiv2::ExifData* operator->() {
         return base;
     }
-    Exiv2::ExifData* operator*() {
+    Exiv2::ExifData* _unwrap() {
         return base;
     }
     Exiv2::ExifData::iterator __iter__() {
@@ -4664,7 +4664,7 @@ public:
     Exiv2::Iptcdatum* operator->() const {
         return &(*ptr);
     }
-    Exiv2::IptcData::iterator operator*() const {
+    Exiv2::IptcData::iterator _unwrap() const {
         return ptr;
     }
     Exiv2::Iptcdatum* __next__() {
@@ -4673,10 +4673,10 @@ public:
         return &(*ptr++);
     }
     bool operator==(const IptcDataIterator &other) const {
-        return *other == ptr;
+        return other._unwrap() == ptr;
     }
     bool operator!=(const IptcDataIterator &other) const {
-        return *other != ptr;
+        return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
 };
@@ -4706,7 +4706,7 @@ public:
     Exiv2::IptcData* operator->() {
         return base;
     }
-    Exiv2::IptcData* operator*() {
+    Exiv2::IptcData* _unwrap() {
         return base;
     }
     Exiv2::IptcData::iterator __iter__() {
@@ -4885,7 +4885,7 @@ public:
     Exiv2::Xmpdatum* operator->() const {
         return &(*ptr);
     }
-    Exiv2::XmpData::iterator operator*() const {
+    Exiv2::XmpData::iterator _unwrap() const {
         return ptr;
     }
     Exiv2::Xmpdatum* __next__() {
@@ -4894,10 +4894,10 @@ public:
         return &(*ptr++);
     }
     bool operator==(const XmpDataIterator &other) const {
-        return *other == ptr;
+        return other._unwrap() == ptr;
     }
     bool operator!=(const XmpDataIterator &other) const {
-        return *other != ptr;
+        return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
 };
@@ -4927,7 +4927,7 @@ public:
     Exiv2::XmpData* operator->() {
         return base;
     }
-    Exiv2::XmpData* operator*() {
+    Exiv2::XmpData* _unwrap() {
         return base;
     }
     Exiv2::XmpData::iterator __iter__() {
@@ -7679,7 +7679,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   
   arg1->_invalidate_iterators();
@@ -7734,7 +7734,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifDataIterator""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   
   res3 = SWIG_ConvertPtr(swig_obj[2], (void**)&argp3,
@@ -7745,7 +7745,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   if (!argp3) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifDataIterator""'");
   }
-  arg3 = **argp3;
+  arg3 = argp3->_unwrap();
   
   
   arg1->_invalidate_iterators();
@@ -10445,7 +10445,7 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcDataIterator""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   
   arg1->_invalidate_iterators();
@@ -13225,7 +13225,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   
   arg1->_invalidate_iterators();
@@ -14195,7 +14195,7 @@ SWIGINTERN PyObject *_wrap_Image_setExifData(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setExifData" "', argument " "2"" of type '" "ExifDataWrap""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   {
     try {
@@ -14272,7 +14272,7 @@ SWIGINTERN PyObject *_wrap_Image_setIptcData(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setIptcData" "', argument " "2"" of type '" "IptcDataWrap""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   {
     try {
@@ -14427,7 +14427,7 @@ SWIGINTERN PyObject *_wrap_Image_setXmpData(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setXmpData" "', argument " "2"" of type '" "XmpDataWrap""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   {
     try {

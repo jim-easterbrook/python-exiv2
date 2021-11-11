@@ -3640,7 +3640,7 @@ public:
     Exiv2::Iptcdatum* operator->() const {
         return &(*ptr);
     }
-    Exiv2::IptcData::iterator operator*() const {
+    Exiv2::IptcData::iterator _unwrap() const {
         return ptr;
     }
     Exiv2::Iptcdatum* __next__() {
@@ -3649,10 +3649,10 @@ public:
         return &(*ptr++);
     }
     bool operator==(const IptcDataIterator &other) const {
-        return *other == ptr;
+        return other._unwrap() == ptr;
     }
     bool operator!=(const IptcDataIterator &other) const {
-        return *other != ptr;
+        return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
 };
@@ -3682,7 +3682,7 @@ public:
     Exiv2::IptcData* operator->() {
         return base;
     }
-    Exiv2::IptcData* operator*() {
+    Exiv2::IptcData* _unwrap() {
         return base;
     }
     Exiv2::IptcData::iterator __iter__() {
@@ -7099,7 +7099,7 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   if (!argp2) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcDataIterator""'");
   }
-  arg2 = **argp2;
+  arg2 = argp2->_unwrap();
   
   
   arg1->_invalidate_iterators();
