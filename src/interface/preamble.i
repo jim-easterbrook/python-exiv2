@@ -119,6 +119,8 @@ PyObject* logger = NULL;
 // Python slots
 %feature("python:slot", "tp_iter",
          functype="getiterfunc") base_class##Wrap::__iter__;
+%feature("python:slot", "tp_iter",
+         functype="getiterfunc") base_class##Iterator::__iter__;
 %feature("python:slot", "tp_iternext",
          functype="iternextfunc") base_class##Iterator::__next__;
 %feature("python:slot", "mp_length",
@@ -161,6 +163,9 @@ public:
     ~base_class##Iterator();
     Exiv2::datum_type* operator->() const {
         return &(*ptr);
+    }
+    base_class##Iterator* __iter__() {
+        return this;
     }
     Exiv2::base_class::iterator _unwrap() const {
         return ptr;
