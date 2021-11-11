@@ -19,65 +19,23 @@
 
 %include "preamble.i"
 
-// Doxygen comments are lost in the function wrapping & renaming
-%feature("autodoc", "2");
-
-%define WRAP(function)
-%rename(function) deref_ ## function;
-%ignore Exiv2::function;
-%inline %{
-const Exiv2::Exifdatum* deref_ ## function(const Exiv2::ExifData& ed) {
-    Exiv2::ExifData::const_iterator result = Exiv2::function(ed);
-    if (result == ed.end()) {
-        return NULL;
-    }
-    return &(*result);
-}
-%}
-%enddef
-
-%typemap(out) const Exiv2::Exifdatum* %{
-    $result = $1 ? SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, 0)
-                 : SWIG_Py_Void();
-%}
-
-WRAP(orientation)
-WRAP(isoSpeed)
-WRAP(flashBias)
-WRAP(exposureMode)
-WRAP(sceneMode)
-WRAP(macroMode)
-WRAP(imageQuality)
-WRAP(whiteBalance)
-WRAP(lensName)
-WRAP(saturation)
-WRAP(sharpness)
-WRAP(contrast)
-WRAP(sceneCaptureType)
-WRAP(meteringMode)
-WRAP(make)
-WRAP(model)
-WRAP(exposureTime)
-WRAP(fNumber)
-WRAP(subjectDistance)
-WRAP(serialNumber)
-WRAP(focalLength)
-WRAP(afPoint)
-
-// Functions introduced in libexiv2 0.27.4
-#if EXIV2_VERSION_HEX >= 0x001b0400
-WRAP(dateTimeOriginal)
-WRAP(shutterSpeedValue)
-WRAP(apertureValue)
-WRAP(brightnessValue)
-WRAP(exposureBiasValue)
-WRAP(maxApertureValue)
-WRAP(lightSource)
-WRAP(flash)
-WRAP(subjectArea)
-WRAP(flashEnergy)
-WRAP(exposureIndex)
-WRAP(sensingMethod)
+// Get implementation of ExifDataWrap
+#ifndef SWIGIMPORTED
+DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
 #endif
+
+// Store data.end() after converting input
+%typemap(check) Exiv2::ExifData& (Exiv2::ExifData::const_iterator _global_end) %{
+    _global_end = $1->end();
+%}
+
+// Convert result from iterator to datum or None
+%typemap(out) Exiv2::ExifData::const_iterator %{
+    if ($1 == _global_end)
+        $result = SWIG_Py_Void();
+    else
+        $result = SWIG_NewPointerObj(
+            SWIG_as_voidptr(&(*$1)), $descriptor(Exiv2::Exifdatum*), 0);
+%}
 
 %include "exiv2/easyaccess.hpp"
