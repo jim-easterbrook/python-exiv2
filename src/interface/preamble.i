@@ -60,16 +60,6 @@ PyObject* logger = NULL;
     }
 }
 
-// Macro to provide __str__
-%define STR(class, method)
-%feature("python:slot", "tp_str", functype="reprfunc") class::__str__;
-%extend class {
-    std::string __str__() {
-        return $self->method();
-    }
-}
-%enddef
-
 // Macro to provide Python list and dict methods for Exiv2 data
 %define DATA_LISTMAP(base_class, datum_type, key_type, default_type_func)
 // base_class##Iterator typemaps
@@ -117,6 +107,8 @@ PyObject* logger = NULL;
     $1 = argp->_unwrap();
 %};
 // Python slots
+%feature("python:slot", "tp_str",
+         functype="reprfunc") base_class##Iterator::__str__;
 %feature("python:slot", "tp_iter",
          functype="getiterfunc") base_class##Wrap::__iter__;
 %feature("python:slot", "tp_iter",
@@ -180,6 +172,7 @@ public:
         return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
+    std::string __str__();
 };
 // Wrapper for Exiv2::base_class
 class base_class##Wrap {
@@ -306,6 +299,17 @@ bool base_class##Iterator::_ptr_invalid() {
         return true;
     }
     return false;
+};
+std::string base_class##Iterator::__str__() {
+    std::string result;
+    if (ptr == (*parent)->end())
+        result = "end of data";
+    else if (parent->iterator_invalided)
+        result = "invalid";
+    else
+        result = ptr->key() + ": " + ptr->toString();
+    result = "iterator<" + result + ">";
+    return result;
 };
 %}
 %enddef

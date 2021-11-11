@@ -3672,6 +3672,7 @@ public:
         return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
+    std::string __str__();
 };
 // Wrapper for Exiv2::ExifData
 class ExifDataWrap {
@@ -3799,6 +3800,17 @@ bool ExifDataIterator::_ptr_invalid() {
     }
     return false;
 };
+std::string ExifDataIterator::__str__() {
+    std::string result;
+    if (ptr == (*parent)->end())
+        result = "end of data";
+    else if (parent->iterator_invalided)
+        result = "invalid";
+    else
+        result = ptr->key() + ": " + ptr->toString();
+    result = "iterator<" + result + ">";
+    return result;
+};
 
 
 SWIGINTERNINLINE PyObject*
@@ -3818,6 +3830,38 @@ SWIG_pchar_descriptor(void)
     init = 1;
   }
   return info;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
+#endif
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
+    }
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_std_string  (const std::string& s)
+{
+  return SWIG_FromCharPtrAndSize(s.data(), s.size());
 }
 
 
@@ -4090,38 +4134,6 @@ SWIG_AsVal_long (PyObject *obj, long* val)
   }
 #endif
   return SWIG_TypeError;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_std_string  (const std::string& s)
-{
-  return SWIG_FromCharPtrAndSize(s.data(), s.size());
 }
 
 
@@ -4677,6 +4689,7 @@ public:
         return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
+    std::string __str__();
 };
 // Wrapper for Exiv2::IptcData
 class IptcDataWrap {
@@ -4804,6 +4817,17 @@ bool IptcDataIterator::_ptr_invalid() {
     }
     return false;
 };
+std::string IptcDataIterator::__str__() {
+    std::string result;
+    if (ptr == (*parent)->end())
+        result = "end of data";
+    else if (parent->iterator_invalided)
+        result = "invalid";
+    else
+        result = ptr->key() + ": " + ptr->toString();
+    result = "iterator<" + result + ">";
+    return result;
+};
 
 
 SWIGINTERN int
@@ -4899,6 +4923,7 @@ public:
         return other._unwrap() != ptr;
     }
     bool _ptr_invalid();
+    std::string __str__();
 };
 // Wrapper for Exiv2::XmpData
 class XmpDataWrap {
@@ -5025,6 +5050,17 @@ bool XmpDataIterator::_ptr_invalid() {
         return true;
     }
     return false;
+};
+std::string XmpDataIterator::__str__() {
+    std::string result;
+    if (ptr == (*parent)->end())
+        result = "end of data";
+    else if (parent->iterator_invalided)
+        result = "invalid";
+    else
+        result = ptr->key() + ": " + ptr->toString();
+    result = "iterator<" + result + ">";
+    return result;
 };
 
 
@@ -5420,6 +5456,45 @@ fail:
   PyErr_Clear();
   Py_INCREF(Py_NotImplemented);
   return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifDataIterator___str__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ExifDataIterator___str__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___str__" "', argument " "1"" of type '" "ExifDataIterator *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  
+  if (strcmp("ExifDataIterator___str__", "delete_""ExifData""Iterator") &&
+    strcmp("ExifDataIterator___str__","ExifData""Iterator___eq__") &&
+    strcmp("ExifDataIterator___str__","ExifData""Iterator___ne__"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
+  {
+    try {
+      result = (arg1)->__str__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -7073,6 +7148,8 @@ SWIGPY_GETITERFUNC_CLOSURE(_wrap_ExifDataIterator___iter__) /* defines _wrap_Exi
 
 SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_ExifDataIterator___next__) /* defines _wrap_ExifDataIterator___next___iternextfunc_closure */
 
+SWIGPY_REPRFUNC_CLOSURE(_wrap_ExifDataIterator___str__) /* defines _wrap_ExifDataIterator___str___reprfunc_closure */
+
 SWIGINTERN int _wrap_new_ExifData(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   ExifDataWrap *result = 0 ;
@@ -8398,6 +8475,45 @@ fail:
   PyErr_Clear();
   Py_INCREF(Py_NotImplemented);
   return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcDataIterator___str__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator___str__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator___str__" "', argument " "1"" of type '" "IptcDataIterator *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  
+  if (strcmp("IptcDataIterator___str__", "delete_""IptcData""Iterator") &&
+    strcmp("IptcDataIterator___str__","IptcData""Iterator___eq__") &&
+    strcmp("IptcDataIterator___str__","IptcData""Iterator___ne__"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
+  {
+    try {
+      result = (arg1)->__str__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -9876,6 +9992,8 @@ SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcDataIterator___iter__) /* defines _wrap_Ipt
 
 SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_IptcDataIterator___next__) /* defines _wrap_IptcDataIterator___next___iternextfunc_closure */
 
+SWIGPY_REPRFUNC_CLOSURE(_wrap_IptcDataIterator___str__) /* defines _wrap_IptcDataIterator___str___reprfunc_closure */
+
 SWIGINTERN int _wrap_new_IptcData(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   IptcDataWrap *result = 0 ;
@@ -11300,6 +11418,45 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_XmpDataIterator___str__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpDataIterator *arg1 = (XmpDataIterator *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpDataIterator___str__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator___str__" "', argument " "1"" of type '" "XmpDataIterator *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
+  
+  if (strcmp("XmpDataIterator___str__", "delete_""XmpData""Iterator") &&
+    strcmp("XmpDataIterator___str__","XmpData""Iterator___eq__") &&
+    strcmp("XmpDataIterator___str__","XmpData""Iterator___ne__"))
+  if (arg1->_ptr_invalid())
+  SWIG_fail;
+  
+  {
+    try {
+      result = (arg1)->__str__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_XmpDataIterator_setValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   XmpDataIterator *arg1 = (XmpDataIterator *) 0 ;
@@ -12696,6 +12853,8 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpDataIterator) /* defines _wrap_delete_
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpDataIterator___iter__) /* defines _wrap_XmpDataIterator___iter___getiterfunc_closure */
 
 SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_XmpDataIterator___next__) /* defines _wrap_XmpDataIterator___next___iternextfunc_closure */
+
+SWIGPY_REPRFUNC_CLOSURE(_wrap_XmpDataIterator___str__) /* defines _wrap_XmpDataIterator___str___reprfunc_closure */
 
 SWIGINTERN int _wrap_new_XmpData(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -17349,6 +17508,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__ExifDataIterator_methods[] = {
   { "__next__", _wrap_ExifDataIterator___next__, METH_NOARGS, "" },
   { "__eq__", _wrap_ExifDataIterator___eq__, METH_O, "" },
   { "__ne__", _wrap_ExifDataIterator___ne__, METH_O, "" },
+  { "__str__", _wrap_ExifDataIterator___str__, METH_NOARGS, "" },
   { "setValue", _wrap_ExifDataIterator_setValue, METH_VARARGS, "" },
   { "setDataArea", _wrap_ExifDataIterator_setDataArea, METH_VARARGS, "\n"
 		"Set the data area by copying (cloning) the buffer pointed to\n"
@@ -17449,7 +17609,7 @@ static PyHeapTypeObject SwigPyBuiltin__ExifDataIterator_type = {
     &SwigPyBuiltin__ExifDataIterator_type.as_mapping,             /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_ExifDataIterator___str___reprfunc_closure,              /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__ExifDataIterator_type.as_buffer,              /* tp_as_buffer */
@@ -17908,6 +18068,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__IptcDataIterator_methods[] = {
   { "__next__", _wrap_IptcDataIterator___next__, METH_NOARGS, "" },
   { "__eq__", _wrap_IptcDataIterator___eq__, METH_O, "" },
   { "__ne__", _wrap_IptcDataIterator___ne__, METH_O, "" },
+  { "__str__", _wrap_IptcDataIterator___str__, METH_NOARGS, "" },
   { "setValue", _wrap_IptcDataIterator_setValue, METH_VARARGS, "" },
   { "copy", _wrap_IptcDataIterator_copy, METH_VARARGS, "" },
   { "write", _wrap_IptcDataIterator_write, METH_VARARGS, "" },
@@ -17981,7 +18142,7 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIterator_type = {
     &SwigPyBuiltin__IptcDataIterator_type.as_mapping,             /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_IptcDataIterator___str___reprfunc_closure,              /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__IptcDataIterator_type.as_buffer,              /* tp_as_buffer */
@@ -18437,6 +18598,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__XmpDataIterator_methods[] = {
   { "__next__", _wrap_XmpDataIterator___next__, METH_NOARGS, "" },
   { "__eq__", _wrap_XmpDataIterator___eq__, METH_O, "" },
   { "__ne__", _wrap_XmpDataIterator___ne__, METH_O, "" },
+  { "__str__", _wrap_XmpDataIterator___str__, METH_NOARGS, "" },
   { "setValue", _wrap_XmpDataIterator_setValue, METH_VARARGS, "" },
   { "copy", _wrap_XmpDataIterator_copy, METH_VARARGS, " Not implemented. Calling this method will raise an exception." },
   { "write", _wrap_XmpDataIterator_write, METH_VARARGS, "" },
@@ -18496,7 +18658,7 @@ static PyHeapTypeObject SwigPyBuiltin__XmpDataIterator_type = {
     &SwigPyBuiltin__XmpDataIterator_type.as_mapping,              /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_XmpDataIterator___str___reprfunc_closure,               /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__XmpDataIterator_type.as_buffer,               /* tp_as_buffer */

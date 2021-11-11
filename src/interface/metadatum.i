@@ -28,7 +28,20 @@
 
 wrap_auto_unique_ptr(Exiv2::Key);
 
-STR(Exiv2::Key, key)
+%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Key::__str__;
+%extend Exiv2::Key {
+    std::string __str__() {
+        return $self->key();
+    }
+}
+#ifndef SWIGIMPORTED
+%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Metadatum::__str__;
+%extend Exiv2::Metadatum {
+    std::string __str__() {
+        return $self->key() + ": " + $self->toString();
+    }
+}
+#endif
 
 %ignore Exiv2::Key::operator=;
 %ignore Exiv2::Metadatum::operator=;

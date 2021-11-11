@@ -28,7 +28,6 @@
 #ifndef SWIGIMPORTED
 DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
              IptcDataSets::dataSetType(datum->tag(), datum->record()))
-STR(Exiv2::Iptcdatum, toString)
 #endif
 
 %ignore Exiv2::IptcData::operator[];

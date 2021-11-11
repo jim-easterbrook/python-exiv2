@@ -38,7 +38,6 @@
 
 #ifndef SWIGIMPORTED
 DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
-STR(Exiv2::Exifdatum, toString)
 #endif
 
 %ignore Exiv2::ExifData::operator[];

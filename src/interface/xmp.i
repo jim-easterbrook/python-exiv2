@@ -28,7 +28,6 @@
 #ifndef SWIGIMPORTED
 DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
              XmpProperties::propertyType(XmpKey(key)))
-STR(Exiv2::Xmpdatum, toString)
 #endif
 
 %ignore Exiv2::XmpData::operator[];
