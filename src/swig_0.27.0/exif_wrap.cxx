@@ -3640,8 +3640,6 @@ public:
         return ptr;
     }
     Exiv2::Exifdatum* __next__() {
-        if (_ptr_invalid())
-            return NULL;
         return &(*ptr++);
     }
     bool operator==(const ExifDataIterator &other) const {

@@ -166,8 +166,6 @@ public:
         return ptr;
     }
     Exiv2::datum_type* __next__() {
-        if (_ptr_invalid())
-            return NULL;
         return &(*ptr++);
     }
     bool operator==(const base_class##Iterator &other) const {

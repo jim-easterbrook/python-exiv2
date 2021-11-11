@@ -3648,8 +3648,6 @@ public:
         return ptr;
     }
     Exiv2::Xmpdatum* __next__() {
-        if (_ptr_invalid())
-            return NULL;
         return &(*ptr++);
     }
     bool operator==(const XmpDataIterator &other) const {
