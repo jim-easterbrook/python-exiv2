@@ -125,6 +125,31 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %template(type_name) Exiv2::ValueType<item_type>;
 %enddef // VALUETYPE
 
+// Allow Date and Time to be set from int values
+%ignore Exiv2::DateValue::setDate(const Date&);
+%extend Exiv2::DateValue {
+    void setDate(int year, int month, int day) {
+        Exiv2::DateValue::Date date;
+        date.year = year;
+        date.month = month;
+        date.day = day;
+        $self->setDate(date);
+    }
+}
+%ignore Exiv2::TimeValue::setTime(const Time&);
+%extend Exiv2::TimeValue {
+    void setTime(int hour, int minute, int second = 0,
+                 int tzHour = 0, int tzMinute = 0) {
+        Exiv2::TimeValue::Time time;
+        time.hour = hour;
+        time.minute = minute;
+        time.second = second;
+        time.tzHour = tzHour;
+        time.tzMinute = tzMinute;
+        $self->setTime(time);
+    }
+}
+
 // Add Python slots to Exiv2::Value base class
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
 %feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::__len__;
