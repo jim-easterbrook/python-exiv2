@@ -3734,7 +3734,7 @@ public:
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)
             return NULL;
-        char* c_str = PyUnicode_AsUTF8(py_str);
+        const char* c_str = PyUnicode_AsUTF8(py_str);
         Py_DECREF(py_str);
         return __setitem__(key, c_str);
     }
@@ -4751,7 +4751,7 @@ public:
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)
             return NULL;
-        char* c_str = PyUnicode_AsUTF8(py_str);
+        const char* c_str = PyUnicode_AsUTF8(py_str);
         Py_DECREF(py_str);
         return __setitem__(key, c_str);
     }
@@ -4985,7 +4985,7 @@ public:
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)
             return NULL;
-        char* c_str = PyUnicode_AsUTF8(py_str);
+        const char* c_str = PyUnicode_AsUTF8(py_str);
         Py_DECREF(py_str);
         return __setitem__(key, c_str);
     }
