@@ -16,6 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.8.0:
+  1/ Data iterators include checks for end of data and changed data so are less
+     likely to segfault.
+  2/ Added indexing to data values to access fundamental types such as int.
+  3/ API change: removed access to value_ container in data values.
+
 Changes in v0.7.0:
   1/ Add a constructor to Value subclasses that downcasts a Value.
   2/ Deprecated the Value subclass downCast() static method.
