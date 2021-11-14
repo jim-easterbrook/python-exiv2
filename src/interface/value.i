@@ -117,7 +117,11 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     void __setitem__(long multi_idx, item_type value) {
         $self->value_.at(multi_idx) = value;
     }
+#if EXIV2_VERSION_HEX < 0x01000000
     Exiv2::ValueType<item_type>::AutoPtr __iadd__(item_type value) {
+#else
+    Exiv2::ValueType<item_type>::UniquePtr __iadd__(item_type value) {
+#endif
         $self->value_.push_back(value);
         return $self->clone();
     }
@@ -184,7 +188,11 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
     std::string __getitem__(long multi_idx) {
         return $self->toString(multi_idx);
     }
+#if EXIV2_VERSION_HEX < 0x01000000
     Exiv2::XmpArrayValue::AutoPtr __iadd__(std::string value) {
+#else
+    Exiv2::XmpArrayValue::UniquePtr __iadd__(std::string value) {
+#endif
         $self->read(value);
         return $self->clone();
     }

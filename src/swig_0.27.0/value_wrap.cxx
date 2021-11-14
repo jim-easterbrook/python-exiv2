@@ -4638,6 +4638,9 @@ SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *sel
         return self->toString(multi_idx);
     }
 SWIGINTERN Exiv2::XmpArrayValue::AutoPtr Exiv2_XmpArrayValue___iadd__(Exiv2::XmpArrayValue *self,std::string value){
+
+
+
         self->read(value);
         return self->clone();
     }
@@ -4855,6 +4858,9 @@ SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(Exiv2::ValueType< ui
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN Exiv2::ValueType< uint16_t >::AutoPtr Exiv2_ValueType_Sl_uint16_t_Sg____iadd__(Exiv2::ValueType< uint16_t > *self,uint16_t value){
+
+
+
         self->value_.push_back(value);
         return self->clone();
     }
@@ -4913,6 +4919,9 @@ SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(Exiv2::ValueType< ui
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN Exiv2::ValueType< uint32_t >::AutoPtr Exiv2_ValueType_Sl_uint32_t_Sg____iadd__(Exiv2::ValueType< uint32_t > *self,uint32_t value){
+
+
+
         self->value_.push_back(value);
         return self->clone();
     }
@@ -4978,6 +4987,9 @@ SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(Exiv2::ValueT
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN Exiv2::ValueType< Exiv2::URational >::AutoPtr Exiv2_ValueType_Sl_Exiv2_URational_Sg____iadd__(Exiv2::ValueType< Exiv2::URational > *self,Exiv2::URational value){
+
+
+
         self->value_.push_back(value);
         return self->clone();
     }
@@ -5036,6 +5048,9 @@ SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg____setitem__(Exiv2::ValueType< int
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN Exiv2::ValueType< int16_t >::AutoPtr Exiv2_ValueType_Sl_int16_t_Sg____iadd__(Exiv2::ValueType< int16_t > *self,int16_t value){
+
+
+
         self->value_.push_back(value);
         return self->clone();
     }
@@ -5071,6 +5086,9 @@ SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg____setitem__(Exiv2::ValueType< int
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN Exiv2::ValueType< int32_t >::AutoPtr Exiv2_ValueType_Sl_int32_t_Sg____iadd__(Exiv2::ValueType< int32_t > *self,int32_t value){
+
+
+
         self->value_.push_back(value);
         return self->clone();
     }
@@ -5106,6 +5124,9 @@ SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(Exiv2::ValueTy
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN Exiv2::ValueType< Exiv2::Rational >::AutoPtr Exiv2_ValueType_Sl_Exiv2_Rational_Sg____iadd__(Exiv2::ValueType< Exiv2::Rational > *self,Exiv2::Rational value){
+
+
+
         self->value_.push_back(value);
         return self->clone();
     }
@@ -5201,6 +5222,9 @@ SWIGINTERN void Exiv2_ValueType_Sl_float_Sg____setitem__(Exiv2::ValueType< float
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN Exiv2::ValueType< float >::AutoPtr Exiv2_ValueType_Sl_float_Sg____iadd__(Exiv2::ValueType< float > *self,float value){
+
+
+
         self->value_.push_back(value);
         return self->clone();
     }
@@ -5236,6 +5260,9 @@ SWIGINTERN void Exiv2_ValueType_Sl_double_Sg____setitem__(Exiv2::ValueType< doub
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN Exiv2::ValueType< double >::AutoPtr Exiv2_ValueType_Sl_double_Sg____iadd__(Exiv2::ValueType< double > *self,double value){
+
+
+
         self->value_.push_back(value);
         return self->clone();
     }
