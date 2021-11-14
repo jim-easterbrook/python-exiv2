@@ -3572,9 +3572,11 @@ class ExifDataIterator {
 private:
     Exiv2::ExifData::iterator ptr;
     ExifDataWrap* parent;
+    PyObject* py_parent;
 public:
     ExifDataIterator(Exiv2::ExifData::iterator ptr,
-                         ExifDataWrap* parent);
+                         ExifDataWrap* parent,
+                         PyObject* py_parent);
     ~ExifDataIterator();
     Exiv2::Exifdatum* operator->() const {
         return &(*ptr);
@@ -3701,14 +3703,18 @@ public:
 };
 // Implementation of ExifData##Iterator methods that use ExifData##Wrap
 ExifDataIterator::ExifDataIterator(
-        Exiv2::ExifData::iterator ptr, ExifDataWrap* parent) {
+        Exiv2::ExifData::iterator ptr, ExifDataWrap* parent,
+        PyObject* py_parent) {
     this->ptr = ptr;
     this->parent = parent;
+    this->py_parent = py_parent;
+    Py_INCREF(py_parent);
     if (parent->iterator_count == 0)
         parent->iterator_invalided = false;
     parent->iterator_count++;
 };
 ExifDataIterator::~ExifDataIterator() {
+    Py_DECREF(py_parent);
     parent->iterator_count--;
 };
 bool ExifDataIterator::_ptr_invalid() {
@@ -4180,7 +4186,7 @@ SWIGINTERN PyObject *_wrap_ExifData___iter__(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new ExifDataIterator(result, arg1),
+    new ExifDataIterator(result, arg1, self),
     SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;

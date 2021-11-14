@@ -80,10 +80,11 @@ PyObject* logger = NULL;
                 Exiv2::base_class::iterator beg %{
     arg1->_invalidate_iterators();
 %}
-// "out" typemap assumes arg1 is always the base_class##Wrap parent
+// "out" typemap assumes arg1 is always the base_class##Wrap parent and
+// self is always the Python base_class##Wrap parent
 %typemap(out) Exiv2::base_class::iterator %{
     $result = SWIG_NewPointerObj(
-        new base_class##Iterator($1, arg1),
+        new base_class##Iterator($1, arg1, self),
         $descriptor(base_class##Iterator*), SWIG_POINTER_OWN);
 %};
 // Check iterator before dereferencing it
@@ -149,9 +150,11 @@ class base_class##Iterator {
 private:
     Exiv2::base_class::iterator ptr;
     base_class##Wrap* parent;
+    PyObject* py_parent;
 public:
     base_class##Iterator(Exiv2::base_class::iterator ptr,
-                         base_class##Wrap* parent);
+                         base_class##Wrap* parent,
+                         PyObject* py_parent);
     ~base_class##Iterator();
     Exiv2::datum_type* operator->() const {
         return &(*ptr);
@@ -278,14 +281,18 @@ public:
 };
 // Implementation of base_class##Iterator methods that use base_class##Wrap
 base_class##Iterator::base_class##Iterator(
-        Exiv2::base_class::iterator ptr, base_class##Wrap* parent) {
+        Exiv2::base_class::iterator ptr, base_class##Wrap* parent,
+        PyObject* py_parent) {
     this->ptr = ptr;
     this->parent = parent;
+    this->py_parent = py_parent;
+    Py_INCREF(py_parent);
     if (parent->iterator_count == 0)
         parent->iterator_invalided = false;
     parent->iterator_count++;
 };
 base_class##Iterator::~base_class##Iterator() {
+    Py_DECREF(py_parent);
     parent->iterator_count--;
 };
 bool base_class##Iterator::_ptr_invalid() {

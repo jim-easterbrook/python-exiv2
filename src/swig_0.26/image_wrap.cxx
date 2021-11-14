@@ -3649,9 +3649,11 @@ class ExifDataIterator {
 private:
     Exiv2::ExifData::iterator ptr;
     ExifDataWrap* parent;
+    PyObject* py_parent;
 public:
     ExifDataIterator(Exiv2::ExifData::iterator ptr,
-                         ExifDataWrap* parent);
+                         ExifDataWrap* parent,
+                         PyObject* py_parent);
     ~ExifDataIterator();
     Exiv2::Exifdatum* operator->() const {
         return &(*ptr);
@@ -3778,14 +3780,18 @@ public:
 };
 // Implementation of ExifData##Iterator methods that use ExifData##Wrap
 ExifDataIterator::ExifDataIterator(
-        Exiv2::ExifData::iterator ptr, ExifDataWrap* parent) {
+        Exiv2::ExifData::iterator ptr, ExifDataWrap* parent,
+        PyObject* py_parent) {
     this->ptr = ptr;
     this->parent = parent;
+    this->py_parent = py_parent;
+    Py_INCREF(py_parent);
     if (parent->iterator_count == 0)
         parent->iterator_invalided = false;
     parent->iterator_count++;
 };
 ExifDataIterator::~ExifDataIterator() {
+    Py_DECREF(py_parent);
     parent->iterator_count--;
 };
 bool ExifDataIterator::_ptr_invalid() {
@@ -4666,9 +4672,11 @@ class IptcDataIterator {
 private:
     Exiv2::IptcData::iterator ptr;
     IptcDataWrap* parent;
+    PyObject* py_parent;
 public:
     IptcDataIterator(Exiv2::IptcData::iterator ptr,
-                         IptcDataWrap* parent);
+                         IptcDataWrap* parent,
+                         PyObject* py_parent);
     ~IptcDataIterator();
     Exiv2::Iptcdatum* operator->() const {
         return &(*ptr);
@@ -4795,14 +4803,18 @@ public:
 };
 // Implementation of IptcData##Iterator methods that use IptcData##Wrap
 IptcDataIterator::IptcDataIterator(
-        Exiv2::IptcData::iterator ptr, IptcDataWrap* parent) {
+        Exiv2::IptcData::iterator ptr, IptcDataWrap* parent,
+        PyObject* py_parent) {
     this->ptr = ptr;
     this->parent = parent;
+    this->py_parent = py_parent;
+    Py_INCREF(py_parent);
     if (parent->iterator_count == 0)
         parent->iterator_invalided = false;
     parent->iterator_count++;
 };
 IptcDataIterator::~IptcDataIterator() {
+    Py_DECREF(py_parent);
     parent->iterator_count--;
 };
 bool IptcDataIterator::_ptr_invalid() {
@@ -4900,9 +4912,11 @@ class XmpDataIterator {
 private:
     Exiv2::XmpData::iterator ptr;
     XmpDataWrap* parent;
+    PyObject* py_parent;
 public:
     XmpDataIterator(Exiv2::XmpData::iterator ptr,
-                         XmpDataWrap* parent);
+                         XmpDataWrap* parent,
+                         PyObject* py_parent);
     ~XmpDataIterator();
     Exiv2::Xmpdatum* operator->() const {
         return &(*ptr);
@@ -5029,14 +5043,18 @@ public:
 };
 // Implementation of XmpData##Iterator methods that use XmpData##Wrap
 XmpDataIterator::XmpDataIterator(
-        Exiv2::XmpData::iterator ptr, XmpDataWrap* parent) {
+        Exiv2::XmpData::iterator ptr, XmpDataWrap* parent,
+        PyObject* py_parent) {
     this->ptr = ptr;
     this->parent = parent;
+    this->py_parent = py_parent;
+    Py_INCREF(py_parent);
     if (parent->iterator_count == 0)
         parent->iterator_invalided = false;
     parent->iterator_count++;
 };
 XmpDataIterator::~XmpDataIterator() {
+    Py_DECREF(py_parent);
     parent->iterator_count--;
 };
 bool XmpDataIterator::_ptr_invalid() {
@@ -7254,7 +7272,7 @@ SWIGINTERN PyObject *_wrap_ExifData___iter__(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new ExifDataIterator(result, arg1),
+    new ExifDataIterator(result, arg1, self),
     SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -7814,7 +7832,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   
   resultobj = SWIG_NewPointerObj(
-    new ExifDataIterator(result, arg1),
+    new ExifDataIterator(result, arg1, self),
     SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -7880,7 +7898,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   }
   
   resultobj = SWIG_NewPointerObj(
-    new ExifDataIterator(result, arg1),
+    new ExifDataIterator(result, arg1, self),
     SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -8037,7 +8055,7 @@ SWIGINTERN PyObject *_wrap_ExifData_begin(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new ExifDataIterator(result, arg1),
+    new ExifDataIterator(result, arg1, self),
     SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -8073,7 +8091,7 @@ SWIGINTERN PyObject *_wrap_ExifData_end(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new ExifDataIterator(result, arg1),
+    new ExifDataIterator(result, arg1, self),
     SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -8121,7 +8139,7 @@ SWIGINTERN PyObject *_wrap_ExifData_findKey(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new ExifDataIterator(result, arg1),
+    new ExifDataIterator(result, arg1, self),
     SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -10098,7 +10116,7 @@ SWIGINTERN PyObject *_wrap_IptcData___iter__(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new IptcDataIterator(result, arg1),
+    new IptcDataIterator(result, arg1, self),
     SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -10662,7 +10680,7 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new IptcDataIterator(result, arg1),
+    new IptcDataIterator(result, arg1, self),
     SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -10791,7 +10809,7 @@ SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new IptcDataIterator(result, arg1),
+    new IptcDataIterator(result, arg1, self),
     SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -10827,7 +10845,7 @@ SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new IptcDataIterator(result, arg1),
+    new IptcDataIterator(result, arg1, self),
     SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -10875,7 +10893,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new IptcDataIterator(result, arg1),
+    new IptcDataIterator(result, arg1, self),
     SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -10926,7 +10944,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, Py_ssize_t no
   }
   
   resultobj = SWIG_NewPointerObj(
-    new IptcDataIterator(result, arg1),
+    new IptcDataIterator(result, arg1, self),
     SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -10969,7 +10987,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, Py_ssize_t no
   }
   
   resultobj = SWIG_NewPointerObj(
-    new IptcDataIterator(result, arg1),
+    new IptcDataIterator(result, arg1, self),
     SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -12960,7 +12978,7 @@ SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -13524,7 +13542,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -13622,7 +13640,7 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -13658,7 +13676,7 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -13706,7 +13724,7 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;

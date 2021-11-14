@@ -3633,9 +3633,11 @@ class XmpDataIterator {
 private:
     Exiv2::XmpData::iterator ptr;
     XmpDataWrap* parent;
+    PyObject* py_parent;
 public:
     XmpDataIterator(Exiv2::XmpData::iterator ptr,
-                         XmpDataWrap* parent);
+                         XmpDataWrap* parent,
+                         PyObject* py_parent);
     ~XmpDataIterator();
     Exiv2::Xmpdatum* operator->() const {
         return &(*ptr);
@@ -3762,14 +3764,18 @@ public:
 };
 // Implementation of XmpData##Iterator methods that use XmpData##Wrap
 XmpDataIterator::XmpDataIterator(
-        Exiv2::XmpData::iterator ptr, XmpDataWrap* parent) {
+        Exiv2::XmpData::iterator ptr, XmpDataWrap* parent,
+        PyObject* py_parent) {
     this->ptr = ptr;
     this->parent = parent;
+    this->py_parent = py_parent;
+    Py_INCREF(py_parent);
     if (parent->iterator_count == 0)
         parent->iterator_invalided = false;
     parent->iterator_count++;
 };
 XmpDataIterator::~XmpDataIterator() {
+    Py_DECREF(py_parent);
     parent->iterator_count--;
 };
 bool XmpDataIterator::_ptr_invalid() {
@@ -6476,7 +6482,7 @@ SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -7040,7 +7046,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -7138,7 +7144,7 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -7174,7 +7180,7 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
@@ -7222,7 +7228,7 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1),
+    new XmpDataIterator(result, arg1, self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
   
   return resultobj;
