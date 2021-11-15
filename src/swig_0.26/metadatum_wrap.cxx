@@ -4448,7 +4448,7 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
       }
     
 SWIGINTERN std::string Exiv2_Metadatum___str__(Exiv2::Metadatum *self){
-        return self->key() + ": " + self->toString();
+        return self->key() + ": " + self->print();
     }
 
 SWIGINTERNINLINE PyObject*

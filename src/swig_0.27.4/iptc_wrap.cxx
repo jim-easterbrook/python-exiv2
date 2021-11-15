@@ -3793,7 +3793,7 @@ std::string IptcDataIterator::__str__() {
     else if (parent->iterator_invalided)
         result = "invalid";
     else
-        result = ptr->key() + ": " + ptr->toString();
+        result = ptr->key() + ": " + ptr->print();
     result = "iterator<" + result + ">";
     return result;
 };

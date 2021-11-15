@@ -38,7 +38,7 @@ wrap_auto_unique_ptr(Exiv2::Key);
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Metadatum::__str__;
 %extend Exiv2::Metadatum {
     std::string __str__() {
-        return $self->key() + ": " + $self->toString();
+        return $self->key() + ": " + $self->print();
     }
 }
 #endif
