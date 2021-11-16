@@ -3643,7 +3643,7 @@ public:
         return &(*ptr);
     }
     XmpDataIterator* __iter__() {
-        return this;
+        return new XmpDataIterator(ptr, parent, py_parent);
     }
     Exiv2::XmpData::iterator _unwrap() const {
         return ptr;
@@ -4781,7 +4781,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___iter__(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpDataIterator, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;

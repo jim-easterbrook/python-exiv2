@@ -127,6 +127,7 @@ PyObject* logger = NULL;
 %feature("python:slot", "sq_contains",
          functype="objobjproc") base_class##Wrap::__contains__;
 // base_class##Iterator features
+%newobject base_class##Iterator::__iter__;
 %ignore base_class##Iterator::base_class##Iterator;
 %ignore base_class##Iterator::_unwrap;
 %ignore base_class##Iterator::_ptr_invalid;
@@ -162,7 +163,7 @@ public:
         return &(*ptr);
     }
     base_class##Iterator* __iter__() {
-        return this;
+        return new base_class##Iterator(ptr, parent, py_parent);
     }
     Exiv2::base_class::iterator _unwrap() const {
         return ptr;
