@@ -40,21 +40,24 @@ Documentation
 The libexiv2_ library is well documented for C++ users, in Doxygen_ format.
 Recent versions of SWIG_ can convert this documentation to pydoc_ format in the Python interface::
 
-    $ pydoc3 exiv2.Image.exifData
-
+    $ pydoc3 exiv2.Image.readMetadata
     Help on method_descriptor in exiv2.Image:
 
-    exiv2.Image.exifData = exifData(...)
-        Returns an ExifData instance containing currently buffered
-            Exif data.
+    exiv2.Image.readMetadata = readMetadata(...)
+        Read all metadata supported by a specific image format from the
+            image. Before this method is called, the image metadata will be
+            cleared.
 
-        The contained Exif data may have been read from the image by
-        a previous call to readMetadata() or added directly. The Exif
-        data in the returned instance will be written to the image when
-        writeMetadata() is called.
+        This method returns success even if no metadata is found in the
+        image. Callers must therefore check the size of individual metadata
+        types before accessing the data.
 
-        :rtype: :py:class:`ExifData`
-        :return: modifiable ExifData instance containing Exif values
+        :raises: Error if opening or reading of the file fails or the image
+                data is not valid (does not look like data of the specific image
+                type).
+
+Unfortunately some documentation gets lost in the manipulations needed to make a useful interface.
+The C++ documentation is still needed in these cases.
 
 Assignment
 ----------
@@ -149,10 +152,13 @@ This allows them to be used in a very Pythonic style::
 Warning: segmentation faults
 ----------------------------
 
-It is easy to crash python-exiv2 if you delete objects which contain data that another object is pointing to.
-For example, deleting an ``Image`` after extracting its metadata can cause a segfault when the metadata is accessed.
-Ideally the Python interface to libexiv2 would use Python objects' reference counts to ensure this doesn't happen, preventing the deletion of the ``Image`` object until all references to it have been deleted.
-Unfortunately I haven't found a sensible way to do this in the Python interface, so some care is needed when using it.
+Many of the libexiv2 objects point to data in other objects.
+For example, ``image.exifData()`` returns an object that points to data in ``image``.
+The Python interface uses Python objects' reference counting to prevent ``image`` being deleted while its data is being pointed at by another object.
+This avoids one possible cause of segfaults.
+
+There may be other cases where the Python interface doesn't prevent segfaults.
+Please let me know if you find any.
 
 Error handling
 --------------
