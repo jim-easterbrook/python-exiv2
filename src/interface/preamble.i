@@ -90,6 +90,8 @@ PyObject* logger = NULL;
 // Check iterator before dereferencing it
 %typemap(check) base_class##Iterator* self %{
     if (strcmp("$symname", "delete_"#base_class"Iterator") &&
+        strcmp("$symname", #base_class"Iterator___iter__") &&
+        strcmp("$symname", #base_class"Iterator___str__") &&
         strcmp("$symname", #base_class"Iterator___eq__") &&
         strcmp("$symname", #base_class"Iterator___ne__"))
         if ($1->_ptr_invalid())
