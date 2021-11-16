@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.8.1:
+  1/ Fix some causes of segfaults.
+  2/ Slightly change output of Metadatum.__str__().
+
 Changes in v0.8.0:
   1/ Data iterators include checks for end of data and changed data so are less
      likely to segfault.
