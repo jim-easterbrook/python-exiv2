@@ -3574,10 +3574,17 @@ private:
     ExifDataWrap* parent;
     PyObject* py_parent;
 public:
-    ExifDataIterator(Exiv2::ExifData::iterator ptr,
-                         ExifDataWrap* parent,
-                         PyObject* py_parent);
-    ~ExifDataIterator();
+    ExifDataIterator(
+            Exiv2::ExifData::iterator ptr, ExifDataWrap* parent,
+            PyObject* py_parent) {
+        this->ptr = ptr;
+        this->parent = parent;
+        this->py_parent = py_parent;
+        Py_INCREF(py_parent);
+    }
+    ~ExifDataIterator() {
+        Py_DECREF(py_parent);
+    }
     Exiv2::Exifdatum* operator->() const {
         return &(*ptr);
     }
@@ -3605,19 +3612,15 @@ friend class ExifDataIterator;
 private:
     Exiv2::ExifData* base;
     PyObject* image;
-    bool iterator_invalided;
-    int iterator_count;
 public:
     ExifDataWrap(Exiv2::ExifData& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
         this->image = image;
-        iterator_count = 0;
     }
     ExifDataWrap() {
         base = new Exiv2::ExifData();
         image = NULL;
-        iterator_count = 0;
     }
     ~ExifDataWrap() {
         Py_XDECREF(image);
@@ -3690,41 +3693,17 @@ public:
             return NULL;
         }
         base->erase(pos);
-        iterator_invalided = true;
         return SWIG_Py_Void();
     }
     int __contains__(const std::string& key) {
         Exiv2::ExifData::iterator pos = base->findKey(Exiv2::ExifKey(key));
         return (pos == base->end()) ? 0 : 1;
     }
-    void _invalidate_iterators() {
-        iterator_invalided = true;
-    }
 };
-// Implementation of ExifData##Iterator methods that use ExifData##Wrap
-ExifDataIterator::ExifDataIterator(
-        Exiv2::ExifData::iterator ptr, ExifDataWrap* parent,
-        PyObject* py_parent) {
-    this->ptr = ptr;
-    this->parent = parent;
-    this->py_parent = py_parent;
-    Py_INCREF(py_parent);
-    if (parent->iterator_count == 0)
-        parent->iterator_invalided = false;
-    parent->iterator_count++;
-};
-ExifDataIterator::~ExifDataIterator() {
-    Py_DECREF(py_parent);
-    parent->iterator_count--;
-};
+// Implementation of ExifData##Iterator methods that use parent methods
 bool ExifDataIterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
         PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
-        return true;
-    }
-    if (parent->iterator_invalided) {
-        PyErr_SetString(PyExc_RuntimeError,
-                        "iterator may have been invalidated");
         return true;
     }
     return false;
@@ -3733,8 +3712,6 @@ std::string ExifDataIterator::__str__() {
     std::string result;
     if (ptr == (*parent)->end())
         result = "end of data";
-    else if (parent->iterator_invalided)
-        result = "invalid";
     else
         result = ptr->key() + ": " + ptr->print();
     result = "iterator<" + result + ">";

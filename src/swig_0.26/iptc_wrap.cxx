@@ -3631,10 +3631,17 @@ private:
     IptcDataWrap* parent;
     PyObject* py_parent;
 public:
-    IptcDataIterator(Exiv2::IptcData::iterator ptr,
-                         IptcDataWrap* parent,
-                         PyObject* py_parent);
-    ~IptcDataIterator();
+    IptcDataIterator(
+            Exiv2::IptcData::iterator ptr, IptcDataWrap* parent,
+            PyObject* py_parent) {
+        this->ptr = ptr;
+        this->parent = parent;
+        this->py_parent = py_parent;
+        Py_INCREF(py_parent);
+    }
+    ~IptcDataIterator() {
+        Py_DECREF(py_parent);
+    }
     Exiv2::Iptcdatum* operator->() const {
         return &(*ptr);
     }
@@ -3662,19 +3669,15 @@ friend class IptcDataIterator;
 private:
     Exiv2::IptcData* base;
     PyObject* image;
-    bool iterator_invalided;
-    int iterator_count;
 public:
     IptcDataWrap(Exiv2::IptcData& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
         this->image = image;
-        iterator_count = 0;
     }
     IptcDataWrap() {
         base = new Exiv2::IptcData();
         image = NULL;
-        iterator_count = 0;
     }
     ~IptcDataWrap() {
         Py_XDECREF(image);
@@ -3747,41 +3750,17 @@ public:
             return NULL;
         }
         base->erase(pos);
-        iterator_invalided = true;
         return SWIG_Py_Void();
     }
     int __contains__(const std::string& key) {
         Exiv2::IptcData::iterator pos = base->findKey(Exiv2::IptcKey(key));
         return (pos == base->end()) ? 0 : 1;
     }
-    void _invalidate_iterators() {
-        iterator_invalided = true;
-    }
 };
-// Implementation of IptcData##Iterator methods that use IptcData##Wrap
-IptcDataIterator::IptcDataIterator(
-        Exiv2::IptcData::iterator ptr, IptcDataWrap* parent,
-        PyObject* py_parent) {
-    this->ptr = ptr;
-    this->parent = parent;
-    this->py_parent = py_parent;
-    Py_INCREF(py_parent);
-    if (parent->iterator_count == 0)
-        parent->iterator_invalided = false;
-    parent->iterator_count++;
-};
-IptcDataIterator::~IptcDataIterator() {
-    Py_DECREF(py_parent);
-    parent->iterator_count--;
-};
+// Implementation of IptcData##Iterator methods that use parent methods
 bool IptcDataIterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
         PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
-        return true;
-    }
-    if (parent->iterator_invalided) {
-        PyErr_SetString(PyExc_RuntimeError,
-                        "iterator may have been invalidated");
         return true;
     }
     return false;
@@ -3790,8 +3769,6 @@ std::string IptcDataIterator::__str__() {
     std::string result;
     if (ptr == (*parent)->end())
         result = "end of data";
-    else if (parent->iterator_invalided)
-        result = "invalid";
     else
         result = ptr->key() + ": " + ptr->print();
     result = "iterator<" + result + ">";
@@ -7227,9 +7204,6 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcDataIterator""'");
   }
   arg2 = argp2->_unwrap();
-  
-  
-  arg1->_invalidate_iterators();
   
   {
     try {

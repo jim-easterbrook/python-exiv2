@@ -3635,10 +3635,17 @@ private:
     XmpDataWrap* parent;
     PyObject* py_parent;
 public:
-    XmpDataIterator(Exiv2::XmpData::iterator ptr,
-                         XmpDataWrap* parent,
-                         PyObject* py_parent);
-    ~XmpDataIterator();
+    XmpDataIterator(
+            Exiv2::XmpData::iterator ptr, XmpDataWrap* parent,
+            PyObject* py_parent) {
+        this->ptr = ptr;
+        this->parent = parent;
+        this->py_parent = py_parent;
+        Py_INCREF(py_parent);
+    }
+    ~XmpDataIterator() {
+        Py_DECREF(py_parent);
+    }
     Exiv2::Xmpdatum* operator->() const {
         return &(*ptr);
     }
@@ -3666,19 +3673,15 @@ friend class XmpDataIterator;
 private:
     Exiv2::XmpData* base;
     PyObject* image;
-    bool iterator_invalided;
-    int iterator_count;
 public:
     XmpDataWrap(Exiv2::XmpData& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
         this->image = image;
-        iterator_count = 0;
     }
     XmpDataWrap() {
         base = new Exiv2::XmpData();
         image = NULL;
-        iterator_count = 0;
     }
     ~XmpDataWrap() {
         Py_XDECREF(image);
@@ -3751,41 +3754,17 @@ public:
             return NULL;
         }
         base->erase(pos);
-        iterator_invalided = true;
         return SWIG_Py_Void();
     }
     int __contains__(const std::string& key) {
         Exiv2::XmpData::iterator pos = base->findKey(Exiv2::XmpKey(key));
         return (pos == base->end()) ? 0 : 1;
     }
-    void _invalidate_iterators() {
-        iterator_invalided = true;
-    }
 };
-// Implementation of XmpData##Iterator methods that use XmpData##Wrap
-XmpDataIterator::XmpDataIterator(
-        Exiv2::XmpData::iterator ptr, XmpDataWrap* parent,
-        PyObject* py_parent) {
-    this->ptr = ptr;
-    this->parent = parent;
-    this->py_parent = py_parent;
-    Py_INCREF(py_parent);
-    if (parent->iterator_count == 0)
-        parent->iterator_invalided = false;
-    parent->iterator_count++;
-};
-XmpDataIterator::~XmpDataIterator() {
-    Py_DECREF(py_parent);
-    parent->iterator_count--;
-};
+// Implementation of XmpData##Iterator methods that use parent methods
 bool XmpDataIterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
         PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
-        return true;
-    }
-    if (parent->iterator_invalided) {
-        PyErr_SetString(PyExc_RuntimeError,
-                        "iterator may have been invalidated");
         return true;
     }
     return false;
@@ -3794,8 +3773,6 @@ std::string XmpDataIterator::__str__() {
     std::string result;
     if (ptr == (*parent)->end())
         result = "end of data";
-    else if (parent->iterator_invalided)
-        result = "invalid";
     else
         result = ptr->key() + ": " + ptr->print();
     result = "iterator<" + result + ">";
@@ -7099,9 +7076,6 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
   }
   arg2 = argp2->_unwrap();
-  
-  
-  arg1->_invalidate_iterators();
   
   {
     try {

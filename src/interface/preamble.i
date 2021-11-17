@@ -75,11 +75,6 @@ PyObject* logger = NULL;
     }
     $1 = argp->_unwrap();
 %};
-// "check" typemap assumes arg1 is always the base_class##Wrap parent
-%typemap(check) Exiv2::base_class::iterator pos,
-                Exiv2::base_class::iterator beg %{
-    arg1->_invalidate_iterators();
-%}
 // "out" typemap assumes arg1 is always the base_class##Wrap parent and
 // self is always the Python base_class##Wrap parent
 %typemap(out) Exiv2::base_class::iterator %{
@@ -140,7 +135,6 @@ PyObject* logger = NULL;
 %ignore base_class##Wrap::_unwrap;
 %ignore base_class##Wrap::_old_type;
 %ignore base_class##Wrap::_warn_type_change;
-%ignore base_class##Wrap::_invalidate_iterators;
 %feature("docstring") base_class##Wrap
          "Python wrapper for Exiv2::parent_class"
 %typemap(ret) Exiv2::datum_type* __next__ %{
@@ -155,10 +149,17 @@ private:
     base_class##Wrap* parent;
     PyObject* py_parent;
 public:
-    base_class##Iterator(Exiv2::base_class::iterator ptr,
-                         base_class##Wrap* parent,
-                         PyObject* py_parent);
-    ~base_class##Iterator();
+    base_class##Iterator(
+            Exiv2::base_class::iterator ptr, base_class##Wrap* parent,
+            PyObject* py_parent) {
+        this->ptr = ptr;
+        this->parent = parent;
+        this->py_parent = py_parent;
+        Py_INCREF(py_parent);
+    }
+    ~base_class##Iterator() {
+        Py_DECREF(py_parent);
+    }
     Exiv2::datum_type* operator->() const {
         return &(*ptr);
     }
@@ -186,19 +187,15 @@ friend class base_class##Iterator;
 private:
     Exiv2::base_class* base;
     PyObject* image;
-    bool iterator_invalided;
-    int iterator_count;
 public:
     base_class##Wrap(Exiv2::base_class& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
         this->image = image;
-        iterator_count = 0;
     }
     base_class##Wrap() {
         base = new Exiv2::base_class();
         image = NULL;
-        iterator_count = 0;
     }
     ~base_class##Wrap() {
         Py_XDECREF(image);
@@ -271,41 +268,17 @@ public:
             return NULL;
         }
         base->erase(pos);
-        iterator_invalided = true;
         return SWIG_Py_Void();
     }
     int __contains__(const std::string& key) {
         Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
         return (pos == base->end()) ? 0 : 1;
     }
-    void _invalidate_iterators() {
-        iterator_invalided = true;
-    }
 };
-// Implementation of base_class##Iterator methods that use base_class##Wrap
-base_class##Iterator::base_class##Iterator(
-        Exiv2::base_class::iterator ptr, base_class##Wrap* parent,
-        PyObject* py_parent) {
-    this->ptr = ptr;
-    this->parent = parent;
-    this->py_parent = py_parent;
-    Py_INCREF(py_parent);
-    if (parent->iterator_count == 0)
-        parent->iterator_invalided = false;
-    parent->iterator_count++;
-};
-base_class##Iterator::~base_class##Iterator() {
-    Py_DECREF(py_parent);
-    parent->iterator_count--;
-};
+// Implementation of base_class##Iterator methods that use parent methods
 bool base_class##Iterator::_ptr_invalid() {
     if (ptr == (*parent)->end()) {
         PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
-        return true;
-    }
-    if (parent->iterator_invalided) {
-        PyErr_SetString(PyExc_RuntimeError,
-                        "iterator may have been invalidated");
         return true;
     }
     return false;
@@ -314,8 +287,6 @@ std::string base_class##Iterator::__str__() {
     std::string result;
     if (ptr == (*parent)->end())
         result = "end of data";
-    else if (parent->iterator_invalided)
-        result = "invalid";
     else
         result = ptr->key() + ": " + ptr->print();
     result = "iterator<" + result + ">";
