@@ -43,7 +43,7 @@ DATA_ITERATOR(ExifData, Exiv2::ExifData, Exiv2::ExifData::iterator,
               Exiv2::Exifdatum)
 // Get definition of ExifDataWrap so ExifThumb constructor can be passed
 // either ExifDataWrap or Exiv2::ExifData
-DATA_WRAPPER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
+DATA_WRAPPER_DEC(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 #endif
 
 %ignore Exiv2::ExifData::operator[];

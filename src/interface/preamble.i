@@ -252,8 +252,9 @@ public:
 %}
 %enddef // DATA_ITERATOR
 
-// Macro to wrap data while keeping a reference to its image
-%define DATA_WRAPPER(name, base_class, datum_type, key_type)
+// Macros to wrap data while keeping a reference to its image
+// Macro that actually does everything, either declaration only or implemented
+%define _DATA_WRAPPER(name, base_class, datum_type, key_type, mode)
 // Allow name##Wrap to be passed where base_class is expected
 %typemap(in) base_class& (int res, name##Wrap* arg_wrap, base_class* arg_base) %{
     res = SWIG_ConvertPtr($input, (void**)&arg_wrap, $descriptor(name##Wrap*), 0);
@@ -288,7 +289,7 @@ public:
 %feature("docstring") name##Wrap
     "Python wrapper for "#base_class
     ".\nSee that class's documentation for full details."
-%inline %{
+mode %{
 class name##Wrap {
 private:
     base_class* base;
@@ -331,6 +332,16 @@ public:
     }
 };
 %}
+%enddef // _DATA_WRAPPER
+
+// Macro to declare wrapped class for C++ use but not for Python
+%define DATA_WRAPPER_DEC(name, base_class, datum_type, key_type)
+_DATA_WRAPPER(name, base_class, datum_type, key_type, )
+%enddef // DATA_WRAPPER_DEC
+
+// Macro to declare wrapped class for Python and C++
+%define DATA_WRAPPER(name, base_class, datum_type, key_type)
+_DATA_WRAPPER(name, base_class, datum_type, key_type, %inline)
 %enddef // DATA_WRAPPER
 
 // Macro to make enums more Pythonic
