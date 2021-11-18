@@ -295,8 +295,8 @@ private:
     PyObject* image;
 public:
     typedef base_class::iterator iterator;
-    name##Wrap(base_class& base, PyObject* image) {
-        this->base = &base;
+    name##Wrap(base_class* base, PyObject* image) {
+        this->base = base;
         Py_INCREF(image);
         this->image = image;
     }

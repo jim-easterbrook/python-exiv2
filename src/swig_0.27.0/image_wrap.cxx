@@ -4736,8 +4736,8 @@ private:
     PyObject* image;
 public:
     typedef Exiv2::ExifData::iterator iterator;
-    ExifDataWrap(Exiv2::ExifData& base, PyObject* image) {
-        this->base = &base;
+    ExifDataWrap(Exiv2::ExifData* base, PyObject* image) {
+        this->base = base;
         Py_INCREF(image);
         this->image = image;
     }
@@ -4825,8 +4825,8 @@ private:
     PyObject* image;
 public:
     typedef Exiv2::IptcData::iterator iterator;
-    IptcDataWrap(Exiv2::IptcData& base, PyObject* image) {
-        this->base = &base;
+    IptcDataWrap(Exiv2::IptcData* base, PyObject* image) {
+        this->base = base;
         Py_INCREF(image);
         this->image = image;
     }
@@ -4978,8 +4978,8 @@ private:
     PyObject* image;
 public:
     typedef Exiv2::XmpData::iterator iterator;
-    XmpDataWrap(Exiv2::XmpData& base, PyObject* image) {
-        this->base = &base;
+    XmpDataWrap(Exiv2::XmpData* base, PyObject* image) {
+        this->base = base;
         Py_INCREF(image);
         this->image = image;
     }
@@ -5180,15 +5180,6 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
   return res;
 }
 
-SWIGINTERN ExifDataWrap *Exiv2_Image_exifDataEx(Exiv2::Image *self,PyObject *image){
-        return new ExifDataWrap(self->exifData(), image);
-    }
-SWIGINTERN IptcDataWrap *Exiv2_Image_iptcDataEx(Exiv2::Image *self,PyObject *image){
-        return new IptcDataWrap(self->iptcData(), image);
-    }
-SWIGINTERN XmpDataWrap *Exiv2_Image_xmpDataEx(Exiv2::Image *self,PyObject *image){
-        return new XmpDataWrap(self->xmpData(), image);
-    }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -15343,6 +15334,111 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Image_exifData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Exiv2::ExifData *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Image_exifData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_exifData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+    try {
+      result = (Exiv2::ExifData *) &(arg1)->exifData();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new ExifDataWrap(result, self), SWIGTYPE_p_ExifDataWrap, SWIG_POINTER_OWN);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Image_iptcData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Exiv2::IptcData *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Image_iptcData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_iptcData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+    try {
+      result = (Exiv2::IptcData *) &(arg1)->iptcData();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new IptcDataWrap(result, self), SWIGTYPE_p_IptcDataWrap, SWIG_POINTER_OWN);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Image_xmpData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Exiv2::XmpData *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Image_xmpData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_xmpData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+    try {
+      result = (Exiv2::XmpData *) &(arg1)->xmpData();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataWrap(result, self), SWIGTYPE_p_XmpDataWrap, SWIG_POINTER_OWN);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Image_xmpPacket(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
@@ -16751,114 +16847,6 @@ SWIGINTERN PyObject *_wrap_Image_imageType(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_exifData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  ExifDataWrap *result = 0 ;
-  
-  
-  arg2 = self;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Image_exifData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_exifData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  {
-    try {
-      result = (ExifDataWrap *)Exiv2_Image_exifDataEx(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifDataWrap, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_iptcData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IptcDataWrap *result = 0 ;
-  
-  
-  arg2 = self;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Image_iptcData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_iptcData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  {
-    try {
-      result = (IptcDataWrap *)Exiv2_Image_iptcDataEx(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcDataWrap, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_xmpData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  XmpDataWrap *result = 0 ;
-  
-  
-  arg2 = self;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Image_xmpData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_xmpData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  {
-    try {
-      result = (XmpDataWrap *)Exiv2_Image_xmpDataEx(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpDataWrap, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -19760,6 +19748,42 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
 		"Erase all buffered metadata. Metadata is not removed\n"
 		"    from the actual image until the writeMetadata() method is called.\n"
 		"" },
+  { "exifData", _wrap_Image_exifData, METH_NOARGS, "\n"
+		"Returns an ExifData instance containing currently buffered\n"
+		"    Exif data.\n"
+		"\n"
+		"The contained Exif data may have been read from the image by\n"
+		"a previous call to readMetadata() or added directly. The Exif\n"
+		"data in the returned instance will be written to the image when\n"
+		"writeMetadata() is called.\n"
+		"\n"
+		":rtype: :py:class:`ExifData`\n"
+		":return: modifiable ExifData instance containing Exif values\n"
+		"" },
+  { "iptcData", _wrap_Image_iptcData, METH_NOARGS, "\n"
+		"Returns an IptcData instance containing currently buffered\n"
+		"    IPTC data.\n"
+		"\n"
+		"The contained IPTC data may have been read from the image by\n"
+		"a previous call to readMetadata() or added directly. The IPTC\n"
+		"data in the returned instance will be written to the image when\n"
+		"writeMetadata() is called.\n"
+		"\n"
+		":rtype: :py:class:`IptcData`\n"
+		":return: modifiable IptcData instance containing IPTC values\n"
+		"" },
+  { "xmpData", _wrap_Image_xmpData, METH_NOARGS, "\n"
+		"Returns an XmpData instance containing currently buffered\n"
+		"    XMP data.\n"
+		"\n"
+		"The contained XMP data may have been read from the image by\n"
+		"a previous call to readMetadata() or added directly. The XMP\n"
+		"data in the returned instance will be written to the image when\n"
+		"writeMetadata() is called.\n"
+		"\n"
+		":rtype: :py:class:`XmpData`\n"
+		":return: modifiable XmpData instance containing XMP values\n"
+		"" },
   { "xmpPacket", _wrap_Image_xmpPacket, METH_NOARGS, "          Return a modifiable reference to the raw XMP packet." },
   { "writeXmpFromPacket", _wrap_Image_writeXmpFromPacket, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
@@ -19845,9 +19869,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
   { "nativePreviews", _wrap_Image_nativePreviews, METH_NOARGS, " Return list of native previews. This is meant to be used only by the PreviewManager." },
   { "setTypeSupported", _wrap_Image_setTypeSupported, METH_VARARGS, " set type support for this image format" },
   { "imageType", _wrap_Image_imageType, METH_NOARGS, " set type support for this image format" },
-  { "exifData", _wrap_Image_exifData, METH_NOARGS, "" },
-  { "iptcData", _wrap_Image_iptcData, METH_NOARGS, "" },
-  { "xmpData", _wrap_Image_xmpData, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

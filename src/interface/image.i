@@ -69,35 +69,20 @@ DATA_WRAPPER(IptcData, Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey)
 DATA_WRAPPER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
 
 // Make image methods return wrapped data
-%rename(exifData) Exiv2::Image::exifDataEx;
-%rename(iptcData) Exiv2::Image::iptcDataEx;
-%rename(xmpData) Exiv2::Image::xmpDataEx;
-
-%ignore Exiv2::Image::exifData;
-%ignore Exiv2::Image::iptcData;
-%ignore Exiv2::Image::xmpData;
-
-%newobject Exiv2::Image::exifDataEx;
-%newobject Exiv2::Image::iptcDataEx;
-%newobject Exiv2::Image::xmpDataEx;
-
-%typemap(in, numinputs=0) PyObject* image %{
-    $1 = self;
-%}
-
-%extend Exiv2::Image {
-    ExifDataWrap* exifDataEx(PyObject* image) {
-        return new ExifDataWrap($self->exifData(), image);
-    }
-    IptcDataWrap* iptcDataEx(PyObject* image) {
-        return new IptcDataWrap($self->iptcData(), image);
-    }
-    XmpDataWrap* xmpDataEx(PyObject* image) {
-        return new XmpDataWrap($self->xmpData(), image);
-    }
-}
-
-#endif
+// typemaps assume self is always the Python image
+%typemap(out) Exiv2::ExifData& %{
+    $result = SWIG_NewPointerObj(
+        new ExifDataWrap($1, self), $descriptor(ExifDataWrap*), SWIG_POINTER_OWN);
+%};
+%typemap(out) Exiv2::IptcData& %{
+    $result = SWIG_NewPointerObj(
+        new IptcDataWrap($1, self), $descriptor(IptcDataWrap*), SWIG_POINTER_OWN);
+%};
+%typemap(out) Exiv2::XmpData& %{
+    $result = SWIG_NewPointerObj(
+        new XmpDataWrap($1, self), $descriptor(XmpDataWrap*), SWIG_POINTER_OWN);
+%};
+#endif  // ifndef SWIGIMPORTED
 
 
 // Make image types available

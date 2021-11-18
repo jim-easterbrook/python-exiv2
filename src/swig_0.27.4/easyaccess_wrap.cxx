@@ -3570,8 +3570,8 @@ private:
     PyObject* image;
 public:
     typedef Exiv2::ExifData::iterator iterator;
-    ExifDataWrap(Exiv2::ExifData& base, PyObject* image) {
-        this->base = &base;
+    ExifDataWrap(Exiv2::ExifData* base, PyObject* image) {
+        this->base = base;
         Py_INCREF(image);
         this->image = image;
     }
