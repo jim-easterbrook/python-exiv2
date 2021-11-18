@@ -50,6 +50,13 @@ wrap_auto_unique_ptr(Exiv2::Image);
 
 // Wrap data classes, duplicate of definitions in exif.i etc.
 #ifndef SWIGIMPORTED
+DATA_MAPPING_METHODS(ExifData, ExifDataWrap, Exiv2::Exifdatum, Exiv2::ExifKey,
+    Exiv2::ExifKey(datum->key()).defaultTypeId())
+DATA_MAPPING_METHODS(IptcData, IptcDataWrap, Exiv2::Iptcdatum, Exiv2::IptcKey,
+    Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
+DATA_MAPPING_METHODS(XmpData, XmpDataWrap, Exiv2::Xmpdatum, Exiv2::XmpKey,
+    Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
+
 DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
 DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
              IptcDataSets::dataSetType(datum->tag(), datum->record()))

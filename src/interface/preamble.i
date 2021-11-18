@@ -60,7 +60,95 @@ PyObject* logger = NULL;
     }
 }
 
-// Macro to provide Python list and dict methods for Exiv2 data
+// Macro to make an Exiv2 data container more like a Python dict
+%define DATA_MAPPING_METHODS(name, base_class, datum_type, key_type,
+                             default_type_func)
+%feature("python:slot", "mp_length",
+         functype="lenfunc") base_class::__len__;
+%feature("python:slot", "mp_subscript",
+         functype="binaryfunc") base_class::__getitem__;
+%feature("python:slot", "mp_ass_subscript",
+         functype="objobjargproc") base_class::__setitem__;
+%feature("python:slot", "sq_contains",
+         functype="objobjproc") base_class::__contains__;
+// Helper functions
+%{
+static Exiv2::TypeId name##_default_type(datum_type* datum) {
+    Exiv2::TypeId old_type = datum->typeId();
+    if (old_type == Exiv2::invalidTypeId)
+        old_type = default_type_func;
+    return old_type;
+};
+static void name##_type_change_warn(datum_type* datum, Exiv2::TypeId old_type) {
+    using namespace Exiv2;
+    TypeId new_type = datum->typeId();
+    if (new_type == old_type)
+        return;
+    EXV_WARNING << datum->key() << ": changed type from '" <<
+        TypeInfo::typeName(old_type) << "' to '" <<
+        TypeInfo::typeName(new_type) << "'.\n";
+};
+static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
+    Exiv2::TypeId old_type = name##_default_type(datum);
+    if (datum->setValue(value) != 0)
+        return PyErr_Format(PyExc_ValueError,
+            "%s: cannot set type '%s' to value '%s'",
+            datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
+            value.c_str());
+    name##_type_change_warn(datum, old_type);
+    return SWIG_Py_Void();
+};
+%}
+// Add methods to base class
+%extend base_class {
+    long __len__() {
+        return $self->count();
+    }
+    datum_type* __getitem__(const std::string& key) {
+        return &(*$self)[key];
+    }
+    PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
+        datum_type* datum = &(*$self)[key];
+        Exiv2::TypeId old_type = name##_default_type(datum);
+        datum->setValue(value);
+        name##_type_change_warn(datum, old_type);
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key, const std::string& value) {
+        datum_type* datum = &(*$self)[key];
+        return name##_set_value(datum, value);
+    }
+    PyObject* __setitem__(const std::string& key, PyObject* value) {
+        // Get equivalent of Python "str(value)"
+        PyObject* py_str = PyObject_Str(value);
+        if (py_str == NULL)
+            return NULL;
+        const char* c_str = PyUnicode_AsUTF8(py_str);
+        Py_DECREF(py_str);
+        datum_type* datum = &(*$self)[key];
+        return name##_set_value(datum, c_str);
+    }
+#if defined(SWIGPYTHON_BUILTIN)
+    PyObject* __setitem__(const std::string& key) {
+#else
+    PyObject* __delitem__(const std::string& key) {
+#endif
+        base_class::iterator pos = $self->findKey(key_type(key));
+        if (pos == $self->end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return NULL;
+        }
+        $self->erase(pos);
+        return SWIG_Py_Void();
+    }
+    int __contains__(const std::string& key) {
+        base_class::iterator pos = $self->findKey(key_type(key));
+        return (pos == $self->end()) ? 0 : 1;
+    }
+}
+%enddef // DATA_MAPPING_METHODS
+
+// Macro to provide Python list methods for Exiv2 data
 %define DATA_LISTMAP(base_class, datum_type, key_type, default_type_func)
 // base_class##Iterator typemaps
 %typemap(in) Exiv2::base_class::iterator (int res = 0,
@@ -113,14 +201,6 @@ PyObject* logger = NULL;
          functype="getiterfunc") base_class##Iterator::__iter__;
 %feature("python:slot", "tp_iternext",
          functype="iternextfunc") base_class##Iterator::__next__;
-%feature("python:slot", "mp_length",
-         functype="lenfunc") base_class##Wrap::__len__;
-%feature("python:slot", "mp_subscript",
-         functype="binaryfunc") base_class##Wrap::__getitem__;
-%feature("python:slot", "mp_ass_subscript",
-         functype="objobjargproc") base_class##Wrap::__setitem__;
-%feature("python:slot", "sq_contains",
-         functype="objobjproc") base_class##Wrap::__contains__;
 // base_class##Iterator features
 %newobject base_class##Iterator::__iter__;
 %ignore base_class##Iterator::base_class##Iterator;
@@ -133,8 +213,11 @@ PyObject* logger = NULL;
 %ignore Exiv2::base_class;
 %ignore base_class##Wrap::base_class##Wrap(Exiv2::base_class&, PyObject*);
 %ignore base_class##Wrap::_unwrap;
-%ignore base_class##Wrap::_old_type;
-%ignore base_class##Wrap::_warn_type_change;
+%ignore base_class##Wrap::operator[];
+%ignore base_class##Wrap::count;
+%ignore base_class##Wrap::end;
+%ignore base_class##Wrap::erase;
+%ignore base_class##Wrap::findKey;
 %feature("docstring") base_class##Wrap
          "Python wrapper for Exiv2::parent_class"
 %typemap(ret) Exiv2::datum_type* __next__ %{
@@ -188,6 +271,7 @@ private:
     Exiv2::base_class* base;
     PyObject* image;
 public:
+    typedef Exiv2::base_class::iterator iterator;
     base_class##Wrap(Exiv2::base_class& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
@@ -209,70 +293,22 @@ public:
     Exiv2::base_class::iterator __iter__() {
         return base->begin();
     }
-    long __len__() {
+    // make some base class methods available to C++ (operator-> makes them
+    // all available to Python)
+    Exiv2::datum_type& operator[](const std::string &key) {
+        return (*base)[key];
+    }
+    long count() const {
         return base->count();
     }
-    Exiv2::datum_type* __getitem__(const std::string& key) {
-        return &(*base)[key];
+    Exiv2::base_class::iterator end() {
+        return base->end();
     }
-    PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
-        Exiv2::datum_type* datum = &(*base)[key];
-        Exiv2::TypeId old_type = _old_type(key, datum);
-        datum->setValue(value);
-        _warn_type_change(old_type, datum);
-        return SWIG_Py_Void();
+    Exiv2::base_class::iterator erase(Exiv2::base_class::iterator pos) {
+        return base->erase(pos);
     }
-    PyObject* __setitem__(const std::string& key, const std::string& value) {
-        Exiv2::datum_type* datum = &(*base)[key];
-        Exiv2::TypeId old_type = _old_type(key, datum);
-        if (datum->setValue(value) != 0)
-            return PyErr_Format(PyExc_ValueError,
-                "%s: cannot set type '%s' to value '%s'",
-                key.c_str(), Exiv2::TypeInfo::typeName(old_type), value.c_str());
-        _warn_type_change(old_type, datum);
-        return SWIG_Py_Void();
-    }
-    PyObject* __setitem__(const std::string& key, PyObject* value) {
-        // Get equivalent of Python "str(value)"
-        PyObject* py_str = PyObject_Str(value);
-        if (py_str == NULL)
-            return NULL;
-        const char* c_str = PyUnicode_AsUTF8(py_str);
-        Py_DECREF(py_str);
-        return __setitem__(key, c_str);
-    }
-    Exiv2::TypeId _old_type(const std::string& key, Exiv2::datum_type* datum) {
-        using namespace Exiv2;
-        TypeId old_type = datum->typeId();
-        if (old_type == Exiv2::invalidTypeId)
-            old_type = default_type_func;
-        return old_type;
-    }
-    void _warn_type_change(Exiv2::TypeId old_type, Exiv2::datum_type* datum) {
-        using namespace Exiv2;
-        TypeId new_type = datum->typeId();
-        if (new_type != old_type) {
-            EXV_WARNING << datum->key() << ": changed type from '" <<
-                TypeInfo::typeName(old_type) << "' to '" <<
-                TypeInfo::typeName(new_type) << "'.\n";
-        }
-    }
-#if defined(SWIGPYTHON_BUILTIN)
-    PyObject* __setitem__(const std::string& key) {
-#else
-    PyObject* __delitem__(const std::string& key) {
-#endif
-        Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
-        if (pos == base->end()) {
-            PyErr_SetString(PyExc_KeyError, key.c_str());
-            return NULL;
-        }
-        base->erase(pos);
-        return SWIG_Py_Void();
-    }
-    int __contains__(const std::string& key) {
-        Exiv2::base_class::iterator pos = base->findKey(Exiv2::key_type(key));
-        return (pos == base->end()) ? 0 : 1;
+    Exiv2::base_class::iterator findKey(const Exiv2::key_type &key) {
+        return base->findKey(key);
     }
 };
 // Implementation of base_class##Iterator methods that use parent methods
@@ -293,7 +329,7 @@ std::string base_class##Iterator::__str__() {
     return result;
 };
 %}
-%enddef
+%enddef // DATA_LISTMAP
 
 // Macro to make enums more Pythonic
 %define ENUM(name, doc, contents...)
@@ -307,14 +343,14 @@ struct name {
 %ignore name::name;
 %ignore name::~name;
 %ignore Exiv2::name;
-%enddef
+%enddef // ENUM
 
 // Stuff to handle auto_ptr or unique_ptr
 #if EXIV2_VERSION_HEX < 0x01000000
 %define wrap_auto_unique_ptr(pointed_type)
 %include "std_auto_ptr.i"
 %auto_ptr(pointed_type)
-%enddef
+%enddef // wrap_auto_unique_ptr
 #else
 template <typename T>
 struct std::unique_ptr {};
@@ -324,5 +360,5 @@ struct std::unique_ptr {};
         (&$1)->release(), $descriptor(pointed_type *), SWIG_POINTER_OWN);
 %}
 %template() std::unique_ptr<pointed_type>;
-%enddef
+%enddef // wrap_auto_unique_ptr
 #endif

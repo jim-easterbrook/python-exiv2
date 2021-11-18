@@ -37,6 +37,8 @@
 }
 
 #ifndef SWIGIMPORTED
+DATA_MAPPING_METHODS(ExifData, ExifDataWrap, Exiv2::Exifdatum, Exiv2::ExifKey,
+                     Exiv2::ExifKey(datum->key()).defaultTypeId())
 DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
 #endif
 
