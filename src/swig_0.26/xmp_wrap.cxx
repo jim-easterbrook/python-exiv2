@@ -3477,37 +3477,36 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_ValueList swig_types[31]
 #define SWIGTYPE_p_ValueType swig_types[32]
 #define SWIGTYPE_p_XmpDataIterator swig_types[33]
-#define SWIGTYPE_p_XmpDataWrap swig_types[34]
-#define SWIGTYPE_p_char swig_types[35]
-#define SWIGTYPE_p_const_iterator swig_types[36]
-#define SWIGTYPE_p_f_p_void_bool__void swig_types[37]
-#define SWIGTYPE_p_first_type swig_types[38]
-#define SWIGTYPE_p_int swig_types[39]
-#define SWIGTYPE_p_iterator swig_types[40]
-#define SWIGTYPE_p_long_long swig_types[41]
-#define SWIGTYPE_p_second_type swig_types[42]
-#define SWIGTYPE_p_short swig_types[43]
-#define SWIGTYPE_p_signed_char swig_types[44]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_t swig_types[45]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_t__const_iterator swig_types[46]
-#define SWIGTYPE_p_std__ostream swig_types[47]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[48]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[49]
-#define SWIGTYPE_p_std__setT_std__string_t swig_types[50]
-#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[51]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_t swig_types[52]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_t__iterator swig_types[53]
-#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[54]
-#define SWIGTYPE_p_std__vectorT_std__string_t__const_iterator swig_types[55]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[56]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_t swig_types[57]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_t__const_iterator swig_types[58]
-#define SWIGTYPE_p_unsigned_char swig_types[59]
-#define SWIGTYPE_p_unsigned_int swig_types[60]
-#define SWIGTYPE_p_unsigned_long_long swig_types[61]
-#define SWIGTYPE_p_unsigned_short swig_types[62]
-static swig_type_info *swig_types[64];
-static swig_module_info swig_module = {swig_types, 63, 0, 0, 0, 0};
+#define SWIGTYPE_p_char swig_types[34]
+#define SWIGTYPE_p_const_iterator swig_types[35]
+#define SWIGTYPE_p_f_p_void_bool__void swig_types[36]
+#define SWIGTYPE_p_first_type swig_types[37]
+#define SWIGTYPE_p_int swig_types[38]
+#define SWIGTYPE_p_iterator swig_types[39]
+#define SWIGTYPE_p_long_long swig_types[40]
+#define SWIGTYPE_p_second_type swig_types[41]
+#define SWIGTYPE_p_short swig_types[42]
+#define SWIGTYPE_p_signed_char swig_types[43]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_t swig_types[44]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_t__const_iterator swig_types[45]
+#define SWIGTYPE_p_std__ostream swig_types[46]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[47]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[48]
+#define SWIGTYPE_p_std__setT_std__string_t swig_types[49]
+#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[50]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_t swig_types[51]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_t__iterator swig_types[52]
+#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[53]
+#define SWIGTYPE_p_std__vectorT_std__string_t__const_iterator swig_types[54]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[55]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_t swig_types[56]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_t__const_iterator swig_types[57]
+#define SWIGTYPE_p_unsigned_char swig_types[58]
+#define SWIGTYPE_p_unsigned_int swig_types[59]
+#define SWIGTYPE_p_unsigned_long_long swig_types[60]
+#define SWIGTYPE_p_unsigned_short swig_types[61]
+static swig_type_info *swig_types[63];
+static swig_module_info swig_module = {swig_types, 62, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4554,99 +4553,6 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
       }
     
 
-class XmpDataWrap {
-private:
-    Exiv2::XmpData* base;
-    PyObject* image;
-public:
-    typedef Exiv2::XmpData::iterator iterator;
-    XmpDataWrap(Exiv2::XmpData& base, PyObject* image) {
-        this->base = &base;
-        Py_INCREF(image);
-        this->image = image;
-    }
-    XmpDataWrap() {
-        base = new Exiv2::XmpData();
-        image = NULL;
-    }
-    ~XmpDataWrap() {
-        Py_XDECREF(image);
-    }
-    Exiv2::XmpData* operator->() {
-        return base;
-    }
-    Exiv2::XmpData* _unwrap() {
-        return base;
-    }
-    // make some base class methods available to C++ (operator-> makes them
-    // all available to Python)
-    Exiv2::Xmpdatum& operator[](const std::string &key) {
-        return (*base)[key];
-    }
-    long count() const {
-        return base->count();
-    }
-    Exiv2::XmpData::iterator begin() {
-        return base->begin();
-    }
-    Exiv2::XmpData::iterator end() {
-        return base->end();
-    }
-    Exiv2::XmpData::iterator erase(Exiv2::XmpData::iterator pos) {
-        return base->erase(pos);
-    }
-    Exiv2::XmpData::iterator findKey(const Exiv2::XmpKey &key) {
-        return base->findKey(key);
-    }
-};
-
-SWIGINTERN long XmpDataWrap___len__(XmpDataWrap *self){
-        return self->count();
-    }
-SWIGINTERN Exiv2::Xmpdatum *XmpDataWrap___getitem__(XmpDataWrap *self,std::string const &key){
-        return &(*self)[key];
-    }
-SWIGINTERN PyObject *XmpDataWrap___setitem____SWIG_0(XmpDataWrap *self,std::string const &key,Exiv2::Value *value){
-        Exiv2::Xmpdatum* datum = &(*self)[key];
-        Exiv2::TypeId old_type = XmpData_default_type(datum);
-        datum->setValue(value);
-        XmpData_type_change_warn(datum, old_type);
-        return SWIG_Py_Void();
-    }
-SWIGINTERN PyObject *XmpDataWrap___setitem____SWIG_1(XmpDataWrap *self,std::string const &key,std::string const &value){
-        Exiv2::Xmpdatum* datum = &(*self)[key];
-        return XmpData_set_value(datum, value);
-    }
-SWIGINTERN PyObject *XmpDataWrap___setitem____SWIG_2(XmpDataWrap *self,std::string const &key,PyObject *value){
-        // Get equivalent of Python "str(value)"
-        PyObject* py_str = PyObject_Str(value);
-        if (py_str == NULL)
-            return NULL;
-        const char* c_str = PyUnicode_AsUTF8(py_str);
-        Py_DECREF(py_str);
-        Exiv2::Xmpdatum* datum = &(*self)[key];
-        return XmpData_set_value(datum, c_str);
-    }
-SWIGINTERN PyObject *XmpDataWrap___setitem____SWIG_3(XmpDataWrap *self,std::string const &key){
-
-
-
-        XmpDataWrap::iterator pos = self->findKey(Exiv2::XmpKey(key));
-        if (pos == self->end()) {
-            PyErr_SetString(PyExc_KeyError, key.c_str());
-            return NULL;
-        }
-        self->erase(pos);
-        return SWIG_Py_Void();
-    }
-SWIGINTERN int XmpDataWrap___contains__(XmpDataWrap *self,std::string const &key){
-        XmpDataWrap::iterator pos = self->findKey(Exiv2::XmpKey(key));
-        return (pos == self->end()) ? 0 : 1;
-    }
-SWIGINTERN Exiv2::XmpData::iterator XmpDataWrap___iter__(XmpDataWrap *self){
-        return self->begin();
-    }
-
 SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
@@ -4660,6 +4566,52 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
+SWIGINTERN long Exiv2_XmpData___len__(Exiv2::XmpData *self){
+        return self->count();
+    }
+SWIGINTERN Exiv2::Xmpdatum *Exiv2_XmpData___getitem__(Exiv2::XmpData *self,std::string const &key){
+        return &(*self)[key];
+    }
+SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_0(Exiv2::XmpData *self,std::string const &key,Exiv2::Value *value){
+        Exiv2::Xmpdatum* datum = &(*self)[key];
+        Exiv2::TypeId old_type = XmpData_default_type(datum);
+        datum->setValue(value);
+        XmpData_type_change_warn(datum, old_type);
+        return SWIG_Py_Void();
+    }
+SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_1(Exiv2::XmpData *self,std::string const &key,std::string const &value){
+        Exiv2::Xmpdatum* datum = &(*self)[key];
+        return XmpData_set_value(datum, value);
+    }
+SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_2(Exiv2::XmpData *self,std::string const &key,PyObject *value){
+        // Get equivalent of Python "str(value)"
+        PyObject* py_str = PyObject_Str(value);
+        if (py_str == NULL)
+            return NULL;
+        const char* c_str = PyUnicode_AsUTF8(py_str);
+        Py_DECREF(py_str);
+        Exiv2::Xmpdatum* datum = &(*self)[key];
+        return XmpData_set_value(datum, c_str);
+    }
+SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_3(Exiv2::XmpData *self,std::string const &key){
+
+
+
+        Exiv2::XmpData::iterator pos = self->findKey(Exiv2::XmpKey(key));
+        if (pos == self->end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return NULL;
+        }
+        self->erase(pos);
+        return SWIG_Py_Void();
+    }
+SWIGINTERN int Exiv2_XmpData___contains__(Exiv2::XmpData *self,std::string const &key){
+        Exiv2::XmpData::iterator pos = self->findKey(Exiv2::XmpKey(key));
+        return (pos == self->end()) ? 0 : 1;
+    }
+SWIGINTERN Exiv2::XmpData::iterator Exiv2_XmpData___iter__(Exiv2::XmpData *self){
+        return self->begin();
+    }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6430,1122 +6382,7 @@ SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpDataIterator___iter__) /* defines _wrap_XmpD
 
 SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_XmpDataIterator___next__) /* defines _wrap_XmpDataIterator___next___iternextfunc_closure */
 
-SWIGINTERN int _wrap_new_XmpData(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XmpData")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_XmpData", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (XmpDataWrap *)new XmpDataWrap();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpDataWrap, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_XmpData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_XmpData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpData" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      delete arg1;
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___deref__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::XmpData *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData___deref__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___deref__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (Exiv2::XmpData *)(arg1)->operator ->();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___len__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (long)XmpDataWrap___len__(arg1);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  Exiv2::Xmpdatum *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___getitem__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (Exiv2::Xmpdatum *)XmpDataWrap___getitem__(arg1,(std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  std::string *arg2 = 0 ;
-  Exiv2::Value *arg3 = (Exiv2::Value *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject *result = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___setitem__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpData___setitem__" "', argument " "3"" of type '" "Exiv2::Value *""'"); 
-  }
-  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
-  {
-    try {
-      result = (PyObject *)XmpDataWrap___setitem____SWIG_0(arg1,(std::string const &)*arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  PyObject *result = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___setitem__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpData___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  {
-    try {
-      result = (PyObject *)XmpDataWrap___setitem____SWIG_1(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  std::string *arg2 = 0 ;
-  PyObject *arg3 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *result = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___setitem__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  arg3 = swig_obj[2];
-  {
-    try {
-      result = (PyObject *)XmpDataWrap___setitem____SWIG_2(arg1,(std::string const &)*arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___setitem__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (PyObject *)XmpDataWrap___setitem____SWIG_3(arg1,(std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___setitem__(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData___setitem__", 0, 3, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_XmpData___setitem____SWIG_3(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    int _v = 0;
-    {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Exiv2__Value, 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_XmpData___setitem____SWIG_0(self, argc, argv);
-  }
-check_2:
-  
-  if (argc == 3) {
-    int _v = 0;
-    {
-      int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_XmpData___setitem____SWIG_1(self, argc, argv);
-  }
-check_3:
-  
-  if (argc == 3) {
-    PyObject *retobj = _wrap_XmpData___setitem____SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData___setitem__'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    XmpDataWrap::__setitem__(std::string const &,Exiv2::Value *)\n"
-    "    XmpDataWrap::__setitem__(std::string const &,std::string const &)\n"
-    "    XmpDataWrap::__setitem__(std::string const &,PyObject *)\n"
-    "    XmpDataWrap::__setitem__(std::string const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___contains__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  int result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___contains__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (int)XmpDataWrap___contains__(arg1,(std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___iter__" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = XmpDataWrap___iter__(arg1);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1->end(), self),
-    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_add__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  Exiv2::XmpKey *arg2 = 0 ;
-  Exiv2::Value *arg3 = (Exiv2::Value *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  int result;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_add" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__XmpKey,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_add" "', argument " "2"" of type '" "Exiv2::XmpKey const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_add" "', argument " "2"" of type '" "Exiv2::XmpKey const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::XmpKey * >(argp2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpData_add" "', argument " "3"" of type '" "Exiv2::Value const *""'"); 
-  }
-  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
-  {
-    try {
-      result = (int)(*arg1)->add((Exiv2::XmpKey const &)*arg2,(Exiv2::Value const *)arg3);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_add__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  Exiv2::Xmpdatum *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  int result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_add" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Xmpdatum,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_add" "', argument " "2"" of type '" "Exiv2::Xmpdatum const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_add" "', argument " "2"" of type '" "Exiv2::Xmpdatum const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::Xmpdatum * >(argp2);
-  {
-    try {
-      result = (int)(*arg1)->add((Exiv2::Xmpdatum const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_add(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData_add", 0, 3, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_XmpData_add__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_XmpData_add__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_add'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::XmpData::add(Exiv2::XmpKey const &,Exiv2::Value const *)\n"
-    "    Exiv2::XmpData::add(Exiv2::Xmpdatum const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 ;
-  XmpDataIterator *argp2 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_erase" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  
-  res2 = SWIG_ConvertPtr(swig_obj[0], (void**)&argp2,
-    SWIGTYPE_p_XmpDataIterator, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
-  }
-  arg2 = argp2->_unwrap();
-  
-  {
-    try {
-      result = (*arg1)->erase(arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1->end(), self),
-    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_clear(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_clear", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_clear" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      (*arg1)->clear();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_sortByKey(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_sortByKey", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_sortByKey" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      (*arg1)->sortByKey();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_begin", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_begin" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (*arg1)->begin();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1->end(), self),
-    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_end", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_end" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (*arg1)->end();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1->end(), self),
-    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  Exiv2::XmpKey *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_findKey" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__XmpKey,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_findKey" "', argument " "2"" of type '" "Exiv2::XmpKey const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_findKey" "', argument " "2"" of type '" "Exiv2::XmpKey const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::XmpKey * >(argp2);
-  {
-    try {
-      result = (*arg1)->findKey((Exiv2::XmpKey const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj(
-    new XmpDataIterator(result, arg1->end(), self),
-    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_empty(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  bool result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_empty", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_empty" "', argument " "1"" of type '" "XmpDataWrap const *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (bool)(*arg1)->empty();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_count(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  long result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_count", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_count" "', argument " "1"" of type '" "XmpDataWrap const *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->count();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_usePacket__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_usePacket" "', argument " "1"" of type '" "XmpDataWrap const *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (bool)(*arg1)->usePacket();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_usePacket__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  bool arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool val2 ;
-  int ecode2 = 0 ;
-  bool result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_usePacket" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_usePacket" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = static_cast< bool >(val2);
-  {
-    try {
-      result = (bool)(*arg1)->usePacket(arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_usePacket(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData_usePacket", 0, 2, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_XmpData_usePacket__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_XmpData_usePacket__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_usePacket'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::XmpData::usePacket() const\n"
-    "    Exiv2::XmpData::usePacket(bool)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_setPacket(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_setPacket" "', argument " "1"" of type '" "XmpDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_setPacket" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_setPacket" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      (*arg1)->setPacket((std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_xmpPacket(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataWrap *arg1 = (XmpDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::string *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_xmpPacket", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_xmpPacket" "', argument " "1"" of type '" "XmpDataWrap const *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (std::string *) &(*arg1)->xmpPacket();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpData) /* defines _wrap_delete_XmpData_destructor_closure */
-
-SWIGPY_LENFUNC_CLOSURE(_wrap_XmpData___len__) /* defines _wrap_XmpData___len___lenfunc_closure */
-
-SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_XmpData___setitem__) /* defines _wrap_XmpData___setitem___objobjargproc_closure */
-
-SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_XmpData___contains__) /* defines _wrap_XmpData___contains___objobjproc_closure */
-
-SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpData___iter__) /* defines _wrap_XmpData___iter___getiterfunc_closure */
+SWIGPY_REPRFUNC_CLOSURE(_wrap_XmpDataIterator___str__) /* defines _wrap_XmpDataIterator___str___reprfunc_closure */
 
 SWIGINTERN int _wrap_new_Xmpdatum__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -8828,6 +7665,1091 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Xmpdatum) /* defines _wrap_delete_Xmpdatum_destructor_closure */
 
+SWIGINTERN PyObject *_wrap_XmpData_add__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  Exiv2::XmpKey *arg2 = 0 ;
+  Exiv2::Value *arg3 = (Exiv2::Value *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  int result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_add" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__XmpKey,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_add" "', argument " "2"" of type '" "Exiv2::XmpKey const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_add" "', argument " "2"" of type '" "Exiv2::XmpKey const &""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::XmpKey * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpData_add" "', argument " "3"" of type '" "Exiv2::Value const *""'"); 
+  }
+  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
+  {
+    try {
+      result = (int)(arg1)->add((Exiv2::XmpKey const &)*arg2,(Exiv2::Value const *)arg3);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_add__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  Exiv2::Xmpdatum *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_add" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Xmpdatum,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_add" "', argument " "2"" of type '" "Exiv2::Xmpdatum const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_add" "', argument " "2"" of type '" "Exiv2::Xmpdatum const &""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::Xmpdatum * >(argp2);
+  {
+    try {
+      result = (int)(arg1)->add((Exiv2::Xmpdatum const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_add(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData_add", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_XmpData_add__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_XmpData_add__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_add'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::XmpData::add(Exiv2::XmpKey const &,Exiv2::Value const *)\n"
+    "    Exiv2::XmpData::add(Exiv2::Xmpdatum const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  XmpDataIterator *argp2 ;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_erase" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  
+  res2 = SWIG_ConvertPtr(swig_obj[0], (void**)&argp2,
+    SWIGTYPE_p_XmpDataIterator, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
+  }
+  arg2 = argp2->_unwrap();
+  
+  {
+    try {
+      result = (arg1)->erase(arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIterator(result, arg1->end(), self),
+    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_clear(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData_clear", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_clear" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      (arg1)->clear();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_sortByKey(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData_sortByKey", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_sortByKey" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      (arg1)->sortByKey();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData_begin", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_begin" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = (arg1)->begin();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIterator(result, arg1->end(), self),
+    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData_end", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_end" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = (arg1)->end();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIterator(result, arg1->end(), self),
+    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  Exiv2::XmpKey *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_findKey" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__XmpKey,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_findKey" "', argument " "2"" of type '" "Exiv2::XmpKey const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_findKey" "', argument " "2"" of type '" "Exiv2::XmpKey const &""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::XmpKey * >(argp2);
+  {
+    try {
+      result = (arg1)->findKey((Exiv2::XmpKey const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIterator(result, arg1->end(), self),
+    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_empty(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData_empty", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_empty" "', argument " "1"" of type '" "Exiv2::XmpData const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = (bool)((Exiv2::XmpData const *)arg1)->empty();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_count(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData_count", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_count" "', argument " "1"" of type '" "Exiv2::XmpData const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = (long)((Exiv2::XmpData const *)arg1)->count();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_usePacket__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool result;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_usePacket" "', argument " "1"" of type '" "Exiv2::XmpData const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = (bool)((Exiv2::XmpData const *)arg1)->usePacket();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_usePacket__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  bool result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_usePacket" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_usePacket" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  {
+    try {
+      result = (bool)(arg1)->usePacket(arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_usePacket(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData_usePacket", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_XmpData_usePacket__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_XmpData_usePacket__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_usePacket'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::XmpData::usePacket() const\n"
+    "    Exiv2::XmpData::usePacket(bool)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_setPacket(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_setPacket" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_setPacket" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_setPacket" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      (arg1)->setPacket((std::string const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_xmpPacket(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData_xmpPacket", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_xmpPacket" "', argument " "1"" of type '" "Exiv2::XmpData const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = (std::string *) &((Exiv2::XmpData const *)arg1)->xmpPacket();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___len__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData___len__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___len__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = (long)Exiv2_XmpData___len__(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___getitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  Exiv2::Xmpdatum *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___getitem__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (Exiv2::Xmpdatum *)Exiv2_XmpData___getitem__(arg1,(std::string const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  std::string *arg2 = 0 ;
+  Exiv2::Value *arg3 = (Exiv2::Value *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___setitem__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpData___setitem__" "', argument " "3"" of type '" "Exiv2::Value *""'"); 
+  }
+  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
+  {
+    try {
+      result = (PyObject *)Exiv2_XmpData___setitem____SWIG_0(arg1,(std::string const &)*arg2,arg3);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___setitem__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpData___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_XmpData___setitem____SWIG_1(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  std::string *arg2 = 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___setitem__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  arg3 = swig_obj[2];
+  {
+    try {
+      result = (PyObject *)Exiv2_XmpData___setitem____SWIG_2(arg1,(std::string const &)*arg2,arg3);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___setitem__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_XmpData___setitem____SWIG_3(arg1,(std::string const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___setitem__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData___setitem__", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_XmpData___setitem____SWIG_3(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    int _v = 0;
+    {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Exiv2__Value, 0);
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_2;
+    return _wrap_XmpData___setitem____SWIG_0(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 3) {
+    int _v = 0;
+    {
+      int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_3;
+    return _wrap_XmpData___setitem____SWIG_1(self, argc, argv);
+  }
+check_3:
+  
+  if (argc == 3) {
+    PyObject *retobj = _wrap_XmpData___setitem____SWIG_2(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData___setitem__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::XmpData::__setitem__(std::string const &,Exiv2::Value *)\n"
+    "    Exiv2::XmpData::__setitem__(std::string const &,std::string const &)\n"
+    "    Exiv2::XmpData::__setitem__(std::string const &,PyObject *)\n"
+    "    Exiv2::XmpData::__setitem__(std::string const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___contains__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___contains__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (int)Exiv2_XmpData___contains__(arg1,(std::string const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< std::vector< Exiv2::Xmpdatum >::iterator > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpData___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___iter__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      result = Exiv2_XmpData___iter__(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIterator(result, arg1->end(), self),
+    SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN int _wrap_new_XmpData(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *result = 0 ;
+  
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XmpData")) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "new_XmpData", 0, 0, 0)) SWIG_fail;
+  {
+    try {
+      result = (Exiv2::XmpData *)new Exiv2::XmpData();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpData, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_XmpData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_XmpData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpData" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  {
+    try {
+      delete arg1;
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_XmpData___len__) /* defines _wrap_XmpData___len___lenfunc_closure */
+
+SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_XmpData___setitem__) /* defines _wrap_XmpData___setitem___objobjargproc_closure */
+
+SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_XmpData___contains__) /* defines _wrap_XmpData___contains___objobjproc_closure */
+
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpData___iter__) /* defines _wrap_XmpData___iter___getiterfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpData) /* defines _wrap_delete_XmpData_destructor_closure */
+
 SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::XmpParser::XmpLockFct arg1 = (Exiv2::XmpParser::XmpLockFct) 0 ;
@@ -9247,7 +9169,7 @@ static PyHeapTypeObject SwigPyBuiltin__XmpDataIterator_type = {
     &SwigPyBuiltin__XmpDataIterator_type.as_mapping,              /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_XmpDataIterator___str___reprfunc_closure,               /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__XmpDataIterator_type.as_buffer,               /* tp_as_buffer */
@@ -9256,7 +9178,7 @@ static PyHeapTypeObject SwigPyBuiltin__XmpDataIterator_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "Python wrapper for Exiv2::XmpData::iterator",                /* tp_doc */
+    "Python wrapper for Exiv2::XmpData::iterator.",               /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__XmpDataIterator_richcompare,                   /* tp_richcompare */
@@ -9408,268 +9330,6 @@ static PyHeapTypeObject SwigPyBuiltin__XmpDataIterator_type = {
 };
 
 SWIGINTERN SwigPyClientData SwigPyBuiltin__XmpDataIterator_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__XmpDataIterator_type};
-
-static SwigPyGetSet XmpData___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__XmpDataWrap_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Python wrapper for Exiv2::parent_class", &XmpData___dict___getset },
-    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
-};
-
-SWIGINTERN PyObject *
-SwigPyBuiltin__XmpDataWrap_richcompare(PyObject *self, PyObject *other, int op) {
-  PyObject *result = NULL;
-  if (!result) {
-    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
-      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
-    } else {
-      result = Py_NotImplemented;
-      Py_INCREF(result);
-    }
-  }
-  return result;
-}
-
-SWIGINTERN PyMethodDef SwigPyBuiltin__XmpDataWrap_methods[] = {
-  { "__deref__", _wrap_XmpData___deref__, METH_NOARGS, "" },
-  { "__len__", _wrap_XmpData___len__, METH_NOARGS, "" },
-  { "__getitem__", _wrap_XmpData___getitem__, METH_O, "" },
-  { "__setitem__", _wrap_XmpData___setitem__, METH_VARARGS, "" },
-  { "__contains__", _wrap_XmpData___contains__, METH_O, "" },
-  { "__iter__", _wrap_XmpData___iter__, METH_NOARGS, "" },
-  { "add", _wrap_XmpData_add, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Add an %Xmpdatum from the supplied key and value pair. This\n"
-		"       method copies (clones) the value.\n"
-		":rtype: int\n"
-		":return: 0 if successful.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Add a copy of the Xmpdatum to the XMP metadata.\n"
-		":rtype: int\n"
-		":return: 0 if successful.\n"
-		"" },
-  { "erase", _wrap_XmpData_erase, METH_O, "\n"
-		"Delete the Xmpdatum at iterator position pos, return the\n"
-		"       position of the next Xmpdatum.\n"
-		"\n"
-		"Notes: Iterators into the metadata, including pos, are potentially\n"
-		"       invalidated by this call.\n"
-		"" },
-  { "clear", _wrap_XmpData_clear, METH_NOARGS, " Delete all Xmpdatum instances resulting in an empty container." },
-  { "sortByKey", _wrap_XmpData_sortByKey, METH_NOARGS, " Sort metadata by key" },
-  { "begin", _wrap_XmpData_begin, METH_NOARGS, " Begin of the metadata" },
-  { "end", _wrap_XmpData_end, METH_NOARGS, " End of the metadata" },
-  { "findKey", _wrap_XmpData_findKey, METH_O, "\n"
-		"Find the first Xmpdatum with the given key, return an iterator\n"
-		"       to it.\n"
-		"" },
-  { "empty", _wrap_XmpData_empty, METH_NOARGS, " Return true if there is no XMP metadata" },
-  { "count", _wrap_XmpData_count, METH_NOARGS, " Get the number of metadata entries" },
-  { "usePacket", _wrap_XmpData_usePacket, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"are we to use the packet?\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"set usePacket_\n"
-		"" },
-  { "setPacket", _wrap_XmpData_setPacket, METH_O, " setPacket" },
-  { "xmpPacket", _wrap_XmpData_xmpPacket, METH_NOARGS, "" },
-  { NULL, NULL, 0, NULL } /* Sentinel */
-};
-
-static PyHeapTypeObject SwigPyBuiltin__XmpDataWrap_type = {
-  {
-#if PY_VERSION_HEX >= 0x03000000
-    PyVarObject_HEAD_INIT(NULL, 0)
-#else
-    PyObject_HEAD_INIT(NULL)
-    0,                                        /* ob_size */
-#endif
-    "exiv2.xmp.XmpData",                      /* tp_name */
-    sizeof(SwigPyObject),                     /* tp_basicsize */
-    0,                                        /* tp_itemsize */
-    _wrap_delete_XmpData_destructor_closure,  /* tp_dealloc */
-    (printfunc) 0,                            /* tp_print */
-    (getattrfunc) 0,                          /* tp_getattr */
-    (setattrfunc) 0,                          /* tp_setattr */
-#if PY_VERSION_HEX >= 0x03000000
-    0,                                        /* tp_compare */
-#else
-    (cmpfunc) 0,                              /* tp_compare */
-#endif
-    (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__XmpDataWrap_type.as_number,                   /* tp_as_number */
-    &SwigPyBuiltin__XmpDataWrap_type.as_sequence,                 /* tp_as_sequence */
-    &SwigPyBuiltin__XmpDataWrap_type.as_mapping,                  /* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
-    (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
-    (getattrofunc) 0,                         /* tp_getattro */
-    (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__XmpDataWrap_type.as_buffer,                   /* tp_as_buffer */
-#if PY_VERSION_HEX >= 0x03000000
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
-#else
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
-#endif
-    "Python wrapper for Exiv2::parent_class", /* tp_doc */
-    (traverseproc) 0,                         /* tp_traverse */
-    (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__XmpDataWrap_richcompare,   /* tp_richcompare */
-    0,                                        /* tp_weaklistoffset */
-    _wrap_XmpData___iter___getiterfunc_closure,                   /* tp_iter */
-    (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__XmpDataWrap_methods,       /* tp_methods */
-    0,                                        /* tp_members */
-    SwigPyBuiltin__XmpDataWrap_getset,        /* tp_getset */
-    0,                                        /* tp_base */
-    0,                                        /* tp_dict */
-    (descrgetfunc) 0,                         /* tp_descr_get */
-    (descrsetfunc) 0,                         /* tp_descr_set */
-    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_XmpData,                        /* tp_init */
-    (allocfunc) 0,                            /* tp_alloc */
-    (newfunc) 0,                              /* tp_new */
-    (freefunc) 0,                             /* tp_free */
-    (inquiry) 0,                              /* tp_is_gc */
-    (PyObject *) 0,                           /* tp_bases */
-    (PyObject *) 0,                           /* tp_mro */
-    (PyObject *) 0,                           /* tp_cache */
-    (PyObject *) 0,                           /* tp_subclasses */
-    (PyObject *) 0,                           /* tp_weaklist */
-    (destructor) 0,                           /* tp_del */
-    (int) 0,                                  /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    (destructor) 0,                           /* tp_finalize */
-#endif
-#if PY_VERSION_HEX >= 0x03080000
-    (vectorcallfunc) 0,                       /* tp_vectorcall */
-#endif
-#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
-    0,                                        /* tp_print */
-#endif
-#ifdef COUNT_ALLOCS
-    (Py_ssize_t) 0,                           /* tp_allocs */
-    (Py_ssize_t) 0,                           /* tp_frees */
-    (Py_ssize_t) 0,                           /* tp_maxalloc */
-    0,                                        /* tp_prev */
-    0,                                        /* tp_next */
-#endif
-  },
-#if PY_VERSION_HEX >= 0x03050000
-  {
-    (unaryfunc) 0,                            /* am_await */
-    (unaryfunc) 0,                            /* am_aiter */
-    (unaryfunc) 0,                            /* am_anext */
-  },
-#endif
-  {
-    (binaryfunc) 0,                           /* nb_add */
-    (binaryfunc) 0,                           /* nb_subtract */
-    (binaryfunc) 0,                           /* nb_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_remainder */
-    (binaryfunc) 0,                           /* nb_divmod */
-    (ternaryfunc) 0,                          /* nb_power */
-    (unaryfunc) 0,                            /* nb_negative */
-    (unaryfunc) 0,                            /* nb_positive */
-    (unaryfunc) 0,                            /* nb_absolute */
-    (inquiry) 0,                              /* nb_nonzero */
-    (unaryfunc) 0,                            /* nb_invert */
-    (binaryfunc) 0,                           /* nb_lshift */
-    (binaryfunc) 0,                           /* nb_rshift */
-    (binaryfunc) 0,                           /* nb_and */
-    (binaryfunc) 0,                           /* nb_xor */
-    (binaryfunc) 0,                           /* nb_or */
-#if PY_VERSION_HEX < 0x03000000
-    (coercion) 0,                             /* nb_coerce */
-#endif
-    (unaryfunc) 0,                            /* nb_int */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* nb_reserved */
-#else
-    (unaryfunc) 0,                            /* nb_long */
-#endif
-    (unaryfunc) 0,                            /* nb_float */
-#if PY_VERSION_HEX < 0x03000000
-    (unaryfunc) 0,                            /* nb_oct */
-    (unaryfunc) 0,                            /* nb_hex */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_add */
-    (binaryfunc) 0,                           /* nb_inplace_subtract */
-    (binaryfunc) 0,                           /* nb_inplace_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_inplace_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_remainder */
-    (ternaryfunc) 0,                          /* nb_inplace_power */
-    (binaryfunc) 0,                           /* nb_inplace_lshift */
-    (binaryfunc) 0,                           /* nb_inplace_rshift */
-    (binaryfunc) 0,                           /* nb_inplace_and */
-    (binaryfunc) 0,                           /* nb_inplace_xor */
-    (binaryfunc) 0,                           /* nb_inplace_or */
-    (binaryfunc) 0,                           /* nb_floor_divide */
-    (binaryfunc) 0,                           /* nb_true_divide */
-    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
-    (binaryfunc) 0,                           /* nb_inplace_true_divide */
-    (unaryfunc) 0,                            /* nb_index */
-#if PY_VERSION_HEX >= 0x03050000
-    (binaryfunc) 0,                           /* nb_matrix_multiply */
-    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
-#endif
-  },
-  {
-    _wrap_XmpData___len___lenfunc_closure,    /* mp_length */
-    _wrap_XmpData___getitem__,                /* mp_subscript */
-    _wrap_XmpData___setitem___objobjargproc_closure,              /* mp_ass_subscript */
-  },
-  {
-    (lenfunc) 0,                              /* sq_length */
-    (binaryfunc) 0,                           /* sq_concat */
-    (ssizeargfunc) 0,                         /* sq_repeat */
-    (ssizeargfunc) 0,                         /* sq_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_slice */
-#else
-    (ssizessizeargfunc) 0,                    /* sq_slice */
-#endif
-    (ssizeobjargproc) 0,                      /* sq_ass_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_ass_slice */
-#else
-    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
-#endif
-    _wrap_XmpData___contains___objobjproc_closure,                /* sq_contains */
-    (binaryfunc) 0,                           /* sq_inplace_concat */
-    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
-  },
-  {
-#if PY_VERSION_HEX < 0x03000000
-    (readbufferproc) 0,                       /* bf_getreadbuffer */
-    (writebufferproc) 0,                      /* bf_getwritebuffer */
-    (segcountproc) 0,                         /* bf_getsegcount */
-    (charbufferproc) 0,                       /* bf_getcharbuffer */
-#endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
-  },
-    (PyObject *) 0,                           /* ht_name */
-    (PyObject *) 0,                           /* ht_slots */
-#if PY_VERSION_HEX >= 0x03030000
-    (PyObject *) 0,                           /* ht_qualname */
-    0,                                        /* ht_cached_keys */
-#endif
-};
-
-SWIGINTERN SwigPyClientData SwigPyBuiltin__XmpDataWrap_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__XmpDataWrap_type};
 
 static SwigPyGetSet Xmpdatum___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Xmpdatum_getset[] = {
@@ -9930,6 +9590,291 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__Xmpdatum_type = {
 };
 
 SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__Xmpdatum_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__Xmpdatum_type};
+
+static SwigPyGetSet XmpData___dict___getset = { SwigPyObject_get___dict__, 0 };
+SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpData_getset[] = {
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"*Overload 1:*\n"
+		"\n"
+		"Add an %Xmpdatum from the supplied key and value pair. This\n"
+		"       method copies (clones) the value.\n"
+		":rtype: int\n"
+		":return: 0 if successful.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"Add a copy of the Xmpdatum to the XMP metadata.\n"
+		":rtype: int\n"
+		":return: 0 if successful.\n"
+		"", &XmpData___dict___getset },
+    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
+};
+
+SWIGINTERN PyObject *
+SwigPyBuiltin__Exiv2__XmpData_richcompare(PyObject *self, PyObject *other, int op) {
+  PyObject *result = NULL;
+  if (!result) {
+    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
+      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
+    } else {
+      result = Py_NotImplemented;
+      Py_INCREF(result);
+    }
+  }
+  return result;
+}
+
+SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpData_methods[] = {
+  { "add", _wrap_XmpData_add, METH_VARARGS, "\n"
+		"*Overload 1:*\n"
+		"\n"
+		"Add an %Xmpdatum from the supplied key and value pair. This\n"
+		"       method copies (clones) the value.\n"
+		":rtype: int\n"
+		":return: 0 if successful.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"Add a copy of the Xmpdatum to the XMP metadata.\n"
+		":rtype: int\n"
+		":return: 0 if successful.\n"
+		"" },
+  { "erase", _wrap_XmpData_erase, METH_O, "\n"
+		"Delete the Xmpdatum at iterator position pos, return the\n"
+		"       position of the next Xmpdatum.\n"
+		"\n"
+		"Notes: Iterators into the metadata, including pos, are potentially\n"
+		"       invalidated by this call.\n"
+		"" },
+  { "clear", _wrap_XmpData_clear, METH_NOARGS, " Delete all Xmpdatum instances resulting in an empty container." },
+  { "sortByKey", _wrap_XmpData_sortByKey, METH_NOARGS, " Sort metadata by key" },
+  { "begin", _wrap_XmpData_begin, METH_NOARGS, " Begin of the metadata" },
+  { "end", _wrap_XmpData_end, METH_NOARGS, " End of the metadata" },
+  { "findKey", _wrap_XmpData_findKey, METH_O, "\n"
+		"Find the first Xmpdatum with the given key, return an iterator\n"
+		"       to it.\n"
+		"" },
+  { "empty", _wrap_XmpData_empty, METH_NOARGS, " Return true if there is no XMP metadata" },
+  { "count", _wrap_XmpData_count, METH_NOARGS, " Get the number of metadata entries" },
+  { "usePacket", _wrap_XmpData_usePacket, METH_VARARGS, "\n"
+		"*Overload 1:*\n"
+		"are we to use the packet?\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"set usePacket_\n"
+		"" },
+  { "setPacket", _wrap_XmpData_setPacket, METH_O, " setPacket" },
+  { "xmpPacket", _wrap_XmpData_xmpPacket, METH_NOARGS, "" },
+  { "__len__", _wrap_XmpData___len__, METH_NOARGS, "" },
+  { "__getitem__", _wrap_XmpData___getitem__, METH_O, "" },
+  { "__setitem__", _wrap_XmpData___setitem__, METH_VARARGS, "" },
+  { "__contains__", _wrap_XmpData___contains__, METH_O, "" },
+  { "__iter__", _wrap_XmpData___iter__, METH_NOARGS, "" },
+  { NULL, NULL, 0, NULL } /* Sentinel */
+};
+
+static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpData_type = {
+  {
+#if PY_VERSION_HEX >= 0x03000000
+    PyVarObject_HEAD_INIT(NULL, 0)
+#else
+    PyObject_HEAD_INIT(NULL)
+    0,                                        /* ob_size */
+#endif
+    "exiv2.xmp.XmpData",                      /* tp_name */
+    sizeof(SwigPyObject),                     /* tp_basicsize */
+    0,                                        /* tp_itemsize */
+    _wrap_delete_XmpData_destructor_closure,  /* tp_dealloc */
+    (printfunc) 0,                            /* tp_print */
+    (getattrfunc) 0,                          /* tp_getattr */
+    (setattrfunc) 0,                          /* tp_setattr */
+#if PY_VERSION_HEX >= 0x03000000
+    0,                                        /* tp_compare */
+#else
+    (cmpfunc) 0,                              /* tp_compare */
+#endif
+    (reprfunc) 0,                             /* tp_repr */
+    &SwigPyBuiltin__Exiv2__XmpData_type.as_number,                /* tp_as_number */
+    &SwigPyBuiltin__Exiv2__XmpData_type.as_sequence,              /* tp_as_sequence */
+    &SwigPyBuiltin__Exiv2__XmpData_type.as_mapping,               /* tp_as_mapping */
+    SwigPyObject_hash,                        /* tp_hash */
+    (ternaryfunc) 0,                          /* tp_call */
+    (reprfunc) 0,                             /* tp_str */
+    (getattrofunc) 0,                         /* tp_getattro */
+    (setattrofunc) 0,                         /* tp_setattro */
+    &SwigPyBuiltin__Exiv2__XmpData_type.as_buffer,                /* tp_as_buffer */
+#if PY_VERSION_HEX >= 0x03000000
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
+#else
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
+#endif
+    "\n"
+		"A container for XMP data. This is a top-level class of\n"
+		"       the %Exiv2 library.\n"
+		"\n"
+		"Provide high-level access to the XMP data of an image:\n"
+		"- read XMP information from an XML block\n"
+		"- access metadata through keys and standard C++ iterators\n"
+		"- add, modify and delete metadata\n"
+		"- serialize XMP data to an XML block\n"
+		"",/* tp_doc */
+    (traverseproc) 0,                         /* tp_traverse */
+    (inquiry) 0,                              /* tp_clear */
+    SwigPyBuiltin__Exiv2__XmpData_richcompare,/* tp_richcompare */
+    0,                                        /* tp_weaklistoffset */
+    _wrap_XmpData___iter___getiterfunc_closure,                   /* tp_iter */
+    (iternextfunc) 0,                         /* tp_iternext */
+    SwigPyBuiltin__Exiv2__XmpData_methods,    /* tp_methods */
+    0,                                        /* tp_members */
+    SwigPyBuiltin__Exiv2__XmpData_getset,     /* tp_getset */
+    0,                                        /* tp_base */
+    0,                                        /* tp_dict */
+    (descrgetfunc) 0,                         /* tp_descr_get */
+    (descrsetfunc) 0,                         /* tp_descr_set */
+    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
+    _wrap_new_XmpData,                        /* tp_init */
+    (allocfunc) 0,                            /* tp_alloc */
+    (newfunc) 0,                              /* tp_new */
+    (freefunc) 0,                             /* tp_free */
+    (inquiry) 0,                              /* tp_is_gc */
+    (PyObject *) 0,                           /* tp_bases */
+    (PyObject *) 0,                           /* tp_mro */
+    (PyObject *) 0,                           /* tp_cache */
+    (PyObject *) 0,                           /* tp_subclasses */
+    (PyObject *) 0,                           /* tp_weaklist */
+    (destructor) 0,                           /* tp_del */
+    (int) 0,                                  /* tp_version_tag */
+#if PY_VERSION_HEX >= 0x03040000
+    (destructor) 0,                           /* tp_finalize */
+#endif
+#if PY_VERSION_HEX >= 0x03080000
+    (vectorcallfunc) 0,                       /* tp_vectorcall */
+#endif
+#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
+    0,                                        /* tp_print */
+#endif
+#ifdef COUNT_ALLOCS
+    (Py_ssize_t) 0,                           /* tp_allocs */
+    (Py_ssize_t) 0,                           /* tp_frees */
+    (Py_ssize_t) 0,                           /* tp_maxalloc */
+    0,                                        /* tp_prev */
+    0,                                        /* tp_next */
+#endif
+  },
+#if PY_VERSION_HEX >= 0x03050000
+  {
+    (unaryfunc) 0,                            /* am_await */
+    (unaryfunc) 0,                            /* am_aiter */
+    (unaryfunc) 0,                            /* am_anext */
+  },
+#endif
+  {
+    (binaryfunc) 0,                           /* nb_add */
+    (binaryfunc) 0,                           /* nb_subtract */
+    (binaryfunc) 0,                           /* nb_multiply */
+#if PY_VERSION_HEX < 0x03000000
+    (binaryfunc) 0,                           /* nb_divide */
+#endif
+    (binaryfunc) 0,                           /* nb_remainder */
+    (binaryfunc) 0,                           /* nb_divmod */
+    (ternaryfunc) 0,                          /* nb_power */
+    (unaryfunc) 0,                            /* nb_negative */
+    (unaryfunc) 0,                            /* nb_positive */
+    (unaryfunc) 0,                            /* nb_absolute */
+    (inquiry) 0,                              /* nb_nonzero */
+    (unaryfunc) 0,                            /* nb_invert */
+    (binaryfunc) 0,                           /* nb_lshift */
+    (binaryfunc) 0,                           /* nb_rshift */
+    (binaryfunc) 0,                           /* nb_and */
+    (binaryfunc) 0,                           /* nb_xor */
+    (binaryfunc) 0,                           /* nb_or */
+#if PY_VERSION_HEX < 0x03000000
+    (coercion) 0,                             /* nb_coerce */
+#endif
+    (unaryfunc) 0,                            /* nb_int */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* nb_reserved */
+#else
+    (unaryfunc) 0,                            /* nb_long */
+#endif
+    (unaryfunc) 0,                            /* nb_float */
+#if PY_VERSION_HEX < 0x03000000
+    (unaryfunc) 0,                            /* nb_oct */
+    (unaryfunc) 0,                            /* nb_hex */
+#endif
+    (binaryfunc) 0,                           /* nb_inplace_add */
+    (binaryfunc) 0,                           /* nb_inplace_subtract */
+    (binaryfunc) 0,                           /* nb_inplace_multiply */
+#if PY_VERSION_HEX < 0x03000000
+    (binaryfunc) 0,                           /* nb_inplace_divide */
+#endif
+    (binaryfunc) 0,                           /* nb_inplace_remainder */
+    (ternaryfunc) 0,                          /* nb_inplace_power */
+    (binaryfunc) 0,                           /* nb_inplace_lshift */
+    (binaryfunc) 0,                           /* nb_inplace_rshift */
+    (binaryfunc) 0,                           /* nb_inplace_and */
+    (binaryfunc) 0,                           /* nb_inplace_xor */
+    (binaryfunc) 0,                           /* nb_inplace_or */
+    (binaryfunc) 0,                           /* nb_floor_divide */
+    (binaryfunc) 0,                           /* nb_true_divide */
+    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
+    (binaryfunc) 0,                           /* nb_inplace_true_divide */
+    (unaryfunc) 0,                            /* nb_index */
+#if PY_VERSION_HEX >= 0x03050000
+    (binaryfunc) 0,                           /* nb_matrix_multiply */
+    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
+#endif
+  },
+  {
+    _wrap_XmpData___len___lenfunc_closure,    /* mp_length */
+    _wrap_XmpData___getitem__,                /* mp_subscript */
+    _wrap_XmpData___setitem___objobjargproc_closure,              /* mp_ass_subscript */
+  },
+  {
+    (lenfunc) 0,                              /* sq_length */
+    (binaryfunc) 0,                           /* sq_concat */
+    (ssizeargfunc) 0,                         /* sq_repeat */
+    (ssizeargfunc) 0,                         /* sq_item */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* was_sq_slice */
+#else
+    (ssizessizeargfunc) 0,                    /* sq_slice */
+#endif
+    (ssizeobjargproc) 0,                      /* sq_ass_item */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* was_sq_ass_slice */
+#else
+    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
+#endif
+    _wrap_XmpData___contains___objobjproc_closure,                /* sq_contains */
+    (binaryfunc) 0,                           /* sq_inplace_concat */
+    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
+  },
+  {
+#if PY_VERSION_HEX < 0x03000000
+    (readbufferproc) 0,                       /* bf_getreadbuffer */
+    (writebufferproc) 0,                      /* bf_getwritebuffer */
+    (segcountproc) 0,                         /* bf_getsegcount */
+    (charbufferproc) 0,                       /* bf_getcharbuffer */
+#endif
+    (getbufferproc) 0,                        /* bf_getbuffer */
+    (releasebufferproc) 0,                    /* bf_releasebuffer */
+  },
+    (PyObject *) 0,                           /* ht_name */
+    (PyObject *) 0,                           /* ht_slots */
+#if PY_VERSION_HEX >= 0x03030000
+    (PyObject *) 0,                           /* ht_qualname */
+    0,                                        /* ht_cached_keys */
+#endif
+};
+
+SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__XmpData_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpData_type};
 
 static SwigPyGetSet XmpParser___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpParser_getset[] = {
@@ -10364,7 +10309,7 @@ static swig_type_info _swigt__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t
 static swig_type_info _swigt__p_Exiv2__ValueTypeT_unsigned_int_t = {"_p_Exiv2__ValueTypeT_unsigned_int_t", "Exiv2::ULongValue *|Exiv2::ValueType< uint32_t > *|Exiv2::ValueType< unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ValueTypeT_unsigned_short_t = {"_p_Exiv2__ValueTypeT_unsigned_short_t", "Exiv2::ValueType< unsigned short > *|Exiv2::UShortValue *|Exiv2::ValueType< uint16_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpArrayValue = {"_p_Exiv2__XmpArrayValue", "Exiv2::XmpArrayValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__XmpData = {"_p_Exiv2__XmpData", "Exiv2::XmpData *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__XmpData = {"_p_Exiv2__XmpData", "Exiv2::XmpData *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__XmpData_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__XmpKey = {"_p_Exiv2__XmpKey", "Exiv2::XmpKey *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpParser = {"_p_Exiv2__XmpParser", "Exiv2::XmpParser *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__XmpParser_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
@@ -10375,7 +10320,6 @@ static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject
 static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_XmpDataIterator = {"_p_XmpDataIterator", "XmpDataIterator *", 0, 0, (void*)&SwigPyBuiltin__XmpDataIterator_clientdata, 0};
-static swig_type_info _swigt__p_XmpDataWrap = {"_p_XmpDataWrap", "XmpDataWrap *", 0, 0, (void*)&SwigPyBuiltin__XmpDataWrap_clientdata, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_f_p_void_bool__void = {"_p_f_p_void_bool__void", "Exiv2::XmpParser::XmpLockFct|void (*)(void *,bool)", 0, 0, (void*)0, 0};
@@ -10440,7 +10384,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ValueList,
   &_swigt__p_ValueType,
   &_swigt__p_XmpDataIterator,
-  &_swigt__p_XmpDataWrap,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
   &_swigt__p_f_p_void_bool__void,
@@ -10505,7 +10448,6 @@ static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0,
 static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_XmpDataIterator[] = {  {&_swigt__p_XmpDataIterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_XmpDataWrap[] = {  {&_swigt__p_XmpDataWrap, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_f_p_void_bool__void[] = {  {&_swigt__p_f_p_void_bool__void, 0, 0, 0},{0, 0, 0, 0}};
@@ -10570,7 +10512,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ValueList,
   _swigc__p_ValueType,
   _swigc__p_XmpDataIterator,
-  _swigc__p_XmpDataWrap,
   _swigc__p_char,
   _swigc__p_const_iterator,
   _swigc__p_f_p_void_bool__void,
@@ -11372,29 +11313,6 @@ SWIG_init(void) {
   SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpDataIterator");
   d = md;
   
-  /* type '::XmpDataWrap' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__XmpDataWrap_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
-  builtin_pytype->tp_new = PyType_GenericNew;
-  builtin_base_count = 0;
-  builtin_bases[builtin_base_count] = NULL;
-  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
-  PyDict_SetItemString(d, "this", this_descr);
-  PyDict_SetItemString(d, "thisown", thisown_descr);
-  if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'XmpData'.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "XmpData", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpData");
-  d = md;
-  
   /* type 'Exiv2::Xmpdatum' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__Xmpdatum_type;
   builtin_pytype->tp_dict = d = PyDict_New();
@@ -11427,6 +11345,29 @@ SWIG_init(void) {
   Py_INCREF(builtin_pytype);
   PyModule_AddObject(m, "Xmpdatum", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Xmpdatum");
+  d = md;
+  
+  /* type 'Exiv2::XmpData' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpData_type;
+  builtin_pytype->tp_dict = d = PyDict_New();
+  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
+  builtin_pytype->tp_new = PyType_GenericNew;
+  builtin_base_count = 0;
+  builtin_bases[builtin_base_count] = NULL;
+  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
+  PyDict_SetItemString(d, "this", this_descr);
+  PyDict_SetItemString(d, "thisown", thisown_descr);
+  if (PyType_Ready(builtin_pytype) < 0) {
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'XmpData'.");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
+  Py_INCREF(builtin_pytype);
+  PyModule_AddObject(m, "XmpData", (PyObject *)builtin_pytype);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpData");
   d = md;
   
   /* type 'Exiv2::XmpParser' */

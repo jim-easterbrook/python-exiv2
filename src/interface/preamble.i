@@ -156,6 +156,8 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
          functype="getiterfunc") name##Iterator::__iter__;
 %feature("python:slot", "tp_iternext",
          functype="iternextfunc") name##Iterator::__next__;
+%feature("python:slot", "tp_str",
+         functype="reprfunc") name##Iterator::__str__;
 // typemaps
 %typemap(in) iterator_type (int res, name##Iterator *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
@@ -189,7 +191,7 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 %ignore name##Iterator::name##Iterator;
 %ignore name##Iterator::_unwrap;
 %ignore name##Iterator::_ptr_invalid;
-%feature("docstring") name##Iterator "Python wrapper for iterator_type"
+%feature("docstring") name##Iterator "Python wrapper for "#iterator_type"."
 %extend base_class {
     iterator_type __iter__() {
         return $self->begin();
@@ -250,87 +252,86 @@ public:
 %}
 %enddef // DATA_ITERATOR
 
-// Macro to provide Python list methods for Exiv2 data
-%define DATA_LISTMAP(base_class, datum_type, key_type, default_type_func)
-// typemaps
-%typemap(in) Exiv2::base_class& (int res = 0, base_class##Wrap *argp) %{
-    res = SWIG_ConvertPtr($input, (void**)&argp,
-                          $descriptor(base_class##Wrap*), 0);
-    if (!SWIG_IsOK(res)) {
-        %argument_fail(res, base_class##Wrap, $symname, $argnum);
+// Macro to wrap data while keeping a reference to its image
+%define DATA_WRAPPER(name, base_class, datum_type, key_type)
+// Allow name##Wrap to be passed where base_class is expected
+%typemap(in) base_class& (int res, name##Wrap* arg_wrap, base_class* arg_base) %{
+    res = SWIG_ConvertPtr($input, (void**)&arg_wrap, $descriptor(name##Wrap*), 0);
+    if (SWIG_IsOK(res)) {
+        // Input is wrapped name
+        if (!arg_wrap) {
+            %argument_nullref(name##Wrap, $symname, $argnum);
+        }
+        $1 = arg_wrap->_unwrap();
     }
-    if (!argp) {
-        %argument_nullref(base_class##Wrap, $symname, $argnum);
+    else {
+        // Input should be of type base_class
+        res = SWIG_ConvertPtr($input, (void**)&arg_base,
+                              $descriptor(base_class*), 0);
+        if (!SWIG_IsOK(res)) {
+            %argument_fail(res, base_class, $symname, $argnum);
+        }
+        if (!arg_base) {
+            %argument_nullref(base_class, $symname, $argnum);
+        }
+        $1 = arg_base;
     }
-    $1 = argp->_unwrap();
 %};
-// Python slots
-%feature("python:slot", "tp_str",
-         functype="reprfunc") base_class##Iterator::__str__;
-// base_class##Wrap features
-%rename(base_class) base_class##Wrap;
-%ignore Exiv2::base_class;
-%ignore base_class##Wrap::base_class##Wrap(Exiv2::base_class&, PyObject*);
-%ignore base_class##Wrap::_unwrap;
-%ignore base_class##Wrap::operator[];
-%ignore base_class##Wrap::count;
-%ignore base_class##Wrap::begin;
-%ignore base_class##Wrap::end;
-%ignore base_class##Wrap::erase;
-%ignore base_class##Wrap::findKey;
-%feature("docstring") base_class##Wrap
-         "Python wrapper for Exiv2::parent_class"
-%typemap(ret) Exiv2::datum_type* __next__ %{
-    if (!$1) SWIG_fail;
-%}
+%ignore name##Wrap::name##Wrap;
+%ignore name##Wrap::_unwrap;
+%ignore name##Wrap::operator[];
+%ignore name##Wrap::count;
+%ignore name##Wrap::begin;
+%ignore name##Wrap::end;
+%ignore name##Wrap::erase;
+%ignore name##Wrap::findKey;
+%feature("docstring") name##Wrap
+    "Python wrapper for "#base_class
+    ".\nSee that class's documentation for full details."
 %inline %{
-class base_class##Wrap {
+class name##Wrap {
 private:
-    Exiv2::base_class* base;
+    base_class* base;
     PyObject* image;
 public:
-    typedef Exiv2::base_class::iterator iterator;
-    base_class##Wrap(Exiv2::base_class& base, PyObject* image) {
+    typedef base_class::iterator iterator;
+    name##Wrap(base_class& base, PyObject* image) {
         this->base = &base;
         Py_INCREF(image);
         this->image = image;
     }
-    base_class##Wrap() {
-        base = new Exiv2::base_class();
-        image = NULL;
-    }
-    ~base_class##Wrap() {
+    ~name##Wrap() {
         Py_XDECREF(image);
     }
-    Exiv2::base_class* operator->() {
+    base_class* operator->() {
         return base;
     }
-    Exiv2::base_class* _unwrap() {
+    base_class* _unwrap() {
         return base;
     }
     // make some base class methods available to C++ (operator-> makes them
     // all available to Python)
-    Exiv2::datum_type& operator[](const std::string &key) {
+    datum_type& operator[](const std::string &key) {
         return (*base)[key];
     }
     long count() const {
         return base->count();
     }
-    Exiv2::base_class::iterator begin() {
+    base_class::iterator begin() {
         return base->begin();
     }
-    Exiv2::base_class::iterator end() {
+    base_class::iterator end() {
         return base->end();
     }
-    Exiv2::base_class::iterator erase(Exiv2::base_class::iterator pos) {
+    base_class::iterator erase(base_class::iterator pos) {
         return base->erase(pos);
     }
-    Exiv2::base_class::iterator findKey(const Exiv2::key_type &key) {
+    base_class::iterator findKey(const key_type &key) {
         return base->findKey(key);
     }
 };
 %}
-%enddef // DATA_LISTMAP
+%enddef // DATA_WRAPPER
 
 // Macro to make enums more Pythonic
 %define ENUM(name, doc, contents...)

@@ -19,9 +19,10 @@
 
 %include "preamble.i"
 
-// Get implementation of ExifDataWrap
 #ifndef SWIGIMPORTED
-DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
+// Get definition of ExifDataWrap so functions can be passed
+// either ExifDataWrap or Exiv2::ExifData
+DATA_WRAPPER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 #endif
 
 // Store data.end() after converting input

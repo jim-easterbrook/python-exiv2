@@ -50,6 +50,7 @@ wrap_auto_unique_ptr(Exiv2::Image);
 
 // Wrap data classes, duplicate of definitions in exif.i etc.
 #ifndef SWIGIMPORTED
+// Make ExifDataWrap, IptcDataWrap, XmpDataWrap indexable by key
 DATA_MAPPING_METHODS(ExifData, ExifDataWrap, Exiv2::Exifdatum, Exiv2::ExifKey,
     Exiv2::ExifKey(datum->key()).defaultTypeId())
 DATA_MAPPING_METHODS(IptcData, IptcDataWrap, Exiv2::Iptcdatum, Exiv2::IptcKey,
@@ -57,16 +58,17 @@ DATA_MAPPING_METHODS(IptcData, IptcDataWrap, Exiv2::Iptcdatum, Exiv2::IptcKey,
 DATA_MAPPING_METHODS(XmpData, XmpDataWrap, Exiv2::Xmpdatum, Exiv2::XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
 
+// Make ExifDataWrap, IptcDataWrap, XmpDataWrap iterable
 DATA_ITERATOR(ExifData, ExifDataWrap, Exiv2::ExifData::iterator, Exiv2::Exifdatum)
 DATA_ITERATOR(IptcData, IptcDataWrap, Exiv2::IptcData::iterator, Exiv2::Iptcdatum)
 DATA_ITERATOR(XmpData, XmpDataWrap, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
 
-DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
-DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
-             IptcDataSets::dataSetType(datum->tag(), datum->record()))
-DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
-             XmpProperties::propertyType(XmpKey(key)))
+// Define ExifDataWrap, IptcDataWrap, XmpDataWrap
+DATA_WRAPPER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
+DATA_WRAPPER(IptcData, Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey)
+DATA_WRAPPER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
 
+// Make image methods return wrapped data
 %rename(exifData) Exiv2::Image::exifDataEx;
 %rename(iptcData) Exiv2::Image::iptcDataEx;
 %rename(xmpData) Exiv2::Image::xmpDataEx;

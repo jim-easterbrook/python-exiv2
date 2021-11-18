@@ -26,11 +26,9 @@
 %import "properties.i"
 
 #ifndef SWIGIMPORTED
-DATA_MAPPING_METHODS(XmpData, XmpDataWrap, Exiv2::Xmpdatum, Exiv2::XmpKey,
+DATA_MAPPING_METHODS(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
-DATA_ITERATOR(XmpData, XmpDataWrap, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
-DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
-             XmpProperties::propertyType(XmpKey(key)))
+DATA_ITERATOR(XmpData, Exiv2::XmpData, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
 #endif
 
 %ignore Exiv2::XmpData::operator[];
