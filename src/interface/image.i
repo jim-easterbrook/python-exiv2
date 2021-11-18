@@ -57,6 +57,10 @@ DATA_MAPPING_METHODS(IptcData, IptcDataWrap, Exiv2::Iptcdatum, Exiv2::IptcKey,
 DATA_MAPPING_METHODS(XmpData, XmpDataWrap, Exiv2::Xmpdatum, Exiv2::XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
 
+DATA_ITERATOR(ExifData, ExifDataWrap, Exiv2::ExifData::iterator, Exiv2::Exifdatum)
+DATA_ITERATOR(IptcData, IptcDataWrap, Exiv2::IptcData::iterator, Exiv2::Iptcdatum)
+DATA_ITERATOR(XmpData, XmpDataWrap, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
+
 DATA_LISTMAP(ExifData, Exifdatum, ExifKey, ExifKey(key).defaultTypeId())
 DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
              IptcDataSets::dataSetType(datum->tag(), datum->record()))

@@ -28,6 +28,7 @@
 #ifndef SWIGIMPORTED
 DATA_MAPPING_METHODS(IptcData, IptcDataWrap, Exiv2::Iptcdatum, Exiv2::IptcKey,
     Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
+DATA_ITERATOR(IptcData, IptcDataWrap, Exiv2::IptcData::iterator, Exiv2::Iptcdatum)
 DATA_LISTMAP(IptcData, Iptcdatum, IptcKey,
              IptcDataSets::dataSetType(datum->tag(), datum->record()))
 #endif

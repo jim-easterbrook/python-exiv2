@@ -148,39 +148,111 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 }
 %enddef // DATA_MAPPING_METHODS
 
-// Macro to provide Python list methods for Exiv2 data
-%define DATA_LISTMAP(base_class, datum_type, key_type, default_type_func)
-// base_class##Iterator typemaps
-%typemap(in) Exiv2::base_class::iterator (int res = 0,
-                                          base_class##Iterator *argp) %{
+// Macro to wrap data iterators
+%define DATA_ITERATOR(name, base_class, iterator_type, datum_type)
+%feature("python:slot", "tp_iter",
+         functype="getiterfunc") base_class::__iter__;
+%feature("python:slot", "tp_iter",
+         functype="getiterfunc") name##Iterator::__iter__;
+%feature("python:slot", "tp_iternext",
+         functype="iternextfunc") name##Iterator::__next__;
+// typemaps
+%typemap(in) iterator_type (int res, name##Iterator *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
-                          $descriptor(base_class##Iterator*), 0);
+                          $descriptor(name##Iterator*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, base_class##Iterator, $symname, $argnum);
+        %argument_fail(res, name##Iterator, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(base_class##Iterator, $symname, $argnum);
+        %argument_nullref(name##Iterator, $symname, $argnum);
     }
     $1 = argp->_unwrap();
 %};
-// "out" typemap assumes arg1 is always the base_class##Wrap parent and
-// self is always the Python base_class##Wrap parent
-%typemap(out) Exiv2::base_class::iterator %{
+// "out" typemap assumes arg1 is always the base_class parent and
+// self is always the Python parent
+%typemap(out) iterator_type %{
     $result = SWIG_NewPointerObj(
-        new base_class##Iterator($1, arg1, self),
-        $descriptor(base_class##Iterator*), SWIG_POINTER_OWN);
+        new name##Iterator($1, arg1->end(), self),
+        $descriptor(name##Iterator*), SWIG_POINTER_OWN);
 %};
 // Check iterator before dereferencing it
-%typemap(check) base_class##Iterator* self %{
-    if (strcmp("$symname", "delete_"#base_class"Iterator") &&
-        strcmp("$symname", #base_class"Iterator___iter__") &&
-        strcmp("$symname", #base_class"Iterator___str__") &&
-        strcmp("$symname", #base_class"Iterator___eq__") &&
-        strcmp("$symname", #base_class"Iterator___ne__"))
+%typemap(check) name##Iterator* self %{
+    if (strcmp("$symname", "delete_"#name"Iterator") &&
+        strcmp("$symname", #name"Iterator___iter__") &&
+        strcmp("$symname", #name"Iterator___str__") &&
+        strcmp("$symname", #name"Iterator___eq__") &&
+        strcmp("$symname", #name"Iterator___ne__"))
         if ($1->_ptr_invalid())
             SWIG_fail;
 %};
-// base_class##Wrap typemaps
+%newobject name##Iterator::__iter__;
+%ignore name##Iterator::name##Iterator;
+%ignore name##Iterator::_unwrap;
+%ignore name##Iterator::_ptr_invalid;
+%feature("docstring") name##Iterator "Python wrapper for iterator_type"
+%extend base_class {
+    iterator_type __iter__() {
+        return $self->begin();
+    }
+}
+%inline %{
+class name##Iterator {
+private:
+    iterator_type ptr;
+    iterator_type end;
+    PyObject* parent;
+public:
+    name##Iterator(
+            iterator_type ptr, iterator_type end, PyObject* parent) {
+        this->ptr = ptr;
+        this->end = end;
+        this->parent = parent;
+        Py_INCREF(parent);
+    }
+    ~name##Iterator() {
+        Py_DECREF(parent);
+    }
+    datum_type* operator->() const {
+        return &(*ptr);
+    }
+    name##Iterator* __iter__() {
+        return new name##Iterator(ptr, end, parent);
+    }
+    iterator_type _unwrap() const {
+        return ptr;
+    }
+    datum_type* __next__() {
+        return &(*ptr++);
+    }
+    bool operator==(const name##Iterator &other) const {
+        return other._unwrap() == ptr;
+    }
+    bool operator!=(const name##Iterator &other) const {
+        return other._unwrap() != ptr;
+    }
+    bool _ptr_invalid() {
+        if (ptr == end) {
+            PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
+            return true;
+        }
+        return false;
+    }
+    std::string __str__() {
+        std::string result;
+        if (ptr == end)
+            result = "end of data";
+        else
+            result = ptr->key() + ": " + ptr->print();
+        result = "iterator<" + result + ">";
+        return result;
+    }
+};
+%}
+%enddef // DATA_ITERATOR
+
+// Macro to provide Python list methods for Exiv2 data
+%define DATA_LISTMAP(base_class, datum_type, key_type, default_type_func)
+// typemaps
 %typemap(in) Exiv2::base_class& (int res = 0, base_class##Wrap *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
                           $descriptor(base_class##Wrap*), 0);
@@ -195,19 +267,6 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 // Python slots
 %feature("python:slot", "tp_str",
          functype="reprfunc") base_class##Iterator::__str__;
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") base_class##Wrap::__iter__;
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") base_class##Iterator::__iter__;
-%feature("python:slot", "tp_iternext",
-         functype="iternextfunc") base_class##Iterator::__next__;
-// base_class##Iterator features
-%newobject base_class##Iterator::__iter__;
-%ignore base_class##Iterator::base_class##Iterator;
-%ignore base_class##Iterator::_unwrap;
-%ignore base_class##Iterator::_ptr_invalid;
-%feature("docstring") base_class##Iterator
-         "Python wrapper for Exiv2::base_class::iterator"
 // base_class##Wrap features
 %rename(base_class) base_class##Wrap;
 %ignore Exiv2::base_class;
@@ -215,6 +274,7 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 %ignore base_class##Wrap::_unwrap;
 %ignore base_class##Wrap::operator[];
 %ignore base_class##Wrap::count;
+%ignore base_class##Wrap::begin;
 %ignore base_class##Wrap::end;
 %ignore base_class##Wrap::erase;
 %ignore base_class##Wrap::findKey;
@@ -224,49 +284,7 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
     if (!$1) SWIG_fail;
 %}
 %inline %{
-class base_class##Wrap;
-// Wrapper for Exiv2::base_class::iterator
-class base_class##Iterator {
-private:
-    Exiv2::base_class::iterator ptr;
-    base_class##Wrap* parent;
-    PyObject* py_parent;
-public:
-    base_class##Iterator(
-            Exiv2::base_class::iterator ptr, base_class##Wrap* parent,
-            PyObject* py_parent) {
-        this->ptr = ptr;
-        this->parent = parent;
-        this->py_parent = py_parent;
-        Py_INCREF(py_parent);
-    }
-    ~base_class##Iterator() {
-        Py_DECREF(py_parent);
-    }
-    Exiv2::datum_type* operator->() const {
-        return &(*ptr);
-    }
-    base_class##Iterator* __iter__() {
-        return new base_class##Iterator(ptr, parent, py_parent);
-    }
-    Exiv2::base_class::iterator _unwrap() const {
-        return ptr;
-    }
-    Exiv2::datum_type* __next__() {
-        return &(*ptr++);
-    }
-    bool operator==(const base_class##Iterator &other) const {
-        return other._unwrap() == ptr;
-    }
-    bool operator!=(const base_class##Iterator &other) const {
-        return other._unwrap() != ptr;
-    }
-    bool _ptr_invalid();
-    std::string __str__();
-};
-// Wrapper for Exiv2::base_class
 class base_class##Wrap {
-friend class base_class##Iterator;
 private:
     Exiv2::base_class* base;
     PyObject* image;
@@ -290,9 +308,6 @@ public:
     Exiv2::base_class* _unwrap() {
         return base;
     }
-    Exiv2::base_class::iterator __iter__() {
-        return base->begin();
-    }
     // make some base class methods available to C++ (operator-> makes them
     // all available to Python)
     Exiv2::datum_type& operator[](const std::string &key) {
@@ -300,6 +315,9 @@ public:
     }
     long count() const {
         return base->count();
+    }
+    Exiv2::base_class::iterator begin() {
+        return base->begin();
     }
     Exiv2::base_class::iterator end() {
         return base->end();
@@ -310,23 +328,6 @@ public:
     Exiv2::base_class::iterator findKey(const Exiv2::key_type &key) {
         return base->findKey(key);
     }
-};
-// Implementation of base_class##Iterator methods that use parent methods
-bool base_class##Iterator::_ptr_invalid() {
-    if (ptr == (*parent)->end()) {
-        PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
-        return true;
-    }
-    return false;
-};
-std::string base_class##Iterator::__str__() {
-    std::string result;
-    if (ptr == (*parent)->end())
-        result = "end of data";
-    else
-        result = ptr->key() + ": " + ptr->print();
-    result = "iterator<" + result + ">";
-    return result;
 };
 %}
 %enddef // DATA_LISTMAP

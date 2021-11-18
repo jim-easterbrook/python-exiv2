@@ -3443,16 +3443,14 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_ExifDataIterator swig_types[0]
-#define SWIGTYPE_p_ExifDataWrap swig_types[1]
-#define SWIGTYPE_p_Exiv2__ExifData swig_types[2]
-#define SWIGTYPE_p_Exiv2__Exifdatum swig_types[3]
-#define SWIGTYPE_p_SwigPyObject swig_types[4]
-#define SWIGTYPE_p_char swig_types[5]
-#define SWIGTYPE_p_iterator swig_types[6]
-#define SWIGTYPE_p_std__string swig_types[7]
-static swig_type_info *swig_types[9];
-static swig_module_info swig_module = {swig_types, 8, 0, 0, 0, 0};
+#define SWIGTYPE_p_ExifDataWrap swig_types[0]
+#define SWIGTYPE_p_Exiv2__ExifData swig_types[1]
+#define SWIGTYPE_p_Exiv2__Exifdatum swig_types[2]
+#define SWIGTYPE_p_SwigPyObject swig_types[3]
+#define SWIGTYPE_p_char swig_types[4]
+#define SWIGTYPE_p_iterator swig_types[5]
+static swig_type_info *swig_types[7];
+static swig_module_info swig_module = {swig_types, 6, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3566,49 +3564,7 @@ PyObject* PyExc_AnyError = NULL;
 PyObject* logger = NULL;
 
 
-class ExifDataWrap;
-// Wrapper for Exiv2::ExifData::iterator
-class ExifDataIterator {
-private:
-    Exiv2::ExifData::iterator ptr;
-    ExifDataWrap* parent;
-    PyObject* py_parent;
-public:
-    ExifDataIterator(
-            Exiv2::ExifData::iterator ptr, ExifDataWrap* parent,
-            PyObject* py_parent) {
-        this->ptr = ptr;
-        this->parent = parent;
-        this->py_parent = py_parent;
-        Py_INCREF(py_parent);
-    }
-    ~ExifDataIterator() {
-        Py_DECREF(py_parent);
-    }
-    Exiv2::Exifdatum* operator->() const {
-        return &(*ptr);
-    }
-    ExifDataIterator* __iter__() {
-        return new ExifDataIterator(ptr, parent, py_parent);
-    }
-    Exiv2::ExifData::iterator _unwrap() const {
-        return ptr;
-    }
-    Exiv2::Exifdatum* __next__() {
-        return &(*ptr++);
-    }
-    bool operator==(const ExifDataIterator &other) const {
-        return other._unwrap() == ptr;
-    }
-    bool operator!=(const ExifDataIterator &other) const {
-        return other._unwrap() != ptr;
-    }
-    bool _ptr_invalid();
-    std::string __str__();
-};
-// Wrapper for Exiv2::ExifData
 class ExifDataWrap {
-friend class ExifDataIterator;
 private:
     Exiv2::ExifData* base;
     PyObject* image;
@@ -3632,9 +3588,6 @@ public:
     Exiv2::ExifData* _unwrap() {
         return base;
     }
-    Exiv2::ExifData::iterator __iter__() {
-        return base->begin();
-    }
     // make some base class methods available to C++ (operator-> makes them
     // all available to Python)
     Exiv2::Exifdatum& operator[](const std::string &key) {
@@ -3642,6 +3595,9 @@ public:
     }
     long count() const {
         return base->count();
+    }
+    Exiv2::ExifData::iterator begin() {
+        return base->begin();
     }
     Exiv2::ExifData::iterator end() {
         return base->end();
@@ -3653,359 +3609,10 @@ public:
         return base->findKey(key);
     }
 };
-// Implementation of ExifData##Iterator methods that use parent methods
-bool ExifDataIterator::_ptr_invalid() {
-    if (ptr == (*parent)->end()) {
-        PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
-        return true;
-    }
-    return false;
-};
-std::string ExifDataIterator::__str__() {
-    std::string result;
-    if (ptr == (*parent)->end())
-        result = "end of data";
-    else
-        result = ptr->key() + ": " + ptr->print();
-    result = "iterator<" + result + ">";
-    return result;
-};
-
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
-{
-  return PyBool_FromLong(value ? 1 : 0);
-}
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap_delete_ExifDataIterator(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_ExifDataIterator", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExifDataIterator" "', argument " "1"" of type '" "ExifDataIterator *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  
-  if (strcmp("delete_ExifDataIterator", "delete_""ExifData""Iterator") &&
-    strcmp("delete_ExifDataIterator","ExifData""Iterator___iter__") &&
-    strcmp("delete_ExifDataIterator","ExifData""Iterator___str__") &&
-    strcmp("delete_ExifDataIterator","ExifData""Iterator___eq__") &&
-    strcmp("delete_ExifDataIterator","ExifData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      delete arg1;
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifDataIterator___deref__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::Exifdatum *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ExifDataIterator___deref__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___deref__" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  
-  if (strcmp("ExifDataIterator___deref__", "delete_""ExifData""Iterator") &&
-    strcmp("ExifDataIterator___deref__","ExifData""Iterator___iter__") &&
-    strcmp("ExifDataIterator___deref__","ExifData""Iterator___str__") &&
-    strcmp("ExifDataIterator___deref__","ExifData""Iterator___eq__") &&
-    strcmp("ExifDataIterator___deref__","ExifData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      result = (Exiv2::Exifdatum *)((ExifDataIterator const *)arg1)->operator ->();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifDataIterator___iter__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  ExifDataIterator *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ExifDataIterator___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___iter__" "', argument " "1"" of type '" "ExifDataIterator *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  
-  if (strcmp("ExifDataIterator___iter__", "delete_""ExifData""Iterator") &&
-    strcmp("ExifDataIterator___iter__","ExifData""Iterator___iter__") &&
-    strcmp("ExifDataIterator___iter__","ExifData""Iterator___str__") &&
-    strcmp("ExifDataIterator___iter__","ExifData""Iterator___eq__") &&
-    strcmp("ExifDataIterator___iter__","ExifData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      result = (ExifDataIterator *)(arg1)->__iter__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifDataIterator___next__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::Exifdatum *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ExifDataIterator___next__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___next__" "', argument " "1"" of type '" "ExifDataIterator *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  
-  if (strcmp("ExifDataIterator___next__", "delete_""ExifData""Iterator") &&
-    strcmp("ExifDataIterator___next__","ExifData""Iterator___iter__") &&
-    strcmp("ExifDataIterator___next__","ExifData""Iterator___str__") &&
-    strcmp("ExifDataIterator___next__","ExifData""Iterator___eq__") &&
-    strcmp("ExifDataIterator___next__","ExifData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      result = (Exiv2::Exifdatum *)(arg1)->__next__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
-  
-  if (!result) SWIG_fail;
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifDataIterator___eq__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
-  ExifDataIterator *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___eq__" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_ExifDataIterator,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifDataIterator___eq__" "', argument " "2"" of type '" "ExifDataIterator const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifDataIterator___eq__" "', argument " "2"" of type '" "ExifDataIterator const &""'"); 
-  }
-  arg2 = reinterpret_cast< ExifDataIterator * >(argp2);
-  
-  if (strcmp("ExifDataIterator___eq__", "delete_""ExifData""Iterator") &&
-    strcmp("ExifDataIterator___eq__","ExifData""Iterator___iter__") &&
-    strcmp("ExifDataIterator___eq__","ExifData""Iterator___str__") &&
-    strcmp("ExifDataIterator___eq__","ExifData""Iterator___eq__") &&
-    strcmp("ExifDataIterator___eq__","ExifData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      result = (bool)((ExifDataIterator const *)arg1)->operator ==((ExifDataIterator const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifDataIterator___ne__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
-  ExifDataIterator *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___ne__" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_ExifDataIterator,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifDataIterator___ne__" "', argument " "2"" of type '" "ExifDataIterator const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifDataIterator___ne__" "', argument " "2"" of type '" "ExifDataIterator const &""'"); 
-  }
-  arg2 = reinterpret_cast< ExifDataIterator * >(argp2);
-  
-  if (strcmp("ExifDataIterator___ne__", "delete_""ExifData""Iterator") &&
-    strcmp("ExifDataIterator___ne__","ExifData""Iterator___iter__") &&
-    strcmp("ExifDataIterator___ne__","ExifData""Iterator___str__") &&
-    strcmp("ExifDataIterator___ne__","ExifData""Iterator___eq__") &&
-    strcmp("ExifDataIterator___ne__","ExifData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      result = (bool)((ExifDataIterator const *)arg1)->operator !=((ExifDataIterator const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifDataIterator___str__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::string result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ExifDataIterator___str__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator___str__" "', argument " "1"" of type '" "ExifDataIterator *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  
-  if (strcmp("ExifDataIterator___str__", "delete_""ExifData""Iterator") &&
-    strcmp("ExifDataIterator___str__","ExifData""Iterator___iter__") &&
-    strcmp("ExifDataIterator___str__","ExifData""Iterator___str__") &&
-    strcmp("ExifDataIterator___str__","ExifData""Iterator___eq__") &&
-    strcmp("ExifDataIterator___str__","ExifData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      result = (arg1)->__str__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj((new std::string(static_cast< const std::string& >(result))), SWIGTYPE_p_std__string, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifDataIterator) /* defines _wrap_delete_ExifDataIterator_destructor_closure */
-
-SWIGPY_GETITERFUNC_CLOSURE(_wrap_ExifDataIterator___iter__) /* defines _wrap_ExifDataIterator___iter___getiterfunc_closure */
-
-SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_ExifDataIterator___next__) /* defines _wrap_ExifDataIterator___next___iternextfunc_closure */
-
-SWIGPY_REPRFUNC_CLOSURE(_wrap_ExifDataIterator___str__) /* defines _wrap_ExifDataIterator___str___reprfunc_closure */
-
 SWIGINTERN int _wrap_new_ExifData(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   ExifDataWrap *result = 0 ;
@@ -4093,45 +3700,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ExifData___iter__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataWrap *arg1 = (ExifDataWrap *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::ExifData::iterator result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ExifData___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataWrap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData___iter__" "', argument " "1"" of type '" "ExifDataWrap *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataWrap * >(argp1);
-  {
-    try {
-      result = (arg1)->__iter__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj(
-    new ExifDataIterator(result, arg1, self),
-    SWIGTYPE_p_ExifDataIterator, SWIG_POINTER_OWN);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifData) /* defines _wrap_delete_ExifData_destructor_closure */
-
-SWIGPY_GETITERFUNC_CLOSURE(_wrap_ExifData___iter__) /* defines _wrap_ExifData___iter___getiterfunc_closure */
 
 SWIGINTERN PyObject *_wrap_orientation(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -5879,229 +5448,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 	 { NULL, NULL, 0, NULL }
 };
 
-static SwigPyGetSet ExifDataIterator___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__ExifDataIterator_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &ExifDataIterator___dict___getset },
-    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
-};
-
-SWIGINTERN PyObject *
-SwigPyBuiltin__ExifDataIterator_richcompare(PyObject *self, PyObject *other, int op) {
-  PyObject *result = NULL;
-  switch (op) {
-    case Py_EQ : result = _wrap_ExifDataIterator___eq__(self, other); break;
-    case Py_NE : result = _wrap_ExifDataIterator___ne__(self, other); break;
-    default : break;
-  }
-  if (!result) {
-    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
-      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
-    } else {
-      result = Py_NotImplemented;
-      Py_INCREF(result);
-    }
-  }
-  return result;
-}
-
-SWIGINTERN PyMethodDef SwigPyBuiltin__ExifDataIterator_methods[] = {
-  { "__deref__", _wrap_ExifDataIterator___deref__, METH_NOARGS, "" },
-  { "__iter__", _wrap_ExifDataIterator___iter__, METH_NOARGS, "" },
-  { "__next__", _wrap_ExifDataIterator___next__, METH_NOARGS, "" },
-  { "__eq__", _wrap_ExifDataIterator___eq__, METH_O, "" },
-  { "__ne__", _wrap_ExifDataIterator___ne__, METH_O, "" },
-  { "__str__", _wrap_ExifDataIterator___str__, METH_NOARGS, "" },
-  { NULL, NULL, 0, NULL } /* Sentinel */
-};
-
-static PyHeapTypeObject SwigPyBuiltin__ExifDataIterator_type = {
-  {
-#if PY_VERSION_HEX >= 0x03000000
-    PyVarObject_HEAD_INIT(NULL, 0)
-#else
-    PyObject_HEAD_INIT(NULL)
-    0,                                        /* ob_size */
-#endif
-    "exiv2.easyaccess.ExifDataIterator",      /* tp_name */
-    sizeof(SwigPyObject),                     /* tp_basicsize */
-    0,                                        /* tp_itemsize */
-    _wrap_delete_ExifDataIterator_destructor_closure,             /* tp_dealloc */
-    (printfunc) 0,                            /* tp_print */
-    (getattrfunc) 0,                          /* tp_getattr */
-    (setattrfunc) 0,                          /* tp_setattr */
-#if PY_VERSION_HEX >= 0x03000000
-    0,                                        /* tp_compare */
-#else
-    (cmpfunc) 0,                              /* tp_compare */
-#endif
-    (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__ExifDataIterator_type.as_number,              /* tp_as_number */
-    &SwigPyBuiltin__ExifDataIterator_type.as_sequence,            /* tp_as_sequence */
-    &SwigPyBuiltin__ExifDataIterator_type.as_mapping,             /* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
-    (ternaryfunc) 0,                          /* tp_call */
-    _wrap_ExifDataIterator___str___reprfunc_closure,              /* tp_str */
-    (getattrofunc) 0,                         /* tp_getattro */
-    (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__ExifDataIterator_type.as_buffer,              /* tp_as_buffer */
-#if PY_VERSION_HEX >= 0x03000000
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
-#else
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
-#endif
-    "Python wrapper for Exiv2::ExifData::iterator",               /* tp_doc */
-    (traverseproc) 0,                         /* tp_traverse */
-    (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__ExifDataIterator_richcompare,                  /* tp_richcompare */
-    0,                                        /* tp_weaklistoffset */
-    _wrap_ExifDataIterator___iter___getiterfunc_closure,          /* tp_iter */
-    _wrap_ExifDataIterator___next___iternextfunc_closure,         /* tp_iternext */
-    SwigPyBuiltin__ExifDataIterator_methods,  /* tp_methods */
-    0,                                        /* tp_members */
-    SwigPyBuiltin__ExifDataIterator_getset,   /* tp_getset */
-    0,                                        /* tp_base */
-    0,                                        /* tp_dict */
-    (descrgetfunc) 0,                         /* tp_descr_get */
-    (descrsetfunc) 0,                         /* tp_descr_set */
-    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    SwigPyBuiltin_BadInit,                    /* tp_init */
-    (allocfunc) 0,                            /* tp_alloc */
-    (newfunc) 0,                              /* tp_new */
-    (freefunc) 0,                             /* tp_free */
-    (inquiry) 0,                              /* tp_is_gc */
-    (PyObject *) 0,                           /* tp_bases */
-    (PyObject *) 0,                           /* tp_mro */
-    (PyObject *) 0,                           /* tp_cache */
-    (PyObject *) 0,                           /* tp_subclasses */
-    (PyObject *) 0,                           /* tp_weaklist */
-    (destructor) 0,                           /* tp_del */
-    (int) 0,                                  /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    (destructor) 0,                           /* tp_finalize */
-#endif
-#if PY_VERSION_HEX >= 0x03080000
-    (vectorcallfunc) 0,                       /* tp_vectorcall */
-#endif
-#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
-    0,                                        /* tp_print */
-#endif
-#ifdef COUNT_ALLOCS
-    (Py_ssize_t) 0,                           /* tp_allocs */
-    (Py_ssize_t) 0,                           /* tp_frees */
-    (Py_ssize_t) 0,                           /* tp_maxalloc */
-    0,                                        /* tp_prev */
-    0,                                        /* tp_next */
-#endif
-  },
-#if PY_VERSION_HEX >= 0x03050000
-  {
-    (unaryfunc) 0,                            /* am_await */
-    (unaryfunc) 0,                            /* am_aiter */
-    (unaryfunc) 0,                            /* am_anext */
-  },
-#endif
-  {
-    (binaryfunc) 0,                           /* nb_add */
-    (binaryfunc) 0,                           /* nb_subtract */
-    (binaryfunc) 0,                           /* nb_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_remainder */
-    (binaryfunc) 0,                           /* nb_divmod */
-    (ternaryfunc) 0,                          /* nb_power */
-    (unaryfunc) 0,                            /* nb_negative */
-    (unaryfunc) 0,                            /* nb_positive */
-    (unaryfunc) 0,                            /* nb_absolute */
-    (inquiry) 0,                              /* nb_nonzero */
-    (unaryfunc) 0,                            /* nb_invert */
-    (binaryfunc) 0,                           /* nb_lshift */
-    (binaryfunc) 0,                           /* nb_rshift */
-    (binaryfunc) 0,                           /* nb_and */
-    (binaryfunc) 0,                           /* nb_xor */
-    (binaryfunc) 0,                           /* nb_or */
-#if PY_VERSION_HEX < 0x03000000
-    (coercion) 0,                             /* nb_coerce */
-#endif
-    (unaryfunc) 0,                            /* nb_int */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* nb_reserved */
-#else
-    (unaryfunc) 0,                            /* nb_long */
-#endif
-    (unaryfunc) 0,                            /* nb_float */
-#if PY_VERSION_HEX < 0x03000000
-    (unaryfunc) 0,                            /* nb_oct */
-    (unaryfunc) 0,                            /* nb_hex */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_add */
-    (binaryfunc) 0,                           /* nb_inplace_subtract */
-    (binaryfunc) 0,                           /* nb_inplace_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_inplace_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_remainder */
-    (ternaryfunc) 0,                          /* nb_inplace_power */
-    (binaryfunc) 0,                           /* nb_inplace_lshift */
-    (binaryfunc) 0,                           /* nb_inplace_rshift */
-    (binaryfunc) 0,                           /* nb_inplace_and */
-    (binaryfunc) 0,                           /* nb_inplace_xor */
-    (binaryfunc) 0,                           /* nb_inplace_or */
-    (binaryfunc) 0,                           /* nb_floor_divide */
-    (binaryfunc) 0,                           /* nb_true_divide */
-    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
-    (binaryfunc) 0,                           /* nb_inplace_true_divide */
-    (unaryfunc) 0,                            /* nb_index */
-#if PY_VERSION_HEX >= 0x03050000
-    (binaryfunc) 0,                           /* nb_matrix_multiply */
-    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
-#endif
-  },
-  {
-    (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
-  },
-  {
-    (lenfunc) 0,                              /* sq_length */
-    (binaryfunc) 0,                           /* sq_concat */
-    (ssizeargfunc) 0,                         /* sq_repeat */
-    (ssizeargfunc) 0,                         /* sq_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_slice */
-#else
-    (ssizessizeargfunc) 0,                    /* sq_slice */
-#endif
-    (ssizeobjargproc) 0,                      /* sq_ass_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_ass_slice */
-#else
-    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
-#endif
-    (objobjproc) 0,                           /* sq_contains */
-    (binaryfunc) 0,                           /* sq_inplace_concat */
-    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
-  },
-  {
-#if PY_VERSION_HEX < 0x03000000
-    (readbufferproc) 0,                       /* bf_getreadbuffer */
-    (writebufferproc) 0,                      /* bf_getwritebuffer */
-    (segcountproc) 0,                         /* bf_getsegcount */
-    (charbufferproc) 0,                       /* bf_getcharbuffer */
-#endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
-  },
-    (PyObject *) 0,                           /* ht_name */
-    (PyObject *) 0,                           /* ht_slots */
-#if PY_VERSION_HEX >= 0x03030000
-    (PyObject *) 0,                           /* ht_qualname */
-    0,                                        /* ht_cached_keys */
-#endif
-};
-
-SWIGINTERN SwigPyClientData SwigPyBuiltin__ExifDataIterator_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__ExifDataIterator_type};
-
 static SwigPyGetSet ExifData___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__ExifDataWrap_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Python wrapper for Exiv2::parent_class", &ExifData___dict___getset },
@@ -6124,7 +5470,6 @@ SwigPyBuiltin__ExifDataWrap_richcompare(PyObject *self, PyObject *other, int op)
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__ExifDataWrap_methods[] = {
   { "__deref__", _wrap_ExifData___deref__, METH_NOARGS, "" },
-  { "__iter__", _wrap_ExifData___iter__, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6168,7 +5513,7 @@ static PyHeapTypeObject SwigPyBuiltin__ExifDataWrap_type = {
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__ExifDataWrap_richcompare,  /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    _wrap_ExifData___iter___getiterfunc_closure,                  /* tp_iter */
+    (getiterfunc) 0,                          /* tp_iter */
     (iternextfunc) 0,                         /* tp_iternext */
     SwigPyBuiltin__ExifDataWrap_methods,      /* tp_methods */
     0,                                        /* tp_members */
@@ -6319,44 +5664,36 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__ExifDataWrap_clientdata = {0, 0, 0, 0
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static swig_type_info _swigt__p_ExifDataIterator = {"_p_ExifDataIterator", "ExifDataIterator *", 0, 0, (void*)&SwigPyBuiltin__ExifDataIterator_clientdata, 0};
 static swig_type_info _swigt__p_ExifDataWrap = {"_p_ExifDataWrap", "ExifDataWrap *", 0, 0, (void*)&SwigPyBuiltin__ExifDataWrap_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__ExifData = {"_p_Exiv2__ExifData", "Exiv2::ExifData *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Exifdatum = {"_p_Exiv2__Exifdatum", "Exiv2::Exifdatum *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_iterator = {"_p_iterator", "iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_ExifDataIterator,
   &_swigt__p_ExifDataWrap,
   &_swigt__p_Exiv2__ExifData,
   &_swigt__p_Exiv2__Exifdatum,
   &_swigt__p_SwigPyObject,
   &_swigt__p_char,
   &_swigt__p_iterator,
-  &_swigt__p_std__string,
 };
 
-static swig_cast_info _swigc__p_ExifDataIterator[] = {  {&_swigt__p_ExifDataIterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ExifDataWrap[] = {  {&_swigt__p_ExifDataWrap, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifData[] = {  {&_swigt__p_Exiv2__ExifData, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Exifdatum[] = {  {&_swigt__p_Exiv2__Exifdatum, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_iterator[] = {  {&_swigt__p_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_ExifDataIterator,
   _swigc__p_ExifDataWrap,
   _swigc__p_Exiv2__ExifData,
   _swigc__p_Exiv2__Exifdatum,
   _swigc__p_SwigPyObject,
   _swigc__p_char,
   _swigc__p_iterator,
-  _swigc__p_std__string,
 };
 
 
@@ -7106,29 +6443,6 @@ SWIG_init(void) {
     return NULL;
   }
   
-  
-  /* type '::ExifDataIterator' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__ExifDataIterator_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
-  builtin_pytype->tp_new = PyType_GenericNew;
-  builtin_base_count = 0;
-  builtin_bases[builtin_base_count] = NULL;
-  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
-  PyDict_SetItemString(d, "this", this_descr);
-  PyDict_SetItemString(d, "thisown", thisown_descr);
-  if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'ExifDataIterator'.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "ExifDataIterator", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "ExifDataIterator");
-  d = md;
   
   /* type '::ExifDataWrap' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__ExifDataWrap_type;

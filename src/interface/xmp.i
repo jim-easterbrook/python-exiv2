@@ -28,6 +28,7 @@
 #ifndef SWIGIMPORTED
 DATA_MAPPING_METHODS(XmpData, XmpDataWrap, Exiv2::Xmpdatum, Exiv2::XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
+DATA_ITERATOR(XmpData, XmpDataWrap, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
 DATA_LISTMAP(XmpData, Xmpdatum, XmpKey,
              XmpProperties::propertyType(XmpKey(key)))
 #endif
