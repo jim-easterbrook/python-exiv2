@@ -4644,6 +4644,9 @@ SWIGINTERN Exiv2::XmpArrayValue::AutoPtr Exiv2_XmpArrayValue___iadd__(Exiv2::Xmp
         self->read(value);
         return self->clone();
     }
+SWIGINTERN Exiv2::LangAltValue::ValueType Exiv2_LangAltValue_getMap(Exiv2::LangAltValue *self){
+        return self->value_;
+    }
 SWIGINTERN Exiv2::LangAltValue *Exiv2_LangAltValue_downCast(Exiv2::Value const &value){
         Exiv2::LangAltValue* pv = dynamic_cast< Exiv2::LangAltValue* >(value.clone().release());
         if (pv == 0) {
@@ -13072,6 +13075,47 @@ SWIGINTERN PyObject *_wrap_LangAltValue_write(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue_getMap(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< std::map< std::string,std::string,Exiv2::LangAltValueComparator > > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LangAltValue_getMap", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_getMap" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    try {
+      result = Exiv2_LangAltValue_getMap(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* dict = PyDict_New();
+    Exiv2::LangAltValue::ValueType::iterator e = (&result)->end();
+    for (Exiv2::LangAltValue::ValueType::iterator i = (&result)->begin(); i != e; ++i) {
+      PyDict_SetItem(dict,
+        PyUnicode_FromString(i->first.c_str()),
+        PyUnicode_FromString(i->second.c_str()));
+    }
+    resultobj = SWIG_Python_AppendOutput(resultobj, dict);
+  }
   return resultobj;
 fail:
   return NULL;
@@ -28637,6 +28681,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValue_methods[] = {
 		"Notes: The output of this method cannot directly be used as the parameter\n"
 		"      for read().\n"
 		"" },
+  { "getMap", _wrap_LangAltValue_getMap, METH_NOARGS, "" },
   { "downCast", (PyCFunction)(void(*)(void))_wrap_LangAltValue_downCast, METH_STATIC|METH_O, "Convert general 'Exiv2::Value' to specific 'Exiv2::LangAltValue'." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };

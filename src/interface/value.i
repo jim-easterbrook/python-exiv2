@@ -34,6 +34,16 @@ wrap_auto_unique_ptr(Exiv2::Value);
     $result = Py_BuildValue(
         "(iiiii)", $1.hour, $1.minute, $1.second, $1.tzHour, $1.tzMinute);
 %}
+%typemap(out) Exiv2::LangAltValue::ValueType {
+    PyObject* dict = PyDict_New();
+    Exiv2::LangAltValue::ValueType::iterator e = $1.end();
+    for (Exiv2::LangAltValue::ValueType::iterator i = $1.begin(); i != e; ++i) {
+        PyDict_SetItem(dict,
+            PyUnicode_FromString(i->first.c_str()),
+            PyUnicode_FromString(i->second.c_str()));
+    }
+    $result = SWIG_Python_AppendOutput($result, dict);
+}
 // for indexing multi-value values, assumes arg1 points to self
 %typemap(check) long multi_idx %{
     if ($1 < 0 || $1 >= arg1->count()) {
@@ -151,6 +161,13 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         time.tzHour = tzHour;
         time.tzMinute = tzMinute;
         $self->setTime(time);
+    }
+}
+
+// Make LangAltValue available as a dict
+%extend Exiv2::LangAltValue {
+    Exiv2::LangAltValue::ValueType getMap() {
+        return $self->value_;
     }
 }
 
