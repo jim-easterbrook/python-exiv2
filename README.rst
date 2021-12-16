@@ -59,6 +59,13 @@ Recent versions of SWIG_ can convert this documentation to pydoc_ format in the 
 Unfortunately some documentation gets lost in the manipulations needed to make a useful interface.
 The C++ documentation is still needed in these cases.
 
+Support for bmff files (CR3, HEIF, HEIC, and AVIF)
+--------------------------------------------------
+
+Python-exiv2 from version 0.8.3 onwards is built with support for bmff files.
+In order to use bmff files in your Python program you need to call the ``enableBMFF`` function.
+Please read the Exiv2 `statement on bmff`_ patents before doing so.
+
 Assignment
 ----------
 
@@ -101,7 +108,6 @@ For example::
     >>>
 
 Before using an iterator you must ensure that it is not equal to the ``end()`` value.
-Failure to do so may produce a segmentation fault, just like a C++ program would.
 
 You can iterate over the data in a very C++ like style::
 
@@ -150,12 +156,10 @@ This allows them to be used in a very Pythonic style::
         del data['Iptc.Application2.Keywords']
 
 Warning: segmentation faults
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Many of the libexiv2 objects point to data in other objects.
-For example, ``image.exifData()`` returns an object that points to data in ``image``.
-The Python interface uses Python objects' reference counting to prevent ``image`` being deleted while its data is being pointed at by another object.
-This avoids one possible cause of segfaults.
+If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
+Just as in C++, there is no way to detect that an iterator has become invalid.
 
 There may be other cases where the Python interface doesn't prevent segfaults.
 Please let me know if you find any.
@@ -208,4 +212,5 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _SWIG:              http://swig.org/
 .. _pydoc:             https://docs.python.org/3/library/pydoc.html
 .. _Python3:           https://www.python.org/
+.. _statement on bmff: https://github.com/exiv2/exiv2#2-19
 .. _Visual C++:        https://wiki.python.org/moin/WindowsCompilers
