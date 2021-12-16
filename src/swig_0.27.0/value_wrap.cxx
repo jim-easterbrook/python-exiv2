@@ -4644,8 +4644,73 @@ SWIGINTERN Exiv2::XmpArrayValue::AutoPtr Exiv2_XmpArrayValue___iadd__(Exiv2::Xmp
         self->read(value);
         return self->clone();
     }
-SWIGINTERN Exiv2::LangAltValue::ValueType Exiv2_LangAltValue_getMap(Exiv2::LangAltValue *self){
-        return self->value_;
+SWIGINTERN PyObject *Exiv2_LangAltValue_keys(Exiv2::LangAltValue *self){
+        PyObject* result = PyTuple_New(self->count());
+        Exiv2::LangAltValue::ValueType::iterator e = self->value_.end();
+        Py_ssize_t pos = 0;
+        for (Exiv2::LangAltValue::ValueType::iterator i = self->value_.begin();
+             i != e; ++i) {
+            PyTuple_SET_ITEM(result, pos,
+                PyUnicode_FromString(i->first.c_str()));
+            pos++;
+        }
+        return result;
+    }
+SWIGINTERN PyObject *Exiv2_LangAltValue_values(Exiv2::LangAltValue *self){
+        PyObject* result = PyTuple_New(self->count());
+        Exiv2::LangAltValue::ValueType::iterator e = self->value_.end();
+        Py_ssize_t pos = 0;
+        for (Exiv2::LangAltValue::ValueType::iterator i = self->value_.begin();
+             i != e; ++i) {
+            PyTuple_SET_ITEM(result, pos,
+                PyUnicode_FromString(i->second.c_str()));
+            pos++;
+        }
+        return result;
+    }
+SWIGINTERN PyObject *Exiv2_LangAltValue_items(Exiv2::LangAltValue *self){
+        PyObject* result = PyTuple_New(self->count());
+        Exiv2::LangAltValue::ValueType::iterator e = self->value_.end();
+        Py_ssize_t pos = 0;
+        for (Exiv2::LangAltValue::ValueType::iterator i = self->value_.begin();
+             i != e; ++i) {
+            PyTuple_SET_ITEM(result, pos,
+                PyTuple_Pack(2,
+                    PyUnicode_FromString(i->first.c_str()),
+                    PyUnicode_FromString(i->second.c_str())));
+            pos++;
+        }
+        return result;
+    }
+SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
+        return PySeqIter_New(Exiv2_LangAltValue_keys(self));
+    }
+SWIGINTERN std::string Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,std::string const &key){
+        Exiv2::LangAltValue::ValueType::iterator pos = self->value_.find(key);
+        if (pos == self->value_.end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return "";
+        }
+        return pos->second;
+    }
+SWIGINTERN void Exiv2_LangAltValue___setitem____SWIG_0(Exiv2::LangAltValue *self,std::string const &key,std::string const &value){
+        self->value_[key] = value;
+    }
+SWIGINTERN PyObject *Exiv2_LangAltValue___setitem____SWIG_1(Exiv2::LangAltValue *self,std::string const &key){
+
+
+
+        Exiv2::LangAltValue::ValueType::iterator pos = self->value_.find(key);
+        if (pos == self->value_.end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return NULL;
+        }
+        self->value_.erase(pos);
+        return SWIG_Py_Void();
+    }
+SWIGINTERN int Exiv2_LangAltValue___contains__(Exiv2::LangAltValue *self,std::string const &key){
+        Exiv2::LangAltValue::ValueType::iterator pos = self->value_.find(key);
+        return (pos == self->value_.end()) ? 0 : 1;
     }
 SWIGINTERN Exiv2::LangAltValue *Exiv2_LangAltValue_downCast(Exiv2::Value const &value){
         Exiv2::LangAltValue* pv = dynamic_cast< Exiv2::LangAltValue* >(value.clone().release());
@@ -13081,23 +13146,23 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_LangAltValue_getMap(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::map< std::string,std::string,Exiv2::LangAltValueComparator > > result;
+  PyObject *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "LangAltValue_getMap", 0, 0, 0)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "LangAltValue_keys", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_getMap" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_keys" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
     try {
-      result = Exiv2_LangAltValue_getMap(arg1);
+      result = (PyObject *)Exiv2_LangAltValue_keys(arg1);
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -13106,18 +13171,329 @@ SWIGINTERN PyObject *_wrap_LangAltValue_getMap(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    PyObject* dict = PyDict_New();
-    Exiv2::LangAltValue::ValueType::iterator e = (&result)->end();
-    for (Exiv2::LangAltValue::ValueType::iterator i = (&result)->begin(); i != e; ++i) {
-      PyDict_SetItem(dict,
-        PyUnicode_FromString(i->first.c_str()),
-        PyUnicode_FromString(i->second.c_str()));
-    }
-    resultobj = SWIG_Python_AppendOutput(resultobj, dict);
-  }
+  resultobj = result;
   return resultobj;
 fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue_values(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LangAltValue_values", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_values" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_LangAltValue_values(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue_items(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LangAltValue_items", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_items" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_LangAltValue_items(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LangAltValue___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___iter__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_LangAltValue___iter__(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue___getitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___getitem__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValue___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LangAltValue___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    result = Exiv2_LangAltValue___getitem__(arg1,(std::string const &)*arg2);
+    if (PyErr_Occurred())
+    SWIG_fail;
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue___setitem____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___setitem__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValue___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LangAltValue___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "LangAltValue___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LangAltValue___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  {
+    try {
+      Exiv2_LangAltValue___setitem____SWIG_0(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue___setitem____SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___setitem__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValue___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LangAltValue___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_LangAltValue___setitem____SWIG_1(arg1,(std::string const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue___setitem__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "LangAltValue___setitem__", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_LangAltValue___setitem____SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_LangAltValue___setitem____SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'LangAltValue___setitem__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::LangAltValue::__setitem__(std::string const &,std::string const &)\n"
+    "    Exiv2::LangAltValue::__setitem__(std::string const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_LangAltValue___contains__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___contains__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValue___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LangAltValue___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (int)Exiv2_LangAltValue___contains__(arg1,(std::string const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
@@ -13263,6 +13639,12 @@ fail:
   return NULL;
 }
 
+
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_LangAltValue___iter__) /* defines _wrap_LangAltValue___iter___getiterfunc_closure */
+
+SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_LangAltValue___setitem__) /* defines _wrap_LangAltValue___setitem___objobjargproc_closure */
+
+SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_LangAltValue___contains__) /* defines _wrap_LangAltValue___contains___objobjproc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_LangAltValue) /* defines _wrap_delete_LangAltValue_destructor_closure */
 
@@ -28681,7 +29063,13 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValue_methods[] = {
 		"Notes: The output of this method cannot directly be used as the parameter\n"
 		"      for read().\n"
 		"" },
-  { "getMap", _wrap_LangAltValue_getMap, METH_NOARGS, "" },
+  { "keys", _wrap_LangAltValue_keys, METH_NOARGS, "" },
+  { "values", _wrap_LangAltValue_values, METH_NOARGS, "" },
+  { "items", _wrap_LangAltValue_items, METH_NOARGS, "" },
+  { "__iter__", _wrap_LangAltValue___iter__, METH_NOARGS, "" },
+  { "__getitem__", _wrap_LangAltValue___getitem__, METH_O, "" },
+  { "__setitem__", _wrap_LangAltValue___setitem__, METH_VARARGS, "" },
+  { "__contains__", _wrap_LangAltValue___contains__, METH_O, "" },
   { "downCast", (PyCFunction)(void(*)(void))_wrap_LangAltValue_downCast, METH_STATIC|METH_O, "Convert general 'Exiv2::Value' to specific 'Exiv2::LangAltValue'." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
@@ -28731,7 +29119,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__LangAltValue_richcompare,               /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
+    _wrap_LangAltValue___iter___getiterfunc_closure,              /* tp_iter */
     (iternextfunc) 0,                         /* tp_iternext */
     SwigPyBuiltin__Exiv2__LangAltValue_methods,                   /* tp_methods */
     0,                                        /* tp_members */
@@ -28836,8 +29224,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
   },
   {
     (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
+    _wrap_LangAltValue___getitem__,           /* mp_subscript */
+    _wrap_LangAltValue___setitem___objobjargproc_closure,         /* mp_ass_subscript */
   },
   {
     (lenfunc) 0,                              /* sq_length */
@@ -28855,7 +29243,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
 #else
     (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
 #endif
-    (objobjproc) 0,                           /* sq_contains */
+    _wrap_LangAltValue___contains___objobjproc_closure,           /* sq_contains */
     (binaryfunc) 0,                           /* sq_inplace_concat */
     (ssizeargfunc) 0,                         /* sq_inplace_repeat */
   },

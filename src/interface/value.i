@@ -34,16 +34,6 @@ wrap_auto_unique_ptr(Exiv2::Value);
     $result = Py_BuildValue(
         "(iiiii)", $1.hour, $1.minute, $1.second, $1.tzHour, $1.tzMinute);
 %}
-%typemap(out) Exiv2::LangAltValue::ValueType {
-    PyObject* dict = PyDict_New();
-    Exiv2::LangAltValue::ValueType::iterator e = $1.end();
-    for (Exiv2::LangAltValue::ValueType::iterator i = $1.begin(); i != e; ++i) {
-        PyDict_SetItem(dict,
-            PyUnicode_FromString(i->first.c_str()),
-            PyUnicode_FromString(i->second.c_str()));
-    }
-    $result = SWIG_Python_AppendOutput($result, dict);
-}
 // for indexing multi-value values, assumes arg1 points to self
 %typemap(check) long multi_idx %{
     if ($1 < 0 || $1 >= arg1->count()) {
@@ -164,10 +154,89 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     }
 }
 
-// Make LangAltValue available as a dict
+// Make LangAltValue like a Python dict
+%feature("python:slot", "tp_iter",
+         functype="getiterfunc") Exiv2::LangAltValue::__iter__;
+%feature("python:slot", "mp_subscript",
+         functype="binaryfunc") Exiv2::LangAltValue::__getitem__;
+%feature("python:slot", "mp_ass_subscript",
+         functype="objobjargproc") Exiv2::LangAltValue::__setitem__;
+%feature("python:slot", "sq_contains",
+         functype="objobjproc") Exiv2::LangAltValue::__contains__;
+%exception Exiv2::LangAltValue::__getitem__ {
+    $action
+    if (PyErr_Occurred())
+        SWIG_fail;
+}
 %extend Exiv2::LangAltValue {
-    Exiv2::LangAltValue::ValueType getMap() {
-        return $self->value_;
+    PyObject* keys() {
+        PyObject* result = PyTuple_New($self->count());
+        Exiv2::LangAltValue::ValueType::iterator e = $self->value_.end();
+        Py_ssize_t pos = 0;
+        for (Exiv2::LangAltValue::ValueType::iterator i = $self->value_.begin();
+             i != e; ++i) {
+            PyTuple_SET_ITEM(result, pos,
+                PyUnicode_FromString(i->first.c_str()));
+            pos++;
+        }
+        return result;
+    }
+    PyObject* values() {
+        PyObject* result = PyTuple_New($self->count());
+        Exiv2::LangAltValue::ValueType::iterator e = $self->value_.end();
+        Py_ssize_t pos = 0;
+        for (Exiv2::LangAltValue::ValueType::iterator i = $self->value_.begin();
+             i != e; ++i) {
+            PyTuple_SET_ITEM(result, pos,
+                PyUnicode_FromString(i->second.c_str()));
+            pos++;
+        }
+        return result;
+    }
+    PyObject* items() {
+        PyObject* result = PyTuple_New($self->count());
+        Exiv2::LangAltValue::ValueType::iterator e = $self->value_.end();
+        Py_ssize_t pos = 0;
+        for (Exiv2::LangAltValue::ValueType::iterator i = $self->value_.begin();
+             i != e; ++i) {
+            PyTuple_SET_ITEM(result, pos,
+                PyTuple_Pack(2,
+                    PyUnicode_FromString(i->first.c_str()),
+                    PyUnicode_FromString(i->second.c_str())));
+            pos++;
+        }
+        return result;
+    }
+    PyObject* __iter__() {
+        return PySeqIter_New(Exiv2_LangAltValue_keys($self));
+    }
+    std::string __getitem__(const std::string& key) {
+        Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
+        if (pos == $self->value_.end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return "";
+        }
+        return pos->second;
+    }
+    void __setitem__(const std::string& key, const std::string& value) {
+        $self->value_[key] = value;
+    }
+#if defined(SWIGPYTHON_BUILTIN)
+    PyObject* __setitem__(const std::string& key) {
+#else
+    PyObject* __delitem__(const std::string& key) {
+#endif
+        Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
+        if (pos == $self->value_.end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return NULL;
+        }
+        $self->value_.erase(pos);
+        return SWIG_Py_Void();
+    }
+    int __contains__(const std::string& key) {
+        Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
+        return (pos == $self->value_.end()) ? 0 : 1;
     }
 }
 
