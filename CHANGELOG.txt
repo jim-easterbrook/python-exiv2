@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.8.3:
+  1/ Xmp LangAlt values can be accessed like a Python dict.
+  2/ Binary wheels are built with BMFF file support enabled.
+
 Changes in v0.8.2:
   1/ No longer detect possible iterator invalidation (unreliable).
   2/ Restructured macros to give slightly less bloated code.
