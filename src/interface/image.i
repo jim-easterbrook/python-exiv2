@@ -30,6 +30,7 @@
 #endif
 #endif
 
+%import "basicio.i";
 %import "exif.i";
 %import "iptc.i";
 %import "tags.i";
@@ -127,16 +128,6 @@ ENUM(ImageType, "Supported image formats.",
 %ignore Exiv2::Image::printIFDStructure;
 %ignore Exiv2::PrintStructureOption;
 %ignore Exiv2::append;
-
-// Ignore anything using BasicIo - we only need higher level stuff
-%ignore Exiv2::Image::io;
-%ignore Exiv2::ImageFactory::createIo;
-%ignore Exiv2::ImageFactory::open(BasicIo::AutoPtr);
-%ignore Exiv2::ImageFactory::open(BasicIo::UniquePtr);
-%ignore Exiv2::ImageFactory::create(int, BasicIo::AutoPtr);
-%ignore Exiv2::ImageFactory::create(int, BasicIo::UniquePtr);
-%ignore Exiv2::ImageFactory::getType(BasicIo&);
-%ignore Exiv2::ImageFactory::checkType;
 
 %include "exiv2/image.hpp"
 

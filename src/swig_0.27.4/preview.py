@@ -9,9 +9,10 @@ if _swig_python_version_info < (2, 7, 0):
     raise RuntimeError("Python 2.7 or later required")
 
 import exiv2.image
+import exiv2.basicio
+import exiv2.types
 import exiv2.exif
 import exiv2.metadatum
-import exiv2.types
 import exiv2.value
 import exiv2.tags
 import exiv2.iptc

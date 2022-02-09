@@ -8,23 +8,13 @@ from sys import version_info as _swig_python_version_info
 if _swig_python_version_info < (2, 7, 0):
     raise RuntimeError("Python 2.7 or later required")
 
-import exiv2.image
-import exiv2.basicio
 import exiv2.types
-import exiv2.exif
-import exiv2.metadatum
-import exiv2.value
-import exiv2.tags
-import exiv2.iptc
-import exiv2.datasets
-import exiv2.xmp
-import exiv2.properties
 
 # Pull in all the attributes from the low-level C/C++ module
 if __package__ or "." in __name__:
-    from ._preview import *
+    from ._basicio import *
 else:
-    from _preview import *
+    from _basicio import *
 
 try:
     import builtins as __builtin__
@@ -71,6 +61,9 @@ def _swig_add_metaclass(metaclass):
 class _SwigNonDynamicMeta(type):
     """Meta class to enforce nondynamic attributes (no new attributes) for a class"""
     __setattr__ = _swig_setattr_nondynamic_class_variable(type.__setattr__)
+
+
+
 
 
 
