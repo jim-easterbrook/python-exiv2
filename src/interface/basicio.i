@@ -34,6 +34,14 @@ wrap_auto_unique_ptr(Exiv2::BasicIo);
     $1 = PyObject_CheckBuffer($input);
 %}
 
+// Cludge to check Io is open before reading
+%typemap(check) long rcount %{
+    if (!arg1->open()) {
+        PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
+        SWIG_fail;
+    }
+%}
+
 // Make enum more Pythonic
 ENUM(Position, "Seek starting positions.",
         beg = Exiv2::BasicIo::beg,

@@ -4394,6 +4394,12 @@ SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  
+  if (!arg1->open()) {
+    PyErr_SetString(PyExc_RuntimeError, "BasicIo_read: not open");
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (arg1)->read(arg2);
@@ -5128,6 +5134,12 @@ SWIGINTERN PyObject *_wrap_FileIo_read(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  
+  if (!arg1->open()) {
+    PyErr_SetString(PyExc_RuntimeError, "FileIo_read: not open");
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (arg1)->read(arg2);
@@ -5887,6 +5899,12 @@ SWIGINTERN PyObject *_wrap_MemIo_read(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  
+  if (!arg1->open()) {
+    PyErr_SetString(PyExc_RuntimeError, "MemIo_read: not open");
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (arg1)->read(arg2);
@@ -7010,6 +7028,12 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  
+  if (!arg1->open()) {
+    PyErr_SetString(PyExc_RuntimeError, "RemoteIo_read: not open");
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (arg1)->read(arg2);
