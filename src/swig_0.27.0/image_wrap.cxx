@@ -17150,49 +17150,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo::AutoPtr arg1 ;
-  int res1 = 0 ;
-  Exiv2::BasicIo *argp1 ;
-  Exiv2::Image::AutoPtr result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    res1 = SWIG_ConvertPtr(swig_obj[0], (void **)&argp1,
-      SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_DISOWN);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ImageFactory_open" "', argument " "1"" of type '" "Exiv2::BasicIo""'");
-    }
-    if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_open" "', argument " "1"" of type '" "Exiv2::BasicIo""'");
-    }
-    arg1 = Exiv2::BasicIo::AutoPtr(argp1);
-  }
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = Exiv2::ImageFactory::open(arg1);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ImageFactory_open(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -17216,19 +17173,6 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open(PyObject *self, PyObject *args) {
 check_1:
   
   if (argc == 1) {
-    int _v = 0;
-    {
-      {
-        _v = SWIG_CheckState(SWIG_ConvertPtr(
-            argv[0], 0, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL));
-      }
-    }
-    if (!_v) goto check_2;
-    return _wrap_ImageFactory_open__SWIG_3(self, argc, argv);
-  }
-check_2:
-  
-  if (argc == 1) {
     PyObject *retobj = _wrap_ImageFactory_open__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -17244,8 +17188,7 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::ImageFactory::open(std::string const &,bool)\n"
     "    Exiv2::ImageFactory::open(std::string const &)\n"
-    "    Exiv2::ImageFactory::open(Exiv2::byte const *,long)\n"
-    "    Exiv2::ImageFactory::open(Exiv2::BasicIo::AutoPtr)\n");
+    "    Exiv2::ImageFactory::open(Exiv2::byte const *,long)\n");
   return 0;
 }
 
@@ -17339,57 +17282,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  int arg1 ;
-  Exiv2::BasicIo::AutoPtr arg2 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  int res2 = 0 ;
-  Exiv2::BasicIo *argp2 ;
-  Exiv2::Image::AutoPtr result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "ImageFactory_create" "', argument " "1"" of type '" "int""'");
-  } 
-  arg1 = static_cast< int >(val1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], (void **)&argp2,
-      SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_DISOWN);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ImageFactory_create" "', argument " "2"" of type '" "Exiv2::BasicIo""'");
-    }
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_create" "', argument " "2"" of type '" "Exiv2::BasicIo""'");
-    }
-    arg2 = Exiv2::BasicIo::AutoPtr(argp2);
-  }
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = Exiv2::ImageFactory::create(arg1,arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ImageFactory_create(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -17404,19 +17296,6 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create(PyObject *self, PyObject *args) {
     SWIG_fail;
   }
   if (argc == 2) {
-    int _v = 0;
-    {
-      {
-        _v = SWIG_CheckState(SWIG_ConvertPtr(
-            argv[1], 0, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL));
-      }
-    }
-    if (!_v) goto check_2;
-    return _wrap_ImageFactory_create__SWIG_2(self, argc, argv);
-  }
-check_2:
-  
-  if (argc == 2) {
     PyObject *retobj = _wrap_ImageFactory_create__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -17426,8 +17305,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ImageFactory_create'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::ImageFactory::create(int,std::string const &)\n"
-    "    Exiv2::ImageFactory::create(int)\n"
-    "    Exiv2::ImageFactory::create(int,Exiv2::BasicIo::AutoPtr)\n");
+    "    Exiv2::ImageFactory::create(int)\n");
   return 0;
 }
 
@@ -17771,28 +17649,6 @@ static PyMethodDef SwigMethods[] = {
 		":return: An auto-pointer that owns an Image instance whose type\n"
 		"        matches that of the data buffer.\n"
 		":raises: Error If the memory contains data of an unknown image type.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"\n"
-		"Create an Image subclass of the appropriate type by reading\n"
-		"    the provided BasicIo instance. %Image type is derived from the\n"
-		"    data provided by *io*. The passed in *io* instance is\n"
-		"    (re)opened by this method.\n"
-		":type io: Exiv2::BasicIo::AutoPtr\n"
-		":param io: An auto-pointer that owns a BasicIo instance that provides\n"
-		"        image data. The contents of the image data are tested to determine\n"
-		"        the type.\n"
-		"Notes: This method takes ownership of the passed\n"
-		"    in BasicIo instance through the auto-pointer. Callers should not\n"
-		"    continue to use the BasicIo instance after it is passed to this method.\n"
-		"    Use the Image::io() method to get a temporary reference.\n"
-		":rtype: Exiv2::Image::AutoPtr\n"
-		":return: An auto-pointer that owns an Image instance whose type\n"
-		"        matches that of the *io* data. If no image type could be\n"
-		"        determined, the pointer is 0.\n"
-		":raises: Error If opening the BasicIo fails\n"
 		""},
 	 { "ImageFactory_create", _wrap_ImageFactory_create, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
@@ -17820,26 +17676,6 @@ static PyMethodDef SwigMethods[] = {
 		":return: An auto-pointer that owns an Image instance of the requested\n"
 		"        type.\n"
 		":raises: Error If the image type is not supported\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"\n"
-		"Create an Image subclass of the requested type by writing a\n"
-		"    new image to a BasicIo instance. If the BasicIo instance already\n"
-		"    contains data, it will be overwritten.\n"
-		":type type: int\n"
-		":param type: Type of the image to be created.\n"
-		":type io: Exiv2::BasicIo::AutoPtr\n"
-		":param io: An auto-pointer that owns a BasicIo instance that will\n"
-		"        be written to when creating a new image.\n"
-		"Notes: This method takes ownership of the passed in BasicIo instance\n"
-		"    through the auto-pointer. Callers should not continue to use the\n"
-		"    BasicIo instance after it is passed to this method.  Use the\n"
-		"    Image::io() method to get a temporary reference.\n"
-		":rtype: Exiv2::Image::AutoPtr\n"
-		":return: An auto-pointer that owns an Image instance of the requested\n"
-		"        type. If the image type is not supported, the pointer is 0.\n"
 		""},
 	 { "ImageFactory_getType", _wrap_ImageFactory_getType, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
@@ -17969,28 +17805,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		":return: An auto-pointer that owns an Image instance whose type\n"
 		"        matches that of the data buffer.\n"
 		":raises: Error If the memory contains data of an unknown image type.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"\n"
-		"Create an Image subclass of the appropriate type by reading\n"
-		"    the provided BasicIo instance. %Image type is derived from the\n"
-		"    data provided by *io*. The passed in *io* instance is\n"
-		"    (re)opened by this method.\n"
-		":type io: Exiv2::BasicIo::AutoPtr\n"
-		":param io: An auto-pointer that owns a BasicIo instance that provides\n"
-		"        image data. The contents of the image data are tested to determine\n"
-		"        the type.\n"
-		"Notes: This method takes ownership of the passed\n"
-		"    in BasicIo instance through the auto-pointer. Callers should not\n"
-		"    continue to use the BasicIo instance after it is passed to this method.\n"
-		"    Use the Image::io() method to get a temporary reference.\n"
-		":rtype: Exiv2::Image::AutoPtr\n"
-		":return: An auto-pointer that owns an Image instance whose type\n"
-		"        matches that of the *io* data. If no image type could be\n"
-		"        determined, the pointer is 0.\n"
-		":raises: Error If opening the BasicIo fails\n"
 		""},
 	 { "ImageFactory_create", _wrap_ImageFactory_create, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
@@ -18018,26 +17832,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		":return: An auto-pointer that owns an Image instance of the requested\n"
 		"        type.\n"
 		":raises: Error If the image type is not supported\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"\n"
-		"Create an Image subclass of the requested type by writing a\n"
-		"    new image to a BasicIo instance. If the BasicIo instance already\n"
-		"    contains data, it will be overwritten.\n"
-		":type type: int\n"
-		":param type: Type of the image to be created.\n"
-		":type io: Exiv2::BasicIo::AutoPtr\n"
-		":param io: An auto-pointer that owns a BasicIo instance that will\n"
-		"        be written to when creating a new image.\n"
-		"Notes: This method takes ownership of the passed in BasicIo instance\n"
-		"    through the auto-pointer. Callers should not continue to use the\n"
-		"    BasicIo instance after it is passed to this method.  Use the\n"
-		"    Image::io() method to get a temporary reference.\n"
-		":rtype: Exiv2::Image::AutoPtr\n"
-		":return: An auto-pointer that owns an Image instance of the requested\n"
-		"        type. If the image type is not supported, the pointer is 0.\n"
 		""},
 	 { "ImageFactory_getType", _wrap_ImageFactory_getType, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
@@ -20739,28 +20533,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		":return: An auto-pointer that owns an Image instance whose type\n"
 		"        matches that of the data buffer.\n"
 		":raises: Error If the memory contains data of an unknown image type.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"\n"
-		"Create an Image subclass of the appropriate type by reading\n"
-		"    the provided BasicIo instance. %Image type is derived from the\n"
-		"    data provided by *io*. The passed in *io* instance is\n"
-		"    (re)opened by this method.\n"
-		":type io: Exiv2::BasicIo::AutoPtr\n"
-		":param io: An auto-pointer that owns a BasicIo instance that provides\n"
-		"        image data. The contents of the image data are tested to determine\n"
-		"        the type.\n"
-		"Notes: This method takes ownership of the passed\n"
-		"    in BasicIo instance through the auto-pointer. Callers should not\n"
-		"    continue to use the BasicIo instance after it is passed to this method.\n"
-		"    Use the Image::io() method to get a temporary reference.\n"
-		":rtype: Exiv2::Image::AutoPtr\n"
-		":return: An auto-pointer that owns an Image instance whose type\n"
-		"        matches that of the *io* data. If no image type could be\n"
-		"        determined, the pointer is 0.\n"
-		":raises: Error If opening the BasicIo fails\n"
 		"" },
   { "create", (PyCFunction)(void(*)(void))_wrap_ImageFactory_create, METH_STATIC|METH_VARARGS, "\n"
 		"*Overload 1:*\n"
@@ -20788,26 +20560,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		":return: An auto-pointer that owns an Image instance of the requested\n"
 		"        type.\n"
 		":raises: Error If the image type is not supported\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 3:*\n"
-		"\n"
-		"Create an Image subclass of the requested type by writing a\n"
-		"    new image to a BasicIo instance. If the BasicIo instance already\n"
-		"    contains data, it will be overwritten.\n"
-		":type type: int\n"
-		":param type: Type of the image to be created.\n"
-		":type io: Exiv2::BasicIo::AutoPtr\n"
-		":param io: An auto-pointer that owns a BasicIo instance that will\n"
-		"        be written to when creating a new image.\n"
-		"Notes: This method takes ownership of the passed in BasicIo instance\n"
-		"    through the auto-pointer. Callers should not continue to use the\n"
-		"    BasicIo instance after it is passed to this method.  Use the\n"
-		"    Image::io() method to get a temporary reference.\n"
-		":rtype: Exiv2::Image::AutoPtr\n"
-		":return: An auto-pointer that owns an Image instance of the requested\n"
-		"        type. If the image type is not supported, the pointer is 0.\n"
 		"" },
   { "getType", (PyCFunction)(void(*)(void))_wrap_ImageFactory_getType, METH_STATIC|METH_VARARGS, "\n"
 		"*Overload 1:*\n"

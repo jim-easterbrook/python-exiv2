@@ -85,23 +85,6 @@ DATA_WRAPPER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
 %};
 #endif  // ifndef SWIGIMPORTED
 
-// Allow passing BasicIo derived objects to ImageFactory::open & create
-%typemap(in) Exiv2::BasicIo::AutoPtr (int res=0, Exiv2::BasicIo* argp) {
-    res = SWIG_ConvertPtr($input, (void **)&argp,
-                          $descriptor(Exiv2::BasicIo*), SWIG_POINTER_DISOWN);
-    if (!SWIG_IsOK(res)) {
-        %argument_fail(res, Exiv2::BasicIo, $symname, $argnum);
-    }
-    if (!argp) {
-        %argument_nullref(Exiv2::BasicIo, $symname, $argnum);
-    }
-    $1 = Exiv2::BasicIo::AutoPtr(argp);
-}
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) Exiv2::BasicIo::AutoPtr {
-    $1 = SWIG_CheckState(SWIG_ConvertPtr(
-        $input, 0, $descriptor(Exiv2::BasicIo*), SWIG_POINTER_NO_NULL));
-}
-
 // Make image types available
 #ifdef EXV_ENABLE_BMFF
 #define BMFF bmff = Exiv2::ImageType::bmff,
@@ -139,6 +122,10 @@ ENUM(ImageType, "Supported image formats.",
 %ignore Exiv2::Image::xmpPacket() const;
 
 // Ignore stuff Python can't use
+%ignore Exiv2::ImageFactory::create(int, BasicIo::AutoPtr);
+%ignore Exiv2::ImageFactory::create(int, BasicIo::UniquePtr);
+%ignore Exiv2::ImageFactory::open(BasicIo::AutoPtr);
+%ignore Exiv2::ImageFactory::open(BasicIo::UniquePtr);
 %ignore Exiv2::Image::printStructure;
 %ignore Exiv2::Image::printTiffStructure;
 %ignore Exiv2::Image::printIFDStructure;
