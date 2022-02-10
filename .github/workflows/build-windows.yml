@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Download Exiv2 source
-        run: wget -nv https://www.exiv2.org/builds/exiv2-0.27.5-Source.tar.gz
+        run: wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.5/exiv2-0.27.5-Source.tar.gz
 
       - name: Store downloaded file
         uses: actions/upload-artifact@v2
