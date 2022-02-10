@@ -3507,33 +3507,32 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_second_type swig_types[60]
 #define SWIGTYPE_p_short swig_types[61]
 #define SWIGTYPE_p_signed_char swig_types[62]
-#define SWIGTYPE_p_std__auto_ptrT_Exiv2__BasicIo_t swig_types[63]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[64]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t__iterator swig_types[65]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_t swig_types[66]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_t__const_iterator swig_types[67]
-#define SWIGTYPE_p_std__ostream swig_types[68]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[69]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[70]
-#define SWIGTYPE_p_std__setT_std__string_t swig_types[71]
-#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[72]
-#define SWIGTYPE_p_std__string swig_types[73]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_t swig_types[74]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_t__iterator swig_types[75]
-#define SWIGTYPE_p_std__vectorT_Exiv2__NativePreview_t swig_types[76]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_t swig_types[77]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_t__iterator swig_types[78]
-#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[79]
-#define SWIGTYPE_p_std__vectorT_std__string_t__const_iterator swig_types[80]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[81]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_t swig_types[82]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_t__const_iterator swig_types[83]
-#define SWIGTYPE_p_unsigned_char swig_types[84]
-#define SWIGTYPE_p_unsigned_int swig_types[85]
-#define SWIGTYPE_p_unsigned_long_long swig_types[86]
-#define SWIGTYPE_p_unsigned_short swig_types[87]
-static swig_type_info *swig_types[89];
-static swig_module_info swig_module = {swig_types, 88, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[63]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t__iterator swig_types[64]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_t swig_types[65]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_t__const_iterator swig_types[66]
+#define SWIGTYPE_p_std__ostream swig_types[67]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[68]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[69]
+#define SWIGTYPE_p_std__setT_std__string_t swig_types[70]
+#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[71]
+#define SWIGTYPE_p_std__string swig_types[72]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_t swig_types[73]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_t__iterator swig_types[74]
+#define SWIGTYPE_p_std__vectorT_Exiv2__NativePreview_t swig_types[75]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_t swig_types[76]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_t__iterator swig_types[77]
+#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[78]
+#define SWIGTYPE_p_std__vectorT_std__string_t__const_iterator swig_types[79]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[80]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_t swig_types[81]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_t__const_iterator swig_types[82]
+#define SWIGTYPE_p_unsigned_char swig_types[83]
+#define SWIGTYPE_p_unsigned_int swig_types[84]
+#define SWIGTYPE_p_unsigned_long_long swig_types[85]
+#define SWIGTYPE_p_unsigned_short swig_types[86]
+static swig_type_info *swig_types[88];
+static swig_module_info swig_module = {swig_types, 87, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -17154,23 +17153,21 @@ fail:
 SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo::AutoPtr arg1 ;
-  void *argp1 ;
   int res1 = 0 ;
+  Exiv2::BasicIo *argp1 ;
   Exiv2::Image::AutoPtr result;
   
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__auto_ptrT_Exiv2__BasicIo_t,  0  | 0);
+    res1 = SWIG_ConvertPtr(swig_obj[0], (void **)&argp1,
+      SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_DISOWN);
     if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ImageFactory_open" "', argument " "1"" of type '" "Exiv2::BasicIo::AutoPtr""'"); 
-    }  
-    if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_open" "', argument " "1"" of type '" "Exiv2::BasicIo::AutoPtr""'");
-    } else {
-      Exiv2::BasicIo::AutoPtr * temp = reinterpret_cast< Exiv2::BasicIo::AutoPtr * >(argp1);
-      arg1 = *temp;
-      if (SWIG_IsNewObj(res1)) delete temp;
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ImageFactory_open" "', argument " "1"" of type '" "Exiv2::BasicIo""'");
     }
+    if (!argp1) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_open" "', argument " "1"" of type '" "Exiv2::BasicIo""'");
+    }
+    arg1 = Exiv2::BasicIo::AutoPtr(argp1);
   }
   {
     try {
@@ -17221,8 +17218,10 @@ check_1:
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_std__auto_ptrT_Exiv2__BasicIo_t, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      {
+        _v = SWIG_CheckState(SWIG_ConvertPtr(
+            argv[0], 0, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL));
+      }
     }
     if (!_v) goto check_2;
     return _wrap_ImageFactory_open__SWIG_3(self, argc, argv);
@@ -17346,8 +17345,8 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_2(PyObject *self, Py_ssize_
   Exiv2::BasicIo::AutoPtr arg2 ;
   int val1 ;
   int ecode1 = 0 ;
-  void *argp2 ;
   int res2 = 0 ;
+  Exiv2::BasicIo *argp2 ;
   Exiv2::Image::AutoPtr result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -17357,17 +17356,15 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_2(PyObject *self, Py_ssize_
   } 
   arg1 = static_cast< int >(val1);
   {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__auto_ptrT_Exiv2__BasicIo_t,  0  | 0);
+    res2 = SWIG_ConvertPtr(swig_obj[1], (void **)&argp2,
+      SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_DISOWN);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ImageFactory_create" "', argument " "2"" of type '" "Exiv2::BasicIo::AutoPtr""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_create" "', argument " "2"" of type '" "Exiv2::BasicIo::AutoPtr""'");
-    } else {
-      Exiv2::BasicIo::AutoPtr * temp = reinterpret_cast< Exiv2::BasicIo::AutoPtr * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ImageFactory_create" "', argument " "2"" of type '" "Exiv2::BasicIo""'");
     }
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_create" "', argument " "2"" of type '" "Exiv2::BasicIo""'");
+    }
+    arg2 = Exiv2::BasicIo::AutoPtr(argp2);
   }
   {
     try {
@@ -17409,8 +17406,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_std__auto_ptrT_Exiv2__BasicIo_t, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      {
+        _v = SWIG_CheckState(SWIG_ConvertPtr(
+            argv[1], 0, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL));
+      }
     }
     if (!_v) goto check_2;
     return _wrap_ImageFactory_create__SWIG_2(self, argc, argv);
@@ -21241,7 +21240,6 @@ static swig_type_info _swigt__p_long_long = {"_p_long_long", "int_least64_t *|in
 static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_short = {"_p_short", "short *|int_least16_t *|int16_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "signed char *|int_least8_t *|int_fast8_t *|int8_t *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__auto_ptrT_Exiv2__BasicIo_t = {"_p_std__auto_ptrT_Exiv2__BasicIo_t", "Exiv2::BasicIo::AutoPtr *|std::auto_ptr< Exiv2::BasicIo > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__listT_Exiv2__Exifdatum_t = {"_p_std__listT_Exiv2__Exifdatum_t", "std::list< Exiv2::Exifdatum > *|Exiv2::ExifMetadata *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__listT_Exiv2__Exifdatum_t__iterator = {"_p_std__listT_Exiv2__Exifdatum_t__iterator", "std::list< Exiv2::Exifdatum >::iterator *|Exiv2::ExifData::iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_std__string_std__string_t = {"_p_std__mapT_std__string_std__string_t", "std::map< std::string,std::string > *|Exiv2::Dictionary *", 0, 0, (void*)0, 0};
@@ -21331,7 +21329,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_second_type,
   &_swigt__p_short,
   &_swigt__p_signed_char,
-  &_swigt__p_std__auto_ptrT_Exiv2__BasicIo_t,
   &_swigt__p_std__listT_Exiv2__Exifdatum_t,
   &_swigt__p_std__listT_Exiv2__Exifdatum_t__iterator,
   &_swigt__p_std__mapT_std__string_std__string_t,
@@ -21421,7 +21418,6 @@ static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0}
 static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__auto_ptrT_Exiv2__BasicIo_t[] = {  {&_swigt__p_std__auto_ptrT_Exiv2__BasicIo_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__listT_Exiv2__Exifdatum_t[] = {  {&_swigt__p_std__listT_Exiv2__Exifdatum_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__listT_Exiv2__Exifdatum_t__iterator[] = {  {&_swigt__p_std__listT_Exiv2__Exifdatum_t__iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_std__string_std__string_t[] = {  {&_swigt__p_std__mapT_std__string_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -21511,7 +21507,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_second_type,
   _swigc__p_short,
   _swigc__p_signed_char,
-  _swigc__p_std__auto_ptrT_Exiv2__BasicIo_t,
   _swigc__p_std__listT_Exiv2__Exifdatum_t,
   _swigc__p_std__listT_Exiv2__Exifdatum_t__iterator,
   _swigc__p_std__mapT_std__string_std__string_t,
