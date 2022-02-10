@@ -86,6 +86,20 @@ Alternatively you can use any Python object and let libexiv2_ convert the string
     # Python
     exifData["Exif.Image.SamplesPerPixel"] = 162
 
+Buffer interface
+----------------
+
+Several Exiv2 classes have C++ methods with parameters including a pointer and a length, e.g. ``(Exiv2::byte* buf, long size)``.
+In the Python interface these methods take any Python object which exposes a simple `buffer interface`_, e.g. ``bytes`` or ``str``.
+
+The Python interfaces to ``Exiv2::BasicIo`` and ``Exiv2::DataBuf`` expose their data as a Python buffer.
+This allows efficient access to the data without copying it.
+For example::
+
+    data = bytes(image.io())
+
+creates a Python ``bytes`` object containing the image data but without any copying.
+
 Iterators
 ---------
 
@@ -197,6 +211,7 @@ Problems?
 
 Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 
+.. _buffer interface:  https://docs.python.org/3/c-api/buffer.html
 .. _dict:              https://docs.python.org/3/library/stdtypes.html#dict
 .. _Doxygen:           https://www.doxygen.nl/
 .. _exiv2:             https://www.exiv2.org/getting-started.html
