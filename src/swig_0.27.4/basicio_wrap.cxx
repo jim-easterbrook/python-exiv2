@@ -3585,6 +3585,30 @@ PyObject* logger = NULL;
 #include <string>
 
 
+static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+    Exiv2::BasicIo* self = 0;
+    int res = SWIG_ConvertPtr(
+        exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
+    if (!SWIG_IsOK(res)) {
+        PyErr_SetNone(PyExc_BufferError);
+        view->obj = NULL;
+        return -1;
+    }
+    self->open();
+    return PyBuffer_FillInfo(
+        view, exporter, self->mmap(), self->size(), 1, flags);
+}
+static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
+    Exiv2::BasicIo* self = 0;
+    int res = SWIG_ConvertPtr(
+        exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
+    if (!SWIG_IsOK(res)) {
+        return;
+    }
+    self->close();
+}
+
+
 struct Position {
     enum {beg = Exiv2::BasicIo::beg,cur = Exiv2::BasicIo::cur,end = Exiv2::BasicIo::end};
 };
@@ -7949,8 +7973,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
+    Exiv2_BasicIo_getbuf,                     /* bf_getbuffer */
+    Exiv2_BasicIo_releasebuf,                 /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */

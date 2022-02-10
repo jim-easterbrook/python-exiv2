@@ -34,6 +34,36 @@ wrap_auto_unique_ptr(Exiv2::BasicIo);
     $1 = PyObject_CheckBuffer($input);
 %}
 
+// Expose BasicIo contents as a Python buffer
+%feature("python:bf_getbuffer",
+         functype="getbufferproc") Exiv2::BasicIo "Exiv2_BasicIo_getbuf";
+%feature("python:bf_releasebuffer",
+         functype="releasebufferproc") Exiv2::BasicIo "Exiv2_BasicIo_releasebuf";
+%{
+static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+    Exiv2::BasicIo* self = 0;
+    int res = SWIG_ConvertPtr(
+        exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
+    if (!SWIG_IsOK(res)) {
+        PyErr_SetNone(PyExc_BufferError);
+        view->obj = NULL;
+        return -1;
+    }
+    self->open();
+    return PyBuffer_FillInfo(
+        view, exporter, self->mmap(), self->size(), 1, flags);
+}
+static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
+    Exiv2::BasicIo* self = 0;
+    int res = SWIG_ConvertPtr(
+        exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
+    if (!SWIG_IsOK(res)) {
+        return;
+    }
+    self->close();
+}
+%}
+
 // Cludge to check Io is open before reading
 %typemap(check) long rcount %{
     if (!arg1->isopen()) {
