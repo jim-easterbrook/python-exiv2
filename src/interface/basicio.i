@@ -83,6 +83,8 @@ ENUM(Position, "Seek starting positions.",
 %ignore Exiv2::BasicIo::munmap;
 %ignore Exiv2::BasicIo::populateFakeData;
 %ignore Exiv2::BasicIo::read(byte*, long);
+%ignore Exiv2::BasicIo::readOrThrow;
+%ignore Exiv2::BasicIo::seekOrThrow;
 %ignore Exiv2::IoCloser;
 %ignore Exiv2::CurlIo::operator=;
 %ignore Exiv2::FileIo::operator=;
