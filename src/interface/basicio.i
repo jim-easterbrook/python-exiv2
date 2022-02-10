@@ -36,7 +36,7 @@ wrap_auto_unique_ptr(Exiv2::BasicIo);
 
 // Cludge to check Io is open before reading
 %typemap(check) long rcount %{
-    if (!arg1->open()) {
+    if (!arg1->isopen()) {
         PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
         SWIG_fail;
     }
