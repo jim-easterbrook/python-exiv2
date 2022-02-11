@@ -13,6 +13,7 @@
 #define SWIGPYTHON
 #endif
 
+#define SWIG_PYTHON_THREADS
 #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
 #define SWIGPYTHON_BUILTIN
 
@@ -3588,6 +3589,8 @@ PyObject* logger = NULL;
 
 static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::BasicIo* self = 0;
+    Exiv2::byte* ptr = 0;
+    size_t len = 0;
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
     if (!SWIG_IsOK(res)) {
@@ -3595,9 +3598,14 @@ static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
         view->obj = NULL;
         return -1;
     }
-    self->open();
-    return PyBuffer_FillInfo(
-        view, exporter, self->mmap(), self->size(), 1, flags);
+    {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        self->open();
+        ptr = self->mmap();
+        len = self->size();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+    }
+    return PyBuffer_FillInfo(view, exporter, ptr, len, 1, flags);
 }
 static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
     Exiv2::BasicIo* self = 0;
@@ -3606,7 +3614,11 @@ static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
     if (!SWIG_IsOK(res)) {
         return;
     }
-    self->close();
+    {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        self->close();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+    }
 }
 
 
@@ -4182,7 +4194,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_open(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
     try {
-      result = (int)(arg1)->open();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->open();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4214,7 +4230,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_close(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
     try {
-      result = (int)(arg1)->close();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->close();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4261,7 +4281,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
   }
   {
     try {
-      result = (long)(arg1)->write((Exiv2::byte const *)arg2,arg3);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->write((Exiv2::byte const *)arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4303,7 +4327,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, Py_ssize_t nobj
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      result = (long)(arg1)->write(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->write(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4426,7 +4454,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
   
   {
     try {
-      result = (arg1)->read(arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (arg1)->read(arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4504,7 +4536,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_transfer(PyObject *self, PyObject *args) {
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      (arg1)->transfer(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        (arg1)->transfer(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4552,7 +4588,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
   {
     try {
-      result = (int)(arg1)->seek(arg2,arg3);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->seek(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4861,7 +4901,11 @@ SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   }
   {
     try {
-      result = (int)(arg1)->open((std::string const &)*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->open((std::string const &)*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4894,7 +4938,11 @@ SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
     try {
-      result = (int)(arg1)->open();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->open();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -4954,7 +5002,11 @@ SWIGINTERN PyObject *_wrap_FileIo_close(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
     try {
-      result = (int)(arg1)->close();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->close();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5001,7 +5053,11 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs
   }
   {
     try {
-      result = (long)(arg1)->write((Exiv2::byte const *)arg2,arg3);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->write((Exiv2::byte const *)arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5043,7 +5099,11 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      result = (long)(arg1)->write(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->write(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5166,7 +5226,11 @@ SWIGINTERN PyObject *_wrap_FileIo_read(PyObject *self, PyObject *args) {
   
   {
     try {
-      result = (arg1)->read(arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (arg1)->read(arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5244,7 +5308,11 @@ SWIGINTERN PyObject *_wrap_FileIo_transfer(PyObject *self, PyObject *args) {
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      (arg1)->transfer(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        (arg1)->transfer(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5292,7 +5360,11 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
   arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
   {
     try {
-      result = (int)(arg1)->seek(arg2,arg3);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->seek(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5687,7 +5759,11 @@ SWIGINTERN PyObject *_wrap_MemIo_open(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
   {
     try {
-      result = (int)(arg1)->open();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->open();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5719,7 +5795,11 @@ SWIGINTERN PyObject *_wrap_MemIo_close(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
   {
     try {
-      result = (int)(arg1)->close();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->close();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5766,7 +5846,11 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   }
   {
     try {
-      result = (long)(arg1)->write((Exiv2::byte const *)arg2,arg3);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->write((Exiv2::byte const *)arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5808,7 +5892,11 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      result = (long)(arg1)->write(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->write(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -5931,7 +6019,11 @@ SWIGINTERN PyObject *_wrap_MemIo_read(PyObject *self, PyObject *args) {
   
   {
     try {
-      result = (arg1)->read(arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (arg1)->read(arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -6009,7 +6101,11 @@ SWIGINTERN PyObject *_wrap_MemIo_transfer(PyObject *self, PyObject *args) {
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      (arg1)->transfer(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        (arg1)->transfer(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -6057,7 +6153,11 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
   arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
   {
     try {
-      result = (int)(arg1)->seek(arg2,arg3);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->seek(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -6407,7 +6507,11 @@ SWIGINTERN PyObject *_wrap_XPathIo_transfer(PyObject *self, PyObject *args) {
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      (arg1)->transfer(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        (arg1)->transfer(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -6816,7 +6920,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_open(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
   {
     try {
-      result = (int)(arg1)->open();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->open();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -6848,7 +6956,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_close(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
   {
     try {
-      result = (int)(arg1)->close();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->close();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -6895,7 +7007,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   {
     try {
-      result = (long)(arg1)->write((Exiv2::byte const *)arg2,arg3);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->write((Exiv2::byte const *)arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -6937,7 +7053,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_1(PyObject *self, Py_ssize_t nob
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      result = (long)(arg1)->write(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->write(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7060,7 +7180,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read(PyObject *self, PyObject *args) {
   
   {
     try {
-      result = (arg1)->read(arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (arg1)->read(arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7138,7 +7262,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_transfer(PyObject *self, PyObject *args) {
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
     try {
-      (arg1)->transfer(*arg2);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        (arg1)->transfer(*arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -7186,7 +7314,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
   arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
   {
     try {
-      result = (int)(arg1)->seek(arg2,arg3);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->seek(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     } catch(Exiv2::AnyError &e) {
       PyErr_SetString(PyExc_AnyError, e.what());
       SWIG_fail;
@@ -11185,6 +11317,9 @@ SWIG_init(void) {
   PyModule_AddObject(m, "HttpIo", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "HttpIo");
   d = md;
+  
+  /* Initialize threading */
+  SWIG_PYTHON_INITIALIZE_THREADS;
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

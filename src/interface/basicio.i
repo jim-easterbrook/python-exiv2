@@ -15,7 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%module(package="exiv2") basicio
+%module(package="exiv2", threads="1") basicio
+%nothread;
 
 #pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
 
@@ -27,6 +28,14 @@
 %import "types.i"
 
 wrap_auto_unique_ptr(Exiv2::BasicIo);
+
+// Potentially blocking calls allow Python threads
+%thread Exiv2::BasicIo::open;
+%thread Exiv2::BasicIo::close;
+%thread Exiv2::BasicIo::read;
+%thread Exiv2::BasicIo::write;
+%thread Exiv2::BasicIo::transfer;
+%thread Exiv2::BasicIo::seek;
 
 // Allow BasicIo::write to take any Python buffer
 %pybuffer_binary(const Exiv2::byte* data, long wcount)
@@ -42,6 +51,8 @@ wrap_auto_unique_ptr(Exiv2::BasicIo);
 %{
 static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::BasicIo* self = 0;
+    Exiv2::byte* ptr = 0;
+    size_t len = 0;
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
     if (!SWIG_IsOK(res)) {
@@ -49,9 +60,14 @@ static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
         view->obj = NULL;
         return -1;
     }
-    self->open();
-    return PyBuffer_FillInfo(
-        view, exporter, self->mmap(), self->size(), 1, flags);
+    {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        self->open();
+        ptr = self->mmap();
+        len = self->size();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+    }
+    return PyBuffer_FillInfo(view, exporter, ptr, len, 1, flags);
 }
 static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
     Exiv2::BasicIo* self = 0;
@@ -60,7 +76,11 @@ static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
     if (!SWIG_IsOK(res)) {
         return;
     }
-    self->close();
+    {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        self->close();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+    }
 }
 %}
 

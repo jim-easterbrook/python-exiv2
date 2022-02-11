@@ -16,7 +16,7 @@ class AnyError(Exception):
     """Python exception raised by exiv2 library errors"""
     pass
 
-__version__ = "0.9.0"
+__version__ = "0.9.1"
 
 from exiv2.basicio import *
 from exiv2.datasets import *
