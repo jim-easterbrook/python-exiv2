@@ -87,32 +87,32 @@ DATA_WRAPPER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
 
 // Make image types available
 #ifdef EXV_ENABLE_BMFF
-#define BMFF bmff = Exiv2::ImageType::bmff,
+#define BMFF bmff = int(Exiv2::ImageType::bmff),
 #else
 #define BMFF
 #endif
 
 ENUM(ImageType, "Supported image formats.",
-        bmp =   Exiv2::ImageType::bmp,
+        bmp =   int(Exiv2::ImageType::bmp),
         BMFF
-        cr2 =   Exiv2::ImageType::cr2,
-        crw =   Exiv2::ImageType::crw,
-        eps =   Exiv2::ImageType::eps,
-        exv =   Exiv2::ImageType::exv,
-        gif =   Exiv2::ImageType::gif,
-        jp2 =   Exiv2::ImageType::jp2,
-        jpeg =  Exiv2::ImageType::jpeg,
-        mrw =   Exiv2::ImageType::mrw,
-        none =  Exiv2::ImageType::none,
-        orf =   Exiv2::ImageType::orf,
-        pgf =   Exiv2::ImageType::pgf,
-        png =   Exiv2::ImageType::png,
-        psd =   Exiv2::ImageType::psd,
-        raf =   Exiv2::ImageType::raf,
-        rw2 =   Exiv2::ImageType::rw2,
-        tga =   Exiv2::ImageType::tga,
-        tiff =  Exiv2::ImageType::tiff,
-        xmp =   Exiv2::ImageType::xmp);
+        cr2 =   int(Exiv2::ImageType::cr2),
+        crw =   int(Exiv2::ImageType::crw),
+        eps =   int(Exiv2::ImageType::eps),
+        exv =   int(Exiv2::ImageType::exv),
+        gif =   int(Exiv2::ImageType::gif),
+        jp2 =   int(Exiv2::ImageType::jp2),
+        jpeg =  int(Exiv2::ImageType::jpeg),
+        mrw =   int(Exiv2::ImageType::mrw),
+        none =  int(Exiv2::ImageType::none),
+        orf =   int(Exiv2::ImageType::orf),
+        pgf =   int(Exiv2::ImageType::pgf),
+        png =   int(Exiv2::ImageType::png),
+        psd =   int(Exiv2::ImageType::psd),
+        raf =   int(Exiv2::ImageType::raf),
+        rw2 =   int(Exiv2::ImageType::rw2),
+        tga =   int(Exiv2::ImageType::tga),
+        tiff =  int(Exiv2::ImageType::tiff),
+        xmp =   int(Exiv2::ImageType::xmp));
 %ignore Exiv2::ImageType::none;
 
 // Ignore const versions of methods
@@ -122,15 +122,22 @@ ENUM(ImageType, "Supported image formats.",
 %ignore Exiv2::Image::xmpPacket() const;
 
 // Ignore stuff Python can't use
+#if EXIV2_VERSION_HEX < 0x01000000
 %ignore Exiv2::ImageFactory::create(int, BasicIo::AutoPtr);
-%ignore Exiv2::ImageFactory::create(int, BasicIo::UniquePtr);
 %ignore Exiv2::ImageFactory::open(BasicIo::AutoPtr);
+#else
+%ignore Exiv2::ImageFactory::create(ImageType, BasicIo::UniquePtr);
 %ignore Exiv2::ImageFactory::open(BasicIo::UniquePtr);
+#endif  // EXIV2_VERSION_HEX
 %ignore Exiv2::Image::printStructure;
 %ignore Exiv2::Image::printTiffStructure;
 %ignore Exiv2::Image::printIFDStructure;
 %ignore Exiv2::PrintStructureOption;
 %ignore Exiv2::append;
+
+#if EXIV2_VERSION_HEX >= 0x01000000
+%include "exiv2/image_types.hpp"
+#endif
 
 %include "exiv2/image.hpp"
 

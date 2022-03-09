@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -79,7 +79,7 @@
             long i = PyLong_AsLong(idx);
             if (i < 0)
                 i += $self->size();
-            if ((i < 0) || (i >= $self->size())) {
+            if ((i < 0) || (i >= (long)$self->size())) {
                 PyErr_SetString(PyExc_IndexError, "index out of range");
                 return NULL;
             }

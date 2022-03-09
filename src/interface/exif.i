@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,7 +31,11 @@
 %import "metadatum.i"
 %import "tags.i"
 
+#if EXIV2_VERSION_HEX < 0x01000000
 %pybuffer_binary(const Exiv2::byte* buf, long size)
+#else
+%pybuffer_binary(const Exiv2::byte* buf, size_t size)
+#endif
 %typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
     $1 = PyObject_CheckBuffer($input);
 }

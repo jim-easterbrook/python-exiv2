@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,6 +26,9 @@ wrap_auto_unique_ptr(Exiv2::IptcKey);
 %ignore Exiv2::RecordInfo::RecordInfo;
 %ignore Exiv2::DataSet::DataSet;
 %ignore Exiv2::IptcDataSets::IptcDataSets;
+#if EXIV2_VERSION_HEX >= 0x01000000
+  %ignore Exiv2::IptcDataSets::recordId;
+#endif
 
 %immutable;
 %include "exiv2/datasets.hpp"

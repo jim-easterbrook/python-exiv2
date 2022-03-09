@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -120,7 +120,7 @@ if platform in ('linux', 'darwin', 'mingw'):
     if 'PYTHON_EXIV2_STRICT' in os.environ:
         extra_compile_args.append('-Werror')
     if exiv2_version >= '1.0.0':
-        extra_compile_args.append('-std=c++11')
+        extra_compile_args.append('-std=gnu++17')
     else:
         extra_compile_args.append('-std=c++98')
 if platform == 'win32':

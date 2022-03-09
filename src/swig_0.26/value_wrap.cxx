@@ -12154,7 +12154,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue___getitem__(PyObject *self, PyObject *a
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -17349,7 +17349,7 @@ SWIGINTERN PyObject *_wrap_UShortValue___getitem__(PyObject *self, PyObject *arg
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -17402,7 +17402,7 @@ SWIGINTERN PyObject *_wrap_UShortValue___setitem__(PyObject *self, PyObject *arg
   } 
   arg3 = static_cast< uint16_t >(val3);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -18558,7 +18558,7 @@ SWIGINTERN PyObject *_wrap_ULongValue___getitem__(PyObject *self, PyObject *args
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -18611,7 +18611,7 @@ SWIGINTERN PyObject *_wrap_ULongValue___setitem__(PyObject *self, PyObject *args
   } 
   arg3 = static_cast< uint32_t >(val3);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -19777,7 +19777,7 @@ SWIGINTERN PyObject *_wrap_URationalValue___getitem__(PyObject *self, PyObject *
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -19832,7 +19832,7 @@ SWIGINTERN PyObject *_wrap_URationalValue___setitem__(PyObject *self, PyObject *
     if (SWIG_IsNewObj(res)) delete ptr;
   }
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -20990,7 +20990,7 @@ SWIGINTERN PyObject *_wrap_ShortValue___getitem__(PyObject *self, PyObject *args
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -21043,7 +21043,7 @@ SWIGINTERN PyObject *_wrap_ShortValue___setitem__(PyObject *self, PyObject *args
   } 
   arg3 = static_cast< int16_t >(val3);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -22199,7 +22199,7 @@ SWIGINTERN PyObject *_wrap_LongValue___getitem__(PyObject *self, PyObject *args)
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -22252,7 +22252,7 @@ SWIGINTERN PyObject *_wrap_LongValue___setitem__(PyObject *self, PyObject *args)
   } 
   arg3 = static_cast< int32_t >(val3);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -23418,7 +23418,7 @@ SWIGINTERN PyObject *_wrap_RationalValue___getitem__(PyObject *self, PyObject *a
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -23473,7 +23473,7 @@ SWIGINTERN PyObject *_wrap_RationalValue___setitem__(PyObject *self, PyObject *a
     if (SWIG_IsNewObj(res)) delete ptr;
   }
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -24631,7 +24631,7 @@ SWIGINTERN PyObject *_wrap_FloatValue___getitem__(PyObject *self, PyObject *args
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -24684,7 +24684,7 @@ SWIGINTERN PyObject *_wrap_FloatValue___setitem__(PyObject *self, PyObject *args
   } 
   arg3 = static_cast< float >(val3);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -25840,7 +25840,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue___getitem__(PyObject *self, PyObject *arg
   } 
   arg2 = static_cast< long >(val2);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
@@ -25893,7 +25893,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue___setitem__(PyObject *self, PyObject *arg
   } 
   arg3 = static_cast< double >(val3);
   
-  if (arg2 < 0 || arg2 >= arg1->count()) {
+  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }

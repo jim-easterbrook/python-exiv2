@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ wrap_auto_unique_ptr(Exiv2::Value);
 %}
 // for indexing multi-value values, assumes arg1 points to self
 %typemap(check) long multi_idx %{
-    if ($1 < 0 || $1 >= arg1->count()) {
+    if ($1 < 0 || $1 >= (long)arg1->count()) {
         PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
         SWIG_fail;
     }
