@@ -33,7 +33,7 @@ On some operating systems these are a separate package, with a name like ``exiv2
 
 If the ``pkg-config`` command worked, and your version of libexiv2 is between 0.26 and 0.27.5, then you should be able to install `python-exiv2`_ from source::
     
-    $ sudo pip install python-exiv2 --no-binary :all:
+    $ pip3 install --user python-exiv2 --no-binary :all:
     Collecting python-exiv2
       Downloading python-exiv2-0.3.0.zip (6.4 MB)
          |████████████████████████████████| 6.4 MB 590 kB/s 
@@ -58,7 +58,7 @@ The rest of this document assumes you have the source code and are in your ``pyt
 
 You may also need to install the wheel package used to build Python wheels::
 
-    $ sudo pip install wheel
+    $ pip3 install --user wheel
 
 Use pre-built libexiv2
 ----------------------
@@ -72,7 +72,7 @@ This script takes two parameters, the source directory and the exiv2 version, fo
 Next you can compile `python-exiv2`_ to use this source.
 Note the use of the ``EXIV2_VERSION`` environment variable to select the source::
 
-    $ EXIV2_VERSION=0.27.5 pip wheel .
+    $ EXIV2_VERSION=0.27.5 pip3 wheel .
     Processing /home/jim/python-exiv2
     Building wheels for collected packages: python-exiv2
       Building wheel for python-exiv2 (setup.py) ... done
@@ -84,7 +84,7 @@ As before, you can use pip_'s ``-v`` option to see what's happening as it compil
 
 If this worked you can now install the wheel_ you've just built::
 
-    $ sudo pip install python_exiv2-0.3.1-cp36-cp36m-linux_x86_64.whl 
+    $ pip3 install --user python_exiv2-0.3.1-cp36-cp36m-linux_x86_64.whl
     Processing ./python_exiv2-0.3.1-cp36-cp36m-linux_x86_64.whl
     Installing collected packages: python-exiv2
     Successfully installed python-exiv2-0.3.1
@@ -225,8 +225,8 @@ If you need to generate the minimal interface included with python-exiv2 you can
 
 After running ``build_swig.py`` you can build and install a wheel as before::
 
-    $ EXIV2_VERSION=0.27.5 pip wheel .
-    $ sudo pip install python_exiv2-0.6.1-cp36-cp36m-linux_x86_64.whl
+    $ EXIV2_VERSION=0.27.5 pip3 wheel .
+    $ pip3 install --user python_exiv2-0.6.1-cp36-cp36m-linux_x86_64.whl
 
 
 .. _build instructions:

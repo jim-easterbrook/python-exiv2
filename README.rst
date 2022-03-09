@@ -197,10 +197,6 @@ For example, on Windows::
 
 or on Linux or MacOS::
 
-    $ sudo pip3 install python-exiv2
-
-You can install for a single user with the ``--user`` option::
-
     $ pip3 install --user python-exiv2
 
 If the available wheels are not compatible with your operating system then pip will download the python-exiv2 source and attempt to compile it.
