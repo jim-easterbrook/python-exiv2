@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ import sys
 import exiv2
 
 def main():
-    print('libexiv2 version:', exiv2.versionString())
+    print('libexiv2 version:', exiv2.version())
     print('python-exiv2 version:', exiv2.__version__)
     print('python-exiv2 examples:',
           os.path.join(os.path.dirname(__file__), 'examples'))

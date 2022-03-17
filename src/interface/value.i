@@ -168,47 +168,42 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     if (PyErr_Occurred())
         SWIG_fail;
 }
+%{
+typedef PyObject* (*iter_to_py)(Exiv2::LangAltValue::ValueType::iterator);
+static PyObject* iter_LangAltValue(Exiv2::LangAltValue* self, iter_to_py func) {
+    PyObject* result = PyTuple_New(self->count());
+    Exiv2::LangAltValue::ValueType::iterator e = self->value_.end();
+    Py_ssize_t pos = 0;
+    for (Exiv2::LangAltValue::ValueType::iterator i = self->value_.begin();
+         i != e; ++i) {
+        PyTuple_SET_ITEM(result, pos, func(i));
+        pos++;
+    }
+    return result;
+}
+static PyObject* iter_to_key(Exiv2::LangAltValue::ValueType::iterator i) {
+    return PyUnicode_FromString(i->first.c_str());
+}
+static PyObject* iter_to_value(Exiv2::LangAltValue::ValueType::iterator i) {
+    return PyUnicode_FromString(i->second.c_str());
+}
+static PyObject* iter_to_item(Exiv2::LangAltValue::ValueType::iterator i) {
+    return PyTuple_Pack(2, PyUnicode_FromString(i->first.c_str()),
+                           PyUnicode_FromString(i->second.c_str()));
+}
+%}
 %extend Exiv2::LangAltValue {
     PyObject* keys() {
-        PyObject* result = PyTuple_New($self->count());
-        Exiv2::LangAltValue::ValueType::iterator e = $self->value_.end();
-        Py_ssize_t pos = 0;
-        for (Exiv2::LangAltValue::ValueType::iterator i = $self->value_.begin();
-             i != e; ++i) {
-            PyTuple_SET_ITEM(result, pos,
-                PyUnicode_FromString(i->first.c_str()));
-            pos++;
-        }
-        return result;
+        return iter_LangAltValue($self, iter_to_key);
     }
     PyObject* values() {
-        PyObject* result = PyTuple_New($self->count());
-        Exiv2::LangAltValue::ValueType::iterator e = $self->value_.end();
-        Py_ssize_t pos = 0;
-        for (Exiv2::LangAltValue::ValueType::iterator i = $self->value_.begin();
-             i != e; ++i) {
-            PyTuple_SET_ITEM(result, pos,
-                PyUnicode_FromString(i->second.c_str()));
-            pos++;
-        }
-        return result;
+        return iter_LangAltValue($self, iter_to_value);
     }
     PyObject* items() {
-        PyObject* result = PyTuple_New($self->count());
-        Exiv2::LangAltValue::ValueType::iterator e = $self->value_.end();
-        Py_ssize_t pos = 0;
-        for (Exiv2::LangAltValue::ValueType::iterator i = $self->value_.begin();
-             i != e; ++i) {
-            PyTuple_SET_ITEM(result, pos,
-                PyTuple_Pack(2,
-                    PyUnicode_FromString(i->first.c_str()),
-                    PyUnicode_FromString(i->second.c_str())));
-            pos++;
-        }
-        return result;
+        return iter_LangAltValue($self, iter_to_item);
     }
     PyObject* __iter__() {
-        return PySeqIter_New(Exiv2_LangAltValue_keys($self));
+        return PySeqIter_New(iter_LangAltValue($self, iter_to_key));
     }
     std::string __getitem__(const std::string& key) {
         Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);

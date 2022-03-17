@@ -109,6 +109,19 @@ def main():
     py_seq = list(seq)
     print("Python seq:", py_seq)
 
+    print('==== LangAltValue ====')
+    # Used to store text with default language and other language alternatives
+    py_langalt = {'x-default': 'default', 'de': 'Deutsch', 'fr': 'French'}
+    print("Python langalt:", py_langalt)
+    # Python -> Exiv2
+    langalt = exiv2.LangAltValue()
+    for key in py_langalt:
+        langalt[key] = py_langalt[key]
+    print("Exiv2 langalt:", langalt)
+    # Exiv2 -> Python
+    py_langalt = dict(langalt)
+    print("Python langalt:", py_langalt)
+
     return 0
 
 
