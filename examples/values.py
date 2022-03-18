@@ -113,11 +113,21 @@ def main():
     # Used to store text with default language and other language alternatives
     py_langalt = {'x-default': 'default', 'de': 'Deutsch', 'fr': 'French'}
     print("Python langalt:", py_langalt)
-    # Python -> Exiv2
+    # Python -> Exiv2, the long way
     langalt = exiv2.LangAltValue()
     for key in py_langalt:
         langalt[key] = py_langalt[key]
     print("Exiv2 langalt:", langalt)
+    # Python -> Exiv2, the short way
+    langalt = exiv2.LangAltValue(py_langalt)
+    print("Exiv2 langalt:", langalt)
+    print('keys', list(langalt.keys()))
+    print('values', list(langalt.values()))
+    print('items', list(langalt.items()))
+    # delete a value
+    del langalt['fr']
+    # add a value
+    langalt['nl'] = 'Nederlands'
     # Exiv2 -> Python
     py_langalt = dict(langalt)
     print("Python langalt:", py_langalt)

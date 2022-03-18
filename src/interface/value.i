@@ -20,6 +20,7 @@
 %include "preamble.i"
 
 %include "stdint.i"
+%include "std_map.i"
 %include "std_string.i"
 
 %import "types.i"
@@ -168,50 +169,37 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     if (PyErr_Occurred())
         SWIG_fail;
 }
-%{
-typedef PyObject* (*iter_to_py)(Exiv2::LangAltValue::ValueType::iterator);
-static PyObject* iter_LangAltValue(Exiv2::LangAltValue* self, iter_to_py func) {
-    PyObject* result = PyTuple_New(self->count());
-    Exiv2::LangAltValue::ValueType::iterator e = self->value_.end();
-    Py_ssize_t pos = 0;
-    for (Exiv2::LangAltValue::ValueType::iterator i = self->value_.begin();
-         i != e; ++i) {
-        PyTuple_SET_ITEM(result, pos, func(i));
-        pos++;
-    }
-    return result;
-}
-static PyObject* iter_to_key(Exiv2::LangAltValue::ValueType::iterator i) {
-    return PyUnicode_FromString(i->first.c_str());
-}
-static PyObject* iter_to_value(Exiv2::LangAltValue::ValueType::iterator i) {
-    return PyUnicode_FromString(i->second.c_str());
-}
-static PyObject* iter_to_item(Exiv2::LangAltValue::ValueType::iterator i) {
-    return PyTuple_Pack(2, PyUnicode_FromString(i->first.c_str()),
-                           PyUnicode_FromString(i->second.c_str()));
-}
-%}
+%template() std::map< std::string, std::string, Exiv2::LangAltValueComparator >;
 %extend Exiv2::LangAltValue {
-    PyObject* keys() {
-        return iter_LangAltValue($self, iter_to_key);
+    // Constructor, reads values from a Python dict
+    LangAltValue(Exiv2::LangAltValue::ValueType value) {
+        Exiv2::LangAltValue* result = new Exiv2::LangAltValue;
+        result->value_ = value;
+        return result;
     }
-    PyObject* values() {
-        return iter_LangAltValue($self, iter_to_value);
+    swig::SwigPyIterator* keys() {
+        return swig::make_output_key_iterator(
+            $self->value_.begin(), $self->value_.begin(), $self->value_.end());
     }
-    PyObject* items() {
-        return iter_LangAltValue($self, iter_to_item);
+    swig::SwigPyIterator* values() {
+        return swig::make_output_value_iterator(
+            $self->value_.begin(), $self->value_.begin(), $self->value_.end());
     }
-    PyObject* __iter__() {
-        return PySeqIter_New(iter_LangAltValue($self, iter_to_key));
+    swig::SwigPyIterator* items() {
+        return swig::make_output_iterator(
+            $self->value_.begin(), $self->value_.begin(), $self->value_.end());
+    }
+    swig::SwigPyIterator* __iter__() {
+        return swig::make_output_key_iterator(
+            $self->value_.begin(), $self->value_.begin(), $self->value_.end());
     }
     std::string __getitem__(const std::string& key) {
-        Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
-        if (pos == $self->value_.end()) {
+        try {
+            return $self->value_.at(key);
+        } catch(std::out_of_range) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return "";
         }
-        return pos->second;
     }
     void __setitem__(const std::string& key, const std::string& value) {
         $self->value_[key] = value;
@@ -229,9 +217,8 @@ static PyObject* iter_to_item(Exiv2::LangAltValue::ValueType::iterator i) {
         $self->value_.erase(pos);
         return SWIG_Py_Void();
     }
-    int __contains__(const std::string& key) {
-        Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
-        return (pos == $self->value_.end()) ? 0 : 1;
+    bool __contains__(const std::string& key) {
+        return $self->value_.find(key) != $self->value_.end();
     }
 }
 
