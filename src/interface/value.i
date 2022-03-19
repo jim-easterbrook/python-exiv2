@@ -110,8 +110,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
          functype="ssizeargfunc") Exiv2::ValueType<item_type>::__getitem__;
 %feature("python:slot", "sq_ass_item",
          functype="ssizeobjargproc") Exiv2::ValueType<item_type>::__setitem__;
-%feature("python:slot", "sq_inplace_concat",
-         functype="binaryfunc") Exiv2::ValueType<item_type>::__iadd__;
 %template() std::vector<item_type>;
 %extend Exiv2::ValueType<item_type> {
     // Constructor, reads values from a Python list
@@ -126,13 +124,8 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     void __setitem__(long multi_idx, item_type value) {
         $self->value_.at(multi_idx) = value;
     }
-#if EXIV2_VERSION_HEX < 0x01000000
-    Exiv2::ValueType<item_type>::AutoPtr __iadd__(item_type value) {
-#else
-    Exiv2::ValueType<item_type>::UniquePtr __iadd__(item_type value) {
-#endif
+    void append(item_type value) {
         $self->value_.push_back(value);
-        return $self->clone();
     }
 }
 %template(type_name) Exiv2::ValueType<item_type>;
@@ -258,8 +251,6 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 // XmpArrayValue holds multiple values but they're not assignable
 %feature("python:slot", "sq_item",
          functype="ssizeargfunc") Exiv2::XmpArrayValue::__getitem__;
-%feature("python:slot", "sq_inplace_concat",
-         functype="binaryfunc") Exiv2::XmpArrayValue::__iadd__;
 %template() std::vector<std::string>;
 %extend Exiv2::XmpArrayValue {
     // Constructor, reads values from a Python list
@@ -275,13 +266,8 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
     std::string __getitem__(long multi_idx) {
         return $self->toString(multi_idx);
     }
-#if EXIV2_VERSION_HEX < 0x01000000
-    Exiv2::XmpArrayValue::AutoPtr __iadd__(std::string value) {
-#else
-    Exiv2::XmpArrayValue::UniquePtr __iadd__(std::string value) {
-#endif
+    void append(std::string value) {
         $self->read(value);
-        return $self->clone();
     }
 }
 

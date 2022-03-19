@@ -60,7 +60,7 @@ def main():
     shorts = exiv2.ShortValue()
     # append values to initialise
     for x in py_shorts:
-        shorts += x
+        shorts.append(x)
     print("Exiv2 short:", shorts)
     # Python -> Exiv2, the short way
     shorts = exiv2.ShortValue(py_shorts)
@@ -69,7 +69,7 @@ def main():
     shorts[1] = 12
     print("Exiv2 short:", shorts)
     # append a value
-    shorts += 90
+    shorts.append(90)
     print("Exiv2 short:", shorts)
     # Exiv2 -> Python
     py_shorts = list(shorts)
@@ -85,7 +85,7 @@ def main():
     latitude = exiv2.RationalValue()
     # append values to initialise
     for x in py_latitude:
-        latitude += x.numerator, x.denominator
+        latitude.append((x.numerator, x.denominator))
     print("Exiv2 rational:", latitude)
     # Python -> Exiv2, the short way
     latitude = exiv2.RationalValue(
@@ -95,7 +95,7 @@ def main():
     latitude[1] = -63, 11
     print("Exiv2 rational:", latitude)
     # append a value
-    latitude += 19, 3
+    latitude.append((19, 3))
     print("Exiv2 rational:", latitude)
     # Exiv2 -> Python
     py_latitude = [Fraction(*x) for x in latitude]
@@ -110,7 +110,7 @@ def main():
     seq = exiv2.XmpArrayValue(exiv2.TypeId.xmpBag)
     # append values to initialise
     for x in py_seq:
-        seq += x
+        seq.append(x)
     print("Exiv2 seq:", seq)
     # Python -> Exiv2, the short way
     seq = exiv2.XmpArrayValue(py_seq, exiv2.TypeId.xmpBag)

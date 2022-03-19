@@ -62,8 +62,8 @@ def main():
         # Set two rational components from a string
         rv.read("1/2 1/3")
         # Add more elements directly
-        rv += 2, 3
-        rv += 3, 4
+        rv.append((2, 3))
+        rv.append((3, 4))
         # Add the key and value pair to the Exif data
         key = exiv2.ExifKey("Exif.Image.PrimaryChromaticities")
         exifData.add(key, rv)
