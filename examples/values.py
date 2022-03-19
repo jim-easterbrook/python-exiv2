@@ -56,11 +56,14 @@ def main():
     # This stores 1 or more 16-bit ints.
     py_shorts = [34, 56, 78]
     print("Python short:", py_shorts)
-    # Python -> Exiv2
+    # Python -> Exiv2, the long way
     shorts = exiv2.ShortValue()
     # append values to initialise
     for x in py_shorts:
         shorts += x
+    print("Exiv2 short:", shorts)
+    # Python -> Exiv2, the short way
+    shorts = exiv2.ShortValue(py_shorts)
     print("Exiv2 short:", shorts)
     # modify a value by index
     shorts[1] = 12

@@ -3493,7 +3493,7 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_std__pairT_int_int_t swig_types[44]
 #define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[45]
 #define SWIGTYPE_p_std__string swig_types[46]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_t swig_types[47]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[47]
 #define SWIGTYPE_p_swig__SwigPyIterator swig_types[48]
 #define SWIGTYPE_p_unsigned_char swig_types[49]
 #define SWIGTYPE_p_unsigned_int swig_types[50]
@@ -4127,6 +4127,9 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 
 
 #include <algorithm>
+
+
+#include <vector>
 
 
 namespace swig {
@@ -6297,9 +6300,6 @@ SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SW
         }
         return pv;
     }
-SWIGINTERN uint16_t Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx){
-        return self->value_.at(multi_idx);
-    }
 
 SWIGINTERNINLINE PyObject* 
 SWIG_From_unsigned_SS_long  (unsigned long value)
@@ -6315,6 +6315,68 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
   return SWIG_From_unsigned_SS_long  (value);
 }
 
+
+namespace swig {
+  template <> struct traits< unsigned short > {
+    typedef value_category category;
+    static const char* type_name() { return"unsigned short"; }
+  };
+  template <>  struct traits_asval< unsigned short > {
+    typedef unsigned short value_type;
+    static int asval(PyObject *obj, value_type *val) {
+      return SWIG_AsVal_unsigned_SS_short (obj, val);
+    }
+  };
+  template <>  struct traits_from< unsigned short > {
+    typedef unsigned short value_type;
+    static PyObject *from(const value_type& val) {
+      return SWIG_From_unsigned_SS_short  (val);
+    }
+  };
+}
+
+
+  namespace swig {
+    template <class T>
+    struct traits_reserve<std::vector<T> > {
+      static void reserve(std::vector<T> &seq, typename std::vector<T>::size_type n) {
+        seq.reserve(n);
+      }
+    };
+
+    template <class T>
+    struct traits_asptr<std::vector<T> >  {
+      static int asptr(PyObject *obj, std::vector<T> **vec) {
+	return traits_asptr_stdseq<std::vector<T> >::asptr(obj, vec);
+      }
+    };
+    
+    template <class T>
+    struct traits_from<std::vector<T> > {
+      static PyObject *from(const std::vector<T>& vec) {
+	return traits_from_stdseq<std::vector<T> >::from(vec);
+      }
+    };
+  }
+
+
+      namespace swig {
+	template <>  struct traits<std::vector< unsigned short, std::allocator< unsigned short > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "unsigned short" "," "std::allocator< unsigned short >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_5(Exiv2::ValueType< uint16_t >::ValueList value){
+        Exiv2::ValueType<uint16_t>* result = new Exiv2::ValueType<uint16_t>();
+        result->value_ = value;
+        return result;
+    }
+SWIGINTERN uint16_t Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx){
+        return self->value_.at(multi_idx);
+    }
 SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx,uint16_t value){
         self->value_.at(multi_idx) = value;
     }
@@ -6366,9 +6428,6 @@ SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SW
         }
         return pv;
     }
-SWIGINTERN uint32_t Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx){
-        return self->value_.at(multi_idx);
-    }
 
 SWIGINTERNINLINE PyObject*
   SWIG_From_unsigned_SS_int  (unsigned int value)
@@ -6376,16 +6435,6 @@ SWIGINTERNINLINE PyObject*
   return PyInt_FromSize_t((size_t) value);
 }
 
-SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx,uint32_t value){
-        self->value_.at(multi_idx) = value;
-    }
-SWIGINTERN Exiv2::ValueType< uint32_t >::AutoPtr Exiv2_ValueType_Sl_uint32_t_Sg____iadd__(Exiv2::ValueType< uint32_t > *self,uint32_t value){
-
-
-
-        self->value_.push_back(value);
-        return self->clone();
-    }
 
 namespace swig {
   template <> struct traits< unsigned int > {
@@ -6406,6 +6455,34 @@ namespace swig {
   };
 }
 
+
+      namespace swig {
+	template <>  struct traits<std::vector< unsigned int, std::allocator< unsigned int > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "unsigned int" "," "std::allocator< unsigned int >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_5(Exiv2::ValueType< uint32_t >::ValueList value){
+        Exiv2::ValueType<uint32_t>* result = new Exiv2::ValueType<uint32_t>();
+        result->value_ = value;
+        return result;
+    }
+SWIGINTERN uint32_t Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx){
+        return self->value_.at(multi_idx);
+    }
+SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx,uint32_t value){
+        self->value_.at(multi_idx) = value;
+    }
+SWIGINTERN Exiv2::ValueType< uint32_t >::AutoPtr Exiv2_ValueType_Sl_uint32_t_Sg____iadd__(Exiv2::ValueType< uint32_t > *self,uint32_t value){
+
+
+
+        self->value_.push_back(value);
+        return self->clone();
+    }
 
       namespace swig {
 	template <>  struct traits<std::pair< unsigned int, unsigned int > > {
@@ -6440,6 +6517,21 @@ SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_UR
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
         return pv;
+    }
+
+      namespace swig {
+	template <>  struct traits<std::vector< std::pair< unsigned int,unsigned int >, std::allocator< std::pair< unsigned int,unsigned int > > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "std::pair< unsigned int,unsigned int >" "," "std::allocator< std::pair< unsigned int,unsigned int > >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_5(Exiv2::ValueType< Exiv2::URational >::ValueList value){
+        Exiv2::ValueType<Exiv2::URational>* result = new Exiv2::ValueType<Exiv2::URational>();
+        result->value_ = value;
+        return result;
     }
 SWIGINTERN Exiv2::URational Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(Exiv2::ValueType< Exiv2::URational > *self,long multi_idx){
         return self->value_.at(multi_idx);
@@ -6495,9 +6587,6 @@ SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG
         }
         return pv;
     }
-SWIGINTERN int16_t Exiv2_ValueType_Sl_int16_t_Sg____getitem__(Exiv2::ValueType< int16_t > *self,long multi_idx){
-        return self->value_.at(multi_idx);
-    }
 
 SWIGINTERNINLINE PyObject *
 SWIG_From_short  (short value)
@@ -6505,6 +6594,44 @@ SWIG_From_short  (short value)
   return SWIG_From_long  (value);
 }
 
+
+namespace swig {
+  template <> struct traits< short > {
+    typedef value_category category;
+    static const char* type_name() { return"short"; }
+  };
+  template <>  struct traits_asval< short > {
+    typedef short value_type;
+    static int asval(PyObject *obj, value_type *val) {
+      return SWIG_AsVal_short (obj, val);
+    }
+  };
+  template <>  struct traits_from< short > {
+    typedef short value_type;
+    static PyObject *from(const value_type& val) {
+      return SWIG_From_short  (val);
+    }
+  };
+}
+
+
+      namespace swig {
+	template <>  struct traits<std::vector< short, std::allocator< short > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "short" "," "std::allocator< short >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_5(Exiv2::ValueType< int16_t >::ValueList value){
+        Exiv2::ValueType<int16_t>* result = new Exiv2::ValueType<int16_t>();
+        result->value_ = value;
+        return result;
+    }
+SWIGINTERN int16_t Exiv2_ValueType_Sl_int16_t_Sg____getitem__(Exiv2::ValueType< int16_t > *self,long multi_idx){
+        return self->value_.at(multi_idx);
+    }
 SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg____setitem__(Exiv2::ValueType< int16_t > *self,long multi_idx,int16_t value){
         self->value_.at(multi_idx) = value;
     }
@@ -6539,6 +6666,21 @@ SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
         return pv;
+    }
+
+      namespace swig {
+	template <>  struct traits<std::vector< int, std::allocator< int > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "int" "," "std::allocator< int >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_5(Exiv2::ValueType< int32_t >::ValueList value){
+        Exiv2::ValueType<int32_t>* result = new Exiv2::ValueType<int32_t>();
+        result->value_ = value;
+        return result;
     }
 SWIGINTERN int32_t Exiv2_ValueType_Sl_int32_t_Sg____getitem__(Exiv2::ValueType< int32_t > *self,long multi_idx){
         return self->value_.at(multi_idx);
@@ -6577,6 +6719,21 @@ SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rat
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
         return pv;
+    }
+
+      namespace swig {
+	template <>  struct traits<std::vector< std::pair< int,int >, std::allocator< std::pair< int,int > > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "std::pair< int,int >" "," "std::allocator< std::pair< int,int > >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_5(Exiv2::ValueType< Exiv2::Rational >::ValueList value){
+        Exiv2::ValueType<Exiv2::Rational>* result = new Exiv2::ValueType<Exiv2::Rational>();
+        result->value_ = value;
+        return result;
     }
 SWIGINTERN Exiv2::Rational Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(Exiv2::ValueType< Exiv2::Rational > *self,long multi_idx){
         return self->value_.at(multi_idx);
@@ -6676,6 +6833,41 @@ SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_4(E
         }
         return pv;
     }
+
+namespace swig {
+  template <> struct traits< float > {
+    typedef value_category category;
+    static const char* type_name() { return"float"; }
+  };
+  template <>  struct traits_asval< float > {
+    typedef float value_type;
+    static int asval(PyObject *obj, value_type *val) {
+      return SWIG_AsVal_float (obj, val);
+    }
+  };
+  template <>  struct traits_from< float > {
+    typedef float value_type;
+    static PyObject *from(const value_type& val) {
+      return SWIG_From_float  (val);
+    }
+  };
+}
+
+
+      namespace swig {
+	template <>  struct traits<std::vector< float, std::allocator< float > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "float" "," "std::allocator< float >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_5(Exiv2::ValueType< float >::ValueList value){
+        Exiv2::ValueType<float>* result = new Exiv2::ValueType<float>();
+        result->value_ = value;
+        return result;
+    }
 SWIGINTERN float Exiv2_ValueType_Sl_float_Sg____getitem__(Exiv2::ValueType< float > *self,long multi_idx){
         return self->value_.at(multi_idx);
     }
@@ -6713,6 +6905,41 @@ SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_4
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
         }
         return pv;
+    }
+
+namespace swig {
+  template <> struct traits< double > {
+    typedef value_category category;
+    static const char* type_name() { return"double"; }
+  };
+  template <>  struct traits_asval< double > {
+    typedef double value_type;
+    static int asval(PyObject *obj, value_type *val) {
+      return SWIG_AsVal_double (obj, val);
+    }
+  };
+  template <>  struct traits_from< double > {
+    typedef double value_type;
+    static PyObject *from(const value_type& val) {
+      return SWIG_From_double  (val);
+    }
+  };
+}
+
+
+      namespace swig {
+	template <>  struct traits<std::vector< double, std::allocator< double > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "double" "," "std::allocator< double >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_5(Exiv2::ValueType< double >::ValueList value){
+        Exiv2::ValueType<double>* result = new Exiv2::ValueType<double>();
+        result->value_ = value;
+        return result;
     }
 SWIGINTERN double Exiv2_ValueType_Sl_double_Sg____getitem__(Exiv2::ValueType< double > *self,long multi_idx){
         return self->value_.at(multi_idx);
@@ -19671,6 +19898,39 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_UShortValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< uint16_t >::ValueList arg1 ;
+  Exiv2::ValueType< uint16_t > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< unsigned short,std::allocator< unsigned short > > *ptr = (std::vector< unsigned short,std::allocator< unsigned short > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_UShortValue" "', argument " "1"" of type '" "Exiv2::ValueType< uint16_t >::ValueList""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      result = (Exiv2::ValueType< uint16_t > *)new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_5(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN int _wrap_new_UShortValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -19708,7 +19968,20 @@ check_2:
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_UShortValue__SWIG_2(self, argc, argv);
+    int _v = 0;
+    {
+      {
+        int res = SWIG_AsVal_unsigned_SS_short(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_UShortValue__SWIG_2(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_UShortValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -19725,7 +19998,8 @@ fail:
     "    Exiv2::ValueType< uint16_t >::ValueType(unsigned short const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< uint16_t >::ValueType(unsigned short const &)\n"
     "    Exiv2::ValueType< uint16_t >::ValueType(Exiv2::ValueType< unsigned short > const &)\n"
-    "    Exiv2::ValueType< uint16_t >::UShortValue(Exiv2::Value const &)\n");
+    "    Exiv2::ValueType< uint16_t >::UShortValue(Exiv2::Value const &)\n"
+    "    Exiv2::ValueType< uint16_t >::ValueType(Exiv2::ValueType< uint16_t >::ValueList)\n");
   return -1;
 }
 
@@ -20880,6 +21154,39 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_ULongValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< uint32_t >::ValueList arg1 ;
+  Exiv2::ValueType< uint32_t > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< unsigned int,std::allocator< unsigned int > > *ptr = (std::vector< unsigned int,std::allocator< unsigned int > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_ULongValue" "', argument " "1"" of type '" "Exiv2::ValueType< uint32_t >::ValueList""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      result = (Exiv2::ValueType< uint32_t > *)new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_5(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN int _wrap_new_ULongValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -20917,7 +21224,20 @@ check_2:
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_ULongValue__SWIG_2(self, argc, argv);
+    int _v = 0;
+    {
+      {
+        int res = SWIG_AsVal_unsigned_SS_int(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_ULongValue__SWIG_2(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_ULongValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -20934,7 +21254,8 @@ fail:
     "    Exiv2::ValueType< uint32_t >::ValueType(unsigned int const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< uint32_t >::ValueType(unsigned int const &)\n"
     "    Exiv2::ValueType< uint32_t >::ValueType(Exiv2::ValueType< unsigned int > const &)\n"
-    "    Exiv2::ValueType< uint32_t >::ULongValue(Exiv2::Value const &)\n");
+    "    Exiv2::ValueType< uint32_t >::ULongValue(Exiv2::Value const &)\n"
+    "    Exiv2::ValueType< uint32_t >::ValueType(Exiv2::ValueType< uint32_t >::ValueList)\n");
   return -1;
 }
 
@@ -22099,6 +22420,39 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_URationalValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< Exiv2::URational >::ValueList arg1 ;
+  Exiv2::ValueType< Exiv2::URational > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< std::pair< unsigned int,unsigned int >,std::allocator< std::pair< unsigned int,unsigned int > > > *ptr = (std::vector< std::pair< unsigned int,unsigned int >,std::allocator< std::pair< unsigned int,unsigned int > > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_URationalValue" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::URational >::ValueList""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      result = (Exiv2::ValueType< Exiv2::URational > *)new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_5(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN int _wrap_new_URationalValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -22136,7 +22490,18 @@ check_2:
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_URationalValue__SWIG_2(self, argc, argv);
+    int _v = 0;
+    {
+      int res = swig::asptr(argv[0], (std::pair< unsigned int,unsigned int >**)(0));
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_URationalValue__SWIG_2(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_URationalValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -22153,7 +22518,8 @@ fail:
     "    Exiv2::ValueType< Exiv2::URational >::ValueType(std::pair< unsigned int,unsigned int > const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< Exiv2::URational >::ValueType(std::pair< unsigned int,unsigned int > const &)\n"
     "    Exiv2::ValueType< Exiv2::URational >::ValueType(Exiv2::ValueType< std::pair< unsigned int,unsigned int > > const &)\n"
-    "    Exiv2::ValueType< Exiv2::URational >::URationalValue(Exiv2::Value const &)\n");
+    "    Exiv2::ValueType< Exiv2::URational >::URationalValue(Exiv2::Value const &)\n"
+    "    Exiv2::ValueType< Exiv2::URational >::ValueType(Exiv2::ValueType< Exiv2::URational >::ValueList)\n");
   return -1;
 }
 
@@ -23312,6 +23678,39 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_ShortValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< int16_t >::ValueList arg1 ;
+  Exiv2::ValueType< int16_t > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< short,std::allocator< short > > *ptr = (std::vector< short,std::allocator< short > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_ShortValue" "', argument " "1"" of type '" "Exiv2::ValueType< int16_t >::ValueList""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      result = (Exiv2::ValueType< int16_t > *)new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_5(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_short_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN int _wrap_new_ShortValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -23349,7 +23748,20 @@ check_2:
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_ShortValue__SWIG_2(self, argc, argv);
+    int _v = 0;
+    {
+      {
+        int res = SWIG_AsVal_short(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_ShortValue__SWIG_2(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_ShortValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -23366,7 +23778,8 @@ fail:
     "    Exiv2::ValueType< int16_t >::ValueType(short const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int16_t >::ValueType(short const &)\n"
     "    Exiv2::ValueType< int16_t >::ValueType(Exiv2::ValueType< short > const &)\n"
-    "    Exiv2::ValueType< int16_t >::ShortValue(Exiv2::Value const &)\n");
+    "    Exiv2::ValueType< int16_t >::ShortValue(Exiv2::Value const &)\n"
+    "    Exiv2::ValueType< int16_t >::ValueType(Exiv2::ValueType< int16_t >::ValueList)\n");
   return -1;
 }
 
@@ -24521,6 +24934,39 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_LongValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< int32_t >::ValueList arg1 ;
+  Exiv2::ValueType< int32_t > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< int,std::allocator< int > > *ptr = (std::vector< int,std::allocator< int > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_LongValue" "', argument " "1"" of type '" "Exiv2::ValueType< int32_t >::ValueList""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      result = (Exiv2::ValueType< int32_t > *)new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_5(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_int_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN int _wrap_new_LongValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -24558,7 +25004,20 @@ check_2:
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_LongValue__SWIG_2(self, argc, argv);
+    int _v = 0;
+    {
+      {
+        int res = SWIG_AsVal_int(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_LongValue__SWIG_2(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_LongValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -24575,7 +25034,8 @@ fail:
     "    Exiv2::ValueType< int32_t >::ValueType(int const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(int const &)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::ValueType< int > const &)\n"
-    "    Exiv2::ValueType< int32_t >::LongValue(Exiv2::Value const &)\n");
+    "    Exiv2::ValueType< int32_t >::LongValue(Exiv2::Value const &)\n"
+    "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::ValueType< int32_t >::ValueList)\n");
   return -1;
 }
 
@@ -25740,6 +26200,39 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_RationalValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< Exiv2::Rational >::ValueList arg1 ;
+  Exiv2::ValueType< Exiv2::Rational > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< std::pair< int,int >,std::allocator< std::pair< int,int > > > *ptr = (std::vector< std::pair< int,int >,std::allocator< std::pair< int,int > > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_RationalValue" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::Rational >::ValueList""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      result = (Exiv2::ValueType< Exiv2::Rational > *)new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_5(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN int _wrap_new_RationalValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -25777,7 +26270,18 @@ check_2:
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_RationalValue__SWIG_2(self, argc, argv);
+    int _v = 0;
+    {
+      int res = swig::asptr(argv[0], (std::pair< int,int >**)(0));
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_RationalValue__SWIG_2(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_RationalValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -25794,7 +26298,8 @@ fail:
     "    Exiv2::ValueType< Exiv2::Rational >::ValueType(std::pair< int,int > const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< Exiv2::Rational >::ValueType(std::pair< int,int > const &)\n"
     "    Exiv2::ValueType< Exiv2::Rational >::ValueType(Exiv2::ValueType< std::pair< int,int > > const &)\n"
-    "    Exiv2::ValueType< Exiv2::Rational >::RationalValue(Exiv2::Value const &)\n");
+    "    Exiv2::ValueType< Exiv2::Rational >::RationalValue(Exiv2::Value const &)\n"
+    "    Exiv2::ValueType< Exiv2::Rational >::ValueType(Exiv2::ValueType< Exiv2::Rational >::ValueList)\n");
   return -1;
 }
 
@@ -26953,6 +27458,39 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_FloatValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< float >::ValueList arg1 ;
+  Exiv2::ValueType< float > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< float,std::allocator< float > > *ptr = (std::vector< float,std::allocator< float > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_FloatValue" "', argument " "1"" of type '" "Exiv2::ValueType< float >::ValueList""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      result = (Exiv2::ValueType< float > *)new_Exiv2_ValueType_Sl_float_Sg___SWIG_5(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN int _wrap_new_FloatValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -26990,7 +27528,20 @@ check_2:
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_FloatValue__SWIG_2(self, argc, argv);
+    int _v = 0;
+    {
+      {
+        int res = SWIG_AsVal_float(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_FloatValue__SWIG_2(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_FloatValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -27007,7 +27558,8 @@ fail:
     "    Exiv2::ValueType< float >::ValueType(float const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< float >::ValueType(float const &)\n"
     "    Exiv2::ValueType< float >::ValueType(Exiv2::ValueType< float > const &)\n"
-    "    Exiv2::ValueType< float >::FloatValue(Exiv2::Value const &)\n");
+    "    Exiv2::ValueType< float >::FloatValue(Exiv2::Value const &)\n"
+    "    Exiv2::ValueType< float >::ValueType(Exiv2::ValueType< float >::ValueList)\n");
   return -1;
 }
 
@@ -28162,6 +28714,39 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_DoubleValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< double >::ValueList arg1 ;
+  Exiv2::ValueType< double > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_DoubleValue" "', argument " "1"" of type '" "Exiv2::ValueType< double >::ValueList""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      result = (Exiv2::ValueType< double > *)new_Exiv2_ValueType_Sl_double_Sg___SWIG_5(arg1);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN int _wrap_new_DoubleValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -28199,7 +28784,20 @@ check_2:
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_DoubleValue__SWIG_2(self, argc, argv);
+    int _v = 0;
+    {
+      {
+        int res = SWIG_AsVal_double(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_DoubleValue__SWIG_2(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_DoubleValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -28216,7 +28814,8 @@ fail:
     "    Exiv2::ValueType< double >::ValueType(double const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< double >::ValueType(double const &)\n"
     "    Exiv2::ValueType< double >::ValueType(Exiv2::ValueType< double > const &)\n"
-    "    Exiv2::ValueType< double >::DoubleValue(Exiv2::Value const &)\n");
+    "    Exiv2::ValueType< double >::DoubleValue(Exiv2::Value const &)\n"
+    "    Exiv2::ValueType< double >::ValueType(Exiv2::ValueType< double >::ValueList)\n");
   return -1;
 }
 
@@ -34709,7 +35308,7 @@ static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream
 static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_unsigned_char_t = {"_p_std__vectorT_unsigned_char_t", "std::vector< unsigned char > *|Exiv2::Blob *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t = {"_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t", "std::vector< unsigned char,std::allocator< unsigned char > > *|Exiv2::Blob *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_swig__SwigPyIterator = {"_p_swig__SwigPyIterator", "swig::SwigPyIterator *", 0, 0, (void*)&SwigPyBuiltin__swig__SwigPyIterator_clientdata, 0};
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *|Exiv2::byte *|uint_least8_t *|uint_fast8_t *|uint8_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "uintptr_t *|uint_least32_t *|uint_fast32_t *|uint32_t *|unsigned int *|uint_fast16_t *", 0, 0, (void*)0, 0};
@@ -34765,7 +35364,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__pairT_int_int_t,
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
   &_swigt__p_std__string,
-  &_swigt__p_std__vectorT_unsigned_char_t,
+  &_swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,
   &_swigt__p_swig__SwigPyIterator,
   &_swigt__p_unsigned_char,
   &_swigt__p_unsigned_int,
@@ -34821,7 +35420,7 @@ static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0,
 static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pairT_int_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__vectorT_unsigned_char_t[] = {  {&_swigt__p_std__vectorT_unsigned_char_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t[] = {  {&_swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_swig__SwigPyIterator[] = {  {&_swigt__p_swig__SwigPyIterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0, 0, 0},{0, 0, 0, 0}};
@@ -34877,7 +35476,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__pairT_int_int_t,
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
   _swigc__p_std__string,
-  _swigc__p_std__vectorT_unsigned_char_t,
+  _swigc__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,
   _swigc__p_swig__SwigPyIterator,
   _swigc__p_unsigned_char,
   _swigc__p_unsigned_int,

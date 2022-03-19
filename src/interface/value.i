@@ -22,6 +22,7 @@
 %include "stdint.i"
 %include "std_map.i"
 %include "std_string.i"
+%include "std_vector.i"
 
 %import "types.i"
 
@@ -111,7 +112,14 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
          functype="ssizeobjargproc") Exiv2::ValueType<item_type>::__setitem__;
 %feature("python:slot", "sq_inplace_concat",
          functype="binaryfunc") Exiv2::ValueType<item_type>::__iadd__;
+%template() std::vector<item_type>;
 %extend Exiv2::ValueType<item_type> {
+    // Constructor, reads values from a Python list
+    ValueType<item_type>(Exiv2::ValueType<item_type>::ValueList value) {
+        Exiv2::ValueType<item_type>* result = new Exiv2::ValueType<item_type>();
+        result->value_ = value;
+        return result;
+    }
     item_type __getitem__(long multi_idx) {
         return $self->value_.at(multi_idx);
     }
@@ -169,7 +177,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     if (PyErr_Occurred())
         SWIG_fail;
 }
-%template() std::map< std::string, std::string, Exiv2::LangAltValueComparator >;
+%template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
 %extend Exiv2::LangAltValue {
     // Constructor, reads values from a Python dict
     LangAltValue(Exiv2::LangAltValue::ValueType value) {
