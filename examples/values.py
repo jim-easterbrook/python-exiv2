@@ -81,11 +81,15 @@ def main():
     py_latitude = [Fraction(51), Fraction(30),
                    Fraction(4.6).limit_denominator(100000)]
     print("Python rational:", py_latitude)
-    # Python -> Exiv2
+    # Python -> Exiv2, the long way
     latitude = exiv2.RationalValue()
     # append values to initialise
     for x in py_latitude:
         latitude += x.numerator, x.denominator
+    print("Exiv2 rational:", latitude)
+    # Python -> Exiv2, the short way
+    latitude = exiv2.RationalValue(
+        [(x.numerator, x.denominator) for x in py_latitude])
     print("Exiv2 rational:", latitude)
     # modify a value by index
     latitude[1] = -63, 11
@@ -102,11 +106,14 @@ def main():
     # or more strings.
     py_seq = ['First string', 'Second', 'Third']
     print("Python seq:", py_seq)
-    # Python -> Exiv2
+    # Python -> Exiv2, the long way
     seq = exiv2.XmpArrayValue(exiv2.TypeId.xmpBag)
     # append values to initialise
     for x in py_seq:
         seq += x
+    print("Exiv2 seq:", seq)
+    # Python -> Exiv2, the short way
+    seq = exiv2.XmpArrayValue(py_seq, exiv2.TypeId.xmpBag)
     print("Exiv2 seq:", seq)
     # Exiv2 -> Python
     py_seq = list(seq)

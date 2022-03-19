@@ -260,7 +260,18 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
          functype="ssizeargfunc") Exiv2::XmpArrayValue::__getitem__;
 %feature("python:slot", "sq_inplace_concat",
          functype="binaryfunc") Exiv2::XmpArrayValue::__iadd__;
+%template() std::vector<std::string>;
 %extend Exiv2::XmpArrayValue {
+    // Constructor, reads values from a Python list
+    XmpArrayValue(std::vector<std::string> value,
+                  Exiv2::TypeId typeId=Exiv2::xmpBag) {
+        Exiv2::XmpArrayValue* result = new Exiv2::XmpArrayValue(typeId);
+        for (std::vector<std::string>::iterator i = value.begin();
+             i != value.end(); ++i) {
+            result->read(*i);
+        }
+        return result;
+    }
     std::string __getitem__(long multi_idx) {
         return $self->toString(multi_idx);
     }
