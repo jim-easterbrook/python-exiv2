@@ -3667,21 +3667,21 @@ public:
     ~ExifDataIteratorBase() {
         Py_DECREF(parent);
     }
-    bool operator==(const ExifDataIteratorBase &other) const {
-        return other._unwrap() == ptr;
-    }
-    bool operator!=(const ExifDataIteratorBase &other) const {
-        return other._unwrap() != ptr;
-    }
-    Exiv2::ExifData::iterator _unwrap() const {
-        return ptr;
-    }
     ExifDataIteratorBase* __iter__() {
         return new ExifDataIteratorBase(ptr, parent);
     }
     PyObject* __next__() {
         PyErr_SetNone(PyExc_StopIteration);
         return NULL;
+    }
+    Exiv2::ExifData::iterator _unwrap() const {
+        return ptr;
+    }
+    bool operator==(const ExifDataIteratorBase &other) const {
+        return other._unwrap() == ptr;
+    }
+    bool operator!=(const ExifDataIteratorBase &other) const {
+        return other._unwrap() != ptr;
     }
     std::string __str__() {
         return "iterator<end>";
@@ -3710,9 +3710,8 @@ public:
             PyErr_SetNone(PyExc_StopIteration);
             return NULL;
         }
+        safe_ptr = ptr;
         ptr++;
-        if (ptr != end)
-            safe_ptr = ptr;
         return &(*safe_ptr);
     }
     std::string __str__() {
@@ -4809,6 +4808,70 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifDataIteratorBase *arg1 = (ExifDataIteratorBase *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  ExifDataIteratorBase *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ExifDataIteratorBase___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIteratorBase___iter__" "', argument " "1"" of type '" "ExifDataIteratorBase *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifDataIteratorBase * >(argp1);
+  {
+    try {
+      result = (ExifDataIteratorBase *)(arg1)->__iter__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifDataIteratorBase, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___next__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifDataIteratorBase *arg1 = (ExifDataIteratorBase *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ExifDataIteratorBase___next__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIteratorBase___next__" "', argument " "1"" of type '" "ExifDataIteratorBase *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifDataIteratorBase * >(argp1);
+  {
+    try {
+      result = (PyObject *)(arg1)->__next__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___eq__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   ExifDataIteratorBase *arg1 = (ExifDataIteratorBase *) 0 ;
@@ -4898,70 +4961,6 @@ fail:
   PyErr_Clear();
   Py_INCREF(Py_NotImplemented);
   return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___iter__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIteratorBase *arg1 = (ExifDataIteratorBase *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  ExifDataIteratorBase *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ExifDataIteratorBase___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIteratorBase, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIteratorBase___iter__" "', argument " "1"" of type '" "ExifDataIteratorBase *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIteratorBase * >(argp1);
-  {
-    try {
-      result = (ExifDataIteratorBase *)(arg1)->__iter__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifDataIteratorBase, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___next__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIteratorBase *arg1 = (ExifDataIteratorBase *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ExifDataIteratorBase___next__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIteratorBase, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIteratorBase___next__" "', argument " "1"" of type '" "ExifDataIteratorBase *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIteratorBase * >(argp1);
-  {
-    try {
-      result = (PyObject *)(arg1)->__next__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -9800,10 +9799,10 @@ SwigPyBuiltin__ExifDataIteratorBase_richcompare(PyObject *self, PyObject *other,
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__ExifDataIteratorBase_methods[] = {
-  { "__eq__", _wrap_ExifDataIteratorBase___eq__, METH_O, "" },
-  { "__ne__", _wrap_ExifDataIteratorBase___ne__, METH_O, "" },
   { "__iter__", _wrap_ExifDataIteratorBase___iter__, METH_NOARGS, "" },
   { "__next__", _wrap_ExifDataIteratorBase___next__, METH_NOARGS, "" },
+  { "__eq__", _wrap_ExifDataIteratorBase___eq__, METH_O, "" },
+  { "__ne__", _wrap_ExifDataIteratorBase___ne__, METH_O, "" },
   { "__str__", _wrap_ExifDataIteratorBase___str__, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };

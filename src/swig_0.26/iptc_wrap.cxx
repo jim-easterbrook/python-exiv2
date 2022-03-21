@@ -3670,21 +3670,21 @@ public:
     ~IptcDataIteratorBase() {
         Py_DECREF(parent);
     }
-    bool operator==(const IptcDataIteratorBase &other) const {
-        return other._unwrap() == ptr;
-    }
-    bool operator!=(const IptcDataIteratorBase &other) const {
-        return other._unwrap() != ptr;
-    }
-    Exiv2::IptcData::iterator _unwrap() const {
-        return ptr;
-    }
     IptcDataIteratorBase* __iter__() {
         return new IptcDataIteratorBase(ptr, parent);
     }
     PyObject* __next__() {
         PyErr_SetNone(PyExc_StopIteration);
         return NULL;
+    }
+    Exiv2::IptcData::iterator _unwrap() const {
+        return ptr;
+    }
+    bool operator==(const IptcDataIteratorBase &other) const {
+        return other._unwrap() == ptr;
+    }
+    bool operator!=(const IptcDataIteratorBase &other) const {
+        return other._unwrap() != ptr;
     }
     std::string __str__() {
         return "iterator<end>";
@@ -3713,9 +3713,8 @@ public:
             PyErr_SetNone(PyExc_StopIteration);
             return NULL;
         }
+        safe_ptr = ptr;
         ptr++;
-        if (ptr != end)
-            safe_ptr = ptr;
         return &(*safe_ptr);
     }
     std::string __str__() {
@@ -4716,6 +4715,70 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  IptcDataIteratorBase *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcDataIteratorBase___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___iter__" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
+  {
+    try {
+      result = (IptcDataIteratorBase *)(arg1)->__iter__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___next__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcDataIteratorBase___next__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___next__" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
+  {
+    try {
+      result = (PyObject *)(arg1)->__next__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___eq__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
@@ -4805,70 +4868,6 @@ fail:
   PyErr_Clear();
   Py_INCREF(Py_NotImplemented);
   return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___iter__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IptcDataIteratorBase *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIteratorBase___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___iter__" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
-  }
-  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
-  {
-    try {
-      result = (IptcDataIteratorBase *)(arg1)->__iter__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___next__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIteratorBase___next__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___next__" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
-  }
-  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
-  {
-    try {
-      result = (PyObject *)(arg1)->__next__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -8875,10 +8874,10 @@ SwigPyBuiltin__IptcDataIteratorBase_richcompare(PyObject *self, PyObject *other,
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__IptcDataIteratorBase_methods[] = {
-  { "__eq__", _wrap_IptcDataIteratorBase___eq__, METH_O, "" },
-  { "__ne__", _wrap_IptcDataIteratorBase___ne__, METH_O, "" },
   { "__iter__", _wrap_IptcDataIteratorBase___iter__, METH_NOARGS, "" },
   { "__next__", _wrap_IptcDataIteratorBase___next__, METH_NOARGS, "" },
+  { "__eq__", _wrap_IptcDataIteratorBase___eq__, METH_O, "" },
+  { "__ne__", _wrap_IptcDataIteratorBase___ne__, METH_O, "" },
   { "__str__", _wrap_IptcDataIteratorBase___str__, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };

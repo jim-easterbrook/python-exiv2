@@ -261,9 +261,8 @@ public:
             PyErr_SetNone(PyExc_StopIteration);
             return NULL;
         }
+        safe_ptr = ptr;
         ptr++;
-        if (ptr != end)
-            safe_ptr = ptr;
         return &(*safe_ptr);
     }
     std::string __str__() {
