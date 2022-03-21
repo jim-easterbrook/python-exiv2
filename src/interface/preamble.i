@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -153,100 +153,123 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 %feature("python:slot", "tp_iter",
          functype="getiterfunc") base_class::__iter__;
 %feature("python:slot", "tp_iter",
+         functype="getiterfunc") name##IteratorBase::__iter__;
+%feature("python:slot", "tp_iternext",
+         functype="iternextfunc") name##IteratorBase::__next__;
+%feature("python:slot", "tp_str",
+         functype="reprfunc") name##IteratorBase::__str__;
+%feature("python:slot", "tp_iter",
          functype="getiterfunc") name##Iterator::__iter__;
 %feature("python:slot", "tp_iternext",
          functype="iternextfunc") name##Iterator::__next__;
 %feature("python:slot", "tp_str",
          functype="reprfunc") name##Iterator::__str__;
 // typemaps
-%typemap(in) iterator_type (int res, name##Iterator *argp) %{
+%typemap(in) iterator_type (int res, name##IteratorBase *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
-                          $descriptor(name##Iterator*), 0);
+                          $descriptor(name##IteratorBase*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, name##Iterator, $symname, $argnum);
+        %argument_fail(res, name##IteratorBase, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(name##Iterator, $symname, $argnum);
+        %argument_nullref(name##IteratorBase, $symname, $argnum);
     }
     $1 = argp->_unwrap();
 %};
 // "out" typemap assumes arg1 is always the base_class parent and
 // self is always the Python parent
 %typemap(out) iterator_type %{
-    $result = SWIG_NewPointerObj(
-        new name##Iterator($1, arg1->end(), self),
-        $descriptor(name##Iterator*), SWIG_POINTER_OWN);
-%};
-// Check iterator before dereferencing it
-%typemap(check) name##Iterator* self %{
-    if (strcmp("$symname", "delete_"#name"Iterator") &&
-        strcmp("$symname", #name"Iterator___iter__") &&
-        strcmp("$symname", #name"Iterator___str__") &&
-        strcmp("$symname", #name"Iterator___eq__") &&
-        strcmp("$symname", #name"Iterator___ne__"))
-        if ($1->_ptr_invalid())
-            SWIG_fail;
+    if ((iterator_type)$1 == arg1->end())
+        $result = SWIG_NewPointerObj(
+            new name##IteratorBase($1, self),
+            $descriptor(name##IteratorBase*), SWIG_POINTER_OWN);
+    else
+        $result = SWIG_NewPointerObj(
+            new name##Iterator($1, arg1->end(), self),
+            $descriptor(name##Iterator*), SWIG_POINTER_OWN);
 %};
 %newobject name##Iterator::__iter__;
 %ignore name##Iterator::name##Iterator;
-%ignore name##Iterator::_unwrap;
-%ignore name##Iterator::_ptr_invalid;
+%ignore name##IteratorBase::name##IteratorBase;
+%ignore name##IteratorBase::_unwrap;
 %feature("docstring") name##Iterator "Python wrapper for "#iterator_type"."
 %extend base_class {
     iterator_type __iter__() {
         return $self->begin();
     }
 }
+%exception name##Iterator::__next__ %{
+    $action
+    if (PyErr_Occurred())
+        SWIG_fail;
+%}
 %inline %{
-class name##Iterator {
-private:
+// Base class supports a single fixed pointer that never gets dereferenced
+class name##IteratorBase {
+protected:
     iterator_type ptr;
-    iterator_type end;
     PyObject* parent;
 public:
-    name##Iterator(
-            iterator_type ptr, iterator_type end, PyObject* parent) {
+    name##IteratorBase(iterator_type ptr, PyObject* parent) {
         this->ptr = ptr;
-        this->end = end;
         this->parent = parent;
         Py_INCREF(parent);
     }
-    ~name##Iterator() {
+    ~name##IteratorBase() {
         Py_DECREF(parent);
     }
-    datum_type* operator->() const {
-        return &(*ptr);
+    name##IteratorBase* __iter__() {
+        return new name##IteratorBase(ptr, parent);
     }
-    name##Iterator* __iter__() {
-        return new name##Iterator(ptr, end, parent);
+    PyObject* __next__() {
+        PyErr_SetNone(PyExc_StopIteration);
+        return NULL;
     }
     iterator_type _unwrap() const {
         return ptr;
     }
-    datum_type* __next__() {
-        return &(*ptr++);
-    }
-    bool operator==(const name##Iterator &other) const {
+    bool operator==(const name##IteratorBase &other) const {
         return other._unwrap() == ptr;
     }
-    bool operator!=(const name##Iterator &other) const {
+    bool operator!=(const name##IteratorBase &other) const {
         return other._unwrap() != ptr;
     }
-    bool _ptr_invalid() {
+    std::string __str__() {
+        return "iterator<end>";
+    }
+};
+// Main class always has a dereferencable pointer in safe_ptr, so no extra checks
+// are needed.
+class name##Iterator : public name##IteratorBase {
+private:
+    iterator_type end;
+    iterator_type safe_ptr;
+public:
+    name##Iterator(iterator_type ptr, iterator_type end, PyObject* parent)
+                   : name##IteratorBase(ptr, parent) {
+        safe_ptr = ptr;
+        this->end = end;
+    }
+    datum_type* operator->() const {
+        return &(*safe_ptr);
+    }
+    name##Iterator* __iter__() {
+        return new name##Iterator(safe_ptr, end, parent);
+    }
+    datum_type* __next__() {
         if (ptr == end) {
-            PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
-            return true;
+            PyErr_SetNone(PyExc_StopIteration);
+            return NULL;
         }
-        return false;
+        ptr++;
+        if (ptr != end)
+            safe_ptr = ptr;
+        return &(*safe_ptr);
     }
     std::string __str__() {
-        std::string result;
         if (ptr == end)
-            result = "end of data";
-        else
-            result = ptr->key() + ": " + ptr->print();
-        result = "iterator<" + result + ">";
-        return result;
+            return "iterator<end>";
+        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
 };
 %}

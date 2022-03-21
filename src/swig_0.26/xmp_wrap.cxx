@@ -3477,42 +3477,43 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_ValueList swig_types[31]
 #define SWIGTYPE_p_ValueType swig_types[32]
 #define SWIGTYPE_p_XmpDataIterator swig_types[33]
-#define SWIGTYPE_p_allocator_type swig_types[34]
-#define SWIGTYPE_p_char swig_types[35]
-#define SWIGTYPE_p_const_iterator swig_types[36]
-#define SWIGTYPE_p_difference_type swig_types[37]
-#define SWIGTYPE_p_f_p_void_bool__void swig_types[38]
-#define SWIGTYPE_p_first_type swig_types[39]
-#define SWIGTYPE_p_int swig_types[40]
-#define SWIGTYPE_p_iterator swig_types[41]
-#define SWIGTYPE_p_key_type swig_types[42]
-#define SWIGTYPE_p_long_long swig_types[43]
-#define SWIGTYPE_p_mapped_type swig_types[44]
-#define SWIGTYPE_p_second_type swig_types[45]
-#define SWIGTYPE_p_short swig_types[46]
-#define SWIGTYPE_p_signed_char swig_types[47]
-#define SWIGTYPE_p_size_type swig_types[48]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[49]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[50]
-#define SWIGTYPE_p_std__ostream swig_types[51]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[52]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[53]
-#define SWIGTYPE_p_std__setT_std__string_t swig_types[54]
-#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[55]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[56]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[57]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[58]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[59]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[60]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[61]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[62]
-#define SWIGTYPE_p_unsigned_char swig_types[63]
-#define SWIGTYPE_p_unsigned_int swig_types[64]
-#define SWIGTYPE_p_unsigned_long_long swig_types[65]
-#define SWIGTYPE_p_unsigned_short swig_types[66]
-#define SWIGTYPE_p_value_type swig_types[67]
-static swig_type_info *swig_types[69];
-static swig_module_info swig_module = {swig_types, 68, 0, 0, 0, 0};
+#define SWIGTYPE_p_XmpDataIteratorBase swig_types[34]
+#define SWIGTYPE_p_allocator_type swig_types[35]
+#define SWIGTYPE_p_char swig_types[36]
+#define SWIGTYPE_p_const_iterator swig_types[37]
+#define SWIGTYPE_p_difference_type swig_types[38]
+#define SWIGTYPE_p_f_p_void_bool__void swig_types[39]
+#define SWIGTYPE_p_first_type swig_types[40]
+#define SWIGTYPE_p_int swig_types[41]
+#define SWIGTYPE_p_iterator swig_types[42]
+#define SWIGTYPE_p_key_type swig_types[43]
+#define SWIGTYPE_p_long_long swig_types[44]
+#define SWIGTYPE_p_mapped_type swig_types[45]
+#define SWIGTYPE_p_second_type swig_types[46]
+#define SWIGTYPE_p_short swig_types[47]
+#define SWIGTYPE_p_signed_char swig_types[48]
+#define SWIGTYPE_p_size_type swig_types[49]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[50]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[51]
+#define SWIGTYPE_p_std__ostream swig_types[52]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[53]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[54]
+#define SWIGTYPE_p_std__setT_std__string_t swig_types[55]
+#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[56]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[57]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[58]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[59]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[60]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[61]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[62]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[63]
+#define SWIGTYPE_p_unsigned_char swig_types[64]
+#define SWIGTYPE_p_unsigned_int swig_types[65]
+#define SWIGTYPE_p_unsigned_long_long swig_types[66]
+#define SWIGTYPE_p_unsigned_short swig_types[67]
+#define SWIGTYPE_p_value_type swig_types[68]
+static swig_type_info *swig_types[70];
+static swig_module_info swig_module = {swig_types, 69, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3659,55 +3660,72 @@ static PyObject* XmpData_set_value(Exiv2::Xmpdatum* datum, const std::string& va
 };
 
 
-class XmpDataIterator {
-private:
+// Base class supports a single fixed pointer that never gets dereferenced
+class XmpDataIteratorBase {
+protected:
     Exiv2::XmpData::iterator ptr;
-    Exiv2::XmpData::iterator end;
     PyObject* parent;
 public:
-    XmpDataIterator(
-            Exiv2::XmpData::iterator ptr, Exiv2::XmpData::iterator end, PyObject* parent) {
+    XmpDataIteratorBase(Exiv2::XmpData::iterator ptr, PyObject* parent) {
         this->ptr = ptr;
-        this->end = end;
         this->parent = parent;
         Py_INCREF(parent);
     }
-    ~XmpDataIterator() {
+    ~XmpDataIteratorBase() {
         Py_DECREF(parent);
     }
-    Exiv2::Xmpdatum* operator->() const {
-        return &(*ptr);
+    bool operator==(const XmpDataIteratorBase &other) const {
+        return other._unwrap() == ptr;
     }
-    XmpDataIterator* __iter__() {
-        return new XmpDataIterator(ptr, end, parent);
+    bool operator!=(const XmpDataIteratorBase &other) const {
+        return other._unwrap() != ptr;
     }
     Exiv2::XmpData::iterator _unwrap() const {
         return ptr;
     }
-    Exiv2::Xmpdatum* __next__() {
-        return &(*ptr++);
+    XmpDataIteratorBase* __iter__() {
+        return new XmpDataIteratorBase(ptr, parent);
     }
-    bool operator==(const XmpDataIterator &other) const {
-        return other._unwrap() == ptr;
-    }
-    bool operator!=(const XmpDataIterator &other) const {
-        return other._unwrap() != ptr;
-    }
-    bool _ptr_invalid() {
-        if (ptr == end) {
-            PyErr_SetString(PyExc_StopIteration, "iterator at end of data");
-            return true;
-        }
-        return false;
+    PyObject* __next__() {
+        PyErr_SetNone(PyExc_StopIteration);
+        return NULL;
     }
     std::string __str__() {
-        std::string result;
+        return "iterator<end>";
+    }
+};
+// Main class always has a dereferencable pointer in safe_ptr, so no extra checks
+// are needed.
+class XmpDataIterator : public XmpDataIteratorBase {
+private:
+    Exiv2::XmpData::iterator end;
+    Exiv2::XmpData::iterator safe_ptr;
+public:
+    XmpDataIterator(Exiv2::XmpData::iterator ptr, Exiv2::XmpData::iterator end, PyObject* parent)
+                   : XmpDataIteratorBase(ptr, parent) {
+        safe_ptr = ptr;
+        this->end = end;
+    }
+    Exiv2::Xmpdatum* operator->() const {
+        return &(*safe_ptr);
+    }
+    XmpDataIterator* __iter__() {
+        return new XmpDataIterator(safe_ptr, end, parent);
+    }
+    Exiv2::Xmpdatum* __next__() {
+        if (ptr == end) {
+            PyErr_SetNone(PyExc_StopIteration);
+            return NULL;
+        }
+        ptr++;
+        if (ptr != end)
+            safe_ptr = ptr;
+        return &(*safe_ptr);
+    }
+    std::string __str__() {
         if (ptr == end)
-            result = "end of data";
-        else
-            result = ptr->key() + ": " + ptr->print();
-        result = "iterator<" + result + ">";
-        return result;
+            return "iterator<end>";
+        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
 };
 
@@ -4621,28 +4639,19 @@ SWIGINTERN Exiv2::XmpData::iterator Exiv2_XmpData___iter__(Exiv2::XmpData *self)
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap_delete_XmpDataIterator(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_XmpDataIteratorBase(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  XmpDataIterator *arg1 = (XmpDataIterator *) 0 ;
+  XmpDataIteratorBase *arg1 = (XmpDataIteratorBase *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "delete_XmpDataIterator", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "delete_XmpDataIteratorBase", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIteratorBase, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpDataIterator" "', argument " "1"" of type '" "XmpDataIterator *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpDataIteratorBase" "', argument " "1"" of type '" "XmpDataIteratorBase *""'"); 
   }
-  arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("delete_XmpDataIterator", "delete_""XmpData""Iterator") &&
-    strcmp("delete_XmpDataIterator","XmpData""Iterator___iter__") &&
-    strcmp("delete_XmpDataIterator","XmpData""Iterator___str__") &&
-    strcmp("delete_XmpDataIterator","XmpData""Iterator___eq__") &&
-    strcmp("delete_XmpDataIterator","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
+  arg1 = reinterpret_cast< XmpDataIteratorBase * >(argp1);
   {
     try {
       delete arg1;
@@ -4661,6 +4670,202 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___eq__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpDataIteratorBase *arg1 = (XmpDataIteratorBase *) 0 ;
+  XmpDataIteratorBase *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIteratorBase___eq__" "', argument " "1"" of type '" "XmpDataIteratorBase const *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpDataIteratorBase * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_XmpDataIteratorBase,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpDataIteratorBase___eq__" "', argument " "2"" of type '" "XmpDataIteratorBase const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpDataIteratorBase___eq__" "', argument " "2"" of type '" "XmpDataIteratorBase const &""'"); 
+  }
+  arg2 = reinterpret_cast< XmpDataIteratorBase * >(argp2);
+  {
+    try {
+      result = (bool)((XmpDataIteratorBase const *)arg1)->operator ==((XmpDataIteratorBase const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  PyErr_Clear();
+  Py_INCREF(Py_NotImplemented);
+  return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___ne__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpDataIteratorBase *arg1 = (XmpDataIteratorBase *) 0 ;
+  XmpDataIteratorBase *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIteratorBase___ne__" "', argument " "1"" of type '" "XmpDataIteratorBase const *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpDataIteratorBase * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_XmpDataIteratorBase,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpDataIteratorBase___ne__" "', argument " "2"" of type '" "XmpDataIteratorBase const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpDataIteratorBase___ne__" "', argument " "2"" of type '" "XmpDataIteratorBase const &""'"); 
+  }
+  arg2 = reinterpret_cast< XmpDataIteratorBase * >(argp2);
+  {
+    try {
+      result = (bool)((XmpDataIteratorBase const *)arg1)->operator !=((XmpDataIteratorBase const &)*arg2);
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  PyErr_Clear();
+  Py_INCREF(Py_NotImplemented);
+  return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpDataIteratorBase *arg1 = (XmpDataIteratorBase *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  XmpDataIteratorBase *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpDataIteratorBase___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIteratorBase___iter__" "', argument " "1"" of type '" "XmpDataIteratorBase *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpDataIteratorBase * >(argp1);
+  {
+    try {
+      result = (XmpDataIteratorBase *)(arg1)->__iter__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpDataIteratorBase, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___next__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpDataIteratorBase *arg1 = (XmpDataIteratorBase *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpDataIteratorBase___next__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIteratorBase___next__" "', argument " "1"" of type '" "XmpDataIteratorBase *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpDataIteratorBase * >(argp1);
+  {
+    try {
+      result = (PyObject *)(arg1)->__next__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___str__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpDataIteratorBase *arg1 = (XmpDataIteratorBase *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpDataIteratorBase___str__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIteratorBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIteratorBase___str__" "', argument " "1"" of type '" "XmpDataIteratorBase *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpDataIteratorBase * >(argp1);
+  {
+    try {
+      result = (arg1)->__str__();
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpDataIteratorBase) /* defines _wrap_delete_XmpDataIteratorBase_destructor_closure */
+
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpDataIteratorBase___iter__) /* defines _wrap_XmpDataIteratorBase___iter___getiterfunc_closure */
+
+SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_XmpDataIteratorBase___next__) /* defines _wrap_XmpDataIteratorBase___next___iternextfunc_closure */
+
+SWIGPY_REPRFUNC_CLOSURE(_wrap_XmpDataIteratorBase___str__) /* defines _wrap_XmpDataIteratorBase___str___reprfunc_closure */
+
 SWIGINTERN PyObject *_wrap_XmpDataIterator___deref__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   XmpDataIterator *arg1 = (XmpDataIterator *) 0 ;
@@ -4675,15 +4880,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___deref__(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator___deref__" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator___deref__", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator___deref__","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator___deref__","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator___deref__","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator___deref__","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (Exiv2::Xmpdatum *)((XmpDataIterator const *)arg1)->operator ->();
@@ -4716,15 +4912,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___iter__(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator___iter__" "', argument " "1"" of type '" "XmpDataIterator *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator___iter__", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator___iter__","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator___iter__","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator___iter__","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator___iter__","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (XmpDataIterator *)(arg1)->__iter__();
@@ -4758,139 +4945,14 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___next__(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
   
-  if (strcmp("XmpDataIterator___next__", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator___next__","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator___next__","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator___next__","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator___next__","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
+  result = (Exiv2::Xmpdatum *)(arg1)->__next__();
+  if (PyErr_Occurred())
   SWIG_fail;
   
-  {
-    try {
-      result = (Exiv2::Xmpdatum *)(arg1)->__next__();
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpDataIterator___eq__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataIterator *arg1 = (XmpDataIterator *) 0 ;
-  XmpDataIterator *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator___eq__" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_XmpDataIterator,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpDataIterator___eq__" "', argument " "2"" of type '" "XmpDataIterator const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpDataIterator___eq__" "', argument " "2"" of type '" "XmpDataIterator const &""'"); 
-  }
-  arg2 = reinterpret_cast< XmpDataIterator * >(argp2);
-  
-  if (strcmp("XmpDataIterator___eq__", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator___eq__","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator___eq__","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator___eq__","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator___eq__","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      result = (bool)((XmpDataIterator const *)arg1)->operator ==((XmpDataIterator const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpDataIterator___ne__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpDataIterator *arg1 = (XmpDataIterator *) 0 ;
-  XmpDataIterator *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator___ne__" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_XmpDataIterator,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpDataIterator___ne__" "', argument " "2"" of type '" "XmpDataIterator const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpDataIterator___ne__" "', argument " "2"" of type '" "XmpDataIterator const &""'"); 
-  }
-  arg2 = reinterpret_cast< XmpDataIterator * >(argp2);
-  
-  if (strcmp("XmpDataIterator___ne__", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator___ne__","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator___ne__","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator___ne__","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator___ne__","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
-  {
-    try {
-      result = (bool)((XmpDataIterator const *)arg1)->operator !=((XmpDataIterator const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
-      SWIG_fail;
-    } catch(std::exception &e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
 }
 
 
@@ -4908,15 +4970,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___str__(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator___str__" "', argument " "1"" of type '" "XmpDataIterator *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator___str__", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator___str__","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator___str__","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator___str__","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator___str__","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (arg1)->__str__();
@@ -4929,6 +4982,37 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___str__(PyObject *self, PyObject *arg
     }
   }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_XmpDataIterator(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpDataIterator *arg1 = (XmpDataIterator *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_XmpDataIterator", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpDataIterator" "', argument " "1"" of type '" "XmpDataIterator *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
+  {
+    try {
+      delete arg1;
+    } catch(Exiv2::AnyError &e) {
+      PyErr_SetString(PyExc_AnyError, e.what());
+      SWIG_fail;
+    } catch(std::exception &e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -4955,15 +5039,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_setValue__SWIG_0(PyObject *self, Py_s
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpDataIterator_setValue" "', argument " "2"" of type '" "Exiv2::Value const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::Value * >(argp2);
-  
-  if (strcmp("XmpDataIterator_setValue", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_setValue","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_setValue","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_setValue","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_setValue","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       (*arg1)->setValue((Exiv2::Value const *)arg2);
@@ -5008,15 +5083,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_setValue__SWIG_1(PyObject *self, Py_s
     }
     arg2 = ptr;
   }
-  
-  if (strcmp("XmpDataIterator_setValue", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_setValue","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_setValue","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_setValue","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_setValue","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (int)(*arg1)->setValue((std::string const &)*arg2);
@@ -5102,15 +5168,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_copy(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpDataIterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  
-  if (strcmp("XmpDataIterator_copy", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_copy","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_copy","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_copy","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_copy","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (long)(*arg1)->copy(arg2,arg3);
@@ -5161,15 +5218,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_write__SWIG_0(PyObject *self, Py_ssiz
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpDataIterator_write" "', argument " "3"" of type '" "Exiv2::ExifData const *""'"); 
   }
   arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
-  
-  if (strcmp("XmpDataIterator_write", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_write","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_write","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_write","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_write","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
@@ -5212,15 +5260,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_write__SWIG_1(PyObject *self, Py_ssiz
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpDataIterator_write" "', argument " "2"" of type '" "std::ostream &""'"); 
   }
   arg2 = reinterpret_cast< std::ostream * >(argp2);
-  
-  if (strcmp("XmpDataIterator_write", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_write","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_write","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_write","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_write","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2);
@@ -5281,15 +5320,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_key(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_key" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_key", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_key","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_key","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_key","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_key","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->key();
@@ -5322,15 +5352,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_familyName(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_familyName" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_familyName", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_familyName","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_familyName","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_familyName","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_familyName","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (char *)(*arg1)->familyName();
@@ -5363,15 +5384,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_groupName(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_groupName" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_groupName", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_groupName","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_groupName","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_groupName","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_groupName","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->groupName();
@@ -5404,15 +5416,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tagName(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_tagName" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_tagName", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_tagName","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_tagName","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_tagName","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_tagName","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->tagName();
@@ -5445,15 +5448,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tagLabel(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_tagLabel" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_tagLabel", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_tagLabel","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_tagLabel","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_tagLabel","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_tagLabel","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->tagLabel();
@@ -5486,15 +5480,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tag(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_tag" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_tag", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_tag","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_tag","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_tag","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_tag","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (uint16_t)(*arg1)->tag();
@@ -5527,15 +5512,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeId(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_typeId" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_typeId", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_typeId","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_typeId","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_typeId","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_typeId","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (Exiv2::TypeId)(*arg1)->typeId();
@@ -5568,15 +5544,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeName(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_typeName" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_typeName", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_typeName","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_typeName","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_typeName","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_typeName","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (char *)(*arg1)->typeName();
@@ -5609,15 +5576,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeSize(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_typeSize" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_typeSize", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_typeSize","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_typeSize","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_typeSize","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_typeSize","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (long)(*arg1)->typeSize();
@@ -5650,15 +5608,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_count(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_count" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_count", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_count","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_count","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_count","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_count","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (long)(*arg1)->count();
@@ -5691,15 +5640,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_size(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_size" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_size", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_size","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_size","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_size","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_size","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (long)(*arg1)->size();
@@ -5731,15 +5671,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toString__SWIG_0(PyObject *self, Py_s
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_toString" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_toString", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_toString","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_toString","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_toString","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_toString","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->toString();
@@ -5779,15 +5710,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toString__SWIG_1(PyObject *self, Py_s
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpDataIterator_toString" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  
-  if (strcmp("XmpDataIterator_toString", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_toString","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_toString","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_toString","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_toString","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->toString(arg2);
@@ -5855,15 +5777,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toLong__SWIG_0(PyObject *self, Py_ssi
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpDataIterator_toLong" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  
-  if (strcmp("XmpDataIterator_toLong", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_toLong","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_toLong","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_toLong","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_toLong","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (long)(*arg1)->toLong(arg2);
@@ -5895,15 +5808,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toLong__SWIG_1(PyObject *self, Py_ssi
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_toLong" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_toLong", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_toLong","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_toLong","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_toLong","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_toLong","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (long)(*arg1)->toLong();
@@ -5971,15 +5875,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toFloat__SWIG_0(PyObject *self, Py_ss
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpDataIterator_toFloat" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  
-  if (strcmp("XmpDataIterator_toFloat", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (float)(*arg1)->toFloat(arg2);
@@ -6011,15 +5906,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toFloat__SWIG_1(PyObject *self, Py_ss
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_toFloat" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_toFloat", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_toFloat","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (float)(*arg1)->toFloat();
@@ -6087,15 +5973,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toRational__SWIG_0(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpDataIterator_toRational" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  
-  if (strcmp("XmpDataIterator_toRational", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_toRational","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_toRational","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_toRational","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_toRational","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->toRational(arg2);
@@ -6127,15 +6004,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toRational__SWIG_1(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_toRational" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_toRational", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_toRational","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_toRational","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_toRational","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_toRational","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->toRational();
@@ -6196,15 +6064,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_getValue(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_getValue" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_getValue", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_getValue","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_getValue","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_getValue","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_getValue","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->getValue();
@@ -6239,15 +6098,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_value(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_value" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator_value", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator_value","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator_value","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator_value","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator_value","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (Exiv2::Value *) &(*arg1)->value();
@@ -6287,15 +6137,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator__print__SWIG_0(PyObject *self, Py_ssi
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpDataIterator__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
-  
-  if (strcmp("XmpDataIterator__print", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator__print","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator__print","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator__print","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator__print","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->print((Exiv2::ExifData const *)arg2);
@@ -6327,15 +6168,6 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator__print__SWIG_1(PyObject *self, Py_ssi
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator__print" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  
-  if (strcmp("XmpDataIterator__print", "delete_""XmpData""Iterator") &&
-    strcmp("XmpDataIterator__print","XmpData""Iterator___iter__") &&
-    strcmp("XmpDataIterator__print","XmpData""Iterator___str__") &&
-    strcmp("XmpDataIterator__print","XmpData""Iterator___eq__") &&
-    strcmp("XmpDataIterator__print","XmpData""Iterator___ne__"))
-  if (arg1->_ptr_invalid())
-  SWIG_fail;
-  
   {
     try {
       result = (*arg1)->print();
@@ -6382,13 +6214,13 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpDataIterator) /* defines _wrap_delete_XmpDataIterator_destructor_closure */
-
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpDataIterator___iter__) /* defines _wrap_XmpDataIterator___iter___getiterfunc_closure */
 
 SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_XmpDataIterator___next__) /* defines _wrap_XmpDataIterator___next___iternextfunc_closure */
 
 SWIGPY_REPRFUNC_CLOSURE(_wrap_XmpDataIterator___str__) /* defines _wrap_XmpDataIterator___str___reprfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpDataIterator) /* defines _wrap_delete_XmpDataIterator_destructor_closure */
 
 SWIGINTERN int _wrap_new_Xmpdatum__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -7798,7 +7630,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 ;
-  XmpDataIterator *argp2 ;
+  XmpDataIteratorBase *argp2 ;
   PyObject *swig_obj[2] ;
   SwigValueWrapper< std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator > result;
   
@@ -7811,12 +7643,12 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
   
   res2 = SWIG_ConvertPtr(swig_obj[0], (void**)&argp2,
-    SWIGTYPE_p_XmpDataIterator, 0);
+    SWIGTYPE_p_XmpDataIteratorBase, 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIteratorBase""'");
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIterator""'");
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpDataIteratorBase""'");
   }
   arg2 = argp2->_unwrap();
   
@@ -7832,6 +7664,11 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
     }
   }
   
+  if ((Exiv2::XmpData::iterator)result == arg1->end())
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIteratorBase(result, self),
+    SWIGTYPE_p_XmpDataIteratorBase, SWIG_POINTER_OWN);
+  else
   resultobj = SWIG_NewPointerObj(
     new XmpDataIterator(result, arg1->end(), self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
@@ -7930,6 +7767,11 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
     }
   }
   
+  if ((Exiv2::XmpData::iterator)result == arg1->end())
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIteratorBase(result, self),
+    SWIGTYPE_p_XmpDataIteratorBase, SWIG_POINTER_OWN);
+  else
   resultobj = SWIG_NewPointerObj(
     new XmpDataIterator(result, arg1->end(), self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
@@ -7966,6 +7808,11 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
     }
   }
   
+  if ((Exiv2::XmpData::iterator)result == arg1->end())
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIteratorBase(result, self),
+    SWIGTYPE_p_XmpDataIteratorBase, SWIG_POINTER_OWN);
+  else
   resultobj = SWIG_NewPointerObj(
     new XmpDataIterator(result, arg1->end(), self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
@@ -8014,6 +7861,11 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
     }
   }
   
+  if ((Exiv2::XmpData::iterator)result == arg1->end())
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIteratorBase(result, self),
+    SWIGTYPE_p_XmpDataIteratorBase, SWIG_POINTER_OWN);
+  else
   resultobj = SWIG_NewPointerObj(
     new XmpDataIterator(result, arg1->end(), self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
@@ -8681,6 +8533,11 @@ SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
     }
   }
   
+  if ((Exiv2::XmpData::iterator)result == arg1->end())
+  resultobj = SWIG_NewPointerObj(
+    new XmpDataIteratorBase(result, self),
+    SWIGTYPE_p_XmpDataIteratorBase, SWIG_POINTER_OWN);
+  else
   resultobj = SWIG_NewPointerObj(
     new XmpDataIterator(result, arg1->end(), self),
     SWIGTYPE_p_XmpDataIterator, SWIG_POINTER_OWN);
@@ -9084,6 +8941,228 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 	 { NULL, NULL, 0, NULL }
 };
 
+static SwigPyGetSet XmpDataIteratorBase___dict___getset = { SwigPyObject_get___dict__, 0 };
+SWIGINTERN PyGetSetDef SwigPyBuiltin__XmpDataIteratorBase_getset[] = {
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &XmpDataIteratorBase___dict___getset },
+    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
+};
+
+SWIGINTERN PyObject *
+SwigPyBuiltin__XmpDataIteratorBase_richcompare(PyObject *self, PyObject *other, int op) {
+  PyObject *result = NULL;
+  switch (op) {
+    case Py_EQ : result = _wrap_XmpDataIteratorBase___eq__(self, other); break;
+    case Py_NE : result = _wrap_XmpDataIteratorBase___ne__(self, other); break;
+    default : break;
+  }
+  if (!result) {
+    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
+      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
+    } else {
+      result = Py_NotImplemented;
+      Py_INCREF(result);
+    }
+  }
+  return result;
+}
+
+SWIGINTERN PyMethodDef SwigPyBuiltin__XmpDataIteratorBase_methods[] = {
+  { "__eq__", _wrap_XmpDataIteratorBase___eq__, METH_O, "" },
+  { "__ne__", _wrap_XmpDataIteratorBase___ne__, METH_O, "" },
+  { "__iter__", _wrap_XmpDataIteratorBase___iter__, METH_NOARGS, "" },
+  { "__next__", _wrap_XmpDataIteratorBase___next__, METH_NOARGS, "" },
+  { "__str__", _wrap_XmpDataIteratorBase___str__, METH_NOARGS, "" },
+  { NULL, NULL, 0, NULL } /* Sentinel */
+};
+
+static PyHeapTypeObject SwigPyBuiltin__XmpDataIteratorBase_type = {
+  {
+#if PY_VERSION_HEX >= 0x03000000
+    PyVarObject_HEAD_INIT(NULL, 0)
+#else
+    PyObject_HEAD_INIT(NULL)
+    0,                                        /* ob_size */
+#endif
+    "exiv2.xmp.XmpDataIteratorBase",          /* tp_name */
+    sizeof(SwigPyObject),                     /* tp_basicsize */
+    0,                                        /* tp_itemsize */
+    _wrap_delete_XmpDataIteratorBase_destructor_closure,          /* tp_dealloc */
+    (printfunc) 0,                            /* tp_print */
+    (getattrfunc) 0,                          /* tp_getattr */
+    (setattrfunc) 0,                          /* tp_setattr */
+#if PY_VERSION_HEX >= 0x03000000
+    0,                                        /* tp_compare */
+#else
+    (cmpfunc) 0,                              /* tp_compare */
+#endif
+    (reprfunc) 0,                             /* tp_repr */
+    &SwigPyBuiltin__XmpDataIteratorBase_type.as_number,           /* tp_as_number */
+    &SwigPyBuiltin__XmpDataIteratorBase_type.as_sequence,         /* tp_as_sequence */
+    &SwigPyBuiltin__XmpDataIteratorBase_type.as_mapping,          /* tp_as_mapping */
+    SwigPyObject_hash,                        /* tp_hash */
+    (ternaryfunc) 0,                          /* tp_call */
+    _wrap_XmpDataIteratorBase___str___reprfunc_closure,           /* tp_str */
+    (getattrofunc) 0,                         /* tp_getattro */
+    (setattrofunc) 0,                         /* tp_setattro */
+    &SwigPyBuiltin__XmpDataIteratorBase_type.as_buffer,           /* tp_as_buffer */
+#if PY_VERSION_HEX >= 0x03000000
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
+#else
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
+#endif
+    "::XmpDataIteratorBase",                  /* tp_doc */
+    (traverseproc) 0,                         /* tp_traverse */
+    (inquiry) 0,                              /* tp_clear */
+    SwigPyBuiltin__XmpDataIteratorBase_richcompare,               /* tp_richcompare */
+    0,                                        /* tp_weaklistoffset */
+    _wrap_XmpDataIteratorBase___iter___getiterfunc_closure,       /* tp_iter */
+    _wrap_XmpDataIteratorBase___next___iternextfunc_closure,      /* tp_iternext */
+    SwigPyBuiltin__XmpDataIteratorBase_methods,                   /* tp_methods */
+    0,                                        /* tp_members */
+    SwigPyBuiltin__XmpDataIteratorBase_getset,/* tp_getset */
+    0,                                        /* tp_base */
+    0,                                        /* tp_dict */
+    (descrgetfunc) 0,                         /* tp_descr_get */
+    (descrsetfunc) 0,                         /* tp_descr_set */
+    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
+    SwigPyBuiltin_BadInit,                    /* tp_init */
+    (allocfunc) 0,                            /* tp_alloc */
+    (newfunc) 0,                              /* tp_new */
+    (freefunc) 0,                             /* tp_free */
+    (inquiry) 0,                              /* tp_is_gc */
+    (PyObject *) 0,                           /* tp_bases */
+    (PyObject *) 0,                           /* tp_mro */
+    (PyObject *) 0,                           /* tp_cache */
+    (PyObject *) 0,                           /* tp_subclasses */
+    (PyObject *) 0,                           /* tp_weaklist */
+    (destructor) 0,                           /* tp_del */
+    (int) 0,                                  /* tp_version_tag */
+#if PY_VERSION_HEX >= 0x03040000
+    (destructor) 0,                           /* tp_finalize */
+#endif
+#if PY_VERSION_HEX >= 0x03080000
+    (vectorcallfunc) 0,                       /* tp_vectorcall */
+#endif
+#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
+    0,                                        /* tp_print */
+#endif
+#ifdef COUNT_ALLOCS
+    (Py_ssize_t) 0,                           /* tp_allocs */
+    (Py_ssize_t) 0,                           /* tp_frees */
+    (Py_ssize_t) 0,                           /* tp_maxalloc */
+    0,                                        /* tp_prev */
+    0,                                        /* tp_next */
+#endif
+  },
+#if PY_VERSION_HEX >= 0x03050000
+  {
+    (unaryfunc) 0,                            /* am_await */
+    (unaryfunc) 0,                            /* am_aiter */
+    (unaryfunc) 0,                            /* am_anext */
+  },
+#endif
+  {
+    (binaryfunc) 0,                           /* nb_add */
+    (binaryfunc) 0,                           /* nb_subtract */
+    (binaryfunc) 0,                           /* nb_multiply */
+#if PY_VERSION_HEX < 0x03000000
+    (binaryfunc) 0,                           /* nb_divide */
+#endif
+    (binaryfunc) 0,                           /* nb_remainder */
+    (binaryfunc) 0,                           /* nb_divmod */
+    (ternaryfunc) 0,                          /* nb_power */
+    (unaryfunc) 0,                            /* nb_negative */
+    (unaryfunc) 0,                            /* nb_positive */
+    (unaryfunc) 0,                            /* nb_absolute */
+    (inquiry) 0,                              /* nb_nonzero */
+    (unaryfunc) 0,                            /* nb_invert */
+    (binaryfunc) 0,                           /* nb_lshift */
+    (binaryfunc) 0,                           /* nb_rshift */
+    (binaryfunc) 0,                           /* nb_and */
+    (binaryfunc) 0,                           /* nb_xor */
+    (binaryfunc) 0,                           /* nb_or */
+#if PY_VERSION_HEX < 0x03000000
+    (coercion) 0,                             /* nb_coerce */
+#endif
+    (unaryfunc) 0,                            /* nb_int */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* nb_reserved */
+#else
+    (unaryfunc) 0,                            /* nb_long */
+#endif
+    (unaryfunc) 0,                            /* nb_float */
+#if PY_VERSION_HEX < 0x03000000
+    (unaryfunc) 0,                            /* nb_oct */
+    (unaryfunc) 0,                            /* nb_hex */
+#endif
+    (binaryfunc) 0,                           /* nb_inplace_add */
+    (binaryfunc) 0,                           /* nb_inplace_subtract */
+    (binaryfunc) 0,                           /* nb_inplace_multiply */
+#if PY_VERSION_HEX < 0x03000000
+    (binaryfunc) 0,                           /* nb_inplace_divide */
+#endif
+    (binaryfunc) 0,                           /* nb_inplace_remainder */
+    (ternaryfunc) 0,                          /* nb_inplace_power */
+    (binaryfunc) 0,                           /* nb_inplace_lshift */
+    (binaryfunc) 0,                           /* nb_inplace_rshift */
+    (binaryfunc) 0,                           /* nb_inplace_and */
+    (binaryfunc) 0,                           /* nb_inplace_xor */
+    (binaryfunc) 0,                           /* nb_inplace_or */
+    (binaryfunc) 0,                           /* nb_floor_divide */
+    (binaryfunc) 0,                           /* nb_true_divide */
+    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
+    (binaryfunc) 0,                           /* nb_inplace_true_divide */
+    (unaryfunc) 0,                            /* nb_index */
+#if PY_VERSION_HEX >= 0x03050000
+    (binaryfunc) 0,                           /* nb_matrix_multiply */
+    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
+#endif
+  },
+  {
+    (lenfunc) 0,                              /* mp_length */
+    (binaryfunc) 0,                           /* mp_subscript */
+    (objobjargproc) 0,                        /* mp_ass_subscript */
+  },
+  {
+    (lenfunc) 0,                              /* sq_length */
+    (binaryfunc) 0,                           /* sq_concat */
+    (ssizeargfunc) 0,                         /* sq_repeat */
+    (ssizeargfunc) 0,                         /* sq_item */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* was_sq_slice */
+#else
+    (ssizessizeargfunc) 0,                    /* sq_slice */
+#endif
+    (ssizeobjargproc) 0,                      /* sq_ass_item */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* was_sq_ass_slice */
+#else
+    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
+#endif
+    (objobjproc) 0,                           /* sq_contains */
+    (binaryfunc) 0,                           /* sq_inplace_concat */
+    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
+  },
+  {
+#if PY_VERSION_HEX < 0x03000000
+    (readbufferproc) 0,                       /* bf_getreadbuffer */
+    (writebufferproc) 0,                      /* bf_getwritebuffer */
+    (segcountproc) 0,                         /* bf_getsegcount */
+    (charbufferproc) 0,                       /* bf_getcharbuffer */
+#endif
+    (getbufferproc) 0,                        /* bf_getbuffer */
+    (releasebufferproc) 0,                    /* bf_releasebuffer */
+  },
+    (PyObject *) 0,                           /* ht_name */
+    (PyObject *) 0,                           /* ht_slots */
+#if PY_VERSION_HEX >= 0x03030000
+    (PyObject *) 0,                           /* ht_qualname */
+    0,                                        /* ht_cached_keys */
+#endif
+};
+
+SWIGINTERN SwigPyClientData SwigPyBuiltin__XmpDataIteratorBase_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__XmpDataIteratorBase_type};
+
 static SwigPyGetSet XmpDataIterator___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__XmpDataIterator_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &XmpDataIterator___dict___getset },
@@ -9094,8 +9173,8 @@ SWIGINTERN PyObject *
 SwigPyBuiltin__XmpDataIterator_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
   switch (op) {
-    case Py_EQ : result = _wrap_XmpDataIterator___eq__(self, other); break;
-    case Py_NE : result = _wrap_XmpDataIterator___ne__(self, other); break;
+    case Py_EQ : result = _wrap_XmpDataIteratorBase___eq__(self, other); break;
+    case Py_NE : result = _wrap_XmpDataIteratorBase___ne__(self, other); break;
     default : break;
   }
   if (!result) {
@@ -9113,8 +9192,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__XmpDataIterator_methods[] = {
   { "__deref__", _wrap_XmpDataIterator___deref__, METH_NOARGS, "" },
   { "__iter__", _wrap_XmpDataIterator___iter__, METH_NOARGS, "" },
   { "__next__", _wrap_XmpDataIterator___next__, METH_NOARGS, "" },
-  { "__eq__", _wrap_XmpDataIterator___eq__, METH_O, "" },
-  { "__ne__", _wrap_XmpDataIterator___ne__, METH_O, "" },
   { "__str__", _wrap_XmpDataIterator___str__, METH_NOARGS, "" },
   { "setValue", _wrap_XmpDataIterator_setValue, METH_VARARGS, "" },
   { "copy", _wrap_XmpDataIterator_copy, METH_VARARGS, " Not implemented. Calling this method will raise an exception." },
@@ -10214,6 +10291,30 @@ static void *_p_Exiv2__IptcKeyTo_p_Exiv2__Key(void *x, int *SWIGUNUSEDPARM(newme
 static void *_p_Exiv2__XmpKeyTo_p_Exiv2__Key(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::Key *)  ((Exiv2::XmpKey *) x));
 }
+static void *_p_Exiv2__XmpdatumTo_p_Exiv2__Metadatum(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::Metadatum *)  ((Exiv2::Xmpdatum *) x));
+}
+static void *_p_XmpDataIteratorTo_p_XmpDataIteratorBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((XmpDataIteratorBase *)  ((XmpDataIterator *) x));
+}
+static void *_p_Exiv2__CommentValueTo_p_Exiv2__StringValueBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::StringValueBase *)  ((Exiv2::CommentValue *) x));
+}
+static void *_p_Exiv2__StringValueTo_p_Exiv2__StringValueBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::StringValueBase *)  ((Exiv2::StringValue *) x));
+}
+static void *_p_Exiv2__AsciiValueTo_p_Exiv2__StringValueBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::StringValueBase *)  ((Exiv2::AsciiValue *) x));
+}
+static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
+}
+static void *_p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::XmpValue *)  ((Exiv2::LangAltValue *) x));
+}
+static void *_p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpArrayValue *) x));
+}
 static void *_p_Exiv2__LangAltValueTo_p_Exiv2__Value(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::Value *) (Exiv2::XmpValue *) ((Exiv2::LangAltValue *) x));
 }
@@ -10271,27 +10372,6 @@ static void *_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_tTo_p_Exiv2__Va
 static void *_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_tTo_p_Exiv2__Value(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::Value *)  ((Exiv2::ValueType< std::pair< int32_t,int32_t > > *) x));
 }
-static void *_p_Exiv2__CommentValueTo_p_Exiv2__StringValueBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::StringValueBase *)  ((Exiv2::CommentValue *) x));
-}
-static void *_p_Exiv2__StringValueTo_p_Exiv2__StringValueBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::StringValueBase *)  ((Exiv2::StringValue *) x));
-}
-static void *_p_Exiv2__AsciiValueTo_p_Exiv2__StringValueBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::StringValueBase *)  ((Exiv2::AsciiValue *) x));
-}
-static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
-}
-static void *_p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::XmpValue *)  ((Exiv2::LangAltValue *) x));
-}
-static void *_p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpArrayValue *) x));
-}
-static void *_p_Exiv2__XmpdatumTo_p_Exiv2__Metadatum(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::Metadatum *)  ((Exiv2::Xmpdatum *) x));
-}
 static swig_type_info _swigt__p_AutoPtr = {"_p_AutoPtr", "AutoPtr *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue", "Exiv2::CommentValue *", 0, 0, (void*)0, 0};
@@ -10326,6 +10406,7 @@ static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject
 static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_XmpDataIterator = {"_p_XmpDataIterator", "XmpDataIterator *", 0, 0, (void*)&SwigPyBuiltin__XmpDataIterator_clientdata, 0};
+static swig_type_info _swigt__p_XmpDataIteratorBase = {"_p_XmpDataIteratorBase", "XmpDataIteratorBase *", 0, 0, (void*)&SwigPyBuiltin__XmpDataIteratorBase_clientdata, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -10396,6 +10477,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ValueList,
   &_swigt__p_ValueType,
   &_swigt__p_XmpDataIterator,
+  &_swigt__p_XmpDataIteratorBase,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
@@ -10466,6 +10548,7 @@ static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0,
 static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_XmpDataIterator[] = {  {&_swigt__p_XmpDataIterator, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_XmpDataIteratorBase[] = {  {&_swigt__p_XmpDataIterator, _p_XmpDataIteratorTo_p_XmpDataIteratorBase, 0, 0},  {&_swigt__p_XmpDataIteratorBase, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -10536,6 +10619,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ValueList,
   _swigc__p_ValueType,
   _swigc__p_XmpDataIterator,
+  _swigc__p_XmpDataIteratorBase,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,
@@ -11320,12 +11404,46 @@ SWIG_init(void) {
   }
   
   
+  /* type '::XmpDataIteratorBase' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__XmpDataIteratorBase_type;
+  builtin_pytype->tp_dict = d = PyDict_New();
+  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
+  builtin_pytype->tp_new = PyType_GenericNew;
+  builtin_base_count = 0;
+  builtin_bases[builtin_base_count] = NULL;
+  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
+  PyDict_SetItemString(d, "this", this_descr);
+  PyDict_SetItemString(d, "thisown", thisown_descr);
+  if (PyType_Ready(builtin_pytype) < 0) {
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'XmpDataIteratorBase'.");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
+  Py_INCREF(builtin_pytype);
+  PyModule_AddObject(m, "XmpDataIteratorBase", (PyObject *)builtin_pytype);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpDataIteratorBase");
+  d = md;
+  
   /* type '::XmpDataIterator' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__XmpDataIterator_type;
   builtin_pytype->tp_dict = d = PyDict_New();
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
+  builtin_basetype = SWIG_MangledTypeQuery("_p_XmpDataIteratorBase");
+  if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
+    builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
+  } else {
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'XmpDataIterator' as base 'XmpDataIteratorBase' has not been initialized.\n");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
   builtin_bases[builtin_base_count] = NULL;
   SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
   PyDict_SetItemString(d, "this", this_descr);
