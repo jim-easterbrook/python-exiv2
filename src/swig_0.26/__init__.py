@@ -1,6 +1,7 @@
 
 import logging
 import sys
+import warnings
 
 if sys.platform == 'win32':
     import os
@@ -12,9 +13,21 @@ if sys.platform == 'win32':
 
 _logger = logging.getLogger(__name__)
 
-class AnyError(Exception):
+class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors"""
     pass
+
+if sys.version_info < (3, 7):
+    # provide old AnyError for compatibility
+    AnyError = Exiv2Error
+else:
+    # issue deprecation warning if user imports AnyError
+    def __getattr__(name):
+        if name == 'AnyError':
+            warnings.warn("Please replace 'AnyError' with 'Exiv2Error'",
+                          DeprecationWarning)
+            return Exiv2Error
+        raise AttributeError
 
 __version__ = "0.10.0"
 

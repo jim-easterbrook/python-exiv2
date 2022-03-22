@@ -3559,7 +3559,7 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-PyObject* PyExc_AnyError = NULL;
+PyObject* PyExc_Exiv2Error = NULL;
 PyObject* logger = NULL;
 
 
@@ -3754,7 +3754,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
     try {
       Exiv2::LogMsg::setLevel(arg1);
     } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
     } catch(std::exception &e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
@@ -3777,7 +3777,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
     try {
       result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
     } catch(Exiv2::AnyError &e) {
-      PyErr_SetString(PyExc_AnyError, e.what());
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
     } catch(std::exception &e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
@@ -4815,11 +4815,11 @@ SWIG_init(void) {
   {
     PyObject *module = PyImport_ImportModule("exiv2");
     if (module != NULL) {
-      PyExc_AnyError = PyObject_GetAttrString(module, "AnyError");
+      PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
       logger = PyObject_GetAttrString(module, "_logger");
       Py_DECREF(module);
     }
-    if (PyExc_AnyError == NULL || logger == NULL)
+    if (PyExc_Exiv2Error == NULL || logger == NULL)
     return NULL;
   }
   

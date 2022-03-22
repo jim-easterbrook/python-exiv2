@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -140,6 +140,7 @@ def main():
         im.write('''
 import logging
 import sys
+import warnings
 
 if sys.platform == 'win32':
     import os
@@ -151,9 +152,21 @@ if sys.platform == 'win32':
 
 _logger = logging.getLogger(__name__)
 
-class AnyError(Exception):
+class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors"""
     pass
+
+if sys.version_info < (3, 7):
+    # provide old AnyError for compatibility
+    AnyError = Exiv2Error
+else:
+    # issue deprecation warning if user imports AnyError
+    def __getattr__(name):
+        if name == 'AnyError':
+            warnings.warn("Please replace 'AnyError' with 'Exiv2Error'",
+                          DeprecationWarning)
+            return Exiv2Error
+        raise AttributeError
 
 ''')
         im.write('__version__ = "%s"\n\n' % py_exiv2_version)
