@@ -4085,6 +4085,7 @@ SWIGINTERN PyObject *_wrap_GroupInfo___eq____SWIG_0(PyObject *self, Py_ssize_t n
   {
     try {
       result = (bool)((Exiv2::GroupInfo const *)arg1)->operator ==(arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4129,6 +4130,7 @@ SWIGINTERN PyObject *_wrap_GroupInfo___eq____SWIG_1(PyObject *self, Py_ssize_t n
   {
     try {
       result = (bool)((Exiv2::GroupInfo const *)arg1)->operator ==((Exiv2::GroupInfo::GroupName const &)*arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4281,6 +4283,7 @@ SWIGINTERN PyObject *_wrap_delete_GroupInfo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4512,6 +4515,7 @@ SWIGINTERN PyObject *_wrap_delete_TagInfo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4537,6 +4541,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_groupList(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::GroupInfo *)Exiv2::ExifTags::groupList();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4584,6 +4589,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_tagList(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::TagInfo *)Exiv2::ExifTags::tagList((std::string const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4628,6 +4634,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_taglist__SWIG_0(PyObject *self, Py_ssize_t n
   {
     try {
       Exiv2::ExifTags::taglist(*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4674,6 +4681,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_taglist__SWIG_1(PyObject *self, Py_ssize_t n
   {
     try {
       Exiv2::ExifTags::taglist(*arg1,(std::string const &)*arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4740,6 +4748,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_sectionName(PyObject *self, PyObject *args) 
   {
     try {
       result = (char *)Exiv2::ExifTags::sectionName((Exiv2::ExifKey const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4776,6 +4785,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_defaultCount(PyObject *self, PyObject *args)
   {
     try {
       result = (uint16_t)Exiv2::ExifTags::defaultCount((Exiv2::ExifKey const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4814,6 +4824,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_ifdName(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)Exiv2::ExifTags::ifdName((std::string const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4854,6 +4865,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_isMakerGroup(PyObject *self, PyObject *args)
   {
     try {
       result = (bool)Exiv2::ExifTags::isMakerGroup((std::string const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4894,6 +4906,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_isExifGroup(PyObject *self, PyObject *args) 
   {
     try {
       result = (bool)Exiv2::ExifTags::isExifGroup((std::string const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4927,6 +4940,7 @@ SWIGINTERN PyObject *_wrap_delete_ExifTags(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4965,6 +4979,7 @@ SWIGINTERN int _wrap_new_ExifKey__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::ExifKey *)new Exiv2::ExifKey((std::string const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5011,6 +5026,7 @@ SWIGINTERN int _wrap_new_ExifKey__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::ExifKey *)new Exiv2::ExifKey(arg1,(std::string const &)*arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5047,6 +5063,7 @@ SWIGINTERN int _wrap_new_ExifKey__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::ExifKey *)new Exiv2::ExifKey((Exiv2::TagInfo const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5081,6 +5098,7 @@ SWIGINTERN int _wrap_new_ExifKey__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::ExifKey *)new Exiv2::ExifKey((Exiv2::ExifKey const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5165,6 +5183,7 @@ SWIGINTERN PyObject *_wrap_delete_ExifKey(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5205,6 +5224,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_setIdx(PyObject *self, PyObject *args) {
   {
     try {
       (arg1)->setIdx(arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5237,6 +5257,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_key(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::ExifKey const *)arg1)->key();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5269,6 +5290,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_familyName(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)((Exiv2::ExifKey const *)arg1)->familyName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5301,6 +5323,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_groupName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::ExifKey const *)arg1)->groupName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5333,6 +5356,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_ifdId(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)((Exiv2::ExifKey const *)arg1)->ifdId();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5365,6 +5389,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_tagName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::ExifKey const *)arg1)->tagName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5397,6 +5422,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_tag(PyObject *self, PyObject *args) {
   {
     try {
       result = (uint16_t)((Exiv2::ExifKey const *)arg1)->tag();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5429,6 +5455,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_tagLabel(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::ExifKey const *)arg1)->tagLabel();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5461,6 +5488,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_tagDesc(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::ExifKey const *)arg1)->tagDesc();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5493,6 +5521,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_defaultTypeId(PyObject *self, PyObject *args)
   {
     try {
       result = (Exiv2::TypeId)((Exiv2::ExifKey const *)arg1)->defaultTypeId();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5525,6 +5554,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_clone(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::ExifKey const *)arg1)->clone();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5559,6 +5589,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_idx(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)((Exiv2::ExifKey const *)arg1)->idx();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;

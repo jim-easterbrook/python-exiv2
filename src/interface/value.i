@@ -65,7 +65,11 @@ wrap_auto_unique_ptr(Exiv2::Value);
             std::string msg = "Cannot cast type '";
             msg += Exiv2::TypeInfo::typeName(value.typeId());
             msg += "' to type_name.";
+#if EXIV2_VERSION_HEX < 0x01000000
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
+#else
+            throw Exiv2::Error(Exiv2::ErrorCode::kerErrorMessage, msg);
+#endif
         }
         PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
             "Replace part_name.downCast(value) with copy constructor "
@@ -80,7 +84,11 @@ wrap_auto_unique_ptr(Exiv2::Value);
             msg += "' to type '";
             msg += Exiv2::TypeInfo::typeName(type_name().typeId());
             msg += "'.";
+#if EXIV2_VERSION_HEX < 0x01000000
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
+#else
+            throw Exiv2::Error(Exiv2::ErrorCode::kerErrorMessage, msg);
+#endif
         }
         return pv;
     }

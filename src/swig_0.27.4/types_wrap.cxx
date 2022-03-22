@@ -4637,6 +4637,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeName(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)Exiv2::TypeInfo::typeName(arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4673,6 +4674,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeId(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::TypeId)Exiv2::TypeInfo::typeId((std::string const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4706,6 +4708,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeSize(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)Exiv2::TypeInfo::typeSize(arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4737,6 +4740,7 @@ SWIGINTERN PyObject *_wrap_delete_TypeInfo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4762,6 +4766,7 @@ SWIGINTERN int _wrap_new_DataBuf__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::DataBuf *)new Exiv2::DataBuf();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4793,6 +4798,7 @@ SWIGINTERN int _wrap_new_DataBuf__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::DataBuf *)new Exiv2::DataBuf(arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4832,6 +4838,7 @@ SWIGINTERN int _wrap_new_DataBuf__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::DataBuf *)new Exiv2::DataBuf((Exiv2::byte const *)arg1,arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4866,6 +4873,7 @@ SWIGINTERN int _wrap_new_DataBuf__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::DataBuf *)new Exiv2::DataBuf(*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4945,6 +4953,7 @@ SWIGINTERN PyObject *_wrap_delete_DataBuf(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4985,6 +4994,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_alloc(PyObject *self, PyObject *args) {
   {
     try {
       (arg1)->alloc(arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5017,6 +5027,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_release(PyObject *self, PyObject *args) {
   {
     try {
       result = (arg1)->release();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5048,6 +5059,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_free(PyObject *self, PyObject *args) {
   {
     try {
       (arg1)->free();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5094,6 +5106,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_reset__SWIG_0(PyObject *self, Py_ssize_t nobj
   {
     try {
       (arg1)->reset(arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5124,6 +5137,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_reset__SWIG_1(PyObject *self, Py_ssize_t nobj
   {
     try {
       (arg1)->reset();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5184,6 +5198,7 @@ SWIGINTERN PyObject *_wrap_DataBuf___len__(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)Exiv2_DataBuf___len__(arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5219,6 +5234,7 @@ SWIGINTERN PyObject *_wrap_DataBuf___getitem__(PyObject *self, PyObject *args) {
   {
     try {
       result = (PyObject *)Exiv2_DataBuf___getitem__(arg1,arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5276,6 +5292,7 @@ SWIGINTERN PyObject *_wrap_isHex__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (bool)Exiv2::isHex((std::string const &)*arg1,arg2,(std::string const &)*arg3);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5318,6 +5335,7 @@ SWIGINTERN PyObject *_wrap_isHex__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (bool)Exiv2::isHex((std::string const &)*arg1,arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5352,6 +5370,7 @@ SWIGINTERN PyObject *_wrap_isHex__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (bool)Exiv2::isHex((std::string const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5427,6 +5446,7 @@ SWIGINTERN PyObject *_wrap_exifTime(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)Exiv2::exifTime((char const *)arg1,arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5452,6 +5472,7 @@ SWIGINTERN int _wrap_new_URational__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyO
   {
     try {
       result = (std::pair< uint32_t,uint32_t > *)new std::pair< uint32_t,uint32_t >();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5491,6 +5512,7 @@ SWIGINTERN int _wrap_new_URational__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
   {
     try {
       result = (std::pair< uint32_t,uint32_t > *)new std::pair< uint32_t,uint32_t >(arg1,arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5527,6 +5549,7 @@ SWIGINTERN int _wrap_new_URational__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
   {
     try {
       result = (std::pair< uint32_t,uint32_t > *)new std::pair< uint32_t,uint32_t >((std::pair< uint32_t,uint32_t > const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5699,6 +5722,7 @@ SWIGINTERN PyObject *_wrap_delete_URational(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5724,6 +5748,7 @@ SWIGINTERN int _wrap_new_Rational__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyOb
   {
     try {
       result = (std::pair< int32_t,int32_t > *)new std::pair< int32_t,int32_t >();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5763,6 +5788,7 @@ SWIGINTERN int _wrap_new_Rational__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyOb
   {
     try {
       result = (std::pair< int32_t,int32_t > *)new std::pair< int32_t,int32_t >(arg1,arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5799,6 +5825,7 @@ SWIGINTERN int _wrap_new_Rational__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyOb
   {
     try {
       result = (std::pair< int32_t,int32_t > *)new std::pair< int32_t,int32_t >((std::pair< int32_t,int32_t > const &)*arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5971,6 +5998,7 @@ SWIGINTERN PyObject *_wrap_delete_Rational(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;

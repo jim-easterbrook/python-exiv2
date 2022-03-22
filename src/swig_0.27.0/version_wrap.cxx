@@ -3790,6 +3790,7 @@ SWIGINTERN PyObject *_wrap_versionNumber(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)Exiv2::versionNumber();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -3813,6 +3814,7 @@ SWIGINTERN PyObject *_wrap_versionString(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::versionString();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -3836,6 +3838,7 @@ SWIGINTERN PyObject *_wrap_versionNumberHexString(PyObject *self, PyObject *args
   {
     try {
       result = Exiv2::versionNumberHexString();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -3859,6 +3862,7 @@ SWIGINTERN PyObject *_wrap_version(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)Exiv2::version();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -3907,6 +3911,7 @@ SWIGINTERN PyObject *_wrap_testVersion(PyObject *self, PyObject *args) {
   {
     try {
       result = (bool)Exiv2::testVersion(arg1,arg2,arg3);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;

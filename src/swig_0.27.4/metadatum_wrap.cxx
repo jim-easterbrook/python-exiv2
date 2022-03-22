@@ -4482,6 +4482,7 @@ SWIGINTERN PyObject *_wrap_delete_Key(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4514,6 +4515,7 @@ SWIGINTERN PyObject *_wrap_Key_key(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Key const *)arg1)->key();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4546,6 +4548,7 @@ SWIGINTERN PyObject *_wrap_Key_familyName(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)((Exiv2::Key const *)arg1)->familyName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4578,6 +4581,7 @@ SWIGINTERN PyObject *_wrap_Key_groupName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Key const *)arg1)->groupName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4610,6 +4614,7 @@ SWIGINTERN PyObject *_wrap_Key_tagName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Key const *)arg1)->tagName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4642,6 +4647,7 @@ SWIGINTERN PyObject *_wrap_Key_tagLabel(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Key const *)arg1)->tagLabel();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4674,6 +4680,7 @@ SWIGINTERN PyObject *_wrap_Key_tag(PyObject *self, PyObject *args) {
   {
     try {
       result = (uint16_t)((Exiv2::Key const *)arg1)->tag();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4706,6 +4713,7 @@ SWIGINTERN PyObject *_wrap_Key_clone(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Key const *)arg1)->clone();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4752,6 +4760,7 @@ SWIGINTERN PyObject *_wrap_Key_write(PyObject *self, PyObject *args) {
   {
     try {
       result = (std::ostream *) &((Exiv2::Key const *)arg1)->write(*arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4784,6 +4793,7 @@ SWIGINTERN PyObject *_wrap_Key___str__(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2_Key___str__(arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4819,6 +4829,7 @@ SWIGINTERN PyObject *_wrap_delete_Metadatum(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4857,6 +4868,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_setValue__SWIG_0(PyObject *self, Py_ssize_t
   {
     try {
       (arg1)->setValue((Exiv2::Value const *)arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4901,6 +4913,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_setValue__SWIG_1(PyObject *self, Py_ssize_t
   {
     try {
       result = (int)(arg1)->setValue((std::string const &)*arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -4977,6 +4990,7 @@ SWIGINTERN PyObject *_wrap_Metadatum__print__SWIG_0(PyObject *self, Py_ssize_t n
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->print((Exiv2::ExifData const *)arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5008,6 +5022,7 @@ SWIGINTERN PyObject *_wrap_Metadatum__print__SWIG_1(PyObject *self, Py_ssize_t n
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->print();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5084,6 +5099,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::Metadatum const *)arg1)->copy(arg2,arg3);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5134,6 +5150,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_write__SWIG_0(PyObject *self, Py_ssize_t no
   {
     try {
       result = (std::ostream *) &((Exiv2::Metadatum const *)arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5176,6 +5193,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_write__SWIG_1(PyObject *self, Py_ssize_t no
   {
     try {
       result = (std::ostream *) &((Exiv2::Metadatum const *)arg1)->write(*arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5236,6 +5254,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_key(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->key();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5268,6 +5287,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_familyName(PyObject *self, PyObject *args) 
   {
     try {
       result = (char *)((Exiv2::Metadatum const *)arg1)->familyName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5300,6 +5320,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_groupName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->groupName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5332,6 +5353,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_tagName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->tagName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5364,6 +5386,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_tagLabel(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->tagLabel();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5396,6 +5419,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_tag(PyObject *self, PyObject *args) {
   {
     try {
       result = (uint16_t)((Exiv2::Metadatum const *)arg1)->tag();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5428,6 +5452,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_typeId(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::TypeId)((Exiv2::Metadatum const *)arg1)->typeId();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5460,6 +5485,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_typeName(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)((Exiv2::Metadatum const *)arg1)->typeName();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5492,6 +5518,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_typeSize(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::Metadatum const *)arg1)->typeSize();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5524,6 +5551,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_count(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::Metadatum const *)arg1)->count();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5556,6 +5584,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_size(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::Metadatum const *)arg1)->size();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5587,6 +5616,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_toString__SWIG_0(PyObject *self, Py_ssize_t
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->toString();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5626,6 +5656,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_toString__SWIG_1(PyObject *self, Py_ssize_t
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->toString(arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5693,6 +5724,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_toLong__SWIG_0(PyObject *self, Py_ssize_t n
   {
     try {
       result = (long)((Exiv2::Metadatum const *)arg1)->toLong(arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5724,6 +5756,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_toLong__SWIG_1(PyObject *self, Py_ssize_t n
   {
     try {
       result = (long)((Exiv2::Metadatum const *)arg1)->toLong();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5791,6 +5824,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_toFloat__SWIG_0(PyObject *self, Py_ssize_t 
   {
     try {
       result = (float)((Exiv2::Metadatum const *)arg1)->toFloat(arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5822,6 +5856,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_toFloat__SWIG_1(PyObject *self, Py_ssize_t 
   {
     try {
       result = (float)((Exiv2::Metadatum const *)arg1)->toFloat();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5889,6 +5924,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_toRational__SWIG_0(PyObject *self, Py_ssize
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->toRational(arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5920,6 +5956,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_toRational__SWIG_1(PyObject *self, Py_ssize
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->toRational();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -5980,6 +6017,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_getValue(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->getValue();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -6014,6 +6052,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::Value *) &((Exiv2::Metadatum const *)arg1)->value();
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -6046,6 +6085,7 @@ SWIGINTERN PyObject *_wrap_Metadatum___str__(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2_Metadatum___str__(arg1);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -6096,6 +6136,7 @@ SWIGINTERN PyObject *_wrap_cmpMetadataByTag(PyObject *self, PyObject *args) {
   {
     try {
       result = (bool)Exiv2::cmpMetadataByTag((Exiv2::Metadatum const &)*arg1,(Exiv2::Metadatum const &)*arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
@@ -6142,6 +6183,7 @@ SWIGINTERN PyObject *_wrap_cmpMetadataByKey(PyObject *self, PyObject *args) {
   {
     try {
       result = (bool)Exiv2::cmpMetadataByKey((Exiv2::Metadatum const &)*arg1,(Exiv2::Metadatum const &)*arg2);
+      
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;

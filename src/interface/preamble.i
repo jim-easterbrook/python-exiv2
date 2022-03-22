@@ -51,7 +51,11 @@ PyObject* logger = NULL;
 %exception {
     try {
         $action
+#if EXIV2_VERSION_HEX < 0x01000000
     } catch(Exiv2::AnyError const& e) {
+#else
+    } catch(Exiv2::Error const& e) {
+#endif
         PyErr_SetString(PyExc_Exiv2Error, e.what());
         SWIG_fail;
     } catch(std::exception const& e) {
