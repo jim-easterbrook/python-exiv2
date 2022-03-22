@@ -58,11 +58,12 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     if exiv2_version:
         mod_src_dir = get_mod_src_dir(exiv2_version)
         if mod_src_dir:
-            lib_dir = pkg_config('exiv2', 'libs-only-L')[2:]
-            lib_dir = lib_dir and lib_dir.replace(r'\ ', ' ')
-            inc_dir = pkg_config('exiv2', 'cflags-only-I')[2:]
-            inc_dir = inc_dir and inc_dir.replace(r'\ ', ' ')
-            inc_dir = inc_dir or '/usr/include'
+            library_dirs = pkg_config('exiv2', 'libs-only-L').split('-L')
+            library_dirs = [x.strip() for x in library_dirs]
+            library_dirs = [x.replace(r'\ ', ' ') for x in library_dirs if x]
+            include_dirs = pkg_config('exiv2', 'cflags-only-I').split('-I')
+            include_dirs = [x.strip() for x in include_dirs]
+            include_dirs = [x.replace(r'\ ', ' ') for x in include_dirs if x]
             extra_link_args = []
             print('Using system installed libexiv2 v{}'.format(exiv2_version))
 
@@ -100,6 +101,8 @@ if not mod_src_dir:
             for name in os.listdir(lib_dir):
                 if len(name.split('.')) == 3:
                     package_data['exiv2.lib'] = [name]
+        include_dirs = [inc_dir]
+        library_dirs = [lib_dir]
 
 
 if not mod_src_dir:
@@ -132,10 +135,10 @@ for file_name in os.listdir(mod_src_dir):
     ext_modules.append(Extension(
         '_' + ext_name,
         sources = [os.path.join(mod_src_dir, file_name)],
-        include_dirs = [inc_dir],
+        include_dirs = include_dirs,
         extra_compile_args = extra_compile_args,
         libraries = ['exiv2'],
-        library_dirs = [lib_dir],
+        library_dirs = library_dirs,
         extra_link_args = extra_link_args,
         ))
 
