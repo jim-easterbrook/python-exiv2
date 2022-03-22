@@ -3753,10 +3753,10 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
   {
     try {
       Exiv2::LogMsg::setLevel(arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -3776,10 +3776,10 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }

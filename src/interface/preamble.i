@@ -51,10 +51,10 @@ PyObject* logger = NULL;
 %exception {
     try {
         $action
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
         PyErr_SetString(PyExc_Exiv2Error, e.what());
         SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
         PyErr_SetString(PyExc_RuntimeError, e.what());
         SWIG_fail;
     }

@@ -4089,10 +4089,10 @@ SWIGINTERN PyObject *_wrap_delete_RecordInfo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4364,10 +4364,10 @@ SWIGINTERN PyObject *_wrap_delete_DataSet(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4406,10 +4406,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetName(PyObject *self, PyObject *ar
   {
     try {
       result = Exiv2::IptcDataSets::dataSetName(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4446,10 +4446,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetTitle(PyObject *self, PyObject *a
   {
     try {
       result = (char *)Exiv2::IptcDataSets::dataSetTitle(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4486,10 +4486,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetDesc(PyObject *self, PyObject *ar
   {
     try {
       result = (char *)Exiv2::IptcDataSets::dataSetDesc(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4526,10 +4526,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetPsName(PyObject *self, PyObject *
   {
     try {
       result = (char *)Exiv2::IptcDataSets::dataSetPsName(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4566,10 +4566,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetRepeatable(PyObject *self, PyObje
   {
     try {
       result = (bool)Exiv2::IptcDataSets::dataSetRepeatable(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4611,10 +4611,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSet(PyObject *self, PyObject *args) 
   {
     try {
       result = (uint16_t)Exiv2::IptcDataSets::dataSet((std::string const &)*arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4653,10 +4653,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetType(PyObject *self, PyObject *ar
   {
     try {
       result = (Exiv2::TypeId)Exiv2::IptcDataSets::dataSetType(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4686,10 +4686,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_recordName(PyObject *self, PyObject *arg
   {
     try {
       result = Exiv2::IptcDataSets::recordName(arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4719,10 +4719,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_recordDesc(PyObject *self, PyObject *arg
   {
     try {
       result = (char *)Exiv2::IptcDataSets::recordDesc(arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4757,10 +4757,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_recordId(PyObject *self, PyObject *args)
   {
     try {
       result = (uint16_t)Exiv2::IptcDataSets::recordId((std::string const &)*arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4782,10 +4782,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_envelopeRecordList(PyObject *self, PyObj
   {
     try {
       result = (Exiv2::DataSet *)Exiv2::IptcDataSets::envelopeRecordList();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4805,10 +4805,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_application2RecordList(PyObject *self, P
   {
     try {
       result = (Exiv2::DataSet *)Exiv2::IptcDataSets::application2RecordList();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4840,10 +4840,10 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetList(PyObject *self, PyObject *ar
   {
     try {
       Exiv2::IptcDataSets::dataSetList(*arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4871,10 +4871,10 @@ SWIGINTERN PyObject *_wrap_delete_IptcDataSets(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4909,10 +4909,10 @@ SWIGINTERN int _wrap_new_IptcKey__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::IptcKey *)new Exiv2::IptcKey((std::string const &)*arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4950,10 +4950,10 @@ SWIGINTERN int _wrap_new_IptcKey__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::IptcKey *)new Exiv2::IptcKey(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4984,10 +4984,10 @@ SWIGINTERN int _wrap_new_IptcKey__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObj
   {
     try {
       result = (Exiv2::IptcKey *)new Exiv2::IptcKey((Exiv2::IptcKey const &)*arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5056,10 +5056,10 @@ SWIGINTERN PyObject *_wrap_delete_IptcKey(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5088,10 +5088,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_key(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::IptcKey const *)arg1)->key();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5120,10 +5120,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_familyName(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)((Exiv2::IptcKey const *)arg1)->familyName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5152,10 +5152,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_groupName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::IptcKey const *)arg1)->groupName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5184,10 +5184,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_tagName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::IptcKey const *)arg1)->tagName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5216,10 +5216,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_tagLabel(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::IptcKey const *)arg1)->tagLabel();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5248,10 +5248,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_tag(PyObject *self, PyObject *args) {
   {
     try {
       result = (uint16_t)((Exiv2::IptcKey const *)arg1)->tag();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5280,10 +5280,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_clone(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::IptcKey const *)arg1)->clone();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5314,10 +5314,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_recordName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::IptcKey const *)arg1)->recordName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5346,10 +5346,10 @@ SWIGINTERN PyObject *_wrap_IptcKey_record(PyObject *self, PyObject *args) {
   {
     try {
       result = (uint16_t)((Exiv2::IptcKey const *)arg1)->record();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }

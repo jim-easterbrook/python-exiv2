@@ -197,7 +197,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     std::string __getitem__(const std::string& key) {
         try {
             return $self->value_.at(key);
-        } catch(std::out_of_range) {
+        } catch(std::out_of_range const&) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return "";
         }

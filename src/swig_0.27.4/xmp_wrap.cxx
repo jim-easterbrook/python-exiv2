@@ -4654,10 +4654,10 @@ SWIGINTERN PyObject *_wrap_delete_XmpDataIteratorBase(PyObject *self, PyObject *
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4686,10 +4686,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___iter__(PyObject *self, PyObject
   {
     try {
       result = (XmpDataIteratorBase *)(arg1)->__iter__();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4718,10 +4718,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___next__(PyObject *self, PyObject
   {
     try {
       result = (PyObject *)(arg1)->__next__();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4762,10 +4762,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___eq__(PyObject *self, PyObject *
   {
     try {
       result = (bool)((XmpDataIteratorBase const *)arg1)->operator ==((XmpDataIteratorBase const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4808,10 +4808,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___ne__(PyObject *self, PyObject *
   {
     try {
       result = (bool)((XmpDataIteratorBase const *)arg1)->operator !=((XmpDataIteratorBase const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4842,10 +4842,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___str__(PyObject *self, PyObject 
   {
     try {
       result = (arg1)->__str__();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4882,10 +4882,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___deref__(PyObject *self, PyObject *a
   {
     try {
       result = (Exiv2::Xmpdatum *)((XmpDataIterator const *)arg1)->operator ->();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4914,10 +4914,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___iter__(PyObject *self, PyObject *ar
   {
     try {
       result = (XmpDataIterator *)(arg1)->__iter__();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -4972,10 +4972,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator___str__(PyObject *self, PyObject *arg
   {
     try {
       result = (arg1)->__str__();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5003,10 +5003,10 @@ SWIGINTERN PyObject *_wrap_delete_XmpDataIterator(PyObject *self, PyObject *args
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5041,10 +5041,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_setValue__SWIG_0(PyObject *self, Py_s
   {
     try {
       (*arg1)->setValue((Exiv2::Value const *)arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5085,10 +5085,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_setValue__SWIG_1(PyObject *self, Py_s
   {
     try {
       result = (int)(*arg1)->setValue((std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5170,10 +5170,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_copy(PyObject *self, PyObject *args) 
   {
     try {
       result = (long)(*arg1)->copy(arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5220,10 +5220,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_write__SWIG_0(PyObject *self, Py_ssiz
   {
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5262,10 +5262,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_write__SWIG_1(PyObject *self, Py_ssiz
   {
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5322,10 +5322,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_key(PyObject *self, PyObject *args) {
   {
     try {
       result = (*arg1)->key();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5354,10 +5354,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_familyName(PyObject *self, PyObject *
   {
     try {
       result = (char *)(*arg1)->familyName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5386,10 +5386,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_groupName(PyObject *self, PyObject *a
   {
     try {
       result = (*arg1)->groupName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5418,10 +5418,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tagName(PyObject *self, PyObject *arg
   {
     try {
       result = (*arg1)->tagName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5450,10 +5450,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tagLabel(PyObject *self, PyObject *ar
   {
     try {
       result = (*arg1)->tagLabel();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5482,10 +5482,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_tag(PyObject *self, PyObject *args) {
   {
     try {
       result = (uint16_t)(*arg1)->tag();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5514,10 +5514,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeId(PyObject *self, PyObject *args
   {
     try {
       result = (Exiv2::TypeId)(*arg1)->typeId();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5546,10 +5546,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeName(PyObject *self, PyObject *ar
   {
     try {
       result = (char *)(*arg1)->typeName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5578,10 +5578,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_typeSize(PyObject *self, PyObject *ar
   {
     try {
       result = (long)(*arg1)->typeSize();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5610,10 +5610,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_count(PyObject *self, PyObject *args)
   {
     try {
       result = (long)(*arg1)->count();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5642,10 +5642,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_size(PyObject *self, PyObject *args) 
   {
     try {
       result = (long)(*arg1)->size();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5673,10 +5673,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toString__SWIG_0(PyObject *self, Py_s
   {
     try {
       result = (*arg1)->toString();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5712,10 +5712,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toString__SWIG_1(PyObject *self, Py_s
   {
     try {
       result = (*arg1)->toString(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5779,10 +5779,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toLong__SWIG_0(PyObject *self, Py_ssi
   {
     try {
       result = (long)(*arg1)->toLong(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5810,10 +5810,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toLong__SWIG_1(PyObject *self, Py_ssi
   {
     try {
       result = (long)(*arg1)->toLong();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5877,10 +5877,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toFloat__SWIG_0(PyObject *self, Py_ss
   {
     try {
       result = (float)(*arg1)->toFloat(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5908,10 +5908,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toFloat__SWIG_1(PyObject *self, Py_ss
   {
     try {
       result = (float)(*arg1)->toFloat();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -5975,10 +5975,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toRational__SWIG_0(PyObject *self, Py
   {
     try {
       result = (*arg1)->toRational(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6006,10 +6006,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_toRational__SWIG_1(PyObject *self, Py
   {
     try {
       result = (*arg1)->toRational();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6066,10 +6066,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_getValue(PyObject *self, PyObject *ar
   {
     try {
       result = (*arg1)->getValue();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6100,10 +6100,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_value(PyObject *self, PyObject *args)
   {
     try {
       result = (Exiv2::Value *) &(*arg1)->value();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6139,10 +6139,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator__print__SWIG_0(PyObject *self, Py_ssi
   {
     try {
       result = (*arg1)->print((Exiv2::ExifData const *)arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6170,10 +6170,10 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator__print__SWIG_1(PyObject *self, Py_ssi
   {
     try {
       result = (*arg1)->print();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6248,10 +6248,10 @@ SWIGINTERN int _wrap_new_Xmpdatum__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyOb
   {
     try {
       result = (Exiv2::Xmpdatum *)new Exiv2::Xmpdatum((Exiv2::XmpKey const &)*arg1,(Exiv2::Value const *)arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6282,10 +6282,10 @@ SWIGINTERN int _wrap_new_Xmpdatum__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyOb
   {
     try {
       result = (Exiv2::Xmpdatum *)new Exiv2::Xmpdatum((Exiv2::XmpKey const &)*arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6316,10 +6316,10 @@ SWIGINTERN int _wrap_new_Xmpdatum__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyOb
   {
     try {
       result = (Exiv2::Xmpdatum *)new Exiv2::Xmpdatum((Exiv2::Xmpdatum const &)*arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6388,10 +6388,10 @@ SWIGINTERN PyObject *_wrap_delete_Xmpdatum(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6426,10 +6426,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_setValue__SWIG_0(PyObject *self, Py_ssize_t 
   {
     try {
       (arg1)->setValue((Exiv2::Value const *)arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6470,10 +6470,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_setValue__SWIG_1(PyObject *self, Py_ssize_t 
   {
     try {
       result = (int)(arg1)->setValue((std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6555,10 +6555,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_copy(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::Xmpdatum const *)arg1)->copy(arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6605,10 +6605,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_write__SWIG_0(PyObject *self, Py_ssize_t nob
   {
     try {
       result = (std::ostream *) &((Exiv2::Xmpdatum const *)arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6647,10 +6647,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_write__SWIG_1(PyObject *self, Py_ssize_t nob
   {
     try {
       result = (std::ostream *) &((Exiv2::Xmpdatum const *)arg1)->write(*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6707,10 +6707,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_key(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->key();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6739,10 +6739,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_familyName(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)((Exiv2::Xmpdatum const *)arg1)->familyName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6771,10 +6771,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_groupName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->groupName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6803,10 +6803,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_tagName(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->tagName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6835,10 +6835,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_tagLabel(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->tagLabel();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6867,10 +6867,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_tag(PyObject *self, PyObject *args) {
   {
     try {
       result = (uint16_t)((Exiv2::Xmpdatum const *)arg1)->tag();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6899,10 +6899,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_typeId(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::TypeId)((Exiv2::Xmpdatum const *)arg1)->typeId();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6931,10 +6931,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_typeName(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)((Exiv2::Xmpdatum const *)arg1)->typeName();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6963,10 +6963,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_typeSize(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::Xmpdatum const *)arg1)->typeSize();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -6995,10 +6995,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_count(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::Xmpdatum const *)arg1)->count();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7027,10 +7027,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_size(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::Xmpdatum const *)arg1)->size();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7058,10 +7058,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toString__SWIG_0(PyObject *self, Py_ssize_t 
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->toString();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7097,10 +7097,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toString__SWIG_1(PyObject *self, Py_ssize_t 
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->toString(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7164,10 +7164,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toLong__SWIG_0(PyObject *self, Py_ssize_t no
   {
     try {
       result = (long)((Exiv2::Xmpdatum const *)arg1)->toLong(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7195,10 +7195,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toLong__SWIG_1(PyObject *self, Py_ssize_t no
   {
     try {
       result = (long)((Exiv2::Xmpdatum const *)arg1)->toLong();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7262,10 +7262,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toFloat__SWIG_0(PyObject *self, Py_ssize_t n
   {
     try {
       result = (float)((Exiv2::Xmpdatum const *)arg1)->toFloat(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7293,10 +7293,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toFloat__SWIG_1(PyObject *self, Py_ssize_t n
   {
     try {
       result = (float)((Exiv2::Xmpdatum const *)arg1)->toFloat();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7360,10 +7360,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toRational__SWIG_0(PyObject *self, Py_ssize_
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->toRational(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7391,10 +7391,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toRational__SWIG_1(PyObject *self, Py_ssize_
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->toRational();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7451,10 +7451,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->getValue();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7485,10 +7485,10 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::Value *) &((Exiv2::Xmpdatum const *)arg1)->value();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7511,10 +7511,10 @@ SWIGINTERN int _wrap_new_XmpData(PyObject *self, PyObject *args, PyObject *kwarg
   {
     try {
       result = (Exiv2::XmpData *)new Exiv2::XmpData();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7561,10 +7561,10 @@ SWIGINTERN PyObject *_wrap_XmpData_add__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   {
     try {
       result = (int)(arg1)->add((Exiv2::XmpKey const &)*arg2,(Exiv2::Value const *)arg3);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7603,10 +7603,10 @@ SWIGINTERN PyObject *_wrap_XmpData_add__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   {
     try {
       result = (int)(arg1)->add((Exiv2::Xmpdatum const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7678,10 +7678,10 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   {
     try {
       result = (arg1)->erase(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7730,10 +7730,10 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
   {
     try {
       (arg1)->eraseFamily(*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7761,10 +7761,10 @@ SWIGINTERN PyObject *_wrap_XmpData_clear(PyObject *self, PyObject *args) {
   {
     try {
       (arg1)->clear();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7792,10 +7792,10 @@ SWIGINTERN PyObject *_wrap_XmpData_sortByKey(PyObject *self, PyObject *args) {
   {
     try {
       (arg1)->sortByKey();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7824,10 +7824,10 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
   {
     try {
       result = (arg1)->begin();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7865,10 +7865,10 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
   {
     try {
       result = (arg1)->end();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7918,10 +7918,10 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
   {
     try {
       result = (arg1)->findKey((Exiv2::XmpKey const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7959,10 +7959,10 @@ SWIGINTERN PyObject *_wrap_XmpData_empty(PyObject *self, PyObject *args) {
   {
     try {
       result = (bool)((Exiv2::XmpData const *)arg1)->empty();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -7991,10 +7991,10 @@ SWIGINTERN PyObject *_wrap_XmpData_count(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)((Exiv2::XmpData const *)arg1)->count();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8022,10 +8022,10 @@ SWIGINTERN PyObject *_wrap_XmpData_usePacket__SWIG_0(PyObject *self, Py_ssize_t 
   {
     try {
       result = (bool)((Exiv2::XmpData const *)arg1)->usePacket();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8061,10 +8061,10 @@ SWIGINTERN PyObject *_wrap_XmpData_usePacket__SWIG_1(PyObject *self, Py_ssize_t 
   {
     try {
       result = (bool)(arg1)->usePacket(arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8134,10 +8134,10 @@ SWIGINTERN PyObject *_wrap_XmpData_setPacket(PyObject *self, PyObject *args) {
   {
     try {
       (arg1)->setPacket((std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8168,10 +8168,10 @@ SWIGINTERN PyObject *_wrap_XmpData_xmpPacket(PyObject *self, PyObject *args) {
   {
     try {
       result = (std::string *) &((Exiv2::XmpData const *)arg1)->xmpPacket();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8200,10 +8200,10 @@ SWIGINTERN PyObject *_wrap_XmpData___len__(PyObject *self, PyObject *args) {
   {
     try {
       result = (long)Exiv2_XmpData___len__(arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8246,10 +8246,10 @@ SWIGINTERN PyObject *_wrap_XmpData___getitem__(PyObject *self, PyObject *args) {
   {
     try {
       result = (Exiv2::Xmpdatum *)Exiv2_XmpData___getitem__(arg1,(std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8300,10 +8300,10 @@ SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_0(PyObject *self, Py_ssize_
   {
     try {
       result = (PyObject *)Exiv2_XmpData___setitem____SWIG_0(arg1,(std::string const &)*arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8359,10 +8359,10 @@ SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_1(PyObject *self, Py_ssize_
   {
     try {
       result = (PyObject *)Exiv2_XmpData___setitem____SWIG_1(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8409,10 +8409,10 @@ SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_2(PyObject *self, Py_ssize_
   {
     try {
       result = (PyObject *)Exiv2_XmpData___setitem____SWIG_2(arg1,(std::string const &)*arg2,arg3);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8455,10 +8455,10 @@ SWIGINTERN PyObject *_wrap_XmpData___setitem____SWIG_3(PyObject *self, Py_ssize_
   {
     try {
       result = (PyObject *)Exiv2_XmpData___setitem____SWIG_3(arg1,(std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8556,10 +8556,10 @@ SWIGINTERN PyObject *_wrap_XmpData___contains__(PyObject *self, PyObject *args) 
   {
     try {
       result = (int)Exiv2_XmpData___contains__(arg1,(std::string const &)*arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8590,10 +8590,10 @@ SWIGINTERN PyObject *_wrap_XmpData___iter__(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2_XmpData___iter__(arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8630,10 +8630,10 @@ SWIGINTERN PyObject *_wrap_delete_XmpData(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8676,10 +8676,10 @@ SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_0(PyObject *self, Py_ssize
   {
     try {
       result = (bool)Exiv2::XmpParser::initialize(arg1,arg2);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8706,10 +8706,10 @@ SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_1(PyObject *self, Py_ssize
   {
     try {
       result = (bool)Exiv2::XmpParser::initialize(arg1);
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8729,10 +8729,10 @@ SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_2(PyObject *self, Py_ssize
   {
     try {
       result = (bool)Exiv2::XmpParser::initialize();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8785,10 +8785,10 @@ SWIGINTERN PyObject *_wrap_XmpParser_terminate(PyObject *self, PyObject *args) {
   {
     try {
       Exiv2::XmpParser::terminate();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8809,10 +8809,10 @@ SWIGINTERN int _wrap_new_XmpParser(PyObject *self, PyObject *args, PyObject *kwa
   {
     try {
       result = (Exiv2::XmpParser *)new Exiv2::XmpParser();
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
@@ -8840,10 +8840,10 @@ SWIGINTERN PyObject *_wrap_delete_XmpParser(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-    } catch(Exiv2::AnyError &e) {
+    } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
       SWIG_fail;
-    } catch(std::exception &e) {
+    } catch(std::exception const& e) {
       PyErr_SetString(PyExc_RuntimeError, e.what());
       SWIG_fail;
     }
