@@ -84,8 +84,10 @@ if not mod_src_dir:
     if exiv2_version:
         print('Using local copy of libexiv2 v{}'.format(exiv2_version))
         mod_src_dir = get_mod_src_dir(exiv2_version)
-        lib_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'lib')
-        inc_dir = os.path.join('libexiv2_' + exiv2_version, platform, 'include')
+        root_dir = os.path.join('libexiv2_' + exiv2_version, platform)
+        lib_dir = os.path.join(root_dir, 'lib')
+        inc_dir = os.path.join(root_dir, 'include')
+        locale_dir = os.path.join(root_dir, 'locale')
         if platform == 'linux':
             extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
         elif platform == 'darwin':
@@ -103,6 +105,15 @@ if not mod_src_dir:
                     package_data['exiv2.lib'] = [name]
         include_dirs = [inc_dir]
         library_dirs = [lib_dir]
+        # add exiv2.locale package for libexiv2 localisation files
+        if os.path.exists(locale_dir):
+            for root, dirs, files in os.walk(locale_dir):
+                if files:
+                    package = 'exiv2.locale' + root.replace(
+                        locale_dir, '').replace('/', '.')
+                    packages.append(package)
+                    package_dir[package] = root
+                    package_data[package] = ['*.mo']
 
 
 if not mod_src_dir:

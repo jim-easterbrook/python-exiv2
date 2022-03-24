@@ -5139,7 +5139,7 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
 
 
 struct ImageType {
-    enum {bmp =   int(Exiv2::ImageType::bmp),
+    enum {bmp =   int(Exiv2::ImageType::bmp),bmff = int(Exiv2::ImageType::bmff),
         cr2 =   int(Exiv2::ImageType::cr2),crw =   int(Exiv2::ImageType::crw),eps =   int(Exiv2::ImageType::eps),exv =   int(Exiv2::ImageType::exv),gif =   int(Exiv2::ImageType::gif),jp2 =   int(Exiv2::ImageType::jp2),jpeg =  int(Exiv2::ImageType::jpeg),mrw =   int(Exiv2::ImageType::mrw),none =  int(Exiv2::ImageType::none),orf =   int(Exiv2::ImageType::orf),pgf =   int(Exiv2::ImageType::pgf),png =   int(Exiv2::ImageType::png),psd =   int(Exiv2::ImageType::psd),raf =   int(Exiv2::ImageType::raf),rw2 =   int(Exiv2::ImageType::rw2),tga =   int(Exiv2::ImageType::tga),tiff =  int(Exiv2::ImageType::tiff),xmp =   int(Exiv2::ImageType::xmp)};
 };
 
@@ -22851,6 +22851,7 @@ SWIG_init(void) {
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__ImageType_type;
   builtin_pytype->tp_dict = d = PyDict_New();
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "bmp",SWIG_From_int(static_cast< int >(ImageType::bmp)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "bmff",SWIG_From_int(static_cast< int >(ImageType::bmff)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "cr2",SWIG_From_int(static_cast< int >(ImageType::cr2)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "crw",SWIG_From_int(static_cast< int >(ImageType::crw)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "eps",SWIG_From_int(static_cast< int >(ImageType::eps)));

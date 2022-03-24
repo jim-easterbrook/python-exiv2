@@ -61,6 +61,7 @@ def main():
     # get exiv2 build options
     options = {
         'EXV_ENABLE_BMFF'  : False,
+        'EXV_ENABLE_NLS'   : False,
         'EXV_ENABLE_VIDEO' : False,
         'EXV_UNICODE_PATH' : False,
         }
@@ -139,11 +140,11 @@ def main():
     with open(init_file, 'w') as im:
         im.write('''
 import logging
+import os
 import sys
 import warnings
 
 if sys.platform == 'win32':
-    import os
     _dir = os.path.join(os.path.dirname(__file__), 'lib')
     if os.path.isdir(_dir):
         if hasattr(os, 'add_dll_directory'):
@@ -173,6 +174,12 @@ else:
         for name in ext_names:
             im.write('from exiv2.%s import *\n' % name)
         im.write('''
+_dir = os.path.join(os.path.dirname(__file__), 'locale')
+if not os.path.isdir(_dir):
+    import gettext
+    _dir = gettext.bindtextdomain('exiv2')
+exiv2.types._set_locale_dir(_dir)
+
 __all__ = [x for x in dir() if x[0] != '_']
 ''')
     return 0

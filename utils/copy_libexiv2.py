@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,14 +30,18 @@ def main():
         platform = 'mingw'
     # get top level directory
     home = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
-    # find library and include files
+    # find required files
     lib_files = []
+    locale_files = []
     incl_dir = None
     new_platform = platform
     for root, dirs, files in os.walk(os.path.join(home, sys.argv[1])):
         for file in files:
             if file == 'exiv2.hpp':
                 incl_dir = os.path.normpath(root)
+                continue
+            if file == 'exiv2.mo':
+                locale_files.append(os.path.normpath(os.path.join(root, file)))
                 continue
             if file in ('exiv2.dll', 'exiv2.lib'):
                 new_platform = 'win32'
@@ -65,6 +69,14 @@ def main():
     # copy include files
     dest = os.path.join(target, 'include', 'exiv2')
     shutil.copytree(incl_dir, dest)
+    # copy locale files
+    dest_root = os.path.join(target, 'locale')
+    for file in locale_files:
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(file)))
+        dest = os.path.normpath(
+            os.path.join(dest_root, file.replace(base_dir, '.')))
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        shutil.copy2(file, dest)
     return 0
 
 
