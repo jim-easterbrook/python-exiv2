@@ -28,7 +28,8 @@ jobs:
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
               -DEXIV2_BUILD_SAMPLES=OFF \
               -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
-              -DEXIV2_ENABLE_BMFF=ON &&
+              -DEXIV2_ENABLE_BMFF=ON \
+              -DEXIV2_ENABLE_NLS=ON &&
             cmake --build . &&
             make install &&
             cd ../.. &&

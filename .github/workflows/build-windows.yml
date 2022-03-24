@@ -59,6 +59,7 @@ jobs:
                 -DEXIV2_BUILD_SAMPLES=OFF \
                 -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
                 -DEXIV2_ENABLE_BMFF=ON \
+                -DEXIV2_ENABLE_NLS=ON \
                 -G "Visual Studio 16 2019" -A x64
 
       - name: Compile Exiv2
