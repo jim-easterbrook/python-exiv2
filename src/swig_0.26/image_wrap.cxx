@@ -3490,58 +3490,57 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[43]
 #define SWIGTYPE_p_Exiv2__XmpValue swig_types[44]
 #define SWIGTYPE_p_Exiv2__Xmpdatum swig_types[45]
-#define SWIGTYPE_p_ImageType swig_types[46]
-#define SWIGTYPE_p_IptcDataIterator swig_types[47]
-#define SWIGTYPE_p_IptcDataIteratorBase swig_types[48]
-#define SWIGTYPE_p_IptcDataWrap swig_types[49]
-#define SWIGTYPE_p_NsRegistry swig_types[50]
-#define SWIGTYPE_p_SwigPyObject swig_types[51]
-#define SWIGTYPE_p_ValueList swig_types[52]
-#define SWIGTYPE_p_ValueType swig_types[53]
-#define SWIGTYPE_p_XmpDataIterator swig_types[54]
-#define SWIGTYPE_p_XmpDataIteratorBase swig_types[55]
-#define SWIGTYPE_p_XmpDataWrap swig_types[56]
-#define SWIGTYPE_p_allocator_type swig_types[57]
-#define SWIGTYPE_p_char swig_types[58]
-#define SWIGTYPE_p_const_iterator swig_types[59]
-#define SWIGTYPE_p_difference_type swig_types[60]
-#define SWIGTYPE_p_first_type swig_types[61]
-#define SWIGTYPE_p_int swig_types[62]
-#define SWIGTYPE_p_iterator swig_types[63]
-#define SWIGTYPE_p_key_type swig_types[64]
-#define SWIGTYPE_p_long_long swig_types[65]
-#define SWIGTYPE_p_mapped_type swig_types[66]
-#define SWIGTYPE_p_second_type swig_types[67]
-#define SWIGTYPE_p_short swig_types[68]
-#define SWIGTYPE_p_signed_char swig_types[69]
-#define SWIGTYPE_p_size_type swig_types[70]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[71]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t__iterator swig_types[72]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[73]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[74]
-#define SWIGTYPE_p_std__ostream swig_types[75]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[76]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[77]
-#define SWIGTYPE_p_std__setT_std__string_t swig_types[78]
-#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[79]
-#define SWIGTYPE_p_std__string swig_types[80]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[81]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t__iterator swig_types[82]
-#define SWIGTYPE_p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t swig_types[83]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[84]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[85]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[86]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[87]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[88]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[89]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[90]
-#define SWIGTYPE_p_unsigned_char swig_types[91]
-#define SWIGTYPE_p_unsigned_int swig_types[92]
-#define SWIGTYPE_p_unsigned_long_long swig_types[93]
-#define SWIGTYPE_p_unsigned_short swig_types[94]
-#define SWIGTYPE_p_value_type swig_types[95]
-static swig_type_info *swig_types[97];
-static swig_module_info swig_module = {swig_types, 96, 0, 0, 0, 0};
+#define SWIGTYPE_p_IptcDataIterator swig_types[46]
+#define SWIGTYPE_p_IptcDataIteratorBase swig_types[47]
+#define SWIGTYPE_p_IptcDataWrap swig_types[48]
+#define SWIGTYPE_p_NsRegistry swig_types[49]
+#define SWIGTYPE_p_SwigPyObject swig_types[50]
+#define SWIGTYPE_p_ValueList swig_types[51]
+#define SWIGTYPE_p_ValueType swig_types[52]
+#define SWIGTYPE_p_XmpDataIterator swig_types[53]
+#define SWIGTYPE_p_XmpDataIteratorBase swig_types[54]
+#define SWIGTYPE_p_XmpDataWrap swig_types[55]
+#define SWIGTYPE_p_allocator_type swig_types[56]
+#define SWIGTYPE_p_char swig_types[57]
+#define SWIGTYPE_p_const_iterator swig_types[58]
+#define SWIGTYPE_p_difference_type swig_types[59]
+#define SWIGTYPE_p_first_type swig_types[60]
+#define SWIGTYPE_p_int swig_types[61]
+#define SWIGTYPE_p_iterator swig_types[62]
+#define SWIGTYPE_p_key_type swig_types[63]
+#define SWIGTYPE_p_long_long swig_types[64]
+#define SWIGTYPE_p_mapped_type swig_types[65]
+#define SWIGTYPE_p_second_type swig_types[66]
+#define SWIGTYPE_p_short swig_types[67]
+#define SWIGTYPE_p_signed_char swig_types[68]
+#define SWIGTYPE_p_size_type swig_types[69]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[70]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t__iterator swig_types[71]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[72]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[73]
+#define SWIGTYPE_p_std__ostream swig_types[74]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[75]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[76]
+#define SWIGTYPE_p_std__setT_std__string_t swig_types[77]
+#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[78]
+#define SWIGTYPE_p_std__string swig_types[79]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[80]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t__iterator swig_types[81]
+#define SWIGTYPE_p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t swig_types[82]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[83]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[84]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[85]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[86]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[87]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[88]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[89]
+#define SWIGTYPE_p_unsigned_char swig_types[90]
+#define SWIGTYPE_p_unsigned_int swig_types[91]
+#define SWIGTYPE_p_unsigned_long_long swig_types[92]
+#define SWIGTYPE_p_unsigned_short swig_types[93]
+#define SWIGTYPE_p_value_type swig_types[94]
+static swig_type_info *swig_types[96];
+static swig_module_info swig_module = {swig_types, 95, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5138,9 +5137,30 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
 }
 
 
-struct ImageType {
-    enum {bmp =   int(Exiv2::ImageType::bmp),
-        cr2 =   int(Exiv2::ImageType::cr2),crw =   int(Exiv2::ImageType::crw),eps =   int(Exiv2::ImageType::eps),exv =   int(Exiv2::ImageType::exv),gif =   int(Exiv2::ImageType::gif),jp2 =   int(Exiv2::ImageType::jp2),jpeg =  int(Exiv2::ImageType::jpeg),mrw =   int(Exiv2::ImageType::mrw),none =  int(Exiv2::ImageType::none),orf =   int(Exiv2::ImageType::orf),pgf =   int(Exiv2::ImageType::pgf),png =   int(Exiv2::ImageType::png),psd =   int(Exiv2::ImageType::psd),raf =   int(Exiv2::ImageType::raf),rw2 =   int(Exiv2::ImageType::rw2),tga =   int(Exiv2::ImageType::tga),tiff =  int(Exiv2::ImageType::tiff),xmp =   int(Exiv2::ImageType::xmp)};
+#ifndef ENUM_HELPER
+#define ENUM_HELPER
+#include <cstdarg>
+static PyObject* _get_enum_list(int dummy, ...) {
+    PyObject* result = PyList_New(0);
+    va_list args;
+    va_start(args, dummy);
+    char* label = va_arg(args, char*);
+    int value = va_arg(args, int);
+    while (label) {
+        PyList_Append(result, PyTuple_Pack(2,
+            PyUnicode_FromString(label), PyLong_FromLong(value)));
+        label = va_arg(args, char*);
+        value = va_arg(args, int);
+    }
+    va_end(args);
+    return result;
+};
+#endif // #ifndef ENUM_HELPER
+
+
+PyObject* _enum_list_ImageType() {
+    return _get_enum_list(0, "bmp",int(Exiv2::ImageType::bmp),
+        "cr2",int(Exiv2::ImageType::cr2),"crw",int(Exiv2::ImageType::crw),"eps",int(Exiv2::ImageType::eps),"exv",int(Exiv2::ImageType::exv),"gif",int(Exiv2::ImageType::gif),"jp2",int(Exiv2::ImageType::jp2),"jpeg",int(Exiv2::ImageType::jpeg),"mrw",int(Exiv2::ImageType::mrw),"none",int(Exiv2::ImageType::none),"orf",int(Exiv2::ImageType::orf),"pgf",int(Exiv2::ImageType::pgf),"png",int(Exiv2::ImageType::png),"psd",int(Exiv2::ImageType::psd),"raf",int(Exiv2::ImageType::raf),"rw2",int(Exiv2::ImageType::rw2),"tga",int(Exiv2::ImageType::tga),"tiff",int(Exiv2::ImageType::tiff),"xmp",int(Exiv2::ImageType::xmp), NULL, 0);
 };
 
 
@@ -13803,6 +13823,30 @@ SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_XmpDataWrap___contains__) /* defines _wr
 
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpDataWrap___iter__) /* defines _wrap_XmpDataWrap___iter___getiterfunc_closure */
 
+SWIGINTERN PyObject *_wrap__enum_list_ImageType(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "_enum_list_ImageType", 0, 0, 0)) SWIG_fail;
+  {
+    try {
+      result = (PyObject *)_enum_list_ImageType();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_NativePreview_position__set(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::NativePreview *arg1 = (Exiv2::NativePreview *) 0 ;
@@ -17161,6 +17205,7 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ImageFactory) /* defines _wrap_delete_Ima
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
+	 { "_enum_list_ImageType", _wrap__enum_list_ImageType, METH_NOARGS, NULL},
 	 { "ImageFactory_createIo", _wrap_ImageFactory_createIo, METH_VARARGS, "\n"
 		"Create the appropriate class type implemented BasicIo based on the protocol of the input.\n"
 		"\n"
@@ -17317,6 +17362,7 @@ static PyMethodDef SwigMethods[] = {
 static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
+	 { "_enum_list_ImageType", _wrap__enum_list_ImageType, METH_NOARGS, NULL},
 	 { "ImageFactory_createIo", _wrap_ImageFactory_createIo, METH_VARARGS, "\n"
 		"Create the appropriate class type implemented BasicIo based on the protocol of the input.\n"
 		"\n"
@@ -19744,216 +19790,6 @@ static PyHeapTypeObject SwigPyBuiltin__XmpDataWrap_type = {
 
 SWIGINTERN SwigPyClientData SwigPyBuiltin__XmpDataWrap_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__XmpDataWrap_type};
 
-SWIGINTERN PyGetSetDef SwigPyBuiltin__ImageType_getset[] = {
-    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
-};
-
-SWIGINTERN PyObject *
-SwigPyBuiltin__ImageType_richcompare(PyObject *self, PyObject *other, int op) {
-  PyObject *result = NULL;
-  if (!result) {
-    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
-      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
-    } else {
-      result = Py_NotImplemented;
-      Py_INCREF(result);
-    }
-  }
-  return result;
-}
-
-SWIGINTERN PyMethodDef SwigPyBuiltin__ImageType_methods[] = {
-  { NULL, NULL, 0, NULL } /* Sentinel */
-};
-
-static PyHeapTypeObject SwigPyBuiltin__ImageType_type = {
-  {
-#if PY_VERSION_HEX >= 0x03000000
-    PyVarObject_HEAD_INIT(NULL, 0)
-#else
-    PyObject_HEAD_INIT(NULL)
-    0,                                        /* ob_size */
-#endif
-    "exiv2.image.ImageType",                  /* tp_name */
-    sizeof(SwigPyObject),                     /* tp_basicsize */
-    0,                                        /* tp_itemsize */
-    SwigPyBuiltin_BadDealloc,                 /* tp_dealloc */
-    (printfunc) 0,                            /* tp_print */
-    (getattrfunc) 0,                          /* tp_getattr */
-    (setattrfunc) 0,                          /* tp_setattr */
-#if PY_VERSION_HEX >= 0x03000000
-    0,                                        /* tp_compare */
-#else
-    (cmpfunc) 0,                              /* tp_compare */
-#endif
-    (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__ImageType_type.as_number, /* tp_as_number */
-    &SwigPyBuiltin__ImageType_type.as_sequence,                   /* tp_as_sequence */
-    &SwigPyBuiltin__ImageType_type.as_mapping,/* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
-    (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
-    (getattrofunc) 0,                         /* tp_getattro */
-    (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__ImageType_type.as_buffer, /* tp_as_buffer */
-#if PY_VERSION_HEX >= 0x03000000
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
-#else
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
-#endif
-    "Supported image formats.",               /* tp_doc */
-    (traverseproc) 0,                         /* tp_traverse */
-    (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__ImageType_richcompare,     /* tp_richcompare */
-    0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
-    (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__ImageType_methods,         /* tp_methods */
-    0,                                        /* tp_members */
-    SwigPyBuiltin__ImageType_getset,          /* tp_getset */
-    0,                                        /* tp_base */
-    0,                                        /* tp_dict */
-    (descrgetfunc) 0,                         /* tp_descr_get */
-    (descrsetfunc) 0,                         /* tp_descr_set */
-    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    SwigPyBuiltin_BadInit,                    /* tp_init */
-    (allocfunc) 0,                            /* tp_alloc */
-    (newfunc) 0,                              /* tp_new */
-    (freefunc) 0,                             /* tp_free */
-    (inquiry) 0,                              /* tp_is_gc */
-    (PyObject *) 0,                           /* tp_bases */
-    (PyObject *) 0,                           /* tp_mro */
-    (PyObject *) 0,                           /* tp_cache */
-    (PyObject *) 0,                           /* tp_subclasses */
-    (PyObject *) 0,                           /* tp_weaklist */
-    (destructor) 0,                           /* tp_del */
-    (int) 0,                                  /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    (destructor) 0,                           /* tp_finalize */
-#endif
-#if PY_VERSION_HEX >= 0x03080000
-    (vectorcallfunc) 0,                       /* tp_vectorcall */
-#endif
-#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
-    0,                                        /* tp_print */
-#endif
-#ifdef COUNT_ALLOCS
-    (Py_ssize_t) 0,                           /* tp_allocs */
-    (Py_ssize_t) 0,                           /* tp_frees */
-    (Py_ssize_t) 0,                           /* tp_maxalloc */
-    0,                                        /* tp_prev */
-    0,                                        /* tp_next */
-#endif
-  },
-#if PY_VERSION_HEX >= 0x03050000
-  {
-    (unaryfunc) 0,                            /* am_await */
-    (unaryfunc) 0,                            /* am_aiter */
-    (unaryfunc) 0,                            /* am_anext */
-  },
-#endif
-  {
-    (binaryfunc) 0,                           /* nb_add */
-    (binaryfunc) 0,                           /* nb_subtract */
-    (binaryfunc) 0,                           /* nb_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_remainder */
-    (binaryfunc) 0,                           /* nb_divmod */
-    (ternaryfunc) 0,                          /* nb_power */
-    (unaryfunc) 0,                            /* nb_negative */
-    (unaryfunc) 0,                            /* nb_positive */
-    (unaryfunc) 0,                            /* nb_absolute */
-    (inquiry) 0,                              /* nb_nonzero */
-    (unaryfunc) 0,                            /* nb_invert */
-    (binaryfunc) 0,                           /* nb_lshift */
-    (binaryfunc) 0,                           /* nb_rshift */
-    (binaryfunc) 0,                           /* nb_and */
-    (binaryfunc) 0,                           /* nb_xor */
-    (binaryfunc) 0,                           /* nb_or */
-#if PY_VERSION_HEX < 0x03000000
-    (coercion) 0,                             /* nb_coerce */
-#endif
-    (unaryfunc) 0,                            /* nb_int */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* nb_reserved */
-#else
-    (unaryfunc) 0,                            /* nb_long */
-#endif
-    (unaryfunc) 0,                            /* nb_float */
-#if PY_VERSION_HEX < 0x03000000
-    (unaryfunc) 0,                            /* nb_oct */
-    (unaryfunc) 0,                            /* nb_hex */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_add */
-    (binaryfunc) 0,                           /* nb_inplace_subtract */
-    (binaryfunc) 0,                           /* nb_inplace_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_inplace_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_remainder */
-    (ternaryfunc) 0,                          /* nb_inplace_power */
-    (binaryfunc) 0,                           /* nb_inplace_lshift */
-    (binaryfunc) 0,                           /* nb_inplace_rshift */
-    (binaryfunc) 0,                           /* nb_inplace_and */
-    (binaryfunc) 0,                           /* nb_inplace_xor */
-    (binaryfunc) 0,                           /* nb_inplace_or */
-    (binaryfunc) 0,                           /* nb_floor_divide */
-    (binaryfunc) 0,                           /* nb_true_divide */
-    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
-    (binaryfunc) 0,                           /* nb_inplace_true_divide */
-    (unaryfunc) 0,                            /* nb_index */
-#if PY_VERSION_HEX >= 0x03050000
-    (binaryfunc) 0,                           /* nb_matrix_multiply */
-    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
-#endif
-  },
-  {
-    (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
-  },
-  {
-    (lenfunc) 0,                              /* sq_length */
-    (binaryfunc) 0,                           /* sq_concat */
-    (ssizeargfunc) 0,                         /* sq_repeat */
-    (ssizeargfunc) 0,                         /* sq_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_slice */
-#else
-    (ssizessizeargfunc) 0,                    /* sq_slice */
-#endif
-    (ssizeobjargproc) 0,                      /* sq_ass_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_ass_slice */
-#else
-    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
-#endif
-    (objobjproc) 0,                           /* sq_contains */
-    (binaryfunc) 0,                           /* sq_inplace_concat */
-    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
-  },
-  {
-#if PY_VERSION_HEX < 0x03000000
-    (readbufferproc) 0,                       /* bf_getreadbuffer */
-    (writebufferproc) 0,                      /* bf_getwritebuffer */
-    (segcountproc) 0,                         /* bf_getsegcount */
-    (charbufferproc) 0,                       /* bf_getcharbuffer */
-#endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
-  },
-    (PyObject *) 0,                           /* ht_name */
-    (PyObject *) 0,                           /* ht_slots */
-#if PY_VERSION_HEX >= 0x03030000
-    (PyObject *) 0,                           /* ht_qualname */
-    0,                                        /* ht_cached_keys */
-#endif
-};
-
-SWIGINTERN SwigPyClientData SwigPyBuiltin__ImageType_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__ImageType_type};
-
 static SwigPyGetSet NativePreview_position__getset = { _wrap_NativePreview_position__get, _wrap_NativePreview_position__set };
 static SwigPyGetSet NativePreview_mimeType__getset = { _wrap_NativePreview_mimeType__get, _wrap_NativePreview_mimeType__set };
 static SwigPyGetSet NativePreview_width__getset = { _wrap_NativePreview_width__get, _wrap_NativePreview_width__set };
@@ -19965,7 +19801,7 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__NativePreview_getset[] = {
     { (char *)"position_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" Position", &NativePreview_position__getset },
     { (char *)"mimeType_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" MIME type", &NativePreview_mimeType__getset },
     { (char *)"width_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" Width", &NativePreview_width__getset },
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Position", &NativePreview___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &NativePreview___dict___getset },
     { (char *)"filter_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" Filter", &NativePreview_filter__getset },
     { (char *)"size_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" Size", &NativePreview_size__getset },
     { (char *)"height_", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)" Height", &NativePreview_height__getset },
@@ -21206,7 +21042,6 @@ static swig_type_info _swigt__p_Exiv2__XmpKey = {"_p_Exiv2__XmpKey", "Exiv2::Xmp
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Xmpdatum = {"_p_Exiv2__Xmpdatum", "Exiv2::Xmpdatum *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ImageType = {"_p_ImageType", "ImageType *", 0, 0, (void*)&SwigPyBuiltin__ImageType_clientdata, 0};
 static swig_type_info _swigt__p_IptcDataIterator = {"_p_IptcDataIterator", "IptcDataIterator *", 0, 0, (void*)&SwigPyBuiltin__IptcDataIterator_clientdata, 0};
 static swig_type_info _swigt__p_IptcDataIteratorBase = {"_p_IptcDataIteratorBase", "IptcDataIteratorBase *", 0, 0, (void*)&SwigPyBuiltin__IptcDataIteratorBase_clientdata, 0};
 static swig_type_info _swigt__p_IptcDataWrap = {"_p_IptcDataWrap", "IptcDataWrap *", 0, 0, (void*)&SwigPyBuiltin__IptcDataWrap_clientdata, 0};
@@ -21304,7 +21139,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
   &_swigt__p_Exiv2__Xmpdatum,
-  &_swigt__p_ImageType,
   &_swigt__p_IptcDataIterator,
   &_swigt__p_IptcDataIteratorBase,
   &_swigt__p_IptcDataWrap,
@@ -21402,7 +21236,6 @@ static swig_cast_info _swigc__p_Exiv2__XmpKey[] = {  {&_swigt__p_Exiv2__XmpKey, 
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Xmpdatum[] = {  {&_swigt__p_Exiv2__Xmpdatum, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ImageType[] = {  {&_swigt__p_ImageType, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IptcDataIterator[] = {  {&_swigt__p_IptcDataIterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IptcDataIteratorBase[] = {  {&_swigt__p_IptcDataIterator, _p_IptcDataIteratorTo_p_IptcDataIteratorBase, 0, 0},  {&_swigt__p_IptcDataIteratorBase, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IptcDataWrap[] = {  {&_swigt__p_IptcDataWrap, 0, 0, 0},{0, 0, 0, 0}};
@@ -21500,7 +21333,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
   _swigc__p_Exiv2__Xmpdatum,
-  _swigc__p_ImageType,
   _swigc__p_IptcDataIterator,
   _swigc__p_IptcDataIteratorBase,
   _swigc__p_IptcDataWrap,
@@ -22538,48 +22370,6 @@ SWIG_init(void) {
   Py_INCREF(builtin_pytype);
   PyModule_AddObject(m, "XmpDataWrap", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpDataWrap");
-  d = md;
-  
-  /* type '::ImageType' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__ImageType_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "bmp",SWIG_From_int(static_cast< int >(ImageType::bmp)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "cr2",SWIG_From_int(static_cast< int >(ImageType::cr2)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "crw",SWIG_From_int(static_cast< int >(ImageType::crw)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "eps",SWIG_From_int(static_cast< int >(ImageType::eps)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "exv",SWIG_From_int(static_cast< int >(ImageType::exv)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "gif",SWIG_From_int(static_cast< int >(ImageType::gif)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "jp2",SWIG_From_int(static_cast< int >(ImageType::jp2)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "jpeg",SWIG_From_int(static_cast< int >(ImageType::jpeg)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "mrw",SWIG_From_int(static_cast< int >(ImageType::mrw)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "none",SWIG_From_int(static_cast< int >(ImageType::none)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "orf",SWIG_From_int(static_cast< int >(ImageType::orf)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "pgf",SWIG_From_int(static_cast< int >(ImageType::pgf)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "png",SWIG_From_int(static_cast< int >(ImageType::png)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "psd",SWIG_From_int(static_cast< int >(ImageType::psd)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "raf",SWIG_From_int(static_cast< int >(ImageType::raf)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "rw2",SWIG_From_int(static_cast< int >(ImageType::rw2)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "tga",SWIG_From_int(static_cast< int >(ImageType::tga)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "tiff",SWIG_From_int(static_cast< int >(ImageType::tiff)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "xmp",SWIG_From_int(static_cast< int >(ImageType::xmp)));
-  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
-  builtin_pytype->tp_new = PyType_GenericNew;
-  builtin_base_count = 0;
-  builtin_bases[builtin_base_count] = NULL;
-  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
-  PyDict_SetItemString(d, "this", this_descr);
-  PyDict_SetItemString(d, "thisown", thisown_descr);
-  if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'ImageType'.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "ImageType", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "ImageType");
   d = md;
   
   /* type 'Exiv2::NativePreview' */

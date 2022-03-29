@@ -67,6 +67,10 @@ class _SwigNonDynamicMeta(type):
 
 
 
+import enum
+XmpCategory = enum.IntEnum('XmpCategory', _enum_list_XmpCategory())
+XmpCategory.__doc__ = "Category of an XMP property."
+
 
 
 

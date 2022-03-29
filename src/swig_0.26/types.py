@@ -62,7 +62,21 @@ class _SwigNonDynamicMeta(type):
 
 
 
+import enum
+AccessMode = enum.IntEnum('AccessMode', _enum_list_AccessMode())
+AccessMode.__doc__ = "An identifier for each mode of metadata support."
 
+
+import enum
+MetadataId = enum.IntEnum('MetadataId', _enum_list_MetadataId())
+MetadataId.__doc__ = "An identifier for each type of metadata."
+
+
+import enum
+TypeId = enum.IntEnum('TypeId', _enum_list_TypeId())
+TypeId.__doc__ = "Exiv2 value type identifiers.\n"
+"\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
+"\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types."
 
 
 

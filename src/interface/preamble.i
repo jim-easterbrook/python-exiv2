@@ -372,15 +372,37 @@ _DATA_WRAPPER(name, base_class, datum_type, key_type, %inline)
 
 // Macro to make enums more Pythonic
 %define ENUM(name, doc, contents...)
-%feature("docstring") name doc
+%{
+#ifndef ENUM_HELPER
+#define ENUM_HELPER
+#include <cstdarg>
+static PyObject* _get_enum_list(int dummy, ...) {
+    PyObject* result = PyList_New(0);
+    va_list args;
+    va_start(args, dummy);
+    char* label = va_arg(args, char*);
+    int value = va_arg(args, int);
+    while (label) {
+        PyList_Append(result, PyTuple_Pack(2,
+            PyUnicode_FromString(label), PyLong_FromLong(value)));
+        label = va_arg(args, char*);
+        value = va_arg(args, int);
+    }
+    va_end(args);
+    return result;
+};
+#endif // #ifndef ENUM_HELPER
+%}
 %inline %{
-struct name {
-    enum {contents};
+PyObject* _enum_list_##name() {
+    return _get_enum_list(0, contents, NULL, 0);
 };
 %}
-%immutable name;
-%ignore name::name;
-%ignore name::~name;
+%pythoncode %{
+import enum
+name = enum.IntEnum('name', _enum_list_##name())
+name.__doc__ = doc
+%}
 %ignore Exiv2::name;
 %enddef // ENUM
 

@@ -82,6 +82,10 @@ class _SwigNonDynamicMeta(type):
 
 
 
+import enum
+ImageType = enum.IntEnum('ImageType', _enum_list_ImageType())
+ImageType.__doc__ = "Supported image formats."
+
 
 
 

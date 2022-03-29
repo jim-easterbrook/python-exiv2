@@ -87,32 +87,32 @@ DATA_WRAPPER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
 
 // Make image types available
 #ifdef EXV_ENABLE_BMFF
-#define BMFF bmff = int(Exiv2::ImageType::bmff),
+#define BMFF "bmff", int(Exiv2::ImageType::bmff),
 #else
 #define BMFF
 #endif
 
 ENUM(ImageType, "Supported image formats.",
-        bmp =   int(Exiv2::ImageType::bmp),
+        "bmp",  int(Exiv2::ImageType::bmp),
         BMFF
-        cr2 =   int(Exiv2::ImageType::cr2),
-        crw =   int(Exiv2::ImageType::crw),
-        eps =   int(Exiv2::ImageType::eps),
-        exv =   int(Exiv2::ImageType::exv),
-        gif =   int(Exiv2::ImageType::gif),
-        jp2 =   int(Exiv2::ImageType::jp2),
-        jpeg =  int(Exiv2::ImageType::jpeg),
-        mrw =   int(Exiv2::ImageType::mrw),
-        none =  int(Exiv2::ImageType::none),
-        orf =   int(Exiv2::ImageType::orf),
-        pgf =   int(Exiv2::ImageType::pgf),
-        png =   int(Exiv2::ImageType::png),
-        psd =   int(Exiv2::ImageType::psd),
-        raf =   int(Exiv2::ImageType::raf),
-        rw2 =   int(Exiv2::ImageType::rw2),
-        tga =   int(Exiv2::ImageType::tga),
-        tiff =  int(Exiv2::ImageType::tiff),
-        xmp =   int(Exiv2::ImageType::xmp));
+        "cr2",  int(Exiv2::ImageType::cr2),
+        "crw",  int(Exiv2::ImageType::crw),
+        "eps",  int(Exiv2::ImageType::eps),
+        "exv",  int(Exiv2::ImageType::exv),
+        "gif",  int(Exiv2::ImageType::gif),
+        "jp2",  int(Exiv2::ImageType::jp2),
+        "jpeg", int(Exiv2::ImageType::jpeg),
+        "mrw",  int(Exiv2::ImageType::mrw),
+        "none", int(Exiv2::ImageType::none),
+        "orf",  int(Exiv2::ImageType::orf),
+        "pgf",  int(Exiv2::ImageType::pgf),
+        "png",  int(Exiv2::ImageType::png),
+        "psd",  int(Exiv2::ImageType::psd),
+        "raf",  int(Exiv2::ImageType::raf),
+        "rw2",  int(Exiv2::ImageType::rw2),
+        "tga",  int(Exiv2::ImageType::tga),
+        "tiff", int(Exiv2::ImageType::tiff),
+        "xmp",  int(Exiv2::ImageType::xmp));
 %ignore Exiv2::ImageType::none;
 
 // Ignore const versions of methods

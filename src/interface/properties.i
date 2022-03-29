@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,8 +26,8 @@ wrap_auto_unique_ptr(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
 ENUM(XmpCategory, "Category of an XMP property.",
-        Internal = Exiv2::xmpInternal,
-        External = Exiv2::xmpExternal);
+        "Internal", Exiv2::xmpInternal,
+        "External", Exiv2::xmpExternal);
 
 // Get registeredNamespaces to return a Python dict
 %typemap(in, numinputs=0) Exiv2::Dictionary &nsDict (Exiv2::Dictionary temp) %{

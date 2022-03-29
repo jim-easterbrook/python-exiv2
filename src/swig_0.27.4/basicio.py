@@ -64,6 +64,10 @@ class _SwigNonDynamicMeta(type):
 
 
 
+import enum
+Position = enum.IntEnum('Position', _enum_list_Position())
+Position.__doc__ = "Seek starting positions."
+
 
 
 

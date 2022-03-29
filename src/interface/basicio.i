@@ -94,9 +94,9 @@ static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
 
 // Make enum more Pythonic
 ENUM(Position, "Seek starting positions.",
-        beg = Exiv2::BasicIo::beg,
-        cur = Exiv2::BasicIo::cur,
-        end = Exiv2::BasicIo::end);
+        "beg", Exiv2::BasicIo::beg,
+        "cur", Exiv2::BasicIo::cur,
+        "end", Exiv2::BasicIo::end);
 
 %ignore Exiv2::BasicIo::bigBlock_;
 %ignore Exiv2::BasicIo::mmap;
