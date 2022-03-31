@@ -21,43 +21,52 @@ import subprocess
 import sys
 
 
-def pkg_config(library, option):
-    cmd = ['pkg-config', '--' + option, library]
-    try:
-        return subprocess.Popen(
-            cmd, stdout=subprocess.PIPE,
-            universal_newlines=True).communicate()[0].split()
-    except Exception:
-        print('ERROR: command "%s" failed' % ' '.join(cmd))
-        raise
+def get_version(incl_dir, file):
+    version = {
+        'EXIV2_MAJOR_VERSION': 0,
+        'EXIV2_MINOR_VERSION': 0,
+        'EXIV2_PATCH_VERSION': 0,
+        'EXIV2_TWEAK_VERSION': 0,
+        }
+    with open(os.path.join(incl_dir, 'exiv2', file)) as cnf:
+        for line in cnf.readlines():
+            words = line.split()
+            if len(words) < 2:
+                continue
+            for key in version:
+                if words[1] != key:
+                    continue
+                if words[0] == '#define' and words[2] != '()':
+                    version[key] = int(words[2][1:-1])
+    return (version['EXIV2_MAJOR_VERSION'], version['EXIV2_MINOR_VERSION'],
+            version['EXIV2_PATCH_VERSION'], version['EXIV2_TWEAK_VERSION'])
 
 
 def main():
     # get version to SWIG
     if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print('Usage: %s version | "system" ["minimal"]' % sys.argv[0])
+        print('Usage: %s path ["minimal"]' % sys.argv[0])
         return 1
-    # get exiv2 version
-    if sys.argv[1] == 'system':
-        exiv2_version = pkg_config('exiv2', 'modversion')[0]
-    else:
-        exiv2_version = sys.argv[1]
     # minimal build?
     minimal = len(sys.argv) >= 3 and sys.argv[2] == 'minimal'
     # get config
     platform = sys.platform
     if platform == 'win32' and 'GCC' in sys.version:
         platform = 'mingw'
-    if sys.argv[1] == 'system':
-        incl_dir = [x[2:] for x in pkg_config('exiv2', 'cflags-only-I')]
-        incl_dir = incl_dir or ['/usr/include']
-        incl_dir = incl_dir[0]
-    else:
-        incl_dir = os.path.join(
-            'libexiv2_' + exiv2_version, platform, 'include')
-        if not os.path.exists(incl_dir):
-            incl_dir = os.path.join(
-                'libexiv2_' + exiv2_version, 'linux', 'include')
+    incl_dir = os.path.normpath(sys.argv[1])
+    if os.path.basename(incl_dir) != 'exiv2':
+        incl_dir = os.path.join(incl_dir, 'exiv2')
+    if not os.path.isdir(incl_dir):
+        print('Directory %s not found' % incl_dir)
+        return 2
+    if 'exiv2.hpp' not in os.listdir(incl_dir):
+        print('Exiv2 header files not found in %s' % incl_dir)
+        return 3
+    incl_dir = os.path.dirname(incl_dir)
+    # get exiv2 version
+    exiv2_version = get_version(incl_dir, 'exv_conf.h')
+    if exiv2_version < (0, 27):
+        exiv2_version = get_version(incl_dir, 'version.hpp')
     # get exiv2 build options
     options = {
         'EXV_ENABLE_BMFF'  : False,
@@ -68,10 +77,10 @@ def main():
     if not minimal:
         with open(os.path.join(incl_dir, 'exiv2', 'exv_conf.h')) as cnf:
             for line in cnf.readlines():
+                words = line.split()
                 for key in options:
                     if key not in line:
                         continue
-                    words = line.split()
                     if words[1] != key:
                         continue
                     if words[0] == '#define':
@@ -103,10 +112,9 @@ def main():
             swig_version = tuple(map(int, line.split()[-1].split('.')))
             break
     # convert exiv2 version to hex
-    exiv2_version_hex = '0x{:02x}{:02x}{:02x}{:02x}'.format(
-        *map(int, (exiv2_version + '.0.0').split('.')[:4]))
+    exiv2_version_hex = '0x{:02x}{:02x}{:02x}{:02x}'.format(*exiv2_version)
     # create output dir
-    output_dir = os.path.join('src', 'swig_' + exiv2_version)
+    output_dir = os.path.join('src', 'swig_{}.{}.{}'.format(*exiv2_version))
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     # copy Python modules
@@ -129,7 +137,7 @@ def main():
         # use -doxygen ?
         if swig_version >= (4, 0, 0):
             # -doxygen flag causes a syntax error on error.hpp in v0.26
-            if exiv2_version > "0.26" or ext_name not in ('error', ):
+            if exiv2_version >= (0, 27) or ext_name not in ('error', ):
                 cmd += ['-doxygen', '-DSWIG_DOXYGEN']
         cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
         cmd += [os.path.join(interface_dir, ext_name + '.i')]

@@ -211,17 +211,18 @@ Running SWIG
 You should only need to run SWIG_ if your installed libexiv2 has extras, such as Windows Unicode paths, that aren't available with the SWIG generated files included with python-exiv2.
 Note that versions of SWIG lower than 4.0.0 may not work correctly on the highly complex libexiv2 header files.
 
-After you've run ``copy_libexiv2.py`` you can run ``build_swig.py`` on the local copy of libexiv2::
+The ``build_swig.py`` script has one required parameter - the path of the exiv2 include directory.
+If you've run ``copy_libexiv2.py`` you can run ``build_swig.py`` on the local copy of libexiv2::
 
-    $ python3 utils/build_swig.py 0.27.5
+    $ python3 utils/build_swig.py libexiv2_0.27.5/linux/include
 
 Or you can run it on the system installed libexiv2::
 
-    $ python3 utils/build_swig.py system
+    $ python3 utils/build_swig.py /usr/include
 
 If you need to generate the minimal interface included with python-exiv2 you can add ``minimal`` to the command::
 
-    $ python3 utils/build_swig.py 0.27.5 minimal
+    $ python3 utils/build_swig.py libexiv2_0.27.5/linux/include minimal
 
 After running ``build_swig.py`` you can build and install a wheel as before::
 
