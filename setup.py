@@ -34,13 +34,15 @@ swigged_versions = []
 for name in os.listdir('src'):
     parts = name.split('_')
     if parts[0] == 'swig' and parts[1] not in swigged_versions:
-        swigged_versions.append(parts[1])
+        swigged_versions.append([int(x) for x in parts[1].split('.')])
 swigged_versions.sort(reverse=True)
 
 def get_mod_src_dir(exiv2_version):
+    while len(exiv2_version) < 3:
+        exiv2_version.append(0)
     for version in swigged_versions:
         if exiv2_version >= version:
-            return os.path.join('src', 'swig_' + version)
+            return os.path.join('src', 'swig_{}.{}.{}'.format(*version))
     return None
 
 mod_src_dir = None
@@ -56,6 +58,7 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
     # attempt to use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
     if exiv2_version:
+        exiv2_version = [int(x) for x in exiv2_version.split('.')]
         mod_src_dir = get_mod_src_dir(exiv2_version)
         if mod_src_dir:
             library_dirs = pkg_config('exiv2', 'libs-only-L').split('-L')
@@ -65,7 +68,8 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
             include_dirs = [x.strip() for x in include_dirs]
             include_dirs = [x.replace(r'\ ', ' ') for x in include_dirs if x]
             extra_link_args = []
-            print('Using system installed libexiv2 v{}'.format(exiv2_version))
+            print('Using system installed libexiv2 v{}.{}.{}'.format(
+                *exiv2_version))
 
 if not mod_src_dir:
     # installed libexiv2 not found, use our own
@@ -83,8 +87,9 @@ if not mod_src_dir:
                 break
     if exiv2_version:
         print('Using local copy of libexiv2 v{}'.format(exiv2_version))
-        mod_src_dir = get_mod_src_dir(exiv2_version)
         root_dir = os.path.join('libexiv2_' + exiv2_version, platform)
+        exiv2_version = [int(x) for x in exiv2_version.split('.')]
+        mod_src_dir = get_mod_src_dir(exiv2_version)
         lib_dir = os.path.join(root_dir, 'lib')
         inc_dir = os.path.join(root_dir, 'include')
         locale_dir = os.path.join(root_dir, 'locale')
@@ -133,7 +138,7 @@ if platform in ('linux', 'darwin', 'mingw'):
         extra_compile_args.append('-Wno-unused-but-set-variable')
     if 'PYTHON_EXIV2_STRICT' in os.environ:
         extra_compile_args.append('-Werror')
-    if exiv2_version >= '1.0.0':
+    if exiv2_version >= [1, 0, 0]:
         extra_compile_args.append('-std=gnu++17')
     else:
         extra_compile_args.append('-std=c++98')
