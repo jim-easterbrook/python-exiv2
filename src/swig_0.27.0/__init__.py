@@ -47,10 +47,4 @@ from exiv2.value import *
 from exiv2.version import *
 from exiv2.xmp import *
 
-_dir = os.path.join(os.path.dirname(__file__), 'locale')
-if not os.path.isdir(_dir):
-    import gettext
-    _dir = gettext.bindtextdomain('exiv2')
-exiv2.types._set_locale_dir(_dir)
-
 __all__ = [x for x in dir() if x[0] != '_']

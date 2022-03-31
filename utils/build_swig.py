@@ -191,13 +191,16 @@ else:
         im.write('__version__ = "%s"\n\n' % py_exiv2_version)
         for name in ext_names:
             im.write('from exiv2.%s import *\n' % name)
-        im.write('''
+        if options['EXV_ENABLE_NLS']:
+            im.write('''
 _dir = os.path.join(os.path.dirname(__file__), 'locale')
 if not os.path.isdir(_dir):
     import gettext
     _dir = gettext.bindtextdomain('exiv2')
 exiv2.types._set_locale_dir(_dir)
 
+''')
+        im.write('''
 __all__ = [x for x in dir() if x[0] != '_']
 ''')
     return 0
