@@ -29,6 +29,25 @@ def pkg_config(library, option):
         print(str(ex))
         return None
 
+def get_version(inc_dir, file):
+    version = {
+        'EXIV2_MAJOR_VERSION': 0,
+        'EXIV2_MINOR_VERSION': 0,
+        'EXIV2_PATCH_VERSION': 0,
+        }
+    with open(os.path.join(inc_dir, 'exiv2', file)) as cnf:
+        for line in cnf.readlines():
+            words = line.split()
+            if len(words) < 2:
+                continue
+            for key in version:
+                if words[1] != key:
+                    continue
+                if words[0] == '#define' and words[2] != '()':
+                    version[key] = int(words[2][1:-1])
+    return [version['EXIV2_MAJOR_VERSION'], version['EXIV2_MINOR_VERSION'],
+            version['EXIV2_PATCH_VERSION']]
+
 # get list of available swigged versions
 swigged_versions = []
 for name in os.listdir('src'):
@@ -54,8 +73,64 @@ packages = ['exiv2', 'exiv2.examples']
 package_dir = {'exiv2.examples': 'examples'}
 package_data = {'exiv2.examples': ['*.py', '*.rst']}
 
-if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
-    # attempt to use installed libexiv2
+if 'EXIV2_ROOT' in os.environ:
+    # use local copy of libexiv2
+    inc_dir = None
+    lib_dir = None
+    locale_dir = None
+    for root, dirs, files in os.walk(os.path.normpath(os.environ['EXIV2_ROOT'])):
+        for file in files:
+            if file == 'exiv2.hpp':
+                inc_dir = os.path.dirname(root)
+                break
+            if file == 'exiv2.mo':
+                locale_dir = os.path.dirname(os.path.dirname(root))
+                break
+            base, ext = os.path.splitext(file)
+            if (base in ('exiv2', 'libexiv2')
+                    and ext in ('.so', '.dll', '.dylib', '.lib')):
+                lib_dir = root
+                break
+        if inc_dir and lib_dir and locale_dir:
+            break
+    if not (inc_dir and lib_dir):
+        print('ERROR: Include and library files not found')
+        sys.exit(1)
+    # get exiv2 version from include files
+    exiv2_version = get_version(inc_dir, 'exv_conf.h')
+    if exiv2_version < [0, 27]:
+        exiv2_version = get_version(inc_dir, 'version.hpp')
+    mod_src_dir = get_mod_src_dir(exiv2_version)
+    if platform == 'linux':
+        extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
+    elif platform == 'darwin':
+        extra_link_args = ['-Wl,-rpath,@loader_path/lib']
+    else:
+        extra_link_args = []
+    # add exiv2.lib package for libexiv2 binary
+    packages.append('exiv2.lib')
+    package_dir['exiv2.lib'] = lib_dir
+    if platform in ['linux', 'darwin']:
+        # choose the libexiv2.so.?? or libexiv2.??.dylib version
+        for name in os.listdir(lib_dir):
+            parts = name.split('.')
+            if len(parts) == 3 and parts[0] == 'libexiv2':
+                package_data['exiv2.lib'] = [name]
+                break
+    else:
+        package_data['exiv2.lib'] = [
+            'exiv2.dll',        # Windows
+            'libexiv2.dll.a',   # MinGW64 & CYGWIN64
+            ]
+    include_dirs = [inc_dir]
+    library_dirs = [lib_dir]
+    # add exiv2.locale package for libexiv2 localisation files
+    if locale_dir:
+        packages.append('exiv2.locale')
+        package_dir['exiv2.locale'] = locale_dir
+        package_data['exiv2.locale'] = ['*/LC_MESSAGES/exiv2.mo']
+else:
+    # use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
     if exiv2_version:
         exiv2_version = [int(x) for x in exiv2_version.split('.')]
@@ -68,62 +143,13 @@ if platform != 'win32' and 'EXIV2_VERSION' not in os.environ:
             include_dirs = [x.strip() for x in include_dirs]
             include_dirs = [x.replace(r'\ ', ' ') for x in include_dirs if x]
             extra_link_args = []
-            print('Using system installed libexiv2 v{}.{}.{}'.format(
-                *exiv2_version))
-
-if not mod_src_dir:
-    # installed libexiv2 not found, use our own
-    if 'EXIV2_VERSION' in os.environ:
-        exiv2_version = os.environ['EXIV2_VERSION']
-    else:
-        exiv2_version = None
-        for name in os.listdir('.'):
-            if not name.startswith('libexiv2_'):
-                continue
-            lib_dir = os.path.join(name, platform, 'lib')
-            inc_dir = os.path.join(name, platform, 'include')
-            if os.path.exists(lib_dir) and os.path.exists(inc_dir):
-                exiv2_version = name.split('_', 1)[1]
-                break
-    if exiv2_version:
-        print('Using local copy of libexiv2 v{}'.format(exiv2_version))
-        root_dir = os.path.join('libexiv2_' + exiv2_version, platform)
-        exiv2_version = [int(x) for x in exiv2_version.split('.')]
-        mod_src_dir = get_mod_src_dir(exiv2_version)
-        lib_dir = os.path.join(root_dir, 'lib')
-        inc_dir = os.path.join(root_dir, 'include')
-        locale_dir = os.path.join(root_dir, 'locale')
-        if platform == 'linux':
-            extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
-        elif platform == 'darwin':
-            extra_link_args = ['-Wl,-rpath,@loader_path/lib']
-        else:
-            extra_link_args = []
-        # add exiv2.lib package for libexiv2 binary
-        packages.append('exiv2.lib')
-        package_dir['exiv2.lib'] = lib_dir
-        package_data['exiv2.lib'] = ['*.dll', '*.dylib']
-        if platform in ['linux', 'darwin']:
-            # choose the libexiv2.so.?? or libexiv2.??.dylib version
-            for name in os.listdir(lib_dir):
-                if len(name.split('.')) == 3:
-                    package_data['exiv2.lib'] = [name]
-        include_dirs = [inc_dir]
-        library_dirs = [lib_dir]
-        # add exiv2.locale package for libexiv2 localisation files
-        if os.path.exists(locale_dir):
-            for root, dirs, files in os.walk(locale_dir):
-                if files:
-                    package = 'exiv2.locale' + root.replace(
-                        locale_dir, '').replace('/', '.')
-                    packages.append(package)
-                    package_dir[package] = root
-                    package_data[package] = ['*.mo']
-
 
 if not mod_src_dir:
     print('ERROR: No SWIG source for libexiv2 version {}'.format(exiv2_version))
     sys.exit(1)
+
+print('Using libexiv2 v{}.{}.{} with SWIG files from {}'.format(
+    *exiv2_version, mod_src_dir))
 
 package_dir['exiv2'] = mod_src_dir
 

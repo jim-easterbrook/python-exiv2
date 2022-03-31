@@ -70,9 +70,9 @@ This script takes two parameters, the source directory and the exiv2 version, fo
     $ python3 utils/copy_libexiv2.py ../exiv2-0.27.5-Linux64 0.27.5
 
 Next you can compile `python-exiv2`_ to use this source.
-Note the use of the ``EXIV2_VERSION`` environment variable to select the source::
+Note the use of the ``EXIV2_ROOT`` environment variable to select the source::
 
-    $ EXIV2_VERSION=0.27.5 pip3 wheel .
+    $ EXIV2_ROOT=libexiv2_0.27.5/linux pip3 wheel .
     Processing /home/jim/python-exiv2
     Building wheels for collected packages: python-exiv2
       Building wheel for python-exiv2 (setup.py) ... done
@@ -108,7 +108,7 @@ Copy the required libexiv2_ files::
 
 Build a wheel::
 
-    c:\Users\Jim\python-exiv2>set EXIV2_VERSION=0.27.5
+    c:\Users\Jim\python-exiv2>set EXIV2_ROOT=libexiv2_0.27.5/win32
     c:\Users\Jim\python-exiv2>pip wheel .
     Processing c:\users\jim\python-exiv2
     Building wheels for collected packages: python-exiv2
@@ -226,7 +226,7 @@ If you need to generate the minimal interface included with python-exiv2 you can
 
 After running ``build_swig.py`` you can build and install a wheel as before::
 
-    $ EXIV2_VERSION=0.27.5 pip3 wheel .
+    $ EXIV2_ROOT=libexiv2_0.27.5/linux pip3 wheel .
     $ pip3 install --user python_exiv2-0.6.1-cp36-cp36m-linux_x86_64.whl
 
 
