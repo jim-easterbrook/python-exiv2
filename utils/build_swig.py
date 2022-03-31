@@ -19,6 +19,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 
 
 def get_version(incl_dir, file):
@@ -28,7 +29,7 @@ def get_version(incl_dir, file):
         'EXIV2_PATCH_VERSION': 0,
         'EXIV2_TWEAK_VERSION': 0,
         }
-    with open(os.path.join(incl_dir, 'exiv2', file)) as cnf:
+    with open(os.path.join(incl_dir, file)) as cnf:
         for line in cnf.readlines():
             words = line.split()
             if len(words) < 2:
@@ -62,7 +63,6 @@ def main():
     if 'exiv2.hpp' not in os.listdir(incl_dir):
         print('Exiv2 header files not found in %s' % incl_dir)
         return 3
-    incl_dir = os.path.dirname(incl_dir)
     # get exiv2 version
     exiv2_version = get_version(incl_dir, 'exv_conf.h')
     if exiv2_version < (0, 27):
@@ -75,7 +75,7 @@ def main():
         'EXV_UNICODE_PATH' : False,
         }
     if not minimal:
-        with open(os.path.join(incl_dir, 'exiv2', 'exv_conf.h')) as cnf:
+        with open(os.path.join(incl_dir, 'exv_conf.h')) as cnf:
             for line in cnf.readlines():
                 words = line.split()
                 for key in options:
@@ -121,28 +121,38 @@ def main():
     for mod_name in mod_names:
         shutil.copy2(os.path.join('src', 'interface', mod_name),
                      os.path.join(output_dir, mod_name))
-    # make options list
-    swig_opts = ['-c++', '-python', '-py3', '-builtin',
-                 '-fastdispatch', '-fastproxy',
-                 '-Wextra', '-Werror']
-    swig_opts.append('-I' + incl_dir)
-    for key in options:
-        if options[key]:
-            swig_opts.append('-D' + key)
-    swig_opts.append('-DEXIV2_VERSION_HEX=' + exiv2_version_hex)
-    swig_opts += ['-outdir', output_dir]
-    # do each swig module
-    for ext_name in ext_names:
-        cmd = ['swig'] + swig_opts
-        # use -doxygen ?
-        if swig_version >= (4, 0, 0):
-            # -doxygen flag causes a syntax error on error.hpp in v0.26
-            if exiv2_version >= (0, 27) or ext_name not in ('error', ):
-                cmd += ['-doxygen', '-DSWIG_DOXYGEN']
-        cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
-        cmd += [os.path.join(interface_dir, ext_name + '.i')]
-        print(' '.join(cmd))
-        subprocess.check_call(cmd)
+    # pre-process include files to a temporary directory
+    with tempfile.TemporaryDirectory() as copy_dir:
+        dest = os.path.join(copy_dir, 'exiv2')
+        os.makedirs(dest)
+        for file in os.listdir(incl_dir):
+            with open(os.path.join(incl_dir, file), 'r') as in_file:
+                with open(os.path.join(dest, file), 'w') as out_file:
+                    for line in in_file.readlines():
+                        line = line.replace('[[nodiscard]]', '')
+                        out_file.write(line)
+        # make options list
+        swig_opts = ['-c++', '-python', '-py3', '-builtin',
+                     '-fastdispatch', '-fastproxy',
+                     '-Wextra', '-Werror']
+        swig_opts.append('-I' + copy_dir)
+        for key in options:
+            if options[key]:
+                swig_opts.append('-D' + key)
+        swig_opts.append('-DEXIV2_VERSION_HEX=' + exiv2_version_hex)
+        swig_opts += ['-outdir', output_dir]
+        # do each swig module
+        for ext_name in ext_names:
+            cmd = ['swig'] + swig_opts
+            # use -doxygen ?
+            if swig_version >= (4, 0, 0):
+                # -doxygen flag causes a syntax error on error.hpp in v0.26
+                if exiv2_version >= (0, 27) or ext_name not in ('error', ):
+                    cmd += ['-doxygen', '-DSWIG_DOXYGEN']
+            cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
+            cmd += [os.path.join(interface_dir, ext_name + '.i')]
+            print(' '.join(cmd))
+            subprocess.check_call(cmd)
     # create init module
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
