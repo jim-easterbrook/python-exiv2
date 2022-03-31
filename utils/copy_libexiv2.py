@@ -66,9 +66,15 @@ def main():
     os.makedirs(dest, exist_ok=True)
     for file in lib_files:
         shutil.copy2(file, dest, follow_symlinks=False)
-    # copy include files
+    # pre-process include files
     dest = os.path.join(target, 'include', 'exiv2')
-    shutil.copytree(incl_dir, dest)
+    os.makedirs(dest, exist_ok=True)
+    for file in os.listdir(incl_dir):
+        with open(os.path.join(incl_dir, file), 'r') as in_file:
+            with open(os.path.join(dest, file), 'w') as out_file:
+                for line in in_file.readlines():
+                    line = line.replace('[[nodiscard]]', '')
+                    out_file.write(line)
     # copy locale files
     dest_root = os.path.join(target, 'locale')
     for file in locale_files:
