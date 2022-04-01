@@ -75,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: exiv2-windows
-          path: ./exiv2-Source/local_install
+          path: ./exiv2-Source/local_install/*
           retention-days: 1
 
   wheels:
