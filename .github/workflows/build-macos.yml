@@ -4,6 +4,8 @@ on: workflow_dispatch
 jobs:
   build:
     runs-on: macos-10.15
+    env:
+      EXIV2_ROOT: /project/exiv2-install
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -17,7 +19,7 @@ jobs:
       - name: Make directories
         run: |
           mkdir exiv2-0.27.5-Source/build
-          mkdir exiv2
+          mkdir $EXIV2_ROOT
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.1.1
@@ -31,18 +33,18 @@ jobs:
             conan profile new --detect default &&
             conan install .. --build missing &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
-              -DCMAKE_INSTALL_PREFIX=../../exiv2 \
+              -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
               -DEXIV2_BUILD_SAMPLES=OFF \
               -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
               -DEXIV2_ENABLE_BMFF=ON \
               -DEXIV2_ENABLE_NLS=ON \
+              -DCMAKE_CXX_STANDARD=98 \
               -GNinja &&
             cmake --build . --config Release &&
             cmake --build . --target install &&
             cd ../.. &&
-            python3 utils/copy_libexiv2.py exiv2 0.27.5 &&
-            python3 utils/build_swig.py 0.27.5
+            python3 utils/build_swig.py ${{ env.EXIV2_ROOT }}/include
 
       - name: Store results
         uses: actions/upload-artifact@v2
