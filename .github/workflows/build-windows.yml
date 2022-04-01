@@ -89,6 +89,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Fetch intermediate files
+        working-directory: ./lib_exiv2
         uses: actions/download-artifact@v2
         with:
           name: exiv2-windows
@@ -102,10 +103,10 @@ jobs:
       - name: Build wheel
         run: |
           pip3 install --disable-pip-version-check setuptools wheel
-          python3 utils/build_swig.py exiv2-Source/local_install/include
+          python3 utils/build_swig.py lib_exiv2/include
           pip wheel -v .
         env:
-          EXIV2_ROOT: exiv2-Source/local_install
+          EXIV2_ROOT: lib_exiv2
 
       - name: Store results
         uses: actions/upload-artifact@v2
