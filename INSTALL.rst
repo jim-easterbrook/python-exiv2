@@ -64,30 +64,26 @@ Use pre-built libexiv2
 ----------------------
 
 The Exiv2 project provides builds_ for several operating systems.
-Download and unpack the appropriate one for your operating system, then use the ``copy_libexiv2.py`` script provided with python-exiv2 to copy the required files.
-This script takes two parameters, the source directory and the exiv2 version, for example::
-
-    $ python3 utils/copy_libexiv2.py ../exiv2-0.27.5-Linux64 0.27.5
-
-Next you can compile `python-exiv2`_ to use this source.
+Download and unpack the appropriate one for your operating system, then you can compile `python-exiv2`_ to use this source.
 Note the use of the ``EXIV2_ROOT`` environment variable to select the source::
 
-    $ EXIV2_ROOT=libexiv2_0.27.5/linux pip3 wheel .
+    $ EXIV2_ROOT=../exiv2-0.27.5-Linux64 pip3 wheel .
     Processing /home/jim/python-exiv2
+      Preparing metadata (setup.py) ... done
     Building wheels for collected packages: python-exiv2
       Building wheel for python-exiv2 (setup.py) ... done
-      Created wheel for python-exiv2: filename=python_exiv2-0.3.1-cp36-cp36m-linux_x86_64.whl size=4850527 sha256=72f2e85ebf14f414f66b6b939c4c7a9787be242a2b623c42a65d8f538c0f6b5a
-      Stored in directory: /home/jim/.cache/pip/wheels/95/11/3c/2536c604d8cc5593cd723bb1f3f8b0439c0c11bed5626debfb
+      Created wheel for python-exiv2: filename=python_exiv2-0.10.0-cp38-cp38-linux_x86_64.whl size=8789690 sha256=c54ee6ceee9da81f70fd213e8c0d5e1bb98ae9a6aefbb945782cbe9691f36fb3
+      Stored in directory: /home/jim/.cache/pip/wheels/44/ba/25/f613bdae19073dfc7df93a259d277710f5b820127097b0267a
     Successfully built python-exiv2
 
 As before, you can use pip_'s ``-v`` option to see what's happening as it compiles each python-exiv2 module.
 
 If this worked you can now install the wheel_ you've just built::
 
-    $ pip3 install --user python_exiv2-0.3.1-cp36-cp36m-linux_x86_64.whl
-    Processing ./python_exiv2-0.3.1-cp36-cp36m-linux_x86_64.whl
+    $ pip3 install --user python_exiv2-0.10.0-cp38-cp38-linux_x86_64.whl 
+    Processing ./python_exiv2-0.10.0-cp38-cp38-linux_x86_64.whl
     Installing collected packages: python-exiv2
-    Successfully installed python-exiv2-0.3.1
+    Successfully installed python-exiv2-0.10.0
 
 Windows
 ^^^^^^^
@@ -102,27 +98,24 @@ Python versions 3.5 onwards need Visual C++ 14.x.
 Fortunately Microsoft provides a free `Visual C++ 14.2 standalone`_.
 Download and install this first.
 
-Copy the required libexiv2_ files::
-
-    c:\Users\Jim\python-exiv2>python utils\copy_libexiv2.py ..\exiv2-0.27.5-2019msvc64 0.27.5
-
 Build a wheel::
 
-    c:\Users\Jim\python-exiv2>set EXIV2_ROOT=libexiv2_0.27.5/win32
-    c:\Users\Jim\python-exiv2>pip wheel .
+    C:\Users\Jim\python-exiv2>set EXIV2_ROOT=..\exiv2-0.27.5-2019msvc64
+    C:\Users\Jim\python-exiv2>pip wheel .
     Processing c:\users\jim\python-exiv2
+      Preparing metadata (setup.py) ... done
     Building wheels for collected packages: python-exiv2
       Building wheel for python-exiv2 (setup.py) ... done
-      Created wheel for python-exiv2: filename=python_exiv2-0.3.1-cp38-cp38-win_amd64.whl size=1744137 sha256=b1cbc43b200ae48ce88a68d45b8dc702aef6ecc5ba317b96212c0e592a36682c
+      Created wheel for python-exiv2: filename=python_exiv2-0.10.0-cp38-cp38-win_amd64.whl size=976373 sha256=abd2043eac35399e36ad7b7b552b5c162e04ae74abc1dc22385efdcbe5a97fa2
       Stored in directory: c:\users\jim\appdata\local\pip\cache\wheels\77\a8\d0\50e43a228b0acffc6f77d6ea1c651044ee197bfebb6f0387cc
     Successfully built python-exiv2
 
 Install the wheel::
 
-    c:\Users\Jim\python-exiv2>pip install python_exiv2-0.3.1-cp38-cp38-win_amd64.whl
-    Processing c:\users\jim\python-exiv2\python_exiv2-0.3.1-cp38-cp38-win_amd64.whl
+    C:\Users\Jim\python-exiv2>pip install python_exiv2-0.10.0-cp38-cp38-win_amd64.whl
+    Processing c:\users\jim\python-exiv2\python_exiv2-0.10.0-cp38-cp38-win_amd64.whl
     Installing collected packages: python-exiv2
-    Successfully installed python-exiv2-0.3.1
+    Successfully installed python-exiv2-0.10.0
 
 Build your own libexiv2
 -----------------------
@@ -143,20 +136,29 @@ Create a build directory and change to it, then configure the build::
     $ cd build
     $ cmake .. -DCMAKE_BUILD_TYPE=Release \
     > -DCMAKE_INSTALL_PREFIX=../local_install -DEXIV2_BUILD_SAMPLES=OFF \
-    > -DEXIV2_BUILD_EXIV2_COMMAND=OFF -DEXIV2_ENABLE_BMFF=OFF
+    > -DEXIV2_BUILD_EXIV2_COMMAND=OFF -DEXIV2_ENABLE_BMFF=ON \
+    > -DEXIV2_ENABLE_NLS=ON -DCMAKE_CXX_STANDARD=98
 
 Note the use of ``-DCMAKE_INSTALL_PREFIX=../local_install`` to create a local copy of libexiv2, rather than installing it in ``/usr/local``.
+(Other cmake options enable localisation and use of BMFF files, and select the c++98 standard used by exiv2 prior to version 1.0.0.)
 
 If this worked you can now compile and install (to the local folder) libexiv2::
 
     $ cmake --build .
-    $ make install
+    $ cmake --install .
 
-Back in your python-exiv2 directory, copy your newly compiled libexiv2 from the local folder::
+Back in your python-exiv2 directory, you can build the wheel as before, but using your new build::
 
-    $ python3 utils/copy_libexiv2.py ../exiv2-0.27.5-Source/local_install 0.27.5
+    $ EXIV2_ROOT=../exiv2-0.27.5-Source/local_install pip3 wheel .
+    Processing /home/jim/python-exiv2
+      Preparing metadata (setup.py) ... done
+    Building wheels for collected packages: python-exiv2
+      Building wheel for python-exiv2 (setup.py) ... done
+      Created wheel for python-exiv2: filename=python_exiv2-0.10.0-cp36-cp36m-linux_x86_64.whl size=6727960 sha256=a5ec8f10a95a913af2313eda49548f7c17815e909b7ff2bf2dfd181712557817
+      Stored in directory: /home/jim/.cache/pip/wheels/95/11/3c/2536c604d8cc5593cd723bb1f3f8b0439c0c11bed5626debfb
+    Successfully built python-exiv2
 
-Then build and install a wheel as before.
+Then install the wheel as before.
 
 Windows
 ^^^^^^^
@@ -166,44 +168,49 @@ Once again, doing this on Windows is just a bit more complicated.
 The dependencies zlib_, expat_, and libiconv_ are installed with conan_.
 First install conan with pip_::
 
-    c:\Users\Jim\exiv2-0.27.5-Source>pip install conan
+    C:\Users\Jim\exiv2-0.27.5-Source>pip install conan
 
 The dependencies required by libexiv2 are defined in the file ``conanfile.py``.
 Unfortunately this file is out of date and needs to be replaced by the one supplied with python-exiv2::
 
-    c:\Users\Jim\exiv2-0.27.5-Source>copy ..\python-exiv2\conanfile.py .
+    C:\Users\Jim\exiv2-0.27.5-Source>copy ..\python-exiv2\conanfile.py .
 
 Now create a build directory, then change to it and run conan::
 
-    c:\Users\Jim\exiv2-0.27.5-Source>mkdir build
-    c:\Users\Jim\exiv2-0.27.5-Source>cd build
-    c:\Users\Jim\exiv2-0.27.5-Source\build>conan install .. --build missing
+    C:\Users\Jim\exiv2-0.27.5-Source>mkdir build
+    C:\Users\Jim\exiv2-0.27.5-Source>cd build
+    C:\Users\Jim\exiv2-0.27.5-Source\build>conan install .. --build missing
 
 This installs the dependencies and creates a file ``conanbuildinfo.cmake`` that tells CMake_ where they are.
 
 Now you can configure CMake::
 
-    c:\Users\Jim\exiv2-0.27.5-Source\build>cmake .. -DCMAKE_BUILD_TYPE=Release ^
+    C:\Users\Jim\exiv2-0.27.5-Source\build>cmake .. -DCMAKE_BUILD_TYPE=Release ^
     More? -DCMAKE_INSTALL_PREFIX=../local_install -DEXIV2_ENABLE_WIN_UNICODE=ON ^
     More? -DEXIV2_BUILD_SAMPLES=OFF -DEXIV2_BUILD_EXIV2_COMMAND=OFF ^
-    More? -DEXIV2_ENABLE_BMFF=OFF -G "Visual Studio 16 2019" -A x64
+    More? -DEXIV2_ENABLE_BMFF=ON -G "Visual Studio 16 2019" -A x64
 
 (The ``^`` characters are used to split this very long command.)
 Note the use of ``-DCMAKE_INSTALL_PREFIX=../local_install`` to install to a local directory and ``-DEXIV2_ENABLE_WIN_UNICODE=ON`` to enable the use of Windows Unicode paths.
 
 If that worked you can compile and install libexiv2::
 
-    c:\Users\Jim\exiv2-0.27.5-Source\build>cmake --build . --config Release
-    c:\Users\Jim\exiv2-0.27.5-Source\build>cmake --install . --config Release --prefix ../local_install
+    C:\Users\Jim\exiv2-0.27.5-Source\build>cmake --build . --config Release
+    C:\Users\Jim\exiv2-0.27.5-Source\build>cmake --install . --config Release
 
-Yes, you need to specify the local directory again.
-``cmake --install`` seems to ignore the ``-DCMAKE_INSTALL_PREFIX`` set earlier.
+Back in your python-exiv2 directory, build a wheel using your newly compiled libexiv2 from the local folder::
 
-Back in your python-exiv2 directory, copy your newly compiled libexiv2 from the local folder::
+    C:\Users\Jim\python-exiv2>set EXIV2_ROOT=..\exiv2-0.27.5-Source\local_install
+    C:\Users\Jim\python-exiv2>pip wheel .
+    Processing c:\users\jim\python-exiv2
+      Preparing metadata (setup.py) ... done
+    Building wheels for collected packages: python-exiv2
+      Building wheel for python-exiv2 (setup.py) ... done
+      Created wheel for python-exiv2: filename=python_exiv2-0.10.0-cp38-cp38-win_amd64.whl size=976521 sha256=c2b7472153a9874e93c686dbcfc42a986a9407a0929953378abb2c006024d157
+      Stored in directory: c:\users\jim\appdata\local\pip\cache\wheels\77\a8\d0\50e43a228b0acffc6f77d6ea1c651044ee197bfebb6f0387cc
+    Successfully built python-exiv2
 
-    c:\Users\Jim\python-exiv2>python utils\copy_libexiv2.py ..\exiv2-0.27.5-Source\local_install 0.27.5
-
-Then build and install a wheel as before.
+Then install the wheel as before.
 
 Running SWIG
 ------------
@@ -212,9 +219,9 @@ You should only need to run SWIG_ if your installed libexiv2 has extras, such as
 Note that versions of SWIG lower than 4.0.0 may not work correctly on the highly complex libexiv2 header files.
 
 The ``build_swig.py`` script has one required parameter - the path of the exiv2 include directory.
-If you've run ``copy_libexiv2.py`` you can run ``build_swig.py`` on the local copy of libexiv2::
+If you've downloaded or build exiv2 you can run ``build_swig.py`` on the local copy::
 
-    $ python3 utils/build_swig.py libexiv2_0.27.5/linux/include
+    $ python3 utils/build_swig.py ../exiv2-0.27.5-Source/local_install/include
 
 Or you can run it on the system installed libexiv2::
 
@@ -222,13 +229,12 @@ Or you can run it on the system installed libexiv2::
 
 If you need to generate the minimal interface included with python-exiv2 you can add ``minimal`` to the command::
 
-    $ python3 utils/build_swig.py libexiv2_0.27.5/linux/include minimal
+    $ python3 utils/build_swig.py ../exiv2-0.27.5-Source/local_install/include minimal
 
 After running ``build_swig.py`` you can build and install a wheel as before::
 
-    $ EXIV2_ROOT=libexiv2_0.27.5/linux pip3 wheel .
-    $ pip3 install --user python_exiv2-0.6.1-cp36-cp36m-linux_x86_64.whl
-
+    $ EXIV2_ROOT=../exiv2-0.27.5-Source/local_install pip3 wheel .
+    $ pip3 install --user python_exiv2-0.10.0-cp36-cp36m-linux_x86_64.whl
 
 .. _build instructions:
     https://github.com/exiv2/exiv2#2
