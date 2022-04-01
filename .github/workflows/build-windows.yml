@@ -69,13 +69,13 @@ jobs:
 
       - name: Install Exiv2
         working-directory: ./exiv2-Source/build
-        run: cmake --install . --config Release
+        run: cmake --install . --config Release --prefix ../local_install
 
       - name: Store intermediate files
         uses: actions/upload-artifact@v2
         with:
           name: exiv2-windows
-          path: ./exiv2-Source/local_install/*
+          path: ./exiv2-Source/local_install
           retention-days: 1
 
   wheels:
