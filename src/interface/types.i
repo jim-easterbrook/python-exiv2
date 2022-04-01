@@ -146,7 +146,26 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 // Hide parts of Exiv2::DataBuf that Python shouldn't see
 %ignore Exiv2::DataBuf::pData_;
 %ignore Exiv2::DataBuf::size_;
+%ignore Exiv2::DataBuf::data;
+%ignore Exiv2::DataBuf::c_data;
+%ignore Exiv2::DataBuf::c_str;
+%ignore Exiv2::DataBuf::read_uint8;
+%ignore Exiv2::DataBuf::read_uint16;
+%ignore Exiv2::DataBuf::read_uint32;
+%ignore Exiv2::DataBuf::read_uint64;
+%ignore Exiv2::DataBuf::write_uint8;
+%ignore Exiv2::DataBuf::write_uint16;
+%ignore Exiv2::DataBuf::write_uint32;
+%ignore Exiv2::DataBuf::write_uint64;
 %ignore Exiv2::DataBuf::operator=;
+// Exiv2 v1.0.0 makes DataBuf iterable. We don't need that as we already have
+// a Python buffer interface.
+%ignore Exiv2::DataBuf::iterator;
+%ignore Exiv2::DataBuf::const_iterator;
+%ignore Exiv2::DataBuf::begin;
+%ignore Exiv2::DataBuf::cbegin;
+%ignore Exiv2::DataBuf::end;
+%ignore Exiv2::DataBuf::cend;
 
 // Make various enums more Pythonic
 ENUM(AccessMode, "An identifier for each mode of metadata support.",
@@ -220,6 +239,7 @@ ENUM(TypeId, "Exiv2 value type identifiers.\n"
 %ignore Exiv2::r2Data;
 %ignore Exiv2::s2Data;
 %ignore Exiv2::ul2Data;
+%ignore Exiv2::ull2Data;
 %ignore Exiv2::ur2Data;
 %ignore Exiv2::us2Data;
 %ignore Exiv2::toData;
@@ -228,6 +248,8 @@ ENUM(TypeId, "Exiv2 value type identifiers.\n"
 %ignore Exiv2::parseLong;
 %ignore Exiv2::parseFloat;
 %ignore Exiv2::parseRational;
+%ignore Exiv2::parseInt64;
+%ignore Exiv2::parseUint32;
 %ignore Exiv2::s2ws;
 %ignore Exiv2::ws2s;
 %ignore Exiv2::exvGettext;
