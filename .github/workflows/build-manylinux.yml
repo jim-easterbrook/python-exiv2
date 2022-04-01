@@ -4,6 +4,8 @@ on: workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXIV2_ROOT: /project/exiv2-install
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -16,7 +18,6 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.1.1
         env:
-          EXIV2_ROOT: /project/exiv2-install
           CIBW_ARCHS: auto64
           CIBW_SKIP: pp37-manylinux_x86_64
           CIBW_BEFORE_ALL: >
