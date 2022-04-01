@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -125,11 +126,12 @@ def main():
     with tempfile.TemporaryDirectory() as copy_dir:
         dest = os.path.join(copy_dir, 'exiv2')
         os.makedirs(dest)
+        attr = re.compile(r'^\s*?(\[\[.*?\]\]\s*?)')
         for file in os.listdir(incl_dir):
             with open(os.path.join(incl_dir, file), 'r') as in_file:
                 with open(os.path.join(dest, file), 'w') as out_file:
                     for line in in_file.readlines():
-                        line = line.replace('[[nodiscard]]', '')
+                        line = attr.sub('', line)
                         out_file.write(line)
         # make options list
         swig_opts = ['-c++', '-python', '-py3', '-builtin',
