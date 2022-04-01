@@ -59,7 +59,8 @@ jobs:
                 -DEXIV2_BUILD_SAMPLES=OFF \
                 -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
                 -DEXIV2_ENABLE_BMFF=ON \
-                -DEXIV2_ENABLE_NLS=ON \
+                -DEXIV2_ENABLE_NLS=OFF \
+                -DCMAKE_CXX_STANDARD=98 \
                 -G "Visual Studio 16 2019" -A x64
 
       - name: Compile Exiv2
@@ -68,16 +69,13 @@ jobs:
 
       - name: Install Exiv2
         working-directory: ./exiv2-Source/build
-        run: cmake --install . --config Release --prefix ../local_install
-
-      - name: Copy required files
-        run: python3 utils/copy_libexiv2.py exiv2-Source/local_install 0.27.5
+        run: cmake --install . --config Release
 
       - name: Store intermediate files
         uses: actions/upload-artifact@v2
         with:
           name: exiv2-windows
-          path: libexiv2_*/win32/
+          path: ./exiv2-Source/local_install
           retention-days: 1
 
   wheels:
@@ -104,10 +102,10 @@ jobs:
       - name: Build wheel
         run: |
           pip3 install --disable-pip-version-check setuptools wheel
-          python3 utils/build_swig.py 0.27.5
+          python3 utils/build_swig.py exiv2-Source/local_install/include
           pip wheel -v .
         env:
-          EXIV2_VERSION: 0.27.5
+          EXIV2_ROOT: exiv2-Source/local_install
 
       - name: Store results
         uses: actions/upload-artifact@v2
