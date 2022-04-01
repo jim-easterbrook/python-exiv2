@@ -89,10 +89,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Fetch intermediate files
-        working-directory: ./lib_exiv2
         uses: actions/download-artifact@v2
         with:
           name: exiv2-windows
+          path: lib_exiv2
 
       - name: Setup Python
         uses: actions/setup-python@v2
