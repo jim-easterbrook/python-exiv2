@@ -75,31 +75,52 @@ package_data = {'exiv2.examples': ['*.py', '*.rst']}
 
 if 'EXIV2_ROOT' in os.environ:
     # use local copy of libexiv2
-    inc_dir = None
-    lib_dir = None
-    locale_dir = None
+    packages.append('exiv2.lib')
+    package_dir['exiv2.lib'] = None
+    include_dirs = []
+    library_dirs = []
     for root, dirs, files in os.walk(os.path.normpath(os.environ['EXIV2_ROOT'])):
         for file in files:
             if file == 'exiv2.hpp':
-                inc_dir = os.path.dirname(root)
+                include_dirs = [os.path.dirname(root)]
                 break
             if file == 'exiv2.mo':
-                locale_dir = os.path.dirname(os.path.dirname(root))
+                if 'exiv2.locale' not in packages:
+                    # add exiv2.locale package for libexiv2 localisation files
+                    packages.append('exiv2.locale')
+                    package_dir['exiv2.locale'] = os.path.dirname(
+                        os.path.dirname(root))
+                    package_data['exiv2.locale'] = ['*/LC_MESSAGES/exiv2.mo']
                 break
-            base, ext = os.path.splitext(file)
-            if (base in ('exiv2', 'libexiv2')
-                    and ext in ('.so', '.dll', '.dylib', '.lib')):
-                lib_dir = root
+            if file in ('exiv2.lib', 'libexiv2.dll.a'):
+                # win32, mingw, cygwin
+                library_dirs = [root]
                 break
-        if inc_dir and lib_dir and locale_dir:
+            parts = file.split('.')
+            if not (parts[0] in ('exiv2', 'libexiv2')
+                    or parts[0].startswith('cygexiv2')):
+                continue
+            if len(parts) == 2 and parts[1] == 'dll':
+                # win32, mingw, cygwin
+                package_dir['exiv2.lib'] = root
+                package_data['exiv2.lib'] = [file]
+                break
+            if len(parts) == 3 and (parts[1] == 'so' or parts[2] == 'dylib'):
+                # linux, darwin
+                library_dirs = [root]
+                package_dir['exiv2.lib'] = root
+                package_data['exiv2.lib'] = [file]
+                break
+        if (include_dirs and library_dirs and package_dir['exiv2.lib']
+                and 'exiv2.locale' in packages):
             break
-    if not (inc_dir and lib_dir):
+    if not (include_dirs and library_dirs and package_dir['exiv2.lib']):
         print('ERROR: Include and library files not found')
         sys.exit(1)
     # get exiv2 version from include files
-    exiv2_version = get_version(inc_dir, 'exv_conf.h')
+    exiv2_version = get_version(include_dirs[0], 'exv_conf.h')
     if exiv2_version < [0, 27]:
-        exiv2_version = get_version(inc_dir, 'version.hpp')
+        exiv2_version = get_version(include_dirs[0], 'version.hpp')
     mod_src_dir = get_mod_src_dir(exiv2_version)
     if platform == 'linux':
         extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
@@ -107,28 +128,6 @@ if 'EXIV2_ROOT' in os.environ:
         extra_link_args = ['-Wl,-rpath,@loader_path/lib']
     else:
         extra_link_args = []
-    # add exiv2.lib package for libexiv2 binary
-    packages.append('exiv2.lib')
-    package_dir['exiv2.lib'] = lib_dir
-    if platform in ['linux', 'darwin']:
-        # choose the libexiv2.so.?? or libexiv2.??.dylib version
-        for name in os.listdir(lib_dir):
-            parts = name.split('.')
-            if len(parts) == 3 and parts[0] == 'libexiv2':
-                package_data['exiv2.lib'] = [name]
-                break
-    else:
-        package_data['exiv2.lib'] = [
-            'exiv2.dll',        # Windows
-            'libexiv2.dll.a',   # MinGW64 & CYGWIN64
-            ]
-    include_dirs = [inc_dir]
-    library_dirs = [lib_dir]
-    # add exiv2.locale package for libexiv2 localisation files
-    if locale_dir:
-        packages.append('exiv2.locale')
-        package_dir['exiv2.locale'] = locale_dir
-        package_data['exiv2.locale'] = ['*/LC_MESSAGES/exiv2.mo']
 else:
     # use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
