@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -45,5 +45,7 @@ wrap_auto_unique_ptr(Exiv2::Key);
 
 %ignore Exiv2::Key::operator=;
 %ignore Exiv2::Metadatum::operator=;
+%ignore Exiv2::Key::write;
+%ignore Exiv2::Metadatum::write;
 
 %include "exiv2/metadatum.hpp"

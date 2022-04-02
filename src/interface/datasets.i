@@ -25,6 +25,7 @@ wrap_auto_unique_ptr(Exiv2::IptcKey);
 
 %ignore Exiv2::RecordInfo::RecordInfo;
 %ignore Exiv2::DataSet::DataSet;
+%ignore Exiv2::IptcDataSets::dataSetList;
 %ignore Exiv2::IptcDataSets::IptcDataSets;
 #if EXIV2_VERSION_HEX >= 0x01000000
   %ignore Exiv2::IptcDataSets::recordId;

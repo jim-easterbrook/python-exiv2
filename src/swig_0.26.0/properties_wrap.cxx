@@ -3492,23 +3492,22 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_size_type swig_types[46]
 #define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[47]
 #define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[48]
-#define SWIGTYPE_p_std__ostream swig_types[49]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[50]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[51]
-#define SWIGTYPE_p_std__setT_std__string_t swig_types[52]
-#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[53]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[54]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[55]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[56]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[57]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[58]
-#define SWIGTYPE_p_unsigned_char swig_types[59]
-#define SWIGTYPE_p_unsigned_int swig_types[60]
-#define SWIGTYPE_p_unsigned_long_long swig_types[61]
-#define SWIGTYPE_p_unsigned_short swig_types[62]
-#define SWIGTYPE_p_value_type swig_types[63]
-static swig_type_info *swig_types[65];
-static swig_module_info swig_module = {swig_types, 64, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[49]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[50]
+#define SWIGTYPE_p_std__setT_std__string_t swig_types[51]
+#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[52]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[53]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[54]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[55]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[56]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[57]
+#define SWIGTYPE_p_unsigned_char swig_types[58]
+#define SWIGTYPE_p_unsigned_int swig_types[59]
+#define SWIGTYPE_p_unsigned_long_long swig_types[60]
+#define SWIGTYPE_p_unsigned_short swig_types[61]
+#define SWIGTYPE_p_value_type swig_types[62]
+static swig_type_info *swig_types[64];
+static swig_module_info swig_module = {swig_types, 63, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4711,118 +4710,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpProperties_printProperties(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpProperties_printProperties", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpProperties_printProperties" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpProperties_printProperties" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpProperties_printProperties" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpProperties_printProperties" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      Exiv2::XmpProperties::printProperties(*arg1,(std::string const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpProperties_printProperty(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  Exiv2::Value *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject *swig_obj[3] ;
-  std::ostream *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "XmpProperties_printProperty", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpProperties_printProperty" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpProperties_printProperty" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpProperties_printProperty" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpProperties_printProperty" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpProperties_printProperty" "', argument " "3"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpProperties_printProperty" "', argument " "3"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
-  {
-    try {
-      result = (std::ostream *) &Exiv2::XmpProperties::printProperty(*arg1,(std::string const &)*arg2,(Exiv2::Value const &)*arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpProperties_registerNs(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -5629,8 +5516,6 @@ static PyMethodDef SwigMethods[] = {
 		":return: The prefix or an empty string if namespace *ns* is not\n"
 		"           registered.\n"
 		""},
-	 { "XmpProperties_printProperties", _wrap_XmpProperties_printProperties, METH_VARARGS, " Print a list of properties of a schema namespace to output stream *os*."},
-	 { "XmpProperties_printProperty", _wrap_XmpProperties_printProperty, METH_VARARGS, " Interpret and print the value of an XMP property"},
 	 { "XmpProperties_registerNs", _wrap_XmpProperties_registerNs, METH_VARARGS, "\n"
 		"Register namespace *ns* with preferred prefix *prefix*.\n"
 		"\n"
@@ -5750,8 +5635,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		":return: The prefix or an empty string if namespace *ns* is not\n"
 		"           registered.\n"
 		""},
-	 { "XmpProperties_printProperties", _wrap_XmpProperties_printProperties, METH_VARARGS, " Print a list of properties of a schema namespace to output stream *os*."},
-	 { "XmpProperties_printProperty", _wrap_XmpProperties_printProperty, METH_VARARGS, " Interpret and print the value of an XMP property"},
 	 { "XmpProperties_registerNs", _wrap_XmpProperties_registerNs, METH_VARARGS, "\n"
 		"Register namespace *ns* with preferred prefix *prefix*.\n"
 		"\n"
@@ -6365,8 +6248,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
 		":return: The prefix or an empty string if namespace *ns* is not\n"
 		"           registered.\n"
 		"" },
-  { "printProperties", (PyCFunction)(void(*)(void))_wrap_XmpProperties_printProperties, METH_STATIC|METH_VARARGS, " Print a list of properties of a schema namespace to output stream *os*." },
-  { "printProperty", (PyCFunction)(void(*)(void))_wrap_XmpProperties_printProperty, METH_STATIC|METH_VARARGS, " Interpret and print the value of an XMP property" },
   { "registerNs", (PyCFunction)(void(*)(void))_wrap_XmpProperties_registerNs, METH_STATIC|METH_VARARGS, "\n"
 		"Register namespace *ns* with preferred prefix *prefix*.\n"
 		"\n"
@@ -6974,7 +6855,6 @@ static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "signed char *|
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t = {"_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t", "std::map< std::string,std::string,std::less< std::string >,std::allocator< std::pair< std::string const,std::string > > > *|Exiv2::Dictionary *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator = {"_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator", "Exiv2::Dictionary_i *|std::map< std::string,std::string,std::less< std::string >,std::allocator< std::pair< std::string const,std::string > > >::const_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__setT_std__string_t = {"_p_std__setT_std__string_t", "std::set< std::string > *|Exiv2::StringSet *", 0, 0, (void*)0, 0};
@@ -7040,7 +6920,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_size_type,
   &_swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t,
   &_swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator,
-  &_swigt__p_std__ostream,
   &_swigt__p_std__pairT_int_int_t,
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
   &_swigt__p_std__setT_std__string_t,
@@ -7106,7 +6985,6 @@ static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t[] = {  {&_swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator[] = {  {&_swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pairT_int_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__setT_std__string_t[] = {  {&_swigt__p_std__setT_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -7172,7 +7050,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_size_type,
   _swigc__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t,
   _swigc__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator,
-  _swigc__p_std__ostream,
   _swigc__p_std__pairT_int_int_t,
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
   _swigc__p_std__setT_std__string_t,

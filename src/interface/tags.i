@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -50,6 +50,10 @@ wrap_auto_unique_ptr(Exiv2::ExifKey);
 %ignore Exiv2::GroupInfo::GroupInfo;
 %ignore Exiv2::GroupInfo::GroupName;
 %ignore Exiv2::TagInfo::TagInfo;
+
+// Ignore stuff that Python can't use
+%ignore Exiv2::TagInfo::printFct_;
+%ignore Exiv2::ExifTags::taglist;
 
 %immutable;
 %include "exiv2/tags.hpp"

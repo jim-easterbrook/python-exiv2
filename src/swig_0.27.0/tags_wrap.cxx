@@ -3478,28 +3478,26 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_const_iterator swig_types[32]
 #define SWIGTYPE_p_difference_type swig_types[33]
 #define SWIGTYPE_p_f___p_Exiv2__TagInfo swig_types[34]
-#define SWIGTYPE_p_f_r_std__ostream_r_q_const__Exiv2__Value_p_q_const__Exiv2__ExifData__r_std__ostream swig_types[35]
-#define SWIGTYPE_p_first_type swig_types[36]
-#define SWIGTYPE_p_int swig_types[37]
-#define SWIGTYPE_p_iterator swig_types[38]
-#define SWIGTYPE_p_key_type swig_types[39]
-#define SWIGTYPE_p_long_long swig_types[40]
-#define SWIGTYPE_p_mapped_type swig_types[41]
-#define SWIGTYPE_p_second_type swig_types[42]
-#define SWIGTYPE_p_short swig_types[43]
-#define SWIGTYPE_p_signed_char swig_types[44]
-#define SWIGTYPE_p_size_type swig_types[45]
-#define SWIGTYPE_p_std__ostream swig_types[46]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[47]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[48]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[49]
-#define SWIGTYPE_p_unsigned_char swig_types[50]
-#define SWIGTYPE_p_unsigned_int swig_types[51]
-#define SWIGTYPE_p_unsigned_long_long swig_types[52]
-#define SWIGTYPE_p_unsigned_short swig_types[53]
-#define SWIGTYPE_p_value_type swig_types[54]
-static swig_type_info *swig_types[56];
-static swig_module_info swig_module = {swig_types, 55, 0, 0, 0, 0};
+#define SWIGTYPE_p_first_type swig_types[35]
+#define SWIGTYPE_p_int swig_types[36]
+#define SWIGTYPE_p_iterator swig_types[37]
+#define SWIGTYPE_p_key_type swig_types[38]
+#define SWIGTYPE_p_long_long swig_types[39]
+#define SWIGTYPE_p_mapped_type swig_types[40]
+#define SWIGTYPE_p_second_type swig_types[41]
+#define SWIGTYPE_p_short swig_types[42]
+#define SWIGTYPE_p_signed_char swig_types[43]
+#define SWIGTYPE_p_size_type swig_types[44]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[45]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[46]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[47]
+#define SWIGTYPE_p_unsigned_char swig_types[48]
+#define SWIGTYPE_p_unsigned_int swig_types[49]
+#define SWIGTYPE_p_unsigned_long_long swig_types[50]
+#define SWIGTYPE_p_unsigned_short swig_types[51]
+#define SWIGTYPE_p_value_type swig_types[52]
+static swig_type_info *swig_types[54];
+static swig_module_info swig_module = {swig_types, 53, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4477,28 +4475,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_TagInfo_printFct__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::PrintFct result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_printFct__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_printFct__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (Exiv2::PrintFct) ((arg1)->printFct_);
-  resultobj = SWIG_NewFunctionPtrObj((void *)(result), SWIGTYPE_p_f_r_std__ostream_r_q_const__Exiv2__Value_p_q_const__Exiv2__ExifData__r_std__ostream);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_TagInfo(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
@@ -4613,117 +4589,6 @@ SWIGINTERN PyObject *_wrap_ExifTags_tagList(PyObject *self, PyObject *args) {
 fail:
   if (SWIG_IsNewObj(res1)) delete arg1;
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifTags_taglist__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifTags_taglist" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifTags_taglist" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  {
-    try {
-      Exiv2::ExifTags::taglist(*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifTags_taglist__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifTags_taglist" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifTags_taglist" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifTags_taglist" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifTags_taglist" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      Exiv2::ExifTags::taglist(*arg1,(std::string const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifTags_taglist(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "ExifTags_taglist", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_ExifTags_taglist__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_ExifTags_taglist__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifTags_taglist'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::ExifTags::taglist(std::ostream &)\n"
-    "    Exiv2::ExifTags::taglist(std::ostream &,std::string const &)\n");
-  return 0;
 }
 
 
@@ -5612,15 +5477,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
 	 { "ExifTags_groupList", _wrap_ExifTags_groupList, METH_NOARGS, " Return read-only list of built-in groups"},
 	 { "ExifTags_tagList", _wrap_ExifTags_tagList, METH_O, " Return read-only list of built-in *groupName* tags."},
-	 { "ExifTags_taglist", _wrap_ExifTags_taglist, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Print a list of all standard Exif tags to output stream\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Print the list of tags for *groupName*\n"
-		""},
 	 { "ExifTags_sectionName", _wrap_ExifTags_sectionName, METH_O, " Return the name of the section for an Exif *key*."},
 	 { "ExifTags_defaultCount", _wrap_ExifTags_defaultCount, METH_O, " Return the default number of components (not bytes!) *key* has. (0=any, -1=count not known)"},
 	 { "ExifTags_ifdName", _wrap_ExifTags_ifdName, METH_O, " Return the name of the IFD for the group."},
@@ -5638,15 +5494,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
 	 { "ExifTags_groupList", _wrap_ExifTags_groupList, METH_NOARGS, " Return read-only list of built-in groups"},
 	 { "ExifTags_tagList", _wrap_ExifTags_tagList, METH_O, " Return read-only list of built-in *groupName* tags."},
-	 { "ExifTags_taglist", _wrap_ExifTags_taglist, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Print a list of all standard Exif tags to output stream\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Print the list of tags for *groupName*\n"
-		""},
 	 { "ExifTags_sectionName", _wrap_ExifTags_sectionName, METH_O, " Return the name of the section for an Exif *key*."},
 	 { "ExifTags_defaultCount", _wrap_ExifTags_defaultCount, METH_O, " Return the default number of components (not bytes!) *key* has. (0=any, -1=count not known)"},
 	 { "ExifTags_ifdName", _wrap_ExifTags_ifdName, METH_O, " Return the name of the IFD for the group."},
@@ -5905,7 +5752,6 @@ static SwigPyGetSet TagInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
 static SwigPyGetSet TagInfo_typeId__getset = { _wrap_TagInfo_typeId__get, 0 };
 static SwigPyGetSet TagInfo_sectionId__getset = { _wrap_TagInfo_sectionId__get, 0 };
 static SwigPyGetSet TagInfo_count__getset = { _wrap_TagInfo_count__get, 0 };
-static SwigPyGetSet TagInfo_printFct__getset = { _wrap_TagInfo_printFct__get, 0 };
 static SwigPyGetSet TagInfo_title__getset = { _wrap_TagInfo_title__get, 0 };
 static SwigPyGetSet TagInfo_desc__getset = { _wrap_TagInfo_desc__get, 0 };
 static SwigPyGetSet TagInfo_tag__getset = { _wrap_TagInfo_tag__get, 0 };
@@ -5916,7 +5762,6 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__TagInfo_getset[] = {
     { (char *)"typeId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Type id", &TagInfo_typeId__getset },
     { (char *)"sectionId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Section id", &TagInfo_sectionId__getset },
     { (char *)"count_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" The number of values (not bytes!), 0=any, -1=count not known.", &TagInfo_count__getset },
-    { (char *)"printFct_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Pointer to tag print function", &TagInfo_printFct__getset },
     { (char *)"title_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Tag title", &TagInfo_title__getset },
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Short tag description", &TagInfo_desc__getset },
     { (char *)"tag_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Tag", &TagInfo_tag__getset },
@@ -6153,15 +5998,6 @@ SwigPyBuiltin__Exiv2__ExifTags_richcompare(PyObject *self, PyObject *other, int 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ExifTags_methods[] = {
   { "groupList", (PyCFunction)(void(*)(void))_wrap_ExifTags_groupList, METH_STATIC|METH_NOARGS, " Return read-only list of built-in groups" },
   { "tagList", (PyCFunction)(void(*)(void))_wrap_ExifTags_tagList, METH_STATIC|METH_O, " Return read-only list of built-in *groupName* tags." },
-  { "taglist", (PyCFunction)(void(*)(void))_wrap_ExifTags_taglist, METH_STATIC|METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Print a list of all standard Exif tags to output stream\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Print the list of tags for *groupName*\n"
-		"" },
   { "sectionName", (PyCFunction)(void(*)(void))_wrap_ExifTags_sectionName, METH_STATIC|METH_O, " Return the name of the section for an Exif *key*." },
   { "defaultCount", (PyCFunction)(void(*)(void))_wrap_ExifTags_defaultCount, METH_STATIC|METH_O, " Return the default number of components (not bytes!) *key* has. (0=any, -1=count not known)" },
   { "ifdName", (PyCFunction)(void(*)(void))_wrap_ExifTags_ifdName, METH_STATIC|METH_O, " Return the name of the IFD for the group." },
@@ -6741,7 +6577,6 @@ static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_f___p_Exiv2__TagInfo = {"_p_f___p_Exiv2__TagInfo", "Exiv2::TagListFct|Exiv2::TagInfo *(*)()", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_f_r_std__ostream_r_q_const__Exiv2__Value_p_q_const__Exiv2__ExifData__r_std__ostream = {"_p_f_r_std__ostream_r_q_const__Exiv2__Value_p_q_const__Exiv2__ExifData__r_std__ostream", "Exiv2::PrintFct|std::ostream &(*)(std::ostream &,Exiv2::Value const &,Exiv2::ExifData const *)", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "intptr_t *|int *|int_least32_t *|int_fast32_t *|int32_t *|int_fast16_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_iterator = {"_p_iterator", "iterator *", 0, 0, (void*)0, 0};
@@ -6752,7 +6587,6 @@ static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *"
 static swig_type_info _swigt__p_short = {"_p_short", "short *|int_least16_t *|int16_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "signed char *|int_least8_t *|int_fast8_t *|int8_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t = {"_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t", "std::vector< unsigned char,std::allocator< unsigned char > > *|Exiv2::Blob *", 0, 0, (void*)0, 0};
@@ -6798,7 +6632,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_const_iterator,
   &_swigt__p_difference_type,
   &_swigt__p_f___p_Exiv2__TagInfo,
-  &_swigt__p_f_r_std__ostream_r_q_const__Exiv2__Value_p_q_const__Exiv2__ExifData__r_std__ostream,
   &_swigt__p_first_type,
   &_swigt__p_int,
   &_swigt__p_iterator,
@@ -6809,7 +6642,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_short,
   &_swigt__p_signed_char,
   &_swigt__p_size_type,
-  &_swigt__p_std__ostream,
   &_swigt__p_std__pairT_int_int_t,
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
   &_swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,
@@ -6855,7 +6687,6 @@ static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0,
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_f___p_Exiv2__TagInfo[] = {  {&_swigt__p_f___p_Exiv2__TagInfo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_f_r_std__ostream_r_q_const__Exiv2__Value_p_q_const__Exiv2__ExifData__r_std__ostream[] = {  {&_swigt__p_f_r_std__ostream_r_q_const__Exiv2__Value_p_q_const__Exiv2__ExifData__r_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_iterator[] = {  {&_swigt__p_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -6866,7 +6697,6 @@ static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pairT_int_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t[] = {  {&_swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -6912,7 +6742,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_const_iterator,
   _swigc__p_difference_type,
   _swigc__p_f___p_Exiv2__TagInfo,
-  _swigc__p_f_r_std__ostream_r_q_const__Exiv2__Value_p_q_const__Exiv2__ExifData__r_std__ostream,
   _swigc__p_first_type,
   _swigc__p_int,
   _swigc__p_iterator,
@@ -6923,7 +6752,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_short,
   _swigc__p_signed_char,
   _swigc__p_size_type,
-  _swigc__p_std__ostream,
   _swigc__p_std__pairT_int_int_t,
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
   _swigc__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,

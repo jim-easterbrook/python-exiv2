@@ -3488,23 +3488,22 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_size_type swig_types[42]
 #define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[43]
 #define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[44]
-#define SWIGTYPE_p_std__ostream swig_types[45]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[46]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[47]
-#define SWIGTYPE_p_std__setT_std__string_t swig_types[48]
-#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[49]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[50]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[51]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[52]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[53]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[54]
-#define SWIGTYPE_p_unsigned_char swig_types[55]
-#define SWIGTYPE_p_unsigned_int swig_types[56]
-#define SWIGTYPE_p_unsigned_long_long swig_types[57]
-#define SWIGTYPE_p_unsigned_short swig_types[58]
-#define SWIGTYPE_p_value_type swig_types[59]
-static swig_type_info *swig_types[61];
-static swig_module_info swig_module = {swig_types, 60, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[45]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[46]
+#define SWIGTYPE_p_std__setT_std__string_t swig_types[47]
+#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[48]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[49]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[50]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[51]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[52]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[53]
+#define SWIGTYPE_p_unsigned_char swig_types[54]
+#define SWIGTYPE_p_unsigned_int swig_types[55]
+#define SWIGTYPE_p_unsigned_long_long swig_types[56]
+#define SWIGTYPE_p_unsigned_short swig_types[57]
+#define SWIGTYPE_p_value_type swig_types[58]
+static swig_type_info *swig_types[60];
+static swig_module_info swig_module = {swig_types, 59, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4834,42 +4833,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetList(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::ostream *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataSets_dataSetList" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcDataSets_dataSetList" "', argument " "1"" of type '" "std::ostream &""'"); 
-  }
-  arg1 = reinterpret_cast< std::ostream * >(argp1);
-  {
-    try {
-      Exiv2::IptcDataSets::dataSetList(*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_IptcDataSets(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::IptcDataSets *arg1 = (Exiv2::IptcDataSets *) 0 ;
@@ -5483,7 +5446,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IptcDataSets_envelopeRecordList", _wrap_IptcDataSets_envelopeRecordList, METH_NOARGS, " Return read-only list of built-in Envelope Record datasets"},
 	 { "IptcDataSets_application2RecordList", _wrap_IptcDataSets_application2RecordList, METH_NOARGS, " Return read-only list of built-in Application2 Record datasets"},
-	 { "IptcDataSets_dataSetList", _wrap_IptcDataSets_dataSetList, METH_O, " Print a list of all dataSets to output stream"},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -5578,7 +5540,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		""},
 	 { "IptcDataSets_envelopeRecordList", _wrap_IptcDataSets_envelopeRecordList, METH_NOARGS, " Return read-only list of built-in Envelope Record datasets"},
 	 { "IptcDataSets_application2RecordList", _wrap_IptcDataSets_application2RecordList, METH_NOARGS, " Return read-only list of built-in Application2 Record datasets"},
-	 { "IptcDataSets_dataSetList", _wrap_IptcDataSets_dataSetList, METH_O, " Print a list of all dataSets to output stream"},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -6153,7 +6114,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__IptcDataSets_methods[] = {
 		"" },
   { "envelopeRecordList", (PyCFunction)(void(*)(void))_wrap_IptcDataSets_envelopeRecordList, METH_STATIC|METH_NOARGS, " Return read-only list of built-in Envelope Record datasets" },
   { "application2RecordList", (PyCFunction)(void(*)(void))_wrap_IptcDataSets_application2RecordList, METH_STATIC|METH_NOARGS, " Return read-only list of built-in Application2 Record datasets" },
-  { "dataSetList", (PyCFunction)(void(*)(void))_wrap_IptcDataSets_dataSetList, METH_STATIC|METH_O, " Print a list of all dataSets to output stream" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6720,7 +6680,6 @@ static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "signed char *|
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t = {"_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t", "std::map< std::string,std::string,std::less< std::string >,std::allocator< std::pair< std::string const,std::string > > > *|Exiv2::Dictionary *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator = {"_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator", "Exiv2::Dictionary_i *|std::map< std::string,std::string,std::less< std::string >,std::allocator< std::pair< std::string const,std::string > > >::const_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__setT_std__string_t = {"_p_std__setT_std__string_t", "std::set< std::string > *|Exiv2::StringSet *", 0, 0, (void*)0, 0};
@@ -6782,7 +6741,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_size_type,
   &_swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t,
   &_swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator,
-  &_swigt__p_std__ostream,
   &_swigt__p_std__pairT_int_int_t,
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
   &_swigt__p_std__setT_std__string_t,
@@ -6844,7 +6802,6 @@ static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t[] = {  {&_swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator[] = {  {&_swigt__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pairT_int_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__setT_std__string_t[] = {  {&_swigt__p_std__setT_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -6906,7 +6863,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_size_type,
   _swigc__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t,
   _swigc__p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator,
-  _swigc__p_std__ostream,
   _swigc__p_std__pairT_int_int_t,
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
   _swigc__p_std__setT_std__string_t,

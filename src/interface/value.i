@@ -295,6 +295,7 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 // Ignore stuff Python can't use or SWIG can't handle
 %ignore Exiv2::operator<<;
 %ignore Exiv2::Value::operator=;
+%ignore Exiv2::Value::write;
 %ignore Exiv2::CommentValue::CharsetInfo;
 %ignore Exiv2::CommentValue::CharsetTable;
 %ignore Exiv2::DateValue::Date;
