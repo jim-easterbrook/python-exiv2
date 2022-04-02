@@ -135,6 +135,24 @@ ENUM(ImageType, "Supported image formats.",
 %ignore Exiv2::PrintStructureOption;
 %ignore Exiv2::append;
 
+// Ignore low level stuff Python doesn't need access to
+%ignore isBigEndianPlatform;
+%ignore isLittleEndianPlatform;
+%ignore isStringType;
+%ignore isShortType;
+%ignore isLongType;
+%ignore isLongLongType;
+%ignore isRationalType;
+%ignore is2ByteType;
+%ignore is4ByteType;
+%ignore is8ByteType;
+%ignore isPrintXMP;
+%ignore isPrintICC;
+%ignore byteSwap;
+%ignore byteSwap2;
+%ignore byteSwap4;
+%ignore byteSwap8;
+
 #if EXIV2_VERSION_HEX >= 0x01000000
 %include "exiv2/image_types.hpp"
 #endif
