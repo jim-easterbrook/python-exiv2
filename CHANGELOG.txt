@@ -16,6 +16,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.10.0:
+  1/ API change: replaced Value += operator with append method.
+  2/ Improved conversion of LangAltValue to/from Python dict.
+  3/ Can construct some other values from a Python list.
+  4/ AnyError exception renamed to Exiv2Error (with AnyError wrapper for
+     compatibility).
+  5/ Enabled localisation of error messages etc.
+  6/ Python enum class is used for Exiv2 enums.
+
 Changes in v0.9.0:
   1/ Add Exiv2::BasicIo and its subclasses to Python interface.
 
