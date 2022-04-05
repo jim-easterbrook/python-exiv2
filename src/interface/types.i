@@ -149,6 +149,8 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 %ignore Exiv2::DataBuf::data;
 %ignore Exiv2::DataBuf::c_data;
 %ignore Exiv2::DataBuf::c_str;
+%ignore Exiv2::DataBuf::release;
+%ignore Exiv2::DataBuf::reset;
 %ignore Exiv2::DataBuf::read_uint8;
 %ignore Exiv2::DataBuf::read_uint16;
 %ignore Exiv2::DataBuf::read_uint32;
