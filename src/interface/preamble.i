@@ -145,9 +145,8 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
         $self->erase(pos);
         return SWIG_Py_Void();
     }
-    int __contains__(const std::string& key) {
-        base_class::iterator pos = $self->findKey(key_type(key));
-        return (pos == $self->end()) ? 0 : 1;
+    bool __contains__(const std::string& key) {
+        return $self->findKey(key_type(key)) != $self->end();
     }
 }
 %enddef // DATA_MAPPING_METHODS

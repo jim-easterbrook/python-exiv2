@@ -4872,9 +4872,8 @@ SWIGINTERN PyObject *ExifDataWrap___setitem____SWIG_3(ExifDataWrap *self,std::st
         self->erase(pos);
         return SWIG_Py_Void();
     }
-SWIGINTERN int ExifDataWrap___contains__(ExifDataWrap *self,std::string const &key){
-        ExifDataWrap::iterator pos = self->findKey(Exiv2::ExifKey(key));
-        return (pos == self->end()) ? 0 : 1;
+SWIGINTERN bool ExifDataWrap___contains__(ExifDataWrap *self,std::string const &key){
+        return self->findKey(Exiv2::ExifKey(key)) != self->end();
     }
 SWIGINTERN Exiv2::ExifData::iterator ExifDataWrap___iter__(ExifDataWrap *self){
         return self->begin();
@@ -4961,9 +4960,8 @@ SWIGINTERN PyObject *IptcDataWrap___setitem____SWIG_3(IptcDataWrap *self,std::st
         self->erase(pos);
         return SWIG_Py_Void();
     }
-SWIGINTERN int IptcDataWrap___contains__(IptcDataWrap *self,std::string const &key){
-        IptcDataWrap::iterator pos = self->findKey(Exiv2::IptcKey(key));
-        return (pos == self->end()) ? 0 : 1;
+SWIGINTERN bool IptcDataWrap___contains__(IptcDataWrap *self,std::string const &key){
+        return self->findKey(Exiv2::IptcKey(key)) != self->end();
     }
 SWIGINTERN Exiv2::IptcData::iterator IptcDataWrap___iter__(IptcDataWrap *self){
         return self->begin();
@@ -5114,9 +5112,8 @@ SWIGINTERN PyObject *XmpDataWrap___setitem____SWIG_3(XmpDataWrap *self,std::stri
         self->erase(pos);
         return SWIG_Py_Void();
     }
-SWIGINTERN int XmpDataWrap___contains__(XmpDataWrap *self,std::string const &key){
-        XmpDataWrap::iterator pos = self->findKey(Exiv2::XmpKey(key));
-        return (pos == self->end()) ? 0 : 1;
+SWIGINTERN bool XmpDataWrap___contains__(XmpDataWrap *self,std::string const &key){
+        return self->findKey(Exiv2::XmpKey(key)) != self->end();
     }
 SWIGINTERN Exiv2::XmpData::iterator XmpDataWrap___iter__(XmpDataWrap *self){
         return self->begin();
@@ -10290,7 +10287,7 @@ SWIGINTERN PyObject *_wrap_ExifDataWrap___contains__(PyObject *self, PyObject *a
   int res1 = 0 ;
   int res2 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
-  int result;
+  bool result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -10312,7 +10309,7 @@ SWIGINTERN PyObject *_wrap_ExifDataWrap___contains__(PyObject *self, PyObject *a
   }
   {
     try {
-      result = (int)ExifDataWrap___contains__(arg1,(std::string const &)*arg2);
+      result = (bool)ExifDataWrap___contains__(arg1,(std::string const &)*arg2);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -10322,7 +10319,7 @@ SWIGINTERN PyObject *_wrap_ExifDataWrap___contains__(PyObject *self, PyObject *a
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
@@ -11321,7 +11318,7 @@ SWIGINTERN PyObject *_wrap_IptcDataWrap___contains__(PyObject *self, PyObject *a
   int res1 = 0 ;
   int res2 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
-  int result;
+  bool result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -11343,7 +11340,7 @@ SWIGINTERN PyObject *_wrap_IptcDataWrap___contains__(PyObject *self, PyObject *a
   }
   {
     try {
-      result = (int)IptcDataWrap___contains__(arg1,(std::string const &)*arg2);
+      result = (bool)IptcDataWrap___contains__(arg1,(std::string const &)*arg2);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -11353,7 +11350,7 @@ SWIGINTERN PyObject *_wrap_IptcDataWrap___contains__(PyObject *self, PyObject *a
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
@@ -12459,7 +12456,7 @@ SWIGINTERN PyObject *_wrap_XmpDataWrap___contains__(PyObject *self, PyObject *ar
   int res1 = 0 ;
   int res2 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
-  int result;
+  bool result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -12481,7 +12478,7 @@ SWIGINTERN PyObject *_wrap_XmpDataWrap___contains__(PyObject *self, PyObject *ar
   }
   {
     try {
-      result = (int)XmpDataWrap___contains__(arg1,(std::string const &)*arg2);
+      result = (bool)XmpDataWrap___contains__(arg1,(std::string const &)*arg2);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -12491,7 +12488,7 @@ SWIGINTERN PyObject *_wrap_XmpDataWrap___contains__(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:

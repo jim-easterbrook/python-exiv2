@@ -4766,9 +4766,8 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_3(Exiv2::ExifData *self,st
         self->erase(pos);
         return SWIG_Py_Void();
     }
-SWIGINTERN int Exiv2_ExifData___contains__(Exiv2::ExifData *self,std::string const &key){
-        Exiv2::ExifData::iterator pos = self->findKey(Exiv2::ExifKey(key));
-        return (pos == self->end()) ? 0 : 1;
+SWIGINTERN bool Exiv2_ExifData___contains__(Exiv2::ExifData *self,std::string const &key){
+        return self->findKey(Exiv2::ExifKey(key)) != self->end();
     }
 SWIGINTERN Exiv2::ExifData::iterator Exiv2_ExifData___iter__(Exiv2::ExifData *self){
         return self->begin();
@@ -9404,7 +9403,7 @@ SWIGINTERN PyObject *_wrap_ExifData___contains__(PyObject *self, PyObject *args)
   int res1 = 0 ;
   int res2 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
-  int result;
+  bool result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -9426,7 +9425,7 @@ SWIGINTERN PyObject *_wrap_ExifData___contains__(PyObject *self, PyObject *args)
   }
   {
     try {
-      result = (int)Exiv2_ExifData___contains__(arg1,(std::string const &)*arg2);
+      result = (bool)Exiv2_ExifData___contains__(arg1,(std::string const &)*arg2);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -9436,7 +9435,7 @@ SWIGINTERN PyObject *_wrap_ExifData___contains__(PyObject *self, PyObject *args)
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
