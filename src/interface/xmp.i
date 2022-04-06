@@ -36,6 +36,9 @@ DATA_ITERATOR(XmpData, Exiv2::XmpData, Exiv2::XmpData::iterator, Exiv2::Xmpdatum
 %noexception Exiv2::XmpData::end;
 %noexception Exiv2::XmpData::clear;
 %noexception Exiv2::XmpData::count;
+%noexception Exiv2::XmpData::empty;
+%noexception Exiv2::Xmpdatum::count;
+%noexception Exiv2::Xmpdatum::size;
 
 // Ignore const overloads of some methods
 %ignore Exiv2::XmpData::operator[];

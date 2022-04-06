@@ -5586,18 +5586,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_count(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_count" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -5619,18 +5608,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_size(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_size" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -6947,18 +6925,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_count" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::Iptcdatum const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::Iptcdatum const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -6980,18 +6947,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_size" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::Iptcdatum const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::Iptcdatum const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -7997,18 +7953,7 @@ SWIGINTERN PyObject *_wrap_IptcData_empty(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_empty" "', argument " "1"" of type '" "Exiv2::IptcData const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::IptcData const *)arg1)->empty();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::IptcData const *)arg1)->empty();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:

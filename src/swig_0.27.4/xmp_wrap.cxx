@@ -5474,18 +5474,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_count(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_count" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -5507,18 +5496,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_size(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_size" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -6769,18 +6747,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_count" "', argument " "1"" of type '" "Exiv2::Xmpdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::Xmpdatum const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::Xmpdatum const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -6802,18 +6769,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_size" "', argument " "1"" of type '" "Exiv2::Xmpdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::Xmpdatum const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::Xmpdatum const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -7722,18 +7678,7 @@ SWIGINTERN PyObject *_wrap_XmpData_empty(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_empty" "', argument " "1"" of type '" "Exiv2::XmpData const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::XmpData const *)arg1)->empty();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::XmpData const *)arg1)->empty();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:

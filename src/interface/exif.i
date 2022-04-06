@@ -55,6 +55,9 @@ DATA_WRAPPER_DEC(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 %noexception Exiv2::ExifData::end;
 %noexception Exiv2::ExifData::clear;
 %noexception Exiv2::ExifData::count;
+%noexception Exiv2::ExifData::empty;
+%noexception Exiv2::Exifdatum::count;
+%noexception Exiv2::Exifdatum::size;
 
 // Ignore const overloads of some methods
 %ignore Exiv2::ExifData::operator[];

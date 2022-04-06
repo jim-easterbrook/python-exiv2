@@ -37,6 +37,9 @@ DATA_ITERATOR(IptcData, Exiv2::IptcData, Exiv2::IptcData::iterator,
 %noexception Exiv2::IptcData::end;
 %noexception Exiv2::IptcData::clear;
 %noexception Exiv2::IptcData::count;
+%noexception Exiv2::IptcData::empty;
+%noexception Exiv2::Iptcdatum::count;
+%noexception Exiv2::Iptcdatum::size;
 
 // Ignore const overloads of some methods
 %ignore Exiv2::IptcData::operator[];

@@ -6171,18 +6171,7 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_count(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_count" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -6204,18 +6193,7 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_size(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_size" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -7772,18 +7750,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_count(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_count" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -7805,18 +7772,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_size(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_size" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -9238,18 +9194,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_count(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_count" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -9271,18 +9216,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIterator_size(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataIterator_size" "', argument " "1"" of type '" "XmpDataIterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataIterator * >(argp1);
-  {
-    try {
-      result = (long)(*arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(*arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -10846,18 +10780,7 @@ SWIGINTERN PyObject *_wrap_ExifDataWrap_empty(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataWrap_empty" "', argument " "1"" of type '" "ExifDataWrap const *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataWrap * >(argp1);
-  {
-    try {
-      result = (bool)(*arg1)->empty();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)(*arg1)->empty();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -11918,18 +11841,7 @@ SWIGINTERN PyObject *_wrap_IptcDataWrap_empty(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataWrap_empty" "', argument " "1"" of type '" "IptcDataWrap const *""'"); 
   }
   arg1 = reinterpret_cast< IptcDataWrap * >(argp1);
-  {
-    try {
-      result = (bool)(*arg1)->empty();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)(*arg1)->empty();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -12890,18 +12802,7 @@ SWIGINTERN PyObject *_wrap_XmpDataWrap_empty(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpDataWrap_empty" "', argument " "1"" of type '" "XmpDataWrap const *""'"); 
   }
   arg1 = reinterpret_cast< XmpDataWrap * >(argp1);
-  {
-    try {
-      result = (bool)(*arg1)->empty();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)(*arg1)->empty();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
