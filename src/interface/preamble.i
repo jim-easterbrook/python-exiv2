@@ -194,6 +194,10 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 %};
 %newobject name##Iterator::__iter__;
 %newobject name##IteratorBase::__iter__;
+%noexception base_class::__iter__;
+%noexception name##IteratorBase::__next__;
+%noexception name##IteratorBase::operator==;
+%noexception name##IteratorBase::operator!=;
 %ignore name##Iterator::name##Iterator;
 %ignore name##IteratorBase::name##IteratorBase;
 %ignore name##IteratorBase::_unwrap;

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -32,6 +32,13 @@ DATA_ITERATOR(IptcData, Exiv2::IptcData, Exiv2::IptcData::iterator,
               Exiv2::Iptcdatum)
 #endif
 
+// Turn off exception checking for methods that are guaranteed not to throw
+%noexception Exiv2::IptcData::begin;
+%noexception Exiv2::IptcData::end;
+%noexception Exiv2::IptcData::clear;
+%noexception Exiv2::IptcData::count;
+
+// Ignore const overloads of some methods
 %ignore Exiv2::IptcData::operator[];
 %ignore Exiv2::IptcData::begin() const;
 %ignore Exiv2::IptcData::end() const;

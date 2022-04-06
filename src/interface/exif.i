@@ -50,6 +50,13 @@ DATA_ITERATOR(ExifData, Exiv2::ExifData, Exiv2::ExifData::iterator,
 DATA_WRAPPER_DEC(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 #endif
 
+// Turn off exception checking for methods that are guaranteed not to throw
+%noexception Exiv2::ExifData::begin;
+%noexception Exiv2::ExifData::end;
+%noexception Exiv2::ExifData::clear;
+%noexception Exiv2::ExifData::count;
+
+// Ignore const overloads of some methods
 %ignore Exiv2::ExifData::operator[];
 %ignore Exiv2::ExifData::begin() const;
 %ignore Exiv2::ExifData::end() const;

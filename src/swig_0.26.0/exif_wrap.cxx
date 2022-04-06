@@ -4855,18 +4855,7 @@ SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___next__(PyObject *self, PyObjec
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIteratorBase___next__" "', argument " "1"" of type '" "ExifDataIteratorBase *""'"); 
   }
   arg1 = reinterpret_cast< ExifDataIteratorBase * >(argp1);
-  {
-    try {
-      result = (PyObject *)(arg1)->__next__();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)(arg1)->__next__();
   resultobj = result;
   return resultobj;
 fail:
@@ -4900,18 +4889,7 @@ SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___eq__(PyObject *self, PyObject 
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifDataIteratorBase___eq__" "', argument " "2"" of type '" "ExifDataIteratorBase const &""'"); 
   }
   arg2 = reinterpret_cast< ExifDataIteratorBase * >(argp2);
-  {
-    try {
-      result = (bool)((ExifDataIteratorBase const *)arg1)->operator ==((ExifDataIteratorBase const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((ExifDataIteratorBase const *)arg1)->operator ==((ExifDataIteratorBase const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -4947,18 +4925,7 @@ SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___ne__(PyObject *self, PyObject 
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifDataIteratorBase___ne__" "', argument " "2"" of type '" "ExifDataIteratorBase const &""'"); 
   }
   arg2 = reinterpret_cast< ExifDataIteratorBase * >(argp2);
-  {
-    try {
-      result = (bool)((ExifDataIteratorBase const *)arg1)->operator !=((ExifDataIteratorBase const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((ExifDataIteratorBase const *)arg1)->operator !=((ExifDataIteratorBase const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -8838,18 +8805,7 @@ SWIGINTERN PyObject *_wrap_ExifData_clear(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_clear" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  {
-    try {
-      (arg1)->clear();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  (arg1)->clear();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -8935,18 +8891,7 @@ SWIGINTERN PyObject *_wrap_ExifData_begin(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_begin" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  {
-    try {
-      result = (arg1)->begin();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (arg1)->begin();
   
   if ((Exiv2::ExifData::iterator)result == arg1->end())
   resultobj = SWIG_NewPointerObj(
@@ -8977,18 +8922,7 @@ SWIGINTERN PyObject *_wrap_ExifData_end(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_end" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  {
-    try {
-      result = (arg1)->end();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (arg1)->end();
   
   if ((Exiv2::ExifData::iterator)result == arg1->end())
   resultobj = SWIG_NewPointerObj(
@@ -9106,18 +9040,7 @@ SWIGINTERN PyObject *_wrap_ExifData_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_count" "', argument " "1"" of type '" "Exiv2::ExifData const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ExifData const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ExifData const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -9536,18 +9459,7 @@ SWIGINTERN PyObject *_wrap_ExifData___iter__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData___iter__" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  {
-    try {
-      result = Exiv2_ExifData___iter__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_ExifData___iter__(arg1);
   
   if ((Exiv2::ExifData::iterator)result == arg1->end())
   resultobj = SWIG_NewPointerObj(

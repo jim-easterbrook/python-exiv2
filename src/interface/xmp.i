@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,6 +31,13 @@ DATA_MAPPING_METHODS(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
 DATA_ITERATOR(XmpData, Exiv2::XmpData, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
 #endif
 
+// Turn off exception checking for methods that are guaranteed not to throw
+%noexception Exiv2::XmpData::begin;
+%noexception Exiv2::XmpData::end;
+%noexception Exiv2::XmpData::clear;
+%noexception Exiv2::XmpData::count;
+
+// Ignore const overloads of some methods
 %ignore Exiv2::XmpData::operator[];
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;

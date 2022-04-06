@@ -4762,18 +4762,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___next__(PyObject *self, PyObjec
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___next__" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
   }
   arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
-  {
-    try {
-      result = (PyObject *)(arg1)->__next__();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)(arg1)->__next__();
   resultobj = result;
   return resultobj;
 fail:
@@ -4807,18 +4796,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___eq__(PyObject *self, PyObject 
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcDataIteratorBase___eq__" "', argument " "2"" of type '" "IptcDataIteratorBase const &""'"); 
   }
   arg2 = reinterpret_cast< IptcDataIteratorBase * >(argp2);
-  {
-    try {
-      result = (bool)((IptcDataIteratorBase const *)arg1)->operator ==((IptcDataIteratorBase const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((IptcDataIteratorBase const *)arg1)->operator ==((IptcDataIteratorBase const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -4854,18 +4832,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___ne__(PyObject *self, PyObject 
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcDataIteratorBase___ne__" "', argument " "2"" of type '" "IptcDataIteratorBase const &""'"); 
   }
   arg2 = reinterpret_cast< IptcDataIteratorBase * >(argp2);
-  {
-    try {
-      result = (bool)((IptcDataIteratorBase const *)arg1)->operator !=((IptcDataIteratorBase const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((IptcDataIteratorBase const *)arg1)->operator !=((IptcDataIteratorBase const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -7695,18 +7662,7 @@ SWIGINTERN PyObject *_wrap_IptcData_clear(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_clear" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      (arg1)->clear();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  (arg1)->clear();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -7792,18 +7748,7 @@ SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_begin" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      result = (arg1)->begin();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (arg1)->begin();
   
   if ((Exiv2::IptcData::iterator)result == arg1->end())
   resultobj = SWIG_NewPointerObj(
@@ -7834,18 +7779,7 @@ SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_end" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      result = (arg1)->end();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (arg1)->end();
   
   if ((Exiv2::IptcData::iterator)result == arg1->end())
   resultobj = SWIG_NewPointerObj(
@@ -8097,18 +8031,7 @@ SWIGINTERN PyObject *_wrap_IptcData_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_count" "', argument " "1"" of type '" "Exiv2::IptcData const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::IptcData const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::IptcData const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -8593,18 +8516,7 @@ SWIGINTERN PyObject *_wrap_IptcData___iter__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___iter__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      result = Exiv2_IptcData___iter__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_IptcData___iter__(arg1);
   
   if ((Exiv2::IptcData::iterator)result == arg1->end())
   resultobj = SWIG_NewPointerObj(
