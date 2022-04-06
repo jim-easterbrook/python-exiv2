@@ -176,12 +176,57 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
          functype="objobjargproc") Exiv2::LangAltValue::__setitem__;
 %feature("python:slot", "sq_contains",
          functype="objobjproc") Exiv2::LangAltValue::__contains__;
+%template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
+// typemaps to convert Python dict to Exiv2::LangAltValue::ValueType
+%typemap(in) Exiv2::LangAltValue::ValueType {
+    PyObject* key;
+    PyObject* value;
+    Py_ssize_t pos = 0;
+    while (PyDict_Next($input, &pos, &key, &value)) {
+        $1.insert(std::make_pair(
+            SWIG_Python_str_AsChar(key), SWIG_Python_str_AsChar(value)));
+    }
+}
+%typemap(typecheck,
+         precedence=SWIG_TYPECHECK_POINTER) Exiv2::LangAltValue::ValueType %{
+    $1 = PyDict_Check($input);
+%}
+// helper functions
+%{
+static PyObject* LangAltValue_get_key(
+        Exiv2::LangAltValue::ValueType::iterator i) {
+    return PyString_FromString(i->first.c_str());
+};
+static PyObject* LangAltValue_get_value(
+        Exiv2::LangAltValue::ValueType::iterator i) {
+    return PyString_FromString(i->second.c_str());
+};
+static PyObject* LangAltValue_get_item(
+        Exiv2::LangAltValue::ValueType::iterator i) {
+    return Py_BuildValue("(ss)", i->first.c_str(), i->second.c_str());
+};
+static PyObject* LangAltValue_to_list(
+        Exiv2::LangAltValue::ValueType value,
+        PyObject* (*convert)(Exiv2::LangAltValue::ValueType::iterator)) {
+    PyObject* result = PyList_New(0);
+    if (!result)
+        return result;
+    Exiv2::LangAltValue::ValueType::iterator e = value.end();
+    for (Exiv2::LangAltValue::ValueType::iterator i = value.begin();
+                                                  i != e; ++i) {
+        if (PyList_Append(result, convert(i))) {
+            Py_DECREF(result);
+            return NULL;
+        }
+    }
+    return result;
+};
+%}
 %exception Exiv2::LangAltValue::__getitem__ {
     $action
     if (PyErr_Occurred())
         SWIG_fail;
 }
-%template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
 %extend Exiv2::LangAltValue {
     // Constructor, reads values from a Python dict
     LangAltValue(Exiv2::LangAltValue::ValueType value) {
@@ -189,21 +234,18 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         result->value_ = value;
         return result;
     }
-    swig::SwigPyIterator* keys() {
-        return swig::make_output_key_iterator(
-            $self->value_.begin(), $self->value_.begin(), $self->value_.end());
+    PyObject* keys() {
+        return LangAltValue_to_list($self->value_, &LangAltValue_get_key);
     }
-    swig::SwigPyIterator* values() {
-        return swig::make_output_value_iterator(
-            $self->value_.begin(), $self->value_.begin(), $self->value_.end());
+    PyObject* values() {
+        return LangAltValue_to_list($self->value_, &LangAltValue_get_value);
     }
-    swig::SwigPyIterator* items() {
-        return swig::make_output_iterator(
-            $self->value_.begin(), $self->value_.begin(), $self->value_.end());
+    PyObject* items() {
+        return LangAltValue_to_list($self->value_, &LangAltValue_get_item);
     }
-    swig::SwigPyIterator* __iter__() {
-        return swig::make_output_key_iterator(
-            $self->value_.begin(), $self->value_.begin(), $self->value_.end());
+    PyObject* __iter__() {
+        return PySeqIter_New(
+            LangAltValue_to_list($self->value_, &LangAltValue_get_item));
     }
     std::string __getitem__(const std::string& key) {
         try {

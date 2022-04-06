@@ -131,9 +131,9 @@ def main():
     # Python -> Exiv2, the short way
     langalt = exiv2.LangAltValue(py_langalt)
     print("Exiv2 langalt:", langalt)
-    print('keys', list(langalt.keys()))
-    print('values', list(langalt.values()))
-    print('items', list(langalt.items()))
+    print('keys', langalt.keys())
+    print('values', langalt.values())
+    print('items', langalt.items())
     # delete a value
     del langalt['fr']
     # add a value

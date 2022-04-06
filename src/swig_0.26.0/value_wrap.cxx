@@ -5216,6 +5216,36 @@ namespace swig
 }
 
 
+static PyObject* LangAltValue_get_key(
+        Exiv2::LangAltValue::ValueType::iterator i) {
+    return PyString_FromString(i->first.c_str());
+};
+static PyObject* LangAltValue_get_value(
+        Exiv2::LangAltValue::ValueType::iterator i) {
+    return PyString_FromString(i->second.c_str());
+};
+static PyObject* LangAltValue_get_item(
+        Exiv2::LangAltValue::ValueType::iterator i) {
+    return Py_BuildValue("(ss)", i->first.c_str(), i->second.c_str());
+};
+static PyObject* LangAltValue_to_list(
+        Exiv2::LangAltValue::ValueType value,
+        PyObject* (*convert)(Exiv2::LangAltValue::ValueType::iterator)) {
+    PyObject* result = PyList_New(0);
+    if (!result)
+        return result;
+    Exiv2::LangAltValue::ValueType::iterator e = value.end();
+    for (Exiv2::LangAltValue::ValueType::iterator i = value.begin();
+                                                  i != e; ++i) {
+        if (PyList_Append(result, convert(i))) {
+            Py_DECREF(result);
+            return NULL;
+        }
+    }
+    return result;
+};
+
+
 SWIGINTERN int
 SWIG_AsVal_int (PyObject * obj, int *val)
 {
@@ -6040,188 +6070,23 @@ SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *sel
 SWIGINTERN void Exiv2_XmpArrayValue_append(Exiv2::XmpArrayValue *self,std::string value){
         self->read(value);
     }
-
-      namespace swig {
-	template <>  struct traits<std::pair< std::string, std::string > > {
-	  typedef pointer_category category;
-	  static const char* type_name() {
-	    return "std::pair<" "std::string" "," "std::string" " >";
-	  }
-	};
-      }
-    
-
-  namespace swig {
-    template <class ValueType>
-    struct from_key_oper 
-    {
-      typedef const ValueType& argument_type;
-      typedef  PyObject *result_type;
-      result_type operator()(argument_type v) const
-      {
-	return swig::from(v.first);
-      }
-    };
-
-    template <class ValueType>
-    struct from_value_oper 
-    {
-      typedef const ValueType& argument_type;
-      typedef  PyObject *result_type;
-      result_type operator()(argument_type v) const
-      {
-	return swig::from(v.second);
-      }
-    };
-
-    template<class OutIterator, class FromOper, class ValueType = typename OutIterator::value_type>
-    struct SwigPyMapIterator_T : SwigPyIteratorClosed_T<OutIterator, ValueType, FromOper>
-    {
-      SwigPyMapIterator_T(OutIterator curr, OutIterator first, OutIterator last, PyObject *seq)
-	: SwigPyIteratorClosed_T<OutIterator,ValueType,FromOper>(curr, first, last, seq)
-      {
-      }
-    };
-
-
-    template<class OutIterator,
-	     class FromOper = from_key_oper<typename OutIterator::value_type> >
-    struct SwigPyMapKeyIterator_T : SwigPyMapIterator_T<OutIterator, FromOper>
-    {
-      SwigPyMapKeyIterator_T(OutIterator curr, OutIterator first, OutIterator last, PyObject *seq)
-	: SwigPyMapIterator_T<OutIterator, FromOper>(curr, first, last, seq)
-      {
-      }
-    };
-
-    template<typename OutIter>
-    inline SwigPyIterator*
-    make_output_key_iterator(const OutIter& current, const OutIter& begin, const OutIter& end, PyObject *seq = 0)
-    {
-      return new SwigPyMapKeyIterator_T<OutIter>(current, begin, end, seq);
-    }
-
-    template<class OutIterator,
-	     class FromOper = from_value_oper<typename OutIterator::value_type> >
-    struct SwigPyMapValueIterator_T : SwigPyMapIterator_T<OutIterator, FromOper>
-    {
-      SwigPyMapValueIterator_T(OutIterator curr, OutIterator first, OutIterator last, PyObject *seq)
-	: SwigPyMapIterator_T<OutIterator, FromOper>(curr, first, last, seq)
-      {
-      }
-    };
-    
-
-    template<typename OutIter>
-    inline SwigPyIterator*
-    make_output_value_iterator(const OutIter& current, const OutIter& begin, const OutIter& end, PyObject *seq = 0)
-    {
-      return new SwigPyMapValueIterator_T<OutIter>(current, begin, end, seq);
-    }
-  }
-
-
-  namespace swig {
-    template <class SwigPySeq, class K, class T, class Compare, class Alloc >
-    inline void
-    assign(const SwigPySeq& swigpyseq, std::map<K,T,Compare,Alloc > *map) {
-      typedef typename std::map<K,T,Compare,Alloc >::value_type value_type;
-      typename SwigPySeq::const_iterator it = swigpyseq.begin();
-      for (;it != swigpyseq.end(); ++it) {
-	map->insert(value_type(it->first, it->second));
-      }
-    }
-
-    template <class K, class T, class Compare, class Alloc>
-    struct traits_asptr<std::map<K,T,Compare,Alloc > >  {
-      typedef std::map<K,T,Compare,Alloc > map_type;
-      static int asptr(PyObject *obj, map_type **val) {
-	int res = SWIG_ERROR;
-	SWIG_PYTHON_THREAD_BEGIN_BLOCK;
-	if (PyDict_Check(obj)) {
-	  SwigVar_PyObject items = PyObject_CallMethod(obj,(char *)"items",NULL);
-#if PY_VERSION_HEX >= 0x03000000
-          /* In Python 3.x the ".items()" method returns a dict_items object */
-          items = PySequence_Fast(items, ".items() didn't return a sequence!");
-#endif
-	  res = traits_asptr_stdseq<map_type, std::pair<K, T> >::asptr(items, val);
-	} else {
-	  map_type *p = 0;
-	  swig_type_info *descriptor = swig::type_info<map_type>();
-	  res = descriptor ? SWIG_ConvertPtr(obj, (void **)&p, descriptor, 0) : SWIG_ERROR;
-	  if (SWIG_IsOK(res) && val)  *val = p;
-	}
-	SWIG_PYTHON_THREAD_END_BLOCK;
-	return res;
-      }      
-    };
-      
-    template <class K, class T, class Compare, class Alloc >
-    struct traits_from<std::map<K,T,Compare,Alloc > >  {
-      typedef std::map<K,T,Compare,Alloc > map_type;
-      typedef typename map_type::const_iterator const_iterator;
-      typedef typename map_type::size_type size_type;
-
-      static PyObject *asdict(const map_type& map) {
-	SWIG_PYTHON_THREAD_BEGIN_BLOCK;
-	size_type size = map.size();
-	Py_ssize_t pysize = (size <= (size_type) INT_MAX) ? (Py_ssize_t) size : -1;
-	if (pysize < 0) {
-	  PyErr_SetString(PyExc_OverflowError, "map size not valid in python");
-	  SWIG_PYTHON_THREAD_END_BLOCK;
-	  return NULL;
-	}
-	PyObject *obj = PyDict_New();
-	for (const_iterator i= map.begin(); i!= map.end(); ++i) {
-	  swig::SwigVar_PyObject key = swig::from(i->first);
-	  swig::SwigVar_PyObject val = swig::from(i->second);
-	  PyDict_SetItem(obj, key, val);
-	}
-	SWIG_PYTHON_THREAD_END_BLOCK;
-	return obj;
-      }
-                
-      static PyObject *from(const map_type& map) {
-	swig_type_info *desc = swig::type_info<map_type>();
-	if (desc && desc->clientdata) {
-	  return SWIG_InternalNewPointerObj(new map_type(map), desc, SWIG_POINTER_OWN);
-	} else {
-	  return asdict(map);
-	}
-      }
-    };
-  }
-
-
-      namespace swig {
-	template <>  struct traits<std::map< std::string, std::string, Exiv2::LangAltValueComparator, std::allocator< std::pair< std::string const,std::string > > > > {
-	  typedef pointer_category category;
-	  static const char* type_name() {
-	    return "std::map<" "std::string" "," "std::string" "," "Exiv2::LangAltValueComparator" "," "std::allocator< std::pair< std::string const,std::string > >" " >";
-	  }
-	};
-      }
-    
 SWIGINTERN Exiv2::LangAltValue *new_Exiv2_LangAltValue__SWIG_2(Exiv2::LangAltValue::ValueType value){
         Exiv2::LangAltValue* result = new Exiv2::LangAltValue;
         result->value_ = value;
         return result;
     }
-SWIGINTERN swig::SwigPyIterator *Exiv2_LangAltValue_keys(Exiv2::LangAltValue *self){
-        return swig::make_output_key_iterator(
-            self->value_.begin(), self->value_.begin(), self->value_.end());
+SWIGINTERN PyObject *Exiv2_LangAltValue_keys(Exiv2::LangAltValue *self){
+        return LangAltValue_to_list(self->value_, &LangAltValue_get_key);
     }
-SWIGINTERN swig::SwigPyIterator *Exiv2_LangAltValue_values(Exiv2::LangAltValue *self){
-        return swig::make_output_value_iterator(
-            self->value_.begin(), self->value_.begin(), self->value_.end());
+SWIGINTERN PyObject *Exiv2_LangAltValue_values(Exiv2::LangAltValue *self){
+        return LangAltValue_to_list(self->value_, &LangAltValue_get_value);
     }
-SWIGINTERN swig::SwigPyIterator *Exiv2_LangAltValue_items(Exiv2::LangAltValue *self){
-        return swig::make_output_iterator(
-            self->value_.begin(), self->value_.begin(), self->value_.end());
+SWIGINTERN PyObject *Exiv2_LangAltValue_items(Exiv2::LangAltValue *self){
+        return LangAltValue_to_list(self->value_, &LangAltValue_get_item);
     }
-SWIGINTERN swig::SwigPyIterator *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
-        return swig::make_output_key_iterator(
-            self->value_.begin(), self->value_.begin(), self->value_.end());
+SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
+        return PySeqIter_New(
+            LangAltValue_to_list(self->value_, &LangAltValue_get_item));
     }
 SWIGINTERN std::string Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,std::string const &key){
         try {
@@ -15117,13 +14982,13 @@ SWIGINTERN int _wrap_new_LangAltValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, 
   
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    std::map< std::string,std::string,Exiv2::LangAltValueComparator,std::allocator< std::pair< std::string const,std::string > > > *ptr = (std::map< std::string,std::string,Exiv2::LangAltValueComparator,std::allocator< std::pair< std::string const,std::string > > > *)0;
-    int res = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res) || !ptr) {
-      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_LangAltValue" "', argument " "1"" of type '" "Exiv2::LangAltValue::ValueType""'"); 
+    PyObject* key;
+    PyObject* value;
+    Py_ssize_t pos = 0;
+    while (PyDict_Next(swig_obj[0], &pos, &key, &value)) {
+      (&arg1)->insert(std::make_pair(
+          SWIG_Python_str_AsChar(key), SWIG_Python_str_AsChar(value)));
     }
-    arg1 = *ptr;
-    if (SWIG_IsNewObj(res)) delete ptr;
   }
   {
     try {
@@ -15150,7 +15015,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  swig::SwigPyIterator *result = 0 ;
+  PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "LangAltValue_keys", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
@@ -15160,7 +15025,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
     try {
-      result = (swig::SwigPyIterator *)Exiv2_LangAltValue_keys(arg1);
+      result = (PyObject *)Exiv2_LangAltValue_keys(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -15170,7 +15035,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_swig__SwigPyIterator, 0 |  0 );
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -15183,7 +15048,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_values(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  swig::SwigPyIterator *result = 0 ;
+  PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "LangAltValue_values", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
@@ -15193,7 +15058,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_values(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
     try {
-      result = (swig::SwigPyIterator *)Exiv2_LangAltValue_values(arg1);
+      result = (PyObject *)Exiv2_LangAltValue_values(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -15203,7 +15068,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_values(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_swig__SwigPyIterator, 0 |  0 );
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -15216,7 +15081,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_items(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  swig::SwigPyIterator *result = 0 ;
+  PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "LangAltValue_items", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
@@ -15226,7 +15091,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_items(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
     try {
-      result = (swig::SwigPyIterator *)Exiv2_LangAltValue_items(arg1);
+      result = (PyObject *)Exiv2_LangAltValue_items(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -15236,7 +15101,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_items(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_swig__SwigPyIterator, 0 |  0 );
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -15249,7 +15114,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___iter__(PyObject *self, PyObject *args)
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  swig::SwigPyIterator *result = 0 ;
+  PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "LangAltValue___iter__", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
@@ -15259,7 +15124,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___iter__(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
     try {
-      result = (swig::SwigPyIterator *)Exiv2_LangAltValue___iter__(arg1);
+      result = (PyObject *)Exiv2_LangAltValue___iter__(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -15269,7 +15134,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___iter__(PyObject *self, PyObject *args)
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_swig__SwigPyIterator, 0 |  0 );
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -15592,27 +15457,26 @@ SWIGINTERN int _wrap_new_LangAltValue(PyObject *self, PyObject *args, PyObject *
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      _v = PyDict_Check(argv[0]);
     }
     if (!_v) goto check_2;
-    return _wrap_new_LangAltValue__SWIG_3(self, argc, argv);
+    return _wrap_new_LangAltValue__SWIG_2(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_3;
-    return _wrap_new_LangAltValue__SWIG_1(self, argc, argv);
+    return _wrap_new_LangAltValue__SWIG_3(self, argc, argv);
   }
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_LangAltValue__SWIG_2(self, argc, argv);
+    int retval = _wrap_new_LangAltValue__SWIG_1(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
