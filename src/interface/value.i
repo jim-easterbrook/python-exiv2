@@ -306,6 +306,8 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 %ignore Exiv2::operator<<;
 %ignore Exiv2::Value::operator=;
 %ignore Exiv2::Value::write;
+%ignore Exiv2::Value::copy;
+%ignore Exiv2::Value::setDataArea;
 %ignore Exiv2::CommentValue::CharsetInfo;
 %ignore Exiv2::CommentValue::CharsetTable;
 %ignore Exiv2::DateValue::Date;
