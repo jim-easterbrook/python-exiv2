@@ -8295,18 +8295,7 @@ SWIGINTERN PyObject *_wrap_Value_typeId(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_typeId" "', argument " "1"" of type '" "Exiv2::Value const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::TypeId)((Exiv2::Value const *)arg1)->typeId();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::TypeId)((Exiv2::Value const *)arg1)->typeId();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -8412,18 +8401,7 @@ SWIGINTERN PyObject *_wrap_Value_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_count" "', argument " "1"" of type '" "Exiv2::Value const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::Value const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::Value const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -8445,18 +8423,7 @@ SWIGINTERN PyObject *_wrap_Value_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_size" "', argument " "1"" of type '" "Exiv2::Value const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::Value const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::Value const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -8947,18 +8914,7 @@ SWIGINTERN PyObject *_wrap_Value_ok(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_ok" "', argument " "1"" of type '" "Exiv2::Value const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::Value const *)arg1)->ok();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::Value const *)arg1)->ok();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -9049,18 +9005,7 @@ SWIGINTERN PyObject *_wrap_Value___len__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value___len__" "', argument " "1"" of type '" "Exiv2::Value *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (long)Exiv2_Value___len__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)Exiv2_Value___len__(arg1);
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -9656,18 +9601,7 @@ SWIGINTERN PyObject *_wrap_DataValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataValue_count" "', argument " "1"" of type '" "Exiv2::DataValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::DataValue const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::DataValue const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -9689,18 +9623,7 @@ SWIGINTERN PyObject *_wrap_DataValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataValue_size" "', argument " "1"" of type '" "Exiv2::DataValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::DataValue const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::DataValue const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -10565,18 +10488,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_count(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase_count" "', argument " "1"" of type '" "Exiv2::StringValueBase const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::StringValueBase const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::StringValueBase const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -10598,18 +10510,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_size(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase_size" "', argument " "1"" of type '" "Exiv2::StringValueBase const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::StringValueBase const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::StringValueBase const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -10968,18 +10869,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase___len__(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase___len__" "', argument " "1"" of type '" "Exiv2::StringValueBase *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  {
-    try {
-      result = (long)Exiv2_StringValueBase___len__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)Exiv2_StringValueBase___len__(arg1);
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -12453,18 +12343,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_size" "', argument " "1"" of type '" "Exiv2::XmpValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::XmpValue const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::XmpValue const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -13347,18 +13226,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue_size" "', argument " "1"" of type '" "Exiv2::XmpTextValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::XmpTextValue const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::XmpTextValue const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -13380,18 +13248,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue_count" "', argument " "1"" of type '" "Exiv2::XmpTextValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::XmpTextValue const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::XmpTextValue const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -13826,18 +13683,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue___len__(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue___len__" "', argument " "1"" of type '" "Exiv2::XmpTextValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  {
-    try {
-      result = (long)Exiv2_XmpTextValue___len__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)Exiv2_XmpTextValue___len__(arg1);
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -14221,18 +14067,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpArrayValue_count" "', argument " "1"" of type '" "Exiv2::XmpArrayValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::XmpArrayValue const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::XmpArrayValue const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -15339,18 +15174,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_count" "', argument " "1"" of type '" "Exiv2::LangAltValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::LangAltValue const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::LangAltValue const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -16826,18 +16650,7 @@ SWIGINTERN PyObject *_wrap_DateValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_count" "', argument " "1"" of type '" "Exiv2::DateValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::DateValue const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::DateValue const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -16859,18 +16672,7 @@ SWIGINTERN PyObject *_wrap_DateValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_size" "', argument " "1"" of type '" "Exiv2::DateValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::DateValue const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::DateValue const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -17355,18 +17157,7 @@ SWIGINTERN PyObject *_wrap_DateValue___len__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue___len__" "', argument " "1"" of type '" "Exiv2::DateValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  {
-    try {
-      result = (long)Exiv2_DateValue___len__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)Exiv2_DateValue___len__(arg1);
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -18077,18 +17868,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_count" "', argument " "1"" of type '" "Exiv2::TimeValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::TimeValue const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::TimeValue const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -18110,18 +17890,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_size" "', argument " "1"" of type '" "Exiv2::TimeValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::TimeValue const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::TimeValue const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -18844,18 +18613,7 @@ SWIGINTERN PyObject *_wrap_TimeValue___len__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue___len__" "', argument " "1"" of type '" "Exiv2::TimeValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  {
-    try {
-      result = (long)Exiv2_TimeValue___len__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)Exiv2_TimeValue___len__(arg1);
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -19365,18 +19123,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UShortValue_count" "', argument " "1"" of type '" "Exiv2::ValueType< uint16_t > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< uint16_t > const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< uint16_t > const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -19398,18 +19145,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UShortValue_size" "', argument " "1"" of type '" "Exiv2::ValueType< uint16_t > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< uint16_t > const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< uint16_t > const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -20601,18 +20337,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ULongValue_count" "', argument " "1"" of type '" "Exiv2::ValueType< uint32_t > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< uint32_t > const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< uint32_t > const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -20634,18 +20359,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ULongValue_size" "', argument " "1"" of type '" "Exiv2::ValueType< uint32_t > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< uint32_t > const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< uint32_t > const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -21847,18 +21561,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_count(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "URationalValue_count" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::URational > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< Exiv2::URational > const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< Exiv2::URational > const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -21880,18 +21583,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "URationalValue_size" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::URational > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< Exiv2::URational > const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< Exiv2::URational > const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -23085,18 +22777,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ShortValue_count" "', argument " "1"" of type '" "Exiv2::ValueType< int16_t > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< int16_t > const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< int16_t > const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -23118,18 +22799,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ShortValue_size" "', argument " "1"" of type '" "Exiv2::ValueType< int16_t > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< int16_t > const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< int16_t > const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -24321,18 +23991,7 @@ SWIGINTERN PyObject *_wrap_LongValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LongValue_count" "', argument " "1"" of type '" "Exiv2::ValueType< int32_t > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< int32_t > const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< int32_t > const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -24354,18 +24013,7 @@ SWIGINTERN PyObject *_wrap_LongValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LongValue_size" "', argument " "1"" of type '" "Exiv2::ValueType< int32_t > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< int32_t > const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< int32_t > const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -25567,18 +25215,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RationalValue_count" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::Rational > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -25600,18 +25237,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RationalValue_size" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::Rational > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -26805,18 +26431,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FloatValue_count" "', argument " "1"" of type '" "Exiv2::ValueType< float > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< float > const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< float > const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -26838,18 +26453,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FloatValue_size" "', argument " "1"" of type '" "Exiv2::ValueType< float > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< float > const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< float > const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -28041,18 +27645,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DoubleValue_count" "', argument " "1"" of type '" "Exiv2::ValueType< double > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< double > const *)arg1)->count();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< double > const *)arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -28074,18 +27667,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DoubleValue_size" "', argument " "1"" of type '" "Exiv2::ValueType< double > const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::ValueType< double > const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)((Exiv2::ValueType< double > const *)arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:

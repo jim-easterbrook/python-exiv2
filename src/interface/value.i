@@ -55,6 +55,8 @@ wrap_auto_unique_ptr(Exiv2::Value);
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
 %ignore type_name::value_;
+%noexception type_name::count;
+%noexception type_name::size;
 %feature("docstring") type_name::downCast
     "Convert general 'Exiv2::Value' to specific 'type_name'."
 %newobject type_name::downCast;
@@ -101,6 +103,7 @@ wrap_auto_unique_ptr(type_name)
 %feature("python:slot", "sq_length", functype="lenfunc") type_name::__len__;
 %feature("python:slot", "sq_item",
          functype="ssizeargfunc") type_name::__getitem__;
+%noexception type_name::__len__;
 %extend type_name {
     long __len__() {
         return $self->count() ? 1 : 0;
@@ -230,6 +233,13 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         return $self->value_.find(key) != $self->value_.end();
     }
 }
+
+// Remove exception handler for some methods known to be safe
+%noexception Exiv2::Value::__len__;
+%noexception Exiv2::Value::count;
+%noexception Exiv2::Value::size;
+%noexception Exiv2::Value::ok;
+%noexception Exiv2::Value::typeId;
 
 // Add Python slots to Exiv2::Value base class
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
