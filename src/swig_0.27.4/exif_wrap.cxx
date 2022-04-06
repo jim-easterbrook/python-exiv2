@@ -4834,7 +4834,7 @@ SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___iter__(PyObject *self, PyObjec
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifDataIteratorBase, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifDataIteratorBase, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;

@@ -5246,7 +5246,7 @@ SWIGINTERN PyObject *_wrap_ExifDataIteratorBase___iter__(PyObject *self, PyObjec
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifDataIteratorBase, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifDataIteratorBase, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -6962,7 +6962,7 @@ SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___iter__(PyObject *self, PyObjec
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -8527,7 +8527,7 @@ SWIGINTERN PyObject *_wrap_XmpDataIteratorBase___iter__(PyObject *self, PyObject
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpDataIteratorBase, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpDataIteratorBase, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;

@@ -193,6 +193,7 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
             $descriptor(name##Iterator*), SWIG_POINTER_OWN);
 %};
 %newobject name##Iterator::__iter__;
+%newobject name##IteratorBase::__iter__;
 %ignore name##Iterator::name##Iterator;
 %ignore name##IteratorBase::name##IteratorBase;
 %ignore name##IteratorBase::_unwrap;
