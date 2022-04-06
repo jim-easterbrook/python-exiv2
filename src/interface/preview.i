@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,10 +20,25 @@
 %include "preamble.i"
 
 %include "std_string.i"
-%include "std_vector.i"
 
 %import "image.i";
 %import "types.i";
+
+// Convert getPreviewProperties result to a Python list
+%typemap(out) Exiv2::PreviewPropertiesList {
+    $result = PyList_New(0);
+    if (!$result) {
+        SWIG_fail;
+    }
+    Exiv2::PreviewPropertiesList::iterator e = $1.end();
+    for (Exiv2::PreviewPropertiesList::iterator i = $1.begin(); i != e; ++i) {
+        if (PyList_Append($result, SWIG_NewPointerObj(
+                new Exiv2::PreviewProperties(*i),
+                $descriptor(Exiv2::PreviewProperties*), SWIG_POINTER_OWN))) {
+            SWIG_fail;
+        }
+    }
+}
 
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;
@@ -34,7 +49,6 @@
 %immutable Exiv2::PreviewProperties::id_;
 
 %ignore Exiv2::PreviewImage::operator=;
+%ignore Exiv2::PreviewImage::pData;
 
 %include "exiv2/preview.hpp"
-
-%template(Exiv2PreviewPropertiesList) std::vector<Exiv2::PreviewProperties>;
