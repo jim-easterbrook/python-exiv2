@@ -68,21 +68,6 @@ DATA_ITERATOR(XmpData, XmpDataWrap, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
 DATA_WRAPPER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 DATA_WRAPPER(IptcData, Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey)
 DATA_WRAPPER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
-
-// Make image methods return wrapped data
-// typemaps assume self is always the Python image
-%typemap(out) Exiv2::ExifData& %{
-    $result = SWIG_NewPointerObj(
-        new ExifDataWrap($1, self), $descriptor(ExifDataWrap*), SWIG_POINTER_OWN);
-%};
-%typemap(out) Exiv2::IptcData& %{
-    $result = SWIG_NewPointerObj(
-        new IptcDataWrap($1, self), $descriptor(IptcDataWrap*), SWIG_POINTER_OWN);
-%};
-%typemap(out) Exiv2::XmpData& %{
-    $result = SWIG_NewPointerObj(
-        new XmpDataWrap($1, self), $descriptor(XmpDataWrap*), SWIG_POINTER_OWN);
-%};
 #endif  // ifndef SWIGIMPORTED
 
 // Make image types available

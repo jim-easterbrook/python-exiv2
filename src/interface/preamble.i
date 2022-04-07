@@ -372,6 +372,12 @@ _DATA_WRAPPER(name, base_class, datum_type, key_type, )
 // Macro to declare wrapped class for Python and C++
 %define DATA_WRAPPER(name, base_class, datum_type, key_type)
 _DATA_WRAPPER(name, base_class, datum_type, key_type, %inline)
+// Make image methods return wrapped data
+// typemap assumes self is the Python image
+%typemap(out) base_class& %{
+    $result = SWIG_NewPointerObj(
+        new name##Wrap($1, self), $descriptor(name##Wrap*), SWIG_POINTER_OWN);
+%};
 %enddef // DATA_WRAPPER
 
 // Macro to make enums more Pythonic
