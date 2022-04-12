@@ -193,7 +193,7 @@ with open('README.rst') as ldf:
     long_description = ldf.read()
 py_exiv2_version = long_description.splitlines()[0].split()[-1]
 
-setup(name = 'python-exiv2',
+setup(name = 'exiv2',
       version = py_exiv2_version,
       description = 'Python interface to libexiv2',
       long_description = long_description,

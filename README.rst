@@ -7,6 +7,9 @@ The intention is to give direct access to all of the top-level classes in libexi
 Not everything in libexiv2 is available in the Python interface.
 If you need something that's not there, please let me know.
 
+This project has taken over the PyPI exiv2 package created by Michael Vanslembrouck.
+If you need to use Michael's project, it is available at https://bitbucket.org/zmic/exiv2-python/src/master/
+
 .. contents::
     :backlinks: top
 
