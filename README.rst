@@ -8,7 +8,9 @@ Not everything in libexiv2 is available in the Python interface.
 If you need something that's not there, please let me know.
 
 This project has taken over the PyPI exiv2 package created by Michael Vanslembrouck.
-If you need to use Michael's project, it is available at https://bitbucket.org/zmic/exiv2-python/src/master/
+If you need to use Michael's project, it is available at https://bitbucket.org/zmic/exiv2-python/src/master/ and can be installed with pip_::
+
+    pip install exiv2==0.3.1
 
 .. contents::
     :backlinks: top
