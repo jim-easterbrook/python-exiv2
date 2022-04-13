@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.11.0:
+  1/ Changed PyPI package name from python-exiv2 to exiv2.
+  2/ Simplified some data iterators and function return values.
+
 Changes in v0.10.0:
   1/ API change: replaced Value += operator with append method.
   2/ Improved conversion of LangAltValue to/from Python dict.
