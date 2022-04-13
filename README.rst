@@ -198,11 +198,11 @@ These include the libexiv2 library and should not need any other software to be 
 They can be installed with Python's pip_ package.
 For example, on Windows::
 
-    C:\Users\Jim>pip install python-exiv2
+    C:\Users\Jim>pip install exiv2
 
 or on Linux or MacOS::
 
-    $ pip3 install --user python-exiv2
+    $ pip3 install --user exiv2
 
 If the available wheels are not compatible with your operating system then pip will download the python-exiv2 source and attempt to compile it.
 For more information, and details of how to compile python-exiv2 and libexiv2, see `<INSTALL.rst>`_.
@@ -224,7 +224,7 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _pyexiv2 (new):     https://github.com/LeoHsiao1/pyexiv2
 .. _pyexiv2 (old):     https://launchpad.net/pyexiv2
 .. _PyGObject:         https://pygobject.readthedocs.io/en/latest/
-.. _PyPI:              https://pypi.org/project/python-exiv2/
+.. _PyPI:              https://pypi.org/project/exiv2/
 .. _SWIG:              http://swig.org/
 .. _pydoc:             https://docs.python.org/3/library/pydoc.html
 .. _Python3:           https://www.python.org/

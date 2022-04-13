@@ -3,12 +3,12 @@ Installation
 
 As mentioned in `<README.rst>`_, on most computers `python-exiv2`_ can be installed with a simple pip_ command::
 
-    C:\>pip install python-exiv2
-    Collecting python-exiv2
-      Downloading python_exiv2-0.3.0-cp38-cp38-win_amd64.whl (1.7 MB)
-         |████████████████████████████████| 1.7 MB 595 kB/s
-    Installing collected packages: python-exiv2
-    Successfully installed python-exiv2-0.3.0
+    C:\>pip install exiv2
+    Collecting exiv2
+      Downloading exiv2-0.11.0-cp38-cp38-win_amd64.whl (1.7 MB)
+         ---------------------------------------- 1.7/1.7 MB 589.2 kB/s eta 0:00:00
+    Installing collected packages: exiv2
+    Successfully installed exiv2-0.11.0
 
 If this doesn't work, or you need a non-standard installation, there are other ways to install `python-exiv2`_.
 
@@ -32,15 +32,16 @@ If this command fails it might be because you don't have the "development header
 On some operating systems these are a separate package, with a name like ``exiv2-dev``.
 
 If the ``pkg-config`` command worked, and your version of libexiv2 is between 0.26 and 0.27.5, then you should be able to install `python-exiv2`_ from source::
-    
-    $ pip3 install --user python-exiv2 --no-binary :all:
-    Collecting python-exiv2
-      Downloading python-exiv2-0.3.0.zip (6.4 MB)
-         |████████████████████████████████| 6.4 MB 590 kB/s 
-    Skipping wheel build for python-exiv2, due to binaries being disabled for it.
-    Installing collected packages: python-exiv2
-        Running setup.py install for python-exiv2 ... done
-    Successfully installed python-exiv2-0.3.0
+
+    $ pip3 install --user exiv2 --no-binary :all:
+    Collecting exiv2
+      Downloading exiv2-0.11.0.zip (2.3 MB)
+         |████████████████████████████████| 2.3 MB 689 kB/s
+      Preparing metadata (setup.py) ... done
+    Skipping wheel build for exiv2, due to binaries being disabled for it.
+    Installing collected packages: exiv2
+        Running setup.py install for exiv2 ... done
+    Successfully installed exiv2-0.11.0
 
 This will take some time as python-exiv2 has to be compiled, and some of its modules are quite large.
 If you want to see what's happening you can use the ``-v`` option to increase pip_'s verbosity.
@@ -70,20 +71,20 @@ Note the use of the ``EXIV2_ROOT`` environment variable to select the source::
     $ EXIV2_ROOT=../exiv2-0.27.5-Linux64 pip3 wheel .
     Processing /home/jim/python-exiv2
       Preparing metadata (setup.py) ... done
-    Building wheels for collected packages: python-exiv2
-      Building wheel for python-exiv2 (setup.py) ... done
-      Created wheel for python-exiv2: filename=python_exiv2-0.10.0-cp38-cp38-linux_x86_64.whl size=8789690 sha256=c54ee6ceee9da81f70fd213e8c0d5e1bb98ae9a6aefbb945782cbe9691f36fb3
-      Stored in directory: /home/jim/.cache/pip/wheels/44/ba/25/f613bdae19073dfc7df93a259d277710f5b820127097b0267a
-    Successfully built python-exiv2
+    Building wheels for collected packages: exiv2
+      Building wheel for exiv2 (setup.py) ... done
+      Created wheel for exiv2: filename=exiv2-0.11.0-cp36-cp36m-linux_x86_64.whl size=6479537 sha256=b0265ad8b3b7759b402cb72f67d18b62715c03ee0c620b89c1625b2fda12c4b5
+      Stored in directory: /home/jim/.cache/pip/wheels/95/11/3c/2536c604d8cc5593cd723bb1f3f8b0439c0c11bed5626debfb
+    Successfully built exiv2
 
 As before, you can use pip_'s ``-v`` option to see what's happening as it compiles each python-exiv2 module.
 
 If this worked you can now install the wheel_ you've just built::
 
-    $ pip3 install --user python_exiv2-0.10.0-cp38-cp38-linux_x86_64.whl 
-    Processing ./python_exiv2-0.10.0-cp38-cp38-linux_x86_64.whl
-    Installing collected packages: python-exiv2
-    Successfully installed python-exiv2-0.10.0
+    $ pip3 install --user exiv2-0.11.0-cp36-cp36m-linux_x86_64.whl
+    Processing ./exiv2-0.11.0-cp36-cp36m-linux_x86_64.whl
+    Installing collected packages: exiv2
+    Successfully installed exiv2-0.11.0
 
 Windows
 ^^^^^^^
@@ -104,18 +105,18 @@ Build a wheel::
     C:\Users\Jim\python-exiv2>pip wheel .
     Processing c:\users\jim\python-exiv2
       Preparing metadata (setup.py) ... done
-    Building wheels for collected packages: python-exiv2
-      Building wheel for python-exiv2 (setup.py) ... done
-      Created wheel for python-exiv2: filename=python_exiv2-0.10.0-cp38-cp38-win_amd64.whl size=976373 sha256=abd2043eac35399e36ad7b7b552b5c162e04ae74abc1dc22385efdcbe5a97fa2
-      Stored in directory: c:\users\jim\appdata\local\pip\cache\wheels\77\a8\d0\50e43a228b0acffc6f77d6ea1c651044ee197bfebb6f0387cc
-    Successfully built python-exiv2
+    Building wheels for collected packages: exiv2
+      Building wheel for exiv2 (setup.py) ... done
+      Created wheel for exiv2: filename=exiv2-0.11.0-cp38-cp38-win_amd64.whl size=1711174 sha256=599e40eb27cc43c96fd310d70925aca0a57a4c2a5af8fce5cfcf2cb4c50e5e17
+      Stored in directory: c:\users\jim\appdata\local\pip\cache\wheels\a3\3b\d4\d35463afd5940a14f17983a106ed52ffafc07877192bcc881a
+    Successfully built exiv2
 
 Install the wheel::
 
-    C:\Users\Jim\python-exiv2>pip install python_exiv2-0.10.0-cp38-cp38-win_amd64.whl
-    Processing c:\users\jim\python-exiv2\python_exiv2-0.10.0-cp38-cp38-win_amd64.whl
-    Installing collected packages: python-exiv2
-    Successfully installed python-exiv2-0.10.0
+    C:\Users\Jim\python-exiv2>pip install exiv2-0.11.0-cp38-cp38-win_amd64.whl
+    Processing c:\users\jim\python-exiv2\exiv2-0.11.0-cp38-cp38-win_amd64.whl
+    Installing collected packages: exiv2
+    Successfully installed exiv2-0.11.0
 
 Build your own libexiv2
 -----------------------
@@ -152,11 +153,11 @@ Back in your python-exiv2 directory, you can build the wheel as before, but usin
     $ EXIV2_ROOT=../exiv2-0.27.5-Source/local_install pip3 wheel .
     Processing /home/jim/python-exiv2
       Preparing metadata (setup.py) ... done
-    Building wheels for collected packages: python-exiv2
-      Building wheel for python-exiv2 (setup.py) ... done
-      Created wheel for python-exiv2: filename=python_exiv2-0.10.0-cp36-cp36m-linux_x86_64.whl size=6727960 sha256=a5ec8f10a95a913af2313eda49548f7c17815e909b7ff2bf2dfd181712557817
+    Building wheels for collected packages: exiv2
+      Building wheel for exiv2 (setup.py) ... done
+      Created wheel for exiv2: filename=exiv2-0.11.0-cp36-cp36m-linux_x86_64.whl size=6371916 sha256=4c080adf0738acd3be416f112332e653d4e8e2b302a375ccee246b20af8de259
       Stored in directory: /home/jim/.cache/pip/wheels/95/11/3c/2536c604d8cc5593cd723bb1f3f8b0439c0c11bed5626debfb
-    Successfully built python-exiv2
+    Successfully built exiv2
 
 Then install the wheel as before.
 
@@ -204,11 +205,11 @@ Back in your python-exiv2 directory, build a wheel using your newly compiled lib
     C:\Users\Jim\python-exiv2>pip wheel .
     Processing c:\users\jim\python-exiv2
       Preparing metadata (setup.py) ... done
-    Building wheels for collected packages: python-exiv2
-      Building wheel for python-exiv2 (setup.py) ... done
-      Created wheel for python-exiv2: filename=python_exiv2-0.10.0-cp38-cp38-win_amd64.whl size=976521 sha256=c2b7472153a9874e93c686dbcfc42a986a9407a0929953378abb2c006024d157
-      Stored in directory: c:\users\jim\appdata\local\pip\cache\wheels\77\a8\d0\50e43a228b0acffc6f77d6ea1c651044ee197bfebb6f0387cc
-    Successfully built python-exiv2
+    Building wheels for collected packages: exiv2
+      Building wheel for exiv2 (setup.py) ... done
+      Created wheel for exiv2: filename=exiv2-0.11.0-cp38-cp38-win_amd64.whl size=1724809 sha256=d53d9d75307f0c05370dfeaca2c85c5a6f7a96cc6d3195d5f92248a3c2d83a43
+      Stored in directory: c:\users\jim\appdata\local\pip\cache\wheels\a3\3b\d4\d35463afd5940a14f17983a106ed52ffafc07877192bcc881a
+    Successfully built exiv2
 
 Then install the wheel as before.
 
@@ -234,7 +235,7 @@ If you need to generate the minimal interface included with python-exiv2 you can
 After running ``build_swig.py`` you can build and install a wheel as before::
 
     $ EXIV2_ROOT=../exiv2-0.27.5-Source/local_install pip3 wheel .
-    $ pip3 install --user python_exiv2-0.10.0-cp36-cp36m-linux_x86_64.whl
+    $ pip3 install --user exiv2-0.11.0-cp36-cp36m-linux_x86_64.whl
 
 .. _build instructions:
     https://github.com/exiv2/exiv2#2
