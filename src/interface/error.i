@@ -24,9 +24,12 @@
 // Set Python logger as Exiv2 log handler
 %{
 static void log_to_python(int level, const char* msg) {
+    size_t len = strlen(msg);
+    while (len > 0 && msg[len-1] == '\n')
+        len--;
     PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject* res = PyObject_CallMethod(
-        logger, "log", "(is)", (level + 1) * 10, msg);
+        logger, "log", "(is#)", (level + 1) * 10, msg, len);
     Py_XDECREF(res);
     PyGILState_Release(gstate);
 };
