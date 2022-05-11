@@ -26,13 +26,13 @@ jobs:
             cd exiv2-0.27.5-Source &&
             mkdir build &&
             cd build &&
-            cmake .. -DCMAKE_BUILD_TYPE=Release \
-              -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
-              -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
-              -DEXIV2_BUILD_SAMPLES=OFF \
-              -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
-              -DEXIV2_ENABLE_BMFF=ON \
-              -DEXIV2_ENABLE_NLS=ON \
+            cmake .. -DCMAKE_BUILD_TYPE=Release
+              -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }}
+              -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations"
+              -DEXIV2_BUILD_SAMPLES=OFF
+              -DEXIV2_BUILD_EXIV2_COMMAND=OFF
+              -DEXIV2_ENABLE_BMFF=ON
+              -DEXIV2_ENABLE_NLS=ON
               -DCMAKE_CXX_STANDARD=98 &&
             cmake --build . &&
             cmake --install . &&
