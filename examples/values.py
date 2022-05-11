@@ -2,7 +2,7 @@
 
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,12 +25,14 @@
 
 import datetime
 from fractions import Fraction
+import locale
 import sys
 
 import exiv2
 import tzlocal
 
 def main():
+    locale.setlocale(locale.LC_ALL, '')
     print('==== DateValue & TimeValue ====')
     # These are only used in Iptc - Exif & Xmp use string representations
     tz = tzlocal.get_localzone()

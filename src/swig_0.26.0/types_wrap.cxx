@@ -5477,6 +5477,43 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_exvGettext(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  char *arg1 = (char *) 0 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  PyObject *swig_obj[1] ;
+  char *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_AsCharPtrAndSize(swig_obj[0], &buf1, NULL, &alloc1);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "exvGettext" "', argument " "1"" of type '" "char const *""'");
+  }
+  arg1 = reinterpret_cast< char * >(buf1);
+  {
+    try {
+      result = (char *)Exiv2::exvGettext((char const *)arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return resultobj;
+fail:
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return NULL;
+}
+
+
 SWIGINTERN int _wrap_new_URational__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   std::pair< uint32_t,uint32_t > *result = 0 ;
@@ -6048,6 +6085,10 @@ static PyMethodDef SwigMethods[] = {
 		"       \"2007:05:24 12:31:55\" to broken down time format,\n"
 		"       returns 0 if successful, else 1.\n"
 		""},
+	 { "exvGettext", _wrap_exvGettext, METH_O, "\n"
+		"Translate a string using the gettext framework. This wrapper hides\n"
+		"       all the implementation details from the interface.\n"
+		""},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -6069,6 +6110,10 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 		"Converts a string in the form \"%Y:%m:%d %H:%M:%S\", e.g.,\n"
 		"       \"2007:05:24 12:31:55\" to broken down time format,\n"
 		"       returns 0 if successful, else 1.\n"
+		""},
+	 { "exvGettext", _wrap_exvGettext, METH_O, "\n"
+		"Translate a string using the gettext framework. This wrapper hides\n"
+		"       all the implementation details from the interface.\n"
 		""},
 	 { NULL, NULL, 0, NULL }
 };

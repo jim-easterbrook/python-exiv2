@@ -47,4 +47,10 @@ from exiv2.value import *
 from exiv2.version import *
 from exiv2.xmp import *
 
+_dir = os.path.join(os.path.dirname(__file__), 'locale')
+if os.path.isdir(_dir):
+    import locale
+    exiv2.exvGettext('dummy')	# to initialise Exiv2's localisation
+    locale.bindtextdomain('exiv2', _dir)
+
 __all__ = [x for x in dir() if x[0] != '_']

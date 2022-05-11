@@ -2,7 +2,7 @@
 
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,11 +20,14 @@
 # Sample program to show use of "EasyAccess API".
 # See https://github.com/Exiv2/exiv2/wiki/EasyAccess-API
 
+import locale
 import sys
+
 import exiv2
 
 
 def main():
+    locale.setlocale(locale.LC_ALL, '')
     exiv2.XmpParser.initialize()
 
     if len(sys.argv) != 2:

@@ -19,11 +19,13 @@
 
 # The quickest way to access, set or modify IPTC metadata.
 
+import locale
 import sys
 
 import exiv2
 
 def main():
+    locale.setlocale(locale.LC_ALL, '')
     try:
         exiv2.XmpParser.initialize()
         if len(sys.argv) != 2:
