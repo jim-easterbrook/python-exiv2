@@ -21,6 +21,15 @@
 
 %include "std_except.i"
 
+// Make all exiv2's localised strings UTF-8
+%{
+#include "libintl.h"
+%}
+%init %{
+bind_textdomain_codeset("exiv2", "UTF-8");
+%}
+
+
 // Set Python logger as Exiv2 log handler
 %{
 static void log_to_python(int level, const char* msg) {
