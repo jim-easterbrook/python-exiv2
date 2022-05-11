@@ -32,14 +32,14 @@ jobs:
             cd exiv2-0.27.5-Source/build &&
             conan profile new --detect default &&
             conan install .. --build missing &&
-            cmake .. -DCMAKE_BUILD_TYPE=Release
-              -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }}
-              -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations"
-              -DEXIV2_BUILD_SAMPLES=OFF
-              -DEXIV2_BUILD_EXIV2_COMMAND=OFF
-              -DEXIV2_ENABLE_BMFF=ON
-              -DEXIV2_ENABLE_NLS=ON
-              -DCMAKE_CXX_STANDARD=98
+            cmake .. -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
+              -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
+              -DEXIV2_BUILD_SAMPLES=OFF \
+              -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
+              -DEXIV2_ENABLE_BMFF=ON \
+              -DEXIV2_ENABLE_NLS=ON \
+              -DCMAKE_CXX_STANDARD=98 \
               -GNinja &&
             cmake --build . --config Release &&
             cmake --build . --target install &&
