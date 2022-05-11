@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.11.1:
+  1/ Improved initialisation of localisation.
+
 Changes in v0.11.0:
   1/ Changed PyPI package name from python-exiv2 to exiv2.
   2/ Simplified some data iterators and function return values.
