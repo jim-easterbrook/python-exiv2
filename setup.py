@@ -178,6 +178,7 @@ for file_name in os.listdir(mod_src_dir):
         sources = [os.path.join(mod_src_dir, file_name)],
         include_dirs = include_dirs,
         extra_compile_args = extra_compile_args,
+        define_macros = [('PY_SSIZE_T_CLEAN', None)],
         libraries = ['exiv2'],
         library_dirs = library_dirs,
         extra_link_args = extra_link_args,
