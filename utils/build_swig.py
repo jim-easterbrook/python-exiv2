@@ -196,9 +196,7 @@ else:
         im.write('''
 _dir = os.path.join(os.path.dirname(__file__), 'messages')
 if os.path.isdir(_dir):
-    import locale
-    exiv2.exvGettext('dummy')	# to initialise Exiv2's localisation
-    locale.bindtextdomain('exiv2', _dir)
+    exiv2.types._set_locale_dir(_dir)
 
 __all__ = [x for x in dir() if x[0] != '_']
 ''')

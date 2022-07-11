@@ -29,7 +29,7 @@ else:
             return Exiv2Error
         raise AttributeError
 
-__version__ = "0.11.2"
+__version__ = "0.11.3"
 
 from exiv2.basicio import *
 from exiv2.datasets import *
@@ -49,8 +49,6 @@ from exiv2.xmp import *
 
 _dir = os.path.join(os.path.dirname(__file__), 'messages')
 if os.path.isdir(_dir):
-    import locale
-    exiv2.exvGettext('dummy')	# to initialise Exiv2's localisation
-    locale.bindtextdomain('exiv2', _dir)
+    exiv2.types._set_locale_dir(_dir)
 
 __all__ = [x for x in dir() if x[0] != '_']

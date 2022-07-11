@@ -22,6 +22,27 @@
 %include "stdint.i"
 %include "std_pair.i"
 
+// Function to set location of localisation files
+// (types.hpp includes exiv2's localisation stuff)
+#ifdef EXV_ENABLE_NLS
+%{
+#include <libintl.h>
+%}
+%inline %{
+void _set_locale_dir(const char* dirname) {
+    // initialise libexiv2's translator by asking it for a string
+    Exiv2::exvGettext("dummy");
+    // reset libexiv2's translator to use our directory
+    bindtextdomain("exiv2", dirname);
+};
+%}
+#else   // EXV_ENABLE_NLS
+%inline %{
+void _set_locale_dir(const char* dirname) {
+};
+%}
+#endif  // EXV_ENABLE_NLS
+
 // Make Exiv2::DataBuf behave more like a tuple of ints
 %feature("python:slot", "mp_length", functype="lenfunc") Exiv2::DataBuf::__len__;
 %feature("python:slot", "mp_subscript",
