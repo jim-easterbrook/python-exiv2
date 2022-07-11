@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.11.2:
+  1/ Prevent PY_SSIZE_T_CLEAN warning / error in Python 3.8 and above.
+
 Changes in v0.11.1:
   1/ Improved initialisation of localisation.
 
