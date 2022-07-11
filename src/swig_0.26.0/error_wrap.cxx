@@ -3568,7 +3568,7 @@ PyObject* logger = NULL;
 
 
 static void log_to_python(int level, const char* msg) {
-    size_t len = strlen(msg);
+    Py_ssize_t len = strlen(msg);
     while (len > 0 && msg[len-1] == '\n')
         len--;
     PyGILState_STATE gstate = PyGILState_Ensure();
