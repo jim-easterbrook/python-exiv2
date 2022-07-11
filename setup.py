@@ -85,12 +85,12 @@ if 'EXIV2_ROOT' in os.environ:
                 include_dirs = [os.path.dirname(root)]
                 break
             if file == 'exiv2.mo':
-                if 'exiv2.locale' not in packages:
-                    # add exiv2.locale package for libexiv2 localisation files
-                    packages.append('exiv2.locale')
-                    package_dir['exiv2.locale'] = os.path.dirname(
+                if 'exiv2.messages' not in packages:
+                    # add exiv2.messages package for libexiv2 localisation files
+                    packages.append('exiv2.messages')
+                    package_dir['exiv2.messages'] = os.path.dirname(
                         os.path.dirname(root))
-                    package_data['exiv2.locale'] = ['*/LC_MESSAGES/exiv2.mo']
+                    package_data['exiv2.messages'] = ['*/LC_MESSAGES/exiv2.mo']
                 break
             if file in ('exiv2.lib', 'libexiv2.dll.a'):
                 # win32, mingw, cygwin
@@ -112,7 +112,7 @@ if 'EXIV2_ROOT' in os.environ:
                 package_data['exiv2.lib'] = [file]
                 break
         if (include_dirs and library_dirs and package_dir['exiv2.lib']
-                and 'exiv2.locale' in packages):
+                and 'exiv2.messages' in packages):
             break
     if not (include_dirs and library_dirs and package_dir['exiv2.lib']):
         print('ERROR: Include and library files not found')

@@ -194,7 +194,7 @@ else:
         for name in ext_names:
             im.write('from exiv2.%s import *\n' % name)
         im.write('''
-_dir = os.path.join(os.path.dirname(__file__), 'locale')
+_dir = os.path.join(os.path.dirname(__file__), 'messages')
 if os.path.isdir(_dir):
     import locale
     exiv2.exvGettext('dummy')	# to initialise Exiv2's localisation
