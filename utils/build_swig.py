@@ -36,10 +36,15 @@ def get_version(incl_dir, file):
             if len(words) < 2:
                 continue
             for key in version:
-                if words[1] != key:
+                if words[1] != key or words[0] != '#define':
                     continue
-                if words[0] == '#define' and words[2] != '()':
-                    version[key] = int(words[2][1:-1])
+                value = words[2]
+                if value[0] == '(':
+                    value = value[1:]
+                while value and value[-1] in (')', 'U'):
+                    value = value[:-1]
+                if value:
+                    version[key] = int(value)
     return (version['EXIV2_MAJOR_VERSION'], version['EXIV2_MINOR_VERSION'],
             version['EXIV2_PATCH_VERSION'], version['EXIV2_TWEAK_VERSION'])
 
@@ -131,6 +136,8 @@ def main():
             with open(os.path.join(incl_dir, file), 'r') as in_file:
                 with open(os.path.join(dest, file), 'w') as out_file:
                     for line in in_file.readlines():
+                        if 'static constexpr auto' in line:
+                            continue
                         line = attr.sub('', line)
                         out_file.write(line)
         # make options list

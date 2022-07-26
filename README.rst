@@ -1,4 +1,4 @@
-python-exiv2 v\ 0.11.3
+python-exiv2 v\ 0.11.4
 ======================
 
 python-exiv2 is a low level interface (or binding) to the exiv2_ C++ library.

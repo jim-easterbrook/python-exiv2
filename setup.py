@@ -41,10 +41,15 @@ def get_version(inc_dir, file):
             if len(words) < 2:
                 continue
             for key in version:
-                if words[1] != key:
+                if words[1] != key or words[0] != '#define':
                     continue
-                if words[0] == '#define' and words[2] != '()':
-                    version[key] = int(words[2][1:-1])
+                value = words[2]
+                if value[0] == '(':
+                    value = value[1:]
+                while value and value[-1] in (')', 'U'):
+                    value = value[:-1]
+                if value:
+                    version[key] = int(value)
     return [version['EXIV2_MAJOR_VERSION'], version['EXIV2_MINOR_VERSION'],
             version['EXIV2_PATCH_VERSION']]
 
