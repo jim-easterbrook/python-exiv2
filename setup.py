@@ -29,29 +29,15 @@ def pkg_config(library, option):
         print(str(ex))
         return None
 
-def get_version(inc_dir, file):
-    version = {
-        'EXIV2_MAJOR_VERSION': 0,
-        'EXIV2_MINOR_VERSION': 0,
-        'EXIV2_PATCH_VERSION': 0,
-        }
-    with open(os.path.join(inc_dir, 'exiv2', file)) as cnf:
+def get_version(inc_dir):
+    with open(os.path.join(inc_dir, 'exiv2', 'exv_conf.h')) as cnf:
         for line in cnf.readlines():
             words = line.split()
-            if len(words) < 2:
+            if len(words) < 3:
                 continue
-            for key in version:
-                if words[1] != key or words[0] != '#define':
-                    continue
-                value = words[2]
-                if value[0] == '(':
-                    value = value[1:]
-                while value and value[-1] in (')', 'U'):
-                    value = value[:-1]
-                if value:
-                    version[key] = int(value)
-    return [version['EXIV2_MAJOR_VERSION'], version['EXIV2_MINOR_VERSION'],
-            version['EXIV2_PATCH_VERSION']]
+            if words[0] == '#define' and words[1] == 'EXV_PACKAGE_VERSION':
+                return [int(x) for x in eval(words[2]).split('.')]
+    return [0, 0]
 
 # get list of available swigged versions
 swigged_versions = []
@@ -62,10 +48,8 @@ for name in os.listdir('src'):
 swigged_versions.sort(reverse=True)
 
 def get_mod_src_dir(exiv2_version):
-    while len(exiv2_version) < 3:
-        exiv2_version.append(0)
     for version in swigged_versions:
-        if exiv2_version >= version:
+        if exiv2_version + [0] >= version:
             return os.path.join('src', 'swig_{}.{}.{}'.format(*version))
     return None
 
@@ -123,9 +107,7 @@ if 'EXIV2_ROOT' in os.environ:
         print('ERROR: Include and library files not found')
         sys.exit(1)
     # get exiv2 version from include files
-    exiv2_version = get_version(include_dirs[0], 'exv_conf.h')
-    if exiv2_version < [0, 27]:
-        exiv2_version = get_version(include_dirs[0], 'version.hpp')
+    exiv2_version = get_version(include_dirs[0])
     mod_src_dir = get_mod_src_dir(exiv2_version)
     if platform == 'linux':
         extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
@@ -152,8 +134,8 @@ if not mod_src_dir:
     print('ERROR: No SWIG source for libexiv2 version {}'.format(exiv2_version))
     sys.exit(1)
 
-print('Using libexiv2 v{}.{}.{} with SWIG files from {}'.format(
-    *exiv2_version, mod_src_dir))
+print('Using libexiv2 v{} with SWIG files from {}'.format(
+    '.'.join(map(str, exiv2_version)), mod_src_dir))
 
 package_dir['exiv2'] = mod_src_dir
 
@@ -168,7 +150,7 @@ if platform in ('linux', 'darwin', 'mingw'):
         extra_compile_args.append('-Wno-unused-but-set-variable')
     if 'PYTHON_EXIV2_STRICT' in os.environ:
         extra_compile_args.append('-Werror')
-    if exiv2_version >= [1, 0, 0]:
+    if exiv2_version >= [1, 0]:
         extra_compile_args.append('-std=gnu++17')
     else:
         extra_compile_args.append('-std=c++98')

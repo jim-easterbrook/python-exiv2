@@ -23,30 +23,16 @@ import sys
 import tempfile
 
 
-def get_version(incl_dir, file):
-    version = {
-        'EXIV2_MAJOR_VERSION': 0,
-        'EXIV2_MINOR_VERSION': 0,
-        'EXIV2_PATCH_VERSION': 0,
-        'EXIV2_TWEAK_VERSION': 0,
-        }
-    with open(os.path.join(incl_dir, file)) as cnf:
+def get_version(incl_dir):
+    with open(os.path.join(incl_dir, 'exv_conf.h')) as cnf:
         for line in cnf.readlines():
             words = line.split()
-            if len(words) < 2:
+            if len(words) < 3:
                 continue
-            for key in version:
-                if words[1] != key or words[0] != '#define':
-                    continue
-                value = words[2]
-                if value[0] == '(':
-                    value = value[1:]
-                while value and value[-1] in (')', 'U'):
-                    value = value[:-1]
-                if value:
-                    version[key] = int(value)
-    return (version['EXIV2_MAJOR_VERSION'], version['EXIV2_MINOR_VERSION'],
-            version['EXIV2_PATCH_VERSION'], version['EXIV2_TWEAK_VERSION'])
+            if words[0] == '#define' and words[1] == 'EXV_PACKAGE_VERSION':
+                version = [int(x) for x in eval(words[2]).split('.')]
+                return tuple(version + [0, 0])
+    return 0, 0, 0, 0
 
 
 def main():
@@ -70,9 +56,7 @@ def main():
         print('Exiv2 header files not found in %s' % incl_dir)
         return 3
     # get exiv2 version
-    exiv2_version = get_version(incl_dir, 'exv_conf.h')
-    if exiv2_version < (0, 27):
-        exiv2_version = get_version(incl_dir, 'version.hpp')
+    exiv2_version = get_version(incl_dir)
     # get exiv2 build options
     options = {
         'EXV_ENABLE_BMFF'  : False,
