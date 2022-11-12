@@ -7974,31 +7974,31 @@ SWIGINTERN PyObject *_wrap_Value_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_read" "', argument " "1"" of type '" "Exiv2::Value *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Value_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Value_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Value_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Value_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -8071,18 +8071,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Value_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Value_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Value_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_Value_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_Value_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -8148,6 +8148,63 @@ SWIGINTERN PyObject *_wrap_Value_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Value_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Value *arg1 = (Exiv2::Value *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Value_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_copy" "', argument " "1"" of type '" "Exiv2::Value const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Value_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'Value_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Value_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::Value const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -8848,33 +8905,33 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
   long arg2 ;
   Exiv2::ByteOrder arg3 ;
   Exiv2::TypeId arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   Exiv2::DataValue *result = 0 ;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DataValue" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "new_DataValue" "', argument " "1"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg1 = (Exiv2::byte *) buf;
+    arg2 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DataValue" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_DataValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_DataValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
@@ -8903,26 +8960,26 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyO
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   long arg2 ;
   Exiv2::ByteOrder arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
   Exiv2::DataValue *result = 0 ;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DataValue" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "new_DataValue" "', argument " "1"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg1 = (Exiv2::byte *) buf;
+    arg2 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DataValue" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_DataValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -8950,23 +9007,23 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_4(PyObject *self, Py_ssize_t nobjs, PyO
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
   Exiv2::DataValue *result = 0 ;
   
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DataValue" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "new_DataValue" "', argument " "1"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg1 = (Exiv2::byte *) buf;
+    arg2 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DataValue" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
   {
     try {
       result = (Exiv2::DataValue *)new Exiv2::DataValue((Exiv2::byte const *)arg1,arg2);
@@ -9026,31 +9083,31 @@ SWIGINTERN PyObject *_wrap_DataValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataValue_read" "', argument " "1"" of type '" "Exiv2::DataValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DataValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DataValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "DataValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -9081,28 +9138,28 @@ SWIGINTERN PyObject *_wrap_DataValue_read__SWIG_1(PyObject *self, Py_ssize_t nob
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataValue_read" "', argument " "1"" of type '" "Exiv2::DataValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DataValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DataValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -9171,23 +9228,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_DataValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "DataValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DataValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_DataValue_read__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_DataValue_read__SWIG_2(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_DataValue_read__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_DataValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -9235,6 +9301,138 @@ SWIGINTERN PyObject *_wrap_DataValue_clone(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataValue_copy__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::DataValue *arg1 = (Exiv2::DataValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  long result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataValue_copy" "', argument " "1"" of type '" "Exiv2::DataValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DataValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'DataValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DataValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::DataValue const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataValue_copy__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::DataValue *arg1 = (Exiv2::DataValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  long result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataValue_copy" "', argument " "1"" of type '" "Exiv2::DataValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DataValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'DataValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  {
+    try {
+      result = (long)((Exiv2::DataValue const *)arg1)->copy(arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataValue_copy(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DataValue_copy", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_DataValue_copy__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_DataValue_copy__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DataValue_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::DataValue::copy(Exiv2::byte *,Exiv2::ByteOrder) const\n"
+    "    Exiv2::DataValue::copy(Exiv2::byte *) const\n");
+  return 0;
 }
 
 
@@ -9698,12 +9896,12 @@ fail:
 
 SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DataValue")) SWIG_fail;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DataValue", 0, 4, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DataValue", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 0) {
     int retval = _wrap_new_DataValue__SWIG_1(self, argc, argv);
@@ -9713,13 +9911,27 @@ SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwa
   if (argc == 1) {
     int _v = 0;
     {
+      {
+        _v = PyObject_CheckBuffer(argv[0]);
+      }
+    }
+    if (!_v) goto check_2;
+    int retval = _wrap_new_DataValue__SWIG_4(self, argc, argv);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+check_2:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_2;
+    if (!_v) goto check_3;
     return _wrap_new_DataValue__SWIG_5(self, argc, argv);
   }
-check_2:
+check_3:
   
   if (argc == 1) {
     int retval = _wrap_new_DataValue__SWIG_0(self, argc, argv);
@@ -9727,16 +9939,11 @@ check_2:
     SWIG_fail;
   }
   if (argc == 2) {
-    int retval = _wrap_new_DataValue__SWIG_4(self, argc, argv);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 3) {
     int retval = _wrap_new_DataValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     int retval = _wrap_new_DataValue__SWIG_2(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
@@ -9844,31 +10051,31 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_1(PyObject *self, Py_ssize
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__StringValueBase, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase_read" "', argument " "1"" of type '" "Exiv2::StringValueBase *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "StringValueBase_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "StringValueBase_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -9899,28 +10106,28 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_2(PyObject *self, Py_ssize
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__StringValueBase, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase_read" "', argument " "1"" of type '" "Exiv2::StringValueBase *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "StringValueBase_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -9942,23 +10149,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_StringValueBase_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "StringValueBase_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "StringValueBase_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_StringValueBase_read__SWIG_2(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_StringValueBase_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_StringValueBase_read__SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_StringValueBase_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -10006,6 +10222,138 @@ SWIGINTERN PyObject *_wrap_StringValueBase_clone(PyObject *self, PyObject *args)
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_StringValueBase_copy__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  long result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__StringValueBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase_copy" "', argument " "1"" of type '" "Exiv2::StringValueBase const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "StringValueBase_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'StringValueBase_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "StringValueBase_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::StringValueBase const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_StringValueBase_copy__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  long result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__StringValueBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase_copy" "', argument " "1"" of type '" "Exiv2::StringValueBase const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "StringValueBase_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'StringValueBase_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  {
+    try {
+      result = (long)((Exiv2::StringValueBase const *)arg1)->copy(arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_StringValueBase_copy(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "StringValueBase_copy", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_StringValueBase_copy__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_StringValueBase_copy__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'StringValueBase_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::StringValueBase::copy(Exiv2::byte *,Exiv2::ByteOrder) const\n"
+    "    Exiv2::StringValueBase::copy(Exiv2::byte *) const\n");
+  return 0;
 }
 
 
@@ -10814,31 +11162,31 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read__SWIG_0_0(PyObject *self, Py_ssize_t 
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__AsciiValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AsciiValue_read" "', argument " "1"" of type '" "Exiv2::AsciiValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::AsciiValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "AsciiValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "AsciiValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -10869,28 +11217,28 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read__SWIG_0_1(PyObject *self, Py_ssize_t 
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__AsciiValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AsciiValue_read" "', argument " "1"" of type '" "Exiv2::AsciiValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::AsciiValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "AsciiValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -10959,23 +11307,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_AsciiValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "AsciiValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "AsciiValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_AsciiValue_read__SWIG_0_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_AsciiValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_AsciiValue_read__SWIG_0_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_AsciiValue_read__SWIG_0_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -11291,31 +11648,31 @@ SWIGINTERN PyObject *_wrap_CommentValue_read__SWIG_1(PyObject *self, Py_ssize_t 
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__CommentValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CommentValue_read" "', argument " "1"" of type '" "Exiv2::CommentValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CommentValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "CommentValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CommentValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CommentValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -11341,18 +11698,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_CommentValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "CommentValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "CommentValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_CommentValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_CommentValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -11396,6 +11753,63 @@ SWIGINTERN PyObject *_wrap_CommentValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__CommentValue, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CommentValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::CommentValue *arg1 = (Exiv2::CommentValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "CommentValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__CommentValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CommentValue_copy" "', argument " "1"" of type '" "Exiv2::CommentValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "CommentValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'CommentValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CommentValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::CommentValue const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -11837,6 +12251,138 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_XmpValue_copy__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpValue *arg1 = (Exiv2::XmpValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  long result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_copy" "', argument " "1"" of type '" "Exiv2::XmpValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'XmpValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::XmpValue const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpValue_copy__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpValue *arg1 = (Exiv2::XmpValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  long result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_copy" "', argument " "1"" of type '" "Exiv2::XmpValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'XmpValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  {
+    try {
+      result = (long)((Exiv2::XmpValue const *)arg1)->copy(arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpValue_copy(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpValue_copy", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_XmpValue_copy__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_XmpValue_copy__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpValue_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::XmpValue::copy(Exiv2::byte *,Exiv2::ByteOrder) const\n"
+    "    Exiv2::XmpValue::copy(Exiv2::byte *) const\n");
+  return 0;
+}
+
+
 SWIGINTERN PyObject *_wrap_XmpValue_setXmpArrayType(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpValue *arg1 = (Exiv2::XmpValue *) 0 ;
@@ -11984,31 +12530,31 @@ SWIGINTERN PyObject *_wrap_XmpValue_read__SWIG_0(PyObject *self, Py_ssize_t nobj
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_read" "', argument " "1"" of type '" "Exiv2::XmpValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "XmpValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -12039,28 +12585,28 @@ SWIGINTERN PyObject *_wrap_XmpValue_read__SWIG_1(PyObject *self, Py_ssize_t nobj
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_read" "', argument " "1"" of type '" "Exiv2::XmpValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -12129,23 +12675,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_XmpValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_XmpValue_read__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_XmpValue_read__SWIG_2(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_XmpValue_read__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_XmpValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -12370,31 +12925,31 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0_0(PyObject *self, Py_ssize_
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpTextValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue_read" "', argument " "1"" of type '" "Exiv2::XmpTextValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpTextValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "XmpTextValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -12425,28 +12980,28 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0_1(PyObject *self, Py_ssize_
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpTextValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue_read" "', argument " "1"" of type '" "Exiv2::XmpTextValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpTextValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -12515,23 +13070,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_XmpTextValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpTextValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpTextValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_XmpTextValue_read__SWIG_0_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_XmpTextValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_XmpTextValue_read__SWIG_0_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_XmpTextValue_read__SWIG_0_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -13211,31 +13775,31 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read__SWIG_0_0(PyObject *self, Py_ssize
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpArrayValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpArrayValue_read" "', argument " "1"" of type '" "Exiv2::XmpArrayValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpArrayValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "XmpArrayValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -13266,28 +13830,28 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read__SWIG_0_1(PyObject *self, Py_ssize
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpArrayValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpArrayValue_read" "', argument " "1"" of type '" "Exiv2::XmpArrayValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "XmpArrayValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -13356,23 +13920,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_XmpArrayValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpArrayValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpArrayValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_XmpArrayValue_read__SWIG_0_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_XmpArrayValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_XmpArrayValue_read__SWIG_0_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_XmpArrayValue_read__SWIG_0_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -14318,31 +14891,31 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read__SWIG_0_0(PyObject *self, Py_ssize_
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_read" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "LangAltValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "LangAltValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -14373,28 +14946,28 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read__SWIG_0_1(PyObject *self, Py_ssize_
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_read" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "LangAltValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -14463,23 +15036,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_LangAltValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "LangAltValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "LangAltValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_LangAltValue_read__SWIG_0_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_LangAltValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_LangAltValue_read__SWIG_0_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_LangAltValue_read__SWIG_0_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -15644,31 +16226,31 @@ SWIGINTERN PyObject *_wrap_DateValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_read" "', argument " "1"" of type '" "Exiv2::DateValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DateValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DateValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DateValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "DateValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -15699,28 +16281,28 @@ SWIGINTERN PyObject *_wrap_DateValue_read__SWIG_1(PyObject *self, Py_ssize_t nob
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_read" "', argument " "1"" of type '" "Exiv2::DateValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DateValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DateValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DateValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -15789,23 +16371,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_DateValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "DateValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DateValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_DateValue_read__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_DateValue_read__SWIG_2(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_DateValue_read__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_DateValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -15853,6 +16444,138 @@ SWIGINTERN PyObject *_wrap_DateValue_clone(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DateValue_copy__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue *arg1 = (Exiv2::DateValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  long result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_copy" "', argument " "1"" of type '" "Exiv2::DateValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DateValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'DateValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DateValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::DateValue const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DateValue_copy__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue *arg1 = (Exiv2::DateValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  long result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_copy" "', argument " "1"" of type '" "Exiv2::DateValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DateValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'DateValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  {
+    try {
+      result = (long)((Exiv2::DateValue const *)arg1)->copy(arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DateValue_copy(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DateValue_copy", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_DateValue_copy__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_DateValue_copy__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DateValue_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::DateValue::copy(Exiv2::byte *,Exiv2::ByteOrder) const\n"
+    "    Exiv2::DateValue::copy(Exiv2::byte *) const\n");
+  return 0;
 }
 
 
@@ -16746,31 +17469,31 @@ SWIGINTERN PyObject *_wrap_TimeValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_read" "', argument " "1"" of type '" "Exiv2::TimeValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TimeValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "TimeValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "TimeValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "TimeValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -16801,28 +17524,28 @@ SWIGINTERN PyObject *_wrap_TimeValue_read__SWIG_1(PyObject *self, Py_ssize_t nob
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int result;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_read" "', argument " "1"" of type '" "Exiv2::TimeValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TimeValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "TimeValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "TimeValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3);
@@ -16891,23 +17614,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_TimeValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "TimeValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "TimeValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      {
+        _v = PyObject_CheckBuffer(argv[1]);
+      }
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_TimeValue_read__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
   if (argc == 2) {
     PyObject *retobj = _wrap_TimeValue_read__SWIG_2(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_TimeValue_read__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 4) {
     PyObject *retobj = _wrap_TimeValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -16955,6 +17687,138 @@ SWIGINTERN PyObject *_wrap_TimeValue_clone(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_TimeValue_copy__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue *arg1 = (Exiv2::TimeValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  long result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_copy" "', argument " "1"" of type '" "Exiv2::TimeValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "TimeValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'TimeValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "TimeValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::TimeValue const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_TimeValue_copy__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue *arg1 = (Exiv2::TimeValue *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  long result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_copy" "', argument " "1"" of type '" "Exiv2::TimeValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[1], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "TimeValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'TimeValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  {
+    try {
+      result = (long)((Exiv2::TimeValue const *)arg1)->copy(arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_TimeValue_copy(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "TimeValue_copy", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_TimeValue_copy__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_TimeValue_copy__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'TimeValue_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::TimeValue::copy(Exiv2::byte *,Exiv2::ByteOrder) const\n"
+    "    Exiv2::TimeValue::copy(Exiv2::byte *) const\n");
+  return 0;
 }
 
 
@@ -17990,31 +18854,31 @@ SWIGINTERN PyObject *_wrap_UShortValue_read__SWIG_0(PyObject *self, Py_ssize_t n
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UShortValue_read" "', argument " "1"" of type '" "Exiv2::ValueType< uint16_t > *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "UShortValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "UShortValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "UShortValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "UShortValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -18087,18 +18951,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_UShortValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "UShortValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "UShortValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_UShortValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_UShortValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -18142,6 +19006,63 @@ SWIGINTERN PyObject *_wrap_UShortValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_UShortValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< uint16_t > *arg1 = (Exiv2::ValueType< uint16_t > *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "UShortValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UShortValue_copy" "', argument " "1"" of type '" "Exiv2::ValueType< uint16_t > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "UShortValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'UShortValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "UShortValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::ValueType< uint16_t > const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -19106,31 +20027,31 @@ SWIGINTERN PyObject *_wrap_ULongValue_read__SWIG_0(PyObject *self, Py_ssize_t no
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ULongValue_read" "', argument " "1"" of type '" "Exiv2::ValueType< uint32_t > *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ULongValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ULongValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ULongValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "ULongValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -19203,18 +20124,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ULongValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "ULongValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ULongValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_ULongValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_ULongValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -19258,6 +20179,63 @@ SWIGINTERN PyObject *_wrap_ULongValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ULongValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< uint32_t > *arg1 = (Exiv2::ValueType< uint32_t > *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ULongValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ULongValue_copy" "', argument " "1"" of type '" "Exiv2::ValueType< uint32_t > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ULongValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'ULongValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ULongValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::ValueType< uint32_t > const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -20232,31 +21210,31 @@ SWIGINTERN PyObject *_wrap_URationalValue_read__SWIG_0(PyObject *self, Py_ssize_
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "URationalValue_read" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::URational > *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "URationalValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "URationalValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "URationalValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "URationalValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -20329,18 +21307,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_URationalValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "URationalValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "URationalValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_URationalValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_URationalValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -20384,6 +21362,63 @@ SWIGINTERN PyObject *_wrap_URationalValue_clone(PyObject *self, PyObject *args) 
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_URationalValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< Exiv2::URational > *arg1 = (Exiv2::ValueType< Exiv2::URational > *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "URationalValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "URationalValue_copy" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::URational > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "URationalValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'URationalValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "URationalValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::ValueType< Exiv2::URational > const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -21350,31 +22385,31 @@ SWIGINTERN PyObject *_wrap_ShortValue_read__SWIG_0(PyObject *self, Py_ssize_t no
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_short_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ShortValue_read" "', argument " "1"" of type '" "Exiv2::ValueType< int16_t > *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ShortValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ShortValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ShortValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "ShortValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -21447,18 +22482,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ShortValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "ShortValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ShortValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_ShortValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_ShortValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -21502,6 +22537,63 @@ SWIGINTERN PyObject *_wrap_ShortValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_short_t, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ShortValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< int16_t > *arg1 = (Exiv2::ValueType< int16_t > *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ShortValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ShortValue_copy" "', argument " "1"" of type '" "Exiv2::ValueType< int16_t > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ShortValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'ShortValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ShortValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::ValueType< int16_t > const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -22466,31 +23558,31 @@ SWIGINTERN PyObject *_wrap_LongValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LongValue_read" "', argument " "1"" of type '" "Exiv2::ValueType< int32_t > *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LongValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "LongValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "LongValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "LongValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -22563,18 +23655,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_LongValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "LongValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "LongValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_LongValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_LongValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -22618,6 +23710,63 @@ SWIGINTERN PyObject *_wrap_LongValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_int_t, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LongValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< int32_t > *arg1 = (Exiv2::ValueType< int32_t > *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LongValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LongValue_copy" "', argument " "1"" of type '" "Exiv2::ValueType< int32_t > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "LongValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'LongValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "LongValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::ValueType< int32_t > const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -23592,31 +24741,31 @@ SWIGINTERN PyObject *_wrap_RationalValue_read__SWIG_0(PyObject *self, Py_ssize_t
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RationalValue_read" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::Rational > *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RationalValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "RationalValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RationalValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "RationalValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -23689,18 +24838,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_RationalValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "RationalValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "RationalValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_RationalValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_RationalValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -23744,6 +24893,63 @@ SWIGINTERN PyObject *_wrap_RationalValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RationalValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< Exiv2::Rational > *arg1 = (Exiv2::ValueType< Exiv2::Rational > *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RationalValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RationalValue_copy" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::Rational > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "RationalValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'RationalValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RationalValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -24710,31 +25916,31 @@ SWIGINTERN PyObject *_wrap_FloatValue_read__SWIG_0(PyObject *self, Py_ssize_t no
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_float_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FloatValue_read" "', argument " "1"" of type '" "Exiv2::ValueType< float > *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FloatValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "FloatValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FloatValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FloatValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -24807,18 +26013,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_FloatValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FloatValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "FloatValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_FloatValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_FloatValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -24862,6 +26068,63 @@ SWIGINTERN PyObject *_wrap_FloatValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FloatValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< float > *arg1 = (Exiv2::ValueType< float > *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "FloatValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FloatValue_copy" "', argument " "1"" of type '" "Exiv2::ValueType< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "FloatValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'FloatValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FloatValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::ValueType< float > const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -25826,31 +27089,31 @@ SWIGINTERN PyObject *_wrap_DoubleValue_read__SWIG_0(PyObject *self, Py_ssize_t n
   Exiv2::ByteOrder arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  long val3 ;
-  int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   int result;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DoubleValue_read" "', argument " "1"" of type '" "Exiv2::ValueType< double > *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DoubleValue_read" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    int res; Py_ssize_t size = 0; const void *buf = 0;
+    Py_buffer view;
+    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    size = view.len;
+    buf = view.buf;
+    PyBuffer_Release(&view);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DoubleValue_read" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+    }
+    arg2 = (Exiv2::byte *) buf;
+    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_long(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DoubleValue_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
-  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  ecode4 = SWIG_AsVal_int(swig_obj[2], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "DoubleValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'");
   } 
@@ -25923,18 +27186,18 @@ fail:
 
 SWIGINTERN PyObject *_wrap_DoubleValue_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "DoubleValue_read", 0, 4, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DoubleValue_read", 0, 3, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     PyObject *retobj = _wrap_DoubleValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 4) {
+  if (argc == 3) {
     PyObject *retobj = _wrap_DoubleValue_read__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -25978,6 +27241,63 @@ SWIGINTERN PyObject *_wrap_DoubleValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DoubleValue_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< double > *arg1 = (Exiv2::ValueType< double > *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DoubleValue_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DoubleValue_copy" "', argument " "1"" of type '" "Exiv2::ValueType< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "DoubleValue_copy" "', argument " "2"" of type '" "writable buffer""'");
+    if (view2.len < arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'DoubleValue_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed",
+        view2.len, arg1->size());
+      SWIG_fail;
+    }
+    arg2 = (Exiv2::byte*) view2.buf;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DoubleValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    try {
+      result = (long)((Exiv2::ValueType< double > const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -27209,6 +28529,19 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Value_methods[] = {
 		"       The caller owns this copy and the auto-pointer ensures that\n"
 		"       it will be deleted.\n"
 		"" },
+  { "copy", _wrap_Value_copy, METH_VARARGS, "\n"
+		"Write value to a data buffer.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int\n"
+		":param byteOrder: Applicable byte order (little or big endian).\n"
+		":rtype: int\n"
+		":return: Number of bytes written.\n"
+		"" },
   { "count", _wrap_Value_count, METH_NOARGS, " Return the number of components of the value" },
   { "size", _wrap_Value_size, METH_NOARGS, " Return the size of the value in bytes" },
   { "toString", _wrap_Value_toString, METH_VARARGS, "\n"
@@ -27553,6 +28886,22 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataValue_methods[] = {
 		"Set the data from a string of integer values (e.g., \"0 1 2 3\")\n"
 		"" },
   { "clone", _wrap_DataValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_DataValue_copy, METH_VARARGS, "\n"
+		"Write value to a character data buffer.\n"
+		"\n"
+		"Notes: The byte order is required by the interface but not used by this\n"
+		"      method, so just use the default.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int, optional\n"
+		":param byteOrder: Byte order. Not needed.\n"
+		":rtype: int\n"
+		":return: Number of characters written.\n"
+		"" },
   { "count", _wrap_DataValue_count, METH_NOARGS, "" },
   { "size", _wrap_DataValue_size, METH_NOARGS, "" },
   { "toString", _wrap_DataValue_toString, METH_O, "\n"
@@ -27818,6 +29167,22 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__StringValueBase_methods[] = {
 		"         :return: 0 if successful.\n"
 		"" },
   { "clone", _wrap_StringValueBase_clone, METH_NOARGS, "" },
+  { "copy", _wrap_StringValueBase_copy, METH_VARARGS, "\n"
+		"Write value to a character data buffer.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		"Notes: The byte order is required by the interface but not used by this\n"
+		"      method, so just use the default.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int, optional\n"
+		":param byteOrder: Byte order. Not used.\n"
+		":rtype: int\n"
+		":return: Number of characters written.\n"
+		"" },
   { "count", _wrap_StringValueBase_count, METH_NOARGS, "" },
   { "size", _wrap_StringValueBase_size, METH_NOARGS, "" },
   { "toLong", _wrap_StringValueBase_toLong, METH_VARARGS, "" },
@@ -28577,6 +29942,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__CommentValue_methods[] = {
 		"Read the comment from a byte buffer.\n"
 		"" },
   { "clone", _wrap_CommentValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_CommentValue_copy, METH_VARARGS, "" },
   { "comment", _wrap_CommentValue_comment, METH_VARARGS, "\n"
 		"Return the comment (without a charset=\"...\" prefix)\n"
 		"\n"
@@ -28846,6 +30212,22 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpValue_methods[] = {
 		"" },
   { "xmpStruct", _wrap_XmpValue_xmpStruct, METH_NOARGS, " Return XMP struct, indicates if an XMP value is a structure." },
   { "size", _wrap_XmpValue_size, METH_NOARGS, "" },
+  { "copy", _wrap_XmpValue_copy, METH_VARARGS, "\n"
+		"Write value to a character data buffer.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		"Notes: The byte order is required by the interface but not used by this\n"
+		"      method, so just use the default.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int, optional\n"
+		":param byteOrder: Byte order. Not used.\n"
+		":rtype: int\n"
+		":return: Number of characters written.\n"
+		"" },
   { "setXmpArrayType", _wrap_XmpValue_setXmpArrayType, METH_O, " Set the XMP array type to indicate that an XMP value is an array." },
   { "setXmpStruct", _wrap_XmpValue_setXmpStruct, METH_VARARGS, " Set the XMP struct type to indicate that an XMP value is a structure." },
   { "read", _wrap_XmpValue_read, METH_VARARGS, "\n"
@@ -30259,6 +31641,22 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue_methods[] = {
 		"            1 in case of an unsupported date format\n"
 		"" },
   { "clone", _wrap_DateValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_DateValue_copy, METH_VARARGS, "\n"
+		"Write value to a character data buffer.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		"Notes: The byte order is required by the interface but not used by this\n"
+		"      method, so just use the default.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int, optional\n"
+		":param byteOrder: Byte order. Not used.\n"
+		":rtype: int\n"
+		":return: Number of characters written.\n"
+		"" },
   { "getDate", _wrap_DateValue_getDate, METH_NOARGS, " Return date struct containing date information" },
   { "count", _wrap_DateValue_count, METH_NOARGS, "" },
   { "size", _wrap_DateValue_size, METH_NOARGS, "" },
@@ -30544,6 +31942,22 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TimeValue_methods[] = {
 		"            1 in case of an unsupported time format\n"
 		"" },
   { "clone", _wrap_TimeValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_TimeValue_copy, METH_VARARGS, "\n"
+		"Write value to a character data buffer.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		"Notes: The byte order is required by the interface but not used by this\n"
+		"      method, so just use the default.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int, optional\n"
+		":param byteOrder: Byte order. Not used.\n"
+		":rtype: int\n"
+		":return: Number of characters written.\n"
+		"" },
   { "getTime", _wrap_TimeValue_getTime, METH_NOARGS, " Return time struct containing time information" },
   { "count", _wrap_TimeValue_count, METH_NOARGS, "" },
   { "size", _wrap_TimeValue_size, METH_NOARGS, "" },
@@ -30793,6 +32207,7 @@ SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_richcompare(PyObject *self, PyObject
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_methods[] = {
   { "read", _wrap_UShortValue_read, METH_VARARGS, "" },
   { "clone", _wrap_UShortValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_UShortValue_copy, METH_VARARGS, "" },
   { "count", _wrap_UShortValue_count, METH_NOARGS, "" },
   { "size", _wrap_UShortValue_size, METH_NOARGS, "" },
   { "toString", _wrap_UShortValue_toString, METH_O, "\n"
@@ -31048,6 +32463,7 @@ SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_richcompare(PyObject *self, PyObject
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_methods[] = {
   { "read", _wrap_ULongValue_read, METH_VARARGS, "" },
   { "clone", _wrap_ULongValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_ULongValue_copy, METH_VARARGS, "" },
   { "count", _wrap_ULongValue_count, METH_NOARGS, "" },
   { "size", _wrap_ULongValue_size, METH_NOARGS, "" },
   { "toString", _wrap_ULongValue_toString, METH_O, "\n"
@@ -31303,6 +32719,7 @@ SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_richcompare(PyObject *self, 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_methods[] = {
   { "read", _wrap_URationalValue_read, METH_VARARGS, "" },
   { "clone", _wrap_URationalValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_URationalValue_copy, METH_VARARGS, "" },
   { "count", _wrap_URationalValue_count, METH_NOARGS, "" },
   { "size", _wrap_URationalValue_size, METH_NOARGS, "" },
   { "toString", _wrap_URationalValue_toString, METH_O, "\n"
@@ -31558,6 +32975,7 @@ SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_richcompare(PyObject *self, PyObject 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_methods[] = {
   { "read", _wrap_ShortValue_read, METH_VARARGS, "" },
   { "clone", _wrap_ShortValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_ShortValue_copy, METH_VARARGS, "" },
   { "count", _wrap_ShortValue_count, METH_NOARGS, "" },
   { "size", _wrap_ShortValue_size, METH_NOARGS, "" },
   { "toString", _wrap_ShortValue_toString, METH_O, "\n"
@@ -31813,6 +33231,7 @@ SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_richcompare(PyObject *self, PyObject 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_methods[] = {
   { "read", _wrap_LongValue_read, METH_VARARGS, "" },
   { "clone", _wrap_LongValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_LongValue_copy, METH_VARARGS, "" },
   { "count", _wrap_LongValue_count, METH_NOARGS, "" },
   { "size", _wrap_LongValue_size, METH_NOARGS, "" },
   { "toString", _wrap_LongValue_toString, METH_O, "\n"
@@ -32068,6 +33487,7 @@ SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_richcompare(PyObject *self, P
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_methods[] = {
   { "read", _wrap_RationalValue_read, METH_VARARGS, "" },
   { "clone", _wrap_RationalValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_RationalValue_copy, METH_VARARGS, "" },
   { "count", _wrap_RationalValue_count, METH_NOARGS, "" },
   { "size", _wrap_RationalValue_size, METH_NOARGS, "" },
   { "toString", _wrap_RationalValue_toString, METH_O, "\n"
@@ -32323,6 +33743,7 @@ SwigPyBuiltin__Exiv2__ValueTypeT_float_t_richcompare(PyObject *self, PyObject *o
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_float_t_methods[] = {
   { "read", _wrap_FloatValue_read, METH_VARARGS, "" },
   { "clone", _wrap_FloatValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_FloatValue_copy, METH_VARARGS, "" },
   { "count", _wrap_FloatValue_count, METH_NOARGS, "" },
   { "size", _wrap_FloatValue_size, METH_NOARGS, "" },
   { "toString", _wrap_FloatValue_toString, METH_O, "\n"
@@ -32578,6 +33999,7 @@ SwigPyBuiltin__Exiv2__ValueTypeT_double_t_richcompare(PyObject *self, PyObject *
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_double_t_methods[] = {
   { "read", _wrap_DoubleValue_read, METH_VARARGS, "" },
   { "clone", _wrap_DoubleValue_clone, METH_NOARGS, "" },
+  { "copy", _wrap_DoubleValue_copy, METH_VARARGS, "" },
   { "count", _wrap_DoubleValue_count, METH_NOARGS, "" },
   { "size", _wrap_DoubleValue_size, METH_NOARGS, "" },
   { "toString", _wrap_DoubleValue_toString, METH_O, "\n"

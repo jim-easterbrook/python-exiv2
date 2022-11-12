@@ -47,5 +47,6 @@ wrap_auto_unique_ptr(Exiv2::Key);
 %ignore Exiv2::Metadatum::operator=;
 %ignore Exiv2::Key::write;
 %ignore Exiv2::Metadatum::write;
+%ignore Exiv2::Metadatum::copy;
 
 %include "exiv2/metadatum.hpp"

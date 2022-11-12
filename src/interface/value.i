@@ -19,6 +19,7 @@
 
 %include "preamble.i"
 
+%include "pybuffer.i"
 %include "stdint.i"
 %include "std_map.i"
 %include "std_string.i"
@@ -50,6 +51,27 @@ wrap_auto_unique_ptr(Exiv2::Value);
         SWIG_fail;
     }
 %}
+// DataValue constructor and DataValue::read can take a Python buffer
+%pybuffer_binary(const Exiv2::byte* buf, long len)
+%typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
+    $1 = PyObject_CheckBuffer($input);
+}
+// Value::copy can write to a Python buffer
+%typemap(in) Exiv2::byte* buf (Py_buffer view) {
+    int res = PyObject_GetBuffer($input, &view, PyBUF_WRITABLE);
+    if (res < 0)
+        %argument_fail(res, writable buffer, $symname, $argnum);
+    if (view.len < arg1->size()) {
+        PyErr_Format(PyExc_ValueError,
+            "in method '$symname', argument $argnum is a %d byte buffer,"
+            " %d bytes needed",
+            view.len, arg1->size());
+        SWIG_fail;
+    }
+    $1 = (Exiv2::byte*) view.buf;
+    PyBuffer_Release(&view);
+}
+
 
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
@@ -348,7 +370,6 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 %ignore Exiv2::operator<<;
 %ignore Exiv2::Value::operator=;
 %ignore Exiv2::Value::write;
-%ignore Exiv2::Value::copy;
 %ignore Exiv2::Value::setDataArea;
 %ignore Exiv2::CommentValue::CharsetInfo;
 %ignore Exiv2::CommentValue::CharsetTable;

@@ -144,6 +144,17 @@ def main():
     py_langalt = dict(langalt)
     print("Python langalt:", py_langalt)
 
+    print('==== DataValue ====')
+    py_data = b'0123456789'
+    print("Python data:", py_data)
+    # Python -> Exiv2
+    data = exiv2.DataValue(py_data)
+    print("Exiv2 data:", data)
+    # Exiv2 -> Python
+    py_data = bytearray(len(data))
+    data.copy(py_data)
+    print("Python data:", py_data)
+
     return 0
 
 
