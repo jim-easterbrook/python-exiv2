@@ -68,6 +68,11 @@ AccessMode.__doc__ = "An identifier for each mode of metadata support."
 
 
 import enum
+ByteOrder = enum.IntEnum('ByteOrder', _enum_list_ByteOrder())
+ByteOrder.__doc__ = "Type to express the byte order (little or big endian)."
+
+
+import enum
 MetadataId = enum.IntEnum('MetadataId', _enum_list_MetadataId())
 MetadataId.__doc__ = "An identifier for each type of metadata."
 

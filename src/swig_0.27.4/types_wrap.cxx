@@ -3789,6 +3789,32 @@ static PyObject* _get_enum_list(int dummy, ...) {
 #endif // #ifndef ENUM_HELPER
 
 
+PyObject* _enum_list_ByteOrder() {
+    return _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL, 0);
+};
+
+
+#ifndef ENUM_HELPER
+#define ENUM_HELPER
+#include <cstdarg>
+static PyObject* _get_enum_list(int dummy, ...) {
+    PyObject* result = PyList_New(0);
+    va_list args;
+    va_start(args, dummy);
+    char* label = va_arg(args, char*);
+    int value = va_arg(args, int);
+    while (label) {
+        PyList_Append(result, PyTuple_Pack(2,
+            PyUnicode_FromString(label), PyLong_FromLong(value)));
+        label = va_arg(args, char*);
+        value = va_arg(args, int);
+    }
+    va_end(args);
+    return result;
+};
+#endif // #ifndef ENUM_HELPER
+
+
 PyObject* _enum_list_MetadataId() {
     return _get_enum_list(0, "none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL, 0);
 };
@@ -4726,6 +4752,30 @@ SWIGINTERN PyObject *_wrap__enum_list_AccessMode(PyObject *self, PyObject *args)
   {
     try {
       result = (PyObject *)_enum_list_AccessMode();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap__enum_list_ByteOrder(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "_enum_list_ByteOrder", 0, 0, 0)) SWIG_fail;
+  {
+    try {
+      result = (PyObject *)_enum_list_ByteOrder();
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -6090,6 +6140,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
 	 { "_set_locale_dir", _wrap__set_locale_dir, METH_O, NULL},
 	 { "_enum_list_AccessMode", _wrap__enum_list_AccessMode, METH_NOARGS, NULL},
+	 { "_enum_list_ByteOrder", _wrap__enum_list_ByteOrder, METH_NOARGS, NULL},
 	 { "_enum_list_MetadataId", _wrap__enum_list_MetadataId, METH_NOARGS, NULL},
 	 { "_enum_list_TypeId", _wrap__enum_list_TypeId, METH_NOARGS, NULL},
 	 { "TypeInfo_typeName", _wrap_TypeInfo_typeName, METH_O, " Return the name of the type, 0 if unknown."},
@@ -6117,6 +6168,7 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 	 { "SWIG_PyStaticMethod_New", SWIG_PyStaticMethod_New, METH_O, NULL},
 	 { "_set_locale_dir", _wrap__set_locale_dir, METH_O, NULL},
 	 { "_enum_list_AccessMode", _wrap__enum_list_AccessMode, METH_NOARGS, NULL},
+	 { "_enum_list_ByteOrder", _wrap__enum_list_ByteOrder, METH_NOARGS, NULL},
 	 { "_enum_list_MetadataId", _wrap__enum_list_MetadataId, METH_NOARGS, NULL},
 	 { "_enum_list_TypeId", _wrap__enum_list_TypeId, METH_NOARGS, NULL},
 	 { "TypeInfo_typeName", _wrap_TypeInfo_typeName, METH_O, " Return the name of the type, 0 if unknown."},

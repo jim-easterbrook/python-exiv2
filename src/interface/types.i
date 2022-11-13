@@ -180,6 +180,11 @@ ENUM(AccessMode, "An identifier for each mode of metadata support.",
         "Write",     Exiv2::amWrite,
         "ReadWrite", Exiv2::amReadWrite);
 
+ENUM(ByteOrder, "Type to express the byte order (little or big endian).",
+        "invalidByteOrder", Exiv2::invalidByteOrder,
+        "littleEndian",     Exiv2::littleEndian,
+        "bigEndian",        Exiv2::bigEndian);
+
 ENUM(MetadataId, "An identifier for each type of metadata.",
         "none",       Exiv2::mdNone,
         "Exif",       Exiv2::mdExif,
@@ -227,7 +232,6 @@ ENUM(TypeId, "Exiv2 value type identifiers.\n"
 %ignore Exiv2::DataBuf::operator DataBufRef;
 
 // Ignore stuff that Python doesn't need
-%ignore Exiv2::ByteOrder;
 %ignore Exiv2::WriteMethod;
 %ignore Exiv2::getDouble;
 %ignore Exiv2::getFloat;
