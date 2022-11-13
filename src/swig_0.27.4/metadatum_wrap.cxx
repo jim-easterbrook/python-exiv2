@@ -3830,6 +3830,16 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+#include <limits.h>
+#if !defined(SWIG_NO_LLONG_MAX)
+# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
+#   define LLONG_MAX __LONG_LONG_MAX__
+#   define LLONG_MIN (-LLONG_MAX - 1LL)
+#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# endif
+#endif
+
+
 SWIGINTERN int
 SWIG_AsVal_double (PyObject *obj, double *val)
 {
@@ -3955,26 +3965,6 @@ SWIG_AsVal_long (PyObject *obj, long* val)
 }
 
 
-  #define SWIG_From_double   PyFloat_FromDouble 
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_float  (float value)
-{    
-  return SWIG_From_double  (value);
-}
-
-
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
 SWIGINTERN int
 SWIG_AsVal_int (PyObject * obj, int *val)
 {
@@ -3988,6 +3978,16 @@ SWIG_AsVal_int (PyObject * obj, int *val)
     }
   }  
   return res;
+}
+
+
+  #define SWIG_From_double   PyFloat_FromDouble 
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_float  (float value)
+{    
+  return SWIG_From_double  (value);
 }
 
 
@@ -5017,6 +5017,67 @@ fail:
     "    Exiv2::Metadatum::print(Exiv2::ExifData const *) const\n"
     "    Exiv2::Metadatum::print() const\n");
   return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int _global_len ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Metadatum_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum_copy" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Metadatum_copy" "', argument " "2"" of type '" "writable buffer""'");
+    arg2 = (Exiv2::byte*) view2.buf;
+    _global_len = view2.len;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Metadatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  
+  if (_global_len < arg1->size()) {
+    PyErr_Format(PyExc_ValueError,
+      "in method 'Metadatum_copy', 'buf' value is a %d byte buffer,"
+      " %d bytes needed",
+      _global_len, arg1->size());
+    SWIG_fail;
+  }
+  
+  {
+    try {
+      result = (long)((Exiv2::Metadatum const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -6282,6 +6343,20 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		"Write the interpreted value to a string.\n"
 		"\n"
 		"Implemented in terms of write(), see there.\n"
+		"" },
+  { "copy", _wrap_Metadatum_copy, METH_VARARGS, "\n"
+		"Write value to a data buffer and return the number\n"
+		"       of bytes written.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int\n"
+		":param byteOrder: Applicable byte order (little or big endian).\n"
+		":rtype: int\n"
+		":return: Number of characters written.\n"
 		"" },
   { "key", _wrap_Metadatum_key, METH_NOARGS, "\n"
 		"Return the key of the metadatum. The key is of the form\n"

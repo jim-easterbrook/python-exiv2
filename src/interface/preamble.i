@@ -191,6 +191,16 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
             new name##Iterator($1, arg1->end(), self),
             $descriptor(name##Iterator*), SWIG_POINTER_OWN);
 %};
+// replace buf size check to dereference arg1/self
+%typemap(check) (name##Iterator const* self, Exiv2::byte* buf) %{
+    if (_global_len < (*$1)->size()) {
+        PyErr_Format(PyExc_ValueError,
+            "in method '$symname', '$2_name' value is a %d byte buffer,"
+            " %d bytes needed",
+            _global_len, (*$1)->size());
+        SWIG_fail;
+    }
+%}
 %newobject name##Iterator::__iter__;
 %newobject name##IteratorBase::__iter__;
 %noexception base_class::__iter__;

@@ -3923,29 +3923,14 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-  #define SWIG_From_long   PyInt_FromLong 
-
-
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_unsigned_SS_short  (unsigned short value)
-{    
-  return SWIG_From_unsigned_SS_long  (value);
-}
-
-
-SWIGINTERNINLINE PyObject * 
-SWIG_FromCharPtr(const char *cptr)
-{ 
-  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
-}
+#include <limits.h>
+#if !defined(SWIG_NO_LLONG_MAX)
+# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
+#   define LLONG_MAX __LONG_LONG_MAX__
+#   define LLONG_MIN (-LLONG_MAX - 1LL)
+#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# endif
+#endif
 
 
 SWIGINTERN int
@@ -4073,26 +4058,6 @@ SWIG_AsVal_long (PyObject *obj, long* val)
 }
 
 
-  #define SWIG_From_double   PyFloat_FromDouble 
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_float  (float value)
-{    
-  return SWIG_From_double  (value);
-}
-
-
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
 SWIGINTERN int
 SWIG_AsVal_int (PyObject * obj, int *val)
 {
@@ -4106,6 +4071,41 @@ SWIG_AsVal_int (PyObject * obj, int *val)
     }
   }  
   return res;
+}
+
+
+  #define SWIG_From_long   PyInt_FromLong 
+
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_unsigned_SS_short  (unsigned short value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
+
+
+  #define SWIG_From_double   PyFloat_FromDouble 
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_float  (float value)
+{    
+  return SWIG_From_double  (value);
 }
 
 
@@ -5157,6 +5157,67 @@ fail:
     "    Exiv2::Iptcdatum::setValue(Exiv2::Value const *)\n"
     "    Exiv2::Iptcdatum::setValue(std::string const &)\n");
   return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcDataIterator_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int _global_len ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_copy" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "IptcDataIterator_copy" "', argument " "2"" of type '" "writable buffer""'");
+    arg2 = (Exiv2::byte*) view2.buf;
+    _global_len = view2.len;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IptcDataIterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  
+  if (_global_len < (*arg1)->size()) {
+    PyErr_Format(PyExc_ValueError,
+      "in method 'IptcDataIterator_copy', 'buf' value is a %d byte buffer,"
+      " %d bytes needed",
+      _global_len, (*arg1)->size());
+    SWIG_fail;
+  }
+  
+  {
+    try {
+      result = (long)(*arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -6447,6 +6508,67 @@ fail:
     "    Exiv2::Iptcdatum::setValue(Exiv2::Value const *)\n"
     "    Exiv2::Iptcdatum::setValue(std::string const &)\n");
   return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int _global_len ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Iptcdatum_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_copy" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Iptcdatum_copy" "', argument " "2"" of type '" "writable buffer""'");
+    arg2 = (Exiv2::byte*) view2.buf;
+    _global_len = view2.len;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Iptcdatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  
+  if (_global_len < arg1->size()) {
+    PyErr_Format(PyExc_ValueError,
+      "in method 'Iptcdatum_copy', 'buf' value is a %d byte buffer,"
+      " %d bytes needed",
+      _global_len, arg1->size());
+    SWIG_fail;
+  }
+  
+  {
+    try {
+      result = (long)((Exiv2::Iptcdatum const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -8711,6 +8833,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__IptcDataIterator_methods[] = {
   { "__next__", _wrap_IptcDataIterator___next__, METH_NOARGS, "" },
   { "__str__", _wrap_IptcDataIterator___str__, METH_NOARGS, "" },
   { "setValue", _wrap_IptcDataIterator_setValue, METH_VARARGS, "" },
+  { "copy", _wrap_IptcDataIterator_copy, METH_VARARGS, "" },
   { "key", _wrap_IptcDataIterator_key, METH_NOARGS, "\n"
 		"Return the key of the Iptcdatum. The key is of the form\n"
 		"       '**Iptc**.recordName.datasetName'. Note however that the key\n"
@@ -8985,6 +9108,7 @@ SwigPyBuiltin__Exiv2__Iptcdatum_richcompare(PyObject *self, PyObject *other, int
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Iptcdatum_methods[] = {
   { "setValue", _wrap_Iptcdatum_setValue, METH_VARARGS, "" },
+  { "copy", _wrap_Iptcdatum_copy, METH_VARARGS, "" },
   { "key", _wrap_Iptcdatum_key, METH_NOARGS, "\n"
 		"Return the key of the Iptcdatum. The key is of the form\n"
 		"       '**Iptc**.recordName.datasetName'. Note however that the key\n"

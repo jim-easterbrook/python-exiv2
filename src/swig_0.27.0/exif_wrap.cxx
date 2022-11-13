@@ -4070,16 +4070,6 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
 }
 
 
-  #define SWIG_From_double   PyFloat_FromDouble 
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_float  (float value)
-{    
-  return SWIG_From_double  (value);
-}
-
-
 #include <limits.h>
 #if !defined(SWIG_NO_LLONG_MAX)
 # if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
@@ -4103,6 +4093,16 @@ SWIG_AsVal_int (PyObject * obj, int *val)
     }
   }  
   return res;
+}
+
+
+  #define SWIG_From_double   PyFloat_FromDouble 
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_float  (float value)
+{    
+  return SWIG_From_double  (value);
 }
 
 
@@ -5285,6 +5285,9 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_setDataArea(PyObject *self, PyObject
     arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
+    
+  }
+  {
     try {
       result = (int)(*arg1)->setDataArea((Exiv2::byte const *)arg2,arg3);
       
@@ -5594,6 +5597,67 @@ SWIGINTERN PyObject *_wrap_ExifDataIterator_idx(PyObject *self, PyObject *args) 
     }
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifDataIterator_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int _global_len ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ExifDataIterator_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_copy" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifDataIterator_copy" "', argument " "2"" of type '" "writable buffer""'");
+    arg2 = (Exiv2::byte*) view2.buf;
+    _global_len = view2.len;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExifDataIterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  
+  if (_global_len < (*arg1)->size()) {
+    PyErr_Format(PyExc_ValueError,
+      "in method 'ExifDataIterator_copy', 'buf' value is a %d byte buffer,"
+      " %d bytes needed",
+      _global_len, (*arg1)->size());
+    SWIG_fail;
+  }
+  
+  {
+    try {
+      result = (long)(*arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -6727,6 +6791,9 @@ SWIGINTERN PyObject *_wrap_Exifdatum_setDataArea(PyObject *self, PyObject *args)
     arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
+    
+  }
+  {
     try {
       result = (int)(arg1)->setDataArea((Exiv2::byte const *)arg2,arg3);
       
@@ -7036,6 +7103,67 @@ SWIGINTERN PyObject *_wrap_Exifdatum_idx(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Exifdatum_copy(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  Exiv2::ByteOrder arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer view2 ;
+  int _global_len ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  long result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Exifdatum_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_copy" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
+  {
+    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    if (res < 0)
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Exifdatum_copy" "', argument " "2"" of type '" "writable buffer""'");
+    arg2 = (Exiv2::byte*) view2.buf;
+    _global_len = view2.len;
+    PyBuffer_Release(&view2);
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Exifdatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+  } 
+  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  
+  if (_global_len < arg1->size()) {
+    PyErr_Format(PyExc_ValueError,
+      "in method 'Exifdatum_copy', 'buf' value is a %d byte buffer,"
+      " %d bytes needed",
+      _global_len, arg1->size());
+    SWIG_fail;
+  }
+  
+  {
+    try {
+      result = (long)((Exiv2::Exifdatum const *)arg1)->copy(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
   return NULL;
@@ -8144,6 +8272,9 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_1(PyObject *self, Py
   } 
   arg6 = static_cast< uint16_t >(val6);
   {
+    
+  }
+  {
     try {
       (arg1)->setJpegThumbnail((Exiv2::byte const *)arg2,arg3,arg4,arg5,arg6);
       
@@ -8235,6 +8366,9 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_3(PyObject *self, Py
     }
     arg2 = (Exiv2::byte *) buf;
     arg3 = (long) (size / sizeof(Exiv2::byte const));
+  }
+  {
+    
   }
   {
     try {
@@ -9681,6 +9815,20 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__ExifDataIterator_methods[] = {
   { "ifdId", _wrap_ExifDataIterator_ifdId, METH_NOARGS, " Return the IFD id as an integer. (Do not use, this is meant for library internal use.)" },
   { "ifdName", _wrap_ExifDataIterator_ifdName, METH_NOARGS, " Return the name of the IFD" },
   { "idx", _wrap_ExifDataIterator_idx, METH_NOARGS, " Return the index (unique id of this key within the original IFD)" },
+  { "copy", _wrap_ExifDataIterator_copy, METH_VARARGS, "\n"
+		"Write value to a data buffer and return the number\n"
+		"       of bytes written.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int\n"
+		":param byteOrder: Applicable byte order (little or big endian).\n"
+		":rtype: int\n"
+		":return: Number of characters written.\n"
+		"" },
   { "typeId", _wrap_ExifDataIterator_typeId, METH_NOARGS, " Return the type id of the value" },
   { "typeName", _wrap_ExifDataIterator_typeName, METH_NOARGS, " Return the name of the type" },
   { "typeSize", _wrap_ExifDataIterator_typeSize, METH_NOARGS, " Return the size in bytes of one component of this type" },
@@ -9968,6 +10116,20 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Exifdatum_methods[] = {
   { "ifdId", _wrap_Exifdatum_ifdId, METH_NOARGS, " Return the IFD id as an integer. (Do not use, this is meant for library internal use.)" },
   { "ifdName", _wrap_Exifdatum_ifdName, METH_NOARGS, " Return the name of the IFD" },
   { "idx", _wrap_Exifdatum_idx, METH_NOARGS, " Return the index (unique id of this key within the original IFD)" },
+  { "copy", _wrap_Exifdatum_copy, METH_VARARGS, "\n"
+		"Write value to a data buffer and return the number\n"
+		"       of bytes written.\n"
+		"\n"
+		"The user must ensure that the buffer has enough memory. Otherwise\n"
+		"the call results in undefined behaviour.\n"
+		"\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Data buffer to write to.\n"
+		":type byteOrder: int\n"
+		":param byteOrder: Applicable byte order (little or big endian).\n"
+		":rtype: int\n"
+		":return: Number of characters written.\n"
+		"" },
   { "typeId", _wrap_Exifdatum_typeId, METH_NOARGS, " Return the type id of the value" },
   { "typeName", _wrap_Exifdatum_typeName, METH_NOARGS, " Return the name of the type" },
   { "typeSize", _wrap_Exifdatum_typeSize, METH_NOARGS, " Return the size in bytes of one component of this type" },
