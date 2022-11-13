@@ -365,16 +365,13 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 %feature("notabstract") Exiv2::XmpArrayValue;
 %feature("notabstract") Exiv2::XmpTextValue;
 
-// Ignore ambiguous or unusable constructors
-%ignore Exiv2::ValueType::ValueType(TypeId);
-%ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder);
-%ignore Exiv2::ValueType::ValueType(const byte*, long, ByteOrder, TypeId);
+// Ignore ambiguous constructor
+%ignore Exiv2::ValueType< int32_t >::ValueType(int const &);
 
 // Ignore stuff Python can't use or SWIG can't handle
 %ignore Exiv2::operator<<;
 %ignore Exiv2::Value::operator=;
 %ignore Exiv2::Value::write;
-%ignore Exiv2::Value::setDataArea;
 %ignore Exiv2::CommentValue::CharsetInfo;
 %ignore Exiv2::CommentValue::CharsetTable;
 %ignore Exiv2::DateValue::Date;
