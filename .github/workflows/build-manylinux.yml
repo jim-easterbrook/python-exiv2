@@ -40,7 +40,7 @@ jobs:
             python utils/build_swig.py ${{ env.EXIV2_ROOT }}/include
 
       - name: Store results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: manylinux-wheel
           path: wheelhouse/*.whl
@@ -53,7 +53,7 @@ jobs:
         python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
     steps:
       - name: Fetch wheel files
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: manylinux-wheel
 
