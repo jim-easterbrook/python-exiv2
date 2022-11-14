@@ -125,9 +125,11 @@ def main():
                         line = attr.sub('', line)
                         out_file.write(line)
         # make options list
-        swig_opts = ['-c++', '-python', '-py3', '-builtin',
+        swig_opts = ['-c++', '-python', '-builtin',
                      '-fastdispatch', '-fastproxy',
                      '-Wextra', '-Werror']
+        if swig_version < (4, 1, 0):
+            swig_opts.append('-py3')
         swig_opts.append('-I' + copy_dir)
         for key in options:
             if options[key]:
