@@ -5028,7 +5028,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;

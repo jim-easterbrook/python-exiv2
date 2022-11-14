@@ -8218,7 +8218,7 @@ SWIGINTERN PyObject *_wrap_Value_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -9387,7 +9387,7 @@ SWIGINTERN PyObject *_wrap_DataValue_copy__SWIG_0(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   long result;
@@ -9446,7 +9446,7 @@ SWIGINTERN PyObject *_wrap_DataValue_copy__SWIG_1(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   long result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -10322,7 +10322,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_copy__SWIG_0(PyObject *self, Py_ssize
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   long result;
@@ -10381,7 +10381,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_copy__SWIG_1(PyObject *self, Py_ssize
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   long result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -11873,7 +11873,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -12369,7 +12369,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_copy__SWIG_0(PyObject *self, Py_ssize_t nobj
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   long result;
@@ -12428,7 +12428,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_copy__SWIG_1(PyObject *self, Py_ssize_t nobj
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   long result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -16603,7 +16603,7 @@ SWIGINTERN PyObject *_wrap_DateValue_copy__SWIG_0(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   long result;
@@ -16662,7 +16662,7 @@ SWIGINTERN PyObject *_wrap_DateValue_copy__SWIG_1(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   long result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -17860,7 +17860,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_copy__SWIG_0(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   long result;
@@ -17919,7 +17919,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_copy__SWIG_1(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   long result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -19388,7 +19388,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -20798,7 +20798,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -22218,7 +22218,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -23630,7 +23630,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -25006,7 +25006,7 @@ SWIGINTERN PyObject *_wrap_LongValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -26412,7 +26412,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -27824,7 +27824,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -29234,7 +29234,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer view2 ;
-  int _global_len ;
+  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
