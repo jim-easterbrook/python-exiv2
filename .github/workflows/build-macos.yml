@@ -25,7 +25,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.11.2
         env:
           CIBW_ARCHS: auto64
-          CIBW_SKIP: pp37-macosx_x86_64
+          CIBW_SKIP: pp3?-*
           CIBW_BEFORE_ALL: >
             brew install ninja &&
             pip3 install conan &&
