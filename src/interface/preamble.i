@@ -181,16 +181,17 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 %};
 // "out" typemap assumes arg1 is always the base_class parent and
 // self is always the Python parent
-%typemap(out) iterator_type %{
-    if ((iterator_type)$1 == arg1->end())
+%typemap(out) iterator_type {
+    iterator_type end = arg1->end();
+    if ((iterator_type)$1 == end)
         $result = SWIG_NewPointerObj(
-            new name##IteratorBase($1, self),
+            new name##IteratorBase($1, end, self),
             $descriptor(name##IteratorBase*), SWIG_POINTER_OWN);
     else
         $result = SWIG_NewPointerObj(
-            new name##Iterator($1, arg1->end(), self),
+            new name##Iterator($1, end, self),
             $descriptor(name##Iterator*), SWIG_POINTER_OWN);
-%};
+};
 // replace buf size check to dereference arg1/self
 %typemap(check) (name##Iterator const* self, Exiv2::byte* buf) %{
     if (_global_len < (*$1)->size()) {
@@ -204,7 +205,6 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 %newobject name##Iterator::__iter__;
 %newobject name##IteratorBase::__iter__;
 %noexception base_class::__iter__;
-%noexception name##IteratorBase::__next__;
 %noexception name##IteratorBase::operator==;
 %noexception name##IteratorBase::operator!=;
 %ignore name##Iterator::name##Iterator;
@@ -216,7 +216,7 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
         return $self->begin();
     }
 }
-%exception name##Iterator::__next__ %{
+%exception name##IteratorBase::__next__ %{
     $action
     if (PyErr_Occurred())
         SWIG_fail;
@@ -226,22 +226,35 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 class name##IteratorBase {
 protected:
     iterator_type ptr;
+    iterator_type end;
+    iterator_type safe_ptr;
     PyObject* parent;
 public:
-    name##IteratorBase(iterator_type ptr, PyObject* parent) {
+    name##IteratorBase(iterator_type ptr, iterator_type end, PyObject* parent) {
         this->ptr = ptr;
+        this->end = end;
         this->parent = parent;
+        safe_ptr = ptr;
         Py_INCREF(parent);
     }
     ~name##IteratorBase() {
         Py_DECREF(parent);
     }
     name##IteratorBase* __iter__() {
-        return new name##IteratorBase(ptr, parent);
+        return new name##IteratorBase(ptr, end, parent);
     }
-    PyObject* __next__() {
-        PyErr_SetNone(PyExc_StopIteration);
-        return NULL;
+    datum_type* __next__() {
+        datum_type* result = NULL;
+        if (ptr == end) {
+            PyErr_SetNone(PyExc_StopIteration);
+            return NULL;
+        }
+        result = &(*safe_ptr);
+        ptr++;
+        if (ptr != end) {
+            safe_ptr = ptr;
+        }
+        return result;
     }
     iterator_type _unwrap() const {
         return ptr;
@@ -253,43 +266,22 @@ public:
         return other._unwrap() != ptr;
     }
     std::string __str__() {
-        return "iterator<end>";
+        if (ptr == end)
+            return "iterator<end>";
+        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
 };
 // Main class always has a dereferencable pointer in safe_ptr, so no extra checks
 // are needed.
 class name##Iterator : public name##IteratorBase {
-private:
-    iterator_type end;
-    iterator_type safe_ptr;
 public:
     name##Iterator(iterator_type ptr, iterator_type end, PyObject* parent)
-                   : name##IteratorBase(ptr, parent) {
-        safe_ptr = ptr;
-        this->end = end;
-    }
+                   : name##IteratorBase(ptr, end, parent) {}
     datum_type* operator->() const {
         return &(*safe_ptr);
     }
     name##Iterator* __iter__() {
         return new name##Iterator(safe_ptr, end, parent);
-    }
-    datum_type* __next__() {
-        datum_type* result = &(*safe_ptr);
-        if (ptr == end) {
-            PyErr_SetNone(PyExc_StopIteration);
-            return NULL;
-        }
-        ptr++;
-        if (ptr != end) {
-            safe_ptr = ptr;
-        }
-        return result;
-    }
-    std::string __str__() {
-        if (ptr == end)
-            return "iterator<end>";
-        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
 };
 %}
