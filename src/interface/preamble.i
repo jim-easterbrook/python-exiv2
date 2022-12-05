@@ -275,13 +275,16 @@ public:
         return new name##Iterator(safe_ptr, end, parent);
     }
     datum_type* __next__() {
+        datum_type* result = &(*safe_ptr);
         if (ptr == end) {
             PyErr_SetNone(PyExc_StopIteration);
             return NULL;
         }
-        safe_ptr = ptr;
         ptr++;
-        return &(*safe_ptr);
+        if (ptr != end) {
+            safe_ptr = ptr;
+        }
+        return result;
     }
     std::string __str__() {
         if (ptr == end)
