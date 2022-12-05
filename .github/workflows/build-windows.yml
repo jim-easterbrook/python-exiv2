@@ -84,7 +84,7 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        python-version: ['3.5', '3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -96,7 +96,7 @@ jobs:
           path: lib_exiv2
 
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           architecture: 'x64'
@@ -120,7 +120,7 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        python-version: ['3.5', '3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
     steps:
       - name: Fetch wheel files
         uses: actions/download-artifact@v3

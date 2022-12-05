@@ -16,7 +16,7 @@ jobs:
           tar xf exiv2-0.27.5-Source.tar.gz
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.3.1
+        uses: pypa/cibuildwheel@v2.11.2
         env:
           CIBW_ARCHS: auto64
           CIBW_ENVIRONMENT_PASS_LINUX: EXIV2_ROOT
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
     steps:
       - name: Fetch wheel files
         uses: actions/download-artifact@v3
@@ -58,7 +58,7 @@ jobs:
           name: manylinux-wheel
 
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           architecture: 'x64'

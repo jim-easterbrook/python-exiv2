@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 jobs:
   build:
-    runs-on: macos-10.15
+    runs-on: macos-latest
     env:
       EXIV2_ROOT: /Users/runner/exiv2-install
     steps:
@@ -22,7 +22,7 @@ jobs:
           mkdir $EXIV2_ROOT
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.1.1
+        uses: pypa/cibuildwheel@v2.11.2
         env:
           CIBW_ARCHS: auto64
           CIBW_SKIP: pp37-macosx_x86_64
@@ -54,10 +54,10 @@ jobs:
 
   test:
     needs: build
-    runs-on: macos-10.15
+    runs-on: macos-latest
     strategy:
       matrix:
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
     steps:
       - name: Fetch wheel files
         uses: actions/download-artifact@v3
@@ -65,7 +65,7 @@ jobs:
           name: macos-wheel
 
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           architecture: 'x64'
