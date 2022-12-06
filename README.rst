@@ -193,7 +193,7 @@ The ``exiv2.LogMsg.setLevel`` function can be used to control what severity of m
 Installation
 ------------
 
-Python "wheels" are available for Windows (Python 3.5 to 3.10) and Linux & MacOS (Python 3.6 to 3.10).
+Python "binary wheels" are available for Windows, Linux, and MacOS.
 These include the libexiv2 library and should not need any other software to be installed.
 They can be installed with Python's pip_ package.
 For example, on Windows::
@@ -204,7 +204,7 @@ or on Linux or MacOS::
 
     $ pip3 install --user exiv2
 
-If the available wheels are not compatible with your operating system then pip will download the python-exiv2 source and attempt to compile it.
+If the available wheels are not compatible with your operating system or Python version then pip will download the python-exiv2 source and attempt to compile it.
 For more information, and details of how to compile python-exiv2 and libexiv2, see `<INSTALL.rst>`_.
 
 Problems?
