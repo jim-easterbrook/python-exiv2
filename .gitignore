@@ -1,4 +1,4 @@
 build
 dist
-python_exiv2.egg-info
-libexiv2_*
+exiv2.egg-info
+__pycache__
