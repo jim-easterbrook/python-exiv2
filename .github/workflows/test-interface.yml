@@ -21,6 +21,7 @@ on:
   push:
     paths:
       - 'src/swig_0.27.0/**'
+      - 'tests/**.py'
   workflow_dispatch:
 
 jobs:
