@@ -1,0 +1,39 @@
+#  python-exiv2 - Python interface to libexiv2
+#  http://github.com/jim-easterbrook/python-exiv2
+#  Copyright (C) 2022  Jim Easterbrook  jim@jim-easterbrook.me.uk
+#
+#  This program is free software: you can redistribute it and/or modify it under
+#  the terms of the GNU General Public License as published by the Free Software
+#  Foundation, either version 3 of the License, or (at your option) any later
+#  version.
+#
+#  This program is distributed in the hope that it will be useful, but WITHOUT
+#  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+#  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+#  details.
+#
+#  You should have received a copy of the GNU General Public License along with
+#  this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+name: Run unit tests
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Install libexiv2
+        run: apt install libexiv2-dev
+
+      - name: Install python-exiv2
+        run: pip3 install --user .
+
+      - name: Get package details
+        run: python3 -m exiv2
+
+      - name: Run unit tests
+        run: python3 -m unittest discover tests
