@@ -47,6 +47,12 @@ class TestIterators(unittest.TestCase):
             next(b)
         self.assertEqual(keys, result)
 
+    def iterator_test_mixed(self, data, result):
+        keys = []
+        for datum in data.begin():
+            keys.append(datum.key())
+        self.assertEqual(keys, result)
+
     def test_iterators(self):
         exif_keys = [
             'Exif.Image.ProcessingSoftware', 'Exif.Image.ImageDescription',
@@ -56,6 +62,7 @@ class TestIterators(unittest.TestCase):
             'Exif.Photo.SubSecTimeDigitized']
         self.iterator_test_python_style(self.exifData, exif_keys)
         self.iterator_test_c_style(self.exifData, exif_keys)
+        self.iterator_test_mixed(self.exifData, exif_keys)
         iptc_keys = [
             'Iptc.Envelope.CharacterSet', 'Iptc.Application2.DigitizationDate',
             'Iptc.Application2.DigitizationTime',
@@ -65,12 +72,34 @@ class TestIterators(unittest.TestCase):
             'Iptc.Application2.ProgramVersion']
         self.iterator_test_python_style(self.iptcData, iptc_keys)
         self.iterator_test_c_style(self.iptcData, iptc_keys)
+        self.iterator_test_mixed(self.iptcData, iptc_keys)
         xmp_keys = [
             'Xmp.xmp.CreateDate', 'Xmp.xmp.ModifyDate',
             'Xmp.photoshop.DateCreated', 'Xmp.dc.description',
             'Xmp.dc.subject']
         self.iterator_test_python_style(self.xmpData, xmp_keys)
         self.iterator_test_c_style(self.xmpData, xmp_keys)
+        self.iterator_test_mixed(self.xmpData, xmp_keys)
+
+    def find_erase_test(self, data, key, value):
+        pos = data.findKey(key)
+        self.assertNotEqual(pos, data.end())
+        self.assertEqual(pos.key(), key.key())
+        self.assertEqual(pos.toString(), value)
+        data.erase(pos)
+        pos = data.findKey(key)
+        self.assertEqual(pos, data.end())
+
+    def test_find_erase(self):
+        self.find_erase_test(
+            self.exifData, exiv2.ExifKey('Exif.Image.ImageDescription'),
+            'Description')
+        self.find_erase_test(
+            self.iptcData, exiv2.IptcKey('Iptc.Application2.Caption'),
+            'Description')
+        self.find_erase_test(
+            self.xmpData, exiv2.XmpKey('Xmp.dc.description'),
+            'lang="en-GB" Description')
 
 
 if __name__ == '__main__':
