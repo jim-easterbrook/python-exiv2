@@ -45,6 +45,11 @@ class TestDataRead(unittest.TestCase):
             datum = self.exifData[tag]
             exiv_value = exiv_type(datum.value())
             self.assertEqual(list(exiv_value), value)
+        thumb = exiv2.ExifThumb(self.exifData)
+        data = bytes(thumb.copy())
+        self.assertEqual(len(data), 2532)
+        self.assertEqual(
+            data[:15], b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00')
 
     def test_iptc(self):
         for tag, exiv_type, value in (
