@@ -66,4 +66,7 @@ DATA_WRAPPER_DEC(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 %ignore Exiv2::ExifData::findKey(ExifKey const &) const;
 %ignore Exiv2::ExifParser;
 
+// Exifdatum::ifdId is documented as internal use only
+%ignore Exiv2::Exifdatum::ifdId;
+
 %include "exiv2/exif.hpp"

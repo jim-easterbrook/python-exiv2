@@ -5796,39 +5796,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ExifDataIterator_ifdId(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "ExifDataIterator_ifdId", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifDataIterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifDataIterator_ifdId" "', argument " "1"" of type '" "ExifDataIterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifDataIterator * >(argp1);
-  {
-    try {
-      result = (int)(*arg1)->ifdId();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ExifDataIterator_ifdName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   ExifDataIterator *arg1 = (ExifDataIterator *) 0 ;
@@ -7316,39 +7283,6 @@ SWIGINTERN PyObject *_wrap_Exifdatum_tag(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Exifdatum_ifdId(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "Exifdatum_ifdId", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_ifdId" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
-  {
-    try {
-      result = (int)((Exiv2::Exifdatum const *)arg1)->ifdId();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
   return NULL;
@@ -10172,7 +10106,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__ExifDataIterator_methods[] = {
   { "tagName", _wrap_ExifDataIterator_tagName, METH_NOARGS, "" },
   { "tagLabel", _wrap_ExifDataIterator_tagLabel, METH_NOARGS, "" },
   { "tag", _wrap_ExifDataIterator_tag, METH_NOARGS, "" },
-  { "ifdId", _wrap_ExifDataIterator_ifdId, METH_NOARGS, " Return the IFD id as an integer. (Do not use, this is meant for library internal use.)" },
   { "ifdName", _wrap_ExifDataIterator_ifdName, METH_NOARGS, " Return the name of the IFD" },
   { "idx", _wrap_ExifDataIterator_idx, METH_NOARGS, " Return the index (unique id of this key within the original IFD)" },
   { "copy", _wrap_ExifDataIterator_copy, METH_VARARGS, "\n"
@@ -10489,7 +10422,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Exifdatum_methods[] = {
   { "tagName", _wrap_Exifdatum_tagName, METH_NOARGS, "" },
   { "tagLabel", _wrap_Exifdatum_tagLabel, METH_NOARGS, "" },
   { "tag", _wrap_Exifdatum_tag, METH_NOARGS, "" },
-  { "ifdId", _wrap_Exifdatum_ifdId, METH_NOARGS, " Return the IFD id as an integer. (Do not use, this is meant for library internal use.)" },
   { "ifdName", _wrap_Exifdatum_ifdName, METH_NOARGS, " Return the name of the IFD" },
   { "idx", _wrap_Exifdatum_idx, METH_NOARGS, " Return the index (unique id of this key within the original IFD)" },
   { "copy", _wrap_Exifdatum_copy, METH_VARARGS, "\n"

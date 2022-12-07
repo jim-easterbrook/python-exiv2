@@ -55,6 +55,9 @@ wrap_auto_unique_ptr(Exiv2::ExifKey);
 %ignore Exiv2::TagInfo::printFct_;
 %ignore Exiv2::ExifTags::taglist;
 
+// ExifKey::ifdId is documented as internal use only
+%ignore Exiv2::ExifKey::ifdId;
+
 %immutable;
 %include "exiv2/tags.hpp"
 %mutable;
