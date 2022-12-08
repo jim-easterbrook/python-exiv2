@@ -16141,7 +16141,12 @@ static PyHeapTypeObject SwigPyBuiltin__ExifDataIteratorBase_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::ExifDataIteratorBase",                 /* tp_doc */
+    "\n"
+		"\n"
+		"Python wrapper for an Exiv2::ExifData::iterator that points to\n"
+		"ExifDataWrap::end().\n"
+		"\n"
+		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__ExifDataIteratorBase_richcompare,              /* tp_richcompare */
@@ -16445,7 +16450,13 @@ static PyHeapTypeObject SwigPyBuiltin__ExifDataIterator_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "Python wrapper for Exiv2::ExifData::iterator.",              /* tp_doc */
+    "\n"
+		"\n"
+		"Python wrapper for an Exiv2::ExifData::iterator. It has most of\n"
+		"the methods of Exiv2::Exifdatum allowing easy access to the\n"
+		"data it points to.\n"
+		"\n"
+		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__ExifDataIterator_richcompare,                  /* tp_richcompare */
@@ -16683,7 +16694,12 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIteratorBase_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::IptcDataIteratorBase",                 /* tp_doc */
+    "\n"
+		"\n"
+		"Python wrapper for an Exiv2::IptcData::iterator that points to\n"
+		"IptcDataWrap::end().\n"
+		"\n"
+		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__IptcDataIteratorBase_richcompare,              /* tp_richcompare */
@@ -16961,7 +16977,13 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIterator_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "Python wrapper for Exiv2::IptcData::iterator.",              /* tp_doc */
+    "\n"
+		"\n"
+		"Python wrapper for an Exiv2::IptcData::iterator. It has most of\n"
+		"the methods of Exiv2::Iptcdatum allowing easy access to the\n"
+		"data it points to.\n"
+		"\n"
+		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__IptcDataIterator_richcompare,                  /* tp_richcompare */
@@ -17199,7 +17221,12 @@ static PyHeapTypeObject SwigPyBuiltin__XmpDataIteratorBase_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::XmpDataIteratorBase",                  /* tp_doc */
+    "\n"
+		"\n"
+		"Python wrapper for an Exiv2::XmpData::iterator that points to\n"
+		"XmpDataWrap::end().\n"
+		"\n"
+		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__XmpDataIteratorBase_richcompare,               /* tp_richcompare */
@@ -17463,7 +17490,13 @@ static PyHeapTypeObject SwigPyBuiltin__XmpDataIterator_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "Python wrapper for Exiv2::XmpData::iterator.",               /* tp_doc */
+    "\n"
+		"\n"
+		"Python wrapper for an Exiv2::XmpData::iterator. It has most of\n"
+		"the methods of Exiv2::Xmpdatum allowing easy access to the\n"
+		"data it points to.\n"
+		"\n"
+		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__XmpDataIterator_richcompare,                   /* tp_richcompare */

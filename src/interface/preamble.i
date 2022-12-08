@@ -163,10 +163,6 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
          functype="reprfunc") name##IteratorBase::__str__;
 %feature("python:slot", "tp_iter",
          functype="getiterfunc") name##Iterator::__iter__;
-%feature("python:slot", "tp_iternext",
-         functype="iternextfunc") name##Iterator::__next__;
-%feature("python:slot", "tp_str",
-         functype="reprfunc") name##Iterator::__str__;
 // typemaps
 %typemap(in) iterator_type (int res, name##IteratorBase *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
@@ -210,7 +206,15 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
 %ignore name##Iterator::name##Iterator;
 %ignore name##IteratorBase::name##IteratorBase;
 %ignore name##IteratorBase::_unwrap;
-%feature("docstring") name##Iterator "Python wrapper for "#iterator_type"."
+%feature("docstring") name##Iterator "
+Python wrapper for an " #iterator_type ". It has most of
+the methods of " #datum_type " allowing easy access to the
+data it points to.
+"
+%feature("docstring") name##IteratorBase "
+Python wrapper for an " #iterator_type " that points to
+" #base_class "::end().
+"
 %extend base_class {
     iterator_type __iter__() {
         return $self->begin();
