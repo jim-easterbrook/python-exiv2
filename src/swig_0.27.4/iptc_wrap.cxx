@@ -3746,71 +3746,78 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_AutoPtr swig_types[0]
-#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[1]
-#define SWIGTYPE_p_Exiv2__CommentValue swig_types[2]
-#define SWIGTYPE_p_Exiv2__DataValue swig_types[3]
-#define SWIGTYPE_p_Exiv2__DateValue swig_types[4]
-#define SWIGTYPE_p_Exiv2__ExifData swig_types[5]
-#define SWIGTYPE_p_Exiv2__IptcData swig_types[6]
-#define SWIGTYPE_p_Exiv2__IptcKey swig_types[7]
-#define SWIGTYPE_p_Exiv2__Iptcdatum swig_types[8]
-#define SWIGTYPE_p_Exiv2__Key swig_types[9]
-#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[10]
-#define SWIGTYPE_p_Exiv2__Metadatum swig_types[11]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[12]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[13]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[14]
-#define SWIGTYPE_p_Exiv2__Value swig_types[15]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[16]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[17]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[18]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[19]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[20]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[21]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[22]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[23]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[24]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[25]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[26]
-#define SWIGTYPE_p_IptcDataIterator swig_types[27]
-#define SWIGTYPE_p_IptcDataIteratorBase swig_types[28]
-#define SWIGTYPE_p_SwigPyObject swig_types[29]
-#define SWIGTYPE_p_ValueList swig_types[30]
-#define SWIGTYPE_p_ValueType swig_types[31]
-#define SWIGTYPE_p_allocator_type swig_types[32]
-#define SWIGTYPE_p_char swig_types[33]
-#define SWIGTYPE_p_const_iterator swig_types[34]
-#define SWIGTYPE_p_difference_type swig_types[35]
-#define SWIGTYPE_p_first_type swig_types[36]
-#define SWIGTYPE_p_int swig_types[37]
-#define SWIGTYPE_p_iterator swig_types[38]
-#define SWIGTYPE_p_key_type swig_types[39]
-#define SWIGTYPE_p_long_long swig_types[40]
-#define SWIGTYPE_p_mapped_type swig_types[41]
-#define SWIGTYPE_p_second_type swig_types[42]
-#define SWIGTYPE_p_short swig_types[43]
-#define SWIGTYPE_p_signed_char swig_types[44]
-#define SWIGTYPE_p_size_type swig_types[45]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[46]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[47]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[48]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[49]
-#define SWIGTYPE_p_std__setT_std__string_t swig_types[50]
-#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[51]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[52]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t__iterator swig_types[53]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[54]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[55]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[56]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[57]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[58]
-#define SWIGTYPE_p_unsigned_char swig_types[59]
-#define SWIGTYPE_p_unsigned_int swig_types[60]
-#define SWIGTYPE_p_unsigned_long_long swig_types[61]
-#define SWIGTYPE_p_unsigned_short swig_types[62]
-#define SWIGTYPE_p_value_type swig_types[63]
-static swig_type_info *swig_types[65];
-static swig_module_info swig_module = {swig_types, 64, 0, 0, 0, 0};
+#define SWIGTYPE_p_ExifData swig_types[1]
+#define SWIGTYPE_p_ExifData_iterator swig_types[2]
+#define SWIGTYPE_p_ExifData_iterator_end swig_types[3]
+#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[4]
+#define SWIGTYPE_p_Exiv2__CommentValue swig_types[5]
+#define SWIGTYPE_p_Exiv2__DataValue swig_types[6]
+#define SWIGTYPE_p_Exiv2__DateValue swig_types[7]
+#define SWIGTYPE_p_Exiv2__ExifData swig_types[8]
+#define SWIGTYPE_p_Exiv2__IptcData swig_types[9]
+#define SWIGTYPE_p_Exiv2__IptcKey swig_types[10]
+#define SWIGTYPE_p_Exiv2__Iptcdatum swig_types[11]
+#define SWIGTYPE_p_Exiv2__Key swig_types[12]
+#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[13]
+#define SWIGTYPE_p_Exiv2__Metadatum swig_types[14]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[15]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[16]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[17]
+#define SWIGTYPE_p_Exiv2__Value swig_types[18]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[19]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[20]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[21]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[22]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[23]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[24]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[25]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[26]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[27]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[28]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[29]
+#define SWIGTYPE_p_IptcData swig_types[30]
+#define SWIGTYPE_p_IptcData_iterator swig_types[31]
+#define SWIGTYPE_p_IptcData_iterator_end swig_types[32]
+#define SWIGTYPE_p_SwigPyObject swig_types[33]
+#define SWIGTYPE_p_ValueList swig_types[34]
+#define SWIGTYPE_p_ValueType swig_types[35]
+#define SWIGTYPE_p_XmpData swig_types[36]
+#define SWIGTYPE_p_XmpData_iterator swig_types[37]
+#define SWIGTYPE_p_XmpData_iterator_end swig_types[38]
+#define SWIGTYPE_p_allocator_type swig_types[39]
+#define SWIGTYPE_p_char swig_types[40]
+#define SWIGTYPE_p_const_iterator swig_types[41]
+#define SWIGTYPE_p_difference_type swig_types[42]
+#define SWIGTYPE_p_first_type swig_types[43]
+#define SWIGTYPE_p_int swig_types[44]
+#define SWIGTYPE_p_iterator swig_types[45]
+#define SWIGTYPE_p_key_type swig_types[46]
+#define SWIGTYPE_p_long_long swig_types[47]
+#define SWIGTYPE_p_mapped_type swig_types[48]
+#define SWIGTYPE_p_second_type swig_types[49]
+#define SWIGTYPE_p_short swig_types[50]
+#define SWIGTYPE_p_signed_char swig_types[51]
+#define SWIGTYPE_p_size_type swig_types[52]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[53]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t__const_iterator swig_types[54]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[55]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[56]
+#define SWIGTYPE_p_std__setT_std__string_t swig_types[57]
+#define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[58]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[59]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t__iterator swig_types[60]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[61]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[62]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[63]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[64]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[65]
+#define SWIGTYPE_p_unsigned_char swig_types[66]
+#define SWIGTYPE_p_unsigned_int swig_types[67]
+#define SWIGTYPE_p_unsigned_long_long swig_types[68]
+#define SWIGTYPE_p_unsigned_short swig_types[69]
+#define SWIGTYPE_p_value_type swig_types[70]
+static swig_type_info *swig_types[72];
+static swig_module_info swig_module = {swig_types, 71, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3980,7 +3987,8 @@ static Exiv2::TypeId IptcData_default_type(Exiv2::Iptcdatum* datum) {
         old_type = Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
     return old_type;
 };
-static void IptcData_type_change_warn(Exiv2::Iptcdatum* datum, Exiv2::TypeId old_type) {
+static void IptcData_type_change_warn(Exiv2::Iptcdatum* datum,
+                                          Exiv2::TypeId old_type) {
     using namespace Exiv2;
     TypeId new_type = datum->typeId();
     if (new_type == old_type)
@@ -3989,7 +3997,8 @@ static void IptcData_type_change_warn(Exiv2::Iptcdatum* datum, Exiv2::TypeId old
         TypeInfo::typeName(old_type) << "' to '" <<
         TypeInfo::typeName(new_type) << "'.\n";
 };
-static PyObject* IptcData_set_value(Exiv2::Iptcdatum* datum, const std::string& value) {
+static PyObject* IptcData_set_value(Exiv2::Iptcdatum* datum,
+                                        const std::string& value) {
     Exiv2::TypeId old_type = IptcData_default_type(datum);
     if (datum->setValue(value) != 0)
         return PyErr_Format(PyExc_ValueError,
@@ -4002,25 +4011,25 @@ static PyObject* IptcData_set_value(Exiv2::Iptcdatum* datum, const std::string& 
 
 
 // Base class supports a single fixed pointer that never gets dereferenced
-class IptcDataIteratorBase {
+class IptcData_iterator_end {
 protected:
     Exiv2::IptcData::iterator ptr;
     Exiv2::IptcData::iterator end;
     Exiv2::IptcData::iterator safe_ptr;
     PyObject* parent;
 public:
-    IptcDataIteratorBase(Exiv2::IptcData::iterator ptr, Exiv2::IptcData::iterator end, PyObject* parent) {
+    IptcData_iterator_end(Exiv2::IptcData::iterator ptr, Exiv2::IptcData::iterator end, PyObject* parent) {
         this->ptr = ptr;
         this->end = end;
         this->parent = parent;
         safe_ptr = ptr;
         Py_INCREF(parent);
     }
-    ~IptcDataIteratorBase() {
+    ~IptcData_iterator_end() {
         Py_DECREF(parent);
     }
-    IptcDataIteratorBase* __iter__() {
-        return new IptcDataIteratorBase(ptr, end, parent);
+    IptcData_iterator_end* __iter__() {
+        return new IptcData_iterator_end(ptr, end, parent);
     }
     Exiv2::Iptcdatum* __next__() {
         Exiv2::Iptcdatum* result = NULL;
@@ -4035,14 +4044,14 @@ public:
         }
         return result;
     }
-    Exiv2::IptcData::iterator _unwrap() const {
+    Exiv2::IptcData::iterator operator*() const {
         return ptr;
     }
-    bool operator==(const IptcDataIteratorBase &other) const {
-        return other._unwrap() == ptr;
+    bool operator==(const IptcData_iterator_end &other) const {
+        return *other == ptr;
     }
-    bool operator!=(const IptcDataIteratorBase &other) const {
-        return other._unwrap() != ptr;
+    bool operator!=(const IptcData_iterator_end &other) const {
+        return *other != ptr;
     }
     std::string __str__() {
         if (ptr == end)
@@ -4052,15 +4061,15 @@ public:
 };
 // Main class always has a dereferencable pointer in safe_ptr, so no extra checks
 // are needed.
-class IptcDataIterator : public IptcDataIteratorBase {
+class IptcData_iterator : public IptcData_iterator_end {
 public:
-    IptcDataIterator(Exiv2::IptcData::iterator ptr, Exiv2::IptcData::iterator end, PyObject* parent)
-                   : IptcDataIteratorBase(ptr, end, parent) {}
+    IptcData_iterator(Exiv2::IptcData::iterator ptr, Exiv2::IptcData::iterator end, PyObject* parent)
+                   : IptcData_iterator_end(ptr, end, parent) {}
     Exiv2::Iptcdatum* operator->() const {
         return &(*safe_ptr);
     }
-    IptcDataIterator* __iter__() {
-        return new IptcDataIterator(safe_ptr, end, parent);
+    IptcData_iterator* __iter__() {
+        return new IptcData_iterator(safe_ptr, end, parent);
     }
 };
 
@@ -4912,6 +4921,79 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
       }
     
 
+class IptcData {
+private:
+    Exiv2::IptcData* base;
+    PyObject* owner;
+public:
+    IptcData() {
+        this->base = new Exiv2::IptcData();
+        this->owner = NULL;
+    }
+    IptcData(Exiv2::IptcData* base, PyObject* owner) {
+        this->base = base;
+        Py_INCREF(owner);
+        this->owner = owner;
+    }
+    ~IptcData() {
+        Py_XDECREF(owner);
+    }
+    // Provide Python access to Exiv2::IptcData members
+    Exiv2::IptcData* operator->() const {
+        return base;
+    }
+    // Provide C++ access to Exiv2::IptcData members
+    Exiv2::IptcData* operator*() const {
+        return base;
+    }
+};
+
+SWIGINTERN long IptcData___len__(IptcData *self){
+        return (*self)->count();
+    }
+SWIGINTERN Exiv2::Iptcdatum *IptcData___getitem__(IptcData *self,std::string const &key){
+        return &(***self)[key];
+    }
+SWIGINTERN PyObject *IptcData___setitem____SWIG_0(IptcData *self,std::string const &key,Exiv2::Value *value){
+        Exiv2::Iptcdatum* datum = &(***self)[key];
+        Exiv2::TypeId old_type = IptcData_default_type(datum);
+        datum->setValue(value);
+        IptcData_type_change_warn(datum, old_type);
+        return SWIG_Py_Void();
+    }
+SWIGINTERN PyObject *IptcData___setitem____SWIG_1(IptcData *self,std::string const &key,std::string const &value){
+        Exiv2::Iptcdatum* datum = &(***self)[key];
+        return IptcData_set_value(datum, value);
+    }
+SWIGINTERN PyObject *IptcData___setitem____SWIG_2(IptcData *self,std::string const &key,PyObject *value){
+        // Get equivalent of Python "str(value)"
+        PyObject* py_str = PyObject_Str(value);
+        if (py_str == NULL)
+            return NULL;
+        const char* c_str = PyUnicode_AsUTF8(py_str);
+        Py_DECREF(py_str);
+        Exiv2::Iptcdatum* datum = &(***self)[key];
+        return IptcData_set_value(datum, c_str);
+    }
+SWIGINTERN PyObject *IptcData___setitem____SWIG_3(IptcData *self,std::string const &key){
+
+
+
+        Exiv2::IptcData::iterator pos = (*self)->findKey(Exiv2::IptcKey(key));
+        if (pos == (*self)->end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return NULL;
+        }
+        (*self)->erase(pos);
+        return SWIG_Py_Void();
+    }
+SWIGINTERN bool IptcData___contains__(IptcData *self,std::string const &key){
+        return (*self)->findKey(Exiv2::IptcKey(key)) != (*self)->end();
+    }
+SWIGINTERN Exiv2::IptcData::iterator IptcData___iter__(IptcData *self){
+        return (*self)->begin();
+    }
+
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
 {
@@ -4975,67 +5057,22 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
-SWIGINTERN long Exiv2_IptcData___len__(Exiv2::IptcData *self){
-        return self->count();
-    }
-SWIGINTERN Exiv2::Iptcdatum *Exiv2_IptcData___getitem__(Exiv2::IptcData *self,std::string const &key){
-        return &(*self)[key];
-    }
-SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_0(Exiv2::IptcData *self,std::string const &key,Exiv2::Value *value){
-        Exiv2::Iptcdatum* datum = &(*self)[key];
-        Exiv2::TypeId old_type = IptcData_default_type(datum);
-        datum->setValue(value);
-        IptcData_type_change_warn(datum, old_type);
-        return SWIG_Py_Void();
-    }
-SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_1(Exiv2::IptcData *self,std::string const &key,std::string const &value){
-        Exiv2::Iptcdatum* datum = &(*self)[key];
-        return IptcData_set_value(datum, value);
-    }
-SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_2(Exiv2::IptcData *self,std::string const &key,PyObject *value){
-        // Get equivalent of Python "str(value)"
-        PyObject* py_str = PyObject_Str(value);
-        if (py_str == NULL)
-            return NULL;
-        const char* c_str = PyUnicode_AsUTF8(py_str);
-        Py_DECREF(py_str);
-        Exiv2::Iptcdatum* datum = &(*self)[key];
-        return IptcData_set_value(datum, c_str);
-    }
-SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_3(Exiv2::IptcData *self,std::string const &key){
-
-
-
-        Exiv2::IptcData::iterator pos = self->findKey(Exiv2::IptcKey(key));
-        if (pos == self->end()) {
-            PyErr_SetString(PyExc_KeyError, key.c_str());
-            return NULL;
-        }
-        self->erase(pos);
-        return SWIG_Py_Void();
-    }
-SWIGINTERN bool Exiv2_IptcData___contains__(Exiv2::IptcData *self,std::string const &key){
-        return self->findKey(Exiv2::IptcKey(key)) != self->end();
-    }
-SWIGINTERN Exiv2::IptcData::iterator Exiv2_IptcData___iter__(Exiv2::IptcData *self){
-        return self->begin();
-    }
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap_delete_IptcDataIteratorBase(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_IptcData_iterator_end(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
+  IptcData_iterator_end *arg1 = (IptcData_iterator_end *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_IptcDataIteratorBase", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "delete_IptcData_iterator_end", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IptcDataIteratorBase" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IptcData_iterator_end" "', argument " "1"" of type '" "IptcData_iterator_end *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator_end * >(argp1);
   {
     try {
       delete arg1;
@@ -5055,23 +5092,23 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___iter__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_end___iter__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
+  IptcData_iterator_end *arg1 = (IptcData_iterator_end *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  IptcDataIteratorBase *result = 0 ;
+  IptcData_iterator_end *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIteratorBase___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_end___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator_end, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___iter__" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_end___iter__" "', argument " "1"" of type '" "IptcData_iterator_end *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator_end * >(argp1);
   {
     try {
-      result = (IptcDataIteratorBase *)(arg1)->__iter__();
+      result = (IptcData_iterator_end *)(arg1)->__iter__();
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -5081,27 +5118,27 @@ SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___iter__(PyObject *self, PyObjec
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___next__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_end___next__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
+  IptcData_iterator_end *arg1 = (IptcData_iterator_end *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Iptcdatum *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIteratorBase___next__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_end___next__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator_end, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___next__" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_end___next__" "', argument " "1"" of type '" "IptcData_iterator_end *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator_end * >(argp1);
   
   result = (Exiv2::Iptcdatum *)(arg1)->__next__();
   if (PyErr_Occurred())
@@ -5114,10 +5151,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___eq__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_end___eq__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
-  IptcDataIteratorBase *arg2 = 0 ;
+  IptcData_iterator_end *arg1 = (IptcData_iterator_end *) 0 ;
+  IptcData_iterator_end *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -5128,20 +5165,20 @@ SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___eq__(PyObject *self, PyObject 
   (void)self;
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator_end, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___eq__" "', argument " "1"" of type '" "IptcDataIteratorBase const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_end___eq__" "', argument " "1"" of type '" "IptcData_iterator_end const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_IptcDataIteratorBase,  0  | 0);
+  arg1 = reinterpret_cast< IptcData_iterator_end * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_IptcData_iterator_end,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcDataIteratorBase___eq__" "', argument " "2"" of type '" "IptcDataIteratorBase const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_iterator_end___eq__" "', argument " "2"" of type '" "IptcData_iterator_end const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcDataIteratorBase___eq__" "', argument " "2"" of type '" "IptcDataIteratorBase const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_iterator_end___eq__" "', argument " "2"" of type '" "IptcData_iterator_end const &""'"); 
   }
-  arg2 = reinterpret_cast< IptcDataIteratorBase * >(argp2);
-  result = (bool)((IptcDataIteratorBase const *)arg1)->operator ==((IptcDataIteratorBase const &)*arg2);
+  arg2 = reinterpret_cast< IptcData_iterator_end * >(argp2);
+  result = (bool)((IptcData_iterator_end const *)arg1)->operator ==((IptcData_iterator_end const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -5151,10 +5188,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___ne__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_end___ne__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
-  IptcDataIteratorBase *arg2 = 0 ;
+  IptcData_iterator_end *arg1 = (IptcData_iterator_end *) 0 ;
+  IptcData_iterator_end *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -5165,20 +5202,20 @@ SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___ne__(PyObject *self, PyObject 
   (void)self;
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator_end, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___ne__" "', argument " "1"" of type '" "IptcDataIteratorBase const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_end___ne__" "', argument " "1"" of type '" "IptcData_iterator_end const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_IptcDataIteratorBase,  0  | 0);
+  arg1 = reinterpret_cast< IptcData_iterator_end * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_IptcData_iterator_end,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcDataIteratorBase___ne__" "', argument " "2"" of type '" "IptcDataIteratorBase const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_iterator_end___ne__" "', argument " "2"" of type '" "IptcData_iterator_end const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcDataIteratorBase___ne__" "', argument " "2"" of type '" "IptcDataIteratorBase const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_iterator_end___ne__" "', argument " "2"" of type '" "IptcData_iterator_end const &""'"); 
   }
-  arg2 = reinterpret_cast< IptcDataIteratorBase * >(argp2);
-  result = (bool)((IptcDataIteratorBase const *)arg1)->operator !=((IptcDataIteratorBase const &)*arg2);
+  arg2 = reinterpret_cast< IptcData_iterator_end * >(argp2);
+  result = (bool)((IptcData_iterator_end const *)arg1)->operator !=((IptcData_iterator_end const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -5188,20 +5225,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIteratorBase___str__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_end___str__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIteratorBase *arg1 = (IptcDataIteratorBase *) 0 ;
+  IptcData_iterator_end *arg1 = (IptcData_iterator_end *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIteratorBase___str__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIteratorBase, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_end___str__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator_end, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIteratorBase___str__" "', argument " "1"" of type '" "IptcDataIteratorBase *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_end___str__" "', argument " "1"" of type '" "IptcData_iterator_end *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIteratorBase * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator_end * >(argp1);
   {
     try {
       result = (arg1)->__str__();
@@ -5221,31 +5258,31 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcDataIteratorBase) /* defines _wrap_delete_IptcDataIteratorBase_destructor_closure */
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcData_iterator_end) /* defines _wrap_delete_IptcData_iterator_end_destructor_closure */
 
-SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcDataIteratorBase___iter__) /* defines _wrap_IptcDataIteratorBase___iter___getiterfunc_closure */
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData_iterator_end___iter__) /* defines _wrap_IptcData_iterator_end___iter___getiterfunc_closure */
 
-SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_IptcDataIteratorBase___next__) /* defines _wrap_IptcDataIteratorBase___next___iternextfunc_closure */
+SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_IptcData_iterator_end___next__) /* defines _wrap_IptcData_iterator_end___next___iternextfunc_closure */
 
-SWIGPY_REPRFUNC_CLOSURE(_wrap_IptcDataIteratorBase___str__) /* defines _wrap_IptcDataIteratorBase___str___reprfunc_closure */
+SWIGPY_REPRFUNC_CLOSURE(_wrap_IptcData_iterator_end___str__) /* defines _wrap_IptcData_iterator_end___str___reprfunc_closure */
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator___deref__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator___deref__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Iptcdatum *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator___deref__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator___deref__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator___deref__" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator___deref__" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
-      result = (Exiv2::Iptcdatum *)((IptcDataIterator const *)arg1)->operator ->();
+      result = (Exiv2::Iptcdatum *)((IptcData_iterator const *)arg1)->operator ->();
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -5262,23 +5299,23 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator___iter__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator___iter__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  IptcDataIterator *result = 0 ;
+  IptcData_iterator *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator___iter__" "', argument " "1"" of type '" "IptcDataIterator *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator___iter__" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
-      result = (IptcDataIterator *)(arg1)->__iter__();
+      result = (IptcData_iterator *)(arg1)->__iter__();
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -5288,26 +5325,26 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator___iter__(PyObject *self, PyObject *a
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_IptcDataIterator(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_IptcData_iterator(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_IptcDataIterator", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "delete_IptcData_iterator", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IptcDataIterator" "', argument " "1"" of type '" "IptcDataIterator *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IptcData_iterator" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       delete arg1;
@@ -5327,9 +5364,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_setValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   Exiv2::Value *arg2 = (Exiv2::Value *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5338,14 +5375,14 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_setValue__SWIG_0(PyObject *self, Py_
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_setValue" "', argument " "1"" of type '" "IptcDataIterator *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_setValue" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcDataIterator_setValue" "', argument " "2"" of type '" "Exiv2::Value const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_iterator_setValue" "', argument " "2"" of type '" "Exiv2::Value const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::Value * >(argp2);
   {
@@ -5367,9 +5404,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_setValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5378,19 +5415,19 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_setValue__SWIG_1(PyObject *self, Py_
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_setValue" "', argument " "1"" of type '" "IptcDataIterator *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_setValue" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcDataIterator_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_iterator_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcDataIterator_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_iterator_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
@@ -5415,14 +5452,14 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_setValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcDataIterator_setValue", 0, 2, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_iterator_setValue", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
     int _v = 0;
@@ -5432,18 +5469,18 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_setValue(PyObject *self, PyObject *a
       _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    return _wrap_IptcDataIterator_setValue__SWIG_0(self, argc, argv);
+    return _wrap_IptcData_iterator_setValue__SWIG_0(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_IptcDataIterator_setValue__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_setValue__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcDataIterator_setValue'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator_setValue'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Iptcdatum::setValue(Exiv2::Value const *)\n"
     "    Exiv2::Iptcdatum::setValue(std::string const &)\n");
@@ -5451,9 +5488,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_copy(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_copy(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
   Exiv2::ByteOrder arg3 ;
   void *argp1 = 0 ;
@@ -5466,29 +5503,29 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_copy(PyObject *self, PyObject *args)
   long result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_copy", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_copy", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_copy" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_copy" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
     if (res < 0)
-    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "IptcDataIterator_copy" "', argument " "2"" of type '" "writable buffer""'");
+    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "IptcData_iterator_copy" "', argument " "2"" of type '" "writable buffer""'");
     arg2 = (Exiv2::byte*) view2.buf;
     _global_len = view2.len;
     PyBuffer_Release(&view2);
   }
   ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IptcDataIterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IptcData_iterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
   
   if (_global_len < (*arg1)->size()) {
     PyErr_Format(PyExc_ValueError,
-      "in method 'IptcDataIterator_copy', 'buf' value is a %d byte buffer,"
+      "in method 'IptcData_iterator_copy', 'buf' value is a %d byte buffer,"
       " %d bytes needed",
       _global_len, (*arg1)->size());
     SWIG_fail;
@@ -5513,20 +5550,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_key(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_key(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_key", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_key", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_key" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_key" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->key();
@@ -5546,20 +5583,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_recordName(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_recordName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_recordName", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_recordName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_recordName" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_recordName" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->recordName();
@@ -5579,20 +5616,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_record(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_record(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   uint16_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_record", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_record", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_record" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_record" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (uint16_t)(*arg1)->record();
@@ -5612,20 +5649,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_familyName(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_familyName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   char *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_familyName", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_familyName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_familyName" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_familyName" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (char *)(*arg1)->familyName();
@@ -5645,20 +5682,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_groupName(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_groupName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_groupName", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_groupName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_groupName" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_groupName" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->groupName();
@@ -5678,20 +5715,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_tagName(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_tagName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_tagName", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_tagName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_tagName" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_tagName" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->tagName();
@@ -5711,20 +5748,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_tagLabel(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_tagLabel(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_tagLabel", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_tagLabel", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_tagLabel" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_tagLabel" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->tagLabel();
@@ -5744,20 +5781,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_tag(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_tag(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   uint16_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_tag", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_tag", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_tag" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_tag" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (uint16_t)(*arg1)->tag();
@@ -5777,20 +5814,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_typeId(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_typeId(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::TypeId result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_typeId", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_typeId", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_typeId" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_typeId" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (Exiv2::TypeId)(*arg1)->typeId();
@@ -5810,20 +5847,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_typeName(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_typeName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   char *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_typeName", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_typeName", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_typeName" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_typeName" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (char *)(*arg1)->typeName();
@@ -5843,20 +5880,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_typeSize(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_typeSize(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_typeSize", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_typeSize", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_typeSize" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_typeSize" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (long)(*arg1)->typeSize();
@@ -5876,20 +5913,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_count(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_count(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_count", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_count", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_count" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_count" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   result = (long)(*arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
@@ -5898,20 +5935,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_size(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_size(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_size", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_size", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_size" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_size" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   result = (long)(*arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
@@ -5920,20 +5957,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toString__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toString__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_toString" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toString" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->toString();
@@ -5953,9 +5990,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toString__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toString__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5965,14 +6002,14 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toString__SWIG_1(PyObject *self, Py_
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_toString" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toString" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcDataIterator_toString" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_toString" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
   {
@@ -5994,28 +6031,28 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toString(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toString(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcDataIterator_toString", 0, 2, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_iterator_toString", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 1) {
-    PyObject *retobj = _wrap_IptcDataIterator_toString__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_toString__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 2) {
-    PyObject *retobj = _wrap_IptcDataIterator_toString__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_toString__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcDataIterator_toString'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator_toString'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Iptcdatum::toString() const\n"
     "    Exiv2::Iptcdatum::toString(long) const\n");
@@ -6023,9 +6060,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toLong__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toLong__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6035,14 +6072,14 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toLong__SWIG_0(PyObject *self, Py_ss
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_toLong" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toLong" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcDataIterator_toLong" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_toLong" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
   {
@@ -6064,20 +6101,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toLong__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toLong__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long result;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_toLong" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toLong" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (long)(*arg1)->toLong();
@@ -6097,28 +6134,28 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toLong(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toLong(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcDataIterator_toLong", 0, 2, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_iterator_toLong", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 1) {
-    PyObject *retobj = _wrap_IptcDataIterator_toLong__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_toLong__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 2) {
-    PyObject *retobj = _wrap_IptcDataIterator_toLong__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_toLong__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcDataIterator_toLong'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator_toLong'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Iptcdatum::toLong(long) const\n"
     "    Exiv2::Iptcdatum::toLong() const\n");
@@ -6126,9 +6163,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toFloat__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toFloat__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6138,14 +6175,14 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toFloat__SWIG_0(PyObject *self, Py_s
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_toFloat" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toFloat" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcDataIterator_toFloat" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_toFloat" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
   {
@@ -6167,20 +6204,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toFloat__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toFloat__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   float result;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_toFloat" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toFloat" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (float)(*arg1)->toFloat();
@@ -6200,28 +6237,28 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toFloat(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toFloat(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcDataIterator_toFloat", 0, 2, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_iterator_toFloat", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 1) {
-    PyObject *retobj = _wrap_IptcDataIterator_toFloat__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_toFloat__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 2) {
-    PyObject *retobj = _wrap_IptcDataIterator_toFloat__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_toFloat__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcDataIterator_toFloat'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator_toFloat'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Iptcdatum::toFloat(long) const\n"
     "    Exiv2::Iptcdatum::toFloat() const\n");
@@ -6229,9 +6266,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toRational__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toRational__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6241,14 +6278,14 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator_toRational__SWIG_0(PyObject *self, P
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_toRational" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toRational" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcDataIterator_toRational" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_toRational" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
   {
@@ -6270,20 +6307,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toRational__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toRational__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Rational result;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_toRational" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toRational" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->toRational();
@@ -6303,28 +6340,28 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_toRational(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toRational(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcDataIterator_toRational", 0, 2, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_iterator_toRational", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 1) {
-    PyObject *retobj = _wrap_IptcDataIterator_toRational__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_toRational__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 2) {
-    PyObject *retobj = _wrap_IptcDataIterator_toRational__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator_toRational__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcDataIterator_toRational'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator_toRational'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Iptcdatum::toRational(long) const\n"
     "    Exiv2::Iptcdatum::toRational() const\n");
@@ -6332,20 +6369,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_getValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Value::AutoPtr result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_getValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_getValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_getValue" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_getValue" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->getValue();
@@ -6367,20 +6404,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator_value(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator_value(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcDataIterator_value", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_value", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator_value" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_value" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (Exiv2::Value *) &(*arg1)->value();
@@ -6400,9 +6437,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator__print__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator__print__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6412,14 +6449,14 @@ SWIGINTERN PyObject *_wrap_IptcDataIterator__print__SWIG_0(PyObject *self, Py_ss
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator__print" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator__print" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcDataIterator__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_iterator__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   {
@@ -6441,20 +6478,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator__print__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator__print__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
-  IptcDataIterator *arg1 = (IptcDataIterator *) 0 ;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcDataIterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcDataIterator__print" "', argument " "1"" of type '" "IptcDataIterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator__print" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
-  arg1 = reinterpret_cast< IptcDataIterator * >(argp1);
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     try {
       result = (*arg1)->print();
@@ -6474,28 +6511,28 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcDataIterator__print(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IptcData_iterator__print(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcDataIterator__print", 0, 2, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_iterator__print", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 1) {
-    PyObject *retobj = _wrap_IptcDataIterator__print__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator__print__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 2) {
-    PyObject *retobj = _wrap_IptcDataIterator__print__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_IptcData_iterator__print__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcDataIterator__print'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator__print'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Metadatum::print(Exiv2::ExifData const *) const\n"
     "    Exiv2::Metadatum::print() const\n");
@@ -6503,9 +6540,1184 @@ fail:
 }
 
 
-SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcDataIterator___iter__) /* defines _wrap_IptcDataIterator___iter___getiterfunc_closure */
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData_iterator___iter__) /* defines _wrap_IptcData_iterator___iter___getiterfunc_closure */
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcDataIterator) /* defines _wrap_delete_IptcDataIterator_destructor_closure */
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcData_iterator) /* defines _wrap_delete_IptcData_iterator_destructor_closure */
+
+SWIGINTERN int _wrap_new_IptcData(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  IptcData *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_IptcData")) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "new_IptcData", 0, 0, 0)) SWIG_fail;
+  {
+    try {
+      result = (IptcData *)new IptcData();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcData, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_IptcData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "delete_IptcData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IptcData" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    try {
+      delete arg1;
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___deref__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::IptcData *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData___deref__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___deref__" "', argument " "1"" of type '" "IptcData const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    try {
+      result = (Exiv2::IptcData *)((IptcData const *)arg1)->operator ->();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___len__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  long result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData___len__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___len__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    try {
+      result = (long)IptcData___len__(arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___getitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  Exiv2::Iptcdatum *result = 0 ;
+  
+  (void)self;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___getitem__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (Exiv2::Iptcdatum *)IptcData___getitem__(arg1,(std::string const &)*arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  std::string *arg2 = 0 ;
+  Exiv2::Value *arg3 = (Exiv2::Value *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___setitem__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IptcData___setitem__" "', argument " "3"" of type '" "Exiv2::Value *""'"); 
+  }
+  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
+  {
+    try {
+      result = (PyObject *)IptcData___setitem____SWIG_0(arg1,(std::string const &)*arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___setitem__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IptcData___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  {
+    try {
+      result = (PyObject *)IptcData___setitem____SWIG_1(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  std::string *arg2 = 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___setitem__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  arg3 = swig_obj[2];
+  {
+    try {
+      result = (PyObject *)IptcData___setitem____SWIG_2(arg1,(std::string const &)*arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___setitem__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (PyObject *)IptcData___setitem____SWIG_3(arg1,(std::string const &)*arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___setitem__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData___setitem__", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_IptcData___setitem____SWIG_3(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    int _v = 0;
+    {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Exiv2__Value, 0);
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_2;
+    return _wrap_IptcData___setitem____SWIG_0(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 3) {
+    int _v = 0;
+    {
+      int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_3;
+    return _wrap_IptcData___setitem____SWIG_1(self, argc, argv);
+  }
+check_3:
+  
+  if (argc == 3) {
+    PyObject *retobj = _wrap_IptcData___setitem____SWIG_2(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData___setitem__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IptcData::__setitem__(std::string const &,Exiv2::Value *)\n"
+    "    IptcData::__setitem__(std::string const &,std::string const &)\n"
+    "    IptcData::__setitem__(std::string const &,PyObject *)\n"
+    "    IptcData::__setitem__(std::string const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___contains__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  bool result;
+  
+  (void)self;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___contains__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (bool)IptcData___contains__(arg1,(std::string const &)*arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___iter__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  result = IptcData___iter__(arg1);
+  {
+    Exiv2::IptcData::iterator end = (*arg1)->end();
+    if ((Exiv2::IptcData::iterator)result == end)
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator_end(result, end, self),
+      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
+    else
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator(result, end, self),
+      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_add__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  Exiv2::IptcKey *arg2 = 0 ;
+  Exiv2::Value *arg3 = (Exiv2::Value *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  int result;
+  
+  (void)self;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_add" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__IptcKey,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_add" "', argument " "2"" of type '" "Exiv2::IptcKey const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_add" "', argument " "2"" of type '" "Exiv2::IptcKey const &""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::IptcKey * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IptcData_add" "', argument " "3"" of type '" "Exiv2::Value *""'"); 
+  }
+  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
+  {
+    try {
+      result = (int)(*arg1)->add((Exiv2::IptcKey const &)*arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_add__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  Exiv2::Iptcdatum *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_add" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Iptcdatum,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_add" "', argument " "2"" of type '" "Exiv2::Iptcdatum const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_add" "', argument " "2"" of type '" "Exiv2::Iptcdatum const &""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::Iptcdatum * >(argp2);
+  {
+    try {
+      result = (int)(*arg1)->add((Exiv2::Iptcdatum const &)*arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_add(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_add", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_IptcData_add__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_IptcData_add__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_add'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::IptcData::add(Exiv2::IptcKey const &,Exiv2::Value *)\n"
+    "    Exiv2::IptcData::add(Exiv2::Iptcdatum const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  IptcData_iterator_end *argp2 ;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  
+  (void)self;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_erase" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  
+  res2 = SWIG_ConvertPtr(swig_obj[0], (void**)&argp2,
+    SWIGTYPE_p_IptcData_iterator_end, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcData_iterator_end""'");
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcData_iterator_end""'");
+  }
+  arg2 = **argp2;
+  
+  {
+    try {
+      result = (*arg1)->erase(arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::IptcData::iterator end = (*arg1)->end();
+    if ((Exiv2::IptcData::iterator)result == end)
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator_end(result, end, self),
+      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
+    else
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator(result, end, self),
+      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_clear(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_clear", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_clear" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  (*arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_sortByKey(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_sortByKey", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_sortByKey" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    try {
+      (*arg1)->sortByKey();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_sortByTag(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_sortByTag", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_sortByTag" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    try {
+      (*arg1)->sortByTag();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_begin", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_begin" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  result = (*arg1)->begin();
+  {
+    Exiv2::IptcData::iterator end = (*arg1)->end();
+    if ((Exiv2::IptcData::iterator)result == end)
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator_end(result, end, self),
+      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
+    else
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator(result, end, self),
+      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_end", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_end" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  result = (*arg1)->end();
+  {
+    Exiv2::IptcData::iterator end = (*arg1)->end();
+    if ((Exiv2::IptcData::iterator)result == end)
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator_end(result, end, self),
+      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
+    else
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator(result, end, self),
+      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  Exiv2::IptcKey *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  
+  (void)self;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_findKey" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__IptcKey,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_findKey" "', argument " "2"" of type '" "Exiv2::IptcKey const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_findKey" "', argument " "2"" of type '" "Exiv2::IptcKey const &""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::IptcKey * >(argp2);
+  {
+    try {
+      result = (*arg1)->findKey((Exiv2::IptcKey const &)*arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::IptcData::iterator end = (*arg1)->end();
+    if ((Exiv2::IptcData::iterator)result == end)
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator_end(result, end, self),
+      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
+    else
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator(result, end, self),
+      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  uint16_t arg2 ;
+  uint16_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned short val2 ;
+  int ecode2 = 0 ;
+  unsigned short val3 ;
+  int ecode3 = 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  
+  (void)self;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_findId" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_short(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_findId" "', argument " "2"" of type '" "uint16_t""'");
+  } 
+  arg2 = static_cast< uint16_t >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_short(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IptcData_findId" "', argument " "3"" of type '" "uint16_t""'");
+  } 
+  arg3 = static_cast< uint16_t >(val3);
+  {
+    try {
+      result = (*arg1)->findId(arg2,arg3);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::IptcData::iterator end = (*arg1)->end();
+    if ((Exiv2::IptcData::iterator)result == end)
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator_end(result, end, self),
+      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
+    else
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator(result, end, self),
+      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  uint16_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned short val2 ;
+  int ecode2 = 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_findId" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_short(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_findId" "', argument " "2"" of type '" "uint16_t""'");
+  } 
+  arg2 = static_cast< uint16_t >(val2);
+  {
+    try {
+      result = (*arg1)->findId(arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::IptcData::iterator end = (*arg1)->end();
+    if ((Exiv2::IptcData::iterator)result == end)
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator_end(result, end, self),
+      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
+    else
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator(result, end, self),
+      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_findId(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_findId", 0, 3, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    PyObject *retobj = _wrap_IptcData_findId__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    PyObject *retobj = _wrap_IptcData_findId__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_findId'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::IptcData::findId(uint16_t,uint16_t)\n"
+    "    Exiv2::IptcData::findId(uint16_t)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_empty(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_empty", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_empty" "', argument " "1"" of type '" "IptcData const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  result = (bool)(*arg1)->empty();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_count(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  long result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_count", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_count" "', argument " "1"" of type '" "IptcData const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  result = (long)(*arg1)->count();
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_size(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  long result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_size", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_size" "', argument " "1"" of type '" "IptcData const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    try {
+      result = (long)(*arg1)->size();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_detectCharset(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  char *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_detectCharset", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_detectCharset" "', argument " "1"" of type '" "IptcData const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  {
+    try {
+      result = (char *)(*arg1)->detectCharset();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcData) /* defines _wrap_delete_IptcData_destructor_closure */
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_IptcData___len__) /* defines _wrap_IptcData___len___lenfunc_closure */
+
+SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_IptcData___setitem__) /* defines _wrap_IptcData___setitem___objobjargproc_closure */
+
+SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_IptcData___contains__) /* defines _wrap_IptcData___contains___objobjproc_closure */
+
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData___iter__) /* defines _wrap_IptcData___iter___getiterfunc_closure */
 
 SWIGINTERN int _wrap_new_Iptcdatum__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -7772,1164 +8984,22 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Iptcdatum) /* defines _wrap_delete_Iptcdatum_destructor_closure */
 
-SWIGINTERN PyObject *_wrap_IptcData_add__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  Exiv2::IptcKey *arg2 = 0 ;
-  Exiv2::Value *arg3 = (Exiv2::Value *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  int result;
-  
-  (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_add" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__IptcKey,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_add" "', argument " "2"" of type '" "Exiv2::IptcKey const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_add" "', argument " "2"" of type '" "Exiv2::IptcKey const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::IptcKey * >(argp2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IptcData_add" "', argument " "3"" of type '" "Exiv2::Value *""'"); 
-  }
-  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
-  {
-    try {
-      result = (int)(arg1)->add((Exiv2::IptcKey const &)*arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_add__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  Exiv2::Iptcdatum *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  int result;
-  
-  (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_add" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Iptcdatum,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_add" "', argument " "2"" of type '" "Exiv2::Iptcdatum const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_add" "', argument " "2"" of type '" "Exiv2::Iptcdatum const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::Iptcdatum * >(argp2);
-  {
-    try {
-      result = (int)(arg1)->add((Exiv2::Iptcdatum const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_add(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_add", 0, 3, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_IptcData_add__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_IptcData_add__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_add'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::IptcData::add(Exiv2::IptcKey const &,Exiv2::Value *)\n"
-    "    Exiv2::IptcData::add(Exiv2::Iptcdatum const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 ;
-  IptcDataIteratorBase *argp2 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
-  
-  (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_erase" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  
-  res2 = SWIG_ConvertPtr(swig_obj[0], (void**)&argp2,
-    SWIGTYPE_p_IptcDataIteratorBase, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcDataIteratorBase""'");
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcDataIteratorBase""'");
-  }
-  arg2 = argp2->_unwrap();
-  
-  {
-    try {
-      result = (arg1)->erase(arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  {
-    Exiv2::IptcData::iterator end = arg1->end();
-    if ((Exiv2::IptcData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIteratorBase(result, end, self),
-      SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIterator(result, end, self),
-      SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_clear(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_clear", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_clear" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  (arg1)->clear();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_sortByKey(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_sortByKey", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_sortByKey" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      (arg1)->sortByKey();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_sortByTag(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_sortByTag", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_sortByTag" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      (arg1)->sortByTag();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_begin", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_begin" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  result = (arg1)->begin();
-  {
-    Exiv2::IptcData::iterator end = arg1->end();
-    if ((Exiv2::IptcData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIteratorBase(result, end, self),
-      SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIterator(result, end, self),
-      SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_end", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_end" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  result = (arg1)->end();
-  {
-    Exiv2::IptcData::iterator end = arg1->end();
-    if ((Exiv2::IptcData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIteratorBase(result, end, self),
-      SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIterator(result, end, self),
-      SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  Exiv2::IptcKey *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
-  
-  (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_findKey" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__IptcKey,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_findKey" "', argument " "2"" of type '" "Exiv2::IptcKey const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData_findKey" "', argument " "2"" of type '" "Exiv2::IptcKey const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::IptcKey * >(argp2);
-  {
-    try {
-      result = (arg1)->findKey((Exiv2::IptcKey const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  {
-    Exiv2::IptcData::iterator end = arg1->end();
-    if ((Exiv2::IptcData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIteratorBase(result, end, self),
-      SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIterator(result, end, self),
-      SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  uint16_t arg2 ;
-  uint16_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  unsigned short val2 ;
-  int ecode2 = 0 ;
-  unsigned short val3 ;
-  int ecode3 = 0 ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
-  
-  (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_findId" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_short(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_findId" "', argument " "2"" of type '" "uint16_t""'");
-  } 
-  arg2 = static_cast< uint16_t >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_short(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IptcData_findId" "', argument " "3"" of type '" "uint16_t""'");
-  } 
-  arg3 = static_cast< uint16_t >(val3);
-  {
-    try {
-      result = (arg1)->findId(arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  {
-    Exiv2::IptcData::iterator end = arg1->end();
-    if ((Exiv2::IptcData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIteratorBase(result, end, self),
-      SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIterator(result, end, self),
-      SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  uint16_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  unsigned short val2 ;
-  int ecode2 = 0 ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
-  
-  (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_findId" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_short(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_findId" "', argument " "2"" of type '" "uint16_t""'");
-  } 
-  arg2 = static_cast< uint16_t >(val2);
-  {
-    try {
-      result = (arg1)->findId(arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  {
-    Exiv2::IptcData::iterator end = arg1->end();
-    if ((Exiv2::IptcData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIteratorBase(result, end, self),
-      SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIterator(result, end, self),
-      SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_findId(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_findId", 0, 3, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_IptcData_findId__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_IptcData_findId__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_findId'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::IptcData::findId(uint16_t,uint16_t)\n"
-    "    Exiv2::IptcData::findId(uint16_t)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_empty(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_empty", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_empty" "', argument " "1"" of type '" "Exiv2::IptcData const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  result = (bool)((Exiv2::IptcData const *)arg1)->empty();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_count(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_count", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_count" "', argument " "1"" of type '" "Exiv2::IptcData const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  result = (long)((Exiv2::IptcData const *)arg1)->count();
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_size(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_size", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_size" "', argument " "1"" of type '" "Exiv2::IptcData const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      result = (long)((Exiv2::IptcData const *)arg1)->size();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_detectCharset(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  char *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData_detectCharset", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_detectCharset" "', argument " "1"" of type '" "Exiv2::IptcData const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      result = (char *)((Exiv2::IptcData const *)arg1)->detectCharset();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_FromCharPtr((const char *)result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___len__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      result = (long)Exiv2_IptcData___len__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  Exiv2::Iptcdatum *result = 0 ;
-  
-  (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___getitem__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (Exiv2::Iptcdatum *)Exiv2_IptcData___getitem__(arg1,(std::string const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  std::string *arg2 = 0 ;
-  Exiv2::Value *arg3 = (Exiv2::Value *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___setitem__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IptcData___setitem__" "', argument " "3"" of type '" "Exiv2::Value *""'"); 
-  }
-  arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
-  {
-    try {
-      result = (PyObject *)Exiv2_IptcData___setitem____SWIG_0(arg1,(std::string const &)*arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  PyObject *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___setitem__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IptcData___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  {
-    try {
-      result = (PyObject *)Exiv2_IptcData___setitem____SWIG_1(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  std::string *arg2 = 0 ;
-  PyObject *arg3 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___setitem__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  arg3 = swig_obj[2];
-  {
-    try {
-      result = (PyObject *)Exiv2_IptcData___setitem____SWIG_2(arg1,(std::string const &)*arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___setitem__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (PyObject *)Exiv2_IptcData___setitem____SWIG_3(arg1,(std::string const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___setitem__(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData___setitem__", 0, 3, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_IptcData___setitem____SWIG_3(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    int _v = 0;
-    {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Exiv2__Value, 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_IptcData___setitem____SWIG_0(self, argc, argv);
-  }
-check_2:
-  
-  if (argc == 3) {
-    int _v = 0;
-    {
-      int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_IptcData___setitem____SWIG_1(self, argc, argv);
-  }
-check_3:
-  
-  if (argc == 3) {
-    PyObject *retobj = _wrap_IptcData___setitem____SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData___setitem__'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::IptcData::__setitem__(std::string const &,Exiv2::Value *)\n"
-    "    Exiv2::IptcData::__setitem__(std::string const &,std::string const &)\n"
-    "    Exiv2::IptcData::__setitem__(std::string const &,PyObject *)\n"
-    "    Exiv2::IptcData::__setitem__(std::string const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___contains__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___contains__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IptcData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (bool)Exiv2_IptcData___contains__(arg1,(std::string const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___iter__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___iter__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  result = Exiv2_IptcData___iter__(arg1);
-  {
-    Exiv2::IptcData::iterator end = arg1->end();
-    if ((Exiv2::IptcData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIteratorBase(result, end, self),
-      SWIGTYPE_p_IptcDataIteratorBase, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new IptcDataIterator(result, end, self),
-      SWIGTYPE_p_IptcDataIterator, SWIG_POINTER_OWN);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN int _wrap_new_IptcData(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_IptcData")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_IptcData", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::IptcData *)new Exiv2::IptcData();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__IptcData, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_IptcData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_IptcData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IptcData" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_LENFUNC_CLOSURE(_wrap_IptcData___len__) /* defines _wrap_IptcData___len___lenfunc_closure */
-
-SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_IptcData___setitem__) /* defines _wrap_IptcData___setitem___objobjargproc_closure */
-
-SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_IptcData___contains__) /* defines _wrap_IptcData___contains___objobjproc_closure */
-
-SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData___iter__) /* defines _wrap_IptcData___iter___getiterfunc_closure */
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcData) /* defines _wrap_delete_IptcData_destructor_closure */
-
 static PyMethodDef SwigMethods[] = {
 	 { NULL, NULL, 0, NULL }
 };
 
-static SwigPyGetSet IptcDataIteratorBase___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__IptcDataIteratorBase_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &IptcDataIteratorBase___dict___getset },
+static SwigPyGetSet IptcData_iterator_end___dict___getset = { SwigPyObject_get___dict__, 0 };
+SWIGINTERN PyGetSetDef SwigPyBuiltin__IptcData_iterator_end_getset[] = {
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &IptcData_iterator_end___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
-SwigPyBuiltin__IptcDataIteratorBase_richcompare(PyObject *self, PyObject *other, int op) {
+SwigPyBuiltin__IptcData_iterator_end_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
   switch (op) {
-    case Py_EQ : result = _wrap_IptcDataIteratorBase___eq__(self, other); break;
-    case Py_NE : result = _wrap_IptcDataIteratorBase___ne__(self, other); break;
+    case Py_EQ : result = _wrap_IptcData_iterator_end___eq__(self, other); break;
+    case Py_NE : result = _wrap_IptcData_iterator_end___ne__(self, other); break;
     default : break;
   }
   if (!result) {
@@ -8943,16 +9013,16 @@ SwigPyBuiltin__IptcDataIteratorBase_richcompare(PyObject *self, PyObject *other,
   return result;
 }
 
-SWIGINTERN PyMethodDef SwigPyBuiltin__IptcDataIteratorBase_methods[] = {
-  { "__iter__", _wrap_IptcDataIteratorBase___iter__, METH_NOARGS, "" },
-  { "__next__", _wrap_IptcDataIteratorBase___next__, METH_NOARGS, "" },
-  { "__eq__", _wrap_IptcDataIteratorBase___eq__, METH_O, "" },
-  { "__ne__", _wrap_IptcDataIteratorBase___ne__, METH_O, "" },
-  { "__str__", _wrap_IptcDataIteratorBase___str__, METH_NOARGS, "" },
+SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_iterator_end_methods[] = {
+  { "__iter__", _wrap_IptcData_iterator_end___iter__, METH_NOARGS, "" },
+  { "__next__", _wrap_IptcData_iterator_end___next__, METH_NOARGS, "" },
+  { "__eq__", _wrap_IptcData_iterator_end___eq__, METH_O, "" },
+  { "__ne__", _wrap_IptcData_iterator_end___ne__, METH_O, "" },
+  { "__str__", _wrap_IptcData_iterator_end___str__, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
-static PyHeapTypeObject SwigPyBuiltin__IptcDataIteratorBase_type = {
+static PyHeapTypeObject SwigPyBuiltin__IptcData_iterator_end_type = {
   {
 #if PY_VERSION_HEX >= 0x03000000
     PyVarObject_HEAD_INIT(NULL, 0)
@@ -8960,10 +9030,10 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIteratorBase_type = {
     PyObject_HEAD_INIT(NULL)
     0,                                        /* ob_size */
 #endif
-    "exiv2.iptc.IptcDataIteratorBase",        /* tp_name */
+    "exiv2.iptc.IptcData_iterator_end",       /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_IptcDataIteratorBase_destructor_closure,         /* tp_dealloc */
+    _wrap_delete_IptcData_iterator_end_destructor_closure,        /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                            /* tp_print */
 #else
@@ -8977,15 +9047,15 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIteratorBase_type = {
     (cmpfunc) 0,                              /* tp_compare */
 #endif
     (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__IptcDataIteratorBase_type.as_number,          /* tp_as_number */
-    &SwigPyBuiltin__IptcDataIteratorBase_type.as_sequence,        /* tp_as_sequence */
-    &SwigPyBuiltin__IptcDataIteratorBase_type.as_mapping,         /* tp_as_mapping */
+    &SwigPyBuiltin__IptcData_iterator_end_type.as_number,         /* tp_as_number */
+    &SwigPyBuiltin__IptcData_iterator_end_type.as_sequence,       /* tp_as_sequence */
+    &SwigPyBuiltin__IptcData_iterator_end_type.as_mapping,        /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_IptcDataIteratorBase___str___reprfunc_closure,          /* tp_str */
+    _wrap_IptcData_iterator_end___str___reprfunc_closure,         /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__IptcDataIteratorBase_type.as_buffer,          /* tp_as_buffer */
+    &SwigPyBuiltin__IptcData_iterator_end_type.as_buffer,         /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
 #else
@@ -8994,18 +9064,18 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIteratorBase_type = {
     "\n"
 		"\n"
 		"Python wrapper for an Exiv2::IptcData::iterator that points to\n"
-		"Exiv2::IptcData::end().\n"
+		"IptcData::end().\n"
 		"\n"
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__IptcDataIteratorBase_richcompare,              /* tp_richcompare */
+    SwigPyBuiltin__IptcData_iterator_end_richcompare,             /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    _wrap_IptcDataIteratorBase___iter___getiterfunc_closure,      /* tp_iter */
-    _wrap_IptcDataIteratorBase___next___iternextfunc_closure,     /* tp_iternext */
-    SwigPyBuiltin__IptcDataIteratorBase_methods,                  /* tp_methods */
+    _wrap_IptcData_iterator_end___iter___getiterfunc_closure,     /* tp_iter */
+    _wrap_IptcData_iterator_end___next___iternextfunc_closure,    /* tp_iternext */
+    SwigPyBuiltin__IptcData_iterator_end_methods,                 /* tp_methods */
     0,                                        /* tp_members */
-    SwigPyBuiltin__IptcDataIteratorBase_getset,                   /* tp_getset */
+    SwigPyBuiltin__IptcData_iterator_end_getset,                  /* tp_getset */
     0,                                        /* tp_base */
     0,                                        /* tp_dict */
     (descrgetfunc) 0,                         /* tp_descr_get */
@@ -9159,20 +9229,20 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIteratorBase_type = {
 #endif
 };
 
-SWIGINTERN SwigPyClientData SwigPyBuiltin__IptcDataIteratorBase_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__IptcDataIteratorBase_type};
+SWIGINTERN SwigPyClientData SwigPyBuiltin__IptcData_iterator_end_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__IptcData_iterator_end_type};
 
-static SwigPyGetSet IptcDataIterator___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__IptcDataIterator_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &IptcDataIterator___dict___getset },
+static SwigPyGetSet IptcData_iterator___dict___getset = { SwigPyObject_get___dict__, 0 };
+SWIGINTERN PyGetSetDef SwigPyBuiltin__IptcData_iterator_getset[] = {
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &IptcData_iterator___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
-SwigPyBuiltin__IptcDataIterator_richcompare(PyObject *self, PyObject *other, int op) {
+SwigPyBuiltin__IptcData_iterator_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
   switch (op) {
-    case Py_EQ : result = _wrap_IptcDataIteratorBase___eq__(self, other); break;
-    case Py_NE : result = _wrap_IptcDataIteratorBase___ne__(self, other); break;
+    case Py_EQ : result = _wrap_IptcData_iterator_end___eq__(self, other); break;
+    case Py_NE : result = _wrap_IptcData_iterator_end___ne__(self, other); break;
     default : break;
   }
   if (!result) {
@@ -9186,48 +9256,48 @@ SwigPyBuiltin__IptcDataIterator_richcompare(PyObject *self, PyObject *other, int
   return result;
 }
 
-SWIGINTERN PyMethodDef SwigPyBuiltin__IptcDataIterator_methods[] = {
-  { "__deref__", _wrap_IptcDataIterator___deref__, METH_NOARGS, "" },
-  { "__iter__", _wrap_IptcDataIterator___iter__, METH_NOARGS, "" },
-  { "setValue", _wrap_IptcDataIterator_setValue, METH_VARARGS, "" },
-  { "copy", _wrap_IptcDataIterator_copy, METH_VARARGS, "" },
-  { "key", _wrap_IptcDataIterator_key, METH_NOARGS, "\n"
+SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_iterator_methods[] = {
+  { "__deref__", _wrap_IptcData_iterator___deref__, METH_NOARGS, "" },
+  { "__iter__", _wrap_IptcData_iterator___iter__, METH_NOARGS, "" },
+  { "setValue", _wrap_IptcData_iterator_setValue, METH_VARARGS, "" },
+  { "copy", _wrap_IptcData_iterator_copy, METH_VARARGS, "" },
+  { "key", _wrap_IptcData_iterator_key, METH_NOARGS, "\n"
 		"Return the key of the Iptcdatum. The key is of the form\n"
 		"       '**Iptc**.recordName.datasetName'. Note however that the key\n"
 		"       is not necessarily unique, i.e., an IptcData object may contain\n"
 		"       multiple metadata with the same key.\n"
 		"" },
-  { "recordName", _wrap_IptcDataIterator_recordName, METH_NOARGS, "\n"
+  { "recordName", _wrap_IptcData_iterator_recordName, METH_NOARGS, "\n"
 		"Return the name of the record (deprecated)\n"
 		":rtype: string\n"
 		":return: record name\n"
 		"" },
-  { "record", _wrap_IptcDataIterator_record, METH_NOARGS, "\n"
+  { "record", _wrap_IptcData_iterator_record, METH_NOARGS, "\n"
 		"Return the record id\n"
 		":rtype: int\n"
 		":return: record id\n"
 		"" },
-  { "familyName", _wrap_IptcDataIterator_familyName, METH_NOARGS, "" },
-  { "groupName", _wrap_IptcDataIterator_groupName, METH_NOARGS, "" },
-  { "tagName", _wrap_IptcDataIterator_tagName, METH_NOARGS, "\n"
+  { "familyName", _wrap_IptcData_iterator_familyName, METH_NOARGS, "" },
+  { "groupName", _wrap_IptcData_iterator_groupName, METH_NOARGS, "" },
+  { "tagName", _wrap_IptcData_iterator_tagName, METH_NOARGS, "\n"
 		"Return the name of the tag (aka dataset)\n"
 		":rtype: string\n"
 		":return: tag name\n"
 		"" },
-  { "tagLabel", _wrap_IptcDataIterator_tagLabel, METH_NOARGS, "" },
-  { "tag", _wrap_IptcDataIterator_tag, METH_NOARGS, " Return the tag (aka dataset) number" },
-  { "typeId", _wrap_IptcDataIterator_typeId, METH_NOARGS, "" },
-  { "typeName", _wrap_IptcDataIterator_typeName, METH_NOARGS, "" },
-  { "typeSize", _wrap_IptcDataIterator_typeSize, METH_NOARGS, "" },
-  { "count", _wrap_IptcDataIterator_count, METH_NOARGS, "" },
-  { "size", _wrap_IptcDataIterator_size, METH_NOARGS, "" },
-  { "toString", _wrap_IptcDataIterator_toString, METH_VARARGS, "" },
-  { "toLong", _wrap_IptcDataIterator_toLong, METH_VARARGS, "" },
-  { "toFloat", _wrap_IptcDataIterator_toFloat, METH_VARARGS, "" },
-  { "toRational", _wrap_IptcDataIterator_toRational, METH_VARARGS, "" },
-  { "getValue", _wrap_IptcDataIterator_getValue, METH_NOARGS, "" },
-  { "value", _wrap_IptcDataIterator_value, METH_NOARGS, "" },
-  { "_print", _wrap_IptcDataIterator__print, METH_VARARGS, "\n"
+  { "tagLabel", _wrap_IptcData_iterator_tagLabel, METH_NOARGS, "" },
+  { "tag", _wrap_IptcData_iterator_tag, METH_NOARGS, " Return the tag (aka dataset) number" },
+  { "typeId", _wrap_IptcData_iterator_typeId, METH_NOARGS, "" },
+  { "typeName", _wrap_IptcData_iterator_typeName, METH_NOARGS, "" },
+  { "typeSize", _wrap_IptcData_iterator_typeSize, METH_NOARGS, "" },
+  { "count", _wrap_IptcData_iterator_count, METH_NOARGS, "" },
+  { "size", _wrap_IptcData_iterator_size, METH_NOARGS, "" },
+  { "toString", _wrap_IptcData_iterator_toString, METH_VARARGS, "" },
+  { "toLong", _wrap_IptcData_iterator_toLong, METH_VARARGS, "" },
+  { "toFloat", _wrap_IptcData_iterator_toFloat, METH_VARARGS, "" },
+  { "toRational", _wrap_IptcData_iterator_toRational, METH_VARARGS, "" },
+  { "getValue", _wrap_IptcData_iterator_getValue, METH_NOARGS, "" },
+  { "value", _wrap_IptcData_iterator_value, METH_NOARGS, "" },
+  { "_print", _wrap_IptcData_iterator__print, METH_VARARGS, "\n"
 		"Write the interpreted value to a string.\n"
 		"\n"
 		"Implemented in terms of write(), see there.\n"
@@ -9235,7 +9305,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__IptcDataIterator_methods[] = {
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
-static PyHeapTypeObject SwigPyBuiltin__IptcDataIterator_type = {
+static PyHeapTypeObject SwigPyBuiltin__IptcData_iterator_type = {
   {
 #if PY_VERSION_HEX >= 0x03000000
     PyVarObject_HEAD_INIT(NULL, 0)
@@ -9243,10 +9313,10 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIterator_type = {
     PyObject_HEAD_INIT(NULL)
     0,                                        /* ob_size */
 #endif
-    "exiv2.iptc.IptcDataIterator",            /* tp_name */
+    "exiv2.iptc.IptcData_iterator",           /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_IptcDataIterator_destructor_closure,             /* tp_dealloc */
+    _wrap_delete_IptcData_iterator_destructor_closure,            /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                            /* tp_print */
 #else
@@ -9260,15 +9330,15 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIterator_type = {
     (cmpfunc) 0,                              /* tp_compare */
 #endif
     (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__IptcDataIterator_type.as_number,              /* tp_as_number */
-    &SwigPyBuiltin__IptcDataIterator_type.as_sequence,            /* tp_as_sequence */
-    &SwigPyBuiltin__IptcDataIterator_type.as_mapping,             /* tp_as_mapping */
+    &SwigPyBuiltin__IptcData_iterator_type.as_number,             /* tp_as_number */
+    &SwigPyBuiltin__IptcData_iterator_type.as_sequence,           /* tp_as_sequence */
+    &SwigPyBuiltin__IptcData_iterator_type.as_mapping,            /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
     (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__IptcDataIterator_type.as_buffer,              /* tp_as_buffer */
+    &SwigPyBuiltin__IptcData_iterator_type.as_buffer,             /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
 #else
@@ -9283,13 +9353,13 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIterator_type = {
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__IptcDataIterator_richcompare,                  /* tp_richcompare */
+    SwigPyBuiltin__IptcData_iterator_richcompare,                 /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    _wrap_IptcDataIterator___iter___getiterfunc_closure,          /* tp_iter */
+    _wrap_IptcData_iterator___iter___getiterfunc_closure,         /* tp_iter */
     (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__IptcDataIterator_methods,  /* tp_methods */
+    SwigPyBuiltin__IptcData_iterator_methods, /* tp_methods */
     0,                                        /* tp_members */
-    SwigPyBuiltin__IptcDataIterator_getset,   /* tp_getset */
+    SwigPyBuiltin__IptcData_iterator_getset,  /* tp_getset */
     0,                                        /* tp_base */
     0,                                        /* tp_dict */
     (descrgetfunc) 0,                         /* tp_descr_get */
@@ -9443,7 +9513,286 @@ static PyHeapTypeObject SwigPyBuiltin__IptcDataIterator_type = {
 #endif
 };
 
-SWIGINTERN SwigPyClientData SwigPyBuiltin__IptcDataIterator_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__IptcDataIterator_type};
+SWIGINTERN SwigPyClientData SwigPyBuiltin__IptcData_iterator_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__IptcData_iterator_type};
+
+static SwigPyGetSet IptcData___dict___getset = { SwigPyObject_get___dict__, 0 };
+SWIGINTERN PyGetSetDef SwigPyBuiltin__IptcData_getset[] = {
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &IptcData___dict___getset },
+    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
+};
+
+SWIGINTERN PyObject *
+SwigPyBuiltin__IptcData_richcompare(PyObject *self, PyObject *other, int op) {
+  PyObject *result = NULL;
+  if (!result) {
+    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
+      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
+    } else {
+      result = Py_NotImplemented;
+      Py_INCREF(result);
+    }
+  }
+  return result;
+}
+
+SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_methods[] = {
+  { "__deref__", _wrap_IptcData___deref__, METH_NOARGS, "" },
+  { "__len__", _wrap_IptcData___len__, METH_NOARGS, "" },
+  { "__getitem__", _wrap_IptcData___getitem__, METH_O, "" },
+  { "__setitem__", _wrap_IptcData___setitem__, METH_VARARGS, "" },
+  { "__contains__", _wrap_IptcData___contains__, METH_O, "" },
+  { "__iter__", _wrap_IptcData___iter__, METH_NOARGS, "" },
+  { "add", _wrap_IptcData_add, METH_VARARGS, "\n"
+		"*Overload 1:*\n"
+		"\n"
+		"Add an %Iptcdatum from the supplied key and value pair. This\n"
+		"       method copies (clones) the value. A check for non-repeatable\n"
+		"       datasets is performed.\n"
+		":rtype: int\n"
+		":return: 0 if successful;\n"
+		"\n"
+		"            6 if the dataset already exists and is not repeatable\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"Add a copy of the Iptcdatum to the IPTC metadata. A check\n"
+		"       for non-repeatable datasets is performed.\n"
+		":rtype: int\n"
+		":return: 0 if successful;\n"
+		"\n"
+		"           6 if the dataset already exists and is not repeatable;\n"
+		"" },
+  { "erase", _wrap_IptcData_erase, METH_O, "\n"
+		"Delete the Iptcdatum at iterator position pos, return the\n"
+		"       position of the next Iptcdatum. Note that iterators into\n"
+		"       the metadata, including pos, are potentially invalidated\n"
+		"       by this call.\n"
+		"" },
+  { "clear", _wrap_IptcData_clear, METH_NOARGS, "          Delete all Iptcdatum instances resulting in an empty container." },
+  { "sortByKey", _wrap_IptcData_sortByKey, METH_NOARGS, " Sort metadata by key" },
+  { "sortByTag", _wrap_IptcData_sortByTag, METH_NOARGS, " Sort metadata by tag (aka dataset)" },
+  { "begin", _wrap_IptcData_begin, METH_NOARGS, " Begin of the metadata" },
+  { "end", _wrap_IptcData_end, METH_NOARGS, " End of the metadata" },
+  { "findKey", _wrap_IptcData_findKey, METH_O, "\n"
+		"Find the first Iptcdatum with the given key, return an iterator\n"
+		"       to it.\n"
+		"" },
+  { "findId", _wrap_IptcData_findId, METH_VARARGS, "\n"
+		"Find the first Iptcdatum with the given record and dataset it,\n"
+		"      return a const iterator to it.\n"
+		"" },
+  { "empty", _wrap_IptcData_empty, METH_NOARGS, " Return true if there is no IPTC metadata" },
+  { "count", _wrap_IptcData_count, METH_NOARGS, " Get the number of metadata entries" },
+  { "size", _wrap_IptcData_size, METH_NOARGS, "          Return the exact size of all contained IPTC metadata" },
+  { "detectCharset", _wrap_IptcData_detectCharset, METH_NOARGS, "          Return the metadata charset name or 0" },
+  { NULL, NULL, 0, NULL } /* Sentinel */
+};
+
+static PyHeapTypeObject SwigPyBuiltin__IptcData_type = {
+  {
+#if PY_VERSION_HEX >= 0x03000000
+    PyVarObject_HEAD_INIT(NULL, 0)
+#else
+    PyObject_HEAD_INIT(NULL)
+    0,                                        /* ob_size */
+#endif
+    "exiv2.iptc.IptcData",                    /* tp_name */
+    sizeof(SwigPyObject),                     /* tp_basicsize */
+    0,                                        /* tp_itemsize */
+    _wrap_delete_IptcData_destructor_closure, /* tp_dealloc */
+#if PY_VERSION_HEX < 0x030800b4
+    (printfunc) 0,                            /* tp_print */
+#else
+    (Py_ssize_t) 0,                           /* tp_vectorcall_offset */
+#endif
+    (getattrfunc) 0,                          /* tp_getattr */
+    (setattrfunc) 0,                          /* tp_setattr */
+#if PY_VERSION_HEX >= 0x03000000
+    0,                                        /* tp_compare */
+#else
+    (cmpfunc) 0,                              /* tp_compare */
+#endif
+    (reprfunc) 0,                             /* tp_repr */
+    &SwigPyBuiltin__IptcData_type.as_number,  /* tp_as_number */
+    &SwigPyBuiltin__IptcData_type.as_sequence,/* tp_as_sequence */
+    &SwigPyBuiltin__IptcData_type.as_mapping, /* tp_as_mapping */
+    SwigPyObject_hash,                        /* tp_hash */
+    (ternaryfunc) 0,                          /* tp_call */
+    (reprfunc) 0,                             /* tp_str */
+    (getattrofunc) 0,                         /* tp_getattro */
+    (setattrofunc) 0,                         /* tp_setattro */
+    &SwigPyBuiltin__IptcData_type.as_buffer,  /* tp_as_buffer */
+#if PY_VERSION_HEX >= 0x03000000
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
+#else
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
+#endif
+    "::IptcData",                             /* tp_doc */
+    (traverseproc) 0,                         /* tp_traverse */
+    (inquiry) 0,                              /* tp_clear */
+    SwigPyBuiltin__IptcData_richcompare,      /* tp_richcompare */
+    0,                                        /* tp_weaklistoffset */
+    _wrap_IptcData___iter___getiterfunc_closure,                  /* tp_iter */
+    (iternextfunc) 0,                         /* tp_iternext */
+    SwigPyBuiltin__IptcData_methods,          /* tp_methods */
+    0,                                        /* tp_members */
+    SwigPyBuiltin__IptcData_getset,           /* tp_getset */
+    0,                                        /* tp_base */
+    0,                                        /* tp_dict */
+    (descrgetfunc) 0,                         /* tp_descr_get */
+    (descrsetfunc) 0,                         /* tp_descr_set */
+    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
+    _wrap_new_IptcData,                       /* tp_init */
+    (allocfunc) 0,                            /* tp_alloc */
+    (newfunc) 0,                              /* tp_new */
+    (freefunc) 0,                             /* tp_free */
+    (inquiry) 0,                              /* tp_is_gc */
+    (PyObject *) 0,                           /* tp_bases */
+    (PyObject *) 0,                           /* tp_mro */
+    (PyObject *) 0,                           /* tp_cache */
+    (PyObject *) 0,                           /* tp_subclasses */
+    (PyObject *) 0,                           /* tp_weaklist */
+    (destructor) 0,                           /* tp_del */
+    (int) 0,                                  /* tp_version_tag */
+#if PY_VERSION_HEX >= 0x03040000
+    (destructor) 0,                           /* tp_finalize */
+#endif
+#if PY_VERSION_HEX >= 0x03080000
+    (vectorcallfunc) 0,                       /* tp_vectorcall */
+#endif
+#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
+    0,                                        /* tp_print */
+#endif
+#ifdef COUNT_ALLOCS
+    (Py_ssize_t) 0,                           /* tp_allocs */
+    (Py_ssize_t) 0,                           /* tp_frees */
+    (Py_ssize_t) 0,                           /* tp_maxalloc */
+    0,                                        /* tp_prev */
+    0,                                        /* tp_next */
+#endif
+  },
+#if PY_VERSION_HEX >= 0x03050000
+  {
+    (unaryfunc) 0,                            /* am_await */
+    (unaryfunc) 0,                            /* am_aiter */
+    (unaryfunc) 0,                            /* am_anext */
+# if PY_VERSION_HEX >= 0x030a0000
+    (sendfunc) 0,                             /* am_send */
+# endif
+  },
+#endif
+  {
+    (binaryfunc) 0,                           /* nb_add */
+    (binaryfunc) 0,                           /* nb_subtract */
+    (binaryfunc) 0,                           /* nb_multiply */
+#if PY_VERSION_HEX < 0x03000000
+    (binaryfunc) 0,                           /* nb_divide */
+#endif
+    (binaryfunc) 0,                           /* nb_remainder */
+    (binaryfunc) 0,                           /* nb_divmod */
+    (ternaryfunc) 0,                          /* nb_power */
+    (unaryfunc) 0,                            /* nb_negative */
+    (unaryfunc) 0,                            /* nb_positive */
+    (unaryfunc) 0,                            /* nb_absolute */
+    (inquiry) 0,                              /* nb_nonzero */
+    (unaryfunc) 0,                            /* nb_invert */
+    (binaryfunc) 0,                           /* nb_lshift */
+    (binaryfunc) 0,                           /* nb_rshift */
+    (binaryfunc) 0,                           /* nb_and */
+    (binaryfunc) 0,                           /* nb_xor */
+    (binaryfunc) 0,                           /* nb_or */
+#if PY_VERSION_HEX < 0x03000000
+    (coercion) 0,                             /* nb_coerce */
+#endif
+    (unaryfunc) 0,                            /* nb_int */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* nb_reserved */
+#else
+    (unaryfunc) 0,                            /* nb_long */
+#endif
+    (unaryfunc) 0,                            /* nb_float */
+#if PY_VERSION_HEX < 0x03000000
+    (unaryfunc) 0,                            /* nb_oct */
+    (unaryfunc) 0,                            /* nb_hex */
+#endif
+    (binaryfunc) 0,                           /* nb_inplace_add */
+    (binaryfunc) 0,                           /* nb_inplace_subtract */
+    (binaryfunc) 0,                           /* nb_inplace_multiply */
+#if PY_VERSION_HEX < 0x03000000
+    (binaryfunc) 0,                           /* nb_inplace_divide */
+#endif
+    (binaryfunc) 0,                           /* nb_inplace_remainder */
+    (ternaryfunc) 0,                          /* nb_inplace_power */
+    (binaryfunc) 0,                           /* nb_inplace_lshift */
+    (binaryfunc) 0,                           /* nb_inplace_rshift */
+    (binaryfunc) 0,                           /* nb_inplace_and */
+    (binaryfunc) 0,                           /* nb_inplace_xor */
+    (binaryfunc) 0,                           /* nb_inplace_or */
+    (binaryfunc) 0,                           /* nb_floor_divide */
+    (binaryfunc) 0,                           /* nb_true_divide */
+    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
+    (binaryfunc) 0,                           /* nb_inplace_true_divide */
+    (unaryfunc) 0,                            /* nb_index */
+#if PY_VERSION_HEX >= 0x03050000
+    (binaryfunc) 0,                           /* nb_matrix_multiply */
+    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
+#endif
+  },
+  {
+    _wrap_IptcData___len___lenfunc_closure,   /* mp_length */
+    _wrap_IptcData___getitem__,               /* mp_subscript */
+    _wrap_IptcData___setitem___objobjargproc_closure,             /* mp_ass_subscript */
+  },
+  {
+    (lenfunc) 0,                              /* sq_length */
+    (binaryfunc) 0,                           /* sq_concat */
+    (ssizeargfunc) 0,                         /* sq_repeat */
+    (ssizeargfunc) 0,                         /* sq_item */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* was_sq_slice */
+#else
+    (ssizessizeargfunc) 0,                    /* sq_slice */
+#endif
+    (ssizeobjargproc) 0,                      /* sq_ass_item */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* was_sq_ass_slice */
+#else
+    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
+#endif
+    _wrap_IptcData___contains___objobjproc_closure,               /* sq_contains */
+    (binaryfunc) 0,                           /* sq_inplace_concat */
+    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
+  },
+  {
+#if PY_VERSION_HEX < 0x03000000
+    (readbufferproc) 0,                       /* bf_getreadbuffer */
+    (writebufferproc) 0,                      /* bf_getwritebuffer */
+    (segcountproc) 0,                         /* bf_getsegcount */
+    (charbufferproc) 0,                       /* bf_getcharbuffer */
+#endif
+    (getbufferproc) 0,                        /* bf_getbuffer */
+    (releasebufferproc) 0,                    /* bf_releasebuffer */
+  },
+    (PyObject *) 0,                           /* ht_name */
+    (PyObject *) 0,                           /* ht_slots */
+#if PY_VERSION_HEX >= 0x03030000
+    (PyObject *) 0,                           /* ht_qualname */
+    0,                                        /* ht_cached_keys */
+#endif
+#if PY_VERSION_HEX >= 0x03090000
+    (PyObject *) 0,                           /* ht_module */
+#endif
+#if PY_VERSION_HEX >= 0x030b0000
+    (char *) 0,                               /* _ht_tpname */
+  {
+    (PyObject *) 0,                           /* getitem */
+  }
+#endif
+};
+
+SWIGINTERN SwigPyClientData SwigPyBuiltin__IptcData_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__IptcData_type};
 
 static SwigPyGetSet Iptcdatum___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Iptcdatum_getset[] = {
@@ -9734,315 +10083,6 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__Iptcdatum_type = {
 
 SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__Iptcdatum_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__Iptcdatum_type};
 
-static SwigPyGetSet IptcData___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__IptcData_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Add an %Iptcdatum from the supplied key and value pair. This\n"
-		"       method copies (clones) the value. A check for non-repeatable\n"
-		"       datasets is performed.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            6 if the dataset already exists and is not repeatable\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Add a copy of the Iptcdatum to the IPTC metadata. A check\n"
-		"       for non-repeatable datasets is performed.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"           6 if the dataset already exists and is not repeatable;\n"
-		"", &IptcData___dict___getset },
-    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
-};
-
-SWIGINTERN PyObject *
-SwigPyBuiltin__Exiv2__IptcData_richcompare(PyObject *self, PyObject *other, int op) {
-  PyObject *result = NULL;
-  if (!result) {
-    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
-      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
-    } else {
-      result = Py_NotImplemented;
-      Py_INCREF(result);
-    }
-  }
-  return result;
-}
-
-SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__IptcData_methods[] = {
-  { "add", _wrap_IptcData_add, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Add an %Iptcdatum from the supplied key and value pair. This\n"
-		"       method copies (clones) the value. A check for non-repeatable\n"
-		"       datasets is performed.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            6 if the dataset already exists and is not repeatable\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Add a copy of the Iptcdatum to the IPTC metadata. A check\n"
-		"       for non-repeatable datasets is performed.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"           6 if the dataset already exists and is not repeatable;\n"
-		"" },
-  { "erase", _wrap_IptcData_erase, METH_O, "\n"
-		"Delete the Iptcdatum at iterator position pos, return the\n"
-		"       position of the next Iptcdatum. Note that iterators into\n"
-		"       the metadata, including pos, are potentially invalidated\n"
-		"       by this call.\n"
-		"" },
-  { "clear", _wrap_IptcData_clear, METH_NOARGS, "          Delete all Iptcdatum instances resulting in an empty container." },
-  { "sortByKey", _wrap_IptcData_sortByKey, METH_NOARGS, " Sort metadata by key" },
-  { "sortByTag", _wrap_IptcData_sortByTag, METH_NOARGS, " Sort metadata by tag (aka dataset)" },
-  { "begin", _wrap_IptcData_begin, METH_NOARGS, " Begin of the metadata" },
-  { "end", _wrap_IptcData_end, METH_NOARGS, " End of the metadata" },
-  { "findKey", _wrap_IptcData_findKey, METH_O, "\n"
-		"Find the first Iptcdatum with the given key, return an iterator\n"
-		"       to it.\n"
-		"" },
-  { "findId", _wrap_IptcData_findId, METH_VARARGS, "\n"
-		"Find the first Iptcdatum with the given record and dataset it,\n"
-		"      return a const iterator to it.\n"
-		"" },
-  { "empty", _wrap_IptcData_empty, METH_NOARGS, " Return true if there is no IPTC metadata" },
-  { "count", _wrap_IptcData_count, METH_NOARGS, " Get the number of metadata entries" },
-  { "size", _wrap_IptcData_size, METH_NOARGS, "          Return the exact size of all contained IPTC metadata" },
-  { "detectCharset", _wrap_IptcData_detectCharset, METH_NOARGS, "          Return the metadata charset name or 0" },
-  { "__len__", _wrap_IptcData___len__, METH_NOARGS, "" },
-  { "__getitem__", _wrap_IptcData___getitem__, METH_O, "" },
-  { "__setitem__", _wrap_IptcData___setitem__, METH_VARARGS, "" },
-  { "__contains__", _wrap_IptcData___contains__, METH_O, "" },
-  { "__iter__", _wrap_IptcData___iter__, METH_NOARGS, "" },
-  { NULL, NULL, 0, NULL } /* Sentinel */
-};
-
-static PyHeapTypeObject SwigPyBuiltin__Exiv2__IptcData_type = {
-  {
-#if PY_VERSION_HEX >= 0x03000000
-    PyVarObject_HEAD_INIT(NULL, 0)
-#else
-    PyObject_HEAD_INIT(NULL)
-    0,                                        /* ob_size */
-#endif
-    "exiv2.iptc.IptcData",                    /* tp_name */
-    sizeof(SwigPyObject),                     /* tp_basicsize */
-    0,                                        /* tp_itemsize */
-    _wrap_delete_IptcData_destructor_closure, /* tp_dealloc */
-#if PY_VERSION_HEX < 0x030800b4
-    (printfunc) 0,                            /* tp_print */
-#else
-    (Py_ssize_t) 0,                           /* tp_vectorcall_offset */
-#endif
-    (getattrfunc) 0,                          /* tp_getattr */
-    (setattrfunc) 0,                          /* tp_setattr */
-#if PY_VERSION_HEX >= 0x03000000
-    0,                                        /* tp_compare */
-#else
-    (cmpfunc) 0,                              /* tp_compare */
-#endif
-    (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__Exiv2__IptcData_type.as_number,               /* tp_as_number */
-    &SwigPyBuiltin__Exiv2__IptcData_type.as_sequence,             /* tp_as_sequence */
-    &SwigPyBuiltin__Exiv2__IptcData_type.as_mapping,              /* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
-    (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
-    (getattrofunc) 0,                         /* tp_getattro */
-    (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__Exiv2__IptcData_type.as_buffer,               /* tp_as_buffer */
-#if PY_VERSION_HEX >= 0x03000000
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
-#else
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
-#endif
-    "\n"
-		"A container for IPTC data. This is a top-level class of\n"
-		"       the %Exiv2 library.\n"
-		"\n"
-		"Provide high-level access to the IPTC data of an image:\n"
-		"- read IPTC information from JPEG files\n"
-		"- access metadata through keys and standard C++ iterators\n"
-		"- add, modify and delete metadata\n"
-		"- write IPTC data to JPEG files\n"
-		"- extract IPTC metadata to files, insert from these files\n"
-		"",/* tp_doc */
-    (traverseproc) 0,                         /* tp_traverse */
-    (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__Exiv2__IptcData_richcompare,                   /* tp_richcompare */
-    0,                                        /* tp_weaklistoffset */
-    _wrap_IptcData___iter___getiterfunc_closure,                  /* tp_iter */
-    (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__Exiv2__IptcData_methods,   /* tp_methods */
-    0,                                        /* tp_members */
-    SwigPyBuiltin__Exiv2__IptcData_getset,    /* tp_getset */
-    0,                                        /* tp_base */
-    0,                                        /* tp_dict */
-    (descrgetfunc) 0,                         /* tp_descr_get */
-    (descrsetfunc) 0,                         /* tp_descr_set */
-    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_IptcData,                       /* tp_init */
-    (allocfunc) 0,                            /* tp_alloc */
-    (newfunc) 0,                              /* tp_new */
-    (freefunc) 0,                             /* tp_free */
-    (inquiry) 0,                              /* tp_is_gc */
-    (PyObject *) 0,                           /* tp_bases */
-    (PyObject *) 0,                           /* tp_mro */
-    (PyObject *) 0,                           /* tp_cache */
-    (PyObject *) 0,                           /* tp_subclasses */
-    (PyObject *) 0,                           /* tp_weaklist */
-    (destructor) 0,                           /* tp_del */
-    (int) 0,                                  /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    (destructor) 0,                           /* tp_finalize */
-#endif
-#if PY_VERSION_HEX >= 0x03080000
-    (vectorcallfunc) 0,                       /* tp_vectorcall */
-#endif
-#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
-    0,                                        /* tp_print */
-#endif
-#ifdef COUNT_ALLOCS
-    (Py_ssize_t) 0,                           /* tp_allocs */
-    (Py_ssize_t) 0,                           /* tp_frees */
-    (Py_ssize_t) 0,                           /* tp_maxalloc */
-    0,                                        /* tp_prev */
-    0,                                        /* tp_next */
-#endif
-  },
-#if PY_VERSION_HEX >= 0x03050000
-  {
-    (unaryfunc) 0,                            /* am_await */
-    (unaryfunc) 0,                            /* am_aiter */
-    (unaryfunc) 0,                            /* am_anext */
-# if PY_VERSION_HEX >= 0x030a0000
-    (sendfunc) 0,                             /* am_send */
-# endif
-  },
-#endif
-  {
-    (binaryfunc) 0,                           /* nb_add */
-    (binaryfunc) 0,                           /* nb_subtract */
-    (binaryfunc) 0,                           /* nb_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_remainder */
-    (binaryfunc) 0,                           /* nb_divmod */
-    (ternaryfunc) 0,                          /* nb_power */
-    (unaryfunc) 0,                            /* nb_negative */
-    (unaryfunc) 0,                            /* nb_positive */
-    (unaryfunc) 0,                            /* nb_absolute */
-    (inquiry) 0,                              /* nb_nonzero */
-    (unaryfunc) 0,                            /* nb_invert */
-    (binaryfunc) 0,                           /* nb_lshift */
-    (binaryfunc) 0,                           /* nb_rshift */
-    (binaryfunc) 0,                           /* nb_and */
-    (binaryfunc) 0,                           /* nb_xor */
-    (binaryfunc) 0,                           /* nb_or */
-#if PY_VERSION_HEX < 0x03000000
-    (coercion) 0,                             /* nb_coerce */
-#endif
-    (unaryfunc) 0,                            /* nb_int */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* nb_reserved */
-#else
-    (unaryfunc) 0,                            /* nb_long */
-#endif
-    (unaryfunc) 0,                            /* nb_float */
-#if PY_VERSION_HEX < 0x03000000
-    (unaryfunc) 0,                            /* nb_oct */
-    (unaryfunc) 0,                            /* nb_hex */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_add */
-    (binaryfunc) 0,                           /* nb_inplace_subtract */
-    (binaryfunc) 0,                           /* nb_inplace_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_inplace_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_remainder */
-    (ternaryfunc) 0,                          /* nb_inplace_power */
-    (binaryfunc) 0,                           /* nb_inplace_lshift */
-    (binaryfunc) 0,                           /* nb_inplace_rshift */
-    (binaryfunc) 0,                           /* nb_inplace_and */
-    (binaryfunc) 0,                           /* nb_inplace_xor */
-    (binaryfunc) 0,                           /* nb_inplace_or */
-    (binaryfunc) 0,                           /* nb_floor_divide */
-    (binaryfunc) 0,                           /* nb_true_divide */
-    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
-    (binaryfunc) 0,                           /* nb_inplace_true_divide */
-    (unaryfunc) 0,                            /* nb_index */
-#if PY_VERSION_HEX >= 0x03050000
-    (binaryfunc) 0,                           /* nb_matrix_multiply */
-    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
-#endif
-  },
-  {
-    _wrap_IptcData___len___lenfunc_closure,   /* mp_length */
-    _wrap_IptcData___getitem__,               /* mp_subscript */
-    _wrap_IptcData___setitem___objobjargproc_closure,             /* mp_ass_subscript */
-  },
-  {
-    (lenfunc) 0,                              /* sq_length */
-    (binaryfunc) 0,                           /* sq_concat */
-    (ssizeargfunc) 0,                         /* sq_repeat */
-    (ssizeargfunc) 0,                         /* sq_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_slice */
-#else
-    (ssizessizeargfunc) 0,                    /* sq_slice */
-#endif
-    (ssizeobjargproc) 0,                      /* sq_ass_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_ass_slice */
-#else
-    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
-#endif
-    _wrap_IptcData___contains___objobjproc_closure,               /* sq_contains */
-    (binaryfunc) 0,                           /* sq_inplace_concat */
-    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
-  },
-  {
-#if PY_VERSION_HEX < 0x03000000
-    (readbufferproc) 0,                       /* bf_getreadbuffer */
-    (writebufferproc) 0,                      /* bf_getwritebuffer */
-    (segcountproc) 0,                         /* bf_getsegcount */
-    (charbufferproc) 0,                       /* bf_getcharbuffer */
-#endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
-  },
-    (PyObject *) 0,                           /* ht_name */
-    (PyObject *) 0,                           /* ht_slots */
-#if PY_VERSION_HEX >= 0x03030000
-    (PyObject *) 0,                           /* ht_qualname */
-    0,                                        /* ht_cached_keys */
-#endif
-#if PY_VERSION_HEX >= 0x03090000
-    (PyObject *) 0,                           /* ht_module */
-#endif
-#if PY_VERSION_HEX >= 0x030b0000
-    (char *) 0,                               /* _ht_tpname */
-  {
-    (PyObject *) 0,                           /* getitem */
-  }
-#endif
-};
-
-SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__IptcData_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__IptcData_type};
-
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
@@ -10127,16 +10167,19 @@ static void *_p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSE
 static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
 }
-static void *_p_IptcDataIteratorTo_p_IptcDataIteratorBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IptcDataIteratorBase *)  ((IptcDataIterator *) x));
+static void *_p_IptcData_iteratorTo_p_IptcData_iterator_end(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IptcData_iterator_end *)  ((IptcData_iterator *) x));
 }
 static swig_type_info _swigt__p_AutoPtr = {"_p_AutoPtr", "AutoPtr *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ExifData = {"_p_ExifData", "ExifData *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ExifData_iterator = {"_p_ExifData_iterator", "ExifData_iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ExifData_iterator_end = {"_p_ExifData_iterator_end", "ExifData_iterator_end *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue", "Exiv2::CommentValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DataValue = {"_p_Exiv2__DataValue", "Exiv2::DataValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DateValue = {"_p_Exiv2__DateValue", "Exiv2::DateValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ExifData = {"_p_Exiv2__ExifData", "Exiv2::ExifData *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__IptcData = {"_p_Exiv2__IptcData", "Exiv2::IptcData *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__IptcData_clientdata, 0};
+static swig_type_info _swigt__p_Exiv2__IptcData = {"_p_Exiv2__IptcData", "Exiv2::IptcData *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__IptcKey = {"_p_Exiv2__IptcKey", "Exiv2::IptcKey *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Iptcdatum = {"_p_Exiv2__Iptcdatum", "Exiv2::Iptcdatum *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__Iptcdatum_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__Key = {"_p_Exiv2__Key", "Exiv2::Key *", 0, 0, (void*)0, 0};
@@ -10157,11 +10200,15 @@ static swig_type_info _swigt__p_Exiv2__ValueTypeT_unsigned_short_t = {"_p_Exiv2_
 static swig_type_info _swigt__p_Exiv2__XmpArrayValue = {"_p_Exiv2__XmpArrayValue", "Exiv2::XmpArrayValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IptcDataIterator = {"_p_IptcDataIterator", "IptcDataIterator *", 0, 0, (void*)&SwigPyBuiltin__IptcDataIterator_clientdata, 0};
-static swig_type_info _swigt__p_IptcDataIteratorBase = {"_p_IptcDataIteratorBase", "IptcDataIteratorBase *", 0, 0, (void*)&SwigPyBuiltin__IptcDataIteratorBase_clientdata, 0};
+static swig_type_info _swigt__p_IptcData = {"_p_IptcData", "IptcData *", 0, 0, (void*)&SwigPyBuiltin__IptcData_clientdata, 0};
+static swig_type_info _swigt__p_IptcData_iterator = {"_p_IptcData_iterator", "IptcData_iterator *", 0, 0, (void*)&SwigPyBuiltin__IptcData_iterator_clientdata, 0};
+static swig_type_info _swigt__p_IptcData_iterator_end = {"_p_IptcData_iterator_end", "IptcData_iterator_end *", 0, 0, (void*)&SwigPyBuiltin__IptcData_iterator_end_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_XmpData = {"_p_XmpData", "XmpData *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_XmpData_iterator = {"_p_XmpData_iterator", "XmpData_iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_XmpData_iterator_end = {"_p_XmpData_iterator_end", "XmpData_iterator_end *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -10197,6 +10244,9 @@ static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_AutoPtr,
+  &_swigt__p_ExifData,
+  &_swigt__p_ExifData_iterator,
+  &_swigt__p_ExifData_iterator_end,
   &_swigt__p_Exiv2__AsciiValue,
   &_swigt__p_Exiv2__CommentValue,
   &_swigt__p_Exiv2__DataValue,
@@ -10223,11 +10273,15 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpArrayValue,
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
-  &_swigt__p_IptcDataIterator,
-  &_swigt__p_IptcDataIteratorBase,
+  &_swigt__p_IptcData,
+  &_swigt__p_IptcData_iterator,
+  &_swigt__p_IptcData_iterator_end,
   &_swigt__p_SwigPyObject,
   &_swigt__p_ValueList,
   &_swigt__p_ValueType,
+  &_swigt__p_XmpData,
+  &_swigt__p_XmpData_iterator,
+  &_swigt__p_XmpData_iterator_end,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
@@ -10263,6 +10317,9 @@ static swig_type_info *swig_type_initial[] = {
 };
 
 static swig_cast_info _swigc__p_AutoPtr[] = {  {&_swigt__p_AutoPtr, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ExifData[] = {  {&_swigt__p_ExifData, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ExifData_iterator[] = {  {&_swigt__p_ExifData_iterator, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ExifData_iterator_end[] = {  {&_swigt__p_ExifData_iterator_end, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__CommentValue[] = {  {&_swigt__p_Exiv2__CommentValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DataValue[] = {  {&_swigt__p_Exiv2__DataValue, 0, 0, 0},{0, 0, 0, 0}};
@@ -10289,11 +10346,15 @@ static swig_cast_info _swigc__p_Exiv2__ValueTypeT_unsigned_short_t[] = {  {&_swi
 static swig_cast_info _swigc__p_Exiv2__XmpArrayValue[] = {  {&_swigt__p_Exiv2__XmpArrayValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IptcDataIterator[] = {  {&_swigt__p_IptcDataIterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IptcDataIteratorBase[] = {  {&_swigt__p_IptcDataIteratorBase, 0, 0, 0},  {&_swigt__p_IptcDataIterator, _p_IptcDataIteratorTo_p_IptcDataIteratorBase, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IptcData[] = {  {&_swigt__p_IptcData, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IptcData_iterator[] = {  {&_swigt__p_IptcData_iterator, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IptcData_iterator_end[] = {  {&_swigt__p_IptcData_iterator_end, 0, 0, 0},  {&_swigt__p_IptcData_iterator, _p_IptcData_iteratorTo_p_IptcData_iterator_end, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_XmpData[] = {  {&_swigt__p_XmpData, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_XmpData_iterator[] = {  {&_swigt__p_XmpData_iterator, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_XmpData_iterator_end[] = {  {&_swigt__p_XmpData_iterator_end, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -10329,6 +10390,9 @@ static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_AutoPtr,
+  _swigc__p_ExifData,
+  _swigc__p_ExifData_iterator,
+  _swigc__p_ExifData_iterator_end,
   _swigc__p_Exiv2__AsciiValue,
   _swigc__p_Exiv2__CommentValue,
   _swigc__p_Exiv2__DataValue,
@@ -10355,11 +10419,15 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpArrayValue,
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
-  _swigc__p_IptcDataIterator,
-  _swigc__p_IptcDataIteratorBase,
+  _swigc__p_IptcData,
+  _swigc__p_IptcData_iterator,
+  _swigc__p_IptcData_iterator_end,
   _swigc__p_SwigPyObject,
   _swigc__p_ValueList,
   _swigc__p_ValueType,
+  _swigc__p_XmpData,
+  _swigc__p_XmpData_iterator,
+  _swigc__p_XmpData_iterator_end,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,
@@ -10873,8 +10941,8 @@ SWIG_init(void) {
   }
   
   
-  /* type '::IptcDataIteratorBase' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__IptcDataIteratorBase_type;
+  /* type '::IptcData_iterator_end' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__IptcData_iterator_end_type;
   builtin_pytype->tp_dict = d = PyDict_New();
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
@@ -10884,7 +10952,7 @@ SWIG_init(void) {
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
   if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcDataIteratorBase'.");
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcData_iterator_end'.");
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
 #else
@@ -10892,21 +10960,21 @@ SWIG_init(void) {
 #endif
   }
   Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "IptcDataIteratorBase", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "IptcDataIteratorBase");
+  PyModule_AddObject(m, "IptcData_iterator_end", (PyObject *)builtin_pytype);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "IptcData_iterator_end");
   d = md;
   
-  /* type '::IptcDataIterator' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__IptcDataIterator_type;
+  /* type '::IptcData_iterator' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__IptcData_iterator_type;
   builtin_pytype->tp_dict = d = PyDict_New();
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
-  builtin_basetype = SWIG_MangledTypeQuery("_p_IptcDataIteratorBase");
+  builtin_basetype = SWIG_MangledTypeQuery("_p_IptcData_iterator_end");
   if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
     builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
   } else {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcDataIterator' as base 'IptcDataIteratorBase' has not been initialized.\n");
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcData_iterator' as base 'IptcData_iterator_end' has not been initialized.\n");
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
 #else
@@ -10918,7 +10986,7 @@ SWIG_init(void) {
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
   if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcDataIterator'.");
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcData_iterator'.");
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
 #else
@@ -10926,8 +10994,31 @@ SWIG_init(void) {
 #endif
   }
   Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "IptcDataIterator", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "IptcDataIterator");
+  PyModule_AddObject(m, "IptcData_iterator", (PyObject *)builtin_pytype);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "IptcData_iterator");
+  d = md;
+  
+  /* type '::IptcData' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__IptcData_type;
+  builtin_pytype->tp_dict = d = PyDict_New();
+  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
+  builtin_pytype->tp_new = PyType_GenericNew;
+  builtin_base_count = 0;
+  builtin_bases[builtin_base_count] = NULL;
+  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
+  PyDict_SetItemString(d, "this", this_descr);
+  PyDict_SetItemString(d, "thisown", thisown_descr);
+  if (PyType_Ready(builtin_pytype) < 0) {
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcData'.");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
+  Py_INCREF(builtin_pytype);
+  PyModule_AddObject(m, "IptcData", (PyObject *)builtin_pytype);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "IptcData");
   d = md;
   
   /* type 'Exiv2::Iptcdatum' */
@@ -10962,29 +11053,6 @@ SWIG_init(void) {
   Py_INCREF(builtin_pytype);
   PyModule_AddObject(m, "Iptcdatum", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Iptcdatum");
-  d = md;
-  
-  /* type 'Exiv2::IptcData' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__IptcData_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
-  builtin_pytype->tp_new = PyType_GenericNew;
-  builtin_base_count = 0;
-  builtin_bases[builtin_base_count] = NULL;
-  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
-  PyDict_SetItemString(d, "this", this_descr);
-  PyDict_SetItemString(d, "thisown", thisown_descr);
-  if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcData'.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "IptcData", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "IptcData");
   d = md;
 #if PY_VERSION_HEX >= 0x03000000
   return m;

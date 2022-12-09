@@ -26,9 +26,11 @@
 %import "properties.i"
 
 #ifndef SWIGIMPORTED
-DATA_MAPPING_METHODS(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
+DATA_MAPPING_METHODS(XmpData, Exiv2::XmpData::iterator, Exiv2::Xmpdatum,
+    Exiv2::XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
-DATA_ITERATOR(XmpData, Exiv2::XmpData, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
+DATA_ITERATOR(XmpData, Exiv2::XmpData::iterator, Exiv2::Xmpdatum, %inline)
+DEFINE_DATA_WRAPPER(XmpData, Exiv2::XmpData, %inline)
 #endif
 
 // Turn off exception checking for methods that are guaranteed not to throw

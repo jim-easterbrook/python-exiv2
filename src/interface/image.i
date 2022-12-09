@@ -51,23 +51,25 @@ wrap_auto_unique_ptr(Exiv2::Image);
 
 // Wrap data classes, duplicate of definitions in exif.i etc.
 #ifndef SWIGIMPORTED
-// Make ExifDataWrap, IptcDataWrap, XmpDataWrap indexable by key
-DATA_MAPPING_METHODS(ExifData, ExifDataWrap, Exiv2::Exifdatum, Exiv2::ExifKey,
-    Exiv2::ExifKey(datum->key()).defaultTypeId())
-DATA_MAPPING_METHODS(IptcData, IptcDataWrap, Exiv2::Iptcdatum, Exiv2::IptcKey,
+// Make ExifData, IptcData, XmpData indexable by key
+DATA_MAPPING_METHODS(ExifData, Exiv2::ExifData::iterator, Exiv2::Exifdatum,
+    Exiv2::ExifKey, Exiv2::ExifKey(datum->key()).defaultTypeId())
+DATA_MAPPING_METHODS(IptcData, Exiv2::IptcData::iterator, Exiv2::Iptcdatum,
+    Exiv2::IptcKey,
     Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
-DATA_MAPPING_METHODS(XmpData, XmpDataWrap, Exiv2::Xmpdatum, Exiv2::XmpKey,
+DATA_MAPPING_METHODS(XmpData, Exiv2::XmpData::iterator, Exiv2::Xmpdatum,
+    Exiv2::XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
 
-// Make ExifDataWrap, IptcDataWrap, XmpDataWrap iterable
-DATA_ITERATOR(ExifData, ExifDataWrap, Exiv2::ExifData::iterator, Exiv2::Exifdatum)
-DATA_ITERATOR(IptcData, IptcDataWrap, Exiv2::IptcData::iterator, Exiv2::Iptcdatum)
-DATA_ITERATOR(XmpData, XmpDataWrap, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
+// Make ExifData, IptcData, XmpData iterable
+DATA_ITERATOR(ExifData, Exiv2::ExifData::iterator, Exiv2::Exifdatum, )
+DATA_ITERATOR(IptcData, Exiv2::IptcData::iterator, Exiv2::Iptcdatum, )
+DATA_ITERATOR(XmpData, Exiv2::XmpData::iterator, Exiv2::Xmpdatum, )
 
-// Define ExifDataWrap, IptcDataWrap, XmpDataWrap
-DATA_WRAPPER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
-DATA_WRAPPER(IptcData, Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey)
-DATA_WRAPPER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
+// Redefine ExifData, IptcData, XmpData
+DEFINE_DATA_WRAPPER(ExifData, Exiv2::ExifData, %inline)
+DEFINE_DATA_WRAPPER(IptcData, Exiv2::IptcData, %inline)
+DEFINE_DATA_WRAPPER(XmpData, Exiv2::XmpData, %inline)
 #endif  // ifndef SWIGIMPORTED
 
 // Make image types available

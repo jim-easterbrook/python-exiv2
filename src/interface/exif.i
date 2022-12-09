@@ -41,13 +41,10 @@
 }
 
 #ifndef SWIGIMPORTED
-DATA_MAPPING_METHODS(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
-                     Exiv2::ExifKey(datum->key()).defaultTypeId())
-DATA_ITERATOR(ExifData, Exiv2::ExifData, Exiv2::ExifData::iterator,
-              Exiv2::Exifdatum)
-// Get definition of ExifDataWrap so ExifThumb constructor can be passed
-// either ExifDataWrap or Exiv2::ExifData
-DATA_WRAPPER_DEC(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
+DATA_MAPPING_METHODS(ExifData, Exiv2::ExifData::iterator, Exiv2::Exifdatum,
+    Exiv2::ExifKey, Exiv2::ExifKey(datum->key()).defaultTypeId())
+DATA_ITERATOR(ExifData, Exiv2::ExifData::iterator, Exiv2::Exifdatum, %inline)
+DEFINE_DATA_WRAPPER(ExifData, Exiv2::ExifData, %inline)
 #endif
 
 // Turn off exception checking for methods that are guaranteed not to throw

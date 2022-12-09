@@ -65,8 +65,8 @@ PyObject* logger = NULL;
 }
 
 // Macro to make an Exiv2 data container more like a Python dict
-%define DATA_MAPPING_METHODS(name, base_class, datum_type, key_type,
-                             default_type_func)
+%define DATA_MAPPING_METHODS(base_class, base_class_iterator,
+                             datum_type, key_type, default_type_func)
 %feature("python:slot", "mp_length",
          functype="lenfunc") base_class::__len__;
 %feature("python:slot", "mp_subscript",
@@ -77,13 +77,14 @@ PyObject* logger = NULL;
          functype="objobjproc") base_class::__contains__;
 // Helper functions
 %{
-static Exiv2::TypeId name##_default_type(datum_type* datum) {
+static Exiv2::TypeId base_class##_default_type(datum_type* datum) {
     Exiv2::TypeId old_type = datum->typeId();
     if (old_type == Exiv2::invalidTypeId)
         old_type = default_type_func;
     return old_type;
 };
-static void name##_type_change_warn(datum_type* datum, Exiv2::TypeId old_type) {
+static void base_class##_type_change_warn(datum_type* datum,
+                                          Exiv2::TypeId old_type) {
     using namespace Exiv2;
     TypeId new_type = datum->typeId();
     if (new_type == old_type)
@@ -92,35 +93,36 @@ static void name##_type_change_warn(datum_type* datum, Exiv2::TypeId old_type) {
         TypeInfo::typeName(old_type) << "' to '" <<
         TypeInfo::typeName(new_type) << "'.\n";
 };
-static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
-    Exiv2::TypeId old_type = name##_default_type(datum);
+static PyObject* base_class##_set_value(datum_type* datum,
+                                        const std::string& value) {
+    Exiv2::TypeId old_type = base_class##_default_type(datum);
     if (datum->setValue(value) != 0)
         return PyErr_Format(PyExc_ValueError,
             "%s: cannot set type '%s' to value '%s'",
             datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
             value.c_str());
-    name##_type_change_warn(datum, old_type);
+    base_class##_type_change_warn(datum, old_type);
     return SWIG_Py_Void();
 };
 %}
 // Add methods to base class
 %extend base_class {
     long __len__() {
-        return $self->count();
+        return (*$self)->count();
     }
     datum_type* __getitem__(const std::string& key) {
-        return &(*$self)[key];
+        return &(***$self)[key];
     }
     PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
-        datum_type* datum = &(*$self)[key];
-        Exiv2::TypeId old_type = name##_default_type(datum);
+        datum_type* datum = &(***$self)[key];
+        Exiv2::TypeId old_type = base_class##_default_type(datum);
         datum->setValue(value);
-        name##_type_change_warn(datum, old_type);
+        base_class##_type_change_warn(datum, old_type);
         return SWIG_Py_Void();
     }
     PyObject* __setitem__(const std::string& key, const std::string& value) {
-        datum_type* datum = &(*$self)[key];
-        return name##_set_value(datum, value);
+        datum_type* datum = &(***$self)[key];
+        return base_class##_set_value(datum, value);
     }
     PyObject* __setitem__(const std::string& key, PyObject* value) {
         // Get equivalent of Python "str(value)"
@@ -129,67 +131,57 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
             return NULL;
         const char* c_str = PyUnicode_AsUTF8(py_str);
         Py_DECREF(py_str);
-        datum_type* datum = &(*$self)[key];
-        return name##_set_value(datum, c_str);
+        datum_type* datum = &(***$self)[key];
+        return base_class##_set_value(datum, c_str);
     }
 #if defined(SWIGPYTHON_BUILTIN)
     PyObject* __setitem__(const std::string& key) {
 #else
     PyObject* __delitem__(const std::string& key) {
 #endif
-        base_class::iterator pos = $self->findKey(key_type(key));
-        if (pos == $self->end()) {
+        base_class_iterator pos = (*$self)->findKey(key_type(key));
+        if (pos == (*$self)->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
         }
-        $self->erase(pos);
+        (*$self)->erase(pos);
         return SWIG_Py_Void();
     }
     bool __contains__(const std::string& key) {
-        return $self->findKey(key_type(key)) != $self->end();
+        return (*$self)->findKey(key_type(key)) != (*$self)->end();
     }
 }
 %enddef // DATA_MAPPING_METHODS
 
-// Macro to wrap data iterators
-%define DATA_ITERATOR(name, base_class, iterator_type, datum_type)
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") base_class::__iter__;
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") name##IteratorBase::__iter__;
-%feature("python:slot", "tp_iternext",
-         functype="iternextfunc") name##IteratorBase::__next__;
-%feature("python:slot", "tp_str",
-         functype="reprfunc") name##IteratorBase::__str__;
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") name##Iterator::__iter__;
+// Macros to wrap data iterators
+%define _USE_DATA_ITERATOR(base_class, iterator_type)
 // typemaps
-%typemap(in) iterator_type (int res, name##IteratorBase *argp) %{
+%typemap(in) iterator_type (int res, base_class##_iterator_end *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
-                          $descriptor(name##IteratorBase*), 0);
+                          $descriptor(base_class##_iterator_end*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, name##IteratorBase, $symname, $argnum);
+        %argument_fail(res, base_class##_iterator_end, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(name##IteratorBase, $symname, $argnum);
+        %argument_nullref(base_class##_iterator_end, $symname, $argnum);
     }
-    $1 = argp->_unwrap();
+    $1 = **argp;
 %};
 // "out" typemap assumes arg1 is always the base_class parent and
 // self is always the Python parent
 %typemap(out) iterator_type {
-    iterator_type end = arg1->end();
+    iterator_type end = (*arg1)->end();
     if ((iterator_type)$1 == end)
         $result = SWIG_NewPointerObj(
-            new name##IteratorBase($1, end, self),
-            $descriptor(name##IteratorBase*), SWIG_POINTER_OWN);
+            new base_class##_iterator_end($1, end, self),
+            $descriptor(base_class##_iterator_end*), SWIG_POINTER_OWN);
     else
         $result = SWIG_NewPointerObj(
-            new name##Iterator($1, end, self),
-            $descriptor(name##Iterator*), SWIG_POINTER_OWN);
+            new base_class##_iterator($1, end, self),
+            $descriptor(base_class##_iterator*), SWIG_POINTER_OWN);
 };
 // replace buf size check to dereference arg1/self
-%typemap(check) (name##Iterator const* self, Exiv2::byte* buf) %{
+%typemap(check) (base_class##_iterator const* self, Exiv2::byte* buf) %{
     if (_global_len < (*$1)->size()) {
         PyErr_Format(PyExc_ValueError,
             "in method '$symname', '$2_name' value is a %d byte buffer,"
@@ -198,54 +190,72 @@ static PyObject* name##_set_value(datum_type* datum, const std::string& value) {
         SWIG_fail;
     }
 %}
-%newobject name##Iterator::__iter__;
-%newobject name##IteratorBase::__iter__;
+%enddef // _USE_DATA_ITERATOR
+
+// Declare the above typemaps everywhere
+_USE_DATA_ITERATOR(ExifData, Exiv2::ExifData::iterator)
+_USE_DATA_ITERATOR(IptcData, Exiv2::IptcData::iterator)
+_USE_DATA_ITERATOR(XmpData, Exiv2::XmpData::iterator)
+
+%define DATA_ITERATOR(base_class, iterator_type, datum_type, mode)
+%feature("python:slot", "tp_iter",
+         functype="getiterfunc") base_class::__iter__;
+%feature("python:slot", "tp_iter",
+         functype="getiterfunc") base_class##_iterator_end::__iter__;
+%feature("python:slot", "tp_iternext",
+         functype="iternextfunc") base_class##_iterator_end::__next__;
+%feature("python:slot", "tp_str",
+         functype="reprfunc") base_class##_iterator_end::__str__;
+%feature("python:slot", "tp_iter",
+         functype="getiterfunc") base_class##_iterator::__iter__;
+%newobject base_class##_iterator::__iter__;
+%newobject base_class##_iterator_end::__iter__;
 %noexception base_class::__iter__;
-%noexception name##IteratorBase::operator==;
-%noexception name##IteratorBase::operator!=;
-%ignore name##Iterator::name##Iterator;
-%ignore name##IteratorBase::name##IteratorBase;
-%ignore name##IteratorBase::_unwrap;
-%feature("docstring") name##Iterator "
+%noexception base_class##_iterator_end::operator==;
+%noexception base_class##_iterator_end::operator!=;
+%ignore base_class##_iterator::base_class##_iterator;
+%ignore base_class##_iterator_end::base_class##_iterator_end;
+%ignore base_class##_iterator_end::operator*;
+%feature("docstring") base_class##_iterator "
 Python wrapper for an " #iterator_type ". It has most of
 the methods of " #datum_type " allowing easy access to the
 data it points to.
 "
-%feature("docstring") name##IteratorBase "
+%feature("docstring") base_class##_iterator_end "
 Python wrapper for an " #iterator_type " that points to
 " #base_class "::end().
 "
 %extend base_class {
     iterator_type __iter__() {
-        return $self->begin();
+        return (*$self)->begin();
     }
 }
-%exception name##IteratorBase::__next__ %{
+%exception base_class##_iterator_end::__next__ %{
     $action
     if (PyErr_Occurred())
         SWIG_fail;
 %}
-%inline %{
+mode %{
 // Base class supports a single fixed pointer that never gets dereferenced
-class name##IteratorBase {
+class base_class##_iterator_end {
 protected:
     iterator_type ptr;
     iterator_type end;
     iterator_type safe_ptr;
     PyObject* parent;
 public:
-    name##IteratorBase(iterator_type ptr, iterator_type end, PyObject* parent) {
+    base_class##_iterator_end(iterator_type ptr, iterator_type end, PyObject* parent) {
         this->ptr = ptr;
         this->end = end;
         this->parent = parent;
         safe_ptr = ptr;
         Py_INCREF(parent);
     }
-    ~name##IteratorBase() {
+    ~base_class##_iterator_end() {
         Py_DECREF(parent);
     }
-    name##IteratorBase* __iter__() {
-        return new name##IteratorBase(ptr, end, parent);
+    base_class##_iterator_end* __iter__() {
+        return new base_class##_iterator_end(ptr, end, parent);
     }
     datum_type* __next__() {
         datum_type* result = NULL;
@@ -260,14 +270,14 @@ public:
         }
         return result;
     }
-    iterator_type _unwrap() const {
+    iterator_type operator*() const {
         return ptr;
     }
-    bool operator==(const name##IteratorBase &other) const {
-        return other._unwrap() == ptr;
+    bool operator==(const base_class##_iterator_end &other) const {
+        return *other == ptr;
     }
-    bool operator!=(const name##IteratorBase &other) const {
-        return other._unwrap() != ptr;
+    bool operator!=(const base_class##_iterator_end &other) const {
+        return *other != ptr;
     }
     std::string __str__() {
         if (ptr == end)
@@ -277,117 +287,79 @@ public:
 };
 // Main class always has a dereferencable pointer in safe_ptr, so no extra checks
 // are needed.
-class name##Iterator : public name##IteratorBase {
+class base_class##_iterator : public base_class##_iterator_end {
 public:
-    name##Iterator(iterator_type ptr, iterator_type end, PyObject* parent)
-                   : name##IteratorBase(ptr, end, parent) {}
+    base_class##_iterator(iterator_type ptr, iterator_type end, PyObject* parent)
+                   : base_class##_iterator_end(ptr, end, parent) {}
     datum_type* operator->() const {
         return &(*safe_ptr);
     }
-    name##Iterator* __iter__() {
-        return new name##Iterator(safe_ptr, end, parent);
+    base_class##_iterator* __iter__() {
+        return new base_class##_iterator(safe_ptr, end, parent);
     }
 };
 %}
 %enddef // DATA_ITERATOR
 
-// Macros to wrap data while keeping a reference to its image
-// Macro that actually does everything, either declaration only or implemented
-%define _DATA_WRAPPER(name, base_class, datum_type, key_type, mode)
-// Allow name##Wrap to be passed where base_class is expected
-%typemap(in) base_class& (int res, name##Wrap* arg_wrap, base_class* arg_base) %{
-    res = SWIG_ConvertPtr($input, (void**)&arg_wrap, $descriptor(name##Wrap*), 0);
-    if (SWIG_IsOK(res)) {
-        // Input is wrapped name
-        if (!arg_wrap) {
-            %argument_nullref(name##Wrap, $symname, $argnum);
-        }
-        $1 = arg_wrap->_unwrap();
+// Macros to wrap data while keeping a reference to the image it belongs to
+%define _USE_DATA_WRAPPER(wrap_class, base_class)
+%ignore base_class;
+%typemap(in) base_class& (int res, wrap_class* argp) %{
+    res = SWIG_ConvertPtr($input, (void**)&argp, $descriptor(wrap_class*), 0);
+    if (!SWIG_IsOK(res)) {
+        %argument_fail(res, wrap_class, $symname, $argnum);
     }
-    else {
-        // Input should be of type base_class
-        res = SWIG_ConvertPtr($input, (void**)&arg_base,
-                              $descriptor(base_class*), 0);
-        if (!SWIG_IsOK(res)) {
-            %argument_fail(res, base_class, $symname, $argnum);
-        }
-        if (!arg_base) {
-            %argument_nullref(base_class, $symname, $argnum);
-        }
-        $1 = arg_base;
+    if (!argp) {
+        %argument_nullref(wrap_class, $symname, $argnum);
     }
+    $1 = **argp;
 %};
-%ignore name##Wrap::name##Wrap;
-%ignore name##Wrap::_unwrap;
-%ignore name##Wrap::operator[];
-%ignore name##Wrap::count;
-%ignore name##Wrap::begin;
-%ignore name##Wrap::end;
-%ignore name##Wrap::erase;
-%ignore name##Wrap::findKey;
-%feature("docstring") name##Wrap
-    "Python wrapper for "#base_class
-    ".\nSee that class's documentation for full details."
+// typemap assumes self is the Python image parent
+%typemap(out) base_class& %{
+    $result = SWIG_NewPointerObj(
+        new wrap_class($1, self), $descriptor(wrap_class*), SWIG_POINTER_OWN);
+%};
+%enddef // _USE_DATA_WRAPPER
+
+// Declare the above typemaps everywhere
+_USE_DATA_WRAPPER(ExifData, Exiv2::ExifData)
+_USE_DATA_WRAPPER(IptcData, Exiv2::IptcData)
+_USE_DATA_WRAPPER(XmpData, Exiv2::XmpData)
+
+// DEFINE_DATA_WRAPPER defines a class, so needs to be declared in every
+// module that uses the class
+%define DEFINE_DATA_WRAPPER(wrap_class, base_class, mode)
+%ignore wrap_class::wrap_class(base_class* base, PyObject* owner);
+%ignore wrap_class::operator*;
 mode %{
-class name##Wrap {
+class wrap_class {
 private:
     base_class* base;
-    PyObject* image;
+    PyObject* owner;
 public:
-    typedef base_class::iterator iterator;
-    name##Wrap(base_class* base, PyObject* image) {
+    wrap_class() {
+        this->base = new base_class();
+        this->owner = NULL;
+    }
+    wrap_class(base_class* base, PyObject* owner) {
         this->base = base;
-        Py_INCREF(image);
-        this->image = image;
+        Py_INCREF(owner);
+        this->owner = owner;
     }
-    ~name##Wrap() {
-        Py_XDECREF(image);
+    ~wrap_class() {
+        Py_XDECREF(owner);
     }
-    base_class* operator->() {
+    // Provide Python access to base_class members
+    base_class* operator->() const {
         return base;
     }
-    base_class* _unwrap() {
+    // Provide C++ access to base_class members
+    base_class* operator*() const {
         return base;
-    }
-    // make some base class methods available to C++ (operator-> makes them
-    // all available to Python)
-    datum_type& operator[](const std::string &key) {
-        return (*base)[key];
-    }
-    long count() const {
-        return base->count();
-    }
-    base_class::iterator begin() {
-        return base->begin();
-    }
-    base_class::iterator end() {
-        return base->end();
-    }
-    base_class::iterator erase(base_class::iterator pos) {
-        return base->erase(pos);
-    }
-    base_class::iterator findKey(const key_type &key) {
-        return base->findKey(key);
     }
 };
 %}
-%enddef // _DATA_WRAPPER
-
-// Macro to declare wrapped class for C++ use but not for Python
-%define DATA_WRAPPER_DEC(name, base_class, datum_type, key_type)
-_DATA_WRAPPER(name, base_class, datum_type, key_type, )
-%enddef // DATA_WRAPPER_DEC
-
-// Macro to declare wrapped class for Python and C++
-%define DATA_WRAPPER(name, base_class, datum_type, key_type)
-_DATA_WRAPPER(name, base_class, datum_type, key_type, %inline)
-// Make image methods return wrapped data
-// typemap assumes self is the Python image
-%typemap(out) base_class& %{
-    $result = SWIG_NewPointerObj(
-        new name##Wrap($1, self), $descriptor(name##Wrap*), SWIG_POINTER_OWN);
-%};
-%enddef // DATA_WRAPPER
+%enddef // DEFINE_DATA_WRAPPER
 
 // Macro to make enums more Pythonic
 %define ENUM(name, doc, contents...)

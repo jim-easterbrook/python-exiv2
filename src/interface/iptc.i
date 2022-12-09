@@ -26,10 +26,11 @@
 %import "metadatum.i"
 
 #ifndef SWIGIMPORTED
-DATA_MAPPING_METHODS(IptcData, Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
+DATA_MAPPING_METHODS(IptcData, Exiv2::IptcData::iterator, Exiv2::Iptcdatum,
+    Exiv2::IptcKey,
     Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
-DATA_ITERATOR(IptcData, Exiv2::IptcData, Exiv2::IptcData::iterator,
-              Exiv2::Iptcdatum)
+DATA_ITERATOR(IptcData, Exiv2::IptcData::iterator, Exiv2::Iptcdatum, %inline)
+DEFINE_DATA_WRAPPER(IptcData, Exiv2::IptcData, %inline)
 #endif
 
 // Turn off exception checking for methods that are guaranteed not to throw
