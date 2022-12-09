@@ -3981,35 +3981,6 @@ PyObject* logger = NULL;
 #include <string>
 
 
-static Exiv2::TypeId IptcData_default_type(Exiv2::Iptcdatum* datum) {
-    Exiv2::TypeId old_type = datum->typeId();
-    if (old_type == Exiv2::invalidTypeId)
-        old_type = Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
-    return old_type;
-};
-static void IptcData_type_change_warn(Exiv2::Iptcdatum* datum,
-                                          Exiv2::TypeId old_type) {
-    using namespace Exiv2;
-    TypeId new_type = datum->typeId();
-    if (new_type == old_type)
-        return;
-    EXV_WARNING << datum->key() << ": changed type from '" <<
-        TypeInfo::typeName(old_type) << "' to '" <<
-        TypeInfo::typeName(new_type) << "'.\n";
-};
-static PyObject* IptcData_set_value(Exiv2::Iptcdatum* datum,
-                                        const std::string& value) {
-    Exiv2::TypeId old_type = IptcData_default_type(datum);
-    if (datum->setValue(value) != 0)
-        return PyErr_Format(PyExc_ValueError,
-            "%s: cannot set type '%s' to value '%s'",
-            datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
-            value.c_str());
-    IptcData_type_change_warn(datum, old_type);
-    return SWIG_Py_Void();
-};
-
-
 // Base class supports a single fixed pointer that never gets dereferenced
 class IptcData_iterator_end {
 protected:
@@ -4938,6 +4909,9 @@ public:
     ~IptcData() {
         Py_XDECREF(owner);
     }
+    Exiv2::IptcData::iterator __iter__() {
+        return base->begin();
+    }
     // Provide Python access to Exiv2::IptcData members
     Exiv2::IptcData* operator->() const {
         return base;
@@ -4946,53 +4920,78 @@ public:
     Exiv2::IptcData* operator*() const {
         return base;
     }
-};
-
-SWIGINTERN long IptcData___len__(IptcData *self){
-        return (*self)->count();
+    // Methods to provide dict like behaviour
+    long __len__() {
+        return base->count();
     }
-SWIGINTERN Exiv2::Iptcdatum *IptcData___getitem__(IptcData *self,std::string const &key){
-        return &(***self)[key];
+    Exiv2::Iptcdatum* __getitem__(const std::string& key) {
+        return &(*base)[key];
     }
-SWIGINTERN PyObject *IptcData___setitem____SWIG_0(IptcData *self,std::string const &key,Exiv2::Value *value){
-        Exiv2::Iptcdatum* datum = &(***self)[key];
-        Exiv2::TypeId old_type = IptcData_default_type(datum);
-        datum->setValue(value);
-        IptcData_type_change_warn(datum, old_type);
+    // __setitem__ helper methods
+    Exiv2::TypeId _default_type(Exiv2::Iptcdatum* datum) {
+        Exiv2::TypeId old_type = datum->typeId();
+        if (old_type == Exiv2::invalidTypeId)
+            old_type = Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
+        return old_type;
+    }
+    static void _type_change_warn(Exiv2::Iptcdatum* datum, Exiv2::TypeId old_type) {
+        using namespace Exiv2;
+        TypeId new_type = datum->typeId();
+        if (new_type == old_type)
+            return;
+        EXV_WARNING << datum->key() << ": changed type from '" <<
+            TypeInfo::typeName(old_type) << "' to '" <<
+            TypeInfo::typeName(new_type) << "'.\n";
+    }
+    PyObject* _set_value(Exiv2::Iptcdatum* datum, const std::string& value) {
+        Exiv2::TypeId old_type = _default_type(datum);
+        if (datum->setValue(value) != 0)
+            return PyErr_Format(PyExc_ValueError,
+                "%s: cannot set type '%s' to value '%s'",
+                datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
+                value.c_str());
+        _type_change_warn(datum, old_type);
         return SWIG_Py_Void();
     }
-SWIGINTERN PyObject *IptcData___setitem____SWIG_1(IptcData *self,std::string const &key,std::string const &value){
-        Exiv2::Iptcdatum* datum = &(***self)[key];
-        return IptcData_set_value(datum, value);
+    PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
+        Exiv2::Iptcdatum* datum = &(*base)[key];
+        Exiv2::TypeId old_type = _default_type(datum);
+        datum->setValue(value);
+        _type_change_warn(datum, old_type);
+        return SWIG_Py_Void();
     }
-SWIGINTERN PyObject *IptcData___setitem____SWIG_2(IptcData *self,std::string const &key,PyObject *value){
+    PyObject* __setitem__(const std::string& key, const std::string& value) {
+        Exiv2::Iptcdatum* datum = &(*base)[key];
+        return _set_value(datum, value);
+    }
+    PyObject* __setitem__(const std::string& key, PyObject* value) {
         // Get equivalent of Python "str(value)"
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)
             return NULL;
         const char* c_str = PyUnicode_AsUTF8(py_str);
         Py_DECREF(py_str);
-        Exiv2::Iptcdatum* datum = &(***self)[key];
-        return IptcData_set_value(datum, c_str);
+        Exiv2::Iptcdatum* datum = &(*base)[key];
+        return _set_value(datum, c_str);
     }
-SWIGINTERN PyObject *IptcData___setitem____SWIG_3(IptcData *self,std::string const &key){
-
-
-
-        Exiv2::IptcData::iterator pos = (*self)->findKey(Exiv2::IptcKey(key));
-        if (pos == (*self)->end()) {
+#if 1
+    PyObject* __setitem__(const std::string& key) {
+#else
+    PyObject* __delitem__(const std::string& key) {
+#endif
+        Exiv2::IptcData::iterator pos = base->findKey(Exiv2::IptcKey(key));
+        if (pos == base->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
         }
-        (*self)->erase(pos);
+        base->erase(pos);
         return SWIG_Py_Void();
     }
-SWIGINTERN bool IptcData___contains__(IptcData *self,std::string const &key){
-        return (*self)->findKey(Exiv2::IptcKey(key)) != (*self)->end();
+    bool __contains__(const std::string& key) {
+        return base->findKey(Exiv2::IptcKey(key)) != base->end();
     }
-SWIGINTERN Exiv2::IptcData::iterator IptcData___iter__(IptcData *self){
-        return (*self)->begin();
-    }
+};
+
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
@@ -6602,6 +6601,38 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IptcData___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData *arg1 = (IptcData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___iter__" "', argument " "1"" of type '" "IptcData *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData * >(argp1);
+  result = (arg1)->__iter__();
+  {
+    Exiv2::IptcData::iterator end = (*arg1)->end();
+    if ((Exiv2::IptcData::iterator)result == end)
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator_end(result, end, self),
+      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
+    else
+    resultobj = SWIG_NewPointerObj(
+      new IptcData_iterator(result, end, self),
+      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IptcData___deref__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   IptcData *arg1 = (IptcData *) 0 ;
@@ -6649,18 +6680,7 @@ SWIGINTERN PyObject *_wrap_IptcData___len__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___len__" "', argument " "1"" of type '" "IptcData *""'"); 
   }
   arg1 = reinterpret_cast< IptcData * >(argp1);
-  {
-    try {
-      result = (long)IptcData___len__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (long)(arg1)->__len__();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -6699,7 +6719,7 @@ SWIGINTERN PyObject *_wrap_IptcData___getitem__(PyObject *self, PyObject *args) 
   }
   {
     try {
-      result = (Exiv2::Iptcdatum *)IptcData___getitem__(arg1,(std::string const &)*arg2);
+      result = (Exiv2::Iptcdatum *)(arg1)->__getitem__((std::string const &)*arg2);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -6755,7 +6775,7 @@ SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_0(PyObject *self, Py_ssize
   arg3 = reinterpret_cast< Exiv2::Value * >(argp3);
   {
     try {
-      result = (PyObject *)IptcData___setitem____SWIG_0(arg1,(std::string const &)*arg2,arg3);
+      result = (PyObject *)(arg1)->__setitem__((std::string const &)*arg2,arg3);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -6816,7 +6836,7 @@ SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_1(PyObject *self, Py_ssize
   }
   {
     try {
-      result = (PyObject *)IptcData___setitem____SWIG_1(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
+      result = (PyObject *)(arg1)->__setitem__((std::string const &)*arg2,(std::string const &)*arg3);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -6868,7 +6888,7 @@ SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_2(PyObject *self, Py_ssize
   arg3 = swig_obj[2];
   {
     try {
-      result = (PyObject *)IptcData___setitem____SWIG_2(arg1,(std::string const &)*arg2,arg3);
+      result = (PyObject *)(arg1)->__setitem__((std::string const &)*arg2,arg3);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -6916,7 +6936,7 @@ SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_3(PyObject *self, Py_ssize
   }
   {
     try {
-      result = (PyObject *)IptcData___setitem____SWIG_3(arg1,(std::string const &)*arg2);
+      result = (PyObject *)(arg1)->__setitem__((std::string const &)*arg2);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -7020,7 +7040,7 @@ SWIGINTERN PyObject *_wrap_IptcData___contains__(PyObject *self, PyObject *args)
   }
   {
     try {
-      result = (bool)IptcData___contains__(arg1,(std::string const &)*arg2);
+      result = (bool)(arg1)->__contains__((std::string const &)*arg2);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -7035,38 +7055,6 @@ SWIGINTERN PyObject *_wrap_IptcData___contains__(PyObject *self, PyObject *args)
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData___iter__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  IptcData *arg1 = (IptcData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "IptcData___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___iter__" "', argument " "1"" of type '" "IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< IptcData * >(argp1);
-  result = IptcData___iter__(arg1);
-  {
-    Exiv2::IptcData::iterator end = (*arg1)->end();
-    if ((Exiv2::IptcData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new IptcData_iterator_end(result, end, self),
-      SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new IptcData_iterator(result, end, self),
-      SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN);
-  }
-  return resultobj;
-fail:
   return NULL;
 }
 
@@ -7711,13 +7699,13 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcData) /* defines _wrap_delete_IptcData_destructor_closure */
 
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData___iter__) /* defines _wrap_IptcData___iter___getiterfunc_closure */
+
 SWIGPY_LENFUNC_CLOSURE(_wrap_IptcData___len__) /* defines _wrap_IptcData___len___lenfunc_closure */
 
 SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_IptcData___setitem__) /* defines _wrap_IptcData___setitem___objobjargproc_closure */
 
 SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_IptcData___contains__) /* defines _wrap_IptcData___contains___objobjproc_closure */
-
-SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData___iter__) /* defines _wrap_IptcData___iter___getiterfunc_closure */
 
 SWIGINTERN int _wrap_new_Iptcdatum__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -9536,12 +9524,12 @@ SwigPyBuiltin__IptcData_richcompare(PyObject *self, PyObject *other, int op) {
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_methods[] = {
+  { "__iter__", _wrap_IptcData___iter__, METH_NOARGS, "" },
   { "__deref__", _wrap_IptcData___deref__, METH_NOARGS, "" },
   { "__len__", _wrap_IptcData___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_IptcData___getitem__, METH_O, "" },
   { "__setitem__", _wrap_IptcData___setitem__, METH_VARARGS, "" },
   { "__contains__", _wrap_IptcData___contains__, METH_O, "" },
-  { "__iter__", _wrap_IptcData___iter__, METH_NOARGS, "" },
   { "add", _wrap_IptcData_add, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
 		"\n"

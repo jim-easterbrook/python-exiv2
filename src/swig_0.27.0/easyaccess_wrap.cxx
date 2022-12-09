@@ -3917,6 +3917,70 @@ PyObject* PyExc_Exiv2Error = NULL;
 PyObject* logger = NULL;
 
 
+// Base class supports a single fixed pointer that never gets dereferenced
+class ExifData_iterator_end {
+protected:
+    Exiv2::ExifData::iterator ptr;
+    Exiv2::ExifData::iterator end;
+    Exiv2::ExifData::iterator safe_ptr;
+    PyObject* parent;
+public:
+    ExifData_iterator_end(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end, PyObject* parent) {
+        this->ptr = ptr;
+        this->end = end;
+        this->parent = parent;
+        safe_ptr = ptr;
+        Py_INCREF(parent);
+    }
+    ~ExifData_iterator_end() {
+        Py_DECREF(parent);
+    }
+    ExifData_iterator_end* __iter__() {
+        return new ExifData_iterator_end(ptr, end, parent);
+    }
+    Exiv2::Exifdatum* __next__() {
+        Exiv2::Exifdatum* result = NULL;
+        if (ptr == end) {
+            PyErr_SetNone(PyExc_StopIteration);
+            return NULL;
+        }
+        result = &(*safe_ptr);
+        ptr++;
+        if (ptr != end) {
+            safe_ptr = ptr;
+        }
+        return result;
+    }
+    Exiv2::ExifData::iterator operator*() const {
+        return ptr;
+    }
+    bool operator==(const ExifData_iterator_end &other) const {
+        return *other == ptr;
+    }
+    bool operator!=(const ExifData_iterator_end &other) const {
+        return *other != ptr;
+    }
+    std::string __str__() {
+        if (ptr == end)
+            return "iterator<end>";
+        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
+    }
+};
+// Main class always has a dereferencable pointer in safe_ptr, so no extra checks
+// are needed.
+class ExifData_iterator : public ExifData_iterator_end {
+public:
+    ExifData_iterator(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end, PyObject* parent)
+                   : ExifData_iterator_end(ptr, end, parent) {}
+    Exiv2::Exifdatum* operator->() const {
+        return &(*safe_ptr);
+    }
+    ExifData_iterator* __iter__() {
+        return new ExifData_iterator(safe_ptr, end, parent);
+    }
+};
+
+
 class ExifData {
 private:
     Exiv2::ExifData* base;
@@ -3934,6 +3998,9 @@ public:
     ~ExifData() {
         Py_XDECREF(owner);
     }
+    Exiv2::ExifData::iterator __iter__() {
+        return base->begin();
+    }
     // Provide Python access to Exiv2::ExifData members
     Exiv2::ExifData* operator->() const {
         return base;
@@ -3941,6 +4008,76 @@ public:
     // Provide C++ access to Exiv2::ExifData members
     Exiv2::ExifData* operator*() const {
         return base;
+    }
+    // Methods to provide dict like behaviour
+    long __len__() {
+        return base->count();
+    }
+    Exiv2::Exifdatum* __getitem__(const std::string& key) {
+        return &(*base)[key];
+    }
+    // __setitem__ helper methods
+    Exiv2::TypeId _default_type(Exiv2::Exifdatum* datum) {
+        Exiv2::TypeId old_type = datum->typeId();
+        if (old_type == Exiv2::invalidTypeId)
+            old_type = Exiv2::ExifKey(datum->key()).defaultTypeId();
+        return old_type;
+    }
+    static void _type_change_warn(Exiv2::Exifdatum* datum, Exiv2::TypeId old_type) {
+        using namespace Exiv2;
+        TypeId new_type = datum->typeId();
+        if (new_type == old_type)
+            return;
+        EXV_WARNING << datum->key() << ": changed type from '" <<
+            TypeInfo::typeName(old_type) << "' to '" <<
+            TypeInfo::typeName(new_type) << "'.\n";
+    }
+    PyObject* _set_value(Exiv2::Exifdatum* datum, const std::string& value) {
+        Exiv2::TypeId old_type = _default_type(datum);
+        if (datum->setValue(value) != 0)
+            return PyErr_Format(PyExc_ValueError,
+                "%s: cannot set type '%s' to value '%s'",
+                datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
+                value.c_str());
+        _type_change_warn(datum, old_type);
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
+        Exiv2::Exifdatum* datum = &(*base)[key];
+        Exiv2::TypeId old_type = _default_type(datum);
+        datum->setValue(value);
+        _type_change_warn(datum, old_type);
+        return SWIG_Py_Void();
+    }
+    PyObject* __setitem__(const std::string& key, const std::string& value) {
+        Exiv2::Exifdatum* datum = &(*base)[key];
+        return _set_value(datum, value);
+    }
+    PyObject* __setitem__(const std::string& key, PyObject* value) {
+        // Get equivalent of Python "str(value)"
+        PyObject* py_str = PyObject_Str(value);
+        if (py_str == NULL)
+            return NULL;
+        const char* c_str = PyUnicode_AsUTF8(py_str);
+        Py_DECREF(py_str);
+        Exiv2::Exifdatum* datum = &(*base)[key];
+        return _set_value(datum, c_str);
+    }
+#if 1
+    PyObject* __setitem__(const std::string& key) {
+#else
+    PyObject* __delitem__(const std::string& key) {
+#endif
+        Exiv2::ExifData::iterator pos = base->findKey(Exiv2::ExifKey(key));
+        if (pos == base->end()) {
+            PyErr_SetString(PyExc_KeyError, key.c_str());
+            return NULL;
+        }
+        base->erase(pos);
+        return SWIG_Py_Void();
+    }
+    bool __contains__(const std::string& key) {
+        return base->findKey(Exiv2::ExifKey(key)) != base->end();
     }
 };
 

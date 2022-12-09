@@ -20,7 +20,8 @@
 %include "preamble.i"
 
 #ifndef SWIGIMPORTED
-DEFINE_DATA_WRAPPER(ExifData, Exiv2::ExifData, )
+DATA_CONTAINER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
+    Exiv2::ExifKey(datum->key()).defaultTypeId(), )
 #endif
 
 // Store data.end() after converting input
