@@ -106,27 +106,7 @@ wrap_auto_unique_ptr(Exiv2::Value);
 %ignore type_name::value_;
 %noexception type_name::count;
 %noexception type_name::size;
-%feature("docstring") type_name::downCast
-    "Convert general 'Exiv2::Value' to specific 'type_name'."
-%newobject type_name::downCast;
 %extend type_name {
-    static type_name* downCast(const Exiv2::Value& value) {
-        type_name* pv = dynamic_cast< type_name* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type_name.";
-#if EXIV2_VERSION_HEX < 0x01000000
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-#else
-            throw Exiv2::Error(Exiv2::ErrorCode::kerErrorMessage, msg);
-#endif
-        }
-        PyErr_WarnFormat(PyExc_DeprecationWarning, 1,
-            "Replace part_name.downCast(value) with copy constructor "
-            "part_name(value).");
-        return pv;
-    }
     part_name(const Exiv2::Value& value) {
         type_name* pv = dynamic_cast< type_name* >(value.clone().release());
         if (pv == 0) {
