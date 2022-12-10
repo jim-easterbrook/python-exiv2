@@ -30,8 +30,23 @@
 wrap_auto_unique_ptr(Exiv2::Value);
 
 // ---- Typemaps ----
+%typemap(in) Exiv2::DateValue::Date & (Exiv2::DateValue::Date date) %{
+    if (!PyArg_ParseTuple(Py_BuildValue("(O)", $input), "(iii)",
+                          &date.year, &date.month, &date.day)) {
+        SWIG_fail;
+    }
+    $1 = &date;
+%}
 %typemap(out) Exiv2::DateValue::Date %{
     $result = Py_BuildValue("(iii)", $1.year, $1.month, $1.day);
+%}
+%typemap(in) Exiv2::TimeValue::Time & (Exiv2::TimeValue::Time time) %{
+    if (!PyArg_ParseTuple(Py_BuildValue("(O)", $input), "(iiiii)",
+                          &time.hour, &time.minute, &time.second,
+                          &time.tzHour, &time.tzMinute)) {
+        SWIG_fail;
+    }
+    $1 = &time;
 %}
 %typemap(out) Exiv2::TimeValue::Time %{
     $result = Py_BuildValue(
@@ -177,7 +192,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %enddef // VALUETYPE
 
 // Allow Date and Time to be set from int values
-%ignore Exiv2::DateValue::setDate(const Date&);
 %extend Exiv2::DateValue {
     void setDate(int year, int month, int day) {
         Exiv2::DateValue::Date date;
@@ -187,7 +201,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         $self->setDate(date);
     }
 }
-%ignore Exiv2::TimeValue::setTime(const Time&);
 %extend Exiv2::TimeValue {
     void setTime(int hour, int minute, int second = 0,
                  int tzHour = 0, int tzMinute = 0) {

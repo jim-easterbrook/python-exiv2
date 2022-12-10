@@ -40,12 +40,12 @@ def main():
     print("Python datetime:", py_datetime)
     # Python -> Exiv2
     date = exiv2.DateValue()
-    date.setDate(py_datetime.year, py_datetime.month, py_datetime.day)
+    date.setDate((py_datetime.year, py_datetime.month, py_datetime.day))
     print("Exiv2 date:", date)
     time = exiv2.TimeValue()
     offset = int(tz.utcoffset(py_datetime).total_seconds()) // 60
-    time.setTime(py_datetime.hour, py_datetime.minute, py_datetime.second,
-                 offset // 60, offset % 60)
+    time.setTime((py_datetime.hour, py_datetime.minute, py_datetime.second,
+                  offset // 60, offset % 60))
     print("Exiv2 time:", time)
     # Exiv2 -> Python
     # date[0] and time[0] return tuples of ints
