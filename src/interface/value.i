@@ -151,6 +151,10 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %feature("python:slot", "sq_ass_item",
          functype="ssizeobjargproc") Exiv2::ValueType<item_type>::__setitem__;
 %template() std::vector<item_type>;
+%feature("docstring") Exiv2::ValueType<item_type>
+"Sequence of " #item_type " values."
+%feature("docstring") Exiv2::ValueType<item_type>::append
+"Append a " #item_type " component to the value."
 %extend Exiv2::ValueType<item_type> {
     // Constructor, reads values from a Python list
     ValueType<item_type>(Exiv2::ValueType<item_type>::ValueList value) {

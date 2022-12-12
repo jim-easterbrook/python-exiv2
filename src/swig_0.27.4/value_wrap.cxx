@@ -34242,7 +34242,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_methods[] = {
 		"" },
   { "__getitem__", _wrap_UShortValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_UShortValue___setitem__, METH_VARARGS, "" },
-  { "append", _wrap_UShortValue_append, METH_O, "" },
+  { "append", _wrap_UShortValue_append, METH_O, "Append a uint16_t component to the value." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -34285,10 +34285,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"Template for a %Value of a basic type. This is used for unsigned\n"
-		"       and signed short, long and rationals.\n"
-		"",/* tp_doc */
+    "Sequence of uint16_t values.",           /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_richcompare,      /* tp_richcompare */
@@ -34532,7 +34529,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_methods[] = {
 		"" },
   { "__getitem__", _wrap_ULongValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_ULongValue___setitem__, METH_VARARGS, "" },
-  { "append", _wrap_ULongValue_append, METH_O, "" },
+  { "append", _wrap_ULongValue_append, METH_O, "Append a uint32_t component to the value." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -34575,10 +34572,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"Template for a %Value of a basic type. This is used for unsigned\n"
-		"       and signed short, long and rationals.\n"
-		"",/* tp_doc */
+    "Sequence of uint32_t values.",           /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_richcompare,      /* tp_richcompare */
@@ -34822,7 +34816,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_metho
 		"" },
   { "__getitem__", _wrap_URationalValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_URationalValue___setitem__, METH_VARARGS, "" },
-  { "append", _wrap_URationalValue_append, METH_O, "" },
+  { "append", _wrap_URationalValue_append, METH_O, "Append a Exiv2::URational component to the value." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -34865,10 +34859,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_type
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"Template for a %Value of a basic type. This is used for unsigned\n"
-		"       and signed short, long and rationals.\n"
-		"",/* tp_doc */
+    "Sequence of Exiv2::URational values.",   /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_richcompare,/* tp_richcompare */
@@ -35112,7 +35103,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_methods[] = {
 		"" },
   { "__getitem__", _wrap_ShortValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_ShortValue___setitem__, METH_VARARGS, "" },
-  { "append", _wrap_ShortValue_append, METH_O, "" },
+  { "append", _wrap_ShortValue_append, METH_O, "Append a int16_t component to the value." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -35155,10 +35146,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"Template for a %Value of a basic type. This is used for unsigned\n"
-		"       and signed short, long and rationals.\n"
-		"",/* tp_doc */
+    "Sequence of int16_t values.",            /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_richcompare,       /* tp_richcompare */
@@ -35397,7 +35385,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_methods[] = {
 		"" },
   { "__getitem__", _wrap_LongValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_LongValue___setitem__, METH_VARARGS, "" },
-  { "append", _wrap_LongValue_append, METH_O, "" },
+  { "append", _wrap_LongValue_append, METH_O, "Append a int32_t component to the value." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -35440,10 +35428,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"Template for a %Value of a basic type. This is used for unsigned\n"
-		"       and signed short, long and rationals.\n"
-		"",/* tp_doc */
+    "Sequence of int32_t values.",            /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_richcompare,       /* tp_richcompare */
@@ -35687,7 +35672,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_method
 		"" },
   { "__getitem__", _wrap_RationalValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_RationalValue___setitem__, METH_VARARGS, "" },
-  { "append", _wrap_RationalValue_append, METH_O, "" },
+  { "append", _wrap_RationalValue_append, METH_O, "Append a Exiv2::Rational component to the value." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -35730,10 +35715,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_type 
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"Template for a %Value of a basic type. This is used for unsigned\n"
-		"       and signed short, long and rationals.\n"
-		"",/* tp_doc */
+    "Sequence of Exiv2::Rational values.",    /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_richcompare,/* tp_richcompare */
@@ -35977,7 +35959,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_float_t_methods[] = {
 		"" },
   { "__getitem__", _wrap_FloatValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_FloatValue___setitem__, METH_VARARGS, "" },
-  { "append", _wrap_FloatValue_append, METH_O, "" },
+  { "append", _wrap_FloatValue_append, METH_O, "Append a float component to the value." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -36020,10 +36002,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_float_t_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"Template for a %Value of a basic type. This is used for unsigned\n"
-		"       and signed short, long and rationals.\n"
-		"",/* tp_doc */
+    "Sequence of float values.",              /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__ValueTypeT_float_t_richcompare,         /* tp_richcompare */
@@ -36267,7 +36246,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_double_t_methods[] = {
 		"" },
   { "__getitem__", _wrap_DoubleValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_DoubleValue___setitem__, METH_VARARGS, "" },
-  { "append", _wrap_DoubleValue_append, METH_O, "" },
+  { "append", _wrap_DoubleValue_append, METH_O, "Append a double component to the value." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -36310,10 +36289,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_double_t_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"Template for a %Value of a basic type. This is used for unsigned\n"
-		"       and signed short, long and rationals.\n"
-		"",/* tp_doc */
+    "Sequence of double values.",             /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__ValueTypeT_double_t_richcompare,        /* tp_richcompare */
