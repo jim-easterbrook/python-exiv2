@@ -383,9 +383,6 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
     }
 }
 
-%ignore Exiv2::getValue;
-%ignore LARGE_INT;
-
 // Some classes wrongly appear to be abstract to SWIG
 %feature("notabstract") Exiv2::LangAltValue;
 %feature("notabstract") Exiv2::XmpArrayValue;
@@ -395,13 +392,16 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 %ignore Exiv2::ValueType< int32_t >::ValueType(int const &);
 
 // Ignore stuff Python can't use or SWIG can't handle
+%ignore Exiv2::getValue;
 %ignore Exiv2::operator<<;
 %ignore Exiv2::Value::operator=;
 %ignore Exiv2::Value::write;
 %ignore Exiv2::CommentValue::CharsetInfo;
 %ignore Exiv2::CommentValue::CharsetTable;
+%ignore Exiv2::LangAltValueComparator;
 %ignore Exiv2::DateValue::Date;
 %ignore Exiv2::TimeValue::Time;
+%ignore LARGE_INT;
 
 %include "exiv2/value.hpp"
 

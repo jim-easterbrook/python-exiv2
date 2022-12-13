@@ -3759,59 +3759,58 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__DateValue swig_types[8]
 #define SWIGTYPE_p_Exiv2__DateValue__Date swig_types[9]
 #define SWIGTYPE_p_Exiv2__LangAltValue swig_types[10]
-#define SWIGTYPE_p_Exiv2__LangAltValueComparator swig_types[11]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[12]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[13]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[14]
-#define SWIGTYPE_p_Exiv2__TimeValue__Time swig_types[15]
-#define SWIGTYPE_p_Exiv2__Value swig_types[16]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[17]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[18]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[19]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[20]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[21]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[22]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[23]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[24]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[25]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[26]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[27]
-#define SWIGTYPE_p_IptcData swig_types[28]
-#define SWIGTYPE_p_IptcData_iterator swig_types[29]
-#define SWIGTYPE_p_IptcData_iterator_end swig_types[30]
-#define SWIGTYPE_p_SwigPyObject swig_types[31]
-#define SWIGTYPE_p_ValueList swig_types[32]
-#define SWIGTYPE_p_ValueType swig_types[33]
-#define SWIGTYPE_p_XmpData swig_types[34]
-#define SWIGTYPE_p_XmpData_iterator swig_types[35]
-#define SWIGTYPE_p_XmpData_iterator_end swig_types[36]
-#define SWIGTYPE_p_allocator_type swig_types[37]
-#define SWIGTYPE_p_char swig_types[38]
-#define SWIGTYPE_p_const_iterator swig_types[39]
-#define SWIGTYPE_p_difference_type swig_types[40]
-#define SWIGTYPE_p_first_type swig_types[41]
-#define SWIGTYPE_p_int swig_types[42]
-#define SWIGTYPE_p_iterator swig_types[43]
-#define SWIGTYPE_p_key_type swig_types[44]
-#define SWIGTYPE_p_long_long swig_types[45]
-#define SWIGTYPE_p_mapped_type swig_types[46]
-#define SWIGTYPE_p_second_type swig_types[47]
-#define SWIGTYPE_p_short swig_types[48]
-#define SWIGTYPE_p_signed_char swig_types[49]
-#define SWIGTYPE_p_size_type swig_types[50]
-#define SWIGTYPE_p_std__invalid_argument swig_types[51]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[52]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[53]
-#define SWIGTYPE_p_std__string swig_types[54]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[55]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[56]
-#define SWIGTYPE_p_unsigned_char swig_types[57]
-#define SWIGTYPE_p_unsigned_int swig_types[58]
-#define SWIGTYPE_p_unsigned_long_long swig_types[59]
-#define SWIGTYPE_p_unsigned_short swig_types[60]
-#define SWIGTYPE_p_value_type swig_types[61]
-static swig_type_info *swig_types[63];
-static swig_module_info swig_module = {swig_types, 62, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[11]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[12]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[13]
+#define SWIGTYPE_p_Exiv2__TimeValue__Time swig_types[14]
+#define SWIGTYPE_p_Exiv2__Value swig_types[15]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[16]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[17]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[18]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[19]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[20]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[21]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[22]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[23]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[24]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[25]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[26]
+#define SWIGTYPE_p_IptcData swig_types[27]
+#define SWIGTYPE_p_IptcData_iterator swig_types[28]
+#define SWIGTYPE_p_IptcData_iterator_end swig_types[29]
+#define SWIGTYPE_p_SwigPyObject swig_types[30]
+#define SWIGTYPE_p_ValueList swig_types[31]
+#define SWIGTYPE_p_ValueType swig_types[32]
+#define SWIGTYPE_p_XmpData swig_types[33]
+#define SWIGTYPE_p_XmpData_iterator swig_types[34]
+#define SWIGTYPE_p_XmpData_iterator_end swig_types[35]
+#define SWIGTYPE_p_allocator_type swig_types[36]
+#define SWIGTYPE_p_char swig_types[37]
+#define SWIGTYPE_p_const_iterator swig_types[38]
+#define SWIGTYPE_p_difference_type swig_types[39]
+#define SWIGTYPE_p_first_type swig_types[40]
+#define SWIGTYPE_p_int swig_types[41]
+#define SWIGTYPE_p_iterator swig_types[42]
+#define SWIGTYPE_p_key_type swig_types[43]
+#define SWIGTYPE_p_long_long swig_types[44]
+#define SWIGTYPE_p_mapped_type swig_types[45]
+#define SWIGTYPE_p_second_type swig_types[46]
+#define SWIGTYPE_p_short swig_types[47]
+#define SWIGTYPE_p_signed_char swig_types[48]
+#define SWIGTYPE_p_size_type swig_types[49]
+#define SWIGTYPE_p_std__invalid_argument swig_types[50]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[51]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[52]
+#define SWIGTYPE_p_std__string swig_types[53]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[54]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[55]
+#define SWIGTYPE_p_unsigned_char swig_types[56]
+#define SWIGTYPE_p_unsigned_int swig_types[57]
+#define SWIGTYPE_p_unsigned_long_long swig_types[58]
+#define SWIGTYPE_p_unsigned_short swig_types[59]
+#define SWIGTYPE_p_value_type swig_types[60]
+static swig_type_info *swig_types[62];
+static swig_module_info swig_module = {swig_types, 61, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -14725,132 +14724,6 @@ fail:
 SWIGPY_FUNPACK_SSIZEARGFUNC_CLOSURE(_wrap_XmpArrayValue___getitem__) /* defines _wrap_XmpArrayValue___getitem___ssizeargfunc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpArrayValue) /* defines _wrap_delete_XmpArrayValue_destructor_closure */
-
-SWIGINTERN PyObject *_wrap_LangAltValueComparator___call__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LangAltValueComparator *arg1 = (Exiv2::LangAltValueComparator *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[3] ;
-  bool result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "LangAltValueComparator___call__", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValueComparator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValueComparator___call__" "', argument " "1"" of type '" "Exiv2::LangAltValueComparator const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::LangAltValueComparator * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValueComparator___call__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LangAltValueComparator___call__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "LangAltValueComparator___call__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LangAltValueComparator___call__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  {
-    try {
-      result = (bool)((Exiv2::LangAltValueComparator const *)arg1)->operator ()((std::string const &)*arg2,(std::string const &)*arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
-SWIGINTERN int _wrap_new_LangAltValueComparator(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::LangAltValueComparator *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_LangAltValueComparator")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_LangAltValueComparator", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::LangAltValueComparator *)new Exiv2::LangAltValueComparator();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__LangAltValueComparator, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_LangAltValueComparator(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LangAltValueComparator *arg1 = (Exiv2::LangAltValueComparator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_LangAltValueComparator", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValueComparator, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_LangAltValueComparator" "', argument " "1"" of type '" "Exiv2::LangAltValueComparator *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::LangAltValueComparator * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_TERNARYCALLFUNC_CLOSURE(_wrap_LangAltValueComparator___call__) /* defines _wrap_LangAltValueComparator___call___ternarycallfunc_closure */
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_LangAltValueComparator) /* defines _wrap_delete_LangAltValueComparator_destructor_closure */
 
 SWIGINTERN int _wrap_new_LangAltValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
@@ -33076,241 +32949,6 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpArrayValue_type = {
 
 SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__XmpArrayValue_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpArrayValue_type};
 
-static SwigPyGetSet LangAltValueComparator___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__LangAltValueComparator_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" LangAltValueComparator comparison case insensitive function", &LangAltValueComparator___dict___getset },
-    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
-};
-
-SWIGINTERN PyObject *
-SwigPyBuiltin__Exiv2__LangAltValueComparator_richcompare(PyObject *self, PyObject *other, int op) {
-  PyObject *result = NULL;
-  if (!result) {
-    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
-      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
-    } else {
-      result = Py_NotImplemented;
-      Py_INCREF(result);
-    }
-  }
-  return result;
-}
-
-SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValueComparator_methods[] = {
-  { "__call__", _wrap_LangAltValueComparator___call__, METH_VARARGS, " LangAltValueComparator comparison case insensitive function" },
-  { NULL, NULL, 0, NULL } /* Sentinel */
-};
-
-static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValueComparator_type = {
-  {
-#if PY_VERSION_HEX >= 0x03000000
-    PyVarObject_HEAD_INIT(NULL, 0)
-#else
-    PyObject_HEAD_INIT(NULL)
-    0,                                        /* ob_size */
-#endif
-    "exiv2.value.LangAltValueComparator",     /* tp_name */
-    sizeof(SwigPyObject),                     /* tp_basicsize */
-    0,                                        /* tp_itemsize */
-    _wrap_delete_LangAltValueComparator_destructor_closure,       /* tp_dealloc */
-#if PY_VERSION_HEX < 0x030800b4
-    (printfunc) 0,                            /* tp_print */
-#else
-    (Py_ssize_t) 0,                           /* tp_vectorcall_offset */
-#endif
-    (getattrfunc) 0,                          /* tp_getattr */
-    (setattrfunc) 0,                          /* tp_setattr */
-#if PY_VERSION_HEX >= 0x03000000
-    0,                                        /* tp_compare */
-#else
-    (cmpfunc) 0,                              /* tp_compare */
-#endif
-    (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__Exiv2__LangAltValueComparator_type.as_number, /* tp_as_number */
-    &SwigPyBuiltin__Exiv2__LangAltValueComparator_type.as_sequence,/* tp_as_sequence */
-    &SwigPyBuiltin__Exiv2__LangAltValueComparator_type.as_mapping,/* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
-    _wrap_LangAltValueComparator___call___ternarycallfunc_closure,/* tp_call */
-    (reprfunc) 0,                             /* tp_str */
-    (getattrofunc) 0,                         /* tp_getattro */
-    (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__Exiv2__LangAltValueComparator_type.as_buffer, /* tp_as_buffer */
-#if PY_VERSION_HEX >= 0x03000000
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
-#else
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
-#endif
-    "\n"
-		"%LangAltValueComparator\n"
-		"\n"
-		"#1058\n"
-		"https://www.adobe.com/content/dam/Adobe/en/devnet/xmp/pdfs/XMPSpecificationPart1.pdf\n"
-		"XMP spec chapter B.4 (page 42) the xml:lang qualifier is to be compared case insensitive.\n"
-		"",/* tp_doc */
-    (traverseproc) 0,                         /* tp_traverse */
-    (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__Exiv2__LangAltValueComparator_richcompare,     /* tp_richcompare */
-    0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
-    (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__Exiv2__LangAltValueComparator_methods,         /* tp_methods */
-    0,                                        /* tp_members */
-    SwigPyBuiltin__Exiv2__LangAltValueComparator_getset,          /* tp_getset */
-    0,                                        /* tp_base */
-    0,                                        /* tp_dict */
-    (descrgetfunc) 0,                         /* tp_descr_get */
-    (descrsetfunc) 0,                         /* tp_descr_set */
-    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_LangAltValueComparator,         /* tp_init */
-    (allocfunc) 0,                            /* tp_alloc */
-    (newfunc) 0,                              /* tp_new */
-    (freefunc) 0,                             /* tp_free */
-    (inquiry) 0,                              /* tp_is_gc */
-    (PyObject *) 0,                           /* tp_bases */
-    (PyObject *) 0,                           /* tp_mro */
-    (PyObject *) 0,                           /* tp_cache */
-    (PyObject *) 0,                           /* tp_subclasses */
-    (PyObject *) 0,                           /* tp_weaklist */
-    (destructor) 0,                           /* tp_del */
-    (int) 0,                                  /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    (destructor) 0,                           /* tp_finalize */
-#endif
-#if PY_VERSION_HEX >= 0x03080000
-    (vectorcallfunc) 0,                       /* tp_vectorcall */
-#endif
-#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
-    0,                                        /* tp_print */
-#endif
-#ifdef COUNT_ALLOCS
-    (Py_ssize_t) 0,                           /* tp_allocs */
-    (Py_ssize_t) 0,                           /* tp_frees */
-    (Py_ssize_t) 0,                           /* tp_maxalloc */
-    0,                                        /* tp_prev */
-    0,                                        /* tp_next */
-#endif
-  },
-#if PY_VERSION_HEX >= 0x03050000
-  {
-    (unaryfunc) 0,                            /* am_await */
-    (unaryfunc) 0,                            /* am_aiter */
-    (unaryfunc) 0,                            /* am_anext */
-# if PY_VERSION_HEX >= 0x030a0000
-    (sendfunc) 0,                             /* am_send */
-# endif
-  },
-#endif
-  {
-    (binaryfunc) 0,                           /* nb_add */
-    (binaryfunc) 0,                           /* nb_subtract */
-    (binaryfunc) 0,                           /* nb_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_remainder */
-    (binaryfunc) 0,                           /* nb_divmod */
-    (ternaryfunc) 0,                          /* nb_power */
-    (unaryfunc) 0,                            /* nb_negative */
-    (unaryfunc) 0,                            /* nb_positive */
-    (unaryfunc) 0,                            /* nb_absolute */
-    (inquiry) 0,                              /* nb_nonzero */
-    (unaryfunc) 0,                            /* nb_invert */
-    (binaryfunc) 0,                           /* nb_lshift */
-    (binaryfunc) 0,                           /* nb_rshift */
-    (binaryfunc) 0,                           /* nb_and */
-    (binaryfunc) 0,                           /* nb_xor */
-    (binaryfunc) 0,                           /* nb_or */
-#if PY_VERSION_HEX < 0x03000000
-    (coercion) 0,                             /* nb_coerce */
-#endif
-    (unaryfunc) 0,                            /* nb_int */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* nb_reserved */
-#else
-    (unaryfunc) 0,                            /* nb_long */
-#endif
-    (unaryfunc) 0,                            /* nb_float */
-#if PY_VERSION_HEX < 0x03000000
-    (unaryfunc) 0,                            /* nb_oct */
-    (unaryfunc) 0,                            /* nb_hex */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_add */
-    (binaryfunc) 0,                           /* nb_inplace_subtract */
-    (binaryfunc) 0,                           /* nb_inplace_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_inplace_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_remainder */
-    (ternaryfunc) 0,                          /* nb_inplace_power */
-    (binaryfunc) 0,                           /* nb_inplace_lshift */
-    (binaryfunc) 0,                           /* nb_inplace_rshift */
-    (binaryfunc) 0,                           /* nb_inplace_and */
-    (binaryfunc) 0,                           /* nb_inplace_xor */
-    (binaryfunc) 0,                           /* nb_inplace_or */
-    (binaryfunc) 0,                           /* nb_floor_divide */
-    (binaryfunc) 0,                           /* nb_true_divide */
-    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
-    (binaryfunc) 0,                           /* nb_inplace_true_divide */
-    (unaryfunc) 0,                            /* nb_index */
-#if PY_VERSION_HEX >= 0x03050000
-    (binaryfunc) 0,                           /* nb_matrix_multiply */
-    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
-#endif
-  },
-  {
-    (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
-  },
-  {
-    (lenfunc) 0,                              /* sq_length */
-    (binaryfunc) 0,                           /* sq_concat */
-    (ssizeargfunc) 0,                         /* sq_repeat */
-    (ssizeargfunc) 0,                         /* sq_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_slice */
-#else
-    (ssizessizeargfunc) 0,                    /* sq_slice */
-#endif
-    (ssizeobjargproc) 0,                      /* sq_ass_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_ass_slice */
-#else
-    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
-#endif
-    (objobjproc) 0,                           /* sq_contains */
-    (binaryfunc) 0,                           /* sq_inplace_concat */
-    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
-  },
-  {
-#if PY_VERSION_HEX < 0x03000000
-    (readbufferproc) 0,                       /* bf_getreadbuffer */
-    (writebufferproc) 0,                      /* bf_getwritebuffer */
-    (segcountproc) 0,                         /* bf_getsegcount */
-    (charbufferproc) 0,                       /* bf_getcharbuffer */
-#endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
-  },
-    (PyObject *) 0,                           /* ht_name */
-    (PyObject *) 0,                           /* ht_slots */
-#if PY_VERSION_HEX >= 0x03030000
-    (PyObject *) 0,                           /* ht_qualname */
-    0,                                        /* ht_cached_keys */
-#endif
-#if PY_VERSION_HEX >= 0x03090000
-    (PyObject *) 0,                           /* ht_module */
-#endif
-#if PY_VERSION_HEX >= 0x030b0000
-    (char *) 0,                               /* _ht_tpname */
-  {
-    (PyObject *) 0,                           /* getitem */
-  }
-#endif
-};
-
-SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__LangAltValueComparator_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__LangAltValueComparator_type};
-
 static SwigPyGetSet LangAltValue___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__LangAltValue_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
@@ -36647,7 +36285,6 @@ static swig_type_info _swigt__p_Exiv2__DataValue = {"_p_Exiv2__DataValue", "Exiv
 static swig_type_info _swigt__p_Exiv2__DateValue = {"_p_Exiv2__DateValue", "Exiv2::DateValue *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__DateValue_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__DateValue__Date = {"_p_Exiv2__DateValue__Date", "Exiv2::DateValue::Date *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__LangAltValue = {"_p_Exiv2__LangAltValue", "Exiv2::LangAltValue *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__LangAltValue_clientdata, 0};
-static swig_type_info _swigt__p_Exiv2__LangAltValueComparator = {"_p_Exiv2__LangAltValueComparator", "Exiv2::LangAltValueComparator *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__LangAltValueComparator_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__StringValue = {"_p_Exiv2__StringValue", "Exiv2::StringValue *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__StringValue_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__StringValueBase = {"_p_Exiv2__StringValueBase", "Exiv2::StringValueBase *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__StringValueBase_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__TimeValue = {"_p_Exiv2__TimeValue", "Exiv2::TimeValue *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__TimeValue_clientdata, 0};
@@ -36711,7 +36348,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__DateValue,
   &_swigt__p_Exiv2__DateValue__Date,
   &_swigt__p_Exiv2__LangAltValue,
-  &_swigt__p_Exiv2__LangAltValueComparator,
   &_swigt__p_Exiv2__StringValue,
   &_swigt__p_Exiv2__StringValueBase,
   &_swigt__p_Exiv2__TimeValue,
@@ -36775,7 +36411,6 @@ static swig_cast_info _swigc__p_Exiv2__DataValue[] = {  {&_swigt__p_Exiv2__DataV
 static swig_cast_info _swigc__p_Exiv2__DateValue[] = {  {&_swigt__p_Exiv2__DateValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DateValue__Date[] = {  {&_swigt__p_Exiv2__DateValue__Date, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LangAltValue[] = {  {&_swigt__p_Exiv2__LangAltValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__LangAltValueComparator[] = {  {&_swigt__p_Exiv2__LangAltValueComparator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValue[] = {  {&_swigt__p_Exiv2__StringValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValueBase[] = {  {&_swigt__p_Exiv2__StringValueBase, 0, 0, 0},  {&_swigt__p_Exiv2__AsciiValue, _p_Exiv2__AsciiValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__CommentValue, _p_Exiv2__CommentValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__StringValue, _p_Exiv2__StringValueTo_p_Exiv2__StringValueBase, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__TimeValue[] = {  {&_swigt__p_Exiv2__TimeValue, 0, 0, 0},{0, 0, 0, 0}};
@@ -36839,7 +36474,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__DateValue,
   _swigc__p_Exiv2__DateValue__Date,
   _swigc__p_Exiv2__LangAltValue,
-  _swigc__p_Exiv2__LangAltValueComparator,
   _swigc__p_Exiv2__StringValue,
   _swigc__p_Exiv2__StringValueBase,
   _swigc__p_Exiv2__TimeValue,
@@ -37699,29 +37333,6 @@ SWIG_init(void) {
   Py_INCREF(builtin_pytype);
   PyModule_AddObject(m, "XmpArrayValue", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpArrayValue");
-  d = md;
-  
-  /* type 'Exiv2::LangAltValueComparator' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__LangAltValueComparator_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
-  builtin_pytype->tp_new = PyType_GenericNew;
-  builtin_base_count = 0;
-  builtin_bases[builtin_base_count] = NULL;
-  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
-  PyDict_SetItemString(d, "this", this_descr);
-  PyDict_SetItemString(d, "thisown", thisown_descr);
-  if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'LangAltValueComparator'.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "LangAltValueComparator", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "LangAltValueComparator");
   d = md;
   
   /* type 'Exiv2::LangAltValue' */
