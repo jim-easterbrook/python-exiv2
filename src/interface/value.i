@@ -220,6 +220,14 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
          functype="objobjargproc") Exiv2::LangAltValue::__setitem__;
 %feature("python:slot", "sq_contains",
          functype="objobjproc") Exiv2::LangAltValue::__contains__;
+%feature("docstring") Exiv2::LangAltValue::keys
+"Get keys (i.e. languages) of the LangAltValue components."
+%feature("docstring") Exiv2::LangAltValue::values
+"Get values (i.e. text strings) of the LangAltValue components."
+%feature("docstring") Exiv2::LangAltValue::items
+"Get key, value pairs (i.e. language, text) of the LangAltValue
+components. These are also available by iterating over the
+LangAltValue."
 %template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
 // typemaps to convert Python dict to Exiv2::LangAltValue::ValueType
 %typemap(in) Exiv2::LangAltValue::ValueType {

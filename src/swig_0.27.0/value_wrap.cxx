@@ -33425,9 +33425,13 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValue_methods[] = {
   { "toLong", _wrap_LangAltValue_toLong, METH_VARARGS, "" },
   { "toFloat", _wrap_LangAltValue_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_LangAltValue_toRational, METH_VARARGS, "" },
-  { "keys", _wrap_LangAltValue_keys, METH_NOARGS, "" },
-  { "values", _wrap_LangAltValue_values, METH_NOARGS, "" },
-  { "items", _wrap_LangAltValue_items, METH_NOARGS, "" },
+  { "keys", _wrap_LangAltValue_keys, METH_NOARGS, "Get keys (i.e. languages) of the LangAltValue components." },
+  { "values", _wrap_LangAltValue_values, METH_NOARGS, "Get values (i.e. text strings) of the LangAltValue components." },
+  { "items", _wrap_LangAltValue_items, METH_NOARGS, "\n"
+		"Get key, value pairs (i.e. language, text) of the LangAltValue\n"
+		"components. These are also available by iterating over the\n"
+		"LangAltValue.\n"
+		"" },
   { "__iter__", _wrap_LangAltValue___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_LangAltValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_LangAltValue___setitem__, METH_VARARGS, "" },
