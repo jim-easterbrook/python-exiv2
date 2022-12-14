@@ -6585,19 +6585,29 @@ SWIGINTERN Exiv2::LangAltValue *new_Exiv2_LangAltValue__SWIG_2(Exiv2::LangAltVal
         return result;
     }
 SWIGINTERN PyObject *Exiv2_LangAltValue_keys(Exiv2::LangAltValue *self){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'LangAltValue.value_.keys()'", 1);
         return LangAltValue_to_list(self->value_, &LangAltValue_get_key);
     }
 SWIGINTERN PyObject *Exiv2_LangAltValue_values(Exiv2::LangAltValue *self){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'LangAltValue.value_.values()'", 1);
         return LangAltValue_to_list(self->value_, &LangAltValue_get_value);
     }
 SWIGINTERN PyObject *Exiv2_LangAltValue_items(Exiv2::LangAltValue *self){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'LangAltValue.value_.items()'", 1);
         return LangAltValue_to_list(self->value_, &LangAltValue_get_item);
     }
 SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use LangAltValue.value_ for iteration.", 1);
         return PySeqIter_New(
             LangAltValue_to_list(self->value_, &LangAltValue_get_item));
     }
 SWIGINTERN std::string Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,std::string const &key){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = LangAltValue.value_[key]'", 1);
         try {
             return self->value_.at(key);
         } catch(std::out_of_range const&) {
@@ -6606,12 +6616,16 @@ SWIGINTERN std::string Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,
         }
     }
 SWIGINTERN void Exiv2_LangAltValue___setitem____SWIG_0(Exiv2::LangAltValue *self,std::string const &key,std::string const &value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'LangAltValue.value_[key] = value'", 1);
         self->value_[key] = value;
     }
 SWIGINTERN PyObject *Exiv2_LangAltValue___setitem____SWIG_1(Exiv2::LangAltValue *self,std::string const &key){
 
 
 
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'del LangAltValue.value_[key]'", 1);
         Exiv2::LangAltValue::ValueType::iterator pos = self->value_.find(key);
         if (pos == self->value_.end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
@@ -6621,6 +6635,8 @@ SWIGINTERN PyObject *Exiv2_LangAltValue___setitem____SWIG_1(Exiv2::LangAltValue 
         return SWIG_Py_Void();
     }
 SWIGINTERN bool Exiv2_LangAltValue___contains__(Exiv2::LangAltValue *self,std::string const &key){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'key in LangAltValue.value_'", 1);
         return self->value_.find(key) != self->value_.end();
     }
 SWIGINTERN Exiv2::LangAltValue *new_Exiv2_LangAltValue__SWIG_3(Exiv2::Value const &value){
@@ -6907,12 +6923,18 @@ SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SW
         return result;
     }
 SWIGINTERN uint16_t Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = ""UShortValue" ".value_[idx]'", 1);
         return self->value_.at(multi_idx);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx,uint16_t value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""UShortValue" ".value_[idx] = value'", 1);
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg__append(Exiv2::ValueType< uint16_t > *self,uint16_t value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""UShortValue" ".value_.append(value)'", 1);
         self->value_.push_back(value);
     }
 
@@ -7081,12 +7103,18 @@ SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SW
         return result;
     }
 SWIGINTERN uint32_t Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = ""ULongValue" ".value_[idx]'", 1);
         return self->value_.at(multi_idx);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx,uint32_t value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""ULongValue" ".value_[idx] = value'", 1);
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg__append(Exiv2::ValueType< uint32_t > *self,uint32_t value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""ULongValue" ".value_.append(value)'", 1);
         self->value_.push_back(value);
     }
 
@@ -7222,12 +7250,18 @@ SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_UR
         return result;
     }
 SWIGINTERN Exiv2::URational Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(Exiv2::ValueType< Exiv2::URational > *self,long multi_idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = ""URationalValue" ".value_[idx]'", 1);
         return self->value_.at(multi_idx);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(Exiv2::ValueType< Exiv2::URational > *self,long multi_idx,Exiv2::URational value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""URationalValue" ".value_[idx] = value'", 1);
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_URational_Sg__append(Exiv2::ValueType< Exiv2::URational > *self,Exiv2::URational value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""URationalValue" ".value_.append(value)'", 1);
         self->value_.push_back(value);
     }
 
@@ -7396,12 +7430,18 @@ SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG
         return result;
     }
 SWIGINTERN int16_t Exiv2_ValueType_Sl_int16_t_Sg____getitem__(Exiv2::ValueType< int16_t > *self,long multi_idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = ""ShortValue" ".value_[idx]'", 1);
         return self->value_.at(multi_idx);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg____setitem__(Exiv2::ValueType< int16_t > *self,long multi_idx,int16_t value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""ShortValue" ".value_[idx] = value'", 1);
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg__append(Exiv2::ValueType< int16_t > *self,int16_t value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""ShortValue" ".value_.append(value)'", 1);
         self->value_.push_back(value);
     }
 
@@ -7527,12 +7567,18 @@ SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG
         return result;
     }
 SWIGINTERN int32_t Exiv2_ValueType_Sl_int32_t_Sg____getitem__(Exiv2::ValueType< int32_t > *self,long multi_idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = ""LongValue" ".value_[idx]'", 1);
         return self->value_.at(multi_idx);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg____setitem__(Exiv2::ValueType< int32_t > *self,long multi_idx,int32_t value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""LongValue" ".value_[idx] = value'", 1);
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg__append(Exiv2::ValueType< int32_t > *self,int32_t value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""LongValue" ".value_.append(value)'", 1);
         self->value_.push_back(value);
     }
 
@@ -7658,12 +7704,18 @@ SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rat
         return result;
     }
 SWIGINTERN Exiv2::Rational Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(Exiv2::ValueType< Exiv2::Rational > *self,long multi_idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = ""RationalValue" ".value_[idx]'", 1);
         return self->value_.at(multi_idx);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(Exiv2::ValueType< Exiv2::Rational > *self,long multi_idx,Exiv2::Rational value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""RationalValue" ".value_[idx] = value'", 1);
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_Rational_Sg__append(Exiv2::ValueType< Exiv2::Rational > *self,Exiv2::Rational value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""RationalValue" ".value_.append(value)'", 1);
         self->value_.push_back(value);
     }
 
@@ -7865,12 +7917,18 @@ SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_8(E
         return result;
     }
 SWIGINTERN float Exiv2_ValueType_Sl_float_Sg____getitem__(Exiv2::ValueType< float > *self,long multi_idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = ""FloatValue" ".value_[idx]'", 1);
         return self->value_.at(multi_idx);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_float_Sg____setitem__(Exiv2::ValueType< float > *self,long multi_idx,float value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""FloatValue" ".value_[idx] = value'", 1);
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_float_Sg__append(Exiv2::ValueType< float > *self,float value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""FloatValue" ".value_.append(value)'", 1);
         self->value_.push_back(value);
     }
 
@@ -8016,12 +8074,18 @@ SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_8
         return result;
     }
 SWIGINTERN double Exiv2_ValueType_Sl_double_Sg____getitem__(Exiv2::ValueType< double > *self,long multi_idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = ""DoubleValue" ".value_[idx]'", 1);
         return self->value_.at(multi_idx);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_double_Sg____setitem__(Exiv2::ValueType< double > *self,long multi_idx,double value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""DoubleValue" ".value_[idx] = value'", 1);
         self->value_.at(multi_idx) = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_double_Sg__append(Exiv2::ValueType< double > *self,double value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '""DoubleValue" ".value_.append(value)'", 1);
         self->value_.push_back(value);
     }
 #ifdef __cplusplus

@@ -195,12 +195,18 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         return result;
     }
     item_type __getitem__(long multi_idx) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = " #type_name ".value_[idx]'", 1);
         return $self->value_.at(multi_idx);
     }
     void __setitem__(long multi_idx, item_type value) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '" #type_name ".value_[idx] = value'", 1);
         $self->value_.at(multi_idx) = value;
     }
     void append(item_type value) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '" #type_name ".value_.append(value)'", 1);
         $self->value_.push_back(value);
     }
 }
@@ -363,19 +369,29 @@ static PyObject* LangAltValue_to_list(
         return result;
     }
     PyObject* keys() {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'LangAltValue.value_.keys()'", 1);
         return LangAltValue_to_list($self->value_, &LangAltValue_get_key);
     }
     PyObject* values() {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'LangAltValue.value_.values()'", 1);
         return LangAltValue_to_list($self->value_, &LangAltValue_get_value);
     }
     PyObject* items() {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'LangAltValue.value_.items()'", 1);
         return LangAltValue_to_list($self->value_, &LangAltValue_get_item);
     }
     PyObject* __iter__() {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use LangAltValue.value_ for iteration.", 1);
         return PySeqIter_New(
             LangAltValue_to_list($self->value_, &LangAltValue_get_item));
     }
     std::string __getitem__(const std::string& key) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = LangAltValue.value_[key]'", 1);
         try {
             return $self->value_.at(key);
         } catch(std::out_of_range const&) {
@@ -384,6 +400,8 @@ static PyObject* LangAltValue_to_list(
         }
     }
     void __setitem__(const std::string& key, const std::string& value) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'LangAltValue.value_[key] = value'", 1);
         $self->value_[key] = value;
     }
 #if defined(SWIGPYTHON_BUILTIN)
@@ -391,6 +409,8 @@ static PyObject* LangAltValue_to_list(
 #else
     PyObject* __delitem__(const std::string& key) {
 #endif
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'del LangAltValue.value_[key]'", 1);
         Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
         if (pos == $self->value_.end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
@@ -400,6 +420,8 @@ static PyObject* LangAltValue_to_list(
         return SWIG_Py_Void();
     }
     bool __contains__(const std::string& key) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'key in LangAltValue.value_'", 1);
         return $self->value_.find(key) != $self->value_.end();
     }
 }

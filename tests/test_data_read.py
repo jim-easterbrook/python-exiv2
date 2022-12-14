@@ -36,7 +36,7 @@ class TestDataRead(unittest.TestCase):
     def test_exif(self):
         for tag, exiv_type, value in (
                 ('Exif.Image.ImageDescription', exiv2.AsciiValue,
-                 ['Good view of the lighthouse.']),
+                 'Good view of the lighthouse.'),
                 ('Exif.Image.Orientation', exiv2.UShortValue, [1]),
                 ('Exif.Photo.LensSpecification', exiv2.URationalValue,
                  [(18, 1), (200, 1), (7, 2), (63, 10)]),
@@ -44,7 +44,10 @@ class TestDataRead(unittest.TestCase):
                 ):
             datum = self.exifData[tag]
             exiv_value = exiv_type(datum.value())
-            self.assertEqual(list(exiv_value), value)
+            if isinstance(value, list):
+                self.assertEqual(list(exiv_value.value_), value)
+            else:
+                self.assertEqual(exiv_value.value_, value)
         thumb = exiv2.ExifThumb(self.exifData)
         data = bytes(thumb.copy())
         self.assertEqual(len(data), 2532)
@@ -67,18 +70,23 @@ class TestDataRead(unittest.TestCase):
     def test_xmp(self):
         for tag, exiv_type, value in (
                 ('Xmp.photoshop.Credit', exiv2.XmpTextValue,
-                 ['Jim Easterbrook']),
+                 'Jim Easterbrook'),
                 ('Xmp.dc.creator', exiv2.XmpArrayValue, ['Jim Easterbrook']),
                 ('Xmp.dc.subject', exiv2.XmpArrayValue,
                  ['lighthouse', 'Scotland']),
                 ('Xmp.dc.description', exiv2.LangAltValue,
-                 [('x-default', 'Good view of the lighthouse.'),
-                  ('en-GB', 'Good view of the lighthouse.'),
-                  ('de', 'Gute Sicht auf den Leuchtturm.')]),
+                 {'x-default': 'Good view of the lighthouse.',
+                  'en-GB': 'Good view of the lighthouse.',
+                  'de': 'Gute Sicht auf den Leuchtturm.'}),
                 ):
             datum = self.xmpData[tag]
             exiv_value = exiv_type(datum.value())
-            self.assertEqual(list(exiv_value), value)
+            if exiv_type == exiv2.XmpArrayValue:
+                self.assertEqual(list(exiv_value), value)
+            elif exiv_type == exiv2.LangAltValue:
+                self.assertEqual(dict(exiv_value.value_), value)
+            else:
+                self.assertEqual(exiv_value.value_, value)
 
 
 if __name__ == '__main__':
