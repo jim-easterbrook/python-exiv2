@@ -109,7 +109,6 @@ wrap_auto_unique_ptr(Exiv2::Value);
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
-%ignore type_name::value_;
 %noexception type_name::count;
 %noexception type_name::size;
 %extend type_name {
@@ -156,9 +155,36 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
          functype="ssizeargfunc") Exiv2::ValueType<item_type>::__getitem__;
 %feature("python:slot", "sq_ass_item",
          functype="ssizeobjargproc") Exiv2::ValueType<item_type>::__setitem__;
-%template() std::vector<item_type>;
+// Ignore C++ std::vector methods
+%ignore std::vector<item_type>::assign;
+%ignore std::vector<item_type>::back;
+%ignore std::vector<item_type>::begin;
+%ignore std::vector<item_type>::capacity;
+%ignore std::vector<item_type>::empty;
+%ignore std::vector<item_type>::end;
+%ignore std::vector<item_type>::erase;
+%ignore std::vector<item_type>::front;
+%ignore std::vector<item_type>::get_allocator;
+%ignore std::vector<item_type>::insert;
+%ignore std::vector<item_type>::pop_back;
+%ignore std::vector<item_type>::push_back;
+%ignore std::vector<item_type>::rbegin;
+%ignore std::vector<item_type>::rend;
+%ignore std::vector<item_type>::reserve;
+%ignore std::vector<item_type>::resize;
+%ignore std::vector<item_type>::size;
+%ignore std::vector<item_type>::swap;
+// Make value_ accessible with list-like methods
+%template(type_name##_list) std::vector<item_type>;
+// Provide a nicer string representation of value_
+%feature("python:slot", "tp_str", functype="reprfunc")
+    std::vector<item_type>::__str__;
+%extend std::vector<item_type> {
+    std::string __str__() {return #type_name "_list<...>";}
+}
 %feature("docstring") Exiv2::ValueType<item_type>
-"Sequence of " #item_type " values."
+"Sequence of " #item_type " values.\nThe actual data components are stored"
+" in the value_ attribute, which can\nbe used like a Python list."
 %feature("docstring") Exiv2::ValueType<item_type>::append
 "Append a " #item_type " component to the value."
 %extend Exiv2::ValueType<item_type> {
@@ -228,7 +254,57 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 "Get key, value pairs (i.e. language, text) of the LangAltValue
 components. These are also available by iterating over the
 LangAltValue."
-%template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
+// Ignore C++ std::map methods
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::asdict;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::begin;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::count;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::empty;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::end;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::erase;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::find;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::get_allocator;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::has_key;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::iterator;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::iteritems;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::iterkeys;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::itervalues;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::key_iterator;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::lower_bound;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::rbegin;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::rend;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::size;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::swap;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::upper_bound;
+%ignore std::map<std::string, std::string,
+                 Exiv2::LangAltValueComparator>::value_iterator;
+%template(LangAltValue_dict)
+         std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
+// Provide a nicer string representation of value_
+%feature("python:slot", "tp_str", functype="reprfunc")
+    std::map<std::string, std::string, Exiv2::LangAltValueComparator>::__str__;
+%extend std::map<std::string, std::string, Exiv2::LangAltValueComparator> {
+    std::string __str__() {return "LangAltValue_dict<...>";}
+}
 // typemaps to convert Python dict to Exiv2::LangAltValue::ValueType
 %typemap(in) Exiv2::LangAltValue::ValueType {
     PyObject* key;
