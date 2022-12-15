@@ -44,10 +44,10 @@ class TestDataRead(unittest.TestCase):
                 ):
             datum = self.exifData[tag]
             exiv_value = exiv_type(datum.value())
-            if isinstance(value, list):
-                self.assertEqual(list(exiv_value.value_), value)
+            if exiv_type == exiv2.AsciiValue:
+                self.assertEqual(str(exiv_value), value)
             else:
-                self.assertEqual(exiv_value.value_, value)
+                self.assertEqual(list(exiv_value), value)
         thumb = exiv2.ExifThumb(self.exifData)
         data = bytes(thumb.copy())
         self.assertEqual(len(data), 2532)
@@ -57,7 +57,7 @@ class TestDataRead(unittest.TestCase):
     def test_iptc(self):
         datum = self.iptcData['Iptc.Application2.Caption']
         exiv_value = exiv2.StringValue(datum.value())
-        self.assertEqual(exiv_value.value_, 'Good view of the lighthouse.')
+        self.assertEqual(str(exiv_value), 'Good view of the lighthouse.')
 
         datum = self.iptcData['Iptc.Application2.DateCreated']
         exiv_value = exiv2.DateValue(datum.value())
@@ -87,9 +87,9 @@ class TestDataRead(unittest.TestCase):
             if exiv_type == exiv2.XmpArrayValue:
                 self.assertEqual(list(exiv_value), value)
             elif exiv_type == exiv2.LangAltValue:
-                self.assertEqual(dict(exiv_value.value_), value)
+                self.assertEqual(dict(exiv_value), value)
             else:
-                self.assertEqual(exiv_value.value_, value)
+                self.assertEqual(str(exiv_value), value)
 
 
 if __name__ == '__main__':

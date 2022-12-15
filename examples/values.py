@@ -66,19 +66,19 @@ def main():
     shorts = exiv2.ShortValue()
     # append values to initialise
     for x in py_shorts:
-        shorts.value_.append(x)
+        shorts.append(x)
     print("Exiv2 short:", shorts)
     # Python -> Exiv2, the short way
     shorts = exiv2.ShortValue(py_shorts)
     print("Exiv2 short:", shorts)
     # modify a value by index
-    shorts.value_[1] = 12
+    shorts[1] = 12
     print("Exiv2 short:", shorts)
     # append a value
-    shorts.value_.append(90)
+    shorts.append(90)
     print("Exiv2 short:", shorts)
     # Exiv2 -> Python
-    py_shorts = list(shorts.value_)
+    py_shorts = list(shorts)
     print("Python short:", py_shorts)
 
     print('==== RationalValue ====')
@@ -91,20 +91,20 @@ def main():
     latitude = exiv2.RationalValue()
     # append values to initialise
     for x in py_latitude:
-        latitude.value_.append((x.numerator, x.denominator))
+        latitude.append((x.numerator, x.denominator))
     print("Exiv2 rational:", latitude)
     # Python -> Exiv2, the short way
     latitude = exiv2.RationalValue(
         [(x.numerator, x.denominator) for x in py_latitude])
     print("Exiv2 rational:", latitude)
     # modify a value by index
-    latitude.value_[1] = -63, 11
+    latitude[1] = -63, 11
     print("Exiv2 rational:", latitude)
     # append a value
-    latitude.value_.append((19, 3))
+    latitude.append((19, 3))
     print("Exiv2 rational:", latitude)
     # Exiv2 -> Python
-    py_latitude = [Fraction(*x) for x in latitude.value_]
+    py_latitude = [Fraction(*x) for x in latitude]
     print("Python rational:", py_latitude)
 
     print('==== XmpArrayValue ====')
@@ -132,20 +132,20 @@ def main():
     # Python -> Exiv2, the long way
     langalt = exiv2.LangAltValue()
     for key in py_langalt:
-        langalt.value_[key] = py_langalt[key]
+        langalt[key] = py_langalt[key]
     print("Exiv2 langalt:", langalt)
     # Python -> Exiv2, the short way
     langalt = exiv2.LangAltValue(py_langalt)
     print("Exiv2 langalt:", langalt)
-    print('keys', langalt.value_.keys())
-    print('values', langalt.value_.values())
-    print('items', langalt.value_.items())
+    print('keys', langalt.keys())
+    print('values', langalt.values())
+    print('items', langalt.items())
     # delete a value
-    del langalt.value_['fr']
+    del langalt['fr']
     # add a value
-    langalt.value_['nl'] = 'Nederlands'
+    langalt['nl'] = 'Nederlands'
     # Exiv2 -> Python
-    py_langalt = dict(langalt.value_)
+    py_langalt = dict(langalt)
     print("Python langalt:", py_langalt)
 
     print('==== DataValue ====')
