@@ -52,7 +52,7 @@ wrap_auto_unique_ptr(Exiv2::Value);
 %pybuffer_binary(const Exiv2::byte* buf, size_t len)
 #endif
 %typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
-    $1 = PyObject_CheckBuffer($input);
+    $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 }
 // Value::copy can write to a Python buffer
 #if EXIV2_VERSION_HEX < 0x01000000
@@ -230,20 +230,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 components. These are also available by iterating over the
 LangAltValue."
 %template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
-// typemaps to convert Python dict to Exiv2::LangAltValue::ValueType
-%typemap(in) Exiv2::LangAltValue::ValueType {
-    PyObject* key;
-    PyObject* value;
-    Py_ssize_t pos = 0;
-    while (PyDict_Next($input, &pos, &key, &value)) {
-        $1.insert(std::make_pair(
-            SWIG_Python_str_AsChar(key), SWIG_Python_str_AsChar(value)));
-    }
-}
-%typemap(typecheck,
-         precedence=SWIG_TYPECHECK_MAP) Exiv2::LangAltValue::ValueType %{
-    $1 = PyDict_Check($input);
-%}
 // helper functions
 %{
 static PyObject* LangAltValue_get_key(
