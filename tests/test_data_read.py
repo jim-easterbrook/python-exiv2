@@ -47,6 +47,7 @@ class TestDataRead(unittest.TestCase):
             if exiv_type == exiv2.AsciiValue:
                 self.assertEqual(str(exiv_value), value)
             else:
+                self.assertEqual(len(exiv_value), len(value))
                 self.assertEqual(list(exiv_value), value)
         thumb = exiv2.ExifThumb(self.exifData)
         data = bytes(thumb.copy())

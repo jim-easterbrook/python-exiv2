@@ -82,6 +82,8 @@ wrap_auto_unique_ptr(Exiv2::Value);
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
+// Use Exiv2::Value::__str__
+%feature("python:tp_str") type_name "_wrap_Value___str___reprfunc_closure";
 %ignore type_name::value_;
 %noexception type_name::count;
 %noexception type_name::size;
@@ -108,9 +110,10 @@ wrap_auto_unique_ptr(type_name)
 
 // Subscript macro for classes that can only hold one value
 %define SUBSCRIPT_SINGLE(type_name, item_type, method)
-%feature("python:slot", "sq_length", functype="lenfunc") type_name::__len__;
-%feature("python:slot", "sq_item",
-         functype="ssizeargfunc") type_name::__getitem__;
+%feature("python:slot", "sq_length", functype="lenfunc")
+    type_name::__len__;
+%feature("python:slot", "sq_item", functype="ssizeargfunc")
+    type_name::__getitem__;
 %noexception type_name::__len__;
 %extend type_name {
     long __len__() {
@@ -129,10 +132,12 @@ wrap_auto_unique_ptr(type_name)
 // Macro for subclases of Exiv2::ValueType
 %define VALUETYPE(type_name, item_type)
 VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
-%feature("python:slot", "sq_item",
-         functype="ssizeargfunc") Exiv2::ValueType<item_type>::__getitem__;
-%feature("python:slot", "sq_ass_item",
-         functype="ssizeobjargproc") Exiv2::ValueType<item_type>::__setitem__;
+%feature("python:slot", "sq_length", functype="lenfunc")
+    Exiv2::ValueType<item_type>::count;
+%feature("python:slot", "sq_item", functype="ssizeargfunc")
+    Exiv2::ValueType<item_type>::__getitem__;
+%feature("python:slot", "sq_ass_item", functype="ssizeobjargproc")
+    Exiv2::ValueType<item_type>::__setitem__;
 %feature("docstring") Exiv2::ValueType<item_type>
 "Sequence of " #item_type " values.\n"
 "The data components can be accessed like a Python list."
@@ -206,14 +211,16 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 }
 
 // Make LangAltValue like a Python dict
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") Exiv2::LangAltValue::__iter__;
-%feature("python:slot", "mp_subscript",
-         functype="binaryfunc") Exiv2::LangAltValue::__getitem__;
-%feature("python:slot", "mp_ass_subscript",
-         functype="objobjargproc") Exiv2::LangAltValue::__setitem__;
-%feature("python:slot", "sq_contains",
-         functype="objobjproc") Exiv2::LangAltValue::__contains__;
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    Exiv2::LangAltValue::__iter__;
+%feature("python:slot", "mp_length", functype="lenfunc")
+    Exiv2::LangAltValue::count;
+%feature("python:slot", "mp_subscript", functype="binaryfunc")
+    Exiv2::LangAltValue::__getitem__;
+%feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
+    Exiv2::LangAltValue::__setitem__;
+%feature("python:slot", "sq_contains", functype="objobjproc")
+    Exiv2::LangAltValue::__contains__;
 %feature("docstring") Exiv2::LangAltValue::keys
 "Get keys (i.e. languages) of the LangAltValue components."
 %feature("docstring") Exiv2::LangAltValue::values
@@ -304,11 +311,7 @@ static PyObject* LangAltValue_to_list(
     void __setitem__(const std::string& key, const std::string& value) {
         $self->value_[key] = value;
     }
-#if defined(SWIGPYTHON_BUILTIN)
     PyObject* __setitem__(const std::string& key) {
-#else
-    PyObject* __delitem__(const std::string& key) {
-#endif
         Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
         if (pos == $self->value_.end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
@@ -323,7 +326,6 @@ static PyObject* LangAltValue_to_list(
 }
 
 // Remove exception handler for some methods known to be safe
-%noexception Exiv2::Value::__len__;
 %noexception Exiv2::Value::count;
 %noexception Exiv2::Value::size;
 %noexception Exiv2::Value::ok;
@@ -331,10 +333,10 @@ static PyObject* LangAltValue_to_list(
 
 // Add Python slots to Exiv2::Value base class
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
-%feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::__len__;
+%feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::count;
 %extend Exiv2::Value {
+    // Overloaded toString() means we need our own __str__
     std::string __str__() {return $self->toString();}
-    long __len__() {return $self->count();}
 }
 
 VALUE_SUBCLASS(Exiv2::DataValue, DataValue)
@@ -355,8 +357,10 @@ SUBSCRIPT_SINGLE(Exiv2::StringValueBase, std::string, toString)
 SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 
 // XmpArrayValue holds multiple values but they're not assignable
-%feature("python:slot", "sq_item",
-         functype="ssizeargfunc") Exiv2::XmpArrayValue::__getitem__;
+%feature("python:slot", "sq_length", functype="lenfunc")
+    Exiv2::XmpArrayValue::count;
+%feature("python:slot", "sq_item", functype="ssizeargfunc")
+    Exiv2::XmpArrayValue::__getitem__;
 %template() std::vector<std::string>;
 %extend Exiv2::XmpArrayValue {
     // Constructor, reads values from a Python list
