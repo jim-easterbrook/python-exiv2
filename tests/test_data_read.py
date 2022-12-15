@@ -55,17 +55,20 @@ class TestDataRead(unittest.TestCase):
             data[:15], b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00')
 
     def test_iptc(self):
-        for tag, exiv_type, value in (
-                ('Iptc.Application2.Caption', exiv2.StringValue,
-                 ['Good view of the lighthouse.']),
-                ('Iptc.Application2.DateCreated', exiv2.DateValue,
-                 [(2022, 8, 17)]),
-                ('Iptc.Application2.TimeCreated', exiv2.TimeValue,
-                 [(12, 45, 28, 1, 0)]),
-                ):
-            datum = self.iptcData[tag]
-            exiv_value = exiv_type(datum.value())
-            self.assertEqual(list(exiv_value), value)
+        datum = self.iptcData['Iptc.Application2.Caption']
+        exiv_value = exiv2.StringValue(datum.value())
+        self.assertEqual(exiv_value.value_, 'Good view of the lighthouse.')
+
+        datum = self.iptcData['Iptc.Application2.DateCreated']
+        exiv_value = exiv2.DateValue(datum.value())
+        self.assertEqual(dict(exiv_value.getDate()),
+                         {'year': 2022, 'month': 8, 'day': 17})
+
+        datum = self.iptcData['Iptc.Application2.TimeCreated']
+        exiv_value = exiv2.TimeValue(datum.value())
+        self.assertEqual(dict(exiv_value.getTime()),
+                         {'hour': 12, 'minute': 45, 'second': 28,
+                          'tzHour': 1, 'tzMinute': 0})
 
     def test_xmp(self):
         for tag, exiv_type, value in (

@@ -16,6 +16,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 %module(package="exiv2") value
+%feature("flatnested", "1");
 
 %include "preamble.i"
 
@@ -30,34 +31,6 @@
 wrap_auto_unique_ptr(Exiv2::Value);
 
 // ---- Typemaps ----
-%typemap(typecheck, precedence=SWIG_TYPECHECK_LIST) Exiv2::DateValue::Date & %{
-    $1 = (PyTuple_Check($input) || PyList_Check($input)) ? 1 : 0;
-%}
-%typemap(in) Exiv2::DateValue::Date & (Exiv2::DateValue::Date date) %{
-    if (!PyArg_ParseTuple(Py_BuildValue("(O)", $input), "(iii)",
-                          &date.year, &date.month, &date.day)) {
-        SWIG_fail;
-    }
-    $1 = &date;
-%}
-%typemap(out) Exiv2::DateValue::Date %{
-    $result = Py_BuildValue("(iii)", $1.year, $1.month, $1.day);
-%}
-%typemap(typecheck, precedence=SWIG_TYPECHECK_LIST) Exiv2::TimeValue::Time & %{
-    $1 = (PyTuple_Check($input) || PyList_Check($input)) ? 1 : 0;
-%}
-%typemap(in) Exiv2::TimeValue::Time & (Exiv2::TimeValue::Time time) %{
-    if (!PyArg_ParseTuple(Py_BuildValue("(O)", $input), "(iiiii)",
-                          &time.hour, &time.minute, &time.second,
-                          &time.tzHour, &time.tzMinute)) {
-        SWIG_fail;
-    }
-    $1 = &time;
-%}
-%typemap(out) Exiv2::TimeValue::Time %{
-    $result = Py_BuildValue(
-        "(iiiii)", $1.hour, $1.minute, $1.second, $1.tzHour, $1.tzMinute);
-%}
 // for indexing multi-value values, assumes arg1 points to self
 %typemap(check) long multi_idx %{
     if ($1 < 0 || $1 >= (long)arg1->count()) {
@@ -140,9 +113,13 @@ wrap_auto_unique_ptr(type_name)
 %noexception type_name::__len__;
 %extend type_name {
     long __len__() {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'len = " #type_name ".count()'", 1);
         return $self->count() ? 1 : 0;
     }
     item_type __getitem__(long single_idx) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use 'value = " #type_name "." #method "()'", 1);
         return $self->method();
     }
 }
@@ -213,11 +190,8 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %template(type_name) Exiv2::ValueType<item_type>;
 %enddef // VALUETYPE
 
-// Allow Date and Time to be constructed from sequences or set from int values
+// Allow DateValue to be set from int values
 %extend Exiv2::DateValue {
-    DateValue(const Exiv2::DateValue::Date &date) {
-        return new Exiv2::DateValue(date.year, date.month, date.day);
-    }
     void setDate(int year, int month, int day) {
         Exiv2::DateValue::Date date;
         date.year = year;
@@ -226,11 +200,19 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         $self->setDate(date);
     }
 }
-%extend Exiv2::TimeValue {
-    TimeValue(const Exiv2::TimeValue::Time &time) {
-        return new Exiv2::TimeValue(time.hour, time.minute, time.second,
-                                    time.tzHour, time.tzMinute);
+// Make Date struct iterable for easy conversion to dict or list
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    Exiv2::DateValue::Date::__iter__;
+%noexception Exiv2::DateValue::Date::__iter__;
+%extend Exiv2::DateValue::Date {
+    PyObject* __iter__() {
+        return PySeqIter_New(Py_BuildValue("((si)(si)(si))",
+            "year", $self->year, "month", $self->month, "day", $self->day));
     }
+}
+
+// Allow TimeValue to be set from int values
+%extend Exiv2::TimeValue {
     void setTime(int hour, int minute, int second = 0,
                  int tzHour = 0, int tzMinute = 0) {
         Exiv2::TimeValue::Time time;
@@ -240,6 +222,17 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         time.tzHour = tzHour;
         time.tzMinute = tzMinute;
         $self->setTime(time);
+    }
+}
+// Make Time struct iterable for easy conversion to dict or list
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    Exiv2::TimeValue::Time::__iter__;
+%noexception Exiv2::TimeValue::Time::__iter__;
+%extend Exiv2::TimeValue::Time {
+    PyObject* __iter__() {
+        return PySeqIter_New(Py_BuildValue("((si)(si)(si)(si)(si))",
+            "hour", $self->hour, "minute", $self->minute, "second", $self->second,
+            "tzHour", $self->tzHour, "tzMinute", $self->tzMinute));
     }
 }
 
@@ -497,8 +490,6 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 %ignore Exiv2::CommentValue::CharsetInfo;
 %ignore Exiv2::CommentValue::CharsetTable;
 %ignore Exiv2::LangAltValueComparator;
-%ignore Exiv2::DateValue::Date;
-%ignore Exiv2::TimeValue::Time;
 %ignore LARGE_INT;
 
 %include "exiv2/value.hpp"

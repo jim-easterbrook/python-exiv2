@@ -39,19 +39,23 @@ def main():
     py_datetime = datetime.datetime.now(tz)
     print("Python datetime:", py_datetime)
     # Python -> Exiv2
-    date = exiv2.DateValue()
-    date.setDate((py_datetime.year, py_datetime.month, py_datetime.day))
+    # can pass ints to constructor or use setDate() afterwards
+    date = exiv2.DateValue(py_datetime.year, py_datetime.month, py_datetime.day)
     print("Exiv2 date:", date)
     time = exiv2.TimeValue()
+    # negative offsets with non-zero minutes will not be handled
+    # correctly by exiv2
     offset = int(tz.utcoffset(py_datetime).total_seconds()) // 60
-    time.setTime((py_datetime.hour, py_datetime.minute, py_datetime.second,
-                  offset // 60, offset % 60))
+    time.setTime(py_datetime.hour, py_datetime.minute, py_datetime.second,
+                 offset // 60, offset % 60)
     print("Exiv2 time:", time)
     # Exiv2 -> Python
-    # date[0] and time[0] return tuples of ints
+    d = date.getDate()
+    t = time.getTime()
     tz = datetime.timezone(
-        datetime.timedelta(hours=time[0][3], minutes=time[0][4]))
-    py_datetime = datetime.datetime(*date[0], *time[0][:3], tzinfo=tz)
+        datetime.timedelta(hours=t.tzHour, minutes=t.tzMinute))
+    py_datetime = datetime.datetime(
+        d.year, d.month, d.day, t.hour, t.minute, t.second, tzinfo=tz)
     print("Python datetime:", py_datetime)
 
     print('==== ShortValue ====')
