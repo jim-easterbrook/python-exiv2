@@ -208,6 +208,8 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 }
 
 // Make LangAltValue like a Python dict
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    Exiv2::LangAltValue::__iter__;
 %feature("python:slot", "mp_length", functype="lenfunc")
     Exiv2::LangAltValue::count;
 %feature("python:slot", "mp_subscript", functype="binaryfunc")
@@ -264,6 +266,9 @@ components."
             result.push_back(make_pair(i->first, i->second));
         }
         return result;
+    }
+    PyObject* __iter__() {
+        return PySeqIter_New(swig::from(Exiv2_LangAltValue_keys($self)));
     }
     std::string __getitem__(const std::string& key) {
         try {

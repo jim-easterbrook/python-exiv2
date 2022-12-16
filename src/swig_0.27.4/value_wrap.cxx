@@ -6263,6 +6263,9 @@ SWIGINTERN std::vector< std::pair< std::string,std::string >,std::allocator< std
 	};
       }
     
+SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
+        return PySeqIter_New(swig::from(Exiv2_LangAltValue_keys(self)));
+    }
 SWIGINTERN std::string Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,std::string const &key){
         try {
             return self->value_.at(key);
@@ -14516,6 +14519,39 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_LangAltValue___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "LangAltValue___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___iter__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_LangAltValue___iter__(arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_LangAltValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
@@ -14871,6 +14907,8 @@ fail:
 
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_LangAltValue_count) /* defines _wrap_LangAltValue_count_lenfunc_closure */
+
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_LangAltValue___iter__) /* defines _wrap_LangAltValue___iter___getiterfunc_closure */
 
 SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_LangAltValue___setitem__) /* defines _wrap_LangAltValue___setitem___objobjargproc_closure */
 
@@ -32044,6 +32082,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValue_methods[] = {
 		"Get key, value pairs (i.e. language, text) of the LangAltValue\n"
 		"components.\n"
 		"" },
+  { "__iter__", _wrap_LangAltValue___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_LangAltValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_LangAltValue___setitem__, METH_VARARGS, "" },
   { "__contains__", _wrap_LangAltValue___contains__, METH_O, "" },
@@ -32099,7 +32138,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__LangAltValue_richcompare,               /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
+    _wrap_LangAltValue___iter___getiterfunc_closure,              /* tp_iter */
     (iternextfunc) 0,                         /* tp_iternext */
     SwigPyBuiltin__Exiv2__LangAltValue_methods,                   /* tp_methods */
     0,                                        /* tp_members */
