@@ -6266,13 +6266,13 @@ SWIGINTERN std::vector< std::pair< std::string,std::string >,std::allocator< std
 SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
         return PySeqIter_New(swig::from(Exiv2_LangAltValue_keys(self)));
     }
-SWIGINTERN std::string Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,std::string const &key){
+SWIGINTERN PyObject *Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,std::string const &key){
         try {
-            return self->value_.at(key);
+            return SWIG_From_std_string(self->value_.at(key));
         } catch(std::out_of_range const&) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
-            return "";
         }
+        return NULL;
     }
 SWIGINTERN void Exiv2_LangAltValue___setitem____SWIG_0(Exiv2::LangAltValue *self,std::string const &key,std::string const &value){
         self->value_[key] = value;
@@ -14560,7 +14560,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___getitem__(PyObject *self, PyObject *ar
   int res1 = 0 ;
   int res2 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
-  std::string result;
+  PyObject *result = 0 ;
   
   (void)self;
   if (!args) SWIG_fail;
@@ -14582,11 +14582,18 @@ SWIGINTERN PyObject *_wrap_LangAltValue___getitem__(PyObject *self, PyObject *ar
     arg2 = ptr;
   }
   {
-    result = Exiv2_LangAltValue___getitem__(arg1,(std::string const &)*arg2);
-    if (PyErr_Occurred())
-    SWIG_fail;
+    try {
+      result = (PyObject *)Exiv2_LangAltValue___getitem__(arg1,(std::string const &)*arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
   }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  resultobj = result;
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:

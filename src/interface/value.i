@@ -228,11 +228,6 @@ components."
 %template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
 %template() std::vector<std::string>;
 %template() std::vector<std::pair<std::string,std::string>>;
-%exception Exiv2::LangAltValue::__getitem__ {
-    $action
-    if (PyErr_Occurred())
-        SWIG_fail;
-}
 %extend Exiv2::LangAltValue {
     // Constructor, reads values from a Python dict
     LangAltValue(Exiv2::LangAltValue::ValueType value) {
@@ -270,13 +265,13 @@ components."
     PyObject* __iter__() {
         return PySeqIter_New(swig::from(Exiv2_LangAltValue_keys($self)));
     }
-    std::string __getitem__(const std::string& key) {
+    PyObject* __getitem__(const std::string& key) {
         try {
-            return $self->value_.at(key);
+            return SWIG_From_std_string($self->value_.at(key));
         } catch(std::out_of_range const&) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
-            return "";
         }
+        return NULL;
     }
     void __setitem__(const std::string& key, const std::string& value) {
         $self->value_[key] = value;
