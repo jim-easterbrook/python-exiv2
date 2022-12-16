@@ -18,6 +18,9 @@
 %module(package="exiv2") value
 %feature("flatnested", "1");
 
+// We don't need Python access to SwigPyIterator
+%ignore SwigPyIterator;
+
 %include "preamble.i"
 
 %include "pybuffer.i"
