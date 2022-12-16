@@ -208,8 +208,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 }
 
 // Make LangAltValue like a Python dict
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    Exiv2::LangAltValue::__iter__;
 %feature("python:slot", "mp_length", functype="lenfunc")
     Exiv2::LangAltValue::count;
 %feature("python:slot", "mp_subscript", functype="binaryfunc")
@@ -224,40 +222,10 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 "Get values (i.e. text strings) of the LangAltValue components."
 %feature("docstring") Exiv2::LangAltValue::items
 "Get key, value pairs (i.e. language, text) of the LangAltValue
-components. These are also available by iterating over the
-LangAltValue."
+components."
 %template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
-// helper functions
-%{
-static PyObject* LangAltValue_get_key(
-        Exiv2::LangAltValue::ValueType::iterator i) {
-    return PyString_FromString(i->first.c_str());
-};
-static PyObject* LangAltValue_get_value(
-        Exiv2::LangAltValue::ValueType::iterator i) {
-    return PyString_FromString(i->second.c_str());
-};
-static PyObject* LangAltValue_get_item(
-        Exiv2::LangAltValue::ValueType::iterator i) {
-    return Py_BuildValue("(ss)", i->first.c_str(), i->second.c_str());
-};
-static PyObject* LangAltValue_to_list(
-        Exiv2::LangAltValue::ValueType value,
-        PyObject* (*convert)(Exiv2::LangAltValue::ValueType::iterator)) {
-    PyObject* result = PyList_New(0);
-    if (!result)
-        return result;
-    Exiv2::LangAltValue::ValueType::iterator e = value.end();
-    for (Exiv2::LangAltValue::ValueType::iterator i = value.begin();
-                                                  i != e; ++i) {
-        if (PyList_Append(result, convert(i))) {
-            Py_DECREF(result);
-            return NULL;
-        }
-    }
-    return result;
-};
-%}
+%template() std::vector<std::string>;
+%template() std::vector<std::pair<std::string,std::string>>;
 %exception Exiv2::LangAltValue::__getitem__ {
     $action
     if (PyErr_Occurred())
@@ -270,18 +238,32 @@ static PyObject* LangAltValue_to_list(
         result->value_ = value;
         return result;
     }
-    PyObject* keys() {
-        return LangAltValue_to_list($self->value_, &LangAltValue_get_key);
+    std::vector<std::string> keys() {
+        std::vector<std::string> result;
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter e = $self->value_.end();
+        for (iter i = $self->value_.begin(); i != e; ++i) {
+            result.push_back(i->first);
+        }
+        return result;
     }
-    PyObject* values() {
-        return LangAltValue_to_list($self->value_, &LangAltValue_get_value);
+    std::vector<std::string> values() {
+        std::vector<std::string> result;
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter e = $self->value_.end();
+        for (iter i = $self->value_.begin(); i != e; ++i) {
+            result.push_back(i->second);
+        }
+        return result;
     }
-    PyObject* items() {
-        return LangAltValue_to_list($self->value_, &LangAltValue_get_item);
-    }
-    PyObject* __iter__() {
-        return PySeqIter_New(
-            LangAltValue_to_list($self->value_, &LangAltValue_get_item));
+    std::vector<std::pair<std::string,std::string>> items() {
+        std::vector<std::pair<std::string,std::string> > result;
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter e = $self->value_.end();
+        for (iter i = $self->value_.begin(); i != e; ++i) {
+            result.push_back(make_pair(i->first, i->second));
+        }
+        return result;
     }
     std::string __getitem__(const std::string& key) {
         try {

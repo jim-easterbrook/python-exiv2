@@ -5219,36 +5219,6 @@ namespace swig
 }
 
 
-static PyObject* LangAltValue_get_key(
-        Exiv2::LangAltValue::ValueType::iterator i) {
-    return PyString_FromString(i->first.c_str());
-};
-static PyObject* LangAltValue_get_value(
-        Exiv2::LangAltValue::ValueType::iterator i) {
-    return PyString_FromString(i->second.c_str());
-};
-static PyObject* LangAltValue_get_item(
-        Exiv2::LangAltValue::ValueType::iterator i) {
-    return Py_BuildValue("(ss)", i->first.c_str(), i->second.c_str());
-};
-static PyObject* LangAltValue_to_list(
-        Exiv2::LangAltValue::ValueType value,
-        PyObject* (*convert)(Exiv2::LangAltValue::ValueType::iterator)) {
-    PyObject* result = PyList_New(0);
-    if (!result)
-        return result;
-    Exiv2::LangAltValue::ValueType::iterator e = value.end();
-    for (Exiv2::LangAltValue::ValueType::iterator i = value.begin();
-                                                  i != e; ++i) {
-        if (PyList_Append(result, convert(i))) {
-            Py_DECREF(result);
-            return NULL;
-        }
-    }
-    return result;
-};
-
-
 #include <limits.h>
 #if !defined(SWIG_NO_LLONG_MAX)
 # if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
@@ -6256,19 +6226,43 @@ SWIGINTERN Exiv2::LangAltValue *new_Exiv2_LangAltValue__SWIG_2(Exiv2::LangAltVal
         result->value_ = value;
         return result;
     }
-SWIGINTERN PyObject *Exiv2_LangAltValue_keys(Exiv2::LangAltValue *self){
-        return LangAltValue_to_list(self->value_, &LangAltValue_get_key);
+SWIGINTERN std::vector< std::string,std::allocator< std::string > > Exiv2_LangAltValue_keys(Exiv2::LangAltValue *self){
+        std::vector<std::string> result;
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter e = self->value_.end();
+        for (iter i = self->value_.begin(); i != e; ++i) {
+            result.push_back(i->first);
+        }
+        return result;
     }
-SWIGINTERN PyObject *Exiv2_LangAltValue_values(Exiv2::LangAltValue *self){
-        return LangAltValue_to_list(self->value_, &LangAltValue_get_value);
+SWIGINTERN std::vector< std::string,std::allocator< std::string > > Exiv2_LangAltValue_values(Exiv2::LangAltValue *self){
+        std::vector<std::string> result;
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter e = self->value_.end();
+        for (iter i = self->value_.begin(); i != e; ++i) {
+            result.push_back(i->second);
+        }
+        return result;
     }
-SWIGINTERN PyObject *Exiv2_LangAltValue_items(Exiv2::LangAltValue *self){
-        return LangAltValue_to_list(self->value_, &LangAltValue_get_item);
+SWIGINTERN std::vector< std::pair< std::string,std::string >,std::allocator< std::pair< std::string,std::string > > > Exiv2_LangAltValue_items(Exiv2::LangAltValue *self){
+        std::vector<std::pair<std::string,std::string> > result;
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter e = self->value_.end();
+        for (iter i = self->value_.begin(); i != e; ++i) {
+            result.push_back(make_pair(i->first, i->second));
+        }
+        return result;
     }
-SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
-        return PySeqIter_New(
-            LangAltValue_to_list(self->value_, &LangAltValue_get_item));
-    }
+
+      namespace swig {
+	template <>  struct traits<std::vector< std::pair< std::string,std::string >, std::allocator< std::pair< std::string,std::string > > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "std::pair< std::string,std::string >" "," "std::allocator< std::pair< std::string,std::string > >" " >";
+	  }
+	};
+      }
+    
 SWIGINTERN std::string Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,std::string const &key){
         try {
             return self->value_.at(key);
@@ -14428,7 +14422,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
   Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  PyObject *result = 0 ;
+  std::vector< std::string,std::allocator< std::string > > result;
   
   (void)self;
   if (!SWIG_Python_UnpackTuple(args, "LangAltValue_keys", 0, 0, 0)) SWIG_fail;
@@ -14439,7 +14433,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
     try {
-      result = (PyObject *)Exiv2_LangAltValue_keys(arg1);
+      result = Exiv2_LangAltValue_keys(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -14449,7 +14443,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = result;
+  resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
   return NULL;
@@ -14461,7 +14455,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_values(PyObject *self, PyObject *args) {
   Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  PyObject *result = 0 ;
+  std::vector< std::string,std::allocator< std::string > > result;
   
   (void)self;
   if (!SWIG_Python_UnpackTuple(args, "LangAltValue_values", 0, 0, 0)) SWIG_fail;
@@ -14472,7 +14466,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_values(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
     try {
-      result = (PyObject *)Exiv2_LangAltValue_values(arg1);
+      result = Exiv2_LangAltValue_values(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -14482,7 +14476,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_values(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = result;
+  resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
   return NULL;
@@ -14494,7 +14488,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_items(PyObject *self, PyObject *args) {
   Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  PyObject *result = 0 ;
+  std::vector< std::pair< std::string,std::string >,std::allocator< std::pair< std::string,std::string > > > result;
   
   (void)self;
   if (!SWIG_Python_UnpackTuple(args, "LangAltValue_items", 0, 0, 0)) SWIG_fail;
@@ -14505,7 +14499,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_items(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
     try {
-      result = (PyObject *)Exiv2_LangAltValue_items(arg1);
+      result = Exiv2_LangAltValue_items(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -14515,40 +14509,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_items(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LangAltValue___iter__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "LangAltValue___iter__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___iter__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    try {
-      result = (PyObject *)Exiv2_LangAltValue___iter__(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
+  resultobj = swig::from(static_cast< std::vector< std::pair< std::string,std::string >,std::allocator< std::pair< std::string,std::string > > > >(result));
   return resultobj;
 fail:
   return NULL;
@@ -14910,8 +14871,6 @@ fail:
 
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_LangAltValue_count) /* defines _wrap_LangAltValue_count_lenfunc_closure */
-
-SWIGPY_GETITERFUNC_CLOSURE(_wrap_LangAltValue___iter__) /* defines _wrap_LangAltValue___iter___getiterfunc_closure */
 
 SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_LangAltValue___setitem__) /* defines _wrap_LangAltValue___setitem___objobjargproc_closure */
 
@@ -32083,10 +32042,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValue_methods[] = {
   { "values", _wrap_LangAltValue_values, METH_NOARGS, "Get values (i.e. text strings) of the LangAltValue components." },
   { "items", _wrap_LangAltValue_items, METH_NOARGS, "\n"
 		"Get key, value pairs (i.e. language, text) of the LangAltValue\n"
-		"components. These are also available by iterating over the\n"
-		"LangAltValue.\n"
+		"components.\n"
 		"" },
-  { "__iter__", _wrap_LangAltValue___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_LangAltValue___getitem__, METH_O, "" },
   { "__setitem__", _wrap_LangAltValue___setitem__, METH_VARARGS, "" },
   { "__contains__", _wrap_LangAltValue___contains__, METH_O, "" },
@@ -32142,7 +32099,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__LangAltValue_richcompare,               /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    _wrap_LangAltValue___iter___getiterfunc_closure,              /* tp_iter */
+    (getiterfunc) 0,                          /* tp_iter */
     (iternextfunc) 0,                         /* tp_iternext */
     SwigPyBuiltin__Exiv2__LangAltValue_methods,                   /* tp_methods */
     0,                                        /* tp_members */
