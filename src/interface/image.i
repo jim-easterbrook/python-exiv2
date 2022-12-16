@@ -39,9 +39,9 @@
 wrap_auto_unique_ptr(Exiv2::Image);
 
 %pybuffer_binary(const Exiv2::byte* data, long size)
-%typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
-    $1 = PyObject_CheckBuffer($input);
-}
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) const Exiv2::byte* %{
+    $1 = PyObject_CheckBuffer($input) ? 1 : 0;
+%}
 
 // Potentially blocking calls allow Python threads
 %thread Exiv2::Image::readMetadata;

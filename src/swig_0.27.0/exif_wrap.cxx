@@ -9676,9 +9676,7 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail(PyObject *self, PyObject *
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]);
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_3(self, argc, argv);
@@ -9695,9 +9693,7 @@ check_1:
   if (argc == 5) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]);
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_3;
     PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_1(self, argc, argv);

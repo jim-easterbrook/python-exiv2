@@ -36,9 +36,9 @@
 #else
 %pybuffer_binary(const Exiv2::byte* buf, size_t size)
 #endif
-%typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
-    $1 = PyObject_CheckBuffer($input);
-}
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) const Exiv2::byte* %{
+    $1 = PyObject_CheckBuffer($input) ? 1 : 0;
+%}
 
 #ifndef SWIGIMPORTED
 DATA_CONTAINER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,

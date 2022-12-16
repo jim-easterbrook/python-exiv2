@@ -8359,9 +8359,7 @@ SWIGINTERN PyObject *_wrap_DataValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_DataValue_read__SWIG_1(self, argc, argv);
@@ -9015,9 +9013,7 @@ SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwa
   if (argc == 1) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_2;
     int retval = _wrap_new_DataValue__SWIG_4(self, argc, argv);
@@ -9266,9 +9262,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read(PyObject *self, PyObject *args) 
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_StringValueBase_read__SWIG_2(self, argc, argv);
@@ -10377,9 +10371,7 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_AsciiValue_read__SWIG_0_1(self, argc, argv);
@@ -11704,9 +11696,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_XmpValue_read__SWIG_1(self, argc, argv);
@@ -12070,9 +12060,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_XmpTextValue_read__SWIG_0_1(self, argc, argv);
@@ -12901,9 +12889,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_XmpArrayValue_read__SWIG_0_1(self, argc, argv);
@@ -13880,9 +13866,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_LangAltValue_read__SWIG_0_1(self, argc, argv);
@@ -15207,9 +15191,7 @@ SWIGINTERN PyObject *_wrap_DateValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_DateValue_read__SWIG_1(self, argc, argv);
@@ -16754,9 +16736,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_TimeValue_read__SWIG_1(self, argc, argv);
@@ -19389,9 +19369,7 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_7;
     int retval = _wrap_new_UShortValue__SWIG_3(self, argc, argv);
@@ -20778,9 +20756,7 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_7;
     int retval = _wrap_new_ULongValue__SWIG_3(self, argc, argv);
@@ -22175,9 +22151,7 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_7;
     int retval = _wrap_new_URationalValue__SWIG_3(self, argc, argv);
@@ -23568,9 +23542,7 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_7;
     int retval = _wrap_new_ShortValue__SWIG_3(self, argc, argv);
@@ -24909,9 +24881,7 @@ check_4:
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_6;
     int retval = _wrap_new_LongValue__SWIG_3(self, argc, argv);
@@ -26305,9 +26275,7 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_7;
     int retval = _wrap_new_RationalValue__SWIG_3(self, argc, argv);
@@ -27698,9 +27666,7 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_7;
     int retval = _wrap_new_FloatValue__SWIG_3(self, argc, argv);
@@ -29087,9 +29053,7 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_7;
     int retval = _wrap_new_DoubleValue__SWIG_3(self, argc, argv);

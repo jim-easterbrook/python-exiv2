@@ -54,9 +54,9 @@ wrap_auto_unique_ptr(Exiv2::Value);
 #else
 %pybuffer_binary(const Exiv2::byte* buf, size_t len)
 #endif
-%typecheck(SWIG_TYPECHECK_POINTER) const Exiv2::byte* {
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) const Exiv2::byte* %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
-}
+%}
 // Value::copy can write to a Python buffer
 %typemap(in) Exiv2::byte* buf {
     Py_buffer view;

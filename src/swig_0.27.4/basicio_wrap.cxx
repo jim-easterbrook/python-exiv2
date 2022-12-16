@@ -4765,7 +4765,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_write(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]);
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_BasicIo_write__SWIG_0(self, argc, argv);
@@ -5566,7 +5566,7 @@ SWIGINTERN PyObject *_wrap_FileIo_write(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]);
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_FileIo_write__SWIG_0(self, argc, argv);
@@ -6389,7 +6389,7 @@ SWIGINTERN PyObject *_wrap_MemIo_write(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]);
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_MemIo_write__SWIG_0(self, argc, argv);
@@ -7276,7 +7276,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]);
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_RemoteIo_write__SWIG_0(self, argc, argv);

@@ -7203,9 +7203,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open(PyObject *self, PyObject *args) {
   if (argc == 1) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]);
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_ImageFactory_open__SWIG_2(self, argc, argv);
@@ -7486,9 +7484,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType(PyObject *self, PyObject *args) 
   if (argc == 1) {
     int _v = 0;
     {
-      {
-        _v = PyObject_CheckBuffer(argv[0]);
-      }
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_1;
     PyObject *retobj = _wrap_ImageFactory_getType__SWIG_1(self, argc, argv);
