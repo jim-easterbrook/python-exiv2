@@ -79,6 +79,7 @@ PyObject* logger = NULL;
 %noexception wrap_class##_iterator_end::operator==;
 %noexception wrap_class##_iterator_end::operator!=;
 %ignore wrap_class##_iterator::wrap_class##_iterator;
+%ignore wrap_class##_iterator::size;
 %ignore wrap_class##_iterator_end::wrap_class##_iterator_end;
 %ignore wrap_class##_iterator_end::operator*;
 %feature("docstring") wrap_class##_iterator "
@@ -157,6 +158,10 @@ public:
     wrap_class##_iterator* __iter__() {
         return new wrap_class##_iterator(safe_ptr, end, parent);
     }
+    // Provide size() C++ method for buffer size check
+    size_t size() {
+        return safe_ptr->size();
+    }
 };
 %}
 %enddef // _DATA_ITERATOR
@@ -205,16 +210,6 @@ public:
             new wrap_class##_iterator($1, end, self),
             $descriptor(wrap_class##_iterator*), SWIG_POINTER_OWN);
 };
-// replace buf size check to dereference arg1/self
-%typemap(check) (wrap_class##_iterator const* self, Exiv2::byte* buf) %{
-    if (_global_len < (*$1)->size()) {
-        PyErr_Format(PyExc_ValueError,
-            "in method '$symname', '$2_name' value is a %d byte buffer,"
-            " %d bytes needed",
-            _global_len, (*$1)->size());
-        SWIG_fail;
-    }
-%}
 %enddef // _USE_DATA_CONTAINER
 
 // Declare the above typemaps everywhere

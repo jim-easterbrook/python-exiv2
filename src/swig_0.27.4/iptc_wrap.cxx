@@ -4042,6 +4042,10 @@ public:
     IptcData_iterator* __iter__() {
         return new IptcData_iterator(safe_ptr, end, parent);
     }
+    // Provide size() C++ method for buffer size check
+    size_t size() {
+        return safe_ptr->size();
+    }
 };
 
 
@@ -5494,8 +5498,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_copy(PyObject *self, PyObject *args
   Exiv2::ByteOrder arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer view2 ;
-  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -5509,27 +5511,27 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_copy(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    Py_buffer view;
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_WRITABLE);
     if (res < 0)
     SWIG_exception_fail(SWIG_ArgError(res), "in method '" "IptcData_iterator_copy" "', argument " "2"" of type '" "writable buffer""'");
-    arg2 = (Exiv2::byte*) view2.buf;
-    _global_len = view2.len;
-    PyBuffer_Release(&view2);
+    arg2 = (Exiv2::byte*) view.buf;
+    size_t len = view.len;
+    PyBuffer_Release(&view);
+    // check writeable buf is large enough, assumes arg1 points to self
+    if (len < (size_t) arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'IptcData_iterator_copy', 'buf' value is a %d byte buffer,"
+        " %d bytes needed",
+        len, arg1->size());
+      SWIG_fail;
+    }
   }
   ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IptcData_iterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  
-  if (_global_len < (*arg1)->size()) {
-    PyErr_Format(PyExc_ValueError,
-      "in method 'IptcData_iterator_copy', 'buf' value is a %d byte buffer,"
-      " %d bytes needed",
-      _global_len, (*arg1)->size());
-    SWIG_fail;
-  }
-  
   {
     try {
       result = (long)(*arg1)->copy(arg2,arg3);
@@ -8028,8 +8030,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
   Exiv2::ByteOrder arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer view2 ;
-  long _global_len ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -8043,27 +8043,27 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
   {
-    int res = PyObject_GetBuffer(swig_obj[0], &view2, PyBUF_WRITABLE);
+    Py_buffer view;
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_WRITABLE);
     if (res < 0)
     SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Iptcdatum_copy" "', argument " "2"" of type '" "writable buffer""'");
-    arg2 = (Exiv2::byte*) view2.buf;
-    _global_len = view2.len;
-    PyBuffer_Release(&view2);
+    arg2 = (Exiv2::byte*) view.buf;
+    size_t len = view.len;
+    PyBuffer_Release(&view);
+    // check writeable buf is large enough, assumes arg1 points to self
+    if (len < (size_t) arg1->size()) {
+      PyErr_Format(PyExc_ValueError,
+        "in method 'Iptcdatum_copy', 'buf' value is a %d byte buffer,"
+        " %d bytes needed",
+        len, arg1->size());
+      SWIG_fail;
+    }
   }
   ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Iptcdatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
-  
-  if (_global_len < arg1->size()) {
-    PyErr_Format(PyExc_ValueError,
-      "in method 'Iptcdatum_copy', 'buf' value is a %d byte buffer,"
-      " %d bytes needed",
-      _global_len, arg1->size());
-    SWIG_fail;
-  }
-  
   {
     try {
       result = (long)((Exiv2::Iptcdatum const *)arg1)->copy(arg2,arg3);

@@ -58,29 +58,23 @@ wrap_auto_unique_ptr(Exiv2::Value);
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 }
 // Value::copy can write to a Python buffer
-#if EXIV2_VERSION_HEX < 0x01000000
-%typemap(in) Exiv2::byte* buf (Py_buffer view, long _global_len) {
-#else
-%typemap(in) Exiv2::byte* buf (Py_buffer view, size_t _global_len) {
-#endif
+%typemap(in) Exiv2::byte* buf {
+    Py_buffer view;
     int res = PyObject_GetBuffer($input, &view, PyBUF_WRITABLE);
     if (res < 0)
         %argument_fail(res, writable buffer, $symname, $argnum);
     $1 = (Exiv2::byte*) view.buf;
-    _global_len = view.len;
+    size_t len = view.len;
     PyBuffer_Release(&view);
-}
-// check writeable buf is large enough, assumes arg1 points to self
-%typemap(check) (const Exiv2::byte* buf) {}
-%typemap(check) Exiv2::byte* buf %{
-    if (_global_len < arg1->size()) {
+    // check writeable buf is large enough, assumes arg1 points to self
+    if (len < (size_t) arg1->size()) {
         PyErr_Format(PyExc_ValueError,
             "in method '$symname', '$1_name' value is a %d byte buffer,"
             " %d bytes needed",
-            _global_len, arg1->size());
+            len, arg1->size());
         SWIG_fail;
     }
-%}
+}
 
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value

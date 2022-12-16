@@ -3978,6 +3978,10 @@ public:
     ExifData_iterator* __iter__() {
         return new ExifData_iterator(safe_ptr, end, parent);
     }
+    // Provide size() C++ method for buffer size check
+    size_t size() {
+        return safe_ptr->size();
+    }
 };
 
 
