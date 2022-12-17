@@ -4669,18 +4669,16 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "BasicIo_write" "', argument " "2"" of type '" "(const Exiv2::byte* data, long wcount)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    size = view.len;
-    buf = view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
+    arg3 = (long) view.len;
     PyBuffer_Release(&view);
-    arg2 = (Exiv2::byte *) buf;
-    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {
@@ -5470,18 +5468,16 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "FileIo_write" "', argument " "2"" of type '" "(const Exiv2::byte* data, long wcount)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    size = view.len;
-    buf = view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
+    arg3 = (long) view.len;
     PyBuffer_Release(&view);
-    arg2 = (Exiv2::byte *) buf;
-    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {
@@ -6293,18 +6289,16 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "MemIo_write" "', argument " "2"" of type '" "(const Exiv2::byte* data, long wcount)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    size = view.len;
-    buf = view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
+    arg3 = (long) view.len;
     PyBuffer_Release(&view);
-    arg2 = (Exiv2::byte *) buf;
-    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {
@@ -7180,18 +7174,16 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "RemoteIo_write" "', argument " "2"" of type '" "(const Exiv2::byte* data, long wcount)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    size = view.len;
-    buf = view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
+    arg3 = (long) view.len;
     PyBuffer_Release(&view);
-    arg2 = (Exiv2::byte *) buf;
-    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {

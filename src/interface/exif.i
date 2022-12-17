@@ -19,7 +19,6 @@
 
 %include "preamble.i"
 
-%include "pybuffer.i"
 %include "stdint.i"
 %include "std_string.i"
 #ifndef SWIGIMPORTED
@@ -32,13 +31,10 @@
 %import "tags.i"
 
 #if EXIV2_VERSION_HEX < 0x01000000
-%pybuffer_binary(const Exiv2::byte* buf, long size)
+INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)
 #else
-%pybuffer_binary(const Exiv2::byte* buf, size_t size)
+INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t size)
 #endif
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) const Exiv2::byte* %{
-    $1 = PyObject_CheckBuffer($input) ? 1 : 0;
-%}
 
 #ifndef SWIGIMPORTED
 DATA_CONTAINER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,

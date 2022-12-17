@@ -64,6 +64,25 @@ PyObject* logger = NULL;
     }
 }
 
+// Macro for input read only byte buffer
+%define INPUT_BUFFER_RO(buf_type, len_type)
+%typemap(in) (buf_type, len_type) {
+    Py_buffer view;
+    int res = PyObject_GetBuffer($input, &view, PyBUF_CONTIG_RO);
+    if (res < 0) {
+        PyErr_Clear();
+        %argument_fail(SWIG_TypeError, "Python buffer interface",
+                       $symname, $argnum);
+    }
+    $1 = ($1_ltype) view.buf;
+    $2 = ($2_ltype) view.len;
+    PyBuffer_Release(&view);
+}
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) buf_type %{
+    $1 = PyObject_CheckBuffer($input) ? 1 : 0;
+%}
+%enddef // INPUT_BUFFER_RO
+
 // Macros to wrap data iterators
 %define _DATA_ITERATOR(wrap_class, iterator_type, datum_type, mode)
 %feature("python:slot", "tp_iter",

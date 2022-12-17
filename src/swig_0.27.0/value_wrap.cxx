@@ -7052,9 +7052,10 @@ SWIGINTERN PyObject *_wrap_Value_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -7182,9 +7183,10 @@ SWIGINTERN PyObject *_wrap_Value_setDataArea(PyObject *self, PyObject *args) {
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -8025,9 +8027,10 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -8076,9 +8079,10 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyO
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -8119,9 +8123,10 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_4(PyObject *self, Py_ssize_t nobjs, PyO
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -8200,9 +8205,10 @@ SWIGINTERN PyObject *_wrap_DataValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -8251,9 +8257,10 @@ SWIGINTERN PyObject *_wrap_DataValue_read__SWIG_1(PyObject *self, Py_ssize_t nob
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -9147,9 +9154,10 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_1(PyObject *self, Py_ssize
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -9198,9 +9206,10 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_2(PyObject *self, Py_ssize
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -10204,9 +10213,10 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read__SWIG_0_0(PyObject *self, Py_ssize_t 
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -10255,9 +10265,10 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read__SWIG_0_1(PyObject *self, Py_ssize_t 
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -10654,9 +10665,10 @@ SWIGINTERN PyObject *_wrap_CommentValue_read__SWIG_1(PyObject *self, Py_ssize_t 
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "CommentValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "CommentValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -11523,9 +11535,10 @@ SWIGINTERN PyObject *_wrap_XmpValue_read__SWIG_0(PyObject *self, Py_ssize_t nobj
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -11574,9 +11587,10 @@ SWIGINTERN PyObject *_wrap_XmpValue_read__SWIG_1(PyObject *self, Py_ssize_t nobj
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -11881,9 +11895,10 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0_0(PyObject *self, Py_ssize_
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -11932,9 +11947,10 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0_1(PyObject *self, Py_ssize_
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -12704,9 +12720,10 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read__SWIG_0_0(PyObject *self, Py_ssize
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -12755,9 +12772,10 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read__SWIG_0_1(PyObject *self, Py_ssize
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -13675,9 +13693,10 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read__SWIG_0_0(PyObject *self, Py_ssize_
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -13726,9 +13745,10 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read__SWIG_0_1(PyObject *self, Py_ssize_
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -15001,9 +15021,10 @@ SWIGINTERN PyObject *_wrap_DateValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -15052,9 +15073,10 @@ SWIGINTERN PyObject *_wrap_DateValue_read__SWIG_1(PyObject *self, Py_ssize_t nob
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -16542,9 +16564,10 @@ SWIGINTERN PyObject *_wrap_TimeValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -16593,9 +16616,10 @@ SWIGINTERN PyObject *_wrap_TimeValue_read__SWIG_1(PyObject *self, Py_ssize_t nob
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -18193,9 +18217,10 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, P
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -18244,9 +18269,10 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, P
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -18444,9 +18470,10 @@ SWIGINTERN PyObject *_wrap_UShortValue_read__SWIG_0(PyObject *self, Py_ssize_t n
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -18574,9 +18601,10 @@ SWIGINTERN PyObject *_wrap_UShortValue_setDataArea(PyObject *self, PyObject *arg
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -19569,9 +19597,10 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -19620,9 +19649,10 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -19820,9 +19850,10 @@ SWIGINTERN PyObject *_wrap_ULongValue_read__SWIG_0(PyObject *self, Py_ssize_t no
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -19950,9 +19981,10 @@ SWIGINTERN PyObject *_wrap_ULongValue_setDataArea(PyObject *self, PyObject *args
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -20945,9 +20977,10 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_2(PyObject *self, Py_ssize_t nobjs
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -20996,9 +21029,10 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_3(PyObject *self, Py_ssize_t nobjs
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -21206,9 +21240,10 @@ SWIGINTERN PyObject *_wrap_URationalValue_read__SWIG_0(PyObject *self, Py_ssize_
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -21336,9 +21371,10 @@ SWIGINTERN PyObject *_wrap_URationalValue_setDataArea(PyObject *self, PyObject *
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -22333,9 +22369,10 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -22384,9 +22421,10 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -22584,9 +22622,10 @@ SWIGINTERN PyObject *_wrap_ShortValue_read__SWIG_0(PyObject *self, Py_ssize_t no
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -22714,9 +22753,10 @@ SWIGINTERN PyObject *_wrap_ShortValue_setDataArea(PyObject *self, PyObject *args
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -23709,9 +23749,10 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -23760,9 +23801,10 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyO
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -23925,9 +23967,10 @@ SWIGINTERN PyObject *_wrap_LongValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -24055,9 +24098,10 @@ SWIGINTERN PyObject *_wrap_LongValue_setDataArea(PyObject *self, PyObject *args)
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -25036,9 +25080,10 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_2(PyObject *self, Py_ssize_t nobjs,
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -25087,9 +25132,10 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_3(PyObject *self, Py_ssize_t nobjs,
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -25297,9 +25343,10 @@ SWIGINTERN PyObject *_wrap_RationalValue_read__SWIG_0(PyObject *self, Py_ssize_t
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -25427,9 +25474,10 @@ SWIGINTERN PyObject *_wrap_RationalValue_setDataArea(PyObject *self, PyObject *a
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -26424,9 +26472,10 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -26475,9 +26524,10 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -26675,9 +26725,10 @@ SWIGINTERN PyObject *_wrap_FloatValue_read__SWIG_0(PyObject *self, Py_ssize_t no
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -26805,9 +26856,10 @@ SWIGINTERN PyObject *_wrap_FloatValue_setDataArea(PyObject *self, PyObject *args
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -27800,9 +27852,10 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, P
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -27851,9 +27904,10 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, P
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "1"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg1 = (Exiv2::byte*) view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
     arg2 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -28051,9 +28105,10 @@ SWIGINTERN PyObject *_wrap_DoubleValue_read__SWIG_0(PyObject *self, Py_ssize_t n
     int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_read" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_read" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -28181,9 +28236,10 @@ SWIGINTERN PyObject *_wrap_DoubleValue_setDataArea(PyObject *self, PyObject *arg
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }

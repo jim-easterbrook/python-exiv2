@@ -5563,9 +5563,10 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_setDataArea(PyObject *self, PyObjec
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifData_iterator_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifData_iterator_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -8104,9 +8105,10 @@ SWIGINTERN PyObject *_wrap_Exifdatum_setDataArea(PyObject *self, PyObject *args)
     int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Exifdatum_setDataArea" "', argument " "2"" of type '" "buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Exifdatum_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
     arg3 = (long) view.len;
     PyBuffer_Release(&view);
   }
@@ -9510,18 +9512,16 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_1(PyObject *self, Py
   }
   arg1 = reinterpret_cast< Exiv2::ExifThumb * >(argp1);
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long size)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    size = view.len;
-    buf = view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
+    arg3 = (long) view.len;
     PyBuffer_Release(&view);
-    arg2 = (Exiv2::byte *) buf;
-    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     std::pair< unsigned int,unsigned int > *ptr = (std::pair< unsigned int,unsigned int > *)0;
@@ -9628,18 +9628,16 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_3(PyObject *self, Py
   }
   arg1 = reinterpret_cast< Exiv2::ExifThumb * >(argp1);
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long size)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
     }
-    size = view.len;
-    buf = view.buf;
+    arg2 = (Exiv2::byte *) view.buf;
+    arg3 = (long) view.len;
     PyBuffer_Release(&view);
-    arg2 = (Exiv2::byte *) buf;
-    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {

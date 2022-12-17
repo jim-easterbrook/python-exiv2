@@ -7153,18 +7153,16 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_2(PyObject *self, Py_ssize_t 
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ImageFactory_open" "', argument " "1"" of type '" "(const Exiv2::byte* data, long size)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_open" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    size = view.len;
-    buf = view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
+    arg2 = (long) view.len;
     PyBuffer_Release(&view);
-    arg1 = (Exiv2::byte *) buf;
-    arg2 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {
@@ -7404,18 +7402,16 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ImageFactory_getType" "', argument " "1"" of type '" "(const Exiv2::byte* data, long size)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_getType" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
     }
-    size = view.len;
-    buf = view.buf;
+    arg1 = (Exiv2::byte *) view.buf;
+    arg2 = (long) view.len;
     PyBuffer_Release(&view);
-    arg1 = (Exiv2::byte *) buf;
-    arg2 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {

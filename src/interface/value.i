@@ -48,21 +48,11 @@ wrap_auto_unique_ptr(Exiv2::Value);
     }
 %}
 // DataValue constructor and DataValue::read can take a Python buffer
-%typemap(in) (const Exiv2::byte* buf, long len),
-             (const Exiv2::byte* buf, size_t len) {
-    Py_buffer view;
-    int res = PyObject_GetBuffer($input, &view, PyBUF_CONTIG_RO);
-    if (res < 0) {
-        PyErr_Clear();
-        %argument_fail(SWIG_TypeError, "buffer", $symname, $argnum);
-    }
-    $1 = (Exiv2::byte*) view.buf;
-    $2 = ($2_ltype) view.len;
-    PyBuffer_Release(&view);
-}
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) const Exiv2::byte* %{
-    $1 = PyObject_CheckBuffer($input) ? 1 : 0;
-%}
+#if EXIV2_VERSION_HEX < 0x01000000
+INPUT_BUFFER_RO(const Exiv2::byte* buf, long len)
+#else
+INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
+#endif
 // Value::copy can write to a Python buffer
 %typemap(in) Exiv2::byte* buf {
     Py_buffer view;

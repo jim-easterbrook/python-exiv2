@@ -22,7 +22,6 @@
 
 %include "preamble.i"
 
-%include "pybuffer.i"
 %include "std_string.i"
 
 %import "types.i"
@@ -38,10 +37,7 @@ wrap_auto_unique_ptr(Exiv2::BasicIo);
 %thread Exiv2::BasicIo::seek;
 
 // Allow BasicIo::write to take any Python buffer
-%pybuffer_binary(const Exiv2::byte* data, long wcount)
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) const Exiv2::byte* %{
-    $1 = PyObject_CheckBuffer($input) ? 1 : 0;
-%}
+INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
 
 // Expose BasicIo contents as a Python buffer
 %feature("python:bf_getbuffer",
