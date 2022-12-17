@@ -5559,18 +5559,15 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_setDataArea(PyObject *self, PyObjec
   }
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifData_iterator_setDataArea" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifData_iterator_setDataArea" "', argument " "2"" of type '" "buffer""'");
     }
-    size = view.len;
-    buf = view.buf;
+    arg2 = (Exiv2::byte*) view.buf;
+    arg3 = (long) view.len;
     PyBuffer_Release(&view);
-    arg2 = (Exiv2::byte *) buf;
-    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {
@@ -5876,18 +5873,19 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_copy(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_WRITABLE);
-    if (res < 0)
-    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifData_iterator_copy" "', argument " "2"" of type '" "writable buffer""'");
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifData_iterator_copy" "', argument " "2"" of type '" "writable buffer""'");
+    }
     arg2 = (Exiv2::byte*) view.buf;
     size_t len = view.len;
     PyBuffer_Release(&view);
     // check writeable buf is large enough, assumes arg1 points to self
     if (len < (size_t) arg1->size()) {
       PyErr_Format(PyExc_ValueError,
-        "in method 'ExifData_iterator_copy', 'buf' value is a %d byte buffer,"
-        " %d bytes needed",
-        len, arg1->size());
+        "in method 'ExifData_iterator_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed", len, arg1->size());
       SWIG_fail;
     }
   }
@@ -8102,18 +8100,15 @@ SWIGINTERN PyObject *_wrap_Exifdatum_setDataArea(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
   {
-    int res; Py_ssize_t size = 0; const void *buf = 0;
     Py_buffer view;
-    res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
     if (res < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Exifdatum_setDataArea" "', argument " "2"" of type '" "(const Exiv2::byte* buf, long len)""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Exifdatum_setDataArea" "', argument " "2"" of type '" "buffer""'");
     }
-    size = view.len;
-    buf = view.buf;
+    arg2 = (Exiv2::byte*) view.buf;
+    arg3 = (long) view.len;
     PyBuffer_Release(&view);
-    arg2 = (Exiv2::byte *) buf;
-    arg3 = (long) (size / sizeof(Exiv2::byte const));
   }
   {
     try {
@@ -8419,18 +8414,19 @@ SWIGINTERN PyObject *_wrap_Exifdatum_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_WRITABLE);
-    if (res < 0)
-    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Exifdatum_copy" "', argument " "2"" of type '" "writable buffer""'");
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Exifdatum_copy" "', argument " "2"" of type '" "writable buffer""'");
+    }
     arg2 = (Exiv2::byte*) view.buf;
     size_t len = view.len;
     PyBuffer_Release(&view);
     // check writeable buf is large enough, assumes arg1 points to self
     if (len < (size_t) arg1->size()) {
       PyErr_Format(PyExc_ValueError,
-        "in method 'Exifdatum_copy', 'buf' value is a %d byte buffer,"
-        " %d bytes needed",
-        len, arg1->size());
+        "in method 'Exifdatum_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed", len, arg1->size());
       SWIG_fail;
     }
   }

@@ -5402,18 +5402,19 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_WRITABLE);
-    if (res < 0)
-    SWIG_exception_fail(SWIG_ArgError(res), "in method '" "Metadatum_copy" "', argument " "2"" of type '" "writable buffer""'");
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Metadatum_copy" "', argument " "2"" of type '" "writable buffer""'");
+    }
     arg2 = (Exiv2::byte*) view.buf;
     size_t len = view.len;
     PyBuffer_Release(&view);
     // check writeable buf is large enough, assumes arg1 points to self
     if (len < (size_t) arg1->size()) {
       PyErr_Format(PyExc_ValueError,
-        "in method 'Metadatum_copy', 'buf' value is a %d byte buffer,"
-        " %d bytes needed",
-        len, arg1->size());
+        "in method 'Metadatum_copy', argument 2 is a %d byte buffer,"
+        " %d bytes needed", len, arg1->size());
       SWIG_fail;
     }
   }

@@ -23,7 +23,6 @@
 
 %include "preamble.i"
 
-%include "pybuffer.i"
 %include "stdint.i"
 %include "std_map.i"
 %include "std_string.i"
@@ -49,29 +48,37 @@ wrap_auto_unique_ptr(Exiv2::Value);
     }
 %}
 // DataValue constructor and DataValue::read can take a Python buffer
-#if EXIV2_VERSION_HEX < 0x01000000
-%pybuffer_binary(const Exiv2::byte* buf, long len)
-#else
-%pybuffer_binary(const Exiv2::byte* buf, size_t len)
-#endif
+%typemap(in) (const Exiv2::byte* buf, long len),
+             (const Exiv2::byte* buf, size_t len) {
+    Py_buffer view;
+    int res = PyObject_GetBuffer($input, &view, PyBUF_CONTIG_RO);
+    if (res < 0) {
+        PyErr_Clear();
+        %argument_fail(SWIG_TypeError, "buffer", $symname, $argnum);
+    }
+    $1 = (Exiv2::byte*) view.buf;
+    $2 = ($2_ltype) view.len;
+    PyBuffer_Release(&view);
+}
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) const Exiv2::byte* %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}
 // Value::copy can write to a Python buffer
 %typemap(in) Exiv2::byte* buf {
     Py_buffer view;
-    int res = PyObject_GetBuffer($input, &view, PyBUF_WRITABLE);
-    if (res < 0)
-        %argument_fail(res, writable buffer, $symname, $argnum);
+    int res = PyObject_GetBuffer($input, &view, PyBUF_CONTIG | PyBUF_WRITABLE);
+    if (res < 0) {
+        PyErr_Clear();
+        %argument_fail(SWIG_TypeError, "writable buffer", $symname, $argnum);
+    }
     $1 = (Exiv2::byte*) view.buf;
     size_t len = view.len;
     PyBuffer_Release(&view);
     // check writeable buf is large enough, assumes arg1 points to self
     if (len < (size_t) arg1->size()) {
         PyErr_Format(PyExc_ValueError,
-            "in method '$symname', '$1_name' value is a %d byte buffer,"
-            " %d bytes needed",
-            len, arg1->size());
+            "in method '$symname', argument $argnum is a %d byte buffer,"
+            " %d bytes needed", len, arg1->size());
         SWIG_fail;
     }
 }
