@@ -29,6 +29,8 @@
 wrap_auto_unique_ptr(Exiv2::BasicIo);
 
 // Potentially blocking calls allow Python threads
+%thread Exiv2::BasicIo::mmap;
+%thread Exiv2::BasicIo::munmap;
 %thread Exiv2::BasicIo::open;
 %thread Exiv2::BasicIo::close;
 %thread Exiv2::BasicIo::read;
@@ -38,6 +40,30 @@ wrap_auto_unique_ptr(Exiv2::BasicIo);
 
 // Allow BasicIo::write to take any Python buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
+
+// Ensure Io is open before calling mmap() or read()
+EXCEPTION(mmap,
+    if (!arg1->isopen()) {
+        PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
+        SWIG_fail;
+    })
+EXCEPTION(read,
+    if (!arg1->isopen()) {
+        PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
+        SWIG_fail;
+    })
+// Convert mmap() result to a read-only Python memory view
+%typemap(check) bool isWriteable %{
+    _global_writeable = $1;
+%}
+%typemap(out) Exiv2::byte* (bool _global_writeable = false) {
+    if ($1 == NULL) {
+        PyErr_SetString(PyExc_RuntimeError, "$symname: not implemented");
+        SWIG_fail;
+    }
+    $result = PyMemoryView_FromMemory((char*) $1, arg1->size(),
+        _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+}
 
 // Expose BasicIo contents as a Python buffer
 %feature("python:bf_getbuffer",
@@ -80,14 +106,6 @@ static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
 }
 %}
 
-// Cludge to check Io is open before reading
-%typemap(check) long rcount %{
-    if (!arg1->isopen()) {
-        PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
-        SWIG_fail;
-    }
-%}
-
 // Make enum more Pythonic
 ENUM(Position, "Seek starting positions.",
         "beg", Exiv2::BasicIo::beg,
@@ -95,8 +113,6 @@ ENUM(Position, "Seek starting positions.",
         "end", Exiv2::BasicIo::end);
 
 %ignore Exiv2::BasicIo::bigBlock_;
-%ignore Exiv2::BasicIo::mmap;
-%ignore Exiv2::BasicIo::munmap;
 %ignore Exiv2::BasicIo::populateFakeData;
 %ignore Exiv2::BasicIo::read(byte*, long);
 %ignore Exiv2::BasicIo::readOrThrow;

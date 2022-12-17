@@ -47,8 +47,10 @@ PyObject* logger = NULL;
 }
 %}
 
-// Catch all C++ exceptions
-%exception {
+// Macro to define %exception directives
+%define EXCEPTION(method, precheck)
+%exception method {
+precheck
     try {
         $action
 #if EXIV2_VERSION_HEX < 0x01000000
@@ -63,6 +65,10 @@ PyObject* logger = NULL;
         SWIG_fail;
     }
 }
+%enddef // EXCEPTION
+
+// Catch all C++ exceptions
+EXCEPTION(,)
 
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)

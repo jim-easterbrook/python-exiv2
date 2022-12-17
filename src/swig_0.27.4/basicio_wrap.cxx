@@ -4226,6 +4226,20 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 }
 
 
+SWIGINTERN int
+SWIG_AsVal_bool (PyObject *obj, bool *val)
+{
+  int r;
+  if (!PyBool_Check(obj))
+    return SWIG_ERROR;
+  r = PyObject_IsTrue(obj);
+  if (r == -1)
+    return SWIG_ERROR;
+  if (val) *val = r ? true : false;
+  return SWIG_OK;
+}
+
+
 SWIGINTERNINLINE PyObject* 
 SWIG_From_unsigned_SS_long  (unsigned long value)
 {
@@ -4854,13 +4868,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  
-  if (!arg1->isopen()) {
-    PyErr_SetString(PyExc_RuntimeError, "BasicIo_read: not open");
-    SWIG_fail;
-  }
-  
   {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "BasicIo_read: not open");
+      SWIG_fail;
+    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5004,6 +5016,181 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
         result = (int)(arg1)->seek(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_mmap" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_mmap" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  
+  _global_writeable = arg2;
+  
+  {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "BasicIo_mmap: not open");
+      SWIG_fail;
+    }
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (Exiv2::byte *)(arg1)->mmap(arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "BasicIo_mmap: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_mmap" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "BasicIo_mmap: not open");
+      SWIG_fail;
+    }
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (Exiv2::byte *)(arg1)->mmap();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "BasicIo_mmap: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "BasicIo_mmap", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_BasicIo_mmap__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_BasicIo_mmap__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'BasicIo_mmap'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::BasicIo::mmap(bool)\n"
+    "    Exiv2::BasicIo::mmap()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo_munmap(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "BasicIo_munmap", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_munmap" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->munmap();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
       
@@ -5653,13 +5840,11 @@ SWIGINTERN PyObject *_wrap_FileIo_read(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  
-  if (!arg1->isopen()) {
-    PyErr_SetString(PyExc_RuntimeError, "FileIo_read: not open");
-    SWIG_fail;
-  }
-  
   {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "FileIo_read: not open");
+      SWIG_fail;
+    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5803,6 +5988,181 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
         result = (int)(arg1)->seek(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_mmap" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_mmap" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  
+  _global_writeable = arg2;
+  
+  {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "FileIo_mmap: not open");
+      SWIG_fail;
+    }
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (Exiv2::byte *)(arg1)->mmap(arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "FileIo_mmap: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_mmap" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
+  {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "FileIo_mmap: not open");
+      SWIG_fail;
+    }
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (Exiv2::byte *)(arg1)->mmap();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "FileIo_mmap: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FileIo_mmap(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "FileIo_mmap", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_FileIo_mmap__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_FileIo_mmap__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FileIo_mmap'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::FileIo::mmap(bool)\n"
+    "    Exiv2::FileIo::mmap()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_FileIo_munmap(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "FileIo_munmap", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_munmap" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
+  {
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->munmap();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
       
@@ -6474,13 +6834,11 @@ SWIGINTERN PyObject *_wrap_MemIo_read(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  
-  if (!arg1->isopen()) {
-    PyErr_SetString(PyExc_RuntimeError, "MemIo_read: not open");
-    SWIG_fail;
-  }
-  
   {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "MemIo_read: not open");
+      SWIG_fail;
+    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -6624,6 +6982,178 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
         result = (int)(arg1)->seek(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_mmap" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_mmap" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not open");
+      SWIG_fail;
+    }
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (Exiv2::byte *)(arg1)->mmap(arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_mmap" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
+  {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not open");
+      SWIG_fail;
+    }
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (Exiv2::byte *)(arg1)->mmap();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MemIo_mmap(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "MemIo_mmap", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_MemIo_mmap__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_MemIo_mmap__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'MemIo_mmap'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::MemIo::mmap(bool)\n"
+    "    Exiv2::MemIo::mmap()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_MemIo_munmap(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "MemIo_munmap", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_munmap" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
+  {
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->munmap();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
       
@@ -7359,13 +7889,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  
-  if (!arg1->isopen()) {
-    PyErr_SetString(PyExc_RuntimeError, "RemoteIo_read: not open");
-    SWIG_fail;
-  }
-  
   {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_read: not open");
+      SWIG_fail;
+    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -7509,6 +8037,178 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
         result = (int)(arg1)->seek(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_mmap" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_mmap" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_mmap: not open");
+      SWIG_fail;
+    }
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (Exiv2::byte *)(arg1)->mmap(arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_mmap: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_mmap" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
+  {
+    if (!arg1->isopen()) {
+      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_mmap: not open");
+      SWIG_fail;
+    }
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (Exiv2::byte *)(arg1)->mmap();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_mmap: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RemoteIo_mmap(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "RemoteIo_mmap", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_RemoteIo_mmap__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_RemoteIo_mmap__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'RemoteIo_mmap'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::RemoteIo::mmap(bool)\n"
+    "    Exiv2::RemoteIo::mmap()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_RemoteIo_munmap(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_munmap", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_munmap" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
+  {
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (int)(arg1)->munmap();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
       
@@ -8162,6 +8862,25 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"        Nonzero if failure;\n"
 		"" },
+  { "mmap", _wrap_BasicIo_mmap, METH_VARARGS, "\n"
+		"Direct access to the IO data. For files, this is done by\n"
+		"       mapping the file into the process's address space; for memory\n"
+		"       blocks, this allows direct access to the memory block.\n"
+		":type isWriteable: boolean, optional\n"
+		":param isWriteable: Set to true if the mapped area should be writeable\n"
+		"           (default is false).\n"
+		":rtype: Exiv2::byte\n"
+		":return: A pointer to the mapped area.\n"
+		":raises: Error In case of failure.\n"
+		"" },
+  { "munmap", _wrap_BasicIo_munmap, METH_NOARGS, "\n"
+		"Remove a mapping established with mmap(). If the mapped area\n"
+		"       is writeable, this ensures that changes are written back.\n"
+		":rtype: int\n"
+		":return: 0 if successful;\n"
+		"\n"
+		"            Nonzero if failure;\n"
+		"" },
   { "tell", _wrap_BasicIo_tell, METH_NOARGS, "\n"
 		"Get the current IO position.\n"
 		":rtype: int\n"
@@ -8553,6 +9272,28 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"           Nonzero if failure;\n"
 		"" },
+  { "mmap", _wrap_FileIo_mmap, METH_VARARGS, "\n"
+		"Map the file into the process's address space. The file must be\n"
+		"       open before mmap() is called. If the mapped area is writeable,\n"
+		"       changes may not be written back to the underlying file until\n"
+		"       munmap() is called. The pointer is valid only as long as the\n"
+		"       FileIo object exists.\n"
+		":type isWriteable: boolean, optional\n"
+		":param isWriteable: Set to true if the mapped area should be writeable\n"
+		"           (default is false).\n"
+		":rtype: Exiv2::byte\n"
+		":return: A pointer to the mapped area.\n"
+		":raises: Error In case of failure.\n"
+		"" },
+  { "munmap", _wrap_FileIo_munmap, METH_NOARGS, "\n"
+		"Remove a mapping established with mmap(). If the mapped area is\n"
+		"       writeable, this ensures that changes are written back to the\n"
+		"       underlying file.\n"
+		":rtype: int\n"
+		":return: 0 if successful;\n"
+		"\n"
+		"            Nonzero if failure;\n"
+		"" },
   { "setPath", _wrap_FileIo_setPath, METH_O, "          close the file source and set a new path." },
   { "tell", _wrap_FileIo_tell, METH_NOARGS, "\n"
 		"Get the current file position.\n"
@@ -8922,6 +9663,15 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		"\n"
 		"           Nonzero if failure;\n"
 		"" },
+  { "mmap", _wrap_MemIo_mmap, METH_VARARGS, "\n"
+		"Allow direct access to the underlying data buffer. The buffer\n"
+		"       is not protected against write access in any way, the argument\n"
+		"       is ignored.\n"
+		"Notes: The application must ensure that the memory pointed to by the\n"
+		"       returned pointer remains valid and allocated as long as the\n"
+		"       MemIo object exists.\n"
+		"" },
+  { "munmap", _wrap_MemIo_munmap, METH_NOARGS, "" },
   { "tell", _wrap_MemIo_tell, METH_NOARGS, "\n"
 		"Get the current IO position.\n"
 		":rtype: int\n"
@@ -9521,6 +10271,16 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		":return: 0 if successful;\n"
 		"\n"
 		"           Nonzero if failure;\n"
+		"" },
+  { "mmap", _wrap_RemoteIo_mmap, METH_VARARGS, "\n"
+		"Not support\n"
+		":rtype: Exiv2::byte\n"
+		":return: NULL\n"
+		"" },
+  { "munmap", _wrap_RemoteIo_munmap, METH_NOARGS, "\n"
+		"Not support\n"
+		":rtype: int\n"
+		":return: 0\n"
 		"" },
   { "tell", _wrap_RemoteIo_tell, METH_NOARGS, "\n"
 		"Get the current IO position.\n"
