@@ -105,9 +105,11 @@ For example::
 
 creates a Python ``bytes`` object initialised from the image data.
 
-.. versionadded:: 0.13.0
-    ``exiv2.BasicIo.mmap()`` returns a Python memoryview_ object pointing to the image data.
-    The buffer interface to ``exiv2.BasicIo`` is deprecated and will eventually be removed.
+This is only likely to be useful for images opened from a block of data.
+The exiv2 library is very likely to generate a segmentation fault if the buffer interface or ``mmap()`` is used on images read from a file or URL.
+
+Since version 0.13.0 ``exiv2.BasicIo.mmap()`` returns a Python memoryview_ object pointing to the image data.
+The buffer interface to ``exiv2.BasicIo`` is deprecated and will eventually be removed.
 
 Iterators
 ---------
