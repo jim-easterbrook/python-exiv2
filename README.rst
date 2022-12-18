@@ -98,12 +98,16 @@ Several Exiv2 classes have C++ methods with parameters including a pointer and a
 In the Python interface these methods take any Python object which exposes a simple `buffer interface`_, e.g. ``bytes`` or ``str``.
 
 The Python interfaces to ``Exiv2::BasicIo`` and ``Exiv2::DataBuf`` expose their data as a Python buffer.
-This allows efficient access to the data without copying it.
+This allows efficient access to the data.
 For example::
 
     data = bytes(image.io())
 
-creates a Python ``bytes`` object containing the image data but without any copying.
+creates a Python ``bytes`` object initialised from the image data.
+
+.. versionadded:: 0.13.0
+    ``exiv2.BasicIo.mmap()`` returns a Python memoryview_ object pointing to the image data.
+    The buffer interface to ``exiv2.BasicIo`` is deprecated and will eventually be removed.
 
 Iterators
 ---------
@@ -220,6 +224,7 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _GitHub:            https://github.com/jim-easterbrook/python-exiv2
 .. _libexiv2:          https://www.exiv2.org/doc/index.html
 .. _list:              https://docs.python.org/3/library/stdtypes.html#list
+.. _memoryview:        https://docs.python.org/3/library/stdtypes.html#memoryview
 .. _pip:               https://pip.pypa.io/
 .. _pyexiv2 (new):     https://github.com/LeoHsiao1/pyexiv2
 .. _pyexiv2 (old):     https://launchpad.net/pyexiv2
