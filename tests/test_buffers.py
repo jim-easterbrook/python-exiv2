@@ -32,9 +32,12 @@ class TestBuffers(unittest.TestCase):
 
     def test_Image_io(self):
         image = exiv2.ImageFactory.open(self.path)
-        image_data = bytes(image.io())
-        with open(self.path, 'rb') as in_file:
-            self.assertEqual(image_data, in_file.read())
+        io = image.io()
+        self.assertEqual(io.open(), 0)
+        with io.mmap() as image_data:
+            with open(self.path, 'rb') as in_file:
+                self.assertEqual(image_data, in_file.read())
+        self.assertEqual(io.munmap(), 0)
 
     def test_DataValue(self):
         py_data_1 = bytes(random.choices(range(256), k=128))

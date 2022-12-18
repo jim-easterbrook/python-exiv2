@@ -52,7 +52,7 @@ EXCEPTION(read,
         PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
         SWIG_fail;
     })
-// Convert mmap() result to a read-only Python memory view
+// Convert mmap() result to a Python memory view
 %typemap(check) bool isWriteable %{
     _global_writeable = $1;
 %}
@@ -75,6 +75,8 @@ static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
     Exiv2::BasicIo* self = 0;
     Exiv2::byte* ptr = 0;
     size_t len = 0;
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+        "use 'Io.mmap()' to get a memoryview instead of buffer interface", 1);
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
     if (!SWIG_IsOK(res)) {
