@@ -53,6 +53,8 @@ void _set_locale_dir(const char* dirname) {
         return $self->size_;
     }
     PyObject* __getitem__(PyObject* idx) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use 'DataBuf.data()' to get a memoryview of contents", 1);
         if (PySlice_Check(idx)) {
             Py_ssize_t i1, i2, di, sl;
             if (PySlice_GetIndicesEx(idx, $self->size_, &i1, &i2, &di, &sl))
@@ -83,33 +85,6 @@ void _set_locale_dir(const char* dirname) {
     long __len__() {
         return $self->size();
     }
-    PyObject* __getitem__(PyObject* idx) {
-        if (PySlice_Check(idx)) {
-            Py_ssize_t i1, i2, di, sl;
-            if (PySlice_GetIndicesEx(idx, $self->size(), &i1, &i2, &di, &sl))
-                return NULL;
-            PyObject* result = PyTuple_New(sl);
-            Exiv2::byte* ptr = $self->data() + i1;
-            for (Py_ssize_t i = 0; i < sl; ++i) {
-                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
-                ptr += di;
-            }
-            return result;
-        }
-        if (PyLong_Check(idx)) {
-            long i = PyLong_AsLong(idx);
-            if (i < 0)
-                i += $self->size();
-            if ((i < 0) || (i >= (long)$self->size())) {
-                PyErr_SetString(PyExc_IndexError, "index out of range");
-                return NULL;
-            }
-            return PyLong_FromLong((long)*($self->data() + i));
-        }
-        return PyErr_Format(PyExc_TypeError,
-            "indices must be integers or slices, not %s",
-            Py_TYPE(idx)->tp_name);
-    }
 #endif
 }
 
@@ -125,6 +100,8 @@ void _set_locale_dir(const char* dirname) {
 %{
 static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+        "use 'DataBuf.data()' to get a memoryview of contents", 1);
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
     if (!SWIG_IsOK(res)) {
