@@ -159,10 +159,12 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 #endif
 
 // Backport Exiv2 v1.0.0 methods
+#if EXIV2_VERSION_HEX < 0x01000000
 %extend Exiv2::DataBuf {
     Exiv2::byte* data() const { return $self->pData_; }
     size_t size() const { return $self->size_; }
 }
+#endif
 
 // Some things are read-only
 %immutable Exiv2::DataBuf::size_;
