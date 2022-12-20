@@ -40,6 +40,11 @@
     }
 }
 
+// Convert pData() result to a Python memory view
+%typemap(out) Exiv2::byte* %{
+    $result = PyMemoryView_FromMemory((char*) $1, arg1->size(), PyBUF_READ);
+%}
+
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;
 %immutable Exiv2::PreviewProperties::wextension_;
@@ -49,6 +54,5 @@
 %immutable Exiv2::PreviewProperties::id_;
 
 %ignore Exiv2::PreviewImage::operator=;
-%ignore Exiv2::PreviewImage::pData;
 
 %include "exiv2/preview.hpp"

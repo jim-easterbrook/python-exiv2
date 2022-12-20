@@ -4495,6 +4495,41 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "PreviewImage_pData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewImage, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_pData" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
+  {
+    try {
+      result = (Exiv2::byte *)((Exiv2::PreviewImage const *)arg1)->pData();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = PyMemoryView_FromMemory((char*) result, arg1->size(), PyBUF_READ);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_PreviewImage_size(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
@@ -5178,6 +5213,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
 		"Return a copy of the preview image data. The caller owns\n"
 		"       this copy and %DataBuf ensures that it will be deleted.\n"
 		"" },
+  { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "          Return a pointer to the image data for read-only access." },
   { "size", _wrap_PreviewImage_size, METH_NOARGS, "          Return the size of the preview image in bytes." },
   { "writeFile", _wrap_PreviewImage_writeFile, METH_O, "\n"
 		"Write the thumbnail image to a file.\n"
