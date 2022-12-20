@@ -28,7 +28,7 @@ class TestBuffers(unittest.TestCase):
     def setUpClass(cls):
         exiv2.XmpParser.initialize()
         test_dir = os.path.dirname(__file__)
-        cls.path = os.path.join(test_dir, 'image_01.jpg')
+        cls.path = os.path.join(test_dir, 'image_02.jpg')
 
     def test_Image_io(self):
         image = exiv2.ImageFactory.open(self.path)
@@ -45,6 +45,12 @@ class TestBuffers(unittest.TestCase):
         py_data_2 = bytearray(len(exv_data))
         exv_data.copy(py_data_2)
         self.assertEqual(py_data_1, py_data_2)
+
+    def test_Thumb(self):
+        image = exiv2.ImageFactory.open(self.path)
+        image.readMetadata()
+        thumb = exiv2.ExifThumb(image.exifData()).copy()
+        self.assertEqual(thumb.data()[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
 
 
 if __name__ == '__main__':

@@ -50,10 +50,11 @@ def main():
             print("Image has no thumbnail data")
             return -1;
 
-        print('Thumbnail data:', bytes(data)[:8], '...', bytes(data)[-8:])
+        print('Thumbnail data:', bytes(data.data())[:8],
+              '...', bytes(data.data())[-8:])
 
         print("Displaying thumbnail image")
-        thumb_image = PIL.open(io.BytesIO(data))
+        thumb_image = PIL.open(io.BytesIO(data.data()))
         thumb_image.show()
 
         return 0
