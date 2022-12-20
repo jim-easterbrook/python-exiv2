@@ -147,10 +147,28 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 %}
 #endif
 
+// Convert pData_ and data() result to a Python memory view
+#if EXIV2_VERSION_HEX < 0x01000000
+%typemap(out) Exiv2::byte* %{
+    $result = PyMemoryView_FromMemory((char*) $1, arg1->size_, PyBUF_READ);
+%}
+#else
+%typemap(out) Exiv2::byte* %{
+    $result = PyMemoryView_FromMemory((char*) $1, arg1->size(), PyBUF_READ);
+%}
+#endif
+
+// Backport Exiv2 v1.0.0 methods
+%extend Exiv2::DataBuf {
+    Exiv2::byte* data() const { return $self->pData_; }
+    size_t size() const { return $self->size_; }
+}
+
+// Some things are read-only
+%immutable Exiv2::DataBuf::size_;
+%immutable Exiv2::DataBuf::pData_;
+
 // Hide parts of Exiv2::DataBuf that Python shouldn't see
-%ignore Exiv2::DataBuf::pData_;
-%ignore Exiv2::DataBuf::size_;
-%ignore Exiv2::DataBuf::data;
 %ignore Exiv2::DataBuf::c_data;
 %ignore Exiv2::DataBuf::c_str;
 %ignore Exiv2::DataBuf::release;

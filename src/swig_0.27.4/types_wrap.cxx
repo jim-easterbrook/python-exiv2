@@ -4423,6 +4423,47 @@ SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *id
             "indices must be integers or slices, not %s",
             Py_TYPE(idx)->tp_name);
     }
+SWIGINTERN Exiv2::byte *Exiv2_DataBuf_data(Exiv2::DataBuf const *self){ return self->pData_; }
+SWIGINTERN size_t Exiv2_DataBuf_size(Exiv2::DataBuf const *self){ return self->size_; }
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+
+
+#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
+#  define SWIG_LONG_LONG_AVAILABLE
+#endif
+
+
+#ifdef SWIG_LONG_LONG_AVAILABLE
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+#endif
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_size_t  (size_t value)
+{    
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  if (sizeof(size_t) <= sizeof(unsigned long)) {
+#endif
+    return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  } else {
+    /* assume sizeof(size_t) <= sizeof(unsigned long long) */
+    return SWIG_From_unsigned_SS_long_SS_long  (static_cast< unsigned long long >(value));
+  }
+#endif
+}
+
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
@@ -4470,11 +4511,6 @@ SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val)
 #endif
   return SWIG_TypeError;
 }
-
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
 
 
 #ifdef SWIG_LONG_LONG_AVAILABLE
@@ -5632,6 +5668,52 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataBuf_pData__get(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "DataBuf_pData__get", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_pData__get" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
+  result = (Exiv2::byte *) ((arg1)->pData_);
+  
+  resultobj = PyMemoryView_FromMemory((char*) result, arg1->size_, PyBUF_READ);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataBuf_size__get(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  long result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "DataBuf_size__get", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_size__get" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
+  result = (long) ((arg1)->size_);
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataBuf___len__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
@@ -5696,6 +5778,74 @@ SWIGINTERN PyObject *_wrap_DataBuf___getitem__(PyObject *self, PyObject *args) {
     }
   }
   resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "DataBuf_data", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_data" "', argument " "1"" of type '" "Exiv2::DataBuf const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
+  {
+    try {
+      result = (Exiv2::byte *)Exiv2_DataBuf_data((Exiv2::DataBuf const *)arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = PyMemoryView_FromMemory((char*) result, arg1->size_, PyBUF_READ);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataBuf_size(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "DataBuf_size", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_size" "', argument " "1"" of type '" "Exiv2::DataBuf const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
+  {
+    try {
+      result = Exiv2_DataBuf_size((Exiv2::DataBuf const *)arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
   return NULL;
@@ -6777,8 +6927,12 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__TypeInfo_type = {
 
 SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__TypeInfo_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__TypeInfo_type};
 
+static SwigPyGetSet DataBuf_pData__getset = { _wrap_DataBuf_pData__get, 0 };
+static SwigPyGetSet DataBuf_size__getset = { _wrap_DataBuf_size__get, 0 };
 static SwigPyGetSet DataBuf___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__DataBuf_getset[] = {
+    { (char *)"pData_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Pointer to the buffer, 0 if none has been allocated", &DataBuf_pData__getset },
+    { (char *)"size_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" The current size of the buffer", &DataBuf_size__getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
 		"*Overload 1:*\n"
 		"Default constructor\n"
@@ -6827,6 +6981,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
   { "free", _wrap_DataBuf_free, METH_NOARGS, "           Free the internal buffer and reset the size to 0." },
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_DataBuf___getitem__, METH_O, "" },
+  { "data", _wrap_DataBuf_data, METH_NOARGS, "" },
+  { "size", _wrap_DataBuf_size, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
