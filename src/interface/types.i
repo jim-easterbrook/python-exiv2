@@ -229,6 +229,9 @@ ENUM(TypeId, "Exiv2 value type identifiers.\n"
 %ignore Exiv2::DataBuf::operator DataBufRef;
 
 // Ignore stuff that Python doesn't need
+%ignore Exiv2::exifTime;
+%ignore Exiv2::isHex;
+%ignore Exiv2::exvGettext;
 %ignore Exiv2::WriteMethod;
 %ignore Exiv2::getDouble;
 %ignore Exiv2::getFloat;
