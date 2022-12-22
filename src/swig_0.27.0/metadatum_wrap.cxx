@@ -4810,13 +4810,6 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
 SWIGINTERN std::string Exiv2_Metadatum___str__(Exiv2::Metadatum *self){
         return self->key() + ": " + self->print();
     }
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
-{
-  return PyBool_FromLong(value ? 1 : 0);
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6322,111 +6315,7 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Metadatum) /* defines _wrap_delete_Metada
 
 SWIGPY_REPRFUNC_CLOSURE(_wrap_Metadatum___str__) /* defines _wrap_Metadatum___str___reprfunc_closure */
 
-SWIGINTERN PyObject *_wrap_cmpMetadataByTag(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Metadatum *arg1 = 0 ;
-  Exiv2::Metadatum *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "cmpMetadataByTag", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__Metadatum,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "cmpMetadataByTag" "', argument " "1"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "cmpMetadataByTag" "', argument " "1"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Metadatum,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "cmpMetadataByTag" "', argument " "2"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "cmpMetadataByTag" "', argument " "2"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::Metadatum * >(argp2);
-  {
-    try {
-      result = (bool)Exiv2::cmpMetadataByTag((Exiv2::Metadatum const &)*arg1,(Exiv2::Metadatum const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_cmpMetadataByKey(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Metadatum *arg1 = 0 ;
-  Exiv2::Metadatum *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "cmpMetadataByKey", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__Metadatum,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "cmpMetadataByKey" "', argument " "1"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "cmpMetadataByKey" "', argument " "1"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__Metadatum,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "cmpMetadataByKey" "', argument " "2"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "cmpMetadataByKey" "', argument " "2"" of type '" "Exiv2::Metadatum const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::Metadatum * >(argp2);
-  {
-    try {
-      result = (bool)Exiv2::cmpMetadataByKey((Exiv2::Metadatum const &)*arg1,(Exiv2::Metadatum const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 static PyMethodDef SwigMethods[] = {
-	 { "cmpMetadataByTag", _wrap_cmpMetadataByTag, METH_VARARGS, "\n"
-		"Compare two metadata by tag. Return true if the tag of metadatum\n"
-		"       lhs is less than that of rhs.\n"
-		""},
-	 { "cmpMetadataByKey", _wrap_cmpMetadataByKey, METH_VARARGS, "\n"
-		"Compare two metadata by key. Return true if the key of metadatum\n"
-		"       lhs is less than that of rhs.\n"
-		""},
 	 { NULL, NULL, 0, NULL }
 };
 

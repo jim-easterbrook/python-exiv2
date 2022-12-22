@@ -7374,48 +7374,6 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_MemIo) /* defines _wrap_delete_MemIo_destructor_closure */
 
-SWIGINTERN int Swig_var_XPathIo_TEMP_FILE_EXT_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable XPathIo_TEMP_FILE_EXT is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_XPathIo_TEMP_FILE_EXT_get(void) {
-  PyObject *pyobj = 0;
-  PyObject *self = 0;
-  
-  (void)self;
-  pyobj = SWIG_From_std_string(static_cast< std::string >(Exiv2::XPathIo::TEMP_FILE_EXT));
-  return pyobj;
-}
-
-
-SWIGINTERN PyObject *_wrap_XPathIo_TEMP_FILE_EXT_get(PyObject *SWIGUNUSEDPARM(self), PyObject *SWIGUNUSEDPARM(args)) {
-  return Swig_var_XPathIo_TEMP_FILE_EXT_get();
-}
-
-
-SWIGINTERN int Swig_var_XPathIo_GEN_FILE_EXT_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable XPathIo_GEN_FILE_EXT is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_XPathIo_GEN_FILE_EXT_get(void) {
-  PyObject *pyobj = 0;
-  PyObject *self = 0;
-  
-  (void)self;
-  pyobj = SWIG_From_std_string(static_cast< std::string >(Exiv2::XPathIo::GEN_FILE_EXT));
-  return pyobj;
-}
-
-
-SWIGINTERN PyObject *_wrap_XPathIo_GEN_FILE_EXT_get(PyObject *SWIGUNUSEDPARM(self), PyObject *SWIGUNUSEDPARM(args)) {
-  return Swig_var_XPathIo_GEN_FILE_EXT_get();
-}
-
-
 SWIGINTERN int _wrap_new_XPathIo(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -8547,190 +8505,8 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_readFile(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[1] ;
-  Exiv2::DataBuf result;
-  
-  (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "readFile" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "readFile" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  {
-    try {
-      result = Exiv2::readFile((std::string const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj(
-    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_writeFile(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::DataBuf *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  long result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "writeFile", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__DataBuf,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "writeFile" "', argument " "1"" of type '" "Exiv2::DataBuf const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "writeFile" "', argument " "1"" of type '" "Exiv2::DataBuf const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "writeFile" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "writeFile" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (long)Exiv2::writeFile((Exiv2::DataBuf const &)*arg1,(std::string const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ReplaceStringInPlace(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string arg1 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[3] ;
-  std::string result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "ReplaceStringInPlace", 3, 3, swig_obj)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    int res = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res) || !ptr) {
-      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "ReplaceStringInPlace" "', argument " "1"" of type '" "std::string""'"); 
-    }
-    arg1 = *ptr;
-    if (SWIG_IsNewObj(res)) delete ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ReplaceStringInPlace" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ReplaceStringInPlace" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ReplaceStringInPlace" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ReplaceStringInPlace" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  {
-    try {
-      result = Exiv2::ReplaceStringInPlace(SWIG_STD_MOVE(arg1),(std::string const &)*arg2,(std::string const &)*arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
 static PyMethodDef SwigMethods[] = {
 	 { "_enum_list_Position", _wrap__enum_list_Position, METH_NOARGS, NULL},
-	 { "XPathIo_TEMP_FILE_EXT_get", _wrap_XPathIo_TEMP_FILE_EXT_get, METH_VARARGS, NULL},
-	 { "XPathIo_GEN_FILE_EXT_get", _wrap_XPathIo_GEN_FILE_EXT_get, METH_VARARGS, NULL},
-	 { "readFile", _wrap_readFile, METH_O, "\n"
-		"Read file *path* into a DataBuf, which is returned.\n"
-		":rtype: :py:class:`DataBuf`\n"
-		":return: Buffer containing the file.\n"
-		":raises: Error In case of failure.\n"
-		""},
-	 { "writeFile", _wrap_writeFile, METH_VARARGS, "\n"
-		"Write DataBuf *buf* to file *path*.\n"
-		":rtype: int\n"
-		":return: Return the number of bytes written.\n"
-		":raises: Error In case of failure.\n"
-		""},
-	 { "ReplaceStringInPlace", _wrap_ReplaceStringInPlace, METH_VARARGS, "\n"
-		"replace each substring of the subject that matches the given search string with the given replacement.\n"
-		":rtype: string\n"
-		":return: the subject after replacing.\n"
-		""},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -9908,10 +9684,6 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__MemIo_type = {
 
 SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__MemIo_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__MemIo_type};
 
-static SwigPyGetSet XPathIo_GEN_FILE_EXT_getset = { _wrap_XPathIo_GEN_FILE_EXT_get, 0 };
-static PyGetSetDef XPathIo_GEN_FILE_EXT_getset_def = { (char *)"GEN_FILE_EXT", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Exiv2::XPathIo.GEN_FILE_EXT", &XPathIo_GEN_FILE_EXT_getset };
-static SwigPyGetSet XPathIo_TEMP_FILE_EXT_getset = { _wrap_XPathIo_TEMP_FILE_EXT_get, 0 };
-static PyGetSetDef XPathIo_TEMP_FILE_EXT_getset_def = { (char *)"TEMP_FILE_EXT", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Exiv2::XPathIo.TEMP_FILE_EXT", &XPathIo_TEMP_FILE_EXT_getset };
 static SwigPyGetSet XPathIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XPathIo_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Default constructor that reads data from stdin/data uri path and writes them to the temp file.", &XPathIo___dict___getset },
@@ -11387,7 +11159,6 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "EXV_XPATH_MEMIO",SWIG_From_int(static_cast< int >(0)));
   
   /* type 'Exiv2::BasicIo' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__BasicIo_type;
@@ -11486,19 +11257,6 @@ SWIG_init(void) {
   /* type 'Exiv2::XPathIo' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__XPathIo_type;
   builtin_pytype->tp_dict = d = PyDict_New();
-  globals = SWIG_globals();
-  if (!globals) {
-    PyErr_SetString(PyExc_TypeError, "Failure to create SWIG globals.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  PyDict_SetItemString(md, "cvar", globals);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "cvar");
-  SWIG_addvarlink(globals, "XPathIo_TEMP_FILE_EXT", Swig_var_XPathIo_TEMP_FILE_EXT_get, Swig_var_XPathIo_TEMP_FILE_EXT_set);
-  SWIG_addvarlink(globals, "XPathIo_GEN_FILE_EXT", Swig_var_XPathIo_GEN_FILE_EXT_get, Swig_var_XPathIo_GEN_FILE_EXT_set);
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -11517,12 +11275,6 @@ SWIG_init(void) {
   SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
-  static_getset = SwigPyStaticVar_new_getset(metatype, &XPathIo_GEN_FILE_EXT_getset_def);
-  PyDict_SetItemString(d, static_getset->d_getset->name, (PyObject *) static_getset);
-  Py_DECREF(static_getset);
-  static_getset = SwigPyStaticVar_new_getset(metatype, &XPathIo_TEMP_FILE_EXT_getset_def);
-  PyDict_SetItemString(d, static_getset->d_getset->name, (PyObject *) static_getset);
-  Py_DECREF(static_getset);
   if (PyType_Ready(builtin_pytype) < 0) {
     PyErr_SetString(PyExc_TypeError, "Could not create type 'XPathIo'.");
 #if PY_VERSION_HEX >= 0x03000000

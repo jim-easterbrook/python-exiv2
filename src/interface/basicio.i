@@ -120,10 +120,16 @@ ENUM(Position, "Seek starting positions.",
 %ignore Exiv2::BasicIo::readOrThrow;
 %ignore Exiv2::BasicIo::seekOrThrow;
 %ignore Exiv2::IoCloser;
+%ignore Exiv2::ReplaceStringInPlace;
+%ignore Exiv2::readFile;
+%ignore Exiv2::writeFile;
+%ignore Exiv2::XPathIo::GEN_FILE_EXT;
+%ignore Exiv2::XPathIo::TEMP_FILE_EXT;
 %ignore Exiv2::CurlIo::operator=;
 %ignore Exiv2::FileIo::operator=;
 %ignore Exiv2::HttpIo::operator=;
 %ignore Exiv2::MemIo::operator=;
 %ignore Exiv2::SshIo::operator=;
+%ignore EXV_XPATH_MEMIO;
 
 %include "exiv2/basicio.hpp"
