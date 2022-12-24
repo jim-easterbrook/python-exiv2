@@ -43,7 +43,8 @@ class TestDataRead(unittest.TestCase):
                 ('Exif.Thumbnail.ImageWidth', exiv2.ULongValue, [160]),
                 ):
             datum = self.exifData[tag]
-            exiv_value = exiv_type(datum.value())
+            exiv_value = datum.value()
+            self.assertIsInstance(exiv_value, exiv_type)
             if exiv_type == exiv2.AsciiValue:
                 self.assertEqual(str(exiv_value), value)
             else:
@@ -57,16 +58,19 @@ class TestDataRead(unittest.TestCase):
 
     def test_iptc(self):
         datum = self.iptcData['Iptc.Application2.Caption']
-        exiv_value = exiv2.StringValue(datum.value())
+        exiv_value = datum.value()
+        self.assertIsInstance(exiv_value, exiv2.StringValue)
         self.assertEqual(str(exiv_value), 'Good view of the lighthouse.')
 
         datum = self.iptcData['Iptc.Application2.DateCreated']
-        exiv_value = exiv2.DateValue(datum.value())
+        exiv_value = datum.value()
+        self.assertIsInstance(exiv_value, exiv2.DateValue)
         self.assertEqual(dict(exiv_value.getDate()),
                          {'year': 2022, 'month': 8, 'day': 17})
 
         datum = self.iptcData['Iptc.Application2.TimeCreated']
-        exiv_value = exiv2.TimeValue(datum.value())
+        exiv_value = datum.value()
+        self.assertIsInstance(exiv_value, exiv2.TimeValue)
         self.assertEqual(dict(exiv_value.getTime()),
                          {'hour': 12, 'minute': 45, 'second': 28,
                           'tzHour': 1, 'tzMinute': 0})
@@ -84,7 +88,8 @@ class TestDataRead(unittest.TestCase):
                   'de': 'Gute Sicht auf den Leuchtturm.'}),
                 ):
             datum = self.xmpData[tag]
-            exiv_value = exiv_type(datum.value())
+            exiv_value = datum.value()
+            self.assertIsInstance(exiv_value, exiv_type)
             if exiv_type == exiv2.XmpArrayValue:
                 self.assertEqual(list(exiv_value), value)
             elif exiv_type == exiv2.LangAltValue:

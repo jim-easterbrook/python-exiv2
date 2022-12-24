@@ -99,6 +99,78 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
         return pv;
     }
 }
+// Macro to get swig type for an Exiv2 type id
+%define GET_SWIG_TYPE(type_id, swg_type)
+    switch(type_id) {
+        case Exiv2::asciiString:
+            swg_type = $descriptor(Exiv2::AsciiValue*);
+            break;
+        case Exiv2::unsignedShort:
+            swg_type = $descriptor(Exiv2::ValueType<uint16_t>*);
+            break;
+        case Exiv2::unsignedLong:
+        case Exiv2::tiffIfd:
+            swg_type = $descriptor(Exiv2::ValueType<uint32_t>*);
+            break;
+        case Exiv2::unsignedRational:
+            swg_type = $descriptor(Exiv2::ValueType<Exiv2::URational>*);
+            break;
+        case Exiv2::signedShort:
+            swg_type = $descriptor(Exiv2::ValueType<int16_t>*);
+            break;
+        case Exiv2::signedLong:
+            swg_type = $descriptor(Exiv2::ValueType<int32_t>*);
+            break;
+        case Exiv2::signedRational:
+            swg_type = $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
+            break;
+        case Exiv2::tiffFloat:
+            swg_type = $descriptor(Exiv2::ValueType<float>*);
+            break;
+        case Exiv2::tiffDouble:
+            swg_type = $descriptor(Exiv2::ValueType<double>*);
+            break;
+        case Exiv2::string:
+            swg_type = $descriptor(Exiv2::StringValue*);
+            break;
+        case Exiv2::date:
+            swg_type = $descriptor(Exiv2::DateValue*);
+            break;
+        case Exiv2::time:
+            swg_type = $descriptor(Exiv2::TimeValue*);
+            break;
+        case Exiv2::comment:
+            swg_type = $descriptor(Exiv2::CommentValue*);
+            break;
+        case Exiv2::xmpText:
+            swg_type = $descriptor(Exiv2::XmpTextValue*);
+            break;
+        case Exiv2::xmpAlt:
+        case Exiv2::xmpBag:
+        case Exiv2::xmpSeq:
+            swg_type = $descriptor(Exiv2::XmpArrayValue*);
+            break;
+        case Exiv2::langAlt:
+            swg_type = $descriptor(Exiv2::LangAltValue*);
+            break;
+        default:
+            swg_type = $descriptor(Exiv2::DataValue*);
+    }
+%enddef // GET_SWIG_TYPE
+// Downcast base class auto pointer to derived class
+%typemap(out) Exiv2::Value::AutoPtr {
+    Exiv2::TypeId type_id = $1->typeId();
+    swig_type_info* swg_type = NULL;
+    GET_SWIG_TYPE(type_id, swg_type)
+    $result = SWIG_NewPointerObj((&$1)->release(), swg_type, SWIG_POINTER_OWN);
+}
+// Downcast base class pointer to derived class
+%typemap(out) const Exiv2::Value& {
+    Exiv2::TypeId type_id = $1->typeId();
+    swig_type_info* swg_type = NULL;
+    GET_SWIG_TYPE(type_id, swg_type)
+    $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), swg_type, 0);
+}
 wrap_auto_unique_ptr(type_name)
 %enddef // VALUE_SUBCLASS
 
