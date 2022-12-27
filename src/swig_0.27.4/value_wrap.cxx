@@ -7260,7 +7260,7 @@ SWIGINTERN PyObject *_wrap_Value_clone(PyObject *self, PyObject *args) {
   {
     Exiv2::TypeId type_id = result->typeId();
     swig_type_info* swg_type = NULL;
-    /*@SWIG:src/interface/value.i,103,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     switch(type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
@@ -7964,7 +7964,7 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
   {
     Exiv2::TypeId type_id = result->typeId();
     swig_type_info* swg_type = NULL;
-    /*@SWIG:src/interface/value.i,103,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     switch(type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;

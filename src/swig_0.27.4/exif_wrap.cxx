@@ -6498,7 +6498,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_getValue(PyObject *self, PyObject *
   {
     Exiv2::TypeId type_id = result->typeId();
     swig_type_info* swg_type = NULL;
-    /*@SWIG:src/interface/value.i,103,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     switch(type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
@@ -6592,7 +6592,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value(PyObject *self, PyObject *arg
   {
     Exiv2::TypeId type_id = result->typeId();
     swig_type_info* swg_type = NULL;
-    /*@SWIG:src/interface/value.i,103,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     switch(type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
@@ -9160,7 +9160,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_getValue(PyObject *self, PyObject *args) {
   {
     Exiv2::TypeId type_id = result->typeId();
     swig_type_info* swg_type = NULL;
-    /*@SWIG:src/interface/value.i,103,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     switch(type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
@@ -9254,7 +9254,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_value(PyObject *self, PyObject *args) {
   {
     Exiv2::TypeId type_id = result->typeId();
     swig_type_info* swg_type = NULL;
-    /*@SWIG:src/interface/value.i,103,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     switch(type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;

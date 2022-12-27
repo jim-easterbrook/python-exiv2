@@ -72,33 +72,7 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
         SWIG_fail;
     }
 }
-
-// ---- Macros ----
-// Macro for all subclasses of Exiv2::Value
-%define VALUE_SUBCLASS(type_name, part_name)
-// Use Exiv2::Value::__str__
-%feature("python:tp_str") type_name "_wrap_Value___str___reprfunc_closure";
-%ignore type_name::value_;
-%noexception type_name::count;
-%noexception type_name::size;
-%extend type_name {
-    part_name(const Exiv2::Value& value) {
-        type_name* pv = dynamic_cast< type_name* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(type_name().typeId());
-            msg += "'.";
-#if EXIV2_VERSION_HEX < 0x01000000
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-#else
-            throw Exiv2::Error(Exiv2::ErrorCode::kerErrorMessage, msg);
-#endif
-        }
-        return pv;
-    }
-}
+// Downcast base class pointers to derived class
 // Macro to get swig type for an Exiv2 type id
 %define GET_SWIG_TYPE(type_id, swg_type)
     switch(type_id) {
@@ -157,19 +131,44 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
             swg_type = $descriptor(Exiv2::DataValue*);
     }
 %enddef // GET_SWIG_TYPE
-// Downcast base class auto pointer to derived class
 %typemap(out) Exiv2::Value::AutoPtr {
     Exiv2::TypeId type_id = $1->typeId();
     swig_type_info* swg_type = NULL;
     GET_SWIG_TYPE(type_id, swg_type)
     $result = SWIG_NewPointerObj((&$1)->release(), swg_type, SWIG_POINTER_OWN);
 }
-// Downcast base class pointer to derived class
 %typemap(out) const Exiv2::Value& {
     Exiv2::TypeId type_id = $1->typeId();
     swig_type_info* swg_type = NULL;
     GET_SWIG_TYPE(type_id, swg_type)
     $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), swg_type, 0);
+}
+
+// ---- Macros ----
+// Macro for all subclasses of Exiv2::Value
+%define VALUE_SUBCLASS(type_name, part_name)
+// Use Exiv2::Value::__str__
+%feature("python:tp_str") type_name "_wrap_Value___str___reprfunc_closure";
+%ignore type_name::value_;
+%noexception type_name::count;
+%noexception type_name::size;
+%extend type_name {
+    part_name(const Exiv2::Value& value) {
+        type_name* pv = dynamic_cast< type_name* >(value.clone().release());
+        if (pv == 0) {
+            std::string msg = "Cannot cast type '";
+            msg += Exiv2::TypeInfo::typeName(value.typeId());
+            msg += "' to type '";
+            msg += Exiv2::TypeInfo::typeName(type_name().typeId());
+            msg += "'.";
+#if EXIV2_VERSION_HEX < 0x01000000
+            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
+#else
+            throw Exiv2::Error(Exiv2::ErrorCode::kerErrorMessage, msg);
+#endif
+        }
+        return pv;
+    }
 }
 wrap_auto_unique_ptr(type_name)
 %enddef // VALUE_SUBCLASS
