@@ -6215,6 +6215,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_getValue(PyObject *self, PyObject *args) {
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::AutoPtr result;
   
   (void)self;
@@ -6240,8 +6241,9 @@ SWIGINTERN PyObject *_wrap_Metadatum_getValue(PyObject *self, PyObject *args) {
     Exiv2::Value* value = (&result)->release();
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -6315,7 +6317,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_getValue(PyObject *self, PyObject *args) {
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -6332,6 +6334,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
@@ -6357,8 +6360,9 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
     Exiv2::Value* value = result;
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -6432,7 +6436,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/

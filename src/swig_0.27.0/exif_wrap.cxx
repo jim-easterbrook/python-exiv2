@@ -4992,6 +4992,12 @@ public:
     }
 };
 
+SWIGINTERN Exiv2::Value::AutoPtr Exiv2_Exifdatum_getValue__SWIG_1(Exiv2::Exifdatum *self,Exiv2::TypeId as_type){
+        return self->getValue();
+    }
+SWIGINTERN Exiv2::Value const &Exiv2_Exifdatum_value__SWIG_1(Exiv2::Exifdatum *self,Exiv2::TypeId as_type){
+        return self->value();
+    }
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
@@ -6469,15 +6475,16 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ExifData_iterator_getValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_ExifData_iterator_getValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::AutoPtr result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "ExifData_iterator_getValue", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_getValue" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
@@ -6499,8 +6506,9 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_getValue(PyObject *self, PyObject *
     Exiv2::Value* value = (&result)->release();
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -6574,7 +6582,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_getValue(PyObject *self, PyObject *
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -6586,15 +6594,175 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ExifData_iterator_value(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_ExifData_iterator_getValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
+  Exiv2::TypeId arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  Exiv2::Value::AutoPtr result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_getValue" "', argument " "1"" of type '" "ExifData_iterator *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifData_iterator_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
+  {
+    try {
+      result = Exiv2_Exifdatum_getValue__SWIG_1((Exiv2::Exifdatum*)(arg1)->operator ->(),arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::Value* value = (&result)->release();
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
+    }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifData_iterator_getValue(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ExifData_iterator_getValue", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_ExifData_iterator_getValue__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_ExifData_iterator_getValue__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifData_iterator_getValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Exifdatum::getValue() const\n"
+    "    Exiv2::Exifdatum::getValue(Exiv2::TypeId)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifData_iterator_value__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "ExifData_iterator_value", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_value" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
@@ -6616,8 +6784,9 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value(PyObject *self, PyObject *arg
     Exiv2::Value* value = result;
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -6691,7 +6860,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value(PyObject *self, PyObject *arg
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -6700,6 +6869,165 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value(PyObject *self, PyObject *arg
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifData_iterator_value__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
+  Exiv2::TypeId arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  Exiv2::Value *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_value" "', argument " "1"" of type '" "ExifData_iterator *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifData_iterator_value" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
+  {
+    try {
+      result = (Exiv2::Value *) &Exiv2_Exifdatum_value__SWIG_1((Exiv2::Exifdatum*)(arg1)->operator ->(),arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::Value* value = result;
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
+    }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifData_iterator_value(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ExifData_iterator_value", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_ExifData_iterator_value__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_ExifData_iterator_value__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifData_iterator_value'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Exifdatum::value() const\n"
+    "    Exiv2::Exifdatum::value(Exiv2::TypeId)\n");
+  return 0;
 }
 
 
@@ -9177,15 +9505,16 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Exifdatum_getValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Exifdatum_getValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::AutoPtr result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "Exifdatum_getValue", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_getValue" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
@@ -9207,8 +9536,9 @@ SWIGINTERN PyObject *_wrap_Exifdatum_getValue(PyObject *self, PyObject *args) {
     Exiv2::Value* value = (&result)->release();
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -9282,7 +9612,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_getValue(PyObject *self, PyObject *args) {
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -9294,15 +9624,16 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Exifdatum_value(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Exifdatum_value__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "Exifdatum_value", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_value" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
@@ -9324,8 +9655,9 @@ SWIGINTERN PyObject *_wrap_Exifdatum_value(PyObject *self, PyObject *args) {
     Exiv2::Value* value = result;
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -9399,7 +9731,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_value(PyObject *self, PyObject *args) {
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -9477,6 +9809,324 @@ SWIGINTERN PyObject *_wrap_Exifdatum_dataArea(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Exifdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
+  Exiv2::TypeId arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  Exiv2::Value::AutoPtr result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_getValue" "', argument " "1"" of type '" "Exiv2::Exifdatum *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Exifdatum_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
+  {
+    try {
+      result = Exiv2_Exifdatum_getValue__SWIG_1(arg1,arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::Value* value = (&result)->release();
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
+    }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Exifdatum_getValue(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Exifdatum_getValue", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_Exifdatum_getValue__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_Exifdatum_getValue__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Exifdatum_getValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Exifdatum::getValue() const\n"
+    "    Exiv2::Exifdatum::getValue(Exiv2::TypeId)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Exifdatum_value__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
+  Exiv2::TypeId arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  Exiv2::Value *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_value" "', argument " "1"" of type '" "Exiv2::Exifdatum *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Exifdatum_value" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
+  {
+    try {
+      result = (Exiv2::Value *) &Exiv2_Exifdatum_value__SWIG_1(arg1,arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::Value* value = result;
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
+    }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Exifdatum_value(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Exifdatum_value", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_Exifdatum_value__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_Exifdatum_value__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Exifdatum_value'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Exifdatum::value() const\n"
+    "    Exiv2::Exifdatum::value(Exiv2::TypeId)\n");
+  return 0;
 }
 
 
@@ -10434,8 +11084,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__ExifData_iterator_methods[] = {
   { "toLong", _wrap_ExifData_iterator_toLong, METH_VARARGS, "" },
   { "toFloat", _wrap_ExifData_iterator_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_ExifData_iterator_toRational, METH_VARARGS, "" },
-  { "getValue", _wrap_ExifData_iterator_getValue, METH_NOARGS, "" },
-  { "value", _wrap_ExifData_iterator_value, METH_NOARGS, "" },
+  { "getValue", _wrap_ExifData_iterator_getValue, METH_VARARGS, "" },
+  { "value", _wrap_ExifData_iterator_value, METH_VARARGS, "" },
   { "sizeDataArea", _wrap_ExifData_iterator_sizeDataArea, METH_NOARGS, " Return the size of the data area." },
   { "dataArea", _wrap_ExifData_iterator_dataArea, METH_NOARGS, "\n"
 		"Return a copy of the data area of the value. The caller owns\n"
@@ -11038,8 +11688,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Exifdatum_methods[] = {
   { "toLong", _wrap_Exifdatum_toLong, METH_VARARGS, "" },
   { "toFloat", _wrap_Exifdatum_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_Exifdatum_toRational, METH_VARARGS, "" },
-  { "getValue", _wrap_Exifdatum_getValue, METH_NOARGS, "" },
-  { "value", _wrap_Exifdatum_value, METH_NOARGS, "" },
+  { "getValue", _wrap_Exifdatum_getValue, METH_VARARGS, "" },
+  { "value", _wrap_Exifdatum_value, METH_VARARGS, "" },
   { "sizeDataArea", _wrap_Exifdatum_sizeDataArea, METH_NOARGS, " Return the size of the data area." },
   { "dataArea", _wrap_Exifdatum_dataArea, METH_NOARGS, "\n"
 		"Return a copy of the data area of the value. The caller owns\n"

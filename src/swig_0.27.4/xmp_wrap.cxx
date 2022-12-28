@@ -5014,6 +5014,12 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
+SWIGINTERN Exiv2::Value::AutoPtr Exiv2_Xmpdatum_getValue__SWIG_1(Exiv2::Xmpdatum *self,Exiv2::TypeId as_type){
+        return self->getValue();
+    }
+SWIGINTERN Exiv2::Value const &Exiv2_Xmpdatum_value__SWIG_1(Exiv2::Xmpdatum *self,Exiv2::TypeId as_type){
+        return self->value();
+    }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6259,15 +6265,16 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::AutoPtr result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_iterator_getValue", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_getValue" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
@@ -6289,8 +6296,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue(PyObject *self, PyObject *a
     Exiv2::Value* value = (&result)->release();
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -6364,7 +6372,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue(PyObject *self, PyObject *a
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -6376,15 +6384,175 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpData_iterator_value(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
+  Exiv2::TypeId arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  Exiv2::Value::AutoPtr result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_getValue" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_iterator_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
+  {
+    try {
+      result = Exiv2_Xmpdatum_getValue__SWIG_1((Exiv2::Xmpdatum*)(arg1)->operator ->(),arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::Value* value = (&result)->release();
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
+    }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData_iterator_getValue", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_XmpData_iterator_getValue__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_XmpData_iterator_getValue__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_iterator_getValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Xmpdatum::getValue() const\n"
+    "    Exiv2::Xmpdatum::getValue(Exiv2::TypeId)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "XmpData_iterator_value", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_value" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
@@ -6406,8 +6574,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value(PyObject *self, PyObject *args
     Exiv2::Value* value = result;
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -6481,7 +6650,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value(PyObject *self, PyObject *args
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -6490,6 +6659,165 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value(PyObject *self, PyObject *args
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
+  Exiv2::TypeId arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  Exiv2::Value *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_value" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_iterator_value" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
+  {
+    try {
+      result = (Exiv2::Value *) &Exiv2_Xmpdatum_value__SWIG_1((Exiv2::Xmpdatum*)(arg1)->operator ->(),arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::Value* value = result;
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
+    }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_iterator_value(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData_iterator_value", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_XmpData_iterator_value__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_XmpData_iterator_value__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_iterator_value'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Xmpdatum::value() const\n"
+    "    Exiv2::Xmpdatum::value(Exiv2::TypeId)\n");
+  return 0;
 }
 
 
@@ -8885,15 +9213,16 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Xmpdatum_getValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Xmpdatum_getValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   Exiv2::Xmpdatum *arg1 = (Exiv2::Xmpdatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::AutoPtr result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "Xmpdatum_getValue", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_getValue" "', argument " "1"" of type '" "Exiv2::Xmpdatum const *""'"); 
@@ -8915,8 +9244,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue(PyObject *self, PyObject *args) {
     Exiv2::Value* value = (&result)->release();
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -8990,7 +9320,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue(PyObject *self, PyObject *args) {
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -9002,15 +9332,16 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Xmpdatum_value(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   Exiv2::Xmpdatum *arg1 = (Exiv2::Xmpdatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "Xmpdatum_value", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_value" "', argument " "1"" of type '" "Exiv2::Xmpdatum const *""'"); 
@@ -9032,8 +9363,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value(PyObject *self, PyObject *args) {
     Exiv2::Value* value = result;
     /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
     case Exiv2::asciiString:
       swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
       value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -9107,7 +9439,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value(PyObject *self, PyObject *args) {
     }
     if (!value) {
       PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(type_id));
+        Exiv2::TypeInfo::typeName(_global_type_id));
       SWIG_fail;
     }
     /*@SWIG@*/
@@ -9116,6 +9448,324 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Xmpdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::Xmpdatum *arg1 = (Exiv2::Xmpdatum *) 0 ;
+  Exiv2::TypeId arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  Exiv2::Value::AutoPtr result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_getValue" "', argument " "1"" of type '" "Exiv2::Xmpdatum *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Xmpdatum_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
+  {
+    try {
+      result = Exiv2_Xmpdatum_getValue__SWIG_1(arg1,arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::Value* value = (&result)->release();
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
+    }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Xmpdatum_getValue(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Xmpdatum_getValue", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_Xmpdatum_getValue__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_Xmpdatum_getValue__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Xmpdatum_getValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Xmpdatum::getValue() const\n"
+    "    Exiv2::Xmpdatum::getValue(Exiv2::TypeId)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::Xmpdatum *arg1 = (Exiv2::Xmpdatum *) 0 ;
+  Exiv2::TypeId arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  Exiv2::Value *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_value" "', argument " "1"" of type '" "Exiv2::Xmpdatum *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Xmpdatum_value" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
+  {
+    try {
+      result = (Exiv2::Value *) &Exiv2_Xmpdatum_value__SWIG_1(arg1,arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::Value* value = result;
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
+    }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Xmpdatum_value(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Xmpdatum_value", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_Xmpdatum_value__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_Xmpdatum_value__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Xmpdatum_value'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Xmpdatum::value() const\n"
+    "    Exiv2::Xmpdatum::value(Exiv2::TypeId)\n");
+  return 0;
 }
 
 
@@ -9632,8 +10282,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__XmpData_iterator_methods[] = {
   { "toLong", _wrap_XmpData_iterator_toLong, METH_VARARGS, "" },
   { "toFloat", _wrap_XmpData_iterator_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_XmpData_iterator_toRational, METH_VARARGS, "" },
-  { "getValue", _wrap_XmpData_iterator_getValue, METH_NOARGS, "" },
-  { "value", _wrap_XmpData_iterator_value, METH_NOARGS, "" },
+  { "getValue", _wrap_XmpData_iterator_getValue, METH_VARARGS, "" },
+  { "value", _wrap_XmpData_iterator_value, METH_VARARGS, "" },
   { "_print", _wrap_XmpData_iterator__print, METH_VARARGS, "\n"
 		"Write the interpreted value to a string.\n"
 		"\n"
@@ -10192,8 +10842,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Xmpdatum_methods[] = {
   { "toLong", _wrap_Xmpdatum_toLong, METH_VARARGS, "" },
   { "toFloat", _wrap_Xmpdatum_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_Xmpdatum_toRational, METH_VARARGS, "" },
-  { "getValue", _wrap_Xmpdatum_getValue, METH_NOARGS, "" },
-  { "value", _wrap_Xmpdatum_value, METH_NOARGS, "" },
+  { "getValue", _wrap_Xmpdatum_getValue, METH_VARARGS, "" },
+  { "value", _wrap_Xmpdatum_value, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

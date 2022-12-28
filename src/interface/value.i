@@ -76,8 +76,9 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 // Macro to get swig type for an Exiv2 type id
 %define GET_SWIG_TYPE()
     swig_type_info* swg_type = NULL;
-    Exiv2::TypeId type_id = value->typeId();
-    switch(type_id) {
+    if (_global_type_id == Exiv2::lastTypeId)
+        _global_type_id = value->typeId();
+    switch(_global_type_id) {
         case Exiv2::asciiString:
             swg_type = $descriptor(Exiv2::AsciiValue*);
             value = dynamic_cast<Exiv2::AsciiValue*>(value);
@@ -151,16 +152,18 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
     }
     if (!value) {
         PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-            Exiv2::TypeInfo::typeName(type_id));
+            Exiv2::TypeInfo::typeName(_global_type_id));
         SWIG_fail;
     }
 %enddef // GET_SWIG_TYPE
-%typemap(out) Exiv2::Value::AutoPtr {
+%typemap(out) Exiv2::Value::AutoPtr
+        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
     Exiv2::Value* value = (&$1)->release();
     GET_SWIG_TYPE()
     $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
 }
-%typemap(out) const Exiv2::Value& {
+%typemap(out) const Exiv2::Value&
+        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
     Exiv2::Value* value = $1;
     GET_SWIG_TYPE()
     $result = SWIG_NewPointerObj(value, swg_type, 0);

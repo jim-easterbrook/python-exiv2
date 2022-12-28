@@ -30,6 +30,8 @@ DATA_CONTAINER(IptcData, Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
     Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()), %inline)
 #endif
 
+EXTEND_METADATUM(Exiv2::Iptcdatum)
+
 // Turn off exception checking for methods that are guaranteed not to throw
 %noexception Exiv2::IptcData::begin;
 %noexception Exiv2::IptcData::end;

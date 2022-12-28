@@ -30,6 +30,8 @@ DATA_CONTAINER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())), %inline)
 #endif
 
+EXTEND_METADATUM(Exiv2::Xmpdatum)
+
 // Turn off exception checking for methods that are guaranteed not to throw
 %noexception Exiv2::XmpData::begin;
 %noexception Exiv2::XmpData::end;
