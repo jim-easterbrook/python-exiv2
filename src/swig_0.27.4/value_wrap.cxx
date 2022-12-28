@@ -7282,6 +7282,9 @@ SWIGINTERN PyObject *_wrap_Value_clone(PyObject *self, PyObject *args) {
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
       break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
+      break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
       value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
@@ -8010,6 +8013,9 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
     case Exiv2::unsignedRational:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
       break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;

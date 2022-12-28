@@ -6316,6 +6316,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_0(PyObject *self, Py_
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
       break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
+      break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
       value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
@@ -6445,6 +6448,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_1(PyObject *self, Py_
     case Exiv2::unsignedRational:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
       break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
@@ -6594,6 +6600,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_0(PyObject *self, Py_ssi
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
       break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
+      break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
       value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
@@ -6723,6 +6732,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, Py_ssi
     case Exiv2::unsignedRational:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
       break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
@@ -9264,6 +9276,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue__SWIG_0(PyObject *self, Py_ssize_t 
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
       break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
+      break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
       value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
@@ -9382,6 +9397,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_0(PyObject *self, Py_ssize_t nob
     case Exiv2::unsignedRational:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
       break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
@@ -9512,6 +9530,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t 
     case Exiv2::unsignedRational:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
       break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
@@ -9671,6 +9692,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nob
     case Exiv2::unsignedRational:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
       value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
       break;
     case Exiv2::signedShort:
       swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;

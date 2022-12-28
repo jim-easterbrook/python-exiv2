@@ -96,6 +96,9 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
             swg_type = $descriptor(Exiv2::ValueType<Exiv2::URational>*);
             value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
             break;
+        case Exiv2::undefined:
+            swg_type = $descriptor(Exiv2::Value*);
+            break;
         case Exiv2::signedShort:
             swg_type = $descriptor(Exiv2::ValueType<int16_t>*);
             value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
