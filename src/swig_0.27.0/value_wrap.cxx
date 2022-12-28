@@ -5219,6 +5219,32 @@ namespace swig
 }
 
 
+#ifndef ENUM_HELPER
+#define ENUM_HELPER
+#include <cstdarg>
+static PyObject* _get_enum_list(int dummy, ...) {
+    PyObject* result = PyList_New(0);
+    va_list args;
+    va_start(args, dummy);
+    char* label = va_arg(args, char*);
+    int value = va_arg(args, int);
+    while (label) {
+        PyList_Append(result, PyTuple_Pack(2,
+            PyUnicode_FromString(label), PyLong_FromLong(value)));
+        label = va_arg(args, char*);
+        value = va_arg(args, int);
+    }
+    va_end(args);
+    return result;
+};
+#endif // #ifndef ENUM_HELPER
+
+
+PyObject* _enum_list_CharsetId() {
+    return _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL, 0);
+};
+
+
 #include <limits.h>
 #if !defined(SWIG_NO_LLONG_MAX)
 # if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
@@ -7030,6 +7056,31 @@ SWIGINTERN void Exiv2_ValueType_Sl_double_Sg__append(Exiv2::ValueType< double > 
 #ifdef __cplusplus
 extern "C" {
 #endif
+SWIGINTERN PyObject *_wrap__enum_list_CharsetId(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "_enum_list_CharsetId", 0, 0, 0)) SWIG_fail;
+  {
+    try {
+      result = (PyObject *)_enum_list_CharsetId();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_Value(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Value *arg1 = (Exiv2::Value *) 0 ;
@@ -29364,12 +29415,13 @@ SWIGPY_FUNPACK_SSIZEARGFUNC_CLOSURE(_wrap_DoubleValue___getitem__) /* defines _w
 SWIGPY_SSIZEOBJARGPROC_CLOSURE(_wrap_DoubleValue___setitem__) /* defines _wrap_DoubleValue___setitem___ssizeobjargproc_closure */
 
 static PyMethodDef SwigMethods[] = {
+	 { "_enum_list_CharsetId", _wrap__enum_list_CharsetId, METH_NOARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
 static SwigPyGetSet Value___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Value_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Virtual destructor.", &Value___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &Value___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 

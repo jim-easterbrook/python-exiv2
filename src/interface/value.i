@@ -444,6 +444,16 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
     }
 }
 
+// Make enums more Pythonic
+ENUM(CharsetId,
+    "Character set identifiers for the character sets defined by Exif.",
+        "ascii",            Exiv2::CommentValue::ascii,
+        "jis",              Exiv2::CommentValue::jis,
+        "unicode",          Exiv2::CommentValue::unicode,
+        "undefined",        Exiv2::CommentValue::undefined,
+        "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
+        "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+
 // Some classes wrongly appear to be abstract to SWIG
 %feature("notabstract") Exiv2::LangAltValue;
 %feature("notabstract") Exiv2::XmpArrayValue;

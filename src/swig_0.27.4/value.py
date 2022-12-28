@@ -12,3 +12,10 @@ if __package__ or "." in __name__:
     from ._value import *
 else:
     from _value import *
+
+
+import enum
+CharsetId = enum.IntEnum('CharsetId', _enum_list_CharsetId())
+CharsetId.__doc__ = "Character set identifiers for the character sets defined by Exif."
+
+
