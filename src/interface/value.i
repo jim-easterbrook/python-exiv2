@@ -74,74 +74,96 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 }
 // Downcast base class pointers to derived class
 // Macro to get swig type for an Exiv2 type id
-%define GET_SWIG_TYPE(type_id, swg_type)
+%define GET_SWIG_TYPE()
+    swig_type_info* swg_type = NULL;
+    Exiv2::TypeId type_id = value->typeId();
     switch(type_id) {
         case Exiv2::asciiString:
             swg_type = $descriptor(Exiv2::AsciiValue*);
+            value = dynamic_cast<Exiv2::AsciiValue*>(value);
             break;
         case Exiv2::unsignedShort:
             swg_type = $descriptor(Exiv2::ValueType<uint16_t>*);
+            value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
             break;
         case Exiv2::unsignedLong:
         case Exiv2::tiffIfd:
             swg_type = $descriptor(Exiv2::ValueType<uint32_t>*);
+            value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
             break;
         case Exiv2::unsignedRational:
             swg_type = $descriptor(Exiv2::ValueType<Exiv2::URational>*);
+            value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
             break;
         case Exiv2::signedShort:
             swg_type = $descriptor(Exiv2::ValueType<int16_t>*);
+            value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
             break;
         case Exiv2::signedLong:
             swg_type = $descriptor(Exiv2::ValueType<int32_t>*);
+            value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
             break;
         case Exiv2::signedRational:
             swg_type = $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
+            value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
             break;
         case Exiv2::tiffFloat:
             swg_type = $descriptor(Exiv2::ValueType<float>*);
+            value = dynamic_cast<Exiv2::ValueType<float>*>(value);
             break;
         case Exiv2::tiffDouble:
             swg_type = $descriptor(Exiv2::ValueType<double>*);
+            value = dynamic_cast<Exiv2::ValueType<double>*>(value);
             break;
         case Exiv2::string:
             swg_type = $descriptor(Exiv2::StringValue*);
+            value = dynamic_cast<Exiv2::StringValue*>(value);
             break;
         case Exiv2::date:
             swg_type = $descriptor(Exiv2::DateValue*);
+            value = dynamic_cast<Exiv2::DateValue*>(value);
             break;
         case Exiv2::time:
             swg_type = $descriptor(Exiv2::TimeValue*);
+            value = dynamic_cast<Exiv2::TimeValue*>(value);
             break;
         case Exiv2::comment:
             swg_type = $descriptor(Exiv2::CommentValue*);
+            value = dynamic_cast<Exiv2::CommentValue*>(value);
             break;
         case Exiv2::xmpText:
             swg_type = $descriptor(Exiv2::XmpTextValue*);
+            value = dynamic_cast<Exiv2::XmpTextValue*>(value);
             break;
         case Exiv2::xmpAlt:
         case Exiv2::xmpBag:
         case Exiv2::xmpSeq:
             swg_type = $descriptor(Exiv2::XmpArrayValue*);
+            value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
             break;
         case Exiv2::langAlt:
             swg_type = $descriptor(Exiv2::LangAltValue*);
+            value = dynamic_cast<Exiv2::LangAltValue*>(value);
             break;
         default:
             swg_type = $descriptor(Exiv2::DataValue*);
+            value = dynamic_cast<Exiv2::DataValue*>(value);
+    }
+    if (!value) {
+        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+            Exiv2::TypeInfo::typeName(type_id));
+        SWIG_fail;
     }
 %enddef // GET_SWIG_TYPE
 %typemap(out) Exiv2::Value::AutoPtr {
-    Exiv2::TypeId type_id = $1->typeId();
-    swig_type_info* swg_type = NULL;
-    GET_SWIG_TYPE(type_id, swg_type)
-    $result = SWIG_NewPointerObj((&$1)->release(), swg_type, SWIG_POINTER_OWN);
+    Exiv2::Value* value = (&$1)->release();
+    GET_SWIG_TYPE()
+    $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
 }
 %typemap(out) const Exiv2::Value& {
-    Exiv2::TypeId type_id = $1->typeId();
-    swig_type_info* swg_type = NULL;
-    GET_SWIG_TYPE(type_id, swg_type)
-    $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), swg_type, 0);
+    Exiv2::Value* value = $1;
+    GET_SWIG_TYPE()
+    $result = SWIG_NewPointerObj(value, swg_type, 0);
 }
 
 // ---- Macros ----
