@@ -4992,18 +4992,7 @@ SWIGINTERN PyObject *_wrap__enum_list_ImageType(PyObject *self, PyObject *args) 
   
   (void)self;
   if (!SWIG_Python_UnpackTuple(args, "_enum_list_ImageType", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (PyObject *)_enum_list_ImageType();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)_enum_list_ImageType();
   resultobj = result;
   return resultobj;
 fail:

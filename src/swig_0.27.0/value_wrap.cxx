@@ -6559,10 +6559,10 @@ SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SW
         return result;
     }
 SWIGINTERN uint16_t Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx){
-        return self->value_.at(multi_idx);
+        return self->value_[multi_idx];
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx,uint16_t value){
-        self->value_.at(multi_idx) = value;
+        self->value_[multi_idx] = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg__append(Exiv2::ValueType< uint16_t > *self,uint16_t value){
         self->value_.push_back(value);
@@ -6644,10 +6644,10 @@ SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SW
         return result;
     }
 SWIGINTERN uint32_t Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx){
-        return self->value_.at(multi_idx);
+        return self->value_[multi_idx];
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx,uint32_t value){
-        self->value_.at(multi_idx) = value;
+        self->value_[multi_idx] = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg__append(Exiv2::ValueType< uint32_t > *self,uint32_t value){
         self->value_.push_back(value);
@@ -6696,10 +6696,10 @@ SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_UR
         return result;
     }
 SWIGINTERN Exiv2::URational Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(Exiv2::ValueType< Exiv2::URational > *self,long multi_idx){
-        return self->value_.at(multi_idx);
+        return self->value_[multi_idx];
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(Exiv2::ValueType< Exiv2::URational > *self,long multi_idx,Exiv2::URational value){
-        self->value_.at(multi_idx) = value;
+        self->value_[multi_idx] = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_URational_Sg__append(Exiv2::ValueType< Exiv2::URational > *self,Exiv2::URational value){
         self->value_.push_back(value);
@@ -6781,10 +6781,10 @@ SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG
         return result;
     }
 SWIGINTERN int16_t Exiv2_ValueType_Sl_int16_t_Sg____getitem__(Exiv2::ValueType< int16_t > *self,long multi_idx){
-        return self->value_.at(multi_idx);
+        return self->value_[multi_idx];
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg____setitem__(Exiv2::ValueType< int16_t > *self,long multi_idx,int16_t value){
-        self->value_.at(multi_idx) = value;
+        self->value_[multi_idx] = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg__append(Exiv2::ValueType< int16_t > *self,int16_t value){
         self->value_.push_back(value);
@@ -6823,10 +6823,10 @@ SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG
         return result;
     }
 SWIGINTERN int32_t Exiv2_ValueType_Sl_int32_t_Sg____getitem__(Exiv2::ValueType< int32_t > *self,long multi_idx){
-        return self->value_.at(multi_idx);
+        return self->value_[multi_idx];
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg____setitem__(Exiv2::ValueType< int32_t > *self,long multi_idx,int32_t value){
-        self->value_.at(multi_idx) = value;
+        self->value_[multi_idx] = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg__append(Exiv2::ValueType< int32_t > *self,int32_t value){
         self->value_.push_back(value);
@@ -6865,10 +6865,10 @@ SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rat
         return result;
     }
 SWIGINTERN Exiv2::Rational Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(Exiv2::ValueType< Exiv2::Rational > *self,long multi_idx){
-        return self->value_.at(multi_idx);
+        return self->value_[multi_idx];
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(Exiv2::ValueType< Exiv2::Rational > *self,long multi_idx,Exiv2::Rational value){
-        self->value_.at(multi_idx) = value;
+        self->value_[multi_idx] = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_Rational_Sg__append(Exiv2::ValueType< Exiv2::Rational > *self,Exiv2::Rational value){
         self->value_.push_back(value);
@@ -6983,10 +6983,10 @@ SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_8(E
         return result;
     }
 SWIGINTERN float Exiv2_ValueType_Sl_float_Sg____getitem__(Exiv2::ValueType< float > *self,long multi_idx){
-        return self->value_.at(multi_idx);
+        return self->value_[multi_idx];
     }
 SWIGINTERN void Exiv2_ValueType_Sl_float_Sg____setitem__(Exiv2::ValueType< float > *self,long multi_idx,float value){
-        self->value_.at(multi_idx) = value;
+        self->value_[multi_idx] = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_float_Sg__append(Exiv2::ValueType< float > *self,float value){
         self->value_.push_back(value);
@@ -7045,10 +7045,10 @@ SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_8
         return result;
     }
 SWIGINTERN double Exiv2_ValueType_Sl_double_Sg____getitem__(Exiv2::ValueType< double > *self,long multi_idx){
-        return self->value_.at(multi_idx);
+        return self->value_[multi_idx];
     }
 SWIGINTERN void Exiv2_ValueType_Sl_double_Sg____setitem__(Exiv2::ValueType< double > *self,long multi_idx,double value){
-        self->value_.at(multi_idx) = value;
+        self->value_[multi_idx] = value;
     }
 SWIGINTERN void Exiv2_ValueType_Sl_double_Sg__append(Exiv2::ValueType< double > *self,double value){
         self->value_.push_back(value);
@@ -7062,18 +7062,7 @@ SWIGINTERN PyObject *_wrap__enum_list_CharsetId(PyObject *self, PyObject *args) 
   
   (void)self;
   if (!SWIG_Python_UnpackTuple(args, "_enum_list_CharsetId", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (PyObject *)_enum_list_CharsetId();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)_enum_list_CharsetId();
   resultobj = result;
   return resultobj;
 fail:
@@ -19655,18 +19644,7 @@ SWIGINTERN PyObject *_wrap_UShortValue___getitem__(PyObject *self, PyObject *arg
     SWIG_fail;
   }
   
-  {
-    try {
-      result = (uint16_t)Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (uint16_t)Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(arg1,arg2);
   resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
   return resultobj;
 fail:
@@ -19710,18 +19688,7 @@ SWIGINTERN PyObject *_wrap_UShortValue___setitem__(PyObject *self, PyObject *arg
     SWIG_fail;
   }
   
-  {
-    try {
-      Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(arg1,arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19752,18 +19719,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_append(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "UShortValue_append" "', argument " "2"" of type '" "uint16_t""'");
   } 
   arg2 = static_cast< uint16_t >(val2);
-  {
-    try {
-      Exiv2_ValueType_Sl_uint16_t_Sg__append(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_uint16_t_Sg__append(arg1,arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21035,18 +20991,7 @@ SWIGINTERN PyObject *_wrap_ULongValue___getitem__(PyObject *self, PyObject *args
     SWIG_fail;
   }
   
-  {
-    try {
-      result = (uint32_t)Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (uint32_t)Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(arg1,arg2);
   resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
   return resultobj;
 fail:
@@ -21090,18 +21035,7 @@ SWIGINTERN PyObject *_wrap_ULongValue___setitem__(PyObject *self, PyObject *args
     SWIG_fail;
   }
   
-  {
-    try {
-      Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(arg1,arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21132,18 +21066,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_append(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ULongValue_append" "', argument " "2"" of type '" "uint32_t""'");
   } 
   arg2 = static_cast< uint32_t >(val2);
-  {
-    try {
-      Exiv2_ValueType_Sl_uint32_t_Sg__append(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_uint32_t_Sg__append(arg1,arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -22423,18 +22346,7 @@ SWIGINTERN PyObject *_wrap_URationalValue___getitem__(PyObject *self, PyObject *
     SWIG_fail;
   }
   
-  {
-    try {
-      result = Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(arg1,arg2);
   resultobj = swig::from(static_cast< std::pair< unsigned int,unsigned int > >(result));
   return resultobj;
 fail:
@@ -22480,18 +22392,7 @@ SWIGINTERN PyObject *_wrap_URationalValue___setitem__(PyObject *self, PyObject *
     SWIG_fail;
   }
   
-  {
-    try {
-      Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(arg1,arg2,SWIG_STD_MOVE(arg3));
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(arg1,arg2,SWIG_STD_MOVE(arg3));
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -22524,18 +22425,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_append(PyObject *self, PyObject *args)
     arg2 = *ptr;
     if (SWIG_IsNewObj(res)) delete ptr;
   }
-  {
-    try {
-      Exiv2_ValueType_Sl_Exiv2_URational_Sg__append(arg1,SWIG_STD_MOVE(arg2));
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_Exiv2_URational_Sg__append(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -23807,18 +23697,7 @@ SWIGINTERN PyObject *_wrap_ShortValue___getitem__(PyObject *self, PyObject *args
     SWIG_fail;
   }
   
-  {
-    try {
-      result = (int16_t)Exiv2_ValueType_Sl_int16_t_Sg____getitem__(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int16_t)Exiv2_ValueType_Sl_int16_t_Sg____getitem__(arg1,arg2);
   resultobj = SWIG_From_short(static_cast< short >(result));
   return resultobj;
 fail:
@@ -23862,18 +23741,7 @@ SWIGINTERN PyObject *_wrap_ShortValue___setitem__(PyObject *self, PyObject *args
     SWIG_fail;
   }
   
-  {
-    try {
-      Exiv2_ValueType_Sl_int16_t_Sg____setitem__(arg1,arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_int16_t_Sg____setitem__(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -23904,18 +23772,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_append(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ShortValue_append" "', argument " "2"" of type '" "int16_t""'");
   } 
   arg2 = static_cast< int16_t >(val2);
-  {
-    try {
-      Exiv2_ValueType_Sl_int16_t_Sg__append(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_int16_t_Sg__append(arg1,arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -25138,18 +24995,7 @@ SWIGINTERN PyObject *_wrap_LongValue___getitem__(PyObject *self, PyObject *args)
     SWIG_fail;
   }
   
-  {
-    try {
-      result = (int32_t)Exiv2_ValueType_Sl_int32_t_Sg____getitem__(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int32_t)Exiv2_ValueType_Sl_int32_t_Sg____getitem__(arg1,arg2);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -25193,18 +25039,7 @@ SWIGINTERN PyObject *_wrap_LongValue___setitem__(PyObject *self, PyObject *args)
     SWIG_fail;
   }
   
-  {
-    try {
-      Exiv2_ValueType_Sl_int32_t_Sg____setitem__(arg1,arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_int32_t_Sg____setitem__(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -25235,18 +25070,7 @@ SWIGINTERN PyObject *_wrap_LongValue_append(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LongValue_append" "', argument " "2"" of type '" "int32_t""'");
   } 
   arg2 = static_cast< int32_t >(val2);
-  {
-    try {
-      Exiv2_ValueType_Sl_int32_t_Sg__append(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_int32_t_Sg__append(arg1,arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -26526,18 +26350,7 @@ SWIGINTERN PyObject *_wrap_RationalValue___getitem__(PyObject *self, PyObject *a
     SWIG_fail;
   }
   
-  {
-    try {
-      result = Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(arg1,arg2);
   resultobj = swig::from(static_cast< std::pair< int,int > >(result));
   return resultobj;
 fail:
@@ -26583,18 +26396,7 @@ SWIGINTERN PyObject *_wrap_RationalValue___setitem__(PyObject *self, PyObject *a
     SWIG_fail;
   }
   
-  {
-    try {
-      Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(arg1,arg2,SWIG_STD_MOVE(arg3));
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(arg1,arg2,SWIG_STD_MOVE(arg3));
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -26627,18 +26429,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_append(PyObject *self, PyObject *args) 
     arg2 = *ptr;
     if (SWIG_IsNewObj(res)) delete ptr;
   }
-  {
-    try {
-      Exiv2_ValueType_Sl_Exiv2_Rational_Sg__append(arg1,SWIG_STD_MOVE(arg2));
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_Exiv2_Rational_Sg__append(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -27910,18 +27701,7 @@ SWIGINTERN PyObject *_wrap_FloatValue___getitem__(PyObject *self, PyObject *args
     SWIG_fail;
   }
   
-  {
-    try {
-      result = (float)Exiv2_ValueType_Sl_float_Sg____getitem__(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (float)Exiv2_ValueType_Sl_float_Sg____getitem__(arg1,arg2);
   resultobj = SWIG_From_float(static_cast< float >(result));
   return resultobj;
 fail:
@@ -27965,18 +27745,7 @@ SWIGINTERN PyObject *_wrap_FloatValue___setitem__(PyObject *self, PyObject *args
     SWIG_fail;
   }
   
-  {
-    try {
-      Exiv2_ValueType_Sl_float_Sg____setitem__(arg1,arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_float_Sg____setitem__(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -28007,18 +27776,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_append(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FloatValue_append" "', argument " "2"" of type '" "float""'");
   } 
   arg2 = static_cast< float >(val2);
-  {
-    try {
-      Exiv2_ValueType_Sl_float_Sg__append(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_float_Sg__append(arg1,arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -29290,18 +29048,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue___getitem__(PyObject *self, PyObject *arg
     SWIG_fail;
   }
   
-  {
-    try {
-      result = (double)Exiv2_ValueType_Sl_double_Sg____getitem__(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (double)Exiv2_ValueType_Sl_double_Sg____getitem__(arg1,arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -29345,18 +29092,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue___setitem__(PyObject *self, PyObject *arg
     SWIG_fail;
   }
   
-  {
-    try {
-      Exiv2_ValueType_Sl_double_Sg____setitem__(arg1,arg2,arg3);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_double_Sg____setitem__(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -29387,18 +29123,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_append(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DoubleValue_append" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  {
-    try {
-      Exiv2_ValueType_Sl_double_Sg__append(arg1,arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_ValueType_Sl_double_Sg__append(arg1,arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:

@@ -390,6 +390,7 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 #endif // #ifndef ENUM_HELPER
 %}
+%noexception _enum_list_##name;
 %inline %{
 PyObject* _enum_list_##name() {
     return _get_enum_list(0, contents, NULL, 0);

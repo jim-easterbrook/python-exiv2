@@ -224,7 +224,7 @@ wrap_auto_unique_ptr(type_name)
 }
 %enddef // SUBSCRIPT_SINGLE
 
-// Macro for subclases of Exiv2::ValueType
+// Macro for Exiv2::ValueType classes
 %define VALUETYPE(type_name, item_type)
 VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %feature("python:slot", "sq_length", functype="lenfunc")
@@ -239,6 +239,9 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %feature("docstring") Exiv2::ValueType<item_type>::append
 "Append a " #item_type " component to the value."
 %template() std::vector<item_type>;
+%noexception Exiv2::ValueType<item_type>::__getitem__;
+%noexception Exiv2::ValueType<item_type>::__setitem__;
+%noexception Exiv2::ValueType<item_type>::append;
 %extend Exiv2::ValueType<item_type> {
     // Constructor, reads values from a Python list
     ValueType<item_type>(Exiv2::ValueType<item_type>::ValueList value) {
@@ -247,10 +250,10 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         return result;
     }
     item_type __getitem__(long multi_idx) {
-        return $self->value_.at(multi_idx);
+        return $self->value_[multi_idx];
     }
     void __setitem__(long multi_idx, item_type value) {
-        $self->value_.at(multi_idx) = value;
+        $self->value_[multi_idx] = value;
     }
     void append(item_type value) {
         $self->value_.push_back(value);
