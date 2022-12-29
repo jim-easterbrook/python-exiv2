@@ -3923,20 +3923,14 @@ protected:
     Exiv2::ExifData::iterator ptr;
     Exiv2::ExifData::iterator end;
     Exiv2::ExifData::iterator safe_ptr;
-    PyObject* parent;
 public:
-    ExifData_iterator_end(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end, PyObject* parent) {
+    ExifData_iterator_end(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        this->parent = parent;
         safe_ptr = ptr;
-        Py_INCREF(parent);
-    }
-    ~ExifData_iterator_end() {
-        Py_DECREF(parent);
     }
     ExifData_iterator_end* __iter__() {
-        return new ExifData_iterator_end(ptr, end, parent);
+        return new ExifData_iterator_end(ptr, end);
     }
     Exiv2::Exifdatum* __next__() {
         Exiv2::Exifdatum* result = NULL;
@@ -3970,13 +3964,13 @@ public:
 // are needed.
 class ExifData_iterator : public ExifData_iterator_end {
 public:
-    ExifData_iterator(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end, PyObject* parent)
-                   : ExifData_iterator_end(ptr, end, parent) {}
+    ExifData_iterator(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end)
+                   : ExifData_iterator_end(ptr, end) {}
     Exiv2::Exifdatum* operator->() const {
         return &(*safe_ptr);
     }
     ExifData_iterator* __iter__() {
-        return new ExifData_iterator(safe_ptr, end, parent);
+        return new ExifData_iterator(safe_ptr, end);
     }
     // Provide size() C++ method for buffer size check
     size_t size() {
@@ -3988,19 +3982,12 @@ public:
 class ExifData {
 private:
     Exiv2::ExifData* base;
-    PyObject* owner;
 public:
     ExifData() {
         this->base = new Exiv2::ExifData();
-        this->owner = NULL;
     }
-    ExifData(Exiv2::ExifData* base, PyObject* owner) {
+    ExifData(Exiv2::ExifData* base) {
         this->base = base;
-        Py_INCREF(owner);
-        this->owner = owner;
-    }
-    ~ExifData() {
-        Py_XDECREF(owner);
     }
     Exiv2::ExifData::iterator __iter__() {
         return base->begin();

@@ -4002,20 +4002,14 @@ protected:
     Exiv2::ExifData::iterator ptr;
     Exiv2::ExifData::iterator end;
     Exiv2::ExifData::iterator safe_ptr;
-    PyObject* parent;
 public:
-    ExifData_iterator_end(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end, PyObject* parent) {
+    ExifData_iterator_end(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        this->parent = parent;
         safe_ptr = ptr;
-        Py_INCREF(parent);
-    }
-    ~ExifData_iterator_end() {
-        Py_DECREF(parent);
     }
     ExifData_iterator_end* __iter__() {
-        return new ExifData_iterator_end(ptr, end, parent);
+        return new ExifData_iterator_end(ptr, end);
     }
     Exiv2::Exifdatum* __next__() {
         Exiv2::Exifdatum* result = NULL;
@@ -4049,13 +4043,13 @@ public:
 // are needed.
 class ExifData_iterator : public ExifData_iterator_end {
 public:
-    ExifData_iterator(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end, PyObject* parent)
-                   : ExifData_iterator_end(ptr, end, parent) {}
+    ExifData_iterator(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end)
+                   : ExifData_iterator_end(ptr, end) {}
     Exiv2::Exifdatum* operator->() const {
         return &(*safe_ptr);
     }
     ExifData_iterator* __iter__() {
-        return new ExifData_iterator(safe_ptr, end, parent);
+        return new ExifData_iterator(safe_ptr, end);
     }
     // Provide size() C++ method for buffer size check
     size_t size() {
@@ -4067,19 +4061,12 @@ public:
 class ExifData {
 private:
     Exiv2::ExifData* base;
-    PyObject* owner;
 public:
     ExifData() {
         this->base = new Exiv2::ExifData();
-        this->owner = NULL;
     }
-    ExifData(Exiv2::ExifData* base, PyObject* owner) {
+    ExifData(Exiv2::ExifData* base) {
         this->base = base;
-        Py_INCREF(owner);
-        this->owner = owner;
-    }
-    ~ExifData() {
-        Py_XDECREF(owner);
     }
     Exiv2::ExifData::iterator __iter__() {
         return base->begin();
@@ -4171,20 +4158,14 @@ protected:
     Exiv2::IptcData::iterator ptr;
     Exiv2::IptcData::iterator end;
     Exiv2::IptcData::iterator safe_ptr;
-    PyObject* parent;
 public:
-    IptcData_iterator_end(Exiv2::IptcData::iterator ptr, Exiv2::IptcData::iterator end, PyObject* parent) {
+    IptcData_iterator_end(Exiv2::IptcData::iterator ptr, Exiv2::IptcData::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        this->parent = parent;
         safe_ptr = ptr;
-        Py_INCREF(parent);
-    }
-    ~IptcData_iterator_end() {
-        Py_DECREF(parent);
     }
     IptcData_iterator_end* __iter__() {
-        return new IptcData_iterator_end(ptr, end, parent);
+        return new IptcData_iterator_end(ptr, end);
     }
     Exiv2::Iptcdatum* __next__() {
         Exiv2::Iptcdatum* result = NULL;
@@ -4218,13 +4199,13 @@ public:
 // are needed.
 class IptcData_iterator : public IptcData_iterator_end {
 public:
-    IptcData_iterator(Exiv2::IptcData::iterator ptr, Exiv2::IptcData::iterator end, PyObject* parent)
-                   : IptcData_iterator_end(ptr, end, parent) {}
+    IptcData_iterator(Exiv2::IptcData::iterator ptr, Exiv2::IptcData::iterator end)
+                   : IptcData_iterator_end(ptr, end) {}
     Exiv2::Iptcdatum* operator->() const {
         return &(*safe_ptr);
     }
     IptcData_iterator* __iter__() {
-        return new IptcData_iterator(safe_ptr, end, parent);
+        return new IptcData_iterator(safe_ptr, end);
     }
     // Provide size() C++ method for buffer size check
     size_t size() {
@@ -4236,19 +4217,12 @@ public:
 class IptcData {
 private:
     Exiv2::IptcData* base;
-    PyObject* owner;
 public:
     IptcData() {
         this->base = new Exiv2::IptcData();
-        this->owner = NULL;
     }
-    IptcData(Exiv2::IptcData* base, PyObject* owner) {
+    IptcData(Exiv2::IptcData* base) {
         this->base = base;
-        Py_INCREF(owner);
-        this->owner = owner;
-    }
-    ~IptcData() {
-        Py_XDECREF(owner);
     }
     Exiv2::IptcData::iterator __iter__() {
         return base->begin();
@@ -4340,20 +4314,14 @@ protected:
     Exiv2::XmpData::iterator ptr;
     Exiv2::XmpData::iterator end;
     Exiv2::XmpData::iterator safe_ptr;
-    PyObject* parent;
 public:
-    XmpData_iterator_end(Exiv2::XmpData::iterator ptr, Exiv2::XmpData::iterator end, PyObject* parent) {
+    XmpData_iterator_end(Exiv2::XmpData::iterator ptr, Exiv2::XmpData::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        this->parent = parent;
         safe_ptr = ptr;
-        Py_INCREF(parent);
-    }
-    ~XmpData_iterator_end() {
-        Py_DECREF(parent);
     }
     XmpData_iterator_end* __iter__() {
-        return new XmpData_iterator_end(ptr, end, parent);
+        return new XmpData_iterator_end(ptr, end);
     }
     Exiv2::Xmpdatum* __next__() {
         Exiv2::Xmpdatum* result = NULL;
@@ -4387,13 +4355,13 @@ public:
 // are needed.
 class XmpData_iterator : public XmpData_iterator_end {
 public:
-    XmpData_iterator(Exiv2::XmpData::iterator ptr, Exiv2::XmpData::iterator end, PyObject* parent)
-                   : XmpData_iterator_end(ptr, end, parent) {}
+    XmpData_iterator(Exiv2::XmpData::iterator ptr, Exiv2::XmpData::iterator end)
+                   : XmpData_iterator_end(ptr, end) {}
     Exiv2::Xmpdatum* operator->() const {
         return &(*safe_ptr);
     }
     XmpData_iterator* __iter__() {
-        return new XmpData_iterator(safe_ptr, end, parent);
+        return new XmpData_iterator(safe_ptr, end);
     }
     // Provide size() C++ method for buffer size check
     size_t size() {
@@ -4405,19 +4373,12 @@ public:
 class XmpData {
 private:
     Exiv2::XmpData* base;
-    PyObject* owner;
 public:
     XmpData() {
         this->base = new Exiv2::XmpData();
-        this->owner = NULL;
     }
-    XmpData(Exiv2::XmpData* base, PyObject* owner) {
+    XmpData(Exiv2::XmpData* base) {
         this->base = base;
-        Py_INCREF(owner);
-        this->owner = owner;
-    }
-    ~XmpData() {
-        Py_XDECREF(owner);
     }
     Exiv2::XmpData::iterator __iter__() {
         return base->begin();
@@ -6221,7 +6182,12 @@ SWIGINTERN PyObject *_wrap_Image_exifData(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new ExifData(result, self), SWIGTYPE_p_ExifData, SWIG_POINTER_OWN);
+    new ExifData(result), SWIGTYPE_p_ExifData, SWIG_POINTER_OWN);
+  
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:
@@ -6257,7 +6223,12 @@ SWIGINTERN PyObject *_wrap_Image_iptcData(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new IptcData(result, self), SWIGTYPE_p_IptcData, SWIG_POINTER_OWN);
+    new IptcData(result), SWIGTYPE_p_IptcData, SWIG_POINTER_OWN);
+  
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:
@@ -6293,7 +6264,12 @@ SWIGINTERN PyObject *_wrap_Image_xmpData(PyObject *self, PyObject *args) {
   }
   
   resultobj = SWIG_NewPointerObj(
-    new XmpData(result, self), SWIGTYPE_p_XmpData, SWIG_POINTER_OWN);
+    new XmpData(result), SWIGTYPE_p_XmpData, SWIG_POINTER_OWN);
+  
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:

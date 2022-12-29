@@ -54,10 +54,13 @@ class TestReferenceCounts(unittest.TestCase):
         # iterators point into exifData, so keep a reference to it
         iterator = exifData.begin()
         self.assertEqual(sys.getrefcount(exifData), 3)
-        # creating a new iterator increments the reference count
+        # creating a new iterator increments the parent reference count
+        self.assertEqual(sys.getrefcount(iterator), 2)
         new_iterator = iter(iterator)
-        self.assertEqual(sys.getrefcount(exifData), 4)
-        del iterator, new_iterator
+        self.assertEqual(sys.getrefcount(iterator), 3)
+        del new_iterator
+        self.assertEqual(sys.getrefcount(iterator), 2)
+        del iterator
         self.assertEqual(sys.getrefcount(exifData), 2)
 
 

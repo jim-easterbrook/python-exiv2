@@ -116,6 +116,17 @@ data it points to.
 Python wrapper for an " #iterator_type " that points to
 " #wrap_class "::end().
 "
+// Creating a new iterator keeps a reference to the current one
+%typemap(ret) wrap_class##_iterator_end* %{
+    if (PyObject_SetAttrString($result, "_parent", self)) {
+        SWIG_fail;
+    }
+%}
+%typemap(ret) wrap_class##_iterator* %{
+    if (PyObject_SetAttrString($result, "_parent", self)) {
+        SWIG_fail;
+    }
+%}
 %exception wrap_class##_iterator_end::__next__ %{
     $action
     if (PyErr_Occurred())
@@ -128,20 +139,14 @@ protected:
     iterator_type ptr;
     iterator_type end;
     iterator_type safe_ptr;
-    PyObject* parent;
 public:
-    wrap_class##_iterator_end(iterator_type ptr, iterator_type end, PyObject* parent) {
+    wrap_class##_iterator_end(iterator_type ptr, iterator_type end) {
         this->ptr = ptr;
         this->end = end;
-        this->parent = parent;
         safe_ptr = ptr;
-        Py_INCREF(parent);
-    }
-    ~wrap_class##_iterator_end() {
-        Py_DECREF(parent);
     }
     wrap_class##_iterator_end* __iter__() {
-        return new wrap_class##_iterator_end(ptr, end, parent);
+        return new wrap_class##_iterator_end(ptr, end);
     }
     datum_type* __next__() {
         datum_type* result = NULL;
@@ -175,13 +180,13 @@ public:
 // are needed.
 class wrap_class##_iterator : public wrap_class##_iterator_end {
 public:
-    wrap_class##_iterator(iterator_type ptr, iterator_type end, PyObject* parent)
-                   : wrap_class##_iterator_end(ptr, end, parent) {}
+    wrap_class##_iterator(iterator_type ptr, iterator_type end)
+                   : wrap_class##_iterator_end(ptr, end) {}
     datum_type* operator->() const {
         return &(*safe_ptr);
     }
     wrap_class##_iterator* __iter__() {
-        return new wrap_class##_iterator(safe_ptr, end, parent);
+        return new wrap_class##_iterator(safe_ptr, end);
     }
     // Provide size() C++ method for buffer size check
     size_t size() {
@@ -209,7 +214,7 @@ public:
 // assumes self is the Python image parent
 %typemap(out) base_class& %{
     $result = SWIG_NewPointerObj(
-        new wrap_class($1, self), $descriptor(wrap_class*), SWIG_POINTER_OWN);
+        new wrap_class($1), $descriptor(wrap_class*), SWIG_POINTER_OWN);
 %};
 // typemaps for iterator conversions
 %typemap(in) base_class::iterator (int res, wrap_class##_iterator_end *argp) %{
@@ -228,13 +233,25 @@ public:
     base_class::iterator end = (*arg1)->end();
     if ((base_class::iterator)$1 == end)
         $result = SWIG_NewPointerObj(
-            new wrap_class##_iterator_end($1, end, self),
+            new wrap_class##_iterator_end($1, end),
             $descriptor(wrap_class##_iterator_end*), SWIG_POINTER_OWN);
     else
         $result = SWIG_NewPointerObj(
-            new wrap_class##_iterator($1, end, self),
+            new wrap_class##_iterator($1, end),
             $descriptor(wrap_class##_iterator*), SWIG_POINTER_OWN);
 };
+// Keep a reference to the image that contains the data
+%typemap(ret) base_class& %{
+    if (PyObject_SetAttrString($result, "_parent", self)) {
+        SWIG_fail;
+    }
+%}
+// Keep a reference to the data being iterated
+%typemap(ret) base_class::iterator %{
+    if (PyObject_SetAttrString($result, "_parent", self)) {
+        SWIG_fail;
+    }
+%}
 %enddef // _USE_DATA_CONTAINER
 
 // Declare the above typemaps everywhere
@@ -257,7 +274,7 @@ _DATA_ITERATOR(wrap_class, base_class::iterator, datum_type, mode)
          functype="objobjargproc") wrap_class::__setitem__;
 %feature("python:slot", "sq_contains",
          functype="objobjproc") wrap_class::__contains__;
-%ignore wrap_class::wrap_class(base_class* base, PyObject* owner);
+%ignore wrap_class::wrap_class(base_class* base);
 %ignore wrap_class::operator*;
 %ignore wrap_class::_default_type;
 %ignore wrap_class::_type_change_warn;
@@ -268,19 +285,12 @@ mode %{
 class wrap_class {
 private:
     base_class* base;
-    PyObject* owner;
 public:
     wrap_class() {
         this->base = new base_class();
-        this->owner = NULL;
     }
-    wrap_class(base_class* base, PyObject* owner) {
+    wrap_class(base_class* base) {
         this->base = base;
-        Py_INCREF(owner);
-        this->owner = owner;
-    }
-    ~wrap_class() {
-        Py_XDECREF(owner);
     }
     base_class::iterator __iter__() {
         return base->begin();

@@ -3983,20 +3983,14 @@ protected:
     Exiv2::ExifData::iterator ptr;
     Exiv2::ExifData::iterator end;
     Exiv2::ExifData::iterator safe_ptr;
-    PyObject* parent;
 public:
-    ExifData_iterator_end(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end, PyObject* parent) {
+    ExifData_iterator_end(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        this->parent = parent;
         safe_ptr = ptr;
-        Py_INCREF(parent);
-    }
-    ~ExifData_iterator_end() {
-        Py_DECREF(parent);
     }
     ExifData_iterator_end* __iter__() {
-        return new ExifData_iterator_end(ptr, end, parent);
+        return new ExifData_iterator_end(ptr, end);
     }
     Exiv2::Exifdatum* __next__() {
         Exiv2::Exifdatum* result = NULL;
@@ -4030,13 +4024,13 @@ public:
 // are needed.
 class ExifData_iterator : public ExifData_iterator_end {
 public:
-    ExifData_iterator(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end, PyObject* parent)
-                   : ExifData_iterator_end(ptr, end, parent) {}
+    ExifData_iterator(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end)
+                   : ExifData_iterator_end(ptr, end) {}
     Exiv2::Exifdatum* operator->() const {
         return &(*safe_ptr);
     }
     ExifData_iterator* __iter__() {
-        return new ExifData_iterator(safe_ptr, end, parent);
+        return new ExifData_iterator(safe_ptr, end);
     }
     // Provide size() C++ method for buffer size check
     size_t size() {
@@ -4895,19 +4889,12 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
 class ExifData {
 private:
     Exiv2::ExifData* base;
-    PyObject* owner;
 public:
     ExifData() {
         this->base = new Exiv2::ExifData();
-        this->owner = NULL;
     }
-    ExifData(Exiv2::ExifData* base, PyObject* owner) {
+    ExifData(Exiv2::ExifData* base) {
         this->base = base;
-        Py_INCREF(owner);
-        this->owner = owner;
-    }
-    ~ExifData() {
-        Py_XDECREF(owner);
     }
     Exiv2::ExifData::iterator __iter__() {
         return base->begin();
@@ -5118,38 +5105,6 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap_delete_ExifData_iterator_end(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifData_iterator_end *arg1 = (ExifData_iterator_end *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_ExifData_iterator_end", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExifData_iterator_end" "', argument " "1"" of type '" "ExifData_iterator_end *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifData_iterator_end * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ExifData_iterator_end___iter__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   ExifData_iterator_end *arg1 = (ExifData_iterator_end *) 0 ;
@@ -5177,6 +5132,11 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_end___iter__(PyObject *self, PyObje
     }
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_OWN |  0 );
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -5316,13 +5276,45 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifData_iterator_end) /* defines _wrap_delete_ExifData_iterator_end_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_ExifData_iterator_end(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifData_iterator_end *arg1 = (ExifData_iterator_end *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "delete_ExifData_iterator_end", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExifData_iterator_end" "', argument " "1"" of type '" "ExifData_iterator_end *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifData_iterator_end * >(argp1);
+  {
+    try {
+      delete arg1;
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_ExifData_iterator_end___iter__) /* defines _wrap_ExifData_iterator_end___iter___getiterfunc_closure */
 
 SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_ExifData_iterator_end___next__) /* defines _wrap_ExifData_iterator_end___next___iternextfunc_closure */
 
 SWIGPY_REPRFUNC_CLOSURE(_wrap_ExifData_iterator_end___str__) /* defines _wrap_ExifData_iterator_end___str___reprfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifData_iterator_end) /* defines _wrap_delete_ExifData_iterator_end_destructor_closure */
 
 SWIGINTERN PyObject *_wrap_ExifData_iterator___deref__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -5384,6 +5376,11 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator___iter__(PyObject *self, PyObject *
     }
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN |  0 );
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -7245,38 +7242,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_ExifData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifData *arg1 = (ExifData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_ExifData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExifData" "', argument " "1"" of type '" "ExifData *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifData * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ExifData___iter__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   ExifData *arg1 = (ExifData *) 0 ;
@@ -7296,13 +7261,18 @@ SWIGINTERN PyObject *_wrap_ExifData___iter__(PyObject *self, PyObject *args) {
     Exiv2::ExifData::iterator end = (*arg1)->end();
     if ((Exiv2::ExifData::iterator)result == end)
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator_end(result, end, self),
+      new ExifData_iterator_end(result, end),
       SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_OWN);
     else
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator(result, end, self),
+      new ExifData_iterator(result, end),
       SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -7735,6 +7705,38 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_delete_ExifData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifData *arg1 = (ExifData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "delete_ExifData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExifData" "', argument " "1"" of type '" "ExifData *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifData * >(argp1);
+  {
+    try {
+      delete arg1;
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_ExifData_add__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   ExifData *arg1 = (ExifData *) 0 ;
@@ -7902,13 +7904,18 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
     Exiv2::ExifData::iterator end = (*arg1)->end();
     if ((Exiv2::ExifData::iterator)result == end)
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator_end(result, end, self),
+      new ExifData_iterator_end(result, end),
       SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_OWN);
     else
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator(result, end, self),
+      new ExifData_iterator(result, end),
       SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -7973,13 +7980,18 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
     Exiv2::ExifData::iterator end = (*arg1)->end();
     if ((Exiv2::ExifData::iterator)result == end)
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator_end(result, end, self),
+      new ExifData_iterator_end(result, end),
       SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_OWN);
     else
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator(result, end, self),
+      new ExifData_iterator(result, end),
       SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -8119,13 +8131,18 @@ SWIGINTERN PyObject *_wrap_ExifData_begin(PyObject *self, PyObject *args) {
     Exiv2::ExifData::iterator end = (*arg1)->end();
     if ((Exiv2::ExifData::iterator)result == end)
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator_end(result, end, self),
+      new ExifData_iterator_end(result, end),
       SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_OWN);
     else
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator(result, end, self),
+      new ExifData_iterator(result, end),
       SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -8151,13 +8168,18 @@ SWIGINTERN PyObject *_wrap_ExifData_end(PyObject *self, PyObject *args) {
     Exiv2::ExifData::iterator end = (*arg1)->end();
     if ((Exiv2::ExifData::iterator)result == end)
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator_end(result, end, self),
+      new ExifData_iterator_end(result, end),
       SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_OWN);
     else
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator(result, end, self),
+      new ExifData_iterator(result, end),
       SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -8207,13 +8229,18 @@ SWIGINTERN PyObject *_wrap_ExifData_findKey(PyObject *self, PyObject *args) {
     Exiv2::ExifData::iterator end = (*arg1)->end();
     if ((Exiv2::ExifData::iterator)result == end)
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator_end(result, end, self),
+      new ExifData_iterator_end(result, end),
       SWIGTYPE_p_ExifData_iterator_end, SWIG_POINTER_OWN);
     else
     resultobj = SWIG_NewPointerObj(
-      new ExifData_iterator(result, end, self),
+      new ExifData_iterator(result, end),
       SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -8264,8 +8291,6 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifData) /* defines _wrap_delete_ExifData_destructor_closure */
-
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_ExifData___iter__) /* defines _wrap_ExifData___iter___getiterfunc_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_ExifData___len__) /* defines _wrap_ExifData___len___lenfunc_closure */
@@ -8273,6 +8298,8 @@ SWIGPY_LENFUNC_CLOSURE(_wrap_ExifData___len__) /* defines _wrap_ExifData___len__
 SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_ExifData___setitem__) /* defines _wrap_ExifData___setitem___objobjargproc_closure */
 
 SWIGPY_FUNPACK_OBJOBJPROC_CLOSURE(_wrap_ExifData___contains__) /* defines _wrap_ExifData___contains___objobjproc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifData) /* defines _wrap_delete_ExifData_destructor_closure */
 
 SWIGINTERN int _wrap_new_Exifdatum__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
