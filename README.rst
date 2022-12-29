@@ -39,6 +39,8 @@ Here is an example of its use::
     'Jim Easterbrook'
     >>>
 
+Please see `<USAGE.rst>`_ for more help with using the Python interface to libexiv2.
+
 Documentation
 -------------
 
@@ -91,104 +93,6 @@ Alternatively you can use any Python object and let libexiv2_ convert the string
     # Python
     exifData["Exif.Image.SamplesPerPixel"] = 162
 
-Buffer interface
-----------------
-
-Several Exiv2 classes have C++ methods with parameters including a pointer and a length, e.g. ``(Exiv2::byte* buf, long size)``.
-In the Python interface these methods take any Python object which exposes a simple `buffer interface`_, e.g. ``bytes`` or ``str``.
-
-The Python interfaces to ``Exiv2::BasicIo`` and ``Exiv2::DataBuf`` expose their data as a Python buffer.
-This allows efficient access to the data.
-For example::
-
-    data = bytes(image.io())
-
-creates a Python ``bytes`` object initialised from the image data.
-
-This is only likely to be useful for images opened from a block of data.
-The exiv2 library is very likely to generate a segmentation fault if the buffer interface or ``mmap()`` is used on images read from a file or URL.
-
-Since version 0.13.0 ``exiv2.BasicIo.mmap()`` returns a Python memoryview_ object pointing to the image data.
-The buffer interface to ``exiv2.BasicIo`` is deprecated and will eventually be removed.
-
-Iterators
----------
-
-The ``Exiv2::ExifData``, ``Exiv2::IptcData``, and ``Exiv2::XmpData`` classes use C++ iterators to expose private data, for example the ``ExifData`` class has a private member of ``std::list<Exifdatum>`` type.
-The classes have public ``begin()``, ``end()``, and ``findKey()`` methods that return ``std::list`` iterators.
-In C++ you can dereference one of these iterators to access the ``Exifdatum`` object, but Python doesn't have a dereference operator.
-
-This Python interface converts the ``std::list`` iterator to a Python object that has access to all the ``Exifdatum`` object's methods without dereferencing.
-For example::
-
-    Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> import exiv2
-    >>> image = exiv2.ImageFactory.open('IMG_0211.JPG')
-    >>> image.readMetadata()
-    >>> data = image.exifData()
-    >>> b = data.begin()
-    >>> b.key()
-    'Exif.Image.ProcessingSoftware'
-    >>>
-
-Before using an iterator you must ensure that it is not equal to the ``end()`` value.
-
-You can iterate over the data in a very C++ like style::
-
-    >>> data = image.exifData()
-    >>> b = data.begin()
-    >>> e = data.end()
-    >>> while b != e:
-    ...     b.key()
-    ...     next(b)
-    ...
-    'Exif.Image.ProcessingSoftware'
-    <Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>
-    'Exif.Image.ImageDescription'
-    <Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>
-    [skip 227 line pairs]
-    'Exif.Thumbnail.JPEGInterchangeFormat'
-    <Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>
-    'Exif.Thumbnail.JPEGInterchangeFormatLength'
-    <Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>
-    >>>
-
-The ``<Swig Object of type 'Exiv2::Exifdatum *' at 0x7fd6053f9030>`` lines are the Python interpreter showing the return value of ``next(b)``.
-You can also iterate in a more Pythonic style::
-
-    >>> data = image.exifData()
-    >>> for datum in data:
-    ...     datum.key()
-    ...
-    'Exif.Image.ProcessingSoftware'
-    'Exif.Image.ImageDescription'
-    [skip 227 lines]
-    'Exif.Thumbnail.JPEGInterchangeFormat'
-    'Exif.Thumbnail.JPEGInterchangeFormatLength'
-    >>>
-
-The data container classes are like a cross between a Python list_ of ``Metadatum`` objects and a Python dict_ of ``(key, Value)`` pairs.
-(One way in which they are not like a dict_ is that you can have more than one member with the same key.)
-This allows them to be used in a very Pythonic style::
-
-    data = image.exifData()
-    print(data['Exif.Image.ImageDescription'].toString())
-    if 'Exif.Image.ProcessingSoftware' in data:
-        del data['Exif.Image.ProcessingSoftware']
-    data = image.iptcData()
-    while 'Iptc.Application2.Keywords' in data:
-        del data['Iptc.Application2.Keywords']
-
-Warning: segmentation faults
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
-Just as in C++, there is no way to detect that an iterator has become invalid.
-
-There may be other cases where the Python interface doesn't prevent segfaults.
-Please let me know if you find any.
-
 Error handling
 --------------
 
@@ -218,15 +122,11 @@ Problems?
 
 Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 
-.. _buffer interface:  https://docs.python.org/3/c-api/buffer.html
-.. _dict:              https://docs.python.org/3/library/stdtypes.html#dict
 .. _Doxygen:           https://www.doxygen.nl/
 .. _exiv2:             https://www.exiv2.org/getting-started.html
 .. _gexiv2:            https://wiki.gnome.org/Projects/gexiv2
 .. _GitHub:            https://github.com/jim-easterbrook/python-exiv2
 .. _libexiv2:          https://www.exiv2.org/doc/index.html
-.. _list:              https://docs.python.org/3/library/stdtypes.html#list
-.. _memoryview:        https://docs.python.org/3/library/stdtypes.html#memoryview
 .. _pip:               https://pip.pypa.io/
 .. _pyexiv2 (new):     https://github.com/LeoHsiao1/pyexiv2
 .. _pyexiv2 (old):     https://launchpad.net/pyexiv2
