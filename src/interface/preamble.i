@@ -198,24 +198,6 @@ public:
 
 // Macros to wrap data containers.
 %define _USE_DATA_CONTAINER(wrap_class, base_class)
-// wrapped class entirely replaces original class
-%ignore base_class;
-// typemaps for class conversions
-%typemap(in) base_class& (int res, wrap_class* argp) %{
-    res = SWIG_ConvertPtr($input, (void**)&argp, $descriptor(wrap_class*), 0);
-    if (!SWIG_IsOK(res)) {
-        %argument_fail(res, wrap_class, $symname, $argnum);
-    }
-    if (!argp) {
-        %argument_nullref(wrap_class, $symname, $argnum);
-    }
-    $1 = **argp;
-%};
-// assumes self is the Python image parent
-%typemap(out) base_class& %{
-    $result = SWIG_NewPointerObj(
-        new wrap_class($1), $descriptor(wrap_class*), SWIG_POINTER_OWN);
-%};
 // typemaps for iterator conversions
 %typemap(in) base_class::iterator (int res, wrap_class##_iterator_end *argp) %{
     res = SWIG_ConvertPtr($input, (void**)&argp,
@@ -228,9 +210,9 @@ public:
     }
     $1 = **argp;
 %};
-// assumes arg1 is the wrap_class parent and self is the Python parent
+// assumes arg1 is the base_class parent and self is the Python parent
 %typemap(out) base_class::iterator {
-    base_class::iterator end = (*arg1)->end();
+    base_class::iterator end = arg1->end();
     if ((base_class::iterator)$1 == end)
         $result = SWIG_NewPointerObj(
             new wrap_class##_iterator_end($1, end),
@@ -264,117 +246,91 @@ _USE_DATA_CONTAINER(XmpData, Exiv2::XmpData)
 %define DATA_CONTAINER(wrap_class, base_class, datum_type, key_type,
                        default_type_func, mode)
 _DATA_ITERATOR(wrap_class, base_class::iterator, datum_type, mode)
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") wrap_class::__iter__;
-%feature("python:slot", "mp_length",
-         functype="lenfunc") wrap_class::__len__;
-%feature("python:slot", "mp_subscript",
-         functype="binaryfunc") wrap_class::__getitem__;
-%feature("python:slot", "mp_ass_subscript",
-         functype="objobjargproc") wrap_class::__setitem__;
-%feature("python:slot", "sq_contains",
-         functype="objobjproc") wrap_class::__contains__;
-%ignore wrap_class::wrap_class(base_class* base);
-%ignore wrap_class::operator*;
-%ignore wrap_class::_default_type;
-%ignore wrap_class::_type_change_warn;
-%ignore wrap_class::_set_value;
-%noexception wrap_class::__iter__;
-%noexception wrap_class::__len__;
-mode %{
-class wrap_class {
-private:
-    base_class* base;
-public:
-    wrap_class() {
-        this->base = new base_class();
-    }
-    wrap_class(base_class* base) {
-        this->base = base;
-    }
-    base_class::iterator __iter__() {
-        return base->begin();
-    }
-    // Provide Python access to base_class members
-    base_class* operator->() const {
-        return base;
-    }
-    // Provide C++ access to base_class members
-    base_class* operator*() const {
-        return base;
-    }
-    // Methods to provide dict like behaviour
-    long __len__() {
-        return base->count();
-    }
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    base_class::begin;
+%feature("python:slot", "mp_length", functype="lenfunc")
+    base_class::count;
+%feature("python:slot", "mp_subscript", functype="binaryfunc")
+    base_class::__getitem__;
+%feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
+    base_class::__setitem__;
+%feature("python:slot", "sq_contains", functype="objobjproc")
+    base_class::__contains__;
+%extend base_class {
     datum_type* __getitem__(const std::string& key) {
-        return &(*base)[key];
-    }
-    // __setitem__ helper methods
-    Exiv2::TypeId _default_type(datum_type* datum) {
-        Exiv2::TypeId old_type = datum->typeId();
-        if (old_type == Exiv2::invalidTypeId)
-            old_type = default_type_func;
-        return old_type;
-    }
-    static void _type_change_warn(datum_type* datum, Exiv2::TypeId old_type) {
-        using namespace Exiv2;
-        TypeId new_type = datum->typeId();
-        if (new_type == old_type)
-            return;
-        EXV_WARNING << datum->key() << ": changed type from '" <<
-            TypeInfo::typeName(old_type) << "' to '" <<
-            TypeInfo::typeName(new_type) << "'.\n";
-    }
-    PyObject* _set_value(datum_type* datum, const std::string& value) {
-        Exiv2::TypeId old_type = _default_type(datum);
-        if (datum->setValue(value) != 0)
-            return PyErr_Format(PyExc_ValueError,
-                "%s: cannot set type '%s' to value '%s'",
-                datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
-                value.c_str());
-        _type_change_warn(datum, old_type);
-        return SWIG_Py_Void();
+        return &(*$self)[key];
     }
     PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
-        datum_type* datum = &(*base)[key];
-        Exiv2::TypeId old_type = _default_type(datum);
+        using namespace Exiv2;
+        datum_type* datum = &(*$self)[key];
+        TypeId old_type = datum->typeId();
+        if (old_type == invalidTypeId)
+            old_type = default_type_func;
         datum->setValue(value);
-        _type_change_warn(datum, old_type);
+        TypeId new_type = datum->typeId();
+        if (new_type != old_type) {
+            EXV_WARNING << datum->key() << ": changed type from '" <<
+                TypeInfo::typeName(old_type) << "' to '" <<
+                TypeInfo::typeName(new_type) << "'.\n";
+        }
         return SWIG_Py_Void();
     }
     PyObject* __setitem__(const std::string& key, const std::string& value) {
-        datum_type* datum = &(*base)[key];
-        return _set_value(datum, value);
+        using namespace Exiv2;
+        datum_type* datum = &(*$self)[key];
+        TypeId old_type = datum->typeId();
+        if (old_type == invalidTypeId)
+            old_type = default_type_func;
+        if (datum->setValue(value) != 0)
+            return PyErr_Format(PyExc_ValueError,
+                "%s: cannot set type '%s' to value '%s'",
+                datum->key().c_str(), TypeInfo::typeName(old_type),
+                value.c_str());
+        TypeId new_type = datum->typeId();
+        if (new_type != old_type) {
+            EXV_WARNING << datum->key() << ": changed type from '" <<
+                TypeInfo::typeName(old_type) << "' to '" <<
+                TypeInfo::typeName(new_type) << "'.\n";
+        }
+        return SWIG_Py_Void();
     }
     PyObject* __setitem__(const std::string& key, PyObject* value) {
+        using namespace Exiv2;
         // Get equivalent of Python "str(value)"
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)
             return NULL;
         const char* c_str = PyUnicode_AsUTF8(py_str);
         Py_DECREF(py_str);
-        datum_type* datum = &(*base)[key];
-        return _set_value(datum, c_str);
+        datum_type* datum = &(*$self)[key];
+        TypeId old_type = datum->typeId();
+        if (old_type == invalidTypeId)
+            old_type = default_type_func;
+        if (datum->setValue(c_str) != 0)
+            return PyErr_Format(PyExc_ValueError,
+                "%s: cannot set type '%s' to value '%s'",
+                datum->key().c_str(), TypeInfo::typeName(old_type), c_str);
+        TypeId new_type = datum->typeId();
+        if (new_type != old_type) {
+            EXV_WARNING << datum->key() << ": changed type from '" <<
+                TypeInfo::typeName(old_type) << "' to '" <<
+                TypeInfo::typeName(new_type) << "'.\n";
+        }
+        return SWIG_Py_Void();
     }
-#if defined(SWIGPYTHON_BUILTIN)
     PyObject* __setitem__(const std::string& key) {
-#else
-    PyObject* __delitem__(const std::string& key) {
-#endif
-        base_class::iterator pos = base->findKey(key_type(key));
-        if (pos == base->end()) {
+        base_class::iterator pos = $self->findKey(key_type(key));
+        if (pos == $self->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
         }
-        base->erase(pos);
+        $self->erase(pos);
         return SWIG_Py_Void();
     }
     bool __contains__(const std::string& key) {
-        return base->findKey(key_type(key)) != base->end();
+        return $self->findKey(key_type(key)) != $self->end();
     }
-};
-%}
+}
 %enddef // DATA_CONTAINER
 
 // Macro to make enums more Pythonic
