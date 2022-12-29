@@ -6641,6 +6641,11 @@ SWIGINTERN PyObject *_wrap_Image_io(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  
+  if (PyObject_SetAttrString(resultobj, "_image", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;

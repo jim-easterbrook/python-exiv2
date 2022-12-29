@@ -38,6 +38,13 @@ wrap_auto_unique_ptr(Exiv2::BasicIo);
 %thread Exiv2::BasicIo::transfer;
 %thread Exiv2::BasicIo::seek;
 
+// BasicIo return values keep a reference to the Image they refer to 
+%typemap(ret) Exiv2::BasicIo& %{
+    if (PyObject_SetAttrString($result, "_image", self)) {
+        SWIG_fail;
+    }
+%}
+
 // Allow BasicIo::write to take any Python buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
 
