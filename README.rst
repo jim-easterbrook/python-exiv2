@@ -66,6 +66,14 @@ Recent versions of SWIG_ can convert this documentation to pydoc_ format in the 
 Unfortunately some documentation gets lost in the manipulations needed to make a useful interface.
 The C++ documentation is still needed in these cases.
 
+Deprecation warnings
+--------------------
+
+As python-exiv2 is being developed better ways are being found to do some things.
+Some parts of the interface are deprecated and will eventually be removed.
+Please use Python's ``-Wd`` flag when testing your software to ensure it isn't using deprecated features.
+(Do let me know if I've deprecated a feature you need and can't replace with an alternative.)
+
 Support for bmff files (CR3, HEIF, HEIC, and AVIF)
 --------------------------------------------------
 
