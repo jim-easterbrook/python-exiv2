@@ -122,13 +122,17 @@ EXCEPTION(,)
 // Macros to wrap data iterators
 %define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
 %feature("python:slot", "tp_str", functype="reprfunc") name##_end::__str__;
-%feature("python:slot", "tp_iter", functype="getiterfunc") name::__iter__;
+%feature("python:slot", "tp_iter", functype="getiterfunc") name##_end::__iter__;
 %feature("python:slot", "tp_iternext", functype="iternextfunc")
     name##_end::__next__;
-// Add slot to main class using base class __iter__
+%feature("python:slot", "tp_iter", functype="getiterfunc") name::__iter__;
+// Add slots to main class using base class methods
+%feature("python:tp_str") name
+    "_wrap_" #name "_end___str___reprfunc_closure";
 %feature("python:tp_iternext") name
     "_wrap_" #name "_end___next___iternextfunc_closure";
 %newobject name::__iter__;
+%newobject name##_end::__iter__;
 %noexception name##_end::operator==;
 %noexception name##_end::operator!=;
 %ignore name::name;
@@ -146,6 +150,7 @@ the 'end' value and can not be dereferenced.
 "
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(name*)
+KEEP_REFERENCE(name##_end*)
 // Detect end of iteration
 %exception name##_end::__next__ %{
     $action
@@ -167,6 +172,7 @@ public:
         this->end = end;
         safe_ptr = ptr;
     }
+    name##_end* __iter__() { return new name##_end(ptr, end); }
     datum_type* __next__() {
         if (ptr == end) {
             return NULL;

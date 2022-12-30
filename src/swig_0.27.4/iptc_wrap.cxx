@@ -3986,6 +3986,7 @@ public:
         this->end = end;
         safe_ptr = ptr;
     }
+    IptcData_iterator_end* __iter__() { return new IptcData_iterator_end(ptr, end); }
     Exiv2::Iptcdatum* __next__() {
         if (ptr == end) {
             return NULL;
@@ -5010,6 +5011,44 @@ SWIGINTERN bool Exiv2_IptcData___contains__(Exiv2::IptcData *self,std::string co
 #ifdef __cplusplus
 extern "C" {
 #endif
+SWIGINTERN PyObject *_wrap_IptcData_iterator_end___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData_iterator_end *arg1 = (IptcData_iterator_end *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IptcData_iterator_end *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "IptcData_iterator_end___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator_end, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_end___iter__" "', argument " "1"" of type '" "IptcData_iterator_end *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData_iterator_end * >(argp1);
+  {
+    try {
+      result = (IptcData_iterator_end *)(arg1)->__iter__();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcData_iterator_end, SWIG_POINTER_OWN |  0 );
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IptcData_iterator_end___next__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   IptcData_iterator_end *arg1 = (IptcData_iterator_end *) 0 ;
@@ -5176,6 +5215,8 @@ fail:
   return NULL;
 }
 
+
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData_iterator_end___iter__) /* defines _wrap_IptcData_iterator_end___iter___getiterfunc_closure */
 
 SWIGPY_ITERNEXTFUNC_CLOSURE(_wrap_IptcData_iterator_end___next__) /* defines _wrap_IptcData_iterator_end___next___iternextfunc_closure */
 
@@ -9853,6 +9894,7 @@ SwigPyBuiltin__IptcData_iterator_end_richcompare(PyObject *self, PyObject *other
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_iterator_end_methods[] = {
+  { "__iter__", _wrap_IptcData_iterator_end___iter__, METH_NOARGS, "" },
   { "__next__", _wrap_IptcData_iterator_end___next__, METH_NOARGS, "" },
   { "__eq__", _wrap_IptcData_iterator_end___eq__, METH_O, "" },
   { "__ne__", _wrap_IptcData_iterator_end___ne__, METH_O, "" },
@@ -9909,7 +9951,7 @@ static PyHeapTypeObject SwigPyBuiltin__IptcData_iterator_end_type = {
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__IptcData_iterator_end_richcompare,             /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
+    _wrap_IptcData_iterator_end___iter___getiterfunc_closure,     /* tp_iter */
     _wrap_IptcData_iterator_end___next___iternextfunc_closure,    /* tp_iternext */
     SwigPyBuiltin__IptcData_iterator_end_methods,                 /* tp_methods */
     0,                                        /* tp_members */
@@ -10173,7 +10215,7 @@ static PyHeapTypeObject SwigPyBuiltin__IptcData_iterator_type = {
     &SwigPyBuiltin__IptcData_iterator_type.as_mapping,            /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_IptcData_iterator_end___str___reprfunc_closure,         /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__IptcData_iterator_type.as_buffer,             /* tp_as_buffer */
