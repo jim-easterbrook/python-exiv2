@@ -101,6 +101,16 @@ class TestIterators(unittest.TestCase):
             self.xmpData, exiv2.XmpKey('Xmp.dc.description'),
             'lang="en-GB" Description')
 
+    def test_empty(self):
+        data = exiv2.ExifData()
+        self.assertEqual(data.begin(), data.end())
+        for datum in data:
+            self.fail('not empty')
+        for datum in data.begin():
+            self.fail('not empty')
+        for datum in data.end():
+            self.fail('not empty')
+
 
 if __name__ == '__main__':
     unittest.main()
