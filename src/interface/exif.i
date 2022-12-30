@@ -36,10 +36,14 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)
 INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t size)
 #endif
 
+DATA_ITERATOR_TYPEMAPS(ExifData_iterator, Exiv2::ExifData::iterator)
 #ifndef SWIGIMPORTED
-DATA_CONTAINER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
-    Exiv2::ExifKey(datum->key()).defaultTypeId(), %inline)
+DATA_ITERATOR_CLASSES(
+    ExifData_iterator, Exiv2::ExifData::iterator, Exiv2::Exifdatum)
 #endif
+
+DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
+    Exiv2::ExifKey(datum->key()).defaultTypeId())
 
 EXTEND_METADATUM(Exiv2::Exifdatum)
 

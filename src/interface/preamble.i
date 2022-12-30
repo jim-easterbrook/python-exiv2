@@ -89,65 +89,64 @@ EXCEPTION(,)
 %}
 %enddef // INPUT_BUFFER_RO
 
+// Macro to keep a reference to "self" when returning a particular type.
+%define KEEP_REFERENCE(return_type)
+%typemap(ret) return_type %{
+    if (PyObject_SetAttrString($result, "_parent", self)) {
+        SWIG_fail;
+    }
+%}
+%enddef // KEEP_REFERENCE
+
 // Macros to wrap data iterators
-%define _DATA_ITERATOR(wrap_class, iterator_type, datum_type, mode)
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") wrap_class##_iterator_end::__iter__;
-%feature("python:slot", "tp_iternext",
-         functype="iternextfunc") wrap_class##_iterator_end::__next__;
-%feature("python:slot", "tp_str",
-         functype="reprfunc") wrap_class##_iterator_end::__str__;
-%feature("python:slot", "tp_iter",
-         functype="getiterfunc") wrap_class##_iterator::__iter__;
-%newobject wrap_class##_iterator::__iter__;
-%newobject wrap_class##_iterator_end::__iter__;
-%noexception wrap_class##_iterator_end::operator==;
-%noexception wrap_class##_iterator_end::operator!=;
-%ignore wrap_class##_iterator::wrap_class##_iterator;
-%ignore wrap_class##_iterator::size;
-%ignore wrap_class##_iterator_end::wrap_class##_iterator_end;
-%ignore wrap_class##_iterator_end::operator*;
-%feature("docstring") wrap_class##_iterator "
+%define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    name##_end::__iter__;
+%feature("python:slot", "tp_iternext", functype="iternextfunc")
+    name##_end::__next__;
+%feature("python:slot", "tp_str", functype="reprfunc")
+    name##_end::__str__;
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    name::__iter__;
+%newobject name::__iter__;
+%newobject name##_end::__iter__;
+%noexception name##_end::operator==;
+%noexception name##_end::operator!=;
+%ignore name::name;
+%ignore name::size;
+%ignore name##_end::name##_end;
+%ignore name##_end::operator*;
+%feature("docstring") name "
 Python wrapper for an " #iterator_type ". It has most of
 the methods of " #datum_type " allowing easy access to the
 data it points to.
 "
-%feature("docstring") wrap_class##_iterator_end "
+%feature("docstring") name##_end "
 Python wrapper for an " #iterator_type " that points to
-" #wrap_class "::end().
+" #name "::end().
 "
 // Creating a new iterator keeps a reference to the current one
-%typemap(ret) wrap_class##_iterator_end* %{
-    if (PyObject_SetAttrString($result, "_parent", self)) {
-        SWIG_fail;
-    }
-%}
-%typemap(ret) wrap_class##_iterator* %{
-    if (PyObject_SetAttrString($result, "_parent", self)) {
-        SWIG_fail;
-    }
-%}
-%exception wrap_class##_iterator_end::__next__ %{
+KEEP_REFERENCE(name##_end*)
+KEEP_REFERENCE(name*)
+%exception name##_end::__next__ %{
     $action
     if (PyErr_Occurred())
         SWIG_fail;
 %}
-mode %{
+%inline %{
 // Base class supports a single fixed pointer that never gets dereferenced
-class wrap_class##_iterator_end {
+class name##_end {
 protected:
     iterator_type ptr;
     iterator_type end;
     iterator_type safe_ptr;
 public:
-    wrap_class##_iterator_end(iterator_type ptr, iterator_type end) {
+    name##_end(iterator_type ptr, iterator_type end) {
         this->ptr = ptr;
         this->end = end;
         safe_ptr = ptr;
     }
-    wrap_class##_iterator_end* __iter__() {
-        return new wrap_class##_iterator_end(ptr, end);
-    }
+    name##_end* __iter__() { return new name##_end(ptr, end); }
     datum_type* __next__() {
         datum_type* result = NULL;
         if (ptr == end) {
@@ -161,15 +160,9 @@ public:
         }
         return result;
     }
-    iterator_type operator*() const {
-        return ptr;
-    }
-    bool operator==(const wrap_class##_iterator_end &other) const {
-        return *other == ptr;
-    }
-    bool operator!=(const wrap_class##_iterator_end &other) const {
-        return *other != ptr;
-    }
+    iterator_type operator*() const { return ptr; }
+    bool operator==(const name##_end &other) const { return *other == ptr; }
+    bool operator!=(const name##_end &other) const { return *other != ptr; }
     std::string __str__() {
         if (ptr == end)
             return "iterator<end>";
@@ -178,74 +171,45 @@ public:
 };
 // Main class always has a dereferencable pointer in safe_ptr, so no extra checks
 // are needed.
-class wrap_class##_iterator : public wrap_class##_iterator_end {
+class name : public name##_end {
 public:
-    wrap_class##_iterator(iterator_type ptr, iterator_type end)
-                   : wrap_class##_iterator_end(ptr, end) {}
-    datum_type* operator->() const {
-        return &(*safe_ptr);
-    }
-    wrap_class##_iterator* __iter__() {
-        return new wrap_class##_iterator(safe_ptr, end);
-    }
+    name(iterator_type ptr, iterator_type end) : name##_end(ptr, end) {}
+    datum_type* operator->() const { return &(*safe_ptr); }
+    name* __iter__() { return new name(safe_ptr, end); }
     // Provide size() C++ method for buffer size check
-    size_t size() {
-        return safe_ptr->size();
-    }
+    size_t size() { return safe_ptr->size(); }
 };
 %}
-%enddef // _DATA_ITERATOR
+%enddef // DATA_ITERATOR_CLASSES
 
-// Macros to wrap data containers.
-%define _USE_DATA_CONTAINER(wrap_class, base_class)
-// typemaps for iterator conversions
-%typemap(in) base_class::iterator (int res, wrap_class##_iterator_end *argp) %{
-    res = SWIG_ConvertPtr($input, (void**)&argp,
-                          $descriptor(wrap_class##_iterator_end*), 0);
+// Declare typemaps for data iterators.
+%define DATA_ITERATOR_TYPEMAPS(name, iterator_type)
+%typemap(in) iterator_type (int res, name##_end *argp) %{
+    res = SWIG_ConvertPtr($input, (void**)&argp, $descriptor(name##_end*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, wrap_class##_iterator_end, $symname, $argnum);
+        %argument_fail(res, name##_end, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(wrap_class##_iterator_end, $symname, $argnum);
+        %argument_nullref(name##_end, $symname, $argnum);
     }
     $1 = **argp;
 %};
-// assumes arg1 is the base_class parent and self is the Python parent
-%typemap(out) base_class::iterator {
-    base_class::iterator end = arg1->end();
-    if ((base_class::iterator)$1 == end)
+// assumes arg1 is the base class parent
+%typemap(out) iterator_type {
+    iterator_type end = arg1->end();
+    if ((iterator_type)$1 == end)
         $result = SWIG_NewPointerObj(
-            new wrap_class##_iterator_end($1, end),
-            $descriptor(wrap_class##_iterator_end*), SWIG_POINTER_OWN);
+            new name##_end($1, end), $descriptor(name##_end*), SWIG_POINTER_OWN);
     else
         $result = SWIG_NewPointerObj(
-            new wrap_class##_iterator($1, end),
-            $descriptor(wrap_class##_iterator*), SWIG_POINTER_OWN);
+            new name($1, end), $descriptor(name*), SWIG_POINTER_OWN);
 };
-// Keep a reference to the image that contains the data
-%typemap(ret) base_class& %{
-    if (PyObject_SetAttrString($result, "_parent", self)) {
-        SWIG_fail;
-    }
-%}
 // Keep a reference to the data being iterated
-%typemap(ret) base_class::iterator %{
-    if (PyObject_SetAttrString($result, "_parent", self)) {
-        SWIG_fail;
-    }
-%}
-%enddef // _USE_DATA_CONTAINER
+KEEP_REFERENCE(iterator_type)
+%enddef // DATA_ITERATOR_TYPEMAPS
 
-// Declare the above typemaps everywhere
-_USE_DATA_CONTAINER(ExifData, Exiv2::ExifData)
-_USE_DATA_CONTAINER(IptcData, Exiv2::IptcData)
-_USE_DATA_CONTAINER(XmpData, Exiv2::XmpData)
-
-// DATA_CONTAINER defines a class, so needs to be declared in every
-// module that uses the class
-%define DATA_CONTAINER(wrap_class, base_class, datum_type, key_type,
-                       default_type_func, mode)
-_DATA_ITERATOR(wrap_class, base_class::iterator, datum_type, mode)
+// Macros to wrap data containers.
+%define DATA_CONTAINER(base_class, datum_type, key_type, default_type_func)
 %feature("python:slot", "tp_iter", functype="getiterfunc")
     base_class::begin;
 %feature("python:slot", "mp_length", functype="lenfunc")

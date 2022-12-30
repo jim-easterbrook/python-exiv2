@@ -45,16 +45,11 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
 %thread Exiv2::ImageFactory::create;
 %thread Exiv2::ImageFactory::open;
 
-// Wrap data classes, duplicate of definitions in exif.i etc.
-#ifndef SWIGIMPORTED
-// Redefine ExifData, IptcData, XmpData
-DATA_CONTAINER(ExifData, Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
-    Exiv2::ExifKey(datum->key()).defaultTypeId(),)
-DATA_CONTAINER(IptcData, Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
-    Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()),)
-DATA_CONTAINER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
-    Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())),)
-#endif  // ifndef SWIGIMPORTED
+// exifData(), iptcData(), and xmpData() return values need to keep a
+// reference to Image.
+KEEP_REFERENCE(Exiv2::ExifData&)
+KEEP_REFERENCE(Exiv2::IptcData&)
+KEEP_REFERENCE(Exiv2::XmpData&)
 
 // Make image types available
 #ifdef EXV_ENABLE_BMFF

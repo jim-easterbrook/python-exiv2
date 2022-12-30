@@ -25,10 +25,14 @@
 %import "datasets.i"
 %import "metadatum.i"
 
+DATA_ITERATOR_TYPEMAPS(IptcData_iterator, Exiv2::IptcData::iterator)
 #ifndef SWIGIMPORTED
-DATA_CONTAINER(IptcData, Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
-    Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()), %inline)
+DATA_ITERATOR_CLASSES(
+    IptcData_iterator, Exiv2::IptcData::iterator, Exiv2::Iptcdatum)
 #endif
+
+DATA_CONTAINER(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
+    Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
 
 EXTEND_METADATUM(Exiv2::Iptcdatum)
 

@@ -25,10 +25,14 @@
 %import "metadatum.i"
 %import "properties.i"
 
+DATA_ITERATOR_TYPEMAPS(XmpData_iterator, Exiv2::XmpData::iterator)
 #ifndef SWIGIMPORTED
-DATA_CONTAINER(XmpData, Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
-    Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())), %inline)
+DATA_ITERATOR_CLASSES(
+    XmpData_iterator, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
 #endif
+
+DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
+    Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
 
 EXTEND_METADATUM(Exiv2::Xmpdatum)
 
