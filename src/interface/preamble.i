@@ -200,8 +200,15 @@ public:
 KEEP_REFERENCE(iterator_type)
 %enddef // DATA_ITERATOR_TYPEMAPS
 
-// Macros to wrap data containers.
+// Macro to wrap data containers.
 %define DATA_CONTAINER(base_class, datum_type, key_type, default_type_func)
+// Turn off exception checking for methods that are guaranteed not to throw
+%noexception base_class::begin;
+%noexception base_class::end;
+%noexception base_class::clear;
+%noexception base_class::count;
+%noexception base_class::empty;
+// Add dict-like behaviour
 %feature("python:slot", "tp_iter", functype="getiterfunc")
     base_class::begin;
 %feature("python:slot", "mp_length", functype="lenfunc")

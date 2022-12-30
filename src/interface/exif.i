@@ -48,11 +48,6 @@ DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
 EXTEND_METADATUM(Exiv2::Exifdatum)
 
 // Turn off exception checking for methods that are guaranteed not to throw
-%noexception Exiv2::ExifData::begin;
-%noexception Exiv2::ExifData::end;
-%noexception Exiv2::ExifData::clear;
-%noexception Exiv2::ExifData::count;
-%noexception Exiv2::ExifData::empty;
 %noexception Exiv2::Exifdatum::count;
 %noexception Exiv2::Exifdatum::size;
 

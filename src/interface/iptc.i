@@ -37,11 +37,6 @@ DATA_CONTAINER(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
 EXTEND_METADATUM(Exiv2::Iptcdatum)
 
 // Turn off exception checking for methods that are guaranteed not to throw
-%noexception Exiv2::IptcData::begin;
-%noexception Exiv2::IptcData::end;
-%noexception Exiv2::IptcData::clear;
-%noexception Exiv2::IptcData::count;
-%noexception Exiv2::IptcData::empty;
 %noexception Exiv2::Iptcdatum::count;
 %noexception Exiv2::Iptcdatum::size;
 
