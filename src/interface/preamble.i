@@ -100,16 +100,10 @@ EXCEPTION(,)
 
 // Macros to wrap data iterators
 %define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    name##_end::__iter__;
-%feature("python:slot", "tp_iternext", functype="iternextfunc")
-    name##_end::__next__;
-%feature("python:slot", "tp_str", functype="reprfunc")
-    name##_end::__str__;
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    name::__iter__;
+%feature("python:slot", "tp_iternext", functype="iternextfunc") name::__next__;
+%feature("python:slot", "tp_str", functype="reprfunc") name##_end::__str__;
+%feature("python:slot", "tp_iter", functype="getiterfunc") name::__iter__;
 %newobject name::__iter__;
-%newobject name##_end::__iter__;
 %noexception name##_end::operator==;
 %noexception name##_end::operator!=;
 %ignore name::name;
@@ -128,7 +122,7 @@ Python wrapper for an " #iterator_type " that points to
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(name##_end*)
 KEEP_REFERENCE(name*)
-%exception name##_end::__next__ %{
+%exception name::__next__ %{
     $action
     if (PyErr_Occurred())
         SWIG_fail;
@@ -146,20 +140,6 @@ public:
         this->end = end;
         safe_ptr = ptr;
     }
-    name##_end* __iter__() { return new name##_end(ptr, end); }
-    datum_type* __next__() {
-        datum_type* result = NULL;
-        if (ptr == end) {
-            PyErr_SetNone(PyExc_StopIteration);
-            return NULL;
-        }
-        result = &(*safe_ptr);
-        ptr++;
-        if (ptr != end) {
-            safe_ptr = ptr;
-        }
-        return result;
-    }
     iterator_type operator*() const { return ptr; }
     bool operator==(const name##_end &other) const { return *other == ptr; }
     bool operator!=(const name##_end &other) const { return *other != ptr; }
@@ -176,6 +156,19 @@ public:
     name(iterator_type ptr, iterator_type end) : name##_end(ptr, end) {}
     datum_type* operator->() const { return &(*safe_ptr); }
     name* __iter__() { return new name(safe_ptr, end); }
+    datum_type* __next__() {
+        datum_type* result = NULL;
+        if (ptr == end) {
+            PyErr_SetNone(PyExc_StopIteration);
+            return NULL;
+        }
+        result = &(*safe_ptr);
+        ptr++;
+        if (ptr != end) {
+            safe_ptr = ptr;
+        }
+        return result;
+    }
     // Provide size() C++ method for buffer size check
     size_t size() { return safe_ptr->size(); }
 };
