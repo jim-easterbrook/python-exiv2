@@ -3999,12 +3999,10 @@ public:
     Exiv2::Exifdatum* operator->() const { return &(*safe_ptr); }
     ExifData_iterator* __iter__() { return new ExifData_iterator(safe_ptr, end); }
     Exiv2::Exifdatum* __next__() {
-        Exiv2::Exifdatum* result = NULL;
         if (ptr == end) {
-            PyErr_SetNone(PyExc_StopIteration);
             return NULL;
         }
-        result = &(*safe_ptr);
+        Exiv2::Exifdatum* result = &(*safe_ptr);
         ptr++;
         if (ptr != end) {
             safe_ptr = ptr;
@@ -5291,8 +5289,10 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator___next__(PyObject *self, PyObject *
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
   
   result = (Exiv2::Exifdatum *)(arg1)->__next__();
-  if (PyErr_Occurred())
-  SWIG_fail;
+  if (!result) {
+    PyErr_SetNone(PyExc_StopIteration);
+    SWIG_fail;
+  }
   
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
   return resultobj;
@@ -10697,7 +10697,7 @@ static PyHeapTypeObject SwigPyBuiltin__ExifData_iterator_end_type = {
     "\n"
 		"\n"
 		"Python wrapper for an Exiv2::ExifData::iterator that points to\n"
-		"ExifData_iterator::end().\n"
+		"the 'end' value and can not be dereferenced.\n"
 		"\n"
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */

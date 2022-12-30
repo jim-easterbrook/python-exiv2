@@ -4003,12 +4003,10 @@ public:
     Exiv2::Iptcdatum* operator->() const { return &(*safe_ptr); }
     IptcData_iterator* __iter__() { return new IptcData_iterator(safe_ptr, end); }
     Exiv2::Iptcdatum* __next__() {
-        Exiv2::Iptcdatum* result = NULL;
         if (ptr == end) {
-            PyErr_SetNone(PyExc_StopIteration);
             return NULL;
         }
-        result = &(*safe_ptr);
+        Exiv2::Iptcdatum* result = &(*safe_ptr);
         ptr++;
         if (ptr != end) {
             safe_ptr = ptr;
@@ -5242,8 +5240,10 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___next__(PyObject *self, PyObject *
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   
   result = (Exiv2::Iptcdatum *)(arg1)->__next__();
-  if (PyErr_Occurred())
-  SWIG_fail;
+  if (!result) {
+    PyErr_SetNone(PyExc_StopIteration);
+    SWIG_fail;
+  }
   
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
   return resultobj;
@@ -9901,7 +9901,7 @@ static PyHeapTypeObject SwigPyBuiltin__IptcData_iterator_end_type = {
     "\n"
 		"\n"
 		"Python wrapper for an Exiv2::IptcData::iterator that points to\n"
-		"IptcData_iterator::end().\n"
+		"the 'end' value and can not be dereferenced.\n"
 		"\n"
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */

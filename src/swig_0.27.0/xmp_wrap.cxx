@@ -4007,12 +4007,10 @@ public:
     Exiv2::Xmpdatum* operator->() const { return &(*safe_ptr); }
     XmpData_iterator* __iter__() { return new XmpData_iterator(safe_ptr, end); }
     Exiv2::Xmpdatum* __next__() {
-        Exiv2::Xmpdatum* result = NULL;
         if (ptr == end) {
-            PyErr_SetNone(PyExc_StopIteration);
             return NULL;
         }
-        result = &(*safe_ptr);
+        Exiv2::Xmpdatum* result = &(*safe_ptr);
         ptr++;
         if (ptr != end) {
             safe_ptr = ptr;
@@ -5196,8 +5194,10 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator___next__(PyObject *self, PyObject *a
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   
   result = (Exiv2::Xmpdatum *)(arg1)->__next__();
-  if (PyErr_Occurred())
-  SWIG_fail;
+  if (!result) {
+    PyErr_SetNone(PyExc_StopIteration);
+    SWIG_fail;
+  }
   
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
   return resultobj;
@@ -9924,7 +9924,7 @@ static PyHeapTypeObject SwigPyBuiltin__XmpData_iterator_end_type = {
     "\n"
 		"\n"
 		"Python wrapper for an Exiv2::XmpData::iterator that points to\n"
-		"XmpData_iterator::end().\n"
+		"the 'end' value and can not be dereferenced.\n"
 		"\n"
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */

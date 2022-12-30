@@ -100,9 +100,9 @@ EXCEPTION(,)
 
 // Macros to wrap data iterators
 %define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
-%feature("python:slot", "tp_iternext", functype="iternextfunc") name::__next__;
 %feature("python:slot", "tp_str", functype="reprfunc") name##_end::__str__;
 %feature("python:slot", "tp_iter", functype="getiterfunc") name::__iter__;
+%feature("python:slot", "tp_iternext", functype="iternextfunc") name::__next__;
 %newobject name::__iter__;
 %noexception name##_end::operator==;
 %noexception name##_end::operator!=;
@@ -117,15 +117,16 @@ data it points to.
 "
 %feature("docstring") name##_end "
 Python wrapper for an " #iterator_type " that points to
-" #name "::end().
+the 'end' value and can not be dereferenced.
 "
 // Creating a new iterator keeps a reference to the current one
-KEEP_REFERENCE(name##_end*)
 KEEP_REFERENCE(name*)
 %exception name::__next__ %{
     $action
-    if (PyErr_Occurred())
+    if (!result) {
+        PyErr_SetNone(PyExc_StopIteration);
         SWIG_fail;
+    }
 %}
 %inline %{
 // Base class supports a single fixed pointer that never gets dereferenced
@@ -157,12 +158,10 @@ public:
     datum_type* operator->() const { return &(*safe_ptr); }
     name* __iter__() { return new name(safe_ptr, end); }
     datum_type* __next__() {
-        datum_type* result = NULL;
         if (ptr == end) {
-            PyErr_SetNone(PyExc_StopIteration);
             return NULL;
         }
-        result = &(*safe_ptr);
+        datum_type* result = &(*safe_ptr);
         ptr++;
         if (ptr != end) {
             safe_ptr = ptr;
