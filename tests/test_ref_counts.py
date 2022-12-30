@@ -48,6 +48,14 @@ class TestReferenceCounts(unittest.TestCase):
         del datum
         self.assertEqual(sys.getrefcount(exifData), 2)
 
+    def test_value(self):
+        datum = self.image.exifData()['Exif.Image.ImageDescription']
+        self.assertEqual(sys.getrefcount(datum), 2)
+        value = datum.value()
+        self.assertEqual(sys.getrefcount(datum), 3)
+        del value
+        self.assertEqual(sys.getrefcount(datum), 2)
+
     def test_io(self):
         self.assertEqual(sys.getrefcount(self.image), 2)
         # io points into image, so keeps a reference to it

@@ -6731,6 +6731,11 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_0(PyObject *self, Py_ss
     /*@SWIG@*/
     resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -6864,6 +6869,11 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, Py_ss
     /*@SWIG@*/
     resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -8438,6 +8448,11 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_0(PyObject *self, Py_ssize_t no
     /*@SWIG@*/
     resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -8733,6 +8748,11 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
     /*@SWIG@*/
     resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;

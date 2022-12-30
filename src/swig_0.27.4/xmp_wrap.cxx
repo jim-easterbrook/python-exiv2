@@ -6619,6 +6619,11 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_0(PyObject *self, Py_ssi
     /*@SWIG@*/
     resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -6752,6 +6757,11 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, Py_ssi
     /*@SWIG@*/
     resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -8260,6 +8270,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_0(PyObject *self, Py_ssize_t nob
     /*@SWIG@*/
     resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -8555,6 +8570,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nob
     /*@SWIG@*/
     resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;

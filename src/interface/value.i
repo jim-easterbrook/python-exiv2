@@ -171,6 +171,8 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
     GET_SWIG_TYPE()
     $result = SWIG_NewPointerObj(value, swg_type, 0);
 }
+// Keep a reference to Metadatum when calling value()
+KEEP_REFERENCE(const Exiv2::Value&)
 
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
