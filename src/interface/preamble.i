@@ -123,7 +123,11 @@ EXCEPTION(,)
 %define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
 %feature("python:slot", "tp_str", functype="reprfunc") name##_end::__str__;
 %feature("python:slot", "tp_iter", functype="getiterfunc") name::__iter__;
-%feature("python:slot", "tp_iternext", functype="iternextfunc") name::__next__;
+%feature("python:slot", "tp_iternext", functype="iternextfunc")
+    name##_end::__next__;
+// Add slot to main class using base class __iter__
+%feature("python:tp_iternext") name
+    "_wrap_" #name "_end___next___iternextfunc_closure";
 %newobject name::__iter__;
 %noexception name##_end::operator==;
 %noexception name##_end::operator!=;
@@ -142,7 +146,8 @@ the 'end' value and can not be dereferenced.
 "
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(name*)
-%exception name::__next__ %{
+// Detect end of iteration
+%exception name##_end::__next__ %{
     $action
     if (!result) {
         PyErr_SetNone(PyExc_StopIteration);
@@ -162,6 +167,17 @@ public:
         this->end = end;
         safe_ptr = ptr;
     }
+    datum_type* __next__() {
+        if (ptr == end) {
+            return NULL;
+        }
+        datum_type* result = &(*safe_ptr);
+        ptr++;
+        if (ptr != end) {
+            safe_ptr = ptr;
+        }
+        return result;
+    }
     iterator_type operator*() const { return ptr; }
     bool operator==(const name##_end &other) const { return *other == ptr; }
     bool operator!=(const name##_end &other) const { return *other != ptr; }
@@ -178,17 +194,6 @@ public:
     name(iterator_type ptr, iterator_type end) : name##_end(ptr, end) {}
     datum_type* operator->() const { return &(*safe_ptr); }
     name* __iter__() { return new name(safe_ptr, end); }
-    datum_type* __next__() {
-        if (ptr == end) {
-            return NULL;
-        }
-        datum_type* result = &(*safe_ptr);
-        ptr++;
-        if (ptr != end) {
-            safe_ptr = ptr;
-        }
-        return result;
-    }
     // Provide size() C++ method for buffer size check
     size_t size() { return safe_ptr->size(); }
 };
