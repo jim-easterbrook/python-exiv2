@@ -103,6 +103,8 @@ EXCEPTION(,)
 // Turn off exception checking for methods that are guaranteed not to throw
 %noexception datum_type::count;
 %noexception datum_type::size;
+// Keep a reference to any object that returns a reference to a datum.
+KEEP_REFERENCE(datum_type&)
 // Extend Metadatum to allow getting value as a specific type. The "check"
 // typemap stores the wanted type and the "out" typemaps (in value.i) do the
 // type conversion.
@@ -252,8 +254,8 @@ KEEP_REFERENCE(iterator_type)
 %feature("python:slot", "sq_contains", functype="objobjproc")
     base_class::__contains__;
 %extend base_class {
-    datum_type* __getitem__(const std::string& key) {
-        return &(*$self)[key];
+    datum_type& __getitem__(const std::string& key) {
+        return (*$self)[key];
     }
     PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
         using namespace Exiv2;

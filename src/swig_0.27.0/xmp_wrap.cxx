@@ -4889,8 +4889,8 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
-SWIGINTERN Exiv2::Xmpdatum *Exiv2_XmpData___getitem__(Exiv2::XmpData *self,std::string const &key){
-        return &(*self)[key];
+SWIGINTERN Exiv2::Xmpdatum &Exiv2_XmpData___getitem__(Exiv2::XmpData *self,std::string const &key){
+        return (*self)[key];
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_0(Exiv2::XmpData *self,std::string const &key,Exiv2::Value *value){
         using namespace Exiv2;
@@ -9291,7 +9291,7 @@ SWIGINTERN PyObject *_wrap_XmpData___getitem__(PyObject *self, PyObject *args) {
   }
   {
     try {
-      result = (Exiv2::Xmpdatum *)Exiv2_XmpData___getitem__(arg1,(std::string const &)*arg2);
+      result = (Exiv2::Xmpdatum *) &Exiv2_XmpData___getitem__(arg1,(std::string const &)*arg2);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -9303,6 +9303,11 @@ SWIGINTERN PyObject *_wrap_XmpData___getitem__(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
+  
+  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
