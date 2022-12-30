@@ -49,24 +49,6 @@ Some parts of the interface are deprecated and will eventually be removed.
 Please use Python's ``-Wd`` flag when testing your software to ensure it isn't using deprecated features.
 (Do let me know if I've deprecated a feature you need and can't replace with an alternative.)
 
-Object lifetimes and references
--------------------------------
-
-A common pattern in libexiv2 is for an object method to return a reference to some data held by the object.
-For example, ``Exiv2::Image::io()`` returns a reference to the ``Exiv2::BasicIo`` object being used for input/output.
-If the ``Exiv2::Image`` object is deleted the reference becomes invalid, and attempting to use the ``Exiv2::BasicIo`` object will cause a segmentation fault.
-
-In the Python interface some Exiv2 classes, such as ``Exiv2::ExifData``, have customised wrappers that increment the reference count of the Python ``exiv2.Image`` object.
-This stops the ``Exiv2::Image`` being deleted while the Python ``exiv2.ExifData`` object exists.
-These wrappers make it easier to use exiv2, but add complexity to the interface.
-Many classes, such as ``Exiv2::BasicIo``, don't have custom wrappers and will cause segmentation faults if not used with care.
-
-I would like to drop use of these extra wrappers completely.
-This would simplify the interface and make it easier to maintain, but users would need to take care not to delete objects while holding references to their data.
-(This care is already needed for "advanced" uses such as ``Exiv2::Image::io()``.)
-Do let me know what you think about this.
-The GitHub project page has a "discussion" (#10) on this topic.
-
 Documentation
 -------------
 
