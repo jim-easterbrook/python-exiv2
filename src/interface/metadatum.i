@@ -43,23 +43,6 @@ wrap_auto_unique_ptr(Exiv2::Key);
 }
 #endif
 
-// Extend Metadatum to allow getting value as a specific type. The "check"
-// typemap stores the wanted type and the "out" typemaps (in value.i) do the
-// type conversion.
-%typemap(check) Exiv2::TypeId as_type %{
-    _global_type_id = $1;
-%}
-%define EXTEND_METADATUM(class)
-%extend class {
-    Exiv2::Value::AutoPtr getValue(Exiv2::TypeId as_type) {
-        return $self->getValue();
-    }
-    const Exiv2::Value& value(Exiv2::TypeId as_type) {
-        return $self->value();
-    }
-}
-%enddef // EXTEND_METADATUM
-
 %ignore Exiv2::Key::operator=;
 %ignore Exiv2::Metadatum::operator=;
 %ignore Exiv2::Key::write;

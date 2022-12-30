@@ -25,6 +25,8 @@
 %import "metadatum.i"
 %import "properties.i"
 
+EXTEND_METADATUM(Exiv2::Xmpdatum)
+
 DATA_ITERATOR_TYPEMAPS(XmpData_iterator, Exiv2::XmpData::iterator)
 #ifndef SWIGIMPORTED
 DATA_ITERATOR_CLASSES(
@@ -33,12 +35,6 @@ DATA_ITERATOR_CLASSES(
 
 DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
-
-EXTEND_METADATUM(Exiv2::Xmpdatum)
-
-// Turn off exception checking for methods that are guaranteed not to throw
-%noexception Exiv2::Xmpdatum::count;
-%noexception Exiv2::Xmpdatum::size;
 
 // Ignore const overloads of some methods
 %ignore Exiv2::XmpData::operator[];

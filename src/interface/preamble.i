@@ -98,6 +98,27 @@ EXCEPTION(,)
 %}
 %enddef // KEEP_REFERENCE
 
+// Macro for Metadatum subclasses
+%define EXTEND_METADATUM(datum_type)
+// Turn off exception checking for methods that are guaranteed not to throw
+%noexception datum_type::count;
+%noexception datum_type::size;
+// Extend Metadatum to allow getting value as a specific type. The "check"
+// typemap stores the wanted type and the "out" typemaps (in value.i) do the
+// type conversion.
+%typemap(check) Exiv2::TypeId as_type %{
+    _global_type_id = $1;
+%}
+%extend datum_type {
+    Exiv2::Value::AutoPtr getValue(Exiv2::TypeId as_type) {
+        return $self->getValue();
+    }
+    const Exiv2::Value& value(Exiv2::TypeId as_type) {
+        return $self->value();
+    }
+}
+%enddef // EXTEND_METADATUM
+
 // Macros to wrap data iterators
 %define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
 %feature("python:slot", "tp_str", functype="reprfunc") name##_end::__str__;

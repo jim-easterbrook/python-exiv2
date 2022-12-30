@@ -36,6 +36,8 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)
 INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t size)
 #endif
 
+EXTEND_METADATUM(Exiv2::Exifdatum)
+
 DATA_ITERATOR_TYPEMAPS(ExifData_iterator, Exiv2::ExifData::iterator)
 #ifndef SWIGIMPORTED
 DATA_ITERATOR_CLASSES(
@@ -44,12 +46,6 @@ DATA_ITERATOR_CLASSES(
 
 DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
     Exiv2::ExifKey(datum->key()).defaultTypeId())
-
-EXTEND_METADATUM(Exiv2::Exifdatum)
-
-// Turn off exception checking for methods that are guaranteed not to throw
-%noexception Exiv2::Exifdatum::count;
-%noexception Exiv2::Exifdatum::size;
 
 // Ignore const overloads of some methods
 %ignore Exiv2::ExifData::operator[];

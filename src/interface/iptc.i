@@ -25,6 +25,8 @@
 %import "datasets.i"
 %import "metadatum.i"
 
+EXTEND_METADATUM(Exiv2::Iptcdatum)
+
 DATA_ITERATOR_TYPEMAPS(IptcData_iterator, Exiv2::IptcData::iterator)
 #ifndef SWIGIMPORTED
 DATA_ITERATOR_CLASSES(
@@ -33,12 +35,6 @@ DATA_ITERATOR_CLASSES(
 
 DATA_CONTAINER(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
     Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
-
-EXTEND_METADATUM(Exiv2::Iptcdatum)
-
-// Turn off exception checking for methods that are guaranteed not to throw
-%noexception Exiv2::Iptcdatum::count;
-%noexception Exiv2::Iptcdatum::size;
 
 // Ignore const overloads of some methods
 %ignore Exiv2::IptcData::operator[];
