@@ -51,7 +51,7 @@ class TestDataRead(unittest.TestCase):
                 self.assertEqual(len(exiv_value), len(value))
                 self.assertEqual(list(exiv_value), value)
         thumb = exiv2.ExifThumb(self.exifData).copy()
-        data = thumb.data()
+        data = memoryview(thumb.data())
         self.assertEqual(len(data), 2532)
         self.assertEqual(
             data[:15], b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00')

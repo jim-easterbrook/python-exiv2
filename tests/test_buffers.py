@@ -34,10 +34,11 @@ class TestBuffers(unittest.TestCase):
         image = exiv2.ImageFactory.open(self.path)
         io = image.io()
         self.assertEqual(io.open(), 0)
-        with io.mmap() as image_data:
+        with memoryview(io.mmap()) as image_data:
             with open(self.path, 'rb') as in_file:
                 self.assertEqual(image_data, in_file.read())
         self.assertEqual(io.munmap(), 0)
+        self.assertEqual(io.close(), 0)
 
     def test_DataValue(self):
         py_data_1 = bytes(random.choices(range(256), k=128))
@@ -50,7 +51,8 @@ class TestBuffers(unittest.TestCase):
         image = exiv2.ImageFactory.open(self.path)
         image.readMetadata()
         thumb = exiv2.ExifThumb(image.exifData()).copy()
-        self.assertEqual(thumb.data()[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
+        self.assertEqual(
+            memoryview(thumb.data())[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
 
 
 if __name__ == '__main__':

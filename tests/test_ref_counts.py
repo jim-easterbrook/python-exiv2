@@ -34,32 +34,30 @@ class TestReferenceCounts(unittest.TestCase):
 
     def test_data(self):
         self.assertEqual(sys.getrefcount(self.image), 2)
-        # exifData points into image, so keeps a reference to it
-        exifData = self.image.exifData()
-        self.assertEqual(sys.getrefcount(self.image), 3)
-        del exifData
-        self.assertEqual(sys.getrefcount(self.image), 2)
-
-    def test_datum(self):
         exifData = self.image.exifData()
         self.assertEqual(sys.getrefcount(exifData), 2)
         datum = exifData['Exif.Image.ImageDescription']
-        self.assertEqual(sys.getrefcount(exifData), 3)
-        del datum
-        self.assertEqual(sys.getrefcount(exifData), 2)
-
-    def test_value(self):
-        datum = self.image.exifData()['Exif.Image.ImageDescription']
         self.assertEqual(sys.getrefcount(datum), 2)
         value = datum.value()
         self.assertEqual(sys.getrefcount(datum), 3)
         del value
         self.assertEqual(sys.getrefcount(datum), 2)
+        self.assertEqual(sys.getrefcount(exifData), 3)
+        del datum
+        self.assertEqual(sys.getrefcount(exifData), 2)
+        self.assertEqual(sys.getrefcount(self.image), 3)
+        del exifData
+        self.assertEqual(sys.getrefcount(self.image), 2)
 
     def test_io(self):
         self.assertEqual(sys.getrefcount(self.image), 2)
-        # io points into image, so keeps a reference to it
         io = self.image.io()
+        self.assertEqual(sys.getrefcount(io), 2)
+        io.open()
+        mmap = io.mmap()
+        self.assertEqual(sys.getrefcount(io), 3)
+        del mmap
+        self.assertEqual(sys.getrefcount(io), 2)
         self.assertEqual(sys.getrefcount(self.image), 3)
         del io
         self.assertEqual(sys.getrefcount(self.image), 2)

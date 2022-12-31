@@ -40,10 +40,11 @@
     }
 }
 
-// Convert pData() result to a Python memory view
-%typemap(out) Exiv2::byte* %{
-    $result = PyMemoryView_FromMemory((char*) $1, arg1->size(), PyBUF_READ);
-%}
+// Convert pData() result to an object with a buffer interface
+BYTE_BUFFER_TYPEMAPS(Exiv2::byte* pData)
+#ifndef SWIGIMPORTED
+BYTE_BUFFER_CLASS()
+#endif
 
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;

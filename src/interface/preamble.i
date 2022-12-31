@@ -121,6 +121,47 @@ KEEP_REFERENCE(datum_type&)
 }
 %enddef // EXTEND_METADATUM
 
+// Macro to implement a byte buffer
+%define BYTE_BUFFER_CLASS()
+%feature("python:bf_getbuffer", functype="getbufferproc")
+    byte_buffer "byte_buffer::getbuffer";
+%ignore byte_buffer::byte_buffer;
+%ignore byte_buffer::getbuffer;
+%inline %{
+class byte_buffer {
+private:
+    Exiv2::byte* ptr;
+    const size_t len;
+    const int readonly;
+public:
+    byte_buffer(Exiv2::byte* ptr, size_t len, int readonly=1)
+        : ptr(ptr), len(len), readonly(readonly) {}
+    static int getbuffer(PyObject* exporter, Py_buffer* view, int flags) {
+        byte_buffer* self = 0;
+        int res = SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_byte_buffer, 0);
+        if (!SWIG_IsOK(res)) {
+            PyErr_SetNone(PyExc_BufferError);
+            view->obj = NULL;
+            return -1;
+        }
+        return PyBuffer_FillInfo(
+            view, exporter, self->ptr, self->len, self->readonly, flags);
+    }
+};
+%}
+%enddef // BYTE_BUFFER_CLASS
+
+// Declare typemaps for byte buffer.
+%define BYTE_BUFFER_TYPEMAPS(ret_type)
+%typemap(out) ret_type %{
+    $result = SWIG_NewPointerObj(new byte_buffer($1, arg1->size()),
+        $descriptor(byte_buffer*), SWIG_POINTER_OWN);
+%}
+// return value keeps a reference to the data it points to
+KEEP_REFERENCE(ret_type)
+%enddef // BYTE_BUFFER_TYPEMAPS
+
 // Macros to wrap data iterators
 %define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
 %feature("python:slot", "tp_str", functype="reprfunc") name##_end::__str__;

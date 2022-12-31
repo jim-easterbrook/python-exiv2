@@ -54,7 +54,8 @@ void _set_locale_dir(const char* dirname) {
     }
     PyObject* __getitem__(PyObject* idx) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use 'DataBuf.data()' to get a memoryview of contents", 1);
+            "use 'memoryview(DataBuf.data())' to get a memoryview of contents",
+            1);
         if (PySlice_Check(idx)) {
             Py_ssize_t i1, i2, di, sl;
             if (PySlice_GetIndicesEx(idx, $self->size_, &i1, &i2, &di, &sl))
@@ -101,7 +102,7 @@ void _set_locale_dir(const char* dirname) {
 static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
     PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use 'DataBuf.data()' to get a memoryview of contents", 1);
+        "use 'memoryview(DataBuf.data())' to get a memoryview of contents", 1);
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
     if (!SWIG_IsOK(res)) {
@@ -124,15 +125,21 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 %}
 #endif
 
-// Convert pData_ and data() result to a Python memory view
+// Convert pData_ and data() result to an object with a buffer interface
 #if EXIV2_VERSION_HEX < 0x01000000
-%typemap(out) Exiv2::byte* %{
-    $result = PyMemoryView_FromMemory((char*) $1, arg1->size_, PyBUF_READ);
+%typemap(out) (Exiv2::byte* pData_), (Exiv2::byte* data) %{
+    $result = SWIG_NewPointerObj(new byte_buffer($1, arg1->size_),
+        $descriptor(byte_buffer*), SWIG_POINTER_OWN);
 %}
+// return value keeps a reference to the data it points to
+KEEP_REFERENCE(Exiv2::byte* pData_)
+KEEP_REFERENCE(Exiv2::byte* data)
 #else
-%typemap(out) Exiv2::byte* %{
-    $result = PyMemoryView_FromMemory((char*) $1, arg1->size(), PyBUF_READ);
-%}
+BYTE_BUFFER_TYPEMAPS(Exiv2::byte* data)
+#endif
+
+#ifndef SWIGIMPORTED
+BYTE_BUFFER_CLASS()
 #endif
 
 // Backport Exiv2 v1.0.0 methods

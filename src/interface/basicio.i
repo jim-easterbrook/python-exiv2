@@ -38,12 +38,8 @@ wrap_auto_unique_ptr(Exiv2::BasicIo);
 %thread Exiv2::BasicIo::transfer;
 %thread Exiv2::BasicIo::seek;
 
-// BasicIo return values keep a reference to the Image they refer to 
-%typemap(ret) Exiv2::BasicIo& %{
-    if (PyObject_SetAttrString($result, "_image", self)) {
-        SWIG_fail;
-    }
-%}
+// BasicIo return values keep a reference to the Image they refer to
+KEEP_REFERENCE(Exiv2::BasicIo&)
 
 // Allow BasicIo::write to take any Python buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
@@ -59,18 +55,26 @@ EXCEPTION(read,
         PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
         SWIG_fail;
     })
-// Convert mmap() result to a Python memory view
+
+// Convert mmap() result to an object with a buffer interface
 %typemap(check) bool isWriteable %{
     _global_writeable = $1;
 %}
-%typemap(out) Exiv2::byte* (bool _global_writeable = false) {
+%typemap(out) Exiv2::byte* mmap (bool _global_writeable = false) {
     if ($1 == NULL) {
         PyErr_SetString(PyExc_RuntimeError, "$symname: not implemented");
         SWIG_fail;
     }
-    $result = PyMemoryView_FromMemory((char*) $1, arg1->size(),
-        _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+    $result = SWIG_NewPointerObj(
+        new byte_buffer($1, arg1->size(), _global_writeable ? 0 : 1),
+        $descriptor(byte_buffer*), SWIG_POINTER_OWN);
 }
+// mmap() return value keeps a reference to the Io it points to
+KEEP_REFERENCE(Exiv2::byte* mmap)
+
+#ifndef SWIGIMPORTED
+BYTE_BUFFER_CLASS()
+#endif
 
 // Expose BasicIo contents as a Python buffer
 %feature("python:bf_getbuffer",
