@@ -144,7 +144,7 @@ Please let me know if you find any.
 Binary data buffers
 -------------------
 
-Some libexiv2 functions, e.g. `Exiv2::ExifThumb::setJpegThumbnail`_, have an ``Exiv2::byte*`` and a length parameter.
+Some libexiv2 functions, e.g. `Exiv2::ExifThumb::setJpegThumbnail`_, have an ``Exiv2::byte*`` parameter and a length parameter.
 In python-exiv2 these are replaced by a single parameter that can be any Python object that exposes a simple `buffer interface`_, e.g. bytes_, bytearray_, memoryview_::
 
     pil_im = PIL.Image.open('IMG_9999.JPG')
@@ -155,15 +155,13 @@ In python-exiv2 these are replaced by a single parameter that can be any Python 
     thumb.setJpegThumbnail(data.getbuffer())
 
 Some libexiv2 functions, e.g. `Exiv2::DataBuf::data`_, return ``Exiv2::byte*``, a pointer to a block of memory.
-In python-exiv2 this is converted to a memoryview_ object, which allows the data to be accessed without unnecessary copying.
-However, you *must* ensure that the memory being pointed at is not deleted while you are using the memory view::
+In python-exiv2 this is converted to an object with a buffer interface, which allows the data to be accessed without unnecessary copying::
 
     thumb = exiv2.ExifThumb(image.exifData())
     buf = thumb.copy()
-    # safe to delete thumb now as copy() made a copy
     thumb_im = PIL.Image.open(io.BytesIO(buf.data()))
-    thumb_im.load()
-    # safe to delete buf now as load() has read the data
+
+A Python memoryview_ can be used to access the data without copying.
 
 Exiv2::BasicIo::mmap
 --------------------
