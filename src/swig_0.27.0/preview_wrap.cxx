@@ -3998,6 +3998,7 @@ private:
 public:
     byte_buffer(Exiv2::byte* ptr, size_t len, int readonly=1)
         : ptr(ptr), len(len), readonly(readonly) {}
+    size_t __len__() { return len; }
     static int getbuffer(PyObject* exporter, Py_buffer* view, int flags) {
         byte_buffer* self = 0;
         int res = SWIG_ConvertPtr(
@@ -4011,6 +4012,58 @@ public:
             view, exporter, self->ptr, self->len, self->readonly, flags);
     }
 };
+
+
+  #define SWIG_From_long   PyInt_FromLong 
+
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+
+
+#include <limits.h>
+#if !defined(SWIG_NO_LLONG_MAX)
+# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
+#   define LLONG_MAX __LONG_LONG_MAX__
+#   define LLONG_MIN (-LLONG_MAX - 1LL)
+#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# endif
+#endif
+
+
+#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
+#  define SWIG_LONG_LONG_AVAILABLE
+#endif
+
+
+#ifdef SWIG_LONG_LONG_AVAILABLE
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+#endif
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_size_t  (size_t value)
+{    
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  if (sizeof(size_t) <= sizeof(unsigned long)) {
+#endif
+    return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  } else {
+    /* assume sizeof(size_t) <= sizeof(unsigned long long) */
+    return SWIG_From_unsigned_SS_long_SS_long  (static_cast< unsigned long long >(value));
+  }
+#endif
+}
 
 
 SWIGINTERN swig_type_info*
@@ -4211,12 +4264,42 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   return SWIG_ERROR;
 }
 
-
-  #define SWIG_From_long   PyInt_FromLong 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+SWIGINTERN PyObject *_wrap_byte_buffer___len__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  byte_buffer *arg1 = (byte_buffer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "byte_buffer___len__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_byte_buffer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "byte_buffer___len__" "', argument " "1"" of type '" "byte_buffer *""'"); 
+  }
+  arg1 = reinterpret_cast< byte_buffer * >(argp1);
+  {
+    try {
+      result = (arg1)->__len__();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_byte_buffer(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   byte_buffer *arg1 = (byte_buffer *) 0 ;
@@ -4248,6 +4331,8 @@ fail:
   return NULL;
 }
 
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_byte_buffer___len__) /* defines _wrap_byte_buffer___len___lenfunc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_byte_buffer) /* defines _wrap_delete_byte_buffer_destructor_closure */
 
@@ -5034,6 +5119,7 @@ SwigPyBuiltin__byte_buffer_richcompare(PyObject *self, PyObject *other, int op) 
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__byte_buffer_methods[] = {
+  { "__len__", _wrap_byte_buffer___len__, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -5193,7 +5279,7 @@ static PyHeapTypeObject SwigPyBuiltin__byte_buffer_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    (lenfunc) 0,                              /* sq_length */
+    _wrap_byte_buffer___len___lenfunc_closure,/* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */

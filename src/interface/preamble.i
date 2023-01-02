@@ -125,6 +125,7 @@ KEEP_REFERENCE(datum_type&)
 %define BYTE_BUFFER_CLASS()
 %feature("python:bf_getbuffer", functype="getbufferproc")
     byte_buffer "byte_buffer::getbuffer";
+%feature("python:slot", "sq_length", functype="lenfunc") byte_buffer::__len__;
 %ignore byte_buffer::byte_buffer;
 %ignore byte_buffer::getbuffer;
 %inline %{
@@ -136,6 +137,7 @@ private:
 public:
     byte_buffer(Exiv2::byte* ptr, size_t len, int readonly=1)
         : ptr(ptr), len(len), readonly(readonly) {}
+    size_t __len__() { return len; }
     static int getbuffer(PyObject* exporter, Py_buffer* view, int flags) {
         byte_buffer* self = 0;
         int res = SWIG_ConvertPtr(
