@@ -161,9 +161,14 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 %enddef // GET_SWIG_TYPE
 %typemap(out) Exiv2::Value::AutoPtr
         (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
-    Exiv2::Value* value = (&$1)->release();
-    GET_SWIG_TYPE()
-    $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+    if ($1.get()) {
+        Exiv2::Value* value = $1.release();
+        GET_SWIG_TYPE()
+        $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+    }
+    else {
+        $result = SWIG_Py_Void();
+    }
 }
 %typemap(out) const Exiv2::Value&
         (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
