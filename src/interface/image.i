@@ -106,6 +106,9 @@ ENUM(ImageType, "Supported image formats.",
 %ignore Exiv2::append;
 
 // Ignore low level stuff Python doesn't need access to
+%ignore Exiv2::NativePreview;
+%ignore Exiv2::NativePreviewList;
+%ignore Exiv2::Image::nativePreviews;
 %ignore isBigEndianPlatform;
 %ignore isLittleEndianPlatform;
 %ignore isStringType;
