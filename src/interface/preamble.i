@@ -92,7 +92,7 @@ EXCEPTION(,)
 // Macro to keep a reference to "self" when returning a particular type.
 %define KEEP_REFERENCE(return_type)
 %typemap(ret) return_type %{
-    if (PyObject_SetAttrString($result, "_parent", self)) {
+    if (PyObject_SetAttrString($result, "_refers_to", self)) {
         SWIG_fail;
     }
 %}

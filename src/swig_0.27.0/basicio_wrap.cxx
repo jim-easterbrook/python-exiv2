@@ -5166,7 +5166,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs
       SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   }
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -5221,7 +5221,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs
       SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   }
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -6150,7 +6150,7 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs,
       SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   }
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -6205,7 +6205,7 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs,
       SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   }
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -7153,7 +7153,7 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
       SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   }
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -7208,7 +7208,7 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, 
       SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   }
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8178,7 +8178,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobj
       SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   }
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8233,7 +8233,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobj
       SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   }
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   

@@ -5664,7 +5664,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_pData__get(PyObject *self, PyObject *args) {
     SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -5797,7 +5797,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
     SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
   
   
-  if (PyObject_SetAttrString(resultobj, "_parent", self)) {
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
