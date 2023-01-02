@@ -6542,98 +6542,93 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_0(PyObject *self, Py_ssi
     }
   }
   {
-    if (result) {
-      Exiv2::Value* value = result;
-      /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
-      swig_type_info* swg_type = NULL;
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      switch(_global_type_id) {
-      case Exiv2::asciiString:
-        swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
-        value = dynamic_cast<Exiv2::AsciiValue*>(value);
-        break;
-      case Exiv2::unsignedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
-        value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
-        break;
-      case Exiv2::unsignedLong:
-      case Exiv2::tiffIfd:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
-        value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
-        break;
-      case Exiv2::unsignedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
-        break;
-      case Exiv2::undefined:
-        swg_type = SWIGTYPE_p_Exiv2__Value;
-        break;
-      case Exiv2::signedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
-        value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
-        break;
-      case Exiv2::signedLong:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
-        value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
-        break;
-      case Exiv2::signedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
-        break;
-      case Exiv2::tiffFloat:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
-        value = dynamic_cast<Exiv2::ValueType<float>*>(value);
-        break;
-      case Exiv2::tiffDouble:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
-        value = dynamic_cast<Exiv2::ValueType<double>*>(value);
-        break;
-      case Exiv2::string:
-        swg_type = SWIGTYPE_p_Exiv2__StringValue;
-        value = dynamic_cast<Exiv2::StringValue*>(value);
-        break;
-      case Exiv2::date:
-        swg_type = SWIGTYPE_p_Exiv2__DateValue;
-        value = dynamic_cast<Exiv2::DateValue*>(value);
-        break;
-      case Exiv2::time:
-        swg_type = SWIGTYPE_p_Exiv2__TimeValue;
-        value = dynamic_cast<Exiv2::TimeValue*>(value);
-        break;
-      case Exiv2::comment:
-        swg_type = SWIGTYPE_p_Exiv2__CommentValue;
-        value = dynamic_cast<Exiv2::CommentValue*>(value);
-        break;
-      case Exiv2::xmpText:
-        swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
-        value = dynamic_cast<Exiv2::XmpTextValue*>(value);
-        break;
-      case Exiv2::xmpAlt:
-      case Exiv2::xmpBag:
-      case Exiv2::xmpSeq:
-        swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
-        value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
-        break;
-      case Exiv2::langAlt:
-        swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
-        value = dynamic_cast<Exiv2::LangAltValue*>(value);
-        break;
-      default:
-        swg_type = SWIGTYPE_p_Exiv2__DataValue;
-        value = dynamic_cast<Exiv2::DataValue*>(value);
-      }
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      /*@SWIG@*/
-      resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    Exiv2::Value* value = result;
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
     }
-    else {
-      resultobj = SWIG_Py_Void();
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
     }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_parent", self)) {
@@ -6685,98 +6680,93 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, Py_ssi
     }
   }
   {
-    if (result) {
-      Exiv2::Value* value = result;
-      /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
-      swig_type_info* swg_type = NULL;
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      switch(_global_type_id) {
-      case Exiv2::asciiString:
-        swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
-        value = dynamic_cast<Exiv2::AsciiValue*>(value);
-        break;
-      case Exiv2::unsignedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
-        value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
-        break;
-      case Exiv2::unsignedLong:
-      case Exiv2::tiffIfd:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
-        value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
-        break;
-      case Exiv2::unsignedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
-        break;
-      case Exiv2::undefined:
-        swg_type = SWIGTYPE_p_Exiv2__Value;
-        break;
-      case Exiv2::signedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
-        value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
-        break;
-      case Exiv2::signedLong:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
-        value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
-        break;
-      case Exiv2::signedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
-        break;
-      case Exiv2::tiffFloat:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
-        value = dynamic_cast<Exiv2::ValueType<float>*>(value);
-        break;
-      case Exiv2::tiffDouble:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
-        value = dynamic_cast<Exiv2::ValueType<double>*>(value);
-        break;
-      case Exiv2::string:
-        swg_type = SWIGTYPE_p_Exiv2__StringValue;
-        value = dynamic_cast<Exiv2::StringValue*>(value);
-        break;
-      case Exiv2::date:
-        swg_type = SWIGTYPE_p_Exiv2__DateValue;
-        value = dynamic_cast<Exiv2::DateValue*>(value);
-        break;
-      case Exiv2::time:
-        swg_type = SWIGTYPE_p_Exiv2__TimeValue;
-        value = dynamic_cast<Exiv2::TimeValue*>(value);
-        break;
-      case Exiv2::comment:
-        swg_type = SWIGTYPE_p_Exiv2__CommentValue;
-        value = dynamic_cast<Exiv2::CommentValue*>(value);
-        break;
-      case Exiv2::xmpText:
-        swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
-        value = dynamic_cast<Exiv2::XmpTextValue*>(value);
-        break;
-      case Exiv2::xmpAlt:
-      case Exiv2::xmpBag:
-      case Exiv2::xmpSeq:
-        swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
-        value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
-        break;
-      case Exiv2::langAlt:
-        swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
-        value = dynamic_cast<Exiv2::LangAltValue*>(value);
-        break;
-      default:
-        swg_type = SWIGTYPE_p_Exiv2__DataValue;
-        value = dynamic_cast<Exiv2::DataValue*>(value);
-      }
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      /*@SWIG@*/
-      resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    Exiv2::Value* value = result;
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
     }
-    else {
-      resultobj = SWIG_Py_Void();
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
     }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_parent", self)) {
@@ -8208,98 +8198,93 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_0(PyObject *self, Py_ssize_t nob
     }
   }
   {
-    if (result) {
-      Exiv2::Value* value = result;
-      /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
-      swig_type_info* swg_type = NULL;
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      switch(_global_type_id) {
-      case Exiv2::asciiString:
-        swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
-        value = dynamic_cast<Exiv2::AsciiValue*>(value);
-        break;
-      case Exiv2::unsignedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
-        value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
-        break;
-      case Exiv2::unsignedLong:
-      case Exiv2::tiffIfd:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
-        value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
-        break;
-      case Exiv2::unsignedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
-        break;
-      case Exiv2::undefined:
-        swg_type = SWIGTYPE_p_Exiv2__Value;
-        break;
-      case Exiv2::signedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
-        value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
-        break;
-      case Exiv2::signedLong:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
-        value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
-        break;
-      case Exiv2::signedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
-        break;
-      case Exiv2::tiffFloat:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
-        value = dynamic_cast<Exiv2::ValueType<float>*>(value);
-        break;
-      case Exiv2::tiffDouble:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
-        value = dynamic_cast<Exiv2::ValueType<double>*>(value);
-        break;
-      case Exiv2::string:
-        swg_type = SWIGTYPE_p_Exiv2__StringValue;
-        value = dynamic_cast<Exiv2::StringValue*>(value);
-        break;
-      case Exiv2::date:
-        swg_type = SWIGTYPE_p_Exiv2__DateValue;
-        value = dynamic_cast<Exiv2::DateValue*>(value);
-        break;
-      case Exiv2::time:
-        swg_type = SWIGTYPE_p_Exiv2__TimeValue;
-        value = dynamic_cast<Exiv2::TimeValue*>(value);
-        break;
-      case Exiv2::comment:
-        swg_type = SWIGTYPE_p_Exiv2__CommentValue;
-        value = dynamic_cast<Exiv2::CommentValue*>(value);
-        break;
-      case Exiv2::xmpText:
-        swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
-        value = dynamic_cast<Exiv2::XmpTextValue*>(value);
-        break;
-      case Exiv2::xmpAlt:
-      case Exiv2::xmpBag:
-      case Exiv2::xmpSeq:
-        swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
-        value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
-        break;
-      case Exiv2::langAlt:
-        swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
-        value = dynamic_cast<Exiv2::LangAltValue*>(value);
-        break;
-      default:
-        swg_type = SWIGTYPE_p_Exiv2__DataValue;
-        value = dynamic_cast<Exiv2::DataValue*>(value);
-      }
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      /*@SWIG@*/
-      resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    Exiv2::Value* value = result;
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
     }
-    else {
-      resultobj = SWIG_Py_Void();
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
     }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_parent", self)) {
@@ -8518,98 +8503,93 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nob
     }
   }
   {
-    if (result) {
-      Exiv2::Value* value = result;
-      /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
-      swig_type_info* swg_type = NULL;
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      switch(_global_type_id) {
-      case Exiv2::asciiString:
-        swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
-        value = dynamic_cast<Exiv2::AsciiValue*>(value);
-        break;
-      case Exiv2::unsignedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
-        value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
-        break;
-      case Exiv2::unsignedLong:
-      case Exiv2::tiffIfd:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
-        value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
-        break;
-      case Exiv2::unsignedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
-        break;
-      case Exiv2::undefined:
-        swg_type = SWIGTYPE_p_Exiv2__Value;
-        break;
-      case Exiv2::signedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
-        value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
-        break;
-      case Exiv2::signedLong:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
-        value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
-        break;
-      case Exiv2::signedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
-        break;
-      case Exiv2::tiffFloat:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
-        value = dynamic_cast<Exiv2::ValueType<float>*>(value);
-        break;
-      case Exiv2::tiffDouble:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
-        value = dynamic_cast<Exiv2::ValueType<double>*>(value);
-        break;
-      case Exiv2::string:
-        swg_type = SWIGTYPE_p_Exiv2__StringValue;
-        value = dynamic_cast<Exiv2::StringValue*>(value);
-        break;
-      case Exiv2::date:
-        swg_type = SWIGTYPE_p_Exiv2__DateValue;
-        value = dynamic_cast<Exiv2::DateValue*>(value);
-        break;
-      case Exiv2::time:
-        swg_type = SWIGTYPE_p_Exiv2__TimeValue;
-        value = dynamic_cast<Exiv2::TimeValue*>(value);
-        break;
-      case Exiv2::comment:
-        swg_type = SWIGTYPE_p_Exiv2__CommentValue;
-        value = dynamic_cast<Exiv2::CommentValue*>(value);
-        break;
-      case Exiv2::xmpText:
-        swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
-        value = dynamic_cast<Exiv2::XmpTextValue*>(value);
-        break;
-      case Exiv2::xmpAlt:
-      case Exiv2::xmpBag:
-      case Exiv2::xmpSeq:
-        swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
-        value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
-        break;
-      case Exiv2::langAlt:
-        swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
-        value = dynamic_cast<Exiv2::LangAltValue*>(value);
-        break;
-      default:
-        swg_type = SWIGTYPE_p_Exiv2__DataValue;
-        value = dynamic_cast<Exiv2::DataValue*>(value);
-      }
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      /*@SWIG@*/
-      resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    Exiv2::Value* value = result;
+    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    swig_type_info* swg_type = NULL;
+    if (_global_type_id == Exiv2::lastTypeId)
+    _global_type_id = value->typeId();
+    switch(_global_type_id) {
+    case Exiv2::asciiString:
+      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
+      value = dynamic_cast<Exiv2::AsciiValue*>(value);
+      break;
+    case Exiv2::unsignedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
+      break;
+    case Exiv2::unsignedLong:
+    case Exiv2::tiffIfd:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
+      break;
+    case Exiv2::unsignedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
+      break;
+    case Exiv2::undefined:
+      swg_type = SWIGTYPE_p_Exiv2__Value;
+      break;
+    case Exiv2::signedShort:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
+      break;
+    case Exiv2::signedLong:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
+      break;
+    case Exiv2::signedRational:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
+      break;
+    case Exiv2::tiffFloat:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
+      break;
+    case Exiv2::tiffDouble:
+      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
+      break;
+    case Exiv2::string:
+      swg_type = SWIGTYPE_p_Exiv2__StringValue;
+      value = dynamic_cast<Exiv2::StringValue*>(value);
+      break;
+    case Exiv2::date:
+      swg_type = SWIGTYPE_p_Exiv2__DateValue;
+      value = dynamic_cast<Exiv2::DateValue*>(value);
+      break;
+    case Exiv2::time:
+      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
+      value = dynamic_cast<Exiv2::TimeValue*>(value);
+      break;
+    case Exiv2::comment:
+      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
+      value = dynamic_cast<Exiv2::CommentValue*>(value);
+      break;
+    case Exiv2::xmpText:
+      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
+      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
+      break;
+    case Exiv2::xmpAlt:
+    case Exiv2::xmpBag:
+    case Exiv2::xmpSeq:
+      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
+      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
+      break;
+    case Exiv2::langAlt:
+      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
+      value = dynamic_cast<Exiv2::LangAltValue*>(value);
+      break;
+    default:
+      swg_type = SWIGTYPE_p_Exiv2__DataValue;
+      value = dynamic_cast<Exiv2::DataValue*>(value);
     }
-    else {
-      resultobj = SWIG_Py_Void();
+    if (!value) {
+      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+        Exiv2::TypeInfo::typeName(_global_type_id));
+      SWIG_fail;
     }
+    /*@SWIG@*/
+    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_parent", self)) {

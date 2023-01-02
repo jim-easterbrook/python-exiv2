@@ -51,6 +51,10 @@ KEEP_REFERENCE(Exiv2::ExifData&)
 KEEP_REFERENCE(Exiv2::IptcData&)
 KEEP_REFERENCE(Exiv2::XmpData&)
 
+// xmpPacket() returns a modifiable std::string, Python strings are immutable
+// so treat it as a non-modifiable std::string
+%apply const std::string& {std::string& xmpPacket};
+
 // Make image types available
 #ifdef EXV_ENABLE_BMFF
 #define BMFF "bmff", int(Exiv2::ImageType::bmff),

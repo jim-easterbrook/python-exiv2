@@ -3818,22 +3818,21 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[69]
 #define SWIGTYPE_p_std__setT_std__string_t swig_types[70]
 #define SWIGTYPE_p_std__setT_std__string_t__const_iterator swig_types[71]
-#define SWIGTYPE_p_std__string swig_types[72]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[73]
-#define SWIGTYPE_p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t swig_types[74]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[75]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[76]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[77]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[78]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[79]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[80]
-#define SWIGTYPE_p_unsigned_char swig_types[81]
-#define SWIGTYPE_p_unsigned_int swig_types[82]
-#define SWIGTYPE_p_unsigned_long_long swig_types[83]
-#define SWIGTYPE_p_unsigned_short swig_types[84]
-#define SWIGTYPE_p_value_type swig_types[85]
-static swig_type_info *swig_types[87];
-static swig_module_info swig_module = {swig_types, 86, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[72]
+#define SWIGTYPE_p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t swig_types[73]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[74]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[75]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t__const_iterator swig_types[76]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[77]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[78]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t__const_iterator swig_types[79]
+#define SWIGTYPE_p_unsigned_char swig_types[80]
+#define SWIGTYPE_p_unsigned_int swig_types[81]
+#define SWIGTYPE_p_unsigned_long_long swig_types[82]
+#define SWIGTYPE_p_unsigned_short swig_types[83]
+#define SWIGTYPE_p_value_type swig_types[84]
+static swig_type_info *swig_types[86];
+static swig_module_info swig_module = {swig_types, 85, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5818,7 +5817,7 @@ SWIGINTERN PyObject *_wrap_Image_xmpPacket(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__string, 0 |  0 );
+  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   return resultobj;
 fail:
   return NULL;
@@ -8439,7 +8438,6 @@ static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__setT_std__string_t = {"_p_std__setT_std__string_t", "Exiv2::StringSet *|std::set< std::string > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__setT_std__string_t__const_iterator = {"_p_std__setT_std__string_t__const_iterator", "Exiv2::StringSet_i *|std::set< std::string >::const_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t = {"_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t", "Exiv2::IptcMetadata *|std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t = {"_p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t", "Exiv2::NativePreviewList *|std::vector< Exiv2::NativePreview,std::allocator< Exiv2::NativePreview > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t = {"_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t", "Exiv2::XmpMetadata *|std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > > *", 0, 0, (void*)0, 0};
@@ -8527,7 +8525,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
   &_swigt__p_std__setT_std__string_t,
   &_swigt__p_std__setT_std__string_t__const_iterator,
-  &_swigt__p_std__string,
   &_swigt__p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t,
   &_swigt__p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t,
   &_swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t,
@@ -8615,7 +8612,6 @@ static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pai
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__setT_std__string_t[] = {  {&_swigt__p_std__setT_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__setT_std__string_t__const_iterator[] = {  {&_swigt__p_std__setT_std__string_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t[] = {  {&_swigt__p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t[] = {  {&_swigt__p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t[] = {  {&_swigt__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -8703,7 +8699,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
   _swigc__p_std__setT_std__string_t,
   _swigc__p_std__setT_std__string_t__const_iterator,
-  _swigc__p_std__string,
   _swigc__p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t,
   _swigc__p_std__vectorT_Exiv2__NativePreview_std__allocatorT_Exiv2__NativePreview_t_t,
   _swigc__p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t,
