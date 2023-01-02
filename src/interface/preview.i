@@ -40,6 +40,13 @@
     }
 }
 
+// Make sure PreviewManager keeps a reference to the image it's using
+%typemap(ret) Exiv2::PreviewManager* %{
+    if (PyObject_SetAttrString($result, "_refers_to", swig_obj[0])) {
+        SWIG_fail;
+    }
+%}
+
 // Convert pData() result to an object with a buffer interface
 BYTE_BUFFER_TYPEMAPS(Exiv2::byte* pData)
 #ifndef SWIGIMPORTED
