@@ -47,10 +47,14 @@ jobs:
 
   test:
     needs: build
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
+        os: [ubuntu-latest]
+        include:
+          - python-version: '3.6'
+            os: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Fetch wheel files
         uses: actions/download-artifact@v3
@@ -66,5 +70,11 @@ jobs:
       - name: Install wheel
         run: pip3 install --disable-pip-version-check --no-index --find-links=. exiv2
 
-      - name: Test installation
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Get package details
         run: python3 -m exiv2
+
+      - name: Run unit tests
+        run: python3 -m unittest discover tests
