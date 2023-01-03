@@ -50,7 +50,7 @@ jobs:
           architecture: 'x64'
 
       - name: Install python-exiv2
-        run: pip3 install --user .
+        run: pip3 install --disable-pip-version-check --user .
 
       - name: Get package details
         run: python3 -m exiv2
