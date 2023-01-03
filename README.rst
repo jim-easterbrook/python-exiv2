@@ -27,7 +27,9 @@ A more recent development is `pyexiv2 (new)`_.
 This new project is potentially very useful, providing a simple interface with functions to read and modify metadata using Python ``dict`` parameters.
 
 For more complicated metadata operations I think a lower level interface is required, which is where this project comes in.
-Here is an example of its use::
+Here is an example of its use:
+
+.. code:: python
 
     Python 3.6.12 (default, Dec 02 2020, 09:44:23) [GCC] on linux
     Type "help", "copyright", "credits" or "license" for more information.
@@ -84,19 +86,25 @@ Please read the Exiv2 `statement on bmff`_ patents before doing so.
 Assignment
 ----------
 
-libexiv2_ stores metadata values in a generalised container whose type can be set by the type of a value assigned to it, for example::
+libexiv2_ stores metadata values in a generalised container whose type can be set by the type of a value assigned to it, for example:
+
+.. code:: C++
 
     // C or C++
     exifData["Exif.Image.SamplesPerPixel"] = uint16_t(162);
 
 This forces the ``Exif.Image.SamplesPerPixel`` value to be an unsigned short.
-Python doesn't have such specific integer types, so if you need to set the type you can create an exiv2 value of the appropriate type and assign that::
+Python doesn't have such specific integer types, so if you need to set the type you can create an exiv2 value of the appropriate type and assign that:
+
+.. code:: python
 
     # Python
     exifData["Exif.Image.SamplesPerPixel"] = exiv2.UShortValue(162)
 
 This allows you to set the value to any type, just like in C++, but the Python interface warns you if you set a type that isn't the default for that tag.
-Alternatively you can use any Python object and let libexiv2_ convert the string representation of that object to the appropriate type::
+Alternatively you can use any Python object and let libexiv2_ convert the string representation of that object to the appropriate type:
+
+.. code:: python
 
     # Python
     exifData["Exif.Image.SamplesPerPixel"] = 162
