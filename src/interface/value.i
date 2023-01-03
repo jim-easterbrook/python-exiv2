@@ -238,7 +238,8 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     Exiv2::ValueType<item_type>::count;
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     Exiv2::ValueType<item_type>::__getitem__;
-%feature("python:slot", "sq_ass_item", functype="ssizeobjargproc")
+// sq_ass_item would be more logical, but it doesn't work for deletion
+%feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
     Exiv2::ValueType<item_type>::__setitem__;
 %feature("docstring") Exiv2::ValueType<item_type>
 "Sequence of " #item_type " values.\n"
@@ -261,6 +262,9 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     }
     void __setitem__(long multi_idx, item_type value) {
         $self->value_[multi_idx] = value;
+    }
+    void __setitem__(long multi_idx) {
+        $self->value_.erase($self->value_.begin() + multi_idx);
     }
     void append(item_type value) {
         $self->value_.push_back(value);

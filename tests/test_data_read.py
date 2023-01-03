@@ -97,6 +97,29 @@ class TestDataRead(unittest.TestCase):
             else:
                 self.assertEqual(str(exiv_value), value)
 
+    def test_set_value(self):
+        datum = self.exifData['Exif.GPSInfo.GPSLatitude']
+        value = datum.getValue()
+        # set value
+        self.assertEqual(list(value), [(57, 1), (51, 1), (146751, 5000)])
+        value[1] = (45, 1)
+        self.assertEqual(list(value), [(57, 1), (45, 1), (146751, 5000)])
+        del value[1]
+        self.assertEqual(list(value), [(57, 1), (146751, 5000)])
+        value.append((12, 34))
+        self.assertEqual(list(value), [(57, 1), (146751, 5000), (12, 34)])
+        # set datum
+        self.assertEqual(list(datum.value()), [(57, 1), (51, 1), (146751, 5000)])
+        self.exifData['Exif.GPSInfo.GPSLatitude'] = exiv2.URationalValue(
+            [(23, 1), (47, 1), (3592, 100)])
+        self.assertEqual(list(datum.value()), [(23, 1), (47, 1), (3592, 100)])
+        self.exifData['Exif.GPSInfo.GPSLatitude'] = '23/1 46/1'
+        self.assertEqual(list(datum.value()), [(23, 1), (46, 1)])
+        del self.exifData['Exif.GPSInfo.GPSLatitude']
+        datum = self.exifData['Exif.GPSInfo.GPSLatitude']
+        with self.assertRaises(exiv2.Exiv2Error):
+            self.assertEqual(datum.value(), [])
+
 
 if __name__ == '__main__':
     unittest.main()
