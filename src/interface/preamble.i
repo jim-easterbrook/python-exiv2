@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -111,6 +111,7 @@ KEEP_REFERENCE(datum_type&)
 %typemap(check) Exiv2::TypeId as_type %{
     _global_type_id = $1;
 %}
+#if EXIV2_VERSION_HEX < 0x01000000
 %extend datum_type {
     Exiv2::Value::AutoPtr getValue(Exiv2::TypeId as_type) {
         return $self->getValue();
@@ -119,6 +120,16 @@ KEEP_REFERENCE(datum_type&)
         return $self->value();
     }
 }
+#else   // EXIV2_VERSION_HEX
+%extend datum_type {
+    Exiv2::Value::UniquePtr getValue(Exiv2::TypeId as_type) {
+        return $self->getValue();
+    }
+    const Exiv2::Value& value(Exiv2::TypeId as_type) {
+        return $self->value();
+    }
+}
+#endif  // EXIV2_VERSION_HEX
 %enddef // EXTEND_METADATUM
 
 // Macro to implement a byte buffer
@@ -422,7 +433,7 @@ struct std::unique_ptr {};
 %define wrap_auto_unique_ptr(pointed_type)
 %typemap(out) std::unique_ptr<pointed_type> %{
     $result = SWIG_NewPointerObj(
-        (&$1)->release(), $descriptor(pointed_type *), SWIG_POINTER_OWN);
+        $1.release(), $descriptor(pointed_type *), SWIG_POINTER_OWN);
 %}
 %template() std::unique_ptr<pointed_type>;
 %enddef // wrap_auto_unique_ptr

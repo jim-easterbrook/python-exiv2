@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -159,6 +159,7 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
         SWIG_fail;
     }
 %enddef // GET_SWIG_TYPE
+#if EXIV2_VERSION_HEX < 0x01000000
 %typemap(out) Exiv2::Value::AutoPtr
         (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
     if ($1.get()) {
@@ -170,6 +171,19 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
         $result = SWIG_Py_Void();
     }
 }
+#else   // EXIV2_VERSION_HEX
+%typemap(out) Exiv2::Value::UniquePtr
+        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
+    if ($1.get()) {
+        Exiv2::Value* value = $1.release();
+        GET_SWIG_TYPE()
+        $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+    }
+    else {
+        $result = SWIG_Py_Void();
+    }
+}
+#endif  // EXIV2_VERSION_HEX
 %typemap(out) const Exiv2::Value&
         (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
     Exiv2::Value* value = $1;
