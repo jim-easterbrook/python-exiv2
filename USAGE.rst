@@ -9,16 +9,35 @@ You can find out what version of python-exiv2 you have with either ``pip3 show e
 .. contents::
     :backlinks: top
 
+Segmentation faults
+-------------------
+
+There are many places in the C++ API where objects hold references to data in other objects.
+This is more efficient than copying the data, but can cause segmentation faults if an object is deleted while another objects refers to its data.
+
+The Python interface tries to protect the user from this but in some cases this is not possible.
+For example, an `Exiv2::Metadatum`_ object holds a reference to data that can easily be invalidated::
+
+    exifData = image.exifData()
+    datum = exifData['Exif.GPSInfo.GPSLatitude']
+    print(str(datum.value()))                       # no problem
+    del exifData['Exif.GPSInfo.GPSLatitude']
+    print(str(datum.value()))                       # segfault!
+
+Segmentation faults are also easily caused by careless use of iterators, as discussed below.
+There may be other cases where the Python interface doesn't prevent segfaults.
+Please let me know if you find any.
+
 Reading data values
 -------------------
 
 Exiv2 stores metadata as (key, value) pairs in `Exiv2::Metadatum`_ objects.
 The datum has two methods to retrieve the value: ``value()`` and ``getValue()``.
 The first gets a reference to the value and the second makes a copy.
-Use ``value()`` with care - do not attempt to modify the data and do not delete the datum object while still holding a reference to its value.
-``getValue()`` returns a new object and is safer to use.
+Use ``value()`` when you don't need to modify the data.
+``getValue()`` copies the data to a new object that you can modify.
 
-In the C++ API these methods both return a pointer to an `Exiv2::Value`_ base class object.
+In the C++ API these methods both return (a pointer to) an `Exiv2::Value`_ base class object.
 The Python interface uses the value's ``typeId()`` method to determine its type and casts the return value to the appropriate type.
 
 Recasting data values
@@ -137,9 +156,6 @@ Warning: segmentation faults
 
 If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
 Just as in C++, there is no way to detect that an iterator has become invalid.
-
-There may be other cases where the Python interface doesn't prevent segfaults.
-Please let me know if you find any.
 
 Binary data buffers
 -------------------
