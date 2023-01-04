@@ -4013,7 +4013,7 @@ static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
     Exiv2::byte* ptr = 0;
     size_t len = 0;
     PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use 'Io.mmap()' to get a memoryview instead of buffer interface", 1);
+        "use 'Io.mmap()' to get the data buffer", 1);
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
     if (!SWIG_IsOK(res)) {

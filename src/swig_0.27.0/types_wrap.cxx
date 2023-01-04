@@ -4075,7 +4075,7 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
     PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use 'memoryview(DataBuf.data())' to get a memoryview of contents", 1);
+        "use 'DataBuf.data()' to get a data buffer", 1);
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
     if (!SWIG_IsOK(res)) {
@@ -4454,7 +4454,7 @@ SWIGINTERN long Exiv2_DataBuf___len__(Exiv2::DataBuf *self){
     }
 SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *idx){
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use 'memoryview(DataBuf.data())' to get a memoryview of contents",
+            "use 'DataBuf.data()' to get a data buffer",
             1);
         if (PySlice_Check(idx)) {
             Py_ssize_t i1, i2, di, sl;

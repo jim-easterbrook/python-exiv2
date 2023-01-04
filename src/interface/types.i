@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -54,7 +54,7 @@ void _set_locale_dir(const char* dirname) {
     }
     PyObject* __getitem__(PyObject* idx) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use 'memoryview(DataBuf.data())' to get a memoryview of contents",
+            "use 'DataBuf.data()' to get a data buffer",
             1);
         if (PySlice_Check(idx)) {
             Py_ssize_t i1, i2, di, sl;
@@ -102,7 +102,7 @@ void _set_locale_dir(const char* dirname) {
 static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
     PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use 'memoryview(DataBuf.data())' to get a memoryview of contents", 1);
+        "use 'DataBuf.data()' to get a data buffer", 1);
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
     if (!SWIG_IsOK(res)) {
