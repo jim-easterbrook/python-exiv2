@@ -1,6 +1,6 @@
 python-exiv2 - Python interface to libexiv2
 http://github.com/jim-easterbrook/python-exiv2
-Copyright (C) 2022  Jim Easterbrook  jim@jim-easterbrook.me.uk
+Copyright (C) 2022-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 
 This program is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -15,6 +15,14 @@ General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
+
+Changes in v0.13.0:
+  1/ Automatically cast Exiv2::Value return values to correct type.
+  2/ Exiv2::byte* return values are converted to a simple buffer object.
+  3/ Deprecated some superseded features. Use 'python -Wd' when testing.
+  4/ Exiv2's Date & Time structs can be used from Python.
+  5/ Removed Value.downCast methods deprecated in v0.7.0.
+  6/ Reduced probability of segfaults by keeping references to other objects.
 
 Changes in v0.12.1:
   1/ Fix iterator bug introduced in v0.10.0. (Issue #7.)
