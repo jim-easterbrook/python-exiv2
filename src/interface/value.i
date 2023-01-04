@@ -196,6 +196,7 @@ KEEP_REFERENCE(const Exiv2::Value&)
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
+%feature("python:slot", "sq_length", functype="lenfunc") type_name::count;
 // Use Exiv2::Value::__str__
 %feature("python:tp_str") type_name "_wrap_Value___str___reprfunc_closure";
 %ignore type_name::value_;
@@ -226,17 +227,9 @@ wrap_auto_unique_ptr(type_name)
 
 // Subscript macro for classes that can only hold one value
 %define SUBSCRIPT_SINGLE(type_name, item_type, method)
-%feature("python:slot", "sq_length", functype="lenfunc")
-    type_name::__len__;
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     type_name::__getitem__;
-%noexception type_name::__len__;
 %extend type_name {
-    long __len__() {
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'len = " #type_name ".count()'", 1);
-        return $self->count() ? 1 : 0;
-    }
     item_type __getitem__(long single_idx) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use 'value = " #type_name "." #method "()'", 1);
@@ -248,8 +241,6 @@ wrap_auto_unique_ptr(type_name)
 // Macro for Exiv2::ValueType classes
 %define VALUETYPE(type_name, item_type)
 VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::ValueType<item_type>::count;
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     Exiv2::ValueType<item_type>::__getitem__;
 // sq_ass_item would be more logical, but it doesn't work for deletion

@@ -5803,11 +5803,6 @@ SWIGINTERN Exiv2::DataValue *new_Exiv2_DataValue__SWIG_5(Exiv2::Value const &val
         }
         return pv;
     }
-SWIGINTERN long Exiv2_StringValueBase___len__(Exiv2::StringValueBase *self){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'len = ""Exiv2::StringValueBase" ".count()'", 1);
-        return self->count() ? 1 : 0;
-    }
 SWIGINTERN std::string Exiv2_StringValueBase___getitem__(Exiv2::StringValueBase *self,long single_idx){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use 'value = ""Exiv2::StringValueBase" ".""toString" "()'", 1);
@@ -5894,11 +5889,6 @@ SWIGINTERN Exiv2::XmpTextValue *new_Exiv2_XmpTextValue__SWIG_2(Exiv2::Value cons
 
         }
         return pv;
-    }
-SWIGINTERN long Exiv2_XmpTextValue___len__(Exiv2::XmpTextValue *self){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'len = ""Exiv2::XmpTextValue" ".count()'", 1);
-        return self->count() ? 1 : 0;
     }
 SWIGINTERN std::string Exiv2_XmpTextValue___getitem__(Exiv2::XmpTextValue *self,long single_idx){
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -6362,11 +6352,6 @@ SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_2(Exiv2::Value const &val
         }
         return pv;
     }
-SWIGINTERN long Exiv2_DateValue___len__(Exiv2::DateValue *self){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'len = ""Exiv2::DateValue" ".count()'", 1);
-        return self->count() ? 1 : 0;
-    }
 SWIGINTERN Exiv2::DateValue::Date Exiv2_DateValue___getitem__(Exiv2::DateValue *self,long single_idx){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use 'value = ""Exiv2::DateValue" ".""getDate" "()'", 1);
@@ -6402,11 +6387,6 @@ SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_5(Exiv2::Value const &val
 
         }
         return pv;
-    }
-SWIGINTERN long Exiv2_TimeValue___len__(Exiv2::TimeValue *self){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'len = ""Exiv2::TimeValue" ".count()'", 1);
-        return self->count() ? 1 : 0;
     }
 SWIGINTERN Exiv2::TimeValue::Time Exiv2_TimeValue___getitem__(Exiv2::TimeValue *self,long single_idx){
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -9324,6 +9304,8 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DataValue) /* defines _wrap_delete_DataValue_destructor_closure */
 
+SWIGPY_LENFUNC_CLOSURE(_wrap_DataValue_count) /* defines _wrap_DataValue_count_lenfunc_closure */
+
 SWIGINTERN PyObject *_wrap_delete_StringValueBase(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
@@ -10077,28 +10059,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_StringValueBase___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "StringValueBase___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__StringValueBase, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase___len__" "', argument " "1"" of type '" "Exiv2::StringValueBase *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  result = (long)Exiv2_StringValueBase___len__(arg1);
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_StringValueBase___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
@@ -10150,7 +10110,7 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_StringValueBase) /* defines _wrap_delete_StringValueBase_destructor_closure */
 
-SWIGPY_LENFUNC_CLOSURE(_wrap_StringValueBase___len__) /* defines _wrap_StringValueBase___len___lenfunc_closure */
+SWIGPY_LENFUNC_CLOSURE(_wrap_StringValueBase_count) /* defines _wrap_StringValueBase_count_lenfunc_closure */
 
 SWIGPY_FUNPACK_SSIZEARGFUNC_CLOSURE(_wrap_StringValueBase___getitem__) /* defines _wrap_StringValueBase___getitem___ssizeargfunc_closure */
 
@@ -12803,28 +12763,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpTextValue___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpTextValue *arg1 = (Exiv2::XmpTextValue *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "XmpTextValue___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpTextValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue___len__" "', argument " "1"" of type '" "Exiv2::XmpTextValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  result = (long)Exiv2_XmpTextValue___len__(arg1);
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpTextValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpTextValue *arg1 = (Exiv2::XmpTextValue *) 0 ;
@@ -12906,7 +12844,7 @@ fail:
 }
 
 
-SWIGPY_LENFUNC_CLOSURE(_wrap_XmpTextValue___len__) /* defines _wrap_XmpTextValue___len___lenfunc_closure */
+SWIGPY_LENFUNC_CLOSURE(_wrap_XmpTextValue_count) /* defines _wrap_XmpTextValue_count_lenfunc_closure */
 
 SWIGPY_FUNPACK_SSIZEARGFUNC_CLOSURE(_wrap_XmpTextValue___getitem__) /* defines _wrap_XmpTextValue___getitem___ssizeargfunc_closure */
 
@@ -16225,28 +16163,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DateValue___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::DateValue *arg1 = (Exiv2::DateValue *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "DateValue___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue___len__" "', argument " "1"" of type '" "Exiv2::DateValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  result = (long)Exiv2_DateValue___len__(arg1);
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_DateValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DateValue *arg1 = (Exiv2::DateValue *) 0 ;
@@ -16298,7 +16214,7 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DateValue) /* defines _wrap_delete_DateValue_destructor_closure */
 
-SWIGPY_LENFUNC_CLOSURE(_wrap_DateValue___len__) /* defines _wrap_DateValue___len___lenfunc_closure */
+SWIGPY_LENFUNC_CLOSURE(_wrap_DateValue_count) /* defines _wrap_DateValue_count_lenfunc_closure */
 
 SWIGPY_FUNPACK_SSIZEARGFUNC_CLOSURE(_wrap_DateValue___getitem__) /* defines _wrap_DateValue___getitem___ssizeargfunc_closure */
 
@@ -17988,28 +17904,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_TimeValue___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TimeValue *arg1 = (Exiv2::TimeValue *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TimeValue___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue___len__" "', argument " "1"" of type '" "Exiv2::TimeValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  result = (long)Exiv2_TimeValue___len__(arg1);
-  resultobj = SWIG_From_long(static_cast< long >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_TimeValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::TimeValue *arg1 = (Exiv2::TimeValue *) 0 ;
@@ -18061,7 +17955,7 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_TimeValue) /* defines _wrap_delete_TimeValue_destructor_closure */
 
-SWIGPY_LENFUNC_CLOSURE(_wrap_TimeValue___len__) /* defines _wrap_TimeValue___len___lenfunc_closure */
+SWIGPY_LENFUNC_CLOSURE(_wrap_TimeValue_count) /* defines _wrap_TimeValue_count_lenfunc_closure */
 
 SWIGPY_FUNPACK_SSIZEARGFUNC_CLOSURE(_wrap_TimeValue___getitem__) /* defines _wrap_TimeValue___getitem___ssizeargfunc_closure */
 
@@ -30303,7 +30197,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataValue_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    (lenfunc) 0,                              /* sq_length */
+    _wrap_DataValue_count_lenfunc_closure,    /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */
@@ -30435,7 +30329,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__StringValueBase_methods[] = {
   { "toLong", _wrap_StringValueBase_toLong, METH_VARARGS, "" },
   { "toFloat", _wrap_StringValueBase_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_StringValueBase_toRational, METH_VARARGS, "" },
-  { "__len__", _wrap_StringValueBase___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_StringValueBase___getitem__, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
@@ -30601,7 +30494,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__StringValueBase_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    _wrap_StringValueBase___len___lenfunc_closure,                /* sq_length */
+    _wrap_StringValueBase_count_lenfunc_closure,                  /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     _wrap_StringValueBase___getitem___ssizeargfunc_closure,       /* sq_item */
@@ -31875,7 +31768,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpTextValue_methods[] = {
 		":rtype: :py:class:`Rational`\n"
 		":return: The converted value.\n"
 		"" },
-  { "__len__", _wrap_XmpTextValue___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_XmpTextValue___getitem__, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
@@ -32042,7 +31934,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpTextValue_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    _wrap_XmpTextValue___len___lenfunc_closure,                   /* sq_length */
+    _wrap_XmpTextValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     _wrap_XmpTextValue___getitem___ssizeargfunc_closure,          /* sq_item */
@@ -32675,12 +32567,12 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
 #endif
   },
   {
-    _wrap_LangAltValue_count_lenfunc_closure, /* mp_length */
+    (lenfunc) 0,                              /* mp_length */
     _wrap_LangAltValue___getitem__,           /* mp_subscript */
     _wrap_LangAltValue___setitem___objobjargproc_closure,         /* mp_ass_subscript */
   },
   {
-    (lenfunc) 0,                              /* sq_length */
+    _wrap_LangAltValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */
@@ -32815,7 +32707,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue_methods[] = {
   { "toLong", _wrap_DateValue_toLong, METH_VARARGS, " Return the value as a UNIX calender time converted to long." },
   { "toFloat", _wrap_DateValue_toFloat, METH_VARARGS, " Return the value as a UNIX calender time converted to float." },
   { "toRational", _wrap_DateValue_toRational, METH_VARARGS, " Return the value as a UNIX calender time  converted to Rational." },
-  { "__len__", _wrap_DateValue___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_DateValue___getitem__, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
@@ -32981,7 +32872,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DateValue_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    _wrap_DateValue___len___lenfunc_closure,  /* sq_length */
+    _wrap_DateValue_count_lenfunc_closure,    /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     _wrap_DateValue___getitem___ssizeargfunc_closure,             /* sq_item */
@@ -33366,7 +33257,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TimeValue_methods[] = {
   { "toLong", _wrap_TimeValue_toLong, METH_VARARGS, " Returns number of seconds in the day in UTC." },
   { "toFloat", _wrap_TimeValue_toFloat, METH_VARARGS, " Returns number of seconds in the day in UTC converted to float." },
   { "toRational", _wrap_TimeValue_toRational, METH_VARARGS, " Returns number of seconds in the day in UTC converted to Rational." },
-  { "__len__", _wrap_TimeValue___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_TimeValue___getitem__, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
@@ -33534,7 +33424,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__TimeValue_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    _wrap_TimeValue___len___lenfunc_closure,  /* sq_length */
+    _wrap_TimeValue_count_lenfunc_closure,    /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     _wrap_TimeValue___getitem___ssizeargfunc_closure,             /* sq_item */
