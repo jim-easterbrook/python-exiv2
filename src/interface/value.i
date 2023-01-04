@@ -197,8 +197,6 @@ KEEP_REFERENCE(const Exiv2::Value&)
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
 %feature("python:slot", "sq_length", functype="lenfunc") type_name::count;
-// Use Exiv2::Value::__str__
-%feature("python:tp_str") type_name "_wrap_Value___str___reprfunc_closure";
 %ignore type_name::value_;
 %noexception type_name::count;
 %noexception type_name::size;

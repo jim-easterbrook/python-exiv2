@@ -30071,7 +30071,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataValue_type = {
     &SwigPyBuiltin__Exiv2__DataValue_type.as_mapping,             /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__DataValue_type.as_buffer,              /* tp_as_buffer */
@@ -30363,7 +30363,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__StringValueBase_type = {
     &SwigPyBuiltin__Exiv2__StringValueBase_type.as_mapping,       /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__StringValueBase_type.as_buffer,        /* tp_as_buffer */
@@ -30605,7 +30605,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__StringValue_type = {
     &SwigPyBuiltin__Exiv2__StringValue_type.as_mapping,           /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__StringValue_type.as_buffer,            /* tp_as_buffer */
@@ -30892,7 +30892,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__AsciiValue_type = {
     &SwigPyBuiltin__Exiv2__AsciiValue_type.as_mapping,            /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__AsciiValue_type.as_buffer,             /* tp_as_buffer */
@@ -31187,7 +31187,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__CommentValue_type = {
     &SwigPyBuiltin__Exiv2__CommentValue_type.as_mapping,          /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__CommentValue_type.as_buffer,           /* tp_as_buffer */
@@ -31481,7 +31481,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpValue_type = {
     &SwigPyBuiltin__Exiv2__XmpValue_type.as_mapping,              /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__XmpValue_type.as_buffer,               /* tp_as_buffer */
@@ -31802,7 +31802,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpTextValue_type = {
     &SwigPyBuiltin__Exiv2__XmpTextValue_type.as_mapping,          /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__XmpTextValue_type.as_buffer,           /* tp_as_buffer */
@@ -32102,7 +32102,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpArrayValue_type = {
     &SwigPyBuiltin__Exiv2__XmpArrayValue_type.as_mapping,         /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__XmpArrayValue_type.as_buffer,          /* tp_as_buffer */
@@ -32441,7 +32441,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
     &SwigPyBuiltin__Exiv2__LangAltValue_type.as_mapping,          /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__LangAltValue_type.as_buffer,           /* tp_as_buffer */
@@ -32741,7 +32741,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DateValue_type = {
     &SwigPyBuiltin__Exiv2__DateValue_type.as_mapping,             /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__DateValue_type.as_buffer,              /* tp_as_buffer */
@@ -33291,7 +33291,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__TimeValue_type = {
     &SwigPyBuiltin__Exiv2__TimeValue_type.as_mapping,             /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__TimeValue_type.as_buffer,              /* tp_as_buffer */
@@ -33824,7 +33824,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type = {
     &SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type.as_buffer,  /* tp_as_buffer */
@@ -34114,7 +34114,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_type = {
     &SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_type.as_buffer,  /* tp_as_buffer */
@@ -34404,7 +34404,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_type
     &SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_type.as_mapping,/* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_type.as_buffer,/* tp_as_buffer */
@@ -34694,7 +34694,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_type = {
     &SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_type.as_mapping,  /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_type.as_buffer,   /* tp_as_buffer */
@@ -34979,7 +34979,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_type = {
     &SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_type.as_mapping,  /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_type.as_buffer,   /* tp_as_buffer */
@@ -35269,7 +35269,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_type 
     &SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_type.as_mapping,/* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_type.as_buffer,/* tp_as_buffer */
@@ -35559,7 +35559,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_float_t_type = {
     &SwigPyBuiltin__Exiv2__ValueTypeT_float_t_type.as_mapping,    /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__ValueTypeT_float_t_type.as_buffer,     /* tp_as_buffer */
@@ -35849,7 +35849,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_double_t_type = {
     &SwigPyBuiltin__Exiv2__ValueTypeT_double_t_type.as_mapping,   /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    _wrap_Value___str___reprfunc_closure,     /* tp_str */
+    (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__ValueTypeT_double_t_type.as_buffer,    /* tp_as_buffer */
