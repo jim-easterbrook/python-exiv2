@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2022  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2022-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -35,8 +35,8 @@ class TestDataRead(unittest.TestCase):
 
     def test_exif(self):
         for tag, exiv_type, value in (
-                ('Exif.Image.ImageDescription', exiv2.AsciiValue,
-                 'Good view of the lighthouse.'),
+                ('Exif.Image.Copyright', exiv2.AsciiValue,
+                 'Copyright ©2022 Jim Easterbrook. All rights reserved.'),
                 ('Exif.Image.Orientation', exiv2.UShortValue, [1]),
                 ('Exif.Photo.LensSpecification', exiv2.URationalValue,
                  [(18, 1), (200, 1), (7, 2), (63, 10)]),
@@ -47,6 +47,8 @@ class TestDataRead(unittest.TestCase):
             self.assertIsInstance(exiv_value, exiv_type)
             if exiv_type == exiv2.AsciiValue:
                 self.assertEqual(str(exiv_value), value)
+                self.assertEqual(
+                    bytes(exiv_value.data()), value.encode('utf-8'))
             else:
                 self.assertEqual(len(exiv_value), len(value))
                 self.assertEqual(list(exiv_value), value)
