@@ -145,7 +145,8 @@ extra_compile_args = []
 if platform in ('linux', 'darwin', 'mingw'):
     extra_compile_args = [
         '-O3', '-Wno-unused-variable', '-Wno-unused-function',
-        '-Wno-deprecated-declarations', '-Wno-deprecated']
+        '-Wno-deprecated-declarations', '-Wno-deprecated',
+        '-DSWIG_TYPE_TABLE=exiv2']
     if platform in ['linux', 'mingw']:
         extra_compile_args.append('-Wno-unused-but-set-variable')
     if 'PYTHON_EXIV2_STRICT' in os.environ:
