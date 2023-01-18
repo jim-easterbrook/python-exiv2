@@ -142,11 +142,12 @@ package_dir['exiv2'] = mod_src_dir
 # create extension modules list
 ext_modules = []
 extra_compile_args = []
+define_macros = [('PY_SSIZE_T_CLEAN', None),
+                 ('SWIG_TYPE_TABLE', 'exiv2')]
 if platform in ('linux', 'darwin', 'mingw'):
     extra_compile_args = [
         '-O3', '-Wno-unused-variable', '-Wno-unused-function',
-        '-Wno-deprecated-declarations', '-Wno-deprecated',
-        '-DSWIG_TYPE_TABLE=exiv2']
+        '-Wno-deprecated-declarations', '-Wno-deprecated']
     if platform in ['linux', 'mingw']:
         extra_compile_args.append('-Wno-unused-but-set-variable')
     if 'PYTHON_EXIV2_STRICT' in os.environ:
@@ -166,7 +167,7 @@ for file_name in os.listdir(mod_src_dir):
         sources = [os.path.join(mod_src_dir, file_name)],
         include_dirs = include_dirs,
         extra_compile_args = extra_compile_args,
-        define_macros = [('PY_SSIZE_T_CLEAN', None)],
+        define_macros = define_macros,
         libraries = ['exiv2'],
         library_dirs = library_dirs,
         extra_link_args = extra_link_args,
