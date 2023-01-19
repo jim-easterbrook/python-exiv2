@@ -28,7 +28,7 @@ jobs:
           CIBW_SKIP: pp3?-*
           CIBW_BEFORE_ALL: >
             brew install ninja &&
-            pip3 install conan==1.51.0 &&
+            pip3 install conan==1.53.0 &&
             cd exiv2-0.27.6-Source/build &&
             conan profile new --detect default &&
             conan install .. --build missing &&
