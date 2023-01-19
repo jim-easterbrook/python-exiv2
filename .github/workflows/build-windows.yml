@@ -49,7 +49,7 @@ jobs:
         run: |
           pip install --disable-pip-version-check wheel
           pip install --disable-pip-version-check conan==1.53.0
-          conan install .. --build missing
+          conan install .. -b missing -o Exiv2Conan:unitTests=False -o Exiv2Conan:iconv=True
 
       - name: Configure build
         working-directory: ./exiv2-Source/build
