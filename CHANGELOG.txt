@@ -16,6 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.13.1:
+  1/ Add data() method to access Exiv2::StringValueBase raw bytes.
+  2/ Update libexiv2 to 0.27.6 in binary wheels.
+  3/ Enable video support in binary wheels.
+
 Changes in v0.13.0:
   1/ Automatically cast Exiv2::Value return values to correct type.
   2/ Exiv2::byte* return values are converted to a simple buffer object.
