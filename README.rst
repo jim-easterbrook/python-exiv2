@@ -76,12 +76,12 @@ Recent versions of SWIG_ can convert this documentation to pydoc_ format in the 
 Unfortunately some documentation gets lost in the manipulations needed to make a useful interface.
 The C++ documentation is still needed in these cases.
 
-Support for bmff files (CR3, HEIF, HEIC, and AVIF)
---------------------------------------------------
+Support for bmff files (e.g. CR3, HEIF, HEIC, AVIF, JPEG XL)
+------------------------------------------------------------
 
-Python-exiv2 from version 0.8.3 onwards is built with support for bmff files.
-In order to use bmff files in your Python program you need to call the ``enableBMFF`` function.
-Please read the Exiv2 `statement on bmff`_ patents before doing so.
+Python-exiv2 from version 0.8.3 onwards is built with support for BMFF files.
+In order to use BMFF files in your Python program you need to call the ``enableBMFF`` function.
+Please read the Exiv2 `statement on BMFF`_ patents before doing so.
 
 Assignment
 ----------
@@ -151,5 +151,5 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _SWIG:              http://swig.org/
 .. _pydoc:             https://docs.python.org/3/library/pydoc.html
 .. _Python3:           https://www.python.org/
-.. _statement on bmff: https://github.com/exiv2/exiv2#2-19
+.. _statement on BMFF: https://github.com/exiv2/exiv2#BMFF
 .. _Visual C++:        https://wiki.python.org/moin/WindowsCompilers
