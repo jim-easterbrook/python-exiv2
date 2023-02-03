@@ -37,7 +37,11 @@
 
 wrap_auto_unique_ptr(Exiv2::Image);
 
+#if EXIV2_VERSION_HEX < 0x01000000
 INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
+#else
+INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
+#endif
 
 // Potentially blocking calls allow Python threads
 %thread Exiv2::Image::readMetadata;
@@ -46,6 +50,7 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
 %thread Exiv2::ImageFactory::open;
 
 // ImageFactory::open(data, size) needs to keep a reference to the buffer.
+#if EXIV2_VERSION_HEX < 0x01000000
 %typemap(ret) Exiv2::Image::AutoPtr open %{
     if (PyObject_CheckBuffer(swig_obj[0])) {
         if (PyObject_SetAttrString($result, "_refers_to", swig_obj[0])) {
@@ -53,6 +58,15 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
         }
     }
 %}
+#else
+%typemap(ret) Exiv2::Image::UniquePtr open %{
+    if (PyObject_CheckBuffer(swig_obj[0])) {
+        if (PyObject_SetAttrString($result, "_refers_to", swig_obj[0])) {
+            SWIG_fail;
+        }
+    }
+%}
+#endif
 
 // exifData(), iptcData(), and xmpData() return values need to keep a
 // reference to Image.
