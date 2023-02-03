@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -44,6 +44,15 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
 %thread Exiv2::Image::writeMetadata;
 %thread Exiv2::ImageFactory::create;
 %thread Exiv2::ImageFactory::open;
+
+// ImageFactory::open(data, size) needs to keep a reference to the buffer.
+%typemap(ret) Exiv2::Image::AutoPtr open %{
+    if (PyObject_CheckBuffer(swig_obj[0])) {
+        if (PyObject_SetAttrString($result, "_refers_to", swig_obj[0])) {
+            SWIG_fail;
+        }
+    }
+%}
 
 // exifData(), iptcData(), and xmpData() return values need to keep a
 // reference to Image.

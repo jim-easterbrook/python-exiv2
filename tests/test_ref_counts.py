@@ -28,8 +28,8 @@ class TestReferenceCounts(unittest.TestCase):
     def setUpClass(cls):
         exiv2.XmpParser.initialize()
         test_dir = os.path.dirname(__file__)
-        cls.image = exiv2.ImageFactory.open(
-            os.path.join(test_dir, 'image_02.jpg'))
+        cls.image_path = os.path.join(test_dir, 'image_02.jpg')
+        cls.image = exiv2.ImageFactory.open(cls.image_path)
         cls.image.readMetadata()
 
     def test_data(self):
@@ -48,6 +48,15 @@ class TestReferenceCounts(unittest.TestCase):
         self.assertEqual(sys.getrefcount(self.image), 3)
         del exifData
         self.assertEqual(sys.getrefcount(self.image), 2)
+
+    def test_memio(self):
+        with open(self.image_path, 'rb') as f:
+            buf = f.read()
+        self.assertEqual(sys.getrefcount(buf), 2)
+        image = exiv2.ImageFactory.open(buf)
+        self.assertEqual(sys.getrefcount(buf), 3)
+        del image
+        self.assertEqual(sys.getrefcount(buf), 2)
 
     def test_io(self):
         self.assertEqual(sys.getrefcount(self.image), 2)
