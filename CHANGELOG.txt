@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.13.2:
+  1/ Fix occasional segfault with Image.io() of in-memory image data.
+
 Changes in v0.13.1:
   1/ Add data() method to access Exiv2::StringValueBase raw bytes.
   2/ Update libexiv2 to 0.27.6 in binary wheels.
