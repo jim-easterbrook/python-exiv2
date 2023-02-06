@@ -29,9 +29,8 @@ jobs:
             brew install ninja &&
             pip3 install conan==1.53.0 &&
             cd exiv2-0.27.6-Source/build &&
-            conan profile list &&
-            conan profile new default -pr:h m1 &&
-            conan install .. -o unitTests=False -b missing -pr:h m1 &&
+            conan profile new --detect default &&
+            conan install .. -o unitTests=False -b missing -s arch=arm64 &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
