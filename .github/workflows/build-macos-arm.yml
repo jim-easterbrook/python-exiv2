@@ -34,6 +34,7 @@ jobs:
             cmake .. -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
+              -DCMAKE_LD_FLAGS="-L/opt/homebrew/opt/gettext/lib" \
               -DEXIV2_BUILD_SAMPLES=OFF \
               -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
               -DEXIV2_ENABLE_BMFF=ON \
