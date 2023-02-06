@@ -26,7 +26,7 @@ jobs:
           CIBW_ARCHS: arm64
           CIBW_SKIP: pp3?-*
           CIBW_BEFORE_ALL: >
-            brew install ninja gettext &&
+            brew install ninja &&
             pip3 install conan==1.53.0 &&
             cd exiv2-0.27.6-Source/build &&
             conan profile new --detect default &&
@@ -34,11 +34,10 @@ jobs:
             cmake .. -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
-              -DCMAKE_LD_FLAGS="-L/opt/homebrew/opt/gettext/lib" \
               -DEXIV2_BUILD_SAMPLES=OFF \
               -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
               -DEXIV2_ENABLE_BMFF=ON \
-              -DEXIV2_ENABLE_NLS=ON \
+              -DEXIV2_ENABLE_NLS=OFF \
               -DEXIV2_ENABLE_VIDEO=ON \
               -DCMAKE_CXX_STANDARD=98 \
               -DCMAKE_OSX_ARCHITECTURES=arm64 \
