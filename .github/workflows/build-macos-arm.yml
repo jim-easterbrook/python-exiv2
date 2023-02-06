@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: [macos-latest, ARM64]
     env:
       EXIV2_ROOT: /Users/runner/exiv2-install
     steps:
@@ -55,10 +55,10 @@ jobs:
 
   test:
     needs: build
-    runs-on: macos-latest
+    runs-on: [macos-latest, ARM64]
     strategy:
       matrix:
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
+        python-version: ['3.8', '3.9', '3.10', '3.11']
     steps:
       - name: Fetch wheel files
         uses: actions/download-artifact@v3
@@ -69,7 +69,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          architecture: 'x64'
 
       - name: Install wheel
         run: pip3 install --disable-pip-version-check --no-index --find-links=. exiv2
