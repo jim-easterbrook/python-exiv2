@@ -29,7 +29,7 @@ else:
             return Exiv2Error
         raise AttributeError
 
-__version__ = "0.13.2"
+__version__ = "0.13.3"
 
 from exiv2.basicio import *
 from exiv2.datasets import *

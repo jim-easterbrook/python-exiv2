@@ -19,3 +19,13 @@ CharsetId = enum.IntEnum('CharsetId', _enum_list_CharsetId())
 CharsetId.__doc__ = "Character set identifiers for the character sets defined by Exif."
 
 
+import enum
+XmpArrayType = enum.IntEnum('XmpArrayType', _enum_list_XmpArrayType())
+XmpArrayType.__doc__ = "XMP array types."
+
+
+import enum
+XmpStruct = enum.IntEnum('XmpStruct', _enum_list_XmpStruct())
+XmpStruct.__doc__ = "XMP structure indicator."
+
+

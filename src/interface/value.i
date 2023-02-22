@@ -481,6 +481,14 @@ ENUM(CharsetId,
         "undefined",        Exiv2::CommentValue::undefined,
         "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
         "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+ENUM(XmpArrayType, "XMP array types.",
+        "xaNone",   Exiv2::XmpValue::xaNone,
+        "xaAlt",    Exiv2::XmpValue::xaAlt,
+        "xaBag",    Exiv2::XmpValue::xaBag,
+        "xaSeq",    Exiv2::XmpValue::xaSeq);
+ENUM(XmpStruct, "XMP structure indicator.",
+        "xsNone",   Exiv2::XmpValue::xsNone,
+        "xsStruct", Exiv2::XmpValue::xsStruct);
 
 // Some classes wrongly appear to be abstract to SWIG
 %feature("notabstract") Exiv2::LangAltValue;

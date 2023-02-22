@@ -99,6 +99,17 @@ class TestDataRead(unittest.TestCase):
             else:
                 self.assertEqual(str(exiv_value), value)
 
+    def test_xmp_complex(self):
+        for tag, struct, array in (
+                ('Xmp.iptcExt.LocationCreated',
+                 exiv2.XmpStruct.xsNone, exiv2.XmpArrayType.xaBag),
+                ('Xmp.iptcExt.LocationCreated[1]',
+                 exiv2.XmpStruct.xsStruct, exiv2.XmpArrayType.xaNone)):
+            datum = self.xmpData[tag]
+            value = datum.value()
+            self.assertEqual(value.xmpStruct(), struct)
+            self.assertEqual(value.xmpArrayType(value), array)
+
     def test_set_value(self):
         datum = self.exifData['Exif.GPSInfo.GPSLatitude']
         value = datum.getValue()
