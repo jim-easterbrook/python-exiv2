@@ -6013,6 +6013,9 @@ SWIGINTERN std::string Exiv2_XmpTextValue___getitem__(Exiv2::XmpTextValue *self,
             "Use 'value = ""Exiv2::XmpTextValue" ".""toString" "()'", 1);
         return self->toString();
     }
+SWIGINTERN Exiv2::byte const *Exiv2_XmpTextValue_data(Exiv2::XmpTextValue *self){
+        return (Exiv2::byte*)self->value_.data();
+    }
 SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_2(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Value should already have the correct type.", 1);
@@ -13054,6 +13057,47 @@ SWIGINTERN PyObject *_wrap_XmpTextValue___getitem__(PyObject *self, PyObject *ar
     }
   }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpTextValue_data(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpTextValue *arg1 = (Exiv2::XmpTextValue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "XmpTextValue_data", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpTextValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue_data" "', argument " "1"" of type '" "Exiv2::XmpTextValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
+  {
+    try {
+      result = (Exiv2::byte *)Exiv2_XmpTextValue_data(arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = SWIG_NewPointerObj(new byte_buffer(result, arg1->size()),
+    SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
+  
+  
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;
@@ -32249,6 +32293,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpTextValue_methods[] = {
 		":return: The converted value.\n"
 		"" },
   { "__getitem__", _wrap_XmpTextValue___getitem__, METH_O, "" },
+  { "data", _wrap_XmpTextValue_data, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

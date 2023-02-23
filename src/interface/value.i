@@ -436,12 +436,17 @@ SUBSCRIPT_SINGLE(Exiv2::TimeValue, Exiv2::TimeValue::Time, getTime)
 SUBSCRIPT_SINGLE(Exiv2::StringValueBase, std::string, toString)
 SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 
-// Allow access to Exiv2::StringValueBase raw data
+// Allow access to Exiv2::StringValueBase and Exiv2::XmpTextValue raw data
 #ifndef SWIGIMPORTED
 BYTE_BUFFER_CLASS()
 #endif
 BYTE_BUFFER_TYPEMAPS(const Exiv2::byte* data)
 %extend Exiv2::StringValueBase {
+    const Exiv2::byte* data() {
+        return (Exiv2::byte*)$self->value_.data();
+    }
+}
+%extend Exiv2::XmpTextValue {
     const Exiv2::byte* data() {
         return (Exiv2::byte*)$self->value_.data();
     }
