@@ -24279,39 +24279,6 @@ fail:
 
 SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  Exiv2::TypeId arg1 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  Exiv2::ValueType< int32_t > *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_LongValue" "', argument " "1"" of type '" "Exiv2::TypeId""'");
-  } 
-  arg1 = static_cast< Exiv2::TypeId >(val1);
-  {
-    try {
-      result = (Exiv2::ValueType< int32_t > *)new Exiv2::ValueType< int32_t >(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_int_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_LongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   long arg2 ;
   Exiv2::ByteOrder arg3 ;
@@ -24365,7 +24332,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_LongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_LongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   long arg2 ;
@@ -24412,7 +24379,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_LongValue__SWIG_4(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_LongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   int *arg1 = 0 ;
   Exiv2::TypeId arg2 ;
@@ -24439,6 +24406,41 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_4(PyObject *self, Py_ssize_t nobjs, PyO
   {
     try {
       result = (Exiv2::ValueType< int32_t > *)new Exiv2::ValueType< int32_t >((int const &)*arg1,arg2);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_int_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
+SWIGINTERN int _wrap_new_LongValue__SWIG_4(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  int *arg1 = 0 ;
+  int temp1 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  Exiv2::ValueType< int32_t > *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_LongValue" "', argument " "1"" of type '" "int""'");
+  } 
+  temp1 = static_cast< int >(val1);
+  arg1 = &temp1;
+  {
+    try {
+      result = (Exiv2::ValueType< int32_t > *)new Exiv2::ValueType< int32_t >((int const &)*arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -25382,7 +25384,7 @@ check_3:
       }
     }
     if (!_v) goto check_4;
-    return _wrap_new_LongValue__SWIG_1(self, argc, argv);
+    return _wrap_new_LongValue__SWIG_4(self, argc, argv);
   }
 check_4:
   
@@ -25397,19 +25399,19 @@ check_4:
       _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_6;
-    int retval = _wrap_new_LongValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_LongValue__SWIG_2(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_6:
   
   if (argc == 2) {
-    int retval = _wrap_new_LongValue__SWIG_4(self, argc, argv);
+    int retval = _wrap_new_LongValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
   if (argc == 3) {
-    int retval = _wrap_new_LongValue__SWIG_2(self, argc, argv);
+    int retval = _wrap_new_LongValue__SWIG_1(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -25418,10 +25420,10 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_LongValue'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::ValueType< int32_t >::ValueType()\n"
-    "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(int const &,Exiv2::TypeId)\n"
+    "    Exiv2::ValueType< int32_t >::ValueType(int const &)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::ValueType< int > const &)\n"
     "    Exiv2::ValueType< int32_t >::LongValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::ValueType< int32_t >::ValueList)\n");

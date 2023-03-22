@@ -501,7 +501,7 @@ ENUM(XmpStruct, "XMP structure indicator.",
 %feature("notabstract") Exiv2::XmpTextValue;
 
 // Ignore ambiguous constructor
-%ignore Exiv2::ValueType< int32_t >::ValueType(int const &);
+%ignore Exiv2::ValueType< int32_t >::ValueType(TypeId typeId);
 
 // Ignore stuff Python can't use or SWIG can't handle
 %ignore Exiv2::getValue;
