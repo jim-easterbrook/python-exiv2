@@ -34,7 +34,7 @@ jobs:
             conan install .. -o unitTests=False -b missing -pr:b=default -s arch=armv8 &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
-              -DCMAKE_PREFIX_PATH=/usr/local/Cellar/gettext \
+              -DCMAKE_PREFIX_PATH=/usr/local/Cellar/gettext/0.21.1 \
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
               -DEXIV2_BUILD_SAMPLES=OFF \
               -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
