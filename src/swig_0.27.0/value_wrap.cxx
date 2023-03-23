@@ -11624,7 +11624,7 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_CommentValue) /* defines _wrap_delete_CommentValue_destructor_closure */
 
-SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpValue *arg1 = (Exiv2::XmpValue *) 0 ;
   void *argp1 = 0 ;
@@ -11632,7 +11632,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType__SWIG_0(PyObject *self, Py_ssiz
   Exiv2::XmpValue::XmpArrayType result;
   
   (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "XmpValue_xmpArrayType", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpValue, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_xmpArrayType" "', argument " "1"" of type '" "Exiv2::XmpValue const *""'"); 
@@ -12184,75 +12184,6 @@ fail:
     "    Exiv2::XmpValue::read(Exiv2::byte const *,long,Exiv2::ByteOrder)\n"
     "    Exiv2::XmpValue::read(Exiv2::byte const *,long)\n"
     "    Exiv2::XmpValue::read(std::string const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::TypeId arg1 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  Exiv2::XmpValue::XmpArrayType result;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "XmpValue_xmpArrayType" "', argument " "1"" of type '" "Exiv2::TypeId""'");
-  } 
-  arg1 = static_cast< Exiv2::TypeId >(val1);
-  {
-    try {
-      result = (Exiv2::XmpValue::XmpArrayType)Exiv2::XmpValue::xmpArrayType(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpValue_xmpArrayType", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v = 0;
-    {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__XmpValue, 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_1;
-    return _wrap_XmpValue_xmpArrayType__SWIG_0(self, argc, argv);
-  }
-check_1:
-  
-  if (argc == 1) {
-    PyObject *retobj = _wrap_XmpValue_xmpArrayType__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpValue_xmpArrayType'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::XmpValue::xmpArrayType() const\n"
-    "    Exiv2::XmpValue::xmpArrayType(Exiv2::TypeId)\n");
   return 0;
 }
 
@@ -31896,17 +31827,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__CommentValue_clientdata = {0, 
 
 static SwigPyGetSet XmpValue___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpValue_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"Return XMP array type, indicates if an XMP value is an array.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"         Return XMP array type for an array Value TypeId, xaNone if\n"
-		"                *typeId* is not an XMP array value type.\n"
-		"", &XmpValue___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Return XMP array type, indicates if an XMP value is an array.", &XmpValue___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -31925,17 +31846,7 @@ SwigPyBuiltin__Exiv2__XmpValue_richcompare(PyObject *self, PyObject *other, int 
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpValue_methods[] = {
-  { "xmpArrayType", _wrap_XmpValue_xmpArrayType, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Return XMP array type, indicates if an XMP value is an array.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"         Return XMP array type for an array Value TypeId, xaNone if\n"
-		"                *typeId* is not an XMP array value type.\n"
-		"" },
+  { "xmpArrayType", _wrap_XmpValue_xmpArrayType, METH_NOARGS, " Return XMP array type, indicates if an XMP value is an array." },
   { "xmpStruct", _wrap_XmpValue_xmpStruct, METH_NOARGS, " Return XMP struct, indicates if an XMP value is a structure." },
   { "size", _wrap_XmpValue_size, METH_NOARGS, "" },
   { "copy", _wrap_XmpValue_copy, METH_VARARGS, "\n"

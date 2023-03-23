@@ -503,6 +503,10 @@ ENUM(XmpStruct, "XMP structure indicator.",
 // Ignore ambiguous constructor
 %ignore Exiv2::ValueType< int32_t >::ValueType(TypeId typeId);
 
+// Ignore overloaded static xmpArrayType method. SWIG gets confused and makes
+// the other method static as well.
+%ignore Exiv2::XmpValue::xmpArrayType(TypeId typeId);
+
 // Ignore stuff Python can't use or SWIG can't handle
 %ignore Exiv2::getValue;
 %ignore Exiv2::operator<<;

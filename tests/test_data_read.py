@@ -108,7 +108,7 @@ class TestDataRead(unittest.TestCase):
             datum = self.xmpData[tag]
             value = datum.value()
             self.assertEqual(value.xmpStruct(), struct)
-            self.assertEqual(value.xmpArrayType(value), array)
+            self.assertEqual(value.xmpArrayType(), array)
 
     def test_set_value(self):
         datum = self.exifData['Exif.GPSInfo.GPSLatitude']
