@@ -36,7 +36,6 @@ jobs:
         run: |
           tar xf exiv2-0.27.6-Source.tar.gz
           mv exiv2-0.27.6-Source exiv2-Source
-#          cp conanfile.py exiv2-Source/
 
       - name: Make directories
         working-directory: ./exiv2-Source
@@ -48,7 +47,7 @@ jobs:
         working-directory: ./exiv2-Source/build
         run: |
           pip install --disable-pip-version-check wheel
-          pip install --disable-pip-version-check conan==1.53.0
+          pip install --disable-pip-version-check conan>=1.54.0
           conan install .. -o unitTests=False -o iconv=True -b missing
 
       - name: Configure build
