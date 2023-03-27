@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.14.0:
+  1/ Added enums for XmpStruct and XmpArrayType
+  2/ Added method for copy-free access to XmpTextValue raw data.
+
 Changes in v0.13.2:
   1/ Fix occasional segfault with Image.io() of in-memory image data.
 
