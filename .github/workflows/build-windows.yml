@@ -48,6 +48,7 @@ jobs:
         run: |
           pip install --disable-pip-version-check wheel
           pip install --disable-pip-version-check conan>=1.54.0
+          conan profile detect
           conan install .. -o unitTests=False -o iconv=True -b missing
 
       - name: Configure build
