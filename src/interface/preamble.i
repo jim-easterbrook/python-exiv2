@@ -53,7 +53,7 @@ PyObject* logger = NULL;
 precheck
     try {
         $action
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
     } catch(Exiv2::AnyError const& e) {
 #else
     } catch(Exiv2::Error const& e) {
@@ -111,7 +111,7 @@ KEEP_REFERENCE(datum_type&)
 %typemap(check) Exiv2::TypeId as_type %{
     _global_type_id = $1;
 %}
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 %extend datum_type {
     Exiv2::Value::AutoPtr getValue(Exiv2::TypeId as_type) {
         return $self->getValue();
@@ -422,7 +422,7 @@ name.__doc__ = doc
 %enddef // ENUM
 
 // Stuff to handle auto_ptr or unique_ptr
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 %define wrap_auto_unique_ptr(pointed_type)
 %include "std_auto_ptr.i"
 %auto_ptr(pointed_type)

@@ -48,7 +48,7 @@ void _set_locale_dir(const char* dirname) {
 %feature("python:slot", "mp_subscript",
          functype="binaryfunc") Exiv2::DataBuf::__getitem__;
 %extend Exiv2::DataBuf {
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
     long __len__() {
         return $self->size_;
     }
@@ -111,7 +111,7 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
         return -1;
     }
 %}
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 %{
     return PyBuffer_FillInfo(
         view, exporter, self->pData_, self->size_, 1, flags);
@@ -126,7 +126,7 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 #endif
 
 // Convert pData_ and data() result to an object with a buffer interface
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 %typemap(out) (Exiv2::byte* pData_), (Exiv2::byte* data) %{
     $result = SWIG_NewPointerObj(new byte_buffer($1, arg1->size_),
         $descriptor(byte_buffer*), SWIG_POINTER_OWN);
@@ -142,8 +142,8 @@ BYTE_BUFFER_TYPEMAPS(Exiv2::byte* data)
 BYTE_BUFFER_CLASS()
 #endif
 
-// Backport Exiv2 v1.0.0 methods
-#if EXIV2_VERSION_HEX < 0x01000000
+// Backport Exiv2 v0.28.0 methods
+#if EXIV2_VERSION_HEX < 0x001c0000
 %extend Exiv2::DataBuf {
     Exiv2::byte* data() const { return $self->pData_; }
     size_t size() const { return $self->size_; }

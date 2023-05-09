@@ -37,7 +37,7 @@
 
 wrap_auto_unique_ptr(Exiv2::Image);
 
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
 #else
 INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
@@ -50,7 +50,7 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
 %thread Exiv2::ImageFactory::open;
 
 // ImageFactory::open(data, size) needs to keep a reference to the buffer.
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 %typemap(ret) Exiv2::Image::AutoPtr open %{
     if (PyObject_CheckBuffer(swig_obj[0])) {
         if (PyObject_SetAttrString($result, "_refers_to", swig_obj[0])) {
@@ -115,7 +115,7 @@ ENUM(ImageType, "Supported image formats.",
 %ignore Exiv2::Image::xmpPacket() const;
 
 // Ignore stuff Python can't use
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 %ignore Exiv2::ImageFactory::create(int, BasicIo::AutoPtr);
 %ignore Exiv2::ImageFactory::open(BasicIo::AutoPtr);
 #else
@@ -149,7 +149,7 @@ ENUM(ImageType, "Supported image formats.",
 %ignore byteSwap4;
 %ignore byteSwap8;
 
-#if EXIV2_VERSION_HEX >= 0x01000000
+#if EXIV2_VERSION_HEX >= 0x001c0000
 %include "exiv2/image_types.hpp"
 #endif
 

@@ -48,7 +48,7 @@ wrap_auto_unique_ptr(Exiv2::Value);
     }
 %}
 // DataValue constructor and DataValue::read can take a Python buffer
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 INPUT_BUFFER_RO(const Exiv2::byte* buf, long len)
 #else
 INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
@@ -159,7 +159,7 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
         SWIG_fail;
     }
 %enddef // GET_SWIG_TYPE
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
 %typemap(out) Exiv2::Value::AutoPtr
         (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
     if ($1.get()) {
@@ -211,7 +211,7 @@ KEEP_REFERENCE(const Exiv2::Value&)
             msg += "' to type '";
             msg += Exiv2::TypeInfo::typeName(type_name().typeId());
             msg += "'.";
-#if EXIV2_VERSION_HEX < 0x01000000
+#if EXIV2_VERSION_HEX < 0x001c0000
             throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
 #else
             throw Exiv2::Error(Exiv2::ErrorCode::kerErrorMessage, msg);
