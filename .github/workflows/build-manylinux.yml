@@ -12,8 +12,8 @@ jobs:
 
       - name: Download libexiv2
         run: |
-          wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.6/exiv2-0.27.6-Source.tar.gz
-          tar xf exiv2-0.27.6-Source.tar.gz
+          wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.7/exiv2-0.27.7-Source.tar.gz
+          tar xf exiv2-0.27.7-Source.tar.gz
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.2
@@ -23,7 +23,7 @@ jobs:
           CIBW_BUILD: cp*-manylinux_x86_64
           CIBW_BEFORE_ALL: >
             yum install -y zlib-devel expat-devel gettext-devel &&
-            cd exiv2-0.27.6-Source &&
+            cd exiv2-0.27.7-Source &&
             mkdir build &&
             cd build &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \

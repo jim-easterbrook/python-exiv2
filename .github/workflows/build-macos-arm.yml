@@ -12,12 +12,12 @@ jobs:
 
       - name: Download libexiv2
         run: |
-          wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.6/exiv2-0.27.6-Source.tar.gz
-          tar xf exiv2-0.27.6-Source.tar.gz
+          wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.7/exiv2-0.27.7-Source.tar.gz
+          tar xf exiv2-0.27.7-Source.tar.gz
 
       - name: Make directories
         run: |
-          mkdir exiv2-0.27.6-Source/build
+          mkdir exiv2-0.27.7-Source/build
           mkdir $EXIV2_ROOT
 
       - name: Build wheels
@@ -27,8 +27,8 @@ jobs:
           CIBW_SKIP: pp3?-*
           CIBW_BEFORE_ALL: >
             brew install ninja &&
-            pip3 install conan==1.54.0 &&
-            cd exiv2-0.27.6-Source/build &&
+            pip3 install conan==1.59.0 &&
+            cd exiv2-0.27.7-Source/build &&
             conan profile new --detect default &&
             conan install .. -o unitTests=False -b missing -pr:b=default -s arch=armv8 &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
