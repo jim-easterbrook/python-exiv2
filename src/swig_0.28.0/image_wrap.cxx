@@ -4006,7 +4006,7 @@ static PyObject* _get_enum_list(int dummy, ...) {
 
 
 PyObject* _enum_list_ImageType() {
-    return _get_enum_list(0, "bmp",int(Exiv2::ImageType::bmp),"bmff", int(Exiv2::ImageType::bmff),
+    return _get_enum_list(0, "bmp",int(Exiv2::ImageType::bmp),
         "cr2",int(Exiv2::ImageType::cr2),"crw",int(Exiv2::ImageType::crw),"eps",int(Exiv2::ImageType::eps),"exv",int(Exiv2::ImageType::exv),"gif",int(Exiv2::ImageType::gif),"jp2",int(Exiv2::ImageType::jp2),"jpeg",int(Exiv2::ImageType::jpeg),"mrw",int(Exiv2::ImageType::mrw),"none",int(Exiv2::ImageType::none),"orf",int(Exiv2::ImageType::orf),"pgf",int(Exiv2::ImageType::pgf),"png",int(Exiv2::ImageType::png),"psd",int(Exiv2::ImageType::psd),"raf",int(Exiv2::ImageType::raf),"rw2",int(Exiv2::ImageType::rw2),"tga",int(Exiv2::ImageType::tga),"tiff",int(Exiv2::ImageType::tiff),"xmp",int(Exiv2::ImageType::xmp), NULL, 0);
 };
 

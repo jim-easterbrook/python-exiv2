@@ -3943,14 +3943,7 @@ PyObject* logger = NULL;
 #include <utility>
 
 
-#include <libintl.h>
-
-
 void _set_locale_dir(const char* dirname) {
-    // initialise libexiv2's translator by asking it for a string
-    Exiv2::exvGettext("dummy");
-    // reset libexiv2's translator to use our directory
-    bindtextdomain("exiv2", dirname);
 };
 
 

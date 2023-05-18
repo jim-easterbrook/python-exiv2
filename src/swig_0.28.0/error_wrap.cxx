@@ -3913,9 +3913,6 @@ PyObject* logger = NULL;
 #include <stdexcept>
 
 
-#include "libintl.h"
-
-
 static void log_to_python(int level, const char* msg) {
     Py_ssize_t len = strlen(msg);
     while (len > 0 && msg[len-1] == '\n')
@@ -4932,9 +4929,6 @@ SWIG_init(void) {
     if (PyExc_Exiv2Error == NULL || logger == NULL)
     return NULL;
   }
-  
-  
-  bind_textdomain_codeset("exiv2", "UTF-8");
   
   
   Exiv2::LogMsg::setHandler(&log_to_python);
