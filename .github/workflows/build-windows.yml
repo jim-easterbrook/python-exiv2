@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download Exiv2 source
         run: wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.7/exiv2-0.27.7-Source.tar.gz
@@ -23,7 +23,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Fetch Exiv2 source
         uses: actions/download-artifact@v3
@@ -87,7 +87,7 @@ jobs:
         python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Fetch intermediate files
         uses: actions/download-artifact@v3
@@ -137,7 +137,7 @@ jobs:
         run: pip3 install --disable-pip-version-check --no-index --find-links=. exiv2
 
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get package details
         run: python3 -m exiv2
