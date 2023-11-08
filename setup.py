@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from setuptools import setup, Extension
+from setuptools import __version__ as setuptools_version
 import os
 import subprocess
 import sys
@@ -42,15 +43,15 @@ def get_version(inc_dir):
 # get list of available swigged versions
 swigged_versions = []
 for name in os.listdir('src'):
-    parts = name.split('_')
+    parts = name.split('-')
     if parts[0] == 'swig' and parts[1] not in swigged_versions:
-        swigged_versions.append([int(x) for x in parts[1].split('.')])
+        swigged_versions.append([int(x) for x in parts[1].split('_')])
 swigged_versions.sort(reverse=True)
 
 def get_mod_src_dir(exiv2_version):
-    for version in swigged_versions:
-        if exiv2_version + [0] >= version:
-            return os.path.join('src', 'swig_{}.{}.{}'.format(*version))
+    for v in swigged_versions:
+        if exiv2_version + [0] >= v:
+            return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
     return None
 
 mod_src_dir = None
@@ -173,44 +174,35 @@ for file_name in os.listdir(mod_src_dir):
         extra_link_args = extra_link_args,
         ))
 
-# set options for building source distributions
-command_options = {}
-command_options['sdist'] = {
-    'formats' : ('setup.py', 'zip'),
+setup_kwds = {
+    'ext_package': 'exiv2',
+    'ext_modules': ext_modules,
+    'packages': packages,
+    'package_dir': package_dir,
+    'package_data': package_data,
     }
 
-with open('README.rst') as ldf:
-    long_description = ldf.read()
-py_exiv2_version = long_description.splitlines()[0].split()[-1]
+if tuple(map(int, setuptools_version.split('.')[:2])) < (61, 0):
+    # get metadata from pyproject.toml
+    import toml
+    metadata = toml.load('pyproject.toml')
 
-setup(name = 'exiv2',
-      version = py_exiv2_version,
-      description = 'Python interface to libexiv2',
-      long_description = long_description,
-      author = 'Jim Easterbrook',
-      author_email = 'jim@jim-easterbrook.me.uk',
-      url = 'https://github.com/jim-easterbrook/python-exiv2',
-      classifiers = [
-          'Development Status :: 4 - Beta',
-          'Intended Audience :: Developers',
-          'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
-          'Operating System :: MacOS',
-          'Operating System :: MacOS :: MacOS X',
-          'Operating System :: POSIX',
-          'Operating System :: POSIX :: Linux',
-          'Operating System :: Microsoft',
-          'Operating System :: Microsoft :: Windows',
-          'Programming Language :: Python :: 3',
-          'Topic :: Multimedia',
-          'Topic :: Multimedia :: Graphics',
-          ],
-      platforms = ['POSIX', 'MacOS', 'Windows'],
-      license = 'GNU GPL',
-      command_options = command_options,
-      ext_package = 'exiv2',
-      ext_modules = ext_modules,
-      packages = packages,
-      package_dir = package_dir,
-      package_data = package_data,
-      zip_safe = False,
-      )
+    with open(metadata['project']['readme']) as ldf:
+        long_description = ldf.read()
+    py_exiv2_version = long_description.splitlines()[0].split()[-1]
+
+    setup_kwds.update(
+        name = metadata['project']['name'],
+        version = py_exiv2_version,
+        description = metadata['project']['description'],
+        long_description = long_description,
+        author = metadata['project']['authors'][0]['name'],
+        author_email = metadata['project']['authors'][0]['email'],
+        url = metadata['project']['urls']['homepage'],
+        classifiers = metadata['project']['classifiers'],
+        platforms = metadata['tool']['setuptools']['platforms'],
+        license = metadata['project']['license']['text'],
+        zip_safe = metadata['tool']['setuptools']['zip-safe'],
+        )
+
+setup(**setup_kwds)

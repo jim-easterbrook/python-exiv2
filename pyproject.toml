@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools >= 59.6", "toml"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exiv2"
+description = "Python interface to libexiv2"
+readme = "README.rst"
+license = {text = "GNU GPL"}
+authors = [
+    {name = "Jim Easterbrook", email = "jim@jim-easterbrook.me.uk"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: MacOS",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia",
+    "Topic :: Multimedia :: Graphics",
+]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://github.com/jim-easterbrook/python-exiv2"
+changelog = "https://github.com/jim-easterbrook/python-exiv2/blob/main/CHANGELOG.txt"
+
+[tool.setuptools]
+platforms = ["POSIX", "MacOS", "Windows"]
+zip-safe = false
+
+[tool.setuptools.dynamic]
+version = {attr = "exiv2.__version__"}

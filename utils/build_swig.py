@@ -104,7 +104,7 @@ def main():
     # convert exiv2 version to hex
     exiv2_version_hex = '0x{:02x}{:02x}{:02x}{:02x}'.format(*exiv2_version)
     # create output dir
-    output_dir = os.path.join('src', 'swig_{}.{}.{}'.format(*exiv2_version))
+    output_dir = os.path.join('src', 'swig-{}_{}_{}'.format(*exiv2_version))
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     # copy Python modules
