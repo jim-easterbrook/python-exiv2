@@ -30,6 +30,7 @@ else:
         raise AttributeError
 
 __version__ = "0.14.2"
+__version_tuple__ = tuple((0, 14, 2))
 
 from exiv2.basicio import *
 from exiv2.datasets import *
