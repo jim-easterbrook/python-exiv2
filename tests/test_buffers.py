@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2022  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2022-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -34,9 +34,8 @@ class TestBuffers(unittest.TestCase):
         image = exiv2.ImageFactory.open(self.path)
         io = image.io()
         self.assertEqual(io.open(), 0)
-        with memoryview(io.mmap()) as image_data:
-            with open(self.path, 'rb') as in_file:
-                self.assertEqual(image_data, in_file.read())
+        with open(self.path, 'rb') as in_file:
+            self.assertEqual(io.mmap(), in_file.read())
         self.assertEqual(io.munmap(), 0)
         self.assertEqual(io.close(), 0)
 
@@ -52,7 +51,7 @@ class TestBuffers(unittest.TestCase):
         image.readMetadata()
         thumb = exiv2.ExifThumb(image.exifData()).copy()
         self.assertEqual(
-            memoryview(thumb.data())[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
+            thumb.data()[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
 
 
 if __name__ == '__main__':

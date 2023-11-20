@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2022  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2022-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -42,7 +42,7 @@ class TestPreviewManager(unittest.TestCase):
         del manager, prop
         self.assertEqual(preview.width(), 160)
         self.assertEqual(
-            bytes(preview.pData())[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
+            preview.pData()[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
 
 
 if __name__ == '__main__':
