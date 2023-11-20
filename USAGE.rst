@@ -26,7 +26,7 @@ For example, an `Exiv2::Metadatum`_ object holds a reference to data that can ea
     del exifData['Exif.GPSInfo.GPSLatitude']
     print(str(datum.value()))                       # segfault!
 
-Segmentation faults are also easily caused by careless use of iterators, as discussed below.
+Segmentation faults are also easily caused by careless use of iterators or memory blocks, as discussed below.
 There may be other cases where the Python interface doesn't prevent segfaults.
 Please let me know if you find any.
 
@@ -40,7 +40,7 @@ Use ``value()`` when you don't need to modify the data.
 ``getValue()`` copies the data to a new object that you can modify.
 
 In the C++ API these methods both return (a pointer to) an `Exiv2::Value`_ base class object.
-The Python interface uses the value's ``typeId()`` method to determine its type and casts the return value to the appropriate type.
+The Python interface uses the value's ``typeId()`` method to determine its type and casts the return value to the appropriate derived type.
 
 Recasting data values
 ^^^^^^^^^^^^^^^^^^^^^
@@ -177,8 +177,8 @@ Warning: segmentation faults
 If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
 Just as in C++, there is no way to detect that an iterator has become invalid.
 
-Binary data buffers
--------------------
+Binary data input
+-----------------
 
 Some libexiv2 functions, e.g. `Exiv2::ExifThumb::setJpegThumbnail`_, have an ``Exiv2::byte*`` parameter and a length parameter.
 In python-exiv2 these are replaced by a single parameter that can be any Python object that exposes a simple `buffer interface`_, e.g. bytes_, bytearray_, memoryview_:
@@ -192,8 +192,11 @@ In python-exiv2 these are replaced by a single parameter that can be any Python 
     thumb = exiv2.ExifThumb(image.exifData())
     thumb.setJpegThumbnail(data.getbuffer())
 
+Binary data output
+------------------
+
 Some libexiv2 functions, e.g. `Exiv2::DataBuf::data`_, return ``Exiv2::byte*``, a pointer to a block of memory.
-In python-exiv2 this is converted to an object with a buffer interface, which allows the data to be accessed without unnecessary copying:
+In python-exiv2 (earlier than v0.15.0) this is converted to an object with a buffer interface, which allows the data to be accessed without unnecessary copying:
 
 .. code:: python
 
@@ -202,6 +205,24 @@ In python-exiv2 this is converted to an object with a buffer interface, which al
     thumb_im = PIL.Image.open(io.BytesIO(buf.data()))
 
 A Python memoryview_ can be used to access the data without copying.
+
+In python-exiv2 from v0.15.0 onwards pointers to blocks of memory are converted directly to a Python memoryview_ object.
+This allows direct access to the block of memory without unnecessary copying.
+In some cases this includes writing to the data.
+
+Warning: segmentation faults
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Note that the memory block must not be deleted or resized while the memoryview exists.
+Doing so will invalidate the memoryview and may cause a segmentation fault:
+
+.. code:: python
+
+    buf = exiv2.DataBuf(b'fred')
+    data = buf.data()
+    print(bytes(data))              # Prints b'fred'
+    buf.alloc(128)
+    print(bytes(data))              # Prints random values, may segfault
 
 Exiv2::BasicIo::mmap
 --------------------
@@ -232,6 +253,15 @@ A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap
     with get_file_data(image) as data:
         rsp = requests.post(url, files={'file': io.BytesIO(data)})
 
+Since v0.15.0 the ``exiv2.BasicIo`` Python type includes a contect manager to provide read-only access more conveniently:
+
+.. code:: python
+
+    # after setting some metadata
+    image.writedata()
+    with image.io() as data:
+        rsp = requests.post(url, files={'file': io.BytesIO(data)})
+
 
 
 
@@ -242,7 +272,7 @@ A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap
     https://docs.python.org/3/reference/datamodel.html#context-managers
 .. _dict:              https://docs.python.org/3/library/stdtypes.html#dict
 .. _Exiv2::BasicIo::mmap: https://exiv2.org/doc/classExiv2_1_1BasicIo.html
-.. _Exiv2::DataBuf::data: https://exiv2.org/doc/classExiv2_1_1DataBuf.html
+.. _Exiv2::DataBuf::data: https://exiv2.org/doc/structExiv2_1_1DataBuf.html
 .. _Exiv2::ExifThumb::setJpegThumbnail:
     https://exiv2.org/doc/classExiv2_1_1ExifThumb.html
 .. _Exiv2::Metadatum: https://exiv2.org/doc/classExiv2_1_1Metadatum.html
