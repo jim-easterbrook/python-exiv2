@@ -95,6 +95,13 @@ void _set_locale_dir(const char* dirname) {
         new $type($1), $&1_descriptor, SWIG_POINTER_OWN);
 %}
 
+// Allow Exiv2::DataBuf to be initialised from a Python buffer
+#if EXIV2_VERSION_HEX < 0x001c0000
+INPUT_BUFFER_RO(const Exiv2::byte *pData, long size)
+#else
+INPUT_BUFFER_RO(const Exiv2::byte *pData, size_t size)
+#endif
+
 // Expose Exiv2::DataBuf contents as a Python buffer
 %feature("python:bf_getbuffer",
          functype="getbufferproc") Exiv2::DataBuf "Exiv2_DataBuf_getbuf";

@@ -5416,24 +5416,22 @@ SWIGINTERN int _wrap_new_DataBuf__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObj
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
   Exiv2::DataBuf *result = 0 ;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DataBuf" "', argument " "1"" of type '" "Exiv2::byte const *""'"); 
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    Py_buffer view;
+    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
+    if (res < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataBuf" "', argument " "1"" of type '" "Python buffer interface""'")
+      ;
+    }
+    arg1 = (Exiv2::byte *) view.buf;
+    arg2 = (long) view.len;
+    PyBuffer_Release(&view);
   }
-  arg1 = reinterpret_cast< Exiv2::byte * >(argp1);
-  ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DataBuf" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
   {
     try {
       result = (Exiv2::DataBuf *)new Exiv2::DataBuf((Exiv2::byte const *)arg1,arg2);
@@ -5491,13 +5489,13 @@ fail:
 
 SWIGINTERN int _wrap_new_DataBuf(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
-  PyObject *argv[3] = {
+  PyObject *argv[2] = {
     0
   };
   
   (void)self;
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DataBuf")) SWIG_fail;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DataBuf", 0, 2, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DataBuf", 0, 1, argv))) SWIG_fail;
   --argc;
   if (argc == 0) {
     int retval = _wrap_new_DataBuf__SWIG_0(self, argc, argv);
@@ -5507,22 +5505,29 @@ SWIGINTERN int _wrap_new_DataBuf(PyObject *self, PyObject *args, PyObject *kwarg
   if (argc == 1) {
     int _v = 0;
     {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
+      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_2;
-    return _wrap_new_DataBuf__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_DataBuf__SWIG_2(self, argc, argv);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
   }
 check_2:
   
   if (argc == 1) {
-    int retval = _wrap_new_DataBuf__SWIG_1(self, argc, argv);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
+    int _v = 0;
+    {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_3;
+    return _wrap_new_DataBuf__SWIG_3(self, argc, argv);
   }
-  if (argc == 2) {
-    int retval = _wrap_new_DataBuf__SWIG_2(self, argc, argv);
+check_3:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_DataBuf__SWIG_1(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
