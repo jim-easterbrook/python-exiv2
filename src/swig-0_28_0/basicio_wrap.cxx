@@ -3936,7 +3936,7 @@ static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
     Exiv2::byte* ptr = 0;
     size_t len = 0;
     PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use 'Io.mmap()' to get the data buffer", 1);
+        "use 'Io.mmap()' or 'Io.__enter__()' to get the data buffer", 1);
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
     if (!SWIG_IsOK(res)) {
@@ -4427,6 +4427,18 @@ SWIG_From_std_string  (const std::string& s)
   return SWIG_FromCharPtrAndSize(s.data(), s.size());
 }
 
+SWIGINTERN Exiv2::byte *Exiv2_BasicIo___enter__(Exiv2::BasicIo *self){
+        if (self->open())
+            throw std::runtime_error("exiv2.BasicIo.open() failed");
+        return self->mmap();
+    }
+SWIGINTERN bool Exiv2_BasicIo___exit__(Exiv2::BasicIo *self,PyObject *exc_type,PyObject *exc_instance,PyObject *traceback){
+        if (self->munmap())
+            throw std::runtime_error("exiv2.BasicIo.munmap() failed");
+        if (self->close())
+            throw std::runtime_error("exiv2.BasicIo.close() failed");
+        return false;
+    }
 
 SWIGINTERN int
 SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
@@ -5546,6 +5558,92 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo___enter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool _global_writeable = false ;
+  Exiv2::byte *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "BasicIo___enter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo___enter__" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+    try {
+      result = (Exiv2::byte *)Exiv2_BasicIo___enter__(arg1);
+      
+      
+      
+    } catch(Exiv2::Error const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  {
+    if (result == NULL) {
+      PyErr_SetString(PyExc_RuntimeError, "BasicIo___enter__: not implemented");
+      SWIG_fail;
+    }
+    resultobj = PyMemoryView_FromMemory(
+      (char*)result, arg1->size(),
+      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo___exit__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
+  PyObject *arg4 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[4] ;
+  bool result;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "BasicIo___exit__", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo___exit__" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  arg2 = swig_obj[0];
+  arg3 = swig_obj[1];
+  arg4 = swig_obj[2];
+  {
+    try {
+      result = (bool)Exiv2_BasicIo___exit__(arg1,arg2,arg3,arg4);
+      
+      
+      
+    } catch(Exiv2::Error const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
   return NULL;
@@ -9291,6 +9389,24 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"Return the path to the IO resource. Often used to form\n"
 		"    comprehensive error messages where only a BasicIo instance is\n"
 		"    available.\n"
+		"" },
+  { "__enter__", _wrap_BasicIo___enter__, METH_NOARGS, "\n"
+		"Context manager for read-only data access.\n"
+		"\n"
+		"Wraps open() and mmap() for use by Python with statement, e.g.:\n"
+		"\n"
+		"    with io as data:\n"
+		"        print(data[:10])\n"
+		"\n"
+		"" },
+  { "__exit__", _wrap_BasicIo___exit__, METH_VARARGS, "\n"
+		"Context manager for read-only data access.\n"
+		"\n"
+		"Wraps munmap() and close() for use by Python with statement, e.g.:\n"
+		"\n"
+		"    with io as data:\n"
+		"        print(data[:10])\n"
+		"\n"
 		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };

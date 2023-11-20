@@ -32,12 +32,22 @@ class TestBuffers(unittest.TestCase):
 
     def test_Image_io(self):
         image = exiv2.ImageFactory.open(self.path)
+        # calling mmap etc directly
         io = image.io()
+        self.assertEqual(io.isopen(), False)
         self.assertEqual(io.open(), 0)
+        self.assertEqual(io.isopen(), True)
         with open(self.path, 'rb') as in_file:
             self.assertEqual(io.mmap(), in_file.read())
         self.assertEqual(io.munmap(), 0)
+        self.assertEqual(io.isopen(), True)
         self.assertEqual(io.close(), 0)
+        self.assertEqual(io.isopen(), False)
+        # calling mmap via context manager
+        with io as im_data:
+            with open(self.path, 'rb') as in_file:
+                self.assertEqual(im_data, in_file.read())
+        self.assertEqual(io.isopen(), False)
 
     def test_DataValue(self):
         py_data_1 = bytes(random.choices(range(256), k=128))
