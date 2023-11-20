@@ -56,7 +56,7 @@ EXCEPTION(read,
         SWIG_fail;
     })
 
-// Convert mmap() result to an object with a buffer interface
+// Convert mmap() result to a Python memoryview
 %typemap(check) bool isWriteable %{
     _global_writeable = $1;
 %}
@@ -65,16 +65,10 @@ EXCEPTION(read,
         PyErr_SetString(PyExc_RuntimeError, "$symname: not implemented");
         SWIG_fail;
     }
-    $result = SWIG_NewPointerObj(
-        new byte_buffer($1, arg1->size(), _global_writeable ? 0 : 1),
-        $descriptor(byte_buffer*), SWIG_POINTER_OWN);
+    $result = PyMemoryView_FromMemory(
+        (char*)$1, arg1->size(),
+         _global_writeable ? PyBUF_WRITE : PyBUF_READ);
 }
-// mmap() return value keeps a reference to the Io it points to
-KEEP_REFERENCE(Exiv2::byte* mmap)
-
-#ifndef SWIGIMPORTED
-BYTE_BUFFER_CLASS()
-#endif
 
 // Expose BasicIo contents as a Python buffer
 %feature("python:bf_getbuffer",

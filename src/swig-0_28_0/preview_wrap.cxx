@@ -3794,35 +3794,34 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_XmpData_iterator swig_types[46]
 #define SWIGTYPE_p_XmpData_iterator_end swig_types[47]
 #define SWIGTYPE_p_allocator_type swig_types[48]
-#define SWIGTYPE_p_byte_buffer swig_types[49]
-#define SWIGTYPE_p_char swig_types[50]
-#define SWIGTYPE_p_const_iterator swig_types[51]
-#define SWIGTYPE_p_difference_type swig_types[52]
-#define SWIGTYPE_p_first_type swig_types[53]
-#define SWIGTYPE_p_int swig_types[54]
-#define SWIGTYPE_p_iterator swig_types[55]
-#define SWIGTYPE_p_key_type swig_types[56]
-#define SWIGTYPE_p_long_long swig_types[57]
-#define SWIGTYPE_p_mapped_type swig_types[58]
-#define SWIGTYPE_p_second_type swig_types[59]
-#define SWIGTYPE_p_short swig_types[60]
-#define SWIGTYPE_p_signed_char swig_types[61]
-#define SWIGTYPE_p_size_type swig_types[62]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[63]
-#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[64]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[65]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[66]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[67]
-#define SWIGTYPE_p_std__vectorT_Exiv2__PreviewProperties_std__allocatorT_Exiv2__PreviewProperties_t_t swig_types[68]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[69]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[70]
-#define SWIGTYPE_p_unsigned_char swig_types[71]
-#define SWIGTYPE_p_unsigned_int swig_types[72]
-#define SWIGTYPE_p_unsigned_long_long swig_types[73]
-#define SWIGTYPE_p_unsigned_short swig_types[74]
-#define SWIGTYPE_p_value_type swig_types[75]
-static swig_type_info *swig_types[77];
-static swig_module_info swig_module = {swig_types, 76, 0, 0, 0, 0};
+#define SWIGTYPE_p_char swig_types[49]
+#define SWIGTYPE_p_const_iterator swig_types[50]
+#define SWIGTYPE_p_difference_type swig_types[51]
+#define SWIGTYPE_p_first_type swig_types[52]
+#define SWIGTYPE_p_int swig_types[53]
+#define SWIGTYPE_p_iterator swig_types[54]
+#define SWIGTYPE_p_key_type swig_types[55]
+#define SWIGTYPE_p_long_long swig_types[56]
+#define SWIGTYPE_p_mapped_type swig_types[57]
+#define SWIGTYPE_p_second_type swig_types[58]
+#define SWIGTYPE_p_short swig_types[59]
+#define SWIGTYPE_p_signed_char swig_types[60]
+#define SWIGTYPE_p_size_type swig_types[61]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[62]
+#define SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_std__string_t_t_t swig_types[63]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[64]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[65]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[66]
+#define SWIGTYPE_p_std__vectorT_Exiv2__PreviewProperties_std__allocatorT_Exiv2__PreviewProperties_t_t swig_types[67]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[68]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[69]
+#define SWIGTYPE_p_unsigned_char swig_types[70]
+#define SWIGTYPE_p_unsigned_int swig_types[71]
+#define SWIGTYPE_p_unsigned_long_long swig_types[72]
+#define SWIGTYPE_p_unsigned_short swig_types[73]
+#define SWIGTYPE_p_value_type swig_types[74]
+static swig_type_info *swig_types[76];
+static swig_module_info swig_module = {swig_types, 75, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5913,7 +5912,6 @@ static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0
 static swig_type_info _swigt__p_XmpData_iterator = {"_p_XmpData_iterator", "XmpData_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_XmpData_iterator_end = {"_p_XmpData_iterator_end", "XmpData_iterator_end *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_byte_buffer = {"_p_byte_buffer", "byte_buffer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
@@ -5991,7 +5989,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_XmpData_iterator,
   &_swigt__p_XmpData_iterator_end,
   &_swigt__p_allocator_type,
-  &_swigt__p_byte_buffer,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
   &_swigt__p_difference_type,
@@ -6069,7 +6066,6 @@ static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0}
 static swig_cast_info _swigc__p_XmpData_iterator[] = {  {&_swigt__p_XmpData_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_XmpData_iterator_end[] = {  {&_swigt__p_XmpData_iterator_end, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_byte_buffer[] = {  {&_swigt__p_byte_buffer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -6147,7 +6143,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_XmpData_iterator,
   _swigc__p_XmpData_iterator_end,
   _swigc__p_allocator_type,
-  _swigc__p_byte_buffer,
   _swigc__p_char,
   _swigc__p_const_iterator,
   _swigc__p_difference_type,
