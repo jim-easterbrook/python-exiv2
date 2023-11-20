@@ -19,6 +19,7 @@
 
 %include "preamble.i"
 
+%include "stdint.i"
 %include "std_string.i"
 
 %ignore exv_grep_keys_t;
