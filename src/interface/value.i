@@ -437,20 +437,22 @@ SUBSCRIPT_SINGLE(Exiv2::StringValueBase, std::string, toString)
 SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 
 // Allow access to Exiv2::StringValueBase and Exiv2::XmpTextValue raw data
-#ifndef SWIGIMPORTED
-BYTE_BUFFER_CLASS()
-#endif
-BYTE_BUFFER_TYPEMAPS(const Exiv2::byte* data)
-%extend Exiv2::StringValueBase {
-    const Exiv2::byte* data() {
-        return (Exiv2::byte*)$self->value_.data();
+%define RAW_STRING_DATA(class)
+%feature("docstring") class ## ::data
+"Returns a temporary Python memoryview of the raw string data.
+
+WARNING: do not modify or delete the string value while using the
+memoryview."
+
+%extend class {
+    PyObject* data() {
+        return PyMemoryView_FromMemory(
+            (char*)$self->value_.data(), $self->value_.size(), PyBUF_READ);
     }
 }
-%extend Exiv2::XmpTextValue {
-    const Exiv2::byte* data() {
-        return (Exiv2::byte*)$self->value_.data();
-    }
-}
+%enddef // RAW_STRING_DATA
+RAW_STRING_DATA(Exiv2::StringValueBase)
+RAW_STRING_DATA(Exiv2::XmpTextValue)
 
 // XmpArrayValue holds multiple values but they're not assignable
 %feature("python:slot", "sq_length", functype="lenfunc")
