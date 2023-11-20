@@ -3990,82 +3990,6 @@ PyObject* logger = NULL;
 #include <string>
 
 
-class byte_buffer {
-private:
-    Exiv2::byte* ptr;
-    const size_t len;
-    const int readonly;
-public:
-    byte_buffer(Exiv2::byte* ptr, size_t len, int readonly=1)
-        : ptr(ptr), len(len), readonly(readonly) {}
-    size_t __len__() { return len; }
-    static int getbuffer(PyObject* exporter, Py_buffer* view, int flags) {
-        byte_buffer* self = 0;
-        int res = SWIG_ConvertPtr(
-            exporter, (void**)&self, SWIGTYPE_p_byte_buffer, 0);
-        if (!SWIG_IsOK(res)) {
-            PyErr_SetNone(PyExc_BufferError);
-            view->obj = NULL;
-            return -1;
-        }
-        return PyBuffer_FillInfo(
-            view, exporter, self->ptr, self->len, self->readonly, flags);
-    }
-};
-
-
-  #define SWIG_From_long   PyInt_FromLong 
-
-
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-
-
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-#endif
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_size_t  (size_t value)
-{    
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  if (sizeof(size_t) <= sizeof(unsigned long)) {
-#endif
-    return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  } else {
-    /* assume sizeof(size_t) <= sizeof(unsigned long long) */
-    return SWIG_From_unsigned_SS_long_SS_long  (static_cast< unsigned long long >(value));
-  }
-#endif
-}
-
-
 SWIGINTERN swig_type_info*
 SWIG_pchar_descriptor(void)
 {
@@ -4264,78 +4188,12 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   return SWIG_ERROR;
 }
 
+
+  #define SWIG_From_long   PyInt_FromLong 
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap_byte_buffer___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  byte_buffer *arg1 = (byte_buffer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "byte_buffer___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_byte_buffer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "byte_buffer___len__" "', argument " "1"" of type '" "byte_buffer *""'"); 
-  }
-  arg1 = reinterpret_cast< byte_buffer * >(argp1);
-  {
-    try {
-      result = (arg1)->__len__();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_byte_buffer(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  byte_buffer *arg1 = (byte_buffer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_byte_buffer", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_byte_buffer, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_byte_buffer" "', argument " "1"" of type '" "byte_buffer *""'"); 
-  }
-  arg1 = reinterpret_cast< byte_buffer * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_LENFUNC_CLOSURE(_wrap_byte_buffer___len__) /* defines _wrap_byte_buffer___len___lenfunc_closure */
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_byte_buffer) /* defines _wrap_delete_byte_buffer_destructor_closure */
-
 SWIGINTERN PyObject *_wrap_PreviewProperties_mimeType__get(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
@@ -4661,13 +4519,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(new byte_buffer(result, arg1->size()),
-    SWIGTYPE_p_byte_buffer, SWIG_POINTER_OWN);
-  
-  
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
-    SWIG_fail;
-  }
+  resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
   
   return resultobj;
 fail:
@@ -5098,235 +4950,6 @@ static PyMethodDef SwigMethods[] = {
 	 { NULL, NULL, 0, NULL }
 };
 
-static SwigPyGetSet byte_buffer___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__byte_buffer_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &byte_buffer___dict___getset },
-    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
-};
-
-SWIGINTERN PyObject *
-SwigPyBuiltin__byte_buffer_richcompare(PyObject *self, PyObject *other, int op) {
-  PyObject *result = NULL;
-  if (!result) {
-    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
-      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
-    } else {
-      result = Py_NotImplemented;
-      Py_INCREF(result);
-    }
-  }
-  return result;
-}
-
-SWIGINTERN PyMethodDef SwigPyBuiltin__byte_buffer_methods[] = {
-  { "__len__", _wrap_byte_buffer___len__, METH_NOARGS, "" },
-  { NULL, NULL, 0, NULL } /* Sentinel */
-};
-
-static PyHeapTypeObject SwigPyBuiltin__byte_buffer_type = {
-  {
-#if PY_VERSION_HEX >= 0x03000000
-    PyVarObject_HEAD_INIT(NULL, 0)
-#else
-    PyObject_HEAD_INIT(NULL)
-    0,                                        /* ob_size */
-#endif
-    "exiv2.preview.byte_buffer",              /* tp_name */
-    sizeof(SwigPyObject),                     /* tp_basicsize */
-    0,                                        /* tp_itemsize */
-    _wrap_delete_byte_buffer_destructor_closure,                  /* tp_dealloc */
-#if PY_VERSION_HEX < 0x030800b4
-    (printfunc) 0,                            /* tp_print */
-#else
-    (Py_ssize_t) 0,                           /* tp_vectorcall_offset */
-#endif
-    (getattrfunc) 0,                          /* tp_getattr */
-    (setattrfunc) 0,                          /* tp_setattr */
-#if PY_VERSION_HEX >= 0x03000000
-    0,                                        /* tp_compare */
-#else
-    (cmpfunc) 0,                              /* tp_compare */
-#endif
-    (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__byte_buffer_type.as_number,                   /* tp_as_number */
-    &SwigPyBuiltin__byte_buffer_type.as_sequence,                 /* tp_as_sequence */
-    &SwigPyBuiltin__byte_buffer_type.as_mapping,                  /* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
-    (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
-    (getattrofunc) 0,                         /* tp_getattro */
-    (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__byte_buffer_type.as_buffer,                   /* tp_as_buffer */
-#if PY_VERSION_HEX >= 0x03000000
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
-#else
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
-#endif
-    "::byte_buffer",                          /* tp_doc */
-    (traverseproc) 0,                         /* tp_traverse */
-    (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__byte_buffer_richcompare,   /* tp_richcompare */
-    0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
-    (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__byte_buffer_methods,       /* tp_methods */
-    0,                                        /* tp_members */
-    SwigPyBuiltin__byte_buffer_getset,        /* tp_getset */
-    0,                                        /* tp_base */
-    0,                                        /* tp_dict */
-    (descrgetfunc) 0,                         /* tp_descr_get */
-    (descrsetfunc) 0,                         /* tp_descr_set */
-    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    SwigPyBuiltin_BadInit,                    /* tp_init */
-    (allocfunc) 0,                            /* tp_alloc */
-    (newfunc) 0,                              /* tp_new */
-    (freefunc) 0,                             /* tp_free */
-    (inquiry) 0,                              /* tp_is_gc */
-    (PyObject *) 0,                           /* tp_bases */
-    (PyObject *) 0,                           /* tp_mro */
-    (PyObject *) 0,                           /* tp_cache */
-    (PyObject *) 0,                           /* tp_subclasses */
-    (PyObject *) 0,                           /* tp_weaklist */
-    (destructor) 0,                           /* tp_del */
-    (int) 0,                                  /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    (destructor) 0,                           /* tp_finalize */
-#endif
-#if PY_VERSION_HEX >= 0x03080000
-    (vectorcallfunc) 0,                       /* tp_vectorcall */
-#endif
-#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
-    0,                                        /* tp_print */
-#endif
-#ifdef COUNT_ALLOCS
-    (Py_ssize_t) 0,                           /* tp_allocs */
-    (Py_ssize_t) 0,                           /* tp_frees */
-    (Py_ssize_t) 0,                           /* tp_maxalloc */
-    0,                                        /* tp_prev */
-    0,                                        /* tp_next */
-#endif
-  },
-#if PY_VERSION_HEX >= 0x03050000
-  {
-    (unaryfunc) 0,                            /* am_await */
-    (unaryfunc) 0,                            /* am_aiter */
-    (unaryfunc) 0,                            /* am_anext */
-# if PY_VERSION_HEX >= 0x030a0000
-    (sendfunc) 0,                             /* am_send */
-# endif
-  },
-#endif
-  {
-    (binaryfunc) 0,                           /* nb_add */
-    (binaryfunc) 0,                           /* nb_subtract */
-    (binaryfunc) 0,                           /* nb_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_remainder */
-    (binaryfunc) 0,                           /* nb_divmod */
-    (ternaryfunc) 0,                          /* nb_power */
-    (unaryfunc) 0,                            /* nb_negative */
-    (unaryfunc) 0,                            /* nb_positive */
-    (unaryfunc) 0,                            /* nb_absolute */
-    (inquiry) 0,                              /* nb_nonzero */
-    (unaryfunc) 0,                            /* nb_invert */
-    (binaryfunc) 0,                           /* nb_lshift */
-    (binaryfunc) 0,                           /* nb_rshift */
-    (binaryfunc) 0,                           /* nb_and */
-    (binaryfunc) 0,                           /* nb_xor */
-    (binaryfunc) 0,                           /* nb_or */
-#if PY_VERSION_HEX < 0x03000000
-    (coercion) 0,                             /* nb_coerce */
-#endif
-    (unaryfunc) 0,                            /* nb_int */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* nb_reserved */
-#else
-    (unaryfunc) 0,                            /* nb_long */
-#endif
-    (unaryfunc) 0,                            /* nb_float */
-#if PY_VERSION_HEX < 0x03000000
-    (unaryfunc) 0,                            /* nb_oct */
-    (unaryfunc) 0,                            /* nb_hex */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_add */
-    (binaryfunc) 0,                           /* nb_inplace_subtract */
-    (binaryfunc) 0,                           /* nb_inplace_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_inplace_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_remainder */
-    (ternaryfunc) 0,                          /* nb_inplace_power */
-    (binaryfunc) 0,                           /* nb_inplace_lshift */
-    (binaryfunc) 0,                           /* nb_inplace_rshift */
-    (binaryfunc) 0,                           /* nb_inplace_and */
-    (binaryfunc) 0,                           /* nb_inplace_xor */
-    (binaryfunc) 0,                           /* nb_inplace_or */
-    (binaryfunc) 0,                           /* nb_floor_divide */
-    (binaryfunc) 0,                           /* nb_true_divide */
-    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
-    (binaryfunc) 0,                           /* nb_inplace_true_divide */
-    (unaryfunc) 0,                            /* nb_index */
-#if PY_VERSION_HEX >= 0x03050000
-    (binaryfunc) 0,                           /* nb_matrix_multiply */
-    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
-#endif
-  },
-  {
-    (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
-  },
-  {
-    _wrap_byte_buffer___len___lenfunc_closure,/* sq_length */
-    (binaryfunc) 0,                           /* sq_concat */
-    (ssizeargfunc) 0,                         /* sq_repeat */
-    (ssizeargfunc) 0,                         /* sq_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_slice */
-#else
-    (ssizessizeargfunc) 0,                    /* sq_slice */
-#endif
-    (ssizeobjargproc) 0,                      /* sq_ass_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_ass_slice */
-#else
-    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
-#endif
-    (objobjproc) 0,                           /* sq_contains */
-    (binaryfunc) 0,                           /* sq_inplace_concat */
-    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
-  },
-  {
-#if PY_VERSION_HEX < 0x03000000
-    (readbufferproc) 0,                       /* bf_getreadbuffer */
-    (writebufferproc) 0,                      /* bf_getwritebuffer */
-    (segcountproc) 0,                         /* bf_getsegcount */
-    (charbufferproc) 0,                       /* bf_getcharbuffer */
-#endif
-    byte_buffer::getbuffer,                   /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
-  },
-    (PyObject *) 0,                           /* ht_name */
-    (PyObject *) 0,                           /* ht_slots */
-#if PY_VERSION_HEX >= 0x03030000
-    (PyObject *) 0,                           /* ht_qualname */
-    0,                                        /* ht_cached_keys */
-#endif
-#if PY_VERSION_HEX >= 0x03090000
-    (PyObject *) 0,                           /* ht_module */
-#endif
-#if PY_VERSION_HEX >= 0x030b0000
-    (char *) 0,                               /* _ht_tpname */
-  {
-    (PyObject *) 0,                           /* getitem */
-  }
-#endif
-};
-
-SWIGINTERN SwigPyClientData SwigPyBuiltin__byte_buffer_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__byte_buffer_type};
-
 static SwigPyGetSet PreviewProperties_height__getset = { _wrap_PreviewProperties_height__get, 0 };
 static SwigPyGetSet PreviewProperties_id__getset = { _wrap_PreviewProperties_id__get, 0 };
 static SwigPyGetSet PreviewProperties_mimeType__getset = { _wrap_PreviewProperties_mimeType__get, 0 };
@@ -5592,7 +5215,12 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
 		"Return a copy of the preview image data. The caller owns\n"
 		"       this copy and %DataBuf ensures that it will be deleted.\n"
 		"" },
-  { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "          Return a pointer to the image data for read-only access." },
+  { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "\n"
+		"Returns a temporary Python memoryview of the image data.\n"
+		"\n"
+		"WARNING: do not modify or delete the PreviewImage object while using\n"
+		"the memoryview.\n"
+		"" },
   { "size", _wrap_PreviewImage_size, METH_NOARGS, "          Return the size of the preview image in bytes." },
   { "writeFile", _wrap_PreviewImage_writeFile, METH_O, "\n"
 		"Write the thumbnail image to a file.\n"
@@ -6209,7 +5837,7 @@ static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0
 static swig_type_info _swigt__p_XmpData_iterator = {"_p_XmpData_iterator", "XmpData_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_XmpData_iterator_end = {"_p_XmpData_iterator_end", "XmpData_iterator_end *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_byte_buffer = {"_p_byte_buffer", "byte_buffer *", 0, 0, (void*)&SwigPyBuiltin__byte_buffer_clientdata, 0};
+static swig_type_info _swigt__p_byte_buffer = {"_p_byte_buffer", "byte_buffer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
@@ -6978,29 +6606,6 @@ SWIG_init(void) {
     return NULL;
   }
   
-  
-  /* type '::byte_buffer' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__byte_buffer_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
-  builtin_pytype->tp_new = PyType_GenericNew;
-  builtin_base_count = 0;
-  builtin_bases[builtin_base_count] = NULL;
-  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
-  PyDict_SetItemString(d, "this", this_descr);
-  PyDict_SetItemString(d, "thisown", thisown_descr);
-  if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'byte_buffer'.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "byte_buffer", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "byte_buffer");
-  d = md;
   
   /* type 'Exiv2::PreviewProperties' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__PreviewProperties_type;

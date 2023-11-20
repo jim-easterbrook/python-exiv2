@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -47,11 +47,16 @@
     }
 %}
 
-// Convert pData() result to an object with a buffer interface
-BYTE_BUFFER_TYPEMAPS(Exiv2::byte* pData)
-#ifndef SWIGIMPORTED
-BYTE_BUFFER_CLASS()
-#endif
+// Convert pData result to a Python memoryview
+// WARNING: return value does not keep a reference to the data it points to
+%typemap(out) Exiv2::byte* pData %{
+    $result = PyMemoryView_FromMemory((char*)$1, arg1->size(), PyBUF_READ);
+%}
+%feature("docstring") Exiv2::PreviewImage::pData
+"Returns a temporary Python memoryview of the image data.
+
+WARNING: do not modify or delete the PreviewImage object while using
+the memoryview."
 
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;
