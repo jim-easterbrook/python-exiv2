@@ -133,21 +133,21 @@ static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) 
 #endif
 
 // Convert pData_ and data() result to an object with a buffer interface
+// WARNING: return value does not keep a reference to the data it points to
 #if EXIV2_VERSION_HEX < 0x001c0000
 %typemap(out) (Exiv2::byte* pData_), (Exiv2::byte* data) %{
-    $result = SWIG_NewPointerObj(new byte_buffer($1, arg1->size_),
-        $descriptor(byte_buffer*), SWIG_POINTER_OWN);
+    $result = PyMemoryView_FromMemory((char*)$1, arg1->size_, PyBUF_WRITE);
 %}
-// return value keeps a reference to the data it points to
-KEEP_REFERENCE(Exiv2::byte* pData_)
-KEEP_REFERENCE(Exiv2::byte* data)
 #else
-BYTE_BUFFER_TYPEMAPS(Exiv2::byte* data)
+%typemap(out) Exiv2::byte* data %{
+    $result = PyMemoryView_FromMemory((char*)$1, arg1->size(), PyBUF_WRITE);
+%}
 #endif
+%feature("docstring") Exiv2::DataBuf::data
+"Returns a temporary Python memoryview of the data.
 
-#ifndef SWIGIMPORTED
-BYTE_BUFFER_CLASS()
-#endif
+WARNING: do not resize or delete the DataBuf object while using the
+memoryview."
 
 // Backport Exiv2 v0.28.0 methods
 #if EXIV2_VERSION_HEX < 0x001c0000
@@ -157,6 +157,11 @@ BYTE_BUFFER_CLASS()
 }
 #endif
 
+// Allow a Python buffer to be passed to Exiv2::cmpBytes
+#if EXIV2_VERSION_HEX >= 0x001c0000
+INPUT_BUFFER_RO(const void *buf, size_t bufsize)
+#endif
+
 // Some things are read-only
 %immutable Exiv2::DataBuf::size_;
 %immutable Exiv2::DataBuf::pData_;
@@ -164,8 +169,8 @@ BYTE_BUFFER_CLASS()
 // Hide parts of Exiv2::DataBuf that Python shouldn't see
 %ignore Exiv2::DataBuf::c_data;
 %ignore Exiv2::DataBuf::c_str;
+%ignore Exiv2::DataBuf::data(size_t offset);
 %ignore Exiv2::DataBuf::release;
-%ignore Exiv2::DataBuf::reset;
 %ignore Exiv2::DataBuf::read_uint8;
 %ignore Exiv2::DataBuf::read_uint16;
 %ignore Exiv2::DataBuf::read_uint32;
