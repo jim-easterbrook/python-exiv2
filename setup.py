@@ -70,6 +70,7 @@ if 'EXIV2_ROOT' in os.environ:
     include_dirs = []
     library_dirs = []
     for root, dirs, files in os.walk(os.path.normpath(os.environ['EXIV2_ROOT'])):
+        root = os.path.relpath(root)
         for file in files:
             if file == 'exiv2.hpp':
                 include_dirs = [os.path.dirname(root)]
