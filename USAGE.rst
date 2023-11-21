@@ -253,20 +253,30 @@ A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap
     with get_file_data(image) as data:
         rsp = requests.post(url, files={'file': io.BytesIO(data)})
 
-Since v0.15.0 the ``exiv2.BasicIo`` Python type includes a contect manager to provide read-only access more conveniently:
+The ``exiv2.BasicIo`` Python type exposes a `buffer interface`_ which is a lot easier to use.
+It can be used anywhere that a `bytes-like object`_ is required:
 
 .. code:: python
 
     # after setting some metadata
     image.writedata()
-    with image.io() as data:
-        rsp = requests.post(url, files={'file': io.BytesIO(data)})
+    with io.BytesIO(image.io()) as data:
+        rsp = requests.post(url, files={'file': data})
 
+Since python-exiv2 v0.15.0 this buffer can be writeable:
 
+.. code:: python
 
+    with memoryview(image.io()) as data:
+        data[23] = 157      # modifies data buffer
 
-.. _bytearray:         https://docs.python.org/3/library/stdtypes.html#bytearray
+Any modified data is written back to the file (for Exiv2::FileIo) or memory buffer (for Exiv2::MemIo) when the memoryview_ is released.
+
+.. _bytearray:
+    https://docs.python.org/3/library/stdtypes.html#bytearray
 .. _bytes:             https://docs.python.org/3/library/stdtypes.html#bytes
+.. _bytes-like object:
+    https://docs.python.org/3/glossary.html#term-bytes-like-object
 .. _buffer interface:  https://docs.python.org/3/c-api/buffer.html
 .. _context manager:
     https://docs.python.org/3/reference/datamodel.html#context-managers
@@ -279,4 +289,5 @@ Since v0.15.0 the ``exiv2.BasicIo`` Python type includes a contect manager to pr
 .. _Exiv2::Value: https://exiv2.org/doc/classExiv2_1_1Value.html
 .. _Exiv2::ValueType< T >: https://exiv2.org/doc/classExiv2_1_1ValueType.html
 .. _list:              https://docs.python.org/3/library/stdtypes.html#list
-.. _memoryview:        https://docs.python.org/3/library/stdtypes.html#memoryview
+.. _memoryview:
+    https://docs.python.org/3/library/stdtypes.html#memoryview

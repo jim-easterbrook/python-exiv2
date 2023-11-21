@@ -43,8 +43,8 @@ class TestBuffers(unittest.TestCase):
         self.assertEqual(io.isopen(), True)
         self.assertEqual(io.close(), 0)
         self.assertEqual(io.isopen(), False)
-        # calling mmap via context manager
-        with io as im_data:
+        # calling mmap via buffer interface
+        with memoryview(io) as im_data:
             with open(self.path, 'rb') as in_file:
                 self.assertEqual(im_data, in_file.read())
         self.assertEqual(io.isopen(), False)

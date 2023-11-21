@@ -56,12 +56,11 @@ EXCEPTION(read,
         SWIG_fail;
     })
 
-// Convert mmap() and __enter__() result to a Python memoryview
+// Convert mmap() result to a Python memoryview
 %typemap(check) bool isWriteable %{
     _global_writeable = $1;
 %}
-%typemap(out) Exiv2::byte* mmap (bool _global_writeable = false),
-              Exiv2::byte* __enter__ (bool _global_writeable = false) {
+%typemap(out) Exiv2::byte* mmap (bool _global_writeable = false) {
     if ($1 == NULL) {
         PyErr_SetString(PyExc_RuntimeError, "$symname: not implemented");
         SWIG_fail;
@@ -71,80 +70,41 @@ EXCEPTION(read,
          _global_writeable ? PyBUF_WRITE : PyBUF_READ);
 }
 
-// Provide a context manager for data access
-%feature("docstring") Exiv2::BasicIo::__enter__
-"Context manager for read-only data access.
-
-Wraps open() and mmap() for use by Python with statement, e.g.:
-
-    with io as data:
-        print(data[:10])
-"
-%feature("docstring") Exiv2::BasicIo::__exit__
-"Context manager for read-only data access.
-
-Wraps munmap() and close() for use by Python with statement, e.g.:
-
-    with io as data:
-        print(data[:10])
-"
-
-%extend Exiv2::BasicIo {
-    Exiv2::byte* __enter__() {
-        if ($self->open())
-            throw std::runtime_error("exiv2.BasicIo.open() failed");
-        return $self->mmap();
-    }
-    bool __exit__(PyObject* exc_type, PyObject* exc_instance,
-                  PyObject* traceback) {
-        if ($self->munmap())
-            throw std::runtime_error("exiv2.BasicIo.munmap() failed");
-        if ($self->close())
-            throw std::runtime_error("exiv2.BasicIo.close() failed");
-        return false;
-    }
-}
-
 // Expose BasicIo contents as a Python buffer
-%feature("python:bf_getbuffer",
-         functype="getbufferproc") Exiv2::BasicIo "Exiv2_BasicIo_getbuf";
-%feature("python:bf_releasebuffer",
-         functype="releasebufferproc") Exiv2::BasicIo "Exiv2_BasicIo_releasebuf";
+%feature("python:bf_getbuffer", functype="getbufferproc")
+    Exiv2::BasicIo "BasicIo_getbuf";
+%feature("python:bf_releasebuffer", functype="releasebufferproc")
+    Exiv2::BasicIo "BasicIo_releasebuf";
 %{
-static int Exiv2_BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+static int BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::BasicIo* self = 0;
     Exiv2::byte* ptr = 0;
-    size_t len = 0;
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use 'Io.mmap()' or 'Io.__enter__()' to get the data buffer", 1);
+    bool writeable = flags && PyBUF_WRITABLE;
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
-    if (!SWIG_IsOK(res)) {
-        PyErr_SetNone(PyExc_BufferError);
-        view->obj = NULL;
-        return -1;
-    }
-    {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        self->open();
-        ptr = self->mmap();
-        len = self->size();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-    }
-    return PyBuffer_FillInfo(view, exporter, ptr, len, 1, flags);
+    if (!SWIG_IsOK(res))
+        goto fail;
+    if (self->open())
+        goto fail;
+    ptr = self->mmap(writeable);
+    if (!ptr)
+        goto fail;
+    return PyBuffer_FillInfo(
+        view, exporter, ptr, self->size(), writeable ? 0 : 1, flags);
+fail:
+    PyErr_SetNone(PyExc_BufferError);
+    view->obj = NULL;
+    return -1;
 }
-static void Exiv2_BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
+static void BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
     Exiv2::BasicIo* self = 0;
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
     if (!SWIG_IsOK(res)) {
         return;
     }
-    {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        self->close();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-    }
+    self->munmap();
+    self->close();
 }
 %}
 
