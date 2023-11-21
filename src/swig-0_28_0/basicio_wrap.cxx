@@ -4893,10 +4893,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs
   } 
   arg2 = static_cast< size_t >(val2);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "BasicIo_read: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -4955,10 +4951,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs
   } 
   arg3 = static_cast< size_t >(val3);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "BasicIo_read: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5181,10 +5173,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs
   _global_writeable = arg2;
   
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "BasicIo_mmap: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5233,10 +5221,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "BasicIo_mmap: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5421,20 +5405,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_isopen(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_isopen" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::BasicIo const *)arg1)->isopen();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::BasicIo const *)arg1)->isopen();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -5456,20 +5427,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_error(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_error" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      result = (int)((Exiv2::BasicIo const *)arg1)->error();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)((Exiv2::BasicIo const *)arg1)->error();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -5491,20 +5449,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_eof(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_eof" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::BasicIo const *)arg1)->eof();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::BasicIo const *)arg1)->eof();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -5526,20 +5471,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_path" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      result = (std::string *) &((Exiv2::BasicIo const *)arg1)->path();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (std::string *) &((Exiv2::BasicIo const *)arg1)->path();
   resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   return resultobj;
 fail:
@@ -5548,6 +5480,8 @@ fail:
 
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_BasicIo) /* defines _wrap_delete_BasicIo_destructor_closure */
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_BasicIo_size) /* defines _wrap_BasicIo_size_lenfunc_closure */
 
 SWIGINTERN int _wrap_new_FileIo(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -5990,10 +5924,6 @@ SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   } 
   arg2 = static_cast< size_t >(val2);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "FileIo_read: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -6052,10 +5982,6 @@ SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   } 
   arg3 = static_cast< size_t >(val3);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "FileIo_read: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -6278,10 +6204,6 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   _global_writeable = arg2;
   
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "FileIo_mmap: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -6330,10 +6252,6 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "FileIo_mmap: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -6501,7 +6419,11 @@ SWIGINTERN PyObject *_wrap_FileIo_tell(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
     try {
-      result = ((Exiv2::FileIo const *)arg1)->tell();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = ((Exiv2::FileIo const *)arg1)->tell();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
       
       
       
@@ -6536,7 +6458,11 @@ SWIGINTERN PyObject *_wrap_FileIo_size(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
     try {
-      result = ((Exiv2::FileIo const *)arg1)->size();
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = ((Exiv2::FileIo const *)arg1)->size();
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
       
       
       
@@ -6569,20 +6495,7 @@ SWIGINTERN PyObject *_wrap_FileIo_isopen(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_isopen" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::FileIo const *)arg1)->isopen();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::FileIo const *)arg1)->isopen();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -6604,20 +6517,7 @@ SWIGINTERN PyObject *_wrap_FileIo_error(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_error" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  {
-    try {
-      result = (int)((Exiv2::FileIo const *)arg1)->error();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)((Exiv2::FileIo const *)arg1)->error();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -6639,20 +6539,7 @@ SWIGINTERN PyObject *_wrap_FileIo_eof(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_eof" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::FileIo const *)arg1)->eof();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::FileIo const *)arg1)->eof();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -6674,20 +6561,7 @@ SWIGINTERN PyObject *_wrap_FileIo_path(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_path" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  {
-    try {
-      result = (std::string *) &((Exiv2::FileIo const *)arg1)->path();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (std::string *) &((Exiv2::FileIo const *)arg1)->path();
   resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   return resultobj;
 fail:
@@ -6696,6 +6570,8 @@ fail:
 
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_FileIo) /* defines _wrap_delete_FileIo_destructor_closure */
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_FileIo_size) /* defines _wrap_FileIo_size_lenfunc_closure */
 
 SWIGINTERN int _wrap_new_MemIo__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
@@ -6845,24 +6721,7 @@ SWIGINTERN PyObject *_wrap_MemIo_open(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_open" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->open();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)(arg1)->open();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -6884,24 +6743,7 @@ SWIGINTERN PyObject *_wrap_MemIo_close(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_close" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->close();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)(arg1)->close();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -6940,22 +6782,9 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   } 
   arg3 = static_cast< size_t >(val3);
   {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (arg1)->write((Exiv2::byte const *)arg2,arg3);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    result = (arg1)->write((Exiv2::byte const *)arg2,arg3);
+    SWIG_PYTHON_THREAD_END_ALLOW;
   }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
@@ -6990,22 +6819,9 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   }
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (arg1)->write(*arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    result = (arg1)->write(*arg2);
+    SWIG_PYTHON_THREAD_END_ALLOW;
   }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
@@ -7111,26 +6927,9 @@ SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
   } 
   arg2 = static_cast< size_t >(val2);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "MemIo_read: not open");
-      SWIG_fail;
-    }
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (arg1)->read(arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    result = (arg1)->read(arg2);
+    SWIG_PYTHON_THREAD_END_ALLOW;
   }
   
   resultobj = SWIG_NewPointerObj(
@@ -7173,26 +6972,9 @@ SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, 
   } 
   arg3 = static_cast< size_t >(val3);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "MemIo_read: not open");
-      SWIG_fail;
-    }
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (arg1)->read(arg2,arg3);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    result = (arg1)->read(arg2,arg3);
+    SWIG_PYTHON_THREAD_END_ALLOW;
   }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
@@ -7347,24 +7129,7 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MemIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
   } 
   arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->seek(arg2,arg3);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)(arg1)->seek(arg2,arg3);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -7395,28 +7160,7 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_mmap" "', argument " "2"" of type '" "bool""'");
   } 
   arg2 = static_cast< bool >(val2);
-  {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not open");
-      SWIG_fail;
-    }
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (Exiv2::byte *)(arg1)->mmap(arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::byte *)(arg1)->mmap(arg2);
   {
     if (result == NULL) {
       PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not implemented");
@@ -7447,28 +7191,7 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_mmap" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not open");
-      SWIG_fail;
-    }
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (Exiv2::byte *)(arg1)->mmap();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::byte *)(arg1)->mmap();
   {
     if (result == NULL) {
       PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not implemented");
@@ -7527,24 +7250,7 @@ SWIGINTERN PyObject *_wrap_MemIo_munmap(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_munmap" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->munmap();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)(arg1)->munmap();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -7566,20 +7272,7 @@ SWIGINTERN PyObject *_wrap_MemIo_tell(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_tell" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      result = ((Exiv2::MemIo const *)arg1)->tell();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::MemIo const *)arg1)->tell();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -7601,20 +7294,7 @@ SWIGINTERN PyObject *_wrap_MemIo_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_size" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      result = ((Exiv2::MemIo const *)arg1)->size();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::MemIo const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -7636,20 +7316,7 @@ SWIGINTERN PyObject *_wrap_MemIo_isopen(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_isopen" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::MemIo const *)arg1)->isopen();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::MemIo const *)arg1)->isopen();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -7671,20 +7338,7 @@ SWIGINTERN PyObject *_wrap_MemIo_error(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_error" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      result = (int)((Exiv2::MemIo const *)arg1)->error();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)((Exiv2::MemIo const *)arg1)->error();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -7706,20 +7360,7 @@ SWIGINTERN PyObject *_wrap_MemIo_eof(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_eof" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::MemIo const *)arg1)->eof();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::MemIo const *)arg1)->eof();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -7741,20 +7382,7 @@ SWIGINTERN PyObject *_wrap_MemIo_path(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_path" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  {
-    try {
-      result = (std::string *) &((Exiv2::MemIo const *)arg1)->path();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (std::string *) &((Exiv2::MemIo const *)arg1)->path();
   resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   return resultobj;
 fail:
@@ -8281,10 +7909,6 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_0(PyObject *self, Py_ssize_t nobj
   } 
   arg2 = static_cast< size_t >(val2);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_read: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -8343,10 +7967,6 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_1(PyObject *self, Py_ssize_t nobj
   } 
   arg3 = static_cast< size_t >(val3);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_read: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -8517,24 +8137,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RemoteIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
   } 
   arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->seek(arg2,arg3);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)(arg1)->seek(arg2,arg3);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -8566,10 +8169,6 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobj
   } 
   arg2 = static_cast< bool >(val2);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_mmap: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -8618,10 +8217,6 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobj
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
   {
-    if (!arg1->isopen()) {
-      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_mmap: not open");
-      SWIG_fail;
-    }
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -8697,24 +8292,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_munmap(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_munmap" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->munmap();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)(arg1)->munmap();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -8736,20 +8314,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_tell(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_tell" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  {
-    try {
-      result = ((Exiv2::RemoteIo const *)arg1)->tell();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::RemoteIo const *)arg1)->tell();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -8771,20 +8336,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_size" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  {
-    try {
-      result = ((Exiv2::RemoteIo const *)arg1)->size();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::RemoteIo const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -8806,20 +8358,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_isopen(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_isopen" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::RemoteIo const *)arg1)->isopen();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::RemoteIo const *)arg1)->isopen();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -8841,20 +8380,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_error(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_error" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  {
-    try {
-      result = (int)((Exiv2::RemoteIo const *)arg1)->error();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (int)((Exiv2::RemoteIo const *)arg1)->error();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -8876,20 +8402,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_eof(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_eof" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  {
-    try {
-      result = (bool)((Exiv2::RemoteIo const *)arg1)->eof();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)((Exiv2::RemoteIo const *)arg1)->eof();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -8911,20 +8424,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_path(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_path" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  {
-    try {
-      result = (std::string *) &((Exiv2::RemoteIo const *)arg1)->path();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (std::string *) &((Exiv2::RemoteIo const *)arg1)->path();
   resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   return resultobj;
 fail:
@@ -8933,6 +8433,8 @@ fail:
 
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_RemoteIo) /* defines _wrap_delete_RemoteIo_destructor_closure */
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_RemoteIo_size) /* defines _wrap_RemoteIo_size_lenfunc_closure */
 
 SWIGINTERN int _wrap_new_HttpIo__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -9452,7 +8954,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    (lenfunc) 0,                              /* sq_length */
+    _wrap_BasicIo_size_lenfunc_closure,       /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */
@@ -9868,7 +9370,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__FileIo_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    (lenfunc) 0,                              /* sq_length */
+    _wrap_FileIo_size_lenfunc_closure,        /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */
@@ -10877,7 +10379,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__RemoteIo_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    (lenfunc) 0,                              /* sq_length */
+    _wrap_RemoteIo_size_lenfunc_closure,      /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */

@@ -29,32 +29,51 @@
 wrap_auto_unique_ptr(Exiv2::BasicIo);
 
 // Potentially blocking calls allow Python threads
+%thread Exiv2::BasicIo::close;
+%thread Exiv2::BasicIo::open;
 %thread Exiv2::BasicIo::mmap;
 %thread Exiv2::BasicIo::munmap;
-%thread Exiv2::BasicIo::open;
-%thread Exiv2::BasicIo::close;
 %thread Exiv2::BasicIo::read;
-%thread Exiv2::BasicIo::write;
-%thread Exiv2::BasicIo::transfer;
+%thread Exiv2::MemIo::read;
 %thread Exiv2::BasicIo::seek;
+%thread Exiv2::FileIo::size;
+%thread Exiv2::FileIo::tell;
+%thread Exiv2::BasicIo::transfer;
+%thread Exiv2::BasicIo::write;
+%thread Exiv2::MemIo::write;
+
+// Some calls don't raise exceptions
+%noexception Exiv2::MemIo::close;
+%noexception Exiv2::BasicIo::eof;
+%noexception Exiv2::BasicIo::error;
+%noexception Exiv2::BasicIo::isopen;
+%noexception Exiv2::MemIo::mmap;
+%noexception Exiv2::MemIo::munmap;
+%noexception Exiv2::RemoteIo::munmap;
+%noexception Exiv2::MemIo::open;
+%noexception Exiv2::BasicIo::path;
+%noexception Exiv2::MemIo::read;
+%noexception Exiv2::MemIo::seek;
+%noexception Exiv2::RemoteIo::seek;
+%noexception Exiv2::MemIo::size;
+%noexception Exiv2::RemoteIo::size;
+%noexception Exiv2::MemIo::tell;
+%noexception Exiv2::RemoteIo::tell;
+%noexception Exiv2::MemIo::write;
 
 // BasicIo return values keep a reference to the Image they refer to
 KEEP_REFERENCE(Exiv2::BasicIo&)
 
+// Enable len(io)
+%feature("python:slot", "sq_length", functype="lenfunc")
+    Exiv2::BasicIo::size;
+%feature("python:slot", "sq_length", functype="lenfunc")
+    Exiv2::FileIo::size;
+%feature("python:slot", "sq_length", functype="lenfunc")
+    Exiv2::RemoteIo::size;
+
 // Allow BasicIo::write to take any Python buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
-
-// Ensure Io is open before calling mmap() or read()
-EXCEPTION(mmap,
-    if (!arg1->isopen()) {
-        PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
-        SWIG_fail;
-    })
-EXCEPTION(read,
-    if (!arg1->isopen()) {
-        PyErr_SetString(PyExc_RuntimeError, "$symname: not open");
-        SWIG_fail;
-    })
 
 // Convert mmap() result to a Python memoryview
 %typemap(check) bool isWriteable %{
