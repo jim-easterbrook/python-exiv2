@@ -6121,13 +6121,6 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   if (SWIG_IsNewObj(res1)) delete arg1;
-  
-  if (PyObject_CheckBuffer(swig_obj[0])) {
-    if (PyObject_SetAttrString(resultobj, "_refers_to", swig_obj[0])) {
-      SWIG_fail;
-    }
-  }
-  
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res1)) delete arg1;
@@ -6174,13 +6167,6 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   if (SWIG_IsNewObj(res1)) delete arg1;
-  
-  if (PyObject_CheckBuffer(swig_obj[0])) {
-    if (PyObject_SetAttrString(resultobj, "_refers_to", swig_obj[0])) {
-      SWIG_fail;
-    }
-  }
-  
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res1)) delete arg1;
@@ -6228,20 +6214,21 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_2(PyObject *self, Py_ssize_t 
   
   
   if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
-  
-  
-  if (PyObject_CheckBuffer(swig_obj[0])) {
-    if (PyObject_SetAttrString(resultobj, "_refers_to", swig_obj[0])) {
-      SWIG_fail;
+    if (resultobj && !PyLong_Check(resultobj)) {
+      PyObject_SetAttrString(
+        resultobj, "_refers_to", _global_view.obj);
     }
+    PyBuffer_Release(&_global_view);
   }
   
   return resultobj;
 fail:
   
   if (_global_view.obj) {
+    if (resultobj && !PyLong_Check(resultobj)) {
+      PyObject_SetAttrString(
+        resultobj, "_refers_to", _global_view.obj);
+    }
     PyBuffer_Release(&_global_view);
   }
   
@@ -6487,6 +6474,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
   resultobj = SWIG_From_int(static_cast< int >(result));
   
   if (_global_view.obj) {
+    if (resultobj && !PyLong_Check(resultobj)) {
+      PyObject_SetAttrString(
+        resultobj, "_refers_to", _global_view.obj);
+    }
     PyBuffer_Release(&_global_view);
   }
   
@@ -6494,6 +6485,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
 fail:
   
   if (_global_view.obj) {
+    if (resultobj && !PyLong_Check(resultobj)) {
+      PyObject_SetAttrString(
+        resultobj, "_refers_to", _global_view.obj);
+    }
     PyBuffer_Release(&_global_view);
   }
   
