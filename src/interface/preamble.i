@@ -72,18 +72,21 @@ EXCEPTION(,)
 
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)
-%typemap(in) (buf_type, len_type) {
-    Py_buffer view;
-    int res = PyObject_GetBuffer($input, &view, PyBUF_CONTIG_RO);
-    if (res < 0) {
+%typemap(in) (buf_type, len_type) (Py_buffer _global_view) {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer($input, &_global_view, PyBUF_CONTIG_RO) < 0) {
         PyErr_Clear();
         %argument_fail(SWIG_TypeError, "Python buffer interface",
                        $symname, $argnum);
     }
-    $1 = ($1_ltype) view.buf;
-    $2 = ($2_ltype) view.len;
-    PyBuffer_Release(&view);
+    $1 = ($1_ltype) _global_view.buf;
+    $2 = ($2_ltype) _global_view.len;
 }
+%typemap(freearg) (buf_type, len_type) %{
+    if (_global_view.obj) {
+        PyBuffer_Release(&_global_view);
+    }
+%}
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) buf_type %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}

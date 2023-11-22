@@ -5404,21 +5404,20 @@ SWIGINTERN int _wrap_new_DataBuf__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObj
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   size_t arg2 ;
+  Py_buffer _global_view ;
   Exiv2::DataBuf *result = 0 ;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG_RO);
-    if (res < 0) {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(swig_obj[0], &_global_view, PyBUF_CONTIG_RO) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataBuf" "', argument " "1"" of type '" "Python buffer interface""'")
       ;
     }
-    arg1 = (Exiv2::byte *) view.buf;
-    arg2 = (size_t) view.len;
-    PyBuffer_Release(&view);
+    arg1 = (Exiv2::byte *) _global_view.buf;
+    arg2 = (size_t) _global_view.len;
   }
   {
     try {
@@ -5435,8 +5434,18 @@ SWIGINTERN int _wrap_new_DataBuf__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObj
     }
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_BUILTIN_INIT |  0 );
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return resultobj == Py_None ? -1 : 0;
 fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return -1;
 }
 
@@ -5625,6 +5634,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_cmpBytes(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   size_t val2 ;
   int ecode2 = 0 ;
+  Py_buffer _global_view ;
   PyObject *swig_obj[3] ;
   int result;
   
@@ -5641,16 +5651,14 @@ SWIGINTERN PyObject *_wrap_DataBuf_cmpBytes(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< size_t >(val2);
   {
-    Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG_RO);
-    if (res < 0) {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataBuf_cmpBytes" "', argument " "3"" of type '" "Python buffer interface""'")
       ;
     }
-    arg3 = (void *) view.buf;
-    arg4 = (size_t) view.len;
-    PyBuffer_Release(&view);
+    arg3 = (void *) _global_view.buf;
+    arg4 = (size_t) _global_view.len;
   }
   {
     try {
@@ -5667,8 +5675,18 @@ SWIGINTERN PyObject *_wrap_DataBuf_cmpBytes(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return resultobj;
 fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return NULL;
 }
 
