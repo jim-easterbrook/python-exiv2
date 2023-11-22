@@ -144,12 +144,22 @@ fail:
 WARNING: do not resize or delete the DataBuf object while using the
 memoryview."
 
-// Backport Exiv2 v0.28.0 methods
 #if EXIV2_VERSION_HEX < 0x001c0000
+// Backport Exiv2 v0.28.0 methods
 %extend Exiv2::DataBuf {
     Exiv2::byte* data() const { return $self->pData_; }
     size_t size() const { return $self->size_; }
 }
+
+// Deprecate pData_ and size_ getters
+%typemap(ret) Exiv2::byte* pData_ %{
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+        "use 'DataBuf.data()' to get data", 1);
+%}
+%typemap(ret) long size_ %{
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+        "use 'DataBuf.size()' to get size", 1);
+%}
 #endif
 
 // Allow a Python buffer to be passed to Exiv2::cmpBytes

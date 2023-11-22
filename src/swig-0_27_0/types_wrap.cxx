@@ -4081,7 +4081,7 @@ static int DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     bool writeable = flags && PyBUF_WRITABLE;
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
-    if (!SWIG_IsOK(res)) 
+    if (!SWIG_IsOK(res))
         goto fail;
     return PyBuffer_FillInfo(
         view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
@@ -5686,6 +5686,10 @@ SWIGINTERN PyObject *_wrap_DataBuf_pData__get(PyObject *self, PyObject *args) {
   resultobj = PyMemoryView_FromMemory(
     (char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
   
+  
+  PyErr_WarnEx(PyExc_DeprecationWarning,
+    "use 'DataBuf.data()' to get data", 1);
+  
   return resultobj;
 fail:
   return NULL;
@@ -5708,6 +5712,10 @@ SWIGINTERN PyObject *_wrap_DataBuf_size__get(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
   result = (long) ((arg1)->size_);
   resultobj = SWIG_From_long(static_cast< long >(result));
+  
+  PyErr_WarnEx(PyExc_DeprecationWarning,
+    "use 'DataBuf.size()' to get size", 1);
+  
   return resultobj;
 fail:
   return NULL;

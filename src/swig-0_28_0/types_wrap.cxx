@@ -4080,7 +4080,7 @@ static int DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     bool writeable = flags && PyBUF_WRITABLE;
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
-    if (!SWIG_IsOK(res)) 
+    if (!SWIG_IsOK(res))
         goto fail;
     return PyBuffer_FillInfo(
         view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
