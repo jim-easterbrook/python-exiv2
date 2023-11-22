@@ -61,6 +61,12 @@ class TestReferenceCounts(unittest.TestCase):
     def test_io(self):
         self.assertEqual(sys.getrefcount(self.image), 2)
         io = self.image.io()
+        self.assertEqual(sys.getrefcount(io), 2)
+        view = memoryview(io)
+        self.assertEqual(sys.getrefcount(io), 3)
+        view.release()
+        self.assertEqual(sys.getrefcount(io), 2)
+        del view
         self.assertEqual(sys.getrefcount(self.image), 3)
         del io
         self.assertEqual(sys.getrefcount(self.image), 2)
