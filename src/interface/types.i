@@ -43,19 +43,32 @@ void _set_locale_dir(const char* dirname) {
 %}
 #endif  // EXV_ENABLE_NLS
 
-// Make Exiv2::DataBuf behave more like a tuple of ints
-%feature("python:slot", "mp_length", functype="lenfunc") Exiv2::DataBuf::__len__;
-%feature("python:slot", "mp_subscript",
-         functype="binaryfunc") Exiv2::DataBuf::__getitem__;
-%extend Exiv2::DataBuf {
+// C++ macros for DataBuf data and size
 #if EXIV2_VERSION_HEX < 0x001c0000
-    long __len__() {
-        return $self->size_;
+%{
+#define DATABUF_DATA pData_
+#define DATABUF_SIZE size_
+%}
+#else
+%{
+#define DATABUF_DATA data()
+#define DATABUF_SIZE size()
+%}
+#endif
+
+// Make Exiv2::DataBuf behave more like a tuple of ints
+%feature("python:slot", "mp_length", functype="lenfunc")
+    Exiv2::DataBuf::__len__;
+%feature("python:slot", "mp_subscript", functype="binaryfunc")
+    Exiv2::DataBuf::__getitem__;
+%extend Exiv2::DataBuf {
+    size_t __len__() {
+        return $self->DATABUF_SIZE;
     }
+#if EXIV2_VERSION_HEX < 0x001c0000
     PyObject* __getitem__(PyObject* idx) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use 'DataBuf.data()' to get a data buffer",
-            1);
+            "use 'DataBuf.data()' to get a memoryview", 1);
         if (PySlice_Check(idx)) {
             Py_ssize_t i1, i2, di, sl;
             if (PySlice_GetIndicesEx(idx, $self->size_, &i1, &i2, &di, &sl))
@@ -82,10 +95,6 @@ void _set_locale_dir(const char* dirname) {
             "indices must be integers or slices, not %s",
             Py_TYPE(idx)->tp_name);
     }
-#else
-    long __len__() {
-        return $self->size();
-    }
 #endif
 }
 
@@ -103,46 +112,32 @@ INPUT_BUFFER_RO(const Exiv2::byte *pData, size_t size)
 #endif
 
 // Expose Exiv2::DataBuf contents as a Python buffer
-%feature("python:bf_getbuffer",
-         functype="getbufferproc") Exiv2::DataBuf "Exiv2_DataBuf_getbuf";
+%feature("python:bf_getbuffer", functype="getbufferproc")
+    Exiv2::DataBuf "DataBuf_getbuf";
 %{
-static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+static int DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use 'DataBuf.data()' to get a data buffer", 1);
+    bool writeable = flags && PyBUF_WRITABLE;
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
-    if (!SWIG_IsOK(res)) {
-        PyErr_SetNone(PyExc_BufferError);
-        view->obj = NULL;
-        return -1;
-    }
-%}
-#if EXIV2_VERSION_HEX < 0x001c0000
-%{
+    if (!SWIG_IsOK(res))
+        goto fail;
     return PyBuffer_FillInfo(
-        view, exporter, self->pData_, self->size_, 1, flags);
+        view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
+        writeable ? 0 : 1, flags);
+fail:
+    PyErr_SetNone(PyExc_BufferError);
+    view->obj = NULL;
+    return -1;
 }
 %}
-#else
-%{
-    return PyBuffer_FillInfo(
-        view, exporter, self->data(), self->size(), 1, flags);
-}
-%}
-#endif
 
-// Convert pData_ and data() result to an object with a buffer interface
+// Convert pData_ and data() result to a memoryview
 // WARNING: return value does not keep a reference to the data it points to
-#if EXIV2_VERSION_HEX < 0x001c0000
 %typemap(out) (Exiv2::byte* pData_), (Exiv2::byte* data) %{
-    $result = PyMemoryView_FromMemory((char*)$1, arg1->size_, PyBUF_WRITE);
+    $result = PyMemoryView_FromMemory(
+        (char*)$1, arg1->DATABUF_SIZE, PyBUF_WRITE);
 %}
-#else
-%typemap(out) Exiv2::byte* data %{
-    $result = PyMemoryView_FromMemory((char*)$1, arg1->size(), PyBUF_WRITE);
-%}
-#endif
 %feature("docstring") Exiv2::DataBuf::data
 "Returns a temporary Python memoryview of the data.
 

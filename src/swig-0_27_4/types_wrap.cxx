@@ -4072,21 +4072,24 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 
 
 
-static int Exiv2_DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+#define DATABUF_DATA pData_
+#define DATABUF_SIZE size_
+
+
+static int DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use 'DataBuf.data()' to get a data buffer", 1);
+    bool writeable = flags && PyBUF_WRITABLE;
     int res = SWIG_ConvertPtr(
         exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
-    if (!SWIG_IsOK(res)) {
-        PyErr_SetNone(PyExc_BufferError);
-        view->obj = NULL;
-        return -1;
-    }
-
-
+    if (!SWIG_IsOK(res)) 
+        goto fail;
     return PyBuffer_FillInfo(
-        view, exporter, self->pData_, self->size_, 1, flags);
+        view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
+        writeable ? 0 : 1, flags);
+fail:
+    PyErr_SetNone(PyExc_BufferError);
+    view->obj = NULL;
+    return -1;
 }
 
 
@@ -4386,41 +4389,9 @@ SWIGINTERNINLINE PyObject*
 
   #define SWIG_From_long   PyInt_FromLong 
 
-SWIGINTERN long Exiv2_DataBuf___len__(Exiv2::DataBuf *self){
-        return self->size_;
+SWIGINTERN size_t Exiv2_DataBuf___len__(Exiv2::DataBuf *self){
+        return self->DATABUF_SIZE;
     }
-SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *idx){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use 'DataBuf.data()' to get a data buffer",
-            1);
-        if (PySlice_Check(idx)) {
-            Py_ssize_t i1, i2, di, sl;
-            if (PySlice_GetIndicesEx(idx, self->size_, &i1, &i2, &di, &sl))
-                return NULL;
-            PyObject* result = PyTuple_New(sl);
-            Exiv2::byte* ptr = self->pData_ + i1;
-            for (Py_ssize_t i = 0; i < sl; ++i) {
-                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
-                ptr += di;
-            }
-            return result;
-        }
-        if (PyLong_Check(idx)) {
-            long i = PyLong_AsLong(idx);
-            if (i < 0)
-                i += self->size_;
-            if ((i < 0) || (i >= self->size_)) {
-                PyErr_SetString(PyExc_IndexError, "index out of range");
-                return NULL;
-            }
-            return PyLong_FromLong((long)*(self->pData_ + i));
-        }
-        return PyErr_Format(PyExc_TypeError,
-            "indices must be integers or slices, not %s",
-            Py_TYPE(idx)->tp_name);
-    }
-SWIGINTERN Exiv2::byte *Exiv2_DataBuf_data(Exiv2::DataBuf const *self){ return self->pData_; }
-SWIGINTERN size_t Exiv2_DataBuf_size(Exiv2::DataBuf const *self){ return self->size_; }
 
 SWIGINTERNINLINE PyObject* 
 SWIG_From_unsigned_SS_long  (unsigned long value)
@@ -4460,6 +4431,37 @@ SWIG_From_size_t  (size_t value)
 #endif
 }
 
+SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *idx){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use 'DataBuf.data()' to get a memoryview", 1);
+        if (PySlice_Check(idx)) {
+            Py_ssize_t i1, i2, di, sl;
+            if (PySlice_GetIndicesEx(idx, self->size_, &i1, &i2, &di, &sl))
+                return NULL;
+            PyObject* result = PyTuple_New(sl);
+            Exiv2::byte* ptr = self->pData_ + i1;
+            for (Py_ssize_t i = 0; i < sl; ++i) {
+                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
+                ptr += di;
+            }
+            return result;
+        }
+        if (PyLong_Check(idx)) {
+            long i = PyLong_AsLong(idx);
+            if (i < 0)
+                i += self->size_;
+            if ((i < 0) || (i >= self->size_)) {
+                PyErr_SetString(PyExc_IndexError, "index out of range");
+                return NULL;
+            }
+            return PyLong_FromLong((long)*(self->pData_ + i));
+        }
+        return PyErr_Format(PyExc_TypeError,
+            "indices must be integers or slices, not %s",
+            Py_TYPE(idx)->tp_name);
+    }
+SWIGINTERN Exiv2::byte *Exiv2_DataBuf_data(Exiv2::DataBuf const *self){ return self->pData_; }
+SWIGINTERN size_t Exiv2_DataBuf_size(Exiv2::DataBuf const *self){ return self->size_; }
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
@@ -5681,7 +5683,8 @@ SWIGINTERN PyObject *_wrap_DataBuf_pData__get(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
   result = (Exiv2::byte *) ((arg1)->pData_);
   
-  resultobj = PyMemoryView_FromMemory((char*)result, arg1->size_, PyBUF_WRITE);
+  resultobj = PyMemoryView_FromMemory(
+    (char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
   
   return resultobj;
 fail:
@@ -5716,7 +5719,7 @@ SWIGINTERN PyObject *_wrap_DataBuf___len__(PyObject *self, PyObject *args) {
   Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  long result;
+  size_t result;
   
   (void)self;
   if (!SWIG_Python_UnpackTuple(args, "DataBuf___len__", 0, 0, 0)) SWIG_fail;
@@ -5727,7 +5730,7 @@ SWIGINTERN PyObject *_wrap_DataBuf___len__(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
   {
     try {
-      result = (long)Exiv2_DataBuf___len__(arg1);
+      result = Exiv2_DataBuf___len__(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -5737,7 +5740,7 @@ SWIGINTERN PyObject *_wrap_DataBuf___len__(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_long(static_cast< long >(result));
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
   return NULL;
@@ -5808,7 +5811,8 @@ SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = PyMemoryView_FromMemory((char*)result, arg1->size_, PyBUF_WRITE);
+  resultobj = PyMemoryView_FromMemory(
+    (char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
   
   return resultobj;
 fail:
@@ -6909,7 +6913,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataBuf_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    Exiv2_DataBuf_getbuf,                     /* bf_getbuffer */
+    DataBuf_getbuf,                           /* bf_getbuffer */
     (releasebufferproc) 0,                    /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */

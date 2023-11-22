@@ -35,6 +35,7 @@ class TestTypes(unittest.TestCase):
         buf = exiv2.DataBuf(b'fred')
         self.assertEqual(len(buf), 4)
         self.assertEqual(buf.data(), b'fred')
+        self.assertEqual(memoryview(buf), b'fred')
         buf.data()[1] = ord('e')
         self.assertEqual(buf.data(), b'feed')
         if exiv2.testVersion(0, 28, 0):
@@ -50,8 +51,6 @@ class TestTypes(unittest.TestCase):
         else:
             with self.assertWarns(DeprecationWarning):
                 a = buf[0]
-            with self.assertWarns(DeprecationWarning):
-                m = memoryview(buf)
         buf.alloc(6)
         self.assertEqual(len(buf), 6)
         if exiv2.testVersion(0, 28, 0):
