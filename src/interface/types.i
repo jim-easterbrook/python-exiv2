@@ -22,6 +22,13 @@
 %include "stdint.i"
 %include "std_pair.i"
 
+// Some calls don't raise exceptions
+%noexception Exiv2::DataBuf::data;
+%noexception Exiv2::DataBuf::free;
+%noexception Exiv2::DataBuf::reset;
+%noexception Exiv2::DataBuf::size;
+%noexception Exiv2::DataBuf::__len__;
+
 // Function to set location of localisation files
 // (types.hpp includes exiv2's localisation stuff)
 #ifdef EXV_ENABLE_NLS

@@ -5585,20 +5585,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_reset(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_reset" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
-  {
-    try {
-      (arg1)->reset();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  (arg1)->reset();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -5620,20 +5607,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_size" "', argument " "1"" of type '" "Exiv2::DataBuf const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
-  {
-    try {
-      result = ((Exiv2::DataBuf const *)arg1)->size();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::DataBuf const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -5713,20 +5687,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_data" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
-  {
-    try {
-      result = (Exiv2::byte *)(arg1)->data();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::byte *)(arg1)->data();
   
   resultobj = PyMemoryView_FromMemory(
     (char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
@@ -5786,20 +5747,7 @@ SWIGINTERN PyObject *_wrap_DataBuf___len__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf___len__" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
-  {
-    try {
-      result = Exiv2_DataBuf___len__(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_DataBuf___len__(arg1);
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
