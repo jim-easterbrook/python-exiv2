@@ -181,7 +181,7 @@ Binary data input
 -----------------
 
 Some libexiv2 functions, e.g. `Exiv2::ExifThumb::setJpegThumbnail`_, have an ``Exiv2::byte*`` parameter and a length parameter.
-In python-exiv2 these are replaced by a single parameter that can be any Python object that exposes a simple `buffer interface`_, e.g. bytes_, bytearray_, memoryview_:
+In python-exiv2 these are replaced by a single `bytes-like object`_ parameter that can be any Python object that exposes a simple `buffer interface`_, e.g. bytes_, bytearray_, memoryview_:
 
 .. code:: python
 
@@ -224,12 +224,19 @@ Doing so will invalidate the memoryview and may cause a segmentation fault:
     buf.alloc(128)
     print(bytes(data))              # Prints random values, may segfault
 
-Exiv2::BasicIo::mmap
---------------------
+Image data buffers
+------------------
 
-The `Exiv2::BasicIo::mmap`_ method allows access to the image file data without unnecessary copying.
+The `Exiv2::ImageFactory`_ class has a method ``open(const byte *data, size_t size)`` to create an `Exiv2::Image`_ from data stored in memory, rather than in a file.
+In python-exiv2 the ``data`` and ``size`` parameters are replaced with a single `bytes-like object`_ such as bytes_ or bytearray_.
+The buffered data isn't actually read until ``Image::readMetadata`` is called, so python-exiv2 stores a reference to the buffer to stop the user deleting it.
+
+When ``Image::writeMetadata`` is called exiv2 allocates a new block of memory to store the modified data.
+The ``Image::io`` method returns an `Exiv2::MemIo`_ object that provides access to this data.
+(`Exiv2::MemIo`_ is derived from `Exiv2::BasicIo`_.)
+
+The ``BasicIo::mmap`` method allows access to the image file data without unnecessary copying.
 However it is rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.
-It should only be used with exiv2 images created from a data buffer.
 
 The ``Exiv2::BasicIo`` object must be opened before calling ``mmap()``.
 A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap()`` calls are paired with ``munmap()`` and ``close()`` calls:
@@ -249,45 +256,64 @@ A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap
             exiv_io.close()
 
     # after setting some metadata
-    image.writedata()
+    image.writeMetadata()
     with get_file_data(image) as data:
         rsp = requests.post(url, files={'file': io.BytesIO(data)})
 
 The ``exiv2.BasicIo`` Python type exposes a `buffer interface`_ which is a lot easier to use.
-It can be used anywhere that a `bytes-like object`_ is required:
+It allows the ``exiv2.BasicIo`` object to be used anywhere that a `bytes-like object`_ is expected:
 
 .. code:: python
 
     # after setting some metadata
-    image.writedata()
-    with io.BytesIO(image.io()) as data:
-        rsp = requests.post(url, files={'file': data})
+    image.writeMetadata()
+    exiv_io = image.io()
+    rsp = requests.post(url, files={'file': io.BytesIO(exiv_io)})
 
 Since python-exiv2 v0.15.0 this buffer can be writeable:
 
 .. code:: python
 
-    with memoryview(image.io()) as data:
+    exiv_io = image.io()
+    with memoryview(exiv_io) as data:
         data[23] = 157      # modifies data buffer
+    image.readMetadata()    # reads modified file data
 
-Any modified data is written back to the file (for Exiv2::FileIo) or memory buffer (for Exiv2::MemIo) when the memoryview_ is released.
+The modified data is written back to the file (for ``Exiv2::FileIo``) or memory buffer (for `Exiv2::MemIo`_) when the memoryview_ is released.
 
 .. _bytearray:
     https://docs.python.org/3/library/stdtypes.html#bytearray
-.. _bytes:             https://docs.python.org/3/library/stdtypes.html#bytes
+.. _bytes:
+    https://docs.python.org/3/library/stdtypes.html#bytes
 .. _bytes-like object:
     https://docs.python.org/3/glossary.html#term-bytes-like-object
-.. _buffer interface:  https://docs.python.org/3/c-api/buffer.html
+.. _buffer interface:
+    https://docs.python.org/3/c-api/buffer.html
 .. _context manager:
     https://docs.python.org/3/reference/datamodel.html#context-managers
-.. _dict:              https://docs.python.org/3/library/stdtypes.html#dict
-.. _Exiv2::BasicIo::mmap: https://exiv2.org/doc/classExiv2_1_1BasicIo.html
-.. _Exiv2::DataBuf::data: https://exiv2.org/doc/structExiv2_1_1DataBuf.html
+.. _dict:
+    https://docs.python.org/3/library/stdtypes.html#dict
+.. _Exiv2::BasicIo:
+    https://exiv2.org/doc/classExiv2_1_1BasicIo.html
+.. _Exiv2::BasicIo::mmap:
+    https://exiv2.org/doc/classExiv2_1_1BasicIo.html
+.. _Exiv2::DataBuf::data:
+    https://exiv2.org/doc/structExiv2_1_1DataBuf.html
 .. _Exiv2::ExifThumb::setJpegThumbnail:
     https://exiv2.org/doc/classExiv2_1_1ExifThumb.html
-.. _Exiv2::Metadatum: https://exiv2.org/doc/classExiv2_1_1Metadatum.html
-.. _Exiv2::Value: https://exiv2.org/doc/classExiv2_1_1Value.html
-.. _Exiv2::ValueType< T >: https://exiv2.org/doc/classExiv2_1_1ValueType.html
-.. _list:              https://docs.python.org/3/library/stdtypes.html#list
+.. _Exiv2::Image:
+    https://exiv2.org/doc/classExiv2_1_1Image.html
+.. _Exiv2::ImageFactory:
+    https://exiv2.org/doc/classExiv2_1_1ImageFactory.html
+.. _Exiv2::MemIo:
+    https://exiv2.org/doc/classExiv2_1_1MemIo.html
+.. _Exiv2::Metadatum:
+    https://exiv2.org/doc/classExiv2_1_1Metadatum.html
+.. _Exiv2::Value:
+    https://exiv2.org/doc/classExiv2_1_1Value.html
+.. _Exiv2::ValueType< T >:
+    https://exiv2.org/doc/classExiv2_1_1ValueType.html
+.. _list:
+    https://docs.python.org/3/library/stdtypes.html#list
 .. _memoryview:
     https://docs.python.org/3/library/stdtypes.html#memoryview
