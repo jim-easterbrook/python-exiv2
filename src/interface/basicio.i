@@ -75,6 +75,21 @@ KEEP_REFERENCE(Exiv2::BasicIo&)
 // Allow BasicIo::write to take any Python buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
 
+// Allow MemIo to be ceated from a buffer
+INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
+INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
+// Release Py_buffer after adding a reference to input object to result
+%typemap(freearg) (const Exiv2::byte* data, long size),
+                  (const Exiv2::byte* data, size_t size) %{
+    if (_global_view.obj) {
+        if (resultobj) {
+            PyObject_SetAttrString(
+                resultobj, "_refers_to", _global_view.obj);
+        }
+        PyBuffer_Release(&_global_view);
+    }
+%}
+
 // Convert mmap() result to a Python memoryview
 %typemap(check) bool isWriteable %{
     _global_writeable = $1;
