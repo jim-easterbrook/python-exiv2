@@ -16,6 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.15.0:
+  1/ Added __version_tuple__ for easy runtime version testing.
+  2/ exiv2.testVersion() can be called from Python.
+  3/ exiv2.DataBuf can be created from Python data.
+  4/ Most data() methods return a Python memoryview.
+  5/ exiv2.DataBuf and exiv2.BasicIo have writeable Python buffer interface.
+
 Changes in v0.14.1:
   1/ Update libexiv2 to 0.27.7 in binary wheels.
 
