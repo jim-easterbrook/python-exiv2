@@ -1,7 +1,7 @@
 Hints and tips
 ==============
 
-Here are some ideas on how to use with python-exiv2.
+Here are some ideas on how to use python-exiv2.
 In many cases there's more than one way to do it, but some ways are more "Pythonic" than others.
 Some of this is only applicable to python-exiv2 v0.13.0 onwards.
 You can find out what version of python-exiv2 you have with either ``pip3 show exiv2`` or ``python3 -m exiv2``.
@@ -12,7 +12,7 @@ You can find out what version of python-exiv2 you have with either ``pip3 show e
 Segmentation faults
 -------------------
 
-There are many places in the C++ API where objects hold references to data in other objects.
+There are many places in the libexiv2 C++ API where objects hold references to data in other objects.
 This is more efficient than copying the data, but can cause segmentation faults if an object is deleted while another objects refers to its data.
 
 The Python interface tries to protect the user from this but in some cases this is not possible.
@@ -185,10 +185,12 @@ In python-exiv2 these are replaced by a single `bytes-like object`_ parameter th
 
 .. code:: python
 
+    # Use Python imaging library to make a small JPEG image
     pil_im = PIL.Image.open('IMG_9999.JPG')
     pil_im.thumbnail((160, 120), PIL.Image.ANTIALIAS)
     data = io.BytesIO()
     pil_im.save(data, 'JPEG')
+    # Set image thumbnail to small JPEG image
     thumb = exiv2.ExifThumb(image.exifData())
     thumb.setJpegThumbnail(data.getbuffer())
 
@@ -196,7 +198,9 @@ Binary data output
 ------------------
 
 Some libexiv2 functions, e.g. `Exiv2::DataBuf::data`_, return ``Exiv2::byte*``, a pointer to a block of memory.
-In python-exiv2 (earlier than v0.15.0) this is converted to an object with a buffer interface, which allows the data to be accessed without unnecessary copying:
+In python-exiv2 from v0.15.0 onwards this is converted directly to a Python memoryview_ object.
+This allows direct access to the block of memory without unnecessary copying.
+In some cases this includes writing to the data.
 
 .. code:: python
 
@@ -204,11 +208,9 @@ In python-exiv2 (earlier than v0.15.0) this is converted to an object with a buf
     buf = thumb.copy()
     thumb_im = PIL.Image.open(io.BytesIO(buf.data()))
 
+In python-exiv2 before v0.15.0 the memory block is converted to an object with a buffer interface.
 A Python memoryview_ can be used to access the data without copying.
-
-In python-exiv2 from v0.15.0 onwards pointers to blocks of memory are converted directly to a Python memoryview_ object.
-This allows direct access to the block of memory without unnecessary copying.
-In some cases this includes writing to the data.
+(Converting to bytes_ would make a copy of the data, which we don't usually want.)
 
 Warning: segmentation faults
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -224,12 +226,12 @@ Doing so will invalidate the memoryview and may cause a segmentation fault:
     buf.alloc(128)
     print(bytes(data))              # Prints random values, may segfault
 
-Image data buffers
-------------------
+Image data in memory
+--------------------
 
 The `Exiv2::ImageFactory`_ class has a method ``open(const byte *data, size_t size)`` to create an `Exiv2::Image`_ from data stored in memory, rather than in a file.
 In python-exiv2 the ``data`` and ``size`` parameters are replaced with a single `bytes-like object`_ such as bytes_ or bytearray_.
-The buffered data isn't actually read until ``Image::readMetadata`` is called, so python-exiv2 stores a reference to the buffer to stop the user deleting it.
+The buffered data isn't actually read until ``Image::readMetadata`` is called, so python-exiv2 stores a reference to the buffer to stop the user accidentally deleting it.
 
 When ``Image::writeMetadata`` is called exiv2 allocates a new block of memory to store the modified data.
 The ``Image::io`` method returns an `Exiv2::MemIo`_ object that provides access to this data.
@@ -277,7 +279,7 @@ Since python-exiv2 v0.15.0 this buffer can be writeable:
     exiv_io = image.io()
     with memoryview(exiv_io) as data:
         data[23] = 157      # modifies data buffer
-    image.readMetadata()    # reads modified file data
+    image.readMetadata()    # reads modified buffer data
 
 The modified data is written back to the file (for ``Exiv2::FileIo``) or memory buffer (for `Exiv2::MemIo`_) when the memoryview_ is released.
 
