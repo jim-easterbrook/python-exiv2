@@ -387,6 +387,11 @@ name.__doc__ = doc
 %include "std_auto_ptr.i"
 %auto_ptr(pointed_type)
 %enddef // wrap_auto_unique_ptr
+#elif SWIG_VERSION >= 0x040100
+%define wrap_auto_unique_ptr(pointed_type)
+%include "std_unique_ptr.i"
+%unique_ptr(pointed_type)
+%enddef // wrap_auto_unique_ptr
 #else
 template <typename T>
 struct std::unique_ptr {};

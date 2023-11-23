@@ -5881,8 +5881,7 @@ SWIGINTERN PyObject *_wrap_XmpKey_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__XmpKey, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__XmpKey, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:

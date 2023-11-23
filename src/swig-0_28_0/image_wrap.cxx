@@ -6158,8 +6158,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_0(PyObject *self, Py_ssiz
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN |  0 );
   
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -6203,8 +6202,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN |  0 );
   
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -6289,8 +6287,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -6338,8 +6335,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -6387,8 +6383,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_2(PyObject *self, Py_ssize_t 
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   
   if (_global_view.obj) {
@@ -6502,8 +6497,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -6546,8 +6540,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_1(PyObject *self, Py_ssize_
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:

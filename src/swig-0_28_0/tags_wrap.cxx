@@ -5845,8 +5845,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ExifKey, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ExifKey, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:

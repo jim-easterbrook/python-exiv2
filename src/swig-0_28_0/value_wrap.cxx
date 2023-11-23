@@ -9036,8 +9036,7 @@ SWIGINTERN PyObject *_wrap_DataValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__DataValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__DataValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -10095,8 +10094,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_clone(PyObject *self, PyObject *args)
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__StringValueBase, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__StringValueBase, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -10945,8 +10943,7 @@ SWIGINTERN PyObject *_wrap_StringValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__StringValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__StringValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -11384,8 +11381,7 @@ SWIGINTERN PyObject *_wrap_AsciiValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__AsciiValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__AsciiValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -11752,8 +11748,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__CommentValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__CommentValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -13138,8 +13133,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__XmpTextValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__XmpTextValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -14132,8 +14126,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__XmpArrayValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__XmpArrayValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -15269,8 +15262,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__LangAltValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__LangAltValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -16786,8 +16778,7 @@ SWIGINTERN PyObject *_wrap_DateValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__DateValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__DateValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -18483,8 +18474,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__TimeValue, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__TimeValue, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -20514,8 +20504,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -22067,8 +22056,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -23630,8 +23618,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_clone(PyObject *self, PyObject *args) 
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -25185,8 +25172,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_short_t, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_short_t, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -26738,8 +26724,7 @@ SWIGINTERN PyObject *_wrap_LongValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_int_t, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_int_t, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -28301,8 +28286,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -29856,8 +29840,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
@@ -31409,8 +31392,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_clone(PyObject *self, PyObject *args) {
     }
   }
   
-  resultobj = SWIG_NewPointerObj(
-    (&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_POINTER_OWN);
+  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_POINTER_OWN |  0 );
   
   return resultobj;
 fail:
