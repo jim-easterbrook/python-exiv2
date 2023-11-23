@@ -4163,9 +4163,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-#include <memory>
-
-
 SWIGINTERN int
 SWIG_AsVal_double (PyObject *obj, double *val)
 {
@@ -5066,9 +5063,8 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_0(PyObject *self, Py_ssize_
   bool arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
   int res2 = 0 ;
-  std::unique_ptr< Exiv2::DataBuf > rvrdeleter2 ;
+  Exiv2::DataBuf *argp2 = NULL ;
   bool val3 ;
   int ecode3 = 0 ;
   
@@ -5079,19 +5075,16 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_0(PyObject *self, Py_ssize_
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_setIccProfile" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_RELEASE |  0 );
-  if (!SWIG_IsOK(res2)) {
-    if (res2 == SWIG_ERROR_RELEASE_NOT_OWNED) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', cannot release ownership as memory is not owned for argument " "2"" of type '" "Exiv2::DataBuf &&""'");
-    } else {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf &&""'"); 
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], (void**)&argp2, SWIGTYPE_p_Exiv2__DataBuf, 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
     }
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
+    }
+    arg2 = new Exiv2::DataBuf(argp2->c_data(), argp2->size());
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf &&""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::DataBuf * >(argp2);
-  rvrdeleter2.reset(arg2);
   ecode3 = SWIG_AsVal_bool(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Image_setIccProfile" "', argument " "3"" of type '" "bool""'");
@@ -5124,9 +5117,8 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_1(PyObject *self, Py_ssize_
   Exiv2::DataBuf *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
   int res2 = 0 ;
-  std::unique_ptr< Exiv2::DataBuf > rvrdeleter2 ;
+  Exiv2::DataBuf *argp2 = NULL ;
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -5135,19 +5127,16 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_1(PyObject *self, Py_ssize_
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_setIccProfile" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_RELEASE |  0 );
-  if (!SWIG_IsOK(res2)) {
-    if (res2 == SWIG_ERROR_RELEASE_NOT_OWNED) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', cannot release ownership as memory is not owned for argument " "2"" of type '" "Exiv2::DataBuf &&""'");
-    } else {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf &&""'"); 
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], (void**)&argp2, SWIGTYPE_p_Exiv2__DataBuf, 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
     }
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
+    }
+    arg2 = new Exiv2::DataBuf(argp2->c_data(), argp2->size());
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf &&""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::DataBuf * >(argp2);
-  rvrdeleter2.reset(arg2);
   {
     try {
       (arg1)->setIccProfile((Exiv2::DataBuf &&)*arg2);

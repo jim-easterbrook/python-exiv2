@@ -64,6 +64,20 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
     }
 %}
 
+// In v0.28.0 Image::setIccProfile takes ownership of its DataBuf input
+#if EXIV2_VERSION_HEX >= 0x001c0000
+%typemap(in) Exiv2::DataBuf&& (int res = 0, Exiv2::DataBuf* argp = NULL) {
+    res = SWIG_ConvertPtr($input, (void**)&argp, $1_descriptor, 0);
+    if (!SWIG_IsOK(res)) {
+        %argument_fail(res, $1_basetype, $symname, $argnum);
+    }
+    if (!argp) {
+        %argument_nullref($1_basetype, $symname, $argnum);
+    }
+    $1 = new Exiv2::DataBuf(argp->c_data(), argp->size());
+}
+#endif
+
 // exifData(), iptcData(), and xmpData() return values need to keep a
 // reference to Image.
 KEEP_REFERENCE(Exiv2::ExifData&)
