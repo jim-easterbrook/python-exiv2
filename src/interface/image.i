@@ -78,11 +78,13 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
 }
 #endif
 
-// exifData(), iptcData(), and xmpData() return values need to keep a
-// reference to Image.
+// exifData(), iptcData(), xmpData(), and iccProfile return values need to
+// keep a reference to Image.
 KEEP_REFERENCE(Exiv2::ExifData&)
 KEEP_REFERENCE(Exiv2::IptcData&)
 KEEP_REFERENCE(Exiv2::XmpData&)
+KEEP_REFERENCE(Exiv2::DataBuf*)
+KEEP_REFERENCE(Exiv2::DataBuf&)
 
 // xmpPacket() returns a modifiable std::string, Python strings are immutable
 // so treat it as a non-modifiable std::string
