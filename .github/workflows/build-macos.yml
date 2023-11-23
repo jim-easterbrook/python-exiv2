@@ -26,11 +26,8 @@ jobs:
           CIBW_ARCHS: x86_64
           CIBW_SKIP: pp3*
           CIBW_BEFORE_ALL: >
-            brew install ninja &&
-            pip3 install conan==1.59.0 "cython<3.0" &&
+            brew install ninja gettext &&
             cd exiv2-0.27.7-Source/build &&
-            conan profile new --detect default &&
-            conan install .. -o unitTests=False -b missing &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
