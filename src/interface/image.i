@@ -57,6 +57,12 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
         PyBuffer_Release(&_global_view);
     }
 %}
+// Release memory buffer after writeMetadata, as it creates its own copy
+%typemap(ret) void writeMetadata %{
+    if (PyObject_HasAttrString(self, "_refers_to")) {
+        PyObject_DelAttrString(self, "_refers_to");
+    }
+%}
 
 // exifData(), iptcData(), and xmpData() return values need to keep a
 // reference to Image.

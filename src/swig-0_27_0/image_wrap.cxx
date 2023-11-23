@@ -4559,6 +4559,11 @@ SWIGINTERN PyObject *_wrap_Image_writeMetadata(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_Py_Void();
+  
+  if (PyObject_HasAttrString(self, "_refers_to")) {
+    PyObject_DelAttrString(self, "_refers_to");
+  }
+  
   return resultobj;
 fail:
   return NULL;
