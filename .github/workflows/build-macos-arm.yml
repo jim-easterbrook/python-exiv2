@@ -27,7 +27,7 @@ jobs:
           CIBW_SKIP: pp3*
           CIBW_BEFORE_ALL: >
             brew install ninja &&
-            pip3 install conan==1.59.0 pyyaml==5.3.1 &&
+            pip3 install conan==1.59.0 "cython<3.0" &&
             cd exiv2-0.27.7-Source/build &&
             conan profile new --detect default &&
             conan install .. -o unitTests=False -b missing -pr:b=default -s arch=armv8 &&
