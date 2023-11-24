@@ -24,7 +24,7 @@ import unittest
 import exiv2
 
 
-class TestPreview(unittest.TestCase):
+class TestPreviewModule(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         exiv2.XmpParser.initialize()
