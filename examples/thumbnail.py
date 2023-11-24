@@ -2,7 +2,7 @@
 
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,12 @@ import locale
 import sys
 
 import PIL.Image as PIL
+from PIL import ImageShow
 import exiv2
+
+
+# Make sure we use ImageMagick viewer if it's available
+ImageShow.register(ImageShow.DisplayViewer(), -1)
 
 
 def main():
