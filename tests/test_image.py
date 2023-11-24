@@ -35,7 +35,8 @@ class TestImageModule(unittest.TestCase):
             cls.image_data = f.read()
 
     def test_Image(self):
-        self.assertEqual(exiv2.enableBMFF(True), True)
+        if exiv2.testVersion(0, 27, 4):
+            self.assertIsInstance(exiv2.enableBMFF(True), bool)
         # open image in memory so we don't corrupt the file
         image = exiv2.ImageFactory.open(self.image_data)
         self.assertEqual(len(image.io()), 15125)
