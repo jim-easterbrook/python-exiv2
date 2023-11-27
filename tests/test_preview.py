@@ -40,9 +40,12 @@ class TestPreviewModule(unittest.TestCase):
         manager = exiv2.PreviewManager(self.image)
         props = manager.getPreviewProperties()
         preview = manager.getPreviewImage(props[0])
+        self.assertIsInstance(preview, exiv2.PreviewImage)
+        preview2 = exiv2.PreviewImage(preview)
+        self.assertIsInstance(preview2, exiv2.PreviewImage)
         copy = preview.copy()
-        data = preview.pData()
         self.assertIsInstance(copy, exiv2.DataBuf)
+        data = preview.pData()
         self.assertIsInstance(data, memoryview)
         self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
         self.assertEqual(copy, data)
@@ -58,6 +61,7 @@ class TestPreviewModule(unittest.TestCase):
 
     def test_PreviewManager(self):
         manager = exiv2.PreviewManager(self.image)
+        self.assertIsInstance(manager, exiv2.PreviewManager)
         props = manager.getPreviewProperties()
         self.assertIsInstance(props, list)
         self.assertEqual(len(props), 1)
@@ -68,6 +72,7 @@ class TestPreviewModule(unittest.TestCase):
 
     def test_PreviewProperties(self):
         properties = exiv2.PreviewManager(self.image).getPreviewProperties()[0]
+        self.assertIsInstance(properties, exiv2.PreviewProperties)
         self.assertEqual(properties.extension_, '.jpg')
         self.assertEqual(properties.height_, 120)
         self.assertEqual(properties.id_, 4)
