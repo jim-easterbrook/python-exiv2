@@ -63,12 +63,34 @@ class TestIptcModule(unittest.TestCase):
         self.assertEqual(b.key(), 'Iptc.Application2.Contact')
         e = data.end()
         self.assertIsInstance(e, exiv2.IptcData_iterator_end)
+        k = data.findId(exiv2.IptcDataSets.SpecialInstructions)
+        self.assertIsInstance(k, exiv2.IptcData_iterator)
+        self.assertEqual(k.key(), 'Iptc.Application2.SpecialInstructions')
+        k = data.findId(exiv2.IptcDataSets.SpecialInstructions,
+                        exiv2.IptcDataSets.application2)
+        self.assertIsInstance(k, exiv2.IptcData_iterator)
+        self.assertEqual(k.key(), 'Iptc.Application2.SpecialInstructions')
         k = data.findKey(exiv2.IptcKey('Iptc.Application2.SpecialInstructions'))
         self.assertIsInstance(k, exiv2.IptcData_iterator)
         self.assertEqual(k.key(), 'Iptc.Application2.SpecialInstructions')
         k = data.erase(k)
         self.assertIsInstance(k, exiv2.IptcData_iterator)
         self.assertEqual(k.key(), 'Iptc.Application2.Keywords')
+        b = data.begin()
+        e = data.end()
+        self.assertIsInstance(str(b), str)
+        self.assertIsInstance(str(e), str)
+        count = 0
+        while b != e:
+            next(b)
+            count += 1
+        self.assertEqual(count, 20)
+        count = 0
+        for d in data:
+            count += 1
+        self.assertEqual(count, 20)
+        count = len(list(data))
+        self.assertEqual(count, 20)
         # access by key
         self.assertEqual('Iptc.Application2.Byline' in data, True)
         self.assertIsInstance(data['Iptc.Application2.Byline'], exiv2.Iptcdatum)
@@ -84,10 +106,66 @@ class TestIptcModule(unittest.TestCase):
         self.assertEqual(data.begin().key(), 'Iptc.Application2.ObjectName')
         # other methods
         self.assertEqual(data.count(), 20)
+        self.assertEqual(data.detectCharset(), 'UTF-8')
         self.assertEqual(data.empty(), False)
+        self.assertEqual(data.size(), 398)
         data.clear()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)
+
+    def _test_datum(self, datum):
+        self.assertIsInstance(str(datum), str)
+        buf = bytearray(datum.count())
+        self.assertEqual(
+            datum.copy(buf, exiv2.ByteOrder.littleEndian), len(buf))
+        self.assertEqual(buf, bytes(datum.toString(), 'ascii'))
+        self.assertEqual(datum.count(), 28)
+        self.assertEqual(datum.familyName(), 'Iptc')
+        self.assertIsInstance(datum.getValue(), exiv2.StringValue)
+        self.assertEqual(datum.groupName(), 'Application2')
+        self.assertEqual(datum.key(), 'Iptc.Application2.Caption')
+        self.assertEqual(datum.record(), exiv2.IptcDataSets.application2)
+        self.assertEqual(datum.recordName(), 'Application2')
+        self.assertEqual(datum.size(), 28)
+        self.assertEqual(datum.tag(), exiv2.IptcDataSets.Caption)
+        self.assertEqual(datum.tagLabel(), 'Caption')
+        self.assertEqual(datum.tagName(), 'Caption')
+        self.assertEqual(datum.toFloat(0), 71.0)
+        if exiv2.testVersion(0, 28, 0):
+            self.assertEqual(datum.toInt64(0), 71)
+        else:
+            self.assertEqual(datum.toLong(0), 71)
+        self.assertEqual(datum.toRational(0), (71, 1))
+        self.assertEqual(datum.toString(), 'Good view of the lighthouse.')
+        self.assertEqual(datum.toString(0), 'Good view of the lighthouse.')
+        self.assertEqual(datum.typeId(), exiv2.TypeId.string)
+        self.assertEqual(datum.typeName(), 'String')
+        self.assertEqual(datum.typeSize(), 1)
+        self.assertIsInstance(datum.value(), exiv2.StringValue)
+        datum.setValue('fred')
+        datum.setValue(exiv2.StringValue('Acme'))
+
+    def test_IptcData_iterator(self):
+        self.image.readMetadata()
+        data = self.image.iptcData()
+        datum_iter = data.findKey(exiv2.IptcKey('Iptc.Application2.Caption'))
+        self.assertIsInstance(datum_iter, exiv2.IptcData_iterator)
+        self.assertIsInstance(iter(datum_iter), exiv2.IptcData_iterator)
+        self._test_datum(datum_iter)
+
+    def test_IptcDatum(self):
+        datum = exiv2.Iptcdatum(
+            exiv2.IptcKey('Iptc.Application2.Keywords'),
+            exiv2.StringValue('holiday'))
+        self.assertIsInstance(datum, exiv2.Iptcdatum)
+        datum2 = exiv2.Iptcdatum(datum)
+        self.assertIsInstance(datum2, exiv2.Iptcdatum)
+        del datum2
+        self.image.readMetadata()
+        data = self.image.iptcData()
+        datum = data['Iptc.Application2.Caption']
+        self.assertIsInstance(datum, exiv2.Iptcdatum)
+        self._test_datum(datum)
 
     def test_ref_counts(self):
         self.image.readMetadata()
