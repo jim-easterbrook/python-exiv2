@@ -67,6 +67,21 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(k.key(), 'Exif.Photo.SubSecTime')
         k = data.erase(k, e)
         self.assertIsInstance(k, exiv2.ExifData_iterator_end)
+        b = data.begin()
+        e = data.end()
+        self.assertIsInstance(str(b), str)
+        self.assertIsInstance(str(e), str)
+        count = 0
+        while b != e:
+            next(b)
+            count += 1
+        self.assertEqual(count, 11)
+        count = 0
+        for d in data:
+            count += 1
+        self.assertEqual(count, 11)
+        count = len(list(data))
+        self.assertEqual(count, 11)
         # access by key
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'], exiv2.Exifdatum)
@@ -86,6 +101,64 @@ class TestExifModule(unittest.TestCase):
         data.clear()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)
+
+    def _test_datum(self, datum):
+        self.assertIsInstance(str(datum), str)
+        buf = bytearray(datum.count())
+        self.assertEqual(
+            datum.copy(buf, exiv2.ByteOrder.littleEndian), len(buf))
+        self.assertEqual(buf, bytes(datum.toString(), 'ascii'))
+        self.assertEqual(datum.count(), 28)
+        data_area = datum.dataArea()
+        self.assertIsInstance(data_area, exiv2.DataBuf)
+        self.assertEqual(len(data_area), 0)
+        self.assertEqual(datum.familyName(), 'Exif')
+        self.assertIsInstance(datum.getValue(), exiv2.AsciiValue)
+        self.assertEqual(datum.groupName(), 'Image')
+        self.assertEqual(datum.idx(), 2)
+        self.assertEqual(datum.ifdName(), 'IFD0')
+        self.assertEqual(datum.key(), 'Exif.Image.ImageDescription')
+        self.assertEqual(datum.setDataArea(b'fred'), -1)
+        self.assertEqual(datum.size(), 28)
+        self.assertEqual(datum.sizeDataArea(), 0)
+        self.assertEqual(datum.tag(), 270)
+        self.assertEqual(datum.tagLabel(), 'Image Description')
+        self.assertEqual(datum.tagName(), 'ImageDescription')
+        self.assertEqual(datum.toFloat(0), 71.0)
+        if exiv2.testVersion(0, 28, 0):
+            self.assertEqual(datum.toInt64(0), 71)
+        else:
+            self.assertEqual(datum.toLong(0), 71)
+        self.assertEqual(datum.toRational(0), (71, 1))
+        self.assertEqual(datum.toString(), 'Good view of the lighthouse.')
+        self.assertEqual(datum.toString(0), 'Good view of the lighthouse.')
+        self.assertEqual(datum.typeId(), exiv2.TypeId.asciiString)
+        self.assertEqual(datum.typeName(), 'Ascii')
+        self.assertEqual(datum.typeSize(), 1)
+        self.assertIsInstance(datum.value(), exiv2.AsciiValue)
+        datum.setValue('fred')
+        datum.setValue(exiv2.AsciiValue('Acme'))
+
+    def test_ExifData_iterator(self):
+        self.image.readMetadata()
+        data = self.image.exifData()
+        datum_iter = data.findKey(exiv2.ExifKey('Exif.Image.ImageDescription'))
+        self.assertIsInstance(datum_iter, exiv2.ExifData_iterator)
+        self.assertIsInstance(iter(datum_iter), exiv2.ExifData_iterator)
+        self._test_datum(datum_iter)
+
+    def test_ExifDatum(self):
+        datum = exiv2.Exifdatum(
+            exiv2.ExifKey('Exif.Image.Make'), exiv2.AsciiValue('Acme'))
+        self.assertIsInstance(datum, exiv2.Exifdatum)
+        datum2 = exiv2.Exifdatum(datum)
+        self.assertIsInstance(datum2, exiv2.Exifdatum)
+        del datum2
+        self.image.readMetadata()
+        data = self.image.exifData()
+        datum = data['Exif.Image.ImageDescription']
+        self.assertIsInstance(datum, exiv2.Exifdatum)
+        self._test_datum(datum)
 
     def test_ref_counts(self):
         self.image.readMetadata()
