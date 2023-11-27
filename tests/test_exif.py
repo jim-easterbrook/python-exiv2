@@ -18,6 +18,7 @@
 
 import os
 import sys
+import tempfile
 import unittest
 
 import exiv2
@@ -159,6 +160,40 @@ class TestExifModule(unittest.TestCase):
         datum = data['Exif.Image.ImageDescription']
         self.assertIsInstance(datum, exiv2.Exifdatum)
         self._test_datum(datum)
+
+    def test_ExifThumb(self):
+        self.image.readMetadata()
+        thumb = exiv2.ExifThumb(self.image.exifData())
+        self.assertIsInstance(thumb, exiv2.ExifThumb)
+        data = thumb.copy()
+        self.assertIsInstance(data, exiv2.DataBuf)
+        self.assertEqual(len(data), 2532)
+        self.assertEqual(thumb.extension(), '.jpg')
+        self.assertEqual(thumb.mimeType(), 'image/jpeg')
+        thumb.erase()
+        self.assertEqual(len(thumb.copy()), 0)
+        exif_data = exiv2.ExifData()
+        thumb = exiv2.ExifThumb(exif_data)
+        thumb.setJpegThumbnail(data)
+        self.assertEqual(len(thumb.copy()), 2532)
+        thumb.erase()
+        self.assertEqual(len(thumb.copy()), 0)
+        thumb.setJpegThumbnail(
+            data, exiv2.URational((160, 1)), exiv2.URational((120, 1)), 1)
+        self.assertEqual(len(thumb.copy()), 2532)
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_file = os.path.join(tmp_dir, 'thumb')
+            self.assertEqual(thumb.writeFile(temp_file), 2532)
+            temp_file += thumb.extension()
+            thumb.erase()
+            self.assertEqual(len(thumb.copy()), 0)
+            thumb.setJpegThumbnail(temp_file)
+            self.assertEqual(len(thumb.copy()), 2532)
+            thumb.erase()
+            self.assertEqual(len(thumb.copy()), 0)
+            thumb.setJpegThumbnail(temp_file, exiv2.URational((160, 1)),
+                                   exiv2.URational((120, 1)), 1)
+            self.assertEqual(len(thumb.copy()), 2532)
 
     def test_ref_counts(self):
         self.image.readMetadata()
