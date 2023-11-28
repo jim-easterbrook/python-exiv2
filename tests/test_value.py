@@ -17,13 +17,21 @@
 ##  <http://www.gnu.org/licenses/>.
 
 import os
+import random
 import sys
 import unittest
 
 import exiv2
 
 
-class TestValue(unittest.TestCase):
+class TestValueModule(unittest.TestCase):
+    def test_DataValue(self):
+        py_data_1 = bytes(random.choices(range(256), k=128))
+        exv_data = exiv2.DataValue(py_data_1)
+        py_data_2 = bytearray(len(exv_data))
+        exv_data.copy(py_data_2)
+        self.assertEqual(py_data_1, py_data_2)
+
     def do_string_tests(self, exiv2_type, exiv2_id):
         value = exiv2_type('fred')
         self.assertEqual(value.typeId(), exiv2_id)
