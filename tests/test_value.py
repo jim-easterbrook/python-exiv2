@@ -105,7 +105,10 @@ class TestValueModule(unittest.TestCase):
     def test_CommentValue(self):
         raw_text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
         data = b'UNICODE\x00' + bytes(raw_text, 'utf-16-le')
-        text = 'charset=Unicode ' + raw_text
+        if exiv2.testVersion(0, 27, 4):
+            text = 'charset=Unicode ' + raw_text
+        else:
+            text = 'charset="Unicode" ' + raw_text
         # constructors
         value = exiv2.CommentValue()
         self.assertIsInstance(value, exiv2.CommentValue)
@@ -125,6 +128,22 @@ class TestValueModule(unittest.TestCase):
         self.do_test_StringValueBase(value, text, data)
         self.do_test_Value(
             value, exiv2.TypeId.undefined, text, data[0], len(data))
+
+    def test_StringValue(self):
+        text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
+        data = bytes(text, 'utf-8')
+        # constructors
+        value = exiv2.StringValue()
+        self.assertIsInstance(value, exiv2.StringValue)
+        self.assertEqual(len(value), 0)
+        value = exiv2.Value.create(exiv2.TypeId.string)
+        self.assertIsInstance(value, exiv2.StringValue)
+        self.assertEqual(len(value), 0)
+        value = exiv2.StringValue(text)
+        self.assertIsInstance(value, exiv2.StringValue)
+        # other methods
+        self.do_test_StringValueBase(value, text, data)
+        self.do_test_Value(value, exiv2.TypeId.string, text, data[0], len(data))
 
     def test_DataValue(self):
         def check_data(value, data):
