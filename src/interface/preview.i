@@ -24,6 +24,17 @@
 %import "image.i";
 %import "types.i";
 
+// Some calls don't raise exceptions
+%noexception Exiv2::PreviewImage::__len__;
+%noexception Exiv2::PreviewImage::extension;
+%noexception Exiv2::PreviewImage::height;
+%noexception Exiv2::PreviewImage::id;
+%noexception Exiv2::PreviewImage::mimeType;
+%noexception Exiv2::PreviewImage::pData;
+%noexception Exiv2::PreviewImage::size;
+%noexception Exiv2::PreviewImage::wextension;
+%noexception Exiv2::PreviewImage::width;
+
 // Convert getPreviewProperties result to a Python list
 %typemap(out) Exiv2::PreviewPropertiesList {
     $result = PyList_New(0);

@@ -4576,20 +4576,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_pData" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = (Exiv2::byte *)((Exiv2::PreviewImage const *)arg1)->pData();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::byte *)((Exiv2::PreviewImage const *)arg1)->pData();
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
   
@@ -4613,20 +4600,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_size" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = (uint32_t)((Exiv2::PreviewImage const *)arg1)->size();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (uint32_t)((Exiv2::PreviewImage const *)arg1)->size();
   resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
   return resultobj;
 fail:
@@ -4700,20 +4674,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_mimeType(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_mimeType" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = ((Exiv2::PreviewImage const *)arg1)->mimeType();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::PreviewImage const *)arg1)->mimeType();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -4735,20 +4696,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_extension(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_extension" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = ((Exiv2::PreviewImage const *)arg1)->extension();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::PreviewImage const *)arg1)->extension();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -4770,20 +4718,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_width(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_width" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = ((Exiv2::PreviewImage const *)arg1)->width();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::PreviewImage const *)arg1)->width();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -4805,20 +4740,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_height(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_height" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = ((Exiv2::PreviewImage const *)arg1)->height();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = ((Exiv2::PreviewImage const *)arg1)->height();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -4840,20 +4762,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_id(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_id" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = (Exiv2::PreviewId)((Exiv2::PreviewImage const *)arg1)->id();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::PreviewId)((Exiv2::PreviewImage const *)arg1)->id();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -4875,20 +4784,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage___len__(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage___len__" "', argument " "1"" of type '" "Exiv2::PreviewImage *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = Exiv2_PreviewImage___len__(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_PreviewImage___len__(arg1);
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
