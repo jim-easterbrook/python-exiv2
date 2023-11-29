@@ -199,6 +199,9 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
     _global_type_id = $1;
 %}
 
+// CommentValue::detectCharset has a string reference parameter
+%apply const std::string& {std::string& c};
+
 // Keep a reference to Metadatum when calling value()
 KEEP_REFERENCE(const Exiv2::Value&)
 

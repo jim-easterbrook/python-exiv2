@@ -52,10 +52,7 @@ class TestValueModule(unittest.TestCase):
         result = exiv2.Value.create(type_id)
         self.assertEqual(result.read(string), 0)
         self.assertEqual(str(result), string)
-        if isinstance(value, exiv2.CommentValue):
-            result = value.clone()
-        else:
-            result = exiv2.Value.create(type_id)
+        result = exiv2.Value.create(type_id)
         self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
         self.assertEqual(str(result), string)
         result = value.size()
@@ -161,6 +158,9 @@ class TestValueModule(unittest.TestCase):
         result = value.comment()
         self.assertIsInstance(result, str)
         self.assertEqual(result, raw_text)
+        result = value.detectCharset(raw_text)
+        self.assertIsInstance(result, str)
+        self.assertEqual(result, 'UCS-2LE')
         result = value.byteOrder_
         self.assertIsInstance(result, int)
         self.assertEqual(result, exiv2.ByteOrder.littleEndian)
