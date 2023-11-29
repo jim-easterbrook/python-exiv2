@@ -49,10 +49,7 @@ class TestValueModule(unittest.TestCase):
         result = value.ok()
         self.assertIsInstance(result, bool)
         self.assertEqual(result, True)
-        if isinstance(value, exiv2.CommentValue):
-            result = value.clone()
-        else:
-            result = exiv2.Value.create(type_id)
+        result = exiv2.Value.create(type_id)
         self.assertEqual(result.read(string), 0)
         self.assertEqual(str(result), string)
         if isinstance(value, exiv2.CommentValue):
@@ -66,6 +63,9 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(result, len(data))
         result = value.typeId()
         self.assertIsInstance(result, int)
+        # Exiv2::CommentValue::typeId returns undefined
+        if type_id == exiv2.TypeId.comment:
+            type_id = exiv2.TypeId.undefined
         self.assertEqual(result, type_id)
 
     def do_conversion_tests(self, value, text, number):
@@ -164,7 +164,7 @@ class TestValueModule(unittest.TestCase):
         result = value.byteOrder_
         self.assertIsInstance(result, int)
         self.assertEqual(result, exiv2.ByteOrder.littleEndian)
-        self.do_common_tests(value, exiv2.TypeId.undefined, text, data)
+        self.do_common_tests(value, exiv2.TypeId.comment, text, data)
         self.do_common_string_tests(value, data)
         self.do_conversion_tests(value, text, data[0])
         self.do_dataarea_tests(value)

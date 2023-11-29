@@ -8388,8 +8388,8 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
   Exiv2::TypeId arg1 ;
   int val1 ;
   int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
   Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
+  PyObject *swig_obj[1] ;
   Exiv2::Value::UniquePtr result;
   
   (void)self;
@@ -8400,6 +8400,9 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Value_create" "', argument " "1"" of type '" "Exiv2::TypeId""'");
   } 
   arg1 = static_cast< Exiv2::TypeId >(val1);
+  
+  _global_type_id = arg1;
+  
   {
     try {
       result = Exiv2::Value::create(arg1);
@@ -8560,6 +8563,7 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyO
   Exiv2::TypeId arg1 ;
   int val1 ;
   int ecode1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::DataValue *result = 0 ;
   
   (void)self;
@@ -8569,6 +8573,9 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyO
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_DataValue" "', argument " "1"" of type '" "Exiv2::TypeId""'");
   } 
   arg1 = static_cast< Exiv2::TypeId >(val1);
+  
+  _global_type_id = arg1;
+  
   {
     try {
       result = (Exiv2::DataValue *)new Exiv2::DataValue(arg1);
@@ -8628,6 +8635,7 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::DataValue *result = 0 ;
   
   (void)self;
@@ -8652,6 +8660,9 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_DataValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::DataValue *)new Exiv2::DataValue((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -13824,6 +13835,7 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   Exiv2::TypeId arg1 ;
   int val1 ;
   int ecode1 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::XmpArrayValue *result = 0 ;
   
   (void)self;
@@ -13833,6 +13845,9 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_0(PyObject *self, Py_ssize_t nobjs,
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_XmpArrayValue" "', argument " "1"" of type '" "Exiv2::TypeId""'");
   } 
   arg1 = static_cast< Exiv2::TypeId >(val1);
+  
+  _global_type_id = arg1;
+  
   {
     try {
       result = (Exiv2::XmpArrayValue *)new Exiv2::XmpArrayValue(arg1);
@@ -14673,6 +14688,7 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_3(PyObject *self, Py_ssize_t nobjs,
   Exiv2::TypeId arg2 ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::XmpArrayValue *result = 0 ;
   
   (void)self;
@@ -14691,6 +14707,9 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_3(PyObject *self, Py_ssize_t nobjs,
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_XmpArrayValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_3(SWIG_STD_MOVE(arg1),arg2);
@@ -20003,6 +20022,7 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< uint16_t > *result = 0 ;
   
   (void)self;
@@ -20027,6 +20047,9 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_UShortValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::ValueType< uint16_t > *)new Exiv2::ValueType< uint16_t >((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -20125,6 +20148,7 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, P
   int ecode1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< uint16_t > *result = 0 ;
   
   (void)self;
@@ -20140,6 +20164,9 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, P
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_UShortValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::ValueType< uint16_t > *)new Exiv2::ValueType< uint16_t >((unsigned short const &)*arg1,arg2);
@@ -21555,6 +21582,7 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< uint32_t > *result = 0 ;
   
   (void)self;
@@ -21579,6 +21607,9 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_ULongValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::ValueType< uint32_t > *)new Exiv2::ValueType< uint32_t >((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -21677,6 +21708,7 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
   int ecode1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< uint32_t > *result = 0 ;
   
   (void)self;
@@ -21692,6 +21724,9 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_ULongValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::ValueType< uint32_t > *)new Exiv2::ValueType< uint32_t >((unsigned int const &)*arg1,arg2);
@@ -23107,6 +23142,7 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< Exiv2::URational > *result = 0 ;
   
   (void)self;
@@ -23131,6 +23167,9 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_URationalValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::ValueType< Exiv2::URational > *)new Exiv2::ValueType< Exiv2::URational >((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -23227,6 +23266,7 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_3(PyObject *self, Py_ssize_t nobjs
   int res1 = SWIG_OLDOBJ ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< Exiv2::URational > *result = 0 ;
   
   (void)self;
@@ -23247,6 +23287,9 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_3(PyObject *self, Py_ssize_t nobjs
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_URationalValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::ValueType< Exiv2::URational > *)new Exiv2::ValueType< Exiv2::URational >((std::pair< unsigned int,unsigned int > const &)*arg1,arg2);
@@ -24671,6 +24714,7 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< int16_t > *result = 0 ;
   
   (void)self;
@@ -24695,6 +24739,9 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_ShortValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::ValueType< int16_t > *)new Exiv2::ValueType< int16_t >((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -24793,6 +24840,7 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
   int ecode1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< int16_t > *result = 0 ;
   
   (void)self;
@@ -24808,6 +24856,9 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_ShortValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::ValueType< int16_t > *)new Exiv2::ValueType< int16_t >((short const &)*arg1,arg2);
@@ -26223,6 +26274,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< int32_t > *result = 0 ;
   
   (void)self;
@@ -26247,6 +26299,9 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_LongValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::ValueType< int32_t > *)new Exiv2::ValueType< int32_t >((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -26345,6 +26400,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyO
   int ecode1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< int32_t > *result = 0 ;
   
   (void)self;
@@ -26360,6 +26416,9 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyO
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_LongValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::ValueType< int32_t > *)new Exiv2::ValueType< int32_t >((int const &)*arg1,arg2);
@@ -27775,6 +27834,7 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< Exiv2::Rational > *result = 0 ;
   
   (void)self;
@@ -27799,6 +27859,9 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_RationalValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::ValueType< Exiv2::Rational > *)new Exiv2::ValueType< Exiv2::Rational >((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -27895,6 +27958,7 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_3(PyObject *self, Py_ssize_t nobjs,
   int res1 = SWIG_OLDOBJ ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< Exiv2::Rational > *result = 0 ;
   
   (void)self;
@@ -27915,6 +27979,9 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_3(PyObject *self, Py_ssize_t nobjs,
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RationalValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::ValueType< Exiv2::Rational > *)new Exiv2::ValueType< Exiv2::Rational >((std::pair< int,int > const &)*arg1,arg2);
@@ -29339,6 +29406,7 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< float > *result = 0 ;
   
   (void)self;
@@ -29363,6 +29431,9 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FloatValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::ValueType< float > *)new Exiv2::ValueType< float >((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -29461,6 +29532,7 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
   int ecode1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< float > *result = 0 ;
   
   (void)self;
@@ -29476,6 +29548,9 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FloatValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::ValueType< float > *)new Exiv2::ValueType< float >((float const &)*arg1,arg2);
@@ -30891,6 +30966,7 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
   int ecode3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< double > *result = 0 ;
   
   (void)self;
@@ -30915,6 +30991,9 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_DoubleValue" "', argument " "4"" of type '" "Exiv2::TypeId""'");
   } 
   arg4 = static_cast< Exiv2::TypeId >(val4);
+  
+  _global_type_id = arg4;
+  
   {
     try {
       result = (Exiv2::ValueType< double > *)new Exiv2::ValueType< double >((Exiv2::byte const *)arg1,arg2,arg3,arg4);
@@ -31013,6 +31092,7 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, P
   int ecode1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
+  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::ValueType< double > *result = 0 ;
   
   (void)self;
@@ -31028,6 +31108,9 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, P
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DoubleValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
+  
+  _global_type_id = arg2;
+  
   {
     try {
       result = (Exiv2::ValueType< double > *)new Exiv2::ValueType< double >((double const &)*arg1,arg2);

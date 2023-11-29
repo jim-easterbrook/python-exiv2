@@ -190,6 +190,15 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
     GET_SWIG_TYPE()
     $result = SWIG_NewPointerObj(value, swg_type, 0);
 }
+
+// Make a note of what type is passed to Exiv2::Value::create, as
+// returned CommentValue's typeId() is undefined. Unfortunately every
+// function with a TypeId parameter also stores it in _global_type_id
+%typemap(check) Exiv2::TypeId typeId
+    (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) %{
+    _global_type_id = $1;
+%}
+
 // Keep a reference to Metadatum when calling value()
 KEEP_REFERENCE(const Exiv2::Value&)
 
