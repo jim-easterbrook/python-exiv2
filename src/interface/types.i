@@ -21,6 +21,7 @@
 
 %include "stdint.i"
 %include "std_pair.i"
+%include "std_string.i"
 
 // Some calls don't raise exceptions
 %noexception Exiv2::DataBuf::data;
