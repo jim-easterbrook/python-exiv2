@@ -69,6 +69,40 @@ class TestTypesModule(unittest.TestCase):
         buf.alloc(6)
         self.assertEqual(len(buf), 6)
 
+    def test_Rational(self):
+        for type_ in (exiv2.Rational, exiv2.URational):
+            # constructors
+            value = type_()
+            self.assertIsInstance(value, type_)
+            value = type_(13, 7)
+            self.assertIsInstance(value, type_)
+            # other methods
+            self.assertEqual(len(value), 2)
+            self.assertEqual(repr(value), '(13, 7)')
+            result = value[0]
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, 13)
+            result = value[1]
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, 7)
+            result = value.first
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, value[0])
+            result = value.second
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, value[1])
+            value[0] = 23
+            self.assertEqual(value[0], 23)
+
+    def test_TypeInfo(self):
+        info = exiv2.TypeInfo
+        result = info.typeName(exiv2.TypeId.unsignedRational)
+        self.assertIsInstance(result, str)
+        self.assertEqual(result, 'Rational')
+        result = info.typeSize(exiv2.TypeId.unsignedRational)
+        self.assertIsInstance(result, int)
+        self.assertEqual(result, 8)
+
 
 if __name__ == '__main__':
     unittest.main()
