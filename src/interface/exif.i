@@ -30,6 +30,15 @@
 %import "metadatum.i"
 %import "tags.i"
 
+// ExifThumb keeps a reference to the ExifData it uses
+%typemap(ret) Exiv2::ExifThumb* %{
+    if ($result != Py_None) {
+        if (PyObject_SetAttrString($result, "_refers_to", swig_obj[0])) {
+            SWIG_fail;
+        }
+    }
+%}
+
 #if EXIV2_VERSION_HEX < 0x001c0000
 INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)
 #else

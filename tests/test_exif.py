@@ -201,6 +201,12 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(sys.getrefcount(self.image), 2)
         data = self.image.exifData()
         self.assertEqual(sys.getrefcount(self.image), 3)
+        # thumbnail keeps a reference to exifData
+        self.assertEqual(sys.getrefcount(data), 2)
+        thumb = exiv2.ExifThumb(data)
+        self.assertEqual(sys.getrefcount(data), 3)
+        del thumb
+        self.assertEqual(sys.getrefcount(data), 2)
         # iterator keeps a reference to data
         self.assertEqual(sys.getrefcount(data), 2)
         b = data.begin()
