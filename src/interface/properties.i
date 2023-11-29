@@ -68,6 +68,7 @@ ENUM(XmpCategory, "Category of an XMP property.",
 %ignore Exiv2::XmpNsInfo::Ns;
 
 // Ignore stuff Python can't use
+%ignore Exiv2::XmpProperties::lookupNsRegistry;
 %ignore Exiv2::XmpProperties::printProperties;
 %ignore Exiv2::XmpProperties::printProperty;
 

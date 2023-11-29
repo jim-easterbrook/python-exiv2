@@ -5249,46 +5249,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpProperties_lookupNsRegistry(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpNsInfo::Prefix *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Exiv2::XmpNsInfo *result = 0 ;
-  
-  (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__XmpNsInfo__Prefix,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpProperties_lookupNsRegistry" "', argument " "1"" of type '" "Exiv2::XmpNsInfo::Prefix const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpProperties_lookupNsRegistry" "', argument " "1"" of type '" "Exiv2::XmpNsInfo::Prefix const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpNsInfo::Prefix * >(argp1);
-  {
-    try {
-      result = (Exiv2::XmpNsInfo *)Exiv2::XmpProperties::lookupNsRegistry((Exiv2::XmpNsInfo::Prefix const &)*arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpNsInfo, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpProperties_registeredNamespaces(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Dictionary *arg1 = 0 ;
@@ -6571,7 +6531,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
 		"\n"
 		"Notes: This invalidates XMP keys generated in any custom namespace.\n"
 		"" },
-  { "lookupNsRegistry", (PyCFunction)(void(*)(void))_wrap_XmpProperties_lookupNsRegistry, METH_STATIC|METH_O, "    Get the registered namespace for a specific *prefix* from the registry." },
   { "registeredNamespaces", (PyCFunction)(void(*)(void))_wrap_XmpProperties_registeredNamespaces, METH_STATIC|METH_NOARGS, "    Get all registered namespaces (for both Exiv2 and XMPsdk)" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
