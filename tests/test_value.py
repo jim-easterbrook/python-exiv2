@@ -17,6 +17,7 @@
 ##  <http://www.gnu.org/licenses/>.
 
 import datetime
+from fractions import Fraction
 import os
 import random
 import sys
@@ -26,34 +27,65 @@ import exiv2
 
 
 class TestValueModule(unittest.TestCase):
-    def do_test_Value(self, value, type_id, string, number, size):
-        result = value.size()
+    def do_common_tests(self, value, type_id, string, data):
+        if type_id != exiv2.TypeId.undefined:
+            self.assertIsInstance(exiv2.Value.create(type_id), type(value))
+        self.assertEqual(len(value), value.count())
+        self.assertEqual(str(value), string)
+        result = value.clone()
+        self.assertIsInstance(result, type(value))
+        self.assertEqual(str(result), str(value))
+        result = bytearray(len(data))
+        self.assertEqual(
+            value.copy(result, exiv2.ByteOrder.littleEndian), len(result))
+        self.assertEqual(result, data)
+        result = value.count()
         self.assertIsInstance(result, int)
-        self.assertEqual(result, size)
-        result = value.toFloat(0)
-        self.assertIsInstance(result, float)
-        self.assertEqual(result, float(number))
-        if exiv2.testVersion(0, 28, 0):
-            result = value.toUint32(0)
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, number)
-            result = value.toInt64(0)
-        else:
-            result = value.toLong(0)
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, number)
-        result = value.toRational(0)
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(result, (number, 1))
-        result = value.toString(0)
-        self.assertIsInstance(result, str)
-        self.assertEqual(result, string)
+        if not isinstance(value, (exiv2.XmpArrayValue, exiv2.LangAltValue)):
+            self.assertEqual(result, len(data))
         result = value.ok()
         self.assertIsInstance(result, bool)
         self.assertEqual(result, True)
+        if not isinstance(value, (exiv2.XmpArrayValue, exiv2.LangAltValue)):
+            result = value.clone()
+            self.assertEqual(result.read(string), 0)
+            self.assertEqual(str(result), string)
+            self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
+            self.assertEqual(str(result), string)
+        result = value.size()
+        self.assertIsInstance(result, int)
+        self.assertEqual(result, len(data))
         result = value.typeId()
         self.assertIsInstance(result, int)
         self.assertEqual(result, type_id)
+
+    def do_conversion_tests(self, value, text, number):
+        result = value.toFloat(0)
+        self.assertEqual(value.ok(), True)
+        self.assertIsInstance(result, float)
+        self.assertAlmostEqual(result, float(number), places=5)
+        if exiv2.testVersion(0, 28, 0):
+            result = value.toUint32(0)
+            self.assertEqual(value.ok(), True)
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, int(number))
+            result = value.toInt64(0)
+        else:
+            result = value.toLong(0)
+        self.assertEqual(value.ok(), True)
+        self.assertIsInstance(result, int)
+        self.assertEqual(result, int(number))
+        result = value.toRational(0)
+        self.assertEqual(value.ok(), True)
+        self.assertIsInstance(result, tuple)
+        self.assertAlmostEqual(
+            float(Fraction(*result)), float(number), places=5)
+        result = value.toString(0)
+        self.assertEqual(value.ok(), True)
+        self.assertIsInstance(result, str)
+        self.assertEqual(result, text)
+
+    def do_dataarea_tests(self, value):
         data_area = value.dataArea()
         self.assertIsInstance(data_area, exiv2.DataBuf)
         self.assertEqual(len(data_area), 0)
@@ -62,28 +94,25 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(result, int)
         self.assertEqual(result, 0)
 
-    def do_test_StringValueBase(self, value, text, data):
+    def do_common_string_tests(self, value, data):
         with self.assertWarns(DeprecationWarning):
             char = value[0]
-        self.assertEqual(len(value), len(data))
-        self.assertEqual(str(value), text)
-        clone = value.clone()
-        self.assertIsInstance(clone, type(value))
-        self.assertEqual(str(clone), text)
-        copy = bytearray(len(data))
-        self.assertEqual(
-            value.copy(copy, exiv2.ByteOrder.littleEndian), len(copy))
-        self.assertEqual(copy, data)
-        count = value.count()
-        self.assertIsInstance(count, int)
-        self.assertEqual(count, len(data))
         with value.data() as view:
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, data)
-        self.assertEqual(value.read(text), 0)
-        self.assertEqual(str(value), text)
-        self.assertEqual(value.read(data, exiv2.ByteOrder.littleEndian), 0)
-        self.assertEqual(str(value), text)
+
+    def do_common_xmp_tests(self, value):
+        for type_ in (exiv2.XmpArrayType.xaSeq, exiv2.XmpArrayType.xaBag,
+                      exiv2.XmpArrayType.xaAlt, exiv2.XmpArrayType.xaNone):
+            value.setXmpArrayType(type_)
+            result = value.xmpArrayType()
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, type_)
+        for type_ in (exiv2.XmpStruct.xsStruct, exiv2.XmpStruct.xsNone):
+            value.setXmpStruct(type_)
+            result = value.xmpStruct()
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, type_)
 
     def test_AsciiValue(self):
         text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
@@ -92,15 +121,13 @@ class TestValueModule(unittest.TestCase):
         value = exiv2.AsciiValue()
         self.assertIsInstance(value, exiv2.AsciiValue)
         self.assertEqual(len(value), 0)
-        value = exiv2.Value.create(exiv2.TypeId.asciiString)
-        self.assertIsInstance(value, exiv2.AsciiValue)
-        self.assertEqual(len(value), 0)
         value = exiv2.AsciiValue(text)
         self.assertIsInstance(value, exiv2.AsciiValue)
         # other methods
-        self.do_test_StringValueBase(value, text, data)
-        self.do_test_Value(
-            value, exiv2.TypeId.asciiString, text, data[0], len(data))
+        self.do_common_tests(value, exiv2.TypeId.asciiString, text, data)
+        self.do_common_string_tests(value, data)
+        self.do_conversion_tests(value, text, data[0])
+        self.do_dataarea_tests(value)
 
     def test_CommentValue(self):
         raw_text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
@@ -125,9 +152,10 @@ class TestValueModule(unittest.TestCase):
         result = value.byteOrder_
         self.assertIsInstance(result, int)
         self.assertEqual(result, exiv2.ByteOrder.littleEndian)
-        self.do_test_StringValueBase(value, text, data)
-        self.do_test_Value(
-            value, exiv2.TypeId.undefined, text, data[0], len(data))
+        self.do_common_tests(value, exiv2.TypeId.undefined, text, data)
+        self.do_common_string_tests(value, data)
+        self.do_conversion_tests(value, text, data[0])
+        self.do_dataarea_tests(value)
 
     def test_StringValue(self):
         text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
@@ -136,14 +164,116 @@ class TestValueModule(unittest.TestCase):
         value = exiv2.StringValue()
         self.assertIsInstance(value, exiv2.StringValue)
         self.assertEqual(len(value), 0)
-        value = exiv2.Value.create(exiv2.TypeId.string)
-        self.assertIsInstance(value, exiv2.StringValue)
-        self.assertEqual(len(value), 0)
         value = exiv2.StringValue(text)
         self.assertIsInstance(value, exiv2.StringValue)
         # other methods
-        self.do_test_StringValueBase(value, text, data)
-        self.do_test_Value(value, exiv2.TypeId.string, text, data[0], len(data))
+        self.do_common_tests(value, exiv2.TypeId.string, text, data)
+        self.do_common_string_tests(value, data)
+        self.do_conversion_tests(value, text, data[0])
+        self.do_dataarea_tests(value)
+
+    def test_LangAltValue(self):
+        text_dict = {
+            'x-default': 'The quick brown fox jumps over the lazy dog.',
+            'en-GB': 'The quick brown fox jumps over the lazy dog.',
+            'de-DE': 'Der schnelle Braunfuchs springt über den faulen Hund.',
+            }
+        text = ', '.join('lang="{}" {}'.format(*x) for x in text_dict.items())
+        data = bytes(text, 'utf-8')
+        # constructors
+        value = exiv2.LangAltValue()
+        self.assertIsInstance(value, exiv2.LangAltValue)
+        self.assertEqual(len(value), 0)
+        value = exiv2.LangAltValue(text_dict['x-default'])
+        self.assertIsInstance(value, exiv2.LangAltValue)
+        self.assertEqual(len(value), 1)
+        value = exiv2.LangAltValue(text_dict)
+        self.assertIsInstance(value, exiv2.LangAltValue)
+        self.assertEqual(len(value), 3)
+        # other methods
+        self.assertEqual(dict(value), text_dict)
+        self.assertEqual('de-DE' in value, True)
+        result = value['en-GB']
+        self.assertIsInstance(result, str)
+        self.assertEqual(result, text_dict['en-GB'])
+        self.assertEqual('nl-NL' in value, False)
+        nl_string = 'De snelle bruine vos springt over de luie hond heen.'
+        value['nl-NL'] = nl_string
+        self.assertEqual('nl-NL' in value, True)
+        del value['nl-NL']
+        self.assertEqual('nl-NL' in value, False)
+        self.assertEqual(value.read(nl_string), 0)
+        self.assertEqual(value['x-default'], nl_string)
+        self.assertEqual(
+            value.read('lang="{}" {}'.format('nl-NL', nl_string)), 0)
+        self.assertEqual('nl-NL' in value, True)
+        self.assertEqual(value['nl-NL'], nl_string)
+        value = exiv2.LangAltValue(text_dict)
+        result = value.keys()
+        self.assertIsInstance(result, tuple)
+        self.assertEqual(result, tuple(text_dict.keys()))
+        result = value.values()
+        self.assertIsInstance(result, tuple)
+        self.assertEqual(result, tuple(text_dict.values()))
+        result = value.items()
+        self.assertIsInstance(result, tuple)
+        self.assertEqual(result, tuple(text_dict.items()))
+        self.do_common_tests(value, exiv2.TypeId.langAlt, text, data)
+        # no conversion tests as value can't be numeric
+        self.do_dataarea_tests(value)
+        self.do_common_xmp_tests(value)
+
+    def test_XmpArrayValue(self):
+        text = ('The quick brown fox jumps over the lazy dog. àéīöûç',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit')
+        string = ', '.join(text)
+        data = bytes(string, 'utf-8')
+        # constructors
+        value = exiv2.XmpArrayValue(exiv2.TypeId.xmpSeq)
+        self.assertIsInstance(value, exiv2.XmpArrayValue)
+        self.assertEqual(len(value), 0)
+        value = exiv2.XmpArrayValue(text)
+        self.assertIsInstance(value, exiv2.XmpArrayValue)
+        # other methods
+        self.assertEqual(len(value), 2)
+        result = value[0]
+        self.assertIsInstance(result, str)
+        self.assertEqual(result, text[0])
+        value.append('fred')
+        self.assertIsInstance(value[2], str)
+        value = exiv2.XmpArrayValue(text)
+        # read() appends to value
+        self.assertEqual(value.read(b'dave'), 0)
+        self.assertEqual(len(value), 3)
+        self.assertEqual(value[2], 'dave')
+        value = exiv2.XmpArrayValue(text)
+        self.assertEqual(value.read('pete'), 0)
+        self.assertEqual(value[2], 'pete')
+        self.assertEqual(len(value), 3)
+        value = exiv2.XmpArrayValue(text)
+        self.do_common_tests(value, exiv2.TypeId.xmpBag, string, data)
+        value = exiv2.XmpArrayValue(('123.45', 'fred'))
+        self.do_conversion_tests(value, value[0], float(value[0]))
+        self.do_dataarea_tests(value)
+        self.do_common_xmp_tests(value)
+
+    def test_XmpTextValue(self):
+        text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
+        data = bytes(text, 'utf-8')
+        # constructors
+        value = exiv2.XmpTextValue()
+        self.assertIsInstance(value, exiv2.XmpTextValue)
+        self.assertEqual(len(value), 0)
+        value = exiv2.XmpTextValue(text)
+        self.assertIsInstance(value, exiv2.XmpTextValue)
+        # other methods
+        self.do_common_tests(value, exiv2.TypeId.xmpText, text, data)
+        self.do_common_string_tests(value, data)
+        text = '123.45'
+        value = exiv2.XmpArrayValue(text)
+        self.do_conversion_tests(value, text[0], int(text[0]))
+        self.do_dataarea_tests(value)
+        self.do_common_xmp_tests(value)
 
     def test_DataValue(self):
         def check_data(value, data):
@@ -152,14 +282,12 @@ class TestValueModule(unittest.TestCase):
             self.assertEqual(copy, data)
 
         data = bytes(random.choices(range(256), k=128))
+        string = ' '.join(str(x) for x in data)
         # constructors
         value = exiv2.DataValue()
         self.assertIsInstance(value, exiv2.DataValue)
         self.assertEqual(len(value), 0)
         value = exiv2.DataValue(exiv2.TypeId.unsignedByte)
-        self.assertIsInstance(value, exiv2.DataValue)
-        self.assertEqual(len(value), 0)
-        value = exiv2.Value.create(exiv2.TypeId.unsignedByte)
         self.assertIsInstance(value, exiv2.DataValue)
         self.assertEqual(len(value), 0)
         value = exiv2.DataValue(data)
@@ -169,21 +297,9 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.DataValue)
         check_data(value, data)
         # other methods
-        self.assertEqual(str(value), ' '.join(str(x) for x in data))
-        clone = value.clone()
-        self.assertIsInstance(clone, exiv2.DataValue)
-        check_data(clone, data)
-        count = value.count()
-        self.assertIsInstance(count, int)
-        self.assertEqual(count, len(data))
-        value = exiv2.DataValue()
-        self.assertEqual(value.read(data), 0)
-        check_data(value, data)
-        value = exiv2.DataValue()
-        self.assertEqual(value.read(' '.join(str(x) for x in data)), 0)
-        check_data(value, data)
-        self.do_test_Value(
-            value, exiv2.TypeId.undefined, str(data[0]), data[0], len(data))
+        self.do_common_tests(value, exiv2.TypeId.undefined, string, data)
+        self.do_conversion_tests(value, str(data[0]), data[0])
+        self.do_dataarea_tests(value)
 
     def test_Date(self):
         today = datetime.date.today()
@@ -205,32 +321,19 @@ class TestValueModule(unittest.TestCase):
 
     def test_DateValue(self):
         today = datetime.date.today()
+        data = bytes(today.strftime('%Y%m%d'), 'ascii')
         # constructors
         value = exiv2.DateValue()
-        self.assertIsInstance(value, exiv2.DateValue)
-        value = exiv2.Value.create(exiv2.TypeId.date)
         self.assertIsInstance(value, exiv2.DateValue)
         value = exiv2.DateValue(today.year, today.month, today.day)
         self.assertIsInstance(value, exiv2.DateValue)
         # other methods
         with self.assertWarns(DeprecationWarning):
             date = value[0]
-        self.assertEqual(len(value), 8)
-        self.assertEqual(str(value), today.isoformat())
-        clone = value.clone()
-        self.assertIsInstance(clone, exiv2.DateValue)
-        self.assertEqual(str(clone), today.isoformat())
-        copy = bytearray(8)
-        self.assertEqual(value.copy(copy), len(copy))
-        self.assertEqual(copy, bytes(today.strftime('%Y%m%d'), 'ascii'))
-        count = value.count()
-        self.assertIsInstance(count, int)
-        self.assertEqual(count, 8)
         date = value.getDate()
         self.assertIsInstance(date, exiv2.Date)
         value = exiv2.DateValue()
-        self.assertEqual(
-            value.read(bytes(today.strftime('%Y%m%d'), 'ascii')), 0)
+        self.assertEqual(value.read(data), 0)
         self.assertEqual(str(value), today.isoformat())
         value = exiv2.DateValue()
         self.assertEqual(value.read(today.isoformat()), 0)
@@ -240,8 +343,9 @@ class TestValueModule(unittest.TestCase):
         value.setDate(today.year, today.month, today.day)
         self.assertEqual(str(value), today.isoformat())
         seconds = int(today.strftime('%s'))
-        self.do_test_Value(
-            value, exiv2.TypeId.date, today.isoformat(), seconds, 8)
+        self.do_common_tests(value, exiv2.TypeId.date, today.isoformat(), data)
+        self.do_conversion_tests(value, today.isoformat(), seconds)
+        self.do_dataarea_tests(value)
 
     def test_Time(self):
         now = datetime.datetime.now().time()
@@ -274,10 +378,9 @@ class TestValueModule(unittest.TestCase):
         now = now.replace(
             tzinfo=datetime.timezone(datetime.timedelta(hours=1, minutes=30)),
             microsecond=0)
+        data = bytes(now.strftime('%H%M%S%z'), 'ascii')
         # constructors
         value = exiv2.TimeValue()
-        self.assertIsInstance(value, exiv2.TimeValue)
-        value = exiv2.Value.create(exiv2.TypeId.time)
         self.assertIsInstance(value, exiv2.TimeValue)
         value = exiv2.TimeValue(now.hour, now.minute, now.second)
         self.assertIsInstance(value, exiv2.TimeValue)
@@ -288,22 +391,10 @@ class TestValueModule(unittest.TestCase):
         # other methods
         with self.assertWarns(DeprecationWarning):
             time = value[0]
-        self.assertEqual(len(value), 11)
-        self.assertEqual(str(value), now.isoformat())
-        clone = value.clone()
-        self.assertIsInstance(clone, exiv2.TimeValue)
-        self.assertEqual(str(clone), now.isoformat())
-        copy = bytearray(11)
-        self.assertEqual(value.copy(copy), len(copy))
-        self.assertEqual(copy, bytes(now.strftime('%H%M%S%z'), 'ascii'))
-        count = value.count()
-        self.assertIsInstance(count, int)
-        self.assertEqual(count, 11)
         time = value.getTime()
         self.assertIsInstance(time, exiv2.Time)
         value = exiv2.TimeValue()
-        self.assertEqual(
-            value.read(bytes(now.strftime('%H%M%S%z'), 'ascii')), 0)
+        self.assertEqual(value.read(data), 0)
         self.assertEqual(str(value), now.isoformat())
         value = exiv2.TimeValue()
         self.assertEqual(value.read(now.isoformat()), 0)
@@ -317,25 +408,9 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(str(value), now.isoformat())
         seconds = (now.hour * 3600) + (now.minute * 60) + now.second
         seconds -= 3600 + (30 * 60)
-        self.do_test_Value(
-            value, exiv2.TypeId.time, now.isoformat(), seconds, 11)
-
-    def do_string_tests(self, exiv2_type, exiv2_id):
-        value = exiv2_type('fred')
-        self.assertEqual(value.typeId(), exiv2_id)
-        self.assertEqual(value.count(), 4)
-        self.assertEqual(value.data(), b'fred')
-        self.assertEqual(value.size(), 4)
-        self.assertEqual(str(value), 'fred')
-        self.assertEqual(len(value), 4)
-        value = exiv2_type()
-        value.read('The quick brown fox')
-        self.assertEqual(str(value), 'The quick brown fox')
-
-    def test_string_types(self):
-        self.do_string_tests(exiv2.XmpTextValue, exiv2.TypeId.xmpText)
-        self.do_string_tests(exiv2.StringValue, exiv2.TypeId.string)
-        self.do_string_tests(exiv2.AsciiValue, exiv2.TypeId.asciiString)
+        self.do_common_tests(value, exiv2.TypeId.time, now.isoformat(), data)
+        self.do_conversion_tests(value, now.isoformat(), seconds)
+        self.do_dataarea_tests(value)
 
 
 if __name__ == '__main__':
