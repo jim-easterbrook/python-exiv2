@@ -27,7 +27,7 @@ import exiv2
 
 
 class TestValueModule(unittest.TestCase):
-    def do_common_tests(self, value, type_id, string, data):
+    def do_common_tests(self, value, type_id, string, data, sequence=None):
         if type_id != exiv2.TypeId.undefined:
             self.assertIsInstance(exiv2.Value.create(type_id), type(value))
         self.assertEqual(len(value), value.count())
@@ -41,17 +41,25 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(result, data)
         result = value.count()
         self.assertIsInstance(result, int)
-        if not isinstance(value, (exiv2.XmpArrayValue, exiv2.LangAltValue)):
+        if sequence:
+            self.assertEqual(result, len(sequence))
+        else:
             self.assertEqual(result, len(data))
         result = value.ok()
         self.assertIsInstance(result, bool)
         self.assertEqual(result, True)
-        if not isinstance(value, (exiv2.XmpArrayValue, exiv2.LangAltValue)):
+        if isinstance(value, exiv2.CommentValue):
             result = value.clone()
-            self.assertEqual(result.read(string), 0)
-            self.assertEqual(str(result), string)
-            self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
-            self.assertEqual(str(result), string)
+        else:
+            result = exiv2.Value.create(type_id)
+        self.assertEqual(result.read(string), 0)
+        self.assertEqual(str(result), string)
+        if isinstance(value, exiv2.CommentValue):
+            result = value.clone()
+        else:
+            result = exiv2.Value.create(type_id)
+        self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
+        self.assertEqual(str(result), string)
         result = value.size()
         self.assertIsInstance(result, int)
         self.assertEqual(result, len(data))
@@ -85,14 +93,17 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(result, str)
         self.assertEqual(result, text)
 
-    def do_dataarea_tests(self, value):
+    def do_dataarea_tests(self, value, has_dataarea=False):
         data_area = value.dataArea()
         self.assertIsInstance(data_area, exiv2.DataBuf)
         self.assertEqual(len(data_area), 0)
-        self.assertEqual(value.setDataArea(b'fred'), -1)
-        result = value.sizeDataArea()
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, 0)
+        if has_dataarea:
+            self.assertEqual(value.setDataArea(b'fred'), 0)
+            result = value.sizeDataArea()
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, 4)
+        else:
+            self.assertEqual(value.setDataArea(b'fred'), -1)
 
     def do_common_string_tests(self, value, data):
         with self.assertWarns(DeprecationWarning):
@@ -218,7 +229,8 @@ class TestValueModule(unittest.TestCase):
         result = value.items()
         self.assertIsInstance(result, tuple)
         self.assertEqual(result, tuple(text_dict.items()))
-        self.do_common_tests(value, exiv2.TypeId.langAlt, text, data)
+        self.do_common_tests(
+            value, exiv2.TypeId.langAlt, text, data, sequence=text_dict)
         # no conversion tests as value can't be numeric
         self.do_dataarea_tests(value)
         self.do_common_xmp_tests(value)
@@ -251,7 +263,8 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value[2], 'pete')
         self.assertEqual(len(value), 3)
         value = exiv2.XmpArrayValue(text)
-        self.do_common_tests(value, exiv2.TypeId.xmpBag, string, data)
+        self.do_common_tests(
+            value, exiv2.TypeId.xmpBag, string, data, sequence=text)
         value = exiv2.XmpArrayValue(('123.45', 'fred'))
         self.do_conversion_tests(value, value[0], float(value[0]))
         self.do_dataarea_tests(value)
@@ -329,15 +342,9 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.DateValue)
         # other methods
         with self.assertWarns(DeprecationWarning):
-            date = value[0]
+            result = value[0]
         date = value.getDate()
         self.assertIsInstance(date, exiv2.Date)
-        value = exiv2.DateValue()
-        self.assertEqual(value.read(data), 0)
-        self.assertEqual(str(value), today.isoformat())
-        value = exiv2.DateValue()
-        self.assertEqual(value.read(today.isoformat()), 0)
-        self.assertEqual(str(value), today.isoformat())
         value.setDate(date)
         self.assertEqual(str(value), today.isoformat())
         value.setDate(today.year, today.month, today.day)
@@ -390,15 +397,9 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.TimeValue)
         # other methods
         with self.assertWarns(DeprecationWarning):
-            time = value[0]
+            result = value[0]
         time = value.getTime()
         self.assertIsInstance(time, exiv2.Time)
-        value = exiv2.TimeValue()
-        self.assertEqual(value.read(data), 0)
-        self.assertEqual(str(value), now.isoformat())
-        value = exiv2.TimeValue()
-        self.assertEqual(value.read(now.isoformat()), 0)
-        self.assertEqual(str(value), now.isoformat())
         value.setTime(time)
         self.assertEqual(str(value), now.isoformat())
         value.setTime(now.hour, now.minute)
@@ -408,9 +409,40 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(str(value), now.isoformat())
         seconds = (now.hour * 3600) + (now.minute * 60) + now.second
         seconds -= 3600 + (30 * 60)
+        value = exiv2.TimeValue()
+        value.read(now.isoformat())
         self.do_common_tests(value, exiv2.TypeId.time, now.isoformat(), data)
         self.do_conversion_tests(value, now.isoformat(), seconds)
         self.do_dataarea_tests(value)
+
+    def test_UShortValue(self):
+        sequence = (4, 6, 9, 5)
+        text = ' '.join(str(x) for x in sequence)
+        data = b''.join(bytes(chr(x), 'ascii') + b'\x00' for x in sequence)
+        # constructors
+        value = exiv2.UShortValue()
+        self.assertIsInstance(value, exiv2.UShortValue)
+        self.assertEqual(len(value), 0)
+        value = exiv2.UShortValue(sequence)
+        self.assertIsInstance(value, exiv2.UShortValue)
+        self.assertEqual(tuple(value), sequence)
+        # data access
+        result = value[2]
+        self.assertIsInstance(result, int)
+        self.assertEqual(result, sequence[2])
+        self.assertEqual(value[-1], sequence[-1])
+        value[2] = 56
+        self.assertEqual(value[2], 56)
+        del value[2]
+        self.assertEqual(len(value), len(sequence) - 1)
+        value.append(3)
+        self.assertEqual(value[3], 3)
+        # other methods
+        value = exiv2.UShortValue(sequence)
+        self.do_common_tests(
+            value, exiv2.TypeId.unsignedShort, text, data, sequence=sequence)
+        self.do_conversion_tests(value, str(sequence[0]), sequence[0])
+        self.do_dataarea_tests(value, has_dataarea=True)
 
 
 if __name__ == '__main__':
