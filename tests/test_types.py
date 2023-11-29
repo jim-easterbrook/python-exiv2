@@ -17,48 +17,57 @@
 ##  <http://www.gnu.org/licenses/>.
 
 import os
+import random
 import sys
 import unittest
 
 import exiv2
 
 
-class TestTypes(unittest.TestCase):
-    def test_data_buf(self):
+class TestTypesModule(unittest.TestCase):
+    def test_DataBuf(self):
+        data = bytes(random.choices(range(256), k=128))
+        # constructors
         buf = exiv2.DataBuf()
-        self.assertEqual(buf.size(), 0)
+        self.assertIsInstance(buf, exiv2.DataBuf)
         self.assertEqual(len(buf), 0)
-        self.assertEqual(buf.data(), b'')
         buf = exiv2.DataBuf(4)
         self.assertEqual(len(buf), 4)
-        self.assertEqual(buf.data(), b'\x00\x00\x00\x00')
-        buf = exiv2.DataBuf(b'fred')
-        self.assertEqual(len(buf), 4)
-        self.assertEqual(buf.data(), b'fred')
-        self.assertEqual(memoryview(buf), b'fred')
-        buf.data()[1] = ord('e')
-        self.assertEqual(buf.data(), b'feed')
+        buf = exiv2.DataBuf(data)
+        self.assertEqual(len(buf), len(data))
+        self.assertEqual(buf.data(), data)
+        # other methods
+        result = buf.size()
+        self.assertIsInstance(result, int)
+        self.assertEqual(result, len(data))
+        with buf.data() as view:
+            self.assertIsInstance(view, memoryview)
+            result = view[23]
+            self.assertIsInstance(result, int)
+            self.assertEqual(result, data[23])
+            view[49] = 99
+            self.assertEqual(view[49], 99)
+        buf = exiv2.DataBuf(data)
         if exiv2.testVersion(0, 28, 0):
-            self.assertEqual(buf.cmpBytes(0, b'feed'), 0)
-            self.assertEqual(buf.cmpBytes(2, b'ed'), 0)
+            self.assertEqual(buf.cmpBytes(0, data), 0)
+            self.assertEqual(buf.cmpBytes(5, data[5:]), 0)
             self.assertNotEqual(buf.cmpBytes(0, b'fred'), 0)
             buf.resize(6)
             self.assertEqual(len(buf), 6)
             self.assertEqual(buf.empty(), False)
-            self.assertEqual(buf.data()[:4], b'feed')
             buf.resize(0)
             self.assertEqual(buf.empty(), True)
         else:
             with self.assertWarns(DeprecationWarning):
-                a = buf[0]
+                result = buf[23]
+            buf.free()
+            self.assertEqual(len(buf), 0)
+        buf = exiv2.DataBuf(data)
+        buf.reset()
+        self.assertEqual(len(buf), 0)
+        buf = exiv2.DataBuf()
         buf.alloc(6)
         self.assertEqual(len(buf), 6)
-        if exiv2.testVersion(0, 28, 0):
-            buf.reset()
-            self.assertEqual(buf.empty(), True)
-        else:
-            buf.free()
-        self.assertEqual(len(buf), 0)
 
 
 if __name__ == '__main__':
