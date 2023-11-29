@@ -29,8 +29,8 @@ else:
             return Exiv2Error
         raise AttributeError
 
-__version__ = "0.15.0"
-__version_tuple__ = tuple((0, 15, 0))
+__version__ = "0.15.1"
+__version_tuple__ = tuple((0, 15, 1))
 
 from exiv2.basicio import *
 from exiv2.datasets import *

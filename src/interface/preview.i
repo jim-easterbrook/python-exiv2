@@ -47,6 +47,35 @@
     }
 %}
 
+// Enable len(PreviewImage)
+%feature("python:slot", "mp_length", functype="lenfunc")
+    Exiv2::PreviewImage::__len__;
+%extend Exiv2::PreviewImage {
+    size_t __len__() {
+        return $self->size();
+    }
+}
+
+// Expose Exiv2::PreviewImage contents as a Python buffer
+%feature("python:bf_getbuffer", functype="getbufferproc")
+    Exiv2::PreviewImage "PreviewImage_getbuf";
+%{
+static int PreviewImage_getbuf(PyObject* exporter, Py_buffer* view,
+                               int flags) {
+    Exiv2::PreviewImage* self = 0;
+    int res = SWIG_ConvertPtr(
+        exporter, (void**)&self, SWIGTYPE_p_Exiv2__PreviewImage, 0);
+    if (!SWIG_IsOK(res))
+        goto fail;
+    return PyBuffer_FillInfo(
+        view, exporter, (void*)self->pData(), self->size(), 1, flags);
+fail:
+    PyErr_SetNone(PyExc_BufferError);
+    view->obj = NULL;
+    return -1;
+}
+%}
+
 // Convert pData result to a Python memoryview
 // WARNING: return value does not keep a reference to the data it points to
 %typemap(out) Exiv2::byte* pData %{
