@@ -20,6 +20,7 @@ import datetime
 from fractions import Fraction
 import os
 import random
+import struct
 import sys
 import unittest
 
@@ -418,7 +419,7 @@ class TestValueModule(unittest.TestCase):
     def test_UShortValue(self):
         sequence = (4, 6, 9, 5)
         text = ' '.join(str(x) for x in sequence)
-        data = b''.join(bytes(chr(x), 'ascii') + b'\x00' for x in sequence)
+        data = struct.pack('<4H', *sequence)
         # constructors
         value = exiv2.UShortValue()
         self.assertIsInstance(value, exiv2.UShortValue)
@@ -442,6 +443,36 @@ class TestValueModule(unittest.TestCase):
         self.do_common_tests(
             value, exiv2.TypeId.unsignedShort, text, data, sequence=sequence)
         self.do_conversion_tests(value, str(sequence[0]), sequence[0])
+        self.do_dataarea_tests(value, has_dataarea=True)
+
+    def test_URationalValue(self):
+        sequence = ((4, 3), (7, 13), (23, 3))
+        text = ' '.join('{}/{}'.format(x, y) for x, y in sequence)
+        data = struct.pack('<6I', *[x for y in sequence for x in y])
+        # constructors
+        value = exiv2.URationalValue()
+        self.assertIsInstance(value, exiv2.URationalValue)
+        self.assertEqual(len(value), 0)
+        value = exiv2.URationalValue(sequence)
+        self.assertIsInstance(value, exiv2.URationalValue)
+        self.assertEqual(tuple(value), sequence)
+        # data access
+        result = value[2]
+        self.assertIsInstance(result, tuple)
+        self.assertEqual(result, sequence[2])
+        self.assertEqual(value[-1], sequence[-1])
+        value[2] = (56, 13)
+        self.assertEqual(value[2], (56, 13))
+        del value[2]
+        self.assertEqual(len(value), len(sequence) - 1)
+        value.append((3, 1))
+        self.assertEqual(value[2], (3, 1))
+        # other methods
+        value = exiv2.URationalValue(sequence)
+        self.do_common_tests(
+            value, exiv2.TypeId.unsignedRational, text, data, sequence=sequence)
+        self.do_conversion_tests(
+            value, '{}/{}'.format(*sequence[0]), Fraction(*sequence[0]))
         self.do_dataarea_tests(value, has_dataarea=True)
 
 
