@@ -4005,8 +4005,10 @@ static PyObject* _get_enum_list(int dummy, ...) {
 
 
 PyObject* _enum_list_ImageType() {
-    return _get_enum_list(0, "bmp",int(Exiv2::ImageType::bmp),
-        "cr2",int(Exiv2::ImageType::cr2),"crw",int(Exiv2::ImageType::crw),"eps",int(Exiv2::ImageType::eps),"exv",int(Exiv2::ImageType::exv),"gif",int(Exiv2::ImageType::gif),"jp2",int(Exiv2::ImageType::jp2),"jpeg",int(Exiv2::ImageType::jpeg),"mrw",int(Exiv2::ImageType::mrw),"none",int(Exiv2::ImageType::none),"orf",int(Exiv2::ImageType::orf),"pgf",int(Exiv2::ImageType::pgf),"png",int(Exiv2::ImageType::png),"psd",int(Exiv2::ImageType::psd),"raf",int(Exiv2::ImageType::raf),"rw2",int(Exiv2::ImageType::rw2),"tga",int(Exiv2::ImageType::tga),"tiff",int(Exiv2::ImageType::tiff),"xmp",int(Exiv2::ImageType::xmp), NULL, 0);
+    return _get_enum_list(0, "arw",int(Exiv2::ImageType::arw),"bmff", int(Exiv2::ImageType::bmff),
+        "bmp",int(Exiv2::ImageType::bmp),"cr2",int(Exiv2::ImageType::cr2),"crw",int(Exiv2::ImageType::crw),"dng",int(Exiv2::ImageType::dng),"eps",int(Exiv2::ImageType::eps),"exv",int(Exiv2::ImageType::exv),"gif",int(Exiv2::ImageType::gif),"jp2",int(Exiv2::ImageType::jp2),"jpeg",int(Exiv2::ImageType::jpeg),"mrw",int(Exiv2::ImageType::mrw),"nef",int(Exiv2::ImageType::nef),"none",int(Exiv2::ImageType::none),"orf",int(Exiv2::ImageType::orf),"pgf",int(Exiv2::ImageType::pgf),"png",int(Exiv2::ImageType::png),"psd",int(Exiv2::ImageType::psd),"raf",int(Exiv2::ImageType::raf),"rw2",int(Exiv2::ImageType::rw2),"sr2",int(Exiv2::ImageType::sr2),"srw",int(Exiv2::ImageType::srw),"tga",int(Exiv2::ImageType::tga),"tiff",int(Exiv2::ImageType::tiff),"asf", int(Exiv2::ImageType::asf), "mkv",  int(Exiv2::ImageType::mkv), "qtime",  int(Exiv2::ImageType::qtime), "riff",  int(Exiv2::ImageType::riff),
+        "webp", int(Exiv2::ImageType::webp),
+        "xmp",int(Exiv2::ImageType::xmp), NULL, 0);
 };
 
 
