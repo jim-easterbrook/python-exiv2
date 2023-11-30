@@ -4082,6 +4082,44 @@ SWIG_AsVal_int (PyObject * obj, int *val)
   return res;
 }
 
+
+#ifndef CLASS_ENUM_HELPER
+#define CLASS_ENUM_HELPER
+#include <cstdarg>
+static PyObject* _get_enum_object(const char* Level, ...) {
+    va_list args;
+    va_start(args, Level);
+    char* label;
+    int value;
+    PyObject* module = NULL;
+    PyObject* IntEnum = NULL;
+    PyObject* result = NULL;
+    PyObject* data = PyList_New(0);
+    label = va_arg(args, char*);
+    while (label) {
+        value = va_arg(args, int);
+        if (PyList_Append(data, PyTuple_Pack(2,
+                PyUnicode_FromString(label), PyLong_FromLong(value))))
+            goto fail;
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    module = PyImport_ImportModule("enum");
+    if (!module)
+        goto fail;
+    IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    if (!IntEnum)
+        goto fail;
+    result = PyObject_CallFunction(IntEnum, "sO", Level, data);
+fail:
+    Py_XDECREF(module);
+    Py_XDECREF(IntEnum);
+    Py_XDECREF(data);
+    return result;
+};
+#endif // #ifndef CLASS_ENUM_HELPER
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -4961,6 +4999,22 @@ SWIG_init(void) {
   PyModule_AddObject(m, "LogMsg", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "LogMsg");
   d = md;
+  
+  {
+    PyObject* enum_obj = _get_enum_object("Level", "debug",Exiv2::LogMsg::debug,"info",Exiv2::LogMsg::info,"warn",Exiv2::LogMsg::warn,"error",Exiv2::LogMsg::error,"mute",Exiv2::LogMsg::mute, NULL);
+    if (!enum_obj)
+    return NULL;
+    if (PyObject_SetAttrString(
+        enum_obj, "__doc__", PyUnicode_FromString("Defined log levels.\n"
+          "\nTo suppress all log messages, either set the log level to mute or set"
+          "\nthe log message handler to None.")))
+    return NULL;
+    PyTypeObject* type =
+    (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
+    SWIG_Python_SetConstant(type->tp_dict, NULL, "Level", enum_obj);
+    PyType_Modified(type);
+  }
+  
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

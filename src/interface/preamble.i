@@ -381,6 +381,63 @@ name.__doc__ = doc
 %ignore Exiv2::name;
 %enddef // ENUM
 
+%define CLASS_ENUM(class, name, doc, contents...)
+// Function to generate Python enum
+%{
+#ifndef CLASS_ENUM_HELPER
+#define CLASS_ENUM_HELPER
+#include <cstdarg>
+static PyObject* _get_enum_object(const char* name, ...) {
+    va_list args;
+    va_start(args, name);
+    char* label;
+    int value;
+    PyObject* module = NULL;
+    PyObject* IntEnum = NULL;
+    PyObject* result = NULL;
+    PyObject* data = PyList_New(0);
+    label = va_arg(args, char*);
+    while (label) {
+        value = va_arg(args, int);
+        if (PyList_Append(data, PyTuple_Pack(2,
+                PyUnicode_FromString(label), PyLong_FromLong(value))))
+            goto fail;
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    module = PyImport_ImportModule("enum");
+    if (!module)
+        goto fail;
+    IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    if (!IntEnum)
+        goto fail;
+    result = PyObject_CallFunction(IntEnum, "sO", name, data);
+fail:
+    Py_XDECREF(module);
+    Py_XDECREF(IntEnum);
+    Py_XDECREF(data);
+    return result;
+};
+#endif // #ifndef CLASS_ENUM_HELPER
+
+%}
+// Add enum to type object during module init
+%init %{
+{
+    PyObject* enum_obj = _get_enum_object("name", contents, NULL);
+    if (!enum_obj)
+        return NULL;
+    if (PyObject_SetAttrString(
+            enum_obj, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    PyTypeObject* type =
+        (PyTypeObject *)&SwigPyBuiltin__Exiv2__##class##_type;
+    SWIG_Python_SetConstant(type->tp_dict, NULL, "name", enum_obj);
+    PyType_Modified(type);
+}
+%}
+%enddef // CLASS_ENUM
+
 // Stuff to handle auto_ptr or unique_ptr
 #if EXIV2_VERSION_HEX < 0x001c0000
 %define wrap_auto_unique_ptr(pointed_type)
