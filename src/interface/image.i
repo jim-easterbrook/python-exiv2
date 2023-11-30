@@ -103,7 +103,7 @@ KEEP_REFERENCE(Exiv2::DataBuf&)
 #define _WEBP
 #endif
 
-#if (EXIV2_VERSION_HEX >= 0x001c0000) || (defined EXV_ENABLE_VIDEO)
+#if (EXIV2_VERSION_HEX >= 0x001c0000)
 #define _VIDEO \
     "asf",   int(Exiv2::ImageType::asf), \
     "mkv",   int(Exiv2::ImageType::mkv), \
