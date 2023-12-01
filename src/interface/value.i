@@ -492,7 +492,7 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
 }
 
 // Make enums more Pythonic
-ENUM(CharsetId,
+DEPRECATED_ENUM(CommentValue, CharsetId,
     "Character set identifiers for the character sets defined by Exif.",
         "ascii",            Exiv2::CommentValue::ascii,
         "jis",              Exiv2::CommentValue::jis,
@@ -500,12 +500,12 @@ ENUM(CharsetId,
         "undefined",        Exiv2::CommentValue::undefined,
         "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
         "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-ENUM(XmpArrayType, "XMP array types.",
+DEPRECATED_ENUM(XmpValue, XmpArrayType, "XMP array types.",
         "xaNone",   Exiv2::XmpValue::xaNone,
         "xaAlt",    Exiv2::XmpValue::xaAlt,
         "xaBag",    Exiv2::XmpValue::xaBag,
         "xaSeq",    Exiv2::XmpValue::xaSeq);
-ENUM(XmpStruct, "XMP structure indicator.",
+DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
         "xsNone",   Exiv2::XmpValue::xsNone,
         "xsStruct", Exiv2::XmpValue::xsStruct);
 
@@ -532,6 +532,23 @@ ENUM(XmpStruct, "XMP structure indicator.",
 %ignore LARGE_INT;
 
 %include "exiv2/value.hpp"
+
+CLASS_ENUM(CommentValue, CharsetId,
+    "Character set identifiers for the character sets defined by Exif.",
+    "ascii",            Exiv2::CommentValue::ascii,
+    "jis",              Exiv2::CommentValue::jis,
+    "unicode",          Exiv2::CommentValue::unicode,
+    "undefined",        Exiv2::CommentValue::undefined,
+    "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
+    "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
+    "xaNone",   Exiv2::XmpValue::xaNone,
+    "xaAlt",    Exiv2::XmpValue::xaAlt,
+    "xaBag",    Exiv2::XmpValue::xaBag,
+    "xaSeq",    Exiv2::XmpValue::xaSeq);
+CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
+    "xsNone",   Exiv2::XmpValue::xsNone,
+    "xsStruct", Exiv2::XmpValue::xsStruct);
 
 VALUETYPE(UShortValue, uint16_t)
 VALUETYPE(ULongValue, uint32_t)

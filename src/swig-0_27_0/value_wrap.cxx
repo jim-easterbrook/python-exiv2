@@ -6413,6 +6413,40 @@ SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self)
             "tzHour", self->tzHour, "tzMinute", self->tzMinute));
     }
 
+
+static PyObject* _get_enum_object(const char* name, ...) {
+    va_list args;
+    va_start(args, name);
+    char* label;
+    int value;
+    PyObject* module = NULL;
+    PyObject* IntEnum = NULL;
+    PyObject* result = NULL;
+    PyObject* data = PyList_New(0);
+    label = va_arg(args, char*);
+    while (label) {
+        value = va_arg(args, int);
+        if (PyList_Append(data, PyTuple_Pack(2,
+                PyUnicode_FromString(label), PyLong_FromLong(value))))
+            goto fail;
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    module = PyImport_ImportModule("enum");
+    if (!module)
+        goto fail;
+    IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    if (!IntEnum)
+        goto fail;
+    result = PyObject_CallFunction(IntEnum, "sO", name, data);
+fail:
+    Py_XDECREF(module);
+    Py_XDECREF(IntEnum);
+    Py_XDECREF(data);
+    return result;
+};
+
+
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
 {
@@ -37895,6 +37929,48 @@ SWIG_init(void) {
   PyModule_AddObject(m, "Time", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Time");
   d = md;
+  
+  {
+    PyObject* enum_obj = _get_enum_object("CharsetId", "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL);
+    if (!enum_obj)
+    return NULL;
+    if (PyObject_SetAttrString(
+        enum_obj, "__doc__", PyUnicode_FromString("Character set identifiers for the character sets defined by Exif.")))
+    return NULL;
+    PyTypeObject* type =
+    (PyTypeObject *)&SwigPyBuiltin__Exiv2__CommentValue_type;
+    SWIG_Python_SetConstant(type->tp_dict, NULL, "CharsetId", enum_obj);
+    PyType_Modified(type);
+  }
+  
+  
+  {
+    PyObject* enum_obj = _get_enum_object("XmpArrayType", "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL);
+    if (!enum_obj)
+    return NULL;
+    if (PyObject_SetAttrString(
+        enum_obj, "__doc__", PyUnicode_FromString("XMP array types.")))
+    return NULL;
+    PyTypeObject* type =
+    (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpValue_type;
+    SWIG_Python_SetConstant(type->tp_dict, NULL, "XmpArrayType", enum_obj);
+    PyType_Modified(type);
+  }
+  
+  
+  {
+    PyObject* enum_obj = _get_enum_object("XmpStruct", "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL);
+    if (!enum_obj)
+    return NULL;
+    if (PyObject_SetAttrString(
+        enum_obj, "__doc__", PyUnicode_FromString("XMP structure indicator.")))
+    return NULL;
+    PyTypeObject* type =
+    (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpValue_type;
+    SWIG_Python_SetConstant(type->tp_dict, NULL, "XmpStruct", enum_obj);
+    PyType_Modified(type);
+  }
+  
   
   /* type 'Exiv2::ValueType< uint16_t >' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type;
