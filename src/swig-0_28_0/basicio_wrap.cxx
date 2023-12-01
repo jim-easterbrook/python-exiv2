@@ -4730,29 +4730,26 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
   size_t arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
+  Py_buffer _global_view ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_write" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "BasicIo_write" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
+    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg3 = (size_t) _global_view.len;
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_write" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
   {
     try {
       {
@@ -4772,8 +4769,18 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
     }
   }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return resultobj;
 fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return NULL;
 }
 
@@ -4830,20 +4837,27 @@ fail:
 
 SWIGINTERN PyObject *_wrap_BasicIo_write(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[4] = {
+  PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "BasicIo_write", 0, 3, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "BasicIo_write", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
-    PyObject *retobj = _wrap_BasicIo_write__SWIG_1(self, argc, argv);
+    int _v = 0;
+    {
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_BasicIo_write__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_BasicIo_write__SWIG_0(self, argc, argv);
+check_1:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_BasicIo_write__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -5761,29 +5775,26 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs
   size_t arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
+  Py_buffer _global_view ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_write" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FileIo_write" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
+    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg3 = (size_t) _global_view.len;
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FileIo_write" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
   {
     try {
       {
@@ -5803,8 +5814,18 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs
     }
   }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return resultobj;
 fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return NULL;
 }
 
@@ -5861,20 +5882,27 @@ fail:
 
 SWIGINTERN PyObject *_wrap_FileIo_write(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[4] = {
+  PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FileIo_write", 0, 3, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "FileIo_write", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
-    PyObject *retobj = _wrap_FileIo_write__SWIG_1(self, argc, argv);
+    int _v = 0;
+    {
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_FileIo_write__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_FileIo_write__SWIG_0(self, argc, argv);
+check_1:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_FileIo_write__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -6805,37 +6833,44 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   size_t arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
+  Py_buffer _global_view ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_write" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MemIo_write" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
+    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg3 = (size_t) _global_view.len;
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MemIo_write" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
   {
     SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     result = (arg1)->write((Exiv2::byte const *)arg2,arg3);
     SWIG_PYTHON_THREAD_END_ALLOW;
   }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return resultobj;
 fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return NULL;
 }
 
@@ -6879,20 +6914,27 @@ fail:
 
 SWIGINTERN PyObject *_wrap_MemIo_write(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[4] = {
+  PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "MemIo_write", 0, 3, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "MemIo_write", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
-    PyObject *retobj = _wrap_MemIo_write__SWIG_1(self, argc, argv);
+    int _v = 0;
+    {
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_MemIo_write__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_MemIo_write__SWIG_0(self, argc, argv);
+check_1:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_MemIo_write__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -7761,29 +7803,26 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nob
   size_t arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
+  Py_buffer _global_view ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_write" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RemoteIo_write" "', argument " "2"" of type '" "Exiv2::byte const *""'"); 
+  {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      ;
+    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg3 = (size_t) _global_view.len;
   }
-  arg2 = reinterpret_cast< Exiv2::byte * >(argp2);
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RemoteIo_write" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
   {
     try {
       {
@@ -7803,8 +7842,18 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nob
     }
   }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return resultobj;
 fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return NULL;
 }
 
@@ -7861,20 +7910,27 @@ fail:
 
 SWIGINTERN PyObject *_wrap_RemoteIo_write(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[4] = {
+  PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "RemoteIo_write", 0, 3, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "RemoteIo_write", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 2) {
-    PyObject *retobj = _wrap_RemoteIo_write__SWIG_1(self, argc, argv);
+    int _v = 0;
+    {
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_RemoteIo_write__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_RemoteIo_write__SWIG_0(self, argc, argv);
+check_1:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_RemoteIo_write__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }

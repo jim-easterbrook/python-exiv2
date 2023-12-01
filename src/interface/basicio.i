@@ -74,6 +74,7 @@ KEEP_REFERENCE(Exiv2::BasicIo&)
 
 // Allow BasicIo::write to take any Python buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
+INPUT_BUFFER_RO(const Exiv2::byte* data, size_t wcount)
 
 // Allow MemIo to be ceated from a buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long size)

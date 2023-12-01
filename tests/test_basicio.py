@@ -60,10 +60,9 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.open(), 0)
         self.assertEqual(io.isopen(), True)
         # mmap data access
-        mmap = io.mmap()
-        self.assertIsInstance(mmap, memoryview)
-        self.assertEqual(mmap, self.data)
-        mmap.release()
+        with io.mmap() as view:
+            self.assertIsInstance(view, memoryview)
+            self.assertEqual(view, self.data)
         self.assertEqual(io.munmap(), 0)
         # Python buffer interface
         with memoryview(io) as view:
@@ -88,7 +87,9 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(len(io), len(self.data) + 1)
         self.assertEqual(io.write(exiv2.MemIo(b'fred')), 4)
         self.assertEqual(len(io), len(self.data) + 5)
-        self.assertEqual(memoryview(io), self.data + b'+fred')
+        self.assertEqual(io.write(b'+jim'), 4)
+        self.assertEqual(len(io), len(self.data) + 9)
+        self.assertEqual(memoryview(io), self.data + b'+fred+jim')
 
     def test_ref_counts(self):
         # MemIo keeps a reference to the data buffer
