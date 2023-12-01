@@ -91,6 +91,10 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
     }
 %}
 
+// BasicIo::read can write to a Python buffer
+OUTPUT_BUFFER_RW(Exiv2::byte* buf, long rcount)
+OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
+
 // Convert mmap() result to a Python memoryview
 %typemap(check) bool isWriteable %{
     _global_writeable = $1;
@@ -151,7 +155,6 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
 
 %ignore Exiv2::BasicIo::bigBlock_;
 %ignore Exiv2::BasicIo::populateFakeData;
-%ignore Exiv2::BasicIo::read(byte*, long);
 %ignore Exiv2::BasicIo::readOrThrow;
 %ignore Exiv2::BasicIo::seekOrThrow;
 %ignore Exiv2::IoCloser;

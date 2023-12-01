@@ -92,6 +92,28 @@ EXCEPTION(,)
 %}
 %enddef // INPUT_BUFFER_RO
 
+// Macro for output writeable byte buffer
+%define OUTPUT_BUFFER_RW(buf_type, len_type)
+%typemap(in) (buf_type, len_type) (Py_buffer _global_view) {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(
+            $input, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        PyErr_Clear();
+        %argument_fail(SWIG_TypeError, "writable buffer", $symname, $argnum);
+    }
+    $1 = ($1_ltype) _global_view.buf;
+    $2 = ($2_ltype) _global_view.len;
+}
+%typemap(freearg) (buf_type, len_type) %{
+    if (_global_view.obj) {
+        PyBuffer_Release(&_global_view);
+    }
+%}
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) buf_type %{
+    $1 = PyObject_CheckBuffer($input) ? 1 : 0;
+%}
+%enddef // OUTPUT_BUFFER_RW
+
 // Macro to keep a reference to "self" when returning a particular type.
 %define KEEP_REFERENCE(return_type)
 %typemap(ret) return_type %{

@@ -81,6 +81,12 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(memoryview(io.read(10000)), self.data[1:])
         self.assertEqual(io.tell(), len(self.data))
         self.assertEqual(io.eof(), True)
+        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
+        buf = bytearray(len(self.data))
+        self.assertEqual(io.read(buf), len(self.data))
+        self.assertEqual(buf, self.data)
+        self.assertEqual(io.tell(), len(self.data))
+        self.assertEqual(io.getb(), -1)
         # writing data
         self.assertEqual(io.putb(ord('+')), ord('+'))
         self.assertEqual(io.eof(), True)

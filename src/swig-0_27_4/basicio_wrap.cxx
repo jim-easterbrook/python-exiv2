@@ -4862,7 +4862,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   long arg2 ;
@@ -4870,18 +4870,16 @@ SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
   Exiv2::DataBuf result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_read" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_read" "', argument " "2"" of type '" "long""'");
   } 
@@ -4909,6 +4907,102 @@ SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  long arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer _global_view ;
+  long result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_read" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(
+        swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "writable buffer""'");
+    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg3 = (long) _global_view.len;
+  }
+  {
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->read(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
+  return resultobj;
+fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "BasicIo_read", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_BasicIo_read__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_BasicIo_read__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'BasicIo_read'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::BasicIo::read(long)\n"
+    "    Exiv2::BasicIo::read(Exiv2::byte *,long)\n");
+  return 0;
 }
 
 
@@ -5791,7 +5885,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FileIo_read(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
   long arg2 ;
@@ -5799,18 +5893,16 @@ SWIGINTERN PyObject *_wrap_FileIo_read(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
   Exiv2::DataBuf result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_read" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_read" "', argument " "2"" of type '" "long""'");
   } 
@@ -5838,6 +5930,102 @@ SWIGINTERN PyObject *_wrap_FileIo_read(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  long arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer _global_view ;
+  long result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_read" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
+  {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(
+        swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_read" "', argument " "2"" of type '" "writable buffer""'");
+    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg3 = (long) _global_view.len;
+  }
+  {
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->read(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
+  return resultobj;
+fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FileIo_read(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "FileIo_read", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_FileIo_read__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_FileIo_read__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FileIo_read'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::FileIo::read(long)\n"
+    "    Exiv2::FileIo::read(Exiv2::byte *,long)\n");
+  return 0;
 }
 
 
@@ -6713,7 +6901,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MemIo_read(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
   long arg2 ;
@@ -6721,18 +6909,16 @@ SWIGINTERN PyObject *_wrap_MemIo_read(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
   Exiv2::DataBuf result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_read" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_read" "', argument " "2"" of type '" "long""'");
   } 
@@ -6749,6 +6935,91 @@ SWIGINTERN PyObject *_wrap_MemIo_read(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  long arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer _global_view ;
+  long result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_read" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
+  {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(
+        swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_read" "', argument " "2"" of type '" "writable buffer""'");
+    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg3 = (long) _global_view.len;
+  }
+  {
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    result = (long)(arg1)->read(arg2,arg3);
+    SWIG_PYTHON_THREAD_END_ALLOW;
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
+  return resultobj;
+fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MemIo_read(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "MemIo_read", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_MemIo_read__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_MemIo_read__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'MemIo_read'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::MemIo::read(long)\n"
+    "    Exiv2::MemIo::read(Exiv2::byte *,long)\n");
+  return 0;
 }
 
 
@@ -7588,7 +7859,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_RemoteIo_read(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
   long arg2 ;
@@ -7596,18 +7867,16 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
   Exiv2::DataBuf result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_read" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_long(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_read" "', argument " "2"" of type '" "long""'");
   } 
@@ -7635,6 +7904,102 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  long arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Py_buffer _global_view ;
+  long result;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_read" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
+  {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(
+        swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_read" "', argument " "2"" of type '" "writable buffer""'");
+    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg3 = (long) _global_view.len;
+  }
+  {
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (long)(arg1)->read(arg2,arg3);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_long(static_cast< long >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
+  return resultobj;
+fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RemoteIo_read(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "RemoteIo_read", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_RemoteIo_read__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_RemoteIo_read__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'RemoteIo_read'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::RemoteIo::read(long)\n"
+    "    Exiv2::RemoteIo::read(Exiv2::byte *,long)\n");
+  return 0;
 }
 
 
@@ -8253,7 +8618,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"        EOF if failure;\n"
 		"" },
-  { "read", _wrap_BasicIo_read, METH_O, "\n"
+  { "read", _wrap_BasicIo_read, METH_VARARGS, "\n"
+		"*Overload 1:*\n"
+		"\n"
 		"Read data from the IO source. Reading starts at the current\n"
 		"    IO position and the position is advanced by the number of bytes\n"
 		"    read.\n"
@@ -8264,6 +8631,25 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		":return: DataBuf instance containing the bytes read. Use the\n"
 		"        DataBuf::size_ member to find the number of bytes read.\n"
 		"        DataBuf::size_ will be 0 on failure.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"Read data from the IO source. Reading starts at the current\n"
+		"    IO position and the position is advanced by the number of bytes\n"
+		"    read.\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Pointer to a block of memory into which the read data\n"
+		"        is stored. The memory block must be at least *rcount* bytes\n"
+		"        long.\n"
+		":type rcount: int\n"
+		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
+		"        read if *rcount* bytes are not available.\n"
+		":rtype: int\n"
+		":return: Number of bytes read from IO source successfully;\n"
+		"\n"
+		"        0 if failure;\n"
 		"" },
   { "getb", _wrap_BasicIo_getb, METH_NOARGS, "\n"
 		"Read one byte from the IO source. Current IO position is\n"
@@ -8658,7 +9044,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"           EOF if failure;\n"
 		"" },
-  { "read", _wrap_FileIo_read, METH_O, "\n"
+  { "read", _wrap_FileIo_read, METH_VARARGS, "\n"
+		"*Overload 1:*\n"
+		"\n"
 		"Read data from the file. Reading starts at the current\n"
 		"    file position and the position is advanced by the number of\n"
 		"    bytes read.\n"
@@ -8669,6 +9057,25 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		":return: DataBuf instance containing the bytes read. Use the\n"
 		"          DataBuf::size_ member to find the number of bytes read.\n"
 		"          DataBuf::size_ will be 0 on failure.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"Read data from the file. Reading starts at the current\n"
+		"    file position and the position is advanced by the number of\n"
+		"    bytes read.\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Pointer to a block of memory into which the read data\n"
+		"        is stored. The memory block must be at least *rcount* bytes\n"
+		"        long.\n"
+		":type rcount: int\n"
+		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
+		"        read if *rcount* bytes are not available.\n"
+		":rtype: int\n"
+		":return: Number of bytes read from the file successfully;\n"
+		"\n"
+		"           0 if failure;\n"
 		"" },
   { "getb", _wrap_FileIo_getb, METH_NOARGS, "\n"
 		"Read one byte from the file. The file position is\n"
@@ -9052,7 +9459,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		"\n"
 		"           EOF if failure;\n"
 		"" },
-  { "read", _wrap_MemIo_read, METH_O, "\n"
+  { "read", _wrap_MemIo_read, METH_VARARGS, "\n"
+		"*Overload 1:*\n"
+		"\n"
 		"Read data from the memory block. Reading starts at the current\n"
 		"    IO position and the position is advanced by the number of\n"
 		"    bytes read.\n"
@@ -9063,6 +9472,25 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		":return: DataBuf instance containing the bytes read. Use the\n"
 		"          DataBuf::size_ member to find the number of bytes read.\n"
 		"          DataBuf::size_ will be 0 on failure.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"Read data from the memory block. Reading starts at the current\n"
+		"    IO position and the position is advanced by the number of\n"
+		"    bytes read.\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Pointer to a block of memory into which the read data\n"
+		"        is stored. The memory block must be at least *rcount* bytes\n"
+		"        long.\n"
+		":type rcount: int\n"
+		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
+		"        read if *rcount* bytes are not available.\n"
+		":rtype: int\n"
+		":return: Number of bytes read from the memory block successfully;\n"
+		"\n"
+		"           0 if failure;\n"
 		"" },
   { "getb", _wrap_MemIo_getb, METH_NOARGS, "\n"
 		"Read one byte from the memory block. The IO position is\n"
@@ -9654,7 +10082,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		":rtype: int\n"
 		":return: 0 means failure\n"
 		"" },
-  { "read", _wrap_RemoteIo_read, METH_O, "\n"
+  { "read", _wrap_RemoteIo_read, METH_VARARGS, "\n"
+		"*Overload 1:*\n"
+		"\n"
 		"Read data from the memory blocks. Reading starts at the current\n"
 		"    IO position and the position is advanced by the number of\n"
 		"    bytes read.\n"
@@ -9667,6 +10097,27 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		":return: DataBuf instance containing the bytes read. Use the\n"
 		"          DataBuf::size_ member to find the number of bytes read.\n"
 		"          DataBuf::size_ will be 0 on failure.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"Read data from the the memory blocks. Reading starts at the current\n"
+		"    IO position and the position is advanced by the number of\n"
+		"    bytes read.\n"
+		"    If the memory blocks are not populated (!= bMemory), it will connect to server\n"
+		"    and populate the data to memory blocks.\n"
+		":type buf: Exiv2::byte\n"
+		":param buf: Pointer to a block of memory into which the read data\n"
+		"        is stored. The memory block must be at least *rcount* bytes\n"
+		"        long.\n"
+		":type rcount: int\n"
+		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
+		"        read if *rcount* bytes are not available.\n"
+		":rtype: int\n"
+		":return: Number of bytes read from the memory block successfully;\n"
+		"\n"
+		"           0 if failure;\n"
 		"" },
   { "getb", _wrap_RemoteIo_getb, METH_NOARGS, "\n"
 		"Read one byte from the memory blocks. The IO position is\n"
