@@ -143,7 +143,7 @@ static void BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
 %}
 
 // Make enum more Pythonic
-ENUM(Position, "Seek starting positions.",
+DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
         "beg", Exiv2::BasicIo::beg,
         "cur", Exiv2::BasicIo::cur,
         "end", Exiv2::BasicIo::end);
@@ -167,3 +167,9 @@ ENUM(Position, "Seek starting positions.",
 %ignore EXV_XPATH_MEMIO;
 
 %include "exiv2/basicio.hpp"
+
+// Make enum more Pythonic
+CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
+    "beg", Exiv2::BasicIo::beg,
+    "cur", Exiv2::BasicIo::cur,
+    "end", Exiv2::BasicIo::end);

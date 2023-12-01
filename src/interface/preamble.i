@@ -381,6 +381,36 @@ name.__doc__ = doc
 %ignore Exiv2::name;
 %enddef // ENUM
 
+%define DEPRECATED_ENUM(moved_to, enum_name, doc, contents...)
+%fragment("enum_helper");
+%noexception _enum_list_##enum_name;
+%inline %{
+PyObject* _enum_list_##enum_name() {
+    return _get_enum_list(0, contents, NULL);
+};
+%}
+%pythoncode %{
+import enum
+
+class enum_name##Meta(enum.EnumMeta):
+    def __getattribute__(cls, name):
+        obj = super().__getattribute__(name)
+        if isinstance(obj, enum.Enum):
+            import warnings
+            warnings.warn(
+                "Use 'moved_to.enum_name' instead of 'enum_name'",
+                DeprecationWarning)
+        return obj
+
+class Deprecated##enum_name(enum.IntEnum, metaclass=enum_name##Meta):
+    pass
+
+enum_name = Deprecated##enum_name('enum_name', _enum_list_##enum_name())
+enum_name.__doc__ = doc
+%}
+%ignore Exiv2::enum_name;
+%enddef // DEPRECATED_ENUM
+
 // Function to generate Python enum
 %fragment("class_enum_helper", "header") {
 #include <cstdarg>

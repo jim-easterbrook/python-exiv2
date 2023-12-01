@@ -70,12 +70,13 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(view, self.data)
             self.assertEqual(view.readonly, False)
         # seek & tell
-        self.assertEqual(io.seek(0, exiv2.Position.beg), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.seek(0, exiv2.Position.beg), 0)
         self.assertEqual(io.tell(), 0)
-        self.assertEqual(io.seek(0, exiv2.Position.end), 0)
+        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.end), 0)
         self.assertEqual(io.tell(), len(self.data))
         # reading data
-        self.assertEqual(io.seek(0, exiv2.Position.beg), 0)
+        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
         self.assertEqual(io.getb(), self.data[0])
         self.assertEqual(io.tell(), 1)
         self.assertEqual(memoryview(io.read(10000)), self.data[1:])
