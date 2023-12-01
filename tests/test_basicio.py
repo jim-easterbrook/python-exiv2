@@ -83,7 +83,7 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.eof(), True)
         self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
         buf = bytearray(len(self.data))
-        self.assertEqual(io.read(buf), len(self.data))
+        self.assertEqual(io.read(buf, len(self.data)), len(self.data))
         self.assertEqual(buf, self.data)
         self.assertEqual(io.tell(), len(self.data))
         self.assertEqual(io.getb(), -1)

@@ -93,8 +93,8 @@ EXCEPTION(,)
 %enddef // INPUT_BUFFER_RO
 
 // Macro for output writeable byte buffer
-%define OUTPUT_BUFFER_RW(buf_type, len_type)
-%typemap(in) (buf_type, len_type) (Py_buffer _global_view) {
+%define OUTPUT_BUFFER_RW(buf_type, count_type)
+%typemap(in) (buf_type) (Py_buffer _global_view) {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer(
             $input, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
@@ -102,9 +102,14 @@ EXCEPTION(,)
         %argument_fail(SWIG_TypeError, "writable buffer", $symname, $argnum);
     }
     $1 = ($1_ltype) _global_view.buf;
-    $2 = ($2_ltype) _global_view.len;
 }
-%typemap(freearg) (buf_type, len_type) %{
+%typemap(check) (buf_type, count_type) {
+    if ($2 > ($2_ltype) _global_view.len) {
+        %argument_fail(SWIG_ValueError, "buffer too small",
+                       $symname, $argnum);
+    }
+}
+%typemap(freearg) (buf_type) %{
     if (_global_view.obj) {
         PyBuffer_Release(&_global_view);
     }
