@@ -4083,12 +4083,10 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 }
 
 
-#ifndef CLASS_ENUM_HELPER
-#define CLASS_ENUM_HELPER
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* Level, ...) {
+
+static PyObject* _get_enum_object(const char* name, ...) {
     va_list args;
-    va_start(args, Level);
+    va_start(args, name);
     char* label;
     int value;
     PyObject* module = NULL;
@@ -4110,15 +4108,13 @@ static PyObject* _get_enum_object(const char* Level, ...) {
     IntEnum = PyObject_GetAttrString(module, "IntEnum");
     if (!IntEnum)
         goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", Level, data);
+    result = PyObject_CallFunction(IntEnum, "sO", name, data);
 fail:
     Py_XDECREF(module);
     Py_XDECREF(IntEnum);
     Py_XDECREF(data);
     return result;
 };
-#endif // #ifndef CLASS_ENUM_HELPER
-
 
 #ifdef __cplusplus
 extern "C" {

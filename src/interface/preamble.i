@@ -344,33 +344,33 @@ KEEP_REFERENCE(iterator_type)
 }
 %enddef // DATA_CONTAINER
 
-// Macro to make enums more Pythonic
-%define ENUM(name, doc, contents...)
-%{
-#ifndef ENUM_HELPER
-#define ENUM_HELPER
+// Macros to make enums more Pythonic
+// Function to return enum members as Python list
+%fragment("enum_helper", "header") {
 #include <cstdarg>
 static PyObject* _get_enum_list(int dummy, ...) {
-    PyObject* result = PyList_New(0);
     va_list args;
     va_start(args, dummy);
-    char* label = va_arg(args, char*);
-    int value = va_arg(args, int);
+    char* label;
+    int value;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
     while (label) {
+        value = va_arg(args, int);
         PyList_Append(result, PyTuple_Pack(2,
             PyUnicode_FromString(label), PyLong_FromLong(value)));
         label = va_arg(args, char*);
-        value = va_arg(args, int);
     }
     va_end(args);
     return result;
 };
-#endif // #ifndef ENUM_HELPER
-%}
+}
+%define ENUM(name, doc, contents...)
+%fragment("enum_helper");
 %noexception _enum_list_##name;
 %inline %{
 PyObject* _enum_list_##name() {
-    return _get_enum_list(0, contents, NULL, 0);
+    return _get_enum_list(0, contents, NULL);
 };
 %}
 %pythoncode %{
@@ -381,11 +381,8 @@ name.__doc__ = doc
 %ignore Exiv2::name;
 %enddef // ENUM
 
-%define CLASS_ENUM(class, name, doc, contents...)
 // Function to generate Python enum
-%{
-#ifndef CLASS_ENUM_HELPER
-#define CLASS_ENUM_HELPER
+%fragment("class_enum_helper", "header") {
 #include <cstdarg>
 static PyObject* _get_enum_object(const char* name, ...) {
     va_list args;
@@ -418,9 +415,9 @@ fail:
     Py_XDECREF(data);
     return result;
 };
-#endif // #ifndef CLASS_ENUM_HELPER
-
-%}
+}
+%define CLASS_ENUM(class, name, doc, contents...)
+%fragment("class_enum_helper");
 // Add enum to type object during module init
 %init %{
 {

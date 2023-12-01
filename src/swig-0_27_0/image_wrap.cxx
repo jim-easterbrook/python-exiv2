@@ -3990,32 +3990,30 @@ PyObject* logger = NULL;
 #include <string>
 
 
-#ifndef ENUM_HELPER
-#define ENUM_HELPER
-#include <cstdarg>
+
 static PyObject* _get_enum_list(int dummy, ...) {
-    PyObject* result = PyList_New(0);
     va_list args;
     va_start(args, dummy);
-    char* label = va_arg(args, char*);
-    int value = va_arg(args, int);
+    char* label;
+    int value;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
     while (label) {
+        value = va_arg(args, int);
         PyList_Append(result, PyTuple_Pack(2,
             PyUnicode_FromString(label), PyLong_FromLong(value)));
         label = va_arg(args, char*);
-        value = va_arg(args, int);
     }
     va_end(args);
     return result;
 };
-#endif // #ifndef ENUM_HELPER
 
 
 PyObject* _enum_list_ImageType() {
     return _get_enum_list(0, "arw",int(Exiv2::ImageType::arw),
         "bmp",int(Exiv2::ImageType::bmp),"cr2",int(Exiv2::ImageType::cr2),"crw",int(Exiv2::ImageType::crw),"dng",int(Exiv2::ImageType::dng),"eps",int(Exiv2::ImageType::eps),"exv",int(Exiv2::ImageType::exv),"gif",int(Exiv2::ImageType::gif),"jp2",int(Exiv2::ImageType::jp2),"jpeg",int(Exiv2::ImageType::jpeg),"mrw",int(Exiv2::ImageType::mrw),"nef",int(Exiv2::ImageType::nef),"none",int(Exiv2::ImageType::none),"orf",int(Exiv2::ImageType::orf),"pgf",int(Exiv2::ImageType::pgf),"png",int(Exiv2::ImageType::png),"psd",int(Exiv2::ImageType::psd),"raf",int(Exiv2::ImageType::raf),"rw2",int(Exiv2::ImageType::rw2),"sr2",int(Exiv2::ImageType::sr2),"srw",int(Exiv2::ImageType::srw),"tga",int(Exiv2::ImageType::tga),"tiff",int(Exiv2::ImageType::tiff),
         
-        "xmp",int(Exiv2::ImageType::xmp), NULL, 0);
+        "xmp",int(Exiv2::ImageType::xmp), NULL);
 };
 
 

@@ -3960,29 +3960,27 @@ PyObject* PyExc_Exiv2Error = NULL;
 PyObject* logger = NULL;
 
 
-#ifndef ENUM_HELPER
-#define ENUM_HELPER
-#include <cstdarg>
+
 static PyObject* _get_enum_list(int dummy, ...) {
-    PyObject* result = PyList_New(0);
     va_list args;
     va_start(args, dummy);
-    char* label = va_arg(args, char*);
-    int value = va_arg(args, int);
+    char* label;
+    int value;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
     while (label) {
+        value = va_arg(args, int);
         PyList_Append(result, PyTuple_Pack(2,
             PyUnicode_FromString(label), PyLong_FromLong(value)));
         label = va_arg(args, char*);
-        value = va_arg(args, int);
     }
     va_end(args);
     return result;
 };
-#endif // #ifndef ENUM_HELPER
 
 
 PyObject* _enum_list_XmpCategory() {
-    return _get_enum_list(0, "Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL, 0);
+    return _get_enum_list(0, "Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL);
 };
 
 

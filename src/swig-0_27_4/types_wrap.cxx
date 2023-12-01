@@ -4092,107 +4092,42 @@ fail:
 }
 
 
-#ifndef ENUM_HELPER
-#define ENUM_HELPER
-#include <cstdarg>
+
 static PyObject* _get_enum_list(int dummy, ...) {
-    PyObject* result = PyList_New(0);
     va_list args;
     va_start(args, dummy);
-    char* label = va_arg(args, char*);
-    int value = va_arg(args, int);
+    char* label;
+    int value;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
     while (label) {
+        value = va_arg(args, int);
         PyList_Append(result, PyTuple_Pack(2,
             PyUnicode_FromString(label), PyLong_FromLong(value)));
         label = va_arg(args, char*);
-        value = va_arg(args, int);
     }
     va_end(args);
     return result;
 };
-#endif // #ifndef ENUM_HELPER
 
 
 PyObject* _enum_list_AccessMode() {
-    return _get_enum_list(0, "none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL, 0);
+    return _get_enum_list(0, "none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL);
 };
-
-
-#ifndef ENUM_HELPER
-#define ENUM_HELPER
-#include <cstdarg>
-static PyObject* _get_enum_list(int dummy, ...) {
-    PyObject* result = PyList_New(0);
-    va_list args;
-    va_start(args, dummy);
-    char* label = va_arg(args, char*);
-    int value = va_arg(args, int);
-    while (label) {
-        PyList_Append(result, PyTuple_Pack(2,
-            PyUnicode_FromString(label), PyLong_FromLong(value)));
-        label = va_arg(args, char*);
-        value = va_arg(args, int);
-    }
-    va_end(args);
-    return result;
-};
-#endif // #ifndef ENUM_HELPER
 
 
 PyObject* _enum_list_ByteOrder() {
-    return _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL, 0);
+    return _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL);
 };
-
-
-#ifndef ENUM_HELPER
-#define ENUM_HELPER
-#include <cstdarg>
-static PyObject* _get_enum_list(int dummy, ...) {
-    PyObject* result = PyList_New(0);
-    va_list args;
-    va_start(args, dummy);
-    char* label = va_arg(args, char*);
-    int value = va_arg(args, int);
-    while (label) {
-        PyList_Append(result, PyTuple_Pack(2,
-            PyUnicode_FromString(label), PyLong_FromLong(value)));
-        label = va_arg(args, char*);
-        value = va_arg(args, int);
-    }
-    va_end(args);
-    return result;
-};
-#endif // #ifndef ENUM_HELPER
 
 
 PyObject* _enum_list_MetadataId() {
-    return _get_enum_list(0, "none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL, 0);
+    return _get_enum_list(0, "none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL);
 };
-
-
-#ifndef ENUM_HELPER
-#define ENUM_HELPER
-#include <cstdarg>
-static PyObject* _get_enum_list(int dummy, ...) {
-    PyObject* result = PyList_New(0);
-    va_list args;
-    va_start(args, dummy);
-    char* label = va_arg(args, char*);
-    int value = va_arg(args, int);
-    while (label) {
-        PyList_Append(result, PyTuple_Pack(2,
-            PyUnicode_FromString(label), PyLong_FromLong(value)));
-        label = va_arg(args, char*);
-        value = va_arg(args, int);
-    }
-    va_end(args);
-    return result;
-};
-#endif // #ifndef ENUM_HELPER
 
 
 PyObject* _enum_list_TypeId() {
-    return _get_enum_list(0, "unsignedByte",Exiv2::unsignedByte,"asciiString",Exiv2::asciiString,"unsignedShort",Exiv2::unsignedShort,"unsignedLong",Exiv2::unsignedLong,"unsignedRational",Exiv2::unsignedRational,"signedByte",Exiv2::signedByte,"undefined",Exiv2::undefined,"signedShort",Exiv2::signedShort,"signedLong",Exiv2::signedLong,"signedRational",Exiv2::signedRational,"tiffFloat",Exiv2::tiffFloat,"tiffDouble",Exiv2::tiffDouble,"tiffIfd",Exiv2::tiffIfd,"string",Exiv2::string,"date",Exiv2::date,"time",Exiv2::time,"comment",Exiv2::comment,"directory",Exiv2::directory,"xmpText",Exiv2::xmpText,"xmpAlt",Exiv2::xmpAlt,"xmpBag",Exiv2::xmpBag,"xmpSeq",Exiv2::xmpSeq,"langAlt",Exiv2::langAlt,"invalidTypeId",Exiv2::invalidTypeId,"lastTypeId",Exiv2::lastTypeId, NULL, 0);
+    return _get_enum_list(0, "unsignedByte",Exiv2::unsignedByte,"asciiString",Exiv2::asciiString,"unsignedShort",Exiv2::unsignedShort,"unsignedLong",Exiv2::unsignedLong,"unsignedRational",Exiv2::unsignedRational,"signedByte",Exiv2::signedByte,"undefined",Exiv2::undefined,"signedShort",Exiv2::signedShort,"signedLong",Exiv2::signedLong,"signedRational",Exiv2::signedRational,"tiffFloat",Exiv2::tiffFloat,"tiffDouble",Exiv2::tiffDouble,"tiffIfd",Exiv2::tiffIfd,"string",Exiv2::string,"date",Exiv2::date,"time",Exiv2::time,"comment",Exiv2::comment,"directory",Exiv2::directory,"xmpText",Exiv2::xmpText,"xmpAlt",Exiv2::xmpAlt,"xmpBag",Exiv2::xmpBag,"xmpSeq",Exiv2::xmpSeq,"langAlt",Exiv2::langAlt,"invalidTypeId",Exiv2::invalidTypeId,"lastTypeId",Exiv2::lastTypeId, NULL);
 };
 
 
