@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import enum
 import logging
 import unittest
 
@@ -23,10 +24,15 @@ import exiv2
 
 
 class TestErrorModule(unittest.TestCase):
+    def check_result(self, result, expected_type, expected_value):
+        self.assertIsInstance(result, expected_type)
+        self.assertEqual(result, expected_value)
+
     def test_LogMsg(self):
-        self.assertEqual(exiv2.LogMsg.level(), exiv2.LogMsg.warn)
-        exiv2.LogMsg.setLevel(exiv2.LogMsg.debug)
-        self.assertEqual(exiv2.LogMsg.level(), exiv2.LogMsg.debug)
+        self.assertIsInstance(exiv2.LogMsg.Level, enum.EnumMeta)
+        self.check_result(exiv2.LogMsg.level(), int, exiv2.LogMsg.Level.warn)
+        exiv2.LogMsg.setLevel(exiv2.LogMsg.Level.debug)
+        self.check_result(exiv2.LogMsg.level(), int, exiv2.LogMsg.Level.debug)
         # get exiv2 to log a message
         with self.assertLogs(level=logging.WARNING):
             comment = exiv2.CommentValue('charset=invalid Fred')
