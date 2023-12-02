@@ -5814,9 +5814,8 @@ SWIGINTERN std::string Exiv2_StringValueBase___getitem__(Exiv2::StringValueBase 
             "Use 'value = ""Exiv2::StringValueBase" ".""toString" "()'", 1);
         return self->toString();
     }
-SWIGINTERN PyObject *Exiv2_StringValueBase_data(Exiv2::StringValueBase *self){
-        return PyMemoryView_FromMemory(
-            (char*)self->value_.data(), self->value_.size(), PyBUF_READ);
+SWIGINTERN char const *Exiv2_StringValueBase_data(Exiv2::StringValueBase *self){
+        return self->value_.data();
     }
 SWIGINTERN Exiv2::StringValue *new_Exiv2_StringValue__SWIG_2(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -5905,9 +5904,8 @@ SWIGINTERN std::string Exiv2_XmpTextValue___getitem__(Exiv2::XmpTextValue *self,
             "Use 'value = ""Exiv2::XmpTextValue" ".""toString" "()'", 1);
         return self->toString();
     }
-SWIGINTERN PyObject *Exiv2_XmpTextValue_data(Exiv2::XmpTextValue *self){
-        return PyMemoryView_FromMemory(
-            (char*)self->value_.data(), self->value_.size(), PyBUF_READ);
+SWIGINTERN char const *Exiv2_XmpTextValue_data(Exiv2::XmpTextValue *self){
+        return self->value_.data();
     }
 SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_2(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -10281,7 +10279,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_data(PyObject *self, PyObject *args) 
   Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  PyObject *result = 0 ;
+  char *result = 0 ;
   
   (void)self;
   if (!SWIG_Python_UnpackTuple(args, "StringValueBase_data", 0, 0, 0)) SWIG_fail;
@@ -10292,7 +10290,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_data(PyObject *self, PyObject *args) 
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
   {
     try {
-      result = (PyObject *)Exiv2_StringValueBase_data(arg1);
+      result = (char *)Exiv2_StringValueBase_data(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -10302,7 +10300,9 @@ SWIGINTERN PyObject *_wrap_StringValueBase_data(PyObject *self, PyObject *args) 
       SWIG_fail;
     }
   }
-  resultobj = result;
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, arg1->value_.size(), PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -13016,7 +13016,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_data(PyObject *self, PyObject *args) {
   Exiv2::XmpTextValue *arg1 = (Exiv2::XmpTextValue *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  PyObject *result = 0 ;
+  char *result = 0 ;
   
   (void)self;
   if (!SWIG_Python_UnpackTuple(args, "XmpTextValue_data", 0, 0, 0)) SWIG_fail;
@@ -13027,7 +13027,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_data(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
   {
     try {
-      result = (PyObject *)Exiv2_XmpTextValue_data(arg1);
+      result = (char *)Exiv2_XmpTextValue_data(arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -13037,7 +13037,9 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_data(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = result;
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, arg1->value_.size(), PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -31027,10 +31029,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__StringValueBase_methods[] = {
   { "toRational", _wrap_StringValueBase_toRational, METH_VARARGS, "" },
   { "__getitem__", _wrap_StringValueBase___getitem__, METH_O, "" },
   { "data", _wrap_StringValueBase_data, METH_NOARGS, "\n"
-		"Returns a temporary Python memoryview of the raw string data.\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
-		"WARNING: do not modify or delete the string value while using the\n"
-		"memoryview.\n"
+		"WARNING: do not resize or delete the object while using the view.\n"
 		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
@@ -32452,10 +32453,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpTextValue_methods[] = {
 		"" },
   { "__getitem__", _wrap_XmpTextValue___getitem__, METH_O, "" },
   { "data", _wrap_XmpTextValue_data, METH_NOARGS, "\n"
-		"Returns a temporary Python memoryview of the raw string data.\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
-		"WARNING: do not modify or delete the string value while using the\n"
-		"memoryview.\n"
+		"WARNING: do not resize or delete the object while using the view.\n"
 		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };

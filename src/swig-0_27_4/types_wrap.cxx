@@ -5628,8 +5628,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_pData__get(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
   result = (Exiv2::byte *) ((arg1)->pData_);
   
-  resultobj = PyMemoryView_FromMemory(
-    (char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
+  resultobj = PyMemoryView_FromMemory((char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
   
   
   PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -5742,8 +5741,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
   result = (Exiv2::byte *)Exiv2_DataBuf_data((Exiv2::DataBuf const *)arg1);
   
-  resultobj = PyMemoryView_FromMemory(
-    (char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
+  resultobj = PyMemoryView_FromMemory((char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
   
   return resultobj;
 fail:
@@ -6585,7 +6583,11 @@ static SwigPyGetSet DataBuf_pData__getset = { _wrap_DataBuf_pData__get, 0 };
 static SwigPyGetSet DataBuf_size__getset = { _wrap_DataBuf_size__get, 0 };
 static SwigPyGetSet DataBuf___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__DataBuf_getset[] = {
-    { (char *)"pData_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Pointer to the buffer, 0 if none has been allocated", &DataBuf_pData__getset },
+    { (char *)"pData_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
+		"\n"
+		"WARNING: do not resize or delete the object while using the view.\n"
+		"", &DataBuf_pData__getset },
     { (char *)"size_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" The current size of the buffer", &DataBuf_size__getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
 		"*Overload 1:*\n"
@@ -6637,10 +6639,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },
   { "__getitem__", _wrap_DataBuf___getitem__, METH_O, "" },
   { "data", _wrap_DataBuf_data, METH_NOARGS, "\n"
-		"Returns a temporary Python memoryview of the data.\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
-		"WARNING: do not resize or delete the DataBuf object while using the\n"
-		"memoryview.\n"
+		"WARNING: do not resize or delete the object while using the view.\n"
 		"" },
   { "size", _wrap_DataBuf_size, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */

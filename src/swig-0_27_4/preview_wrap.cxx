@@ -5230,10 +5230,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
 		"       this copy and %DataBuf ensures that it will be deleted.\n"
 		"" },
   { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "\n"
-		"Returns a temporary Python memoryview of the image data.\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
-		"WARNING: do not modify or delete the PreviewImage object while using\n"
-		"the memoryview.\n"
+		"WARNING: do not resize or delete the object while using the view.\n"
 		"" },
   { "size", _wrap_PreviewImage_size, METH_NOARGS, "          Return the size of the preview image in bytes." },
   { "writeFile", _wrap_PreviewImage_writeFile, METH_O, "\n"

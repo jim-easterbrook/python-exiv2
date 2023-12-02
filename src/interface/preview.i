@@ -88,15 +88,8 @@ fail:
 %}
 
 // Convert pData result to a Python memoryview
-// WARNING: return value does not keep a reference to the data it points to
-%typemap(out) Exiv2::byte* pData %{
-    $result = PyMemoryView_FromMemory((char*)$1, arg1->size(), PyBUF_READ);
-%}
-%feature("docstring") Exiv2::PreviewImage::pData
-"Returns a temporary Python memoryview of the image data.
-
-WARNING: do not modify or delete the PreviewImage object while using
-the memoryview."
+RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
+            Exiv2::PreviewImage::pData)
 
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;

@@ -141,16 +141,10 @@ fail:
 %}
 
 // Convert pData_ and data() result to a memoryview
-// WARNING: return value does not keep a reference to the data it points to
-%typemap(out) (Exiv2::byte* pData_), (Exiv2::byte* data) %{
-    $result = PyMemoryView_FromMemory(
-        (char*)$1, arg1->DATABUF_SIZE, PyBUF_WRITE);
-%}
-%feature("docstring") Exiv2::DataBuf::data
-"Returns a temporary Python memoryview of the data.
-
-WARNING: do not resize or delete the DataBuf object while using the
-memoryview."
+RETURN_VIEW(Exiv2::byte* pData_, arg1->DATABUF_SIZE, PyBUF_WRITE,
+            Exiv2::DataBuf::pData_)
+RETURN_VIEW(Exiv2::byte* data, arg1->DATABUF_SIZE, PyBUF_WRITE,
+            Exiv2::DataBuf::data)
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Backport Exiv2 v0.28.0 methods

@@ -119,6 +119,18 @@ EXCEPTION(,)
 %}
 %enddef // OUTPUT_BUFFER_RW
 
+// Macro to convert byte* return value to memoryview
+// WARNING: return value does not keep a reference to the data it points to
+%define RETURN_VIEW(signature, size_func, flags, doc_method)
+%typemap(out) (signature) %{
+    $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
+%}
+%feature("docstring") doc_method
+"Returns a temporary Python memoryview of the object's data.
+
+WARNING: do not resize or delete the object while using the view."
+%enddef // RETURN_VIEW
+
 // Macro to keep a reference to "self" when returning a particular type.
 %define KEEP_REFERENCE(return_type)
 %typemap(ret) return_type %{

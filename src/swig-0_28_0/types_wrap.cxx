@@ -5676,8 +5676,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
   result = (Exiv2::byte *)(arg1)->data();
   
-  resultobj = PyMemoryView_FromMemory(
-    (char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
+  resultobj = PyMemoryView_FromMemory((char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
   
   return resultobj;
 fail:
@@ -6644,10 +6643,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
   { "size", _wrap_DataBuf_size, METH_NOARGS, "" },
   { "cmpBytes", _wrap_DataBuf_cmpBytes, METH_VARARGS, " Equivalent to: memcmp(&pData_[offset], buf, bufsize)" },
   { "data", _wrap_DataBuf_data, METH_NOARGS, "\n"
-		"Returns a temporary Python memoryview of the data.\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
-		"WARNING: do not resize or delete the DataBuf object while using the\n"
-		"memoryview.\n"
+		"WARNING: do not resize or delete the object while using the view.\n"
 		"" },
   { "empty", _wrap_DataBuf_empty, METH_NOARGS, "" },
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },

@@ -450,16 +450,11 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 
 // Allow access to Exiv2::StringValueBase and Exiv2::XmpTextValue raw data
 %define RAW_STRING_DATA(class)
-%feature("docstring") class ## ::data
-"Returns a temporary Python memoryview of the raw string data.
-
-WARNING: do not modify or delete the string value while using the
-memoryview."
-
+RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ,
+            class##::data)
 %extend class {
-    PyObject* data() {
-        return PyMemoryView_FromMemory(
-            (char*)$self->value_.data(), $self->value_.size(), PyBUF_READ);
+    const char* data() {
+        return $self->value_.data();
     }
 }
 %enddef // RAW_STRING_DATA
