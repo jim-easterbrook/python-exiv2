@@ -47,7 +47,7 @@ class TestPropertiesModule(unittest.TestCase):
         self.assertIsInstance(prefix, str)
         self.assertEqual(prefix, self.prefix_name)
         property_info = ns_info.xmpPropertyInfo_
-        self.assertIsInstance(property_info, list)
+        self.assertIsInstance(property_info, tuple)
         self.assertGreater(len(property_info), 0)
         self.assertIsInstance(property_info[0], exiv2.XmpPropertyInfo)
 
@@ -74,7 +74,7 @@ class TestPropertiesModule(unittest.TestCase):
         self.assertIsInstance(property_info, exiv2.XmpPropertyInfo)
         self.assertIsNone(properties.propertyInfo(key2))
         property_list = properties.propertyList(self.prefix_name)
-        self.assertIsInstance(property_list, list)
+        self.assertIsInstance(property_list, tuple)
         self.assertGreater(len(property_list), 0)
         self.assertIsInstance(property_list[0], exiv2.XmpPropertyInfo)
         property_title = properties.propertyTitle(key)

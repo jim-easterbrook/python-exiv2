@@ -5160,12 +5160,12 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_envelopeRecordList(PyObject *self, PyObj
     }
   }
   {
-    const Exiv2::DataSet* ptr = result;
+    const Exiv2::DataSet* item = result ;
     PyObject* list = PyList_New(0);
-    while (ptr->number_ != 0xffff) {
+    while (item->number_ != 0xffff) {
       PyList_Append(list, SWIG_NewPointerObj(
-          SWIG_as_voidptr(ptr), SWIGTYPE_p_Exiv2__DataSet, 0));
-      ++ptr;
+          SWIG_as_voidptr(item), SWIGTYPE_p_Exiv2__DataSet, 0));
+      ++item;
     }
     resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
   }
@@ -5194,12 +5194,12 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_application2RecordList(PyObject *self, P
     }
   }
   {
-    const Exiv2::DataSet* ptr = result;
+    const Exiv2::DataSet* item = result ;
     PyObject* list = PyList_New(0);
-    while (ptr->number_ != 0xffff) {
+    while (item->number_ != 0xffff) {
       PyList_Append(list, SWIG_NewPointerObj(
-          SWIG_as_voidptr(ptr), SWIGTYPE_p_Exiv2__DataSet, 0));
-      ++ptr;
+          SWIG_as_voidptr(item), SWIGTYPE_p_Exiv2__DataSet, 0));
+      ++item;
     }
     resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
   }

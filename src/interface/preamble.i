@@ -70,6 +70,20 @@ precheck
 // Catch all C++ exceptions
 EXCEPTION(,)
 
+// Macro to convert pointer to start of static list to a Python tuple
+%define LIST_POINTER(pattern, item_type, valid_test, conv_func)
+%typemap(out) pattern {
+    const item_type* item = $1 conv_func;
+    PyObject* list = PyList_New(0);
+    while (item->valid_test) {
+        PyList_Append(list, SWIG_NewPointerObj(
+            SWIG_as_voidptr(item), $descriptor(item_type*), 0));
+        ++item;
+    }
+    $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
+}
+%enddef // LIST_POINTER
+
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)
 %typemap(in) (buf_type, len_type) (Py_buffer _global_view) {

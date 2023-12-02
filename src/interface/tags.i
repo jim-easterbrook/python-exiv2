@@ -24,40 +24,13 @@
 wrap_auto_unique_ptr(Exiv2::ExifKey);
 
 // ExifTags::groupList returns a static list as a pointer
-%typemap(out) const Exiv2::GroupInfo* {
-    const Exiv2::GroupInfo* gi = $1;
-    PyObject* list = PyList_New(0);
-    while (gi->tagList_ != 0) {
-        PyList_Append(list, SWIG_NewPointerObj(
-            SWIG_as_voidptr(gi), $descriptor(Exiv2::GroupInfo*), 0));
-        ++gi;
-    }
-    $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
-}
+LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0,)
 
 // ExifTags::tagList returns a static list as a pointer
-%typemap(out) const Exiv2::TagInfo* {
-    const Exiv2::TagInfo* ti = $1;
-    PyObject* list = PyList_New(0);
-    while (ti->tag_ != 0xFFFF) {
-        PyList_Append(list, SWIG_NewPointerObj(
-            SWIG_as_voidptr(ti), $descriptor(Exiv2::TagInfo*), 0));
-        ++ti;
-    }
-    $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
-}
+LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF,)
 
 // GroupInfo::tagList_ returns a function pointer
-%typemap(out) const Exiv2::TagInfo*(*)() {
-    const Exiv2::TagInfo* ti = $1();
-    PyObject* list = PyList_New(0);
-    while (ti->tag_ != 0xFFFF) {
-        PyList_Append(list, SWIG_NewPointerObj(
-            SWIG_as_voidptr(ti), $descriptor(Exiv2::TagInfo*), 0));
-        ++ti;
-    }
-    $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
-}
+LIST_POINTER(Exiv2::TagListFct, Exiv2::TagInfo, tag_ != 0xFFFF, ())
 
 %ignore Exiv2::GroupInfo::GroupInfo;
 %ignore Exiv2::GroupInfo::GroupName;

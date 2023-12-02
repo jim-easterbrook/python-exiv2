@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,16 +25,7 @@ wrap_auto_unique_ptr(Exiv2::IptcKey);
 
 // IptcDataSets::application2RecordList and IptcDataSets::envelopeRecordList
 // return a static list as a pointer
-%typemap(out) const Exiv2::DataSet* {
-    const Exiv2::DataSet* ptr = $1;
-    PyObject* list = PyList_New(0);
-    while (ptr->number_ != 0xffff) {
-        PyList_Append(list, SWIG_NewPointerObj(
-            SWIG_as_voidptr(ptr), $descriptor(Exiv2::DataSet*), 0));
-        ++ptr;
-    }
-    $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
-}
+LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff,)
 
 %ignore Exiv2::RecordInfo::RecordInfo;
 %ignore Exiv2::DataSet::DataSet;
