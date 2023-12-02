@@ -3778,27 +3778,26 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_char swig_types[30]
 #define SWIGTYPE_p_const_iterator swig_types[31]
 #define SWIGTYPE_p_difference_type swig_types[32]
-#define SWIGTYPE_p_f___p_Exiv2__TagInfo swig_types[33]
-#define SWIGTYPE_p_first_type swig_types[34]
-#define SWIGTYPE_p_int swig_types[35]
-#define SWIGTYPE_p_iterator swig_types[36]
-#define SWIGTYPE_p_key_type swig_types[37]
-#define SWIGTYPE_p_long_long swig_types[38]
-#define SWIGTYPE_p_mapped_type swig_types[39]
-#define SWIGTYPE_p_second_type swig_types[40]
-#define SWIGTYPE_p_short swig_types[41]
-#define SWIGTYPE_p_signed_char swig_types[42]
-#define SWIGTYPE_p_size_type swig_types[43]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[44]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[45]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[46]
-#define SWIGTYPE_p_unsigned_char swig_types[47]
-#define SWIGTYPE_p_unsigned_int swig_types[48]
-#define SWIGTYPE_p_unsigned_long_long swig_types[49]
-#define SWIGTYPE_p_unsigned_short swig_types[50]
-#define SWIGTYPE_p_value_type swig_types[51]
-static swig_type_info *swig_types[53];
-static swig_module_info swig_module = {swig_types, 52, 0, 0, 0, 0};
+#define SWIGTYPE_p_first_type swig_types[33]
+#define SWIGTYPE_p_int swig_types[34]
+#define SWIGTYPE_p_iterator swig_types[35]
+#define SWIGTYPE_p_key_type swig_types[36]
+#define SWIGTYPE_p_long_long swig_types[37]
+#define SWIGTYPE_p_mapped_type swig_types[38]
+#define SWIGTYPE_p_second_type swig_types[39]
+#define SWIGTYPE_p_short swig_types[40]
+#define SWIGTYPE_p_signed_char swig_types[41]
+#define SWIGTYPE_p_size_type swig_types[42]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[43]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[44]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[45]
+#define SWIGTYPE_p_unsigned_char swig_types[46]
+#define SWIGTYPE_p_unsigned_int swig_types[47]
+#define SWIGTYPE_p_unsigned_long_long swig_types[48]
+#define SWIGTYPE_p_unsigned_short swig_types[49]
+#define SWIGTYPE_p_value_type swig_types[50]
+static swig_type_info *swig_types[52];
+static swig_module_info swig_module = {swig_types, 51, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4616,7 +4615,16 @@ SWIGINTERN PyObject *_wrap_GroupInfo_tagList__get(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
   result = (Exiv2::TagListFct) ((arg1)->tagList_);
-  resultobj = SWIG_NewFunctionPtrObj((void *)(result), SWIGTYPE_p_f___p_Exiv2__TagInfo);
+  {
+    const Exiv2::TagInfo* ti = result();
+    PyObject* list = PyList_New(0);
+    while (ti->tag_ != 0xFFFF) {
+      PyList_Append(list, SWIG_NewPointerObj(
+          SWIG_as_voidptr(ti), SWIGTYPE_p_Exiv2__TagInfo, 0));
+      ++ti;
+    }
+    resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -7026,7 +7034,6 @@ static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocato
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_f___p_Exiv2__TagInfo = {"_p_f___p_Exiv2__TagInfo", "Exiv2::TagListFct|Exiv2::TagInfo *(*)()", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "int32_t *|int_fast16_t *|int_fast32_t *|int_least32_t *|intptr_t *|int *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_iterator = {"_p_iterator", "iterator *", 0, 0, (void*)0, 0};
@@ -7080,7 +7087,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_char,
   &_swigt__p_const_iterator,
   &_swigt__p_difference_type,
-  &_swigt__p_f___p_Exiv2__TagInfo,
   &_swigt__p_first_type,
   &_swigt__p_int,
   &_swigt__p_iterator,
@@ -7134,7 +7140,6 @@ static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_f___p_Exiv2__TagInfo[] = {  {&_swigt__p_f___p_Exiv2__TagInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_iterator[] = {  {&_swigt__p_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -7188,7 +7193,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_char,
   _swigc__p_const_iterator,
   _swigc__p_difference_type,
-  _swigc__p_f___p_Exiv2__TagInfo,
   _swigc__p_first_type,
   _swigc__p_int,
   _swigc__p_iterator,

@@ -65,7 +65,9 @@ class TestTagsModule(unittest.TestCase):
         self.assertIsInstance(ifd_name, str)
         self.assertEqual(ifd_name, 'IFD0')
         tag_list = info.tagList_
-        # tag_list not currently usable from Python
+        self.assertIsInstance(tag_list, tuple)
+        self.assertGreater(len(tag_list), 0)
+        self.assertIsInstance(tag_list[0], exiv2.TagInfo)
 
     def test_TagInfo(self):
         info = exiv2.ExifTags.tagList(self.group_name)[0]

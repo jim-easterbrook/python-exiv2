@@ -26,7 +26,7 @@ import exiv2
 
 class TestDatasetsModule(unittest.TestCase):
     def test_DataSet(self):
-        dataset = exiv2.IptcDataSets.application2RecordList()
+        dataset = exiv2.IptcDataSets.application2RecordList()[0]
         self.assertIsInstance(dataset, exiv2.DataSet)
         self.assertEqual(dataset.desc_[:27], 'A binary number identifying')
         self.assertEqual(dataset.mandatory_, True)
@@ -44,11 +44,13 @@ class TestDatasetsModule(unittest.TestCase):
         # number and record id of Iptc.Application2.Caption
         number = exiv2.IptcDataSets.Caption
         record_id = exiv2.IptcDataSets.application2
-        # these should be lists rather than single items
+        # static data lists
         datasets = exiv2.IptcDataSets.application2RecordList()
-        self.assertIsInstance(datasets, exiv2.DataSet)
+        self.assertIsInstance(datasets, tuple)
+        self.assertIsInstance(datasets[0], exiv2.DataSet)
         datasets = exiv2.IptcDataSets.envelopeRecordList()
-        self.assertIsInstance(datasets, exiv2.DataSet)
+        self.assertIsInstance(datasets, tuple)
+        self.assertIsInstance(datasets[0], exiv2.DataSet)
         # test other methods 
         self.assertEqual(exiv2.IptcDataSets.dataSet(
             'Caption', record_id), exiv2.IptcDataSets.Caption)

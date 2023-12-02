@@ -47,6 +47,18 @@ wrap_auto_unique_ptr(Exiv2::ExifKey);
     $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
 }
 
+// GroupInfo::tagList_ returns a function pointer
+%typemap(out) const Exiv2::TagInfo*(*)() {
+    const Exiv2::TagInfo* ti = $1();
+    PyObject* list = PyList_New(0);
+    while (ti->tag_ != 0xFFFF) {
+        PyList_Append(list, SWIG_NewPointerObj(
+            SWIG_as_voidptr(ti), $descriptor(Exiv2::TagInfo*), 0));
+        ++ti;
+    }
+    $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
+}
+
 %ignore Exiv2::GroupInfo::GroupInfo;
 %ignore Exiv2::GroupInfo::GroupName;
 %ignore Exiv2::TagInfo::TagInfo;

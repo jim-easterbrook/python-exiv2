@@ -23,6 +23,19 @@
 
 wrap_auto_unique_ptr(Exiv2::IptcKey);
 
+// IptcDataSets::application2RecordList and IptcDataSets::envelopeRecordList
+// return a static list as a pointer
+%typemap(out) const Exiv2::DataSet* {
+    const Exiv2::DataSet* ptr = $1;
+    PyObject* list = PyList_New(0);
+    while (ptr->number_ != 0xffff) {
+        PyList_Append(list, SWIG_NewPointerObj(
+            SWIG_as_voidptr(ptr), $descriptor(Exiv2::DataSet*), 0));
+        ++ptr;
+    }
+    $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
+}
+
 %ignore Exiv2::RecordInfo::RecordInfo;
 %ignore Exiv2::DataSet::DataSet;
 %ignore Exiv2::IptcDataSets::dataSetList;
