@@ -120,9 +120,11 @@ def main():
             with open(os.path.join(incl_dir, file), 'r') as in_file:
                 with open(os.path.join(dest, file), 'w') as out_file:
                     for line in in_file.readlines():
-                        if 'static constexpr auto' in line:
-                            continue
-                        line = attr.sub('', line)
+                        if swig_version < (4, 2, 0):
+                            line = line.replace('static constexpr auto',
+                                                'static const char*')
+                        if swig_version < (4, 1, 0):
+                            line = attr.sub('', line)
                         out_file.write(line)
         # make options list
         swig_opts = ['-c++', '-python', '-builtin',

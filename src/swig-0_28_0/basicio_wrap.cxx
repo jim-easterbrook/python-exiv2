@@ -9978,14 +9978,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__MemIo_clientdata = {0, 0, 0, 0
 
 static SwigPyGetSet XPathIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XPathIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"   The extension of the temporary file which is created when getting input data\n"
-		"           to read metadata. This file will be deleted in destructor.\n"
-		"\n"
-		"   The extension of the generated file which is created when getting input data\n"
-		"           to add or modify the metadata.\n"
-		"Default constructor that reads data from stdin/data uri path and writes them to the temp file.\n"
-		"", &XPathIo___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Default constructor that reads data from stdin/data uri path and writes them to the temp file.", &XPathIo___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
