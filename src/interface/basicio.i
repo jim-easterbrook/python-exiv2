@@ -96,17 +96,18 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, long rcount)
 OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 
 // Convert mmap() result to a Python memoryview
-%typemap(check) bool isWriteable %{
+#ifndef SWIGIMPORTED
+// plain bool typemap is general, restrict to this module with SWIGIMPORTED
+%typemap(check) bool %{
     _global_writeable = $1;
 %}
+#endif
 %typemap(out) Exiv2::byte* mmap (bool _global_writeable = false) {
-    if ($1 == NULL) {
-        PyErr_SetString(PyExc_RuntimeError, "$symname: not implemented");
-        SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!$1)
+        len = 0;
     $result = PyMemoryView_FromMemory(
-        (char*)$1, arg1->size(),
-         _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+        (char*)$1, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
 }
 
 // Expose BasicIo contents as a Python buffer
@@ -126,10 +127,8 @@ static int BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     if (self->open())
         goto fail;
     ptr = self->mmap(writeable);
-    if (!ptr)
-        goto fail;
-    return PyBuffer_FillInfo(
-        view, exporter, ptr, self->size(), writeable ? 0 : 1, flags);
+    return PyBuffer_FillInfo(view, exporter, ptr,
+        ptr ? self->size() : 0, writeable ? 0 : 1, flags);
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;

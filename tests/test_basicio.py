@@ -47,6 +47,33 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.isopen(), False)
 
     def test_MemIo(self):
+        # empty buffer
+        io = exiv2.MemIo()
+        self.assertIsInstance(io, exiv2.BasicIo)
+        self.assertEqual(io.size(), 0)
+        # mmap data access
+        with io.mmap(False) as view:
+            self.assertIsInstance(view, memoryview)
+            self.assertEqual(view, b'')
+            self.assertEqual(view.readonly, True)
+            with self.assertRaises(TypeError):
+                view[0] = 0
+        self.assertEqual(io.munmap(), 0)
+        with io.mmap(True) as view:
+            self.assertIsInstance(view, memoryview)
+            self.assertEqual(view, b'')
+            self.assertEqual(view.readonly, False)
+            with self.assertRaises(IndexError):
+                view[0] = 0
+        self.assertEqual(io.munmap(), 0)
+        # Python buffer interface
+        with memoryview(io) as view:
+            self.assertIsInstance(view, memoryview)
+            self.assertEqual(view, b'')
+            self.assertEqual(view.readonly, False)
+            with self.assertRaises(IndexError):
+                view[0] = 0
+        # non-empty buffer
         io = exiv2.MemIo(self.data)
         self.assertIsInstance(io, exiv2.BasicIo)
         self.assertEqual(io.error(), False)

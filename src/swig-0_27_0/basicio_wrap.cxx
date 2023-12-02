@@ -3942,10 +3942,8 @@ static int BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
     if (self->open())
         goto fail;
     ptr = self->mmap(writeable);
-    if (!ptr)
-        goto fail;
-    return PyBuffer_FillInfo(
-        view, exporter, ptr, self->size(), writeable ? 0 : 1, flags);
+    return PyBuffer_FillInfo(view, exporter, ptr,
+        ptr ? self->size() : 0, writeable ? 0 : 1, flags);
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
@@ -5190,13 +5188,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs
     }
   }
   {
-    if (result == NULL) {
-      PyErr_SetString(PyExc_RuntimeError, "BasicIo_mmap: not implemented");
-      SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!result)
+    len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, arg1->size(),
-      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
@@ -5236,13 +5232,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs
     }
   }
   {
-    if (result == NULL) {
-      PyErr_SetString(PyExc_RuntimeError, "BasicIo_mmap: not implemented");
-      SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!result)
+    len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, arg1->size(),
-      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
@@ -6218,13 +6212,11 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs,
     }
   }
   {
-    if (result == NULL) {
-      PyErr_SetString(PyExc_RuntimeError, "FileIo_mmap: not implemented");
-      SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!result)
+    len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, arg1->size(),
-      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
@@ -6264,13 +6256,11 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs,
     }
   }
   {
-    if (result == NULL) {
-      PyErr_SetString(PyExc_RuntimeError, "FileIo_mmap: not implemented");
-      SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!result)
+    len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, arg1->size(),
-      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
@@ -7182,15 +7172,16 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_mmap" "', argument " "2"" of type '" "bool""'");
   } 
   arg2 = static_cast< bool >(val2);
+  
+  _global_writeable = arg2;
+  
   result = (Exiv2::byte *)(arg1)->mmap(arg2);
   {
-    if (result == NULL) {
-      PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not implemented");
-      SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!result)
+    len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, arg1->size(),
-      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
@@ -7215,13 +7206,11 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, 
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
   result = (Exiv2::byte *)(arg1)->mmap();
   {
-    if (result == NULL) {
-      PyErr_SetString(PyExc_RuntimeError, "MemIo_mmap: not implemented");
-      SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!result)
+    len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, arg1->size(),
-      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
@@ -8167,6 +8156,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobj
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_mmap" "', argument " "2"" of type '" "bool""'");
   } 
   arg2 = static_cast< bool >(val2);
+  
+  _global_writeable = arg2;
+  
   {
     try {
       {
@@ -8184,13 +8176,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobj
     }
   }
   {
-    if (result == NULL) {
-      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_mmap: not implemented");
-      SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!result)
+    len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, arg1->size(),
-      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
@@ -8230,13 +8220,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobj
     }
   }
   {
-    if (result == NULL) {
-      PyErr_SetString(PyExc_RuntimeError, "RemoteIo_mmap: not implemented");
-      SWIG_fail;
-    }
+    size_t len = arg1->size();
+    if (!result)
+    len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, arg1->size(),
-      _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
