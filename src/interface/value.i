@@ -22,6 +22,10 @@
 %ignore SwigPyIterator;
 
 %include "preamble.i"
+%include "shared/buffers.i"
+%include "shared/enum.i"
+%include "shared/keep_reference.i"
+%include "shared/unique_ptr.i"
 
 %include "stdint.i"
 %include "std_map.i"

@@ -18,6 +18,8 @@
 %module(package="exiv2") tags
 
 %include "preamble.i"
+%include "shared/static_list.i"
+%include "shared/unique_ptr.i"
 
 %import "metadatum.i";
 

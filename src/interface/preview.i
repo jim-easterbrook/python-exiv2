@@ -18,6 +18,7 @@
 %module(package="exiv2") preview
 
 %include "preamble.i"
+%include "shared/buffers.i"
 
 %include "std_string.i"
 

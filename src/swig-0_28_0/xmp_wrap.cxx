@@ -6491,7 +6491,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_0(PyObject *self, Py_
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -6631,7 +6631,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_1(PyObject *self, Py_
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -6788,7 +6788,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_0(PyObject *self, Py_ssi
   }
   {
     Exiv2::Value* value = result;
-    /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
     if (_global_type_id == Exiv2::lastTypeId)
     _global_type_id = value->typeId();
@@ -6928,7 +6928,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, Py_ssi
   }
   {
     Exiv2::Value* value = result;
-    /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
     if (_global_type_id == Exiv2::lastTypeId)
     _global_type_id = value->typeId();
@@ -8516,7 +8516,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue__SWIG_0(PyObject *self, Py_ssize_t 
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -8644,7 +8644,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   {
     Exiv2::Value* value = result;
-    /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
     if (_global_type_id == Exiv2::lastTypeId)
     _global_type_id = value->typeId();
@@ -8785,7 +8785,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t 
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -8953,7 +8953,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nob
   }
   {
     Exiv2::Value* value = result;
-    /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
     if (_global_type_id == Exiv2::lastTypeId)
     _global_type_id = value->typeId();

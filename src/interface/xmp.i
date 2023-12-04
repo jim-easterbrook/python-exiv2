@@ -18,6 +18,8 @@
 %module(package="exiv2") xmp
 
 %include "preamble.i"
+%include "shared/containers.i"
+%include "shared/data_iterator.i"
 
 %include "stdint.i"
 %include "std_string.i"

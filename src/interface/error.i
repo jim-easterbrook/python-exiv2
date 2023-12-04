@@ -18,6 +18,7 @@
 %module(package="exiv2") error
 
 %include "preamble.i"
+%include "shared/enum.i"
 
 %include "std_except.i"
 

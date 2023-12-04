@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,9 @@
 %module(package="exiv2") properties
 
 %include "preamble.i"
+%include "shared/enum.i"
+%include "shared/static_list.i"
+%include "shared/unique_ptr.i"
 
 %import "datasets.i"
 %import "metadatum.i"
