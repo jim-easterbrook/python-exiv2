@@ -39,6 +39,9 @@ class TestDatasetsModule(unittest.TestCase):
         self.assertEqual(dataset.repeatable_, False)
         self.assertEqual(dataset.title_, 'Record Version')
         self.assertEqual(dataset.type_, exiv2.TypeId.unsignedShort)
+        ds_dict = dict(dataset)
+        for key, value in ds_dict.items():
+            self.assertEqual(value, getattr(dataset, key + '_'))
 
     def test_IptcDataSets(self):
         # number and record id of Iptc.Application2.Caption

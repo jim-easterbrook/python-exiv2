@@ -27,13 +27,32 @@ wrap_auto_unique_ptr(Exiv2::IptcKey);
 // return a static list as a pointer
 LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff,)
 
-%ignore Exiv2::RecordInfo::RecordInfo;
+// Make Exiv2::DataSet struct iterable for easy conversion to dict or list
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    Exiv2::DataSet::__iter__;
+%noexception Exiv2::DataSet::__iter__;
+%extend Exiv2::DataSet {
+    PyObject* __iter__() {
+        return PySeqIter_New(Py_BuildValue(
+            "((si)(ss)(ss)(ss)(sN)(sN)(si)(si)(si)(si)(ss))",
+            "number",     $self->number_,
+            "name",       $self->name_,
+            "title",      $self->title_,
+            "desc",       $self->desc_,
+            "mandatory",  PyBool_FromLong($self->mandatory_),
+            "repeatable", PyBool_FromLong($self->repeatable_),
+            "minbytes",   $self->minbytes_,
+            "maxbytes",   $self->maxbytes_,
+            "type",       $self->type_,
+            "recordId",   $self->recordId_,
+            "photoshop",  $self->photoshop_));
+    }
+}
+
 %ignore Exiv2::DataSet::DataSet;
 %ignore Exiv2::IptcDataSets::dataSetList;
 %ignore Exiv2::IptcDataSets::IptcDataSets;
-#if EXIV2_VERSION_HEX >= 0x01000000
-  %ignore Exiv2::IptcDataSets::recordId;
-#endif
+%ignore Exiv2::RecordInfo;
 
 %immutable;
 %include "exiv2/datasets.hpp"
