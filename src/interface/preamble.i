@@ -86,6 +86,7 @@ EXCEPTION(,)
 
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)
+%typemap(doctype) buf_type "bytes-like object";
 %typemap(in) (buf_type, len_type) (Py_buffer _global_view) {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer($input, &_global_view, PyBUF_CONTIG_RO) < 0) {
@@ -108,6 +109,7 @@ EXCEPTION(,)
 
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)
+%typemap(doctype) buf_type "writeable bytes-like object";
 %typemap(in) (buf_type) (Py_buffer _global_view) {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer(

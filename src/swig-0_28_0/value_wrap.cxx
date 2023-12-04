@@ -7536,7 +7536,7 @@ SWIGINTERN PyObject *_wrap_Value_clone(PyObject *self, PyObject *args) {
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -8407,7 +8407,7 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -32514,7 +32514,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Value_methods[] = {
   { "read", _wrap_Value_read, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
 		"Read the value from a character buffer.\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: bytes-like object\n"
 		":param buf: Pointer to the data buffer to read from\n"
 		":type len: int\n"
 		":param len: Number of bytes in the data buffer\n"
@@ -32546,7 +32546,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Value_methods[] = {
 		"information besides the actual value. This method is used to set such\n"
 		"a data area.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: bytes-like object\n"
 		":param buf: Pointer to the source data area\n"
 		":type len: int\n"
 		":param len: Size of the data area\n"
@@ -32565,7 +32565,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Value_methods[] = {
 		"The user must ensure that the buffer has enough memory. Otherwise\n"
 		"the call results in undefined behaviour.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: writeable bytes-like object\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: int\n"
 		":param byteOrder: Applicable byte order (little or big endian).\n"
@@ -32618,7 +32618,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Value_methods[] = {
 		"       The behaviour of this method may be undefined if there is no\n"
 		"       **n**-th component.\n"
 		"\n"
-		":rtype: :py:class:`Rational`\n"
+		":rtype: (int, int) tuple\n"
 		":return: The converted value.\n"
 		"" },
   { "sizeDataArea", _wrap_Value_sizeDataArea, METH_NOARGS, " Return the size of the data area, 0 if there is none." },
@@ -32926,7 +32926,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataValue_methods[] = {
 		"The user must ensure that the buffer has enough memory. Otherwise\n"
 		"the call results in undefined behaviour.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: writeable bytes-like object\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: int, optional\n"
 		":param byteOrder: Byte order. Not needed.\n"
@@ -33183,7 +33183,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__StringValueBase_methods[] = {
 		"Notes: The byte order is required by the interface but not used by this\n"
 		"      method, so just use the default.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: writeable bytes-like object\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: int, optional\n"
 		":param byteOrder: Byte order. Not used.\n"
@@ -34222,7 +34222,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpValue_methods[] = {
 		"Notes: The byte order is required by the interface but not used by this\n"
 		"      method, so just use the default.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: writeable bytes-like object\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: int, optional\n"
 		":param byteOrder: Byte order. Not used.\n"
@@ -34525,7 +34525,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpTextValue_methods[] = {
 		"Convert the value to a Rational.\n"
 		"       The optional parameter *n* is not used and is ignored.\n"
 		"\n"
-		":rtype: :py:class:`Rational`\n"
+		":rtype: (int, int) tuple\n"
 		":return: The converted value.\n"
 		"" },
   { "__getitem__", _wrap_XmpTextValue___getitem__, METH_O, "" },
@@ -35386,7 +35386,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue_methods[] = {
 		"Notes: The byte order is required by the interface but not used by this\n"
 		"      method, so just use the default.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: writeable bytes-like object\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: int, optional\n"
 		":param byteOrder: Byte order. Not used.\n"
@@ -35924,7 +35924,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TimeValue_methods[] = {
 		"Notes: The byte order is required by the interface but not used by this\n"
 		"      method, so just use the default.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: writeable bytes-like object\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: int, optional\n"
 		":param byteOrder: Byte order. Not used.\n"

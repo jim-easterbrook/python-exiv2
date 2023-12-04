@@ -54,6 +54,7 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, long len)
 INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 #endif
 // Value::copy can write to a Python buffer
+%typemap(doctype) Exiv2::byte* buf "writeable bytes-like object";
 %typemap(in) Exiv2::byte* buf {
     Py_buffer view;
     int res = PyObject_GetBuffer($input, &view, PyBUF_CONTIG | PyBUF_WRITABLE);

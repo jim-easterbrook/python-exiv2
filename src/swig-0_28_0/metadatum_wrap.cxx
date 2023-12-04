@@ -6636,7 +6636,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_getValue(PyObject *self, PyObject *args) {
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -6764,7 +6764,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
   }
   {
     Exiv2::Value* value = result;
-    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
+    /*@SWIG:src/interface/value.i,78,GET_SWIG_TYPE@*/
     swig_type_info* swg_type = NULL;
     if (_global_type_id == Exiv2::lastTypeId)
     _global_type_id = value->typeId();
@@ -7202,7 +7202,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		"The user must ensure that the buffer has enough memory. Otherwise\n"
 		"the call results in undefined behaviour.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: writeable bytes-like object\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: int\n"
 		":param byteOrder: Applicable byte order (little or big endian).\n"

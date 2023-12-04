@@ -295,3 +295,5 @@ ENUM(TypeId, "Exiv2 value type identifiers.\n"
 
 %template(URational) std::pair<uint32_t, uint32_t>;
 %template(Rational) std::pair<int32_t, int32_t>;
+%typemap(doctype) std::pair<uint32_t, uint32_t> "(int, int) tuple";
+%typemap(doctype) std::pair<int32_t, int32_t> "(int, int) tuple";
