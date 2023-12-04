@@ -3956,7 +3956,7 @@ PyObject* PyExc_Exiv2Error = NULL;
 PyObject* logger = NULL;
 
 
-static PyObject* Exiv2_TagInfo_ptr_to_list(const Exiv2::TagInfo* ptr) {
+static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
     const Exiv2::TagInfo* item = ptr;
     PyObject* list = PyList_New(0);
     while (item->tag_ != 0xFFFF) {
@@ -4183,8 +4183,7 @@ SWIGINTERN PyObject *Exiv2_GroupInfo___iter__(Exiv2::GroupInfo *self){
             "ifdId",     self->ifdId_,
             "ifdName",   self->ifdName_,
             "groupName", self->groupName_,
-            "tagList",
-                Exiv2_TagInfo_ptr_to_list(self->tagList_())));
+            "tagList",   pointer_to_list(self->tagList_())));
     }
 
   #define SWIG_From_long   PyInt_FromLong 
@@ -4224,7 +4223,7 @@ SWIGINTERN PyObject *Exiv2_TagInfo___iter__(Exiv2::TagInfo *self){
             "count",     self->count_));
     }
 
-static PyObject* Exiv2_GroupInfo_ptr_to_list(const Exiv2::GroupInfo* ptr) {
+static PyObject* pointer_to_list(const Exiv2::GroupInfo* ptr) {
     const Exiv2::GroupInfo* item = ptr;
     PyObject* list = PyList_New(0);
     while (item->tagList_ != 0) {
@@ -4653,7 +4652,7 @@ SWIGINTERN PyObject *_wrap_GroupInfo_tagList__get(PyObject *self, PyObject *args
   result = (Exiv2::TagListFct) ((arg1)->tagList_);
   {
     resultobj = SWIG_Python_AppendOutput(
-      resultobj, Exiv2_TagInfo_ptr_to_list(result ()));
+      resultobj, pointer_to_list(result ()));
   }
   return resultobj;
 fail:
@@ -4973,7 +4972,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_groupList(PyObject *self, PyObject *args) {
   }
   {
     resultobj = SWIG_Python_AppendOutput(
-      resultobj, Exiv2_GroupInfo_ptr_to_list(result ));
+      resultobj, pointer_to_list(result ));
   }
   return resultobj;
 fail:
@@ -5016,7 +5015,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_tagList(PyObject *self, PyObject *args) {
   }
   {
     resultobj = SWIG_Python_AppendOutput(
-      resultobj, Exiv2_TagInfo_ptr_to_list(result ));
+      resultobj, pointer_to_list(result ));
   }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -63,8 +63,7 @@ LIST_POINTER(Exiv2::TagListFct, Exiv2::TagInfo, tag_ != 0xFFFF, ())
             "ifdId",     $self->ifdId_,
             "ifdName",   $self->ifdName_,
             "groupName", $self->groupName_,
-            "tagList",
-                %mangle(Exiv2::TagInfo)_ptr_to_list($self->tagList_())));
+            "tagList",   pointer_to_list($self->tagList_())));
     }
 }
 

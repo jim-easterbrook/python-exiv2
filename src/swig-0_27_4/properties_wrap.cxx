@@ -4191,7 +4191,7 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-static PyObject* Exiv2_XmpPropertyInfo_ptr_to_list(const Exiv2::XmpPropertyInfo* ptr) {
+static PyObject* pointer_to_list(const Exiv2::XmpPropertyInfo* ptr) {
     const Exiv2::XmpPropertyInfo* item = ptr;
     PyObject* list = PyList_New(0);
     while (item->name_ != 0) {
@@ -4647,7 +4647,7 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo_xmpPropertyInfo__get(PyObject *self, PyObje
   result = (Exiv2::XmpPropertyInfo *) ((arg1)->xmpPropertyInfo_);
   {
     resultobj = SWIG_Python_AppendOutput(
-      resultobj, Exiv2_XmpPropertyInfo_ptr_to_list(result ));
+      resultobj, pointer_to_list(result ));
   }
   return resultobj;
 fail:
@@ -4982,7 +4982,7 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyList(PyObject *self, PyObject *
   }
   {
     resultobj = SWIG_Python_AppendOutput(
-      resultobj, Exiv2_XmpPropertyInfo_ptr_to_list(result ));
+      resultobj, pointer_to_list(result ));
   }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;

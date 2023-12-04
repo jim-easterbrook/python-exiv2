@@ -4357,7 +4357,7 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-static PyObject* Exiv2_DataSet_ptr_to_list(const Exiv2::DataSet* ptr) {
+static PyObject* pointer_to_list(const Exiv2::DataSet* ptr) {
     const Exiv2::DataSet* item = ptr;
     PyObject* list = PyList_New(0);
     while (item->number_ != 0xffff) {
@@ -5128,7 +5128,7 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_envelopeRecordList(PyObject *self, PyObj
   }
   {
     resultobj = SWIG_Python_AppendOutput(
-      resultobj, Exiv2_DataSet_ptr_to_list(result ));
+      resultobj, pointer_to_list(result ));
   }
   return resultobj;
 fail:
@@ -5158,7 +5158,7 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_application2RecordList(PyObject *self, P
   }
   {
     resultobj = SWIG_Python_AppendOutput(
-      resultobj, Exiv2_DataSet_ptr_to_list(result ));
+      resultobj, pointer_to_list(result ));
   }
   return resultobj;
 fail:
