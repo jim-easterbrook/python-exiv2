@@ -30446,7 +30446,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Value_methods[] = {
 		"\n"
 		":type typeId: int\n"
 		":param typeId: Type of the value.\n"
-		":rtype: Exiv2::Value::AutoPtr\n"
+		":rtype: Exiv2::Value object\n"
 		":return: Auto-pointer to the newly created Value. The caller owns this\n"
 		"            copy and the auto-pointer ensures that it will be deleted.\n"
 		"" },
