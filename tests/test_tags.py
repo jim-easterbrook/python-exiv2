@@ -57,6 +57,8 @@ class TestTagsModule(unittest.TestCase):
         self.assertIsInstance(tag_list, tuple)
         self.assertGreater(len(tag_list), 0)
         self.assertIsInstance(tag_list[0], exiv2.TagInfo)
+        for key, value in dict(info).items():
+            self.assertEqual(value, getattr(info, key + '_'))
 
     def test_TagInfo(self):
         info = exiv2.ExifTags.tagList(self.group_name)[0]
@@ -72,6 +74,8 @@ class TestTagsModule(unittest.TestCase):
         self.check_result(info.tag_, int, 11)
         self.check_result(info.title_, str, 'Processing Software')
         self.check_result(info.typeId_, int, exiv2.TypeId.asciiString)
+        for key, value in dict(info).items():
+            self.assertEqual(value, getattr(info, key + '_'))
 
     def test_ExifKey(self):
         # constructors
