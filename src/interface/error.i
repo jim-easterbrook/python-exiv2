@@ -35,6 +35,7 @@ bind_textdomain_codeset("exiv2", "UTF-8");
 
 // Set Python logger as Exiv2 log handler
 %{
+static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     Py_ssize_t len = strlen(msg);
     while (len > 0 && msg[len-1] == '\n')
@@ -47,7 +48,16 @@ static void log_to_python(int level, const char* msg) {
 };
 %}
 %init %{
-Exiv2::LogMsg::setHandler(&log_to_python);
+{
+    PyObject *module = PyImport_ImportModule("logging");
+    if (!module)
+        return NULL;
+    logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
+    Py_DECREF(module);
+    if (!logger)
+        return NULL;
+    Exiv2::LogMsg::setHandler(&log_to_python);
+}
 %}
 
 // Ignore anything that's unusable from Python

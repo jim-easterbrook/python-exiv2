@@ -154,7 +154,6 @@ def main():
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
         im.write('''
-import logging
 import os
 import sys
 import warnings
@@ -165,8 +164,6 @@ if sys.platform == 'win32':
         if hasattr(os, 'add_dll_directory'):
             os.add_dll_directory(_dir)
         os.environ['PATH'] = _dir + ';' + os.environ['PATH']
-
-_logger = logging.getLogger(__name__)
 
 class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors"""

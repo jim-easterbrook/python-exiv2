@@ -29,20 +29,18 @@
 %feature("autodoc", "2");
 #endif
 
-// Get exception and logger defined in __init__.py
+// Get exception defined in __init__.py
 %{
-PyObject* PyExc_Exiv2Error = NULL;
-PyObject* logger = NULL;
+static PyObject* PyExc_Exiv2Error = NULL;
 %}
 %init %{
 {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module != NULL) {
+    if (module) {
         PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-        logger = PyObject_GetAttrString(module, "_logger");
         Py_DECREF(module);
     }
-    if (PyExc_Exiv2Error == NULL || logger == NULL)
+    if (!PyExc_Exiv2Error)
         return NULL;
 }
 %}

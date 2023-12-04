@@ -3965,8 +3965,7 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-PyObject* PyExc_Exiv2Error = NULL;
-PyObject* logger = NULL;
+static PyObject* PyExc_Exiv2Error = NULL;
 
 
 #include <stdint.h>		// Use the C99 official header
@@ -11861,12 +11860,11 @@ SWIG_init(void) {
   
   {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module != NULL) {
+    if (module) {
       PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-      logger = PyObject_GetAttrString(module, "_logger");
       Py_DECREF(module);
     }
-    if (PyExc_Exiv2Error == NULL || logger == NULL)
+    if (!PyExc_Exiv2Error)
     return NULL;
   }
   

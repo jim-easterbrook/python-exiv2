@@ -3905,14 +3905,14 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-PyObject* PyExc_Exiv2Error = NULL;
-PyObject* logger = NULL;
+static PyObject* PyExc_Exiv2Error = NULL;
 
 
 #include <typeinfo>
 #include <stdexcept>
 
 
+static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     Py_ssize_t len = strlen(msg);
     while (len > 0 && msg[len-1] == '\n')
@@ -4955,17 +4955,25 @@ SWIG_init(void) {
   
   {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module != NULL) {
+    if (module) {
       PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-      logger = PyObject_GetAttrString(module, "_logger");
       Py_DECREF(module);
     }
-    if (PyExc_Exiv2Error == NULL || logger == NULL)
+    if (!PyExc_Exiv2Error)
     return NULL;
   }
   
   
-  Exiv2::LogMsg::setHandler(&log_to_python);
+  {
+    PyObject *module = PyImport_ImportModule("logging");
+    if (!module)
+    return NULL;
+    logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
+    Py_DECREF(module);
+    if (!logger)
+    return NULL;
+    Exiv2::LogMsg::setHandler(&log_to_python);
+  }
   
   
   /* type 'Exiv2::LogMsg' */
