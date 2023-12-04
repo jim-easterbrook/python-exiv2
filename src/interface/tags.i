@@ -23,7 +23,7 @@
 
 %import "metadatum.i";
 
-wrap_auto_unique_ptr(Exiv2::ExifKey);
+UNIQUE_PTR(Exiv2::ExifKey);
 
 // ExifTags::groupList returns a static list as a pointer
 LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0,)

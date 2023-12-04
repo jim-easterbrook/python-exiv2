@@ -34,7 +34,7 @@
 
 %import "types.i"
 
-wrap_auto_unique_ptr(Exiv2::Value);
+UNIQUE_PTR(Exiv2::Value);
 
 // ---- Typemaps ----
 // for indexing multi-value values, assumes arg1 points to self
@@ -237,7 +237,7 @@ KEEP_REFERENCE(const Exiv2::Value&)
         return pv;
     }
 }
-wrap_auto_unique_ptr(type_name)
+UNIQUE_PTR(type_name)
 %enddef // VALUE_SUBCLASS
 
 // Subscript macro for classes that can only hold one value

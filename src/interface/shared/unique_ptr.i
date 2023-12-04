@@ -18,23 +18,23 @@
 
 // Stuff to handle auto_ptr or unique_ptr
 #if EXIV2_VERSION_HEX < 0x001c0000
-%define wrap_auto_unique_ptr(pointed_type)
+%define UNIQUE_PTR(pointed_type)
 %include "std_auto_ptr.i"
 %auto_ptr(pointed_type)
-%enddef // wrap_auto_unique_ptr
+%enddef // UNIQUE_PTR
 #elif SWIG_VERSION >= 0x040100
-%define wrap_auto_unique_ptr(pointed_type)
+%define UNIQUE_PTR(pointed_type)
 %include "std_unique_ptr.i"
 %unique_ptr(pointed_type)
-%enddef // wrap_auto_unique_ptr
+%enddef // UNIQUE_PTR
 #else
 template <typename T>
 struct std::unique_ptr {};
-%define wrap_auto_unique_ptr(pointed_type)
+%define UNIQUE_PTR(pointed_type)
 %typemap(out) std::unique_ptr<pointed_type> %{
     $result = SWIG_NewPointerObj(
         $1.release(), $descriptor(pointed_type *), SWIG_POINTER_OWN);
 %}
 %template() std::unique_ptr<pointed_type>;
-%enddef // wrap_auto_unique_ptr
+%enddef // UNIQUE_PTR
 #endif

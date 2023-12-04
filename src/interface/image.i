@@ -38,7 +38,7 @@
 %import "tags.i";
 %import "xmp.i";
 
-wrap_auto_unique_ptr(Exiv2::Image);
+UNIQUE_PTR(Exiv2::Image);
 
 // Potentially blocking calls allow Python threads
 %thread Exiv2::Image::readMetadata;

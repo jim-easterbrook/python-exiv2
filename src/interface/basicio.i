@@ -30,7 +30,7 @@
 
 %import "types.i"
 
-wrap_auto_unique_ptr(Exiv2::BasicIo);
+UNIQUE_PTR(Exiv2::BasicIo);
 
 // Potentially blocking calls allow Python threads
 %thread Exiv2::BasicIo::close;

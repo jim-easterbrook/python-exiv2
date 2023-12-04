@@ -23,7 +23,7 @@
 
 %import "metadatum.i"
 
-wrap_auto_unique_ptr(Exiv2::IptcKey);
+UNIQUE_PTR(Exiv2::IptcKey);
 
 // IptcDataSets::application2RecordList and IptcDataSets::envelopeRecordList
 // return a static list as a pointer
