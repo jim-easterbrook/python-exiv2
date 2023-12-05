@@ -12,6 +12,18 @@ As mentioned in `<README.rst>`_, on most computers `python-exiv2`_ can be instal
 
 If this doesn't work, or you need a non-standard installation, there are other ways to install `python-exiv2`_.
 
+Documentation of python-exiv2 is split across several files.
+
++------------------+-----------------------------------------------+
+| `<README.rst>`_  | Introduction to python-exiv2                  |
++------------------+-----------------------------------------------+
+| `<INSTALL.rst>`_ | Help with installing python-exiv2 (this file) |
++------------------+-----------------------------------------------+
+| `<USAGE.rst>`_   | Hints and tips for using python-exiv2         |
++------------------+-----------------------------------------------+
+| libexiv2_        | Exiv2 C++ API documentation                   |
++------------------+-----------------------------------------------+
+
 .. contents::
     :backlinks: top
 

@@ -3,11 +3,42 @@ Hints and tips
 
 Here are some ideas on how to use python-exiv2.
 In many cases there's more than one way to do it, but some ways are more "Pythonic" than others.
-Some of this is only applicable to python-exiv2 v0.13.0 onwards.
+Some of this is only applicable to python-exiv2 v0.16.0 onwards.
 You can find out what version of python-exiv2 you have with either ``pip3 show exiv2`` or ``python3 -m exiv2``.
+
+Documentation of python-exiv2 is split across several files.
+
++------------------+---------------------------------------------------+
+| `<README.rst>`_  | Introduction to python-exiv2                      |
++------------------+---------------------------------------------------+
+| `<INSTALL.rst>`_ | Help with installing python-exiv2                 |
++------------------+---------------------------------------------------+
+| `<USAGE.rst>`_   | Hints and tips for using python-exiv2 (this file) |
++------------------+---------------------------------------------------+
+| libexiv2_        | Exiv2 C++ API documentation                       |
++------------------+---------------------------------------------------+
 
 .. contents::
     :backlinks: top
+
+Deprecation warnings
+--------------------
+
+As python-exiv2 is being developed better ways are being found to do some things.
+Some parts of the interface are deprecated and will eventually be removed.
+Please use Python's ``-Wd`` flag when testing your software to ensure it isn't using deprecated features.
+(Do let me know if I've deprecated a feature you need and can't replace with an alternative.)
+
+Enums
+-----
+
+The C++ libexiv2 library often uses ``enum`` classes to list related data, such as the value type identifiers stored in `Exiv2::TypeId`_.
+SWIG's default processing of such enums is to add all the values as named constants to the top level of the module, e.g. ``exiv2.asciiString``.
+In python-exiv2 most of the C++ enums are represented by Python enum_ classes, e.g. ``exiv2.TypeId.asciiString`` is a member of ``exiv2.TypeId``.
+
+Unfortunately there is no easy way to deprecate the SWIG generated top level constants, but they will eventually be removed from python-exiv2.
+Please ensure you only use the enum classes in your use of python-exiv2.
+
 
 Segmentation faults
 -------------------
@@ -295,6 +326,8 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://docs.python.org/3/reference/datamodel.html#context-managers
 .. _dict:
     https://docs.python.org/3/library/stdtypes.html#dict
+.. _enum:
+    https://docs.python.org/3/library/enum.html
 .. _Exiv2::BasicIo:
     https://exiv2.org/doc/classExiv2_1_1BasicIo.html
 .. _Exiv2::BasicIo::mmap:
@@ -311,10 +344,14 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://exiv2.org/doc/classExiv2_1_1MemIo.html
 .. _Exiv2::Metadatum:
     https://exiv2.org/doc/classExiv2_1_1Metadatum.html
+.. _Exiv2::TypeId:
+    https://exiv2.org/doc/namespaceExiv2.html#a5153319711f35fe81cbc13f4b852450c
 .. _Exiv2::Value:
     https://exiv2.org/doc/classExiv2_1_1Value.html
 .. _Exiv2::ValueType< T >:
     https://exiv2.org/doc/classExiv2_1_1ValueType.html
+.. _libexiv2:
+    https://www.exiv2.org/doc/index.html
 .. _list:
     https://docs.python.org/3/library/stdtypes.html#list
 .. _memoryview:

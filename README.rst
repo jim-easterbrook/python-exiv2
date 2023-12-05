@@ -7,10 +7,23 @@ The intention is to give direct access to all of the top-level classes in libexi
 Not everything in libexiv2 is available in the Python interface.
 If you need something that's not there, please let me know.
 
-This project has taken over the PyPI exiv2 package created by Michael Vanslembrouck.
-If you need to use Michael's project, it is available at https://bitbucket.org/zmic/exiv2-python/src/master/ and can be installed with pip_::
+.. note::
+    This project has taken over the PyPI exiv2 package created by Michael Vanslembrouck.
+    If you need to use Michael's project, it is available at https://bitbucket.org/zmic/exiv2-python/src/master/ and can be installed with pip_::
 
-    pip install exiv2==0.3.1
+        pip install exiv2==0.3.1
+
+Documentation of python-exiv2 is split across several files.
+
++------------------+------------------------------------------+
+| `<README.rst>`_  | Introduction to python-exiv2 (this file) |
++------------------+------------------------------------------+
+| `<INSTALL.rst>`_ | Help with installing python-exiv2        |
++------------------+------------------------------------------+
+| `<USAGE.rst>`_   | Hints and tips for using python-exiv2    |
++------------------+------------------------------------------+
+| libexiv2_        | Exiv2 C++ API documentation              |
++------------------+------------------------------------------+
 
 .. contents::
     :backlinks: top
@@ -42,14 +55,6 @@ Here is an example of its use:
     >>>
 
 Please see `<USAGE.rst>`_ for more help with using the Python interface to libexiv2.
-
-Deprecation warnings
---------------------
-
-As python-exiv2 is being developed better ways are being found to do some things.
-Some parts of the interface are deprecated and will eventually be removed.
-Please use Python's ``-Wd`` flag when testing your software to ensure it isn't using deprecated features.
-(Do let me know if I've deprecated a feature you need and can't replace with an alternative.)
 
 Documentation
 -------------
