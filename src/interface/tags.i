@@ -31,9 +31,6 @@ LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0,)
 // ExifTags::tagList returns a static list as a pointer
 LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF,)
 
-// GroupInfo::tagList_ returns a function pointer
-LIST_POINTER(Exiv2::TagListFct, Exiv2::TagInfo, tag_ != 0xFFFF, ())
-
 // Make Exiv2::TagInfo struct iterable for easy conversion to dict or list
 %feature("python:slot", "tp_iter", functype="getiterfunc")
     Exiv2::TagInfo::__iter__;
@@ -53,19 +50,59 @@ LIST_POINTER(Exiv2::TagListFct, Exiv2::TagInfo, tag_ != 0xFFFF, ())
     }
 }
 
+// Wrapper class for TagListFct function pointer
+#ifndef SWIGIMPORTED
+%ignore _TagListFct::_TagListFct;
+%feature("python:slot", "tp_call", functype="ternarycallfunc")
+    _TagListFct::__call__;
+%noexception _TagListFct::~_TagListFct;
+%noexception _TagListFct::__call__;
+%noexception _TagListFct::operator==;
+%noexception _TagListFct::operator!=;
+%inline %{
+class _TagListFct {
+private:
+    Exiv2::TagListFct func;
+public:
+    _TagListFct(Exiv2::TagListFct func) : func(func) {}
+    const Exiv2::TagInfo* __call__() {
+        return (*func)();
+    }
+    bool operator==(const _TagListFct &other) const {
+        return other.func == func;
+    }
+    bool operator!=(const _TagListFct &other) const {
+        return other.func != func;
+    }
+};
+%}
+%fragment("new_TagListFct", "header") {
+    static PyObject* new_TagListFct(Exiv2::TagListFct func) {
+        return SWIG_Python_NewPointerObj(NULL, new _TagListFct(func),
+            $descriptor(_TagListFct*), SWIG_POINTER_OWN);
+    }
+}
+#endif // SWIGIMPORTED
+
+// Wrap TagListFct return values
+%typemap(out, fragment="new_TagListFct") Exiv2::TagListFct {
+    $result = new_TagListFct($1);
+}
+
 // Make Exiv2::GroupInfo struct iterable for easy conversion to dict or list
 %feature("python:slot", "tp_iter", functype="getiterfunc")
     Exiv2::GroupInfo::__iter__;
 %noexception Exiv2::GroupInfo::__iter__;
 %extend Exiv2::GroupInfo {
-    %fragment("pointer_to_list"{Exiv2::TagInfo});
+    %fragment("new_TagListFct");
     PyObject* __iter__() {
+        printf("taglist pointer %p\n", $self->tagList_);
         return PySeqIter_New(Py_BuildValue(
             "((si)(ss)(ss)(sN))",
             "ifdId",     $self->ifdId_,
             "ifdName",   $self->ifdName_,
             "groupName", $self->groupName_,
-            "tagList",   pointer_to_list($self->tagList_())));
+            "tagList",   new_TagListFct($self->tagList_)));
     }
 }
 

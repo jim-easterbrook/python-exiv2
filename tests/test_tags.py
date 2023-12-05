@@ -53,7 +53,7 @@ class TestTagsModule(unittest.TestCase):
         # Exiv2::IfdId enum not in Python
         self.check_result(info.ifdId_, int, 1)
         self.check_result(info.ifdName_, str, 'IFD0')
-        tag_list = info.tagList_
+        tag_list = info.tagList_()
         self.assertIsInstance(tag_list, tuple)
         self.assertGreater(len(tag_list), 0)
         self.assertIsInstance(tag_list[0], exiv2.TagInfo)

@@ -3775,30 +3775,31 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_SwigPyObject swig_types[27]
 #define SWIGTYPE_p_ValueList swig_types[28]
 #define SWIGTYPE_p_ValueType swig_types[29]
-#define SWIGTYPE_p_allocator_type swig_types[30]
-#define SWIGTYPE_p_char swig_types[31]
-#define SWIGTYPE_p_const_iterator swig_types[32]
-#define SWIGTYPE_p_difference_type swig_types[33]
-#define SWIGTYPE_p_first_type swig_types[34]
-#define SWIGTYPE_p_int swig_types[35]
-#define SWIGTYPE_p_iterator swig_types[36]
-#define SWIGTYPE_p_key_type swig_types[37]
-#define SWIGTYPE_p_long_long swig_types[38]
-#define SWIGTYPE_p_mapped_type swig_types[39]
-#define SWIGTYPE_p_second_type swig_types[40]
-#define SWIGTYPE_p_short swig_types[41]
-#define SWIGTYPE_p_signed_char swig_types[42]
-#define SWIGTYPE_p_size_type swig_types[43]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[44]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[45]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[46]
-#define SWIGTYPE_p_unsigned_char swig_types[47]
-#define SWIGTYPE_p_unsigned_int swig_types[48]
-#define SWIGTYPE_p_unsigned_long_long swig_types[49]
-#define SWIGTYPE_p_unsigned_short swig_types[50]
-#define SWIGTYPE_p_value_type swig_types[51]
-static swig_type_info *swig_types[53];
-static swig_module_info swig_module = {swig_types, 52, 0, 0, 0, 0};
+#define SWIGTYPE_p__TagListFct swig_types[30]
+#define SWIGTYPE_p_allocator_type swig_types[31]
+#define SWIGTYPE_p_char swig_types[32]
+#define SWIGTYPE_p_const_iterator swig_types[33]
+#define SWIGTYPE_p_difference_type swig_types[34]
+#define SWIGTYPE_p_first_type swig_types[35]
+#define SWIGTYPE_p_int swig_types[36]
+#define SWIGTYPE_p_iterator swig_types[37]
+#define SWIGTYPE_p_key_type swig_types[38]
+#define SWIGTYPE_p_long_long swig_types[39]
+#define SWIGTYPE_p_mapped_type swig_types[40]
+#define SWIGTYPE_p_second_type swig_types[41]
+#define SWIGTYPE_p_short swig_types[42]
+#define SWIGTYPE_p_signed_char swig_types[43]
+#define SWIGTYPE_p_size_type swig_types[44]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[45]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[46]
+#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[47]
+#define SWIGTYPE_p_unsigned_char swig_types[48]
+#define SWIGTYPE_p_unsigned_int swig_types[49]
+#define SWIGTYPE_p_unsigned_long_long swig_types[50]
+#define SWIGTYPE_p_unsigned_short swig_types[51]
+#define SWIGTYPE_p_value_type swig_types[52]
+static swig_type_info *swig_types[54];
+static swig_module_info swig_module = {swig_types, 53, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3955,6 +3956,23 @@ namespace swig {
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
+class _TagListFct {
+private:
+    Exiv2::TagListFct func;
+public:
+    _TagListFct(Exiv2::TagListFct func) : func(func) {}
+    const Exiv2::TagInfo* __call__() {
+        return (*func)();
+    }
+    bool operator==(const _TagListFct &other) const {
+        return other.func == func;
+    }
+    bool operator!=(const _TagListFct &other) const {
+        return other.func != func;
+    }
+};
+
+
 static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
     const Exiv2::TagInfo* item = ptr;
     PyObject* list = PyList_New(0);
@@ -3965,6 +3983,19 @@ static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
     }
     return PyList_AsTuple(list);
 };
+
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_bool  (bool value)
+{
+  return PyBool_FromLong(value ? 1 : 0);
+}
+
+
+    static PyObject* new_TagListFct(Exiv2::TagListFct func) {
+        return SWIG_Python_NewPointerObj(NULL, new _TagListFct(func),
+            SWIGTYPE_p__TagListFct, SWIG_POINTER_OWN);
+    }
 
 
 #include <limits.h>
@@ -4119,13 +4150,6 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 
 
 SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
-{
-  return PyBool_FromLong(value ? 1 : 0);
-}
-
-
-SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
   return PyInt_FromLong((long) value);
@@ -4177,12 +4201,13 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 SWIGINTERN PyObject *Exiv2_GroupInfo___iter__(Exiv2::GroupInfo *self){
+        printf("taglist pointer %p\n", self->tagList_);
         return PySeqIter_New(Py_BuildValue(
             "((si)(ss)(ss)(sN))",
             "ifdId",     self->ifdId_,
             "ifdName",   self->ifdName_,
             "groupName", self->groupName_,
-            "tagList",   pointer_to_list(self->tagList_())));
+            "tagList",   new_TagListFct(self->tagList_)));
     }
 
   #define SWIG_From_long   PyInt_FromLong 
@@ -4447,6 +4472,130 @@ SWIG_From_std_string  (const std::string& s)
 #ifdef __cplusplus
 extern "C" {
 #endif
+SWIGINTERN PyObject *_wrap__TagListFct___call__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  _TagListFct *arg1 = (_TagListFct *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::TagInfo *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "_TagListFct___call__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_TagListFct___call__" "', argument " "1"" of type '" "_TagListFct *""'"); 
+  }
+  arg1 = reinterpret_cast< _TagListFct * >(argp1);
+  result = (Exiv2::TagInfo *)(arg1)->__call__();
+  {
+    resultobj = SWIG_Python_AppendOutput(
+      resultobj, pointer_to_list(result ));
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap__TagListFct___eq__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  _TagListFct *arg1 = (_TagListFct *) 0 ;
+  _TagListFct *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  bool result;
+  
+  (void)self;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_TagListFct___eq__" "', argument " "1"" of type '" "_TagListFct const *""'"); 
+  }
+  arg1 = reinterpret_cast< _TagListFct * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p__TagListFct,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_TagListFct___eq__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "_TagListFct___eq__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
+  }
+  arg2 = reinterpret_cast< _TagListFct * >(argp2);
+  result = (bool)((_TagListFct const *)arg1)->operator ==((_TagListFct const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  PyErr_Clear();
+  Py_INCREF(Py_NotImplemented);
+  return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap__TagListFct___ne__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  _TagListFct *arg1 = (_TagListFct *) 0 ;
+  _TagListFct *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  bool result;
+  
+  (void)self;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_TagListFct___ne__" "', argument " "1"" of type '" "_TagListFct const *""'"); 
+  }
+  arg1 = reinterpret_cast< _TagListFct * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p__TagListFct,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_TagListFct___ne__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "_TagListFct___ne__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
+  }
+  arg2 = reinterpret_cast< _TagListFct * >(argp2);
+  result = (bool)((_TagListFct const *)arg1)->operator !=((_TagListFct const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  PyErr_Clear();
+  Py_INCREF(Py_NotImplemented);
+  return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete__TagListFct(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  _TagListFct *arg1 = (_TagListFct *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "delete__TagListFct", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete__TagListFct" "', argument " "1"" of type '" "_TagListFct *""'"); 
+  }
+  arg1 = reinterpret_cast< _TagListFct * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGPY_TERNARYCALLFUNC_CLOSURE(_wrap__TagListFct___call__) /* defines _wrap__TagListFct___call___ternarycallfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete__TagListFct) /* defines _wrap_delete__TagListFct_destructor_closure */
+
 SWIGINTERN PyObject *_wrap_GroupInfo___eq____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
@@ -4650,8 +4799,7 @@ SWIGINTERN PyObject *_wrap_GroupInfo_tagList__get(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
   result = (Exiv2::TagListFct) ((arg1)->tagList_);
   {
-    resultobj = SWIG_Python_AppendOutput(
-      resultobj, pointer_to_list(result ()));
+    resultobj = new_TagListFct(result);
   }
   return resultobj;
 fail:
@@ -5886,6 +6034,242 @@ static PyMethodDef SwigMethods[] = {
 	 { NULL, NULL, 0, NULL }
 };
 
+static SwigPyGetSet _TagListFct___dict___getset = { SwigPyObject_get___dict__, 0 };
+SWIGINTERN PyGetSetDef SwigPyBuiltin___TagListFct_getset[] = {
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &_TagListFct___dict___getset },
+    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
+};
+
+SWIGINTERN PyObject *
+SwigPyBuiltin___TagListFct_richcompare(PyObject *self, PyObject *other, int op) {
+  PyObject *result = NULL;
+  switch (op) {
+    case Py_EQ : result = _wrap__TagListFct___eq__(self, other); break;
+    case Py_NE : result = _wrap__TagListFct___ne__(self, other); break;
+    default : break;
+  }
+  if (!result) {
+    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
+      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
+    } else {
+      result = Py_NotImplemented;
+      Py_INCREF(result);
+    }
+  }
+  return result;
+}
+
+SWIGINTERN PyMethodDef SwigPyBuiltin___TagListFct_methods[] = {
+  { "__call__", _wrap__TagListFct___call__, METH_NOARGS, "" },
+  { "__eq__", _wrap__TagListFct___eq__, METH_O, "" },
+  { "__ne__", _wrap__TagListFct___ne__, METH_O, "" },
+  { NULL, NULL, 0, NULL } /* Sentinel */
+};
+
+static PyHeapTypeObject SwigPyBuiltin___TagListFct_type = {
+  {
+#if PY_VERSION_HEX >= 0x03000000
+    PyVarObject_HEAD_INIT(NULL, 0)
+#else
+    PyObject_HEAD_INIT(NULL)
+    0,                                        /* ob_size */
+#endif
+    "exiv2.tags._TagListFct",                 /* tp_name */
+    sizeof(SwigPyObject),                     /* tp_basicsize */
+    0,                                        /* tp_itemsize */
+    _wrap_delete__TagListFct_destructor_closure,                  /* tp_dealloc */
+#if PY_VERSION_HEX < 0x030800b4
+    (printfunc) 0,                            /* tp_print */
+#else
+    (Py_ssize_t) 0,                           /* tp_vectorcall_offset */
+#endif
+    (getattrfunc) 0,                          /* tp_getattr */
+    (setattrfunc) 0,                          /* tp_setattr */
+#if PY_VERSION_HEX >= 0x03000000
+    0,                                        /* tp_compare */
+#else
+    (cmpfunc) 0,                              /* tp_compare */
+#endif
+    (reprfunc) 0,                             /* tp_repr */
+    &SwigPyBuiltin___TagListFct_type.as_number,                   /* tp_as_number */
+    &SwigPyBuiltin___TagListFct_type.as_sequence,                 /* tp_as_sequence */
+    &SwigPyBuiltin___TagListFct_type.as_mapping,                  /* tp_as_mapping */
+    SwigPyObject_hash,                        /* tp_hash */
+    _wrap__TagListFct___call___ternarycallfunc_closure,           /* tp_call */
+    (reprfunc) 0,                             /* tp_str */
+    (getattrofunc) 0,                         /* tp_getattro */
+    (setattrofunc) 0,                         /* tp_setattro */
+    &SwigPyBuiltin___TagListFct_type.as_buffer,                   /* tp_as_buffer */
+#if PY_VERSION_HEX >= 0x03000000
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
+#else
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
+#endif
+    "::_TagListFct",                          /* tp_doc */
+    (traverseproc) 0,                         /* tp_traverse */
+    (inquiry) 0,                              /* tp_clear */
+    SwigPyBuiltin___TagListFct_richcompare,   /* tp_richcompare */
+    0,                                        /* tp_weaklistoffset */
+    (getiterfunc) 0,                          /* tp_iter */
+    (iternextfunc) 0,                         /* tp_iternext */
+    SwigPyBuiltin___TagListFct_methods,       /* tp_methods */
+    0,                                        /* tp_members */
+    SwigPyBuiltin___TagListFct_getset,        /* tp_getset */
+    0,                                        /* tp_base */
+    0,                                        /* tp_dict */
+    (descrgetfunc) 0,                         /* tp_descr_get */
+    (descrsetfunc) 0,                         /* tp_descr_set */
+    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
+    SwigPyBuiltin_BadInit,                    /* tp_init */
+    (allocfunc) 0,                            /* tp_alloc */
+    (newfunc) 0,                              /* tp_new */
+    (freefunc) 0,                             /* tp_free */
+    (inquiry) 0,                              /* tp_is_gc */
+    (PyObject *) 0,                           /* tp_bases */
+    (PyObject *) 0,                           /* tp_mro */
+    (PyObject *) 0,                           /* tp_cache */
+    (PyObject *) 0,                           /* tp_subclasses */
+    (PyObject *) 0,                           /* tp_weaklist */
+    (destructor) 0,                           /* tp_del */
+    (int) 0,                                  /* tp_version_tag */
+#if PY_VERSION_HEX >= 0x03040000
+    (destructor) 0,                           /* tp_finalize */
+#endif
+#if PY_VERSION_HEX >= 0x03080000
+    (vectorcallfunc) 0,                       /* tp_vectorcall */
+#endif
+#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
+    0,                                        /* tp_print */
+#endif
+#ifdef COUNT_ALLOCS
+    (Py_ssize_t) 0,                           /* tp_allocs */
+    (Py_ssize_t) 0,                           /* tp_frees */
+    (Py_ssize_t) 0,                           /* tp_maxalloc */
+    0,                                        /* tp_prev */
+    0,                                        /* tp_next */
+#endif
+  },
+#if PY_VERSION_HEX >= 0x03050000
+  {
+    (unaryfunc) 0,                            /* am_await */
+    (unaryfunc) 0,                            /* am_aiter */
+    (unaryfunc) 0,                            /* am_anext */
+# if PY_VERSION_HEX >= 0x030a0000
+    (sendfunc) 0,                             /* am_send */
+# endif
+  },
+#endif
+  {
+    (binaryfunc) 0,                           /* nb_add */
+    (binaryfunc) 0,                           /* nb_subtract */
+    (binaryfunc) 0,                           /* nb_multiply */
+#if PY_VERSION_HEX < 0x03000000
+    (binaryfunc) 0,                           /* nb_divide */
+#endif
+    (binaryfunc) 0,                           /* nb_remainder */
+    (binaryfunc) 0,                           /* nb_divmod */
+    (ternaryfunc) 0,                          /* nb_power */
+    (unaryfunc) 0,                            /* nb_negative */
+    (unaryfunc) 0,                            /* nb_positive */
+    (unaryfunc) 0,                            /* nb_absolute */
+    (inquiry) 0,                              /* nb_nonzero */
+    (unaryfunc) 0,                            /* nb_invert */
+    (binaryfunc) 0,                           /* nb_lshift */
+    (binaryfunc) 0,                           /* nb_rshift */
+    (binaryfunc) 0,                           /* nb_and */
+    (binaryfunc) 0,                           /* nb_xor */
+    (binaryfunc) 0,                           /* nb_or */
+#if PY_VERSION_HEX < 0x03000000
+    (coercion) 0,                             /* nb_coerce */
+#endif
+    (unaryfunc) 0,                            /* nb_int */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* nb_reserved */
+#else
+    (unaryfunc) 0,                            /* nb_long */
+#endif
+    (unaryfunc) 0,                            /* nb_float */
+#if PY_VERSION_HEX < 0x03000000
+    (unaryfunc) 0,                            /* nb_oct */
+    (unaryfunc) 0,                            /* nb_hex */
+#endif
+    (binaryfunc) 0,                           /* nb_inplace_add */
+    (binaryfunc) 0,                           /* nb_inplace_subtract */
+    (binaryfunc) 0,                           /* nb_inplace_multiply */
+#if PY_VERSION_HEX < 0x03000000
+    (binaryfunc) 0,                           /* nb_inplace_divide */
+#endif
+    (binaryfunc) 0,                           /* nb_inplace_remainder */
+    (ternaryfunc) 0,                          /* nb_inplace_power */
+    (binaryfunc) 0,                           /* nb_inplace_lshift */
+    (binaryfunc) 0,                           /* nb_inplace_rshift */
+    (binaryfunc) 0,                           /* nb_inplace_and */
+    (binaryfunc) 0,                           /* nb_inplace_xor */
+    (binaryfunc) 0,                           /* nb_inplace_or */
+    (binaryfunc) 0,                           /* nb_floor_divide */
+    (binaryfunc) 0,                           /* nb_true_divide */
+    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
+    (binaryfunc) 0,                           /* nb_inplace_true_divide */
+    (unaryfunc) 0,                            /* nb_index */
+#if PY_VERSION_HEX >= 0x03050000
+    (binaryfunc) 0,                           /* nb_matrix_multiply */
+    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
+#endif
+  },
+  {
+    (lenfunc) 0,                              /* mp_length */
+    (binaryfunc) 0,                           /* mp_subscript */
+    (objobjargproc) 0,                        /* mp_ass_subscript */
+  },
+  {
+    (lenfunc) 0,                              /* sq_length */
+    (binaryfunc) 0,                           /* sq_concat */
+    (ssizeargfunc) 0,                         /* sq_repeat */
+    (ssizeargfunc) 0,                         /* sq_item */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* was_sq_slice */
+#else
+    (ssizessizeargfunc) 0,                    /* sq_slice */
+#endif
+    (ssizeobjargproc) 0,                      /* sq_ass_item */
+#if PY_VERSION_HEX >= 0x03000000
+    (void *) 0,                               /* was_sq_ass_slice */
+#else
+    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
+#endif
+    (objobjproc) 0,                           /* sq_contains */
+    (binaryfunc) 0,                           /* sq_inplace_concat */
+    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
+  },
+  {
+#if PY_VERSION_HEX < 0x03000000
+    (readbufferproc) 0,                       /* bf_getreadbuffer */
+    (writebufferproc) 0,                      /* bf_getwritebuffer */
+    (segcountproc) 0,                         /* bf_getsegcount */
+    (charbufferproc) 0,                       /* bf_getcharbuffer */
+#endif
+    (getbufferproc) 0,                        /* bf_getbuffer */
+    (releasebufferproc) 0,                    /* bf_releasebuffer */
+  },
+    (PyObject *) 0,                           /* ht_name */
+    (PyObject *) 0,                           /* ht_slots */
+#if PY_VERSION_HEX >= 0x03030000
+    (PyObject *) 0,                           /* ht_qualname */
+    0,                                        /* ht_cached_keys */
+#endif
+#if PY_VERSION_HEX >= 0x03090000
+    (PyObject *) 0,                           /* ht_module */
+#endif
+#if PY_VERSION_HEX >= 0x030b0000
+    (char *) 0,                               /* _ht_tpname */
+  {
+    (PyObject *) 0,                           /* getitem */
+  }
+#endif
+};
+
+SWIGINTERN SwigPyClientData SwigPyBuiltin___TagListFct_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin___TagListFct_type};
+
 static SwigPyGetSet GroupInfo_ifdId__getset = { _wrap_GroupInfo_ifdId__get, 0 };
 static SwigPyGetSet GroupInfo_groupName__getset = { _wrap_GroupInfo_groupName__get, 0 };
 static SwigPyGetSet GroupInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
@@ -7017,6 +7401,7 @@ static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2:
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p__TagListFct = {"_p__TagListFct", "_TagListFct *", 0, 0, (void*)&SwigPyBuiltin___TagListFct_clientdata, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -7071,6 +7456,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_SwigPyObject,
   &_swigt__p_ValueList,
   &_swigt__p_ValueType,
+  &_swigt__p__TagListFct,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
@@ -7125,6 +7511,7 @@ static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpVal
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p__TagListFct[] = {  {&_swigt__p__TagListFct, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -7179,6 +7566,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_SwigPyObject,
   _swigc__p_ValueList,
   _swigc__p_ValueType,
+  _swigc__p__TagListFct,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,
@@ -7680,6 +8068,29 @@ SWIG_init(void) {
     return NULL;
   }
   
+  
+  /* type '::_TagListFct' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin___TagListFct_type;
+  builtin_pytype->tp_dict = d = PyDict_New();
+  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
+  builtin_pytype->tp_new = PyType_GenericNew;
+  builtin_base_count = 0;
+  builtin_bases[builtin_base_count] = NULL;
+  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
+  PyDict_SetItemString(d, "this", this_descr);
+  PyDict_SetItemString(d, "thisown", thisown_descr);
+  if (PyType_Ready(builtin_pytype) < 0) {
+    PyErr_SetString(PyExc_TypeError, "Could not create type '_TagListFct'.");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
+  Py_INCREF(builtin_pytype);
+  PyModule_AddObject(m, "_TagListFct", (PyObject *)builtin_pytype);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "_TagListFct");
+  d = md;
   
   /* type 'Exiv2::GroupInfo' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__GroupInfo_type;
