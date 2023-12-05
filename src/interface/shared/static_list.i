@@ -18,18 +18,24 @@
 
 // Macro to convert pointer to start of static list to a Python tuple
 %define LIST_POINTER(pattern, item_type, valid_test)
-%typemap(out) pattern {
-    const item_type* item = $1;
-    PyObject* py_item = NULL;
+%fragment("pointer_to_list"{item_type}, "header") {
+static PyObject* pointer_to_list(const item_type* ptr) {
+    const item_type* item = ptr;
+    PyObject* py_tmp = NULL;
     PyObject* list = PyList_New(0);
     while (item->valid_test) {
-        py_item = SWIG_NewPointerObj(
-            SWIG_as_voidptr(item), $descriptor(item_type*), 0);
-        PyList_Append(list, py_item);
-        Py_DECREF(py_item);
+        py_tmp = SWIG_Python_NewPointerObj(
+            NULL, SWIG_as_voidptr(item), $descriptor(item_type*), 0);
+        PyList_Append(list, py_tmp);
+        Py_DECREF(py_tmp);
         ++item;
     }
-    $result = SWIG_Python_AppendOutput($result, PyList_AsTuple(list));
+    py_tmp = PyList_AsTuple(list);
     Py_DECREF(list);
+    return py_tmp;
+};
+}
+%typemap(out, fragment="pointer_to_list"{item_type}) pattern {
+    $result = SWIG_Python_AppendOutput($result, pointer_to_list($1));
 }
 %enddef // LIST_POINTER
