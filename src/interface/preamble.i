@@ -30,23 +30,24 @@
 #endif
 
 // Get exception defined in __init__.py
-%{
+%fragment("_import_exception_decl", "header") {
 static PyObject* PyExc_Exiv2Error = NULL;
-%}
-%init %{
+}
+%fragment("import_exception", "init", fragment="_import_exception_decl") {
 {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module) {
-        PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-        Py_DECREF(module);
-    }
+    if (!module)
+        return NULL;
+    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
+    Py_DECREF(module);
     if (!PyExc_Exiv2Error)
         return NULL;
 }
-%}
+}
 
 // Macro to define %exception directives
 %define EXCEPTION(method, precheck)
+%fragment("import_exception");
 %exception method {
 precheck
     try {

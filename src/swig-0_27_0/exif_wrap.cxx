@@ -13306,10 +13306,10 @@ SWIG_init(void) {
   
   {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module) {
-      PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-      Py_DECREF(module);
-    }
+    if (!module)
+    return NULL;
+    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
+    Py_DECREF(module);
     if (!PyExc_Exiv2Error)
     return NULL;
   }
