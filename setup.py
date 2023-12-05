@@ -199,7 +199,7 @@ if tuple(map(int, setuptools_version.split('.')[:2])) < (61, 0):
         long_description = long_description,
         author = metadata['project']['authors'][0]['name'],
         author_email = metadata['project']['authors'][0]['email'],
-        url = metadata['project']['urls']['homepage'],
+        url = metadata['project']['urls']['Homepage'],
         classifiers = metadata['project']['classifiers'],
         platforms = metadata['tool']['setuptools']['platforms'],
         license = metadata['project']['license']['text'],

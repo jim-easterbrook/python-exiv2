@@ -27,8 +27,9 @@ classifiers = [
 dynamic = ["version"]
 
 [project.urls]
-homepage = "https://github.com/jim-easterbrook/python-exiv2"
-changelog = "https://github.com/jim-easterbrook/python-exiv2/blob/main/CHANGELOG.txt"
+Homepage = "https://github.com/jim-easterbrook/python-exiv2"
+Changelog = "https://github.com/jim-easterbrook/python-exiv2/blob/main/CHANGELOG.txt"
+Documentation = "https://github.com/jim-easterbrook/python-exiv2/blob/main/USAGE.rst"
 
 [tool.setuptools]
 platforms = ["POSIX", "MacOS", "Windows"]
