@@ -18,19 +18,19 @@
 
 // Macros to make enums more Pythonic
 // Function to return enum members as Python list
-%fragment("enum_helper", "header") {
+%fragment("get_enum_list", "header") {
 #include <cstdarg>
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
     va_start(args, dummy);
     char* label;
-    int value;
+    PyObject* py_obj = NULL;
     PyObject* result = PyList_New(0);
     label = va_arg(args, char*);
     while (label) {
-        value = va_arg(args, int);
-        PyList_Append(result, PyTuple_Pack(2,
-            PyUnicode_FromString(label), PyLong_FromLong(value)));
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(result, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
@@ -38,7 +38,7 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 }
 %define ENUM(name, doc, contents...)
-%fragment("enum_helper");
+%fragment("get_enum_list");
 %noexception _enum_list_##name;
 %inline %{
 PyObject* _enum_list_##name() {
@@ -54,7 +54,7 @@ name.__doc__ = doc
 %enddef // ENUM
 
 %define DEPRECATED_ENUM(moved_to, enum_name, doc, contents...)
-%fragment("enum_helper");
+%fragment("get_enum_list");
 %noexception _enum_list_##enum_name;
 %inline %{
 PyObject* _enum_list_##enum_name() {
@@ -84,46 +84,36 @@ enum_name.__doc__ = doc
 %enddef // DEPRECATED_ENUM
 
 // Function to generate Python enum
-%fragment("class_enum_helper", "header") {
+%fragment("get_enum_object", "header") {
 #include <cstdarg>
-static PyObject* _get_enum_object(const char* name, ...) {
-    va_list args;
-    va_start(args, name);
-    char* label;
-    int value;
+static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
     PyObject* module = NULL;
     PyObject* IntEnum = NULL;
     PyObject* result = NULL;
-    PyObject* data = PyList_New(0);
-    label = va_arg(args, char*);
-    while (label) {
-        value = va_arg(args, int);
-        if (PyList_Append(data, PyTuple_Pack(2,
-                PyUnicode_FromString(label), PyLong_FromLong(value))))
-            goto fail;
-        label = va_arg(args, char*);
-    }
-    va_end(args);
     module = PyImport_ImportModule("enum");
     if (!module)
         goto fail;
     IntEnum = PyObject_GetAttrString(module, "IntEnum");
     if (!IntEnum)
         goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", name, data);
+    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
 fail:
     Py_XDECREF(module);
     Py_XDECREF(IntEnum);
-    Py_XDECREF(data);
+    Py_XDECREF(enum_list);
     return result;
 };
 }
 %define CLASS_ENUM(class, name, doc, contents...)
-%fragment("class_enum_helper");
+%fragment("get_enum_list");
+%fragment("get_enum_object");
 // Add enum to type object during module init
 %init %{
 {
-    PyObject* enum_obj = _get_enum_object("name", contents, NULL);
+    PyObject* enum_obj = _get_enum_list(0, contents, NULL);
+    if (!enum_obj)
+        return NULL;
+    enum_obj = _get_enum_object("name", enum_obj);
     if (!enum_obj)
         return NULL;
     if (PyObject_SetAttrString(

@@ -4084,35 +4084,40 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 
 
 
-static PyObject* _get_enum_object(const char* name, ...) {
+static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
-    va_start(args, name);
+    va_start(args, dummy);
     char* label;
-    int value;
-    PyObject* module = NULL;
-    PyObject* IntEnum = NULL;
-    PyObject* result = NULL;
-    PyObject* data = PyList_New(0);
+    PyObject* py_obj = NULL;
+    PyObject* result = PyList_New(0);
     label = va_arg(args, char*);
     while (label) {
-        value = va_arg(args, int);
-        if (PyList_Append(data, PyTuple_Pack(2,
-                PyUnicode_FromString(label), PyLong_FromLong(value))))
-            goto fail;
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(result, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
+    return result;
+};
+
+
+
+static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
+    PyObject* module = NULL;
+    PyObject* IntEnum = NULL;
+    PyObject* result = NULL;
     module = PyImport_ImportModule("enum");
     if (!module)
         goto fail;
     IntEnum = PyObject_GetAttrString(module, "IntEnum");
     if (!IntEnum)
         goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", name, data);
+    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
 fail:
     Py_XDECREF(module);
     Py_XDECREF(IntEnum);
-    Py_XDECREF(data);
+    Py_XDECREF(enum_list);
     return result;
 };
 
@@ -5005,7 +5010,10 @@ SWIG_init(void) {
   d = md;
   
   {
-    PyObject* enum_obj = _get_enum_object("Level", "debug",Exiv2::LogMsg::debug,"info",Exiv2::LogMsg::info,"warn",Exiv2::LogMsg::warn,"error",Exiv2::LogMsg::error,"mute",Exiv2::LogMsg::mute, NULL);
+    PyObject* enum_obj = _get_enum_list(0, "debug",Exiv2::LogMsg::debug,"info",Exiv2::LogMsg::info,"warn",Exiv2::LogMsg::warn,"error",Exiv2::LogMsg::error,"mute",Exiv2::LogMsg::mute, NULL);
+    if (!enum_obj)
+    return NULL;
+    enum_obj = _get_enum_object("Level", enum_obj);
     if (!enum_obj)
     return NULL;
     if (PyObject_SetAttrString(

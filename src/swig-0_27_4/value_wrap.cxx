@@ -5213,13 +5213,13 @@ static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
     va_start(args, dummy);
     char* label;
-    int value;
+    PyObject* py_obj = NULL;
     PyObject* result = PyList_New(0);
     label = va_arg(args, char*);
     while (label) {
-        value = va_arg(args, int);
-        PyList_Append(result, PyTuple_Pack(2,
-            PyUnicode_FromString(label), PyLong_FromLong(value)));
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(result, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
@@ -6411,35 +6411,21 @@ SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self)
     }
 
 
-static PyObject* _get_enum_object(const char* name, ...) {
-    va_list args;
-    va_start(args, name);
-    char* label;
-    int value;
+static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
     PyObject* module = NULL;
     PyObject* IntEnum = NULL;
     PyObject* result = NULL;
-    PyObject* data = PyList_New(0);
-    label = va_arg(args, char*);
-    while (label) {
-        value = va_arg(args, int);
-        if (PyList_Append(data, PyTuple_Pack(2,
-                PyUnicode_FromString(label), PyLong_FromLong(value))))
-            goto fail;
-        label = va_arg(args, char*);
-    }
-    va_end(args);
     module = PyImport_ImportModule("enum");
     if (!module)
         goto fail;
     IntEnum = PyObject_GetAttrString(module, "IntEnum");
     if (!IntEnum)
         goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", name, data);
+    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
 fail:
     Py_XDECREF(module);
     Py_XDECREF(IntEnum);
-    Py_XDECREF(data);
+    Py_XDECREF(enum_list);
     return result;
 };
 
@@ -37929,7 +37915,10 @@ SWIG_init(void) {
   d = md;
   
   {
-    PyObject* enum_obj = _get_enum_object("CharsetId", "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL);
+    PyObject* enum_obj = _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL);
+    if (!enum_obj)
+    return NULL;
+    enum_obj = _get_enum_object("CharsetId", enum_obj);
     if (!enum_obj)
     return NULL;
     if (PyObject_SetAttrString(
@@ -37943,7 +37932,10 @@ SWIG_init(void) {
   
   
   {
-    PyObject* enum_obj = _get_enum_object("XmpArrayType", "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL);
+    PyObject* enum_obj = _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL);
+    if (!enum_obj)
+    return NULL;
+    enum_obj = _get_enum_object("XmpArrayType", enum_obj);
     if (!enum_obj)
     return NULL;
     if (PyObject_SetAttrString(
@@ -37957,7 +37949,10 @@ SWIG_init(void) {
   
   
   {
-    PyObject* enum_obj = _get_enum_object("XmpStruct", "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL);
+    PyObject* enum_obj = _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL);
+    if (!enum_obj)
+    return NULL;
+    enum_obj = _get_enum_object("XmpStruct", enum_obj);
     if (!enum_obj)
     return NULL;
     if (PyObject_SetAttrString(

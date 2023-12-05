@@ -4096,13 +4096,13 @@ static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
     va_start(args, dummy);
     char* label;
-    int value;
+    PyObject* py_obj = NULL;
     PyObject* result = PyList_New(0);
     label = va_arg(args, char*);
     while (label) {
-        value = va_arg(args, int);
-        PyList_Append(result, PyTuple_Pack(2,
-            PyUnicode_FromString(label), PyLong_FromLong(value)));
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(result, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
