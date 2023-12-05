@@ -37,18 +37,26 @@ static PyObject* _get_enum_list(int dummy, ...) {
     return result;
 };
 }
+
 %define ENUM(name, doc, contents...)
 %fragment("get_enum_list");
-%noexception _enum_list_##name;
-%inline %{
-PyObject* _enum_list_##name() {
-    return _get_enum_list(0, contents, NULL);
-};
-%}
-%pythoncode %{
-import enum
-name = enum.IntEnum('name', _enum_list_##name())
-name.__doc__ = doc
+%fragment("get_enum_object");
+
+// Add enum to module during init
+%init %{
+{
+    PyObject* enum_obj = _get_enum_list(0, contents, NULL);
+    if (!enum_obj)
+        return NULL;
+    enum_obj = _get_enum_object("name", enum_obj);
+    if (!enum_obj)
+        return NULL;
+    if (PyObject_SetAttrString(
+            enum_obj, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    PyModule_AddObject(m, "name", enum_obj);
+    SwigPyBuiltin_AddPublicSymbol(public_interface, "name");
+}
 %}
 %ignore Exiv2::name;
 %enddef // ENUM
@@ -104,6 +112,7 @@ fail:
     return result;
 };
 }
+
 %define CLASS_ENUM(class, name, doc, contents...)
 %fragment("get_enum_list");
 %fragment("get_enum_object");

@@ -3979,8 +3979,23 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
-PyObject* _enum_list_XmpCategory() {
-    return _get_enum_list(0, "Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL);
+
+static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
+    PyObject* module = NULL;
+    PyObject* IntEnum = NULL;
+    PyObject* result = NULL;
+    module = PyImport_ImportModule("enum");
+    if (!module)
+        goto fail;
+    IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    if (!IntEnum)
+        goto fail;
+    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
+fail:
+    Py_XDECREF(module);
+    Py_XDECREF(IntEnum);
+    Py_XDECREF(enum_list);
+    return result;
 };
 
 
@@ -4225,20 +4240,6 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap__enum_list_XmpCategory(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "_enum_list_XmpCategory", 0, 0, 0)) SWIG_fail;
-  result = (PyObject *)_enum_list_XmpCategory();
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpPropertyInfo___eq__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpPropertyInfo *arg1 = (Exiv2::XmpPropertyInfo *) 0 ;
@@ -5888,7 +5889,6 @@ fail:
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpKey) /* defines _wrap_delete_XmpKey_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
-	 { "_enum_list_XmpCategory", _wrap__enum_list_XmpCategory, METH_NOARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -5903,7 +5903,7 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpPropertyInfo_getset[] = {
     { (char *)"title_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Property title or label", &XmpPropertyInfo_title__getset },
     { (char *)"typeId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Exiv2 default type for the property", &XmpPropertyInfo_typeId__getset },
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Property description", &XmpPropertyInfo_desc__getset },
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &XmpPropertyInfo___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Comparison operator for name", &XmpPropertyInfo___dict___getset },
     { (char *)"name_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Property name", &XmpPropertyInfo_name__getset },
     { (char *)"xmpValueType_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" XMP value type (for info only)", &XmpPropertyInfo_xmpValueType__getset },
     { (char *)"xmpCategory_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Category (internal or external)", &XmpPropertyInfo_xmpCategory__getset },
@@ -7804,6 +7804,21 @@ SWIG_init(void) {
     Py_DECREF(module);
     if (!PyExc_Exiv2Error)
     return NULL;
+  }
+  
+  
+  {
+    PyObject* enum_obj = _get_enum_list(0, "Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL);
+    if (!enum_obj)
+    return NULL;
+    enum_obj = _get_enum_object("XmpCategory", enum_obj);
+    if (!enum_obj)
+    return NULL;
+    if (PyObject_SetAttrString(
+        enum_obj, "__doc__", PyUnicode_FromString("Category of an XMP property.")))
+    return NULL;
+    PyModule_AddObject(m, "XmpCategory", enum_obj);
+    SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpCategory");
   }
   
   

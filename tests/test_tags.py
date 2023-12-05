@@ -76,7 +76,7 @@ class TestTagsModule(unittest.TestCase):
         if exiv2.testVersion(0, 28, 0):
             self.check_result(info.sectionId_, int, exiv2.SectionId.otherTags)
         else:
-            self.check_result(info.sectionId_, int, 1)
+            self.check_result(info.sectionId_, int, 4)
         self.check_result(info.tag_, int, 11)
         self.check_result(info.title_, str, 'Processing Software')
         self.check_result(info.typeId_, int, exiv2.TypeId.asciiString)

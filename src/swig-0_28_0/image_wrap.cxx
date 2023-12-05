@@ -4003,11 +4003,23 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
-PyObject* _enum_list_ImageType() {
-    return _get_enum_list(0, "arw",int(Exiv2::ImageType::arw),"bmff", int(Exiv2::ImageType::bmff),
-        "bmp",int(Exiv2::ImageType::bmp),"cr2",int(Exiv2::ImageType::cr2),"crw",int(Exiv2::ImageType::crw),"dng",int(Exiv2::ImageType::dng),"eps",int(Exiv2::ImageType::eps),"exv",int(Exiv2::ImageType::exv),"gif",int(Exiv2::ImageType::gif),"jp2",int(Exiv2::ImageType::jp2),"jpeg",int(Exiv2::ImageType::jpeg),"mrw",int(Exiv2::ImageType::mrw),"nef",int(Exiv2::ImageType::nef),"none",int(Exiv2::ImageType::none),"orf",int(Exiv2::ImageType::orf),"pgf",int(Exiv2::ImageType::pgf),"png",int(Exiv2::ImageType::png),"psd",int(Exiv2::ImageType::psd),"raf",int(Exiv2::ImageType::raf),"rw2",int(Exiv2::ImageType::rw2),"sr2",int(Exiv2::ImageType::sr2),"srw",int(Exiv2::ImageType::srw),"tga",int(Exiv2::ImageType::tga),"tiff",int(Exiv2::ImageType::tiff),     "asf",   int(Exiv2::ImageType::asf),      "mkv",   int(Exiv2::ImageType::mkv),      "qtime", int(Exiv2::ImageType::qtime),      "riff",  int(Exiv2::ImageType::riff),
-        "webp", int(Exiv2::ImageType::webp),
-        "xmp",int(Exiv2::ImageType::xmp), NULL);
+
+static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
+    PyObject* module = NULL;
+    PyObject* IntEnum = NULL;
+    PyObject* result = NULL;
+    module = PyImport_ImportModule("enum");
+    if (!module)
+        goto fail;
+    IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    if (!IntEnum)
+        goto fail;
+    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
+fail:
+    Py_XDECREF(module);
+    Py_XDECREF(IntEnum);
+    Py_XDECREF(enum_list);
+    return result;
 };
 
 
@@ -4515,20 +4527,6 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap__enum_list_ImageType(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "_enum_list_ImageType", 0, 0, 0)) SWIG_fail;
-  result = (PyObject *)_enum_list_ImageType();
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_Image(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
@@ -7014,14 +7012,13 @@ fail:
 
 
 static PyMethodDef SwigMethods[] = {
-	 { "_enum_list_ImageType", _wrap__enum_list_ImageType, METH_NOARGS, NULL},
 	 { "enableBMFF", _wrap_enableBMFF, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
 static SwigPyGetSet Image___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Image_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &Image___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Virtual Destructor", &Image___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -8791,6 +8788,24 @@ SWIG_init(void) {
     Py_DECREF(module);
     if (!PyExc_Exiv2Error)
     return NULL;
+  }
+  
+  
+  {
+    PyObject* enum_obj = _get_enum_list(0, "arw",int(Exiv2::ImageType::arw),"bmff", int(Exiv2::ImageType::bmff),
+      "bmp",int(Exiv2::ImageType::bmp),"cr2",int(Exiv2::ImageType::cr2),"crw",int(Exiv2::ImageType::crw),"dng",int(Exiv2::ImageType::dng),"eps",int(Exiv2::ImageType::eps),"exv",int(Exiv2::ImageType::exv),"gif",int(Exiv2::ImageType::gif),"jp2",int(Exiv2::ImageType::jp2),"jpeg",int(Exiv2::ImageType::jpeg),"mrw",int(Exiv2::ImageType::mrw),"nef",int(Exiv2::ImageType::nef),"none",int(Exiv2::ImageType::none),"orf",int(Exiv2::ImageType::orf),"pgf",int(Exiv2::ImageType::pgf),"png",int(Exiv2::ImageType::png),"psd",int(Exiv2::ImageType::psd),"raf",int(Exiv2::ImageType::raf),"rw2",int(Exiv2::ImageType::rw2),"sr2",int(Exiv2::ImageType::sr2),"srw",int(Exiv2::ImageType::srw),"tga",int(Exiv2::ImageType::tga),"tiff",int(Exiv2::ImageType::tiff),     "asf",   int(Exiv2::ImageType::asf),      "mkv",   int(Exiv2::ImageType::mkv),      "qtime", int(Exiv2::ImageType::qtime),      "riff",  int(Exiv2::ImageType::riff),
+      "webp", int(Exiv2::ImageType::webp),
+      "xmp",int(Exiv2::ImageType::xmp), NULL);
+    if (!enum_obj)
+    return NULL;
+    enum_obj = _get_enum_object("ImageType", enum_obj);
+    if (!enum_obj)
+    return NULL;
+    if (PyObject_SetAttrString(
+        enum_obj, "__doc__", PyUnicode_FromString("Supported image formats.")))
+    return NULL;
+    PyModule_AddObject(m, "ImageType", enum_obj);
+    SwigPyBuiltin_AddPublicSymbol(public_interface, "ImageType");
   }
   
   
