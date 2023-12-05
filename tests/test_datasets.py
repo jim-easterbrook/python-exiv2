@@ -49,10 +49,10 @@ class TestDatasetsModule(unittest.TestCase):
         record_id = exiv2.IptcDataSets.application2
         # static data lists
         datasets = exiv2.IptcDataSets.application2RecordList()
-        self.assertIsInstance(datasets, tuple)
+        self.assertIsInstance(datasets, list)
         self.assertIsInstance(datasets[0], exiv2.DataSet)
         datasets = exiv2.IptcDataSets.envelopeRecordList()
-        self.assertIsInstance(datasets, tuple)
+        self.assertIsInstance(datasets, list)
         self.assertIsInstance(datasets[0], exiv2.DataSet)
         # test other methods 
         self.assertEqual(exiv2.IptcDataSets.dataSet(

@@ -16,7 +16,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-// Macro to convert pointer to start of static list to a Python tuple
+// Macro to convert pointer to start of static list to a Python list
 %define LIST_POINTER(pattern, item_type, valid_test)
 %fragment("pointer_to_list"{item_type}, "header") {
 static PyObject* pointer_to_list(const item_type* ptr) {
@@ -30,9 +30,7 @@ static PyObject* pointer_to_list(const item_type* ptr) {
         Py_DECREF(py_tmp);
         ++item;
     }
-    py_tmp = PyList_AsTuple(list);
-    Py_DECREF(list);
-    return py_tmp;
+    return list;
 };
 }
 %typemap(out, fragment="pointer_to_list"{item_type}) pattern {

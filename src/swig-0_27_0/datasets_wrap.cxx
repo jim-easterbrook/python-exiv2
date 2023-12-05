@@ -4374,9 +4374,7 @@ static PyObject* pointer_to_list(const Exiv2::DataSet* ptr) {
         Py_DECREF(py_tmp);
         ++item;
     }
-    py_tmp = PyList_AsTuple(list);
-    Py_DECREF(list);
-    return py_tmp;
+    return list;
 };
 
 #ifdef __cplusplus

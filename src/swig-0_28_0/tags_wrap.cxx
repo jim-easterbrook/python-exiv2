@@ -3983,9 +3983,7 @@ static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
         Py_DECREF(py_tmp);
         ++item;
     }
-    py_tmp = PyList_AsTuple(list);
-    Py_DECREF(list);
-    return py_tmp;
+    return list;
 };
 
 
@@ -4402,9 +4400,7 @@ static PyObject* pointer_to_list(const Exiv2::GroupInfo* ptr) {
         Py_DECREF(py_tmp);
         ++item;
     }
-    py_tmp = PyList_AsTuple(list);
-    Py_DECREF(list);
-    return py_tmp;
+    return list;
 };
 
 

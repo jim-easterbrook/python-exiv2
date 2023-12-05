@@ -35,7 +35,7 @@ class TestTagsModule(unittest.TestCase):
         key = exiv2.ExifKey(self.key_name)
         self.check_result(tags.defaultCount(key), int, 0)
         group_list = tags.groupList()
-        self.assertIsInstance(group_list, tuple)
+        self.assertIsInstance(group_list, list)
         self.assertGreater(len(group_list), 0)
         self.assertIsInstance(group_list[0], exiv2.GroupInfo)
         self.check_result(tags.ifdName(self.group_name), str, 'IFD0')
@@ -43,7 +43,7 @@ class TestTagsModule(unittest.TestCase):
         self.check_result(tags.isMakerGroup(self.group_name), bool, False)
         self.check_result(tags.sectionName(key), str, 'OtherTags')
         tag_list = tags.tagList(self.group_name)
-        self.assertIsInstance(tag_list, tuple)
+        self.assertIsInstance(tag_list, list)
         self.assertGreater(len(tag_list), 0)
         self.assertIsInstance(tag_list[0], exiv2.TagInfo)
 
@@ -54,7 +54,7 @@ class TestTagsModule(unittest.TestCase):
         self.check_result(info.ifdId_, int, 1)
         self.check_result(info.ifdName_, str, 'IFD0')
         tag_list = info.tagList_()
-        self.assertIsInstance(tag_list, tuple)
+        self.assertIsInstance(tag_list, list)
         self.assertGreater(len(tag_list), 0)
         self.assertIsInstance(tag_list[0], exiv2.TagInfo)
         for key, value in dict(info).items():
