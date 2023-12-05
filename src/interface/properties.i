@@ -50,9 +50,9 @@ ENUM(XmpCategory, "Category of an XMP property.",
 // Convert XmpProperties.propertyList() result and XmpNsInfo.xmpPropertyInfo_
 // to a Python tuple
 LIST_POINTER(const Exiv2::XmpPropertyInfo* propertyList,
-             Exiv2::XmpPropertyInfo, name_ != 0,)
+             Exiv2::XmpPropertyInfo, name_ != 0)
 LIST_POINTER(const Exiv2::XmpPropertyInfo* xmpPropertyInfo_,
-             Exiv2::XmpPropertyInfo, name_ != 0,)
+             Exiv2::XmpPropertyInfo, name_ != 0)
 
 // Ignore "internal" stuff
 %ignore Exiv2::XmpProperties::rwLock_;

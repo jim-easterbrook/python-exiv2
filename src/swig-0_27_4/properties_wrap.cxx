@@ -4190,18 +4190,6 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-static PyObject* pointer_to_list(const Exiv2::XmpPropertyInfo* ptr) {
-    const Exiv2::XmpPropertyInfo* item = ptr;
-    PyObject* list = PyList_New(0);
-    while (item->name_ != 0) {
-        PyList_Append(list, SWIG_Python_NewPointerObj(
-            NULL, SWIG_as_voidptr(item), SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0));
-        ++item;
-    }
-    return PyList_AsTuple(list);
-};
-
-
 SWIGINTERNINLINE PyObject *
 SWIG_From_std_string  (const std::string& s)
 {
@@ -4645,8 +4633,18 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo_xmpPropertyInfo__get(PyObject *self, PyObje
   arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
   result = (Exiv2::XmpPropertyInfo *) ((arg1)->xmpPropertyInfo_);
   {
-    resultobj = SWIG_Python_AppendOutput(
-      resultobj, pointer_to_list(result ));
+    const Exiv2::XmpPropertyInfo* item = result;
+    PyObject* py_item = NULL;
+    PyObject* list = PyList_New(0);
+    while (item->name_ != 0) {
+      py_item = SWIG_NewPointerObj(
+        SWIG_as_voidptr(item), SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0);
+      PyList_Append(list, py_item);
+      Py_DECREF(py_item);
+      ++item;
+    }
+    resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
+    Py_DECREF(list);
   }
   return resultobj;
 fail:
@@ -4980,8 +4978,18 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyList(PyObject *self, PyObject *
     }
   }
   {
-    resultobj = SWIG_Python_AppendOutput(
-      resultobj, pointer_to_list(result ));
+    const Exiv2::XmpPropertyInfo* item = result;
+    PyObject* py_item = NULL;
+    PyObject* list = PyList_New(0);
+    while (item->name_ != 0) {
+      py_item = SWIG_NewPointerObj(
+        SWIG_as_voidptr(item), SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0);
+      PyList_Append(list, py_item);
+      Py_DECREF(py_item);
+      ++item;
+    }
+    resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
+    Py_DECREF(list);
   }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;

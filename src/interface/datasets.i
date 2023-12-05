@@ -27,7 +27,7 @@ UNIQUE_PTR(Exiv2::IptcKey);
 
 // IptcDataSets::application2RecordList and IptcDataSets::envelopeRecordList
 // return a static list as a pointer
-LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff,)
+LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 
 // Make Exiv2::DataSet struct iterable for easy conversion to dict or list
 %feature("python:slot", "tp_iter", functype="getiterfunc")

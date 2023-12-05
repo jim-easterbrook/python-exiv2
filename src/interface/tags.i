@@ -26,10 +26,10 @@
 UNIQUE_PTR(Exiv2::ExifKey);
 
 // ExifTags::groupList returns a static list as a pointer
-LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0,)
+LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0)
 
 // ExifTags::tagList returns a static list as a pointer
-LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF,)
+LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
 
 // Make Exiv2::TagInfo struct iterable for easy conversion to dict or list
 %feature("python:slot", "tp_iter", functype="getiterfunc")
