@@ -50,8 +50,10 @@ class TestTagsModule(unittest.TestCase):
     def test_GroupInfo(self):
         info = exiv2.ExifTags.groupList()[0]
         self.check_result(info.groupName_, str, 'Image')
-        # Exiv2::IfdId enum not in Python
-        self.check_result(info.ifdId_, int, 1)
+        if exiv2.testVersion(0, 28, 0):
+            self.check_result(info.ifdId_, int, exiv2.IfdId.ifd0Id)
+        else:
+            self.check_result(info.ifdId_, int, 1)
         self.check_result(info.ifdName_, str, 'IFD0')
         tag_list = info.tagList_()
         self.assertIsInstance(tag_list, list)
@@ -66,11 +68,15 @@ class TestTagsModule(unittest.TestCase):
         desc = info.desc_
         self.assertIsInstance(desc, str)
         self.assertTrue(desc.startswith('The name and version of the software'))
-        # Exiv2::IfdId enum not in Python
-        self.check_result(info.ifdId_, int, 1)
+        if exiv2.testVersion(0, 28, 0):
+            self.check_result(info.ifdId_, int, exiv2.IfdId.ifd0Id)
+        else:
+            self.check_result(info.ifdId_, int, 1)
         self.check_result(info.name_, str, 'ProcessingSoftware')
-        # Exiv2::SectionId enum not in Python
-        self.check_result(info.sectionId_, int, 4)
+        if exiv2.testVersion(0, 28, 0):
+            self.check_result(info.sectionId_, int, exiv2.SectionId.otherTags)
+        else:
+            self.check_result(info.sectionId_, int, 1)
         self.check_result(info.tag_, int, 11)
         self.check_result(info.title_, str, 'Processing Software')
         self.check_result(info.typeId_, int, exiv2.TypeId.asciiString)

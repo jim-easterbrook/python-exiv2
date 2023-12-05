@@ -3994,11 +3994,33 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
+
+static PyObject* _get_enum_list(int dummy, ...) {
+    va_list args;
+    va_start(args, dummy);
+    char* label;
+    PyObject* py_obj = NULL;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
+    while (label) {
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(result, py_obj);
+        Py_DECREF(py_obj);
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    return result;
+};
+
+
+PyObject* _enum_list_IfdId() {
+    return _get_enum_list(0, "ifdIdNotSet",Exiv2::IfdId::ifdIdNotSet,"ifd0Id",Exiv2::IfdId::ifd0Id,"ifd1Id",Exiv2::IfdId::ifd1Id,"ifd2Id",Exiv2::IfdId::ifd2Id,"ifd3Id",Exiv2::IfdId::ifd3Id,"exifId",Exiv2::IfdId::exifId,"gpsId",Exiv2::IfdId::gpsId,"iopId",Exiv2::IfdId::iopId,"mpfId",Exiv2::IfdId::mpfId,"subImage1Id",Exiv2::IfdId::subImage1Id,"subImage2Id",Exiv2::IfdId::subImage2Id,"subImage3Id",Exiv2::IfdId::subImage3Id,"subImage4Id",Exiv2::IfdId::subImage4Id,"subImage5Id",Exiv2::IfdId::subImage5Id,"subImage6Id",Exiv2::IfdId::subImage6Id,"subImage7Id",Exiv2::IfdId::subImage7Id,"subImage8Id",Exiv2::IfdId::subImage8Id,"subImage9Id",Exiv2::IfdId::subImage9Id,"subThumb1Id",Exiv2::IfdId::subThumb1Id,"lastId",Exiv2::IfdId::lastId,"ignoreId",Exiv2::IfdId::ignoreId, NULL);
+};
+
+
+PyObject* _enum_list_SectionId() {
+    return _get_enum_list(0, "sectionIfNotSet",Exiv2::SectionId::sectionIdNotSet,"imgStruct",Exiv2::SectionId::imgStruct,"recOffset",Exiv2::SectionId::recOffset,"imgCharacter",Exiv2::SectionId::imgCharacter,"otherTags",Exiv2::SectionId::otherTags,"exifFormat",Exiv2::SectionId::exifFormat,"exifVersion",Exiv2::SectionId::exifVersion,"imgConfig",Exiv2::SectionId::imgConfig,"userInfo",Exiv2::SectionId::userInfo,"relatedFile",Exiv2::SectionId::relatedFile,"dateTime",Exiv2::SectionId::dateTime,"captureCond",Exiv2::SectionId::captureCond,"gpsTags",Exiv2::SectionId::gpsTags,"iopTags",Exiv2::SectionId::iopTags,"mpfTags",Exiv2::SectionId::mpfTags,"makerTags",Exiv2::SectionId::makerTags,"dngTags",Exiv2::SectionId::dngTags,"panaRaw",Exiv2::SectionId::panaRaw,"tiffEp",Exiv2::SectionId::tiffEp,"tiffPm6",Exiv2::SectionId::tiffPm6,"adobeOpi",Exiv2::SectionId::adobeOpi,"lastSectionId ",Exiv2::SectionId::lastSectionId, NULL);
+};
 
 
     static PyObject* new_TagListFct(Exiv2::TagListFct func) {
@@ -4311,6 +4333,13 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
+SWIGINTERNINLINE PyObject*
+  SWIG_From_int  (int value)
+{
+  return PyInt_FromLong((long) value);
+}
+
+
 SWIGINTERNINLINE PyObject *
 SWIG_FromCharPtrAndSize(const char* carray, size_t size)
 {
@@ -4599,6 +4628,34 @@ fail:
 SWIGPY_TERNARYCALLFUNC_CLOSURE(_wrap__TagListFct___call__) /* defines _wrap__TagListFct___call___ternarycallfunc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete__TagListFct) /* defines _wrap_delete__TagListFct_destructor_closure */
+
+SWIGINTERN PyObject *_wrap__enum_list_IfdId(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "_enum_list_IfdId", 0, 0, 0)) SWIG_fail;
+  result = (PyObject *)_enum_list_IfdId();
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap__enum_list_SectionId(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "_enum_list_SectionId", 0, 0, 0)) SWIG_fail;
+  result = (PyObject *)_enum_list_SectionId();
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_GroupInfo___eq____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -6123,6 +6180,8 @@ fail:
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifKey) /* defines _wrap_delete_ExifKey_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
+	 { "_enum_list_IfdId", _wrap__enum_list_IfdId, METH_NOARGS, NULL},
+	 { "_enum_list_SectionId", _wrap__enum_list_SectionId, METH_NOARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -6370,15 +6429,7 @@ static SwigPyGetSet GroupInfo_tagList__getset = { _wrap_GroupInfo_tagList__get, 
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__GroupInfo_getset[] = {
     { (char *)"ifdId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" IFD id", &GroupInfo_ifdId__getset },
     { (char *)"groupName_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Group name, unique for each group.", &GroupInfo_groupName__getset },
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"Comparison operator for IFD id\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Comparison operator for group name\n"
-		"", &GroupInfo___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &GroupInfo___dict___getset },
     { (char *)"ifdName_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" IFD name", &GroupInfo_ifdName__getset },
     { (char *)"tagList_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Tag list", &GroupInfo_tagList__getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
@@ -8179,148 +8230,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "_TagListFct", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "_TagListFct");
   d = md;
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_ifdIdNotSet",SWIG_From_int(static_cast< int >(Exiv2::IfdId::ifdIdNotSet)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_ifd0Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::ifd0Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_ifd1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::ifd1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_ifd2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::ifd2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_ifd3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::ifd3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_exifId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::exifId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_gpsId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::gpsId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_iopId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::iopId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_mpfId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::mpfId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage4Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage4Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage5Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage5Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage6Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage6Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage7Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage7Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage8Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage8Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subImage9Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subImage9Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_subThumb1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::subThumb1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_panaRawId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::panaRawId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_mnId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::mnId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonAfCId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonAfCId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonAfMiAdjId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonAfMiAdjId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonAmId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonAmId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonAsId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonAsId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonCbId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonCbId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonCiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonCiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonCsId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonCsId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonFilId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonFilId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonFlId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonFlId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonHdrId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonHdrId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonLeId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonLeId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonMeId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonMeId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonMoID",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonMoID)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonMvId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonMvId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonRawBId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonRawBId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonSiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonSiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonCfId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonCfId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonContrastId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonContrastId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonFcd1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonFcd1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonFcd2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonFcd2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonFcd3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonFcd3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonLiOpId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonLiOpId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonMyColorID",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonMyColorID)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonPiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonPiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonPaId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonPaId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonTiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonTiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonFiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonFiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonPrId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonPrId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonPreID",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonPreID)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonVigCorId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonVigCorId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonVigCor2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonVigCor2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_canonWbId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::canonWbId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_casioId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::casioId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_casio2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::casio2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_fujiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::fujiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_minoltaId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::minoltaId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_minoltaCs5DId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::minoltaCs5DId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_minoltaCs7DId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::minoltaCs7DId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_minoltaCsOldId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::minoltaCsOldId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_minoltaCsNewId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::minoltaCsNewId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikon1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikon1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikon2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikon2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikon3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikon3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonPvId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonPvId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonVrId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonVrId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonPcId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonPcId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonWtId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonWtId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonIiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonIiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonAfId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonAfId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonAf21Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonAf21Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonAf22Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonAf22Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonAFTId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonAFTId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonFiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonFiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonMeId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonMeId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonFl1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonFl1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonFl2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonFl2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonFl3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonFl3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonFl6Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonFl6Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonFl7Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonFl7Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonSi1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonSi1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonSi2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonSi2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonSi3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonSi3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonSi4Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonSi4Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonSi5Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonSi5Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonSi6Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonSi6Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonLd1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonLd1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonLd2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonLd2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonLd3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonLd3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonLd4Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonLd4Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonCb1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonCb1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonCb2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonCb2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonCb2aId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonCb2aId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonCb2bId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonCb2bId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonCb3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonCb3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_nikonCb4Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::nikonCb4Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympus2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympus2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusCsId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusCsId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusEqId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusEqId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusRdId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusRdId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusRd2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusRd2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusIpId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusIpId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe3Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe3Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe4Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe4Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe5Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe5Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe6Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe6Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe7Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe7Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe8Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe8Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusFe9Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusFe9Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_olympusRiId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::olympusRiId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_panasonicId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::panasonicId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_pentaxId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::pentaxId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_pentaxDngId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::pentaxDngId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_samsung2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::samsung2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_samsungPvId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::samsungPvId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_samsungPwId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::samsungPwId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sigmaId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sigmaId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sonyMltId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sonyMltId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony1CsId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony1CsId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony1Cs2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony1Cs2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony2CsId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony2CsId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony2Cs2Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony2Cs2Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony2FpId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony2FpId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sonyMisc1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sonyMisc1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sonyMisc2bId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sonyMisc2bId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sonyMisc3cId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sonyMisc3cId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sonySInfo1Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sonySInfo1Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony2010eId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony2010eId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony1MltCs7DId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony1MltCs7DId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony1MltCsOldId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony1MltCsOldId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony1MltCsNewId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony1MltCsNewId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_sony1MltCsA100Id",SWIG_From_int(static_cast< int >(Exiv2::IfdId::sony1MltCsA100Id)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_tagInfoMvId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::tagInfoMvId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_lastId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::lastId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId_ignoreId",SWIG_From_int(static_cast< int >(Exiv2::IfdId::ignoreId)));
   
   /* type 'Exiv2::GroupInfo' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__GroupInfo_type;
@@ -8344,28 +8253,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "GroupInfo", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "GroupInfo");
   d = md;
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_sectionIdNotSet",SWIG_From_int(static_cast< int >(Exiv2::SectionId::sectionIdNotSet)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_imgStruct",SWIG_From_int(static_cast< int >(Exiv2::SectionId::imgStruct)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_recOffset",SWIG_From_int(static_cast< int >(Exiv2::SectionId::recOffset)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_imgCharacter",SWIG_From_int(static_cast< int >(Exiv2::SectionId::imgCharacter)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_otherTags",SWIG_From_int(static_cast< int >(Exiv2::SectionId::otherTags)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_exifFormat",SWIG_From_int(static_cast< int >(Exiv2::SectionId::exifFormat)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_exifVersion",SWIG_From_int(static_cast< int >(Exiv2::SectionId::exifVersion)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_imgConfig",SWIG_From_int(static_cast< int >(Exiv2::SectionId::imgConfig)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_userInfo",SWIG_From_int(static_cast< int >(Exiv2::SectionId::userInfo)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_relatedFile",SWIG_From_int(static_cast< int >(Exiv2::SectionId::relatedFile)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_dateTime",SWIG_From_int(static_cast< int >(Exiv2::SectionId::dateTime)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_captureCond",SWIG_From_int(static_cast< int >(Exiv2::SectionId::captureCond)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_gpsTags",SWIG_From_int(static_cast< int >(Exiv2::SectionId::gpsTags)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_iopTags",SWIG_From_int(static_cast< int >(Exiv2::SectionId::iopTags)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_mpfTags",SWIG_From_int(static_cast< int >(Exiv2::SectionId::mpfTags)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_makerTags",SWIG_From_int(static_cast< int >(Exiv2::SectionId::makerTags)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_dngTags",SWIG_From_int(static_cast< int >(Exiv2::SectionId::dngTags)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_panaRaw",SWIG_From_int(static_cast< int >(Exiv2::SectionId::panaRaw)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_tiffEp",SWIG_From_int(static_cast< int >(Exiv2::SectionId::tiffEp)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_tiffPm6",SWIG_From_int(static_cast< int >(Exiv2::SectionId::tiffPm6)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_adobeOpi",SWIG_From_int(static_cast< int >(Exiv2::SectionId::adobeOpi)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId_lastSectionId",SWIG_From_int(static_cast< int >(Exiv2::SectionId::lastSectionId)));
   
   /* type 'Exiv2::TagInfo' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__TagInfo_type;

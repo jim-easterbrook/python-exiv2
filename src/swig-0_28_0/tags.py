@@ -14,3 +14,18 @@ if __package__ or "." in __name__:
     from ._tags import *
 else:
     from _tags import *
+
+
+import enum
+IfdId = enum.IntEnum('IfdId', _enum_list_IfdId())
+IfdId.__doc__ = "Type to specify the IFD to which a metadata belongs.\n"
+"\nMaker note IFDs have been omitted from this enum."
+
+
+import enum
+SectionId = enum.IntEnum('SectionId', _enum_list_SectionId())
+SectionId.__doc__ = "Section identifiers to logically group tags.\n"
+"\nA section consists of nothing more than a name, based on the"
+"\nExif standard."
+
+
