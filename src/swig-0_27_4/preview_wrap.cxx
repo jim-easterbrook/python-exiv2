@@ -4862,17 +4862,17 @@ SWIGINTERN PyObject *_wrap_PreviewManager_getPreviewProperties(PyObject *self, P
     }
   }
   {
-    resultobj = PyList_New(0);
-    if (!resultobj) {
+    PyObject* py_obj = NULL;
+    Py_ssize_t size = (&result)->size();
+    resultobj = PyList_New(size);
+    if (!resultobj)
+    SWIG_fail;
+    for (Py_ssize_t idx = 0; idx < size; ++idx) {
+      py_obj = SWIG_NewPointerObj(new Exiv2::PreviewProperties((&result)->at(idx)),
+        SWIGTYPE_p_Exiv2__PreviewProperties, SWIG_POINTER_OWN);
+      if (!py_obj)
       SWIG_fail;
-    }
-    Exiv2::PreviewPropertiesList::iterator e = (&result)->end();
-    for (Exiv2::PreviewPropertiesList::iterator i = (&result)->begin(); i != e; ++i) {
-      if (PyList_Append(resultobj, SWIG_NewPointerObj(
-            new Exiv2::PreviewProperties(*i),
-            SWIGTYPE_p_Exiv2__PreviewProperties, SWIG_POINTER_OWN))) {
-        SWIG_fail;
-      }
+      PyList_SET_ITEM(resultobj, idx, py_obj);
     }
   }
   return resultobj;

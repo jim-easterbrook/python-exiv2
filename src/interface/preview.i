@@ -38,17 +38,17 @@
 
 // Convert getPreviewProperties result to a Python list
 %typemap(out) Exiv2::PreviewPropertiesList {
-    $result = PyList_New(0);
-    if (!$result) {
+    PyObject* py_obj = NULL;
+    Py_ssize_t size = $1.size();
+    $result = PyList_New(size);
+    if (!$result)
         SWIG_fail;
-    }
-    Exiv2::PreviewPropertiesList::iterator e = $1.end();
-    for (Exiv2::PreviewPropertiesList::iterator i = $1.begin(); i != e; ++i) {
-        if (PyList_Append($result, SWIG_NewPointerObj(
-                new Exiv2::PreviewProperties(*i),
-                $descriptor(Exiv2::PreviewProperties*), SWIG_POINTER_OWN))) {
+    for (Py_ssize_t idx = 0; idx < size; ++idx) {
+        py_obj = SWIG_NewPointerObj(new Exiv2::PreviewProperties($1.at(idx)),
+            $descriptor(Exiv2::PreviewProperties*), SWIG_POINTER_OWN);
+        if (!py_obj)
             SWIG_fail;
-        }
+        PyList_SET_ITEM($result, idx, py_obj);
     }
 }
 
