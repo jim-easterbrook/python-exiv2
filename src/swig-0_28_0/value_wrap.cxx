@@ -7247,20 +7247,7 @@ SWIGINTERN PyObject *_wrap_delete_Value(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Value" "', argument " "1"" of type '" "Exiv2::Value *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -7527,7 +7514,7 @@ SWIGINTERN PyObject *_wrap_Value_clone(PyObject *self, PyObject *args) {
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,83,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,94,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -8398,7 +8385,7 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,83,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,94,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -9813,20 +9800,7 @@ SWIGINTERN PyObject *_wrap_delete_DataValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DataValue" "', argument " "1"" of type '" "Exiv2::DataValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -10738,20 +10712,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase___getitem__(PyObject *self, PyObject 
     SWIG_fail;
   }
   
-  {
-    try {
-      result = Exiv2_StringValueBase___getitem__(arg1,arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_StringValueBase___getitem__(arg1,arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -10773,20 +10734,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_data(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase_data" "', argument " "1"" of type '" "Exiv2::StringValueBase *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  {
-    try {
-      result = (char *)Exiv2_StringValueBase_data(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (char *)Exiv2_StringValueBase_data(arg1);
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->value_.size(), PyBUF_READ);
   
@@ -10809,20 +10757,7 @@ SWIGINTERN PyObject *_wrap_delete_StringValueBase(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_StringValueBase" "', argument " "1"" of type '" "Exiv2::StringValueBase *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -11035,20 +10970,7 @@ SWIGINTERN PyObject *_wrap_delete_StringValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_StringValue" "', argument " "1"" of type '" "Exiv2::StringValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::StringValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -11473,20 +11395,7 @@ SWIGINTERN PyObject *_wrap_delete_AsciiValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_AsciiValue" "', argument " "1"" of type '" "Exiv2::AsciiValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::AsciiValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -12153,20 +12062,7 @@ SWIGINTERN PyObject *_wrap_delete_CommentValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_CommentValue" "', argument " "1"" of type '" "Exiv2::CommentValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -12190,20 +12086,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_xmpArrayType" "', argument " "1"" of type '" "Exiv2::XmpValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
-  {
-    try {
-      result = (Exiv2::XmpValue::XmpArrayType)((Exiv2::XmpValue const *)arg1)->xmpArrayType();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::XmpValue::XmpArrayType)((Exiv2::XmpValue const *)arg1)->xmpArrayType();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -12225,20 +12108,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_xmpStruct(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_xmpStruct" "', argument " "1"" of type '" "Exiv2::XmpValue const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
-  {
-    try {
-      result = (Exiv2::XmpValue::XmpStruct)((Exiv2::XmpValue const *)arg1)->xmpStruct();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::XmpValue::XmpStruct)((Exiv2::XmpValue const *)arg1)->xmpStruct();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -12436,20 +12306,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_setXmpArrayType(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpValue_setXmpArrayType" "', argument " "2"" of type '" "Exiv2::XmpValue::XmpArrayType""'");
   } 
   arg2 = static_cast< Exiv2::XmpValue::XmpArrayType >(val2);
-  {
-    try {
-      (arg1)->setXmpArrayType(arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  (arg1)->setXmpArrayType(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -12478,20 +12335,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_setXmpStruct__SWIG_0(PyObject *self, Py_ssiz
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpValue_setXmpStruct" "', argument " "2"" of type '" "Exiv2::XmpValue::XmpStruct""'");
   } 
   arg2 = static_cast< Exiv2::XmpValue::XmpStruct >(val2);
-  {
-    try {
-      (arg1)->setXmpStruct(arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  (arg1)->setXmpStruct(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -12512,20 +12356,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_setXmpStruct__SWIG_1(PyObject *self, Py_ssiz
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpValue_setXmpStruct" "', argument " "1"" of type '" "Exiv2::XmpValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
-  {
-    try {
-      (arg1)->setXmpStruct();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  (arg1)->setXmpStruct();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -12791,20 +12622,7 @@ SWIGINTERN PyObject *_wrap_delete_XmpValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpValue" "', argument " "1"" of type '" "Exiv2::XmpValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -13718,20 +13536,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue___getitem__(PyObject *self, PyObject *ar
     SWIG_fail;
   }
   
-  {
-    try {
-      result = Exiv2_XmpTextValue___getitem__(arg1,arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_XmpTextValue___getitem__(arg1,arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -13753,20 +13558,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_data(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue_data" "', argument " "1"" of type '" "Exiv2::XmpTextValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  {
-    try {
-      result = (char *)Exiv2_XmpTextValue_data(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (char *)Exiv2_XmpTextValue_data(arg1);
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->value_.size(), PyBUF_READ);
   
@@ -13789,20 +13581,7 @@ SWIGINTERN PyObject *_wrap_delete_XmpTextValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpTextValue" "', argument " "1"" of type '" "Exiv2::XmpTextValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -14846,20 +14625,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue___getitem__(PyObject *self, PyObject *a
     SWIG_fail;
   }
   
-  {
-    try {
-      result = Exiv2_XmpArrayValue___getitem__(arg1,arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_XmpArrayValue___getitem__(arg1,arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -14892,20 +14658,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_append(PyObject *self, PyObject *args) 
     arg2 = *ptr;
     if (SWIG_IsNewObj(res)) delete ptr;
   }
-  {
-    try {
-      Exiv2_XmpArrayValue_append(arg1,SWIG_STD_MOVE(arg2));
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_XmpArrayValue_append(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -14926,20 +14679,7 @@ SWIGINTERN PyObject *_wrap_delete_XmpArrayValue(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpArrayValue" "', argument " "1"" of type '" "Exiv2::XmpArrayValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -15906,20 +15646,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_keys" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    try {
-      result = Exiv2_LangAltValue_keys(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_LangAltValue_keys(arg1);
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
@@ -15976,20 +15703,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_items(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_items" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    try {
-      result = Exiv2_LangAltValue_items(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_LangAltValue_items(arg1);
   resultobj = swig::from(static_cast< std::vector< std::pair< std::string,std::string >,std::allocator< std::pair< std::string,std::string > > > >(result));
   return resultobj;
 fail:
@@ -16011,20 +15725,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___iter__(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___iter__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    try {
-      result = (PyObject *)Exiv2_LangAltValue___iter__(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_LangAltValue___iter__(arg1);
   resultobj = result;
   return resultobj;
 fail:
@@ -16061,20 +15762,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___getitem__(PyObject *self, PyObject *ar
     }
     arg2 = ptr;
   }
-  {
-    try {
-      result = (PyObject *)Exiv2_LangAltValue___getitem__(arg1,(std::string const &)*arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_LangAltValue___getitem__(arg1,(std::string const &)*arg2);
   resultobj = result;
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -16123,20 +15811,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___setitem____SWIG_0(PyObject *self, Py_s
     }
     arg3 = ptr;
   }
-  {
-    try {
-      Exiv2_LangAltValue___setitem____SWIG_0(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2_LangAltValue___setitem____SWIG_0(arg1,(std::string const &)*arg2,(std::string const &)*arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res2)) delete arg2;
   if (SWIG_IsNewObj(res3)) delete arg3;
@@ -16175,20 +15850,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___setitem____SWIG_1(PyObject *self, Py_s
     }
     arg2 = ptr;
   }
-  {
-    try {
-      result = (PyObject *)Exiv2_LangAltValue___setitem____SWIG_1(arg1,(std::string const &)*arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_LangAltValue___setitem____SWIG_1(arg1,(std::string const &)*arg2);
   resultobj = result;
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -16256,20 +15918,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue___contains__(PyObject *self, PyObject *a
     }
     arg2 = ptr;
   }
-  {
-    try {
-      result = (bool)Exiv2_LangAltValue___contains__(arg1,(std::string const &)*arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (bool)Exiv2_LangAltValue___contains__(arg1,(std::string const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -16384,20 +16033,7 @@ SWIGINTERN PyObject *_wrap_delete_LangAltValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_LangAltValue" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -17634,20 +17270,7 @@ SWIGINTERN PyObject *_wrap_DateValue___getitem__(PyObject *self, PyObject *args)
     SWIG_fail;
   }
   
-  {
-    try {
-      result = Exiv2_DateValue___getitem__(arg1,arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_DateValue___getitem__(arg1,arg2);
   resultobj = SWIG_NewPointerObj((new Exiv2::DateValue::Date(result)), SWIGTYPE_p_Exiv2__DateValue__Date, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -17668,20 +17291,7 @@ SWIGINTERN PyObject *_wrap_delete_DateValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DateValue" "', argument " "1"" of type '" "Exiv2::DateValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19556,20 +19166,7 @@ SWIGINTERN PyObject *_wrap_TimeValue___getitem__(PyObject *self, PyObject *args)
     SWIG_fail;
   }
   
-  {
-    try {
-      result = Exiv2_TimeValue___getitem__(arg1,arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_TimeValue___getitem__(arg1,arg2);
   resultobj = SWIG_NewPointerObj((new Exiv2::TimeValue::Time(result)), SWIGTYPE_p_Exiv2__TimeValue__Time, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -19590,20 +19187,7 @@ SWIGINTERN PyObject *_wrap_delete_TimeValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_TimeValue" "', argument " "1"" of type '" "Exiv2::TimeValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:

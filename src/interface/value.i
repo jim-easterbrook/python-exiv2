@@ -37,6 +37,17 @@
 
 UNIQUE_PTR(Exiv2::Value);
 
+// Remove exception handler for some methods known to be safe
+%noexception Exiv2::Value::~Value;
+%noexception Exiv2::Value::count;
+%noexception Exiv2::Value::ok;
+%noexception Exiv2::Value::size;
+%noexception Exiv2::Value::typeId;
+%noexception Exiv2::XmpValue::setXmpArrayType;
+%noexception Exiv2::XmpValue::setXmpStruct;
+%noexception Exiv2::XmpValue::xmpArrayType;
+%noexception Exiv2::XmpValue::xmpStruct;
+
 // ---- Typemaps ----
 // for indexing multi-value values, assumes arg1 points to self
 %typemap(check) long multi_idx %{
@@ -216,6 +227,10 @@ KEEP_REFERENCE(const Exiv2::Value&)
 %define VALUE_SUBCLASS(type_name, part_name)
 %feature("python:slot", "sq_length", functype="lenfunc") type_name::count;
 %ignore type_name::value_;
+%noexception type_name::~part_name;
+%noexception type_name::__getitem__;
+%noexception type_name::__setitem__;
+%noexception type_name::append;
 %noexception type_name::count;
 %noexception type_name::size;
 %extend type_name {
@@ -268,9 +283,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %feature("docstring") Exiv2::ValueType<item_type>::append
 "Append a " #item_type " component to the value."
 %template() std::vector<item_type>;
-%noexception Exiv2::ValueType<item_type>::__getitem__;
-%noexception Exiv2::ValueType<item_type>::__setitem__;
-%noexception Exiv2::ValueType<item_type>::append;
 %extend Exiv2::ValueType<item_type> {
     // Constructor, reads values from a Python list
     ValueType<item_type>(Exiv2::ValueType<item_type>::ValueList value) {
@@ -344,6 +356,13 @@ STRUCT_ITERATOR(Exiv2::TimeValue::Time, "((si)(si)(si)(si)(si))",
 %feature("docstring") Exiv2::LangAltValue::items
 "Get key, value pairs (i.e. language, text) of the LangAltValue
 components."
+%noexception Exiv2::LangAltValue::__contains__;
+%noexception Exiv2::LangAltValue::__getitem__;
+%noexception Exiv2::LangAltValue::__iter__;
+%noexception Exiv2::LangAltValue::__setitem__;
+%noexception Exiv2::LangAltValue::keys;
+%noexception Exiv2::LangAltValue::items;
+%noexception Exiv2::LangAltValue::vues;
 %template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
 %template() std::vector<std::string>;
 %template() std::vector<std::pair<std::string,std::string>>;
@@ -412,12 +431,6 @@ components."
     }
 }
 
-// Remove exception handler for some methods known to be safe
-%noexception Exiv2::Value::count;
-%noexception Exiv2::Value::size;
-%noexception Exiv2::Value::ok;
-%noexception Exiv2::Value::typeId;
-
 // Add Python slots to Exiv2::Value base class
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
 %feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::count;
@@ -447,6 +460,7 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 %define RAW_STRING_DATA(class)
 RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ,
             class##::data)
+%noexception class::data;
 %extend class {
     const char* data() {
         return $self->value_.data();
