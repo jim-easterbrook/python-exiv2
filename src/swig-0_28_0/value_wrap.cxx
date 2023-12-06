@@ -6461,7 +6461,10 @@ SWIGINTERN std::vector< std::pair< std::string,std::string >,std::allocator< std
       }
     
 SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
-        return PySeqIter_New(swig::from(Exiv2_LangAltValue_keys(self)));
+        PyObject* keys = swig::from(Exiv2_LangAltValue_keys(self));
+        PyObject* result = PySeqIter_New(keys);
+        Py_DECREF(keys);
+        return result;
     }
 SWIGINTERN PyObject *Exiv2_LangAltValue___getitem__(Exiv2::LangAltValue *self,std::string const &key){
         try {

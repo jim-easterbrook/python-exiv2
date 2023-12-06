@@ -382,7 +382,10 @@ components."
         return result;
     }
     PyObject* __iter__() {
-        return PySeqIter_New(swig::from(Exiv2_LangAltValue_keys($self)));
+        PyObject* keys = swig::from(%mangle(Exiv2::LangAltValue::keys)($self));
+        PyObject* result = PySeqIter_New(keys);
+        Py_DECREF(keys);
+        return result;
     }
     PyObject* __getitem__(const std::string& key) {
         try {
