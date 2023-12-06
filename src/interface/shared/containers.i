@@ -82,6 +82,8 @@ static void warn_type_change(Exiv2::TypeId old_type, datum_type* datum) {
         return SWIG_Py_Void();
     }
     PyObject* __setitem__(const std::string& key, PyObject* value) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use " #base_class "[key] = str(value) to set value", 1);
         // Get equivalent of Python "str(value)"
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)

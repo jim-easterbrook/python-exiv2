@@ -5082,6 +5082,8 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_1(Exiv2::XmpData *self,std:
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_2(Exiv2::XmpData *self,std::string const &key,PyObject *value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use ""Exiv2::XmpData" "[key] = str(value) to set value", 1);
         // Get equivalent of Python "str(value)"
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)

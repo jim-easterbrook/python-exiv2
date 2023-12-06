@@ -5024,6 +5024,8 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_1(Exiv2::ExifData *self,st
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_2(Exiv2::ExifData *self,std::string const &key,PyObject *value){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use ""Exiv2::ExifData" "[key] = str(value) to set value", 1);
         // Get equivalent of Python "str(value)"
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)
