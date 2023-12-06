@@ -5028,6 +5028,25 @@ SWIGINTERN Exiv2::Value const &Exiv2_Xmpdatum_value__SWIG_1(Exiv2::Xmpdatum *sel
         return self->value();
     }
 
+static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
+    Exiv2::TypeId old_type = datum->typeId();
+    if (old_type == Exiv2::invalidTypeId)
+        return Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
+    return old_type;
+};
+
+
+static void warn_type_change(Exiv2::TypeId old_type, Exiv2::Xmpdatum* datum) {
+    using namespace Exiv2;
+    TypeId new_type = datum->typeId();
+    if (new_type != old_type) {
+        EXV_WARNING << datum->key() << ": changed type from '" <<
+            TypeInfo::typeName(old_type) << "' to '" <<
+            TypeInfo::typeName(new_type) << "'.\n";
+    }
+};
+
+
 SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
@@ -5045,41 +5064,24 @@ SWIGINTERN Exiv2::Xmpdatum &Exiv2_XmpData___getitem__(Exiv2::XmpData *self,std::
         return (*self)[key];
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_0(Exiv2::XmpData *self,std::string const &key,Exiv2::Value *value){
-        using namespace Exiv2;
         Exiv2::Xmpdatum* datum = &(*self)[key];
-        TypeId old_type = datum->typeId();
-        if (old_type == invalidTypeId)
-            old_type = Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
+        Exiv2::TypeId old_type = get_type_id(datum);
         datum->setValue(value);
-        TypeId new_type = datum->typeId();
-        if (new_type != old_type) {
-            EXV_WARNING << datum->key() << ": changed type from '" <<
-                TypeInfo::typeName(old_type) << "' to '" <<
-                TypeInfo::typeName(new_type) << "'.\n";
-        }
+        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_1(Exiv2::XmpData *self,std::string const &key,std::string const &value){
-        using namespace Exiv2;
         Exiv2::Xmpdatum* datum = &(*self)[key];
-        TypeId old_type = datum->typeId();
-        if (old_type == invalidTypeId)
-            old_type = Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
+        Exiv2::TypeId old_type = get_type_id(datum);
         if (datum->setValue(value) != 0)
             return PyErr_Format(PyExc_ValueError,
                 "%s: cannot set type '%s' to value '%s'",
-                datum->key().c_str(), TypeInfo::typeName(old_type),
+                datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
                 value.c_str());
-        TypeId new_type = datum->typeId();
-        if (new_type != old_type) {
-            EXV_WARNING << datum->key() << ": changed type from '" <<
-                TypeInfo::typeName(old_type) << "' to '" <<
-                TypeInfo::typeName(new_type) << "'.\n";
-        }
+        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_2(Exiv2::XmpData *self,std::string const &key,PyObject *value){
-        using namespace Exiv2;
         // Get equivalent of Python "str(value)"
         PyObject* py_str = PyObject_Str(value);
         if (py_str == NULL)
@@ -5087,19 +5089,13 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_2(Exiv2::XmpData *self,std:
         const char* c_str = PyUnicode_AsUTF8(py_str);
         Py_DECREF(py_str);
         Exiv2::Xmpdatum* datum = &(*self)[key];
-        TypeId old_type = datum->typeId();
-        if (old_type == invalidTypeId)
-            old_type = Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
+        Exiv2::TypeId old_type = get_type_id(datum);
         if (datum->setValue(c_str) != 0)
             return PyErr_Format(PyExc_ValueError,
                 "%s: cannot set type '%s' to value '%s'",
-                datum->key().c_str(), TypeInfo::typeName(old_type), c_str);
-        TypeId new_type = datum->typeId();
-        if (new_type != old_type) {
-            EXV_WARNING << datum->key() << ": changed type from '" <<
-                TypeInfo::typeName(old_type) << "' to '" <<
-                TypeInfo::typeName(new_type) << "'.\n";
-        }
+                datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
+                c_str);
+        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_3(Exiv2::XmpData *self,std::string const &key){
