@@ -37,12 +37,13 @@ ENUM(XmpCategory, "Category of an XMP property.",
     $1 = &temp;
 %}
 %typemap(argout) Exiv2::Dictionary &nsDict {
+    PyObject* value = NULL;
     PyObject* dict = PyDict_New();
     Exiv2::Dictionary::iterator e = $1->end();
     for (Exiv2::Dictionary::iterator i = $1->begin(); i != e; ++i) {
-        PyDict_SetItem(dict,
-            PyUnicode_FromString(i->first.c_str()),
-            PyUnicode_FromString(i->second.c_str()));
+        value = PyUnicode_FromString(i->second.c_str());
+        PyDict_SetItemString(dict, i->first.c_str(), value);
+        Py_DECREF(value);
     }
     $result = SWIG_Python_AppendOutput($result, dict);
 }

@@ -5277,12 +5277,13 @@ SWIGINTERN PyObject *_wrap_XmpProperties_registeredNamespaces(PyObject *self, Py
   }
   resultobj = SWIG_Py_Void();
   {
+    PyObject* value = NULL;
     PyObject* dict = PyDict_New();
     Exiv2::Dictionary::iterator e = arg1->end();
     for (Exiv2::Dictionary::iterator i = arg1->begin(); i != e; ++i) {
-      PyDict_SetItem(dict,
-        PyUnicode_FromString(i->first.c_str()),
-        PyUnicode_FromString(i->second.c_str()));
+      value = PyUnicode_FromString(i->second.c_str());
+      PyDict_SetItemString(dict, i->first.c_str(), value);
+      Py_DECREF(value);
     }
     resultobj = SWIG_Python_AppendOutput(resultobj, dict);
   }
