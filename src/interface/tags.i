@@ -22,6 +22,7 @@
 %include "shared/enum.i"
 #endif
 %include "shared/static_list.i"
+%include "shared/struct_iterator.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i";
@@ -35,13 +36,7 @@ LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0)
 LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
 
 // Make Exiv2::TagInfo struct iterable for easy conversion to dict or list
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    Exiv2::TagInfo::__iter__;
-%noexception Exiv2::TagInfo::__iter__;
-%extend Exiv2::TagInfo {
-    PyObject* __iter__() {
-        return PySeqIter_New(Py_BuildValue(
-            "((si)(ss)(ss)(ss)(si)(si)(si)(si))",
+STRUCT_ITERATOR(Exiv2::TagInfo, "((si)(ss)(ss)(ss)(si)(si)(si)(si))",
             "tag",       $self->tag_,
             "name",      $self->name_,
             "title",     $self->title_,
@@ -49,9 +44,7 @@ LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
             "ifdId",     $self->ifdId_,
             "sectionId", $self->sectionId_,
             "typeId",    $self->typeId_,
-            "count",     $self->count_));
-    }
-}
+            "count",     $self->count_)
 
 // Wrapper class for TagListFct function pointer
 #ifndef SWIGIMPORTED
@@ -93,21 +86,12 @@ public:
 }
 
 // Make Exiv2::GroupInfo struct iterable for easy conversion to dict or list
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    Exiv2::GroupInfo::__iter__;
-%noexception Exiv2::GroupInfo::__iter__;
-%extend Exiv2::GroupInfo {
-    %fragment("new_TagListFct");
-    PyObject* __iter__() {
-        printf("taglist pointer %p\n", $self->tagList_);
-        return PySeqIter_New(Py_BuildValue(
-            "((si)(ss)(ss)(sN))",
+%fragment("new_TagListFct");
+STRUCT_ITERATOR(Exiv2::GroupInfo, "((si)(ss)(ss)(sN))",
             "ifdId",     $self->ifdId_,
             "ifdName",   $self->ifdName_,
             "groupName", $self->groupName_,
-            "tagList",   new_TagListFct($self->tagList_)));
-    }
-}
+            "tagList",   new_TagListFct($self->tagList_))
 
 // Add Exif specific enums
 #if EXIV2_VERSION_HEX >= 0x001c0000

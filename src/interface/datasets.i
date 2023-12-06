@@ -19,6 +19,7 @@
 
 %include "preamble.i"
 %include "shared/static_list.i"
+%include "shared/struct_iterator.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i"
@@ -30,12 +31,7 @@ UNIQUE_PTR(Exiv2::IptcKey);
 LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 
 // Make Exiv2::DataSet struct iterable for easy conversion to dict or list
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    Exiv2::DataSet::__iter__;
-%noexception Exiv2::DataSet::__iter__;
-%extend Exiv2::DataSet {
-    PyObject* __iter__() {
-        return PySeqIter_New(Py_BuildValue(
+STRUCT_ITERATOR(Exiv2::DataSet,
             "((si)(ss)(ss)(ss)(sN)(sN)(si)(si)(si)(si)(ss))",
             "number",     $self->number_,
             "name",       $self->name_,
@@ -47,9 +43,7 @@ LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
             "maxbytes",   $self->maxbytes_,
             "type",       $self->type_,
             "recordId",   $self->recordId_,
-            "photoshop",  $self->photoshop_));
-    }
-}
+            "photoshop",  $self->photoshop_)
 
 %ignore Exiv2::DataSet::DataSet;
 %ignore Exiv2::IptcDataSets::dataSetList;

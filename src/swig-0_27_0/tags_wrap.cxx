@@ -4204,13 +4204,10 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 SWIGINTERN PyObject *Exiv2_GroupInfo___iter__(Exiv2::GroupInfo *self){
-        printf("taglist pointer %p\n", self->tagList_);
-        return PySeqIter_New(Py_BuildValue(
-            "((si)(ss)(ss)(sN))",
-            "ifdId",     self->ifdId_,
-            "ifdName",   self->ifdName_,
-            "groupName", self->groupName_,
-            "tagList",   new_TagListFct(self->tagList_)));
+        PyObject* seq = Py_BuildValue("((si)(ss)(ss)(sN))", "ifdId",self->ifdId_,"ifdName",self->ifdName_,"groupName",self->groupName_,"tagList",new_TagListFct(self->tagList_));
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
     }
 
   #define SWIG_From_long   PyInt_FromLong 
@@ -4238,16 +4235,10 @@ SWIG_From_short  (short value)
 }
 
 SWIGINTERN PyObject *Exiv2_TagInfo___iter__(Exiv2::TagInfo *self){
-        return PySeqIter_New(Py_BuildValue(
-            "((si)(ss)(ss)(ss)(si)(si)(si)(si))",
-            "tag",       self->tag_,
-            "name",      self->name_,
-            "title",     self->title_,
-            "desc",      self->desc_,
-            "ifdId",     self->ifdId_,
-            "sectionId", self->sectionId_,
-            "typeId",    self->typeId_,
-            "count",     self->count_));
+        PyObject* seq = Py_BuildValue("((si)(ss)(ss)(ss)(si)(si)(si)(si))", "tag",self->tag_,"name",self->name_,"title",self->title_,"desc",self->desc_,"ifdId",self->ifdId_,"sectionId",self->sectionId_,"typeId",self->typeId_,"count",self->count_);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
     }
 
 static PyObject* pointer_to_list(const Exiv2::GroupInfo* ptr) {

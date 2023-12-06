@@ -4045,19 +4045,10 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN PyObject *Exiv2_DataSet___iter__(Exiv2::DataSet *self){
-        return PySeqIter_New(Py_BuildValue(
-            "((si)(ss)(ss)(ss)(sN)(sN)(si)(si)(si)(si)(ss))",
-            "number",     self->number_,
-            "name",       self->name_,
-            "title",      self->title_,
-            "desc",       self->desc_,
-            "mandatory",  PyBool_FromLong(self->mandatory_),
-            "repeatable", PyBool_FromLong(self->repeatable_),
-            "minbytes",   self->minbytes_,
-            "maxbytes",   self->maxbytes_,
-            "type",       self->type_,
-            "recordId",   self->recordId_,
-            "photoshop",  self->photoshop_));
+        PyObject* seq = Py_BuildValue("((si)(ss)(ss)(ss)(sN)(sN)(si)(si)(si)(si)(ss))", "number",self->number_,"name",self->name_,"title",self->title_,"desc",self->desc_,"mandatory",PyBool_FromLong(self->mandatory_),"repeatable",PyBool_FromLong(self->repeatable_),"minbytes",self->minbytes_,"maxbytes",self->maxbytes_,"type",self->type_,"recordId",self->recordId_,"photoshop",self->photoshop_);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
     }
 
 #include <limits.h>

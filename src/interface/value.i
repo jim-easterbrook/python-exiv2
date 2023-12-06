@@ -25,6 +25,7 @@
 %include "shared/buffers.i"
 %include "shared/enum.i"
 %include "shared/keep_reference.i"
+%include "shared/struct_iterator.i"
 %include "shared/unique_ptr.i"
 
 %include "stdint.i"
@@ -304,15 +305,8 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     }
 }
 // Make Date struct iterable for easy conversion to dict or list
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    Exiv2::DateValue::Date::__iter__;
-%noexception Exiv2::DateValue::Date::__iter__;
-%extend Exiv2::DateValue::Date {
-    PyObject* __iter__() {
-        return PySeqIter_New(Py_BuildValue("((si)(si)(si))",
-            "year", $self->year, "month", $self->month, "day", $self->day));
-    }
-}
+STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
+    "year", $self->year, "month", $self->month, "day", $self->day)
 
 // Allow TimeValue to be set from int values
 %extend Exiv2::TimeValue {
@@ -328,16 +322,9 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     }
 }
 // Make Time struct iterable for easy conversion to dict or list
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    Exiv2::TimeValue::Time::__iter__;
-%noexception Exiv2::TimeValue::Time::__iter__;
-%extend Exiv2::TimeValue::Time {
-    PyObject* __iter__() {
-        return PySeqIter_New(Py_BuildValue("((si)(si)(si)(si)(si))",
-            "hour", $self->hour, "minute", $self->minute, "second", $self->second,
-            "tzHour", $self->tzHour, "tzMinute", $self->tzMinute));
-    }
-}
+STRUCT_ITERATOR(Exiv2::TimeValue::Time, "((si)(si)(si)(si)(si))",
+    "hour", $self->hour, "minute", $self->minute, "second", $self->second,
+    "tzHour", $self->tzHour, "tzMinute", $self->tzMinute)
 
 // Make LangAltValue like a Python dict
 %feature("python:slot", "tp_iter", functype="getiterfunc")

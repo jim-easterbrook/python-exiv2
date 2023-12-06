@@ -6535,8 +6535,10 @@ SWIGINTERN Exiv2::DateValue::Date Exiv2_DateValue___getitem__(Exiv2::DateValue *
         return self->getDate();
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date___iter__(Exiv2::DateValue::Date *self){
-        return PySeqIter_New(Py_BuildValue("((si)(si)(si))",
-            "year", self->year, "month", self->month, "day", self->day));
+        PyObject* seq = Py_BuildValue("((si)(si)(si))", "year",self->year,"month",self->month,"day",self->day);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
     }
 SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int hour,int minute,int second=0,int tzHour=0,int tzMinute=0){
         Exiv2::TimeValue::Time time;
@@ -6571,9 +6573,10 @@ SWIGINTERN Exiv2::TimeValue::Time Exiv2_TimeValue___getitem__(Exiv2::TimeValue *
         return self->getTime();
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self){
-        return PySeqIter_New(Py_BuildValue("((si)(si)(si)(si)(si))",
-            "hour", self->hour, "minute", self->minute, "second", self->second,
-            "tzHour", self->tzHour, "tzMinute", self->tzMinute));
+        PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))", "hour",self->hour,"minute",self->minute,"second",self->second,"tzHour",self->tzHour,"tzMinute",self->tzMinute);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
     }
 
 
@@ -7521,7 +7524,7 @@ SWIGINTERN PyObject *_wrap_Value_clone(PyObject *self, PyObject *args) {
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,83,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
@@ -8392,7 +8395,7 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,82,GET_SWIG_TYPE@*/
+      /*@SWIG:src/interface/value.i,83,GET_SWIG_TYPE@*/
       swig_type_info* swg_type = NULL;
       if (_global_type_id == Exiv2::lastTypeId)
       _global_type_id = value->typeId();
