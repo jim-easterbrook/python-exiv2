@@ -163,6 +163,11 @@ static swig_type_info* get_swig_type(Exiv2::TypeId type_id,
         if (_global_type_id == Exiv2::lastTypeId)
             _global_type_id = value->typeId();
         swig_type_info* swg_type = get_swig_type(_global_type_id, value);
+        if (!value) {
+            PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+                Exiv2::TypeInfo::typeName(_global_type_id));
+            SWIG_fail;
+        }
         $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
     }
     else {
@@ -177,6 +182,11 @@ static swig_type_info* get_swig_type(Exiv2::TypeId type_id,
         if (_global_type_id == Exiv2::lastTypeId)
             _global_type_id = value->typeId();
         swig_type_info* swg_type = get_swig_type(_global_type_id, value);
+        if (!value) {
+            PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+                Exiv2::TypeInfo::typeName(_global_type_id));
+            SWIG_fail;
+        }
         $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
     }
     else {
@@ -190,6 +200,11 @@ static swig_type_info* get_swig_type(Exiv2::TypeId type_id,
     if (_global_type_id == Exiv2::lastTypeId)
         _global_type_id = value->typeId();
     swig_type_info* swg_type = get_swig_type(_global_type_id, value);
+    if (!value) {
+        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
+            Exiv2::TypeInfo::typeName(_global_type_id));
+        SWIG_fail;
+    }
     $result = SWIG_NewPointerObj(value, swg_type, 0);
 }
 
