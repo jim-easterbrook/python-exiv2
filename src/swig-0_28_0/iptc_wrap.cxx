@@ -5010,67 +5010,51 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
       }
     
 
-static swig_type_info* get_swig_type(Exiv2::TypeId type_id,
-                                     Exiv2::Value*& value) {
-    switch(type_id) {
+static swig_type_info* get_swig_type(Exiv2::Value* value) {
+    switch(value->typeId()) {
         case Exiv2::asciiString:
-            value = dynamic_cast<Exiv2::AsciiValue*>(value);
             return SWIGTYPE_p_Exiv2__AsciiValue;
         case Exiv2::unsignedShort:
-            value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
             return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
         case Exiv2::unsignedLong:
         case Exiv2::tiffIfd:
-            value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
             return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
         case Exiv2::unsignedRational:
-            value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
             return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
         case Exiv2::undefined:
-            return SWIGTYPE_p_Exiv2__Value;
+            // Could be a CommentValue
+            if (dynamic_cast<Exiv2::CommentValue*>(value))
+                return SWIGTYPE_p_Exiv2__CommentValue;
+            return SWIGTYPE_p_Exiv2__DataValue;
         case Exiv2::signedShort:
-            value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
             return SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
         case Exiv2::signedLong:
-            value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
             return SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
         case Exiv2::signedRational:
-            value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
             return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
         case Exiv2::tiffFloat:
-            value = dynamic_cast<Exiv2::ValueType<float>*>(value);
             return SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
         case Exiv2::tiffDouble:
-            value = dynamic_cast<Exiv2::ValueType<double>*>(value);
             return SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
         case Exiv2::string:
-            value = dynamic_cast<Exiv2::StringValue*>(value);
             return SWIGTYPE_p_Exiv2__StringValue;
         case Exiv2::date:
-            value = dynamic_cast<Exiv2::DateValue*>(value);
             return SWIGTYPE_p_Exiv2__DateValue;
         case Exiv2::time:
-            value = dynamic_cast<Exiv2::TimeValue*>(value);
             return SWIGTYPE_p_Exiv2__TimeValue;
         case Exiv2::comment:
-            value = dynamic_cast<Exiv2::CommentValue*>(value);
             return SWIGTYPE_p_Exiv2__CommentValue;
         case Exiv2::xmpText:
-            value = dynamic_cast<Exiv2::XmpTextValue*>(value);
             return SWIGTYPE_p_Exiv2__XmpTextValue;
         case Exiv2::xmpAlt:
         case Exiv2::xmpBag:
         case Exiv2::xmpSeq:
-            value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
             return SWIGTYPE_p_Exiv2__XmpArrayValue;
         case Exiv2::langAlt:
-            value = dynamic_cast<Exiv2::LangAltValue*>(value);
             return SWIGTYPE_p_Exiv2__LangAltValue;
         default:
-            value = dynamic_cast<Exiv2::DataValue*>(value);
             return SWIGTYPE_p_Exiv2__DataValue;
     }
-    return SWIGTYPE_p_Exiv2__Value;
 };
 
 
@@ -5081,9 +5065,13 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN Exiv2::Value::UniquePtr Exiv2_Iptcdatum_getValue__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Value should already have the correct type.", 1);
         return self->getValue();
     }
 SWIGINTERN Exiv2::Value const &Exiv2_Iptcdatum_value__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Value should already have the correct type.", 1);
         return self->value();
     }
 
@@ -6592,7 +6580,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_0(PyObject *self, Py
   IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::UniquePtr result;
   
   (void)self;
@@ -6619,15 +6606,8 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_0(PyObject *self, Py
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+      resultobj = SWIG_NewPointerObj(
+        value, get_swig_type(value), SWIG_POINTER_OWN);
     }
     else {
       resultobj = SWIG_Py_Void();
@@ -6647,7 +6627,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_1(PyObject *self, Py
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::UniquePtr result;
   
   (void)self;
@@ -6662,9 +6641,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_1(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
-  
-  _global_type_id = arg2;
-  
   {
     try {
       result = Exiv2_Iptcdatum_getValue__SWIG_1((Exiv2::Iptcdatum*)(arg1)->operator ->(),arg2);
@@ -6682,15 +6658,8 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_1(PyObject *self, Py
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+      resultobj = SWIG_NewPointerObj(
+        value, get_swig_type(value), SWIG_POINTER_OWN);
     }
     else {
       resultobj = SWIG_Py_Void();
@@ -6736,7 +6705,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_0(PyObject *self, Py_ss
   IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
@@ -6762,15 +6730,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_0(PyObject *self, Py_ss
   }
   {
     Exiv2::Value* value = result;
-    if (_global_type_id == Exiv2::lastTypeId)
-    _global_type_id = value->typeId();
-    swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-    if (!value) {
-      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(_global_type_id));
-      SWIG_fail;
-    }
-    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    resultobj = SWIG_NewPointerObj(value, get_swig_type(value), 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -6791,7 +6751,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, Py_ss
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
@@ -6806,9 +6765,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, Py_ss
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_value" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
-  
-  _global_type_id = arg2;
-  
   {
     try {
       result = (Exiv2::Value *) &Exiv2_Iptcdatum_value__SWIG_1((Exiv2::Iptcdatum*)(arg1)->operator ->(),arg2);
@@ -6825,15 +6781,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, Py_ss
   }
   {
     Exiv2::Value* value = result;
-    if (_global_type_id == Exiv2::lastTypeId)
-    _global_type_id = value->typeId();
-    swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-    if (!value) {
-      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(_global_type_id));
-      SWIG_fail;
-    }
-    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    resultobj = SWIG_NewPointerObj(value, get_swig_type(value), 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8379,7 +8327,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_0(PyObject *self, Py_ssize_t
   Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::UniquePtr result;
   
   (void)self;
@@ -8406,15 +8353,8 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_0(PyObject *self, Py_ssize_t
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+      resultobj = SWIG_NewPointerObj(
+        value, get_swig_type(value), SWIG_POINTER_OWN);
     }
     else {
       resultobj = SWIG_Py_Void();
@@ -8431,7 +8371,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_0(PyObject *self, Py_ssize_t no
   Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
@@ -8457,15 +8396,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_0(PyObject *self, Py_ssize_t no
   }
   {
     Exiv2::Value* value = result;
-    if (_global_type_id == Exiv2::lastTypeId)
-    _global_type_id = value->typeId();
-    swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-    if (!value) {
-      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(_global_type_id));
-      SWIG_fail;
-    }
-    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    resultobj = SWIG_NewPointerObj(value, get_swig_type(value), 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8486,7 +8417,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::UniquePtr result;
   
   (void)self;
@@ -8501,9 +8431,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Iptcdatum_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
-  
-  _global_type_id = arg2;
-  
   {
     try {
       result = Exiv2_Iptcdatum_getValue__SWIG_1(arg1,arg2);
@@ -8521,15 +8448,8 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+      resultobj = SWIG_NewPointerObj(
+        value, get_swig_type(value), SWIG_POINTER_OWN);
     }
     else {
       resultobj = SWIG_Py_Void();
@@ -8578,7 +8498,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
@@ -8593,9 +8512,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Iptcdatum_value" "', argument " "2"" of type '" "Exiv2::TypeId""'");
   } 
   arg2 = static_cast< Exiv2::TypeId >(val2);
-  
-  _global_type_id = arg2;
-  
   {
     try {
       result = (Exiv2::Value *) &Exiv2_Iptcdatum_value__SWIG_1(arg1,arg2);
@@ -8612,15 +8528,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
   }
   {
     Exiv2::Value* value = result;
-    if (_global_type_id == Exiv2::lastTypeId)
-    _global_type_id = value->typeId();
-    swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-    if (!value) {
-      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(_global_type_id));
-      SWIG_fail;
-    }
-    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    resultobj = SWIG_NewPointerObj(value, get_swig_type(value), 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {

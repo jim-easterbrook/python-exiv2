@@ -92,129 +92,80 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 // Downcast base class pointers to derived class
 // Function to get swig type for an Exiv2 type id
 %fragment("get_swig_type", "header") {
-static swig_type_info* get_swig_type(Exiv2::TypeId type_id,
-                                     Exiv2::Value*& value) {
-    switch(type_id) {
+static swig_type_info* get_swig_type(Exiv2::Value* value) {
+    switch(value->typeId()) {
         case Exiv2::asciiString:
-            value = dynamic_cast<Exiv2::AsciiValue*>(value);
             return $descriptor(Exiv2::AsciiValue*);
         case Exiv2::unsignedShort:
-            value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
             return $descriptor(Exiv2::ValueType<uint16_t>*);
         case Exiv2::unsignedLong:
         case Exiv2::tiffIfd:
-            value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
             return $descriptor(Exiv2::ValueType<uint32_t>*);
         case Exiv2::unsignedRational:
-            value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
             return $descriptor(Exiv2::ValueType<Exiv2::URational>*);
         case Exiv2::undefined:
-            return $descriptor(Exiv2::Value*);
+            // Could be a CommentValue
+            if (dynamic_cast<Exiv2::CommentValue*>(value))
+                return $descriptor(Exiv2::CommentValue*);
+            return $descriptor(Exiv2::DataValue*);
         case Exiv2::signedShort:
-            value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
             return $descriptor(Exiv2::ValueType<int16_t>*);
         case Exiv2::signedLong:
-            value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
             return $descriptor(Exiv2::ValueType<int32_t>*);
         case Exiv2::signedRational:
-            value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
             return $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
         case Exiv2::tiffFloat:
-            value = dynamic_cast<Exiv2::ValueType<float>*>(value);
             return $descriptor(Exiv2::ValueType<float>*);
         case Exiv2::tiffDouble:
-            value = dynamic_cast<Exiv2::ValueType<double>*>(value);
             return $descriptor(Exiv2::ValueType<double>*);
         case Exiv2::string:
-            value = dynamic_cast<Exiv2::StringValue*>(value);
             return $descriptor(Exiv2::StringValue*);
         case Exiv2::date:
-            value = dynamic_cast<Exiv2::DateValue*>(value);
             return $descriptor(Exiv2::DateValue*);
         case Exiv2::time:
-            value = dynamic_cast<Exiv2::TimeValue*>(value);
             return $descriptor(Exiv2::TimeValue*);
         case Exiv2::comment:
-            value = dynamic_cast<Exiv2::CommentValue*>(value);
             return $descriptor(Exiv2::CommentValue*);
         case Exiv2::xmpText:
-            value = dynamic_cast<Exiv2::XmpTextValue*>(value);
             return $descriptor(Exiv2::XmpTextValue*);
         case Exiv2::xmpAlt:
         case Exiv2::xmpBag:
         case Exiv2::xmpSeq:
-            value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
             return $descriptor(Exiv2::XmpArrayValue*);
         case Exiv2::langAlt:
-            value = dynamic_cast<Exiv2::LangAltValue*>(value);
             return $descriptor(Exiv2::LangAltValue*);
         default:
-            value = dynamic_cast<Exiv2::DataValue*>(value);
             return $descriptor(Exiv2::DataValue*);
     }
-    return $descriptor(Exiv2::Value*);
 };
 }
 #if EXIV2_VERSION_HEX < 0x001c0000
-%typemap(out, fragment="get_swig_type") Exiv2::Value::AutoPtr
-        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
+%typemap(out, fragment="get_swig_type") Exiv2::Value::AutoPtr {
     if ($1.get()) {
         Exiv2::Value* value = $1.release();
-        if (_global_type_id == Exiv2::lastTypeId)
-            _global_type_id = value->typeId();
-        swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-        if (!value) {
-            PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-                Exiv2::TypeInfo::typeName(_global_type_id));
-            SWIG_fail;
-        }
-        $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+        $result = SWIG_NewPointerObj(
+            value, get_swig_type(value), SWIG_POINTER_OWN);
     }
     else {
         $result = SWIG_Py_Void();
     }
 }
 #else   // EXIV2_VERSION_HEX
-%typemap(out, fragment="get_swig_type") Exiv2::Value::UniquePtr
-        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
+%typemap(out, fragment="get_swig_type") Exiv2::Value::UniquePtr {
     if ($1.get()) {
         Exiv2::Value* value = $1.release();
-        if (_global_type_id == Exiv2::lastTypeId)
-            _global_type_id = value->typeId();
-        swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-        if (!value) {
-            PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-                Exiv2::TypeInfo::typeName(_global_type_id));
-            SWIG_fail;
-        }
-        $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+        $result = SWIG_NewPointerObj(
+            value, get_swig_type(value), SWIG_POINTER_OWN);
     }
     else {
         $result = SWIG_Py_Void();
     }
 }
 #endif  // EXIV2_VERSION_HEX
-%typemap(out, fragment="get_swig_type") const Exiv2::Value&
-        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
+%typemap(out, fragment="get_swig_type") const Exiv2::Value& {
     Exiv2::Value* value = $1;
-    if (_global_type_id == Exiv2::lastTypeId)
-        _global_type_id = value->typeId();
-    swig_type_info* swg_type = get_swig_type(_global_type_id, value);
-    if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-            Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-    }
-    $result = SWIG_NewPointerObj(value, swg_type, 0);
+    $result = SWIG_NewPointerObj(value, get_swig_type(value), 0);
 }
-
-// Make a note of what type is passed to Exiv2::Value::create, as
-// returned CommentValue's typeId() is undefined. Unfortunately every
-// function with a TypeId parameter also stores it in _global_type_id
-%typemap(check) Exiv2::TypeId typeId
-    (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) %{
-    _global_type_id = $1;
-%}
 
 // CommentValue::detectCharset has a string reference parameter
 %apply const std::string& {std::string& c};
