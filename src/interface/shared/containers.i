@@ -46,29 +46,15 @@ static Exiv2::TypeId get_type_id(datum_type* datum) {
     return old_type;
 };
 }
-%fragment("warn_type_change"{datum_type}, "header") {
-static void warn_type_change(Exiv2::TypeId old_type, datum_type* datum) {
-    using namespace Exiv2;
-    TypeId new_type = datum->typeId();
-    if (new_type != old_type) {
-        EXV_WARNING << datum->key() << ": changed type from '" <<
-            TypeInfo::typeName(old_type) << "' to '" <<
-            TypeInfo::typeName(new_type) << "'.\n";
-    }
-};
-}
 %extend base_class {
     %fragment("get_type_id"{datum_type});
-    %fragment("warn_type_change"{datum_type});
     %fragment("get_type_object");
     datum_type& __getitem__(const std::string& key) {
         return (*$self)[key];
     }
     PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
         datum_type* datum = &(*$self)[key];
-        Exiv2::TypeId old_type = get_type_id(datum);
         datum->setValue(value);
-        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
     PyObject* __setitem__(const std::string& key, const std::string& value) {
@@ -79,7 +65,6 @@ static void warn_type_change(Exiv2::TypeId old_type, datum_type* datum) {
                 "%s: cannot set type '%s' to value '%s'",
                 datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
                 value.c_str());
-        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
     PyObject* __setitem__(const std::string& key, PyObject* py_value) {

@@ -5112,25 +5112,12 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
-
-static void warn_type_change(Exiv2::TypeId old_type, Exiv2::Exifdatum* datum) {
-    using namespace Exiv2;
-    TypeId new_type = datum->typeId();
-    if (new_type != old_type) {
-        EXV_WARNING << datum->key() << ": changed type from '" <<
-            TypeInfo::typeName(old_type) << "' to '" <<
-            TypeInfo::typeName(new_type) << "'.\n";
-    }
-};
-
 SWIGINTERN Exiv2::Exifdatum &Exiv2_ExifData___getitem__(Exiv2::ExifData *self,std::string const &key){
         return (*self)[key];
     }
 SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_0(Exiv2::ExifData *self,std::string const &key,Exiv2::Value *value){
         Exiv2::Exifdatum* datum = &(*self)[key];
-        Exiv2::TypeId old_type = get_type_id(datum);
         datum->setValue(value);
-        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_1(Exiv2::ExifData *self,std::string const &key,std::string const &value){
@@ -5141,7 +5128,6 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_1(Exiv2::ExifData *self,st
                 "%s: cannot set type '%s' to value '%s'",
                 datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
                 value.c_str());
-        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_2(Exiv2::ExifData *self,std::string const &key,PyObject *py_value){

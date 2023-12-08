@@ -5152,17 +5152,6 @@ SWIGINTERN PyObject *Exiv2_Iptcdatum_setValue__SWIG_2(Exiv2::Iptcdatum *self,PyO
         return SWIG_Py_Void();
     }
 
-static void warn_type_change(Exiv2::TypeId old_type, Exiv2::Iptcdatum* datum) {
-    using namespace Exiv2;
-    TypeId new_type = datum->typeId();
-    if (new_type != old_type) {
-        EXV_WARNING << datum->key() << ": changed type from '" <<
-            TypeInfo::typeName(old_type) << "' to '" <<
-            TypeInfo::typeName(new_type) << "'.\n";
-    }
-};
-
-
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 {
@@ -5183,9 +5172,7 @@ SWIGINTERN Exiv2::Iptcdatum &Exiv2_IptcData___getitem__(Exiv2::IptcData *self,st
     }
 SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_0(Exiv2::IptcData *self,std::string const &key,Exiv2::Value *value){
         Exiv2::Iptcdatum* datum = &(*self)[key];
-        Exiv2::TypeId old_type = get_type_id(datum);
         datum->setValue(value);
-        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_1(Exiv2::IptcData *self,std::string const &key,std::string const &value){
@@ -5196,7 +5183,6 @@ SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_1(Exiv2::IptcData *self,st
                 "%s: cannot set type '%s' to value '%s'",
                 datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
                 value.c_str());
-        warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_2(Exiv2::IptcData *self,std::string const &key,PyObject *py_value){
