@@ -229,6 +229,10 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %template(type_name) Exiv2::ValueType<item_type>;
 %enddef // VALUETYPE
 
+// Use Python datetime.date for Exiv2::DateValue::Date outputs
+%typemap(out) const Exiv2::DateValue::Date& {
+    $result = PyDate_FromDate($1->year, $1->month, $1->day);
+}
 // Use Python datetime.date for Exiv2::DateValue::Date inputs
 %typemap(doctype) Exiv2::DateValue::Date "datetime.date"
 // Dummy typecheck to make SWIG check other overloads first

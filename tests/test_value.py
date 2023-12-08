@@ -311,33 +311,41 @@ class TestValueModule(unittest.TestCase):
             'year': today.year, 'month': today.month, 'day': today.day})
 
     def test_DateValue(self):
-        today = datetime.date.today()
-        data = bytes(today.strftime('%Y%m%d'), 'ascii')
+        py_date = datetime.date.today()
+        data = bytes(py_date.strftime('%Y%m%d'), 'ascii')
+        exiv_date = exiv2.Date()
+        exiv_date.year = py_date.year
+        exiv_date.month = py_date.month
+        exiv_date.day = py_date.day
         # constructors
         value = exiv2.DateValue()
         self.assertIsInstance(value, exiv2.DateValue)
-        value = exiv2.DateValue(today)
+        value = exiv2.DateValue(py_date)
         self.assertIsInstance(value, exiv2.DateValue)
-        self.assertEqual(str(value), today.isoformat())
-        value = exiv2.DateValue(today.year, today.month, today.day)
+        self.assertEqual(str(value), py_date.isoformat())
+        with self.assertWarns(DeprecationWarning):
+            value = exiv2.DateValue(exiv_date)
         self.assertIsInstance(value, exiv2.DateValue)
-        self.assertEqual(str(value), today.isoformat())
+        self.assertEqual(str(value), py_date.isoformat())
+        value = exiv2.DateValue(py_date.year, py_date.month, py_date.day)
+        self.assertIsInstance(value, exiv2.DateValue)
+        self.assertEqual(str(value), py_date.isoformat())
         # other methods
         with self.assertWarns(DeprecationWarning):
             result = value[0]
-        date = value.getDate()
-        self.assertIsInstance(date, exiv2.Date)
+        result = value.getDate()
+        self.assertIsInstance(result, datetime.date)
         with self.assertWarns(DeprecationWarning):
-            value.setDate(date)
-        self.assertEqual(str(value), today.isoformat())
-        value.setDate(today)
-        self.assertEqual(str(value), today.isoformat())
+            value.setDate(exiv_date)
+        self.assertEqual(str(value), py_date.isoformat())
+        value.setDate(py_date)
+        self.assertEqual(str(value), py_date.isoformat())
         with self.assertWarns(DeprecationWarning):
-            value.setDate(today.year, today.month, today.day)
-        self.assertEqual(str(value), today.isoformat())
-        seconds = int(today.strftime('%s'))
-        self.do_common_tests(value, exiv2.TypeId.date, today.isoformat(), data)
-        self.do_conversion_tests(value, today.isoformat(), seconds)
+            value.setDate(py_date.year, py_date.month, py_date.day)
+        self.assertEqual(str(value), py_date.isoformat())
+        seconds = int(py_date.strftime('%s'))
+        self.do_common_tests(value, exiv2.TypeId.date, py_date.isoformat(), data)
+        self.do_conversion_tests(value, py_date.isoformat(), seconds)
         self.do_dataarea_tests(value)
 
     def test_Time(self):

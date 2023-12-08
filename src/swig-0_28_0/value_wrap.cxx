@@ -16483,7 +16483,9 @@ SWIGINTERN PyObject *_wrap_DateValue_getDate(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
+  {
+    resultobj = PyDate_FromDate(result->year, result->month, result->day);
+  }
   return resultobj;
 fail:
   return NULL;
