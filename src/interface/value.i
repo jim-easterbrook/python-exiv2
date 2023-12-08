@@ -36,6 +36,14 @@
 
 %import "types.i"
 
+// Include Python DateTime API
+%{
+#include "datetime.h"
+%}
+%init %{
+PyDateTime_IMPORT;
+%}
+
 UNIQUE_PTR(Exiv2::Value);
 
 // Remove exception handler for some methods known to be safe
@@ -221,9 +229,39 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %template(type_name) Exiv2::ValueType<item_type>;
 %enddef // VALUETYPE
 
-// Allow DateValue to be set from int values
+// Use Python datetime.date for Exiv2::DateValue::Date inputs
+%typemap(doctype) Exiv2::DateValue::Date "datetime.date"
+// Dummy typecheck to make SWIG check other overloads first
+%typemap(typecheck, precedence=SWIG_TYPECHECK_SWIGOBJECT)
+        Exiv2::DateValue::Date &src { }
+%typemap(in) Exiv2::DateValue::Date &src (Exiv2::DateValue::Date date) {
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+            $input, (void**)&$1, $descriptor(Exiv2::DateValue::Date*), 0))) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use datetime.date instead of DateValue::Date", 1);
+    }
+    else {
+        if (!PyDate_Check($input)) {
+            %argument_fail(
+                SWIG_TypeError, "datetime.date", $symname, $argnum);
+        }
+        date.year = PyDateTime_GET_YEAR($input);
+        date.month = PyDateTime_GET_MONTH($input);
+        date.day = PyDateTime_GET_DAY($input);
+        $1 = &date;
+    }
+}
 %extend Exiv2::DateValue {
+    // Allow DateValue to be constructed from a datetime.date
+    DateValue(Exiv2::DateValue::Date &src) {
+        Exiv2::DateValue* self = new Exiv2::DateValue;
+        self->setDate(src);
+        return self;
+    }
+    // Allow DateValue to be set from int values
     void setDate(int year, int month, int day) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use datetime.date to set date", 1);
         Exiv2::DateValue::Date date;
         date.year = year;
         date.month = month;

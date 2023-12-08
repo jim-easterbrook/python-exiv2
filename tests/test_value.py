@@ -316,16 +316,24 @@ class TestValueModule(unittest.TestCase):
         # constructors
         value = exiv2.DateValue()
         self.assertIsInstance(value, exiv2.DateValue)
+        value = exiv2.DateValue(today)
+        self.assertIsInstance(value, exiv2.DateValue)
+        self.assertEqual(str(value), today.isoformat())
         value = exiv2.DateValue(today.year, today.month, today.day)
         self.assertIsInstance(value, exiv2.DateValue)
+        self.assertEqual(str(value), today.isoformat())
         # other methods
         with self.assertWarns(DeprecationWarning):
             result = value[0]
         date = value.getDate()
         self.assertIsInstance(date, exiv2.Date)
-        value.setDate(date)
+        with self.assertWarns(DeprecationWarning):
+            value.setDate(date)
         self.assertEqual(str(value), today.isoformat())
-        value.setDate(today.year, today.month, today.day)
+        value.setDate(today)
+        self.assertEqual(str(value), today.isoformat())
+        with self.assertWarns(DeprecationWarning):
+            value.setDate(today.year, today.month, today.day)
         self.assertEqual(str(value), today.isoformat())
         seconds = int(today.strftime('%s'))
         self.do_common_tests(value, exiv2.TypeId.date, today.isoformat(), data)

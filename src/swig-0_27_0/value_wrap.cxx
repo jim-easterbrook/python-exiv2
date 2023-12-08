@@ -4123,6 +4123,9 @@ namespace swig {
 #include <vector>
 
 
+#include "datetime.h"
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {
@@ -6395,14 +6398,21 @@ SWIGINTERN Exiv2::LangAltValue *new_Exiv2_LangAltValue__SWIG_3(Exiv2::Value cons
         }
         return pv;
     }
+SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_2(Exiv2::DateValue::Date &src){
+        Exiv2::DateValue* self = new Exiv2::DateValue;
+        self->setDate(src);
+        return self;
+    }
 SWIGINTERN void Exiv2_DateValue_setDate__SWIG_1(Exiv2::DateValue *self,int year,int month,int day){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use datetime.date to set date", 1);
         Exiv2::DateValue::Date date;
         date.year = year;
         date.month = month;
         date.day = day;
         self->setDate(date);
     }
-SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_2(Exiv2::Value const &value){
+SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_3(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Value should already have the correct type.", 1);
         Exiv2::DateValue* pv = dynamic_cast< Exiv2::DateValue* >(value.clone().release());
@@ -15240,8 +15250,7 @@ SWIGINTERN PyObject *_wrap_DateValue_setDate__SWIG_0(PyObject *self, Py_ssize_t 
   Exiv2::DateValue::Date *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
+  Exiv2::DateValue::Date date2 ;
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -15250,14 +15259,23 @@ SWIGINTERN PyObject *_wrap_DateValue_setDate__SWIG_0(PyObject *self, Py_ssize_t 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_setDate" "', argument " "1"" of type '" "Exiv2::DateValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__DateValue__Date,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DateValue_setDate" "', argument " "2"" of type '" "Exiv2::DateValue::Date const &""'"); 
+  {
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+          swig_obj[1], (void**)&arg2, SWIGTYPE_p_Exiv2__DateValue__Date, 0))) {
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "use datetime.date instead of DateValue::Date", 1);
+    }
+    else {
+      if (!PyDate_Check(swig_obj[1])) {
+        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_setDate" "', argument " "2"" of type '" "datetime.date""'")
+        ;
+      }
+      date2.year = PyDateTime_GET_YEAR(swig_obj[1]);
+      date2.month = PyDateTime_GET_MONTH(swig_obj[1]);
+      date2.day = PyDateTime_GET_DAY(swig_obj[1]);
+      arg2 = &date2;
+    }
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DateValue_setDate" "', argument " "2"" of type '" "Exiv2::DateValue::Date const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::DateValue::Date * >(argp2);
   {
     try {
       (arg1)->setDate((Exiv2::DateValue::Date const &)*arg2);
@@ -15839,6 +15857,50 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_DateValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue::Date *arg1 = 0 ;
+  Exiv2::DateValue::Date date1 ;
+  Exiv2::DateValue *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+          swig_obj[0], (void**)&arg1, SWIGTYPE_p_Exiv2__DateValue__Date, 0))) {
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "use datetime.date instead of DateValue::Date", 1);
+    }
+    else {
+      if (!PyDate_Check(swig_obj[0])) {
+        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DateValue" "', argument " "1"" of type '" "datetime.date""'")
+        ;
+      }
+      date1.year = PyDateTime_GET_YEAR(swig_obj[0]);
+      date1.month = PyDateTime_GET_MONTH(swig_obj[0]);
+      date1.day = PyDateTime_GET_DAY(swig_obj[0]);
+      arg1 = &date1;
+    }
+  }
+  {
+    try {
+      result = (Exiv2::DateValue *)new_Exiv2_DateValue__SWIG_2(*arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DateValue, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN PyObject *_wrap_DateValue_setDate__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::DateValue *arg1 = (Exiv2::DateValue *) 0 ;
@@ -15924,7 +15986,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_DateValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_DateValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::Value *arg1 = 0 ;
   void *argp1 = 0 ;
@@ -15943,7 +16005,7 @@ SWIGINTERN int _wrap_new_DateValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = (Exiv2::DateValue *)new_Exiv2_DateValue__SWIG_2((Exiv2::Value const &)*arg1);
+      result = (Exiv2::DateValue *)new_Exiv2_DateValue__SWIG_3((Exiv2::Value const &)*arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -15976,6 +16038,17 @@ SWIGINTERN int _wrap_new_DateValue(PyObject *self, PyObject *args, PyObject *kwa
     SWIG_fail;
   }
   if (argc == 1) {
+    int _v = 0;
+    {
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_DateValue__SWIG_3(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 1) {
     int retval = _wrap_new_DateValue__SWIG_2(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
@@ -15991,6 +16064,7 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::DateValue::DateValue()\n"
     "    Exiv2::DateValue::DateValue(int,int,int)\n"
+    "    Exiv2::DateValue::DateValue(Exiv2::DateValue::Date &)\n"
     "    Exiv2::DateValue::DateValue(Exiv2::Value const &)\n");
   return -1;
 }
@@ -36884,6 +36958,9 @@ SWIG_init(void) {
     if (!PyExc_Exiv2Error)
     return NULL;
   }
+  
+  
+  PyDateTime_IMPORT;
   
   
   /* type 'Exiv2::Value' */
