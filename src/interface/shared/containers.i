@@ -47,9 +47,37 @@ static Exiv2::TypeId get_type_id(datum_type* datum) {
     return old_type;
 };
 }
+%fragment("set_value_from_py"{datum_type}, "header",
+          fragment="get_type_object", fragment="get_type_id"{datum_type}) {
+static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
+    // Set the value from a Python object. The datum's current or default
+    // type is used to create an Exiv2::Value object (via Python) from
+    // the Python object.
+    swig_type_info* ty_info = get_type_object(get_type_id(datum));
+    SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+    // Call type object to invoke constructor
+    PyObject* args = PyTuple_Pack(1, py_value);
+    PyObject* swig_obj = PyObject_CallObject(
+        (PyObject*)cl_data->pytype, args);
+    Py_DECREF(args);
+    if (!swig_obj)
+        return NULL;
+    // Convert constructed object to Exiv2::Value
+    Exiv2::Value* value = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
+        PyErr_SetString(
+            PyExc_RuntimeError, "setValue invalid conversion");
+        return NULL;
+    }
+    // Set value
+    datum->setValue(value);
+    return SWIG_Py_Void();
+};
+}
 %extend base_class {
     %fragment("get_type_id"{datum_type});
-    %fragment("get_type_object");
+    %fragment("set_value_from_py"{datum_type});
     datum_type& __getitem__(const std::string& key) {
         return (*$self)[key];
     }
@@ -69,30 +97,8 @@ static Exiv2::TypeId get_type_id(datum_type* datum) {
         return SWIG_Py_Void();
     }
     PyObject* __setitem__(const std::string& key, PyObject* py_value) {
-        // Set the value from a Python object. The datum's current or default
-        // type is used to create an Exiv2::Value object (via Python) from
-        // the Python object.
         datum_type* datum = &(*$self)[key];
-        swig_type_info* ty_info = get_type_object(get_type_id(datum));
-        SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
-        // Call type object to invoke constructor
-        PyObject* args = PyTuple_Pack(1, py_value);
-        PyObject* swig_obj = PyObject_CallObject(
-            (PyObject*)cl_data->pytype, args);
-        Py_DECREF(args);
-        if (!swig_obj)
-            return NULL;
-        // Convert constructed object to Exiv2::Value
-        Exiv2::Value* value = 0;
-        if (!SWIG_IsOK(SWIG_ConvertPtr(
-                swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
-            PyErr_SetString(
-                PyExc_RuntimeError, "setValue invalid conversion");
-            return NULL;
-        }
-        // Set value
-        datum->setValue(value);
-        return SWIG_Py_Void();
+        return set_value_from_py(datum, py_value);
     }
     PyObject* __setitem__(const std::string& key) {
         base_class::iterator pos = $self->findKey(key_type(key));
@@ -150,30 +156,9 @@ KEEP_REFERENCE(datum_type&)
     // Set the value from a Python object. The datum's current or default
     // type is used to create an Exiv2::Value object (via Python) from the
     // Python object.
-    %fragment("get_type_id"{datum_type});
-    %fragment("get_type_object");
+    %fragment("set_value_from_py"{datum_type});
     PyObject* setValue(PyObject* py_value) {
-        // Get type object of current or default value
-        swig_type_info* ty_info = get_type_object(get_type_id($self));
-        SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
-        // Call type object to invoke constructor
-        PyObject* args = PyTuple_Pack(1, py_value);
-        PyObject* swig_obj = PyObject_CallObject(
-            (PyObject*)cl_data->pytype, args);
-        Py_DECREF(args);
-        if (!swig_obj)
-            return NULL;
-        // Convert constructed object to Exiv2::Value
-        Exiv2::Value* value = 0;
-        if (!SWIG_IsOK(SWIG_ConvertPtr(
-                swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
-            PyErr_SetString(
-                PyExc_RuntimeError, "setValue invalid conversion");
-            return NULL;
-        }
-        // Set value
-        $self->setValue(value);
-        return SWIG_Py_Void();
+        return set_value_from_py($self, py_value);
     }
 }
 %enddef // EXTEND_METADATUM

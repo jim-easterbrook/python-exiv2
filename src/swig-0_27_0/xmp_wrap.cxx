@@ -4932,6 +4932,33 @@ static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
     return old_type;
 };
 
+
+static PyObject* set_value_from_py(Exiv2::Xmpdatum* datum, PyObject* py_value) {
+    // Set the value from a Python object. The datum's current or default
+    // type is used to create an Exiv2::Value object (via Python) from
+    // the Python object.
+    swig_type_info* ty_info = get_type_object(get_type_id(datum));
+    SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+    // Call type object to invoke constructor
+    PyObject* args = PyTuple_Pack(1, py_value);
+    PyObject* swig_obj = PyObject_CallObject(
+        (PyObject*)cl_data->pytype, args);
+    Py_DECREF(args);
+    if (!swig_obj)
+        return NULL;
+    // Convert constructed object to Exiv2::Value
+    Exiv2::Value* value = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            swig_obj, (void**)&value, SWIGTYPE_p_Exiv2__Value, 0))) {
+        PyErr_SetString(
+            PyExc_RuntimeError, "setValue invalid conversion");
+        return NULL;
+    }
+    // Set value
+    datum->setValue(value);
+    return SWIG_Py_Void();
+};
+
 SWIGINTERN Exiv2::Value::AutoPtr Exiv2_Xmpdatum_getValue__SWIG_1(Exiv2::Xmpdatum *self,Exiv2::TypeId as_type){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Value should already have the correct type.", 1);
@@ -4943,27 +4970,7 @@ SWIGINTERN Exiv2::Value const &Exiv2_Xmpdatum_value__SWIG_1(Exiv2::Xmpdatum *sel
         return self->value();
     }
 SWIGINTERN PyObject *Exiv2_Xmpdatum_setValue__SWIG_2(Exiv2::Xmpdatum *self,PyObject *py_value){
-        // Get type object of current or default value
-        swig_type_info* ty_info = get_type_object(get_type_id(self));
-        SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
-        // Call type object to invoke constructor
-        PyObject* args = PyTuple_Pack(1, py_value);
-        PyObject* swig_obj = PyObject_CallObject(
-            (PyObject*)cl_data->pytype, args);
-        Py_DECREF(args);
-        if (!swig_obj)
-            return NULL;
-        // Convert constructed object to Exiv2::Value
-        Exiv2::Value* value = 0;
-        if (!SWIG_IsOK(SWIG_ConvertPtr(
-                swig_obj, (void**)&value, SWIGTYPE_p_Exiv2__Value, 0))) {
-            PyErr_SetString(
-                PyExc_RuntimeError, "setValue invalid conversion");
-            return NULL;
-        }
-        // Set value
-        self->setValue(value);
-        return SWIG_Py_Void();
+        return set_value_from_py(self, py_value);
     }
 
 SWIGINTERN int
@@ -4998,30 +5005,8 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_1(Exiv2::XmpData *self,std:
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_2(Exiv2::XmpData *self,std::string const &key,PyObject *py_value){
-        // Set the value from a Python object. The datum's current or default
-        // type is used to create an Exiv2::Value object (via Python) from
-        // the Python object.
         Exiv2::Xmpdatum* datum = &(*self)[key];
-        swig_type_info* ty_info = get_type_object(get_type_id(datum));
-        SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
-        // Call type object to invoke constructor
-        PyObject* args = PyTuple_Pack(1, py_value);
-        PyObject* swig_obj = PyObject_CallObject(
-            (PyObject*)cl_data->pytype, args);
-        Py_DECREF(args);
-        if (!swig_obj)
-            return NULL;
-        // Convert constructed object to Exiv2::Value
-        Exiv2::Value* value = 0;
-        if (!SWIG_IsOK(SWIG_ConvertPtr(
-                swig_obj, (void**)&value, SWIGTYPE_p_Exiv2__Value, 0))) {
-            PyErr_SetString(
-                PyExc_RuntimeError, "setValue invalid conversion");
-            return NULL;
-        }
-        // Set value
-        datum->setValue(value);
-        return SWIG_Py_Void();
+        return set_value_from_py(datum, py_value);
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_3(Exiv2::XmpData *self,std::string const &key){
         Exiv2::XmpData::iterator pos = self->findKey(Exiv2::XmpKey(key));
