@@ -99,6 +99,11 @@ class TestIptcModule(unittest.TestCase):
         data['Iptc.Application2.Byline'] = 'Fred'
         self.assertEqual('Iptc.Application2.Byline' in data, True)
         self.assertIsInstance(data['Iptc.Application2.Byline'], exiv2.Iptcdatum)
+        with self.assertRaises(TypeError):
+            data['Iptc.Envelope.FileFormat'] = 2.5
+        data['Iptc.Envelope.FileFormat'] = 4
+        data['Iptc.Envelope.FileFormat'] = exiv2.UShortValue(4)
+        del data['Iptc.Envelope.FileFormat']
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Iptc.Application2.Byline')

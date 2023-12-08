@@ -49,12 +49,12 @@ def main():
         # have an output operator. The default XMP value type for
         # unknown properties is a simple text value.
 
-        xmpData["Xmp.dc.one"]     = -1
-        xmpData["Xmp.dc.two"]     = 3.1415
+        xmpData["Xmp.dc.one"]     = '-1'
+        xmpData["Xmp.dc.two"]     = '3.1415'
         xmpData["Xmp.dc.three"]   = exiv2.RationalValue((5, 7))
         xmpData["Xmp.dc.four"]    = exiv2.UShortValue(255)
-        xmpData["Xmp.dc.five"]    = 256
-        xmpData["Xmp.dc.six"]     = False
+        xmpData["Xmp.dc.five"]    = '256'
+        xmpData["Xmp.dc.six"]     = 'False'
  
     except exiv2.AnyError as e:
         print('Caught Exiv2 exception "{}"'.format(str(e)))

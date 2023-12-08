@@ -5096,23 +5096,30 @@ SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_1(Exiv2::IptcData *self,st
         warn_type_change(old_type, datum);
         return SWIG_Py_Void();
     }
-SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_2(Exiv2::IptcData *self,std::string const &key,PyObject *value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use ""Exiv2::IptcData" "[key] = str(value) to set value", 1);
-        // Get equivalent of Python "str(value)"
-        PyObject* py_str = PyObject_Str(value);
-        if (py_str == NULL)
-            return NULL;
-        const char* c_str = PyUnicode_AsUTF8(py_str);
-        Py_DECREF(py_str);
+SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_2(Exiv2::IptcData *self,std::string const &key,PyObject *py_value){
+        // Set the value from a Python object. The datum's current or default
+        // type is used to create an Exiv2::Value object (via Python) from
+        // the Python object.
         Exiv2::Iptcdatum* datum = &(*self)[key];
-        Exiv2::TypeId old_type = get_type_id(datum);
-        if (datum->setValue(c_str) != 0)
-            return PyErr_Format(PyExc_ValueError,
-                "%s: cannot set type '%s' to value '%s'",
-                datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
-                c_str);
-        warn_type_change(old_type, datum);
+        swig_type_info* ty_info = get_type_object(get_type_id(datum));
+        SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+        // Call type object to invoke constructor
+        PyObject* args = PyTuple_Pack(1, py_value);
+        PyObject* swig_obj = PyObject_CallObject(
+            (PyObject*)cl_data->pytype, args);
+        Py_DECREF(args);
+        if (!swig_obj)
+            return NULL;
+        // Convert constructed object to Exiv2::Value
+        Exiv2::Value* value = 0;
+        if (!SWIG_IsOK(SWIG_ConvertPtr(
+                swig_obj, (void**)&value, SWIGTYPE_p_Exiv2__Value, 0))) {
+            PyErr_SetString(
+                PyExc_RuntimeError, "setValue invalid conversion");
+            return NULL;
+        }
+        // Set value
+        datum->setValue(value);
         return SWIG_Py_Void();
     }
 SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_3(Exiv2::IptcData *self,std::string const &key){

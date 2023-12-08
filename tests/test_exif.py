@@ -91,8 +91,9 @@ class TestExifModule(unittest.TestCase):
         data['Exif.Image.Artist'] = 'Fred'
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'], exiv2.Exifdatum)
-        with self.assertWarns(DeprecationWarning):
-            data['Exif.Image.Orientation'] = 4
+        with self.assertRaises(TypeError):
+            data['Exif.Image.Orientation'] = 2.5
+        data['Exif.Image.Orientation'] = 4
         data['Exif.Image.Orientation'] = exiv2.UShortValue(4)
         self.assertEqual('Exif.Image.Orientation' in data, True)
         self.assertIsInstance(data['Exif.Image.Orientation'], exiv2.Exifdatum)

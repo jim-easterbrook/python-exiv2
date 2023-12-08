@@ -77,6 +77,10 @@ class TestXmpModule(unittest.TestCase):
         data['Xmp.dc.creator'] = 'Fred'
         self.assertEqual('Xmp.dc.creator' in data, True)
         self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum)
+        with self.assertRaises(TypeError):
+            data['Xmp.tiff.Orientation'] = 4
+        data['Xmp.tiff.Orientation'] = exiv2.UShortValue(4)
+        del data['Xmp.tiff.Orientation']
         b = data.begin()
         e = data.end()
         self.assertIsInstance(str(b), str)
