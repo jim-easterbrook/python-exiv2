@@ -375,38 +375,58 @@ class TestValueModule(unittest.TestCase):
             'tzHour': 1, 'tzMinute': 30})
 
     def test_TimeValue(self):
-        now = datetime.datetime.now().time()
-        now = now.replace(
-            tzinfo=datetime.timezone(datetime.timedelta(hours=1, minutes=30)),
-            microsecond=0)
-        data = bytes(now.strftime('%H%M%S%z'), 'ascii')
+        py_tz = datetime.timezone(datetime.timedelta(hours=1, minutes=30))
+        py_time = datetime.datetime.now().time()
+        py_time = py_time.replace(microsecond=0, tzinfo=py_tz)
+        exiv_time = exiv2.Time()
+        exiv_time.hour = py_time.hour
+        exiv_time.minute = py_time.minute
+        exiv_time.second = py_time.second
+        exiv_time.tzHour = 1
+        exiv_time.tzMinute = 30
+        data = bytes(py_time.strftime('%H%M%S%z'), 'ascii')
         # constructors
         value = exiv2.TimeValue()
         self.assertIsInstance(value, exiv2.TimeValue)
-        value = exiv2.TimeValue(now.hour, now.minute, now.second)
+        value = exiv2.TimeValue(py_time)
         self.assertIsInstance(value, exiv2.TimeValue)
-        value = exiv2.TimeValue(now.hour, now.minute, now.second, 1)
+        self.assertEqual(str(value), py_time.isoformat())
+        with self.assertWarns(DeprecationWarning):
+            value = exiv2.TimeValue(exiv_time)
         self.assertIsInstance(value, exiv2.TimeValue)
-        value = exiv2.TimeValue(now.hour, now.minute, now.second, 1, 30)
+        self.assertEqual(str(value), py_time.isoformat())
+        value = exiv2.TimeValue(py_time.hour, py_time.minute, py_time.second)
         self.assertIsInstance(value, exiv2.TimeValue)
+        value = exiv2.TimeValue(
+            py_time.hour, py_time.minute, py_time.second, 1)
+        self.assertIsInstance(value, exiv2.TimeValue)
+        value = exiv2.TimeValue(
+            py_time.hour, py_time.minute, py_time.second, 1, 30)
+        self.assertIsInstance(value, exiv2.TimeValue)
+        self.assertEqual(str(value), py_time.isoformat())
         # other methods
         with self.assertWarns(DeprecationWarning):
             result = value[0]
-        time = value.getTime()
-        self.assertIsInstance(time, exiv2.Time)
-        value.setTime(time)
-        self.assertEqual(str(value), now.isoformat())
-        value.setTime(now.hour, now.minute)
-        value.setTime(now.hour, now.minute, now.second)
-        value.setTime(now.hour, now.minute, now.second, 1)
-        value.setTime(now.hour, now.minute, now.second, 1, 30)
-        self.assertEqual(str(value), now.isoformat())
-        seconds = (now.hour * 3600) + (now.minute * 60) + now.second
+        result = value.getTime()
+        self.assertIsInstance(result, exiv2.Time)
+        with self.assertWarns(DeprecationWarning):
+            value.setTime(exiv_time)
+        self.assertEqual(str(value), py_time.isoformat())
+        with self.assertWarns(DeprecationWarning):
+            value.setTime(py_time.hour, py_time.minute)
+        with self.assertWarns(DeprecationWarning):
+            value.setTime(py_time.hour, py_time.minute, py_time.second)
+        with self.assertWarns(DeprecationWarning):
+            value.setTime(py_time.hour, py_time.minute, py_time.second, 1)
+        with self.assertWarns(DeprecationWarning):
+            value.setTime(py_time.hour, py_time.minute, py_time.second, 1, 30)
+        self.assertEqual(str(value), py_time.isoformat())
+        seconds = (py_time.hour * 3600) + (py_time.minute * 60) + py_time.second
         seconds -= 3600 + (30 * 60)
         value = exiv2.TimeValue()
-        value.read(now.isoformat())
-        self.do_common_tests(value, exiv2.TypeId.time, now.isoformat(), data)
-        self.do_conversion_tests(value, now.isoformat(), seconds)
+        value.read(py_time.isoformat())
+        self.do_common_tests(value, exiv2.TypeId.time, py_time.isoformat(), data)
+        self.do_conversion_tests(value, py_time.isoformat(), seconds)
         self.do_dataarea_tests(value)
 
     def test_UShortValue(self):

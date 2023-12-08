@@ -6441,7 +6441,14 @@ SWIGINTERN PyObject *Exiv2_DateValue_Date___iter__(Exiv2::DateValue::Date *self)
         Py_DECREF(seq);
         return result;
     }
+SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_5(Exiv2::TimeValue::Time &src){
+        Exiv2::TimeValue* self = new Exiv2::TimeValue;
+        self->setTime(src);
+        return self;
+    }
 SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int hour,int minute,int second=0,int tzHour=0,int tzMinute=0){
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use datetime.time to set time", 1);
         Exiv2::TimeValue::Time time;
         time.hour = hour;
         time.minute = minute;
@@ -6450,7 +6457,7 @@ SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int hour,
         time.tzMinute = tzMinute;
         self->setTime(time);
     }
-SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_5(Exiv2::Value const &value){
+SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_6(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Value should already have the correct type.", 1);
         Exiv2::TimeValue* pv = dynamic_cast< Exiv2::TimeValue* >(value.clone().release());
@@ -16833,8 +16840,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_setTime__SWIG_0(PyObject *self, Py_ssize_t 
   Exiv2::TimeValue::Time *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
+  Exiv2::TimeValue::Time time2 ;
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -16843,14 +16849,35 @@ SWIGINTERN PyObject *_wrap_TimeValue_setTime__SWIG_0(PyObject *self, Py_ssize_t 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_setTime" "', argument " "1"" of type '" "Exiv2::TimeValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__TimeValue__Time,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TimeValue_setTime" "', argument " "2"" of type '" "Exiv2::TimeValue::Time const &""'"); 
+  {
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+          swig_obj[1], (void**)&arg2, SWIGTYPE_p_Exiv2__TimeValue__Time, 0))) {
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "use datetime.time instead of TimeValue::Time", 1);
+    }
+    else {
+      if (!PyTime_Check(swig_obj[1])) {
+        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_setTime" "', argument " "2"" of type '" "datetime.time""'")
+        ;
+      }
+      time2.hour = PyDateTime_TIME_GET_HOUR(swig_obj[1]);
+      time2.minute = PyDateTime_TIME_GET_MINUTE(swig_obj[1]);
+      time2.second = PyDateTime_TIME_GET_SECOND(swig_obj[1]);
+      time2.tzHour = 0;
+      time2.tzMinute = 0;
+      PyObject* utcoffset = PyObject_CallMethod(swig_obj[1], "utcoffset", NULL);
+      if (utcoffset) {
+        if (PyDelta_Check(utcoffset)) {
+          time2.tzMinute = PyDateTime_DELTA_GET_SECONDS(utcoffset) / 60;
+          time2.tzMinute += PyDateTime_DELTA_GET_DAYS(utcoffset) * 1440;
+          time2.tzHour = time2.tzMinute / 60;;
+          time2.tzMinute -= time2.tzHour * 60;
+        }
+        Py_DECREF(utcoffset);
+      }
+      arg2 = &time2;
+    }
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "TimeValue_setTime" "', argument " "2"" of type '" "Exiv2::TimeValue::Time const &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp2);
   {
     try {
       (arg1)->setTime((Exiv2::TimeValue::Time const &)*arg2);
@@ -17432,6 +17459,62 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_TimeValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue::Time *arg1 = 0 ;
+  Exiv2::TimeValue::Time time1 ;
+  Exiv2::TimeValue *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+          swig_obj[0], (void**)&arg1, SWIGTYPE_p_Exiv2__TimeValue__Time, 0))) {
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "use datetime.time instead of TimeValue::Time", 1);
+    }
+    else {
+      if (!PyTime_Check(swig_obj[0])) {
+        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_TimeValue" "', argument " "1"" of type '" "datetime.time""'")
+        ;
+      }
+      time1.hour = PyDateTime_TIME_GET_HOUR(swig_obj[0]);
+      time1.minute = PyDateTime_TIME_GET_MINUTE(swig_obj[0]);
+      time1.second = PyDateTime_TIME_GET_SECOND(swig_obj[0]);
+      time1.tzHour = 0;
+      time1.tzMinute = 0;
+      PyObject* utcoffset = PyObject_CallMethod(swig_obj[0], "utcoffset", NULL);
+      if (utcoffset) {
+        if (PyDelta_Check(utcoffset)) {
+          time1.tzMinute = PyDateTime_DELTA_GET_SECONDS(utcoffset) / 60;
+          time1.tzMinute += PyDateTime_DELTA_GET_DAYS(utcoffset) * 1440;
+          time1.tzHour = time1.tzMinute / 60;;
+          time1.tzMinute -= time1.tzHour * 60;
+        }
+        Py_DECREF(utcoffset);
+      }
+      arg1 = &time1;
+    }
+  }
+  {
+    try {
+      result = (Exiv2::TimeValue *)new_Exiv2_TimeValue__SWIG_5(*arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__TimeValue, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
 SWIGINTERN PyObject *_wrap_TimeValue_setTime__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::TimeValue *arg1 = (Exiv2::TimeValue *) 0 ;
@@ -17719,7 +17802,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_TimeValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_TimeValue__SWIG_6(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::Value *arg1 = 0 ;
   void *argp1 = 0 ;
@@ -17738,7 +17821,7 @@ SWIGINTERN int _wrap_new_TimeValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyO
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = (Exiv2::TimeValue *)new_Exiv2_TimeValue__SWIG_5((Exiv2::Value const &)*arg1);
+      result = (Exiv2::TimeValue *)new_Exiv2_TimeValue__SWIG_6((Exiv2::Value const &)*arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -17770,6 +17853,17 @@ SWIGINTERN int _wrap_new_TimeValue(PyObject *self, PyObject *args, PyObject *kwa
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
+  if (argc == 1) {
+    int _v = 0;
+    {
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_TimeValue__SWIG_6(self, argc, argv);
+  }
+check_2:
+  
   if (argc == 1) {
     int retval = _wrap_new_TimeValue__SWIG_5(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
@@ -17804,6 +17898,7 @@ fail:
     "    Exiv2::TimeValue::TimeValue(int,int,int,int)\n"
     "    Exiv2::TimeValue::TimeValue(int,int,int)\n"
     "    Exiv2::TimeValue::TimeValue(int,int)\n"
+    "    Exiv2::TimeValue::TimeValue(Exiv2::TimeValue::Time &)\n"
     "    Exiv2::TimeValue::TimeValue(Exiv2::Value const &)\n");
   return -1;
 }

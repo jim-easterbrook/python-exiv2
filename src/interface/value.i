@@ -277,10 +277,52 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
     "year", $self->year, "month", $self->month, "day", $self->day)
 
-// Allow TimeValue to be set from int values
+// Use Python datetime.time for Exiv2::TimeValue::Time inputs
+%typemap(doctype) Exiv2::TimeValue::Time "datetime.time"
+// Dummy typecheck to make SWIG check other overloads first
+%typemap(typecheck, precedence=SWIG_TYPECHECK_SWIGOBJECT)
+        Exiv2::TimeValue::Time &src { }
+%typemap(in) Exiv2::TimeValue::Time &src (Exiv2::TimeValue::Time time) {
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+            $input, (void**)&$1, $descriptor(Exiv2::TimeValue::Time*), 0))) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use datetime.time instead of TimeValue::Time", 1);
+    }
+    else {
+        if (!PyTime_Check($input)) {
+            %argument_fail(
+                SWIG_TypeError, "datetime.time", $symname, $argnum);
+        }
+        time.hour = PyDateTime_TIME_GET_HOUR($input);
+        time.minute = PyDateTime_TIME_GET_MINUTE($input);
+        time.second = PyDateTime_TIME_GET_SECOND($input);
+        time.tzHour = 0;
+        time.tzMinute = 0;
+        PyObject* utcoffset = PyObject_CallMethod($input, "utcoffset", NULL);
+        if (utcoffset) {
+            if (PyDelta_Check(utcoffset)) {
+                time.tzMinute = PyDateTime_DELTA_GET_SECONDS(utcoffset) / 60;
+                time.tzMinute += PyDateTime_DELTA_GET_DAYS(utcoffset) * 1440;
+                time.tzHour = time.tzMinute / 60;;
+                time.tzMinute -= time.tzHour * 60;
+            }
+            Py_DECREF(utcoffset);
+        }
+        $1 = &time;
+    }
+}
 %extend Exiv2::TimeValue {
+    // Allow TimeValue to be constructed from a datetime.time
+    TimeValue(Exiv2::TimeValue::Time &src) {
+        Exiv2::TimeValue* self = new Exiv2::TimeValue;
+        self->setTime(src);
+        return self;
+    }
+    // Allow TimeValue to be set from int values
     void setTime(int hour, int minute, int second = 0,
                  int tzHour = 0, int tzMinute = 0) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use datetime.time to set time", 1);
         Exiv2::TimeValue::Time time;
         time.hour = hour;
         time.minute = minute;
