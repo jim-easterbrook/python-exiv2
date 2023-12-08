@@ -67,11 +67,13 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
         PyErr_SetString(
-            PyExc_RuntimeError, "setValue invalid conversion");
+            PyExc_RuntimeError, "set_value_from_py: invalid conversion");
+        Py_DECREF(swig_obj);
         return NULL;
     }
     // Set value
     datum->setValue(value);
+    Py_DECREF(swig_obj);
     return SWIG_Py_Void();
 };
 }
