@@ -5015,8 +5015,8 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
       }
     
 
-static swig_type_info* get_swig_type(Exiv2::Value* value) {
-    switch(value->typeId()) {
+static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
+    switch(type_id) {
         case Exiv2::asciiString:
             return SWIGTYPE_p_Exiv2__AsciiValue;
         case Exiv2::unsignedShort:
@@ -5026,11 +5026,6 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
             return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
         case Exiv2::unsignedRational:
             return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        case Exiv2::undefined:
-            // Could be a CommentValue
-            if (dynamic_cast<Exiv2::CommentValue*>(value))
-                return SWIGTYPE_p_Exiv2__CommentValue;
-            return SWIGTYPE_p_Exiv2__DataValue;
         case Exiv2::signedShort:
             return SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
         case Exiv2::signedLong:
@@ -5060,6 +5055,17 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
         default:
             return SWIGTYPE_p_Exiv2__DataValue;
     }
+};
+
+
+static swig_type_info* get_swig_type(Exiv2::Value* value) {
+    Exiv2::TypeId type_id = value->typeId();
+    if (type_id == Exiv2::undefined) {
+        // value could be a CommentValue
+        if (dynamic_cast<Exiv2::CommentValue*>(value))
+            return SWIGTYPE_p_Exiv2__CommentValue;
+    }
+    return get_type_object(type_id);
 };
 
 
@@ -5075,52 +5081,6 @@ static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
     if (old_type == Exiv2::invalidTypeId)
         return Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
     return old_type;
-};
-
-
-static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
-    switch(type_id) {
-        case Exiv2::asciiString:
-            return SWIGTYPE_p_Exiv2__AsciiValue;
-        case Exiv2::unsignedShort:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
-        case Exiv2::unsignedLong:
-        case Exiv2::tiffIfd:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
-        case Exiv2::unsignedRational:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        case Exiv2::undefined:
-            // Could be a CommentValue
-            return SWIGTYPE_p_Exiv2__DataValue;
-        case Exiv2::signedShort:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
-        case Exiv2::signedLong:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
-        case Exiv2::signedRational:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
-        case Exiv2::tiffFloat:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
-        case Exiv2::tiffDouble:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
-        case Exiv2::string:
-            return SWIGTYPE_p_Exiv2__StringValue;
-        case Exiv2::date:
-            return SWIGTYPE_p_Exiv2__DateValue;
-        case Exiv2::time:
-            return SWIGTYPE_p_Exiv2__TimeValue;
-        case Exiv2::comment:
-            return SWIGTYPE_p_Exiv2__CommentValue;
-        case Exiv2::xmpText:
-            return SWIGTYPE_p_Exiv2__XmpTextValue;
-        case Exiv2::xmpAlt:
-        case Exiv2::xmpBag:
-        case Exiv2::xmpSeq:
-            return SWIGTYPE_p_Exiv2__XmpArrayValue;
-        case Exiv2::langAlt:
-            return SWIGTYPE_p_Exiv2__LangAltValue;
-        default:
-            return SWIGTYPE_p_Exiv2__DataValue;
-    }
 };
 
 SWIGINTERN Exiv2::Value::UniquePtr Exiv2_Xmpdatum_getValue__SWIG_1(Exiv2::Xmpdatum *self,Exiv2::TypeId as_type){

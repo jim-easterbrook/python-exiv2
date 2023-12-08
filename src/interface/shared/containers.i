@@ -16,6 +16,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+%include "shared/fragments.i"
 %include "shared/keep_reference.i"
 
 
@@ -145,52 +146,6 @@ KEEP_REFERENCE(datum_type&)
 }
 #endif  // EXIV2_VERSION_HEX
 
-%fragment("get_type_object", "header") {
-static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
-    switch(type_id) {
-        case Exiv2::asciiString:
-            return $descriptor(Exiv2::AsciiValue*);
-        case Exiv2::unsignedShort:
-            return $descriptor(Exiv2::ValueType<uint16_t>*);
-        case Exiv2::unsignedLong:
-        case Exiv2::tiffIfd:
-            return $descriptor(Exiv2::ValueType<uint32_t>*);
-        case Exiv2::unsignedRational:
-            return $descriptor(Exiv2::ValueType<Exiv2::URational>*);
-        case Exiv2::undefined:
-            // Could be a CommentValue
-            return $descriptor(Exiv2::DataValue*);
-        case Exiv2::signedShort:
-            return $descriptor(Exiv2::ValueType<int16_t>*);
-        case Exiv2::signedLong:
-            return $descriptor(Exiv2::ValueType<int32_t>*);
-        case Exiv2::signedRational:
-            return $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
-        case Exiv2::tiffFloat:
-            return $descriptor(Exiv2::ValueType<float>*);
-        case Exiv2::tiffDouble:
-            return $descriptor(Exiv2::ValueType<double>*);
-        case Exiv2::string:
-            return $descriptor(Exiv2::StringValue*);
-        case Exiv2::date:
-            return $descriptor(Exiv2::DateValue*);
-        case Exiv2::time:
-            return $descriptor(Exiv2::TimeValue*);
-        case Exiv2::comment:
-            return $descriptor(Exiv2::CommentValue*);
-        case Exiv2::xmpText:
-            return $descriptor(Exiv2::XmpTextValue*);
-        case Exiv2::xmpAlt:
-        case Exiv2::xmpBag:
-        case Exiv2::xmpSeq:
-            return $descriptor(Exiv2::XmpArrayValue*);
-        case Exiv2::langAlt:
-            return $descriptor(Exiv2::LangAltValue*);
-        default:
-            return $descriptor(Exiv2::DataValue*);
-    }
-};
-}
 %extend datum_type {
     // Set the value from a Python object. The datum's current or default
     // type is used to create an Exiv2::Value object (via Python) from the

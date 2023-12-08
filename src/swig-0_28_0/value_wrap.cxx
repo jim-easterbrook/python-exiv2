@@ -5668,8 +5668,8 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-static swig_type_info* get_swig_type(Exiv2::Value* value) {
-    switch(value->typeId()) {
+static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
+    switch(type_id) {
         case Exiv2::asciiString:
             return SWIGTYPE_p_Exiv2__AsciiValue;
         case Exiv2::unsignedShort:
@@ -5679,11 +5679,6 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
             return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
         case Exiv2::unsignedRational:
             return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        case Exiv2::undefined:
-            // Could be a CommentValue
-            if (dynamic_cast<Exiv2::CommentValue*>(value))
-                return SWIGTYPE_p_Exiv2__CommentValue;
-            return SWIGTYPE_p_Exiv2__DataValue;
         case Exiv2::signedShort:
             return SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
         case Exiv2::signedLong:
@@ -5713,6 +5708,17 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
         default:
             return SWIGTYPE_p_Exiv2__DataValue;
     }
+};
+
+
+static swig_type_info* get_swig_type(Exiv2::Value* value) {
+    Exiv2::TypeId type_id = value->typeId();
+    if (type_id == Exiv2::undefined) {
+        // value could be a CommentValue
+        if (dynamic_cast<Exiv2::CommentValue*>(value))
+            return SWIGTYPE_p_Exiv2__CommentValue;
+    }
+    return get_type_object(type_id);
 };
 
 

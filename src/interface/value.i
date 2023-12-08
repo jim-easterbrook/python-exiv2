@@ -24,6 +24,7 @@
 %include "preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
+%include "shared/fragments.i"
 %include "shared/keep_reference.i"
 %include "shared/struct_iterator.i"
 %include "shared/unique_ptr.i"
@@ -91,52 +92,15 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 }
 // Downcast base class pointers to derived class
 // Function to get swig type for an Exiv2 type id
-%fragment("get_swig_type", "header") {
+%fragment("get_swig_type", "header", fragment="get_type_object") {
 static swig_type_info* get_swig_type(Exiv2::Value* value) {
-    switch(value->typeId()) {
-        case Exiv2::asciiString:
-            return $descriptor(Exiv2::AsciiValue*);
-        case Exiv2::unsignedShort:
-            return $descriptor(Exiv2::ValueType<uint16_t>*);
-        case Exiv2::unsignedLong:
-        case Exiv2::tiffIfd:
-            return $descriptor(Exiv2::ValueType<uint32_t>*);
-        case Exiv2::unsignedRational:
-            return $descriptor(Exiv2::ValueType<Exiv2::URational>*);
-        case Exiv2::undefined:
-            // Could be a CommentValue
-            if (dynamic_cast<Exiv2::CommentValue*>(value))
-                return $descriptor(Exiv2::CommentValue*);
-            return $descriptor(Exiv2::DataValue*);
-        case Exiv2::signedShort:
-            return $descriptor(Exiv2::ValueType<int16_t>*);
-        case Exiv2::signedLong:
-            return $descriptor(Exiv2::ValueType<int32_t>*);
-        case Exiv2::signedRational:
-            return $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
-        case Exiv2::tiffFloat:
-            return $descriptor(Exiv2::ValueType<float>*);
-        case Exiv2::tiffDouble:
-            return $descriptor(Exiv2::ValueType<double>*);
-        case Exiv2::string:
-            return $descriptor(Exiv2::StringValue*);
-        case Exiv2::date:
-            return $descriptor(Exiv2::DateValue*);
-        case Exiv2::time:
-            return $descriptor(Exiv2::TimeValue*);
-        case Exiv2::comment:
+    Exiv2::TypeId type_id = value->typeId();
+    if (type_id == Exiv2::undefined) {
+        // value could be a CommentValue
+        if (dynamic_cast<Exiv2::CommentValue*>(value))
             return $descriptor(Exiv2::CommentValue*);
-        case Exiv2::xmpText:
-            return $descriptor(Exiv2::XmpTextValue*);
-        case Exiv2::xmpAlt:
-        case Exiv2::xmpBag:
-        case Exiv2::xmpSeq:
-            return $descriptor(Exiv2::XmpArrayValue*);
-        case Exiv2::langAlt:
-            return $descriptor(Exiv2::LangAltValue*);
-        default:
-            return $descriptor(Exiv2::DataValue*);
     }
+    return get_type_object(type_id);
 };
 }
 #if EXIV2_VERSION_HEX < 0x001c0000
