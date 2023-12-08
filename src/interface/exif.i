@@ -56,8 +56,7 @@ DATA_ITERATOR_CLASSES(
     ExifData_iterator, Exiv2::ExifData::iterator, Exiv2::Exifdatum)
 #endif
 
-DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
-    Exiv2::ExifKey(datum->key()).defaultTypeId())
+DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::ExifData::operator[];

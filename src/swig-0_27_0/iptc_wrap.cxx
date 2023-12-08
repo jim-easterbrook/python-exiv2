@@ -4921,10 +4921,10 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
-    Exiv2::TypeId old_type = datum->typeId();
-    if (old_type == Exiv2::invalidTypeId)
-        return Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
-    return old_type;
+    Exiv2::TypeId type_id = datum->typeId();
+    if (type_id != Exiv2::invalidTypeId)
+        return type_id;
+    return Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
 };
 
 

@@ -21,7 +21,7 @@
 
 
 // Macro to wrap data containers.
-%define DATA_CONTAINER(base_class, datum_type, key_type, default_type_func)
+%define DATA_CONTAINER(base_class, datum_type, key_type)
 // Turn off exception checking for methods that are guaranteed not to throw
 %noexception base_class::begin;
 %noexception base_class::end;
@@ -39,14 +39,6 @@
     base_class::__setitem__;
 %feature("python:slot", "sq_contains", functype="objobjproc")
     base_class::__contains__;
-%fragment("get_type_id"{datum_type}, "header") {
-static Exiv2::TypeId get_type_id(datum_type* datum) {
-    Exiv2::TypeId old_type = datum->typeId();
-    if (old_type == Exiv2::invalidTypeId)
-        return default_type_func;
-    return old_type;
-};
-}
 %fragment("set_value_from_py"{datum_type}, "header",
           fragment="get_type_object", fragment="get_type_id"{datum_type}) {
 static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {

@@ -35,8 +35,7 @@ DATA_ITERATOR_CLASSES(
     IptcData_iterator, Exiv2::IptcData::iterator, Exiv2::Iptcdatum)
 #endif
 
-DATA_CONTAINER(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey,
-    Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
+DATA_CONTAINER(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::IptcData::operator[];

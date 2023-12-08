@@ -35,8 +35,7 @@ DATA_ITERATOR_CLASSES(
     XmpData_iterator, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
 #endif
 
-DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
-    Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
+DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::XmpData::operator[];
