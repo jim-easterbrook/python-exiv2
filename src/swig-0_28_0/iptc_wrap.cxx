@@ -5064,6 +5064,60 @@ SWIGINTERNINLINE PyObject*
   return PyInt_FromSize_t((size_t) value);
 }
 
+
+static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
+    Exiv2::TypeId old_type = datum->typeId();
+    if (old_type == Exiv2::invalidTypeId)
+        return Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
+    return old_type;
+};
+
+
+static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
+    switch(type_id) {
+        case Exiv2::asciiString:
+            return SWIGTYPE_p_Exiv2__AsciiValue;
+        case Exiv2::unsignedShort:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+        case Exiv2::unsignedLong:
+        case Exiv2::tiffIfd:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+        case Exiv2::unsignedRational:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+        case Exiv2::undefined:
+            // Could be a CommentValue
+            return SWIGTYPE_p_Exiv2__DataValue;
+        case Exiv2::signedShort:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+        case Exiv2::signedLong:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+        case Exiv2::signedRational:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+        case Exiv2::tiffFloat:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+        case Exiv2::tiffDouble:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+        case Exiv2::string:
+            return SWIGTYPE_p_Exiv2__StringValue;
+        case Exiv2::date:
+            return SWIGTYPE_p_Exiv2__DateValue;
+        case Exiv2::time:
+            return SWIGTYPE_p_Exiv2__TimeValue;
+        case Exiv2::comment:
+            return SWIGTYPE_p_Exiv2__CommentValue;
+        case Exiv2::xmpText:
+            return SWIGTYPE_p_Exiv2__XmpTextValue;
+        case Exiv2::xmpAlt:
+        case Exiv2::xmpBag:
+        case Exiv2::xmpSeq:
+            return SWIGTYPE_p_Exiv2__XmpArrayValue;
+        case Exiv2::langAlt:
+            return SWIGTYPE_p_Exiv2__LangAltValue;
+        default:
+            return SWIGTYPE_p_Exiv2__DataValue;
+    }
+};
+
 SWIGINTERN Exiv2::Value::UniquePtr Exiv2_Iptcdatum_getValue__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Value should already have the correct type.", 1);
@@ -5074,14 +5128,29 @@ SWIGINTERN Exiv2::Value const &Exiv2_Iptcdatum_value__SWIG_1(Exiv2::Iptcdatum *s
             "Value should already have the correct type.", 1);
         return self->value();
     }
-
-static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
-    Exiv2::TypeId old_type = datum->typeId();
-    if (old_type == Exiv2::invalidTypeId)
-        return Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
-    return old_type;
-};
-
+SWIGINTERN PyObject *Exiv2_Iptcdatum_setValue__SWIG_2(Exiv2::Iptcdatum *self,PyObject *py_value){
+        // Get type object of current or default value
+        swig_type_info* ty_info = get_type_object(get_type_id(self));
+        SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+        // Call type object to invoke constructor
+        PyObject* args = PyTuple_Pack(1, py_value);
+        PyObject* swig_obj = PyObject_CallObject(
+            (PyObject*)cl_data->pytype, args);
+        Py_DECREF(args);
+        if (!swig_obj)
+            return NULL;
+        // Convert constructed object to Exiv2::Value
+        Exiv2::Value* value = 0;
+        if (!SWIG_IsOK(SWIG_ConvertPtr(
+                swig_obj, (void**)&value, SWIGTYPE_p_Exiv2__Value, 0))) {
+            PyErr_SetString(
+                PyExc_RuntimeError, "setValue invalid conversion");
+            return NULL;
+        }
+        // Set value
+        self->setValue(value);
+        return SWIG_Py_Void();
+    }
 
 static void warn_type_change(Exiv2::TypeId old_type, Exiv2::Iptcdatum* datum) {
     using namespace Exiv2;
@@ -5584,6 +5653,43 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_setValue" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
+  arg2 = swig_obj[1];
+  {
+    try {
+      result = (PyObject *)Exiv2_Iptcdatum_setValue__SWIG_2((Exiv2::Iptcdatum*)(arg1)->operator ->(),arg2);
+      
+      
+      
+    } catch(Exiv2::Error const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -5606,7 +5712,18 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue(PyObject *self, PyObject *
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_IptcData_iterator_setValue__SWIG_1(self, argc, argv);
+    int _v = 0;
+    {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_2;
+    return _wrap_IptcData_iterator_setValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_IptcData_iterator_setValue__SWIG_2(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -5615,7 +5732,8 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator_setValue'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Iptcdatum::setValue(Exiv2::Value const *)\n"
-    "    Exiv2::Iptcdatum::setValue(std::string const &)\n");
+    "    Exiv2::Iptcdatum::setValue(std::string const &)\n"
+    "    Exiv2::Iptcdatum::setValue(PyObject *)\n");
   return 0;
 }
 
@@ -7331,42 +7449,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Iptcdatum_setValue(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Iptcdatum_setValue", 0, 2, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    int _v = 0;
-    {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Exiv2__Value, 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_1;
-    return _wrap_Iptcdatum_setValue__SWIG_0(self, argc, argv);
-  }
-check_1:
-  
-  if (argc == 2) {
-    PyObject *retobj = _wrap_Iptcdatum_setValue__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Iptcdatum_setValue'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Iptcdatum::setValue(Exiv2::Value const *)\n"
-    "    Exiv2::Iptcdatum::setValue(std::string const &)\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
@@ -8566,6 +8648,91 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Iptcdatum::value() const\n"
     "    Exiv2::Iptcdatum::value(Exiv2::TypeId)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Iptcdatum_setValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_setValue" "', argument " "1"" of type '" "Exiv2::Iptcdatum *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
+  arg2 = swig_obj[1];
+  {
+    try {
+      result = (PyObject *)Exiv2_Iptcdatum_setValue__SWIG_2(arg1,arg2);
+      
+      
+      
+    } catch(Exiv2::Error const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Iptcdatum_setValue(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Iptcdatum_setValue", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 2) {
+    int _v = 0;
+    {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Exiv2__Value, 0);
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_1;
+    return _wrap_Iptcdatum_setValue__SWIG_0(self, argc, argv);
+  }
+check_1:
+  
+  if (argc == 2) {
+    int _v = 0;
+    {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_2;
+    return _wrap_Iptcdatum_setValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 2) {
+    PyObject *retobj = _wrap_Iptcdatum_setValue__SWIG_2(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Iptcdatum_setValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Iptcdatum::setValue(Exiv2::Value const *)\n"
+    "    Exiv2::Iptcdatum::setValue(std::string const &)\n"
+    "    Exiv2::Iptcdatum::setValue(PyObject *)\n");
   return 0;
 }
 

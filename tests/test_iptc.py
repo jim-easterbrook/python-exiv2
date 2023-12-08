@@ -144,6 +144,8 @@ class TestIptcModule(unittest.TestCase):
         self.assertIsInstance(datum.value(), exiv2.StringValue)
         datum.setValue('fred')
         datum.setValue(exiv2.StringValue('Acme'))
+        with self.assertRaises(TypeError):
+            datum.setValue(123)
 
     def test_IptcData_iterator(self):
         self.image.readMetadata()

@@ -137,6 +137,8 @@ class TestXmpModule(unittest.TestCase):
         self.assertIsInstance(datum.value(), exiv2.LangAltValue)
         datum.setValue('fred')
         datum.setValue(exiv2.XmpTextValue('Acme'))
+        with self.assertRaises(TypeError):
+            datum.setValue(123)
 
     def test_XmpData_iterator(self):
         self.image.readMetadata()

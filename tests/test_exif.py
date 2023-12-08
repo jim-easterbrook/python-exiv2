@@ -144,6 +144,8 @@ class TestExifModule(unittest.TestCase):
         self.assertIsInstance(datum.value(), exiv2.AsciiValue)
         datum.setValue('fred')
         datum.setValue(exiv2.AsciiValue('Acme'))
+        with self.assertRaises(TypeError):
+            datum.setValue(123)
 
     def test_ExifData_iterator(self):
         self.image.readMetadata()

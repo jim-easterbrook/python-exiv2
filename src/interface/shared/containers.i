@@ -151,4 +151,81 @@ KEEP_REFERENCE(datum_type&)
     }
 }
 #endif  // EXIV2_VERSION_HEX
+
+%fragment("get_type_object", "header") {
+static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
+    switch(type_id) {
+        case Exiv2::asciiString:
+            return $descriptor(Exiv2::AsciiValue*);
+        case Exiv2::unsignedShort:
+            return $descriptor(Exiv2::ValueType<uint16_t>*);
+        case Exiv2::unsignedLong:
+        case Exiv2::tiffIfd:
+            return $descriptor(Exiv2::ValueType<uint32_t>*);
+        case Exiv2::unsignedRational:
+            return $descriptor(Exiv2::ValueType<Exiv2::URational>*);
+        case Exiv2::undefined:
+            // Could be a CommentValue
+            return $descriptor(Exiv2::DataValue*);
+        case Exiv2::signedShort:
+            return $descriptor(Exiv2::ValueType<int16_t>*);
+        case Exiv2::signedLong:
+            return $descriptor(Exiv2::ValueType<int32_t>*);
+        case Exiv2::signedRational:
+            return $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
+        case Exiv2::tiffFloat:
+            return $descriptor(Exiv2::ValueType<float>*);
+        case Exiv2::tiffDouble:
+            return $descriptor(Exiv2::ValueType<double>*);
+        case Exiv2::string:
+            return $descriptor(Exiv2::StringValue*);
+        case Exiv2::date:
+            return $descriptor(Exiv2::DateValue*);
+        case Exiv2::time:
+            return $descriptor(Exiv2::TimeValue*);
+        case Exiv2::comment:
+            return $descriptor(Exiv2::CommentValue*);
+        case Exiv2::xmpText:
+            return $descriptor(Exiv2::XmpTextValue*);
+        case Exiv2::xmpAlt:
+        case Exiv2::xmpBag:
+        case Exiv2::xmpSeq:
+            return $descriptor(Exiv2::XmpArrayValue*);
+        case Exiv2::langAlt:
+            return $descriptor(Exiv2::LangAltValue*);
+        default:
+            return $descriptor(Exiv2::DataValue*);
+    }
+};
+}
+%extend datum_type {
+    // Set the value from a Python object. The datum's current or default
+    // type is used to create an Exiv2::Value object (via Python) from the
+    // Python object.
+    %fragment("get_type_id"{datum_type});
+    %fragment("get_type_object");
+    PyObject* setValue(PyObject* py_value) {
+        // Get type object of current or default value
+        swig_type_info* ty_info = get_type_object(get_type_id($self));
+        SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+        // Call type object to invoke constructor
+        PyObject* args = PyTuple_Pack(1, py_value);
+        PyObject* swig_obj = PyObject_CallObject(
+            (PyObject*)cl_data->pytype, args);
+        Py_DECREF(args);
+        if (!swig_obj)
+            return NULL;
+        // Convert constructed object to Exiv2::Value
+        Exiv2::Value* value = 0;
+        if (!SWIG_IsOK(SWIG_ConvertPtr(
+                swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
+            PyErr_SetString(
+                PyExc_RuntimeError, "setValue invalid conversion");
+            return NULL;
+        }
+        // Set value
+        $self->setValue(value);
+        return SWIG_Py_Void();
+    }
+}
 %enddef // EXTEND_METADATUM
