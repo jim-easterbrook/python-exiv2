@@ -277,6 +277,20 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
     "year", $self->year, "month", $self->month, "day", $self->day)
 
+// Use SWIG default value handling instead of C++ overloads
+%typemap(default) int second {$1 = 0;}
+%typemap(default) int tzHour {$1 = 0;}
+%typemap(default) int tzMinute {$1 = 0;}
+%ignore Exiv2::TimeValue::TimeValue(int,int);
+%ignore Exiv2::TimeValue::TimeValue(int,int,int);
+%ignore Exiv2::TimeValue::TimeValue(int,int,int,int);
+// int is replaced by int32_t from exiv2 0.28.0
+%typemap(default) int32_t second {$1 = 0;}
+%typemap(default) int32_t tzHour {$1 = 0;}
+%typemap(default) int32_t tzMinute {$1 = 0;}
+%ignore Exiv2::TimeValue::TimeValue(int32_t,int32_t);
+%ignore Exiv2::TimeValue::TimeValue(int32_t,int32_t,int32_t);
+%ignore Exiv2::TimeValue::TimeValue(int32_t,int32_t,int32_t,int32_t);
 // Use Python datetime.time for Exiv2::TimeValue::Time outputs
 %typemap(out) const Exiv2::TimeValue::Time& {
     PyObject* utcoffset = PyDelta_FromDSU(
@@ -348,8 +362,8 @@ STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
         return self;
     }
     // Allow TimeValue to be set from int values
-    void setTime(int hour, int minute, int second = 0,
-                 int tzHour = 0, int tzMinute = 0) {
+    void setTime(int32_t hour, int32_t minute, int32_t second,
+                 int32_t tzHour, int32_t tzMinute) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use datetime.time to set time", 1);
         Exiv2::TimeValue::Time time;
