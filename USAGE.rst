@@ -76,15 +76,90 @@ The Python interface uses the value's ``typeId()`` method to determine its type 
 Recasting data values
 ^^^^^^^^^^^^^^^^^^^^^
 
-In some cases, such as ``Exif.Photo.UserComment``, the value's type id is not specific enough to choose a useful ``Exiv2::Value`` subclass.
-The Python interface allows a datum's value to be obtained as a different type.
-This can be used to decode an Exif user comment:
+In earlier versions of python-gphoto2 you could set the type of value returned by ``value()`` or ``getValue()`` by passing an ``exiv2.TypeId`` parameter:
 
 .. code:: python
 
     datum = exifData['Exif.Photo.UserComment']
     value = datum.value(exiv2.TypeId.comment)
     result = value.comment()
+
+Since version 0.16.0 the returned value is always of the correct type and this parameter is ignored.
+
+Writing data values
+-------------------
+
+The simplest way to set metadata is by assigning a value to the metadatum:
+
+.. code:: python
+
+    exifData['Exif.Image.ImageDescription'] = 'Uncle Fred at the seaside'
+    iptcData['Iptc.Application2.Caption'] = 'Uncle Fred at the seaside'
+    xmpData['Xmp.dc.description'] = 'Uncle Fred at the seaside'
+
+The datum is created if it doesn't already exist and its value is set to the text.
+
+Setting the type
+^^^^^^^^^^^^^^^^
+
+Metadata values have a type, for example Exif values can be ``Ascii``, ``Short``, ``Rational`` etc.
+When a datum is created its type is set to the default for the key, so ``exifData['Exif.Image.ImageDescription']`` is set to ``Ascii``.
+If a datum already exists, its current type is not changed by assigning a string value.
+
+If you need to force the type of a datum (e.g. because it currently has the wrong type) you can create a value of the correct type and assign it:
+
+.. code:: python
+
+    exifData['Exif.Image.ImageDescription'] = exiv2.AsciiValue('Uncle Fred at the seaside')
+
+Numerical data
+^^^^^^^^^^^^^^
+
+Setting string values as above is OK for text data such as Exif's Ascii or XMP's XmpText, but less suitable for numeric data such as GPS coordinates.
+These can be set from a string, but it is better to use numeric data:
+
+.. code:: python
+
+    exifData['Exif.GPSInfo.GPSLatitude'] = '51/1 30/1 4910/1000'
+    exifData['Exif.GPSInfo.GPSLatitude'] = ((51, 1), (30, 1), (4910, 1000))
+
+In the first line the exiv2 library converts the string ``'51/1 30/1 4910/1000'`` to three (numerator, denominator) pairs.
+In the second line the three pairs are supplied as integer numbers and no conversion is needed.
+This is potentially quicker and more accurate.
+(The Python Fraction_ type is very useful for dealing with rational numbers like these.)
+
+Structured data
+^^^^^^^^^^^^^^^
+
+Some XMP data is more complicated to deal with.
+For example, the locations shown in a photograph can be stored as a group of structures, each containing location/city/country information.
+Exiv gives these complex tag names like ``Xmp.iptcExt.LocationShown[1]/Iptc4xmpExt:City``.
+
+Data like this is written in several stages.
+First create the array ``Xmp.iptcExt.LocationShown``:
+
+.. code:: python
+
+    tmp = exiv2.XmpTextValue()
+    tmp.setXmpArrayType(exiv2.XmpValue.XmpArrayType.xaBag)
+    xmpData['Xmp.iptcExt.LocationShown'] = tmp
+
+Then create a structured data container for the first element in the array: 
+
+.. code:: python
+
+    tmp = exiv2.XmpTextValue()
+    tmp.setXmpStruct()
+    xmpData['Xmp.iptcExt.LocationShown[1]'] = tmp
+
+Then write individual items in the structure:
+
+.. code:: python
+
+    xmpData['Xmp.iptcExt.LocationShown[1]/Iptc4xmpExt:City'] = 'London'
+    xmpData['Xmp.iptcExt.LocationShown[1]/Iptc4xmpExt:Sublocation'] = 'Buckingham Palace'
+
+This can potentially be nested to any depth.
 
 Exiv2::ValueType< T >
 ---------------------
@@ -350,6 +425,8 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://exiv2.org/doc/classExiv2_1_1Value.html
 .. _Exiv2::ValueType< T >:
     https://exiv2.org/doc/classExiv2_1_1ValueType.html
+.. _Fraction:
+    https://docs.python.org/3/library/fractions.html
 .. _libexiv2:
     https://www.exiv2.org/doc/index.html
 .. _list:
