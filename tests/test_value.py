@@ -335,6 +335,7 @@ class TestValueModule(unittest.TestCase):
             result = value[0]
         result = value.getDate()
         self.assertIsInstance(result, datetime.date)
+        self.assertEqual(str(result), py_date.isoformat())
         with self.assertWarns(DeprecationWarning):
             value.setDate(exiv_date)
         self.assertEqual(str(value), py_date.isoformat())
@@ -408,7 +409,8 @@ class TestValueModule(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             result = value[0]
         result = value.getTime()
-        self.assertIsInstance(result, exiv2.Time)
+        self.assertIsInstance(result, datetime.time)
+        self.assertEqual(str(result), py_time.isoformat())
         with self.assertWarns(DeprecationWarning):
             value.setTime(exiv_time)
         self.assertEqual(str(value), py_time.isoformat())

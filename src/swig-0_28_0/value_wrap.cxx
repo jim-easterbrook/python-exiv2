@@ -18240,7 +18240,34 @@ SWIGINTERN PyObject *_wrap_TimeValue_getTime(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
+  {
+    PyObject* utcoffset = PyDelta_FromDSU(
+      0, (result->tzHour * 3600) + (result->tzMinute * 60), 0);
+    PyObject* tzinfo = NULL;
+#if PY_VERSION_HEX >= 0x03070000
+    tzinfo = PyTimeZone_FromOffset(utcoffset);
+#else
+    PyObject* datetime = PyImport_ImportModule("datetime");
+    if (datetime) {
+      tzinfo = PyObject_CallMethod(datetime, "timezone", "(O)", utcoffset);
+      Py_DECREF(datetime);
+    }
+#endif
+    Py_DECREF(utcoffset);
+    if (!tzinfo)
+    SWIG_fail;
+    resultobj = PyTime_FromTime(result->hour, result->minute, result->second, 0);
+    PyObject* replace = PyObject_GetAttrString(resultobj, "replace");
+    if (!replace)
+    SWIG_fail;
+    Py_DECREF(resultobj);
+    PyObject* args = PyTuple_New(0);
+    PyObject* kw = Py_BuildValue("{sN}", "tzinfo", tzinfo);
+    resultobj = PyObject_Call(replace, args, kw);
+    Py_DECREF(kw);
+    Py_DECREF(args);
+    Py_DECREF(replace);
+  }
   return resultobj;
 fail:
   return NULL;

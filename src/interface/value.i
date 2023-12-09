@@ -277,6 +277,35 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
     "year", $self->year, "month", $self->month, "day", $self->day)
 
+// Use Python datetime.time for Exiv2::TimeValue::Time outputs
+%typemap(out) const Exiv2::TimeValue::Time& {
+    PyObject* utcoffset = PyDelta_FromDSU(
+        0, ($1->tzHour * 3600) + ($1->tzMinute * 60), 0);
+    PyObject* tzinfo = NULL;
+%#if PY_VERSION_HEX >= 0x03070000
+    tzinfo = PyTimeZone_FromOffset(utcoffset);
+%#else
+    PyObject* datetime = PyImport_ImportModule("datetime");
+    if (datetime) {
+        tzinfo = PyObject_CallMethod(datetime, "timezone", "(O)", utcoffset);
+        Py_DECREF(datetime);
+    }
+%#endif
+    Py_DECREF(utcoffset);
+    if (!tzinfo)
+        SWIG_fail;
+    $result = PyTime_FromTime($1->hour, $1->minute, $1->second, 0);
+    PyObject* replace = PyObject_GetAttrString($result, "replace");
+    if (!replace)
+        SWIG_fail;
+    Py_DECREF($result);
+    PyObject* args = PyTuple_New(0);
+    PyObject* kw = Py_BuildValue("{sN}", "tzinfo", tzinfo);
+    $result = PyObject_Call(replace, args, kw);
+    Py_DECREF(kw);
+    Py_DECREF(args);
+    Py_DECREF(replace);
+}
 // Use Python datetime.time for Exiv2::TimeValue::Time inputs
 %typemap(doctype) Exiv2::TimeValue::Time "datetime.time"
 // Dummy typecheck to make SWIG check other overloads first

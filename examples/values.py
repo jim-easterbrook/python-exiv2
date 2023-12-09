@@ -29,33 +29,22 @@ import locale
 import sys
 
 import exiv2
-import tzlocal
 
 def main():
     locale.setlocale(locale.LC_ALL, '')
     print('==== DateValue & TimeValue ====')
-    # These are only used in Iptc - Exif & Xmp use string representations
-    tz = tzlocal.get_localzone()
-    py_datetime = datetime.datetime.now(tz)
+    # These are only used in Iptc - Exif & Xmp use string representations.
+    tz = datetime.timezone(datetime.timedelta(hours=2, minutes=45))
+    py_datetime = datetime.datetime.now(tz).replace(microsecond=0)
     print("Python datetime:", py_datetime)
     # Python -> Exiv2
-    # can pass ints to constructor or use setDate() afterwards
-    date = exiv2.DateValue(py_datetime.year, py_datetime.month, py_datetime.day)
+    # can pass value to constructor or use setDate() afterwards
+    date = exiv2.DateValue(py_datetime)
     print("Exiv2 date:", date)
-    time = exiv2.TimeValue()
-    # negative offsets with non-zero minutes will not be handled
-    # correctly by exiv2
-    offset = int(tz.utcoffset(py_datetime).total_seconds()) // 60
-    time.setTime(py_datetime.hour, py_datetime.minute, py_datetime.second,
-                 offset // 60, offset % 60)
+    time = exiv2.TimeValue(py_datetime.timetz())
     print("Exiv2 time:", time)
     # Exiv2 -> Python
-    d = date.getDate()
-    t = time.getTime()
-    tz = datetime.timezone(
-        datetime.timedelta(hours=t.tzHour, minutes=t.tzMinute))
-    py_datetime = datetime.datetime(
-        d.year, d.month, d.day, t.hour, t.minute, t.second, tzinfo=tz)
+    py_datetime = datetime.datetime.combine(date.getDate(), time.getTime());
     print("Python datetime:", py_datetime)
 
     print('==== ShortValue ====')

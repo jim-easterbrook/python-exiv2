@@ -16,6 +16,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.16.0:
+  */ API change: DateValue.getDate() returns Python datetime.date.
+  */ API change: TimeValue.getTime() returns Python datetime.time.
+  */ Deprecated: exiv2.Date and exiv2.Time objects.
+  */ Add buffer interface to PreviewImage
+  */ Set datum value from Python object directly instead of via string.
+  */ Add enums for LogMsg.Level
+  */ Moved Position enum to BasicIo class.
+  */ Moved CharsetId enum to CommentValue class.
+  */ Moved XmpArrayType and XmpStruct enums to XmpValue class.
+  */ More exiv2 structs are iterable for easy conversion to Python dict.
+
 Changes in v0.15.0:
   1/ Added __version_tuple__ for easy runtime version testing.
   2/ exiv2.testVersion() can be called from Python.
