@@ -158,8 +158,6 @@ KEEP_REFERENCE(const Exiv2::Value&)
 %noexception type_name::size;
 %extend type_name {
     part_name(const Exiv2::Value& value) {
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         type_name* pv = dynamic_cast< type_name* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";

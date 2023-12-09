@@ -6014,8 +6014,6 @@ SWIGINTERNINLINE PyObject*
 
 SWIGINTERN std::string Exiv2_Value___str__(Exiv2::Value *self){return self->toString();}
 SWIGINTERN Exiv2::DataValue *new_Exiv2_DataValue__SWIG_5(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::DataValue* pv = dynamic_cast< Exiv2::DataValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6040,8 +6038,6 @@ SWIGINTERN char const *Exiv2_StringValueBase_data(Exiv2::StringValueBase *self){
         return self->value_.data();
     }
 SWIGINTERN Exiv2::StringValue *new_Exiv2_StringValue__SWIG_2(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::StringValue* pv = dynamic_cast< Exiv2::StringValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6058,8 +6054,6 @@ SWIGINTERN Exiv2::StringValue *new_Exiv2_StringValue__SWIG_2(Exiv2::Value const 
         return pv;
     }
 SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_2(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::AsciiValue* pv = dynamic_cast< Exiv2::AsciiValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6086,8 +6080,6 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::CommentValue* pv = dynamic_cast< Exiv2::CommentValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6104,8 +6096,6 @@ SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value cons
         return pv;
     }
 SWIGINTERN Exiv2::XmpTextValue *new_Exiv2_XmpTextValue__SWIG_2(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::XmpTextValue* pv = dynamic_cast< Exiv2::XmpTextValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6130,8 +6120,6 @@ SWIGINTERN char const *Exiv2_XmpTextValue_data(Exiv2::XmpTextValue *self){
         return self->value_.data();
     }
 SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_2(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::XmpArrayValue* pv = dynamic_cast< Exiv2::XmpArrayValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6547,8 +6535,6 @@ SWIGINTERN bool Exiv2_LangAltValue___contains__(Exiv2::LangAltValue *self,std::s
         return self->value_.find(key) != self->value_.end();
     }
 SWIGINTERN Exiv2::LangAltValue *new_Exiv2_LangAltValue__SWIG_3(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::LangAltValue* pv = dynamic_cast< Exiv2::LangAltValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6579,8 +6565,6 @@ SWIGINTERN void Exiv2_DateValue_setDate__SWIG_1(Exiv2::DateValue *self,int year,
         self->setDate(date);
     }
 SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_3(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::DateValue* pv = dynamic_cast< Exiv2::DateValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6624,8 +6608,6 @@ SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int32_t h
         self->setTime(time);
     }
 SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_3(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::TimeValue* pv = dynamic_cast< Exiv2::TimeValue* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6689,8 +6671,6 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 }
 
 SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_6(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::ValueType<uint16_t>* pv = dynamic_cast< Exiv2::ValueType<uint16_t>* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6777,8 +6757,6 @@ SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
 }
 
 SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_6(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::ValueType<uint32_t>* pv = dynamic_cast< Exiv2::ValueType<uint32_t>* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6852,8 +6830,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg__append(Exiv2::ValueType< uint32_
       }
     
 SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_6(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::ValueType<Exiv2::URational>* pv = dynamic_cast< Exiv2::ValueType<Exiv2::URational>* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6913,8 +6889,6 @@ SWIG_AsVal_short (PyObject * obj, short *val)
 }
 
 SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_6(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::ValueType<int16_t>* pv = dynamic_cast< Exiv2::ValueType<int16_t>* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -6985,8 +6959,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg__append(Exiv2::ValueType< int16_t 
         self->value_.push_back(value);
     }
 SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_6(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::ValueType<int32_t>* pv = dynamic_cast< Exiv2::ValueType<int32_t>* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -7030,8 +7002,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg__append(Exiv2::ValueType< int32_t 
         self->value_.push_back(value);
     }
 SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_6(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::ValueType<Exiv2::Rational>* pv = dynamic_cast< Exiv2::ValueType<Exiv2::Rational>* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -7131,8 +7101,6 @@ SWIG_AsVal_float (PyObject * obj, float *val)
 }
 
 SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_6(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::ValueType<float>* pv = dynamic_cast< Exiv2::ValueType<float>* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -7196,8 +7164,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_float_Sg__append(Exiv2::ValueType< float > *s
         self->value_.push_back(value);
     }
 SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_6(Exiv2::Value const &value){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
         Exiv2::ValueType<double>* pv = dynamic_cast< Exiv2::ValueType<double>* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";

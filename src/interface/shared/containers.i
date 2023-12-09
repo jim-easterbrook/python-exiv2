@@ -121,30 +121,24 @@ KEEP_REFERENCE(datum_type&)
 #if EXIV2_VERSION_HEX < 0x001c0000
 %extend datum_type {
     Exiv2::Value::AutoPtr getValue(Exiv2::TypeId as_type) {
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return $self->getValue();
-    }
-    const Exiv2::Value& value(Exiv2::TypeId as_type) {
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
-        return $self->value();
     }
 }
 #else   // EXIV2_VERSION_HEX
 %extend datum_type {
     Exiv2::Value::UniquePtr getValue(Exiv2::TypeId as_type) {
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return $self->getValue();
-    }
-    const Exiv2::Value& value(Exiv2::TypeId as_type) {
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
-        return $self->value();
     }
 }
 #endif  // EXIV2_VERSION_HEX
+%extend datum_type {
+    const Exiv2::Value& value(Exiv2::TypeId as_type) {
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return $self->value();
+    }
+}
 
 %extend datum_type {
     // Set the value from a Python object. The datum's current or default

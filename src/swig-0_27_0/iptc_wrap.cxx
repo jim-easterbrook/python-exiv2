@@ -4959,13 +4959,11 @@ static PyObject* set_value_from_py(Exiv2::Iptcdatum* datum, PyObject* py_value) 
 };
 
 SWIGINTERN Exiv2::Value::AutoPtr Exiv2_Iptcdatum_getValue__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return self->getValue();
     }
 SWIGINTERN Exiv2::Value const &Exiv2_Iptcdatum_value__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return self->value();
     }
 SWIGINTERN PyObject *Exiv2_Iptcdatum_setValue__SWIG_2(Exiv2::Iptcdatum *self,PyObject *py_value){
