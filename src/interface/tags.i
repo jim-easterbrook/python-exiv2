@@ -22,7 +22,6 @@
 %include "shared/enum.i"
 #endif
 %include "shared/static_list.i"
-%include "shared/struct_iterator.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i";
@@ -30,21 +29,33 @@
 UNIQUE_PTR(Exiv2::ExifKey);
 
 // ExifTags::groupList returns a static list as a pointer
+%fragment("struct_to_dict"{Exiv2::GroupInfo}, "header",
+          fragment="new_TagListFct") {
+static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
+    return Py_BuildValue("{si,ss,ss,sN}",
+        "ifdId",     info->ifdId_,
+        "ifdName",   info->ifdName_,
+        "groupName", info->groupName_,
+        "tagList",   new_TagListFct(info->tagList_));
+};
+}
 LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0)
 
 // ExifTags::tagList returns a static list as a pointer
+%fragment("struct_to_dict"{Exiv2::TagInfo}, "header") {
+static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
+    return Py_BuildValue("{si,ss,ss,ss,si,si,si,si}",
+        "tag",       info->tag_,
+        "name",      info->name_,
+        "title",     info->title_,
+        "desc",      info->desc_,
+        "ifdId",     info->ifdId_,
+        "sectionId", info->sectionId_,
+        "typeId",    info->typeId_,
+        "count",     info->count_);
+};
+}
 LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
-
-// Make Exiv2::TagInfo struct iterable for easy conversion to dict or list
-STRUCT_ITERATOR(Exiv2::TagInfo, "((si)(ss)(ss)(ss)(si)(si)(si)(si))",
-            "tag",       $self->tag_,
-            "name",      $self->name_,
-            "title",     $self->title_,
-            "desc",      $self->desc_,
-            "ifdId",     $self->ifdId_,
-            "sectionId", $self->sectionId_,
-            "typeId",    $self->typeId_,
-            "count",     $self->count_)
 
 // Wrapper class for TagListFct function pointer
 #ifndef SWIGIMPORTED
@@ -84,14 +95,6 @@ public:
 %typemap(out, fragment="new_TagListFct") Exiv2::TagListFct {
     $result = new_TagListFct($1);
 }
-
-// Make Exiv2::GroupInfo struct iterable for easy conversion to dict or list
-%fragment("new_TagListFct");
-STRUCT_ITERATOR(Exiv2::GroupInfo, "((si)(ss)(ss)(sN))",
-            "ifdId",     $self->ifdId_,
-            "ifdName",   $self->ifdName_,
-            "groupName", $self->groupName_,
-            "tagList",   new_TagListFct($self->tagList_))
 
 // Add Exif specific enums
 #if EXIV2_VERSION_HEX >= 0x001c0000
@@ -146,13 +149,16 @@ ENUM(SectionId, "Section identifiers to logically group tags.\n"
         "lastSectionId ",  Exiv2::SectionId::lastSectionId);
 #endif // EXIV2_VERSION_HEX
 
-%ignore Exiv2::GroupInfo::GroupInfo;
+// Ignore structs replaced by Python dict
+%ignore Exiv2::GroupInfo;
 %ignore Exiv2::GroupInfo::GroupName;
-%ignore Exiv2::TagInfo::TagInfo;
+%ignore Exiv2::TagInfo;
 
 // Ignore stuff that Python can't use
-%ignore Exiv2::TagInfo::printFct_;
 %ignore Exiv2::ExifTags::taglist;
+
+// Ignore unneeded key constructor
+%ignore Exiv2::ExifKey::ExifKey(const TagInfo&);
 
 // ExifKey::ifdId is documented as internal use only
 %ignore Exiv2::ExifKey::ifdId;

@@ -19,7 +19,6 @@
 
 %include "preamble.i"
 %include "shared/static_list.i"
-%include "shared/struct_iterator.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i"
@@ -28,24 +27,26 @@ UNIQUE_PTR(Exiv2::IptcKey);
 
 // IptcDataSets::application2RecordList and IptcDataSets::envelopeRecordList
 // return a static list as a pointer
+%fragment("struct_to_dict"{Exiv2::DataSet}, "header") {
+static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
+    return Py_BuildValue("{si,ss,ss,ss,sN,sN,si,si,si,si,ss}",
+        "number",     info->number_,
+        "name",       info->name_,
+        "title",      info->title_,
+        "desc",       info->desc_,
+        "mandatory",  PyBool_FromLong(info->mandatory_),
+        "repeatable", PyBool_FromLong(info->repeatable_),
+        "minbytes",   info->minbytes_,
+        "maxbytes",   info->maxbytes_,
+        "type",       info->type_,
+        "recordId",   info->recordId_,
+        "photoshop",  info->photoshop_);
+
+};
+}
 LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 
-// Make Exiv2::DataSet struct iterable for easy conversion to dict or list
-STRUCT_ITERATOR(Exiv2::DataSet,
-            "((si)(ss)(ss)(ss)(sN)(sN)(si)(si)(si)(si)(ss))",
-            "number",     $self->number_,
-            "name",       $self->name_,
-            "title",      $self->title_,
-            "desc",       $self->desc_,
-            "mandatory",  PyBool_FromLong($self->mandatory_),
-            "repeatable", PyBool_FromLong($self->repeatable_),
-            "minbytes",   $self->minbytes_,
-            "maxbytes",   $self->maxbytes_,
-            "type",       $self->type_,
-            "recordId",   $self->recordId_,
-            "photoshop",  $self->photoshop_)
-
-%ignore Exiv2::DataSet::DataSet;
+%ignore Exiv2::DataSet;
 %ignore Exiv2::IptcDataSets::dataSetList;
 %ignore Exiv2::IptcDataSets::IptcDataSets;
 %ignore Exiv2::RecordInfo;

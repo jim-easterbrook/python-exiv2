@@ -48,20 +48,58 @@ ENUM(XmpCategory, "Category of an XMP property.",
     $result = SWIG_Python_AppendOutput($result, dict);
 }
 
+%fragment("struct_to_dict"{Exiv2::XmpPropertyInfo}, "header") {
+static PyObject* struct_to_dict(const Exiv2::XmpPropertyInfo* info) {
+    if (!info)
+        return SWIG_Py_Void();
+    return Py_BuildValue("{ss,ss,ss,si,si,ss}",
+        "name",         info->name_,
+        "title",        info->title_,
+        "xmpValueType", info->xmpValueType_,
+        "typeId",       info->typeId_,
+        "xmpCategory",  info->xmpCategory_,
+        "desc",         info->desc_);
+};
+}
+// Convert XmpProperties.propertyInfo() result to a single Python dict
+%typemap(doctype) Exiv2::XmpPropertyInfo* "dict"
+%typemap(out, fragment="struct_to_dict"{Exiv2::XmpPropertyInfo})
+        const Exiv2::XmpPropertyInfo* {
+    $result = struct_to_dict($1);
+}
+
 // Convert XmpProperties.propertyList() result and XmpNsInfo.xmpPropertyInfo_
-// to a Python tuple
+// to a Python list of dicts
 LIST_POINTER(const Exiv2::XmpPropertyInfo* propertyList,
              Exiv2::XmpPropertyInfo, name_ != 0)
 LIST_POINTER(const Exiv2::XmpPropertyInfo* xmpPropertyInfo_,
              Exiv2::XmpPropertyInfo, name_ != 0)
+
+%fragment("struct_to_dict"{Exiv2::XmpNsInfo}, "header",
+    fragment="pointer_to_list"{Exiv2::XmpPropertyInfo}) {
+static PyObject* struct_to_dict(const Exiv2::XmpNsInfo* info) {
+    return Py_BuildValue("{ss,ss,sN,ss}",
+        "ns",              info->ns_,
+        "prefix",          info->prefix_,
+        "xmpPropertyInfo", pointer_to_list(info->xmpPropertyInfo_),
+        "desc",            info->desc_);
+};
+}
+
+// Convert XmpProperties.nsInfo() result to a single Python dict
+%typemap(doctype) Exiv2::XmpNsInfo* "dict"
+%typemap(out, fragment="struct_to_dict"{Exiv2::XmpNsInfo})
+        const Exiv2::XmpNsInfo* {
+    $result = struct_to_dict($1);
+}
 
 // Ignore "internal" stuff
 %ignore Exiv2::XmpProperties::rwLock_;
 %ignore Exiv2::XmpProperties::mutex_;
 %ignore Exiv2::XmpProperties::nsRegistry_;
 
-%ignore Exiv2::XmpPropertyInfo::XmpPropertyInfo;
-%ignore Exiv2::XmpNsInfo::XmpNsInfo;
+%ignore Exiv2::XmpPropertyInfo;
+%ignore Exiv2::XmpNsInfo;
 %ignore Exiv2::XmpNsInfo::Prefix;
 %ignore Exiv2::XmpNsInfo::Ns;
 

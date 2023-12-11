@@ -36,20 +36,20 @@ class TestPropertiesModule(unittest.TestCase):
 
     def test_XmpNsInfo(self):
         ns_info = exiv2.XmpProperties.nsInfo(self.prefix_name)
-        self.assertIsInstance(ns_info, exiv2.XmpNsInfo)
-        desc = ns_info.desc_
+        self.assertIsInstance(ns_info, dict)
+        desc = ns_info['desc']
         self.assertIsInstance(desc, str)
         self.assertEqual(desc, 'Dublin Core schema')
-        ns = ns_info.ns_
+        ns = ns_info['ns']
         self.assertIsInstance(ns, str)
         self.assertEqual(ns, self.namespace)
-        prefix = ns_info.prefix_
+        prefix = ns_info['prefix']
         self.assertIsInstance(prefix, str)
         self.assertEqual(prefix, self.prefix_name)
-        property_info = ns_info.xmpPropertyInfo_
+        property_info = ns_info['xmpPropertyInfo']
         self.assertIsInstance(property_info, list)
         self.assertGreater(len(property_info), 0)
-        self.assertIsInstance(property_info[0], exiv2.XmpPropertyInfo)
+        self.assertIsInstance(property_info[0], dict)
 
     def test_XmpProperties(self):
         properties = exiv2.XmpProperties
@@ -60,7 +60,7 @@ class TestPropertiesModule(unittest.TestCase):
         self.assertIsInstance(desc, str)
         self.assertEqual(desc, 'Dublin Core schema')
         ns_info = properties.nsInfo(self.prefix_name)
-        self.assertIsInstance(ns_info, exiv2.XmpNsInfo)
+        self.assertIsInstance(ns_info, dict)
         prefix = properties.prefix('http://purl.org/dc/elements/1.1/')
         self.assertIsInstance(prefix, str)
         self.assertEqual(prefix, self.prefix_name)
@@ -71,12 +71,12 @@ class TestPropertiesModule(unittest.TestCase):
         self.assertTrue(property_desc.startswith('A textual description of'))
         self.assertIsNone(properties.propertyDesc(key2))
         property_info = properties.propertyInfo(key)
-        self.assertIsInstance(property_info, exiv2.XmpPropertyInfo)
+        self.assertIsInstance(property_info, dict)
         self.assertIsNone(properties.propertyInfo(key2))
         property_list = properties.propertyList(self.prefix_name)
         self.assertIsInstance(property_list, list)
         self.assertGreater(len(property_list), 0)
-        self.assertIsInstance(property_list[0], exiv2.XmpPropertyInfo)
+        self.assertIsInstance(property_list[0], dict)
         property_title = properties.propertyTitle(key)
         self.assertIsInstance(property_title, str)
         self.assertEqual(property_title, 'Description')
@@ -97,23 +97,23 @@ class TestPropertiesModule(unittest.TestCase):
     def test_XmpPropertyInfo(self):
         key = exiv2.XmpKey(self.key_name)
         property_info = exiv2.XmpProperties.propertyInfo(key)
-        self.assertIsInstance(property_info, exiv2.XmpPropertyInfo)
-        desc = property_info.desc_
+        self.assertIsInstance(property_info, dict)
+        desc = property_info['desc']
         self.assertIsInstance(desc, str)
         self.assertTrue(desc.startswith('A textual description of'))
-        name = property_info.name_
+        name = property_info['name']
         self.assertIsInstance(name, str)
         self.assertEqual(name, 'description')
-        title = property_info.title_
+        title = property_info['title']
         self.assertIsInstance(title, str)
         self.assertEqual(title, 'Description')
-        type_id = property_info.typeId_
+        type_id = property_info['typeId']
         self.assertIsInstance(type_id, int)
         self.assertEqual(type_id, exiv2.TypeId.langAlt)
-        category = property_info.xmpCategory_
+        category = property_info['xmpCategory']
         self.assertIsInstance(category, int)
         self.assertEqual(category, exiv2.XmpCategory.External)
-        value_type = property_info.xmpValueType_
+        value_type = property_info['xmpValueType']
         self.assertIsInstance(value_type, str)
         self.assertEqual(value_type, 'Lang Alt')
 

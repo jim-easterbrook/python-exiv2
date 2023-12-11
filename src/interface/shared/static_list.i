@@ -16,16 +16,16 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-// Macro to convert pointer to start of static list to a Python list
+// Macro to convert pointer to static list to a Python list of structs
 %define LIST_POINTER(pattern, item_type, valid_test)
-%fragment("pointer_to_list"{item_type}, "header") {
+%fragment("pointer_to_list"{item_type}, "header",
+          fragment="struct_to_dict"{item_type}) {
 static PyObject* pointer_to_list(const item_type* ptr) {
     const item_type* item = ptr;
     PyObject* py_tmp = NULL;
     PyObject* list = PyList_New(0);
     while (item->valid_test) {
-        py_tmp = SWIG_Python_NewPointerObj(
-            NULL, SWIG_as_voidptr(item), $descriptor(item_type*), 0);
+        py_tmp = struct_to_dict(item);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;

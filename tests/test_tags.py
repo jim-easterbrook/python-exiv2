@@ -37,7 +37,7 @@ class TestTagsModule(unittest.TestCase):
         group_list = tags.groupList()
         self.assertIsInstance(group_list, list)
         self.assertGreater(len(group_list), 0)
-        self.assertIsInstance(group_list[0], exiv2.GroupInfo)
+        self.assertIsInstance(group_list[0], dict)
         self.check_result(tags.ifdName(self.group_name), str, 'IFD0')
         self.check_result(tags.isExifGroup(self.group_name), bool, True)
         self.check_result(tags.isMakerGroup(self.group_name), bool, False)
@@ -45,43 +45,39 @@ class TestTagsModule(unittest.TestCase):
         tag_list = tags.tagList(self.group_name)
         self.assertIsInstance(tag_list, list)
         self.assertGreater(len(tag_list), 0)
-        self.assertIsInstance(tag_list[0], exiv2.TagInfo)
+        self.assertIsInstance(tag_list[0], dict)
 
     def test_GroupInfo(self):
         info = exiv2.ExifTags.groupList()[0]
-        self.check_result(info.groupName_, str, 'Image')
+        self.check_result(info['groupName'], str, 'Image')
         if exiv2.testVersion(0, 28, 0):
-            self.check_result(info.ifdId_, int, exiv2.IfdId.ifd0Id)
+            self.check_result(info['ifdId'], int, exiv2.IfdId.ifd0Id)
         else:
-            self.check_result(info.ifdId_, int, 1)
-        self.check_result(info.ifdName_, str, 'IFD0')
-        tag_list = info.tagList_()
+            self.check_result(info['ifdId'], int, 1)
+        self.check_result(info['ifdName'], str, 'IFD0')
+        tag_list = info['tagList']()
         self.assertIsInstance(tag_list, list)
         self.assertGreater(len(tag_list), 0)
-        self.assertIsInstance(tag_list[0], exiv2.TagInfo)
-        for key, value in dict(info).items():
-            self.assertEqual(value, getattr(info, key + '_'))
+        self.assertIsInstance(tag_list[0], dict)
 
     def test_TagInfo(self):
         info = exiv2.ExifTags.tagList(self.group_name)[0]
-        self.check_result(info.count_, int, 0)
-        desc = info.desc_
+        self.check_result(info['count'], int, 0)
+        desc = info['desc']
         self.assertIsInstance(desc, str)
         self.assertTrue(desc.startswith('The name and version of the software'))
         if exiv2.testVersion(0, 28, 0):
-            self.check_result(info.ifdId_, int, exiv2.IfdId.ifd0Id)
+            self.check_result(info['ifdId'], int, exiv2.IfdId.ifd0Id)
         else:
-            self.check_result(info.ifdId_, int, 1)
-        self.check_result(info.name_, str, 'ProcessingSoftware')
+            self.check_result(info['ifdId'], int, 1)
+        self.check_result(info['name'], str, 'ProcessingSoftware')
         if exiv2.testVersion(0, 28, 0):
-            self.check_result(info.sectionId_, int, exiv2.SectionId.otherTags)
+            self.check_result(info['sectionId'], int, exiv2.SectionId.otherTags)
         else:
-            self.check_result(info.sectionId_, int, 4)
-        self.check_result(info.tag_, int, 11)
-        self.check_result(info.title_, str, 'Processing Software')
-        self.check_result(info.typeId_, int, exiv2.TypeId.asciiString)
-        for key, value in dict(info).items():
-            self.assertEqual(value, getattr(info, key + '_'))
+            self.check_result(info['sectionId'], int, 4)
+        self.check_result(info['tag'], int, 11)
+        self.check_result(info['title'], str, 'Processing Software')
+        self.check_result(info['typeId'], int, exiv2.TypeId.asciiString)
 
     def test_ExifKey(self):
         # constructors
