@@ -4123,9 +4123,6 @@ namespace swig {
 #include <vector>
 
 
-#include "datetime.h"
-
-
 namespace swig {
   template <class Type>
   struct noconst_traits {
@@ -6556,8 +6553,6 @@ SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_2(Exiv2::DateValue::Date 
         return self;
     }
 SWIGINTERN void Exiv2_DateValue_setDate__SWIG_1(Exiv2::DateValue *self,int year,int month,int day){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use datetime.date to set date", 1);
         Exiv2::DateValue::Date date;
         date.year = year;
         date.month = month;
@@ -6586,7 +6581,10 @@ SWIGINTERN Exiv2::DateValue::Date Exiv2_DateValue___getitem__(Exiv2::DateValue *
         return self->getDate();
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date___iter__(Exiv2::DateValue::Date *self){
-        PyObject* seq = Py_BuildValue("((si)(si)(si))", "year",self->year,"month",self->month,"day",self->day);
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use getDate() to get Python dict", 1);
+        PyObject* seq = Py_BuildValue("((si)(si)(si))",
+            "year", self->year, "month", self->month, "day", self->day);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
         return result;
@@ -6597,8 +6595,6 @@ SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_2(Exiv2::TimeValue::Time 
         return self;
     }
 SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int32_t hour,int32_t minute,int32_t second,int32_t tzHour,int32_t tzMinute){
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use datetime.time to set time", 1);
         Exiv2::TimeValue::Time time;
         time.hour = hour;
         time.minute = minute;
@@ -6629,7 +6625,12 @@ SWIGINTERN Exiv2::TimeValue::Time Exiv2_TimeValue___getitem__(Exiv2::TimeValue *
         return self->getTime();
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self){
-        PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))", "hour",self->hour,"minute",self->minute,"second",self->second,"tzHour",self->tzHour,"tzMinute",self->tzMinute);
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use getDate() to get Python dict", 1);
+        PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))",
+            "hour", self->hour, "minute", self->minute,
+            "second", self->second,
+            "tzHour", self->tzHour, "tzMinute", self->tzMinute);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
         return result;
@@ -16212,16 +16213,18 @@ SWIGINTERN PyObject *_wrap_DateValue_setDate__SWIG_0(PyObject *self, Py_ssize_t 
     if (SWIG_IsOK(SWIG_ConvertPtr(
           swig_obj[1], (void**)&arg2, SWIGTYPE_p_Exiv2__DateValue__Date, 0))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use datetime.date instead of DateValue::Date", 1);
+        "use dict instead of DateValue::Date", 1);
     }
     else {
-      if (!PyDate_Check(swig_obj[1])) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_setDate" "', argument " "2"" of type '" "datetime.date""'")
-        ;
+      if (!PyDict_Check(swig_obj[1])) {
+        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_setDate" "', argument " "2"" of type '" "dict""'");
       }
-      date2.year = PyDateTime_GET_YEAR(swig_obj[1]);
-      date2.month = PyDateTime_GET_MONTH(swig_obj[1]);
-      date2.day = PyDateTime_GET_DAY(swig_obj[1]);
+      PyObject* py_val = PyDict_GetItemString(swig_obj[1], "year");
+      date2.year = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[1], "month");
+      date2.month = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[1], "day");
+      date2.day = py_val ? PyLong_AsLong(py_val) : 0;
       arg2 = &date2;
     }
   }
@@ -16457,7 +16460,8 @@ SWIGINTERN PyObject *_wrap_DateValue_getDate(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = PyDate_FromDate(result->year, result->month, result->day);
+    resultobj = Py_BuildValue("{sisisi}",
+      "year", result->year, "month", result->month, "day", result->day);
   }
   return resultobj;
 fail:
@@ -16949,16 +16953,18 @@ SWIGINTERN int _wrap_new_DateValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
     if (SWIG_IsOK(SWIG_ConvertPtr(
           swig_obj[0], (void**)&arg1, SWIGTYPE_p_Exiv2__DateValue__Date, 0))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use datetime.date instead of DateValue::Date", 1);
+        "use dict instead of DateValue::Date", 1);
     }
     else {
-      if (!PyDate_Check(swig_obj[0])) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DateValue" "', argument " "1"" of type '" "datetime.date""'")
-        ;
+      if (!PyDict_Check(swig_obj[0])) {
+        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DateValue" "', argument " "1"" of type '" "dict""'");
       }
-      date1.year = PyDateTime_GET_YEAR(swig_obj[0]);
-      date1.month = PyDateTime_GET_MONTH(swig_obj[0]);
-      date1.day = PyDateTime_GET_DAY(swig_obj[0]);
+      PyObject* py_val = PyDict_GetItemString(swig_obj[0], "year");
+      date1.year = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[0], "month");
+      date1.month = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[0], "day");
+      date1.day = py_val ? PyLong_AsLong(py_val) : 0;
       arg1 = &date1;
     }
   }
@@ -17812,28 +17818,22 @@ SWIGINTERN PyObject *_wrap_TimeValue_setTime__SWIG_0(PyObject *self, Py_ssize_t 
     if (SWIG_IsOK(SWIG_ConvertPtr(
           swig_obj[1], (void**)&arg2, SWIGTYPE_p_Exiv2__TimeValue__Time, 0))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use datetime.time instead of TimeValue::Time", 1);
+        "use dict instead of TimeValue::Time", 1);
     }
     else {
-      if (!PyTime_Check(swig_obj[1])) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_setTime" "', argument " "2"" of type '" "datetime.time""'")
-        ;
+      if (!PyDict_Check(swig_obj[1])) {
+        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_setTime" "', argument " "2"" of type '" "dict""'");
       }
-      time2.hour = PyDateTime_TIME_GET_HOUR(swig_obj[1]);
-      time2.minute = PyDateTime_TIME_GET_MINUTE(swig_obj[1]);
-      time2.second = PyDateTime_TIME_GET_SECOND(swig_obj[1]);
-      time2.tzHour = 0;
-      time2.tzMinute = 0;
-      PyObject* utcoffset = PyObject_CallMethod(swig_obj[1], "utcoffset", NULL);
-      if (utcoffset) {
-        if (PyDelta_Check(utcoffset)) {
-          time2.tzMinute = PyDateTime_DELTA_GET_SECONDS(utcoffset) / 60;
-          time2.tzMinute += PyDateTime_DELTA_GET_DAYS(utcoffset) * 1440;
-          time2.tzHour = time2.tzMinute / 60;;
-          time2.tzMinute -= time2.tzHour * 60;
-        }
-        Py_DECREF(utcoffset);
-      }
+      PyObject* py_val = PyDict_GetItemString(swig_obj[1], "hour");
+      time2.hour = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[1], "minute");
+      time2.minute = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[1], "second");
+      time2.second = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[1], "tzHour");
+      time2.tzHour = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[1], "tzMinute");
+      time2.tzMinute = py_val ? PyLong_AsLong(py_val) : 0;
       arg2 = &time2;
     }
   }
@@ -18069,32 +18069,9 @@ SWIGINTERN PyObject *_wrap_TimeValue_getTime(PyObject *self, PyObject *args) {
     }
   }
   {
-    PyObject* utcoffset = PyDelta_FromDSU(
-      0, (result->tzHour * 3600) + (result->tzMinute * 60), 0);
-    PyObject* tzinfo = NULL;
-#if PY_VERSION_HEX >= 0x03070000
-    tzinfo = PyTimeZone_FromOffset(utcoffset);
-#else
-    PyObject* datetime = PyImport_ImportModule("datetime");
-    if (datetime) {
-      tzinfo = PyObject_CallMethod(datetime, "timezone", "(O)", utcoffset);
-      Py_DECREF(datetime);
-    }
-#endif
-    Py_DECREF(utcoffset);
-    if (!tzinfo)
-    SWIG_fail;
-    resultobj = PyTime_FromTime(result->hour, result->minute, result->second, 0);
-    PyObject* replace = PyObject_GetAttrString(resultobj, "replace");
-    if (!replace)
-    SWIG_fail;
-    Py_DECREF(resultobj);
-    PyObject* args = PyTuple_New(0);
-    PyObject* kw = Py_BuildValue("{sN}", "tzinfo", tzinfo);
-    resultobj = PyObject_Call(replace, args, kw);
-    Py_DECREF(kw);
-    Py_DECREF(args);
-    Py_DECREF(replace);
+    resultobj = Py_BuildValue("{sisisisisi}",
+      "hour", result->hour, "minute", result->minute, "second", result->second,
+      "tzHour", result->tzHour, "tzMinute", result->tzMinute);
   }
   return resultobj;
 fail:
@@ -18586,28 +18563,22 @@ SWIGINTERN int _wrap_new_TimeValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
     if (SWIG_IsOK(SWIG_ConvertPtr(
           swig_obj[0], (void**)&arg1, SWIGTYPE_p_Exiv2__TimeValue__Time, 0))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use datetime.time instead of TimeValue::Time", 1);
+        "use dict instead of TimeValue::Time", 1);
     }
     else {
-      if (!PyTime_Check(swig_obj[0])) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_TimeValue" "', argument " "1"" of type '" "datetime.time""'")
-        ;
+      if (!PyDict_Check(swig_obj[0])) {
+        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_TimeValue" "', argument " "1"" of type '" "dict""'");
       }
-      time1.hour = PyDateTime_TIME_GET_HOUR(swig_obj[0]);
-      time1.minute = PyDateTime_TIME_GET_MINUTE(swig_obj[0]);
-      time1.second = PyDateTime_TIME_GET_SECOND(swig_obj[0]);
-      time1.tzHour = 0;
-      time1.tzMinute = 0;
-      PyObject* utcoffset = PyObject_CallMethod(swig_obj[0], "utcoffset", NULL);
-      if (utcoffset) {
-        if (PyDelta_Check(utcoffset)) {
-          time1.tzMinute = PyDateTime_DELTA_GET_SECONDS(utcoffset) / 60;
-          time1.tzMinute += PyDateTime_DELTA_GET_DAYS(utcoffset) * 1440;
-          time1.tzHour = time1.tzMinute / 60;;
-          time1.tzMinute -= time1.tzHour * 60;
-        }
-        Py_DECREF(utcoffset);
-      }
+      PyObject* py_val = PyDict_GetItemString(swig_obj[0], "hour");
+      time1.hour = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[0], "minute");
+      time1.minute = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[0], "second");
+      time1.second = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[0], "tzHour");
+      time1.tzHour = py_val ? PyLong_AsLong(py_val) : 0;
+      py_val = PyDict_GetItemString(swig_obj[0], "tzMinute");
+      time1.tzMinute = py_val ? PyLong_AsLong(py_val) : 0;
       arg1 = &time1;
     }
   }
@@ -38646,9 +38617,6 @@ SWIG_init(void) {
     if (!PyExc_Exiv2Error)
     return NULL;
   }
-  
-  
-  PyDateTime_IMPORT;
   
   
   /* type 'Exiv2::Value' */

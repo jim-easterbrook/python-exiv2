@@ -39,12 +39,22 @@ def main():
     print("Python datetime:", py_datetime)
     # Python -> Exiv2
     # can pass value to constructor or use setDate() afterwards
-    date = exiv2.DateValue(py_datetime)
+    date = exiv2.DateValue(py_datetime.year, py_datetime.month, py_datetime.day)
     print("Exiv2 date:", date)
-    time = exiv2.TimeValue(py_datetime.timetz())
+    tz_minute = int(py_datetime.utcoffset().total_seconds()) // 60
+    tz_hour = tz_minute // 60
+    tz_minute -= tz_hour * 60
+    time = exiv2.TimeValue(py_datetime.hour, py_datetime.minute,
+                           py_datetime.second, tz_hour, tz_minute)
     print("Exiv2 time:", time)
     # Exiv2 -> Python
-    py_datetime = datetime.datetime.combine(date.getDate(), time.getTime());
+    date_dict = date.getDate()
+    time_dict = time.getTime()
+    tz_info = datetime.timezone(datetime.timedelta(
+        hours=time_dict['tzHour'], minutes=time_dict['tzMinute']))
+    del time_dict['tzHour']
+    del time_dict['tzMinute']
+    py_datetime = datetime.datetime(**date_dict, **time_dict, tzinfo=tz_info);
     print("Python datetime:", py_datetime)
 
     print('==== ShortValue ====')

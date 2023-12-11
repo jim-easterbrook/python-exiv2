@@ -17,8 +17,8 @@ along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
 Changes in v0.16.0:
-  */ API change: DateValue.getDate() returns Python datetime.date.
-  */ API change: TimeValue.getTime() returns Python datetime.time.
+  */ API change: DateValue.getDate() returns Python dict.
+  */ API change: TimeValue.getTime() returns Python dict.
   */ Deprecated: exiv2.Date and exiv2.Time objects.
   */ Add buffer interface to PreviewImage
   */ Set datum value from Python object directly instead of via string.

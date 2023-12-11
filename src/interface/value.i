@@ -26,7 +26,6 @@
 %include "shared/enum.i"
 %include "shared/fragments.i"
 %include "shared/keep_reference.i"
-%include "shared/struct_iterator.i"
 %include "shared/unique_ptr.i"
 
 %include "stdint.i"
@@ -35,14 +34,6 @@
 %include "std_vector.i"
 
 %import "types.i"
-
-// Include Python DateTime API
-%{
-#include "datetime.h"
-%}
-%init %{
-PyDateTime_IMPORT;
-%}
 
 UNIQUE_PTR(Exiv2::Value);
 
@@ -227,12 +218,13 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %template(type_name) Exiv2::ValueType<item_type>;
 %enddef // VALUETYPE
 
-// Use Python datetime.date for Exiv2::DateValue::Date outputs
+// Use Python dict for Exiv2::DateValue::Date outputs
 %typemap(out) const Exiv2::DateValue::Date& {
-    $result = PyDate_FromDate($1->year, $1->month, $1->day);
+    $result = Py_BuildValue("{sisisi}",
+        "year", $1->year, "month", $1->month, "day", $1->day);
 }
-// Use Python datetime.date for Exiv2::DateValue::Date inputs
-%typemap(doctype) Exiv2::DateValue::Date "datetime.date"
+// Use Python dict for Exiv2::DateValue::Date inputs
+%typemap(doctype) Exiv2::DateValue::Date "dict"
 // Dummy typecheck to make SWIG check other overloads first
 %typemap(typecheck, precedence=SWIG_TYPECHECK_SWIGOBJECT)
         Exiv2::DateValue::Date &src { }
@@ -240,21 +232,23 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     if (SWIG_IsOK(SWIG_ConvertPtr(
             $input, (void**)&$1, $descriptor(Exiv2::DateValue::Date*), 0))) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use datetime.date instead of DateValue::Date", 1);
+            "use dict instead of DateValue::Date", 1);
     }
     else {
-        if (!PyDate_Check($input)) {
-            %argument_fail(
-                SWIG_TypeError, "datetime.date", $symname, $argnum);
+        if (!PyDict_Check($input)) {
+            %argument_fail(SWIG_TypeError, "dict", $symname, $argnum);
         }
-        date.year = PyDateTime_GET_YEAR($input);
-        date.month = PyDateTime_GET_MONTH($input);
-        date.day = PyDateTime_GET_DAY($input);
+        PyObject* py_val = PyDict_GetItemString($input, "year");
+        date.year = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "month");
+        date.month = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "day");
+        date.day = py_val ? PyLong_AsLong(py_val) : 0;
         $1 = &date;
     }
 }
 %extend Exiv2::DateValue {
-    // Allow DateValue to be constructed from a datetime.date
+    // Allow DateValue to be constructed from a dict
     DateValue(Exiv2::DateValue::Date &src) {
         Exiv2::DateValue* self = new Exiv2::DateValue;
         self->setDate(src);
@@ -262,8 +256,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     }
     // Allow DateValue to be set from int values
     void setDate(int year, int month, int day) {
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use datetime.date to set date", 1);
         Exiv2::DateValue::Date date;
         date.year = year;
         date.month = month;
@@ -272,8 +264,20 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     }
 }
 // Make Date struct iterable for easy conversion to dict or list
-STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
-    "year", $self->year, "month", $self->month, "day", $self->day)
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    Exiv2::DateValue::Date::__iter__;
+%noexception Exiv2::DateValue::Date::__iter__;
+%extend Exiv2::DateValue::Date {
+    PyObject* __iter__() {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use getDate() to get Python dict", 1);
+        PyObject* seq = Py_BuildValue("((si)(si)(si))",
+            "year", $self->year, "month", $self->month, "day", $self->day);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
+    }
+}
 
 // Use SWIG default value handling instead of C++ overloads
 %typemap(default) int second {$1 = 0;}
@@ -291,35 +295,12 @@ STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
 %ignore Exiv2::TimeValue::TimeValue(int32_t,int32_t,int32_t,int32_t);
 // Use Python datetime.time for Exiv2::TimeValue::Time outputs
 %typemap(out) const Exiv2::TimeValue::Time& {
-    PyObject* utcoffset = PyDelta_FromDSU(
-        0, ($1->tzHour * 3600) + ($1->tzMinute * 60), 0);
-    PyObject* tzinfo = NULL;
-%#if PY_VERSION_HEX >= 0x03070000
-    tzinfo = PyTimeZone_FromOffset(utcoffset);
-%#else
-    PyObject* datetime = PyImport_ImportModule("datetime");
-    if (datetime) {
-        tzinfo = PyObject_CallMethod(datetime, "timezone", "(O)", utcoffset);
-        Py_DECREF(datetime);
-    }
-%#endif
-    Py_DECREF(utcoffset);
-    if (!tzinfo)
-        SWIG_fail;
-    $result = PyTime_FromTime($1->hour, $1->minute, $1->second, 0);
-    PyObject* replace = PyObject_GetAttrString($result, "replace");
-    if (!replace)
-        SWIG_fail;
-    Py_DECREF($result);
-    PyObject* args = PyTuple_New(0);
-    PyObject* kw = Py_BuildValue("{sN}", "tzinfo", tzinfo);
-    $result = PyObject_Call(replace, args, kw);
-    Py_DECREF(kw);
-    Py_DECREF(args);
-    Py_DECREF(replace);
+    $result = Py_BuildValue("{sisisisisi}",
+        "hour", $1->hour, "minute", $1->minute, "second", $1->second,
+        "tzHour", $1->tzHour, "tzMinute", $1->tzMinute);
 }
-// Use Python datetime.time for Exiv2::TimeValue::Time inputs
-%typemap(doctype) Exiv2::TimeValue::Time "datetime.time"
+// Use Python dict for Exiv2::TimeValue::Time inputs
+%typemap(doctype) Exiv2::TimeValue::Time "dict"
 // Dummy typecheck to make SWIG check other overloads first
 %typemap(typecheck, precedence=SWIG_TYPECHECK_SWIGOBJECT)
         Exiv2::TimeValue::Time &src { }
@@ -327,33 +308,27 @@ STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
     if (SWIG_IsOK(SWIG_ConvertPtr(
             $input, (void**)&$1, $descriptor(Exiv2::TimeValue::Time*), 0))) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use datetime.time instead of TimeValue::Time", 1);
+            "use dict instead of TimeValue::Time", 1);
     }
     else {
-        if (!PyTime_Check($input)) {
-            %argument_fail(
-                SWIG_TypeError, "datetime.time", $symname, $argnum);
+        if (!PyDict_Check($input)) {
+            %argument_fail(SWIG_TypeError, "dict", $symname, $argnum);
         }
-        time.hour = PyDateTime_TIME_GET_HOUR($input);
-        time.minute = PyDateTime_TIME_GET_MINUTE($input);
-        time.second = PyDateTime_TIME_GET_SECOND($input);
-        time.tzHour = 0;
-        time.tzMinute = 0;
-        PyObject* utcoffset = PyObject_CallMethod($input, "utcoffset", NULL);
-        if (utcoffset) {
-            if (PyDelta_Check(utcoffset)) {
-                time.tzMinute = PyDateTime_DELTA_GET_SECONDS(utcoffset) / 60;
-                time.tzMinute += PyDateTime_DELTA_GET_DAYS(utcoffset) * 1440;
-                time.tzHour = time.tzMinute / 60;;
-                time.tzMinute -= time.tzHour * 60;
-            }
-            Py_DECREF(utcoffset);
-        }
+        PyObject* py_val = PyDict_GetItemString($input, "hour");
+        time.hour = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "minute");
+        time.minute = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "second");
+        time.second = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "tzHour");
+        time.tzHour = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "tzMinute");
+        time.tzMinute = py_val ? PyLong_AsLong(py_val) : 0;
         $1 = &time;
     }
 }
 %extend Exiv2::TimeValue {
-    // Allow TimeValue to be constructed from a datetime.time
+    // Allow TimeValue to be constructed from a dict
     TimeValue(Exiv2::TimeValue::Time &src) {
         Exiv2::TimeValue* self = new Exiv2::TimeValue;
         self->setTime(src);
@@ -362,8 +337,6 @@ STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
     // Allow TimeValue to be set from int values
     void setTime(int32_t hour, int32_t minute, int32_t second,
                  int32_t tzHour, int32_t tzMinute) {
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use datetime.time to set time", 1);
         Exiv2::TimeValue::Time time;
         time.hour = hour;
         time.minute = minute;
@@ -374,9 +347,22 @@ STRUCT_ITERATOR(Exiv2::DateValue::Date, "((si)(si)(si))",
     }
 }
 // Make Time struct iterable for easy conversion to dict or list
-STRUCT_ITERATOR(Exiv2::TimeValue::Time, "((si)(si)(si)(si)(si))",
-    "hour", $self->hour, "minute", $self->minute, "second", $self->second,
-    "tzHour", $self->tzHour, "tzMinute", $self->tzMinute)
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    Exiv2::TimeValue::Time::__iter__;
+%noexception Exiv2::TimeValue::Time::__iter__;
+%extend Exiv2::TimeValue::Time {
+    PyObject* __iter__() {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use getDate() to get Python dict", 1);
+        PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))",
+            "hour", $self->hour, "minute", $self->minute,
+            "second", $self->second,
+            "tzHour", $self->tzHour, "tzMinute", $self->tzMinute);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
+    }
+}
 
 // Make LangAltValue like a Python dict
 %feature("python:slot", "tp_iter", functype="getiterfunc")
