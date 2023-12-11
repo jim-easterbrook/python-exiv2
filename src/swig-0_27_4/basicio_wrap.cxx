@@ -3930,34 +3930,46 @@ static PyObject* PyExc_Exiv2Error = NULL;
 #include <string>
 
 
-static int BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+static int Exiv2_BasicIo_getbuff(
+        PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::BasicIo* self = 0;
     Exiv2::byte* ptr = 0;
     bool writeable = flags && PyBUF_WRITABLE;
-    int res = SWIG_ConvertPtr(
-        exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
-    if (!SWIG_IsOK(res))
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0)))
         goto fail;
     if (self->open())
         goto fail;
-    ptr = self->mmap(writeable);
+    try {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        ptr = self->mmap(writeable);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+
+    } catch(Exiv2::AnyError const& e) {
+
+
+
+        goto fail;
+    }
     return PyBuffer_FillInfo(view, exporter, ptr,
         ptr ? self->size() : 0, writeable ? 0 : 1, flags);
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
-}
-static void BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
+};
+static void Exiv2_BasicIo_releasebuff(
+        PyObject* exporter, Py_buffer* view) {
     Exiv2::BasicIo* self = 0;
-    int res = SWIG_ConvertPtr(
-        exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
-    if (!SWIG_IsOK(res)) {
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0))) {
         return;
     }
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     self->munmap();
     self->close();
-}
+    SWIG_PYTHON_THREAD_END_ALLOW;
+};
 
 
 
@@ -8910,8 +8922,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    BasicIo_getbuf,                           /* bf_getbuffer */
-    BasicIo_releasebuf,                       /* bf_releasebuffer */
+    Exiv2_BasicIo_getbuff,                    /* bf_getbuffer */
+    Exiv2_BasicIo_releasebuff,                /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */

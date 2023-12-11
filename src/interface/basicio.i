@@ -115,40 +115,53 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 }
 
 // Expose BasicIo contents as a Python buffer
-%feature("python:bf_getbuffer", functype="getbufferproc")
-    Exiv2::BasicIo "BasicIo_getbuf";
-%feature("python:bf_releasebuffer", functype="releasebufferproc")
-    Exiv2::BasicIo "BasicIo_releasebuf";
-%{
-static int BasicIo_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+%fragment("get_buffer"{Exiv2::BasicIo}, "header") {
+static int %mangle(Exiv2::BasicIo)_getbuff(
+        PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::BasicIo* self = 0;
     Exiv2::byte* ptr = 0;
     bool writeable = flags && PyBUF_WRITABLE;
-    int res = SWIG_ConvertPtr(
-        exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
-    if (!SWIG_IsOK(res))
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, $descriptor(Exiv2::BasicIo*), 0)))
         goto fail;
     if (self->open())
         goto fail;
-    ptr = self->mmap(writeable);
+    try {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        ptr = self->mmap(writeable);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+#if EXIV2_VERSION_HEX < 0x001c0000
+    } catch(Exiv2::AnyError const& e) {
+#else
+    } catch(Exiv2::Error const& e) {
+#endif
+        goto fail;
+    }
     return PyBuffer_FillInfo(view, exporter, ptr,
         ptr ? self->size() : 0, writeable ? 0 : 1, flags);
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
-}
-static void BasicIo_releasebuf(PyObject* exporter, Py_buffer* view) {
+};
+static void %mangle(Exiv2::BasicIo)_releasebuff(
+        PyObject* exporter, Py_buffer* view) {
     Exiv2::BasicIo* self = 0;
-    int res = SWIG_ConvertPtr(
-        exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0);
-    if (!SWIG_IsOK(res)) {
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, $descriptor(Exiv2::BasicIo*), 0))) {
         return;
     }
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     self->munmap();
     self->close();
+    SWIG_PYTHON_THREAD_END_ALLOW;
+};
 }
-%}
+%fragment("get_buffer"{Exiv2::BasicIo});
+%feature("python:bf_getbuffer", functype="getbufferproc")
+    Exiv2::BasicIo "Exiv2_BasicIo_getbuff";
+%feature("python:bf_releasebuffer", functype="releasebufferproc")
+    Exiv2::BasicIo "Exiv2_BasicIo_releasebuff";
 
 // Make enum more Pythonic
 DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
