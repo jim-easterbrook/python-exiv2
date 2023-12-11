@@ -69,15 +69,12 @@
 }
 
 // Expose Exiv2::PreviewImage contents as a Python buffer
-%feature("python:bf_getbuffer", functype="getbufferproc")
-    Exiv2::PreviewImage "PreviewImage_getbuf";
-%{
-static int PreviewImage_getbuf(PyObject* exporter, Py_buffer* view,
-                               int flags) {
+%fragment("get_buffer"{Exiv2::PreviewImage}, "header") {
+static int %mangle(Exiv2::PreviewImage)_getbuff(
+        PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::PreviewImage* self = 0;
-    int res = SWIG_ConvertPtr(
-        exporter, (void**)&self, SWIGTYPE_p_Exiv2__PreviewImage, 0);
-    if (!SWIG_IsOK(res))
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, $descriptor(Exiv2::PreviewImage*), 0)))
         goto fail;
     return PyBuffer_FillInfo(
         view, exporter, (void*)self->pData(), self->size(), 1, flags);
@@ -85,8 +82,11 @@ fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
+};
 }
-%}
+%fragment("get_buffer"{Exiv2::PreviewImage});
+%feature("python:bf_getbuffer", functype="getbufferproc")
+    Exiv2::PreviewImage "Exiv2_PreviewImage_getbuff";
 
 // Convert pData result to a Python memoryview
 RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,

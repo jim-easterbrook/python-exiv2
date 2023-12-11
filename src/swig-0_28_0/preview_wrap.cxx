@@ -3985,12 +3985,11 @@ static PyObject* PyExc_Exiv2Error = NULL;
 #include <string>
 
 
-static int PreviewImage_getbuf(PyObject* exporter, Py_buffer* view,
-                               int flags) {
+static int Exiv2_PreviewImage_getbuff(
+        PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::PreviewImage* self = 0;
-    int res = SWIG_ConvertPtr(
-        exporter, (void**)&self, SWIGTYPE_p_Exiv2__PreviewImage, 0);
-    if (!SWIG_IsOK(res))
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__PreviewImage, 0)))
         goto fail;
     return PyBuffer_FillInfo(
         view, exporter, (void*)self->pData(), self->size(), 1, flags);
@@ -3998,7 +3997,7 @@ fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
-}
+};
 
 
 SWIGINTERN swig_type_info*
@@ -5460,7 +5459,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__PreviewImage_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    PreviewImage_getbuf,                      /* bf_getbuffer */
+    Exiv2_PreviewImage_getbuff,               /* bf_getbuffer */
     (releasebufferproc) 0,                    /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */

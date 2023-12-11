@@ -4074,12 +4074,12 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 #define DATABUF_SIZE size_
 
 
-static int DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+static int Exiv2_DataBuf_getbuff(
+        PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
     bool writeable = flags && PyBUF_WRITABLE;
-    int res = SWIG_ConvertPtr(
-        exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
-    if (!SWIG_IsOK(res))
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0)))
         goto fail;
     return PyBuffer_FillInfo(
         view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
@@ -4088,7 +4088,7 @@ fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
-}
+};
 
 
 
@@ -6773,7 +6773,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataBuf_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    DataBuf_getbuf,                           /* bf_getbuffer */
+    Exiv2_DataBuf_getbuff,                    /* bf_getbuffer */
     (releasebufferproc) 0,                    /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
