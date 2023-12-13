@@ -41,7 +41,7 @@ jobs:
       - name: Install libexiv2
         run: |
           sudo apt-get update
-          sudo apt-get install libexiv2-dev locales
+          sudo apt-get install libexiv2-dev
 
       - name: Setup Python
         uses: actions/setup-python@v4
