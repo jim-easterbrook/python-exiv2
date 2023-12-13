@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import locale
 import os
 import random
 import sys
@@ -105,6 +106,15 @@ class TestTypesModule(unittest.TestCase):
         result = info.typeSize(exiv2.TypeId.unsignedRational)
         self.assertIsInstance(result, int)
         self.assertEqual(result, 8)
+
+    def test_localisation(self):
+        str_en = 'Failed to read input data'
+        str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
+        old_locale = locale.setlocale(locale.LC_ALL, None)
+        self.assertEqual(exiv2.exvGettext(str_en), str_en)
+        locale.setlocale(locale.LC_ALL, 'de_DE.utf-8')
+        self.assertEqual(exiv2.exvGettext(str_en), str_de)
+        locale.setlocale(locale.LC_ALL, old_locale)
 
 
 if __name__ == '__main__':

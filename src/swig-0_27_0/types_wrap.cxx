@@ -5718,6 +5718,44 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DataBuf) /* defines _wrap_delete_DataBuf_
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_DataBuf___len__) /* defines _wrap_DataBuf___len___lenfunc_closure */
 
+SWIGINTERN PyObject *_wrap_exvGettext(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  char *arg1 = (char *) 0 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  PyObject *swig_obj[1] ;
+  char *result = 0 ;
+  
+  (void)self;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_AsCharPtrAndSize(swig_obj[0], &buf1, NULL, &alloc1);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "exvGettext" "', argument " "1"" of type '" "char const *""'");
+  }
+  arg1 = reinterpret_cast< char * >(buf1);
+  {
+    try {
+      result = (char *)Exiv2::exvGettext((char const *)arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return resultobj;
+fail:
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return NULL;
+}
+
+
 SWIGINTERN int _wrap_new_URational__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   std::pair< uint32_t,uint32_t > *result = 0 ;
@@ -6284,6 +6322,10 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Rational) /* defines _wrap_delete_Rationa
 
 static PyMethodDef SwigMethods[] = {
 	 { "_set_locale_dir", _wrap__set_locale_dir, METH_O, NULL},
+	 { "exvGettext", _wrap_exvGettext, METH_O, "\n"
+		"Translate a string using the gettext framework. This wrapper hides\n"
+		"       all the implementation details from the interface.\n"
+		""},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -6800,7 +6842,10 @@ static SwigPyGetSet URational___dict___getset = { SwigPyObject_get___dict__, 0 }
 static SwigPyGetSet URational_second_getset = { _wrap_URational_second_get, _wrap_URational_second_set };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__std__pairT_uint32_t_uint32_t_t_getset[] = {
     { (char *)"first", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)"", &URational_first_getset },
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &URational___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"Translate a string using the gettext framework. This wrapper hides\n"
+		"       all the implementation details from the interface.\n"
+		"", &URational___dict___getset },
     { (char *)"second", SwigPyBuiltin_FunpackGetterClosure, SwigPyBuiltin_FunpackSetterClosure, (char *)"", &URational_second_getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
