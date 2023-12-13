@@ -181,19 +181,18 @@ else:
             return Exiv2Error
         raise AttributeError
 
+_dir = os.path.join(os.path.dirname(__file__), 'messages')
+if os.path.isdir(_dir):
+    from exiv2.types import _set_locale_dir
+    _set_locale_dir(_dir)
+
 ''')
         im.write('__version__ = "%s"\n' % py_exiv2_version)
         im.write('__version_tuple__ = tuple((%s))\n\n' % ', '.join(
             py_exiv2_version.split('.')))
         for name in ext_names:
             im.write('from exiv2.%s import *\n' % name)
-        im.write('''
-_dir = os.path.join(os.path.dirname(__file__), 'messages')
-if os.path.isdir(_dir):
-    exiv2.types._set_locale_dir(_dir)
-
-__all__ = [x for x in dir() if x[0] != '_']
-''')
+        im.write("\n__all__ = [x for x in dir() if x[0] != '_']\n")
     return 0
 
 

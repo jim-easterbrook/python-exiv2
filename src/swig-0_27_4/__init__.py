@@ -26,6 +26,11 @@ else:
             return Exiv2Error
         raise AttributeError
 
+_dir = os.path.join(os.path.dirname(__file__), 'messages')
+if os.path.isdir(_dir):
+    from exiv2.types import _set_locale_dir
+    _set_locale_dir(_dir)
+
 __version__ = "0.16.0"
 __version_tuple__ = tuple((0, 16, 0))
 
@@ -44,9 +49,5 @@ from exiv2.types import *
 from exiv2.value import *
 from exiv2.version import *
 from exiv2.xmp import *
-
-_dir = os.path.join(os.path.dirname(__file__), 'messages')
-if os.path.isdir(_dir):
-    exiv2.types._set_locale_dir(_dir)
 
 __all__ = [x for x in dir() if x[0] != '_']
