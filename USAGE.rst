@@ -21,6 +21,24 @@ Documentation of python-exiv2 is split across several files.
 .. contents::
     :backlinks: top
 
+libexiv2 library version
+------------------------
+
+Python-exiv2 can be used with any version of libexiv2 from 0.27.0 onwards.
+The "binary wheels" available from PyPI_ currently include a copy of libexiv2 v0.27.7, but if you install from source then python-exiv2 will use whichever version of libexiv2 is installed on your computer.
+
+There are some differences in the API of libexiv2 v0.28.x and v0.27.y.
+Some of these have been "backported" in the Python interface so you can start using the v0.28 methods, e.g. the ``exiv2.DataBuf.data()`` function replaces the ``exiv2.DataBuf.pData_`` attribute.
+
+If you need to write software that works with both versions of libexiv2 then the ``exiv2.testVersion`` function can be used to test for version 0.28.0 onwards:
+
+.. code:: python
+
+    if exiv2.testVersion(0, 28, 0):
+        int_val = datum.toInt64(0)
+    else:
+        int_val = datum.toLong(0)
+
 Deprecation warnings
 --------------------
 
@@ -38,28 +56,6 @@ In python-exiv2 most of the C++ enums are represented by Python enum_ classes, e
 
 Unfortunately there is no easy way to deprecate the SWIG generated top level constants, but they will eventually be removed from python-exiv2.
 Please ensure you only use the enum classes in your use of python-exiv2.
-
-
-Segmentation faults
--------------------
-
-There are many places in the libexiv2 C++ API where objects hold references to data in other objects.
-This is more efficient than copying the data, but can cause segmentation faults if an object is deleted while another objects refers to its data.
-
-The Python interface tries to protect the user from this but in some cases this is not possible.
-For example, an `Exiv2::Metadatum`_ object holds a reference to data that can easily be invalidated:
-
-.. code:: python
-
-    exifData = image.exifData()
-    datum = exifData['Exif.GPSInfo.GPSLatitude']
-    print(str(datum.value()))                       # no problem
-    del exifData['Exif.GPSInfo.GPSLatitude']
-    print(str(datum.value()))                       # segfault!
-
-Segmentation faults are also easily caused by careless use of iterators or memory blocks, as discussed below.
-There may be other cases where the Python interface doesn't prevent segfaults.
-Please let me know if you find any.
 
 Reading data values
 -------------------
@@ -133,7 +129,7 @@ Structured data
 
 Some XMP data is more complicated to deal with.
 For example, the locations shown in a photograph can be stored as a group of structures, each containing location/city/country information.
-Exiv gives these complex tag names like ``Xmp.iptcExt.LocationShown[1]/Iptc4xmpExt:City``.
+Exiv2 gives these complex tag names like ``Xmp.iptcExt.LocationShown[1]/Iptc4xmpExt:City``.
 
 Data like this is written in several stages.
 First create the array ``Xmp.iptcExt.LocationShown``:
@@ -283,6 +279,27 @@ Warning: segmentation faults
 If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
 Just as in C++, there is no way to detect that an iterator has become invalid.
 
+Segmentation faults
+-------------------
+
+There are many places in the libexiv2 C++ API where objects hold references to data in other objects.
+This is more efficient than copying the data, but can cause segmentation faults if an object is deleted while another objects refers to its data.
+
+The Python interface tries to protect the user from this but in some cases this is not possible.
+For example, an `Exiv2::Metadatum`_ object holds a reference to data that can easily be invalidated:
+
+.. code:: python
+
+    exifData = image.exifData()
+    datum = exifData['Exif.GPSInfo.GPSLatitude']
+    print(str(datum.value()))                       # no problem
+    del exifData['Exif.GPSInfo.GPSLatitude']
+    print(str(datum.value()))                       # segfault!
+
+Segmentation faults are also easily caused by careless use of iterators or memory blocks, as discussed below.
+There may be other cases where the Python interface doesn't prevent segfaults.
+Please let me know if you find any.
+
 Binary data input
 -----------------
 
@@ -331,6 +348,20 @@ Doing so will invalidate the memoryview and may cause a segmentation fault:
     print(bytes(data))              # Prints b'fred'
     buf.alloc(128)
     print(bytes(data))              # Prints random values, may segfault
+
+Buffer interface
+----------------
+
+The ``Exiv2::DataBuf``, ``Exiv2::PreviewImage``, and ``Exiv2::MemIO`` classes are all wrappers around a potentially large block of memory.
+They each have methods to access that memory without copying, such as ``Exiv2::DataBuf::data()`` and ``Exiv2::MemIo::mmap()`` but in Python these classes also expose a `buffer interface`_. This allows them to be used almost anywhere that a `bytes-like object`_ is expected.
+
+For example, you could save a photograph's thumbnail in a separate file like this:
+
+.. code:: python
+
+    thumb = exiv2.ExifThumb(image.exifData())
+    with open('thumbnail.jpg', 'wb') as out_file:
+        out_file.write(thumb.copy())
 
 Image data in memory
 --------------------
@@ -433,3 +464,5 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://docs.python.org/3/library/stdtypes.html#list
 .. _memoryview:
     https://docs.python.org/3/library/stdtypes.html#memoryview
+.. _PyPI:
+    https://pypi.org/project/exiv2/
