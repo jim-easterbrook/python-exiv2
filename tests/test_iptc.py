@@ -113,7 +113,7 @@ class TestIptcModule(unittest.TestCase):
         self.assertEqual(data.count(), 20)
         self.assertEqual(data.detectCharset(), 'UTF-8')
         self.assertEqual(data.empty(), False)
-        self.assertEqual(data.size(), 398)
+        self.assertEqual(data.size(), 400)
         data.clear()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)

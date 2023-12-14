@@ -117,7 +117,7 @@ class TestValueModule(unittest.TestCase):
 
     def test_AsciiValue(self):
         text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
-        data = bytes(text, 'utf-8')
+        data = bytes(text, 'utf-8') + b'\x00'
         # constructors
         value = exiv2.AsciiValue()
         self.assertIsInstance(value, exiv2.AsciiValue)
