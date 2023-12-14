@@ -130,6 +130,17 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
     $result = SWIG_NewPointerObj(value, get_swig_type(value), 0);
 }
 
+// AsciiValue constructor should call AsciiValue::read to ensure string
+// is null terminated
+%extend Exiv2::AsciiValue {
+    AsciiValue(const std::string &buf) {
+        Exiv2::AsciiValue* self = new Exiv2::AsciiValue();
+        self->read(buf);
+        return self;
+    }
+}
+%ignore Exiv2::AsciiValue::AsciiValue(const std::string &buf);
+
 // CommentValue::detectCharset has a string reference parameter
 %apply const std::string& {std::string& c};
 
