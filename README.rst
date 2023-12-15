@@ -13,18 +13,6 @@ If you need something that's not there, please let me know.
 
         pip install exiv2==0.3.1
 
-Documentation of python-exiv2 is split across several files.
-
-+------------------+------------------------------------------+
-| `<README.rst>`_  | Introduction to python-exiv2 (this file) |
-+------------------+------------------------------------------+
-| `<INSTALL.rst>`_ | Help with installing python-exiv2        |
-+------------------+------------------------------------------+
-| `<USAGE.rst>`_   | Hints and tips for using python-exiv2    |
-+------------------+------------------------------------------+
-| libexiv2_        | Exiv2 C++ API documentation              |
-+------------------+------------------------------------------+
-
 .. contents::
     :backlinks: top
 
@@ -87,39 +75,6 @@ Support for bmff files (e.g. CR3, HEIF, HEIC, AVIF, JPEG XL)
 Python-exiv2 from version 0.8.3 onwards is built with support for BMFF files.
 In order to use BMFF files in your Python program you need to call the ``enableBMFF`` function.
 Please read the Exiv2 `statement on BMFF`_ patents before doing so.
-
-Assignment
-----------
-
-libexiv2_ stores metadata values in a generalised container whose type can be set by the type of a value assigned to it, for example:
-
-.. code:: C++
-
-    // C or C++
-    exifData["Exif.Image.SamplesPerPixel"] = uint16_t(162);
-
-This forces the ``Exif.Image.SamplesPerPixel`` value to be an unsigned short.
-Python doesn't have such specific integer types, so if you need to set the type you can create an exiv2 value of the appropriate type and assign that:
-
-.. code:: python
-
-    # Python
-    exifData["Exif.Image.SamplesPerPixel"] = exiv2.UShortValue(162)
-
-This allows you to set the value to any type, just like in C++, but the Python interface warns you if you set a type that isn't the default for that tag.
-Alternatively you can use any Python object and let libexiv2_ convert the string representation of that object to the appropriate type:
-
-.. code:: python
-
-    # Python
-    exifData["Exif.Image.SamplesPerPixel"] = 162
-
-Error handling
---------------
-
-libexiv2_ has a multilevel warning system a bit like Python's standard logger.
-The Python interface redirects all Exiv2 messages to Python logging with an appropriate log level.
-The ``exiv2.LogMsg.setLevel`` function can be used to control what severity of messages are logged.
 
 Installation
 ------------

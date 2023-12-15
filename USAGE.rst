@@ -6,18 +6,6 @@ In many cases there's more than one way to do it, but some ways are more "Python
 Some of this is only applicable to python-exiv2 v0.16.0 onwards.
 You can find out what version of python-exiv2 you have with either ``pip3 show exiv2`` or ``python3 -m exiv2``.
 
-Documentation of python-exiv2 is split across several files.
-
-+------------------+---------------------------------------------------+
-| `<README.rst>`_  | Introduction to python-exiv2                      |
-+------------------+---------------------------------------------------+
-| `<INSTALL.rst>`_ | Help with installing python-exiv2                 |
-+------------------+---------------------------------------------------+
-| `<USAGE.rst>`_   | Hints and tips for using python-exiv2 (this file) |
-+------------------+---------------------------------------------------+
-| libexiv2_        | Exiv2 C++ API documentation                       |
-+------------------+---------------------------------------------------+
-
 .. contents::
     :backlinks: top
 
@@ -38,6 +26,13 @@ If you need to write software that works with both versions of libexiv2 then the
         int_val = datum.toInt64(0)
     else:
         int_val = datum.toLong(0)
+
+Error handling
+--------------
+
+libexiv2_ has a multilevel warning system a bit like Python's standard logger.
+The Python interface redirects all Exiv2 messages to Python logging with an appropriate log level.
+The ``exiv2.LogMsg.setLevel`` function can be used to control what severity of messages are logged.
 
 Deprecation warnings
 --------------------
