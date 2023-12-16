@@ -17,10 +17,14 @@
 
 %module(package="exiv2") preview
 
+// We don't need Python access to SwigPyIterator
+%ignore SwigPyIterator;
+
 %include "preamble.i"
 %include "shared/buffers.i"
 
 %include "std_string.i"
+%include "std_vector.i"
 
 %import "image.i";
 %import "types.i";
@@ -36,21 +40,8 @@
 %noexception Exiv2::PreviewImage::wextension;
 %noexception Exiv2::PreviewImage::width;
 
-// Convert getPreviewProperties result to a Python list
-%typemap(out) Exiv2::PreviewPropertiesList {
-    PyObject* py_obj = NULL;
-    Py_ssize_t size = $1.size();
-    $result = PyList_New(size);
-    if (!$result)
-        SWIG_fail;
-    for (Py_ssize_t idx = 0; idx < size; ++idx) {
-        py_obj = SWIG_NewPointerObj(new Exiv2::PreviewProperties($1.at(idx)),
-            $descriptor(Exiv2::PreviewProperties*), SWIG_POINTER_OWN);
-        if (!py_obj)
-            SWIG_fail;
-        PyList_SET_ITEM($result, idx, py_obj);
-    }
-}
+// Convert getPreviewProperties result to a Python tuple
+%template() std::vector<Exiv2::PreviewProperties>;
 
 // Make sure PreviewManager keeps a reference to the image it's using
 %typemap(ret) Exiv2::PreviewManager* %{

@@ -65,7 +65,7 @@ class TestPreviewModule(unittest.TestCase):
         manager = exiv2.PreviewManager(self.image)
         self.assertIsInstance(manager, exiv2.PreviewManager)
         props = manager.getPreviewProperties()
-        self.assertIsInstance(props, list)
+        self.assertIsInstance(props, tuple)
         self.assertEqual(len(props), 1)
         prop = props[0]
         self.assertIsInstance(prop, exiv2.PreviewProperties)
