@@ -17,7 +17,7 @@
 
 %module(package="exiv2") exif
 
-%include "preamble.i"
+%include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"

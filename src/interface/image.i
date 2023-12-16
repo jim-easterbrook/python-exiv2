@@ -20,7 +20,7 @@
 
 #pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
 
-%include "preamble.i"
+%include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
 %include "shared/keep_reference.i"

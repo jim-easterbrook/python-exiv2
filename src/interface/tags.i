@@ -17,7 +17,7 @@
 
 %module(package="exiv2") tags
 
-%include "preamble.i"
+%include "shared/preamble.i"
 #if EXIV2_VERSION_HEX >= 0x001c0000
 %include "shared/enum.i"
 #endif

@@ -19,7 +19,7 @@
 
 #pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
 
-%include "preamble.i"
+%include "shared/preamble.i"
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 

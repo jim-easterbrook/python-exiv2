@@ -20,7 +20,7 @@
 // We don't need Python access to SwigPyIterator
 %ignore SwigPyIterator;
 
-%include "preamble.i"
+%include "shared/preamble.i"
 %include "shared/buffers.i"
 
 %include "std_string.i"

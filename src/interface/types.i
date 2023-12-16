@@ -17,7 +17,7 @@
 
 %module(package="exiv2") types
 
-%include "preamble.i"
+%include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
 

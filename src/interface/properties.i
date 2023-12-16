@@ -17,7 +17,7 @@
 
 %module(package="exiv2") properties
 
-%include "preamble.i"
+%include "shared/preamble.i"
 %include "shared/enum.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"

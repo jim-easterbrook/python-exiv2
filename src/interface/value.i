@@ -21,7 +21,7 @@
 // We don't need Python access to SwigPyIterator
 %ignore SwigPyIterator;
 
-%include "preamble.i"
+%include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
 %include "shared/fragments.i"

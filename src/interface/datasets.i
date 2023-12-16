@@ -17,7 +17,7 @@
 
 %module(package="exiv2") datasets
 
-%include "preamble.i"
+%include "shared/preamble.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 

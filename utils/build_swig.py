@@ -83,7 +83,6 @@ def main():
     # get list of modules (Python) and extensions (SWIG)
     interface_dir = os.path.join('src', 'interface')
     file_names = os.listdir(interface_dir)
-    file_names = [x for x in file_names if x != 'preamble.i']
     file_names.sort()
     file_names = [os.path.splitext(x) for x in file_names]
     mod_names = [x[0] + x[1] for x in file_names if x[1] == '.py']
