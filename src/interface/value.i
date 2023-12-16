@@ -396,9 +396,8 @@ components."
 %noexception Exiv2::LangAltValue::keys;
 %noexception Exiv2::LangAltValue::items;
 %noexception Exiv2::LangAltValue::values;
-%template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
-%template() std::vector<std::string>;
-%template() std::vector<std::pair<std::string,std::string>>;
+%template() std::map<
+    std::string, std::string, Exiv2::LangAltValueComparator>;
 %extend Exiv2::LangAltValue {
     // Constructor, reads values from a Python dict
     LangAltValue(Exiv2::LangAltValue::ValueType value) {
@@ -406,36 +405,26 @@ components."
         result->value_ = value;
         return result;
     }
-    std::vector<std::string> keys() {
-        std::vector<std::string> result;
-        typedef Exiv2::LangAltValue::ValueType::iterator iter;
-        iter e = $self->value_.end();
-        for (iter i = $self->value_.begin(); i != e; ++i) {
-            result.push_back(i->first);
-        }
+    PyObject* keys() {
+        PyObject* as_dict = swig::from($self->value_);
+        PyObject* result = PyDict_Keys(as_dict);
+        Py_DECREF(as_dict);
         return result;
     }
-    std::vector<std::string> values() {
-        std::vector<std::string> result;
-        typedef Exiv2::LangAltValue::ValueType::iterator iter;
-        iter e = $self->value_.end();
-        for (iter i = $self->value_.begin(); i != e; ++i) {
-            result.push_back(i->second);
-        }
+    PyObject* values() {
+        PyObject* as_dict = swig::from($self->value_);
+        PyObject* result = PyDict_Values(as_dict);
+        Py_DECREF(as_dict);
         return result;
     }
-    std::vector<std::pair<std::string,std::string>> items() {
-        std::vector<std::pair<std::string,std::string> > result;
-        typedef Exiv2::LangAltValue::ValueType::iterator iter;
-        iter e = $self->value_.end();
-        for (iter i = $self->value_.begin(); i != e; ++i) {
-            result.push_back(make_pair(i->first, i->second));
-        }
+    PyObject* items() {
+        PyObject* as_dict = swig::from($self->value_);
+        PyObject* result = PyDict_Items(as_dict);
+        Py_DECREF(as_dict);
         return result;
     }
     PyObject* __iter__() {
-        PyObject* keys = swig::from(
-            %mangle(Exiv2::LangAltValue::keys)($self));
+        PyObject* keys = %mangle(Exiv2::LangAltValue::keys)($self);
         PyObject* result = PySeqIter_New(keys);
         Py_DECREF(keys);
         return result;
@@ -516,7 +505,7 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     XmpArrayValue(std::vector<std::string> value,
                   Exiv2::TypeId typeId=Exiv2::xmpBag) {
         Exiv2::XmpArrayValue* result = new Exiv2::XmpArrayValue(typeId);
-        for (std::vector<std::string>::iterator i = value.begin();
+        for (std::vector<std::string>::const_iterator i = value.begin();
              i != value.end(); ++i) {
             result->read(*i);
         }

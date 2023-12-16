@@ -206,9 +206,9 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual('nl-NL' in value, True)
         self.assertEqual(value['nl-NL'], nl_string)
         value = exiv2.LangAltValue(text_dict)
-        self.check_result(value.keys(), tuple, tuple(text_dict.keys()))
-        self.check_result(value.values(), tuple, tuple(text_dict.values()))
-        self.check_result(value.items(), tuple, tuple(text_dict.items()))
+        self.check_result(value.keys(), list, list(text_dict.keys()))
+        self.check_result(value.values(), list, list(text_dict.values()))
+        self.check_result(value.items(), list, list(text_dict.items()))
         self.do_common_tests(
             value, exiv2.TypeId.langAlt, text, data, sequence=text_dict)
         # no conversion tests as value can't be numeric
