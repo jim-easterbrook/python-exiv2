@@ -47,9 +47,17 @@ static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
 LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 
 %ignore Exiv2::DataSet;
+%ignore Exiv2::Dictionary;
+%ignore Exiv2::Dictionary_i;
 %ignore Exiv2::IptcDataSets::dataSetList;
 %ignore Exiv2::IptcDataSets::IptcDataSets;
 %ignore Exiv2::RecordInfo;
+%ignore Exiv2::StringSet;
+%ignore Exiv2::StringSet_i;
+%ignore Exiv2::StringVector;
+%ignore Exiv2::StringVector_i;
+%ignore Exiv2::Uint32Vector;
+%ignore Exiv2::Uint32Vector_i;
 
 %immutable;
 %include "exiv2/datasets.hpp"
