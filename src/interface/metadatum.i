@@ -20,6 +20,7 @@
 #pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
 
 %include "preamble.i"
+%include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 
 %include "std_string.i"
@@ -28,6 +29,9 @@
 %import "value.i"
 
 UNIQUE_PTR(Exiv2::Key);
+
+// Keep a reference to Metadatum when calling value()
+KEEP_REFERENCE(const Exiv2::Value&)
 
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Key::__str__;
 %extend Exiv2::Key {

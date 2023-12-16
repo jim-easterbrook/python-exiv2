@@ -5442,8 +5442,8 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Metadatum_copy" "', argument " "2"" of type '" "writable buffer""'");
     }

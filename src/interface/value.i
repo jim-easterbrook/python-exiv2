@@ -25,7 +25,6 @@
 %include "shared/buffers.i"
 %include "shared/enum.i"
 %include "shared/fragments.i"
-%include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 
 %include "stdint.i"
@@ -73,8 +72,8 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 %typemap(doctype) Exiv2::byte* buf "writeable bytes-like object";
 %typemap(in) Exiv2::byte* buf {
     Py_buffer view;
-    int res = PyObject_GetBuffer($input, &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer($input, &view,
+                           PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
         PyErr_Clear();
         %argument_fail(SWIG_TypeError, "writable buffer", $symname, $argnum);
     }
@@ -143,9 +142,6 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 // CommentValue::detectCharset has a string reference parameter
 %apply const std::string& {std::string& c};
-
-// Keep a reference to Metadatum when calling value()
-KEEP_REFERENCE(const Exiv2::Value&)
 
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
@@ -231,7 +227,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 
 // Use Python dict for Exiv2::DateValue::Date outputs
 %typemap(out) const Exiv2::DateValue::Date& {
-    $result = Py_BuildValue("{sisisi}",
+    $result = Py_BuildValue("{si,si,si}",
         "year", $1->year, "month", $1->month, "day", $1->day);
 }
 // Use Python dict for Exiv2::DateValue::Date inputs
@@ -306,7 +302,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %ignore Exiv2::TimeValue::TimeValue(int32_t,int32_t,int32_t,int32_t);
 // Use Python datetime.time for Exiv2::TimeValue::Time outputs
 %typemap(out) const Exiv2::TimeValue::Time& {
-    $result = Py_BuildValue("{sisisisisi}",
+    $result = Py_BuildValue("{si,si,si,si,si}",
         "hour", $1->hour, "minute", $1->minute, "second", $1->second,
         "tzHour", $1->tzHour, "tzMinute", $1->tzMinute);
 }
@@ -399,7 +395,7 @@ components."
 %noexception Exiv2::LangAltValue::__setitem__;
 %noexception Exiv2::LangAltValue::keys;
 %noexception Exiv2::LangAltValue::items;
-%noexception Exiv2::LangAltValue::vues;
+%noexception Exiv2::LangAltValue::values;
 %template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
 %template() std::vector<std::string>;
 %template() std::vector<std::pair<std::string,std::string>>;
@@ -438,7 +434,8 @@ components."
         return result;
     }
     PyObject* __iter__() {
-        PyObject* keys = swig::from(%mangle(Exiv2::LangAltValue::keys)($self));
+        PyObject* keys = swig::from(
+            %mangle(Exiv2::LangAltValue::keys)($self));
         PyObject* result = PySeqIter_New(keys);
         Py_DECREF(keys);
         return result;
@@ -455,7 +452,8 @@ components."
         $self->value_[key] = value;
     }
     PyObject* __setitem__(const std::string& key) {
-        Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter pos = $self->value_.find(key);
         if (pos == $self->value_.end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;

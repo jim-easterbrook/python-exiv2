@@ -5701,8 +5701,8 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_copy(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpData_iterator_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -7342,8 +7342,8 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Xmpdatum_copy" "', argument " "2"" of type '" "writable buffer""'");
     }

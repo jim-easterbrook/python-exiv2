@@ -6342,7 +6342,8 @@ SWIGINTERN std::vector< std::pair< std::string,std::string >,std::allocator< std
       }
     
 SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
-        PyObject* keys = swig::from(Exiv2_LangAltValue_keys(self));
+        PyObject* keys = swig::from(
+            Exiv2_LangAltValue_keys(self));
         PyObject* result = PySeqIter_New(keys);
         Py_DECREF(keys);
         return result;
@@ -6359,7 +6360,8 @@ SWIGINTERN void Exiv2_LangAltValue___setitem____SWIG_0(Exiv2::LangAltValue *self
         self->value_[key] = value;
     }
 SWIGINTERN PyObject *Exiv2_LangAltValue___setitem____SWIG_1(Exiv2::LangAltValue *self,std::string const &key){
-        Exiv2::LangAltValue::ValueType::iterator pos = self->value_.find(key);
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter pos = self->value_.find(key);
         if (pos == self->value_.end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
@@ -7479,8 +7481,8 @@ SWIGINTERN PyObject *_wrap_Value_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -8661,8 +8663,8 @@ SWIGINTERN PyObject *_wrap_DataValue_copy__SWIG_0(PyObject *self, Py_ssize_t nob
   arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -8718,8 +8720,8 @@ SWIGINTERN PyObject *_wrap_DataValue_copy__SWIG_1(PyObject *self, Py_ssize_t nob
   arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -9571,8 +9573,8 @@ SWIGINTERN PyObject *_wrap_StringValueBase_copy__SWIG_0(PyObject *self, Py_ssize
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -9628,8 +9630,8 @@ SWIGINTERN PyObject *_wrap_StringValueBase_copy__SWIG_1(PyObject *self, Py_ssize
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -11008,8 +11010,8 @@ SWIGINTERN PyObject *_wrap_CommentValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "CommentValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -11456,8 +11458,8 @@ SWIGINTERN PyObject *_wrap_XmpValue_copy__SWIG_0(PyObject *self, Py_ssize_t nobj
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -11513,8 +11515,8 @@ SWIGINTERN PyObject *_wrap_XmpValue_copy__SWIG_1(PyObject *self, Py_ssize_t nobj
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -14539,18 +14541,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_values(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_values" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    try {
-      result = Exiv2_LangAltValue_values(arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = Exiv2_LangAltValue_values(arg1);
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
@@ -15331,8 +15322,8 @@ SWIGINTERN PyObject *_wrap_DateValue_copy__SWIG_0(PyObject *self, Py_ssize_t nob
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -15388,8 +15379,8 @@ SWIGINTERN PyObject *_wrap_DateValue_copy__SWIG_1(PyObject *self, Py_ssize_t nob
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -15479,7 +15470,7 @@ SWIGINTERN PyObject *_wrap_DateValue_getDate(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = Py_BuildValue("{sisisi}",
+    resultobj = Py_BuildValue("{si,si,si}",
       "year", result->year, "month", result->month, "day", result->day);
   }
   return resultobj;
@@ -16791,8 +16782,8 @@ SWIGINTERN PyObject *_wrap_TimeValue_copy__SWIG_0(PyObject *self, Py_ssize_t nob
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -16848,8 +16839,8 @@ SWIGINTERN PyObject *_wrap_TimeValue_copy__SWIG_1(PyObject *self, Py_ssize_t nob
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[1], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[1], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -16939,7 +16930,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_getTime(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = Py_BuildValue("{sisisisisi}",
+    resultobj = Py_BuildValue("{si,si,si,si,si}",
       "hour", result->hour, "minute", result->minute, "second", result->second,
       "tzHour", result->tzHour, "tzMinute", result->tzMinute);
   }
@@ -18536,8 +18527,8 @@ SWIGINTERN PyObject *_wrap_UShortValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -19982,8 +19973,8 @@ SWIGINTERN PyObject *_wrap_ULongValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -21438,8 +21429,8 @@ SWIGINTERN PyObject *_wrap_URationalValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -22886,8 +22877,8 @@ SWIGINTERN PyObject *_wrap_ShortValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -24299,8 +24290,8 @@ SWIGINTERN PyObject *_wrap_LongValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -25741,8 +25732,8 @@ SWIGINTERN PyObject *_wrap_RationalValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -27189,8 +27180,8 @@ SWIGINTERN PyObject *_wrap_FloatValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
@@ -28635,8 +28626,8 @@ SWIGINTERN PyObject *_wrap_DoubleValue_copy(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
   {
     Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    if (PyObject_GetBuffer(swig_obj[0], &view,
+        PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_copy" "', argument " "2"" of type '" "writable buffer""'");
     }
