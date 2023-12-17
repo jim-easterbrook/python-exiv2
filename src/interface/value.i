@@ -100,9 +100,9 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
     }
     return get_type_object(type_id);
 };
+
 }
-#if EXIV2_VERSION_HEX < 0x001c0000
-%typemap(out, fragment="get_swig_type") Exiv2::Value::AutoPtr {
+%typemap(out, fragment="get_swig_type") Exiv2::Value::SMART_PTR {
     if ($1.get()) {
         Exiv2::Value* value = $1.release();
         $result = SWIG_NewPointerObj(
@@ -112,18 +112,6 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
         $result = SWIG_Py_Void();
     }
 }
-#else   // EXIV2_VERSION_HEX
-%typemap(out, fragment="get_swig_type") Exiv2::Value::UniquePtr {
-    if ($1.get()) {
-        Exiv2::Value* value = $1.release();
-        $result = SWIG_NewPointerObj(
-            value, get_swig_type(value), SWIG_POINTER_OWN);
-    }
-    else {
-        $result = SWIG_Py_Void();
-    }
-}
-#endif  // EXIV2_VERSION_HEX
 %typemap(out, fragment="get_swig_type") const Exiv2::Value& {
     Exiv2::Value* value = $1;
     $result = SWIG_NewPointerObj(value, get_swig_type(value), 0);

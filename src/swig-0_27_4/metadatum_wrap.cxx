@@ -4853,6 +4853,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
     return get_type_object(type_id);
 };
 
+
 SWIGINTERN std::string Exiv2_Metadatum___str__(Exiv2::Metadatum *self){
         return self->key() + ": " + self->print();
     }

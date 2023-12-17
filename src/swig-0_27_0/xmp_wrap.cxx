@@ -4917,6 +4917,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 };
 
 
+
 static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
     Exiv2::TypeId type_id = datum->typeId();
     if (type_id != Exiv2::invalidTypeId)

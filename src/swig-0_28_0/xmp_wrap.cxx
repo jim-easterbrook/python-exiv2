@@ -5068,6 +5068,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 };
 
 
+
 SWIGINTERNINLINE PyObject*
   SWIG_From_unsigned_SS_int  (unsigned int value)
 {

@@ -18,12 +18,15 @@
 
 // Stuff to handle auto_ptr or unique_ptr
 #if EXIV2_VERSION_HEX < 0x001c0000
+#define SMART_PTR AutoPtr
 %define UNIQUE_PTR(pointed_type)
 %include "std_auto_ptr.i"
 %typemap(doctype) pointed_type##::AutoPtr "pointed_type object"
 %auto_ptr(pointed_type)
 %enddef // UNIQUE_PTR
-#elif SWIG_VERSION >= 0x040100
+#else
+#define SMART_PTR UniquePtr
+#if SWIG_VERSION >= 0x040100
 %define UNIQUE_PTR(pointed_type)
 %include "std_unique_ptr.i"
 %typemap(doctype) pointed_type##::UniquePtr "pointed_type object"
@@ -39,4 +42,5 @@ struct std::unique_ptr {};
 %}
 %template() std::unique_ptr<pointed_type>;
 %enddef // UNIQUE_PTR
+#endif
 #endif

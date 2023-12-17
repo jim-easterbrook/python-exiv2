@@ -5721,6 +5721,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 };
 
 
+
   #define SWIG_From_long   PyInt_FromLong 
 
 

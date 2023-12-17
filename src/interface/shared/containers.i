@@ -118,22 +118,11 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
 // Keep a reference to any object that returns a reference to a datum.
 KEEP_REFERENCE(datum_type&)
 // Extend Metadatum to allow getting value as a specific type.
-#if EXIV2_VERSION_HEX < 0x001c0000
 %extend datum_type {
-    Exiv2::Value::AutoPtr getValue(Exiv2::TypeId as_type) {
+    Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return $self->getValue();
     }
-}
-#else   // EXIV2_VERSION_HEX
-%extend datum_type {
-    Exiv2::Value::UniquePtr getValue(Exiv2::TypeId as_type) {
-        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
-        return $self->getValue();
-    }
-}
-#endif  // EXIV2_VERSION_HEX
-%extend datum_type {
     const Exiv2::Value& value(Exiv2::TypeId as_type) {
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return $self->value();
