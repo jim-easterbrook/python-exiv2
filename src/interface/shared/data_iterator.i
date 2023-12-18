@@ -21,18 +21,21 @@
 
 // Macros to wrap data iterators
 %define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
-%feature("python:slot", "tp_str", functype="reprfunc") name##_end::__str__;
-%feature("python:slot", "tp_iter", functype="getiterfunc") name##_end::__iter__;
+%feature("python:slot", "tp_str", functype="reprfunc")
+    name##_end::__str__;
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    name##_end::__iter__;
 %feature("python:slot", "tp_iternext", functype="iternextfunc")
     name##_end::__next__;
-%feature("python:slot", "tp_iter", functype="getiterfunc") name::__iter__;
-// Add slots to main class using base class methods
-%feature("python:tp_str") name
-    "_wrap_" #name "_end___str___reprfunc_closure";
-%feature("python:tp_iternext") name
-    "_wrap_" #name "_end___next___iternextfunc_closure";
-%newobject name::__iter__;
-%newobject name##_end::__iter__;
+%feature("python:slot", "tp_str", functype="reprfunc")
+    name::__str__;
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    name::__iter__;
+%feature("python:slot", "tp_iternext", functype="iternextfunc")
+    name::__next__;
+%noexception name##_end::__iter__;
+%noexception name##::__iter__;
+%noexception name##_end::__next__;
 %noexception name##_end::operator==;
 %noexception name##_end::operator!=;
 %ignore name::name;
@@ -52,7 +55,7 @@ the 'end' value and can not be dereferenced.
 KEEP_REFERENCE(name*)
 KEEP_REFERENCE(name##_end*)
 // Detect end of iteration
-%exception name##_end::__next__ %{
+%exception name::__next__ %{
     $action
     if (!result) {
         PyErr_SetNone(PyExc_StopIteration);
@@ -64,42 +67,49 @@ KEEP_REFERENCE(name##_end*)
 class name##_end {
 protected:
     iterator_type ptr;
-    iterator_type end;
-    iterator_type safe_ptr;
 public:
-    name##_end(iterator_type ptr, iterator_type end) {
+    name##_end(iterator_type ptr) {
         this->ptr = ptr;
-        this->end = end;
-        safe_ptr = ptr;
     }
-    name##_end* __iter__() { return new name##_end(ptr, end); }
-    datum_type* __next__() {
-        if (ptr == end) {
-            return NULL;
-        }
-        datum_type* result = &(*safe_ptr);
-        ptr++;
-        if (ptr != end) {
-            safe_ptr = ptr;
-        }
-        return result;
+    name##_end* __iter__() { return this; }
+    PyObject* __next__() {
+        PyErr_SetNone(PyExc_StopIteration);
+        return NULL;
     }
     iterator_type operator*() const { return ptr; }
     bool operator==(const name##_end &other) const { return *other == ptr; }
     bool operator!=(const name##_end &other) const { return *other != ptr; }
     std::string __str__() {
+        return "iterator<end>";
+    }
+};
+// Main class always has a dereferencable pointer in safe_ptr, so no
+// extra checks are needed.
+class name : public name##_end {
+private:
+    iterator_type end;
+    iterator_type safe_ptr;
+public:
+    name(iterator_type ptr, iterator_type end) : name##_end(ptr) {
+        this->end = end;
+        safe_ptr = ptr;
+    }
+    datum_type* operator->() const { return &(*safe_ptr); }
+    name* __iter__() { return this; }
+    datum_type* __next__() {
+        if (ptr == end)
+            return NULL;
+        datum_type* result = &(*safe_ptr);
+        ptr++;
+        if (ptr != end)
+            safe_ptr = ptr;
+        return result;
+    }
+    std::string __str__() {
         if (ptr == end)
             return "iterator<end>";
         return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
-};
-// Main class always has a dereferencable pointer in safe_ptr, so no extra checks
-// are needed.
-class name : public name##_end {
-public:
-    name(iterator_type ptr, iterator_type end) : name##_end(ptr, end) {}
-    datum_type* operator->() const { return &(*safe_ptr); }
-    name* __iter__() { return new name(safe_ptr, end); }
     // Provide size() C++ method for buffer size check
     size_t size() { return safe_ptr->size(); }
 };
@@ -123,7 +133,7 @@ public:
     iterator_type end = arg1->end();
     if ((iterator_type)$1 == end)
         $result = SWIG_NewPointerObj(
-            new name##_end($1, end), $descriptor(name##_end*), SWIG_POINTER_OWN);
+            new name##_end($1), $descriptor(name##_end*), SWIG_POINTER_OWN);
     else
         $result = SWIG_NewPointerObj(
             new name($1, end), $descriptor(name*), SWIG_POINTER_OWN);
