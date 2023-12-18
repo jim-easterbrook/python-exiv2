@@ -5131,6 +5131,15 @@ SWIGINTERN PyObject *Exiv2_Xmpdatum_setValue__SWIG_2(Exiv2::Xmpdatum *self,PyObj
         return set_value_from_py(self, py_value);
     }
 
+static PyObject* iter_to_python(Exiv2::XmpData::iterator ptr, Exiv2::XmpData::iterator end) {
+    if (ptr == end)
+        return SWIG_Python_NewPointerObj(
+            NULL, new XmpData_iterator_end(ptr), SWIGTYPE_p_XmpData_iterator_end, SWIG_POINTER_OWN);
+    return SWIG_Python_NewPointerObj(
+        NULL, new XmpData_iterator(ptr, end), SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+};
+
+
 SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
@@ -8783,13 +8792,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
     }
   }
   {
-    Exiv2::XmpData::iterator end = arg1->end();
-    if ((Exiv2::XmpData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new XmpData_iterator_end(result), SWIGTYPE_p_XmpData_iterator_end, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new XmpData_iterator(result, end), SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+    resultobj = iter_to_python(result, arg1->end());
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8920,13 +8923,7 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
   result = (arg1)->begin();
   {
-    Exiv2::XmpData::iterator end = arg1->end();
-    if ((Exiv2::XmpData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new XmpData_iterator_end(result), SWIGTYPE_p_XmpData_iterator_end, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new XmpData_iterator(result, end), SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+    resultobj = iter_to_python(result, arg1->end());
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8955,13 +8952,7 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
   result = (arg1)->end();
   {
-    Exiv2::XmpData::iterator end = arg1->end();
-    if ((Exiv2::XmpData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new XmpData_iterator_end(result), SWIGTYPE_p_XmpData_iterator_end, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new XmpData_iterator(result, end), SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+    resultobj = iter_to_python(result, arg1->end());
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -9016,13 +9007,7 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
     }
   }
   {
-    Exiv2::XmpData::iterator end = arg1->end();
-    if ((Exiv2::XmpData::iterator)result == end)
-    resultobj = SWIG_NewPointerObj(
-      new XmpData_iterator_end(result), SWIGTYPE_p_XmpData_iterator_end, SWIG_POINTER_OWN);
-    else
-    resultobj = SWIG_NewPointerObj(
-      new XmpData_iterator(result, end), SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+    resultobj = iter_to_python(result, arg1->end());
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {

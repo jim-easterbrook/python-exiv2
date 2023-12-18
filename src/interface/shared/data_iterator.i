@@ -128,15 +128,18 @@ public:
     }
     $1 = **argp;
 %};
+%fragment("iter_to_python"{iterator_type}, "header") {
+static PyObject* iter_to_python(iterator_type ptr, iterator_type end) {
+    if (ptr == end)
+        return SWIG_Python_NewPointerObj(
+            NULL, new name##_end(ptr), $descriptor(name##_end*), SWIG_POINTER_OWN);
+    return SWIG_Python_NewPointerObj(
+        NULL, new name(ptr, end), $descriptor(name*), SWIG_POINTER_OWN);
+};
+}
 // assumes arg1 is the base class parent
-%typemap(out) iterator_type {
-    iterator_type end = arg1->end();
-    if ((iterator_type)$1 == end)
-        $result = SWIG_NewPointerObj(
-            new name##_end($1), $descriptor(name##_end*), SWIG_POINTER_OWN);
-    else
-        $result = SWIG_NewPointerObj(
-            new name($1, end), $descriptor(name*), SWIG_POINTER_OWN);
+%typemap(out, fragment="iter_to_python"{iterator_type}) iterator_type {
+    $result = iter_to_python($1, arg1->end());
 };
 // Keep a reference to the data being iterated
 KEEP_REFERENCE(iterator_type)
