@@ -22,40 +22,32 @@
 // Macros to wrap data iterators
 %define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
 %feature("python:slot", "tp_str", functype="reprfunc")
-    name##_end::__str__;
+    name##_base::__str__;
 %feature("python:slot", "tp_iter", functype="getiterfunc")
-    name##_end::__iter__;
+    name##_base::__iter__;
 %feature("python:slot", "tp_iternext", functype="iternextfunc")
-    name##_end::__next__;
-%feature("python:slot", "tp_str", functype="reprfunc")
-    name::__str__;
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    name::__iter__;
-%feature("python:slot", "tp_iternext", functype="iternextfunc")
-    name::__next__;
-%noexception name##_end::__iter__;
-%noexception name##::__iter__;
-%noexception name##_end::__next__;
-%noexception name##_end::operator==;
-%noexception name##_end::operator!=;
-%ignore name::name;
-%ignore name::size;
-%ignore name##_end::name##_end;
-%ignore name##_end::operator*;
+    name##_base::__next__;
+%noexception name##_base::__iter__;
+%noexception name##_base::operator==;
+%noexception name##_base::operator!=;
+%ignore name##_base::size;
+%ignore name##_base::name##_base;
+%ignore name##_base::operator*;
+%ignore name##_base::valid;
 %feature("docstring") name "
 Python wrapper for an " #iterator_type ". It has most of
 the methods of " #datum_type " allowing easy access to the
 data it points to.
 "
-%feature("docstring") name##_end "
+%feature("docstring") name##_base "
 Python wrapper for an " #iterator_type " that points to
 the 'end' value and can not be dereferenced.
 "
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(name*)
-KEEP_REFERENCE(name##_end*)
+KEEP_REFERENCE(name##_base*)
 // Detect end of iteration
-%exception name::__next__ %{
+%exception name##_base::__next__ %{
     $action
     if (!result) {
         PyErr_SetNone(PyExc_StopIteration);
@@ -63,83 +55,76 @@ KEEP_REFERENCE(name##_end*)
     }
 %}
 %inline %{
-// Base class supports a single fixed pointer that never gets dereferenced
-class name##_end {
+// Base class implements all methods except dereferencing
+class name##_base {
 protected:
     iterator_type ptr;
-public:
-    name##_end(iterator_type ptr) {
-        this->ptr = ptr;
-    }
-    name##_end* __iter__() { return this; }
-    PyObject* __next__() {
-        PyErr_SetNone(PyExc_StopIteration);
-        return NULL;
-    }
-    iterator_type operator*() const { return ptr; }
-    bool operator==(const name##_end &other) const { return *other == ptr; }
-    bool operator!=(const name##_end &other) const { return *other != ptr; }
-    std::string __str__() {
-        return "iterator<end>";
-    }
-};
-// Main class always has a dereferencable pointer in safe_ptr, so no
-// extra checks are needed.
-class name : public name##_end {
-private:
     iterator_type end;
     iterator_type safe_ptr;
 public:
-    name(iterator_type ptr, iterator_type end) : name##_end(ptr) {
+    name##_base(iterator_type ptr, iterator_type end) {
+        this->ptr = ptr;
         this->end = end;
         safe_ptr = ptr;
     }
-    datum_type* operator->() const { return &(*safe_ptr); }
-    name* __iter__() { return this; }
+    name##_base* __iter__() { return this; }
     datum_type* __next__() {
-        if (ptr == end)
+        if (!valid())
             return NULL;
         datum_type* result = &(*safe_ptr);
         ptr++;
-        if (ptr != end)
+        if (valid())
             safe_ptr = ptr;
         return result;
     }
+    iterator_type operator*() const { return ptr; }
+    bool operator==(const name##_base &other) const { return *other == ptr; }
+    bool operator!=(const name##_base &other) const { return *other != ptr; }
     std::string __str__() {
-        if (ptr == end)
-            return "iterator<end>";
-        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
+        if (valid())
+            return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
+        return "iterator<end>";
     }
+    bool valid() { return ptr != end; }
     // Provide size() C++ method for buffer size check
-    size_t size() { return safe_ptr->size(); }
+    size_t size() {
+        if (valid())
+            return safe_ptr->size();
+        return 0;
+    }
+};
+// Derived class can be dereferenced, giving Python access to all datum
+// methods.
+class name : public name##_base {
+public:
+    datum_type* operator->() const { return &(*safe_ptr); }
 };
 %}
 %enddef // DATA_ITERATOR_CLASSES
 
 // Declare typemaps for data iterators.
 %define DATA_ITERATOR_TYPEMAPS(name, iterator_type)
-%typemap(in) iterator_type (int res, name##_end *argp) %{
-    res = SWIG_ConvertPtr($input, (void**)&argp, $descriptor(name##_end*), 0);
+%typemap(in) iterator_type (int res, name##_base *argp) %{
+    res = SWIG_ConvertPtr(
+        $input, (void**)&argp, $descriptor(name##_base*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, name##_end, $symname, $argnum);
+        %argument_fail(res, name##_base, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(name##_end, $symname, $argnum);
+        %argument_nullref(name##_base, $symname, $argnum);
     }
     $1 = **argp;
 %};
-%fragment("iter_to_python"{iterator_type}, "header") {
-static PyObject* iter_to_python(iterator_type ptr, iterator_type end) {
-    if (ptr == end)
-        return SWIG_Python_NewPointerObj(
-            NULL, new name##_end(ptr), $descriptor(name##_end*), SWIG_POINTER_OWN);
-    return SWIG_Python_NewPointerObj(
-        NULL, new name(ptr, end), $descriptor(name*), SWIG_POINTER_OWN);
-};
+// Return types depend on validity of iterator
+%typemap(out) name##_base* {
+    $result = SWIG_NewPointerObj((void*)$1,
+        $1->valid() ? $descriptor(name*) : $descriptor(name##_base*), 0);
 }
-// assumes arg1 is the base class parent
-%typemap(out, fragment="iter_to_python"{iterator_type}) iterator_type {
-    $result = iter_to_python($1, arg1->end());
+// Assumes arg1 is the base class parent
+%typemap(out) iterator_type {
+    name##_base* tmp = new name##_base($1, arg1->end());
+    $result = SWIG_NewPointerObj((void*)tmp,
+        tmp->valid() ? $descriptor(name*) : $descriptor(name##_base*), 0);
 };
 // Keep a reference to the data being iterated
 KEEP_REFERENCE(iterator_type)

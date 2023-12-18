@@ -62,7 +62,7 @@ class TestIptcModule(unittest.TestCase):
         next(b)
         self.assertEqual(b.key(), 'Iptc.Application2.Contact')
         e = data.end()
-        self.assertIsInstance(e, exiv2.IptcData_iterator_end)
+        self.assertIsInstance(e, exiv2.IptcData_iterator_base)
         k = data.findId(exiv2.IptcDataSets.SpecialInstructions)
         self.assertIsInstance(k, exiv2.IptcData_iterator)
         self.assertEqual(k.key(), 'Iptc.Application2.SpecialInstructions')

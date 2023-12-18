@@ -62,7 +62,7 @@ class TestXmpModule(unittest.TestCase):
         next(b)
         self.assertEqual(b.key(), 'Xmp.iptc.CreatorContactInfo')
         e = data.end()
-        self.assertIsInstance(e, exiv2.XmpData_iterator_end)
+        self.assertIsInstance(e, exiv2.XmpData_iterator_base)
         k = data.findKey(exiv2.XmpKey('Xmp.xmp.CreateDate'))
         self.assertIsInstance(k, exiv2.XmpData_iterator)
         self.assertEqual(k.key(), 'Xmp.xmp.CreateDate')

@@ -3749,7 +3749,7 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_ExifData_iterator swig_types[0]
-#define SWIGTYPE_p_ExifData_iterator_end swig_types[1]
+#define SWIGTYPE_p_ExifData_iterator_base swig_types[1]
 #define SWIGTYPE_p_Exiv2__AsciiValue swig_types[2]
 #define SWIGTYPE_p_Exiv2__BasicIo swig_types[3]
 #define SWIGTYPE_p_Exiv2__CommentValue swig_types[4]
@@ -3788,14 +3788,14 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[37]
 #define SWIGTYPE_p_Exiv2__XmpValue swig_types[38]
 #define SWIGTYPE_p_IptcData_iterator swig_types[39]
-#define SWIGTYPE_p_IptcData_iterator_end swig_types[40]
+#define SWIGTYPE_p_IptcData_iterator_base swig_types[40]
 #define SWIGTYPE_p_NsRegistry swig_types[41]
 #define SWIGTYPE_p_SwigPyObject swig_types[42]
 #define SWIGTYPE_p_UniquePtr swig_types[43]
 #define SWIGTYPE_p_ValueList swig_types[44]
 #define SWIGTYPE_p_ValueType swig_types[45]
 #define SWIGTYPE_p_XmpData_iterator swig_types[46]
-#define SWIGTYPE_p_XmpData_iterator_end swig_types[47]
+#define SWIGTYPE_p_XmpData_iterator_base swig_types[47]
 #define SWIGTYPE_p_allocator_type swig_types[48]
 #define SWIGTYPE_p_char swig_types[49]
 #define SWIGTYPE_p_const_iterator swig_types[50]
@@ -7162,7 +7162,7 @@ static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSED
     return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
 }
 static swig_type_info _swigt__p_ExifData_iterator = {"_p_ExifData_iterator", "ExifData_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ExifData_iterator_end = {"_p_ExifData_iterator_end", "ExifData_iterator_end *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ExifData_iterator_base = {"_p_ExifData_iterator_base", "ExifData_iterator_base *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__BasicIo = {"_p_Exiv2__BasicIo", "Exiv2::BasicIo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__FileIo = {"_p_Exiv2__FileIo", 0, 0, 0, 0, 0};
@@ -7201,14 +7201,14 @@ static swig_type_info _swigt__p_Exiv2__XmpKey = {"_p_Exiv2__XmpKey", "Exiv2::Xmp
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IptcData_iterator = {"_p_IptcData_iterator", "IptcData_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IptcData_iterator_end = {"_p_IptcData_iterator_end", "IptcData_iterator_end *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IptcData_iterator_base = {"_p_IptcData_iterator_base", "IptcData_iterator_base *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_NsRegistry = {"_p_NsRegistry", "NsRegistry *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_UniquePtr = {"_p_UniquePtr", "UniquePtr *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_XmpData_iterator = {"_p_XmpData_iterator", "XmpData_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_XmpData_iterator_end = {"_p_XmpData_iterator_end", "XmpData_iterator_end *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_XmpData_iterator_base = {"_p_XmpData_iterator_base", "XmpData_iterator_base *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -7237,7 +7237,7 @@ static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ExifData_iterator,
-  &_swigt__p_ExifData_iterator_end,
+  &_swigt__p_ExifData_iterator_base,
   &_swigt__p_Exiv2__AsciiValue,
   &_swigt__p_Exiv2__BasicIo,
   &_swigt__p_Exiv2__CommentValue,
@@ -7276,14 +7276,14 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
   &_swigt__p_IptcData_iterator,
-  &_swigt__p_IptcData_iterator_end,
+  &_swigt__p_IptcData_iterator_base,
   &_swigt__p_NsRegistry,
   &_swigt__p_SwigPyObject,
   &_swigt__p_UniquePtr,
   &_swigt__p_ValueList,
   &_swigt__p_ValueType,
   &_swigt__p_XmpData_iterator,
-  &_swigt__p_XmpData_iterator_end,
+  &_swigt__p_XmpData_iterator_base,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
@@ -7312,7 +7312,7 @@ static swig_type_info *swig_type_initial[] = {
 };
 
 static swig_cast_info _swigc__p_ExifData_iterator[] = {  {&_swigt__p_ExifData_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ExifData_iterator_end[] = {  {&_swigt__p_ExifData_iterator_end, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ExifData_iterator_base[] = {  {&_swigt__p_ExifData_iterator_base, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__FileIo[] = {{&_swigt__p_Exiv2__FileIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__HttpIo[] = {{&_swigt__p_Exiv2__HttpIo, 0, 0, 0},{0, 0, 0, 0}};
@@ -7351,14 +7351,14 @@ static swig_cast_info _swigc__p_Exiv2__XmpKey[] = {  {&_swigt__p_Exiv2__XmpKey, 
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IptcData_iterator[] = {  {&_swigt__p_IptcData_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IptcData_iterator_end[] = {  {&_swigt__p_IptcData_iterator_end, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IptcData_iterator_base[] = {  {&_swigt__p_IptcData_iterator_base, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_NsRegistry[] = {  {&_swigt__p_NsRegistry, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_UniquePtr[] = {  {&_swigt__p_UniquePtr, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_XmpData_iterator[] = {  {&_swigt__p_XmpData_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_XmpData_iterator_end[] = {  {&_swigt__p_XmpData_iterator_end, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_XmpData_iterator_base[] = {  {&_swigt__p_XmpData_iterator_base, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -7387,7 +7387,7 @@ static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ExifData_iterator,
-  _swigc__p_ExifData_iterator_end,
+  _swigc__p_ExifData_iterator_base,
   _swigc__p_Exiv2__AsciiValue,
   _swigc__p_Exiv2__BasicIo,
   _swigc__p_Exiv2__CommentValue,
@@ -7426,14 +7426,14 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
   _swigc__p_IptcData_iterator,
-  _swigc__p_IptcData_iterator_end,
+  _swigc__p_IptcData_iterator_base,
   _swigc__p_NsRegistry,
   _swigc__p_SwigPyObject,
   _swigc__p_UniquePtr,
   _swigc__p_ValueList,
   _swigc__p_ValueType,
   _swigc__p_XmpData_iterator,
-  _swigc__p_XmpData_iterator_end,
+  _swigc__p_XmpData_iterator_base,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,
