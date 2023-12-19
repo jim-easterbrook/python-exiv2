@@ -5051,7 +5051,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_Image_setIccProfile(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
   Exiv2::DataBuf *arg2 = 0 ;
@@ -5062,16 +5062,20 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_0(PyObject *self, Py_ssize_
   Exiv2::DataBuf *argp2 = NULL ;
   bool val3 ;
   int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
   
+  {
+    arg3 = true;
+  }
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "Image_setIccProfile", 1, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_setIccProfile" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(swig_obj[1], (void**)&argp2, SWIGTYPE_p_Exiv2__DataBuf, 0);
+    res2 = SWIG_ConvertPtr(swig_obj[0], (void**)&argp2, SWIGTYPE_p_Exiv2__DataBuf, 0);
     if (!SWIG_IsOK(res2)) {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
     }
@@ -5080,11 +5084,13 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_0(PyObject *self, Py_ssize_
     }
     arg2 = new Exiv2::DataBuf(argp2->c_data(), argp2->size());
   }
-  ecode3 = SWIG_AsVal_bool(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Image_setIccProfile" "', argument " "3"" of type '" "bool""'");
-  } 
-  arg3 = static_cast< bool >(val3);
+  if (swig_obj[1]) {
+    ecode3 = SWIG_AsVal_bool(swig_obj[1], &val3);
+    if (!SWIG_IsOK(ecode3)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Image_setIccProfile" "', argument " "3"" of type '" "bool""'");
+    } 
+    arg3 = static_cast< bool >(val3);
+  }
   {
     try {
       (arg1)->setIccProfile((Exiv2::DataBuf &&)*arg2,arg3);
@@ -5103,82 +5109,6 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_0(PyObject *self, Py_ssize_
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_setIccProfile__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
-  Exiv2::DataBuf *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = 0 ;
-  Exiv2::DataBuf *argp2 = NULL ;
-  
-  (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_setIccProfile" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], (void**)&argp2, SWIGTYPE_p_Exiv2__DataBuf, 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
-    }
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
-    }
-    arg2 = new Exiv2::DataBuf(argp2->c_data(), argp2->size());
-  }
-  {
-    try {
-      (arg1)->setIccProfile((Exiv2::DataBuf &&)*arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_setIccProfile(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Image_setIccProfile", 0, 3, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_Image_setIccProfile__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_Image_setIccProfile__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Image_setIccProfile'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Image::setIccProfile(Exiv2::DataBuf &&,bool)\n"
-    "    Exiv2::Image::setIccProfile(Exiv2::DataBuf &&)\n");
-  return 0;
 }
 
 
@@ -6105,17 +6035,21 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Image) /* defines _wrap_delete_Image_destructor_closure */
 
-SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_ImageFactory_createIo(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   bool arg2 ;
   int res1 = SWIG_OLDOBJ ;
   bool val2 ;
   int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
   Exiv2::BasicIo::UniquePtr result;
   
+  {
+    arg2 = true;
+  }
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "ImageFactory_createIo", 1, 2, swig_obj)) SWIG_fail;
   {
     std::string *ptr = (std::string *)0;
     res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
@@ -6127,11 +6061,13 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_0(PyObject *self, Py_ssiz
     }
     arg1 = ptr;
   }
-  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ImageFactory_createIo" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = static_cast< bool >(val2);
+  if (swig_obj[1]) {
+    ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ImageFactory_createIo" "', argument " "2"" of type '" "bool""'");
+    } 
+    arg2 = static_cast< bool >(val2);
+  }
   {
     try {
       result = Exiv2::ImageFactory::createIo((std::string const &)*arg1,arg2);
@@ -6157,79 +6093,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  Exiv2::BasicIo::UniquePtr result;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ImageFactory_createIo" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_createIo" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  {
-    try {
-      result = Exiv2::ImageFactory::createIo((std::string const &)*arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN |  0 );
-  
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ImageFactory_createIo(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "ImageFactory_createIo", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_ImageFactory_createIo__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_ImageFactory_createIo__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ImageFactory_createIo'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::ImageFactory::createIo(std::string const &,bool)\n"
-    "    Exiv2::ImageFactory::createIo(std::string const &)\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -6239,8 +6102,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
   int ecode2 = 0 ;
   Exiv2::Image::UniquePtr result;
   
+  {
+    arg2 = true;
+  }
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 2)) SWIG_fail;
   {
     std::string *ptr = (std::string *)0;
     res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
@@ -6252,11 +6118,13 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
     }
     arg1 = ptr;
   }
-  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ImageFactory_open" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = static_cast< bool >(val2);
+  if (swig_obj[1]) {
+    ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ImageFactory_open" "', argument " "2"" of type '" "bool""'");
+    } 
+    arg2 = static_cast< bool >(val2);
+  }
   {
     try {
       {
@@ -6287,54 +6155,6 @@ fail:
 
 
 SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  Exiv2::Image::UniquePtr result;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ImageFactory_open" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_open" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = Exiv2::ImageFactory::open((std::string const &)*arg1);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
-  
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   size_t arg2 ;
@@ -6413,18 +6233,20 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open(PyObject *self, PyObject *args) {
       _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_ImageFactory_open__SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    if (argc > 1) {
+      {
+        {
+          int res = SWIG_AsVal_size_t(argv[1], NULL);
+          _v = SWIG_CheckState(res);
+        }
+      }
+      if (!_v) goto check_1;
+    }
+    return _wrap_ImageFactory_open__SWIG_1(self, argc, argv);
   }
 check_1:
   
-  if (argc == 1) {
-    PyObject *retobj = _wrap_ImageFactory_open__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
+  if ((argc >= 1) && (argc <= 2)) {
     PyObject *retobj = _wrap_ImageFactory_open__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
@@ -6434,7 +6256,6 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ImageFactory_open'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::ImageFactory::open(std::string const &,bool)\n"
-    "    Exiv2::ImageFactory::open(std::string const &)\n"
     "    Exiv2::ImageFactory::open(Exiv2::byte const *,size_t)\n");
   return 0;
 }
@@ -6916,20 +6737,26 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ImageFactory) /* defines _wrap_delete_ImageFactory_destructor_closure */
 
-SWIGINTERN PyObject *_wrap_enableBMFF__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_enableBMFF(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   bool arg1 ;
   bool val1 ;
   int ecode1 = 0 ;
+  PyObject *swig_obj[1] ;
   bool result;
   
+  {
+    arg1 = true;
+  }
   (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_bool(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "enableBMFF" "', argument " "1"" of type '" "bool""'");
-  } 
-  arg1 = static_cast< bool >(val1);
+  if (!SWIG_Python_UnpackTuple(args, "enableBMFF", 0, 1, swig_obj)) SWIG_fail;
+  if (swig_obj[0]) {
+    ecode1 = SWIG_AsVal_bool(swig_obj[0], &val1);
+    if (!SWIG_IsOK(ecode1)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "enableBMFF" "', argument " "1"" of type '" "bool""'");
+    } 
+    arg1 = static_cast< bool >(val1);
+  }
   {
     try {
       result = (bool)Exiv2::enableBMFF(arg1);
@@ -6948,62 +6775,6 @@ SWIGINTERN PyObject *_wrap_enableBMFF__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_enableBMFF__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  bool result;
-  
-  (void)self;
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  {
-    try {
-      result = (bool)Exiv2::enableBMFF();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_enableBMFF(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "enableBMFF", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 0) {
-    PyObject *retobj = _wrap_enableBMFF__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 1) {
-    PyObject *retobj = _wrap_enableBMFF__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'enableBMFF'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::enableBMFF(bool)\n"
-    "    Exiv2::enableBMFF()\n");
-  return 0;
 }
 
 

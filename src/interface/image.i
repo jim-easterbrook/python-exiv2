@@ -67,7 +67,20 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
     }
 %}
 
+// Simplify handling of default parameters
+%typemap(default) bool useCurl {$1 = true;}
+%ignore Exiv2::ImageFactory::createIo(std::string const &);
+%ignore Exiv2::ImageFactory::open(std::string const &);
+
+%typemap(default) bool bTestValid {$1 = true;}
+%ignore Exiv2::Image::setIccProfile(DataBuf &);
+%ignore Exiv2::Image::setIccProfile(DataBuf &&);
+
+%typemap(default) bool enable {$1 = true;}
+%ignore Exiv2::enableBMFF();
+
 // In v0.28.0 Image::setIccProfile takes ownership of its DataBuf input
+// so we make a copy for it to own.
 #if EXIV2_VERSION_HEX >= 0x001c0000
 %typemap(in) Exiv2::DataBuf&& (int res = 0, Exiv2::DataBuf* argp = NULL) {
     res = SWIG_ConvertPtr($input, (void**)&argp, $1_descriptor, 0);
