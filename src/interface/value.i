@@ -113,8 +113,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
     }
 }
 %typemap(out, fragment="get_swig_type") const Exiv2::Value& {
-    Exiv2::Value* value = $1;
-    $result = SWIG_NewPointerObj(value, get_swig_type(value), 0);
+    $result = SWIG_NewPointerObj($1, get_swig_type($1), 0);
 }
 
 // AsciiValue constructor should call AsciiValue::read to ensure string
@@ -144,6 +143,8 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %noexception type_name::size;
 %extend type_name {
     part_name(const Exiv2::Value& value) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Use '" #type_name ".clone()' to copy value", 1);
         type_name* pv = dynamic_cast< type_name* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -348,7 +349,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %extend Exiv2::TimeValue::Time {
     PyObject* __iter__() {
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use getDate() to get Python dict", 1);
+            "use getTime() to get Python dict", 1);
         PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))",
             "hour", $self->hour, "minute", $self->minute,
             "second", $self->second,
