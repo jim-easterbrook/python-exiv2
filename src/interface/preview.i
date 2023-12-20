@@ -22,6 +22,7 @@
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
+%include "shared/keep_reference.i"
 
 %include "std_string.i"
 %include "std_vector.i"
@@ -44,11 +45,7 @@
 %template() std::vector<Exiv2::PreviewProperties>;
 
 // Make sure PreviewManager keeps a reference to the image it's using
-%typemap(ret) Exiv2::PreviewManager* %{
-    if (PyObject_SetAttrString($result, "_refers_to", swig_obj[0])) {
-        SWIG_fail;
-    }
-%}
+KEEP_REFERENCE_EX(Exiv2::PreviewManager*, swig_obj[0])
 
 // Enable len(PreviewImage)
 %feature("python:slot", "mp_length", functype="lenfunc")

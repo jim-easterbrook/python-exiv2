@@ -21,6 +21,7 @@
 %include "shared/buffers.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
+%include "shared/keep_reference.i"
 
 %include "stdint.i"
 %include "std_string.i"
@@ -34,13 +35,7 @@
 %import "tags.i"
 
 // ExifThumb keeps a reference to the ExifData it uses
-%typemap(ret) Exiv2::ExifThumb* %{
-    if ($result != Py_None) {
-        if (PyObject_SetAttrString($result, "_refers_to", swig_obj[0])) {
-            SWIG_fail;
-        }
-    }
-%}
+KEEP_REFERENCE_EX(Exiv2::ExifThumb*, swig_obj[0])
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)

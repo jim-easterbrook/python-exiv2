@@ -47,7 +47,8 @@
     if (PyObject_GetBuffer(
             $input, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
         PyErr_Clear();
-        %argument_fail(SWIG_TypeError, "writable buffer", $symname, $argnum);
+        %argument_fail(SWIG_TypeError, "writable Python buffer interface",
+                       $symname, $argnum);
     }
     $1 = ($1_ltype) _global_view.buf;
 }

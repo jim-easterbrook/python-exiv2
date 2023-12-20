@@ -9207,10 +9207,9 @@ SWIGINTERN int _wrap_new_ExifThumb(PyObject *self, PyObject *args, PyObject *kwa
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ExifThumb, SWIG_BUILTIN_INIT |  0 );
   
-  if (resultobj != Py_None) {
-    if (PyObject_SetAttrString(resultobj, "_refers_to", swig_obj[0])) {
-      SWIG_fail;
-    }
+  if (resultobj != Py_None)
+  if (PyObject_SetAttrString(resultobj, "_refers_to", swig_obj[0])) {
+    SWIG_fail;
   }
   
   return resultobj == Py_None ? -1 : 0;

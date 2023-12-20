@@ -24,3 +24,12 @@
     }
 %}
 %enddef // KEEP_REFERENCE
+
+%define KEEP_REFERENCE_EX(return_type, target)
+%typemap(ret) return_type %{
+    if ($result != Py_None)
+        if (PyObject_SetAttrString($result, "_refers_to", target)) {
+            SWIG_fail;
+        }
+%}
+%enddef // KEEP_REFERENCE_EX

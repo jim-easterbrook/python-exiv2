@@ -46,20 +46,14 @@ UNIQUE_PTR(Exiv2::Image);
 %thread Exiv2::ImageFactory::create;
 %thread Exiv2::ImageFactory::open;
 
+// ImageFactory can open image from a buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
 INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
-// Release Py_buffer after adding a reference to input object to result
-// PyLong_Check needed because getType has same signature as open
-%typemap(freearg) (const Exiv2::byte* data, long size),
-                  (const Exiv2::byte* data, size_t size) %{
-    if (_global_view.obj) {
-        if (resultobj && !PyLong_Check(resultobj)) {
-            PyObject_SetAttrString(
-                resultobj, "_refers_to", _global_view.obj);
-        }
-        PyBuffer_Release(&_global_view);
-    }
-%}
+
+// Image opened from buffer keeps reference to buffer
+// (Harmless side effect: opening a path keeps a reference to the path)
+KEEP_REFERENCE_EX(Exiv2::Image::SMART_PTR open, swig_obj[0])
+
 // Release memory buffer after writeMetadata, as it creates its own copy
 %typemap(ret) void writeMetadata %{
     if (PyObject_HasAttrString(self, "_refers_to")) {

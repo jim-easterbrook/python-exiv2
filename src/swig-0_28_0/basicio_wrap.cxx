@@ -4984,7 +4984,8 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs
     if (PyObject_GetBuffer(
         swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "writable buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "writable Python buffer interface""'")
+      ;
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
@@ -6044,7 +6045,8 @@ SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs,
     if (PyObject_GetBuffer(
         swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_read" "', argument " "2"" of type '" "writable buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_read" "', argument " "2"" of type '" "writable Python buffer interface""'")
+      ;
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
@@ -7078,7 +7080,8 @@ SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, 
     if (PyObject_GetBuffer(
         swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_read" "', argument " "2"" of type '" "writable buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_read" "', argument " "2"" of type '" "writable Python buffer interface""'")
+      ;
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
@@ -8105,7 +8108,8 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_1(PyObject *self, Py_ssize_t nobj
     if (PyObject_GetBuffer(
         swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_read" "', argument " "2"" of type '" "writable buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_read" "', argument " "2"" of type '" "writable Python buffer interface""'")
+      ;
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
