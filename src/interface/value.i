@@ -69,23 +69,13 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, long len)
 INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 #endif
 // Value::copy can write to a Python buffer
-%typemap(doctype) Exiv2::byte* buf "writeable bytes-like object";
-%typemap(in) Exiv2::byte* buf {
-    Py_buffer view;
-    if (PyObject_GetBuffer($input, &view,
-                           PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
-        PyErr_Clear();
-        %argument_fail(SWIG_TypeError, "writable buffer", $symname, $argnum);
-    }
-    $1 = (Exiv2::byte*) view.buf;
-    size_t len = view.len;
-    PyBuffer_Release(&view);
-    // check writeable buf is large enough, assumes arg1 points to self
-    if (len < (size_t) arg1->size()) {
-        PyErr_Format(PyExc_ValueError,
-            "in method '$symname', argument $argnum is a %d byte buffer,"
-            " %d bytes needed", len, arg1->size());
-        SWIG_fail;
+OUTPUT_BUFFER_RW(Exiv2::byte* buf, Exiv2::ByteOrder byteOrder)
+// redefine check typemap
+%typemap(check) (Exiv2::byte* buf, Exiv2::ByteOrder byteOrder) {
+    // check buffer is large enough, assumes arg1 points to self
+    if ((Py_ssize_t) arg1->size() > _global_view.len) {
+        %argument_fail(SWIG_ValueError, "buffer too small",
+                       $symname, $argnum);
     }
 }
 // Downcast base class pointers to derived class

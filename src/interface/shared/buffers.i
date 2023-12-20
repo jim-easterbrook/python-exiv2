@@ -60,7 +60,7 @@ INPUT_BUFFER_RO(buf_type, len_type)
     if (PyObject_GetBuffer(
             $input, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
         PyErr_Clear();
-        %argument_fail(SWIG_TypeError, "writable Python buffer interface",
+        %argument_fail(SWIG_TypeError, "writable bytes-like object",
                        $symname, $argnum);
     }
     $1 = ($1_ltype) _global_view.buf;
