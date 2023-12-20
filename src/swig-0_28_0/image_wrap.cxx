@@ -6147,12 +6147,6 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   if (SWIG_IsNewObj(res1)) delete arg1;
-  
-  if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", swig_obj[0])) {
-    SWIG_fail;
-  }
-  
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res1)) delete arg1;
@@ -6164,20 +6158,21 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   size_t arg2 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   Exiv2::Image::UniquePtr result;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[0], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_open" "', argument " "1"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_open" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    arg1 = (Exiv2::byte *) _global_view.buf;
-    arg2 = (size_t) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg1 = (Exiv2::byte *) buff->buf;
+    arg2 = (size_t) buff->len;
   }
   {
     try {
@@ -6201,22 +6196,20 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
+  if (resultobj && SwigPyObject_Check(resultobj)) {
+    PyObject_SetAttrString(
+      resultobj, "_refers_to", _global_view);
   }
-  
-  
-  if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", swig_obj[0])) {
-    SWIG_fail;
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
+  if (resultobj && SwigPyObject_Check(resultobj)) {
+    PyObject_SetAttrString(
+      resultobj, "_refers_to", _global_view);
   }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }
@@ -6437,20 +6430,21 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   size_t arg2 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   Exiv2::ImageType result;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[0], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_getType" "', argument " "1"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_getType" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    arg1 = (Exiv2::byte *) _global_view.buf;
-    arg2 = (size_t) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg1 = (Exiv2::byte *) buff->buf;
+    arg2 = (size_t) buff->len;
   }
   {
     try {
@@ -6468,16 +6462,20 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
+  if (resultobj && SwigPyObject_Check(resultobj)) {
+    PyObject_SetAttrString(
+      resultobj, "_refers_to", _global_view);
   }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
+  if (resultobj && SwigPyObject_Check(resultobj)) {
+    PyObject_SetAttrString(
+      resultobj, "_refers_to", _global_view);
   }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }

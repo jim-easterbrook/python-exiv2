@@ -5565,7 +5565,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_setDataArea(PyObject *self, PyObjec
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   PyObject *swig_obj[2] ;
   int result;
   
@@ -5578,14 +5578,15 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_setDataArea(PyObject *self, PyObjec
   }
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[0], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifData_iterator_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifData_iterator_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-    arg3 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
   }
   {
     try {
@@ -5601,16 +5602,12 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_setDataArea(PyObject *self, PyObjec
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }
@@ -7193,7 +7190,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_setDataArea(PyObject *self, PyObject *args)
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   PyObject *swig_obj[2] ;
   int result;
   
@@ -7206,14 +7203,15 @@ SWIGINTERN PyObject *_wrap_Exifdatum_setDataArea(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[0], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Exifdatum_setDataArea" "', argument " "2"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Exifdatum_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-    arg3 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
   }
   {
     try {
@@ -7229,16 +7227,12 @@ SWIGINTERN PyObject *_wrap_Exifdatum_setDataArea(PyObject *self, PyObject *args)
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }
@@ -8869,7 +8863,7 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_1(PyObject *self, Py
   uint16_t arg6 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   unsigned short val6 ;
   int ecode6 = 0 ;
   
@@ -8881,14 +8875,15 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_1(PyObject *self, Py
   }
   arg1 = reinterpret_cast< Exiv2::ExifThumb * >(argp1);
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-    arg3 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
   }
   {
     std::pair< unsigned int,unsigned int > *ptr = (std::pair< unsigned int,unsigned int > *)0;
@@ -8927,16 +8922,12 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_1(PyObject *self, Py
   }
   resultobj = SWIG_Py_Void();
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }
@@ -8996,7 +8987,7 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_3(PyObject *self, Py
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   
   (void)self;
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -9006,14 +8997,15 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_3(PyObject *self, Py
   }
   arg1 = reinterpret_cast< Exiv2::ExifThumb * >(argp1);
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-    arg3 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
   }
   {
     try {
@@ -9029,16 +9021,12 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_3(PyObject *self, Py
   }
   resultobj = SWIG_Py_Void();
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }

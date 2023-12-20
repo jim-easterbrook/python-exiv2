@@ -4676,7 +4676,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   long result;
   
   (void)self;
@@ -4687,14 +4687,15 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_write" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-    arg3 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
   }
   {
     try {
@@ -4714,16 +4715,12 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
   }
   resultobj = SWIG_From_long(static_cast< long >(result));
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }
@@ -5701,7 +5698,7 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   long result;
   
   (void)self;
@@ -5712,14 +5709,15 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_write" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-    arg3 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
   }
   {
     try {
@@ -5739,16 +5737,12 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs
   }
   resultobj = SWIG_From_long(static_cast< long >(result));
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }
@@ -6576,20 +6570,21 @@ SWIGINTERN int _wrap_new_MemIo__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObjec
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   long arg2 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   Exiv2::MemIo *result = 0 ;
   
   (void)self;
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[0], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_MemIo" "', argument " "1"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_MemIo" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    arg1 = (Exiv2::byte *) _global_view.buf;
-    arg2 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg1 = (Exiv2::byte *) buff->buf;
+    arg2 = (long) buff->len;
   }
   {
     try {
@@ -6605,24 +6600,20 @@ SWIGINTERN int _wrap_new_MemIo__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObjec
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__MemIo, SWIG_BUILTIN_INIT |  0 );
   
-  if (_global_view.obj) {
-    if (resultobj) {
-      PyObject_SetAttrString(
-        resultobj, "_refers_to", _global_view.obj);
-    }
-    PyBuffer_Release(&_global_view);
+  if (resultobj && SwigPyObject_Check(resultobj)) {
+    PyObject_SetAttrString(
+      resultobj, "_refers_to", _global_view);
   }
+  Py_XDECREF(_global_view);
   
   return resultobj == Py_None ? -1 : 0;
 fail:
   
-  if (_global_view.obj) {
-    if (resultobj) {
-      PyObject_SetAttrString(
-        resultobj, "_refers_to", _global_view.obj);
-    }
-    PyBuffer_Release(&_global_view);
+  if (resultobj && SwigPyObject_Check(resultobj)) {
+    PyObject_SetAttrString(
+      resultobj, "_refers_to", _global_view);
   }
+  Py_XDECREF(_global_view);
   
   return -1;
 }
@@ -6741,7 +6732,7 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   long result;
   
   (void)self;
@@ -6752,14 +6743,15 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_write" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-    arg3 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
   }
   {
     SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -6768,16 +6760,12 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   }
   resultobj = SWIG_From_long(static_cast< long >(result));
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }
@@ -7682,7 +7670,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nob
   long arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  PyObject *_global_view = NULL ;
   long result;
   
   (void)self;
@@ -7693,14 +7681,15 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
   {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(swig_obj[1], &_global_view, PyBUF_CONTIG_RO) < 0) {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    if (!_global_view) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_write" "', argument " "2"" of type '" "Python buffer interface""'")
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_write" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-    arg3 = (long) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
   }
   {
     try {
@@ -7720,16 +7709,12 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   resultobj = SWIG_From_long(static_cast< long >(result));
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
+  Py_XDECREF(_global_view);
   
   return NULL;
 }

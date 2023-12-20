@@ -81,19 +81,8 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
 INPUT_BUFFER_RO(const Exiv2::byte* data, size_t wcount)
 
 // Allow MemIo to be ceated from a buffer
-INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
-INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
-// Release Py_buffer after adding a reference to input object to result
-%typemap(freearg) (const Exiv2::byte* data, long size),
-                  (const Exiv2::byte* data, size_t size) %{
-    if (_global_view.obj) {
-        if (resultobj) {
-            PyObject_SetAttrString(
-                resultobj, "_refers_to", _global_view.obj);
-        }
-        PyBuffer_Release(&_global_view);
-    }
-%}
+INPUT_BUFFER_RO_EX(const Exiv2::byte* data, long size)
+INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
 
 // BasicIo::read can write to a Python buffer
 OUTPUT_BUFFER_RW(Exiv2::byte* buf, long rcount)

@@ -19,25 +19,38 @@
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)
 %typemap(doctype) buf_type "bytes-like object";
-%typemap(in) (buf_type, len_type) (Py_buffer _global_view) {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer($input, &_global_view, PyBUF_CONTIG_RO) < 0) {
+%typemap(in) (buf_type, len_type) (PyObject* _global_view = NULL) {
+    _global_view = PyMemoryView_GetContiguous($input, PyBUF_READ, 'A');
+    if (!_global_view) {
         PyErr_Clear();
-        %argument_fail(SWIG_TypeError, "Python buffer interface",
-                       $symname, $argnum);
+        %argument_fail(
+            SWIG_TypeError, "bytes-like object", $symname, $argnum);
     }
-    $1 = ($1_ltype) _global_view.buf;
-    $2 = ($2_ltype) _global_view.len;
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    $1 = ($1_ltype) buff->buf;
+    $2 = ($2_ltype) buff->len;
 }
 %typemap(freearg) (buf_type, len_type) %{
-    if (_global_view.obj) {
-        PyBuffer_Release(&_global_view);
-    }
+    Py_XDECREF(_global_view);
 %}
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) buf_type %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}
 %enddef // INPUT_BUFFER_RO
+
+
+// Macro for input read only byte buffer, result keeps reference to input
+%define INPUT_BUFFER_RO_EX(buf_type, len_type)
+INPUT_BUFFER_RO(buf_type, len_type)
+%typemap(freearg) (buf_type, len_type) %{
+    if (resultobj && SwigPyObject_Check(resultobj)) {
+        PyObject_SetAttrString(
+            resultobj, "_refers_to", _global_view);
+    }
+    Py_XDECREF(_global_view);
+%}
+%enddef // INPUT_BUFFER_RO_EX
+
 
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)
