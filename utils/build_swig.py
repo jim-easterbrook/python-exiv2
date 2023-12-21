@@ -140,6 +140,11 @@ def main():
         # do each swig module
         for ext_name in ext_names:
             cmd = ['swig'] + swig_opts
+            # Functions with just one parameter and a default value don't
+            # work with fastunpack.
+            # See https://github.com/swig/swig/issues/1126
+            if ext_name == 'basicio':
+                cmd.append('-nofastunpack')
             # use -doxygen ?
             if swig_version >= (4, 0, 0):
                 # -doxygen flag causes a syntax error on error.hpp in v0.26

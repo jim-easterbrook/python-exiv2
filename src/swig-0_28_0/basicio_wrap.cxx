@@ -4596,7 +4596,7 @@ SWIGINTERN PyObject *_wrap__enum_list_Position(PyObject *self, PyObject *args) {
   PyObject *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "_enum_list_Position", 0, 0, 0)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "_enum_list_Position", 0, 0)) SWIG_fail;
   result = (PyObject *)_enum_list_Position();
   resultobj = result;
   return resultobj;
@@ -4612,7 +4612,7 @@ SWIGINTERN PyObject *_wrap_delete_BasicIo(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_BasicIo", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_BasicIo takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_BasicIo" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
@@ -4647,7 +4647,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_open(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_open", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_open takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_open" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
@@ -4686,7 +4686,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_close(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_close", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_close takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_close" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
@@ -4717,7 +4717,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
@@ -4725,17 +4725,18 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *_global_view = NULL ;
+  PyObject * obj1 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo_write", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_write" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
     if (!_global_view) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_write" "', argument " "2"" of type '" "bytes-like object""'")
@@ -4776,7 +4777,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   Exiv2::BasicIo *arg2 = 0 ;
@@ -4784,16 +4785,17 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, Py_ssize_t nobj
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
+  PyObject * obj1 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo_write", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_write" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "BasicIo_write" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -4831,24 +4833,30 @@ SWIGINTERN PyObject *_wrap_BasicIo_write(PyObject *self, PyObject *args) {
   PyObject *argv[3] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "BasicIo_write", 0, 2, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 2) {
     int _v = 0;
     {
       _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_BasicIo_write__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_BasicIo_write__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_BasicIo_write__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_BasicIo_write__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -4870,18 +4878,17 @@ SWIGINTERN PyObject *_wrap_BasicIo_putb(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   unsigned char val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   int result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "BasicIo_putb", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_putb" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_char(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_unsigned_SS_char(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_putb" "', argument " "2"" of type '" "Exiv2::byte""'");
   } 
@@ -4907,7 +4914,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   size_t arg2 ;
@@ -4915,16 +4922,17 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs
   int res1 = 0 ;
   size_t val2 ;
   int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
   Exiv2::DataBuf result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo_read", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_read" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_read" "', argument " "2"" of type '" "size_t""'");
   } 
@@ -4957,7 +4965,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
@@ -4967,10 +4975,12 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs
   Py_buffer _global_view ;
   size_t val3 ;
   int ecode3 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo_read", 2, 2, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_read" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
@@ -4979,14 +4989,14 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs
   {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer(
-        swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        obj1, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "writable bytes-like object""'")
       ;
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_read" "', argument " "3"" of type '" "size_t""'");
   } 
@@ -5037,17 +5047,23 @@ SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
   PyObject *argv[4] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "BasicIo_read", 0, 3, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 2) {
-    PyObject *retobj = _wrap_BasicIo_read__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_BasicIo_read__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_BasicIo_read__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_BasicIo_read__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -5069,7 +5085,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_getb(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_getb", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_getb takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_getb" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
@@ -5104,17 +5120,16 @@ SWIGINTERN PyObject *_wrap_BasicIo_transfer(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "BasicIo_transfer", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_transfer" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "BasicIo_transfer" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -5158,22 +5173,23 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_seek", 2, 2, swig_obj)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo_seek", 2, 2, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_seek" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_long_SS_long(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_long_SS_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_seek" "', argument " "2"" of type '" "int64_t""'");
   } 
   arg2 = static_cast< int64_t >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
   } 
@@ -5203,7 +5219,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   bool arg2 ;
@@ -5211,24 +5227,26 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs
   int res1 = 0 ;
   bool val2 ;
   int ecode2 = 0 ;
-  bool _global_writeable = false ;
+  PyObject * obj1 = 0 ;
   Exiv2::byte *result = 0 ;
   
+  {
+    arg2 = false;
+  }
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo_mmap", 0, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_mmap" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_mmap" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = static_cast< bool >(val2);
-  
-  _global_writeable = arg2;
-  
+  if (obj1) {
+    ecode2 = SWIG_AsVal_bool(obj1, &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_mmap" "', argument " "2"" of type '" "bool""'");
+    } 
+    arg2 = static_cast< bool >(val2);
+  }
   {
     try {
       {
@@ -5252,86 +5270,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs
     if (!result)
     len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool _global_writeable = false ;
-  Exiv2::byte *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_mmap" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (Exiv2::byte *)(arg1)->mmap();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  {
-    size_t len = arg1->size();
-    if (!result)
-    len = 0;
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "BasicIo_mmap", 0, 2, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_BasicIo_mmap__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_BasicIo_mmap__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'BasicIo_mmap'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::BasicIo::mmap(bool)\n"
-    "    Exiv2::BasicIo::mmap()\n");
-  return 0;
 }
 
 
@@ -5343,7 +5286,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_munmap(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_munmap", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_munmap takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_munmap" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
@@ -5382,7 +5325,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_tell(PyObject *self, PyObject *args) {
   size_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_tell", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_tell takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_tell" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
@@ -5417,7 +5360,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_size(PyObject *self, PyObject *args) {
   size_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_size", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_size takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_size" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
@@ -5452,7 +5395,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_isopen(PyObject *self, PyObject *args) {
   bool result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_isopen", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_isopen takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_isopen" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
@@ -5474,7 +5417,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_error(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_error", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_error takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_error" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
@@ -5496,7 +5439,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_eof(PyObject *self, PyObject *args) {
   bool result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_eof", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_eof takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_eof" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
@@ -5518,7 +5461,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
   std::string *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "BasicIo_path", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_path takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_path" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
@@ -5540,15 +5483,15 @@ SWIGINTERN int _wrap_new_FileIo(PyObject *self, PyObject *args, PyObject *kwargs
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   int res1 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[1] ;
+  PyObject * obj1 = 0 ;
   Exiv2::FileIo *result = 0 ;
   
   (void)self;
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_FileIo")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_FileIo", 1, 1, swig_obj)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "new_FileIo", 1, 1, &obj1)) SWIG_fail;
   {
     std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    res1 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res1)) {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FileIo" "', argument " "1"" of type '" "std::string const &""'"); 
     }
@@ -5587,7 +5530,7 @@ SWIGINTERN PyObject *_wrap_delete_FileIo(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_FileIo", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_FileIo takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_FileIo" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
@@ -5614,17 +5557,18 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
   std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = SWIG_OLDOBJ ;
+  PyObject * obj1 = 0 ;
   int result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "FileIo_open", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_open" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
@@ -5632,7 +5576,7 @@ SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
     std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FileIo_open" "', argument " "2"" of type '" "std::string const &""'"); 
     }
@@ -5668,7 +5612,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
   void *argp1 = 0 ;
@@ -5676,7 +5620,7 @@ SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   int result;
   
   (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_open takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_open" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
@@ -5712,17 +5656,23 @@ SWIGINTERN PyObject *_wrap_FileIo_open(PyObject *self, PyObject *args) {
   PyObject *argv[3] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FileIo_open", 0, 2, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 1) {
-    PyObject *retobj = _wrap_FileIo_open__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_FileIo_open__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 2) {
-    PyObject *retobj = _wrap_FileIo_open__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_FileIo_open__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -5744,7 +5694,7 @@ SWIGINTERN PyObject *_wrap_FileIo_close(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_close", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_close takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_close" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
@@ -5775,7 +5725,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
@@ -5783,17 +5733,18 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *_global_view = NULL ;
+  PyObject * obj1 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "FileIo_write", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_write" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
     if (!_global_view) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_write" "', argument " "2"" of type '" "bytes-like object""'")
@@ -5834,7 +5785,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
   Exiv2::BasicIo *arg2 = 0 ;
@@ -5842,16 +5793,17 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
+  PyObject * obj1 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "FileIo_write", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_write" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FileIo_write" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -5889,24 +5841,30 @@ SWIGINTERN PyObject *_wrap_FileIo_write(PyObject *self, PyObject *args) {
   PyObject *argv[3] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FileIo_write", 0, 2, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 2) {
     int _v = 0;
     {
       _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_FileIo_write__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_FileIo_write__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_FileIo_write__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_FileIo_write__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -5928,18 +5886,17 @@ SWIGINTERN PyObject *_wrap_FileIo_putb(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   unsigned char val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   int result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "FileIo_putb", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_putb" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_char(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_unsigned_SS_char(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_putb" "', argument " "2"" of type '" "Exiv2::byte""'");
   } 
@@ -5965,7 +5922,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
   size_t arg2 ;
@@ -5973,16 +5930,17 @@ SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   int res1 = 0 ;
   size_t val2 ;
   int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
   Exiv2::DataBuf result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "FileIo_read", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_read" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_read" "', argument " "2"" of type '" "size_t""'");
   } 
@@ -6015,7 +5973,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
@@ -6025,10 +5983,12 @@ SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   Py_buffer _global_view ;
   size_t val3 ;
   int ecode3 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "FileIo_read", 2, 2, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_read" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
@@ -6037,14 +5997,14 @@ SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer(
-        swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        obj1, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_read" "', argument " "2"" of type '" "writable bytes-like object""'")
       ;
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FileIo_read" "', argument " "3"" of type '" "size_t""'");
   } 
@@ -6095,17 +6055,23 @@ SWIGINTERN PyObject *_wrap_FileIo_read(PyObject *self, PyObject *args) {
   PyObject *argv[4] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FileIo_read", 0, 3, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 2) {
-    PyObject *retobj = _wrap_FileIo_read__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_FileIo_read__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_FileIo_read__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_FileIo_read__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -6127,7 +6093,7 @@ SWIGINTERN PyObject *_wrap_FileIo_getb(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_getb", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_getb takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_getb" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
@@ -6162,17 +6128,16 @@ SWIGINTERN PyObject *_wrap_FileIo_transfer(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "FileIo_transfer", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_transfer" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FileIo_transfer" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -6216,22 +6181,23 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
   int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_seek", 2, 2, swig_obj)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "FileIo_seek", 2, 2, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_seek" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  ecode2 = SWIG_AsVal_long_SS_long(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_long_SS_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_seek" "', argument " "2"" of type '" "int64_t""'");
   } 
   arg2 = static_cast< int64_t >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FileIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
   } 
@@ -6261,7 +6227,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_FileIo_mmap(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
   bool arg2 ;
@@ -6269,24 +6235,26 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   int res1 = 0 ;
   bool val2 ;
   int ecode2 = 0 ;
-  bool _global_writeable = false ;
+  PyObject * obj1 = 0 ;
   Exiv2::byte *result = 0 ;
   
+  {
+    arg2 = false;
+  }
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "FileIo_mmap", 0, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_mmap" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_mmap" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = static_cast< bool >(val2);
-  
-  _global_writeable = arg2;
-  
+  if (obj1) {
+    ecode2 = SWIG_AsVal_bool(obj1, &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_mmap" "', argument " "2"" of type '" "bool""'");
+    } 
+    arg2 = static_cast< bool >(val2);
+  }
   {
     try {
       {
@@ -6310,86 +6278,11 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs,
     if (!result)
     len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FileIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  Exiv2::FileIo *arg1 = (Exiv2::FileIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool _global_writeable = false ;
-  Exiv2::byte *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_mmap" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (Exiv2::byte *)(arg1)->mmap();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  {
-    size_t len = arg1->size();
-    if (!result)
-    len = 0;
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FileIo_mmap(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FileIo_mmap", 0, 2, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_FileIo_mmap__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_FileIo_mmap__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FileIo_mmap'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::FileIo::mmap(bool)\n"
-    "    Exiv2::FileIo::mmap()\n");
-  return 0;
 }
 
 
@@ -6401,7 +6294,7 @@ SWIGINTERN PyObject *_wrap_FileIo_munmap(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_munmap", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_munmap takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_munmap" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
@@ -6439,11 +6332,10 @@ SWIGINTERN PyObject *_wrap_FileIo_setPath(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "FileIo_setPath", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_setPath" "', argument " "1"" of type '" "Exiv2::FileIo *""'"); 
@@ -6451,7 +6343,7 @@ SWIGINTERN PyObject *_wrap_FileIo_setPath(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   {
     std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FileIo_setPath" "', argument " "2"" of type '" "std::string const &""'"); 
     }
@@ -6491,7 +6383,7 @@ SWIGINTERN PyObject *_wrap_FileIo_tell(PyObject *self, PyObject *args) {
   size_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_tell", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_tell takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_tell" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
@@ -6530,7 +6422,7 @@ SWIGINTERN PyObject *_wrap_FileIo_size(PyObject *self, PyObject *args) {
   size_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_size", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_size takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_size" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
@@ -6569,7 +6461,7 @@ SWIGINTERN PyObject *_wrap_FileIo_isopen(PyObject *self, PyObject *args) {
   bool result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_isopen", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_isopen takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_isopen" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
@@ -6591,7 +6483,7 @@ SWIGINTERN PyObject *_wrap_FileIo_error(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_error", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_error takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_error" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
@@ -6613,7 +6505,7 @@ SWIGINTERN PyObject *_wrap_FileIo_eof(PyObject *self, PyObject *args) {
   bool result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_eof", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_eof takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_eof" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
@@ -6635,7 +6527,7 @@ SWIGINTERN PyObject *_wrap_FileIo_path(PyObject *self, PyObject *args) {
   std::string *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "FileIo_path", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "FileIo_path takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__FileIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FileIo_path" "', argument " "1"" of type '" "Exiv2::FileIo const *""'"); 
@@ -6653,12 +6545,13 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_FileIo) /* defines _wrap_delete_FileIo_de
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_FileIo_size) /* defines _wrap_FileIo_size_lenfunc_closure */
 
-SWIGINTERN int _wrap_new_MemIo__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN int _wrap_new_MemIo__SWIG_0(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   Exiv2::MemIo *result = 0 ;
   
   (void)self;
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_MemIo")) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "new_MemIo takes no arguments");
   {
     try {
       result = (Exiv2::MemIo *)new Exiv2::MemIo();
@@ -6680,17 +6573,19 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_MemIo__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_MemIo__SWIG_1(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   size_t arg2 ;
   PyObject *_global_view = NULL ;
+  PyObject * obj1 = 0 ;
   Exiv2::MemIo *result = 0 ;
   
   (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_MemIo")) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "new_MemIo", 1, 1, &obj1)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
     if (!_global_view) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_MemIo" "', argument " "1"" of type '" "bytes-like object""'")
@@ -6740,18 +6635,22 @@ SWIGINTERN int _wrap_new_MemIo(PyObject *self, PyObject *args, PyObject *kwargs)
   PyObject *argv[2] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_MemIo")) SWIG_fail;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_MemIo", 0, 1, argv))) SWIG_fail;
-  --argc;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
   if (argc == 0) {
-    int retval = _wrap_new_MemIo__SWIG_0(self, argc, argv);
+    int retval = _wrap_new_MemIo__SWIG_0(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
   if (argc == 1) {
-    int retval = _wrap_new_MemIo__SWIG_1(self, argc, argv);
+    int retval = _wrap_new_MemIo__SWIG_1(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -6772,7 +6671,7 @@ SWIGINTERN PyObject *_wrap_delete_MemIo(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_MemIo", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_MemIo takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MemIo" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
@@ -6807,7 +6706,7 @@ SWIGINTERN PyObject *_wrap_MemIo_open(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_open", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_open takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_open" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
@@ -6829,7 +6728,7 @@ SWIGINTERN PyObject *_wrap_MemIo_close(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_close", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_close takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_close" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
@@ -6843,7 +6742,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
@@ -6851,17 +6750,18 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs,
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *_global_view = NULL ;
+  PyObject * obj1 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "MemIo_write", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_write" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
     if (!_global_view) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_write" "', argument " "2"" of type '" "bytes-like object""'")
@@ -6889,7 +6789,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
   Exiv2::BasicIo *arg2 = 0 ;
@@ -6897,16 +6797,17 @@ SWIGINTERN PyObject *_wrap_MemIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
+  PyObject * obj1 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "MemIo_write", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_write" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MemIo_write" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -6931,24 +6832,30 @@ SWIGINTERN PyObject *_wrap_MemIo_write(PyObject *self, PyObject *args) {
   PyObject *argv[3] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "MemIo_write", 0, 2, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 2) {
     int _v = 0;
     {
       _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_MemIo_write__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_MemIo_write__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_MemIo_write__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_MemIo_write__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -6970,18 +6877,17 @@ SWIGINTERN PyObject *_wrap_MemIo_putb(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   unsigned char val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   int result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "MemIo_putb", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_putb" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_char(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_unsigned_SS_char(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_putb" "', argument " "2"" of type '" "Exiv2::byte""'");
   } 
@@ -7007,7 +6913,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
   size_t arg2 ;
@@ -7015,16 +6921,17 @@ SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
   int res1 = 0 ;
   size_t val2 ;
   int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
   Exiv2::DataBuf result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "MemIo_read", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_read" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_read" "', argument " "2"" of type '" "size_t""'");
   } 
@@ -7044,7 +6951,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
@@ -7054,10 +6961,12 @@ SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, 
   Py_buffer _global_view ;
   size_t val3 ;
   int ecode3 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "MemIo_read", 2, 2, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_read" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
@@ -7066,14 +6975,14 @@ SWIGINTERN PyObject *_wrap_MemIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, 
   {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer(
-        swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        obj1, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_read" "', argument " "2"" of type '" "writable bytes-like object""'")
       ;
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MemIo_read" "', argument " "3"" of type '" "size_t""'");
   } 
@@ -7111,17 +7020,23 @@ SWIGINTERN PyObject *_wrap_MemIo_read(PyObject *self, PyObject *args) {
   PyObject *argv[4] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "MemIo_read", 0, 3, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 2) {
-    PyObject *retobj = _wrap_MemIo_read__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_MemIo_read__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_MemIo_read__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_MemIo_read__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -7143,7 +7058,7 @@ SWIGINTERN PyObject *_wrap_MemIo_getb(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_getb", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_getb takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_getb" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
@@ -7178,17 +7093,16 @@ SWIGINTERN PyObject *_wrap_MemIo_transfer(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "MemIo_transfer", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_transfer" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MemIo_transfer" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -7232,22 +7146,23 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
   int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_seek", 2, 2, swig_obj)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "MemIo_seek", 2, 2, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_seek" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  ecode2 = SWIG_AsVal_long_SS_long(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_long_SS_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_seek" "', argument " "2"" of type '" "int64_t""'");
   } 
   arg2 = static_cast< int64_t >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MemIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
   } 
@@ -7260,7 +7175,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_MemIo_mmap(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
   bool arg2 ;
@@ -7268,93 +7183,37 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
   int res1 = 0 ;
   bool val2 ;
   int ecode2 = 0 ;
-  bool _global_writeable = false ;
+  PyObject * obj1 = 0 ;
   Exiv2::byte *result = 0 ;
   
+  {
+    arg2 = false;
+  }
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "MemIo_mmap", 0, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_mmap" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_mmap" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = static_cast< bool >(val2);
-  
-  _global_writeable = arg2;
-  
+  if (obj1) {
+    ecode2 = SWIG_AsVal_bool(obj1, &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_mmap" "', argument " "2"" of type '" "bool""'");
+    } 
+    arg2 = static_cast< bool >(val2);
+  }
   result = (Exiv2::byte *)(arg1)->mmap(arg2);
   {
     size_t len = arg1->size();
     if (!result)
     len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MemIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  Exiv2::MemIo *arg1 = (Exiv2::MemIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool _global_writeable = false ;
-  Exiv2::byte *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_mmap" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
-  result = (Exiv2::byte *)(arg1)->mmap();
-  {
-    size_t len = arg1->size();
-    if (!result)
-    len = 0;
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MemIo_mmap(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "MemIo_mmap", 0, 2, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_MemIo_mmap__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_MemIo_mmap__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'MemIo_mmap'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::MemIo::mmap(bool)\n"
-    "    Exiv2::MemIo::mmap()\n");
-  return 0;
 }
 
 
@@ -7366,7 +7225,7 @@ SWIGINTERN PyObject *_wrap_MemIo_munmap(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_munmap", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_munmap takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_munmap" "', argument " "1"" of type '" "Exiv2::MemIo *""'"); 
@@ -7388,7 +7247,7 @@ SWIGINTERN PyObject *_wrap_MemIo_tell(PyObject *self, PyObject *args) {
   size_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_tell", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_tell takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_tell" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
@@ -7410,7 +7269,7 @@ SWIGINTERN PyObject *_wrap_MemIo_size(PyObject *self, PyObject *args) {
   size_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_size", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_size takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_size" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
@@ -7432,7 +7291,7 @@ SWIGINTERN PyObject *_wrap_MemIo_isopen(PyObject *self, PyObject *args) {
   bool result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_isopen", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_isopen takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_isopen" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
@@ -7454,7 +7313,7 @@ SWIGINTERN PyObject *_wrap_MemIo_error(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_error", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_error takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_error" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
@@ -7476,7 +7335,7 @@ SWIGINTERN PyObject *_wrap_MemIo_eof(PyObject *self, PyObject *args) {
   bool result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_eof", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_eof takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_eof" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
@@ -7498,7 +7357,7 @@ SWIGINTERN PyObject *_wrap_MemIo_path(PyObject *self, PyObject *args) {
   std::string *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "MemIo_path", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "MemIo_path takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__MemIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MemIo_path" "', argument " "1"" of type '" "Exiv2::MemIo const *""'"); 
@@ -7518,15 +7377,15 @@ SWIGINTERN int _wrap_new_XPathIo(PyObject *self, PyObject *args, PyObject *kwarg
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   int res1 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[1] ;
+  PyObject * obj1 = 0 ;
   Exiv2::XPathIo *result = 0 ;
   
   (void)self;
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XPathIo")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_XPathIo", 1, 1, swig_obj)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "new_XPathIo", 1, 1, &obj1)) SWIG_fail;
   {
     std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    res1 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res1)) {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_XPathIo" "', argument " "1"" of type '" "std::string const &""'"); 
     }
@@ -7565,7 +7424,7 @@ SWIGINTERN PyObject *_wrap_delete_XPathIo(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_XPathIo", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_XPathIo takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XPathIo, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XPathIo" "', argument " "1"" of type '" "Exiv2::XPathIo *""'"); 
@@ -7600,17 +7459,16 @@ SWIGINTERN PyObject *_wrap_XPathIo_transfer(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "XPathIo_transfer", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XPathIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XPathIo_transfer" "', argument " "1"" of type '" "Exiv2::XPathIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XPathIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XPathIo_transfer" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -7647,15 +7505,14 @@ SWIGINTERN PyObject *_wrap_XPathIo_writeDataToFile(PyObject *self, PyObject *arg
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   int res1 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[1] ;
+  PyObject * obj0 = 0 ;
   std::string result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "XPathIo_writeDataToFile", 1, 1, &obj0)) SWIG_fail;
   {
     std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
     if (!SWIG_IsOK(res1)) {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XPathIo_writeDataToFile" "', argument " "1"" of type '" "std::string const &""'"); 
     }
@@ -7695,7 +7552,7 @@ SWIGINTERN int _wrap_new_RemoteIo(PyObject *self, PyObject *args, PyObject *kwar
   
   (void)self;
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_RemoteIo")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_RemoteIo", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "new_RemoteIo takes no arguments");
   {
     try {
       result = (Exiv2::RemoteIo *)new Exiv2::RemoteIo();
@@ -7724,7 +7581,7 @@ SWIGINTERN PyObject *_wrap_delete_RemoteIo(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_RemoteIo", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_RemoteIo takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RemoteIo" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
@@ -7759,7 +7616,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_open(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_open", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_open takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_open" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
@@ -7798,7 +7655,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_close(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_close", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_close takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_close" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
@@ -7829,7 +7686,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
@@ -7837,17 +7694,18 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, Py_ssize_t nob
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *_global_view = NULL ;
+  PyObject * obj1 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "RemoteIo_write", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_write" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(swig_obj[1], PyBUF_READ, 'A');
+    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
     if (!_global_view) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_write" "', argument " "2"" of type '" "bytes-like object""'")
@@ -7888,7 +7746,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
   Exiv2::BasicIo *arg2 = 0 ;
@@ -7896,16 +7754,17 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_1(PyObject *self, Py_ssize_t nob
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
+  PyObject * obj1 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "RemoteIo_write", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_write" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RemoteIo_write" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -7943,24 +7802,30 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write(PyObject *self, PyObject *args) {
   PyObject *argv[3] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "RemoteIo_write", 0, 2, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 2) {
     int _v = 0;
     {
       _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_RemoteIo_write__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_RemoteIo_write__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_RemoteIo_write__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_RemoteIo_write__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -7982,18 +7847,17 @@ SWIGINTERN PyObject *_wrap_RemoteIo_putb(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   unsigned char val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   int result;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "RemoteIo_putb", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_putb" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_char(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_unsigned_SS_char(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_putb" "', argument " "2"" of type '" "Exiv2::byte""'");
   } 
@@ -8019,7 +7883,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
   size_t arg2 ;
@@ -8027,16 +7891,17 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_0(PyObject *self, Py_ssize_t nobj
   int res1 = 0 ;
   size_t val2 ;
   int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
   Exiv2::DataBuf result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "RemoteIo_read", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_read" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_read" "', argument " "2"" of type '" "size_t""'");
   } 
@@ -8069,7 +7934,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
@@ -8079,10 +7944,12 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_1(PyObject *self, Py_ssize_t nobj
   Py_buffer _global_view ;
   size_t val3 ;
   int ecode3 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   size_t result;
   
   (void)self;
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "RemoteIo_read", 2, 2, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_read" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
@@ -8091,14 +7958,14 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_1(PyObject *self, Py_ssize_t nobj
   {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer(
-        swig_obj[1], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        obj1, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_read" "', argument " "2"" of type '" "writable bytes-like object""'")
       ;
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RemoteIo_read" "', argument " "3"" of type '" "size_t""'");
   } 
@@ -8149,17 +8016,23 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read(PyObject *self, PyObject *args) {
   PyObject *argv[4] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "RemoteIo_read", 0, 3, argv+1))) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
   argv[0] = self;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
   if (argc == 2) {
-    PyObject *retobj = _wrap_RemoteIo_read__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_RemoteIo_read__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 3) {
-    PyObject *retobj = _wrap_RemoteIo_read__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_RemoteIo_read__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -8181,7 +8054,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_getb(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_getb", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_getb takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_getb" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
@@ -8216,17 +8089,16 @@ SWIGINTERN PyObject *_wrap_RemoteIo_transfer(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject * obj1 = 0 ;
   
   (void)self;
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!PyArg_UnpackTuple(args, "RemoteIo_transfer", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_transfer" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RemoteIo_transfer" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
@@ -8270,22 +8142,23 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
   int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_seek", 2, 2, swig_obj)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "RemoteIo_seek", 2, 2, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_seek" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  ecode2 = SWIG_AsVal_long_SS_long(swig_obj[0], &val2);
+  ecode2 = SWIG_AsVal_long_SS_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_seek" "', argument " "2"" of type '" "int64_t""'");
   } 
   arg2 = static_cast< int64_t >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RemoteIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
   } 
@@ -8298,7 +8171,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_RemoteIo_mmap(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
   bool arg2 ;
@@ -8306,24 +8179,26 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobj
   int res1 = 0 ;
   bool val2 ;
   int ecode2 = 0 ;
-  bool _global_writeable = false ;
+  PyObject * obj1 = 0 ;
   Exiv2::byte *result = 0 ;
   
+  {
+    arg2 = false;
+  }
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "RemoteIo_mmap", 0, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_mmap" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_mmap" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = static_cast< bool >(val2);
-  
-  _global_writeable = arg2;
-  
+  if (obj1) {
+    ecode2 = SWIG_AsVal_bool(obj1, &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_mmap" "', argument " "2"" of type '" "bool""'");
+    } 
+    arg2 = static_cast< bool >(val2);
+  }
   {
     try {
       {
@@ -8347,86 +8222,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_0(PyObject *self, Py_ssize_t nobj
     if (!result)
     len = 0;
     resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+      (char*)result, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
   }
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RemoteIo_mmap__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  Exiv2::RemoteIo *arg1 = (Exiv2::RemoteIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool _global_writeable = false ;
-  Exiv2::byte *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_mmap" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (Exiv2::byte *)(arg1)->mmap();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  {
-    size_t len = arg1->size();
-    if (!result)
-    len = 0;
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RemoteIo_mmap(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "RemoteIo_mmap", 0, 2, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_RemoteIo_mmap__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_RemoteIo_mmap__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'RemoteIo_mmap'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::RemoteIo::mmap(bool)\n"
-    "    Exiv2::RemoteIo::mmap()\n");
-  return 0;
 }
 
 
@@ -8438,7 +8238,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_munmap(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_munmap", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_munmap takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_munmap" "', argument " "1"" of type '" "Exiv2::RemoteIo *""'"); 
@@ -8460,7 +8260,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_tell(PyObject *self, PyObject *args) {
   size_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_tell", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_tell takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_tell" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
@@ -8482,7 +8282,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_size(PyObject *self, PyObject *args) {
   size_t result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_size", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_size takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_size" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
@@ -8504,7 +8304,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_isopen(PyObject *self, PyObject *args) {
   bool result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_isopen", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_isopen takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_isopen" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
@@ -8526,7 +8326,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_error(PyObject *self, PyObject *args) {
   int result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_error", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_error takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_error" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
@@ -8548,7 +8348,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_eof(PyObject *self, PyObject *args) {
   bool result;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_eof", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_eof takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_eof" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
@@ -8570,7 +8370,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_path(PyObject *self, PyObject *args) {
   std::string *result = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "RemoteIo_path", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "RemoteIo_path takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__RemoteIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RemoteIo_path" "', argument " "1"" of type '" "Exiv2::RemoteIo const *""'"); 
@@ -8588,20 +8388,23 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_RemoteIo) /* defines _wrap_delete_RemoteI
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_RemoteIo_size) /* defines _wrap_RemoteIo_size_lenfunc_closure */
 
-SWIGINTERN int _wrap_new_HttpIo__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_HttpIo__SWIG_0(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   size_t arg2 ;
   int res1 = SWIG_OLDOBJ ;
   size_t val2 ;
   int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   Exiv2::HttpIo *result = 0 ;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_HttpIo")) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "new_HttpIo", 2, 2, &obj1, &obj2)) SWIG_fail;
   {
     std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    res1 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res1)) {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_HttpIo" "', argument " "1"" of type '" "std::string const &""'"); 
     }
@@ -8610,7 +8413,7 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObje
     }
     arg1 = ptr;
   }
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  ecode2 = SWIG_AsVal_size_t(obj2, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_HttpIo" "', argument " "2"" of type '" "size_t""'");
   } 
@@ -8638,17 +8441,19 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_HttpIo__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_HttpIo__SWIG_1(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   int res1 = SWIG_OLDOBJ ;
+  PyObject * obj1 = 0 ;
   Exiv2::HttpIo *result = 0 ;
   
   (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_HttpIo")) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "new_HttpIo", 1, 1, &obj1)) SWIG_fail;
   {
     std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    res1 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res1)) {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_HttpIo" "', argument " "1"" of type '" "std::string const &""'"); 
     }
@@ -8685,18 +8490,22 @@ SWIGINTERN int _wrap_new_HttpIo(PyObject *self, PyObject *args, PyObject *kwargs
   PyObject *argv[3] = {
     0
   };
+  Py_ssize_t ii;
   
   (void)self;
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_HttpIo")) SWIG_fail;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_HttpIo", 0, 2, argv))) SWIG_fail;
-  --argc;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
   if (argc == 1) {
-    int retval = _wrap_new_HttpIo__SWIG_1(self, argc, argv);
+    int retval = _wrap_new_HttpIo__SWIG_1(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
   if (argc == 2) {
-    int retval = _wrap_new_HttpIo__SWIG_0(self, argc, argv);
+    int retval = _wrap_new_HttpIo__SWIG_0(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -8717,7 +8526,7 @@ SWIGINTERN PyObject *_wrap_delete_HttpIo(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_HttpIo", 0, 0, 0)) SWIG_fail;
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_HttpIo takes no arguments");
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__HttpIo, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_HttpIo" "', argument " "1"" of type '" "Exiv2::HttpIo *""'"); 
@@ -8747,19 +8556,23 @@ fail:
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_HttpIo) /* defines _wrap_delete_HttpIo_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
-	 { "_enum_list_Position", _wrap__enum_list_Position, METH_NOARGS, NULL},
+	 { "_enum_list_Position", _wrap__enum_list_Position, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
 static SwigPyGetSet BasicIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__BasicIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &BasicIo___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &BasicIo___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
 SwigPyBuiltin__Exiv2__BasicIo_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
+  PyObject *tuple = PyTuple_New(1);
+  assert(tuple);
+  PyTuple_SET_ITEM(tuple, 0, other);
+  Py_XINCREF(other);
   if (!result) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -8768,11 +8581,12 @@ SwigPyBuiltin__Exiv2__BasicIo_richcompare(PyObject *self, PyObject *other, int o
       Py_INCREF(result);
     }
   }
+  Py_DECREF(tuple);
   return result;
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
-  { "open", _wrap_BasicIo_open, METH_NOARGS, "\n"
+  { "open", _wrap_BasicIo_open, METH_VARARGS, "\n"
 		"Open the IO source using the default access mode. The\n"
 		"    default mode should allow for reading and writing.\n"
 		"\n"
@@ -8786,7 +8600,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"        Nonzero if failure.\n"
 		"" },
-  { "close", _wrap_BasicIo_close, METH_NOARGS, "\n"
+  { "close", _wrap_BasicIo_close, METH_VARARGS, "\n"
 		"Close the IO source. After closing a BasicIo instance can not\n"
 		"    be read or written. Closing flushes any unwritten data. It is\n"
 		"    safe to call close on a closed instance.\n"
@@ -8825,7 +8639,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"        0 if failure;\n"
 		"" },
-  { "putb", _wrap_BasicIo_putb, METH_O, "\n"
+  { "putb", _wrap_BasicIo_putb, METH_VARARGS, "\n"
 		"Write one byte to the IO source. Current IO position is\n"
 		"    advanced by one byte.\n"
 		":type data: Exiv2::byte\n"
@@ -8868,7 +8682,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"        0 if failure;\n"
 		"" },
-  { "getb", _wrap_BasicIo_getb, METH_NOARGS, "\n"
+  { "getb", _wrap_BasicIo_getb, METH_VARARGS, "\n"
 		"Read one byte from the IO source. Current IO position is\n"
 		"    advanced by one byte.\n"
 		":rtype: int\n"
@@ -8876,7 +8690,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"        EOF if failure;\n"
 		"" },
-  { "transfer", _wrap_BasicIo_transfer, METH_O, "\n"
+  { "transfer", _wrap_BasicIo_transfer, METH_VARARGS, "\n"
 		"Remove all data from this object's IO source and then transfer\n"
 		"    data from the *src* BasicIo object into this object.\n"
 		"\n"
@@ -8913,7 +8727,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		":return: A pointer to the mapped area.\n"
 		":raises: Error In case of failure.\n"
 		"" },
-  { "munmap", _wrap_BasicIo_munmap, METH_NOARGS, "\n"
+  { "munmap", _wrap_BasicIo_munmap, METH_VARARGS, "\n"
 		"Remove a mapping established with mmap(). If the mapped area\n"
 		"       is writeable, this ensures that changes are written back.\n"
 		":rtype: int\n"
@@ -8921,22 +8735,22 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"            Nonzero if failure;\n"
 		"" },
-  { "tell", _wrap_BasicIo_tell, METH_NOARGS, "\n"
+  { "tell", _wrap_BasicIo_tell, METH_VARARGS, "\n"
 		"Get the current IO position.\n"
 		":rtype: int\n"
 		":return: Offset from the start of IO\n"
 		"" },
-  { "size", _wrap_BasicIo_size, METH_NOARGS, "\n"
+  { "size", _wrap_BasicIo_size, METH_VARARGS, "\n"
 		"Get the current size of the IO source in bytes.\n"
 		":rtype: int\n"
 		":return: Size of the IO source in bytes;\n"
 		"\n"
 		"           -1 if failure;\n"
 		"" },
-  { "isopen", _wrap_BasicIo_isopen, METH_NOARGS, " Returns true if the IO source is open, otherwise false." },
-  { "error", _wrap_BasicIo_error, METH_NOARGS, " Returns 0 if the IO source is in a valid state, otherwise nonzero." },
-  { "eof", _wrap_BasicIo_eof, METH_NOARGS, " Returns true if the IO position has reached the end, otherwise false." },
-  { "path", _wrap_BasicIo_path, METH_NOARGS, "\n"
+  { "isopen", _wrap_BasicIo_isopen, METH_VARARGS, " Returns true if the IO source is open, otherwise false." },
+  { "error", _wrap_BasicIo_error, METH_VARARGS, " Returns 0 if the IO source is in a valid state, otherwise nonzero." },
+  { "eof", _wrap_BasicIo_eof, METH_VARARGS, " Returns true if the IO position has reached the end, otherwise false." },
+  { "path", _wrap_BasicIo_path, METH_VARARGS, "\n"
 		"Return the path to the IO resource. Often used to form\n"
 		"    comprehensive error messages where only a BasicIo instance is\n"
 		"    available.\n"
@@ -9156,7 +8970,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__BasicIo_clientdata = {0, 0, 0,
 
 static SwigPyGetSet FileIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__FileIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"\n"
 		"Constructor that accepts the file path on which IO will be\n"
 		"    performed. The constructor does not open the file, and\n"
 		"    therefore never fails.\n"
@@ -9169,6 +8983,10 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__FileIo_getset[] = {
 SWIGINTERN PyObject *
 SwigPyBuiltin__Exiv2__FileIo_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
+  PyObject *tuple = PyTuple_New(1);
+  assert(tuple);
+  PyTuple_SET_ITEM(tuple, 0, other);
+  Py_XINCREF(other);
   if (!result) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -9177,6 +8995,7 @@ SwigPyBuiltin__Exiv2__FileIo_richcompare(PyObject *self, PyObject *other, int op
       Py_INCREF(result);
     }
   }
+  Py_DECREF(tuple);
   return result;
 }
 
@@ -9211,7 +9030,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"        Nonzero if failure.\n"
 		"" },
-  { "close", _wrap_FileIo_close, METH_NOARGS, "\n"
+  { "close", _wrap_FileIo_close, METH_VARARGS, "\n"
 		"Flush and unwritten data and close the file . It is\n"
 		"    safe to call close on an already closed instance.\n"
 		":rtype: int\n"
@@ -9249,7 +9068,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"           0 if failure;\n"
 		"" },
-  { "putb", _wrap_FileIo_putb, METH_O, "\n"
+  { "putb", _wrap_FileIo_putb, METH_VARARGS, "\n"
 		"Write one byte to the file. The file position is\n"
 		"    advanced by one byte.\n"
 		":type data: Exiv2::byte\n"
@@ -9292,7 +9111,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"           0 if failure;\n"
 		"" },
-  { "getb", _wrap_FileIo_getb, METH_NOARGS, "\n"
+  { "getb", _wrap_FileIo_getb, METH_VARARGS, "\n"
 		"Read one byte from the file. The file position is\n"
 		"    advanced by one byte.\n"
 		":rtype: int\n"
@@ -9300,7 +9119,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"           EOF if failure;\n"
 		"" },
-  { "transfer", _wrap_FileIo_transfer, METH_O, "\n"
+  { "transfer", _wrap_FileIo_transfer, METH_VARARGS, "\n"
 		"Remove the contents of the file and then transfer data from\n"
 		"    the *src* BasicIo object into the empty file.\n"
 		"\n"
@@ -9333,7 +9152,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		":return: A pointer to the mapped area.\n"
 		":raises: Error In case of failure.\n"
 		"" },
-  { "munmap", _wrap_FileIo_munmap, METH_NOARGS, "\n"
+  { "munmap", _wrap_FileIo_munmap, METH_VARARGS, "\n"
 		"Remove a mapping established with mmap(). If the mapped area is\n"
 		"       writeable, this ensures that changes are written back to the\n"
 		"       underlying file.\n"
@@ -9342,13 +9161,13 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"            Nonzero if failure;\n"
 		"" },
-  { "setPath", _wrap_FileIo_setPath, METH_O, "    close the file source and set a new path." },
-  { "tell", _wrap_FileIo_tell, METH_NOARGS, "\n"
+  { "setPath", _wrap_FileIo_setPath, METH_VARARGS, "    close the file source and set a new path." },
+  { "tell", _wrap_FileIo_tell, METH_VARARGS, "\n"
 		"Get the current file position.\n"
 		":rtype: int\n"
 		":return: Offset from the start of the file\n"
 		"" },
-  { "size", _wrap_FileIo_size, METH_NOARGS, "\n"
+  { "size", _wrap_FileIo_size, METH_VARARGS, "\n"
 		"Flush any buffered writes and get the current file size\n"
 		"    in bytes.\n"
 		":rtype: int\n"
@@ -9356,10 +9175,10 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"           -1 if failure;\n"
 		"" },
-  { "isopen", _wrap_FileIo_isopen, METH_NOARGS, " Returns true if the file is open, otherwise false." },
-  { "error", _wrap_FileIo_error, METH_NOARGS, " Returns 0 if the file is in a valid state, otherwise nonzero." },
-  { "eof", _wrap_FileIo_eof, METH_NOARGS, " Returns true if the file position has reached the end, otherwise false." },
-  { "path", _wrap_FileIo_path, METH_NOARGS, " Returns the path of the file" },
+  { "isopen", _wrap_FileIo_isopen, METH_VARARGS, " Returns true if the file is open, otherwise false." },
+  { "error", _wrap_FileIo_error, METH_VARARGS, " Returns 0 if the file is in a valid state, otherwise nonzero." },
+  { "eof", _wrap_FileIo_eof, METH_VARARGS, " Returns true if the file position has reached the end, otherwise false." },
+  { "path", _wrap_FileIo_path, METH_VARARGS, " Returns the path of the file" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -9572,7 +9391,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__FileIo_clientdata = {0, 0, 0, 
 
 static SwigPyGetSet MemIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__MemIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"\n"
 		"*Overload 1:*\n"
 		"Default constructor that results in an empty object\n"
 		"\n"
@@ -9594,6 +9413,10 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__MemIo_getset[] = {
 SWIGINTERN PyObject *
 SwigPyBuiltin__Exiv2__MemIo_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
+  PyObject *tuple = PyTuple_New(1);
+  assert(tuple);
+  PyTuple_SET_ITEM(tuple, 0, other);
+  Py_XINCREF(other);
   if (!result) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -9602,18 +9425,19 @@ SwigPyBuiltin__Exiv2__MemIo_richcompare(PyObject *self, PyObject *other, int op)
       Py_INCREF(result);
     }
   }
+  Py_DECREF(tuple);
   return result;
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
-  { "open", _wrap_MemIo_open, METH_NOARGS, "\n"
+  { "open", _wrap_MemIo_open, METH_VARARGS, "\n"
 		"Memory IO is always open for reading and writing. This method\n"
 		"       therefore only resets the IO position to the start.\n"
 		"\n"
 		":rtype: int\n"
 		":return: 0\n"
 		"" },
-  { "close", _wrap_MemIo_close, METH_NOARGS, "\n"
+  { "close", _wrap_MemIo_close, METH_VARARGS, "\n"
 		"Does nothing on MemIo objects.\n"
 		":rtype: int\n"
 		":return: 0\n"
@@ -9650,7 +9474,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		"\n"
 		"           0 if failure;\n"
 		"" },
-  { "putb", _wrap_MemIo_putb, METH_O, "\n"
+  { "putb", _wrap_MemIo_putb, METH_VARARGS, "\n"
 		"Write one byte to the memory block. The IO position is\n"
 		"    advanced by one byte.\n"
 		":type data: Exiv2::byte\n"
@@ -9693,7 +9517,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		"\n"
 		"           0 if failure;\n"
 		"" },
-  { "getb", _wrap_MemIo_getb, METH_NOARGS, "\n"
+  { "getb", _wrap_MemIo_getb, METH_VARARGS, "\n"
 		"Read one byte from the memory block. The IO position is\n"
 		"    advanced by one byte.\n"
 		":rtype: int\n"
@@ -9701,7 +9525,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		"\n"
 		"           EOF if failure;\n"
 		"" },
-  { "transfer", _wrap_MemIo_transfer, METH_O, "\n"
+  { "transfer", _wrap_MemIo_transfer, METH_VARARGS, "\n"
 		"Clear the memory block and then transfer data from\n"
 		"    the *src* BasicIo object into a new block of memory.\n"
 		"\n"
@@ -9726,23 +9550,23 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		"       returned pointer remains valid and allocated as long as the\n"
 		"       MemIo object exists.\n"
 		"" },
-  { "munmap", _wrap_MemIo_munmap, METH_NOARGS, "" },
-  { "tell", _wrap_MemIo_tell, METH_NOARGS, "\n"
+  { "munmap", _wrap_MemIo_munmap, METH_VARARGS, "" },
+  { "tell", _wrap_MemIo_tell, METH_VARARGS, "\n"
 		"Get the current IO position.\n"
 		":rtype: int\n"
 		":return: Offset from the start of the memory block\n"
 		"" },
-  { "size", _wrap_MemIo_size, METH_NOARGS, "\n"
+  { "size", _wrap_MemIo_size, METH_VARARGS, "\n"
 		"Get the current memory buffer size in bytes.\n"
 		":rtype: int\n"
 		":return: Size of the in memory data in bytes;\n"
 		"\n"
 		"           -1 if failure;\n"
 		"" },
-  { "isopen", _wrap_MemIo_isopen, METH_NOARGS, " Always returns true" },
-  { "error", _wrap_MemIo_error, METH_NOARGS, " Always returns 0" },
-  { "eof", _wrap_MemIo_eof, METH_NOARGS, " Returns true if the IO position has reached the end, otherwise false." },
-  { "path", _wrap_MemIo_path, METH_NOARGS, " Returns a dummy path, indicating that memory access is used" },
+  { "isopen", _wrap_MemIo_isopen, METH_VARARGS, " Always returns true" },
+  { "error", _wrap_MemIo_error, METH_VARARGS, " Always returns 0" },
+  { "eof", _wrap_MemIo_eof, METH_VARARGS, " Returns true if the IO position has reached the end, otherwise false." },
+  { "path", _wrap_MemIo_path, METH_VARARGS, " Returns a dummy path, indicating that memory access is used" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -9963,13 +9787,17 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__MemIo_clientdata = {0, 0, 0, 0
 
 static SwigPyGetSet XPathIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XPathIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Default constructor that reads data from stdin/data uri path and writes them to the temp file.", &XPathIo___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)" Default constructor that reads data from stdin/data uri path and writes them to the temp file.", &XPathIo___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
 SwigPyBuiltin__Exiv2__XPathIo_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
+  PyObject *tuple = PyTuple_New(1);
+  assert(tuple);
+  PyTuple_SET_ITEM(tuple, 0, other);
+  Py_XINCREF(other);
   if (!result) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -9978,15 +9806,16 @@ SwigPyBuiltin__Exiv2__XPathIo_richcompare(PyObject *self, PyObject *other, int o
       Py_INCREF(result);
     }
   }
+  Py_DECREF(tuple);
   return result;
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XPathIo_methods[] = {
-  { "transfer", _wrap_XPathIo_transfer, METH_O, "\n"
+  { "transfer", _wrap_XPathIo_transfer, METH_VARARGS, "\n"
 		"Change the name of the temp file and make it untemporary before\n"
 		"        calling the method of superclass FileIo::transfer.\n"
 		"" },
-  { "writeDataToFile", (PyCFunction)(void(*)(void))_wrap_XPathIo_writeDataToFile, METH_STATIC|METH_O, "\n"
+  { "writeDataToFile", (PyCFunction)(void(*)(void))_wrap_XPathIo_writeDataToFile, METH_STATIC|METH_VARARGS, "\n"
 		"Read the data from stdin/data uri path and write them to the file.\n"
 		":type orgPath: string\n"
 		":param orgPath: It equals \"-\" if the input data's from stdin. Otherwise, it's data uri path.\n"
@@ -10203,13 +10032,17 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__XPathIo_clientdata = {0, 0, 0,
 
 static SwigPyGetSet RemoteIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__RemoteIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Destructor. Releases all managed memory.", &RemoteIo___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)" Destructor. Releases all managed memory.", &RemoteIo___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
 SwigPyBuiltin__Exiv2__RemoteIo_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
+  PyObject *tuple = PyTuple_New(1);
+  assert(tuple);
+  PyTuple_SET_ITEM(tuple, 0, other);
+  Py_XINCREF(other);
   if (!result) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -10218,11 +10051,12 @@ SwigPyBuiltin__Exiv2__RemoteIo_richcompare(PyObject *self, PyObject *other, int 
       Py_INCREF(result);
     }
   }
+  Py_DECREF(tuple);
   return result;
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
-  { "open", _wrap_RemoteIo_open, METH_NOARGS, "\n"
+  { "open", _wrap_RemoteIo_open, METH_VARARGS, "\n"
 		"Connect to the remote server, get the size of the remote file and\n"
 		"  allocate the array of blocksMap.\n"
 		"\n"
@@ -10233,7 +10067,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		"\n"
 		"        Nonzero if failure.\n"
 		"" },
-  { "close", _wrap_RemoteIo_close, METH_NOARGS, "\n"
+  { "close", _wrap_RemoteIo_close, METH_VARARGS, "\n"
 		"Reset the IO position to the start. It does not release the data.\n"
 		":rtype: int\n"
 		":return: 0 if successful;\n"
@@ -10267,7 +10101,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		"\n"
 		"Notes: The write access is only supported by http, https, ssh.\n"
 		"" },
-  { "putb", _wrap_RemoteIo_putb, METH_O, "\n"
+  { "putb", _wrap_RemoteIo_putb, METH_VARARGS, "\n"
 		"Not support\n"
 		":rtype: int\n"
 		":return: 0 means failure\n"
@@ -10309,7 +10143,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		"\n"
 		"           0 if failure;\n"
 		"" },
-  { "getb", _wrap_RemoteIo_getb, METH_NOARGS, "\n"
+  { "getb", _wrap_RemoteIo_getb, METH_VARARGS, "\n"
 		"Read one byte from the memory blocks. The IO position is\n"
 		"    advanced by one byte.\n"
 		"    If the memory block is not populated (!= bMemory), it will connect to server\n"
@@ -10319,7 +10153,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		"\n"
 		"           EOF if failure;\n"
 		"" },
-  { "transfer", _wrap_RemoteIo_transfer, METH_O, "\n"
+  { "transfer", _wrap_RemoteIo_transfer, METH_VARARGS, "\n"
 		"Remove the contents of the file and then transfer data from\n"
 		"    the *src* BasicIo object into the empty file.\n"
 		"\n"
@@ -10340,27 +10174,27 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		":rtype: Exiv2::byte\n"
 		":return: NULL\n"
 		"" },
-  { "munmap", _wrap_RemoteIo_munmap, METH_NOARGS, "\n"
+  { "munmap", _wrap_RemoteIo_munmap, METH_VARARGS, "\n"
 		"Not support\n"
 		":rtype: int\n"
 		":return: 0\n"
 		"" },
-  { "tell", _wrap_RemoteIo_tell, METH_NOARGS, "\n"
+  { "tell", _wrap_RemoteIo_tell, METH_VARARGS, "\n"
 		"Get the current IO position.\n"
 		":rtype: int\n"
 		":return: Offset from the start of the memory block\n"
 		"" },
-  { "size", _wrap_RemoteIo_size, METH_NOARGS, "\n"
+  { "size", _wrap_RemoteIo_size, METH_VARARGS, "\n"
 		"Get the current memory buffer size in bytes.\n"
 		":rtype: int\n"
 		":return: Size of the in memory data in bytes;\n"
 		"\n"
 		"           -1 if failure;\n"
 		"" },
-  { "isopen", _wrap_RemoteIo_isopen, METH_NOARGS, " Returns true if the memory area is allocated." },
-  { "error", _wrap_RemoteIo_error, METH_NOARGS, " Always returns 0" },
-  { "eof", _wrap_RemoteIo_eof, METH_NOARGS, " Returns true if the IO position has reached the end, otherwise false." },
-  { "path", _wrap_RemoteIo_path, METH_NOARGS, " Returns the URL of the file." },
+  { "isopen", _wrap_RemoteIo_isopen, METH_VARARGS, " Returns true if the memory area is allocated." },
+  { "error", _wrap_RemoteIo_error, METH_VARARGS, " Always returns 0" },
+  { "eof", _wrap_RemoteIo_eof, METH_VARARGS, " Returns true if the IO position has reached the end, otherwise false." },
+  { "path", _wrap_RemoteIo_path, METH_VARARGS, " Returns the URL of the file." },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -10574,7 +10408,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__RemoteIo_clientdata = {0, 0, 0
 
 static SwigPyGetSet HttpIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__HttpIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"\n"
 		"Constructor that accepts the http URL on which IO will be\n"
 		"    performed. The constructor does not open the file, and\n"
 		"    therefore never fails.\n"
@@ -10591,6 +10425,10 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__HttpIo_getset[] = {
 SWIGINTERN PyObject *
 SwigPyBuiltin__Exiv2__HttpIo_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
+  PyObject *tuple = PyTuple_New(1);
+  assert(tuple);
+  PyTuple_SET_ITEM(tuple, 0, other);
+  Py_XINCREF(other);
   if (!result) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -10599,6 +10437,7 @@ SwigPyBuiltin__Exiv2__HttpIo_richcompare(PyObject *self, PyObject *other, int op
       Py_INCREF(result);
     }
   }
+  Py_DECREF(tuple);
   return result;
 }
 

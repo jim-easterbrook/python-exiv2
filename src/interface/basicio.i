@@ -88,19 +88,20 @@ INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
 OUTPUT_BUFFER_RW(Exiv2::byte* buf, long rcount)
 OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 
-// Convert mmap() result to a Python memoryview
+// Use default typemap for isWriteable parameter. Some derived classes don't
+// name the parameter so a plain bool typemap is needed. This is far too
+// general, so SWIGIMPORTED is used to limit it to this module.
 #ifndef SWIGIMPORTED
-// plain bool typemap is general, restrict to this module with SWIGIMPORTED
-%typemap(check) bool %{
-    _global_writeable = $1;
-%}
+%typemap(default) bool {$1 = false;}
+%ignore Exiv2::BasicIo::mmap();
 #endif
-%typemap(out) Exiv2::byte* mmap (bool _global_writeable = false) {
+// Convert mmap() result to a Python memoryview, assumes arg2 = isWriteable
+%typemap(out) Exiv2::byte* mmap {
     size_t len = arg1->size();
     if (!$1)
         len = 0;
     $result = PyMemoryView_FromMemory(
-        (char*)$1, len, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+        (char*)$1, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
 }
 
 // Expose BasicIo contents as a Python buffer
