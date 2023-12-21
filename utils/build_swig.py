@@ -59,7 +59,6 @@ def main():
     exiv2_version = get_version(incl_dir)
     # get exiv2 build options
     options = {
-        'EXV_ENABLE_VIDEO' : False,
         'EXV_UNICODE_PATH' : False,
         }
     if not minimal:
