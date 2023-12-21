@@ -60,7 +60,9 @@ INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
 // Simplify handling of default parameters
 %typemap(default) bool useCurl {$1 = true;}
 %ignore Exiv2::ImageFactory::createIo(std::string const &);
+%ignore Exiv2::ImageFactory::createIo(std::wstring const &);
 %ignore Exiv2::ImageFactory::open(std::string const &);
+%ignore Exiv2::ImageFactory::open(std::wstring const &);
 
 %typemap(default) bool bTestValid {$1 = true;}
 %ignore Exiv2::Image::setIccProfile(DataBuf &);
