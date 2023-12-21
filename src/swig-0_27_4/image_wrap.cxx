@@ -6116,27 +6116,21 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open(PyObject *self, PyObject *args) {
   (void)self;
   if (!(argc = SWIG_Python_UnpackTuple(args, "ImageFactory_open", 0, 2, argv))) SWIG_fail;
   --argc;
-  if (argc == 1) {
+  if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    if (argc > 1) {
-      {
-        {
-          int res = SWIG_AsVal_long(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-      }
-      if (!_v) goto check_1;
-    }
-    return _wrap_ImageFactory_open__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_ImageFactory_open__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
   }
 check_1:
   
-  if ((argc >= 1) && (argc <= 2)) {
-    PyObject *retobj = _wrap_ImageFactory_open__SWIG_0(self, argc, argv);
+  if (argc == 1) {
+    PyObject *retobj = _wrap_ImageFactory_open__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -6413,29 +6407,28 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType(PyObject *self, PyObject *args) 
   if (argc == 1) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_ImageFactory_getType__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_ImageFactory_getType__SWIG_2(self, argc, argv);
   }
 check_1:
   
   if (argc == 1) {
     int _v = 0;
     {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL);
+      int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
       _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_2;
-    return _wrap_ImageFactory_getType__SWIG_2(self, argc, argv);
+    return _wrap_ImageFactory_getType__SWIG_0(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
-    PyObject *retobj = _wrap_ImageFactory_getType__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_ImageFactory_getType__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }

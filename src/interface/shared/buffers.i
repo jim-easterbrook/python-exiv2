@@ -33,7 +33,7 @@
 %typemap(freearg) (buf_type, len_type) %{
     Py_XDECREF(_global_view);
 %}
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) buf_type %{
+%typemap(typecheck, precedence=SWIG_TYPECHECK_CHAR_PTR) buf_type %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}
 %enddef // INPUT_BUFFER_RO
@@ -76,7 +76,7 @@ INPUT_BUFFER_RO(buf_type, len_type)
         PyBuffer_Release(&_global_view);
     }
 %}
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) buf_type %{
+%typemap(typecheck, precedence=SWIG_TYPECHECK_CHAR_PTR) buf_type %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}
 %enddef // OUTPUT_BUFFER_RW

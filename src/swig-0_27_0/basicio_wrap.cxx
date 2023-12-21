@@ -4794,17 +4794,17 @@ SWIGINTERN PyObject *_wrap_BasicIo_write(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_BasicIo_write__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_BasicIo_write__SWIG_1(self, args);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_BasicIo_write__SWIG_1(self, args);
+    PyObject *retobj = _wrap_BasicIo_write__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -5768,17 +5768,17 @@ SWIGINTERN PyObject *_wrap_FileIo_write(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_FileIo_write__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_FileIo_write__SWIG_1(self, args);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_FileIo_write__SWIG_1(self, args);
+    PyObject *retobj = _wrap_FileIo_write__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -6731,17 +6731,17 @@ SWIGINTERN PyObject *_wrap_MemIo_write(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_MemIo_write__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_MemIo_write__SWIG_1(self, args);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_MemIo_write__SWIG_1(self, args);
+    PyObject *retobj = _wrap_MemIo_write__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -7649,17 +7649,17 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_RemoteIo_write__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_RemoteIo_write__SWIG_1(self, args);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_RemoteIo_write__SWIG_1(self, args);
+    PyObject *retobj = _wrap_RemoteIo_write__SWIG_0(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }

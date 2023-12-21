@@ -8581,17 +8581,16 @@ SWIGINTERN PyObject *_wrap_DataValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_DataValue_read__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_DataValue_read__SWIG_2(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_DataValue_read__SWIG_2(self, argc, argv);
+    PyObject *retobj = _wrap_DataValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -9250,28 +9249,29 @@ SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwa
   if (argc == 1) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_2;
-    int retval = _wrap_new_DataValue__SWIG_4(self, argc, argv);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
+    return _wrap_new_DataValue__SWIG_5(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      {
+        int res = SWIG_AsVal_int(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
     }
     if (!_v) goto check_3;
-    return _wrap_new_DataValue__SWIG_5(self, argc, argv);
+    return _wrap_new_DataValue__SWIG_0(self, argc, argv);
   }
 check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_DataValue__SWIG_0(self, argc, argv);
+    int retval = _wrap_new_DataValue__SWIG_4(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -9498,17 +9498,16 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read(PyObject *self, PyObject *args) 
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_StringValueBase_read__SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_StringValueBase_read__SWIG_0(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_StringValueBase_read__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_StringValueBase_read__SWIG_2(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -10559,17 +10558,16 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_AsciiValue_read__SWIG_0_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_AsciiValue_read__SWIG_1(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_AsciiValue_read__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_AsciiValue_read__SWIG_0_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -11900,17 +11898,16 @@ SWIGINTERN PyObject *_wrap_XmpValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_XmpValue_read__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_XmpValue_read__SWIG_2(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_XmpValue_read__SWIG_2(self, argc, argv);
+    PyObject *retobj = _wrap_XmpValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -12192,17 +12189,16 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_XmpTextValue_read__SWIG_0_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_XmpTextValue_read__SWIG_1(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_XmpTextValue_read__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_XmpTextValue_read__SWIG_0_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -13009,17 +13005,16 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_XmpArrayValue_read__SWIG_0_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_XmpArrayValue_read__SWIG_1(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_XmpArrayValue_read__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_XmpArrayValue_read__SWIG_0_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -13961,17 +13956,16 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_LangAltValue_read__SWIG_0_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_LangAltValue_read__SWIG_1(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_LangAltValue_read__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_LangAltValue_read__SWIG_0_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -15191,17 +15185,16 @@ SWIGINTERN PyObject *_wrap_DateValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_DateValue_read__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_DateValue_read__SWIG_2(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_DateValue_read__SWIG_2(self, argc, argv);
+    PyObject *retobj = _wrap_DateValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -16654,17 +16647,16 @@ SWIGINTERN PyObject *_wrap_TimeValue_read(PyObject *self, PyObject *args) {
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_TimeValue_read__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_TimeValue_read__SWIG_2(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_TimeValue_read__SWIG_2(self, argc, argv);
+    PyObject *retobj = _wrap_TimeValue_read__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
@@ -19199,17 +19191,20 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      {
+        int res = SWIG_AsVal_unsigned_SS_short(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
     }
     if (!_v) goto check_7;
-    int retval = _wrap_new_UShortValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_UShortValue__SWIG_4(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_7:
   
   if (argc == 2) {
-    int retval = _wrap_new_UShortValue__SWIG_4(self, argc, argv);
+    int retval = _wrap_new_UShortValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -20643,17 +20638,20 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      {
+        int res = SWIG_AsVal_unsigned_SS_int(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
     }
     if (!_v) goto check_7;
-    int retval = _wrap_new_ULongValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_ULongValue__SWIG_4(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_7:
   
   if (argc == 2) {
-    int retval = _wrap_new_ULongValue__SWIG_4(self, argc, argv);
+    int retval = _wrap_new_ULongValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -22095,17 +22093,18 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      int res = swig::asptr(argv[0], (std::pair< unsigned int,unsigned int >**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_7;
-    int retval = _wrap_new_URationalValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_URationalValue__SWIG_4(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_7:
   
   if (argc == 2) {
-    int retval = _wrap_new_URationalValue__SWIG_4(self, argc, argv);
+    int retval = _wrap_new_URationalValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -23543,17 +23542,20 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      {
+        int res = SWIG_AsVal_short(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
     }
     if (!_v) goto check_7;
-    int retval = _wrap_new_ShortValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_ShortValue__SWIG_4(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_7:
   
   if (argc == 2) {
-    int retval = _wrap_new_ShortValue__SWIG_4(self, argc, argv);
+    int retval = _wrap_new_ShortValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -24941,17 +24943,20 @@ check_4:
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      {
+        int res = SWIG_AsVal_int(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
     }
     if (!_v) goto check_6;
-    int retval = _wrap_new_LongValue__SWIG_2(self, argc, argv);
+    int retval = _wrap_new_LongValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_6:
   
   if (argc == 2) {
-    int retval = _wrap_new_LongValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_LongValue__SWIG_2(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -26392,17 +26397,18 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      int res = swig::asptr(argv[0], (std::pair< int,int >**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_7;
-    int retval = _wrap_new_RationalValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_RationalValue__SWIG_4(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_7:
   
   if (argc == 2) {
-    int retval = _wrap_new_RationalValue__SWIG_4(self, argc, argv);
+    int retval = _wrap_new_RationalValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -27840,17 +27846,20 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      {
+        int res = SWIG_AsVal_float(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
     }
     if (!_v) goto check_7;
-    int retval = _wrap_new_FloatValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_FloatValue__SWIG_4(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_7:
   
   if (argc == 2) {
-    int retval = _wrap_new_FloatValue__SWIG_4(self, argc, argv);
+    int retval = _wrap_new_FloatValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -29284,17 +29293,20 @@ check_5:
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[0]) ? 1 : 0;
+      {
+        int res = SWIG_AsVal_double(argv[0], NULL);
+        _v = SWIG_CheckState(res);
+      }
     }
     if (!_v) goto check_7;
-    int retval = _wrap_new_DoubleValue__SWIG_3(self, argc, argv);
+    int retval = _wrap_new_DoubleValue__SWIG_4(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
 check_7:
   
   if (argc == 2) {
-    int retval = _wrap_new_DoubleValue__SWIG_4(self, argc, argv);
+    int retval = _wrap_new_DoubleValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }

@@ -9064,34 +9064,34 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail(PyObject *self, PyObject *
   if (argc == 2) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
-    PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_3(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    return _wrap_ExifThumb_setJpegThumbnail__SWIG_2(self, argc, argv);
   }
 check_1:
   
   if (argc == 2) {
-    PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_2(self, argc, argv);
+    PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_3(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 5) {
     int _v = 0;
     {
-      _v = PyObject_CheckBuffer(argv[1]) ? 1 : 0;
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_3;
-    PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
 check_3:
   
   if (argc == 5) {
-    PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_ExifThumb_setJpegThumbnail__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
