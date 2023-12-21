@@ -69,6 +69,17 @@ INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
 %typemap(default) bool enable {$1 = true;}
 %ignore Exiv2::enableBMFF();
 
+// Make enableBMFF() function available regardless of exiv2 version
+%inline %{
+static bool enableBMFF(bool enable) {
+#ifdef EXV_ENABLE_BMFF
+    return Exiv2::enableBMFF(enable);
+#else
+    return false;
+#endif // EXV_ENABLE_BMFF
+}
+%}
+
 // In v0.28.0 Image::setIccProfile takes ownership of its DataBuf input
 // so we make a copy for it to own.
 #if EXIV2_VERSION_HEX >= 0x001c0000
@@ -97,26 +108,22 @@ KEEP_REFERENCE(Exiv2::DataBuf&)
 %apply const std::string& {std::string& xmpPacket};
 
 // Make image types available
-#if (EXIV2_VERSION_HEX >= 0x001c0000) || (defined EXV_ENABLE_BMFF)
-#define _BMFF "bmff", int(Exiv2::ImageType::bmff),
-#else
-#define _BMFF
-#endif
-
-#if (EXIV2_VERSION_HEX >= 0x001c0000) || (defined EXV_ENABLE_WEBREADY)
-#define _WEBP "webp", int(Exiv2::ImageType::webp),
-#else
-#define _WEBP
-#endif
-
 #if (EXIV2_VERSION_HEX >= 0x001c0000)
+#define _BMFF "bmff", int(Exiv2::ImageType::bmff),
+#define _WEBP "webp", int(Exiv2::ImageType::webp),
 #define _VIDEO \
     "asf",   int(Exiv2::ImageType::asf), \
     "mkv",   int(Exiv2::ImageType::mkv), \
     "qtime", int(Exiv2::ImageType::qtime), \
     "riff",  int(Exiv2::ImageType::riff),
 #else
-#define _VIDEO
+#define _BMFF "bmff", int(19),
+#define _WEBP "webp", int(23),
+#define _VIDEO \
+    "asf",   int(24), \
+    "mkv",   int(21), \
+    "qtime", int(22), \
+    "riff",  int(20),
 #endif
 
 ENUM(ImageType, "Supported image formats.",
@@ -195,9 +202,3 @@ ENUM(ImageType, "Supported image formats.",
 #endif
 
 %include "exiv2/image.hpp"
-
-// Include enableBMFF function added in libexiv2 0.27.4
-#if EXIV2_VERSION_HEX >= 0x001b0400
-#undef EXV_ENABLE_BMFF // Don't need any of the other stuff in bmffimage.hpp
-%include "exiv2/bmffimage.hpp"
-#endif

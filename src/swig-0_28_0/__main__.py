@@ -24,8 +24,7 @@ def main():
     print('python-exiv2 version:', exiv2.__version__)
     print('python-exiv2 examples:',
           os.path.join(os.path.dirname(__file__), 'examples'))
-    if exiv2.version() >= '0.27.4':
-        print('BMFF support:', exiv2.enableBMFF(False))
+    print('BMFF support:', exiv2.enableBMFF(False))
 
 if __name__ == "__main__":
     sys.exit(main())
