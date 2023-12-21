@@ -3940,7 +3940,18 @@ static PyObject* PyExc_Exiv2Error = NULL;
 #include <utility>
 
 
+#ifdef EXV_ENABLE_NLS
+#include "libintl.h"
+#endif
+
+
 void _set_locale_dir(const char* dirname) {
+#ifdef EXV_ENABLE_NLS
+    // initialise libexiv2's translator by asking it for a string
+    Exiv2::exvGettext("dummy");
+    // reset libexiv2's translator to use our directory
+    bindtextdomain("exiv2", dirname);
+#endif
 };
 
 

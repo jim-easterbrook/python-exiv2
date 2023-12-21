@@ -34,24 +34,21 @@
 
 // Function to set location of localisation files
 // (types.hpp includes exiv2's localisation stuff)
-#ifdef EXV_ENABLE_NLS
 %{
-#include <libintl.h>
+#ifdef EXV_ENABLE_NLS
+#include "libintl.h"
+#endif
 %}
 %inline %{
 void _set_locale_dir(const char* dirname) {
+#ifdef EXV_ENABLE_NLS
     // initialise libexiv2's translator by asking it for a string
     Exiv2::exvGettext("dummy");
     // reset libexiv2's translator to use our directory
     bindtextdomain("exiv2", dirname);
+#endif
 };
 %}
-#else   // EXV_ENABLE_NLS
-%inline %{
-void _set_locale_dir(const char* dirname) {
-};
-%}
-#endif  // EXV_ENABLE_NLS
 
 // C++ macros for DataBuf data and size
 #if EXIV2_VERSION_HEX < 0x001c0000
