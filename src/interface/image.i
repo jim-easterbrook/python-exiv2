@@ -24,13 +24,9 @@
 %include "shared/buffers.i"
 %include "shared/enum.i"
 %include "shared/keep_reference.i"
+%include "shared/windows_path.i"
 
 %include "std_string.i"
-#ifndef SWIGIMPORTED
-#ifdef EXV_UNICODE_PATH
-%include "std_wstring.i"
-#endif
-#endif
 
 %import "basicio.i";
 %import "exif.i";
@@ -56,6 +52,9 @@ INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
         PyObject_DelAttrString(self, "_refers_to");
     }
 %}
+
+// Convert path encoding on Windows
+WINDOWS_PATH(const std::string& path)
 
 // Simplify handling of default parameters
 %typemap(default) bool useCurl {$1 = true;}

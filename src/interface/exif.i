@@ -22,14 +22,10 @@
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
 %include "shared/keep_reference.i"
+%include "shared/windows_path.i"
 
 %include "stdint.i"
 %include "std_string.i"
-#ifndef SWIGIMPORTED
-#ifdef EXV_UNICODE_PATH
-%include "std_wstring.i"
-#endif
-#endif
 
 %import "metadatum.i"
 %import "tags.i"
@@ -52,6 +48,9 @@ DATA_ITERATOR_CLASSES(
 #endif
 
 DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
+
+// Convert path encoding on Windows
+WINDOWS_PATH(const std::wstring& wpath)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::ExifData::operator[];

@@ -4455,6 +4455,27 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
+
+static void transcode_path(std::string *path) {
+#ifdef _WIN32
+    UINT acp = GetACP();
+    if (acp == CP_UTF8)
+        return;
+    // Convert utf-8 path to active code page, via widechar version
+    int wide_len = MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1, NULL, 0);
+    std::wstring wide_str;
+    wide_str.resize(wide_len);
+    if (MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1,
+                            &wide_str[0], (int)wide_str.size()) >= 0) {
+        int new_len = WideCharToMultiByte(acp, 0, &wide_str[0], -1,
+                                          NULL, 0, NULL, NULL);
+        path->resize(new_len);
+        WideCharToMultiByte(acp, 0, &wide_str[0], -1,
+                            &(*path)[0], (int)path->size(), NULL, NULL);
+    }
+#endif
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -5967,6 +5988,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo(PyObject *self, PyObject *args)
     arg2 = static_cast< bool >(val2);
   }
   {
+    transcode_path(arg1);
+  }
+  {
     try {
       result = Exiv2::ImageFactory::createIo((std::string const &)*arg1,arg2);
       
@@ -6020,6 +6044,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
       SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ImageFactory_open" "', argument " "2"" of type '" "bool""'");
     } 
     arg2 = static_cast< bool >(val2);
+  }
+  {
+    transcode_path(arg1);
   }
   {
     try {
@@ -6172,6 +6199,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
     arg2 = ptr;
   }
   {
+    transcode_path(arg2);
+  }
+  {
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -6284,6 +6314,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_0(PyObject *self, Py_ssize
       SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ImageFactory_getType" "', argument " "1"" of type '" "std::string const &""'"); 
     }
     arg1 = ptr;
+  }
+  {
+    transcode_path(arg1);
   }
   {
     try {

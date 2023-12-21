@@ -23,6 +23,7 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/keep_reference.i"
+%include "shared/windows_path.i"
 
 %include "std_string.i"
 %include "std_vector.i"
@@ -40,6 +41,9 @@
 %noexception Exiv2::PreviewImage::size;
 %noexception Exiv2::PreviewImage::wextension;
 %noexception Exiv2::PreviewImage::width;
+
+// Convert path encoding on Windows
+WINDOWS_PATH(const std::wstring& wpath)
 
 // Convert getPreviewProperties result to a Python tuple
 %template() std::vector<Exiv2::PreviewProperties>;

@@ -5434,6 +5434,27 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
+static void transcode_path(std::string *path) {
+#ifdef _WIN32
+    UINT acp = GetACP();
+    if (acp == CP_UTF8)
+        return;
+    // Convert utf-8 path to active code page, via widechar version
+    int wide_len = MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1, NULL, 0);
+    std::wstring wide_str;
+    wide_str.resize(wide_len);
+    if (MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1,
+                            &wide_str[0], (int)wide_str.size()) >= 0) {
+        int new_len = WideCharToMultiByte(acp, 0, &wide_str[0], -1,
+                                          NULL, 0, NULL, NULL);
+        path->resize(new_len);
+        WideCharToMultiByte(acp, 0, &wide_str[0], -1,
+                            &(*path)[0], (int)path->size(), NULL, NULL);
+    }
+#endif
+};
+
+
   #define SWIG_From_long   PyInt_FromLong 
 
 SWIGINTERN size_t Exiv2_PreviewImage___len__(Exiv2::PreviewImage *self){
@@ -5985,6 +6006,9 @@ SWIGINTERN PyObject *_wrap_PreviewImage_writeFile(PyObject *self, PyObject *args
       SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PreviewImage_writeFile" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
+  }
+  {
+    transcode_path(arg2);
   }
   {
     try {
