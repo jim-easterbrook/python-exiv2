@@ -23,24 +23,31 @@
 
 // Function to convert utf-8 string to current code page
 %fragment("transcode_path", "header") {
-static void transcode_path(std::string *path) {
+static int transcode_path(std::string *path) {
 %#ifdef _WIN32
     UINT acp = GetACP();
     if (acp == CP_UTF8)
-        return;
+        return 0;
     // Convert utf-8 path to active code page, via widechar version
-    int wide_len = MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1, NULL, 0);
+    int size = MultiByteToWideChar(CP_UTF8, 0, &(*path)[0],
+                                   (int)path->size(), NULL, 0);
+    if (!size)
+        return -1;
     std::wstring wide_str;
-    wide_str.resize(wide_len);
-    if (MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1,
-                            &wide_str[0], (int)wide_str.size()) >= 0) {
-        int new_len = WideCharToMultiByte(acp, 0, &wide_str[0], -1,
-                                          NULL, 0, NULL, NULL);
-        path->resize(new_len);
-        WideCharToMultiByte(acp, 0, &wide_str[0], -1,
-                            &(*path)[0], (int)path->size(), NULL, NULL);
-    }
+    wide_str.resize(size);
+    if (!MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], (int)path->size(),
+                             &wide_str[0], size))
+        return -1;
+    size = WideCharToMultiByte(acp, 0, &wide_str[0], (int)wide_str.size(),
+                               NULL, 0, NULL, NULL);
+    if (!size)
+        return -1;
+    path->resize(size);
+    if (!WideCharToMultiByte(acp, 0, &wide_str[0], (int)wide_str.size(),
+                             &(*path)[0], size, NULL, NULL))
+        return -1;
 %#endif
+    return 0;
 };
 }
 
@@ -48,7 +55,9 @@ static void transcode_path(std::string *path) {
 %define WINDOWS_PATH(signature)
 #ifndef EXV_UNICODE_PATH
 %typemap(check, fragment="transcode_path") signature {
-    transcode_path($1);
+    if (transcode_path($1) < 0) {
+        SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    }
 }
 #endif
 %enddef // WINDOWS_PATH
