@@ -70,6 +70,7 @@ UNIQUE_PTR(Exiv2::BasicIo);
 WINDOWS_PATH(const std::string& path)
 WINDOWS_PATH(const std::string& orgPath)
 WINDOWS_PATH(const std::string& url)
+WINDOWS_PATH_OUT(std::string path)
 
 // BasicIo return values keep a reference to the Image they refer to
 KEEP_REFERENCE(Exiv2::BasicIo&)

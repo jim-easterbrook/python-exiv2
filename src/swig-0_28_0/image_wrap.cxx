@@ -4463,27 +4463,32 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 }
 
 
-static int transcode_path(std::string *path) {
+static int transcode_path(std::string *path, bool to_cp) {
 #ifdef _WIN32
-    UINT acp = GetACP();
-    if (acp == CP_UTF8)
+    UINT cp_in = CP_UTF8;
+    UINT cp_out = GetACP();
+    if (cp_out == cp_in)
         return 0;
+    if (!to_cp) {
+        cp_in = cp_out;
+        cp_out = CP_UTF8;
+    }
     // Convert utf-8 path to active code page, via widechar version
-    int size = MultiByteToWideChar(CP_UTF8, 0, &(*path)[0],
-                                   (int)path->size(), NULL, 0);
+    int size = MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
+                                   NULL, 0);
     if (!size)
         return -1;
     std::wstring wide_str;
     wide_str.resize(size);
-    if (!MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], (int)path->size(),
+    if (!MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
                              &wide_str[0], size))
         return -1;
-    size = WideCharToMultiByte(acp, 0, &wide_str[0], (int)wide_str.size(),
+    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                                NULL, 0, NULL, NULL);
     if (!size)
         return -1;
     path->resize(size);
-    if (!WideCharToMultiByte(acp, 0, &wide_str[0], (int)wide_str.size(),
+    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                              &(*path)[0], size, NULL, NULL))
         return -1;
 #endif
@@ -6147,7 +6152,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo(PyObject *self, PyObject *args)
     arg2 = static_cast< bool >(val2);
   }
   {
-    if (transcode_path(arg1) < 0) {
+    if (transcode_path(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -6209,7 +6214,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
     arg2 = static_cast< bool >(val2);
   }
   {
-    if (transcode_path(arg1) < 0) {
+    if (transcode_path(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -6368,7 +6373,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
     arg2 = ptr;
   }
   {
-    if (transcode_path(arg2) < 0) {
+    if (transcode_path(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -6491,7 +6496,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_0(PyObject *self, Py_ssize
     arg1 = ptr;
   }
   {
-    if (transcode_path(arg1) < 0) {
+    if (transcode_path(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }

@@ -44,6 +44,7 @@
 
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
+WINDOWS_PATH_OUT(std::string extension)
 
 // Convert getPreviewProperties result to a Python tuple
 %template() std::vector<Exiv2::PreviewProperties>;

@@ -21,29 +21,34 @@
 %include "std_wstring.i"
 #endif
 
-// Function to convert utf-8 string to current code page
+// Function to convert utf-8 string to/from current code page
 %fragment("transcode_path", "header") {
-static int transcode_path(std::string *path) {
+static int transcode_path(std::string *path, bool to_cp) {
 %#ifdef _WIN32
-    UINT acp = GetACP();
-    if (acp == CP_UTF8)
+    UINT cp_in = CP_UTF8;
+    UINT cp_out = GetACP();
+    if (cp_out == cp_in)
         return 0;
+    if (!to_cp) {
+        cp_in = cp_out;
+        cp_out = CP_UTF8;
+    }
     // Convert utf-8 path to active code page, via widechar version
-    int size = MultiByteToWideChar(CP_UTF8, 0, &(*path)[0],
-                                   (int)path->size(), NULL, 0);
+    int size = MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
+                                   NULL, 0);
     if (!size)
         return -1;
     std::wstring wide_str;
     wide_str.resize(size);
-    if (!MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], (int)path->size(),
+    if (!MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
                              &wide_str[0], size))
         return -1;
-    size = WideCharToMultiByte(acp, 0, &wide_str[0], (int)wide_str.size(),
+    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                                NULL, 0, NULL, NULL);
     if (!size)
         return -1;
     path->resize(size);
-    if (!WideCharToMultiByte(acp, 0, &wide_str[0], (int)wide_str.size(),
+    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                              &(*path)[0], size, NULL, NULL))
         return -1;
 %#endif
@@ -51,13 +56,25 @@ static int transcode_path(std::string *path) {
 };
 }
 
-// Macro to convert Windows paths from utf-8 to current code page
+// Macro to convert Windows path inputs from utf-8 to current code page
 %define WINDOWS_PATH(signature)
 #ifndef EXV_UNICODE_PATH
 %typemap(check, fragment="transcode_path") signature {
-    if (transcode_path($1) < 0) {
+    if (transcode_path($1, true) < 0) {
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
 }
 #endif
 %enddef // WINDOWS_PATH
+
+// Macro to convert Windows path outputs from current code page to utf-8
+%define WINDOWS_PATH_OUT(signature)
+#ifndef EXV_UNICODE_PATH
+%typemap(out, fragment="transcode_path") signature {
+    if (transcode_path(&$1, false) < 0) {
+        SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
+    }
+    $result = SWIG_From_std_string($1);
+}
+#endif
+%enddef // WINDOWS_PATH_OUT
