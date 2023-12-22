@@ -4585,7 +4585,7 @@ static int transcode_path(std::string *path) {
                              &wide_str[0], size))
         return -1;
     size = WideCharToMultiByte(acp, 0, &wide_str[0], (int)wide_str.size(),
-                               NULL, 0, NULL, NULL);
+                               NULL, 0, NULL, NULL);
     if (!size)
         return -1;
     path->resize(size);
