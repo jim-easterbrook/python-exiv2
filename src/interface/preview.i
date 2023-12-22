@@ -43,7 +43,7 @@
 %noexception Exiv2::PreviewImage::width;
 
 // Convert path encoding on Windows
-WINDOWS_PATH(const std::wstring& wpath)
+WINDOWS_PATH(const std::string& path)
 
 // Convert getPreviewProperties result to a Python tuple
 %template() std::vector<Exiv2::PreviewProperties>;

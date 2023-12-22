@@ -50,7 +50,7 @@ DATA_ITERATOR_CLASSES(
 DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 
 // Convert path encoding on Windows
-WINDOWS_PATH(const std::wstring& wpath)
+WINDOWS_PATH(const std::string& path)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::ExifData::operator[];

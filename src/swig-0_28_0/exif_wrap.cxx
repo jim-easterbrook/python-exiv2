@@ -5122,6 +5122,27 @@ SWIGINTERN PyObject *Exiv2_Exifdatum_setValue__SWIG_2(Exiv2::Exifdatum *self,PyO
         return set_value_from_py(self, py_value);
     }
 
+static void transcode_path(std::string *path) {
+#ifdef _WIN32
+    UINT acp = GetACP();
+    if (acp == CP_UTF8)
+        return;
+    // Convert utf-8 path to active code page, via widechar version
+    int wide_len = MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1, NULL, 0);
+    std::wstring wide_str;
+    wide_str.resize(wide_len);
+    if (MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1,
+                            &wide_str[0], (int)wide_str.size()) >= 0) {
+        int new_len = WideCharToMultiByte(acp, 0, &wide_str[0], -1,
+                                          NULL, 0, NULL, NULL);
+        path->resize(new_len);
+        WideCharToMultiByte(acp, 0, &wide_str[0], -1,
+                            &(*path)[0], (int)path->size(), NULL, NULL);
+    }
+#endif
+};
+
+
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
 {
@@ -9058,6 +9079,9 @@ SWIGINTERN PyObject *_wrap_ExifThumbC_writeFile(PyObject *self, PyObject *args) 
     arg2 = ptr;
   }
   {
+    transcode_path(arg2);
+  }
+  {
     try {
       result = ((Exiv2::ExifThumbC const *)arg1)->writeFile((std::string const &)*arg2);
       
@@ -9287,6 +9311,9 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_0(PyObject *self, Py
   } 
   arg5 = static_cast< uint16_t >(val5);
   {
+    transcode_path(arg2);
+  }
+  {
     try {
       (arg1)->setJpegThumbnail((std::string const &)*arg2,arg3,arg4,arg5);
       
@@ -9416,6 +9443,9 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_2(PyObject *self, Py
       SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifThumb_setJpegThumbnail" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
+  }
+  {
+    transcode_path(arg2);
   }
   {
     try {

@@ -67,10 +67,9 @@ UNIQUE_PTR(Exiv2::BasicIo);
 %noexception Exiv2::MemIo::write;
 
 // Convert path encoding on Windows
-WINDOWS_PATH(const std::wstring& wpath)
-WINDOWS_PATH(const std::wstring& wOrgPathpath)
-WINDOWS_PATH(const std::wstring& wOrgPath)
-WINDOWS_PATH(const std::wstring& wurl)
+WINDOWS_PATH(const std::string& path)
+WINDOWS_PATH(const std::string& orgPath)
+WINDOWS_PATH(const std::string& url)
 
 // BasicIo return values keep a reference to the Image they refer to
 KEEP_REFERENCE(Exiv2::BasicIo&)

@@ -4465,6 +4465,27 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
+static void transcode_path(std::string *path) {
+#ifdef _WIN32
+    UINT acp = GetACP();
+    if (acp == CP_UTF8)
+        return;
+    // Convert utf-8 path to active code page, via widechar version
+    int wide_len = MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1, NULL, 0);
+    std::wstring wide_str;
+    wide_str.resize(wide_len);
+    if (MultiByteToWideChar(CP_UTF8, 0, &(*path)[0], -1,
+                            &wide_str[0], (int)wide_str.size()) >= 0) {
+        int new_len = WideCharToMultiByte(acp, 0, &wide_str[0], -1,
+                                          NULL, 0, NULL, NULL);
+        path->resize(new_len);
+        WideCharToMultiByte(acp, 0, &wide_str[0], -1,
+                            &(*path)[0], (int)path->size(), NULL, NULL);
+    }
+#endif
+};
+
+
 #ifdef SWIG_LONG_LONG_AVAILABLE
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long_SS_long (PyObject *obj, unsigned long long *val)
@@ -5429,6 +5450,9 @@ SWIGINTERN int _wrap_new_FileIo(PyObject *self, PyObject *args, PyObject *kwargs
     arg1 = ptr;
   }
   {
+    transcode_path(arg1);
+  }
+  {
     try {
       result = (Exiv2::FileIo *)new Exiv2::FileIo((std::string const &)*arg1);
       
@@ -6249,6 +6273,9 @@ SWIGINTERN PyObject *_wrap_FileIo_setPath(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FileIo_setPath" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
+  }
+  {
+    transcode_path(arg2);
   }
   {
     try {
@@ -7275,6 +7302,9 @@ SWIGINTERN int _wrap_new_XPathIo(PyObject *self, PyObject *args, PyObject *kwarg
     arg1 = ptr;
   }
   {
+    transcode_path(arg1);
+  }
+  {
     try {
       result = (Exiv2::XPathIo *)new Exiv2::XPathIo((std::string const &)*arg1);
       
@@ -7394,6 +7424,9 @@ SWIGINTERN PyObject *_wrap_XPathIo_writeDataToFile(PyObject *self, PyObject *arg
       SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XPathIo_writeDataToFile" "', argument " "1"" of type '" "std::string const &""'"); 
     }
     arg1 = ptr;
+  }
+  {
+    transcode_path(arg1);
   }
   {
     try {
@@ -8241,6 +8274,9 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_0(PyObject *self, PyObject *args, PyObject
   } 
   arg2 = static_cast< size_t >(val2);
   {
+    transcode_path(arg1);
+  }
+  {
     try {
       result = (Exiv2::HttpIo *)new Exiv2::HttpIo((std::string const &)*arg1,arg2);
       
@@ -8281,6 +8317,9 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_1(PyObject *self, PyObject *args, PyObject
       SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_HttpIo" "', argument " "1"" of type '" "std::string const &""'"); 
     }
     arg1 = ptr;
+  }
+  {
+    transcode_path(arg1);
   }
   {
     try {
