@@ -107,15 +107,15 @@ class TestTypesModule(unittest.TestCase):
         self.assertIsInstance(result, int)
         self.assertEqual(result, 8)
 
-    @unittest.expectedFailure
     def test_localisation(self):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         old_locale = locale.setlocale(locale.LC_ALL, None)
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         try:
-            locale.setlocale(locale.LC_ALL, 'de_DE.utf-8')
+            locale.setlocale(locale.LC_ALL, 'German')
         except locale.Error:
+            self.skipTest("failed to set locale")
             return
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
         locale.setlocale(locale.LC_ALL, old_locale)
