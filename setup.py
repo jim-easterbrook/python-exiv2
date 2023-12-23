@@ -94,7 +94,7 @@ if 'EXIV2_ROOT' in os.environ:
             if len(parts) == 2 and parts[1] == 'dll':
                 # win32, mingw, cygwin
                 package_dir['exiv2.lib'] = root
-                package_data['exiv2.lib'] = [file]
+                package_data['exiv2.lib'] = ['*.dll']
                 break
             if len(parts) == 3 and (parts[1] == 'so' or parts[2] == 'dylib'):
                 # linux, darwin
