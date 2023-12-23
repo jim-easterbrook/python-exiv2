@@ -5122,6 +5122,10 @@ SWIGINTERN PyObject *Exiv2_Exifdatum_setValue__SWIG_2(Exiv2::Exifdatum *self,PyO
         return set_value_from_py(self, py_value);
     }
 
+%#ifdef _WIN32
+#include <windows.h>
+%#endif
+
 static int transcode_path(std::string *path, bool to_cp) {
 #ifdef _WIN32
     UINT cp_in = CP_UTF8;

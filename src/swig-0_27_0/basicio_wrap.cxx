@@ -4280,6 +4280,10 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+%#ifdef _WIN32
+#include <windows.h>
+%#endif
+
 static int transcode_path(std::string *path, bool to_cp) {
 #ifdef _WIN32
     UINT cp_in = CP_UTF8;

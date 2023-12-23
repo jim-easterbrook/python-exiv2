@@ -22,9 +22,13 @@
 #endif
 
 // Function to convert utf-8 string to/from current code page
-%fragment("transcode_path", "header") {
-static int transcode_path(std::string *path, bool to_cp) {
+%fragment("transcode_path", "header") %{
 %#ifdef _WIN32
+#include <windows.h>
+%#endif
+
+static int transcode_path(std::string *path, bool to_cp) {
+#ifdef _WIN32
     UINT cp_in = CP_UTF8;
     UINT cp_out = GetACP();
     if (cp_out == cp_in)
@@ -51,10 +55,10 @@ static int transcode_path(std::string *path, bool to_cp) {
     if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                              &(*path)[0], size, NULL, NULL))
         return -1;
-%#endif
+#endif
     return 0;
 };
-}
+%}
 
 // Macro to convert Windows path inputs from utf-8 to current code page
 %define WINDOWS_PATH(signature)
