@@ -181,6 +181,7 @@ setup_kwds = {
     'packages': packages,
     'package_dir': package_dir,
     'package_data': package_data,
+    'exclude_package_data': {'exiv2': ['*.cxx']},
     }
 
 if tuple(map(int, setuptools_version.split('.')[:2])) < (61, 0):
