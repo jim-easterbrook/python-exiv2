@@ -23,9 +23,9 @@
 
 // Function to convert utf-8 string to/from current code page
 %fragment("transcode_path", "header") %{
-%#ifdef _WIN32
+#ifdef _WIN32
 #include <windows.h>
-%#endif
+#endif
 
 static int transcode_path(std::string *path, bool to_cp) {
 #ifdef _WIN32

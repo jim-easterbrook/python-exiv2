@@ -5486,9 +5486,9 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-%#ifdef _WIN32
+#ifdef _WIN32
 #include <windows.h>
-%#endif
+#endif
 
 static int transcode_path(std::string *path, bool to_cp) {
 #ifdef _WIN32

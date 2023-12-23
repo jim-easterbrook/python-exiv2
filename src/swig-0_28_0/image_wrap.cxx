@@ -4463,9 +4463,9 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 }
 
 
-%#ifdef _WIN32
+#ifdef _WIN32
 #include <windows.h>
-%#endif
+#endif
 
 static int transcode_path(std::string *path, bool to_cp) {
 #ifdef _WIN32
