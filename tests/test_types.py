@@ -107,6 +107,8 @@ class TestTypesModule(unittest.TestCase):
         self.assertIsInstance(result, int)
         self.assertEqual(result, 8)
 
+    @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_NLS'],
+                         'no localisation available')
     def test_localisation(self):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'

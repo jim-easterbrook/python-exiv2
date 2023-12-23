@@ -22,6 +22,39 @@
 %include "stdint.i"
 %include "std_string.i"
 
+// Function to report build options used
+%inline %{
+static PyObject* versionInfo() {
+    bool nls = false;
+    bool bmff = false;
+    bool video = false;
+    bool unicode = false;
+    bool webready = false;
+#ifdef EXV_ENABLE_NLS
+    nls = true;
+#endif
+#ifdef EXV_ENABLE_BMFF
+    bmff = true;
+#endif
+#ifdef EXV_ENABLE_VIDEO
+    video = true;
+#endif
+#ifdef EXV_UNICODE_PATH
+    unicode = true;
+#endif
+#ifdef EXV_ENABLE_WEBREADY
+    webready = true;
+#endif
+    return Py_BuildValue("{ss,sN,sN,sN,sN,sN}",
+        "version", Exiv2::version(),
+        "EXV_ENABLE_NLS", PyBool_FromLong(nls),
+        "EXV_ENABLE_BMFF", PyBool_FromLong(bmff),
+        "EXV_ENABLE_VIDEO", PyBool_FromLong(video),
+        "EXV_UNICODE_PATH", PyBool_FromLong(unicode),
+        "EXV_ENABLE_WEBREADY", PyBool_FromLong(webready));
+};
+%}
+
 %ignore exv_grep_keys_t;
 %ignore Exiv2_grep_key_t;
 %ignore Exiv2::dumpLibraryInfo;

@@ -3919,6 +3919,37 @@ static PyObject* PyExc_Exiv2Error = NULL;
 #include <string>
 
 
+static PyObject* versionInfo() {
+    bool nls = false;
+    bool bmff = false;
+    bool video = false;
+    bool unicode = false;
+    bool webready = false;
+#ifdef EXV_ENABLE_NLS
+    nls = true;
+#endif
+#ifdef EXV_ENABLE_BMFF
+    bmff = true;
+#endif
+#ifdef EXV_ENABLE_VIDEO
+    video = true;
+#endif
+#ifdef EXV_UNICODE_PATH
+    unicode = true;
+#endif
+#ifdef EXV_ENABLE_WEBREADY
+    webready = true;
+#endif
+    return Py_BuildValue("{ss,sN,sN,sN,sN,sN}",
+        "version", Exiv2::version(),
+        "EXV_ENABLE_NLS", PyBool_FromLong(nls),
+        "EXV_ENABLE_BMFF", PyBool_FromLong(bmff),
+        "EXV_ENABLE_VIDEO", PyBool_FromLong(video),
+        "EXV_UNICODE_PATH", PyBool_FromLong(unicode),
+        "EXV_ENABLE_WEBREADY", PyBool_FromLong(webready));
+};
+
+
 SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
@@ -4138,6 +4169,31 @@ SWIGINTERNINLINE PyObject*
 #ifdef __cplusplus
 extern "C" {
 #endif
+SWIGINTERN PyObject *_wrap_versionInfo(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "versionInfo", 0, 0, 0)) SWIG_fail;
+  {
+    try {
+      result = (PyObject *)versionInfo();
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_versionNumber(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   int result;
@@ -4289,6 +4345,7 @@ fail:
 
 
 static PyMethodDef SwigMethods[] = {
+	 { "versionInfo", _wrap_versionInfo, METH_NOARGS, NULL},
 	 { "versionNumber", _wrap_versionNumber, METH_NOARGS, "      Return the version of %Exiv2 available at runtime as an integer."},
 	 { "versionString", _wrap_versionString, METH_NOARGS, "      Return the version string Example: \"0.25.0\" (major.minor.patch)"},
 	 { "versionNumberHexString", _wrap_versionNumberHexString, METH_NOARGS, "      Return the version of %Exiv2 as hex string of fixed length 6."},
