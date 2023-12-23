@@ -1,82 +1,50 @@
-name: Build Windows wheels
+name: Build python-exiv2 for Windows
 on: workflow_dispatch
 
 jobs:
-  fetch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
-      - name: Download Exiv2 source
-        run: wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.7/exiv2-0.27.7-Source.tar.gz
-
-      - name: Store downloaded file
-        uses: actions/upload-artifact@v3
-        with:
-          name: exiv2-source
-          path: ./exiv2*.tar.gz
-          retention-days: 1
-
   compile:
-    needs: fetch
     runs-on: windows-2019
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
       - name: Fetch Exiv2 source
-        uses: actions/download-artifact@v3
-        with:
-          name: exiv2-source
-          path: ./
+        run: >
+          c:\msys64\usr\bin\wget.exe -nv
+          https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.1.tar.gz
+          -O exiv2.tar.gz
 
       - name: Extract Exiv2 source
         shell: bash
         run: |
-          tar xf exiv2-0.27.7-Source.tar.gz
-          mv exiv2-0.27.7-Source exiv2-Source
-
-      - name: Make directories
-        working-directory: ./exiv2-Source
-        run: |
-          mkdir build
-          mkdir local_install
+          tar -xzf exiv2.tar.gz
+          mv exiv2-0.28.1 exiv2-Source
 
       - name: Install dependencies
-        working-directory: ./exiv2-Source/build
-        run: |
-          pip install --disable-pip-version-check wheel
-          pip install --disable-pip-version-check conan==1.59.0
-          conan install .. -o unitTests=False -o iconv=True -b missing
+        run: pip install --disable-pip-version-check wheel conan==1.59.0
 
-      - name: Configure build
-        working-directory: ./exiv2-Source/build
+      - name: Configure libexiv2 build
+        working-directory: ./exiv2-Source
         run: >
-          cmake .. -DCMAKE_BUILD_TYPE=Release
-          -DCMAKE_INSTALL_PREFIX=../local_install
-          -DEXIV2_ENABLE_WIN_UNICODE=ON
+          cmake --preset msvc
+          -DCMAKE_BUILD_TYPE=Release
           -DEXIV2_BUILD_SAMPLES=OFF
           -DEXIV2_BUILD_EXIV2_COMMAND=OFF
-          -DEXIV2_ENABLE_BMFF=ON
-          -DEXIV2_ENABLE_NLS=OFF
-          -DEXIV2_ENABLE_VIDEO=ON
-          -DCMAKE_CXX_STANDARD=98
-          -G "Visual Studio 16 2019" -A x64
+          -DEXIV2_BUILD_UNIT_TESTS=OFF
+          -G "Visual Studio 16 2019"
 
-      - name: Compile Exiv2
-        working-directory: ./exiv2-Source/build
-        run: cmake --build . --config Release
-
-      - name: Install Exiv2
-        working-directory: ./exiv2-Source/build
-        run: cmake --install . --config Release --prefix ../local_install
+      - name: Build libexiv2
+        working-directory: ./exiv2-Source
+        run: |
+          cmake --build build-msvc --config Release
+          cmake --install build-msvc --config Release
+          copy build-msvc\bin\libcurl.dll build-msvc\install\bin
 
       - name: Store intermediate files
         uses: actions/upload-artifact@v3
         with:
           name: exiv2-windows
-          path: ./exiv2-Source/local_install
+          path: ./exiv2-Source/build-msvc/install
           retention-days: 1
 
   wheels:
@@ -104,7 +72,6 @@ jobs:
       - name: Build wheel
         run: |
           pip3 install --disable-pip-version-check setuptools wheel
-          python3 utils/build_swig.py lib_exiv2/include
           pip wheel -v .
         env:
           EXIV2_ROOT: lib_exiv2
@@ -143,4 +110,4 @@ jobs:
         run: python3 -m exiv2
 
       - name: Run unit tests
-        run: python3 -m unittest discover tests
+        run: python3 -m unittest discover tests -v
