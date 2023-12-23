@@ -4384,6 +4384,43 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+static int transcode_path(std::string *path, bool to_cp) {
+#ifdef _WIN32
+    UINT cp_in = CP_UTF8;
+    UINT cp_out = GetACP();
+    if (cp_out == cp_in)
+        return 0;
+    if (!to_cp) {
+        cp_in = cp_out;
+        cp_out = CP_UTF8;
+    }
+    // Convert utf-8 path to active code page, via widechar version
+    int size = MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
+                                   NULL, 0);
+    if (!size)
+        return -1;
+    std::wstring wide_str;
+    wide_str.resize(size);
+    if (!MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
+                             &wide_str[0], size))
+        return -1;
+    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                               NULL, 0, NULL, NULL);
+    if (!size)
+        return -1;
+    path->resize(size);
+    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                             &(*path)[0], size, NULL, NULL))
+        return -1;
+#endif
+    return 0;
+};
+
+
 SWIGINTERN swig_type_info*
 SWIG_pchar_descriptor(void)
 {
@@ -4394,38 +4431,6 @@ SWIG_pchar_descriptor(void)
     init = 1;
   }
   return info;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_std_string  (const std::string& s)
-{
-  return SWIG_FromCharPtrAndSize(s.data(), s.size());
 }
 
 
@@ -4569,41 +4574,36 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-#ifdef _WIN32
-#include <windows.h>
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
 #endif
-
-static int transcode_path(std::string *path, bool to_cp) {
-#ifdef _WIN32
-    UINT cp_in = CP_UTF8;
-    UINT cp_out = GetACP();
-    if (cp_out == cp_in)
-        return 0;
-    if (!to_cp) {
-        cp_in = cp_out;
-        cp_out = CP_UTF8;
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
     }
-    // Convert utf-8 path to active code page, via widechar version
-    int size = MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                                   NULL, 0);
-    if (!size)
-        return -1;
-    std::wstring wide_str;
-    wide_str.resize(size);
-    if (!MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                             &wide_str[0], size))
-        return -1;
-    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                               NULL, 0, NULL, NULL);
-    if (!size)
-        return -1;
-    path->resize(size);
-    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                             &(*path)[0], size, NULL, NULL))
-        return -1;
-#endif
-    return 0;
-};
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_std_string  (const std::string& s)
+{
+  return SWIG_FromCharPtrAndSize(s.data(), s.size());
+}
 
 
 
@@ -5505,7 +5505,13 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   result = (std::string *) &((Exiv2::BasicIo const *)arg1)->path();
-  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
+  {
+    std::string copy = *result;
+    if (transcode_path(&copy, false) < 0) {
+      SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
+    }
+    resultobj = SWIG_From_std_string(copy);
+  }
   return resultobj;
 fail:
   return NULL;
@@ -6581,7 +6587,13 @@ SWIGINTERN PyObject *_wrap_FileIo_path(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   result = (std::string *) &((Exiv2::FileIo const *)arg1)->path();
-  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
+  {
+    std::string copy = *result;
+    if (transcode_path(&copy, false) < 0) {
+      SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
+    }
+    resultobj = SWIG_From_std_string(copy);
+  }
   return resultobj;
 fail:
   return NULL;
@@ -7411,7 +7423,13 @@ SWIGINTERN PyObject *_wrap_MemIo_path(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
   result = (std::string *) &((Exiv2::MemIo const *)arg1)->path();
-  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
+  {
+    std::string copy = *result;
+    if (transcode_path(&copy, false) < 0) {
+      SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
+    }
+    resultobj = SWIG_From_std_string(copy);
+  }
   return resultobj;
 fail:
   return NULL;
@@ -8434,7 +8452,13 @@ SWIGINTERN PyObject *_wrap_RemoteIo_path(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
   result = (std::string *) &((Exiv2::RemoteIo const *)arg1)->path();
-  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
+  {
+    std::string copy = *result;
+    if (transcode_path(&copy, false) < 0) {
+      SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
+    }
+    resultobj = SWIG_From_std_string(copy);
+  }
   return resultobj;
 fail:
   return NULL;

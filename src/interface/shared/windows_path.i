@@ -72,13 +72,20 @@ static int transcode_path(std::string *path, bool to_cp) {
 %enddef // WINDOWS_PATH
 
 // Macro to convert Windows path outputs from current code page to utf-8
-%define WINDOWS_PATH_OUT(signature)
+%define WINDOWS_PATH_OUT(function)
 #ifndef EXV_UNICODE_PATH
-%typemap(out, fragment="transcode_path") signature {
+%typemap(out, fragment="transcode_path") std::string function {
     if (transcode_path(&$1, false) < 0) {
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
     $result = SWIG_From_std_string($1);
+}
+%typemap(out, fragment="transcode_path") const std::string& function {
+    std::string copy = *$1;
+    if (transcode_path(&copy, false) < 0) {
+        SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
+    }
+    $result = SWIG_From_std_string(copy);
 }
 #endif
 %enddef // WINDOWS_PATH_OUT
