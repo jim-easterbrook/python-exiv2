@@ -1,4 +1,4 @@
-name: Build python-exiv2 for Windows
+name: Build Windows wheels exiv2 0.28
 on: workflow_dispatch
 
 jobs:

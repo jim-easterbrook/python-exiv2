@@ -1,4 +1,4 @@
-name: Build MacOS wheels (ARM)
+name: Build MacOS ARM wheels exiv2 0.27
 on: workflow_dispatch
 
 jobs:
