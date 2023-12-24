@@ -1,0 +1,79 @@
+name: Build Linux wheels exiv2 0.28
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Fetch Exiv2 source
+        run: >
+          wget -nv
+          https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.1.tar.gz
+          -O exiv2.tar.gz
+
+      - name: Extract Exiv2 source
+        run: |
+          tar -xzf exiv2.tar.gz
+          mv exiv2-0.28.1 libexiv2
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.16.2
+        env:
+          CIBW_ARCHS: auto64
+          CIBW_ENVIRONMENT: EXIV2_ROOT=libexiv2/build-linux-release/install
+          CIBW_BUILD: cp*-manylinux_x86_64
+          CIBW_BEFORE_ALL: |
+            yum install -y gettext-devel
+            pip install ninja conan==1.59
+            cd libexiv2
+            cmake --preset linux-release \
+            -DEXIV2_BUILD_SAMPLES=OFF \
+            -DEXIV2_BUILD_UNIT_TESTS=OFF \
+            -DEXIV2_ENABLE_NLS=ON \
+            -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
+            -DEXIV2_TEAM_WARNINGS_AS_ERRORS=OFF
+            cmake --build build-linux-release --config Release
+            cmake --install build-linux-release --config Release
+
+      - name: Store results
+        uses: actions/upload-artifact@v3
+        with:
+          name: manylinux-wheel
+          path: wheelhouse/*.whl
+
+  test:
+    needs: build
+    strategy:
+      matrix:
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
+        os: [ubuntu-latest]
+        include:
+          - python-version: '3.6'
+            os: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Fetch wheel files
+        uses: actions/download-artifact@v3
+        with:
+          name: manylinux-wheel
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: 'x64'
+
+      - name: Install wheel
+        run: pip3 install --disable-pip-version-check --no-index --find-links=. exiv2
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Get package details
+        run: python3 -m exiv2 -v
+
+      - name: Run unit tests
+        run: python3 -m unittest discover tests -v
