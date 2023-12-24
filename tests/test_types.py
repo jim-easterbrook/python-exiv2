@@ -115,7 +115,7 @@ class TestTypesModule(unittest.TestCase):
         old_locale = locale.setlocale(locale.LC_ALL, None)
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         try:
-            locale.setlocale(locale.LC_ALL, 'German')
+            locale.setlocale(locale.LC_ALL, 'de_DE')
         except locale.Error:
             self.skipTest("failed to set locale")
             return
