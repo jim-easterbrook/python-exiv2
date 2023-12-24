@@ -4362,7 +4362,7 @@ fail:
 
 
 static PyMethodDef SwigMethods[] = {
-	 { "versionInfo", _wrap_versionInfo, METH_NOARGS, NULL},
+	 { "versionInfo", _wrap_versionInfo, METH_NOARGS, "Return a dict of libexiv2 build options."},
 	 { "versionNumber", _wrap_versionNumber, METH_NOARGS, "  Return the version of %Exiv2 available at runtime as a uint32_t."},
 	 { "versionString", _wrap_versionString, METH_NOARGS, "  Return the version string Example: \"0.25.0\" (major.minor.patch)"},
 	 { "versionNumberHexString", _wrap_versionNumberHexString, METH_NOARGS, "  Return the version of %Exiv2 as hex string of fixed length 6."},
