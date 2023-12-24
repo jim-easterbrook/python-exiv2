@@ -15,16 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import argparse
 import os
+import pprint
 import sys
+
 import exiv2
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--verbosity', help='increase output verbosity',
+                        action='store_true')
+    args = parser.parse_args()
     print('libexiv2 version:', exiv2.version())
     print('python-exiv2 version:', exiv2.__version__)
     print('python-exiv2 examples:',
           os.path.join(os.path.dirname(__file__), 'examples'))
     print('BMFF support:', exiv2.enableBMFF(False))
+    if args.verbosity:
+        print('libexiv2 build options:')
+        pprint.pprint(exiv2.versionInfo())
 
 if __name__ == "__main__":
     sys.exit(main())
