@@ -62,7 +62,7 @@ class TestXmpModule(unittest.TestCase):
         next(b)
         self.assertEqual(b.key(), 'Xmp.iptc.CreatorContactInfo')
         e = data.end()
-        self.assertIsInstance(e, exiv2.XmpData_iterator_end)
+        self.assertIsInstance(e, exiv2.XmpData_iterator_base)
         k = data.findKey(exiv2.XmpKey('Xmp.xmp.CreateDate'))
         self.assertIsInstance(k, exiv2.XmpData_iterator)
         self.assertEqual(k.key(), 'Xmp.xmp.CreateDate')
@@ -77,6 +77,10 @@ class TestXmpModule(unittest.TestCase):
         data['Xmp.dc.creator'] = 'Fred'
         self.assertEqual('Xmp.dc.creator' in data, True)
         self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum)
+        with self.assertRaises(TypeError):
+            data['Xmp.tiff.Orientation'] = 4
+        data['Xmp.tiff.Orientation'] = exiv2.UShortValue(4)
+        del data['Xmp.tiff.Orientation']
         b = data.begin()
         e = data.end()
         self.assertIsInstance(str(b), str)
@@ -137,6 +141,8 @@ class TestXmpModule(unittest.TestCase):
         self.assertIsInstance(datum.value(), exiv2.LangAltValue)
         datum.setValue('fred')
         datum.setValue(exiv2.XmpTextValue('Acme'))
+        with self.assertRaises(TypeError):
+            datum.setValue(123)
 
     def test_XmpData_iterator(self):
         self.image.readMetadata()

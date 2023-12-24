@@ -59,9 +59,6 @@ def main():
     exiv2_version = get_version(incl_dir)
     # get exiv2 build options
     options = {
-        'EXV_ENABLE_BMFF'  : False,
-        'EXV_ENABLE_NLS'   : False,
-        'EXV_ENABLE_VIDEO' : False,
         'EXV_UNICODE_PATH' : False,
         }
     if not minimal:
@@ -83,7 +80,6 @@ def main():
     # get list of modules (Python) and extensions (SWIG)
     interface_dir = os.path.join('src', 'interface')
     file_names = os.listdir(interface_dir)
-    file_names = [x for x in file_names if x != 'preamble.i']
     file_names.sort()
     file_names = [os.path.splitext(x) for x in file_names]
     mod_names = [x[0] + x[1] for x in file_names if x[1] == '.py']
@@ -120,9 +116,11 @@ def main():
             with open(os.path.join(incl_dir, file), 'r') as in_file:
                 with open(os.path.join(dest, file), 'w') as out_file:
                     for line in in_file.readlines():
-                        if 'static constexpr auto' in line:
-                            continue
-                        line = attr.sub('', line)
+                        if swig_version < (4, 2, 0):
+                            line = line.replace('static constexpr auto',
+                                                'static const char*')
+                        if swig_version < (4, 1, 0):
+                            line = attr.sub('', line)
                         out_file.write(line)
         # make options list
         swig_opts = ['-c++', '-python', '-builtin',
@@ -139,6 +137,11 @@ def main():
         # do each swig module
         for ext_name in ext_names:
             cmd = ['swig'] + swig_opts
+            # Functions with just one parameter and a default value don't
+            # work with fastunpack.
+            # See https://github.com/swig/swig/issues/1126
+            if ext_name == 'basicio':
+                cmd.append('-nofastunpack')
             # use -doxygen ?
             if swig_version >= (4, 0, 0):
                 # -doxygen flag causes a syntax error on error.hpp in v0.26
@@ -152,7 +155,6 @@ def main():
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
         im.write('''
-import logging
 import os
 import sys
 import warnings
@@ -163,8 +165,6 @@ if sys.platform == 'win32':
         if hasattr(os, 'add_dll_directory'):
             os.add_dll_directory(_dir)
         os.environ['PATH'] = _dir + ';' + os.environ['PATH']
-
-_logger = logging.getLogger(__name__)
 
 class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors"""
@@ -182,19 +182,18 @@ else:
             return Exiv2Error
         raise AttributeError
 
+_dir = os.path.join(os.path.dirname(__file__), 'locale')
+if os.path.isdir(_dir):
+    from exiv2.types import _set_locale_dir
+    _set_locale_dir(_dir)
+
 ''')
         im.write('__version__ = "%s"\n' % py_exiv2_version)
         im.write('__version_tuple__ = tuple((%s))\n\n' % ', '.join(
             py_exiv2_version.split('.')))
         for name in ext_names:
             im.write('from exiv2.%s import *\n' % name)
-        im.write('''
-_dir = os.path.join(os.path.dirname(__file__), 'messages')
-if os.path.isdir(_dir):
-    exiv2.types._set_locale_dir(_dir)
-
-__all__ = [x for x in dir() if x[0] != '_']
-''')
+        im.write("\n__all__ = [x for x in dir() if x[0] != '_']\n")
     return 0
 
 

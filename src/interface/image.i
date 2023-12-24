@@ -20,14 +20,13 @@
 
 #pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
 
-%include "preamble.i"
+%include "shared/preamble.i"
+%include "shared/buffers.i"
+%include "shared/enum.i"
+%include "shared/keep_reference.i"
+%include "shared/windows_path.i"
 
 %include "std_string.i"
-#ifndef SWIGIMPORTED
-#ifdef EXV_UNICODE_PATH
-%include "std_wstring.i"
-#endif
-#endif
 
 %import "basicio.i";
 %import "exif.i";
@@ -35,7 +34,7 @@
 %import "tags.i";
 %import "xmp.i";
 
-wrap_auto_unique_ptr(Exiv2::Image);
+UNIQUE_PTR(Exiv2::Image);
 
 // Potentially blocking calls allow Python threads
 %thread Exiv2::Image::readMetadata;
@@ -43,20 +42,10 @@ wrap_auto_unique_ptr(Exiv2::Image);
 %thread Exiv2::ImageFactory::create;
 %thread Exiv2::ImageFactory::open;
 
-INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
-INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
-// Release Py_buffer after adding a reference to input object to result
-// PyLong_Check needed because getType has same signature as open
-%typemap(freearg) (const Exiv2::byte* data, long size),
-                  (const Exiv2::byte* data, size_t size) %{
-    if (_global_view.obj) {
-        if (resultobj && !PyLong_Check(resultobj)) {
-            PyObject_SetAttrString(
-                resultobj, "_refers_to", _global_view.obj);
-        }
-        PyBuffer_Release(&_global_view);
-    }
-%}
+// ImageFactory can open image from a buffer
+INPUT_BUFFER_RO_EX(const Exiv2::byte* data, long size)
+INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
+
 // Release memory buffer after writeMetadata, as it creates its own copy
 %typemap(ret) void writeMetadata %{
     if (PyObject_HasAttrString(self, "_refers_to")) {
@@ -64,7 +53,36 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
     }
 %}
 
+// Convert path encoding on Windows
+WINDOWS_PATH(const std::string& path)
+
+// Simplify handling of default parameters
+%typemap(default) bool useCurl {$1 = true;}
+%ignore Exiv2::ImageFactory::createIo(std::string const &);
+%ignore Exiv2::ImageFactory::createIo(std::wstring const &);
+%ignore Exiv2::ImageFactory::open(std::string const &);
+%ignore Exiv2::ImageFactory::open(std::wstring const &);
+
+%typemap(default) bool bTestValid {$1 = true;}
+%ignore Exiv2::Image::setIccProfile(DataBuf &);
+%ignore Exiv2::Image::setIccProfile(DataBuf &&);
+
+%typemap(default) bool enable {$1 = true;}
+%ignore Exiv2::enableBMFF();
+
+// Make enableBMFF() function available regardless of exiv2 version
+%inline %{
+static bool enableBMFF(bool enable) {
+#ifdef EXV_ENABLE_BMFF
+    return Exiv2::enableBMFF(enable);
+#else
+    return false;
+#endif // EXV_ENABLE_BMFF
+}
+%}
+
 // In v0.28.0 Image::setIccProfile takes ownership of its DataBuf input
+// so we make a copy for it to own.
 #if EXIV2_VERSION_HEX >= 0x001c0000
 %typemap(in) Exiv2::DataBuf&& (int res = 0, Exiv2::DataBuf* argp = NULL) {
     res = SWIG_ConvertPtr($input, (void**)&argp, $1_descriptor, 0);
@@ -91,23 +109,38 @@ KEEP_REFERENCE(Exiv2::DataBuf&)
 %apply const std::string& {std::string& xmpPacket};
 
 // Make image types available
-#ifdef EXV_ENABLE_BMFF
-#define BMFF "bmff", int(Exiv2::ImageType::bmff),
+#if (EXIV2_VERSION_HEX >= 0x001c0000)
+#define _BMFF "bmff", int(Exiv2::ImageType::bmff),
+#define _WEBP "webp", int(Exiv2::ImageType::webp),
+#define _VIDEO \
+    "asf",   int(Exiv2::ImageType::asf), \
+    "mkv",   int(Exiv2::ImageType::mkv), \
+    "qtime", int(Exiv2::ImageType::qtime), \
+    "riff",  int(Exiv2::ImageType::riff),
 #else
-#define BMFF
+#define _BMFF "bmff", int(19),
+#define _WEBP "webp", int(23),
+#define _VIDEO \
+    "asf",   int(24), \
+    "mkv",   int(21), \
+    "qtime", int(22), \
+    "riff",  int(20),
 #endif
 
 ENUM(ImageType, "Supported image formats.",
+        "arw",  int(Exiv2::ImageType::arw),
+        _BMFF
         "bmp",  int(Exiv2::ImageType::bmp),
-        BMFF
         "cr2",  int(Exiv2::ImageType::cr2),
         "crw",  int(Exiv2::ImageType::crw),
+        "dng",  int(Exiv2::ImageType::dng),
         "eps",  int(Exiv2::ImageType::eps),
         "exv",  int(Exiv2::ImageType::exv),
         "gif",  int(Exiv2::ImageType::gif),
         "jp2",  int(Exiv2::ImageType::jp2),
         "jpeg", int(Exiv2::ImageType::jpeg),
         "mrw",  int(Exiv2::ImageType::mrw),
+        "nef",  int(Exiv2::ImageType::nef),
         "none", int(Exiv2::ImageType::none),
         "orf",  int(Exiv2::ImageType::orf),
         "pgf",  int(Exiv2::ImageType::pgf),
@@ -115,8 +148,12 @@ ENUM(ImageType, "Supported image formats.",
         "psd",  int(Exiv2::ImageType::psd),
         "raf",  int(Exiv2::ImageType::raf),
         "rw2",  int(Exiv2::ImageType::rw2),
+        "sr2",  int(Exiv2::ImageType::sr2),
+        "srw",  int(Exiv2::ImageType::srw),
         "tga",  int(Exiv2::ImageType::tga),
         "tiff", int(Exiv2::ImageType::tiff),
+        _VIDEO
+        _WEBP
         "xmp",  int(Exiv2::ImageType::xmp));
 %ignore Exiv2::ImageType::none;
 
@@ -166,9 +203,3 @@ ENUM(ImageType, "Supported image formats.",
 #endif
 
 %include "exiv2/image.hpp"
-
-// Include enableBMFF function added in libexiv2 0.27.4
-#if EXIV2_VERSION_HEX >= 0x001b0400
-#undef EXV_ENABLE_BMFF // Don't need any of the other stuff in bmffimage.hpp
-%include "exiv2/bmffimage.hpp"
-#endif

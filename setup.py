@@ -76,12 +76,12 @@ if 'EXIV2_ROOT' in os.environ:
                 include_dirs = [os.path.dirname(root)]
                 break
             if file == 'exiv2.mo':
-                if 'exiv2.messages' not in packages:
-                    # add exiv2.messages package for libexiv2 localisation files
-                    packages.append('exiv2.messages')
-                    package_dir['exiv2.messages'] = os.path.dirname(
+                if 'exiv2.locale' not in packages:
+                    # add exiv2.locale package for libexiv2 localisation files
+                    packages.append('exiv2.locale')
+                    package_dir['exiv2.locale'] = os.path.dirname(
                         os.path.dirname(root))
-                    package_data['exiv2.messages'] = ['*/LC_MESSAGES/exiv2.mo']
+                    package_data['exiv2.locale'] = ['*/LC_MESSAGES/exiv2.mo']
                 break
             if file in ('exiv2.lib', 'libexiv2.dll.a'):
                 # win32, mingw, cygwin
@@ -94,7 +94,7 @@ if 'EXIV2_ROOT' in os.environ:
             if len(parts) == 2 and parts[1] == 'dll':
                 # win32, mingw, cygwin
                 package_dir['exiv2.lib'] = root
-                package_data['exiv2.lib'] = [file]
+                package_data['exiv2.lib'] = ['*.dll']
                 break
             if len(parts) == 3 and (parts[1] == 'so' or parts[2] == 'dylib'):
                 # linux, darwin
@@ -103,7 +103,7 @@ if 'EXIV2_ROOT' in os.environ:
                 package_data['exiv2.lib'] = [file]
                 break
         if (include_dirs and library_dirs and package_dir['exiv2.lib']
-                and 'exiv2.messages' in packages):
+                and 'exiv2.locale' in packages):
             break
     if not (include_dirs and library_dirs and package_dir['exiv2.lib']):
         print('ERROR: Include and library files not found')
@@ -156,6 +156,7 @@ if platform in ('linux', 'darwin', 'mingw'):
         extra_compile_args.append('-Werror')
     if exiv2_version >= [0, 28]:
         extra_compile_args.append('-std=gnu++17')
+        extra_link_args.append('-lstdc++fs')
     else:
         extra_compile_args.append('-std=c++98')
 if platform == 'win32':
@@ -181,6 +182,7 @@ setup_kwds = {
     'packages': packages,
     'package_dir': package_dir,
     'package_data': package_data,
+    'exclude_package_data': {'exiv2': ['*.cxx']},
     }
 
 if tuple(map(int, setuptools_version.split('.')[:2])) < (61, 0):
@@ -199,7 +201,7 @@ if tuple(map(int, setuptools_version.split('.')[:2])) < (61, 0):
         long_description = long_description,
         author = metadata['project']['authors'][0]['name'],
         author_email = metadata['project']['authors'][0]['email'],
-        url = metadata['project']['urls']['homepage'],
+        url = metadata['project']['urls']['Homepage'],
         classifiers = metadata['project']['classifiers'],
         platforms = metadata['tool']['setuptools']['platforms'],
         license = metadata['project']['license']['text'],

@@ -21,10 +21,3 @@ if __package__ or "." in __name__:
     from ._image import *
 else:
     from _image import *
-
-
-import enum
-ImageType = enum.IntEnum('ImageType', _enum_list_ImageType())
-ImageType.__doc__ = "Supported image formats."
-
-

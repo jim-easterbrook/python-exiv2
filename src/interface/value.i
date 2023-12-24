@@ -21,7 +21,11 @@
 // We don't need Python access to SwigPyIterator
 %ignore SwigPyIterator;
 
-%include "preamble.i"
+%include "shared/preamble.i"
+%include "shared/buffers.i"
+%include "shared/enum.i"
+%include "shared/fragments.i"
+%include "shared/unique_ptr.i"
 
 %include "stdint.i"
 %include "std_map.i"
@@ -30,7 +34,18 @@
 
 %import "types.i"
 
-wrap_auto_unique_ptr(Exiv2::Value);
+UNIQUE_PTR(Exiv2::Value);
+
+// Remove exception handler for some methods known to be safe
+%noexception Exiv2::Value::~Value;
+%noexception Exiv2::Value::count;
+%noexception Exiv2::Value::ok;
+%noexception Exiv2::Value::size;
+%noexception Exiv2::Value::typeId;
+%noexception Exiv2::XmpValue::setXmpArrayType;
+%noexception Exiv2::XmpValue::setXmpStruct;
+%noexception Exiv2::XmpValue::xmpArrayType;
+%noexception Exiv2::XmpValue::xmpStruct;
 
 // ---- Typemaps ----
 // for indexing multi-value values, assumes arg1 points to self
@@ -54,156 +69,72 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, long len)
 INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 #endif
 // Value::copy can write to a Python buffer
-%typemap(in) Exiv2::byte* buf {
-    Py_buffer view;
-    int res = PyObject_GetBuffer($input, &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
-        PyErr_Clear();
-        %argument_fail(SWIG_TypeError, "writable buffer", $symname, $argnum);
-    }
-    $1 = (Exiv2::byte*) view.buf;
-    size_t len = view.len;
-    PyBuffer_Release(&view);
-    // check writeable buf is large enough, assumes arg1 points to self
-    if (len < (size_t) arg1->size()) {
-        PyErr_Format(PyExc_ValueError,
-            "in method '$symname', argument $argnum is a %d byte buffer,"
-            " %d bytes needed", len, arg1->size());
-        SWIG_fail;
+OUTPUT_BUFFER_RW(Exiv2::byte* buf, Exiv2::ByteOrder byteOrder)
+// redefine check typemap
+%typemap(check) (Exiv2::byte* buf, Exiv2::ByteOrder byteOrder) {
+    // check buffer is large enough, assumes arg1 points to self
+    if ((Py_ssize_t) arg1->size() > _global_view.len) {
+        %argument_fail(SWIG_ValueError, "buffer too small",
+                       $symname, $argnum);
     }
 }
 // Downcast base class pointers to derived class
-// Macro to get swig type for an Exiv2 type id
-%define GET_SWIG_TYPE()
-    swig_type_info* swg_type = NULL;
-    if (_global_type_id == Exiv2::lastTypeId)
-        _global_type_id = value->typeId();
-    switch(_global_type_id) {
-        case Exiv2::asciiString:
-            swg_type = $descriptor(Exiv2::AsciiValue*);
-            value = dynamic_cast<Exiv2::AsciiValue*>(value);
-            break;
-        case Exiv2::unsignedShort:
-            swg_type = $descriptor(Exiv2::ValueType<uint16_t>*);
-            value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
-            break;
-        case Exiv2::unsignedLong:
-        case Exiv2::tiffIfd:
-            swg_type = $descriptor(Exiv2::ValueType<uint32_t>*);
-            value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
-            break;
-        case Exiv2::unsignedRational:
-            swg_type = $descriptor(Exiv2::ValueType<Exiv2::URational>*);
-            value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
-            break;
-        case Exiv2::undefined:
-            swg_type = $descriptor(Exiv2::Value*);
-            break;
-        case Exiv2::signedShort:
-            swg_type = $descriptor(Exiv2::ValueType<int16_t>*);
-            value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
-            break;
-        case Exiv2::signedLong:
-            swg_type = $descriptor(Exiv2::ValueType<int32_t>*);
-            value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
-            break;
-        case Exiv2::signedRational:
-            swg_type = $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
-            value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
-            break;
-        case Exiv2::tiffFloat:
-            swg_type = $descriptor(Exiv2::ValueType<float>*);
-            value = dynamic_cast<Exiv2::ValueType<float>*>(value);
-            break;
-        case Exiv2::tiffDouble:
-            swg_type = $descriptor(Exiv2::ValueType<double>*);
-            value = dynamic_cast<Exiv2::ValueType<double>*>(value);
-            break;
-        case Exiv2::string:
-            swg_type = $descriptor(Exiv2::StringValue*);
-            value = dynamic_cast<Exiv2::StringValue*>(value);
-            break;
-        case Exiv2::date:
-            swg_type = $descriptor(Exiv2::DateValue*);
-            value = dynamic_cast<Exiv2::DateValue*>(value);
-            break;
-        case Exiv2::time:
-            swg_type = $descriptor(Exiv2::TimeValue*);
-            value = dynamic_cast<Exiv2::TimeValue*>(value);
-            break;
-        case Exiv2::comment:
-            swg_type = $descriptor(Exiv2::CommentValue*);
-            value = dynamic_cast<Exiv2::CommentValue*>(value);
-            break;
-        case Exiv2::xmpText:
-            swg_type = $descriptor(Exiv2::XmpTextValue*);
-            value = dynamic_cast<Exiv2::XmpTextValue*>(value);
-            break;
-        case Exiv2::xmpAlt:
-        case Exiv2::xmpBag:
-        case Exiv2::xmpSeq:
-            swg_type = $descriptor(Exiv2::XmpArrayValue*);
-            value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
-            break;
-        case Exiv2::langAlt:
-            swg_type = $descriptor(Exiv2::LangAltValue*);
-            value = dynamic_cast<Exiv2::LangAltValue*>(value);
-            break;
-        default:
-            swg_type = $descriptor(Exiv2::DataValue*);
-            value = dynamic_cast<Exiv2::DataValue*>(value);
+// Function to get swig type for an Exiv2 type id
+%fragment("get_swig_type", "header", fragment="get_type_object") {
+static swig_type_info* get_swig_type(Exiv2::Value* value) {
+    Exiv2::TypeId type_id = value->typeId();
+    if (type_id == Exiv2::undefined) {
+        // value could be a CommentValue
+        if (dynamic_cast<Exiv2::CommentValue*>(value))
+            return $descriptor(Exiv2::CommentValue*);
     }
-    if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-            Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-    }
-%enddef // GET_SWIG_TYPE
-#if EXIV2_VERSION_HEX < 0x001c0000
-%typemap(out) Exiv2::Value::AutoPtr
-        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
+    return get_type_object(type_id);
+};
+
+}
+%typemap(out, fragment="get_swig_type") Exiv2::Value::SMART_PTR {
     if ($1.get()) {
         Exiv2::Value* value = $1.release();
-        GET_SWIG_TYPE()
-        $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+        $result = SWIG_NewPointerObj(
+            value, get_swig_type(value), SWIG_POINTER_OWN);
     }
     else {
         $result = SWIG_Py_Void();
     }
 }
-#else   // EXIV2_VERSION_HEX
-%typemap(out) Exiv2::Value::UniquePtr
-        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
-    if ($1.get()) {
-        Exiv2::Value* value = $1.release();
-        GET_SWIG_TYPE()
-        $result = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
-    }
-    else {
-        $result = SWIG_Py_Void();
+%typemap(out, fragment="get_swig_type") const Exiv2::Value& {
+    $result = SWIG_NewPointerObj($1, get_swig_type($1), 0);
+}
+
+// AsciiValue constructor should call AsciiValue::read to ensure string
+// is null terminated
+%extend Exiv2::AsciiValue {
+    AsciiValue(const std::string &buf) {
+        Exiv2::AsciiValue* self = new Exiv2::AsciiValue();
+        self->read(buf);
+        return self;
     }
 }
-#endif  // EXIV2_VERSION_HEX
-%typemap(out) const Exiv2::Value&
-        (Exiv2::TypeId _global_type_id = Exiv2::lastTypeId) {
-    Exiv2::Value* value = $1;
-    GET_SWIG_TYPE()
-    $result = SWIG_NewPointerObj(value, swg_type, 0);
-}
-// Keep a reference to Metadatum when calling value()
-KEEP_REFERENCE(const Exiv2::Value&)
+%ignore Exiv2::AsciiValue::AsciiValue(const std::string &buf);
+
+// CommentValue::detectCharset has a string reference parameter
+%apply const std::string& {std::string& c};
 
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
 %feature("python:slot", "sq_length", functype="lenfunc") type_name::count;
 %ignore type_name::value_;
+%noexception type_name::~part_name;
+%noexception type_name::__getitem__;
+%noexception type_name::__setitem__;
+%noexception type_name::append;
 %noexception type_name::count;
 %noexception type_name::size;
 %extend type_name {
     part_name(const Exiv2::Value& value) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Value should already have the correct type.", 1);
+            "Use '" #type_name ".clone()' to copy value", 1);
         type_name* pv = dynamic_cast< type_name* >(value.clone().release());
         if (pv == 0) {
             std::string msg = "Cannot cast type '";
@@ -220,7 +151,7 @@ KEEP_REFERENCE(const Exiv2::Value&)
         return pv;
     }
 }
-wrap_auto_unique_ptr(type_name)
+UNIQUE_PTR(type_name)
 %enddef // VALUE_SUBCLASS
 
 // Subscript macro for classes that can only hold one value
@@ -250,9 +181,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %feature("docstring") Exiv2::ValueType<item_type>::append
 "Append a " #item_type " component to the value."
 %template() std::vector<item_type>;
-%noexception Exiv2::ValueType<item_type>::__getitem__;
-%noexception Exiv2::ValueType<item_type>::__setitem__;
-%noexception Exiv2::ValueType<item_type>::append;
 %extend Exiv2::ValueType<item_type> {
     // Constructor, reads values from a Python list
     ValueType<item_type>(Exiv2::ValueType<item_type>::ValueList value) {
@@ -276,8 +204,43 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %template(type_name) Exiv2::ValueType<item_type>;
 %enddef // VALUETYPE
 
-// Allow DateValue to be set from int values
+// Use Python dict for Exiv2::DateValue::Date outputs
+%typemap(out) const Exiv2::DateValue::Date& {
+    $result = Py_BuildValue("{si,si,si}",
+        "year", $1->year, "month", $1->month, "day", $1->day);
+}
+// Use Python dict for Exiv2::DateValue::Date inputs
+%typemap(doctype) Exiv2::DateValue::Date "dict"
+// Dummy typecheck to make SWIG check other overloads first
+%typemap(typecheck, precedence=SWIG_TYPECHECK_SWIGOBJECT)
+        Exiv2::DateValue::Date &src { }
+%typemap(in) Exiv2::DateValue::Date &src (Exiv2::DateValue::Date date) {
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+            $input, (void**)&$1, $descriptor(Exiv2::DateValue::Date*), 0))) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use dict instead of DateValue::Date", 1);
+    }
+    else {
+        if (!PyDict_Check($input)) {
+            %argument_fail(SWIG_TypeError, "dict", $symname, $argnum);
+        }
+        PyObject* py_val = PyDict_GetItemString($input, "year");
+        date.year = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "month");
+        date.month = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "day");
+        date.day = py_val ? PyLong_AsLong(py_val) : 0;
+        $1 = &date;
+    }
+}
 %extend Exiv2::DateValue {
+    // Allow DateValue to be constructed from a dict
+    DateValue(Exiv2::DateValue::Date &src) {
+        Exiv2::DateValue* self = new Exiv2::DateValue;
+        self->setDate(src);
+        return self;
+    }
+    // Allow DateValue to be set from int values
     void setDate(int year, int month, int day) {
         Exiv2::DateValue::Date date;
         date.year = year;
@@ -292,15 +255,74 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %noexception Exiv2::DateValue::Date::__iter__;
 %extend Exiv2::DateValue::Date {
     PyObject* __iter__() {
-        return PySeqIter_New(Py_BuildValue("((si)(si)(si))",
-            "year", $self->year, "month", $self->month, "day", $self->day));
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use getDate() to get Python dict", 1);
+        PyObject* seq = Py_BuildValue("((si)(si)(si))",
+            "year", $self->year, "month", $self->month, "day", $self->day);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
     }
 }
 
-// Allow TimeValue to be set from int values
+// Use SWIG default value handling instead of C++ overloads
+%typemap(default) int second {$1 = 0;}
+%typemap(default) int tzHour {$1 = 0;}
+%typemap(default) int tzMinute {$1 = 0;}
+%ignore Exiv2::TimeValue::TimeValue(int,int);
+%ignore Exiv2::TimeValue::TimeValue(int,int,int);
+%ignore Exiv2::TimeValue::TimeValue(int,int,int,int);
+// int is replaced by int32_t from exiv2 0.28.0
+%typemap(default) int32_t second {$1 = 0;}
+%typemap(default) int32_t tzHour {$1 = 0;}
+%typemap(default) int32_t tzMinute {$1 = 0;}
+%ignore Exiv2::TimeValue::TimeValue(int32_t,int32_t);
+%ignore Exiv2::TimeValue::TimeValue(int32_t,int32_t,int32_t);
+%ignore Exiv2::TimeValue::TimeValue(int32_t,int32_t,int32_t,int32_t);
+// Use Python datetime.time for Exiv2::TimeValue::Time outputs
+%typemap(out) const Exiv2::TimeValue::Time& {
+    $result = Py_BuildValue("{si,si,si,si,si}",
+        "hour", $1->hour, "minute", $1->minute, "second", $1->second,
+        "tzHour", $1->tzHour, "tzMinute", $1->tzMinute);
+}
+// Use Python dict for Exiv2::TimeValue::Time inputs
+%typemap(doctype) Exiv2::TimeValue::Time "dict"
+// Dummy typecheck to make SWIG check other overloads first
+%typemap(typecheck, precedence=SWIG_TYPECHECK_SWIGOBJECT)
+        Exiv2::TimeValue::Time &src { }
+%typemap(in) Exiv2::TimeValue::Time &src (Exiv2::TimeValue::Time time) {
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+            $input, (void**)&$1, $descriptor(Exiv2::TimeValue::Time*), 0))) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use dict instead of TimeValue::Time", 1);
+    }
+    else {
+        if (!PyDict_Check($input)) {
+            %argument_fail(SWIG_TypeError, "dict", $symname, $argnum);
+        }
+        PyObject* py_val = PyDict_GetItemString($input, "hour");
+        time.hour = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "minute");
+        time.minute = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "second");
+        time.second = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "tzHour");
+        time.tzHour = py_val ? PyLong_AsLong(py_val) : 0;
+        py_val = PyDict_GetItemString($input, "tzMinute");
+        time.tzMinute = py_val ? PyLong_AsLong(py_val) : 0;
+        $1 = &time;
+    }
+}
 %extend Exiv2::TimeValue {
-    void setTime(int hour, int minute, int second = 0,
-                 int tzHour = 0, int tzMinute = 0) {
+    // Allow TimeValue to be constructed from a dict
+    TimeValue(Exiv2::TimeValue::Time &src) {
+        Exiv2::TimeValue* self = new Exiv2::TimeValue;
+        self->setTime(src);
+        return self;
+    }
+    // Allow TimeValue to be set from int values
+    void setTime(int32_t hour, int32_t minute, int32_t second,
+                 int32_t tzHour, int32_t tzMinute) {
         Exiv2::TimeValue::Time time;
         time.hour = hour;
         time.minute = minute;
@@ -316,9 +338,15 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %noexception Exiv2::TimeValue::Time::__iter__;
 %extend Exiv2::TimeValue::Time {
     PyObject* __iter__() {
-        return PySeqIter_New(Py_BuildValue("((si)(si)(si)(si)(si))",
-            "hour", $self->hour, "minute", $self->minute, "second", $self->second,
-            "tzHour", $self->tzHour, "tzMinute", $self->tzMinute));
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "use getTime() to get Python dict", 1);
+        PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))",
+            "hour", $self->hour, "minute", $self->minute,
+            "second", $self->second,
+            "tzHour", $self->tzHour, "tzMinute", $self->tzMinute);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
     }
 }
 
@@ -340,9 +368,15 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %feature("docstring") Exiv2::LangAltValue::items
 "Get key, value pairs (i.e. language, text) of the LangAltValue
 components."
-%template() std::map<std::string, std::string, Exiv2::LangAltValueComparator>;
-%template() std::vector<std::string>;
-%template() std::vector<std::pair<std::string,std::string>>;
+%noexception Exiv2::LangAltValue::__contains__;
+%noexception Exiv2::LangAltValue::__getitem__;
+%noexception Exiv2::LangAltValue::__iter__;
+%noexception Exiv2::LangAltValue::__setitem__;
+%noexception Exiv2::LangAltValue::keys;
+%noexception Exiv2::LangAltValue::items;
+%noexception Exiv2::LangAltValue::values;
+%template() std::map<
+    std::string, std::string, Exiv2::LangAltValueComparator>;
 %extend Exiv2::LangAltValue {
     // Constructor, reads values from a Python dict
     LangAltValue(Exiv2::LangAltValue::ValueType value) {
@@ -350,35 +384,29 @@ components."
         result->value_ = value;
         return result;
     }
-    std::vector<std::string> keys() {
-        std::vector<std::string> result;
-        typedef Exiv2::LangAltValue::ValueType::iterator iter;
-        iter e = $self->value_.end();
-        for (iter i = $self->value_.begin(); i != e; ++i) {
-            result.push_back(i->first);
-        }
+    PyObject* keys() {
+        PyObject* as_dict = swig::from($self->value_);
+        PyObject* result = PyDict_Keys(as_dict);
+        Py_DECREF(as_dict);
         return result;
     }
-    std::vector<std::string> values() {
-        std::vector<std::string> result;
-        typedef Exiv2::LangAltValue::ValueType::iterator iter;
-        iter e = $self->value_.end();
-        for (iter i = $self->value_.begin(); i != e; ++i) {
-            result.push_back(i->second);
-        }
+    PyObject* values() {
+        PyObject* as_dict = swig::from($self->value_);
+        PyObject* result = PyDict_Values(as_dict);
+        Py_DECREF(as_dict);
         return result;
     }
-    std::vector<std::pair<std::string,std::string>> items() {
-        std::vector<std::pair<std::string,std::string> > result;
-        typedef Exiv2::LangAltValue::ValueType::iterator iter;
-        iter e = $self->value_.end();
-        for (iter i = $self->value_.begin(); i != e; ++i) {
-            result.push_back(make_pair(i->first, i->second));
-        }
+    PyObject* items() {
+        PyObject* as_dict = swig::from($self->value_);
+        PyObject* result = PyDict_Items(as_dict);
+        Py_DECREF(as_dict);
         return result;
     }
     PyObject* __iter__() {
-        return PySeqIter_New(swig::from(Exiv2_LangAltValue_keys($self)));
+        PyObject* keys = %mangle(Exiv2::LangAltValue::keys)($self);
+        PyObject* result = PySeqIter_New(keys);
+        Py_DECREF(keys);
+        return result;
     }
     PyObject* __getitem__(const std::string& key) {
         try {
@@ -392,7 +420,8 @@ components."
         $self->value_[key] = value;
     }
     PyObject* __setitem__(const std::string& key) {
-        Exiv2::LangAltValue::ValueType::iterator pos = $self->value_.find(key);
+        typedef Exiv2::LangAltValue::ValueType::iterator iter;
+        iter pos = $self->value_.find(key);
         if (pos == $self->value_.end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
@@ -404,12 +433,6 @@ components."
         return $self->value_.find(key) != $self->value_.end();
     }
 }
-
-// Remove exception handler for some methods known to be safe
-%noexception Exiv2::Value::count;
-%noexception Exiv2::Value::size;
-%noexception Exiv2::Value::ok;
-%noexception Exiv2::Value::typeId;
 
 // Add Python slots to Exiv2::Value base class
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
@@ -438,16 +461,12 @@ SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 
 // Allow access to Exiv2::StringValueBase and Exiv2::XmpTextValue raw data
 %define RAW_STRING_DATA(class)
-%feature("docstring") class ## ::data
-"Returns a temporary Python memoryview of the raw string data.
-
-WARNING: do not modify or delete the string value while using the
-memoryview."
-
+RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ,
+            class##::data)
+%noexception class::data;
 %extend class {
-    PyObject* data() {
-        return PyMemoryView_FromMemory(
-            (char*)$self->value_.data(), $self->value_.size(), PyBUF_READ);
+    const char* data() {
+        return $self->value_.data();
     }
 }
 %enddef // RAW_STRING_DATA
@@ -465,7 +484,7 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     XmpArrayValue(std::vector<std::string> value,
                   Exiv2::TypeId typeId=Exiv2::xmpBag) {
         Exiv2::XmpArrayValue* result = new Exiv2::XmpArrayValue(typeId);
-        for (std::vector<std::string>::iterator i = value.begin();
+        for (std::vector<std::string>::const_iterator i = value.begin();
              i != value.end(); ++i) {
             result->read(*i);
         }
@@ -480,7 +499,7 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
 }
 
 // Make enums more Pythonic
-ENUM(CharsetId,
+DEPRECATED_ENUM(CommentValue, CharsetId,
     "Character set identifiers for the character sets defined by Exif.",
         "ascii",            Exiv2::CommentValue::ascii,
         "jis",              Exiv2::CommentValue::jis,
@@ -488,12 +507,12 @@ ENUM(CharsetId,
         "undefined",        Exiv2::CommentValue::undefined,
         "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
         "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-ENUM(XmpArrayType, "XMP array types.",
+DEPRECATED_ENUM(XmpValue, XmpArrayType, "XMP array types.",
         "xaNone",   Exiv2::XmpValue::xaNone,
         "xaAlt",    Exiv2::XmpValue::xaAlt,
         "xaBag",    Exiv2::XmpValue::xaBag,
         "xaSeq",    Exiv2::XmpValue::xaSeq);
-ENUM(XmpStruct, "XMP structure indicator.",
+DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
         "xsNone",   Exiv2::XmpValue::xsNone,
         "xsStruct", Exiv2::XmpValue::xsStruct);
 
@@ -520,6 +539,23 @@ ENUM(XmpStruct, "XMP structure indicator.",
 %ignore LARGE_INT;
 
 %include "exiv2/value.hpp"
+
+CLASS_ENUM(CommentValue, CharsetId,
+    "Character set identifiers for the character sets defined by Exif.",
+    "ascii",            Exiv2::CommentValue::ascii,
+    "jis",              Exiv2::CommentValue::jis,
+    "unicode",          Exiv2::CommentValue::unicode,
+    "undefined",        Exiv2::CommentValue::undefined,
+    "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
+    "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
+    "xaNone",   Exiv2::XmpValue::xaNone,
+    "xaAlt",    Exiv2::XmpValue::xaAlt,
+    "xaBag",    Exiv2::XmpValue::xaBag,
+    "xaSeq",    Exiv2::XmpValue::xaSeq);
+CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
+    "xsNone",   Exiv2::XmpValue::xsNone,
+    "xsStruct", Exiv2::XmpValue::xsStruct);
 
 VALUETYPE(UShortValue, uint16_t)
 VALUETYPE(ULongValue, uint32_t)

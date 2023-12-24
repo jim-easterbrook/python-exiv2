@@ -17,10 +17,13 @@
 
 %module(package="exiv2") types
 
-%include "preamble.i"
+%include "shared/preamble.i"
+%include "shared/buffers.i"
+%include "shared/enum.i"
 
 %include "stdint.i"
 %include "std_pair.i"
+%include "std_string.i"
 
 // Some calls don't raise exceptions
 %noexception Exiv2::DataBuf::data;
@@ -31,24 +34,21 @@
 
 // Function to set location of localisation files
 // (types.hpp includes exiv2's localisation stuff)
-#ifdef EXV_ENABLE_NLS
 %{
-#include <libintl.h>
+#ifdef EXV_ENABLE_NLS
+#include "libintl.h"
+#endif
 %}
 %inline %{
 void _set_locale_dir(const char* dirname) {
+#ifdef EXV_ENABLE_NLS
     // initialise libexiv2's translator by asking it for a string
     Exiv2::exvGettext("dummy");
     // reset libexiv2's translator to use our directory
     bindtextdomain("exiv2", dirname);
+#endif
 };
 %}
-#else   // EXV_ENABLE_NLS
-%inline %{
-void _set_locale_dir(const char* dirname) {
-};
-%}
-#endif  // EXV_ENABLE_NLS
 
 // C++ macros for DataBuf data and size
 #if EXIV2_VERSION_HEX < 0x001c0000
@@ -119,15 +119,13 @@ INPUT_BUFFER_RO(const Exiv2::byte *pData, size_t size)
 #endif
 
 // Expose Exiv2::DataBuf contents as a Python buffer
-%feature("python:bf_getbuffer", functype="getbufferproc")
-    Exiv2::DataBuf "DataBuf_getbuf";
-%{
-static int DataBuf_getbuf(PyObject* exporter, Py_buffer* view, int flags) {
+%fragment("get_buffer"{Exiv2::DataBuf}, "header") {
+static int %mangle(Exiv2::DataBuf)_getbuff(
+        PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
     bool writeable = flags && PyBUF_WRITABLE;
-    int res = SWIG_ConvertPtr(
-        exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
-    if (!SWIG_IsOK(res))
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, $descriptor(Exiv2::DataBuf*), 0)))
         goto fail;
     return PyBuffer_FillInfo(
         view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
@@ -136,20 +134,17 @@ fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
+};
 }
-%}
+%fragment("get_buffer"{Exiv2::DataBuf});
+%feature("python:bf_getbuffer", functype="getbufferproc")
+    Exiv2::DataBuf "Exiv2_DataBuf_getbuff";
 
 // Convert pData_ and data() result to a memoryview
-// WARNING: return value does not keep a reference to the data it points to
-%typemap(out) (Exiv2::byte* pData_), (Exiv2::byte* data) %{
-    $result = PyMemoryView_FromMemory(
-        (char*)$1, arg1->DATABUF_SIZE, PyBUF_WRITE);
-%}
-%feature("docstring") Exiv2::DataBuf::data
-"Returns a temporary Python memoryview of the data.
-
-WARNING: do not resize or delete the DataBuf object while using the
-memoryview."
+RETURN_VIEW(Exiv2::byte* pData_, arg1->DATABUF_SIZE, PyBUF_WRITE,
+            Exiv2::DataBuf::pData_)
+RETURN_VIEW(Exiv2::byte* data, arg1->DATABUF_SIZE, PyBUF_WRITE,
+            Exiv2::DataBuf::data)
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Backport Exiv2 v0.28.0 methods
@@ -260,9 +255,9 @@ ENUM(TypeId, "Exiv2 value type identifiers.\n"
 %ignore Exiv2::DataBuf::operator DataBufRef;
 
 // Ignore stuff that Python doesn't need
+%ignore Exiv2::Blob;
 %ignore Exiv2::exifTime;
 %ignore Exiv2::isHex;
-%ignore Exiv2::exvGettext;
 %ignore Exiv2::WriteMethod;
 %ignore Exiv2::getDouble;
 %ignore Exiv2::getFloat;
@@ -300,3 +295,5 @@ ENUM(TypeId, "Exiv2 value type identifiers.\n"
 
 %template(URational) std::pair<uint32_t, uint32_t>;
 %template(Rational) std::pair<int32_t, int32_t>;
+%typemap(doctype) std::pair<uint32_t, uint32_t> "(int, int) tuple";
+%typemap(doctype) std::pair<int32_t, int32_t> "(int, int) tuple";

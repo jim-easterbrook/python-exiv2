@@ -3748,18 +3748,18 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_AutoPtr swig_types[0]
 #define SWIGTYPE_p_Exiv2__AsciiValue swig_types[1]
 #define SWIGTYPE_p_Exiv2__CommentValue swig_types[2]
-#define SWIGTYPE_p_Exiv2__DataValue swig_types[3]
-#define SWIGTYPE_p_Exiv2__DateValue swig_types[4]
-#define SWIGTYPE_p_Exiv2__ExifKey swig_types[5]
-#define SWIGTYPE_p_Exiv2__ExifTags swig_types[6]
-#define SWIGTYPE_p_Exiv2__GroupInfo swig_types[7]
-#define SWIGTYPE_p_Exiv2__GroupInfo__GroupName swig_types[8]
+#define SWIGTYPE_p_Exiv2__DataBuf swig_types[3]
+#define SWIGTYPE_p_Exiv2__DataValue swig_types[4]
+#define SWIGTYPE_p_Exiv2__DateValue swig_types[5]
+#define SWIGTYPE_p_Exiv2__DateValue__Date swig_types[6]
+#define SWIGTYPE_p_Exiv2__ExifKey swig_types[7]
+#define SWIGTYPE_p_Exiv2__ExifTags swig_types[8]
 #define SWIGTYPE_p_Exiv2__Key swig_types[9]
 #define SWIGTYPE_p_Exiv2__LangAltValue swig_types[10]
 #define SWIGTYPE_p_Exiv2__StringValue swig_types[11]
 #define SWIGTYPE_p_Exiv2__StringValueBase swig_types[12]
-#define SWIGTYPE_p_Exiv2__TagInfo swig_types[13]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[14]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[13]
+#define SWIGTYPE_p_Exiv2__TimeValue__Time swig_types[14]
 #define SWIGTYPE_p_Exiv2__Value swig_types[15]
 #define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[16]
 #define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[17]
@@ -3775,11 +3775,11 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_SwigPyObject swig_types[27]
 #define SWIGTYPE_p_ValueList swig_types[28]
 #define SWIGTYPE_p_ValueType swig_types[29]
-#define SWIGTYPE_p_allocator_type swig_types[30]
-#define SWIGTYPE_p_char swig_types[31]
-#define SWIGTYPE_p_const_iterator swig_types[32]
-#define SWIGTYPE_p_difference_type swig_types[33]
-#define SWIGTYPE_p_f___p_Exiv2__TagInfo swig_types[34]
+#define SWIGTYPE_p__TagListFct swig_types[30]
+#define SWIGTYPE_p_allocator_type swig_types[31]
+#define SWIGTYPE_p_char swig_types[32]
+#define SWIGTYPE_p_const_iterator swig_types[33]
+#define SWIGTYPE_p_difference_type swig_types[34]
 #define SWIGTYPE_p_first_type swig_types[35]
 #define SWIGTYPE_p_int swig_types[36]
 #define SWIGTYPE_p_iterator swig_types[37]
@@ -3792,14 +3792,13 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_size_type swig_types[44]
 #define SWIGTYPE_p_std__pairT_int_int_t swig_types[45]
 #define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[46]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[47]
-#define SWIGTYPE_p_unsigned_char swig_types[48]
-#define SWIGTYPE_p_unsigned_int swig_types[49]
-#define SWIGTYPE_p_unsigned_long_long swig_types[50]
-#define SWIGTYPE_p_unsigned_short swig_types[51]
-#define SWIGTYPE_p_value_type swig_types[52]
-static swig_type_info *swig_types[54];
-static swig_module_info swig_module = {swig_types, 53, 0, 0, 0, 0};
+#define SWIGTYPE_p_unsigned_char swig_types[47]
+#define SWIGTYPE_p_unsigned_int swig_types[48]
+#define SWIGTYPE_p_unsigned_long_long swig_types[49]
+#define SWIGTYPE_p_unsigned_short swig_types[50]
+#define SWIGTYPE_p_value_type swig_types[51]
+static swig_type_info *swig_types[53];
+static swig_module_info swig_module = {swig_types, 52, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3953,159 +3952,51 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-PyObject* PyExc_Exiv2Error = NULL;
-PyObject* logger = NULL;
+static PyObject* PyExc_Exiv2Error = NULL;
 
 
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
-SWIGINTERN int
-SWIG_AsVal_double (PyObject *obj, double *val)
-{
-  int res = SWIG_TypeError;
-  if (PyFloat_Check(obj)) {
-    if (val) *val = PyFloat_AsDouble(obj);
-    return SWIG_OK;
-#if PY_VERSION_HEX < 0x03000000
-  } else if (PyInt_Check(obj)) {
-    if (val) *val = (double) PyInt_AsLong(obj);
-    return SWIG_OK;
-#endif
-  } else if (PyLong_Check(obj)) {
-    double v = PyLong_AsDouble(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
+class _TagListFct {
+private:
+    Exiv2::TagListFct func;
+public:
+    _TagListFct(Exiv2::TagListFct func) : func(func) {}
+    const Exiv2::TagInfo* __call__() {
+        return (*func)();
     }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    double d = PyFloat_AsDouble(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = d;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
+    bool operator==(const _TagListFct &other) const {
+        return other.func == func;
     }
-    if (!dispatch) {
-      long v = PyLong_AsLong(obj);
-      if (!PyErr_Occurred()) {
-	if (val) *val = v;
-	return SWIG_AddCast(SWIG_AddCast(SWIG_OK));
-      } else {
-	PyErr_Clear();
-      }
+    bool operator!=(const _TagListFct &other) const {
+        return other.func != func;
     }
-  }
-#endif
-  return res;
-}
+};
 
 
-#include <float.h>
+static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
+    return Py_BuildValue("{si,ss,ss,ss,si,si,si,si}",
+        "tag",       info->tag_,
+        "name",      info->name_,
+        "title",     info->title_,
+        "desc",      info->desc_,
+        "ifdId",     info->ifdId_,
+        "sectionId", info->sectionId_,
+        "typeId",    info->typeId_,
+        "count",     info->count_);
+};
 
 
-#include <math.h>
-
-
-SWIGINTERNINLINE int
-SWIG_CanCastAsInteger(double *d, double min, double max) {
-  double x = *d;
-  if ((min <= x && x <= max)) {
-   double fx = floor(x);
-   double cx = ceil(x);
-   double rd =  ((x - fx) < 0.5) ? fx : cx; /* simple rint */
-   if ((errno == EDOM) || (errno == ERANGE)) {
-     errno = 0;
-   } else {
-     double summ, reps, diff;
-     if (rd < x) {
-       diff = x - rd;
-     } else if (rd > x) {
-       diff = rd - x;
-     } else {
-       return 1;
-     }
-     summ = rd + x;
-     reps = diff/summ;
-     if (reps < 8*DBL_EPSILON) {
-       *d = rd;
-       return 1;
-     }
-   }
-  }
-  return 0;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_long (PyObject *obj, long* val)
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    if (val) *val = PyInt_AsLong(obj);
-    return SWIG_OK;
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    long v = PyLong_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
+static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
+    const Exiv2::TagInfo* item = ptr;
+    PyObject* py_tmp = NULL;
+    PyObject* list = PyList_New(0);
+    while (item->tag_ != 0xFFFF) {
+        py_tmp = struct_to_dict(item);
+        PyList_Append(list, py_tmp);
+        Py_DECREF(py_tmp);
+        ++item;
     }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    long v = PyInt_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, LONG_MAX)) {
-	if (val) *val = (long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
+    return list;
+};
 
 
 SWIGINTERNINLINE PyObject*
@@ -4115,11 +4006,33 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
+    static PyObject* new_TagListFct(Exiv2::TagListFct func) {
+        return SWIG_Python_NewPointerObj(NULL, new _TagListFct(func),
+            SWIGTYPE_p__TagListFct, SWIG_POINTER_OWN);
+    }
+
+
+static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
+    return Py_BuildValue("{si,ss,ss,sN}",
+        "ifdId",     info->ifdId_,
+        "ifdName",   info->ifdName_,
+        "groupName", info->groupName_,
+        "tagList",   new_TagListFct(info->tagList_));
+};
+
+
+static PyObject* pointer_to_list(const Exiv2::GroupInfo* ptr) {
+    const Exiv2::GroupInfo* item = ptr;
+    PyObject* py_tmp = NULL;
+    PyObject* list = PyList_New(0);
+    while (item->tagList_ != 0) {
+        py_tmp = struct_to_dict(item);
+        PyList_Append(list, py_tmp);
+        Py_DECREF(py_tmp);
+        ++item;
+    }
+    return list;
+};
 
 
 SWIGINTERN swig_type_info*
@@ -4132,63 +4045,6 @@ SWIG_pchar_descriptor(void)
     init = 1;
   }
   return info;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
-}
-
-
-SWIGINTERNINLINE PyObject * 
-SWIG_FromCharPtr(const char *cptr)
-{ 
-  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
-}
-
-
-  #define SWIG_From_long   PyInt_FromLong 
-
-
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_unsigned_SS_short  (unsigned short value)
-{    
-  return SWIG_From_unsigned_SS_long  (value);
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_short  (short value)
-{    
-  return SWIG_From_long  (value);
 }
 
 
@@ -4332,6 +4188,148 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
+#endif
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
+    }
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
+
+
+  #define SWIG_From_long   PyInt_FromLong 
+
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_unsigned_SS_short  (unsigned short value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
+
+
+#include <limits.h>
+#if !defined(SWIG_NO_LLONG_MAX)
+# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
+#   define LLONG_MAX __LONG_LONG_MAX__
+#   define LLONG_MIN (-LLONG_MAX - 1LL)
+#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# endif
+#endif
+
+
+SWIGINTERN int
+SWIG_AsVal_double (PyObject *obj, double *val)
+{
+  int res = SWIG_TypeError;
+  if (PyFloat_Check(obj)) {
+    if (val) *val = PyFloat_AsDouble(obj);
+    return SWIG_OK;
+#if PY_VERSION_HEX < 0x03000000
+  } else if (PyInt_Check(obj)) {
+    if (val) *val = (double) PyInt_AsLong(obj);
+    return SWIG_OK;
+#endif
+  } else if (PyLong_Check(obj)) {
+    double v = PyLong_AsDouble(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      PyErr_Clear();
+    }
+  }
+#ifdef SWIG_PYTHON_CAST_MODE
+  {
+    int dispatch = 0;
+    double d = PyFloat_AsDouble(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = d;
+      return SWIG_AddCast(SWIG_OK);
+    } else {
+      PyErr_Clear();
+    }
+    if (!dispatch) {
+      long v = PyLong_AsLong(obj);
+      if (!PyErr_Occurred()) {
+	if (val) *val = v;
+	return SWIG_AddCast(SWIG_AddCast(SWIG_OK));
+      } else {
+	PyErr_Clear();
+      }
+    }
+  }
+#endif
+  return res;
+}
+
+
+#include <float.h>
+
+
+#include <math.h>
+
+
+SWIGINTERNINLINE int
+SWIG_CanCastAsInteger(double *d, double min, double max) {
+  double x = *d;
+  if ((min <= x && x <= max)) {
+   double fx = floor(x);
+   double cx = ceil(x);
+   double rd =  ((x - fx) < 0.5) ? fx : cx; /* simple rint */
+   if ((errno == EDOM) || (errno == ERANGE)) {
+     errno = 0;
+   } else {
+     double summ, reps, diff;
+     if (rd < x) {
+       diff = x - rd;
+     } else if (rd > x) {
+       diff = rd - x;
+     } else {
+       return 1;
+     }
+     summ = rd + x;
+     reps = diff/summ;
+     if (reps < 8*DBL_EPSILON) {
+       *d = rd;
+       return 1;
+     }
+   }
+  }
+  return 0;
+}
+
+
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
 {
@@ -4396,95 +4394,133 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 }
 
 
+SWIGINTERN int
+SWIG_AsVal_long (PyObject *obj, long* val)
+{
+#if PY_VERSION_HEX < 0x03000000
+  if (PyInt_Check(obj)) {
+    if (val) *val = PyInt_AsLong(obj);
+    return SWIG_OK;
+  } else
+#endif
+  if (PyLong_Check(obj)) {
+    long v = PyLong_AsLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      PyErr_Clear();
+      return SWIG_OverflowError;
+    }
+  }
+#ifdef SWIG_PYTHON_CAST_MODE
+  {
+    int dispatch = 0;
+    long v = PyInt_AsLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_AddCast(SWIG_OK);
+    } else {
+      PyErr_Clear();
+    }
+    if (!dispatch) {
+      double d;
+      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
+      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, LONG_MAX)) {
+	if (val) *val = (long)(d);
+	return res;
+      }
+    }
+  }
+#endif
+  return SWIG_TypeError;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_int (PyObject * obj, int *val)
+{
+  long v;
+  int res = SWIG_AsVal_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v < INT_MIN || v > INT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< int >(v);
+    }
+  }  
+  return res;
+}
+
+
 SWIGINTERNINLINE PyObject *
 SWIG_From_std_string  (const std::string& s)
 {
   return SWIG_FromCharPtrAndSize(s.data(), s.size());
 }
 
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_int  (int value)
+{
+  return PyInt_FromLong((long) value);
+}
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap_GroupInfo___eq____SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap__TagListFct___call__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
-  int arg2 ;
+  _TagListFct *arg1 = (_TagListFct *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  bool result;
+  Exiv2::TagInfo *result = 0 ;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "_TagListFct___call__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo___eq__" "', argument " "1"" of type '" "Exiv2::GroupInfo const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_TagListFct___call__" "', argument " "1"" of type '" "_TagListFct *""'"); 
   }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "GroupInfo___eq__" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = static_cast< int >(val2);
+  arg1 = reinterpret_cast< _TagListFct * >(argp1);
+  result = (Exiv2::TagInfo *)(arg1)->__call__();
   {
-    try {
-      result = (bool)((Exiv2::GroupInfo const *)arg1)->operator ==(arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
+    resultobj = SWIG_Python_AppendOutput(resultobj, pointer_to_list(result));
   }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
+  return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_GroupInfo___eq____SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap__TagListFct___eq__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
-  Exiv2::GroupInfo::GroupName *arg2 = 0 ;
+  _TagListFct *arg1 = (_TagListFct *) 0 ;
+  _TagListFct *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
+  PyObject *swig_obj[2] ;
   bool result;
   
   (void)self;
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo___eq__" "', argument " "1"" of type '" "Exiv2::GroupInfo const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_TagListFct___eq__" "', argument " "1"" of type '" "_TagListFct const *""'"); 
   }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__GroupInfo__GroupName,  0  | 0);
+  arg1 = reinterpret_cast< _TagListFct * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p__TagListFct,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GroupInfo___eq__" "', argument " "2"" of type '" "Exiv2::GroupInfo::GroupName const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_TagListFct___eq__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GroupInfo___eq__" "', argument " "2"" of type '" "Exiv2::GroupInfo::GroupName const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "_TagListFct___eq__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
   }
-  arg2 = reinterpret_cast< Exiv2::GroupInfo::GroupName * >(argp2);
-  {
-    try {
-      result = (bool)((Exiv2::GroupInfo const *)arg1)->operator ==((Exiv2::GroupInfo::GroupName const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  arg2 = reinterpret_cast< _TagListFct * >(argp2);
+  result = (bool)((_TagListFct const *)arg1)->operator ==((_TagListFct const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -4494,151 +4530,57 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_GroupInfo___eq__(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
+SWIGINTERN PyObject *_wrap__TagListFct___ne__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  _TagListFct *arg1 = (_TagListFct *) 0 ;
+  _TagListFct *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  bool result;
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "GroupInfo___eq__", 0, 2, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 2) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_Exiv2__GroupInfo__GroupName, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_1;
-    return _wrap_GroupInfo___eq____SWIG_1(self, argc, argv);
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_TagListFct___ne__" "', argument " "1"" of type '" "_TagListFct const *""'"); 
   }
-check_1:
-  
-  if (argc == 2) {
-    PyObject *retobj = _wrap_GroupInfo___eq____SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+  arg1 = reinterpret_cast< _TagListFct * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p__TagListFct,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_TagListFct___ne__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
   }
-  
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "_TagListFct___ne__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
+  }
+  arg2 = reinterpret_cast< _TagListFct * >(argp2);
+  result = (bool)((_TagListFct const *)arg1)->operator !=((_TagListFct const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
 fail:
+  PyErr_Clear();
   Py_INCREF(Py_NotImplemented);
   return Py_NotImplemented;
 }
 
 
-SWIGINTERN PyObject *_wrap_GroupInfo_ifdId__get(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete__TagListFct(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "GroupInfo_ifdId__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo_ifdId__get" "', argument " "1"" of type '" "Exiv2::GroupInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  result = (int) ((arg1)->ifdId_);
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GroupInfo_ifdName__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  char *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "GroupInfo_ifdName__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo_ifdName__get" "', argument " "1"" of type '" "Exiv2::GroupInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  result = (char *) ((arg1)->ifdName_);
-  resultobj = SWIG_FromCharPtr((const char *)result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GroupInfo_groupName__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  char *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "GroupInfo_groupName__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo_groupName__get" "', argument " "1"" of type '" "Exiv2::GroupInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  result = (char *) ((arg1)->groupName_);
-  resultobj = SWIG_FromCharPtr((const char *)result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GroupInfo_tagList__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Exiv2::TagListFct result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "GroupInfo_tagList__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo_tagList__get" "', argument " "1"" of type '" "Exiv2::GroupInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  result = (Exiv2::TagListFct) ((arg1)->tagList_);
-  resultobj = SWIG_NewFunctionPtrObj((void *)(result), SWIGTYPE_p_f___p_Exiv2__TagInfo);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_GroupInfo(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
+  _TagListFct *arg1 = (_TagListFct *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   
   (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_GroupInfo", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "delete__TagListFct", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_GroupInfo" "', argument " "1"" of type '" "Exiv2::GroupInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete__TagListFct" "', argument " "1"" of type '" "_TagListFct *""'"); 
   }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  arg1 = reinterpret_cast< _TagListFct * >(argp1);
+  delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -4646,217 +4588,9 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_GroupInfo) /* defines _wrap_delete_GroupInfo_destructor_closure */
+SWIGPY_TERNARYCALLFUNC_CLOSURE(_wrap__TagListFct___call__) /* defines _wrap__TagListFct___call___ternarycallfunc_closure */
 
-SWIGINTERN PyObject *_wrap_TagInfo_tag__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  uint16_t result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_tag__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_tag__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (uint16_t) ((arg1)->tag_);
-  resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TagInfo_name__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  char *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_name__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_name__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (char *) ((arg1)->name_);
-  resultobj = SWIG_FromCharPtr((const char *)result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TagInfo_title__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  char *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_title__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_title__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (char *) ((arg1)->title_);
-  resultobj = SWIG_FromCharPtr((const char *)result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TagInfo_desc__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  char *result = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_desc__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_desc__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (char *) ((arg1)->desc_);
-  resultobj = SWIG_FromCharPtr((const char *)result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TagInfo_ifdId__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_ifdId__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_ifdId__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (int) ((arg1)->ifdId_);
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TagInfo_sectionId__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_sectionId__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_sectionId__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (int) ((arg1)->sectionId_);
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TagInfo_typeId__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Exiv2::TypeId result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_typeId__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_typeId__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (Exiv2::TypeId) ((arg1)->typeId_);
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TagInfo_count__get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int16_t result;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo_count__get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_count__get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (int16_t) ((arg1)->count_);
-  resultobj = SWIG_From_short(static_cast< short >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_TagInfo(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  (void)self;
-  if (!SWIG_Python_UnpackTuple(args, "delete_TagInfo", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_TagInfo" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  {
-    try {
-      delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_TagInfo) /* defines _wrap_delete_TagInfo_destructor_closure */
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete__TagListFct) /* defines _wrap_delete__TagListFct_destructor_closure */
 
 SWIGINTERN PyObject *_wrap_ExifTags_groupList(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -4877,14 +4611,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_groupList(PyObject *self, PyObject *args) {
     }
   }
   {
-    const Exiv2::GroupInfo* gi = result;
-    PyObject* list = PyList_New(0);
-    while (gi->tagList_ != 0) {
-      PyList_Append(list, SWIG_NewPointerObj(
-          SWIG_as_voidptr(gi), SWIGTYPE_p_Exiv2__GroupInfo, 0));
-      ++gi;
-    }
-    resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
+    resultobj = SWIG_Python_AppendOutput(resultobj, pointer_to_list(result));
   }
   return resultobj;
 fail:
@@ -4926,14 +4653,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_tagList(PyObject *self, PyObject *args) {
     }
   }
   {
-    const Exiv2::TagInfo* ti = result;
-    PyObject* list = PyList_New(0);
-    while (ti->tag_ != 0xFFFF) {
-      PyList_Append(list, SWIG_NewPointerObj(
-          SWIG_as_voidptr(ti), SWIGTYPE_p_Exiv2__TagInfo, 0));
-      ++ti;
-    }
-    resultobj = SWIG_Python_AppendOutput(resultobj, PyList_AsTuple(list));
+    resultobj = SWIG_Python_AppendOutput(resultobj, pointer_to_list(result));
   }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -5269,42 +4989,6 @@ fail:
 
 SWIGINTERN int _wrap_new_ExifKey__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Exiv2::ExifKey *result = 0 ;
-  
-  (void)self;
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__TagInfo,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ExifKey" "', argument " "1"" of type '" "Exiv2::TagInfo const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ExifKey" "', argument " "1"" of type '" "Exiv2::TagInfo const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  {
-    try {
-      result = (Exiv2::ExifKey *)new Exiv2::ExifKey((Exiv2::TagInfo const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ExifKey, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_ExifKey__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
   Exiv2::ExifKey *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5352,24 +5036,13 @@ SWIGINTERN int _wrap_new_ExifKey(PyObject *self, PyObject *args, PyObject *kwarg
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__TagInfo, SWIG_POINTER_NO_NULL | 0);
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ExifKey, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_1;
     return _wrap_new_ExifKey__SWIG_2(self, argc, argv);
   }
 check_1:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ExifKey, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_ExifKey__SWIG_3(self, argc, argv);
-  }
-check_2:
   
   if (argc == 1) {
     int retval = _wrap_new_ExifKey__SWIG_0(self, argc, argv);
@@ -5387,7 +5060,6 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::ExifKey::ExifKey(std::string const &)\n"
     "    Exiv2::ExifKey::ExifKey(uint16_t,std::string const &)\n"
-    "    Exiv2::ExifKey::ExifKey(Exiv2::TagInfo const &)\n"
     "    Exiv2::ExifKey::ExifKey(Exiv2::ExifKey const &)\n");
   return -1;
 }
@@ -5805,33 +5477,18 @@ static PyMethodDef SwigMethods[] = {
 	 { NULL, NULL, 0, NULL }
 };
 
-static SwigPyGetSet GroupInfo_ifdId__getset = { _wrap_GroupInfo_ifdId__get, 0 };
-static SwigPyGetSet GroupInfo_groupName__getset = { _wrap_GroupInfo_groupName__get, 0 };
-static SwigPyGetSet GroupInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
-static SwigPyGetSet GroupInfo_ifdName__getset = { _wrap_GroupInfo_ifdName__get, 0 };
-static SwigPyGetSet GroupInfo_tagList__getset = { _wrap_GroupInfo_tagList__get, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__GroupInfo_getset[] = {
-    { (char *)"ifdId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" IFD id", &GroupInfo_ifdId__getset },
-    { (char *)"groupName_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Group name, unique for each group.", &GroupInfo_groupName__getset },
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"Comparison operator for IFD id\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Comparison operator for group name\n"
-		"", &GroupInfo___dict___getset },
-    { (char *)"ifdName_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" IFD name", &GroupInfo_ifdName__getset },
-    { (char *)"tagList_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Tag list", &GroupInfo_tagList__getset },
+static SwigPyGetSet _TagListFct___dict___getset = { SwigPyObject_get___dict__, 0 };
+SWIGINTERN PyGetSetDef SwigPyBuiltin___TagListFct_getset[] = {
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &_TagListFct___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
-SwigPyBuiltin__Exiv2__GroupInfo_richcompare(PyObject *self, PyObject *other, int op) {
+SwigPyBuiltin___TagListFct_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
   switch (op) {
-    case Py_EQ : result = _wrap_GroupInfo___eq__(self, other); break;
+    case Py_EQ : result = _wrap__TagListFct___eq__(self, other); break;
+    case Py_NE : result = _wrap__TagListFct___ne__(self, other); break;
     default : break;
   }
   if (!result) {
@@ -5845,20 +5502,14 @@ SwigPyBuiltin__Exiv2__GroupInfo_richcompare(PyObject *self, PyObject *other, int
   return result;
 }
 
-SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__GroupInfo_methods[] = {
-  { "__eq__", _wrap_GroupInfo___eq__, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Comparison operator for IFD id\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Comparison operator for group name\n"
-		"" },
+SWIGINTERN PyMethodDef SwigPyBuiltin___TagListFct_methods[] = {
+  { "__call__", _wrap__TagListFct___call__, METH_NOARGS, "" },
+  { "__eq__", _wrap__TagListFct___eq__, METH_O, "" },
+  { "__ne__", _wrap__TagListFct___ne__, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
-static PyHeapTypeObject SwigPyBuiltin__Exiv2__GroupInfo_type = {
+static PyHeapTypeObject SwigPyBuiltin___TagListFct_type = {
   {
 #if PY_VERSION_HEX >= 0x03000000
     PyVarObject_HEAD_INIT(NULL, 0)
@@ -5866,10 +5517,10 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__GroupInfo_type = {
     PyObject_HEAD_INIT(NULL)
     0,                                        /* ob_size */
 #endif
-    "exiv2.tags.GroupInfo",                   /* tp_name */
+    "exiv2.tags._TagListFct",                 /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_GroupInfo_destructor_closure,/* tp_dealloc */
+    _wrap_delete__TagListFct_destructor_closure,                  /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                            /* tp_print */
 #else
@@ -5883,30 +5534,30 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__GroupInfo_type = {
     (cmpfunc) 0,                              /* tp_compare */
 #endif
     (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__Exiv2__GroupInfo_type.as_number,              /* tp_as_number */
-    &SwigPyBuiltin__Exiv2__GroupInfo_type.as_sequence,            /* tp_as_sequence */
-    &SwigPyBuiltin__Exiv2__GroupInfo_type.as_mapping,             /* tp_as_mapping */
+    &SwigPyBuiltin___TagListFct_type.as_number,                   /* tp_as_number */
+    &SwigPyBuiltin___TagListFct_type.as_sequence,                 /* tp_as_sequence */
+    &SwigPyBuiltin___TagListFct_type.as_mapping,                  /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
-    (ternaryfunc) 0,                          /* tp_call */
+    _wrap__TagListFct___call___ternarycallfunc_closure,           /* tp_call */
     (reprfunc) 0,                             /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__Exiv2__GroupInfo_type.as_buffer,              /* tp_as_buffer */
+    &SwigPyBuiltin___TagListFct_type.as_buffer,                   /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    " The details of an Exif group. Groups include IFDs and binary arrays.",/* tp_doc */
+    "::_TagListFct",                          /* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__Exiv2__GroupInfo_richcompare,                  /* tp_richcompare */
+    SwigPyBuiltin___TagListFct_richcompare,   /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
     (getiterfunc) 0,                          /* tp_iter */
     (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__Exiv2__GroupInfo_methods,  /* tp_methods */
+    SwigPyBuiltin___TagListFct_methods,       /* tp_methods */
     0,                                        /* tp_members */
-    SwigPyBuiltin__Exiv2__GroupInfo_getset,   /* tp_getset */
+    SwigPyBuiltin___TagListFct_getset,        /* tp_getset */
     0,                                        /* tp_base */
     0,                                        /* tp_dict */
     (descrgetfunc) 0,                         /* tp_descr_get */
@@ -6060,251 +5711,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__GroupInfo_type = {
 #endif
 };
 
-SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__GroupInfo_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__GroupInfo_type};
-
-static SwigPyGetSet TagInfo_tag__getset = { _wrap_TagInfo_tag__get, 0 };
-static SwigPyGetSet TagInfo_title__getset = { _wrap_TagInfo_title__get, 0 };
-static SwigPyGetSet TagInfo_sectionId__getset = { _wrap_TagInfo_sectionId__get, 0 };
-static SwigPyGetSet TagInfo_desc__getset = { _wrap_TagInfo_desc__get, 0 };
-static SwigPyGetSet TagInfo_typeId__getset = { _wrap_TagInfo_typeId__get, 0 };
-static SwigPyGetSet TagInfo_ifdId__getset = { _wrap_TagInfo_ifdId__get, 0 };
-static SwigPyGetSet TagInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
-static SwigPyGetSet TagInfo_count__getset = { _wrap_TagInfo_count__get, 0 };
-static SwigPyGetSet TagInfo_name__getset = { _wrap_TagInfo_name__get, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__TagInfo_getset[] = {
-    { (char *)"tag_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Tag", &TagInfo_tag__getset },
-    { (char *)"title_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Tag title", &TagInfo_title__getset },
-    { (char *)"sectionId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Section id", &TagInfo_sectionId__getset },
-    { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Short tag description", &TagInfo_desc__getset },
-    { (char *)"typeId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Type id", &TagInfo_typeId__getset },
-    { (char *)"ifdId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Link to the (preferred) IFD", &TagInfo_ifdId__getset },
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Tag", &TagInfo___dict___getset },
-    { (char *)"count_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" The number of values (not bytes!), 0=any, -1=count not known.", &TagInfo_count__getset },
-    { (char *)"name_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" One word tag label", &TagInfo_name__getset },
-    { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
-};
-
-SWIGINTERN PyObject *
-SwigPyBuiltin__Exiv2__TagInfo_richcompare(PyObject *self, PyObject *other, int op) {
-  PyObject *result = NULL;
-  if (!result) {
-    if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
-      result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
-    } else {
-      result = Py_NotImplemented;
-      Py_INCREF(result);
-    }
-  }
-  return result;
-}
-
-SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TagInfo_methods[] = {
-  { NULL, NULL, 0, NULL } /* Sentinel */
-};
-
-static PyHeapTypeObject SwigPyBuiltin__Exiv2__TagInfo_type = {
-  {
-#if PY_VERSION_HEX >= 0x03000000
-    PyVarObject_HEAD_INIT(NULL, 0)
-#else
-    PyObject_HEAD_INIT(NULL)
-    0,                                        /* ob_size */
-#endif
-    "exiv2.tags.TagInfo",                     /* tp_name */
-    sizeof(SwigPyObject),                     /* tp_basicsize */
-    0,                                        /* tp_itemsize */
-    _wrap_delete_TagInfo_destructor_closure,  /* tp_dealloc */
-#if PY_VERSION_HEX < 0x030800b4
-    (printfunc) 0,                            /* tp_print */
-#else
-    (Py_ssize_t) 0,                           /* tp_vectorcall_offset */
-#endif
-    (getattrfunc) 0,                          /* tp_getattr */
-    (setattrfunc) 0,                          /* tp_setattr */
-#if PY_VERSION_HEX >= 0x03000000
-    0,                                        /* tp_compare */
-#else
-    (cmpfunc) 0,                              /* tp_compare */
-#endif
-    (reprfunc) 0,                             /* tp_repr */
-    &SwigPyBuiltin__Exiv2__TagInfo_type.as_number,                /* tp_as_number */
-    &SwigPyBuiltin__Exiv2__TagInfo_type.as_sequence,              /* tp_as_sequence */
-    &SwigPyBuiltin__Exiv2__TagInfo_type.as_mapping,               /* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
-    (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
-    (getattrofunc) 0,                         /* tp_getattro */
-    (setattrofunc) 0,                         /* tp_setattro */
-    &SwigPyBuiltin__Exiv2__TagInfo_type.as_buffer,                /* tp_as_buffer */
-#if PY_VERSION_HEX >= 0x03000000
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,   /* tp_flags */
-#else
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
-#endif
-    " Tag information",                       /* tp_doc */
-    (traverseproc) 0,                         /* tp_traverse */
-    (inquiry) 0,                              /* tp_clear */
-    SwigPyBuiltin__Exiv2__TagInfo_richcompare,/* tp_richcompare */
-    0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
-    (iternextfunc) 0,                         /* tp_iternext */
-    SwigPyBuiltin__Exiv2__TagInfo_methods,    /* tp_methods */
-    0,                                        /* tp_members */
-    SwigPyBuiltin__Exiv2__TagInfo_getset,     /* tp_getset */
-    0,                                        /* tp_base */
-    0,                                        /* tp_dict */
-    (descrgetfunc) 0,                         /* tp_descr_get */
-    (descrsetfunc) 0,                         /* tp_descr_set */
-    offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    SwigPyBuiltin_BadInit,                    /* tp_init */
-    (allocfunc) 0,                            /* tp_alloc */
-    (newfunc) 0,                              /* tp_new */
-    (freefunc) 0,                             /* tp_free */
-    (inquiry) 0,                              /* tp_is_gc */
-    (PyObject *) 0,                           /* tp_bases */
-    (PyObject *) 0,                           /* tp_mro */
-    (PyObject *) 0,                           /* tp_cache */
-    (PyObject *) 0,                           /* tp_subclasses */
-    (PyObject *) 0,                           /* tp_weaklist */
-    (destructor) 0,                           /* tp_del */
-    (int) 0,                                  /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    (destructor) 0,                           /* tp_finalize */
-#endif
-#if PY_VERSION_HEX >= 0x03080000
-    (vectorcallfunc) 0,                       /* tp_vectorcall */
-#endif
-#if (PY_VERSION_HEX >= 0x03080000) && (PY_VERSION_HEX < 0x03090000)
-    0,                                        /* tp_print */
-#endif
-#ifdef COUNT_ALLOCS
-    (Py_ssize_t) 0,                           /* tp_allocs */
-    (Py_ssize_t) 0,                           /* tp_frees */
-    (Py_ssize_t) 0,                           /* tp_maxalloc */
-    0,                                        /* tp_prev */
-    0,                                        /* tp_next */
-#endif
-  },
-#if PY_VERSION_HEX >= 0x03050000
-  {
-    (unaryfunc) 0,                            /* am_await */
-    (unaryfunc) 0,                            /* am_aiter */
-    (unaryfunc) 0,                            /* am_anext */
-# if PY_VERSION_HEX >= 0x030a0000
-    (sendfunc) 0,                             /* am_send */
-# endif
-  },
-#endif
-  {
-    (binaryfunc) 0,                           /* nb_add */
-    (binaryfunc) 0,                           /* nb_subtract */
-    (binaryfunc) 0,                           /* nb_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_remainder */
-    (binaryfunc) 0,                           /* nb_divmod */
-    (ternaryfunc) 0,                          /* nb_power */
-    (unaryfunc) 0,                            /* nb_negative */
-    (unaryfunc) 0,                            /* nb_positive */
-    (unaryfunc) 0,                            /* nb_absolute */
-    (inquiry) 0,                              /* nb_nonzero */
-    (unaryfunc) 0,                            /* nb_invert */
-    (binaryfunc) 0,                           /* nb_lshift */
-    (binaryfunc) 0,                           /* nb_rshift */
-    (binaryfunc) 0,                           /* nb_and */
-    (binaryfunc) 0,                           /* nb_xor */
-    (binaryfunc) 0,                           /* nb_or */
-#if PY_VERSION_HEX < 0x03000000
-    (coercion) 0,                             /* nb_coerce */
-#endif
-    (unaryfunc) 0,                            /* nb_int */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* nb_reserved */
-#else
-    (unaryfunc) 0,                            /* nb_long */
-#endif
-    (unaryfunc) 0,                            /* nb_float */
-#if PY_VERSION_HEX < 0x03000000
-    (unaryfunc) 0,                            /* nb_oct */
-    (unaryfunc) 0,                            /* nb_hex */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_add */
-    (binaryfunc) 0,                           /* nb_inplace_subtract */
-    (binaryfunc) 0,                           /* nb_inplace_multiply */
-#if PY_VERSION_HEX < 0x03000000
-    (binaryfunc) 0,                           /* nb_inplace_divide */
-#endif
-    (binaryfunc) 0,                           /* nb_inplace_remainder */
-    (ternaryfunc) 0,                          /* nb_inplace_power */
-    (binaryfunc) 0,                           /* nb_inplace_lshift */
-    (binaryfunc) 0,                           /* nb_inplace_rshift */
-    (binaryfunc) 0,                           /* nb_inplace_and */
-    (binaryfunc) 0,                           /* nb_inplace_xor */
-    (binaryfunc) 0,                           /* nb_inplace_or */
-    (binaryfunc) 0,                           /* nb_floor_divide */
-    (binaryfunc) 0,                           /* nb_true_divide */
-    (binaryfunc) 0,                           /* nb_inplace_floor_divide */
-    (binaryfunc) 0,                           /* nb_inplace_true_divide */
-    (unaryfunc) 0,                            /* nb_index */
-#if PY_VERSION_HEX >= 0x03050000
-    (binaryfunc) 0,                           /* nb_matrix_multiply */
-    (binaryfunc) 0,                           /* nb_inplace_matrix_multiply */
-#endif
-  },
-  {
-    (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
-  },
-  {
-    (lenfunc) 0,                              /* sq_length */
-    (binaryfunc) 0,                           /* sq_concat */
-    (ssizeargfunc) 0,                         /* sq_repeat */
-    (ssizeargfunc) 0,                         /* sq_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_slice */
-#else
-    (ssizessizeargfunc) 0,                    /* sq_slice */
-#endif
-    (ssizeobjargproc) 0,                      /* sq_ass_item */
-#if PY_VERSION_HEX >= 0x03000000
-    (void *) 0,                               /* was_sq_ass_slice */
-#else
-    (ssizessizeobjargproc) 0,                 /* sq_ass_slice */
-#endif
-    (objobjproc) 0,                           /* sq_contains */
-    (binaryfunc) 0,                           /* sq_inplace_concat */
-    (ssizeargfunc) 0,                         /* sq_inplace_repeat */
-  },
-  {
-#if PY_VERSION_HEX < 0x03000000
-    (readbufferproc) 0,                       /* bf_getreadbuffer */
-    (writebufferproc) 0,                      /* bf_getwritebuffer */
-    (segcountproc) 0,                         /* bf_getsegcount */
-    (charbufferproc) 0,                       /* bf_getcharbuffer */
-#endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
-  },
-    (PyObject *) 0,                           /* ht_name */
-    (PyObject *) 0,                           /* ht_slots */
-#if PY_VERSION_HEX >= 0x03030000
-    (PyObject *) 0,                           /* ht_qualname */
-    0,                                        /* ht_cached_keys */
-#endif
-#if PY_VERSION_HEX >= 0x03090000
-    (PyObject *) 0,                           /* ht_module */
-#endif
-#if PY_VERSION_HEX >= 0x030b0000
-    (char *) 0,                               /* _ht_tpname */
-  {
-    (PyObject *) 0,                           /* getitem */
-  }
-#endif
-};
-
-SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__TagInfo_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin__Exiv2__TagInfo_type};
+SWIGINTERN SwigPyClientData SwigPyBuiltin___TagListFct_clientdata = {0, 0, 0, 0, 0, 0, (PyTypeObject *)&SwigPyBuiltin___TagListFct_type};
 
 static SwigPyGetSet ExifTags___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__ExifTags_getset[] = {
@@ -6575,16 +5982,6 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__ExifKey_getset[] = {
 		"|\n"
 		"\n"
 		"*Overload 3:*\n"
-		"\n"
-		"         Constructor to create an Exif key from a TagInfo instance.\n"
-		"         :type ti: :py:class:`TagInfo`\n"
-		"         :param ti: The TagInfo instance\n"
-		"         :raises: Error if the key cannot be constructed from the tag number\n"
-		"                    and group name.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 4:*\n"
 		"Copy constructor\n"
 		"", &ExifKey___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
@@ -6907,18 +6304,18 @@ static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSED
 static swig_type_info _swigt__p_AutoPtr = {"_p_AutoPtr", "AutoPtr *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue", "Exiv2::CommentValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__DataBuf = {"_p_Exiv2__DataBuf", "Exiv2::DataBuf *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DataValue = {"_p_Exiv2__DataValue", "Exiv2::DataValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DateValue = {"_p_Exiv2__DateValue", "Exiv2::DateValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__DateValue__Date = {"_p_Exiv2__DateValue__Date", "Exiv2::DateValue::Date *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ExifKey = {"_p_Exiv2__ExifKey", "Exiv2::ExifKey *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifKey_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__ExifTags = {"_p_Exiv2__ExifTags", "Exiv2::ExifTags *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifTags_clientdata, 0};
-static swig_type_info _swigt__p_Exiv2__GroupInfo = {"_p_Exiv2__GroupInfo", "Exiv2::GroupInfo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__GroupInfo_clientdata, 0};
-static swig_type_info _swigt__p_Exiv2__GroupInfo__GroupName = {"_p_Exiv2__GroupInfo__GroupName", "Exiv2::GroupInfo::GroupName *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Key = {"_p_Exiv2__Key", "Exiv2::Key *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__LangAltValue = {"_p_Exiv2__LangAltValue", "Exiv2::LangAltValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__StringValue = {"_p_Exiv2__StringValue", "Exiv2::StringValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__StringValueBase = {"_p_Exiv2__StringValueBase", "Exiv2::StringValueBase *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__TagInfo = {"_p_Exiv2__TagInfo", "Exiv2::TagInfo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__TagInfo_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__TimeValue = {"_p_Exiv2__TimeValue", "Exiv2::TimeValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__TimeValue__Time = {"_p_Exiv2__TimeValue__Time", "Exiv2::TimeValue::Time *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Value = {"_p_Exiv2__Value", "Exiv2::Value *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ValueTypeT_double_t = {"_p_Exiv2__ValueTypeT_double_t", "Exiv2::DoubleValue *|Exiv2::ValueType< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ValueTypeT_float_t = {"_p_Exiv2__ValueTypeT_float_t", "Exiv2::FloatValue *|Exiv2::ValueType< float > *", 0, 0, (void*)0, 0};
@@ -6934,11 +6331,11 @@ static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2:
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p__TagListFct = {"_p__TagListFct", "_TagListFct *", 0, 0, (void*)&SwigPyBuiltin___TagListFct_clientdata, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_f___p_Exiv2__TagInfo = {"_p_f___p_Exiv2__TagInfo", "Exiv2::TagListFct|Exiv2::TagInfo *(*)()", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "int32_t *|int_fast16_t *|int_fast32_t *|int_least32_t *|intptr_t *|int *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_iterator = {"_p_iterator", "iterator *", 0, 0, (void*)0, 0};
@@ -6951,7 +6348,6 @@ static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "int8_t *|int_f
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t = {"_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t", "Exiv2::Blob *|std::vector< unsigned char,std::allocator< unsigned char > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "Exiv2::byte *|uint8_t *|uint_fast8_t *|uint_least8_t *|unsigned char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "uint32_t *|uint_fast16_t *|uint_fast32_t *|uint_least32_t *|uintptr_t *|unsigned int *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long_long = {"_p_unsigned_long_long", "uint64_t *|uint_fast64_t *|uint_least64_t *|uintmax_t *|unsigned long long *", 0, 0, (void*)0, 0};
@@ -6962,18 +6358,18 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_AutoPtr,
   &_swigt__p_Exiv2__AsciiValue,
   &_swigt__p_Exiv2__CommentValue,
+  &_swigt__p_Exiv2__DataBuf,
   &_swigt__p_Exiv2__DataValue,
   &_swigt__p_Exiv2__DateValue,
+  &_swigt__p_Exiv2__DateValue__Date,
   &_swigt__p_Exiv2__ExifKey,
   &_swigt__p_Exiv2__ExifTags,
-  &_swigt__p_Exiv2__GroupInfo,
-  &_swigt__p_Exiv2__GroupInfo__GroupName,
   &_swigt__p_Exiv2__Key,
   &_swigt__p_Exiv2__LangAltValue,
   &_swigt__p_Exiv2__StringValue,
   &_swigt__p_Exiv2__StringValueBase,
-  &_swigt__p_Exiv2__TagInfo,
   &_swigt__p_Exiv2__TimeValue,
+  &_swigt__p_Exiv2__TimeValue__Time,
   &_swigt__p_Exiv2__Value,
   &_swigt__p_Exiv2__ValueTypeT_double_t,
   &_swigt__p_Exiv2__ValueTypeT_float_t,
@@ -6989,11 +6385,11 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_SwigPyObject,
   &_swigt__p_ValueList,
   &_swigt__p_ValueType,
+  &_swigt__p__TagListFct,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
   &_swigt__p_difference_type,
-  &_swigt__p_f___p_Exiv2__TagInfo,
   &_swigt__p_first_type,
   &_swigt__p_int,
   &_swigt__p_iterator,
@@ -7006,7 +6402,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_size_type,
   &_swigt__p_std__pairT_int_int_t,
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
-  &_swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,
   &_swigt__p_unsigned_char,
   &_swigt__p_unsigned_int,
   &_swigt__p_unsigned_long_long,
@@ -7017,18 +6412,18 @@ static swig_type_info *swig_type_initial[] = {
 static swig_cast_info _swigc__p_AutoPtr[] = {  {&_swigt__p_AutoPtr, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__CommentValue[] = {  {&_swigt__p_Exiv2__CommentValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__DataBuf[] = {  {&_swigt__p_Exiv2__DataBuf, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DataValue[] = {  {&_swigt__p_Exiv2__DataValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DateValue[] = {  {&_swigt__p_Exiv2__DateValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__DateValue__Date[] = {  {&_swigt__p_Exiv2__DateValue__Date, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifKey[] = {  {&_swigt__p_Exiv2__ExifKey, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifTags[] = {  {&_swigt__p_Exiv2__ExifTags, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__GroupInfo[] = {  {&_swigt__p_Exiv2__GroupInfo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__GroupInfo__GroupName[] = {  {&_swigt__p_Exiv2__GroupInfo__GroupName, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Key[] = {  {&_swigt__p_Exiv2__Key, 0, 0, 0},  {&_swigt__p_Exiv2__ExifKey, _p_Exiv2__ExifKeyTo_p_Exiv2__Key, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LangAltValue[] = {  {&_swigt__p_Exiv2__LangAltValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValue[] = {  {&_swigt__p_Exiv2__StringValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValueBase[] = {  {&_swigt__p_Exiv2__StringValueBase, 0, 0, 0},  {&_swigt__p_Exiv2__AsciiValue, _p_Exiv2__AsciiValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__CommentValue, _p_Exiv2__CommentValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__StringValue, _p_Exiv2__StringValueTo_p_Exiv2__StringValueBase, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__TagInfo[] = {  {&_swigt__p_Exiv2__TagInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__TimeValue[] = {  {&_swigt__p_Exiv2__TimeValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__TimeValue__Time[] = {  {&_swigt__p_Exiv2__TimeValue__Time, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Value[] = {  {&_swigt__p_Exiv2__Value, 0, 0, 0},  {&_swigt__p_Exiv2__AsciiValue, _p_Exiv2__AsciiValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__CommentValue, _p_Exiv2__CommentValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__DataValue, _p_Exiv2__DataValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__DateValue, _p_Exiv2__DateValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__StringValue, _p_Exiv2__StringValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__StringValueBase, _p_Exiv2__StringValueBaseTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__TimeValue, _p_Exiv2__TimeValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_double_t, _p_Exiv2__ValueTypeT_double_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_float_t, _p_Exiv2__ValueTypeT_float_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_int_t, _p_Exiv2__ValueTypeT_int_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_short_t, _p_Exiv2__ValueTypeT_short_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, _p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, _p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_unsigned_int_t, _p_Exiv2__ValueTypeT_unsigned_int_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_unsigned_short_t, _p_Exiv2__ValueTypeT_unsigned_short_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpValue, _p_Exiv2__XmpValueTo_p_Exiv2__Value, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ValueTypeT_double_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ValueTypeT_float_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_float_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -7044,11 +6439,11 @@ static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpVal
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p__TagListFct[] = {  {&_swigt__p__TagListFct, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_f___p_Exiv2__TagInfo[] = {  {&_swigt__p_f___p_Exiv2__TagInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_iterator[] = {  {&_swigt__p_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -7061,7 +6456,6 @@ static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pairT_int_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t[] = {  {&_swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_long_long[] = {  {&_swigt__p_unsigned_long_long, 0, 0, 0},{0, 0, 0, 0}};
@@ -7072,18 +6466,18 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_AutoPtr,
   _swigc__p_Exiv2__AsciiValue,
   _swigc__p_Exiv2__CommentValue,
+  _swigc__p_Exiv2__DataBuf,
   _swigc__p_Exiv2__DataValue,
   _swigc__p_Exiv2__DateValue,
+  _swigc__p_Exiv2__DateValue__Date,
   _swigc__p_Exiv2__ExifKey,
   _swigc__p_Exiv2__ExifTags,
-  _swigc__p_Exiv2__GroupInfo,
-  _swigc__p_Exiv2__GroupInfo__GroupName,
   _swigc__p_Exiv2__Key,
   _swigc__p_Exiv2__LangAltValue,
   _swigc__p_Exiv2__StringValue,
   _swigc__p_Exiv2__StringValueBase,
-  _swigc__p_Exiv2__TagInfo,
   _swigc__p_Exiv2__TimeValue,
+  _swigc__p_Exiv2__TimeValue__Time,
   _swigc__p_Exiv2__Value,
   _swigc__p_Exiv2__ValueTypeT_double_t,
   _swigc__p_Exiv2__ValueTypeT_float_t,
@@ -7099,11 +6493,11 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_SwigPyObject,
   _swigc__p_ValueList,
   _swigc__p_ValueType,
+  _swigc__p__TagListFct,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,
   _swigc__p_difference_type,
-  _swigc__p_f___p_Exiv2__TagInfo,
   _swigc__p_first_type,
   _swigc__p_int,
   _swigc__p_iterator,
@@ -7116,7 +6510,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_size_type,
   _swigc__p_std__pairT_int_int_t,
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
-  _swigc__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,
   _swigc__p_unsigned_char,
   _swigc__p_unsigned_int,
   _swigc__p_unsigned_long_long,
@@ -7593,18 +6986,17 @@ SWIG_init(void) {
   
   {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module != NULL) {
-      PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-      logger = PyObject_GetAttrString(module, "_logger");
-      Py_DECREF(module);
-    }
-    if (PyExc_Exiv2Error == NULL || logger == NULL)
+    if (!module)
+    return NULL;
+    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
+    Py_DECREF(module);
+    if (!PyExc_Exiv2Error)
     return NULL;
   }
   
   
-  /* type 'Exiv2::GroupInfo' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__GroupInfo_type;
+  /* type '::_TagListFct' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin___TagListFct_type;
   builtin_pytype->tp_dict = d = PyDict_New();
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
@@ -7614,7 +7006,7 @@ SWIG_init(void) {
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
   if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'GroupInfo'.");
+    PyErr_SetString(PyExc_TypeError, "Could not create type '_TagListFct'.");
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
 #else
@@ -7622,31 +7014,8 @@ SWIG_init(void) {
 #endif
   }
   Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "GroupInfo", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "GroupInfo");
-  d = md;
-  
-  /* type 'Exiv2::TagInfo' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__TagInfo_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
-  builtin_pytype->tp_new = PyType_GenericNew;
-  builtin_base_count = 0;
-  builtin_bases[builtin_base_count] = NULL;
-  SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
-  PyDict_SetItemString(d, "this", this_descr);
-  PyDict_SetItemString(d, "thisown", thisown_descr);
-  if (PyType_Ready(builtin_pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'TagInfo'.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  Py_INCREF(builtin_pytype);
-  PyModule_AddObject(m, "TagInfo", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "TagInfo");
+  PyModule_AddObject(m, "_TagListFct", (PyObject *)builtin_pytype);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "_TagListFct");
   d = md;
   
   /* type 'Exiv2::ExifTags' */

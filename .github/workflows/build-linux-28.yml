@@ -1,44 +1,42 @@
-name: Build manylinux wheels
+name: Build Linux wheels exiv2 0.28
 on: workflow_dispatch
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      EXIV2_ROOT: /project/exiv2-install
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Download libexiv2
+      - name: Fetch Exiv2 source
+        run: >
+          wget -nv
+          https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.1.tar.gz
+          -O exiv2.tar.gz
+
+      - name: Extract Exiv2 source
         run: |
-          wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.7/exiv2-0.27.7-Source.tar.gz
-          tar xf exiv2-0.27.7-Source.tar.gz
+          tar -xzf exiv2.tar.gz
+          mv exiv2-0.28.1 libexiv2
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.2
         env:
           CIBW_ARCHS: auto64
-          CIBW_ENVIRONMENT_PASS_LINUX: EXIV2_ROOT
+          CIBW_ENVIRONMENT: EXIV2_ROOT=libexiv2/build-linux-release/install
           CIBW_BUILD: cp*-manylinux_x86_64
-          CIBW_BEFORE_ALL: >
-            yum install -y zlib-devel expat-devel gettext-devel &&
-            cd exiv2-0.27.7-Source &&
-            mkdir build &&
-            cd build &&
-            cmake .. -DCMAKE_BUILD_TYPE=Release \
-              -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
-              -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
-              -DEXIV2_BUILD_SAMPLES=OFF \
-              -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
-              -DEXIV2_ENABLE_BMFF=ON \
-              -DEXIV2_ENABLE_NLS=ON \
-              -DEXIV2_ENABLE_VIDEO=ON \
-              -DCMAKE_CXX_STANDARD=98 &&
-            cmake --build . &&
-            cmake --install . &&
-            cd ../.. &&
-            python utils/build_swig.py ${{ env.EXIV2_ROOT }}/include
+          CIBW_BEFORE_ALL: |
+            yum install -y gettext-devel
+            pip install ninja conan==1.59
+            cd libexiv2
+            cmake --preset linux-release \
+            -DEXIV2_BUILD_SAMPLES=OFF \
+            -DEXIV2_BUILD_UNIT_TESTS=OFF \
+            -DEXIV2_ENABLE_NLS=ON \
+            -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
+            -DEXIV2_TEAM_WARNINGS_AS_ERRORS=OFF
+            cmake --build build-linux-release --config Release
+            cmake --install build-linux-release --config Release
 
       - name: Store results
         uses: actions/upload-artifact@v3
@@ -75,7 +73,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get package details
-        run: python3 -m exiv2
+        run: python3 -m exiv2 -v
 
       - name: Run unit tests
-        run: python3 -m unittest discover tests
+        run: python3 -m unittest discover tests -v

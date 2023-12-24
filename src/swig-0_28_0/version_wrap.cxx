@@ -3910,14 +3910,44 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-PyObject* PyExc_Exiv2Error = NULL;
-PyObject* logger = NULL;
+static PyObject* PyExc_Exiv2Error = NULL;
 
 
 #include <stdint.h>		// Use the C99 official header
 
 
 #include <string>
+
+
+static PyObject* versionInfo() {
+    bool nls = false;
+    bool bmff = false;
+    bool video = false;
+    bool unicode = false;
+    bool webready = false;
+#ifdef EXV_ENABLE_NLS
+    nls = true;
+#endif
+#ifdef EXV_ENABLE_BMFF
+    bmff = true;
+#endif
+#ifdef EXV_ENABLE_VIDEO
+    video = true;
+#endif
+#ifdef EXV_UNICODE_PATH
+    unicode = true;
+#endif
+#ifdef EXV_ENABLE_WEBREADY
+    webready = true;
+#endif
+    return Py_BuildValue("{ss,sN,sN,sN,sN,sN}",
+        "version", Exiv2::version(),
+        "EXV_ENABLE_NLS", PyBool_FromLong(nls),
+        "EXV_ENABLE_BMFF", PyBool_FromLong(bmff),
+        "EXV_ENABLE_VIDEO", PyBool_FromLong(video),
+        "EXV_UNICODE_PATH", PyBool_FromLong(unicode),
+        "EXV_ENABLE_WEBREADY", PyBool_FromLong(webready));
+};
 
 
 SWIGINTERNINLINE PyObject*
@@ -4144,6 +4174,33 @@ SWIGINTERNINLINE PyObject*
 #ifdef __cplusplus
 extern "C" {
 #endif
+SWIGINTERN PyObject *_wrap_versionInfo(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *result = 0 ;
+  
+  (void)self;
+  if (!SWIG_Python_UnpackTuple(args, "versionInfo", 0, 0, 0)) SWIG_fail;
+  {
+    try {
+      result = (PyObject *)versionInfo();
+      
+      
+      
+    } catch(Exiv2::Error const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_versionNumber(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   uint32_t result;
@@ -4305,6 +4362,7 @@ fail:
 
 
 static PyMethodDef SwigMethods[] = {
+	 { "versionInfo", _wrap_versionInfo, METH_NOARGS, "Return a dict of libexiv2 build options."},
 	 { "versionNumber", _wrap_versionNumber, METH_NOARGS, "  Return the version of %Exiv2 available at runtime as a uint32_t."},
 	 { "versionString", _wrap_versionString, METH_NOARGS, "  Return the version string Example: \"0.25.0\" (major.minor.patch)"},
 	 { "versionNumberHexString", _wrap_versionNumberHexString, METH_NOARGS, "  Return the version of %Exiv2 as hex string of fixed length 6."},
@@ -4837,12 +4895,11 @@ SWIG_init(void) {
   
   {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module != NULL) {
-      PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-      logger = PyObject_GetAttrString(module, "_logger");
-      Py_DECREF(module);
-    }
-    if (PyExc_Exiv2Error == NULL || logger == NULL)
+    if (!module)
+    return NULL;
+    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
+    Py_DECREF(module);
+    if (!PyExc_Exiv2Error)
     return NULL;
   }
   

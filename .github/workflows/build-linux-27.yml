@@ -1,11 +1,11 @@
-name: Build MacOS wheels
+name: Build Linux wheels exiv2 0.27
 on: workflow_dispatch
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     env:
-      EXIV2_ROOT: /Users/runner/exiv2-install
+      EXIV2_ROOT: /project/exiv2-install
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -15,19 +15,17 @@ jobs:
           wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.7/exiv2-0.27.7-Source.tar.gz
           tar xf exiv2-0.27.7-Source.tar.gz
 
-      - name: Make directories
-        run: |
-          mkdir exiv2-0.27.7-Source/build
-          mkdir $EXIV2_ROOT
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.2
         env:
-          CIBW_ARCHS: x86_64
-          CIBW_SKIP: pp3*
+          CIBW_ARCHS: auto64
+          CIBW_ENVIRONMENT_PASS_LINUX: EXIV2_ROOT
+          CIBW_BUILD: cp*-manylinux_x86_64
           CIBW_BEFORE_ALL: >
-            brew install ninja gettext &&
-            cd exiv2-0.27.7-Source/build &&
+            yum install -y zlib-devel expat-devel gettext-devel &&
+            cd exiv2-0.27.7-Source &&
+            mkdir build &&
+            cd build &&
             cmake .. -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
               -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
@@ -36,30 +34,33 @@ jobs:
               -DEXIV2_ENABLE_BMFF=ON \
               -DEXIV2_ENABLE_NLS=ON \
               -DEXIV2_ENABLE_VIDEO=ON \
-              -DCMAKE_CXX_STANDARD=98 \
-              -GNinja &&
-            cmake --build . --config Release &&
-            cmake --build . --target install &&
+              -DCMAKE_CXX_STANDARD=98 &&
+            cmake --build . &&
+            cmake --install . &&
             cd ../.. &&
-            python3 utils/build_swig.py ${{ env.EXIV2_ROOT }}/include
+            python utils/build_swig.py ${{ env.EXIV2_ROOT }}/include
 
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
-          name: macos-wheel
+          name: manylinux-wheel
           path: wheelhouse/*.whl
 
   test:
     needs: build
-    runs-on: macos-latest
     strategy:
       matrix:
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
+        os: [ubuntu-latest]
+        include:
+          - python-version: '3.6'
+            os: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Fetch wheel files
         uses: actions/download-artifact@v3
         with:
-          name: macos-wheel
+          name: manylinux-wheel
 
       - name: Setup Python
         uses: actions/setup-python@v4

@@ -1,5 +1,4 @@
 
-import logging
 import os
 import sys
 import warnings
@@ -10,8 +9,6 @@ if sys.platform == 'win32':
         if hasattr(os, 'add_dll_directory'):
             os.add_dll_directory(_dir)
         os.environ['PATH'] = _dir + ';' + os.environ['PATH']
-
-_logger = logging.getLogger(__name__)
 
 class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors"""
@@ -29,8 +26,13 @@ else:
             return Exiv2Error
         raise AttributeError
 
-__version__ = "0.15.0"
-__version_tuple__ = tuple((0, 15, 0))
+_dir = os.path.join(os.path.dirname(__file__), 'locale')
+if os.path.isdir(_dir):
+    from exiv2.types import _set_locale_dir
+    _set_locale_dir(_dir)
+
+__version__ = "0.16.0"
+__version_tuple__ = tuple((0, 16, 0))
 
 from exiv2.basicio import *
 from exiv2.datasets import *
@@ -47,9 +49,5 @@ from exiv2.types import *
 from exiv2.value import *
 from exiv2.version import *
 from exiv2.xmp import *
-
-_dir = os.path.join(os.path.dirname(__file__), 'messages')
-if os.path.isdir(_dir):
-    exiv2.types._set_locale_dir(_dir)
 
 __all__ = [x for x in dir() if x[0] != '_']

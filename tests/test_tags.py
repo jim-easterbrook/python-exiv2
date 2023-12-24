@@ -26,73 +26,58 @@ class TestTagsModule(unittest.TestCase):
     group_name = 'Image'
     tag = 270
 
+    def check_result(self, result, expected_type, expected_value):
+        self.assertIsInstance(result, expected_type)
+        self.assertEqual(result, expected_value)
+
     def test_ExifTags(self):
         tags = exiv2.ExifTags
         key = exiv2.ExifKey(self.key_name)
-        count = tags.defaultCount(key)
-        self.assertIsInstance(count, int)
-        self.assertEqual(count, 0)
+        self.check_result(tags.defaultCount(key), int, 0)
         group_list = tags.groupList()
-        self.assertIsInstance(group_list, tuple)
+        self.assertIsInstance(group_list, list)
         self.assertGreater(len(group_list), 0)
-        self.assertIsInstance(group_list[0], exiv2.GroupInfo)
-        ifd_name = tags.ifdName(self.group_name)
-        self.assertIsInstance(ifd_name, str)
-        self.assertEqual(ifd_name, 'IFD0')
-        is_exif = tags.isExifGroup(self.group_name)
-        self.assertIsInstance(is_exif, bool)
-        self.assertEqual(is_exif, True)
-        is_maker = tags.isMakerGroup(self.group_name)
-        self.assertIsInstance(is_maker, bool)
-        self.assertEqual(is_maker, False)
-        section = tags.sectionName(key)
-        self.assertIsInstance(section, str)
-        self.assertEqual(section, 'OtherTags')
+        self.assertIsInstance(group_list[0], dict)
+        self.check_result(tags.ifdName(self.group_name), str, 'IFD0')
+        self.check_result(tags.isExifGroup(self.group_name), bool, True)
+        self.check_result(tags.isMakerGroup(self.group_name), bool, False)
+        self.check_result(tags.sectionName(key), str, 'OtherTags')
         tag_list = tags.tagList(self.group_name)
-        self.assertIsInstance(tag_list, tuple)
+        self.assertIsInstance(tag_list, list)
         self.assertGreater(len(tag_list), 0)
-        self.assertIsInstance(tag_list[0], exiv2.TagInfo)
+        self.assertIsInstance(tag_list[0], dict)
 
     def test_GroupInfo(self):
         info = exiv2.ExifTags.groupList()[0]
-        group_name = info.groupName_
-        self.assertIsInstance(group_name, str)
-        self.assertEqual(group_name, 'Image')
-        ifd_id = info.ifdId_
-        self.assertIsInstance(ifd_id, int)
-        self.assertEqual(ifd_id, 1)     # Exiv2::IfdId enum not in Python
-        ifd_name = info.ifdName_
-        self.assertIsInstance(ifd_name, str)
-        self.assertEqual(ifd_name, 'IFD0')
-        tag_list = info.tagList_
-        # tag_list not currently usable from Python
+        self.check_result(info['groupName'], str, 'Image')
+        if exiv2.testVersion(0, 28, 0):
+            self.check_result(info['ifdId'], int, exiv2.IfdId.ifd0Id)
+        else:
+            self.check_result(info['ifdId'], int, 1)
+        self.check_result(info['ifdName'], str, 'IFD0')
+        tag_list = info['tagList']()
+        self.assertIsInstance(tag_list, list)
+        self.assertGreater(len(tag_list), 0)
+        self.assertIsInstance(tag_list[0], dict)
 
     def test_TagInfo(self):
         info = exiv2.ExifTags.tagList(self.group_name)[0]
-        count = info.count_
-        self.assertIsInstance(count, int)
-        self.assertEqual(count, 0)
-        desc = info.desc_
+        self.check_result(info['count'], int, 0)
+        desc = info['desc']
         self.assertIsInstance(desc, str)
         self.assertTrue(desc.startswith('The name and version of the software'))
-        ifd_id = info.ifdId_
-        self.assertIsInstance(ifd_id, int)
-        self.assertEqual(ifd_id, 1)     # Exiv2::IfdId enum not in Python
-        name = info.name_
-        self.assertIsInstance(name, str)
-        self.assertEqual(name, 'ProcessingSoftware')
-        section_id = info.sectionId_
-        self.assertIsInstance(section_id, int)
-        self.assertEqual(section_id, 4)     # Exiv2::SectionId not in Python
-        tag = info.tag_
-        self.assertIsInstance(tag, int)
-        self.assertEqual(tag, 11)
-        title = info.title_
-        self.assertIsInstance(title, str)
-        self.assertEqual(title, 'Processing Software')
-        type_id = info.typeId_
-        self.assertIsInstance(type_id, int)
-        self.assertEqual(type_id, exiv2.TypeId.asciiString)
+        if exiv2.testVersion(0, 28, 0):
+            self.check_result(info['ifdId'], int, exiv2.IfdId.ifd0Id)
+        else:
+            self.check_result(info['ifdId'], int, 1)
+        self.check_result(info['name'], str, 'ProcessingSoftware')
+        if exiv2.testVersion(0, 28, 0):
+            self.check_result(info['sectionId'], int, exiv2.SectionId.otherTags)
+        else:
+            self.check_result(info['sectionId'], int, 4)
+        self.check_result(info['tag'], int, 11)
+        self.check_result(info['title'], str, 'Processing Software')
+        self.check_result(info['typeId'], int, exiv2.TypeId.asciiString)
 
     def test_ExifKey(self):
         # constructors
@@ -109,35 +94,19 @@ class TestTagsModule(unittest.TestCase):
         key2 = key.clone()
         self.assertIsNot(key2, key)
         self.assertIsInstance(key2, exiv2.ExifKey)
-        default_type_id = key.defaultTypeId()
-        self.assertIsInstance(default_type_id, int)
-        self.assertEqual(default_type_id, exiv2.TypeId.asciiString)
-        family = key.familyName()
-        self.assertIsInstance(family, str)
-        self.assertEqual(family, self.key_name.split('.')[0])
-        group = key.groupName()
-        self.assertIsInstance(group, str)
-        self.assertEqual(group, self.key_name.split('.')[1])
-        idx = key.idx()
-        self.assertIsInstance(idx, int)
-        self.assertEqual(idx, 0)
-        key_name = key.key()
-        self.assertIsInstance(key_name, str)
-        self.assertEqual(key_name, self.key_name)
+        self.check_result(key.defaultTypeId(), int, exiv2.TypeId.asciiString)
+        self.check_result(key.familyName(), str, self.key_name.split('.')[0])
+        self.check_result(key.groupName(), str, self.key_name.split('.')[1])
+        self.check_result(key.idx(), int, 0)
+        self.check_result(key.key(), str, self.key_name)
         key.setIdx(123)
-        self.assertEqual(key.idx(), 123)
-        tag = key.tag()
-        self.assertIsInstance(tag, int)
-        self.assertEqual(tag, self.tag)
+        self.check_result(key.idx(), int, 123)
+        self.check_result(key.tag(), int, self.tag)
         desc = key.tagDesc()
         self.assertIsInstance(desc, str)
         self.assertTrue(desc.startswith('A character string giving the title'))
-        label = key.tagLabel()
-        self.assertIsInstance(label, str)
-        self.assertEqual(label, 'Image Description')
-        tag_name = key.tagName()
-        self.assertIsInstance(tag_name, str)
-        self.assertEqual(tag_name, self.key_name.split('.')[2])
+        self.check_result(key.tagLabel(), str, 'Image Description')
+        self.check_result(key.tagName(), str, self.key_name.split('.')[2])
         
 
 if __name__ == '__main__':

@@ -26,29 +26,31 @@ import exiv2
 
 class TestDatasetsModule(unittest.TestCase):
     def test_DataSet(self):
-        dataset = exiv2.IptcDataSets.application2RecordList()
-        self.assertIsInstance(dataset, exiv2.DataSet)
-        self.assertEqual(dataset.desc_[:27], 'A binary number identifying')
-        self.assertEqual(dataset.mandatory_, True)
-        self.assertEqual(dataset.maxbytes_, 2)
-        self.assertEqual(dataset.minbytes_, 2)
-        self.assertEqual(dataset.name_, 'RecordVersion')
-        self.assertEqual(dataset.number_, 0)
-        self.assertEqual(dataset.photoshop_, '')
-        self.assertEqual(dataset.recordId_, exiv2.IptcDataSets.application2)
-        self.assertEqual(dataset.repeatable_, False)
-        self.assertEqual(dataset.title_, 'Record Version')
-        self.assertEqual(dataset.type_, exiv2.TypeId.unsignedShort)
+        dataset = exiv2.IptcDataSets.application2RecordList()[0]
+        self.assertIsInstance(dataset, dict)
+        self.assertEqual(dataset['desc'][:27], 'A binary number identifying')
+        self.assertEqual(dataset['mandatory'], True)
+        self.assertEqual(dataset['maxbytes'], 2)
+        self.assertEqual(dataset['minbytes'], 2)
+        self.assertEqual(dataset['name'], 'RecordVersion')
+        self.assertEqual(dataset['number'], 0)
+        self.assertEqual(dataset['photoshop'], '')
+        self.assertEqual(dataset['recordId'], exiv2.IptcDataSets.application2)
+        self.assertEqual(dataset['repeatable'], False)
+        self.assertEqual(dataset['title'], 'Record Version')
+        self.assertEqual(dataset['type'], exiv2.TypeId.unsignedShort)
 
     def test_IptcDataSets(self):
         # number and record id of Iptc.Application2.Caption
         number = exiv2.IptcDataSets.Caption
         record_id = exiv2.IptcDataSets.application2
-        # these should be lists rather than single items
+        # static data lists
         datasets = exiv2.IptcDataSets.application2RecordList()
-        self.assertIsInstance(datasets, exiv2.DataSet)
+        self.assertIsInstance(datasets, list)
+        self.assertIsInstance(datasets[0], dict)
         datasets = exiv2.IptcDataSets.envelopeRecordList()
-        self.assertIsInstance(datasets, exiv2.DataSet)
+        self.assertIsInstance(datasets, list)
+        self.assertIsInstance(datasets[0], dict)
         # test other methods 
         self.assertEqual(exiv2.IptcDataSets.dataSet(
             'Caption', record_id), exiv2.IptcDataSets.Caption)

@@ -3748,54 +3748,56 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_AutoPtr swig_types[0]
 #define SWIGTYPE_p_Exiv2__AsciiValue swig_types[1]
 #define SWIGTYPE_p_Exiv2__CommentValue swig_types[2]
-#define SWIGTYPE_p_Exiv2__DataValue swig_types[3]
-#define SWIGTYPE_p_Exiv2__DateValue swig_types[4]
-#define SWIGTYPE_p_Exiv2__ExifData swig_types[5]
-#define SWIGTYPE_p_Exiv2__Key swig_types[6]
-#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[7]
-#define SWIGTYPE_p_Exiv2__Metadatum swig_types[8]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[9]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[10]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[11]
-#define SWIGTYPE_p_Exiv2__Value swig_types[12]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[13]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[14]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[15]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[16]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[17]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[18]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[19]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[20]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[21]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[22]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[23]
-#define SWIGTYPE_p_SwigPyObject swig_types[24]
-#define SWIGTYPE_p_ValueList swig_types[25]
-#define SWIGTYPE_p_ValueType swig_types[26]
-#define SWIGTYPE_p_allocator_type swig_types[27]
-#define SWIGTYPE_p_char swig_types[28]
-#define SWIGTYPE_p_const_iterator swig_types[29]
-#define SWIGTYPE_p_difference_type swig_types[30]
-#define SWIGTYPE_p_first_type swig_types[31]
-#define SWIGTYPE_p_int swig_types[32]
-#define SWIGTYPE_p_iterator swig_types[33]
-#define SWIGTYPE_p_key_type swig_types[34]
-#define SWIGTYPE_p_long_long swig_types[35]
-#define SWIGTYPE_p_mapped_type swig_types[36]
-#define SWIGTYPE_p_second_type swig_types[37]
-#define SWIGTYPE_p_short swig_types[38]
-#define SWIGTYPE_p_signed_char swig_types[39]
-#define SWIGTYPE_p_size_type swig_types[40]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[41]
-#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[42]
-#define SWIGTYPE_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t swig_types[43]
-#define SWIGTYPE_p_unsigned_char swig_types[44]
-#define SWIGTYPE_p_unsigned_int swig_types[45]
-#define SWIGTYPE_p_unsigned_long_long swig_types[46]
-#define SWIGTYPE_p_unsigned_short swig_types[47]
-#define SWIGTYPE_p_value_type swig_types[48]
-static swig_type_info *swig_types[50];
-static swig_module_info swig_module = {swig_types, 49, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__DataBuf swig_types[3]
+#define SWIGTYPE_p_Exiv2__DataValue swig_types[4]
+#define SWIGTYPE_p_Exiv2__DateValue swig_types[5]
+#define SWIGTYPE_p_Exiv2__DateValue__Date swig_types[6]
+#define SWIGTYPE_p_Exiv2__ExifData swig_types[7]
+#define SWIGTYPE_p_Exiv2__Key swig_types[8]
+#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[9]
+#define SWIGTYPE_p_Exiv2__Metadatum swig_types[10]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[11]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[12]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[13]
+#define SWIGTYPE_p_Exiv2__TimeValue__Time swig_types[14]
+#define SWIGTYPE_p_Exiv2__Value swig_types[15]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[16]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[17]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[18]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[19]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[20]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[21]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[22]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[23]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[24]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[25]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[26]
+#define SWIGTYPE_p_SwigPyObject swig_types[27]
+#define SWIGTYPE_p_ValueList swig_types[28]
+#define SWIGTYPE_p_ValueType swig_types[29]
+#define SWIGTYPE_p_allocator_type swig_types[30]
+#define SWIGTYPE_p_char swig_types[31]
+#define SWIGTYPE_p_const_iterator swig_types[32]
+#define SWIGTYPE_p_difference_type swig_types[33]
+#define SWIGTYPE_p_first_type swig_types[34]
+#define SWIGTYPE_p_int swig_types[35]
+#define SWIGTYPE_p_iterator swig_types[36]
+#define SWIGTYPE_p_key_type swig_types[37]
+#define SWIGTYPE_p_long_long swig_types[38]
+#define SWIGTYPE_p_mapped_type swig_types[39]
+#define SWIGTYPE_p_second_type swig_types[40]
+#define SWIGTYPE_p_short swig_types[41]
+#define SWIGTYPE_p_signed_char swig_types[42]
+#define SWIGTYPE_p_size_type swig_types[43]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[44]
+#define SWIGTYPE_p_std__pairT_unsigned_int_unsigned_int_t swig_types[45]
+#define SWIGTYPE_p_unsigned_char swig_types[46]
+#define SWIGTYPE_p_unsigned_int swig_types[47]
+#define SWIGTYPE_p_unsigned_long_long swig_types[48]
+#define SWIGTYPE_p_unsigned_short swig_types[49]
+#define SWIGTYPE_p_value_type swig_types[50]
+static swig_type_info *swig_types[52];
+static swig_module_info swig_module = {swig_types, 51, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3949,8 +3951,7 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-PyObject* PyExc_Exiv2Error = NULL;
-PyObject* logger = NULL;
+static PyObject* PyExc_Exiv2Error = NULL;
 
 
 #include <string>
@@ -4798,6 +4799,61 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
 	};
       }
     
+
+static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
+    switch(type_id) {
+        case Exiv2::asciiString:
+            return SWIGTYPE_p_Exiv2__AsciiValue;
+        case Exiv2::unsignedShort:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
+        case Exiv2::unsignedLong:
+        case Exiv2::tiffIfd:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
+        case Exiv2::unsignedRational:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
+        case Exiv2::signedShort:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
+        case Exiv2::signedLong:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
+        case Exiv2::signedRational:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
+        case Exiv2::tiffFloat:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
+        case Exiv2::tiffDouble:
+            return SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
+        case Exiv2::string:
+            return SWIGTYPE_p_Exiv2__StringValue;
+        case Exiv2::date:
+            return SWIGTYPE_p_Exiv2__DateValue;
+        case Exiv2::time:
+            return SWIGTYPE_p_Exiv2__TimeValue;
+        case Exiv2::comment:
+            return SWIGTYPE_p_Exiv2__CommentValue;
+        case Exiv2::xmpText:
+            return SWIGTYPE_p_Exiv2__XmpTextValue;
+        case Exiv2::xmpAlt:
+        case Exiv2::xmpBag:
+        case Exiv2::xmpSeq:
+            return SWIGTYPE_p_Exiv2__XmpArrayValue;
+        case Exiv2::langAlt:
+            return SWIGTYPE_p_Exiv2__LangAltValue;
+        default:
+            return SWIGTYPE_p_Exiv2__DataValue;
+    }
+};
+
+
+static swig_type_info* get_swig_type(Exiv2::Value* value) {
+    Exiv2::TypeId type_id = value->typeId();
+    if (type_id == Exiv2::undefined) {
+        // value could be a CommentValue
+        if (dynamic_cast<Exiv2::CommentValue*>(value))
+            return SWIGTYPE_p_Exiv2__CommentValue;
+    }
+    return get_type_object(type_id);
+};
+
+
 SWIGINTERN std::string Exiv2_Metadatum___str__(Exiv2::Metadatum *self){
         return self->key() + ": " + self->print();
     }
@@ -5372,6 +5428,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
   Exiv2::ByteOrder arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  Py_buffer _global_view ;
   int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -5385,28 +5442,27 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
   {
-    Py_buffer view;
-    int res = PyObject_GetBuffer(swig_obj[0], &view, PyBUF_CONTIG | PyBUF_WRITABLE);
-    if (res < 0) {
+    _global_view.obj = NULL;
+    if (PyObject_GetBuffer(
+        swig_obj[0], &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Metadatum_copy" "', argument " "2"" of type '" "writable buffer""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Metadatum_copy" "', argument " "2"" of type '" "writable bytes-like object""'")
+      ;
     }
-    arg2 = (Exiv2::byte*) view.buf;
-    size_t len = view.len;
-    PyBuffer_Release(&view);
-    // check writeable buf is large enough, assumes arg1 points to self
-    if (len < (size_t) arg1->size()) {
-      PyErr_Format(PyExc_ValueError,
-        "in method 'Metadatum_copy', argument 2 is a %d byte buffer,"
-        " %d bytes needed", len, arg1->size());
-      SWIG_fail;
-    }
+    arg2 = (Exiv2::byte *) _global_view.buf;
   }
   ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Metadatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
   } 
   arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    // check buffer is large enough, assumes arg1 points to self
+    if ((Py_ssize_t) arg1->size() > _global_view.len) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "Metadatum_copy" "', argument " "2"" of type '" "buffer too small""'")
+      ;
+    }
+  }
   {
     try {
       result = (long)((Exiv2::Metadatum const *)arg1)->copy(arg2,arg3);
@@ -5420,8 +5476,18 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_long(static_cast< long >(result));
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return resultobj;
 fail:
+  
+  if (_global_view.obj) {
+    PyBuffer_Release(&_global_view);
+  }
+  
   return NULL;
 }
 
@@ -6206,7 +6272,6 @@ SWIGINTERN PyObject *_wrap_Metadatum_getValue(PyObject *self, PyObject *args) {
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value::AutoPtr result;
   
   (void)self;
@@ -6231,92 +6296,8 @@ SWIGINTERN PyObject *_wrap_Metadatum_getValue(PyObject *self, PyObject *args) {
   {
     if ((&result)->get()) {
       Exiv2::Value* value = (&result)->release();
-      /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
-      swig_type_info* swg_type = NULL;
-      if (_global_type_id == Exiv2::lastTypeId)
-      _global_type_id = value->typeId();
-      switch(_global_type_id) {
-      case Exiv2::asciiString:
-        swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
-        value = dynamic_cast<Exiv2::AsciiValue*>(value);
-        break;
-      case Exiv2::unsignedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
-        value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
-        break;
-      case Exiv2::unsignedLong:
-      case Exiv2::tiffIfd:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
-        value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
-        break;
-      case Exiv2::unsignedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
-        break;
-      case Exiv2::undefined:
-        swg_type = SWIGTYPE_p_Exiv2__Value;
-        break;
-      case Exiv2::signedShort:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
-        value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
-        break;
-      case Exiv2::signedLong:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
-        value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
-        break;
-      case Exiv2::signedRational:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
-        value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
-        break;
-      case Exiv2::tiffFloat:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
-        value = dynamic_cast<Exiv2::ValueType<float>*>(value);
-        break;
-      case Exiv2::tiffDouble:
-        swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
-        value = dynamic_cast<Exiv2::ValueType<double>*>(value);
-        break;
-      case Exiv2::string:
-        swg_type = SWIGTYPE_p_Exiv2__StringValue;
-        value = dynamic_cast<Exiv2::StringValue*>(value);
-        break;
-      case Exiv2::date:
-        swg_type = SWIGTYPE_p_Exiv2__DateValue;
-        value = dynamic_cast<Exiv2::DateValue*>(value);
-        break;
-      case Exiv2::time:
-        swg_type = SWIGTYPE_p_Exiv2__TimeValue;
-        value = dynamic_cast<Exiv2::TimeValue*>(value);
-        break;
-      case Exiv2::comment:
-        swg_type = SWIGTYPE_p_Exiv2__CommentValue;
-        value = dynamic_cast<Exiv2::CommentValue*>(value);
-        break;
-      case Exiv2::xmpText:
-        swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
-        value = dynamic_cast<Exiv2::XmpTextValue*>(value);
-        break;
-      case Exiv2::xmpAlt:
-      case Exiv2::xmpBag:
-      case Exiv2::xmpSeq:
-        swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
-        value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
-        break;
-      case Exiv2::langAlt:
-        swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
-        value = dynamic_cast<Exiv2::LangAltValue*>(value);
-        break;
-      default:
-        swg_type = SWIGTYPE_p_Exiv2__DataValue;
-        value = dynamic_cast<Exiv2::DataValue*>(value);
-      }
-      if (!value) {
-        PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-          Exiv2::TypeInfo::typeName(_global_type_id));
-        SWIG_fail;
-      }
-      /*@SWIG@*/
-      resultobj = SWIG_NewPointerObj(value, swg_type, SWIG_POINTER_OWN);
+      resultobj = SWIG_NewPointerObj(
+        value, get_swig_type(value), SWIG_POINTER_OWN);
     }
     else {
       resultobj = SWIG_Py_Void();
@@ -6333,7 +6314,6 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::TypeId _global_type_id = Exiv2::lastTypeId ;
   Exiv2::Value *result = 0 ;
   
   (void)self;
@@ -6356,93 +6336,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
     }
   }
   {
-    Exiv2::Value* value = result;
-    /*@SWIG:src/interface/value.i,77,GET_SWIG_TYPE@*/
-    swig_type_info* swg_type = NULL;
-    if (_global_type_id == Exiv2::lastTypeId)
-    _global_type_id = value->typeId();
-    switch(_global_type_id) {
-    case Exiv2::asciiString:
-      swg_type = SWIGTYPE_p_Exiv2__AsciiValue;
-      value = dynamic_cast<Exiv2::AsciiValue*>(value);
-      break;
-    case Exiv2::unsignedShort:
-      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t;
-      value = dynamic_cast<Exiv2::ValueType<uint16_t>*>(value);
-      break;
-    case Exiv2::unsignedLong:
-    case Exiv2::tiffIfd:
-      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t;
-      value = dynamic_cast<Exiv2::ValueType<uint32_t>*>(value);
-      break;
-    case Exiv2::unsignedRational:
-      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-      value = dynamic_cast<Exiv2::ValueType<Exiv2::URational>*>(value);
-      break;
-    case Exiv2::undefined:
-      swg_type = SWIGTYPE_p_Exiv2__Value;
-      break;
-    case Exiv2::signedShort:
-      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_short_t;
-      value = dynamic_cast<Exiv2::ValueType<int16_t>*>(value);
-      break;
-    case Exiv2::signedLong:
-      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_int_t;
-      value = dynamic_cast<Exiv2::ValueType<int32_t>*>(value);
-      break;
-    case Exiv2::signedRational:
-      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
-      value = dynamic_cast<Exiv2::ValueType<Exiv2::Rational>*>(value);
-      break;
-    case Exiv2::tiffFloat:
-      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
-      value = dynamic_cast<Exiv2::ValueType<float>*>(value);
-      break;
-    case Exiv2::tiffDouble:
-      swg_type = SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
-      value = dynamic_cast<Exiv2::ValueType<double>*>(value);
-      break;
-    case Exiv2::string:
-      swg_type = SWIGTYPE_p_Exiv2__StringValue;
-      value = dynamic_cast<Exiv2::StringValue*>(value);
-      break;
-    case Exiv2::date:
-      swg_type = SWIGTYPE_p_Exiv2__DateValue;
-      value = dynamic_cast<Exiv2::DateValue*>(value);
-      break;
-    case Exiv2::time:
-      swg_type = SWIGTYPE_p_Exiv2__TimeValue;
-      value = dynamic_cast<Exiv2::TimeValue*>(value);
-      break;
-    case Exiv2::comment:
-      swg_type = SWIGTYPE_p_Exiv2__CommentValue;
-      value = dynamic_cast<Exiv2::CommentValue*>(value);
-      break;
-    case Exiv2::xmpText:
-      swg_type = SWIGTYPE_p_Exiv2__XmpTextValue;
-      value = dynamic_cast<Exiv2::XmpTextValue*>(value);
-      break;
-    case Exiv2::xmpAlt:
-    case Exiv2::xmpBag:
-    case Exiv2::xmpSeq:
-      swg_type = SWIGTYPE_p_Exiv2__XmpArrayValue;
-      value = dynamic_cast<Exiv2::XmpArrayValue*>(value);
-      break;
-    case Exiv2::langAlt:
-      swg_type = SWIGTYPE_p_Exiv2__LangAltValue;
-      value = dynamic_cast<Exiv2::LangAltValue*>(value);
-      break;
-    default:
-      swg_type = SWIGTYPE_p_Exiv2__DataValue;
-      value = dynamic_cast<Exiv2::DataValue*>(value);
-    }
-    if (!value) {
-      PyErr_Format(PyExc_ValueError, "Cannot cast value to type '%s'.",
-        Exiv2::TypeInfo::typeName(_global_type_id));
-      SWIG_fail;
-    }
-    /*@SWIG@*/
-    resultobj = SWIG_NewPointerObj(value, swg_type, 0);
+    resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -6792,7 +6686,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		"The user must ensure that the buffer has enough memory. Otherwise\n"
 		"the call results in undefined behaviour.\n"
 		"\n"
-		":type buf: Exiv2::byte\n"
+		":type buf: writeable bytes-like object\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: int\n"
 		":param byteOrder: Applicable byte order (little or big endian).\n"
@@ -6852,7 +6746,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		"subclass of Value to make use of the interface of the subclass to set\n"
 		"or modify its contents.\n"
 		"\n"
-		":rtype: Exiv2::Value::AutoPtr\n"
+		":rtype: Exiv2::Value object\n"
 		":return: An auto-pointer containing a pointer to a copy (clone) of the\n"
 		"            value, 0 if the value is not set.\n"
 		"" },
@@ -7162,8 +7056,10 @@ static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSED
 static swig_type_info _swigt__p_AutoPtr = {"_p_AutoPtr", "AutoPtr *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue", "Exiv2::CommentValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__DataBuf = {"_p_Exiv2__DataBuf", "Exiv2::DataBuf *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DataValue = {"_p_Exiv2__DataValue", "Exiv2::DataValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DateValue = {"_p_Exiv2__DateValue", "Exiv2::DateValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__DateValue__Date = {"_p_Exiv2__DateValue__Date", "Exiv2::DateValue::Date *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ExifData = {"_p_Exiv2__ExifData", "Exiv2::ExifData *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Key = {"_p_Exiv2__Key", "Exiv2::Key *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__Key_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__LangAltValue = {"_p_Exiv2__LangAltValue", "Exiv2::LangAltValue *", 0, 0, (void*)0, 0};
@@ -7171,6 +7067,7 @@ static swig_type_info _swigt__p_Exiv2__Metadatum = {"_p_Exiv2__Metadatum", "Exiv
 static swig_type_info _swigt__p_Exiv2__StringValue = {"_p_Exiv2__StringValue", "Exiv2::StringValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__StringValueBase = {"_p_Exiv2__StringValueBase", "Exiv2::StringValueBase *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__TimeValue = {"_p_Exiv2__TimeValue", "Exiv2::TimeValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__TimeValue__Time = {"_p_Exiv2__TimeValue__Time", "Exiv2::TimeValue::Time *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Value = {"_p_Exiv2__Value", "Exiv2::Value *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ValueTypeT_double_t = {"_p_Exiv2__ValueTypeT_double_t", "Exiv2::DoubleValue *|Exiv2::ValueType< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ValueTypeT_float_t = {"_p_Exiv2__ValueTypeT_float_t", "Exiv2::FloatValue *|Exiv2::ValueType< float > *", 0, 0, (void*)0, 0};
@@ -7202,7 +7099,6 @@ static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "int8_t *|int_f
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_unsigned_int_unsigned_int_t = {"_p_std__pairT_unsigned_int_unsigned_int_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t = {"_p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t", "Exiv2::Blob *|std::vector< unsigned char,std::allocator< unsigned char > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "Exiv2::byte *|uint8_t *|uint_fast8_t *|uint_least8_t *|unsigned char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "uint32_t *|uint_fast16_t *|uint_fast32_t *|uint_least32_t *|uintptr_t *|unsigned int *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long_long = {"_p_unsigned_long_long", "uint64_t *|uint_fast64_t *|uint_least64_t *|uintmax_t *|unsigned long long *", 0, 0, (void*)0, 0};
@@ -7213,8 +7109,10 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_AutoPtr,
   &_swigt__p_Exiv2__AsciiValue,
   &_swigt__p_Exiv2__CommentValue,
+  &_swigt__p_Exiv2__DataBuf,
   &_swigt__p_Exiv2__DataValue,
   &_swigt__p_Exiv2__DateValue,
+  &_swigt__p_Exiv2__DateValue__Date,
   &_swigt__p_Exiv2__ExifData,
   &_swigt__p_Exiv2__Key,
   &_swigt__p_Exiv2__LangAltValue,
@@ -7222,6 +7120,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__StringValue,
   &_swigt__p_Exiv2__StringValueBase,
   &_swigt__p_Exiv2__TimeValue,
+  &_swigt__p_Exiv2__TimeValue__Time,
   &_swigt__p_Exiv2__Value,
   &_swigt__p_Exiv2__ValueTypeT_double_t,
   &_swigt__p_Exiv2__ValueTypeT_float_t,
@@ -7253,7 +7152,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_size_type,
   &_swigt__p_std__pairT_int_int_t,
   &_swigt__p_std__pairT_unsigned_int_unsigned_int_t,
-  &_swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,
   &_swigt__p_unsigned_char,
   &_swigt__p_unsigned_int,
   &_swigt__p_unsigned_long_long,
@@ -7264,8 +7162,10 @@ static swig_type_info *swig_type_initial[] = {
 static swig_cast_info _swigc__p_AutoPtr[] = {  {&_swigt__p_AutoPtr, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__CommentValue[] = {  {&_swigt__p_Exiv2__CommentValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__DataBuf[] = {  {&_swigt__p_Exiv2__DataBuf, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DataValue[] = {  {&_swigt__p_Exiv2__DataValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DateValue[] = {  {&_swigt__p_Exiv2__DateValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__DateValue__Date[] = {  {&_swigt__p_Exiv2__DateValue__Date, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifData[] = {  {&_swigt__p_Exiv2__ExifData, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Key[] = {  {&_swigt__p_Exiv2__Key, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LangAltValue[] = {  {&_swigt__p_Exiv2__LangAltValue, 0, 0, 0},{0, 0, 0, 0}};
@@ -7273,6 +7173,7 @@ static swig_cast_info _swigc__p_Exiv2__Metadatum[] = {  {&_swigt__p_Exiv2__Metad
 static swig_cast_info _swigc__p_Exiv2__StringValue[] = {  {&_swigt__p_Exiv2__StringValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValueBase[] = {  {&_swigt__p_Exiv2__StringValueBase, 0, 0, 0},  {&_swigt__p_Exiv2__AsciiValue, _p_Exiv2__AsciiValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__CommentValue, _p_Exiv2__CommentValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__StringValue, _p_Exiv2__StringValueTo_p_Exiv2__StringValueBase, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__TimeValue[] = {  {&_swigt__p_Exiv2__TimeValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__TimeValue__Time[] = {  {&_swigt__p_Exiv2__TimeValue__Time, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Value[] = {  {&_swigt__p_Exiv2__Value, 0, 0, 0},  {&_swigt__p_Exiv2__AsciiValue, _p_Exiv2__AsciiValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__CommentValue, _p_Exiv2__CommentValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__DataValue, _p_Exiv2__DataValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__DateValue, _p_Exiv2__DateValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__StringValue, _p_Exiv2__StringValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__StringValueBase, _p_Exiv2__StringValueBaseTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__TimeValue, _p_Exiv2__TimeValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_double_t, _p_Exiv2__ValueTypeT_double_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_float_t, _p_Exiv2__ValueTypeT_float_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_int_t, _p_Exiv2__ValueTypeT_int_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_short_t, _p_Exiv2__ValueTypeT_short_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, _p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, _p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_unsigned_int_t, _p_Exiv2__ValueTypeT_unsigned_int_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_unsigned_short_t, _p_Exiv2__ValueTypeT_unsigned_short_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpValue, _p_Exiv2__XmpValueTo_p_Exiv2__Value, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ValueTypeT_double_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ValueTypeT_float_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_float_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -7304,7 +7205,6 @@ static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pairT_int_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_unsigned_int_unsigned_int_t[] = {  {&_swigt__p_std__pairT_unsigned_int_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t[] = {  {&_swigt__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_long_long[] = {  {&_swigt__p_unsigned_long_long, 0, 0, 0},{0, 0, 0, 0}};
@@ -7315,8 +7215,10 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_AutoPtr,
   _swigc__p_Exiv2__AsciiValue,
   _swigc__p_Exiv2__CommentValue,
+  _swigc__p_Exiv2__DataBuf,
   _swigc__p_Exiv2__DataValue,
   _swigc__p_Exiv2__DateValue,
+  _swigc__p_Exiv2__DateValue__Date,
   _swigc__p_Exiv2__ExifData,
   _swigc__p_Exiv2__Key,
   _swigc__p_Exiv2__LangAltValue,
@@ -7324,6 +7226,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__StringValue,
   _swigc__p_Exiv2__StringValueBase,
   _swigc__p_Exiv2__TimeValue,
+  _swigc__p_Exiv2__TimeValue__Time,
   _swigc__p_Exiv2__Value,
   _swigc__p_Exiv2__ValueTypeT_double_t,
   _swigc__p_Exiv2__ValueTypeT_float_t,
@@ -7355,7 +7258,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_size_type,
   _swigc__p_std__pairT_int_int_t,
   _swigc__p_std__pairT_unsigned_int_unsigned_int_t,
-  _swigc__p_std__vectorT_unsigned_char_std__allocatorT_unsigned_char_t_t,
   _swigc__p_unsigned_char,
   _swigc__p_unsigned_int,
   _swigc__p_unsigned_long_long,
@@ -7832,12 +7734,11 @@ SWIG_init(void) {
   
   {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module != NULL) {
-      PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-      logger = PyObject_GetAttrString(module, "_logger");
-      Py_DECREF(module);
-    }
-    if (PyExc_Exiv2Error == NULL || logger == NULL)
+    if (!module)
+    return NULL;
+    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
+    Py_DECREF(module);
+    if (!PyExc_Exiv2Error)
     return NULL;
   }
   

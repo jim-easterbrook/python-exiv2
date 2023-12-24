@@ -28,6 +28,10 @@ import exiv2
 
 
 class TestValueModule(unittest.TestCase):
+    def check_result(self, result, expected_type, expected_value):
+        self.assertIsInstance(result, expected_type)
+        self.assertEqual(result, expected_value)
+
     def do_common_tests(self, value, type_id, string, data, sequence=None):
         if type_id != exiv2.TypeId.undefined:
             self.assertIsInstance(exiv2.Value.create(type_id), type(value))
@@ -40,33 +44,23 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(
             value.copy(result, exiv2.ByteOrder.littleEndian), len(result))
         self.assertEqual(result, data)
-        result = value.count()
-        self.assertIsInstance(result, int)
         if sequence:
-            self.assertEqual(result, len(sequence))
+            self.check_result(value.count(), int, len(sequence))
         else:
-            self.assertEqual(result, len(data))
-        result = value.ok()
-        self.assertIsInstance(result, bool)
-        self.assertEqual(result, True)
-        if isinstance(value, exiv2.CommentValue):
-            result = value.clone()
-        else:
-            result = exiv2.Value.create(type_id)
+            self.check_result(value.count(), int, len(data))
+        self.check_result(value.ok(), bool, True)
+        result = exiv2.Value.create(type_id)
         self.assertEqual(result.read(string), 0)
         self.assertEqual(str(result), string)
-        if isinstance(value, exiv2.CommentValue):
-            result = value.clone()
-        else:
-            result = exiv2.Value.create(type_id)
+        result = exiv2.Value.create(type_id)
         self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
         self.assertEqual(str(result), string)
-        result = value.size()
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, len(data))
-        result = value.typeId()
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, type_id)
+        self.check_result(value.size(), int, len(data))
+        # Exiv2::CommentValue::typeId returns undefined
+        if type_id == exiv2.TypeId.comment:
+            self.check_result(value.typeId(), int, exiv2.TypeId.undefined)
+        else:
+            self.check_result(value.typeId(), int, type_id)
 
     def do_conversion_tests(self, value, text, number):
         result = value.toFloat(0)
@@ -74,25 +68,19 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(result, float)
         self.assertAlmostEqual(result, float(number), places=5)
         if exiv2.testVersion(0, 28, 0):
-            result = value.toUint32(0)
+            self.check_result(value.toUint32(0), int, int(number))
             self.assertEqual(value.ok(), True)
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, int(number))
-            result = value.toInt64(0)
+            self.check_result(value.toInt64(0), int, int(number))
         else:
-            result = value.toLong(0)
+            self.check_result(value.toLong(0), int, int(number))
         self.assertEqual(value.ok(), True)
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, int(number))
         result = value.toRational(0)
         self.assertEqual(value.ok(), True)
         self.assertIsInstance(result, tuple)
         self.assertAlmostEqual(
             float(Fraction(*result)), float(number), places=5)
-        result = value.toString(0)
+        self.check_result(value.toString(0), str, text)
         self.assertEqual(value.ok(), True)
-        self.assertIsInstance(result, str)
-        self.assertEqual(result, text)
 
     def do_dataarea_tests(self, value, has_dataarea=False):
         data_area = value.dataArea()
@@ -100,9 +88,7 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(len(data_area), 0)
         if has_dataarea:
             self.assertEqual(value.setDataArea(b'fred'), 0)
-            result = value.sizeDataArea()
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, 4)
+            self.check_result(value.sizeDataArea(), int, 4)
         else:
             self.assertEqual(value.setDataArea(b'fred'), -1)
 
@@ -114,21 +100,24 @@ class TestValueModule(unittest.TestCase):
             self.assertEqual(view, data)
 
     def do_common_xmp_tests(self, value):
-        for type_ in (exiv2.XmpArrayType.xaSeq, exiv2.XmpArrayType.xaBag,
-                      exiv2.XmpArrayType.xaAlt, exiv2.XmpArrayType.xaNone):
+        with self.assertWarns(DeprecationWarning):
+            type_ = exiv2.XmpArrayType.xaSeq
+        for type_ in (exiv2.XmpValue.XmpArrayType.xaSeq,
+                      exiv2.XmpValue.XmpArrayType.xaBag,
+                      exiv2.XmpValue.XmpArrayType.xaAlt,
+                      exiv2.XmpValue.XmpArrayType.xaNone):
             value.setXmpArrayType(type_)
-            result = value.xmpArrayType()
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, type_)
-        for type_ in (exiv2.XmpStruct.xsStruct, exiv2.XmpStruct.xsNone):
+            self.check_result(value.xmpArrayType(), int, type_)
+        with self.assertWarns(DeprecationWarning):
+            type_ = exiv2.XmpStruct.xsStruct
+        for type_ in (exiv2.XmpValue.XmpStruct.xsStruct,
+                      exiv2.XmpValue.XmpStruct.xsNone):
             value.setXmpStruct(type_)
-            result = value.xmpStruct()
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, type_)
+            self.check_result(value.xmpStruct(), int, type_)
 
     def test_AsciiValue(self):
         text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
-        data = bytes(text, 'utf-8')
+        data = bytes(text, 'utf-8') + b'\x00'
         # constructors
         value = exiv2.AsciiValue()
         self.assertIsInstance(value, exiv2.AsciiValue)
@@ -155,16 +144,14 @@ class TestValueModule(unittest.TestCase):
         value = exiv2.CommentValue(text)
         self.assertIsInstance(value, exiv2.CommentValue)
         # other methods
-        result = value.charsetId()
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, exiv2.CharsetId.unicode)
-        result = value.comment()
-        self.assertIsInstance(result, str)
-        self.assertEqual(result, raw_text)
-        result = value.byteOrder_
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, exiv2.ByteOrder.littleEndian)
-        self.do_common_tests(value, exiv2.TypeId.undefined, text, data)
+        with self.assertWarns(DeprecationWarning):
+            result = exiv2.CharsetId.ascii
+        self.check_result(
+            value.charsetId(), int, exiv2.CommentValue.CharsetId.unicode)
+        self.check_result(value.comment(), str, raw_text)
+        self.check_result(value.detectCharset(raw_text), str, 'UCS-2LE')
+        self.check_result(value.byteOrder_, int, exiv2.ByteOrder.littleEndian)
+        self.do_common_tests(value, exiv2.TypeId.comment, text, data)
         self.do_common_string_tests(value, data)
         self.do_conversion_tests(value, text, data[0])
         self.do_dataarea_tests(value)
@@ -205,9 +192,7 @@ class TestValueModule(unittest.TestCase):
         # other methods
         self.assertEqual(dict(value), text_dict)
         self.assertEqual('de-DE' in value, True)
-        result = value['en-GB']
-        self.assertIsInstance(result, str)
-        self.assertEqual(result, text_dict['en-GB'])
+        self.check_result(value['en-GB'], str, text_dict['en-GB'])
         self.assertEqual('nl-NL' in value, False)
         nl_string = 'De snelle bruine vos springt over de luie hond heen.'
         value['nl-NL'] = nl_string
@@ -221,15 +206,9 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual('nl-NL' in value, True)
         self.assertEqual(value['nl-NL'], nl_string)
         value = exiv2.LangAltValue(text_dict)
-        result = value.keys()
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(result, tuple(text_dict.keys()))
-        result = value.values()
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(result, tuple(text_dict.values()))
-        result = value.items()
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(result, tuple(text_dict.items()))
+        self.check_result(value.keys(), list, list(text_dict.keys()))
+        self.check_result(value.values(), list, list(text_dict.values()))
+        self.check_result(value.items(), list, list(text_dict.items()))
         self.do_common_tests(
             value, exiv2.TypeId.langAlt, text, data, sequence=text_dict)
         # no conversion tests as value can't be numeric
@@ -249,9 +228,7 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.XmpArrayValue)
         # other methods
         self.assertEqual(len(value), 2)
-        result = value[0]
-        self.assertIsInstance(result, str)
-        self.assertEqual(result, text[0])
+        self.check_result(value[0], str, text[0])
         value.append('fred')
         self.assertIsInstance(value[2], str)
         value = exiv2.XmpArrayValue(text)
@@ -328,31 +305,47 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.month, today.month)
         self.assertIsInstance(value.day, int)
         self.assertEqual(value.day, today.day)
-        self.assertEqual(list(value), [
-            ('year', today.year), ('month', today.month), ('day', today.day)])
-        self.assertEqual(dict(value), {
-            'year': today.year, 'month': today.month, 'day': today.day})
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(dict(value), {
+                'year': today.year, 'month': today.month, 'day': today.day})
 
     def test_DateValue(self):
-        today = datetime.date.today()
-        data = bytes(today.strftime('%Y%m%d'), 'ascii')
+        py_date = datetime.date.today()
+        data = bytes(py_date.strftime('%Y%m%d'), 'ascii')
+        exiv_date = exiv2.Date()
+        exiv_date.year = py_date.year
+        exiv_date.month = py_date.month
+        exiv_date.day = py_date.day
+        date_dict = {
+            'year': py_date.year, 'month': py_date.month, 'day': py_date.day}
         # constructors
         value = exiv2.DateValue()
         self.assertIsInstance(value, exiv2.DateValue)
-        value = exiv2.DateValue(today.year, today.month, today.day)
+        value = exiv2.DateValue(date_dict)
         self.assertIsInstance(value, exiv2.DateValue)
+        self.assertEqual(str(value), py_date.isoformat())
+        with self.assertWarns(DeprecationWarning):
+            value = exiv2.DateValue(exiv_date)
+        self.assertIsInstance(value, exiv2.DateValue)
+        self.assertEqual(str(value), py_date.isoformat())
+        value = exiv2.DateValue(py_date.year, py_date.month, py_date.day)
+        self.assertIsInstance(value, exiv2.DateValue)
+        self.assertEqual(str(value), py_date.isoformat())
         # other methods
         with self.assertWarns(DeprecationWarning):
             result = value[0]
-        date = value.getDate()
-        self.assertIsInstance(date, exiv2.Date)
-        value.setDate(date)
-        self.assertEqual(str(value), today.isoformat())
-        value.setDate(today.year, today.month, today.day)
-        self.assertEqual(str(value), today.isoformat())
-        seconds = int(today.strftime('%s'))
-        self.do_common_tests(value, exiv2.TypeId.date, today.isoformat(), data)
-        self.do_conversion_tests(value, today.isoformat(), seconds)
+        self.check_result(value.getDate(), dict, date_dict)
+        with self.assertWarns(DeprecationWarning):
+            value.setDate(exiv_date)
+        self.assertEqual(str(value), py_date.isoformat())
+        value.setDate(date_dict)
+        self.assertEqual(str(value), py_date.isoformat())
+        value.setDate(py_date.year, py_date.month, py_date.day)
+        self.assertEqual(str(value), py_date.isoformat())
+        seconds = int(
+            datetime.datetime.combine(py_date, datetime.time()).timestamp())
+        self.do_common_tests(value, exiv2.TypeId.date, py_date.isoformat(), data)
+        self.do_conversion_tests(value, py_date.isoformat(), seconds)
         self.do_dataarea_tests(value)
 
     def test_Time(self):
@@ -374,46 +367,63 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.tzHour, 1)
         self.assertIsInstance(value.tzMinute, int)
         self.assertEqual(value.tzMinute, 30)
-        self.assertEqual(list(value), [
-            ('hour', now.hour), ('minute', now.minute), ('second', now.second),
-            ('tzHour', 1), ('tzMinute', 30)])
-        self.assertEqual(dict(value), {
-            'hour': now.hour, 'minute': now.minute, 'second': now.second,
-            'tzHour': 1, 'tzMinute': 30})
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(dict(value), {
+                'hour': now.hour, 'minute': now.minute, 'second': now.second,
+                'tzHour': 1, 'tzMinute': 30})
 
     def test_TimeValue(self):
-        now = datetime.datetime.now().time()
-        now = now.replace(
-            tzinfo=datetime.timezone(datetime.timedelta(hours=1, minutes=30)),
-            microsecond=0)
-        data = bytes(now.strftime('%H%M%S%z'), 'ascii')
+        py_tz = datetime.timezone(datetime.timedelta(hours=1, minutes=30))
+        py_time = datetime.datetime.now().time()
+        py_time = py_time.replace(microsecond=0, tzinfo=py_tz)
+        exiv_time = exiv2.Time()
+        exiv_time.hour = py_time.hour
+        exiv_time.minute = py_time.minute
+        exiv_time.second = py_time.second
+        exiv_time.tzHour = 1
+        exiv_time.tzMinute = 30
+        time_dict = {'hour': py_time.hour, 'minute': py_time.minute,
+                     'second': py_time.second, 'tzHour': 1, 'tzMinute': 30}
+        data = bytes(py_time.strftime('%H%M%S%z'), 'ascii')
         # constructors
         value = exiv2.TimeValue()
         self.assertIsInstance(value, exiv2.TimeValue)
-        value = exiv2.TimeValue(now.hour, now.minute, now.second)
+        value = exiv2.TimeValue(time_dict)
         self.assertIsInstance(value, exiv2.TimeValue)
-        value = exiv2.TimeValue(now.hour, now.minute, now.second, 1)
+        self.assertEqual(str(value), py_time.isoformat())
+        with self.assertWarns(DeprecationWarning):
+            value = exiv2.TimeValue(exiv_time)
         self.assertIsInstance(value, exiv2.TimeValue)
-        value = exiv2.TimeValue(now.hour, now.minute, now.second, 1, 30)
+        self.assertEqual(str(value), py_time.isoformat())
+        value = exiv2.TimeValue(py_time.hour, py_time.minute, py_time.second)
         self.assertIsInstance(value, exiv2.TimeValue)
+        value = exiv2.TimeValue(
+            py_time.hour, py_time.minute, py_time.second, 1)
+        self.assertIsInstance(value, exiv2.TimeValue)
+        value = exiv2.TimeValue(
+            py_time.hour, py_time.minute, py_time.second, 1, 30)
+        self.assertIsInstance(value, exiv2.TimeValue)
+        self.assertEqual(str(value), py_time.isoformat())
         # other methods
         with self.assertWarns(DeprecationWarning):
             result = value[0]
-        time = value.getTime()
-        self.assertIsInstance(time, exiv2.Time)
-        value.setTime(time)
-        self.assertEqual(str(value), now.isoformat())
-        value.setTime(now.hour, now.minute)
-        value.setTime(now.hour, now.minute, now.second)
-        value.setTime(now.hour, now.minute, now.second, 1)
-        value.setTime(now.hour, now.minute, now.second, 1, 30)
-        self.assertEqual(str(value), now.isoformat())
-        seconds = (now.hour * 3600) + (now.minute * 60) + now.second
+        self.check_result(value.getTime(), dict, time_dict)
+        with self.assertWarns(DeprecationWarning):
+            value.setTime(exiv_time)
+        self.assertEqual(str(value), py_time.isoformat())
+        value.setTime(time_dict)
+        self.assertEqual(str(value), py_time.isoformat())
+        value.setTime(py_time.hour, py_time.minute)
+        value.setTime(py_time.hour, py_time.minute, py_time.second)
+        value.setTime(py_time.hour, py_time.minute, py_time.second, 1)
+        value.setTime(py_time.hour, py_time.minute, py_time.second, 1, 30)
+        self.assertEqual(str(value), py_time.isoformat())
+        seconds = (py_time.hour * 3600) + (py_time.minute * 60) + py_time.second
         seconds -= 3600 + (30 * 60)
         value = exiv2.TimeValue()
-        value.read(now.isoformat())
-        self.do_common_tests(value, exiv2.TypeId.time, now.isoformat(), data)
-        self.do_conversion_tests(value, now.isoformat(), seconds)
+        value.read(py_time.isoformat())
+        self.do_common_tests(value, exiv2.TypeId.time, py_time.isoformat(), data)
+        self.do_conversion_tests(value, py_time.isoformat(), seconds)
         self.do_dataarea_tests(value)
 
     def test_UShortValue(self):
@@ -428,10 +438,9 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.UShortValue)
         self.assertEqual(tuple(value), sequence)
         # data access
-        result = value[2]
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, sequence[2])
-        self.assertEqual(value[-1], sequence[-1])
+        self.check_result(value[0], int, sequence[0])
+        self.check_result(value[2], int, sequence[2])
+        self.check_result(value[-1], int, sequence[-1])
         value[2] = 56
         self.assertEqual(value[2], 56)
         del value[2]
@@ -457,10 +466,9 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.URationalValue)
         self.assertEqual(tuple(value), sequence)
         # data access
-        result = value[2]
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(result, sequence[2])
-        self.assertEqual(value[-1], sequence[-1])
+        self.check_result(value[0], tuple, sequence[0])
+        self.check_result(value[1], tuple, sequence[1])
+        self.check_result(value[-1], tuple, sequence[-1])
         value[2] = (56, 13)
         self.assertEqual(value[2], (56, 13))
         del value[2]

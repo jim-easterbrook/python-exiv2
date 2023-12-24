@@ -59,7 +59,7 @@ class TestExifModule(unittest.TestCase):
         next(b)
         self.assertEqual(b.key(), 'Exif.Image.ImageDescription')
         e = data.end()
-        self.assertIsInstance(e, exiv2.ExifData_iterator_end)
+        self.assertIsInstance(e, exiv2.ExifData_iterator_base)
         k = data.findKey(exiv2.ExifKey('Exif.Photo.FocalLength'))
         self.assertIsInstance(k, exiv2.ExifData_iterator)
         self.assertEqual(k.key(), 'Exif.Photo.FocalLength')
@@ -67,7 +67,7 @@ class TestExifModule(unittest.TestCase):
         self.assertIsInstance(k, exiv2.ExifData_iterator)
         self.assertEqual(k.key(), 'Exif.Photo.SubSecTime')
         k = data.erase(k, e)
-        self.assertIsInstance(k, exiv2.ExifData_iterator_end)
+        self.assertIsInstance(k, exiv2.ExifData_iterator_base)
         b = data.begin()
         e = data.end()
         self.assertIsInstance(str(b), str)
@@ -91,6 +91,12 @@ class TestExifModule(unittest.TestCase):
         data['Exif.Image.Artist'] = 'Fred'
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'], exiv2.Exifdatum)
+        with self.assertRaises(TypeError):
+            data['Exif.Image.Orientation'] = 2.5
+        data['Exif.Image.Orientation'] = 4
+        data['Exif.Image.Orientation'] = exiv2.UShortValue(4)
+        self.assertEqual('Exif.Image.Orientation' in data, True)
+        self.assertIsInstance(data['Exif.Image.Orientation'], exiv2.Exifdatum)
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Exif.Image.Artist')
@@ -139,6 +145,8 @@ class TestExifModule(unittest.TestCase):
         self.assertIsInstance(datum.value(), exiv2.AsciiValue)
         datum.setValue('fred')
         datum.setValue(exiv2.AsciiValue('Acme'))
+        with self.assertRaises(TypeError):
+            datum.setValue(123)
 
     def test_ExifData_iterator(self):
         self.image.readMetadata()
@@ -201,6 +209,12 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(sys.getrefcount(self.image), 2)
         data = self.image.exifData()
         self.assertEqual(sys.getrefcount(self.image), 3)
+        # thumbnail keeps a reference to exifData
+        self.assertEqual(sys.getrefcount(data), 2)
+        thumb = exiv2.ExifThumb(data)
+        self.assertEqual(sys.getrefcount(data), 3)
+        del thumb
+        self.assertEqual(sys.getrefcount(data), 2)
         # iterator keeps a reference to data
         self.assertEqual(sys.getrefcount(data), 2)
         b = data.begin()

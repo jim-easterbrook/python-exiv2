@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,7 +17,9 @@
 
 %module(package="exiv2") xmp
 
-%include "preamble.i"
+%include "shared/preamble.i"
+%include "shared/containers.i"
+%include "shared/data_iterator.i"
 
 %include "stdint.i"
 %include "std_string.i"
@@ -33,8 +35,7 @@ DATA_ITERATOR_CLASSES(
     XmpData_iterator, Exiv2::XmpData::iterator, Exiv2::Xmpdatum)
 #endif
 
-DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey,
-    Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
+DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::XmpData::operator[];

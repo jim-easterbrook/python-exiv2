@@ -15,7 +15,21 @@ else:
 
 
 import enum
-Position = enum.IntEnum('Position', _enum_list_Position())
+
+class PositionMeta(enum.EnumMeta):
+    def __getattribute__(cls, name):
+        obj = super().__getattribute__(name)
+        if isinstance(obj, enum.Enum):
+            import warnings
+            warnings.warn(
+                "Use 'BasicIo.Position' instead of 'Position'",
+                DeprecationWarning)
+        return obj
+
+class DeprecatedPosition(enum.IntEnum, metaclass=PositionMeta):
+    pass
+
+Position = DeprecatedPosition('Position', _enum_list_Position())
 Position.__doc__ = "Seek starting positions."
 
 

@@ -3,32 +3,54 @@ Hints and tips
 
 Here are some ideas on how to use python-exiv2.
 In many cases there's more than one way to do it, but some ways are more "Pythonic" than others.
-Some of this is only applicable to python-exiv2 v0.13.0 onwards.
+Some of this is only applicable to python-exiv2 v0.16.0 onwards.
 You can find out what version of python-exiv2 you have with either ``pip3 show exiv2`` or ``python3 -m exiv2``.
 
 .. contents::
     :backlinks: top
 
-Segmentation faults
--------------------
+libexiv2 library version
+------------------------
 
-There are many places in the libexiv2 C++ API where objects hold references to data in other objects.
-This is more efficient than copying the data, but can cause segmentation faults if an object is deleted while another objects refers to its data.
+Python-exiv2 can be used with any version of libexiv2 from 0.27.0 onwards.
+The "binary wheels" available from PyPI_ currently include a copy of libexiv2 v0.27.7, but if you install from source then python-exiv2 will use whichever version of libexiv2 is installed on your computer.
 
-The Python interface tries to protect the user from this but in some cases this is not possible.
-For example, an `Exiv2::Metadatum`_ object holds a reference to data that can easily be invalidated:
+There are some differences in the API of libexiv2 v0.28.x and v0.27.y.
+Some of these have been "backported" in the Python interface so you can start using the v0.28 methods, e.g. the ``exiv2.DataBuf.data()`` function replaces the ``exiv2.DataBuf.pData_`` attribute.
+
+If you need to write software that works with both versions of libexiv2 then the ``exiv2.testVersion`` function can be used to test for version 0.28.0 onwards:
 
 .. code:: python
 
-    exifData = image.exifData()
-    datum = exifData['Exif.GPSInfo.GPSLatitude']
-    print(str(datum.value()))                       # no problem
-    del exifData['Exif.GPSInfo.GPSLatitude']
-    print(str(datum.value()))                       # segfault!
+    if exiv2.testVersion(0, 28, 0):
+        int_val = datum.toInt64(0)
+    else:
+        int_val = datum.toLong(0)
 
-Segmentation faults are also easily caused by careless use of iterators or memory blocks, as discussed below.
-There may be other cases where the Python interface doesn't prevent segfaults.
-Please let me know if you find any.
+Error handling
+--------------
+
+libexiv2_ has a multilevel warning system a bit like Python's standard logger.
+The Python interface redirects all Exiv2 messages to Python logging with an appropriate log level.
+The ``exiv2.LogMsg.setLevel`` function can be used to control what severity of messages are logged.
+
+Deprecation warnings
+--------------------
+
+As python-exiv2 is being developed better ways are being found to do some things.
+Some parts of the interface are deprecated and will eventually be removed.
+Please use Python's ``-Wd`` flag when testing your software to ensure it isn't using deprecated features.
+(Do let me know if I've deprecated a feature you need and can't replace with an alternative.)
+
+Enums
+-----
+
+The C++ libexiv2 library often uses ``enum`` classes to list related data, such as the value type identifiers stored in `Exiv2::TypeId`_.
+SWIG's default processing of such enums is to add all the values as named constants to the top level of the module, e.g. ``exiv2.asciiString``.
+In python-exiv2 most of the C++ enums are represented by Python enum_ classes, e.g. ``exiv2.TypeId.asciiString`` is a member of ``exiv2.TypeId``.
+
+Unfortunately there is no easy way to deprecate the SWIG generated top level constants, but they will eventually be removed from python-exiv2.
+Please ensure you only use the enum classes in your use of python-exiv2.
 
 Reading data values
 -------------------
@@ -45,15 +67,90 @@ The Python interface uses the value's ``typeId()`` method to determine its type 
 Recasting data values
 ^^^^^^^^^^^^^^^^^^^^^
 
-In some cases, such as ``Exif.Photo.UserComment``, the value's type id is not specific enough to choose a useful ``Exiv2::Value`` subclass.
-The Python interface allows a datum's value to be obtained as a different type.
-This can be used to decode an Exif user comment:
+In earlier versions of python-gphoto2 you could set the type of value returned by ``value()`` or ``getValue()`` by passing an ``exiv2.TypeId`` parameter:
 
 .. code:: python
 
     datum = exifData['Exif.Photo.UserComment']
     value = datum.value(exiv2.TypeId.comment)
     result = value.comment()
+
+Since version 0.16.0 the returned value is always of the correct type and this parameter is ignored.
+
+Writing data values
+-------------------
+
+The simplest way to set metadata is by assigning a value to the metadatum:
+
+.. code:: python
+
+    exifData['Exif.Image.ImageDescription'] = 'Uncle Fred at the seaside'
+    iptcData['Iptc.Application2.Caption'] = 'Uncle Fred at the seaside'
+    xmpData['Xmp.dc.description'] = 'Uncle Fred at the seaside'
+
+The datum is created if it doesn't already exist and its value is set to the text.
+
+Setting the type
+^^^^^^^^^^^^^^^^
+
+Metadata values have a type, for example Exif values can be ``Ascii``, ``Short``, ``Rational`` etc.
+When a datum is created its type is set to the default for the key, so ``exifData['Exif.Image.ImageDescription']`` is set to ``Ascii``.
+If a datum already exists, its current type is not changed by assigning a string value.
+
+If you need to force the type of a datum (e.g. because it currently has the wrong type) you can create a value of the correct type and assign it:
+
+.. code:: python
+
+    exifData['Exif.Image.ImageDescription'] = exiv2.AsciiValue('Uncle Fred at the seaside')
+
+Numerical data
+^^^^^^^^^^^^^^
+
+Setting string values as above is OK for text data such as Exif's Ascii or XMP's XmpText, but less suitable for numeric data such as GPS coordinates.
+These can be set from a string, but it is better to use numeric data:
+
+.. code:: python
+
+    exifData['Exif.GPSInfo.GPSLatitude'] = '51/1 30/1 4910/1000'
+    exifData['Exif.GPSInfo.GPSLatitude'] = ((51, 1), (30, 1), (4910, 1000))
+
+In the first line the exiv2 library converts the string ``'51/1 30/1 4910/1000'`` to three (numerator, denominator) pairs.
+In the second line the three pairs are supplied as integer numbers and no conversion is needed.
+This is potentially quicker and more accurate.
+(The Python Fraction_ type is very useful for dealing with rational numbers like these.)
+
+Structured data
+^^^^^^^^^^^^^^^
+
+Some XMP data is more complicated to deal with.
+For example, the locations shown in a photograph can be stored as a group of structures, each containing location/city/country information.
+Exiv2 gives these complex tag names like ``Xmp.iptcExt.LocationShown[1]/Iptc4xmpExt:City``.
+
+Data like this is written in several stages.
+First create the array ``Xmp.iptcExt.LocationShown``:
+
+.. code:: python
+
+    tmp = exiv2.XmpTextValue()
+    tmp.setXmpArrayType(exiv2.XmpValue.XmpArrayType.xaBag)
+    xmpData['Xmp.iptcExt.LocationShown'] = tmp
+
+Then create a structured data container for the first element in the array: 
+
+.. code:: python
+
+    tmp = exiv2.XmpTextValue()
+    tmp.setXmpStruct()
+    xmpData['Xmp.iptcExt.LocationShown[1]'] = tmp
+
+Then write individual items in the structure:
+
+.. code:: python
+
+    xmpData['Xmp.iptcExt.LocationShown[1]/Iptc4xmpExt:City'] = 'London'
+    xmpData['Xmp.iptcExt.LocationShown[1]/Iptc4xmpExt:Sublocation'] = 'Buckingham Palace'
+
+This can potentially be nested to any depth.
 
 Exiv2::ValueType< T >
 ---------------------
@@ -177,6 +274,27 @@ Warning: segmentation faults
 If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
 Just as in C++, there is no way to detect that an iterator has become invalid.
 
+Segmentation faults
+-------------------
+
+There are many places in the libexiv2 C++ API where objects hold references to data in other objects.
+This is more efficient than copying the data, but can cause segmentation faults if an object is deleted while another objects refers to its data.
+
+The Python interface tries to protect the user from this but in some cases this is not possible.
+For example, an `Exiv2::Metadatum`_ object holds a reference to data that can easily be invalidated:
+
+.. code:: python
+
+    exifData = image.exifData()
+    datum = exifData['Exif.GPSInfo.GPSLatitude']
+    print(str(datum.value()))                       # no problem
+    del exifData['Exif.GPSInfo.GPSLatitude']
+    print(str(datum.value()))                       # segfault!
+
+Segmentation faults are also easily caused by careless use of iterators or memory blocks, as discussed below.
+There may be other cases where the Python interface doesn't prevent segfaults.
+Please let me know if you find any.
+
 Binary data input
 -----------------
 
@@ -225,6 +343,20 @@ Doing so will invalidate the memoryview and may cause a segmentation fault:
     print(bytes(data))              # Prints b'fred'
     buf.alloc(128)
     print(bytes(data))              # Prints random values, may segfault
+
+Buffer interface
+----------------
+
+The ``Exiv2::DataBuf``, ``Exiv2::PreviewImage``, and ``Exiv2::MemIO`` classes are all wrappers around a potentially large block of memory.
+They each have methods to access that memory without copying, such as ``Exiv2::DataBuf::data()`` and ``Exiv2::MemIo::mmap()`` but in Python these classes also expose a `buffer interface`_. This allows them to be used almost anywhere that a `bytes-like object`_ is expected.
+
+For example, you could save a photograph's thumbnail in a separate file like this:
+
+.. code:: python
+
+    thumb = exiv2.ExifThumb(image.exifData())
+    with open('thumbnail.jpg', 'wb') as out_file:
+        out_file.write(thumb.copy())
 
 Image data in memory
 --------------------
@@ -295,6 +427,8 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://docs.python.org/3/reference/datamodel.html#context-managers
 .. _dict:
     https://docs.python.org/3/library/stdtypes.html#dict
+.. _enum:
+    https://docs.python.org/3/library/enum.html
 .. _Exiv2::BasicIo:
     https://exiv2.org/doc/classExiv2_1_1BasicIo.html
 .. _Exiv2::BasicIo::mmap:
@@ -311,11 +445,19 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://exiv2.org/doc/classExiv2_1_1MemIo.html
 .. _Exiv2::Metadatum:
     https://exiv2.org/doc/classExiv2_1_1Metadatum.html
+.. _Exiv2::TypeId:
+    https://exiv2.org/doc/namespaceExiv2.html#a5153319711f35fe81cbc13f4b852450c
 .. _Exiv2::Value:
     https://exiv2.org/doc/classExiv2_1_1Value.html
 .. _Exiv2::ValueType< T >:
     https://exiv2.org/doc/classExiv2_1_1ValueType.html
+.. _Fraction:
+    https://docs.python.org/3/library/fractions.html
+.. _libexiv2:
+    https://www.exiv2.org/doc/index.html
 .. _list:
     https://docs.python.org/3/library/stdtypes.html#list
 .. _memoryview:
     https://docs.python.org/3/library/stdtypes.html#memoryview
+.. _PyPI:
+    https://pypi.org/project/exiv2/

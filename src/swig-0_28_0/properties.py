@@ -15,10 +15,3 @@ if __package__ or "." in __name__:
     from ._properties import *
 else:
     from _properties import *
-
-
-import enum
-XmpCategory = enum.IntEnum('XmpCategory', _enum_list_XmpCategory())
-XmpCategory.__doc__ = "Category of an XMP property."
-
-

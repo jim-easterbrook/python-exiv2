@@ -17,18 +17,21 @@
 
 %module(package="exiv2") exif
 
-%include "preamble.i"
+%include "shared/preamble.i"
+%include "shared/buffers.i"
+%include "shared/containers.i"
+%include "shared/data_iterator.i"
+%include "shared/keep_reference.i"
+%include "shared/windows_path.i"
 
 %include "stdint.i"
 %include "std_string.i"
-#ifndef SWIGIMPORTED
-#ifdef EXV_UNICODE_PATH
-%include "std_wstring.i"
-#endif
-#endif
 
 %import "metadatum.i"
 %import "tags.i"
+
+// ExifThumb keeps a reference to the ExifData it uses
+KEEP_REFERENCE_EX(Exiv2::ExifThumb*, swig_obj[0])
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)
@@ -44,8 +47,10 @@ DATA_ITERATOR_CLASSES(
     ExifData_iterator, Exiv2::ExifData::iterator, Exiv2::Exifdatum)
 #endif
 
-DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey,
-    Exiv2::ExifKey(datum->key()).defaultTypeId())
+DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
+
+// Convert path encoding on Windows
+WINDOWS_PATH(const std::string& path)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::ExifData::operator[];

@@ -3905,14 +3905,19 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-PyObject* PyExc_Exiv2Error = NULL;
-PyObject* logger = NULL;
+static PyObject* PyExc_Exiv2Error = NULL;
 
 
 #include <typeinfo>
 #include <stdexcept>
 
 
+#ifdef EXV_ENABLE_NLS
+#include "libintl.h"
+#endif
+
+
+static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     Py_ssize_t len = strlen(msg);
     while (len > 0 && msg[len-1] == '\n')
@@ -4081,6 +4086,45 @@ SWIG_AsVal_int (PyObject * obj, int *val)
   }  
   return res;
 }
+
+
+
+static PyObject* _get_enum_list(int dummy, ...) {
+    va_list args;
+    va_start(args, dummy);
+    char* label;
+    PyObject* py_obj = NULL;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
+    while (label) {
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(result, py_obj);
+        Py_DECREF(py_obj);
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    return result;
+};
+
+
+
+static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
+    PyObject* module = NULL;
+    PyObject* IntEnum = NULL;
+    PyObject* result = NULL;
+    module = PyImport_ImportModule("enum");
+    if (!module)
+        goto fail;
+    IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    if (!IntEnum)
+        goto fail;
+    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
+fail:
+    Py_XDECREF(module);
+    Py_XDECREF(IntEnum);
+    Py_XDECREF(enum_list);
+    return result;
+};
 
 #ifdef __cplusplus
 extern "C" {
@@ -4917,17 +4961,30 @@ SWIG_init(void) {
   
   {
     PyObject *module = PyImport_ImportModule("exiv2");
-    if (module != NULL) {
-      PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-      logger = PyObject_GetAttrString(module, "_logger");
-      Py_DECREF(module);
-    }
-    if (PyExc_Exiv2Error == NULL || logger == NULL)
+    if (!module)
+    return NULL;
+    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
+    Py_DECREF(module);
+    if (!PyExc_Exiv2Error)
     return NULL;
   }
   
   
-  Exiv2::LogMsg::setHandler(&log_to_python);
+#ifdef EXV_ENABLE_NLS
+  bind_textdomain_codeset("exiv2", "UTF-8");
+#endif
+  
+  
+  {
+    PyObject *module = PyImport_ImportModule("logging");
+    if (!module)
+    return NULL;
+    logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
+    Py_DECREF(module);
+    if (!logger)
+    return NULL;
+    Exiv2::LogMsg::setHandler(&log_to_python);
+  }
   
   
   /* type 'Exiv2::LogMsg' */
@@ -4957,6 +5014,25 @@ SWIG_init(void) {
   PyModule_AddObject(m, "LogMsg", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "LogMsg");
   d = md;
+  
+  {
+    PyObject* enum_obj = _get_enum_list(0, "debug",Exiv2::LogMsg::debug,"info",Exiv2::LogMsg::info,"warn",Exiv2::LogMsg::warn,"error",Exiv2::LogMsg::error,"mute",Exiv2::LogMsg::mute, NULL);
+    if (!enum_obj)
+    return NULL;
+    enum_obj = _get_enum_object("Level", enum_obj);
+    if (!enum_obj)
+    return NULL;
+    if (PyObject_SetAttrString(
+        enum_obj, "__doc__", PyUnicode_FromString("Defined log levels.\n"
+          "\nTo suppress all log messages, either set the log level to mute or set"
+          "\nthe log message handler to None.")))
+    return NULL;
+    PyTypeObject* type =
+    (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
+    SWIG_Python_SetConstant(type->tp_dict, NULL, "Level", enum_obj);
+    PyType_Modified(type);
+  }
+  
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

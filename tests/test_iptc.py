@@ -62,7 +62,7 @@ class TestIptcModule(unittest.TestCase):
         next(b)
         self.assertEqual(b.key(), 'Iptc.Application2.Contact')
         e = data.end()
-        self.assertIsInstance(e, exiv2.IptcData_iterator_end)
+        self.assertIsInstance(e, exiv2.IptcData_iterator_base)
         k = data.findId(exiv2.IptcDataSets.SpecialInstructions)
         self.assertIsInstance(k, exiv2.IptcData_iterator)
         self.assertEqual(k.key(), 'Iptc.Application2.SpecialInstructions')
@@ -99,6 +99,11 @@ class TestIptcModule(unittest.TestCase):
         data['Iptc.Application2.Byline'] = 'Fred'
         self.assertEqual('Iptc.Application2.Byline' in data, True)
         self.assertIsInstance(data['Iptc.Application2.Byline'], exiv2.Iptcdatum)
+        with self.assertRaises(TypeError):
+            data['Iptc.Envelope.FileFormat'] = 2.5
+        data['Iptc.Envelope.FileFormat'] = 4
+        data['Iptc.Envelope.FileFormat'] = exiv2.UShortValue(4)
+        del data['Iptc.Envelope.FileFormat']
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Iptc.Application2.Byline')
@@ -108,7 +113,7 @@ class TestIptcModule(unittest.TestCase):
         self.assertEqual(data.count(), 20)
         self.assertEqual(data.detectCharset(), 'UTF-8')
         self.assertEqual(data.empty(), False)
-        self.assertEqual(data.size(), 398)
+        self.assertEqual(data.size(), 400)
         data.clear()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)
@@ -144,6 +149,8 @@ class TestIptcModule(unittest.TestCase):
         self.assertIsInstance(datum.value(), exiv2.StringValue)
         datum.setValue('fred')
         datum.setValue(exiv2.StringValue('Acme'))
+        with self.assertRaises(TypeError):
+            datum.setValue(123)
 
     def test_IptcData_iterator(self):
         self.image.readMetadata()

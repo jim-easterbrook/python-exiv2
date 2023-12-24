@@ -29,33 +29,32 @@ import locale
 import sys
 
 import exiv2
-import tzlocal
 
 def main():
     locale.setlocale(locale.LC_ALL, '')
     print('==== DateValue & TimeValue ====')
-    # These are only used in Iptc - Exif & Xmp use string representations
-    tz = tzlocal.get_localzone()
-    py_datetime = datetime.datetime.now(tz)
+    # These are only used in Iptc - Exif & Xmp use string representations.
+    tz = datetime.timezone(datetime.timedelta(hours=2, minutes=45))
+    py_datetime = datetime.datetime.now(tz).replace(microsecond=0)
     print("Python datetime:", py_datetime)
     # Python -> Exiv2
-    # can pass ints to constructor or use setDate() afterwards
+    # can pass value to constructor or use setDate() afterwards
     date = exiv2.DateValue(py_datetime.year, py_datetime.month, py_datetime.day)
     print("Exiv2 date:", date)
-    time = exiv2.TimeValue()
-    # negative offsets with non-zero minutes will not be handled
-    # correctly by exiv2
-    offset = int(tz.utcoffset(py_datetime).total_seconds()) // 60
-    time.setTime(py_datetime.hour, py_datetime.minute, py_datetime.second,
-                 offset // 60, offset % 60)
+    tz_minute = int(py_datetime.utcoffset().total_seconds()) // 60
+    tz_hour = tz_minute // 60
+    tz_minute -= tz_hour * 60
+    time = exiv2.TimeValue(py_datetime.hour, py_datetime.minute,
+                           py_datetime.second, tz_hour, tz_minute)
     print("Exiv2 time:", time)
     # Exiv2 -> Python
-    d = date.getDate()
-    t = time.getTime()
-    tz = datetime.timezone(
-        datetime.timedelta(hours=t.tzHour, minutes=t.tzMinute))
-    py_datetime = datetime.datetime(
-        d.year, d.month, d.day, t.hour, t.minute, t.second, tzinfo=tz)
+    date_dict = date.getDate()
+    time_dict = time.getTime()
+    tz_info = datetime.timezone(datetime.timedelta(
+        hours=time_dict['tzHour'], minutes=time_dict['tzMinute']))
+    del time_dict['tzHour']
+    del time_dict['tzMinute']
+    py_datetime = datetime.datetime(**date_dict, **time_dict, tzinfo=tz_info);
     print("Python datetime:", py_datetime)
 
     print('==== ShortValue ====')

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,14 +19,19 @@
 
 #pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
 
-%include "preamble.i"
+%include "shared/preamble.i"
+%include "shared/keep_reference.i"
+%include "shared/unique_ptr.i"
 
 %include "std_string.i"
 
 %import "types.i"
 %import "value.i"
 
-wrap_auto_unique_ptr(Exiv2::Key);
+UNIQUE_PTR(Exiv2::Key);
+
+// Keep a reference to Metadatum when calling value()
+KEEP_REFERENCE(const Exiv2::Value&)
 
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Key::__str__;
 %extend Exiv2::Key {

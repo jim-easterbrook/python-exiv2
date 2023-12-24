@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,23 +17,27 @@
 
 %module(package="exiv2") error
 
-%include "preamble.i"
+%include "shared/preamble.i"
+%include "shared/enum.i"
 
 %include "std_except.i"
 
-#ifdef EXV_ENABLE_NLS
 // Make all exiv2's localised strings UTF-8
 %{
+#ifdef EXV_ENABLE_NLS
 #include "libintl.h"
+#endif
 %}
 %init %{
+#ifdef EXV_ENABLE_NLS
 bind_textdomain_codeset("exiv2", "UTF-8");
-%}
 #endif
+%}
 
 
 // Set Python logger as Exiv2 log handler
 %{
+static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     Py_ssize_t len = strlen(msg);
     while (len > 0 && msg[len-1] == '\n')
@@ -46,9 +50,17 @@ static void log_to_python(int level, const char* msg) {
 };
 %}
 %init %{
-Exiv2::LogMsg::setHandler(&log_to_python);
+{
+    PyObject *module = PyImport_ImportModule("logging");
+    if (!module)
+        return NULL;
+    logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
+    Py_DECREF(module);
+    if (!logger)
+        return NULL;
+    Exiv2::LogMsg::setHandler(&log_to_python);
+}
 %}
-
 
 // Ignore anything that's unusable from Python
 %ignore Exiv2::AnyError;
@@ -65,3 +77,13 @@ Exiv2::LogMsg::setHandler(&log_to_python);
 %ignore Exiv2::operator<<;
 
 %include "exiv2/error.hpp"
+
+// CLASS_ENUM has to come last as it modifies initialised type object
+CLASS_ENUM(LogMsg, Level, "Defined log levels.\n"
+"\nTo suppress all log messages, either set the log level to mute or set"
+"\nthe log message handler to None.",
+    "debug", Exiv2::LogMsg::debug,
+    "info",  Exiv2::LogMsg::info,
+    "warn",  Exiv2::LogMsg::warn,
+    "error", Exiv2::LogMsg::error,
+    "mute",  Exiv2::LogMsg::mute);
