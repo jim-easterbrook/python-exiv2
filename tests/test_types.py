@@ -114,7 +114,7 @@ class TestTypesModule(unittest.TestCase):
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         old_locale = locale.setlocale(locale.LC_ALL, None)
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
-        for name in ('de_DE.utf8', 'German'):
+        for name in ('de_DE.utf8', 'de_DE.UTF-8', 'de_DE', 'German'):
             try:
                 locale.setlocale(locale.LC_ALL, name)
                 break
