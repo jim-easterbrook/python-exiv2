@@ -52,8 +52,14 @@ jobs:
       - name: Install python-exiv2
         run: pip3 install --disable-pip-version-check --user .
 
+      - name: Dump environment
+        run: |
+          locale
+          env | grep LANG
+          env | grep LC
+
       - name: Get package details
-        run: python3 -m exiv2
+        run: python3 -m exiv2 -v
 
       - name: Run unit tests
-        run: python3 -m unittest discover tests
+        run: python3 -m unittest discover tests -v
