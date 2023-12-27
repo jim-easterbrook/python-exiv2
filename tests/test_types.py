@@ -120,6 +120,8 @@ class TestTypesModule(unittest.TestCase):
         for name in ('de_DE.utf8', 'de_DE.UTF-8', 'de_DE', 'German'):
             try:
                 locale.setlocale(locale.LC_ALL, name)
+                # on some OS, dgettext ignores locale and uses LANG
+                os.environ['LANG'] = name
                 break
             except locale.Error:
                 continue
