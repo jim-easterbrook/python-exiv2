@@ -110,10 +110,11 @@ class TestTypesModule(unittest.TestCase):
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_NLS'],
                          'no localisation available')
     def test_localisation(self):
-        global exiv2
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         old_locale = locale.setlocale(locale.LC_MESSAGES, None)
+        # get messages directory
+        locale_dir = locale.bindtextdomain('exiv2', None)
         # clear current locale
         locale.setlocale(locale.LC_MESSAGES, 'C')
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
@@ -129,12 +130,9 @@ class TestTypesModule(unittest.TestCase):
             return
         if locale.getlocale() == (None, None):
             self.skipTest("set locale had no effect")
-        if exiv2.exvGettext(str_en) == str_en:
-            # on some OS, gettext ignores locale and uses environment
-            os.environ['LANGUAGE'] = name
-            os.environ['LC_MESSAGES'] = name
-            os.environ['LANG'] = name
-            locale.setlocale(locale.LC_MESSAGES, '')
+        # change locale directory away and back to clear gettext cache
+        exiv2.types._set_locale_dir(os.path.dirname(locale_dir))
+        exiv2.types._set_locale_dir(locale_dir)
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
         locale.setlocale(locale.LC_MESSAGES, old_locale)
 
