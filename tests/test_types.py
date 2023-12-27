@@ -112,23 +112,25 @@ class TestTypesModule(unittest.TestCase):
     def test_localisation(self):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
-        old_locale = locale.setlocale(locale.LC_MESSAGES, None)
-        if 'LANGUAGE' in os.environ:
-            language = os.environ['LANGUAGE']
-        else:
-            language = None
+        keys = 'LC_ALL', 'LC_MESSAGES', 'LANG', 'LANGUAGE'
+        old_env = {}
+        for key in keys:
+            if key in os.environ:
+                old_env[key] = os.environ[key]
         # clear current locale
         locale.setlocale(locale.LC_MESSAGES, 'C')
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
-        os.environ['LANGUAGE'] = 'de_DE'
+        for key in keys:
+            os.environ[key] = 'de_DE'
         locale.setlocale(locale.LC_MESSAGES, '')
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
-        # restore previous language
-        if language is None:
-            del os.environ['LANGUAGE']
-        else:
-            os.environ['LANGUAGE'] = language
+        # restore previous environment
+        for key in keys:
+            if key in old_env:
+                os.environ[key] = old_env[key]
+            else:
+                del os.environ[key]
         locale.setlocale(locale.LC_MESSAGES, '')
 
 
