@@ -113,34 +113,23 @@ class TestTypesModule(unittest.TestCase):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         old_locale = locale.setlocale(locale.LC_MESSAGES, None)
-        # get messages directory
-        locale_dir = locale.bindtextdomain('exiv2', None)
+        if 'LANGUAGE' in os.environ:
+            language = os.environ['LANGUAGE']
+        else:
+            language = None
         # clear current locale
         locale.setlocale(locale.LC_MESSAGES, 'C')
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
-        for name in ('de_DE.utf8', 'de_DE.UTF-8', 'de_DE', 'German'):
-            try:
-                locale.setlocale(locale.LC_MESSAGES, name)
-                break
-            except locale.Error:
-                continue
-        else:
-            self.skipTest("failed to set locale")
-            return
-        if locale.getlocale() == (None, None):
-            self.skipTest("set locale had no effect")
-        # change locale directory away and back to clear gettext cache
-        exiv2.types._set_locale_dir(os.path.dirname(locale_dir))
-        exiv2.types._set_locale_dir(locale_dir)
-        if exiv2.exvGettext(str_en) == str_en:
-            # setlocale is being ignored, try environment variable
-            os.environ['LANGUAGE'] = name
-            locale.setlocale(locale.LC_MESSAGES, '')
-            exiv2.types._set_locale_dir(os.path.dirname(locale_dir))
-            exiv2.types._set_locale_dir(locale_dir)
+        os.environ['LANGUAGE'] = 'de_DE'
+        locale.setlocale(locale.LC_MESSAGES, '')
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
-        locale.setlocale(locale.LC_MESSAGES, old_locale)
+        # restore previous language
+        if language is None:
+            del os.environ['LANGUAGE']
+        else:
+            os.environ['LANGUAGE'] = 'de_DE'
+        locale.setlocale(locale.LC_MESSAGES, '')
 
 
 if __name__ == '__main__':
