@@ -128,7 +128,7 @@ class TestTypesModule(unittest.TestCase):
         if language is None:
             del os.environ['LANGUAGE']
         else:
-            os.environ['LANGUAGE'] = 'de_DE'
+            os.environ['LANGUAGE'] = language
         locale.setlocale(locale.LC_MESSAGES, '')
 
 
