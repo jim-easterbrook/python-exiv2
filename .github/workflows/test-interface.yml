@@ -43,6 +43,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install libexiv2-dev
 
+      - name: Install locale
+        run: sudo apt-get install language-pack-de
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -54,9 +57,9 @@ jobs:
 
       - name: Dump environment
         run: |
-          locale
           env | grep LANG
           env | grep LC
+          locale
 
       - name: Get package details
         run: python3 -m exiv2 -v
