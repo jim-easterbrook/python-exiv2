@@ -122,7 +122,7 @@ class TestTypesModule(unittest.TestCase):
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
         for key in keys:
-            os.environ[key] = 'de_DE'
+            os.environ[key] = 'de_DE.UTF-8'
         locale.setlocale(locale.LC_MESSAGES, '')
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
         # restore previous environment
