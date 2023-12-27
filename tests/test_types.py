@@ -113,9 +113,10 @@ class TestTypesModule(unittest.TestCase):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         old_locale = locale.setlocale(locale.LC_MESSAGES, None)
+        locale_dir = locale.bindtextdomain('exiv2', None)
         # clear current locale
         locale.setlocale(locale.LC_MESSAGES, 'C')
-##        self.assertEqual(exiv2.exvGettext(str_en), str_en)
+        self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
         for name in ('de_DE.utf8', 'de_DE.UTF-8', 'de_DE', 'German'):
             try:
@@ -132,6 +133,8 @@ class TestTypesModule(unittest.TestCase):
             return
         if locale.getlocale() == (None, None):
             self.skipTest("set locale had no effect")
+        # call bindtextdomain to clear cache
+        locale.bindtextdomain('exiv2', locale_dir)
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
         locale.setlocale(locale.LC_MESSAGES, old_locale)
 
