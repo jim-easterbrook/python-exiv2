@@ -57,8 +57,7 @@ jobs:
 
       - name: Dump environment
         run: |
-          env | grep LANG
-          env | grep LC
+          locale -a
           locale
 
       - name: Get package details
