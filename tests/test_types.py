@@ -16,7 +16,6 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
-import importlib
 import locale
 import os
 import random
@@ -122,10 +121,6 @@ class TestTypesModule(unittest.TestCase):
         for name in ('de_DE.utf8', 'de_DE.UTF-8', 'de_DE', 'German'):
             try:
                 locale.setlocale(locale.LC_MESSAGES, name)
-                # on some OS, dgettext ignores locale and uses LANG
-                os.environ['LC_ALL'] = name
-                os.environ['LANG'] = name
-                os.environ['LANGUAGE'] = name
                 break
             except locale.Error:
                 continue
@@ -134,8 +129,12 @@ class TestTypesModule(unittest.TestCase):
             return
         if locale.getlocale() == (None, None):
             self.skipTest("set locale had no effect")
-        # reimport exiv2 to clear cache
-        exiv2 = importlib.reload(exiv2)
+        if exiv2.exvGettext(str_en) == str_en:
+            # on some OS, gettext ignores locale and uses environment
+            os.environ['LANGUAGE'] = name
+            os.environ['LC_MESSAGES'] = name
+            os.environ['LANG'] = name
+            locale.setlocale(locale.LC_MESSAGES, '')
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
         locale.setlocale(locale.LC_MESSAGES, old_locale)
 
