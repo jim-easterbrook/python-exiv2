@@ -111,6 +111,7 @@ class TestTypesModule(unittest.TestCase):
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_NLS'],
                          'no localisation available')
     def test_localisation(self):
+        global exiv2
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         old_locale = locale.setlocale(locale.LC_MESSAGES, None)
