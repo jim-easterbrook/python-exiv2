@@ -112,15 +112,17 @@ class TestTypesModule(unittest.TestCase):
     def test_localisation(self):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
-        old_locale = locale.setlocale(locale.LC_ALL, None)
+        old_locale = locale.setlocale(locale.LC_MESSAGES, None)
         # clear current locale
-        locale.setlocale(locale.LC_ALL, 'C')
+        locale.setlocale(locale.LC_MESSAGES, 'C')
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
         for name in ('de_DE.utf8', 'de_DE.UTF-8', 'de_DE', 'German'):
             try:
-                locale.setlocale(locale.LC_ALL, name)
+                locale.setlocale(locale.LC_MESSAGES, name)
                 # on some OS, dgettext ignores locale and uses LANG
+                os.environ['LC_ALL'] = name
+                os.environ['LANG'] = name
                 os.environ['LANGUAGE'] = name
                 break
             except locale.Error:
@@ -131,7 +133,7 @@ class TestTypesModule(unittest.TestCase):
         if locale.getlocale() == (None, None):
             self.skipTest("set locale had no effect")
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
-        locale.setlocale(locale.LC_ALL, old_locale)
+        locale.setlocale(locale.LC_MESSAGES, old_locale)
 
 
 if __name__ == '__main__':
