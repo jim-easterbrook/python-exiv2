@@ -117,7 +117,7 @@ class TestTypesModule(unittest.TestCase):
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
         if sys.platform == 'linux':
-            for name in ('de_DE', 'de_DE.utf8', 'de_DE.UTF-8', 'German'):
+            for name in ('de_DE.UTF-8', 'de_DE.utf8', 'de_DE', 'German'):
                 try:
                     locale.setlocale(locale.LC_MESSAGES, name)
                     break
