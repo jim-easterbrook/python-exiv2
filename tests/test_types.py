@@ -121,7 +121,7 @@ class TestTypesModule(unittest.TestCase):
             try:
                 locale.setlocale(locale.LC_ALL, name)
                 # on some OS, dgettext ignores locale and uses LANG
-                os.environ['LANG'] = name
+                os.environ['LANGUAGE'] = name
                 break
             except locale.Error:
                 continue
