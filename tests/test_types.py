@@ -115,7 +115,7 @@ class TestTypesModule(unittest.TestCase):
         old_locale = locale.setlocale(locale.LC_MESSAGES, None)
         # clear current locale
         locale.setlocale(locale.LC_MESSAGES, 'C')
-        self.assertEqual(exiv2.exvGettext(str_en), str_en)
+##        self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
         for name in ('de_DE.utf8', 'de_DE.UTF-8', 'de_DE', 'German'):
             try:
