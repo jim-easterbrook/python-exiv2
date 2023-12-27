@@ -133,6 +133,12 @@ class TestTypesModule(unittest.TestCase):
         # change locale directory away and back to clear gettext cache
         exiv2.types._set_locale_dir(os.path.dirname(locale_dir))
         exiv2.types._set_locale_dir(locale_dir)
+        if exiv2.exvGettext(str_en) == str_en:
+            # setlocale is being ignored, try environment variable
+            os.environ['LANGUAGE'] = name
+            locale.setlocale(locale.LC_MESSAGES, '')
+            exiv2.types._set_locale_dir(os.path.dirname(locale_dir))
+            exiv2.types._set_locale_dir(locale_dir)
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
         locale.setlocale(locale.LC_MESSAGES, old_locale)
 
