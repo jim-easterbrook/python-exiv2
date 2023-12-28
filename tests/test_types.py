@@ -126,6 +126,7 @@ class TestTypesModule(unittest.TestCase):
             self.skipTest("failed to set locale")
             return
         print('setting locale', name)
+        os.environ['LANG'] = name
         os.environ['LANGUAGE'] = name
         locale.setlocale(locale.LC_MESSAGES, '')
         # test localisation
