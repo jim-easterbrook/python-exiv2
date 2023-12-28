@@ -156,7 +156,8 @@ if platform in ('linux', 'darwin', 'mingw'):
         extra_compile_args.append('-Werror')
     if exiv2_version >= [0, 28]:
         extra_compile_args.append('-std=gnu++17')
-        extra_link_args.append('-lstdc++fs')
+        if platform == 'linux':
+            extra_link_args.append('-lstdc++fs')
     else:
         extra_compile_args.append('-std=c++98')
 if platform == 'win32':
