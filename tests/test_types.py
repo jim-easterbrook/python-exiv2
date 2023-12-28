@@ -129,6 +129,7 @@ class TestTypesModule(unittest.TestCase):
         os.environ['LANG'] = name
         os.environ['LANGUAGE'] = name
         locale.setlocale(locale.LC_MESSAGES, '')
+        print('new locale', locale.getdefaultlocale())
         # test localisation
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
 
