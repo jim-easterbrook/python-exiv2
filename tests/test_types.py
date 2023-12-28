@@ -126,10 +126,14 @@ class TestTypesModule(unittest.TestCase):
             self.skipTest("failed to set locale")
             return
         print('setting locale', name)
+        os.environ['LC_ALL'] = name
         os.environ['LANG'] = name
         os.environ['LANGUAGE'] = name
         locale.setlocale(locale.LC_MESSAGES, '')
-        print('new locale', locale.getdefaultlocale())
+        name, encoding = locale.getdefaultlocale()
+        if name != 'de_DE':
+            self.skipTest("locale environment ignored")
+        print('new locale', '.'.join((name, encoding)))
         # test localisation
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
 
