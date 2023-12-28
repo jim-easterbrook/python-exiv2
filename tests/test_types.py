@@ -116,22 +116,18 @@ class TestTypesModule(unittest.TestCase):
         locale.setlocale(locale.LC_MESSAGES, 'C')
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
-        if sys.platform == 'linux':
-            for name in ('de_DE.UTF-8', 'de_DE.utf8', 'de_DE', 'German'):
-                try:
-                    locale.setlocale(locale.LC_MESSAGES, name)
-                    break
-                except locale.Error:
-                    continue
-            else:
-                self.skipTest("failed to set locale")
-                return
-        elif sys.platform == 'darwin':
-            os.environ['LANGUAGE'] = 'de_DE'
-            locale.setlocale(locale.LC_MESSAGES, '')
+        for name in ('de_DE.UTF-8', 'de_DE.utf8', 'de_DE', 'German'):
+            try:
+                locale.setlocale(locale.LC_MESSAGES, name)
+                break
+            except locale.Error:
+                continue
         else:
-            self.skipTest(
-                "don't know how to set locale on {}".format(sys.platform))
+            self.skipTest("failed to set locale")
+            return
+        print('setting locale', name)
+        os.environ['LANGUAGE'] = name
+        locale.setlocale(locale.LC_MESSAGES, '')
         # test localisation
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
 
