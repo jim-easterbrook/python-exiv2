@@ -35,6 +35,7 @@ jobs:
             pip install ninja &&
             cd libexiv2 &&
             cmake --preset linux-release
+            -D CONAN_AUTO_INSTALL=OFF
             -D EXIV2_BUILD_SAMPLES=OFF
             -D EXIV2_BUILD_UNIT_TESTS=OFF
             -D EXIV2_ENABLE_NLS=ON
