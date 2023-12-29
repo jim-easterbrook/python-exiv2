@@ -32,7 +32,7 @@ jobs:
           CIBW_BEFORE_ALL: >
             yum install -y zlib-devel expat-devel gettext-devel
             libcurl-devel libssh-devel &&
-            pip install ninja conan==1.59 &&
+            pip install ninja &&
             cd libexiv2 &&
             cmake --preset linux-release
             -D EXIV2_BUILD_SAMPLES=OFF
