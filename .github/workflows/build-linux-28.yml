@@ -29,17 +29,18 @@ jobs:
           CIBW_TEST_COMMAND: >
             python3 -m exiv2 -v &&
             python3 -m unittest discover {project}/tests -v
-          CIBW_BEFORE_ALL: |
-            yum install -y gettext-devel
-            pip install ninja conan==1.59
-            cd libexiv2
-            cmake --preset linux-release \
-            -D EXIV2_BUILD_SAMPLES=OFF \
-            -D EXIV2_BUILD_UNIT_TESTS=OFF \
-            -D EXIV2_ENABLE_NLS=ON \
-            -D EXIV2_BUILD_EXIV2_COMMAND=OFF \
-            -D EXIV2_TEAM_WARNINGS_AS_ERRORS=OFF
-            cmake --build build-linux-release --config Release
+          CIBW_BEFORE_ALL: >
+            yum install -y zlib-devel expat-devel gettext-devel
+            libcurl-devel libssh-devel &&
+            pip install ninja conan==1.59 &&
+            cd libexiv2 &&
+            cmake --preset linux-release
+            -D EXIV2_BUILD_SAMPLES=OFF
+            -D EXIV2_BUILD_UNIT_TESTS=OFF
+            -D EXIV2_ENABLE_NLS=ON
+            -D EXIV2_BUILD_EXIV2_COMMAND=OFF
+            -D EXIV2_TEAM_WARNINGS_AS_ERRORS=OFF &&
+            cmake --build build-linux-release --config Release &&
             cmake --install build-linux-release --config Release
 
       - name: Store results
