@@ -82,6 +82,8 @@ if 'EXIV2_ROOT' in os.environ:
                     package_dir['exiv2.locale'] = os.path.dirname(
                         os.path.dirname(root))
                     package_data['exiv2.locale'] = ['*/LC_MESSAGES/exiv2.mo']
+                packages.append('exiv2.locale.'
+                                + '.'.join(root.split(os.sep)[-2:]))
                 break
             if file in ('exiv2.lib', 'libexiv2.dll.a'):
                 # win32, mingw, cygwin
@@ -102,9 +104,6 @@ if 'EXIV2_ROOT' in os.environ:
                 package_dir['exiv2.lib'] = root
                 package_data['exiv2.lib'] = [file]
                 break
-        if (include_dirs and library_dirs and package_dir['exiv2.lib']
-                and 'exiv2.locale' in packages):
-            break
     if not (include_dirs and library_dirs and package_dir['exiv2.lib']):
         print('ERROR: Include and library files not found')
         sys.exit(1)
