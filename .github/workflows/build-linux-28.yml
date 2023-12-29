@@ -31,7 +31,7 @@ jobs:
             python3 -m unittest discover {project}/tests -v
           CIBW_BEFORE_ALL: >
             yum install -y zlib-devel expat-devel gettext-devel
-            libcurl-devel libssh-devel &&
+            libcurl-devel libssh-devel brotli-devel &&
             pip install ninja &&
             cd libexiv2 &&
             cmake --preset linux-release
