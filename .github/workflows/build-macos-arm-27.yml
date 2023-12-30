@@ -4,45 +4,47 @@ on: workflow_dispatch
 jobs:
   build:
     runs-on: macos-latest
-    env:
-      EXIV2_ROOT: /Users/runner/exiv2-install
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Download libexiv2
-        run: |
-          wget -nv https://github.com/Exiv2/exiv2/releases/download/v0.27.7/exiv2-0.27.7-Source.tar.gz
-          tar xf exiv2-0.27.7-Source.tar.gz
+      - name: Fetch Exiv2 source
+        run: >
+          wget -nv
+          https://github.com/Exiv2/exiv2/releases/download/v0.27.7/exiv2-0.27.7-Source.tar.gz
+          -O exiv2.tar.gz
 
-      - name: Make directories
+      - name: Extract Exiv2 source
+        shell: bash
         run: |
-          mkdir exiv2-0.27.7-Source/build
-          mkdir $EXIV2_ROOT
+          tar -xzf exiv2.tar.gz
+          mv exiv2-0.27.7-Source libexiv2
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.2
         env:
           CIBW_ARCHS: arm64
+          CIBW_ENVIRONMENT: EXIV2_ROOT=libexiv2/build-macos/install
           CIBW_SKIP: pp3*
+          CIBW_TEST_COMMAND: >
+            python -m exiv2 -v &&
+            python -m unittest discover {project}/tests -v
           CIBW_BEFORE_ALL: >
             brew install ninja &&
-            cd exiv2-0.27.7-Source/build &&
-            cmake .. -DCMAKE_BUILD_TYPE=Release \
-              -DCMAKE_INSTALL_PREFIX=${{ env.EXIV2_ROOT }} \
-              -DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations" \
-              -DEXIV2_BUILD_SAMPLES=OFF \
-              -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
-              -DEXIV2_ENABLE_BMFF=ON \
-              -DEXIV2_ENABLE_NLS=OFF \
-              -DEXIV2_ENABLE_VIDEO=ON \
-              -DCMAKE_CXX_STANDARD=98 \
-              -DCMAKE_OSX_ARCHITECTURES=arm64 \
-              -GNinja &&
-            cmake --build . --config Release &&
-            cmake --build . --target install &&
-            cd ../.. &&
-            python3 utils/build_swig.py ${{ env.EXIV2_ROOT }}/include
+            cd libexiv2 &&
+            cmake . -B build-macos -DCMAKE_BUILD_TYPE=Release
+            -D CMAKE_INSTALL_PREFIX=build-macos/install
+            -D CMAKE_CXX_FLAGS="-Wno-deprecated-declarations"
+            -D EXIV2_BUILD_SAMPLES=OFF
+            -D EXIV2_BUILD_EXIV2_COMMAND=OFF
+            -D EXIV2_ENABLE_BMFF=ON
+            -D EXIV2_ENABLE_NLS=OFF
+            -D EXIV2_ENABLE_VIDEO=ON
+            -D CMAKE_CXX_STANDARD=98
+            -D CMAKE_OSX_ARCHITECTURES=arm64
+            -G Ninja &&
+            cmake --build build-macos --config Release &&
+            cmake --install build-macos --config Release
 
       - name: Store results
         uses: actions/upload-artifact@v3
