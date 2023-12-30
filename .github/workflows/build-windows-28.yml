@@ -18,96 +18,32 @@ jobs:
         shell: bash
         run: |
           tar -xzf exiv2.tar.gz
-          mv exiv2-0.28.1 exiv2-Source
+          mv exiv2-0.28.1 libexiv2
 
-      - name: Install dependencies
-        run: pip install --disable-pip-version-check wheel conan==1.59.0
-
-      - name: Configure libexiv2 build
-        working-directory: ./exiv2-Source
-        run: >
-          cmake --preset msvc
-          -DCMAKE_BUILD_TYPE=Release
-          -DEXIV2_BUILD_SAMPLES=OFF
-          -DEXIV2_BUILD_EXIV2_COMMAND=OFF
-          -DEXIV2_BUILD_UNIT_TESTS=OFF
-          -G "Visual Studio 16 2019"
-
-      - name: Build libexiv2
-        working-directory: ./exiv2-Source
-        run: |
-          cmake --build build-msvc --config Release
-          cmake --install build-msvc --config Release
-          copy build-msvc\bin\libcurl.dll build-msvc\install\bin
-
-      - name: Store intermediate files
-        uses: actions/upload-artifact@v3
-        with:
-          name: exiv2-windows
-          path: ./exiv2-Source/build-msvc/install
-          retention-days: 1
-
-  wheels:
-    needs: compile
-    runs-on: windows-2019
-    strategy:
-      matrix:
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
-      - name: Fetch intermediate files
-        uses: actions/download-artifact@v3
-        with:
-          name: exiv2-windows
-          path: lib_exiv2
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-          architecture: 'x64'
-
-      - name: Build wheel
-        run: |
-          pip3 install --disable-pip-version-check setuptools wheel
-          pip wheel -v .
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.16.2
         env:
-          EXIV2_ROOT: lib_exiv2
+          CIBW_ARCHS: auto64
+          CIBW_SKIP: pp3*
+          CIBW_ENVIRONMENT: EXIV2_ROOT=libexiv2/build-msvc/install
+          CIBW_TEST_COMMAND: >
+            python -m exiv2 -v &&
+            python -m unittest discover {project}/tests -v
+          CIBW_BEFORE_ALL: >
+            pip install conan==1.59.0 &&
+            cd libexiv2 &&
+            cmake --preset msvc
+            -D CMAKE_BUILD_TYPE=Release
+            -D EXIV2_BUILD_SAMPLES=OFF
+            -D EXIV2_BUILD_EXIV2_COMMAND=OFF
+            -D EXIV2_BUILD_UNIT_TESTS=OFF
+            -G "Visual Studio 16 2019" &&
+            cmake --build build-msvc --config Release &&
+            cmake --install build-msvc --config Release &&
+            copy build-msvc\bin\libcurl.dll build-msvc\install\bin
 
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
           name: windows-wheel
-          path: ./*.whl
-
-  test:
-    needs: wheels
-    runs-on: windows-2019
-    strategy:
-      matrix:
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
-    steps:
-      - name: Fetch wheel files
-        uses: actions/download-artifact@v3
-        with:
-          name: windows-wheel
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-          architecture: 'x64'
-
-      - name: Install wheel
-        run: pip3 install --disable-pip-version-check --no-index --find-links=. exiv2
-
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
-      - name: Get package details
-        run: python3 -m exiv2
-
-      - name: Run unit tests
-        run: python3 -m unittest discover tests -v
+          path: wheelhouse/*.whl
