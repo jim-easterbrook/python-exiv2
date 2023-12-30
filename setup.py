@@ -161,6 +161,14 @@ if platform in ('linux', 'darwin', 'mingw'):
         extra_compile_args.append('-std=c++98')
 if platform == 'win32':
     extra_compile_args = ['/wd4101', '/wd4290']
+if platform == 'darwin':
+    cmd = ['brew', '--prefix']
+    try:
+        prefix = subprocess.check_output(cmd, universal_newlines=True).strip()
+        include_dirs.append(os.path.join(prefix, 'include'))
+        library_dirs.append(os.path.join(prefix, 'lib'))
+    except Exception as ex:
+        print(str(ex))
 for file_name in os.listdir(mod_src_dir):
     if file_name[-9:] != '_wrap.cxx':
         continue
