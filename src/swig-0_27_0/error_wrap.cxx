@@ -4091,11 +4091,6 @@ static PyObject* PyExc_Exiv2Error = NULL;
 #include <stdexcept>
 
 
-#ifdef EXV_ENABLE_NLS
-#include "libintl.h"
-#endif
-
-
 static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     Py_ssize_t len = strlen(msg);
@@ -5158,11 +5153,6 @@ SWIG_init(void) {
     if (!PyExc_Exiv2Error)
     return NULL;
   }
-  
-  
-#ifdef EXV_ENABLE_NLS
-  bind_textdomain_codeset("exiv2", "UTF-8");
-#endif
   
   
   {
