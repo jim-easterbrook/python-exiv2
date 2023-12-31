@@ -115,27 +115,26 @@ class TestTypesModule(unittest.TestCase):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         # clear current locale
-        locale.setlocale(locale.LC_MESSAGES, 'C')
+        locale.setlocale(locale.LC_ALL, 'C')
         self.assertEqual(exiv2.exvGettext(str_en), str_en)
         # set German locale
-        for name in ('de_DE.UTF-8', 'de_DE.utf8', 'de_DE', 'German'):
-            try:
-                locale.setlocale(locale.LC_MESSAGES, name)
-                break
-            except locale.Error:
-                continue
+        if sys.platform == 'win32':
+            name = 'German'
         else:
+            name = 'de_DE.UTF-8'
+        try:
+            locale.setlocale(locale.LC_ALL, name)
+        except locale.Error:
             self.skipTest("failed to set locale")
             return
-        print('setting locale', name)
+        name = 'de_DE.UTF-8'
         os.environ['LC_ALL'] = name
         os.environ['LANG'] = name
         os.environ['LANGUAGE'] = name
-        locale.setlocale(locale.LC_MESSAGES, '')
+        locale.setlocale(locale.LC_ALL, '')
         name, encoding = locale.getdefaultlocale()
-        if name != 'de_DE':
+        if name != 'de_DE' and sys.platform != 'win32':
             self.skipTest("locale environment ignored")
-        print('new locale', '.'.join((name, encoding)))
         # test localisation
         self.assertEqual(exiv2.exvGettext(str_en), str_de)
 
