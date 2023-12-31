@@ -36,8 +36,20 @@
 // (types.hpp includes exiv2's localisation stuff)
 %{
 #ifdef EXV_ENABLE_NLS
+#if defined _WIN32 && !defined __CYGWIN__
+// Avoid needing to find libintl.h probably installed with Conan
+extern "C" {
+extern char* libintl_bindtextdomain(const char* domainname,
+                                    const char* dirname);
+static inline char* bindtextdomain(const char* __domainname,
+                                    const char* __dirname) {
+  return libintl_bindtextdomain(__domainname, __dirname);
+}
+}
+#else
 #include "libintl.h"
 #endif
+#endif // EXV_ENABLE_NLS
 %}
 %inline %{
 void _set_locale_dir(const char* dirname) {
