@@ -31,8 +31,8 @@ if os.path.isdir(_dir):
     from exiv2.types import _set_locale_dir
     _set_locale_dir(_dir)
 
-__version__ = "0.16.0"
-__version_tuple__ = tuple((0, 16, 0))
+__version__ = "0.16.1"
+__version_tuple__ = tuple((0, 16, 1))
 
 from exiv2.basicio import *
 from exiv2.datasets import *

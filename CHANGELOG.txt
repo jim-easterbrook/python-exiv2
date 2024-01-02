@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.16.1:
+  1/ Binary wheels incorporate libexiv2 v0.27.7.
+
 Changes in v0.16.0:
   1/ Binary wheels incorporate libexiv2 v0.28.1.
   2/ Include native language support in Windows binary wheel builds.
