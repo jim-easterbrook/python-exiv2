@@ -48,7 +48,7 @@ Transition to libexiv2 v0.28.x
 ------------------------------
 
 Before python-exiv2 v0.16 the "binary wheels" available from PyPI_ incorporated libexiv2 v0.27.7 or earlier.
-Binary wheels for python-exiv2 v0.16.0 incorporate libexiv2 v0.28.1, and those for for python-exiv2 v0.16.1 incorporate libexiv2 v0.27.7.
+Binary wheels for python-exiv2 v0.16.0 incorporate libexiv2 v0.28.1, and those for python-exiv2 v0.16.1 incorporate libexiv2 v0.27.7.
 This allows you to test your software with the new version of libexiv2 by explicitly installing python-exiv2 v0.16.0::
 
     $ pip install --user exiv2==0.16.0
