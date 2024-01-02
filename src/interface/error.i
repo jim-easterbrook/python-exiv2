@@ -22,18 +22,6 @@
 
 %include "std_except.i"
 
-// Make all exiv2's localised strings UTF-8
-%{
-#ifdef EXV_ENABLE_NLS
-#include "libintl.h"
-#endif
-%}
-%init %{
-#ifdef EXV_ENABLE_NLS
-bind_textdomain_codeset("exiv2", "UTF-8");
-#endif
-%}
-
 
 // Set Python logger as Exiv2 log handler
 %{

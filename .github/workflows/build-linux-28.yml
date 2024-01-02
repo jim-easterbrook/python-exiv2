@@ -40,6 +40,7 @@ jobs:
             libcurl-devel libssh-devel brotli-devel &&
             rpm -Uvh inih*.rpm &&
             dnf install inih inih-devel &&
+            localedef -c -i de_DE -f UTF-8 de_DE.UTF-8 &&
             pip install ninja &&
             cd libexiv2 &&
             cmake --preset linux-release

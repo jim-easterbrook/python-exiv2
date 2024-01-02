@@ -1,6 +1,6 @@
 python-exiv2 - Python interface to libexiv2
 http://github.com/jim-easterbrook/python-exiv2
-Copyright (C) 2022-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+Copyright (C) 2022-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 
 This program is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -17,16 +17,18 @@ along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
 Changes in v0.16.0:
-  */ API change: DateValue.getDate() returns Python dict.
-  */ API change: TimeValue.getTime() returns Python dict.
-  */ Deprecated: exiv2.Date and exiv2.Time objects.
-  */ Add buffer interface to PreviewImage
-  */ Set datum value from Python object directly instead of via string.
-  */ Add enums for LogMsg.Level
-  */ Moved Position enum to BasicIo class.
-  */ Moved CharsetId enum to CommentValue class.
-  */ Moved XmpArrayType and XmpStruct enums to XmpValue class.
-  */ More exiv2 structs are iterable for easy conversion to Python dict.
+  1/ Binary wheels incorporate libexiv2 v0.28.1.
+  2/ Include native language support in Windows binary wheel builds.
+  3/ API change: DateValue.getDate() returns Python dict.
+  4/ API change: TimeValue.getTime() returns Python dict.
+  5/ Deprecated: exiv2.Date and exiv2.Time objects.
+  6/ Added buffer interface to PreviewImage
+  7/ Set datum value from Python object directly instead of via string.
+  8/ Moved Position enum to BasicIo class.
+  9/ Moved CharsetId enum to CommentValue class.
+  10/ Moved XmpArrayType and XmpStruct enums to XmpValue class.
+  11/ Added enums for LogMsg.Level
+  12/ More exiv2 structs are iterable for easy conversion to Python dict.
 
 Changes in v0.15.0:
   1/ Added __version_tuple__ for easy runtime version testing.
