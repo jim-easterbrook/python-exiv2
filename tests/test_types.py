@@ -130,7 +130,7 @@ class TestTypesModule(unittest.TestCase):
         os.environ['LANG'] = name
         os.environ['LANGUAGE'] = name
         locale.setlocale(locale.LC_ALL, '')
-        name, encoding = locale.getdefaultlocale()
+        name, encoding = locale.getlocale()
         if name != 'de_DE' and sys.platform != 'win32':
             self.skipTest("locale environment ignored")
         # test localisation
