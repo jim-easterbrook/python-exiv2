@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -110,8 +110,6 @@ class TestTypesModule(unittest.TestCase):
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_NLS'],
                          'no localisation available')
     def test_localisation(self):
-        if 'CI' in os.environ and os.environ['CI']:
-            self.skipTest('localisation usually fails in CI')
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         # clear current locale
