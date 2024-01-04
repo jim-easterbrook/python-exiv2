@@ -162,12 +162,6 @@ else:
                           DeprecationWarning)
             return Exiv2Error
         raise AttributeError
-
-_dir = os.path.join(os.path.dirname(__file__), 'locale')
-if os.path.isdir(_dir):
-    from exiv2.types import _set_locale_dir
-    _set_locale_dir(_dir)
-
 ''')
         im.write('__version__ = "%s"\n' % py_exiv2_version)
         im.write('__version_tuple__ = tuple((%s))\n\n' % ', '.join(

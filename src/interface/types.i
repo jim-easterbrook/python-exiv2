@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -60,6 +60,12 @@ void _set_locale_dir(const char* dirname) {
     bindtextdomain("exiv2", dirname);
 #endif
 };
+%}
+%pythoncode %{
+import os
+_dir = os.path.join(os.path.dirname(__file__), 'locale')
+if os.path.isdir(_dir):
+    _set_locale_dir(_dir)
 %}
 
 // C++ macros for DataBuf data and size

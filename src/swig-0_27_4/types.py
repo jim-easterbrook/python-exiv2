@@ -10,3 +10,11 @@ if __package__ or "." in __name__:
     from ._types import *
 else:
     from _types import *
+
+
+import os
+_dir = os.path.join(os.path.dirname(__file__), 'locale')
+if os.path.isdir(_dir):
+    _set_locale_dir(_dir)
+
+
