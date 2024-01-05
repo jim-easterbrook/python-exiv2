@@ -17,6 +17,7 @@
 
 
 // Macros to make enums more Pythonic
+
 // Function to return enum members as Python list
 %fragment("get_enum_list", "header") {
 #include <cstdarg>
@@ -38,7 +39,29 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 }
 
+// Import Python enum.IntEnum
+%fragment("_declare_py_enum", "header") {
+static PyObject* Py_IntEnum = NULL;
+}
+%fragment("import_py_enum", "init", fragment="_declare_py_enum") {
+{
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+        return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+        return NULL;
+}
+}
+
 %define ENUM(name, doc, contents...)
+// typemap to disambiguate enum from int
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
+         fragment="import_py_enum") Exiv2::name {
+    $1 = PyObject_IsInstance($input, Py_IntEnum);
+}
+
 %fragment("get_enum_list");
 %fragment("get_enum_object");
 
@@ -57,6 +80,12 @@ static PyObject* _get_enum_list(int dummy, ...) {
 %enddef // ENUM
 
 %define DEPRECATED_ENUM(moved_to, enum_name, doc, contents...)
+// typemap to disambiguate enum from int
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
+         fragment="import_py_enum") Exiv2::moved_to::enum_name {
+    $1 = PyObject_IsInstance($input, Py_IntEnum);
+}
+
 %fragment("get_enum_list");
 %noexception _enum_list_##enum_name;
 %inline %{
@@ -87,20 +116,8 @@ enum_name.__doc__ = doc
 %enddef // DEPRECATED_ENUM
 
 // Function to generate Python enum
-%fragment("_import_py_enum", "init") {
-{
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-        return NULL;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum)
-        return NULL;
-}
-}
-%fragment("get_enum_object", "header", fragment="_import_py_enum") {
+%fragment("get_enum_object", "header", fragment="import_py_enum") {
 %#include <cstdarg>
-static PyObject* Py_IntEnum = NULL;
 static PyObject* _get_enum_object(const char* name, const char* doc,
                                   PyObject* enum_list) {
     if (!enum_list)
@@ -116,6 +133,12 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
 }
 
 %define CLASS_ENUM(class, name, doc, contents...)
+// typemap to disambiguate enum from int
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
+         fragment="import_py_enum") Exiv2::class::name {
+    $1 = PyObject_IsInstance($input, Py_IntEnum);
+}
+
 %fragment("get_enum_list");
 %fragment("get_enum_object");
 // Add enum to type object during module init

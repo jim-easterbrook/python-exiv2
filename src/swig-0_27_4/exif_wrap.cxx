@@ -4553,6 +4553,9 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 }
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
   #define SWIG_From_double   PyFloat_FromDouble 
 
 
@@ -12881,6 +12884,17 @@ SWIG_init(void) {
   /* type '::ExifData_iterator' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__ExifData_iterator_type;
   builtin_pytype->tp_dict = d = PyDict_New();
+  
+  {
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+    return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+    return NULL;
+  }
+  
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;

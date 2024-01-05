@@ -4553,6 +4553,9 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 }
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
 SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
@@ -4775,7 +4778,6 @@ SWIG_From_std_string  (const std::string& s)
 
 
 #include <cstdarg>
-static PyObject* Py_IntEnum = NULL;
 static PyObject* _get_enum_object(const char* name, const char* doc,
                                   PyObject* enum_list) {
     if (!enum_list)
@@ -11454,6 +11456,17 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "beg",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::beg)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "cur",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::cur)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "end",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::end)));
+  
+  {
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+    return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+    return NULL;
+  }
+  
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -11643,17 +11656,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "HttpIo", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "HttpIo");
   d = md;
-  
-  {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-    return NULL;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum)
-    return NULL;
-  }
-  
   
   {
     PyObject* enum_obj = _get_enum_object(

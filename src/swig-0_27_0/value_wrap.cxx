@@ -5350,6 +5350,9 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 }
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
 SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
@@ -6424,7 +6427,6 @@ SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self)
     }
 
 #include <cstdarg>
-static PyObject* Py_IntEnum = NULL;
 static PyObject* _get_enum_object(const char* name, const char* doc,
                                   PyObject* enum_list) {
     if (!enum_list)
@@ -6817,7 +6819,7 @@ SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg____setitem____SWIG_1(Exiv2::ValueT
 SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg__append(Exiv2::ValueType< int16_t > *self,int16_t value){
         self->value_.push_back(value);
     }
-SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_6(Exiv2::Value const &value){
+SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_7(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use '""Exiv2::ValueType<int32_t>" ".clone()' to copy value", 1);
         Exiv2::ValueType<int32_t>* pv = dynamic_cast< Exiv2::ValueType<int32_t>* >(value.clone().release());
@@ -6845,7 +6847,7 @@ SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_7(Exiv2::ValueType< int32_t >::ValueList value){
+SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_8(Exiv2::ValueType< int32_t >::ValueList value){
         Exiv2::ValueType<int32_t>* result = new Exiv2::ValueType<int32_t>();
         result->value_ = value;
         return result;
@@ -9150,24 +9152,23 @@ SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwa
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
     }
     if (!_v) goto check_2;
-    return _wrap_new_DataValue__SWIG_5(self, argc, argv);
+    return _wrap_new_DataValue__SWIG_0(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
     int _v = 0;
     {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_3;
-    return _wrap_new_DataValue__SWIG_0(self, argc, argv);
+    return _wrap_new_DataValue__SWIG_5(self, argc, argv);
   }
 check_3:
   
@@ -13385,24 +13386,23 @@ SWIGINTERN int _wrap_new_XmpArrayValue(PyObject *self, PyObject *args, PyObject 
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
     }
     if (!_v) goto check_2;
-    return _wrap_new_XmpArrayValue__SWIG_2(self, argc, argv);
+    return _wrap_new_XmpArrayValue__SWIG_0(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
     int _v = 0;
     {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_3;
-    return _wrap_new_XmpArrayValue__SWIG_0(self, argc, argv);
+    return _wrap_new_XmpArrayValue__SWIG_2(self, argc, argv);
   }
 check_3:
   
@@ -18825,13 +18825,25 @@ SWIGINTERN int _wrap_new_UShortValue(PyObject *self, PyObject *args, PyObject *k
   if (argc == 1) {
     int _v = 0;
     {
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_UShortValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_2;
+    if (!_v) goto check_3;
     return _wrap_new_UShortValue__SWIG_6(self, argc, argv);
   }
-check_2:
+check_3:
   
   if (argc == 1) {
     int _v = 0;
@@ -18839,10 +18851,10 @@ check_2:
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_3;
+    if (!_v) goto check_4;
     return _wrap_new_UShortValue__SWIG_7(self, argc, argv);
   }
-check_3:
+check_4:
   
   if (argc == 1) {
     int _v = 0;
@@ -18852,21 +18864,8 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
-    return _wrap_new_UShortValue__SWIG_5(self, argc, argv);
-  }
-check_4:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
-    }
     if (!_v) goto check_5;
-    return _wrap_new_UShortValue__SWIG_1(self, argc, argv);
+    return _wrap_new_UShortValue__SWIG_5(self, argc, argv);
   }
 check_5:
   
@@ -20242,13 +20241,25 @@ SWIGINTERN int _wrap_new_ULongValue(PyObject *self, PyObject *args, PyObject *kw
   if (argc == 1) {
     int _v = 0;
     {
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_ULongValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_2;
+    if (!_v) goto check_3;
     return _wrap_new_ULongValue__SWIG_6(self, argc, argv);
   }
-check_2:
+check_3:
   
   if (argc == 1) {
     int _v = 0;
@@ -20256,10 +20267,10 @@ check_2:
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_3;
+    if (!_v) goto check_4;
     return _wrap_new_ULongValue__SWIG_7(self, argc, argv);
   }
-check_3:
+check_4:
   
   if (argc == 1) {
     int _v = 0;
@@ -20269,21 +20280,8 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
-    return _wrap_new_ULongValue__SWIG_5(self, argc, argv);
-  }
-check_4:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
-    }
     if (!_v) goto check_5;
-    return _wrap_new_ULongValue__SWIG_1(self, argc, argv);
+    return _wrap_new_ULongValue__SWIG_5(self, argc, argv);
   }
 check_5:
   
@@ -21669,13 +21667,25 @@ SWIGINTERN int _wrap_new_URationalValue(PyObject *self, PyObject *args, PyObject
   if (argc == 1) {
     int _v = 0;
     {
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_URationalValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_2;
+    if (!_v) goto check_3;
     return _wrap_new_URationalValue__SWIG_6(self, argc, argv);
   }
-check_2:
+check_3:
   
   if (argc == 1) {
     int _v = 0;
@@ -21683,21 +21693,8 @@ check_2:
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_3;
-    return _wrap_new_URationalValue__SWIG_7(self, argc, argv);
-  }
-check_3:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
-    }
     if (!_v) goto check_4;
-    return _wrap_new_URationalValue__SWIG_1(self, argc, argv);
+    return _wrap_new_URationalValue__SWIG_7(self, argc, argv);
   }
 check_4:
   
@@ -23086,13 +23083,25 @@ SWIGINTERN int _wrap_new_ShortValue(PyObject *self, PyObject *args, PyObject *kw
   if (argc == 1) {
     int _v = 0;
     {
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_ShortValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_2;
+    if (!_v) goto check_3;
     return _wrap_new_ShortValue__SWIG_6(self, argc, argv);
   }
-check_2:
+check_3:
   
   if (argc == 1) {
     int _v = 0;
@@ -23100,10 +23109,10 @@ check_2:
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_3;
+    if (!_v) goto check_4;
     return _wrap_new_ShortValue__SWIG_7(self, argc, argv);
   }
-check_3:
+check_4:
   
   if (argc == 1) {
     int _v = 0;
@@ -23113,21 +23122,8 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
-    return _wrap_new_ShortValue__SWIG_5(self, argc, argv);
-  }
-check_4:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
-    }
     if (!_v) goto check_5;
-    return _wrap_new_ShortValue__SWIG_1(self, argc, argv);
+    return _wrap_new_ShortValue__SWIG_5(self, argc, argv);
   }
 check_5:
   
@@ -23384,6 +23380,38 @@ fail:
 
 SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
+  Exiv2::TypeId arg1 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  Exiv2::ValueType< int32_t > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_LongValue" "', argument " "1"" of type '" "Exiv2::TypeId""'");
+  } 
+  arg1 = static_cast< Exiv2::TypeId >(val1);
+  {
+    try {
+      result = (Exiv2::ValueType< int32_t > *)new Exiv2::ValueType< int32_t >(arg1);
+      
+    } catch(Exiv2::AnyError const& e) {
+      PyErr_SetString(PyExc_Exiv2Error, e.what());
+      SWIG_fail;
+    } catch(std::exception const& e) {
+      PyErr_SetString(PyExc_RuntimeError, e.what());
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
+SWIGINTERN int _wrap_new_LongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   long arg2 ;
   Exiv2::ByteOrder arg3 ;
@@ -23442,7 +23470,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_LongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_LongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
   long arg2 ;
@@ -23494,7 +23522,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_LongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_LongValue__SWIG_4(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   int *arg1 = 0 ;
   Exiv2::TypeId arg2 ;
@@ -23536,7 +23564,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_LongValue__SWIG_4(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_LongValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   int *arg1 = 0 ;
   int temp1 ;
@@ -23570,7 +23598,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_LongValue__SWIG_5(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_LongValue__SWIG_6(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< int > *arg1 = 0 ;
   void *argp1 = 0 ;
@@ -24384,7 +24412,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_LongValue__SWIG_6(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_LongValue__SWIG_7(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::Value *arg1 = 0 ;
   void *argp1 = 0 ;
@@ -24402,7 +24430,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_6(PyObject *self, Py_ssize_t nobjs, PyO
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
     try {
-      result = (Exiv2::ValueType< int32_t > *)new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_6((Exiv2::Value const &)*arg1);
+      result = (Exiv2::ValueType< int32_t > *)new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_7((Exiv2::Value const &)*arg1);
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -24419,7 +24447,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_LongValue__SWIG_7(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN int _wrap_new_LongValue__SWIG_8(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< int32_t >::ValueList arg1 ;
   Exiv2::ValueType< int32_t > *result = 0 ;
@@ -24436,7 +24464,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_7(PyObject *self, Py_ssize_t nobjs, PyO
   }
   {
     try {
-      result = (Exiv2::ValueType< int32_t > *)new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_7(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< int32_t > *)new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_8(SWIG_STD_MOVE(arg1));
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -24471,18 +24499,19 @@ SWIGINTERN int _wrap_new_LongValue(PyObject *self, PyObject *args, PyObject *kwa
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
     }
     if (!_v) goto check_2;
-    return _wrap_new_LongValue__SWIG_5(self, argc, argv);
+    return _wrap_new_LongValue__SWIG_1(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_3;
@@ -24493,18 +24522,29 @@ check_3:
   if (argc == 1) {
     int _v = 0;
     {
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_4;
+    return _wrap_new_LongValue__SWIG_7(self, argc, argv);
+  }
+check_4:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       {
         int res = SWIG_AsVal_int(argv[0], NULL);
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
-    return _wrap_new_LongValue__SWIG_4(self, argc, argv);
+    if (!_v) goto check_5;
+    return _wrap_new_LongValue__SWIG_5(self, argc, argv);
   }
-check_4:
+check_5:
   
   if (argc == 1) {
-    int retval = _wrap_new_LongValue__SWIG_7(self, argc, argv);
+    int retval = _wrap_new_LongValue__SWIG_8(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -24516,20 +24556,20 @@ check_4:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_6;
+    if (!_v) goto check_7;
+    int retval = _wrap_new_LongValue__SWIG_4(self, argc, argv);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+check_7:
+  
+  if (argc == 2) {
     int retval = _wrap_new_LongValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_6:
-  
-  if (argc == 2) {
-    int retval = _wrap_new_LongValue__SWIG_2(self, argc, argv);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
   if (argc == 3) {
-    int retval = _wrap_new_LongValue__SWIG_1(self, argc, argv);
+    int retval = _wrap_new_LongValue__SWIG_2(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -24538,6 +24578,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_LongValue'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::ValueType< int32_t >::ValueType()\n"
+    "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(int const &,Exiv2::TypeId)\n"
@@ -25884,13 +25925,25 @@ SWIGINTERN int _wrap_new_RationalValue(PyObject *self, PyObject *args, PyObject 
   if (argc == 1) {
     int _v = 0;
     {
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_RationalValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_2;
+    if (!_v) goto check_3;
     return _wrap_new_RationalValue__SWIG_6(self, argc, argv);
   }
-check_2:
+check_3:
   
   if (argc == 1) {
     int _v = 0;
@@ -25898,21 +25951,8 @@ check_2:
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_3;
-    return _wrap_new_RationalValue__SWIG_7(self, argc, argv);
-  }
-check_3:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
-    }
     if (!_v) goto check_4;
-    return _wrap_new_RationalValue__SWIG_1(self, argc, argv);
+    return _wrap_new_RationalValue__SWIG_7(self, argc, argv);
   }
 check_4:
   
@@ -27301,13 +27341,25 @@ SWIGINTERN int _wrap_new_FloatValue(PyObject *self, PyObject *args, PyObject *kw
   if (argc == 1) {
     int _v = 0;
     {
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_FloatValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_2;
+    if (!_v) goto check_3;
     return _wrap_new_FloatValue__SWIG_6(self, argc, argv);
   }
-check_2:
+check_3:
   
   if (argc == 1) {
     int _v = 0;
@@ -27315,21 +27367,8 @@ check_2:
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_3;
-    return _wrap_new_FloatValue__SWIG_7(self, argc, argv);
-  }
-check_3:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
-    }
     if (!_v) goto check_4;
-    return _wrap_new_FloatValue__SWIG_1(self, argc, argv);
+    return _wrap_new_FloatValue__SWIG_7(self, argc, argv);
   }
 check_4:
   
@@ -28718,13 +28757,25 @@ SWIGINTERN int _wrap_new_DoubleValue(PyObject *self, PyObject *args, PyObject *k
   if (argc == 1) {
     int _v = 0;
     {
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_DoubleValue__SWIG_1(self, argc, argv);
+  }
+check_2:
+  
+  if (argc == 1) {
+    int _v = 0;
+    {
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_2;
+    if (!_v) goto check_3;
     return _wrap_new_DoubleValue__SWIG_6(self, argc, argv);
   }
-check_2:
+check_3:
   
   if (argc == 1) {
     int _v = 0;
@@ -28732,21 +28783,8 @@ check_2:
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_3;
-    return _wrap_new_DoubleValue__SWIG_7(self, argc, argv);
-  }
-check_3:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
-    }
     if (!_v) goto check_4;
-    return _wrap_new_DoubleValue__SWIG_1(self, argc, argv);
+    return _wrap_new_DoubleValue__SWIG_7(self, argc, argv);
   }
 check_4:
   
@@ -34404,6 +34442,11 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_getset[] = {
 		"|\n"
 		"\n"
 		"*Overload 6:*\n"
+		"Constructor.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 7:*\n"
 		"Copy constructor\n"
 		"", &LongValue___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
@@ -36313,6 +36356,17 @@ SWIG_init(void) {
   /* type 'Exiv2::Value' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__Value_type;
   builtin_pytype->tp_dict = d = PyDict_New();
+  
+  {
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+    return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+    return NULL;
+  }
+  
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -36764,17 +36818,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "Time", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Time");
   d = md;
-  
-  {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-    return NULL;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum)
-    return NULL;
-  }
-  
   
   {
     PyObject* enum_obj = _get_enum_object(

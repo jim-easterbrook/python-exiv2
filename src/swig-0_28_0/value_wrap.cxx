@@ -5469,6 +5469,9 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
 }
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
 SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
@@ -6594,7 +6597,6 @@ SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self)
     }
 
 #include <cstdarg>
-static PyObject* Py_IntEnum = NULL;
 static PyObject* _get_enum_object(const char* name, const char* doc,
                                   PyObject* enum_list) {
     if (!enum_list)
@@ -9515,24 +9517,23 @@ SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwa
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
     }
     if (!_v) goto check_2;
-    return _wrap_new_DataValue__SWIG_5(self, argc, argv);
+    return _wrap_new_DataValue__SWIG_0(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
     int _v = 0;
     {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_3;
-    return _wrap_new_DataValue__SWIG_0(self, argc, argv);
+    return _wrap_new_DataValue__SWIG_5(self, argc, argv);
   }
 check_3:
   
@@ -14221,24 +14222,23 @@ SWIGINTERN int _wrap_new_XmpArrayValue(PyObject *self, PyObject *args, PyObject 
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
+      {
+        _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+      }
     }
     if (!_v) goto check_2;
-    return _wrap_new_XmpArrayValue__SWIG_2(self, argc, argv);
+    return _wrap_new_XmpArrayValue__SWIG_0(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
     int _v = 0;
     {
-      {
-        int res = SWIG_AsVal_int(argv[0], NULL);
-        _v = SWIG_CheckState(res);
-      }
+      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_3;
-    return _wrap_new_XmpArrayValue__SWIG_0(self, argc, argv);
+    return _wrap_new_XmpArrayValue__SWIG_2(self, argc, argv);
   }
 check_3:
   
@@ -38208,6 +38208,17 @@ SWIG_init(void) {
   /* type 'Exiv2::Value' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__Value_type;
   builtin_pytype->tp_dict = d = PyDict_New();
+  
+  {
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+    return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+    return NULL;
+  }
+  
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -38659,17 +38670,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "Time", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Time");
   d = md;
-  
-  {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-    return NULL;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum)
-    return NULL;
-  }
-  
   
   {
     PyObject* enum_obj = _get_enum_object(

@@ -4288,8 +4288,10 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
-#include <cstdarg>
 static PyObject* Py_IntEnum = NULL;
+
+
+#include <cstdarg>
 static PyObject* _get_enum_object(const char* name, const char* doc,
                                   PyObject* enum_list) {
     if (!enum_list)

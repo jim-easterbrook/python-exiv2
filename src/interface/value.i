@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -520,9 +520,6 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 %feature("notabstract") Exiv2::LangAltValue;
 %feature("notabstract") Exiv2::XmpArrayValue;
 %feature("notabstract") Exiv2::XmpTextValue;
-
-// Ignore ambiguous constructor
-%ignore Exiv2::ValueType< int32_t >::ValueType(TypeId typeId);
 
 // Ignore overloaded static xmpArrayType method. SWIG gets confused and makes
 // the other method static as well.
