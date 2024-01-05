@@ -6423,22 +6423,18 @@ SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self)
         return result;
     }
 
-
-static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
-    PyObject* module = NULL;
-    PyObject* IntEnum = NULL;
-    PyObject* result = NULL;
-    module = PyImport_ImportModule("enum");
-    if (!module)
-        goto fail;
-    IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    if (!IntEnum)
-        goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
-fail:
-    Py_XDECREF(module);
-    Py_XDECREF(IntEnum);
-    Py_XDECREF(enum_list);
+#include <cstdarg>
+static PyObject* Py_IntEnum = NULL;
+static PyObject* _get_enum_object(const char* name, const char* doc,
+                                  PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
+                                             name, enum_list);
+    if (!result)
+        return NULL;
+    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
     return result;
 };
 
@@ -36770,14 +36766,20 @@ SWIG_init(void) {
   d = md;
   
   {
-    PyObject* enum_obj = _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL);
-    if (!enum_obj)
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
     return NULL;
-    enum_obj = _get_enum_object("CharsetId", enum_obj);
-    if (!enum_obj)
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
     return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("Character set identifiers for the character sets defined by Exif.")))
+  }
+  
+  
+  {
+    PyObject* enum_obj = _get_enum_object(
+      "CharsetId", "Character set identifiers for the character sets defined by Exif.", _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL));
+    if (!enum_obj)
     return NULL;
     PyTypeObject* type =
     (PyTypeObject *)&SwigPyBuiltin__Exiv2__CommentValue_type;
@@ -36787,14 +36789,9 @@ SWIG_init(void) {
   
   
   {
-    PyObject* enum_obj = _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL);
+    PyObject* enum_obj = _get_enum_object(
+      "XmpArrayType", "XMP array types.", _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL));
     if (!enum_obj)
-    return NULL;
-    enum_obj = _get_enum_object("XmpArrayType", enum_obj);
-    if (!enum_obj)
-    return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("XMP array types.")))
     return NULL;
     PyTypeObject* type =
     (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpValue_type;
@@ -36804,14 +36801,9 @@ SWIG_init(void) {
   
   
   {
-    PyObject* enum_obj = _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL);
+    PyObject* enum_obj = _get_enum_object(
+      "XmpStruct", "XMP structure indicator.", _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL));
     if (!enum_obj)
-    return NULL;
-    enum_obj = _get_enum_object("XmpStruct", enum_obj);
-    if (!enum_obj)
-    return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("XMP structure indicator.")))
     return NULL;
     PyTypeObject* type =
     (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpValue_type;

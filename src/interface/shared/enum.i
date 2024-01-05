@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -45,14 +45,9 @@ static PyObject* _get_enum_list(int dummy, ...) {
 // Add enum to module during init
 %init %{
 {
-    PyObject* enum_obj = _get_enum_list(0, contents, NULL);
+    PyObject* enum_obj = _get_enum_object(
+        "name", doc, _get_enum_list(0, contents, NULL));
     if (!enum_obj)
-        return NULL;
-    enum_obj = _get_enum_object("name", enum_obj);
-    if (!enum_obj)
-        return NULL;
-    if (PyObject_SetAttrString(
-            enum_obj, "__doc__", PyUnicode_FromString(doc)))
         return NULL;
     PyModule_AddObject(m, "name", enum_obj);
     SwigPyBuiltin_AddPublicSymbol(public_interface, "name");
@@ -92,23 +87,30 @@ enum_name.__doc__ = doc
 %enddef // DEPRECATED_ENUM
 
 // Function to generate Python enum
-%fragment("get_enum_object", "header") {
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
-    PyObject* module = NULL;
-    PyObject* IntEnum = NULL;
-    PyObject* result = NULL;
-    module = PyImport_ImportModule("enum");
+%fragment("_import_py_enum", "init") {
+{
+    PyObject* module = PyImport_ImportModule("enum");
     if (!module)
-        goto fail;
-    IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    if (!IntEnum)
-        goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
-fail:
-    Py_XDECREF(module);
-    Py_XDECREF(IntEnum);
-    Py_XDECREF(enum_list);
+        return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+        return NULL;
+}
+}
+%fragment("get_enum_object", "header", fragment="_import_py_enum") {
+%#include <cstdarg>
+static PyObject* Py_IntEnum = NULL;
+static PyObject* _get_enum_object(const char* name, const char* doc,
+                                  PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
+                                             name, enum_list);
+    if (!result)
+        return NULL;
+    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
     return result;
 };
 }
@@ -119,14 +121,9 @@ fail:
 // Add enum to type object during module init
 %init %{
 {
-    PyObject* enum_obj = _get_enum_list(0, contents, NULL);
+    PyObject* enum_obj = _get_enum_object(
+        "name", doc, _get_enum_list(0, contents, NULL));
     if (!enum_obj)
-        return NULL;
-    enum_obj = _get_enum_object("name", enum_obj);
-    if (!enum_obj)
-        return NULL;
-    if (PyObject_SetAttrString(
-            enum_obj, "__doc__", PyUnicode_FromString(doc)))
         return NULL;
     PyTypeObject* type =
         (PyTypeObject *)&SwigPyBuiltin__Exiv2__##class##_type;

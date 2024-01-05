@@ -4288,22 +4288,18 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
-
-static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
-    PyObject* module = NULL;
-    PyObject* IntEnum = NULL;
-    PyObject* result = NULL;
-    module = PyImport_ImportModule("enum");
-    if (!module)
-        goto fail;
-    IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    if (!IntEnum)
-        goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
-fail:
-    Py_XDECREF(module);
-    Py_XDECREF(IntEnum);
-    Py_XDECREF(enum_list);
+#include <cstdarg>
+static PyObject* Py_IntEnum = NULL;
+static PyObject* _get_enum_object(const char* name, const char* doc,
+                                  PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
+                                             name, enum_list);
+    if (!result)
+        return NULL;
+    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
     return result;
 };
 
@@ -8039,14 +8035,20 @@ SWIG_init(void) {
   
   
   {
-    PyObject* enum_obj = _get_enum_list(0, "none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL);
-    if (!enum_obj)
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
     return NULL;
-    enum_obj = _get_enum_object("AccessMode", enum_obj);
-    if (!enum_obj)
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
     return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("An identifier for each mode of metadata support.")))
+  }
+  
+  
+  {
+    PyObject* enum_obj = _get_enum_object(
+      "AccessMode", "An identifier for each mode of metadata support.", _get_enum_list(0, "none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL));
+    if (!enum_obj)
     return NULL;
     PyModule_AddObject(m, "AccessMode", enum_obj);
     SwigPyBuiltin_AddPublicSymbol(public_interface, "AccessMode");
@@ -8054,14 +8056,9 @@ SWIG_init(void) {
   
   
   {
-    PyObject* enum_obj = _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL);
+    PyObject* enum_obj = _get_enum_object(
+      "ByteOrder", "Type to express the byte order (little or big endian).", _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL));
     if (!enum_obj)
-    return NULL;
-    enum_obj = _get_enum_object("ByteOrder", enum_obj);
-    if (!enum_obj)
-    return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("Type to express the byte order (little or big endian).")))
     return NULL;
     PyModule_AddObject(m, "ByteOrder", enum_obj);
     SwigPyBuiltin_AddPublicSymbol(public_interface, "ByteOrder");
@@ -8069,14 +8066,9 @@ SWIG_init(void) {
   
   
   {
-    PyObject* enum_obj = _get_enum_list(0, "none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL);
+    PyObject* enum_obj = _get_enum_object(
+      "MetadataId", "An identifier for each type of metadata.", _get_enum_list(0, "none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL));
     if (!enum_obj)
-    return NULL;
-    enum_obj = _get_enum_object("MetadataId", enum_obj);
-    if (!enum_obj)
-    return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("An identifier for each type of metadata.")))
     return NULL;
     PyModule_AddObject(m, "MetadataId", enum_obj);
     SwigPyBuiltin_AddPublicSymbol(public_interface, "MetadataId");
@@ -8084,16 +8076,11 @@ SWIG_init(void) {
   
   
   {
-    PyObject* enum_obj = _get_enum_list(0, "unsignedByte",Exiv2::unsignedByte,"asciiString",Exiv2::asciiString,"unsignedShort",Exiv2::unsignedShort,"unsignedLong",Exiv2::unsignedLong,"unsignedRational",Exiv2::unsignedRational,"signedByte",Exiv2::signedByte,"undefined",Exiv2::undefined,"signedShort",Exiv2::signedShort,"signedLong",Exiv2::signedLong,"signedRational",Exiv2::signedRational,"tiffFloat",Exiv2::tiffFloat,"tiffDouble",Exiv2::tiffDouble,"tiffIfd",Exiv2::tiffIfd,"string",Exiv2::string,"date",Exiv2::date,"time",Exiv2::time,"comment",Exiv2::comment,"directory",Exiv2::directory,"xmpText",Exiv2::xmpText,"xmpAlt",Exiv2::xmpAlt,"xmpBag",Exiv2::xmpBag,"xmpSeq",Exiv2::xmpSeq,"langAlt",Exiv2::langAlt,"invalidTypeId",Exiv2::invalidTypeId,"lastTypeId",Exiv2::lastTypeId, NULL);
+    PyObject* enum_obj = _get_enum_object(
+      "TypeId", "Exiv2 value type identifiers.\n"
+      "\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
+      "\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.", _get_enum_list(0, "unsignedByte",Exiv2::unsignedByte,"asciiString",Exiv2::asciiString,"unsignedShort",Exiv2::unsignedShort,"unsignedLong",Exiv2::unsignedLong,"unsignedRational",Exiv2::unsignedRational,"signedByte",Exiv2::signedByte,"undefined",Exiv2::undefined,"signedShort",Exiv2::signedShort,"signedLong",Exiv2::signedLong,"signedRational",Exiv2::signedRational,"tiffFloat",Exiv2::tiffFloat,"tiffDouble",Exiv2::tiffDouble,"tiffIfd",Exiv2::tiffIfd,"string",Exiv2::string,"date",Exiv2::date,"time",Exiv2::time,"comment",Exiv2::comment,"directory",Exiv2::directory,"xmpText",Exiv2::xmpText,"xmpAlt",Exiv2::xmpAlt,"xmpBag",Exiv2::xmpBag,"xmpSeq",Exiv2::xmpSeq,"langAlt",Exiv2::langAlt,"invalidTypeId",Exiv2::invalidTypeId,"lastTypeId",Exiv2::lastTypeId, NULL));
     if (!enum_obj)
-    return NULL;
-    enum_obj = _get_enum_object("TypeId", enum_obj);
-    if (!enum_obj)
-    return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("Exiv2 value type identifiers.\n"
-          "\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
-          "\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.")))
     return NULL;
     PyModule_AddObject(m, "TypeId", enum_obj);
     SwigPyBuiltin_AddPublicSymbol(public_interface, "TypeId");
