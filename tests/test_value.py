@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -453,6 +453,13 @@ class TestValueModule(unittest.TestCase):
             value, exiv2.TypeId.unsignedShort, text, data, sequence=sequence)
         self.do_conversion_tests(value, str(sequence[0]), sequence[0])
         self.do_dataarea_tests(value, has_dataarea=True)
+        # data range
+        value = exiv2.UShortValue((1<<16) - 1)
+        with self.assertRaises(TypeError):
+            value = exiv2.UShortValue(1<<16)
+        value = exiv2.UShortValue(0)
+        with self.assertRaises(TypeError):
+            value = exiv2.UShortValue(-1)
 
     def test_URationalValue(self):
         sequence = ((4, 3), (7, 13), (23, 3))
@@ -482,6 +489,13 @@ class TestValueModule(unittest.TestCase):
         self.do_conversion_tests(
             value, '{}/{}'.format(*sequence[0]), Fraction(*sequence[0]))
         self.do_dataarea_tests(value, has_dataarea=True)
+        # data range
+        value = exiv2.URationalValue([((1<<32) - 1, 1)])
+        with self.assertRaises(TypeError):
+            value = exiv2.URationalValue([(1<<32, 1)])
+        value = exiv2.URationalValue([(0, 1)])
+        with self.assertRaises(TypeError):
+            value = exiv2.URationalValue([(-1, 1)])
 
 
 if __name__ == '__main__':
