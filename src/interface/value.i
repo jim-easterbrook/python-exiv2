@@ -168,8 +168,29 @@ UNIQUE_PTR(type_name)
 %enddef // SUBSCRIPT_SINGLE
 
 // Macro for Exiv2::ValueType classes
-%define VALUETYPE(type_name, item_type)
+%define VALUETYPE(type_name, item_type, type_id)
 VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
+// Use default typemap to handle "TypeId typeId=getType< T >()"
+%typemap(default) Exiv2::TypeId typeId {$1 = type_id;}
+// Ignore now overloaded constructors
+%ignore Exiv2::ValueType<item_type>::ValueType(item_type const &);
+#if EXIV2_VERSION_HEX < 0x001c0000
+%ignore Exiv2::ValueType<item_type>::ValueType(
+    byte const *, long, ByteOrder);
+%ignore Exiv2::ValueType<item_type>::ValueType();
+#else
+%ignore Exiv2::ValueType<item_type>::ValueType(
+    byte const *, size_t, ByteOrder);
+#endif
+// Also need to ignore equivalent primitive type definitions
+%ignore Exiv2::ValueType<item_type>::ValueType(short const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(unsigned short const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(int const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(unsigned int const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(std::pair< int,int > const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(
+    std::pair< unsigned int,unsigned int > const &);
+// Access values as a list
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     Exiv2::ValueType<item_type>::__getitem__;
 // sq_ass_item would be more logical, but it doesn't work for deletion
@@ -554,11 +575,11 @@ CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
     "xsNone",   Exiv2::XmpValue::xsNone,
     "xsStruct", Exiv2::XmpValue::xsStruct);
 
-VALUETYPE(UShortValue, uint16_t)
-VALUETYPE(ULongValue, uint32_t)
-VALUETYPE(URationalValue, Exiv2::URational)
-VALUETYPE(ShortValue, int16_t)
-VALUETYPE(LongValue, int32_t)
-VALUETYPE(RationalValue, Exiv2::Rational)
-VALUETYPE(FloatValue, float)
-VALUETYPE(DoubleValue, double)
+VALUETYPE(UShortValue, uint16_t, Exiv2::unsignedShort)
+VALUETYPE(ULongValue, uint32_t, Exiv2::unsignedLong)
+VALUETYPE(URationalValue, Exiv2::URational, Exiv2::unsignedRational)
+VALUETYPE(ShortValue, int16_t, Exiv2::signedShort)
+VALUETYPE(LongValue, int32_t, Exiv2::signedLong)
+VALUETYPE(RationalValue, Exiv2::Rational, Exiv2::signedRational)
+VALUETYPE(FloatValue, float, Exiv2::tiffFloat)
+VALUETYPE(DoubleValue, double, Exiv2::tiffDouble)
