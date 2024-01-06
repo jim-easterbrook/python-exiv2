@@ -166,9 +166,12 @@ else:
         im.write('__version__ = "%s"\n' % py_exiv2_version)
         im.write('__version_tuple__ = tuple((%s))\n\n' % ', '.join(
             py_exiv2_version.split('.')))
+        im.write('__all__ = []\n')
         for name in ext_names:
             im.write('from exiv2.%s import *\n' % name)
-        im.write("\n__all__ = [x for x in dir() if x[0] != '_']\n")
+            im.write('__all__ += exiv2._%s.__all__\n' % name)
+        im.write("\n__all__ = [x for x in __all__ if x[0] != '_']\n")
+        im.write('__all__.sort()\n')
     return 0
 
 
