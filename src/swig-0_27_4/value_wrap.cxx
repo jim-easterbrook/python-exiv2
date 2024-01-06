@@ -6096,8 +6096,9 @@ namespace swig {
 	};
       }
     
-SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_3(std::vector< std::string,std::allocator< std::string > > value,Exiv2::TypeId typeId=Exiv2::xmpBag){
-        Exiv2::XmpArrayValue* result = new Exiv2::XmpArrayValue(typeId);
+SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_3(std::vector< std::string,std::allocator< std::string > > value,Exiv2::TypeId typeId_xmpBag){
+        Exiv2::XmpArrayValue* result =
+            new Exiv2::XmpArrayValue(typeId_xmpBag);
         for (std::vector<std::string>::const_iterator i = value.begin();
              i != value.end(); ++i) {
             result->read(*i);
@@ -13300,7 +13301,10 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_3(PyObject *self, Py_ssize_t nobjs,
   int ecode2 = 0 ;
   Exiv2::XmpArrayValue *result = 0 ;
   
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  {
+    arg2 = Exiv2::xmpBag;
+  }
+  if ((nobjs < 1) || (nobjs > 2)) SWIG_fail;
   {
     std::vector< std::string,std::allocator< std::string > > *ptr = (std::vector< std::string,std::allocator< std::string > > *)0;
     int res = swig::asptr(swig_obj[0], &ptr);
@@ -13310,48 +13314,16 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_3(PyObject *self, Py_ssize_t nobjs,
     arg1 = *ptr;
     if (SWIG_IsNewObj(res)) delete ptr;
   }
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_XmpArrayValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
-  } 
-  arg2 = static_cast< Exiv2::TypeId >(val2);
+  if (swig_obj[1]) {
+    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_XmpArrayValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
+    } 
+    arg2 = static_cast< Exiv2::TypeId >(val2);
+  }
   {
     try {
       result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_3(SWIG_STD_MOVE(arg1),arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpArrayValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_4(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< std::string,std::allocator< std::string > > arg1 ;
-  Exiv2::XmpArrayValue *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    std::vector< std::string,std::allocator< std::string > > *ptr = (std::vector< std::string,std::allocator< std::string > > *)0;
-    int res = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res) || !ptr) {
-      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_XmpArrayValue" "', argument " "1"" of type '" "std::vector< std::string,std::allocator< std::string > >""'"); 
-    }
-    arg1 = *ptr;
-    if (SWIG_IsNewObj(res)) delete ptr;
-  }
-  {
-    try {
-      result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_3(SWIG_STD_MOVE(arg1));
       
     } catch(Exiv2::AnyError const& e) {
       PyErr_SetString(PyExc_Exiv2Error, e.what());
@@ -13406,12 +13378,7 @@ check_2:
   }
 check_3:
   
-  if (argc == 1) {
-    int retval = _wrap_new_XmpArrayValue__SWIG_4(self, argc, argv);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 2) {
+  if ((argc >= 1) && (argc <= 2)) {
     int retval = _wrap_new_XmpArrayValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
@@ -13423,8 +13390,7 @@ fail:
     "    Exiv2::XmpArrayValue::XmpArrayValue(Exiv2::TypeId)\n"
     "    Exiv2::XmpArrayValue::XmpArrayValue()\n"
     "    Exiv2::XmpArrayValue::XmpArrayValue(Exiv2::Value const &)\n"
-    "    Exiv2::XmpArrayValue::XmpArrayValue(std::vector< std::string,std::allocator< std::string > >,Exiv2::TypeId)\n"
-    "    Exiv2::XmpArrayValue::XmpArrayValue(std::vector< std::string,std::allocator< std::string > >)\n");
+    "    Exiv2::XmpArrayValue::XmpArrayValue(std::vector< std::string,std::allocator< std::string > >,Exiv2::TypeId)\n");
   return -1;
 }
 

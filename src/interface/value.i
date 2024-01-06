@@ -499,12 +499,14 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     Exiv2::XmpArrayValue::count;
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     Exiv2::XmpArrayValue::__getitem__;
+%typemap(default) Exiv2::TypeId typeId_xmpBag {$1 = Exiv2::xmpBag;}
 %template() std::vector<std::string>;
 %extend Exiv2::XmpArrayValue {
     // Constructor, reads values from a Python list
     XmpArrayValue(std::vector<std::string> value,
-                  Exiv2::TypeId typeId=Exiv2::xmpBag) {
-        Exiv2::XmpArrayValue* result = new Exiv2::XmpArrayValue(typeId);
+                  Exiv2::TypeId typeId_xmpBag) {
+        Exiv2::XmpArrayValue* result =
+            new Exiv2::XmpArrayValue(typeId_xmpBag);
         for (std::vector<std::string>::const_iterator i = value.begin();
              i != value.end(); ++i) {
             result->read(*i);
