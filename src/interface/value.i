@@ -31,6 +31,7 @@
 %include "std_map.i"
 %include "std_string.i"
 %include "std_vector.i"
+%include "typemaps.i"
 
 %import "types.i"
 
@@ -202,6 +203,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %feature("docstring") Exiv2::ValueType<item_type>::append
 "Append a " #item_type " component to the value."
 %template() std::vector<item_type>;
+%typemap(default) const item_type* INPUT {$1 = NULL;}
 %extend Exiv2::ValueType<item_type> {
     // Constructor, reads values from a Python list
     ValueType<item_type>(Exiv2::ValueType<item_type>::ValueList value) {
@@ -212,11 +214,11 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     item_type __getitem__(long multi_idx) {
         return $self->value_[multi_idx];
     }
-    void __setitem__(long multi_idx, item_type value) {
-        $self->value_[multi_idx] = value;
-    }
-    void __setitem__(long multi_idx) {
-        $self->value_.erase($self->value_.begin() + multi_idx);
+    void __setitem__(long multi_idx, const item_type* INPUT) {
+        if (INPUT)
+            $self->value_[multi_idx] = *INPUT;
+        else
+            $self->value_.erase($self->value_.begin() + multi_idx);
     }
     void append(item_type value) {
         $self->value_.push_back(value);
@@ -398,6 +400,7 @@ components."
 %noexception Exiv2::LangAltValue::values;
 %template() std::map<
     std::string, std::string, Exiv2::LangAltValueComparator>;
+%typemap(default) const std::string* INPUT {$1 = NULL;}
 %extend Exiv2::LangAltValue {
     // Constructor, reads values from a Python dict
     LangAltValue(Exiv2::LangAltValue::ValueType value) {
@@ -437,17 +440,18 @@ components."
         }
         return NULL;
     }
-    void __setitem__(const std::string& key, const std::string& value) {
-        $self->value_[key] = value;
-    }
-    PyObject* __setitem__(const std::string& key) {
-        typedef Exiv2::LangAltValue::ValueType::iterator iter;
-        iter pos = $self->value_.find(key);
-        if (pos == $self->value_.end()) {
-            PyErr_SetString(PyExc_KeyError, key.c_str());
-            return NULL;
+    PyObject* __setitem__(const std::string& key, const std::string* INPUT) {
+        if (INPUT)
+            $self->value_[key] = *INPUT;
+        else {
+            typedef Exiv2::LangAltValue::ValueType::iterator iter;
+            iter pos = $self->value_.find(key);
+            if (pos == $self->value_.end()) {
+                PyErr_SetString(PyExc_KeyError, key.c_str());
+                return NULL;
+            }
+            $self->value_.erase(pos);
         }
-        $self->value_.erase(pos);
         return SWIG_Py_Void();
     }
     bool __contains__(const std::string& key) {
