@@ -290,18 +290,23 @@ class TestValueModule(unittest.TestCase):
         # constructors
         value = exiv2.DataValue()
         self.assertIsInstance(value, exiv2.DataValue)
+        self.check_result(value.typeId(), int, exiv2.TypeId.undefined)
         self.assertEqual(len(value), 0)
         value = exiv2.DataValue(exiv2.TypeId.unsignedByte)
         self.assertIsInstance(value, exiv2.DataValue)
+        self.check_result(value.typeId(), int, exiv2.TypeId.unsignedByte)
         self.assertEqual(len(value), 0)
         value = exiv2.DataValue(data)
         self.assertIsInstance(value, exiv2.DataValue)
+        self.check_result(value.typeId(), int, exiv2.TypeId.undefined)
         check_data(value, data)
-        value = exiv2.DataValue(data, exiv2.TypeId.undefined)
+        value = exiv2.DataValue(
+            data, exiv2.ByteOrder.invalidByteOrder, exiv2.TypeId.unsignedByte)
         self.assertIsInstance(value, exiv2.DataValue)
+        self.check_result(value.typeId(), int, exiv2.TypeId.unsignedByte)
         check_data(value, data)
         # other methods
-        self.do_common_tests(value, exiv2.TypeId.undefined, string, data)
+        self.do_common_tests(value, exiv2.TypeId.unsignedByte, string, data)
         self.do_conversion_tests(value, str(data[0]), data[0])
         self.do_dataarea_tests(value)
 

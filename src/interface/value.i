@@ -121,11 +121,28 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 // CommentValue::detectCharset has a string reference parameter
 %apply const std::string& {std::string& c};
 
+// Make Exiv2::ByteOrder parameters optional
+%typemap(default) Exiv2::ByteOrder byteOrder {$1 = Exiv2::invalidByteOrder;}
+
+// Make Exiv2::TypeId parameters optional
+%typemap(default) Exiv2::TypeId typeId {$1 = Exiv2::undefined;}
+
+// Ignore now redundant overloaded methods
+%ignore Exiv2::DataValue::DataValue();
+%ignore Exiv2::DataValue::DataValue(byte const *, long);
+%ignore Exiv2::DataValue::DataValue(byte const *, long, ByteOrder);
+%ignore Exiv2::DataValue::DataValue(byte const *, size_t);
+%ignore Exiv2::DataValue::DataValue(byte const *, size_t, ByteOrder);
+
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
 %feature("python:slot", "sq_length", functype="lenfunc") type_name::count;
 %ignore type_name::value_;
+// Ignore overloaded methods replaced by default typemaps
+%ignore type_name::copy(byte *) const;
+%ignore type_name::read(byte const *, long);
+%ignore type_name::read(byte const *, size_t);
 %noexception type_name::~part_name;
 %noexception type_name::__getitem__;
 %noexception type_name::__setitem__;
@@ -517,6 +534,10 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
         }
         return result;
     }
+    // Replacement default constructor
+    XmpArrayValue(Exiv2::TypeId typeId_xmpBag) {
+        return new Exiv2::XmpArrayValue(typeId_xmpBag);
+    }
     std::string __getitem__(long multi_idx) {
         return $self->toString(multi_idx);
     }
@@ -524,6 +545,8 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
         $self->read(value);
     }
 }
+%ignore Exiv2::XmpArrayValue::XmpArrayValue();
+%ignore Exiv2::XmpArrayValue::XmpArrayValue(TypeId);
 
 // Make enums more Pythonic
 DEPRECATED_ENUM(CommentValue, CharsetId,
@@ -580,6 +603,9 @@ CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
 CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
     "xsNone",   Exiv2::XmpValue::xsNone,
     "xsStruct", Exiv2::XmpValue::xsStruct);
+
+// Turn off default typemap for ValueType classes
+%typemap(default) Exiv2::ByteOrder byteOrder;
 
 VALUETYPE(UShortValue, uint16_t, Exiv2::unsignedShort)
 VALUETYPE(ULongValue, uint32_t, Exiv2::unsignedLong)
