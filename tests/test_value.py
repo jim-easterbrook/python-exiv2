@@ -67,18 +67,23 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.ok(), True)
         self.assertIsInstance(result, float)
         self.assertAlmostEqual(result, float(number), places=5)
+        self.assertEqual(value.toFloat(0), value.toFloat())
         if exiv2.testVersion(0, 28, 0):
             self.check_result(value.toUint32(0), int, int(number))
             self.assertEqual(value.ok(), True)
+            self.assertEqual(value.toUint32(0), value.toUint32())
             self.check_result(value.toInt64(0), int, int(number))
+            self.assertEqual(value.toInt64(0), value.toInt64())
         else:
             self.check_result(value.toLong(0), int, int(number))
+            self.assertEqual(value.toLong(0), value.toLong())
         self.assertEqual(value.ok(), True)
         result = value.toRational(0)
         self.assertEqual(value.ok(), True)
         self.assertIsInstance(result, tuple)
         self.assertAlmostEqual(
             float(Fraction(*result)), float(number), places=5)
+        self.assertEqual(value.toRational(0), value.toRational())
         self.check_result(value.toString(0), str, text)
         self.assertEqual(value.ok(), True)
 
