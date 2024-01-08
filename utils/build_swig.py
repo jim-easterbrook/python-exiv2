@@ -109,8 +109,7 @@ def main():
         shutil.copy2(os.path.join('src', 'interface', mod_name),
                      os.path.join(output_dir, mod_name))
     # make options list
-    swig_opts = ['-c++', '-python', '-builtin',
-                 '-doxygen', '-DSWIG_DOXYGEN', '-Dauto=char*',
+    swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-DSWIG_DOXYGEN',
                  '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
                  '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
                  '-I' + os.path.dirname(incl_dir), '-outdir', output_dir]
