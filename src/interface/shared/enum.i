@@ -18,6 +18,33 @@
 
 // Macros to make enums more Pythonic
 
+%define _ENUM_TYPEMAPS(pattern)
+// typemap to disambiguate enum from int
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
+         fragment="import_py_enum") pattern {
+    $1 = PyObject_IsInstance($input, Py_IntEnum);
+}
+
+// deprecate passing integers where an enum is expected
+%typemap(in) pattern {
+    if (!PyObject_IsInstance($input, Py_IntEnum)) {
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+            "Pass '" #pattern "' instead of int", 1);
+    }
+    if (!PyLong_Check($input)) {
+        %argument_fail(
+            SWIG_TypeError, "pattern", $symname, $argnum);
+    }
+    $1 = (pattern)PyLong_AsLong($input);
+}
+
+%typemap(out, fragment="py_from_enum"{pattern}) pattern {
+    $result = py_from_enum($1);
+    if (!$result)
+        SWIG_fail;
+}
+%enddef // _ENUM_TYPEMAPS
+
 // Function to return enum members as Python list
 %fragment("get_enum_list", "header") {
 #include <cstdarg>
@@ -56,13 +83,8 @@ static PyObject* Py_IntEnum = NULL;
 }
 
 %define ENUM(name, doc, contents...)
-// typemap to disambiguate enum from int
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
-         fragment="import_py_enum") Exiv2::name {
-    $1 = PyObject_IsInstance($input, Py_IntEnum);
-}
-
-// typemap to convert results
+_ENUM_TYPEMAPS(Exiv2::name);
+// fragment to convert results
 %fragment("py_from_enum"{Exiv2::name}, "header") {
 static PyObject* py_from_enum(Exiv2::name value) {
     PyObject* module = PyImport_ImportModule("exiv2");
@@ -70,11 +92,6 @@ static PyObject* py_from_enum(Exiv2::name value) {
     Py_DECREF(module);
     return result;
 };
-}
-%typemap(out, fragment="py_from_enum"{Exiv2::name}) Exiv2::name {
-    $result = py_from_enum($1);
-    if (!$result)
-        SWIG_fail;
 }
 
 // Add enum to module during init
@@ -139,13 +156,8 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
 }
 
 %define CLASS_ENUM(class, name, doc, contents...)
-// typemap to disambiguate enum from int
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
-         fragment="import_py_enum") Exiv2::class::name {
-    $1 = PyObject_IsInstance($input, Py_IntEnum);
-}
-
-// typemap to convert results
+_ENUM_TYPEMAPS(Exiv2::class::name);
+// fragment to convert results
 %fragment("py_from_enum"{Exiv2::class::name}, "header") {
 static PyObject* py_from_enum(Exiv2::class::name value) {
     swig_type_info* desc = $descriptor(Exiv2::class*);
@@ -154,13 +166,6 @@ static PyObject* py_from_enum(Exiv2::class::name value) {
         PyDict_GetItemString(cd->pytype->tp_dict, "name"), "(i)", value);
 };
 }
-%typemap(out, fragment="py_from_enum"{Exiv2::class::name})
-        Exiv2::class::name {
-    $result = py_from_enum($1);
-    if (!$result)
-        SWIG_fail;
-}
-
 // Add enum to type object during module init
 %extend Exiv2::class {
 %fragment("get_enum_list");

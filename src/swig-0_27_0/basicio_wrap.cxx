@@ -4413,22 +4413,6 @@ SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val)
 
 
 SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
-
-
-SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
   int r;
@@ -5301,8 +5285,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   int result;
@@ -5318,11 +5300,17 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_seek" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
-  } 
-  arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
+  {
+    if (!PyObject_IsInstance(obj2, Py_IntEnum)) {
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "Pass '""Exiv2::BasicIo::Position" "' instead of int", 1);
+    }
+    if (!PyLong_Check(obj2)) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
+      ;
+    }
+    arg3 = (Exiv2::BasicIo::Position)PyLong_AsLong(obj2);
+  }
   {
     try {
       {
@@ -6264,8 +6252,6 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   int result;
@@ -6281,11 +6267,17 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_seek" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FileIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
-  } 
-  arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
+  {
+    if (!PyObject_IsInstance(obj2, Py_IntEnum)) {
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "Pass '""Exiv2::BasicIo::Position" "' instead of int", 1);
+    }
+    if (!PyLong_Check(obj2)) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
+      ;
+    }
+    arg3 = (Exiv2::BasicIo::Position)PyLong_AsLong(obj2);
+  }
   {
     try {
       {
@@ -7193,8 +7185,6 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   int result;
@@ -7210,11 +7200,17 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_seek" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MemIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
-  } 
-  arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
+  {
+    if (!PyObject_IsInstance(obj2, Py_IntEnum)) {
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "Pass '""Exiv2::BasicIo::Position" "' instead of int", 1);
+    }
+    if (!PyLong_Check(obj2)) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
+      ;
+    }
+    arg3 = (Exiv2::BasicIo::Position)PyLong_AsLong(obj2);
+  }
   result = (int)(arg1)->seek(arg2,arg3);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
@@ -8125,8 +8121,6 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   int result;
@@ -8142,11 +8136,17 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_seek" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RemoteIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
-  } 
-  arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
+  {
+    if (!PyObject_IsInstance(obj2, Py_IntEnum)) {
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "Pass '""Exiv2::BasicIo::Position" "' instead of int", 1);
+    }
+    if (!PyLong_Check(obj2)) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
+      ;
+    }
+    arg3 = (Exiv2::BasicIo::Position)PyLong_AsLong(obj2);
+  }
   result = (int)(arg1)->seek(arg2,arg3);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
