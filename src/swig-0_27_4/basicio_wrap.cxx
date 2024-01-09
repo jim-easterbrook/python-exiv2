@@ -4174,6 +4174,24 @@ PyObject* _enum_list_Position() {
 };
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
+#include <cstdarg>
+static PyObject* _get_enum_object(const char* name, const char* doc,
+                                  PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
+                                             name, enum_list);
+    if (!result)
+        return NULL;
+    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    return result;
+};
+
+
 SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
@@ -4408,9 +4426,6 @@ SWIG_AsVal_int (PyObject * obj, int *val)
   }  
   return res;
 }
-
-
-static PyObject* Py_IntEnum = NULL;
 
 
 SWIGINTERN int
@@ -4733,21 +4748,6 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
 #endif
   return res;
 }
-
-
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
-        return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
-        return NULL;
-    return result;
-};
 
 #ifdef __cplusplus
 extern "C" {
@@ -11271,9 +11271,6 @@ SWIG_init(void) {
   /* type 'Exiv2::BasicIo' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__BasicIo_type;
   builtin_pytype->tp_dict = d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "beg",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::beg)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "cur",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::cur)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "end",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::end)));
   
   {
     PyObject* module = PyImport_ImportModule("enum");
@@ -11285,6 +11282,8 @@ SWIG_init(void) {
     return NULL;
   }
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",_get_enum_object(
+      "Position", "Seek starting positions.", _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL)));
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -11474,18 +11473,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "HttpIo", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "HttpIo");
   d = md;
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "Position", "Seek starting positions.", _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyTypeObject* type =
-    (PyTypeObject *)&SwigPyBuiltin__Exiv2__BasicIo_type;
-    SWIG_Python_SetConstant(type->tp_dict, NULL, "Position", enum_obj);
-    PyType_Modified(type);
-  }
-  
   
   /* Initialize threading */
   SWIG_PYTHON_INITIALIZE_THREADS;

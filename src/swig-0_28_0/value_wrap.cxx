@@ -6023,6 +6023,21 @@ SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_2(Exiv2::Value const &v
         return pv;
     }
 
+#include <cstdarg>
+static PyObject* _get_enum_object(const char* name, const char* doc,
+                                  PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
+                                             name, enum_list);
+    if (!result)
+        return NULL;
+    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    return result;
+};
+
+
 
 
 
@@ -6602,21 +6617,6 @@ SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self)
         Py_DECREF(seq);
         return result;
     }
-
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
-        return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
-        return NULL;
-    return result;
-};
-
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
@@ -35986,12 +35986,8 @@ SWIG_init(void) {
   /* type 'Exiv2::CommentValue' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__CommentValue_type;
   builtin_pytype->tp_dict = d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ascii",SWIG_From_int(static_cast< int >(Exiv2::CommentValue::ascii)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "jis",SWIG_From_int(static_cast< int >(Exiv2::CommentValue::jis)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "unicode",SWIG_From_int(static_cast< int >(Exiv2::CommentValue::unicode)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "undefined",SWIG_From_int(static_cast< int >(Exiv2::CommentValue::undefined)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "invalidCharsetId",SWIG_From_int(static_cast< int >(Exiv2::CommentValue::invalidCharsetId)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "lastCharsetId",SWIG_From_int(static_cast< int >(Exiv2::CommentValue::lastCharsetId)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "CharsetId",_get_enum_object(
+      "CharsetId", "Character set identifiers for the character sets defined by Exif.", _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL)));
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -36026,12 +36022,10 @@ SWIG_init(void) {
   /* type 'Exiv2::XmpValue' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpValue_type;
   builtin_pytype->tp_dict = d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "xaNone",SWIG_From_int(static_cast< int >(Exiv2::XmpValue::xaNone)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "xaAlt",SWIG_From_int(static_cast< int >(Exiv2::XmpValue::xaAlt)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "xaBag",SWIG_From_int(static_cast< int >(Exiv2::XmpValue::xaBag)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "xaSeq",SWIG_From_int(static_cast< int >(Exiv2::XmpValue::xaSeq)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "xsNone",SWIG_From_int(static_cast< int >(Exiv2::XmpValue::xsNone)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "xsStruct",SWIG_From_int(static_cast< int >(Exiv2::XmpValue::xsStruct)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpArrayType",_get_enum_object(
+      "XmpArrayType", "XMP array types.", _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpStruct",_get_enum_object(
+      "XmpStruct", "XMP structure indicator.", _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL)));
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -36278,42 +36272,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "Time", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Time");
   d = md;
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "CharsetId", "Character set identifiers for the character sets defined by Exif.", _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyTypeObject* type =
-    (PyTypeObject *)&SwigPyBuiltin__Exiv2__CommentValue_type;
-    SWIG_Python_SetConstant(type->tp_dict, NULL, "CharsetId", enum_obj);
-    PyType_Modified(type);
-  }
-  
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "XmpArrayType", "XMP array types.", _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyTypeObject* type =
-    (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpValue_type;
-    SWIG_Python_SetConstant(type->tp_dict, NULL, "XmpArrayType", enum_obj);
-    PyType_Modified(type);
-  }
-  
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "XmpStruct", "XMP structure indicator.", _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyTypeObject* type =
-    (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpValue_type;
-    SWIG_Python_SetConstant(type->tp_dict, NULL, "XmpStruct", enum_obj);
-    PyType_Modified(type);
-  }
-  
   
   /* type 'Exiv2::ValueType< uint16_t >' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type;

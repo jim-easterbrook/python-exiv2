@@ -6868,16 +6868,8 @@ SWIG_init(void) {
     return NULL;
   }
   
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "XmpCategory", "Category of an XMP property.", _get_enum_list(0, "Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyModule_AddObject(m, "XmpCategory", enum_obj);
-    SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpCategory");
-  }
-  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",_get_enum_object(
+      "XmpCategory", "Category of an XMP property.", _get_enum_list(0, "Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL)));
   
   /* type 'Exiv2::XmpProperties' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpProperties_type;

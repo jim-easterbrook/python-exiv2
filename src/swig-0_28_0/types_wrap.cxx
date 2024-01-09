@@ -8046,48 +8046,16 @@ SWIG_init(void) {
     return NULL;
   }
   
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "AccessMode", "An identifier for each mode of metadata support.", _get_enum_list(0, "none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyModule_AddObject(m, "AccessMode", enum_obj);
-    SwigPyBuiltin_AddPublicSymbol(public_interface, "AccessMode");
-  }
-  
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "ByteOrder", "Type to express the byte order (little or big endian).", _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyModule_AddObject(m, "ByteOrder", enum_obj);
-    SwigPyBuiltin_AddPublicSymbol(public_interface, "ByteOrder");
-  }
-  
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "MetadataId", "An identifier for each type of metadata.", _get_enum_list(0, "none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyModule_AddObject(m, "MetadataId", enum_obj);
-    SwigPyBuiltin_AddPublicSymbol(public_interface, "MetadataId");
-  }
-  
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AccessMode",_get_enum_object(
+      "AccessMode", "An identifier for each mode of metadata support.", _get_enum_list(0, "none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ByteOrder",_get_enum_object(
+      "ByteOrder", "Type to express the byte order (little or big endian).", _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "MetadataId",_get_enum_object(
+      "MetadataId", "An identifier for each type of metadata.", _get_enum_list(0, "none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "TypeId",_get_enum_object(
       "TypeId", "Exiv2 value type identifiers.\n"
       "\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
-      "\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.", _get_enum_list(0, "unsignedByte",Exiv2::unsignedByte,"asciiString",Exiv2::asciiString,"unsignedShort",Exiv2::unsignedShort,"unsignedLong",Exiv2::unsignedLong,"unsignedRational",Exiv2::unsignedRational,"signedByte",Exiv2::signedByte,"undefined",Exiv2::undefined,"signedShort",Exiv2::signedShort,"signedLong",Exiv2::signedLong,"signedRational",Exiv2::signedRational,"tiffFloat",Exiv2::tiffFloat,"tiffDouble",Exiv2::tiffDouble,"tiffIfd",Exiv2::tiffIfd,"string",Exiv2::string,"date",Exiv2::date,"time",Exiv2::time,"comment",Exiv2::comment,"directory",Exiv2::directory,"xmpText",Exiv2::xmpText,"xmpAlt",Exiv2::xmpAlt,"xmpBag",Exiv2::xmpBag,"xmpSeq",Exiv2::xmpSeq,"langAlt",Exiv2::langAlt,"invalidTypeId",Exiv2::invalidTypeId,"lastTypeId",Exiv2::lastTypeId, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyModule_AddObject(m, "TypeId", enum_obj);
-    SwigPyBuiltin_AddPublicSymbol(public_interface, "TypeId");
-  }
-  
+      "\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.", _get_enum_list(0, "unsignedByte",Exiv2::unsignedByte,"asciiString",Exiv2::asciiString,"unsignedShort",Exiv2::unsignedShort,"unsignedLong",Exiv2::unsignedLong,"unsignedRational",Exiv2::unsignedRational,"signedByte",Exiv2::signedByte,"undefined",Exiv2::undefined,"signedShort",Exiv2::signedShort,"signedLong",Exiv2::signedLong,"signedRational",Exiv2::signedRational,"tiffFloat",Exiv2::tiffFloat,"tiffDouble",Exiv2::tiffDouble,"tiffIfd",Exiv2::tiffIfd,"string",Exiv2::string,"date",Exiv2::date,"time",Exiv2::time,"comment",Exiv2::comment,"directory",Exiv2::directory,"xmpText",Exiv2::xmpText,"xmpAlt",Exiv2::xmpAlt,"xmpBag",Exiv2::xmpBag,"xmpSeq",Exiv2::xmpSeq,"langAlt",Exiv2::langAlt,"invalidTypeId",Exiv2::invalidTypeId,"lastTypeId",Exiv2::lastTypeId, NULL)));
   
   /* type 'Exiv2::TypeInfo' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__TypeInfo_type;

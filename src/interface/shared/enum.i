@@ -62,20 +62,11 @@ static PyObject* Py_IntEnum = NULL;
     $1 = PyObject_IsInstance($input, Py_IntEnum);
 }
 
+// Add enum to module during init
 %fragment("get_enum_list");
 %fragment("get_enum_object");
-
-// Add enum to module during init
-%init %{
-{
-    PyObject* enum_obj = _get_enum_object(
-        "name", doc, _get_enum_list(0, contents, NULL));
-    if (!enum_obj)
-        return NULL;
-    PyModule_AddObject(m, "name", enum_obj);
-    SwigPyBuiltin_AddPublicSymbol(public_interface, "name");
-}
-%}
+%constant PyObject* name =  _get_enum_object(
+    "name", doc, _get_enum_list(0, contents, NULL));
 %ignore Exiv2::name;
 %enddef // ENUM
 
@@ -139,19 +130,12 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
     $1 = PyObject_IsInstance($input, Py_IntEnum);
 }
 
+// Add enum to type object during module init
+%extend Exiv2::class {
 %fragment("get_enum_list");
 %fragment("get_enum_object");
-// Add enum to type object during module init
-%init %{
-{
-    PyObject* enum_obj = _get_enum_object(
-        "name", doc, _get_enum_list(0, contents, NULL));
-    if (!enum_obj)
-        return NULL;
-    PyTypeObject* type =
-        (PyTypeObject *)&SwigPyBuiltin__Exiv2__##class##_type;
-    SWIG_Python_SetConstant(type->tp_dict, NULL, "name", enum_obj);
-    PyType_Modified(type);
+%constant PyObject* name =  _get_enum_object(
+    "name", doc, _get_enum_list(0, contents, NULL));
 }
-%}
+%ignore Exiv2::class::name;
 %enddef // CLASS_ENUM

@@ -4104,11 +4104,41 @@ static void log_to_python(int level, const char* msg) {
 };
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
+
+static PyObject* _get_enum_list(int dummy, ...) {
+    va_list args;
+    va_start(args, dummy);
+    char* label;
+    PyObject* py_obj = NULL;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
+    while (label) {
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(result, py_obj);
+        Py_DECREF(py_obj);
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    return result;
+};
+
+
+static PyObject* Py_IntEnum = NULL;
+
+
+#include <cstdarg>
+static PyObject* _get_enum_object(const char* name, const char* doc,
+                                  PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
+                                             name, enum_list);
+    if (!result)
+        return NULL;
+    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    return result;
+};
 
 
 #include <limits.h>
@@ -4269,41 +4299,11 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 }
 
 
-
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
-    PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
-    while (label) {
-        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
-        PyList_Append(result, py_obj);
-        Py_DECREF(py_obj);
-        label = va_arg(args, char*);
-    }
-    va_end(args);
-    return result;
-};
-
-
-static PyObject* Py_IntEnum = NULL;
-
-
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
-        return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
-        return NULL;
-    return result;
-};
+SWIGINTERNINLINE PyObject*
+  SWIG_From_int  (int value)
+{
+  return PyInt_FromLong((long) value);
+}
 
 #ifdef __cplusplus
 extern "C" {
@@ -5168,11 +5168,21 @@ SWIG_init(void) {
   /* type 'Exiv2::LogMsg' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
   builtin_pytype->tp_dict = d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "debug",SWIG_From_int(static_cast< int >(Exiv2::LogMsg::debug)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "info",SWIG_From_int(static_cast< int >(Exiv2::LogMsg::info)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "warn",SWIG_From_int(static_cast< int >(Exiv2::LogMsg::warn)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "error",SWIG_From_int(static_cast< int >(Exiv2::LogMsg::error)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "mute",SWIG_From_int(static_cast< int >(Exiv2::LogMsg::mute)));
+  
+  {
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+    return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+    return NULL;
+  }
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Level",_get_enum_object(
+      "Level", "Defined log levels.\n"
+      "\nTo suppress all log messages, either set the log level to mute or set"
+      "\nthe log message handler to None.", _get_enum_list(0, "debug",Exiv2::LogMsg::debug,"info",Exiv2::LogMsg::info,"warn",Exiv2::LogMsg::warn,"error",Exiv2::LogMsg::error,"mute",Exiv2::LogMsg::mute, NULL)));
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -5192,31 +5202,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "LogMsg", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "LogMsg");
   d = md;
-  
-  {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-    return NULL;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum)
-    return NULL;
-  }
-  
-  
-  {
-    PyObject* enum_obj = _get_enum_object(
-      "Level", "Defined log levels.\n"
-      "\nTo suppress all log messages, either set the log level to mute or set"
-      "\nthe log message handler to None.", _get_enum_list(0, "debug",Exiv2::LogMsg::debug,"info",Exiv2::LogMsg::info,"warn",Exiv2::LogMsg::warn,"error",Exiv2::LogMsg::error,"mute",Exiv2::LogMsg::mute, NULL));
-    if (!enum_obj)
-    return NULL;
-    PyTypeObject* type =
-    (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
-    SWIG_Python_SetConstant(type->tp_dict, NULL, "Level", enum_obj);
-    PyType_Modified(type);
-  }
-  
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

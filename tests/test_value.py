@@ -119,6 +119,9 @@ class TestValueModule(unittest.TestCase):
                       exiv2.XmpValue.XmpStruct.xsNone):
             value.setXmpStruct(type_)
             self.check_result(value.xmpStruct(), int, type_)
+        value.setXmpStruct()
+        self.check_result(
+            value.xmpStruct(), int, exiv2.XmpValue.XmpStruct.xsStruct)
 
     def test_AsciiValue(self):
         text = 'The quick brown fox jumps over the lazy dog. àéīöûç'

@@ -64,8 +64,6 @@ static void log_to_python(int level, const char* msg) {
 %ignore Exiv2::LogMsg::defaultHandler;
 %ignore Exiv2::operator<<;
 
-%include "exiv2/error.hpp"
-
 // CLASS_ENUM has to come last as it modifies initialised type object
 CLASS_ENUM(LogMsg, Level, "Defined log levels.\n"
 "\nTo suppress all log messages, either set the log level to mute or set"
@@ -75,3 +73,5 @@ CLASS_ENUM(LogMsg, Level, "Defined log levels.\n"
     "warn",  Exiv2::LogMsg::warn,
     "error", Exiv2::LogMsg::error,
     "mute",  Exiv2::LogMsg::mute);
+
+%include "exiv2/error.hpp"

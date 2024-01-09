@@ -585,8 +585,6 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 %ignore Exiv2::LangAltValueComparator;
 %ignore LARGE_INT;
 
-%include "exiv2/value.hpp"
-
 CLASS_ENUM(CommentValue, CharsetId,
     "Character set identifiers for the character sets defined by Exif.",
     "ascii",            Exiv2::CommentValue::ascii,
@@ -603,6 +601,8 @@ CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
 CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
     "xsNone",   Exiv2::XmpValue::xsNone,
     "xsStruct", Exiv2::XmpValue::xsStruct);
+
+%include "exiv2/value.hpp"
 
 // Turn off default typemap for ValueType classes
 %typemap(default) Exiv2::ByteOrder byteOrder;
