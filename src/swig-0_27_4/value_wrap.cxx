@@ -4303,6 +4303,40 @@ namespace swig {
 #include <vector>
 
 
+
+static PyObject* _get_enum_list(int dummy, ...) {
+    va_list args;
+    va_start(args, dummy);
+    char* label;
+    PyObject* py_obj = NULL;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
+    while (label) {
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(result, py_obj);
+        Py_DECREF(py_obj);
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    return result;
+};
+
+
+PyObject* _enum_list_CharsetId() {
+    return _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL);
+};
+
+
+PyObject* _enum_list_XmpArrayType() {
+    return _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL);
+};
+
+
+PyObject* _enum_list_XmpStruct() {
+    return _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL);
+};
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {
@@ -5158,40 +5192,6 @@ namespace swig {
     }
   }
 }
-
-
-
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
-    PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
-    while (label) {
-        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
-        PyList_Append(result, py_obj);
-        Py_DECREF(py_obj);
-        label = va_arg(args, char*);
-    }
-    va_end(args);
-    return result;
-};
-
-
-PyObject* _enum_list_CharsetId() {
-    return _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL);
-};
-
-
-PyObject* _enum_list_XmpArrayType() {
-    return _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL);
-};
-
-
-PyObject* _enum_list_XmpStruct() {
-    return _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL);
-};
 
 
 #include <limits.h>

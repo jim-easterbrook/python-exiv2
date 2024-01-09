@@ -4252,23 +4252,6 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char **cptr, size_t *psize, int *alloc)
 #define DATABUF_SIZE size()
 
 
-static int Exiv2_DataBuf_getbuff(
-        PyObject* exporter, Py_buffer* view, int flags) {
-    Exiv2::DataBuf* self = 0;
-    bool writeable = flags && PyBUF_WRITABLE;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0)))
-        goto fail;
-    return PyBuffer_FillInfo(
-        view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
-        writeable ? 0 : 1, flags);
-fail:
-    PyErr_SetNone(PyExc_BufferError);
-    view->obj = NULL;
-    return -1;
-};
-
-
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -4303,6 +4286,23 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
     if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
         return NULL;
     return result;
+};
+
+
+static int Exiv2_DataBuf_getbuff(
+        PyObject* exporter, Py_buffer* view, int flags) {
+    Exiv2::DataBuf* self = 0;
+    bool writeable = flags && PyBUF_WRITABLE;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0)))
+        goto fail;
+    return PyBuffer_FillInfo(
+        view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
+        writeable ? 0 : 1, flags);
+fail:
+    PyErr_SetNone(PyExc_BufferError);
+    view->obj = NULL;
+    return -1;
 };
 
 

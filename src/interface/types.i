@@ -81,6 +81,55 @@ if os.path.isdir(_dir):
 %}
 #endif
 
+// Make various enums more Pythonic
+ENUM(AccessMode, "An identifier for each mode of metadata support.",
+        "none",      Exiv2::amNone,
+        "Read",      Exiv2::amRead,
+        "Write",     Exiv2::amWrite,
+        "ReadWrite", Exiv2::amReadWrite);
+
+ENUM(ByteOrder, "Type to express the byte order (little or big endian).",
+        "invalidByteOrder", Exiv2::invalidByteOrder,
+        "littleEndian",     Exiv2::littleEndian,
+        "bigEndian",        Exiv2::bigEndian);
+
+ENUM(MetadataId, "An identifier for each type of metadata.",
+        "none",       Exiv2::mdNone,
+        "Exif",       Exiv2::mdExif,
+        "Iptc",       Exiv2::mdIptc,
+        "Comment",    Exiv2::mdComment,
+        "Xmp",        Exiv2::mdXmp,
+        "IccProfile", Exiv2::mdIccProfile);
+
+ENUM(TypeId, "Exiv2 value type identifiers.\n"
+"\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
+"\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.",
+        "unsignedByte",     Exiv2::unsignedByte,
+        "asciiString",      Exiv2::asciiString,
+        "unsignedShort",    Exiv2::unsignedShort,
+        "unsignedLong",     Exiv2::unsignedLong,
+        "unsignedRational", Exiv2::unsignedRational,
+        "signedByte",       Exiv2::signedByte,
+        "undefined",        Exiv2::undefined,
+        "signedShort",      Exiv2::signedShort,
+        "signedLong",       Exiv2::signedLong,
+        "signedRational",   Exiv2::signedRational,
+        "tiffFloat",        Exiv2::tiffFloat,
+        "tiffDouble",       Exiv2::tiffDouble,
+        "tiffIfd",          Exiv2::tiffIfd,
+        "string",           Exiv2::string,
+        "date",             Exiv2::date,
+        "time",             Exiv2::time,
+        "comment",          Exiv2::comment,
+        "directory",        Exiv2::directory,
+        "xmpText",          Exiv2::xmpText,
+        "xmpAlt",           Exiv2::xmpAlt,
+        "xmpBag",           Exiv2::xmpBag,
+        "xmpSeq",           Exiv2::xmpSeq,
+        "langAlt",          Exiv2::langAlt,
+        "invalidTypeId",    Exiv2::invalidTypeId,
+        "lastTypeId",       Exiv2::lastTypeId);
+
 // Make Exiv2::DataBuf behave more like a tuple of ints
 %feature("python:slot", "mp_length", functype="lenfunc")
     Exiv2::DataBuf::__len__;
@@ -213,55 +262,6 @@ INPUT_BUFFER_RO(const void *buf, size_t bufsize)
 %ignore Exiv2::DataBuf::cbegin;
 %ignore Exiv2::DataBuf::end;
 %ignore Exiv2::DataBuf::cend;
-
-// Make various enums more Pythonic
-ENUM(AccessMode, "An identifier for each mode of metadata support.",
-        "none",      Exiv2::amNone,
-        "Read",      Exiv2::amRead,
-        "Write",     Exiv2::amWrite,
-        "ReadWrite", Exiv2::amReadWrite);
-
-ENUM(ByteOrder, "Type to express the byte order (little or big endian).",
-        "invalidByteOrder", Exiv2::invalidByteOrder,
-        "littleEndian",     Exiv2::littleEndian,
-        "bigEndian",        Exiv2::bigEndian);
-
-ENUM(MetadataId, "An identifier for each type of metadata.",
-        "none",       Exiv2::mdNone,
-        "Exif",       Exiv2::mdExif,
-        "Iptc",       Exiv2::mdIptc,
-        "Comment",    Exiv2::mdComment,
-        "Xmp",        Exiv2::mdXmp,
-        "IccProfile", Exiv2::mdIccProfile);
-
-ENUM(TypeId, "Exiv2 value type identifiers.\n"
-"\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
-"\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.",
-        "unsignedByte",     Exiv2::unsignedByte,
-        "asciiString",      Exiv2::asciiString,
-        "unsignedShort",    Exiv2::unsignedShort,
-        "unsignedLong",     Exiv2::unsignedLong,
-        "unsignedRational", Exiv2::unsignedRational,
-        "signedByte",       Exiv2::signedByte,
-        "undefined",        Exiv2::undefined,
-        "signedShort",      Exiv2::signedShort,
-        "signedLong",       Exiv2::signedLong,
-        "signedRational",   Exiv2::signedRational,
-        "tiffFloat",        Exiv2::tiffFloat,
-        "tiffDouble",       Exiv2::tiffDouble,
-        "tiffIfd",          Exiv2::tiffIfd,
-        "string",           Exiv2::string,
-        "date",             Exiv2::date,
-        "time",             Exiv2::time,
-        "comment",          Exiv2::comment,
-        "directory",        Exiv2::directory,
-        "xmpText",          Exiv2::xmpText,
-        "xmpAlt",           Exiv2::xmpAlt,
-        "xmpBag",           Exiv2::xmpBag,
-        "xmpSeq",           Exiv2::xmpSeq,
-        "langAlt",          Exiv2::langAlt,
-        "invalidTypeId",    Exiv2::invalidTypeId,
-        "lastTypeId",       Exiv2::lastTypeId);
 
 // Ignore slice stuff that SWIG can't understand
 %ignore makeSlice;

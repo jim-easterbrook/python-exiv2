@@ -134,6 +134,41 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %ignore Exiv2::DataValue::DataValue(byte const *, size_t);
 %ignore Exiv2::DataValue::DataValue(byte const *, size_t, ByteOrder);
 
+// Make enums more Pythonic
+CLASS_ENUM(CommentValue, CharsetId,
+    "Character set identifiers for the character sets defined by Exif.",
+    "ascii",            Exiv2::CommentValue::ascii,
+    "jis",              Exiv2::CommentValue::jis,
+    "unicode",          Exiv2::CommentValue::unicode,
+    "undefined",        Exiv2::CommentValue::undefined,
+    "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
+    "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
+    "xaNone",   Exiv2::XmpValue::xaNone,
+    "xaAlt",    Exiv2::XmpValue::xaAlt,
+    "xaBag",    Exiv2::XmpValue::xaBag,
+    "xaSeq",    Exiv2::XmpValue::xaSeq);
+CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
+    "xsNone",   Exiv2::XmpValue::xsNone,
+    "xsStruct", Exiv2::XmpValue::xsStruct);
+
+DEPRECATED_ENUM(CommentValue, CharsetId,
+    "Character set identifiers for the character sets defined by Exif.",
+        "ascii",            Exiv2::CommentValue::ascii,
+        "jis",              Exiv2::CommentValue::jis,
+        "unicode",          Exiv2::CommentValue::unicode,
+        "undefined",        Exiv2::CommentValue::undefined,
+        "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
+        "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+DEPRECATED_ENUM(XmpValue, XmpArrayType, "XMP array types.",
+        "xaNone",   Exiv2::XmpValue::xaNone,
+        "xaAlt",    Exiv2::XmpValue::xaAlt,
+        "xaBag",    Exiv2::XmpValue::xaBag,
+        "xaSeq",    Exiv2::XmpValue::xaSeq);
+DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
+        "xsNone",   Exiv2::XmpValue::xsNone,
+        "xsStruct", Exiv2::XmpValue::xsStruct);
+
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
@@ -548,24 +583,6 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
 %ignore Exiv2::XmpArrayValue::XmpArrayValue();
 %ignore Exiv2::XmpArrayValue::XmpArrayValue(TypeId);
 
-// Make enums more Pythonic
-DEPRECATED_ENUM(CommentValue, CharsetId,
-    "Character set identifiers for the character sets defined by Exif.",
-        "ascii",            Exiv2::CommentValue::ascii,
-        "jis",              Exiv2::CommentValue::jis,
-        "unicode",          Exiv2::CommentValue::unicode,
-        "undefined",        Exiv2::CommentValue::undefined,
-        "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
-        "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-DEPRECATED_ENUM(XmpValue, XmpArrayType, "XMP array types.",
-        "xaNone",   Exiv2::XmpValue::xaNone,
-        "xaAlt",    Exiv2::XmpValue::xaAlt,
-        "xaBag",    Exiv2::XmpValue::xaBag,
-        "xaSeq",    Exiv2::XmpValue::xaSeq);
-DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
-        "xsNone",   Exiv2::XmpValue::xsNone,
-        "xsStruct", Exiv2::XmpValue::xsStruct);
-
 // Some classes wrongly appear to be abstract to SWIG
 %feature("notabstract") Exiv2::LangAltValue;
 %feature("notabstract") Exiv2::XmpArrayValue;
@@ -584,23 +601,6 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 %ignore Exiv2::CommentValue::CharsetTable;
 %ignore Exiv2::LangAltValueComparator;
 %ignore LARGE_INT;
-
-CLASS_ENUM(CommentValue, CharsetId,
-    "Character set identifiers for the character sets defined by Exif.",
-    "ascii",            Exiv2::CommentValue::ascii,
-    "jis",              Exiv2::CommentValue::jis,
-    "unicode",          Exiv2::CommentValue::unicode,
-    "undefined",        Exiv2::CommentValue::undefined,
-    "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
-    "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
-    "xaNone",   Exiv2::XmpValue::xaNone,
-    "xaAlt",    Exiv2::XmpValue::xaAlt,
-    "xaBag",    Exiv2::XmpValue::xaBag,
-    "xaSeq",    Exiv2::XmpValue::xaSeq);
-CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
-    "xsNone",   Exiv2::XmpValue::xsNone,
-    "xsStruct", Exiv2::XmpValue::xsStruct);
 
 %include "exiv2/value.hpp"
 
