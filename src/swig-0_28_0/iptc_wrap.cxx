@@ -4586,6 +4586,14 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
+
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
 {
@@ -6199,7 +6207,11 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_typeId(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -7879,7 +7891,11 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_typeId(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;

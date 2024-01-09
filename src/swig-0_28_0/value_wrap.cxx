@@ -5612,6 +5612,14 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
+
 static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
     switch(type_id) {
         case Exiv2::asciiString:
@@ -6047,6 +6055,22 @@ SWIG_FromCharPtr(const char *cptr)
   return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
 }
 
+
+static PyObject* py_from_enum(Exiv2::CommentValue::CharsetId value) {
+    swig_type_info* desc = SWIGTYPE_p_Exiv2__CommentValue;
+    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+    return PyObject_CallFunction(
+        PyDict_GetItemString(cd->pytype->tp_dict, "CharsetId"), "(i)", value);
+};
+
+
+static PyObject* py_from_enum(Exiv2::ByteOrder value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "ByteOrder", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
 SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use '""Exiv2::CommentValue" ".clone()' to copy value", 1);
@@ -6065,6 +6089,22 @@ SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value cons
         }
         return pv;
     }
+
+static PyObject* py_from_enum(Exiv2::XmpValue::XmpArrayType value) {
+    swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
+    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+    return PyObject_CallFunction(
+        PyDict_GetItemString(cd->pytype->tp_dict, "XmpArrayType"), "(i)", value);
+};
+
+
+static PyObject* py_from_enum(Exiv2::XmpValue::XmpStruct value) {
+    swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
+    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+    return PyObject_CallFunction(
+        PyDict_GetItemString(cd->pytype->tp_dict, "XmpStruct"), "(i)", value);
+};
+
 SWIGINTERN Exiv2::XmpTextValue *new_Exiv2_XmpTextValue__SWIG_2(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use '""Exiv2::XmpTextValue" ".clone()' to copy value", 1);
@@ -7488,7 +7528,11 @@ SWIGINTERN PyObject *_wrap_Value_typeId(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   result = (Exiv2::TypeId)((Exiv2::Value const *)arg1)->typeId();
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -11244,7 +11288,11 @@ SWIGINTERN PyObject *_wrap_CommentValue_charsetId(PyObject *self, PyObject *args
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -11295,7 +11343,11 @@ SWIGINTERN PyObject *_wrap_CommentValue_byteOrder__get(PyObject *self, PyObject 
   }
   arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
   result = (Exiv2::ByteOrder) ((arg1)->byteOrder_);
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -11417,7 +11469,11 @@ SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   result = (Exiv2::XmpValue::XmpArrayType)((Exiv2::XmpValue const *)arg1)->xmpArrayType();
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -11438,7 +11494,11 @@ SWIGINTERN PyObject *_wrap_XmpValue_xmpStruct(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   result = (Exiv2::XmpValue::XmpStruct)((Exiv2::XmpValue const *)arg1)->xmpStruct();
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;

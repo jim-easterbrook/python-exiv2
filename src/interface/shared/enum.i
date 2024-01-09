@@ -62,6 +62,21 @@ static PyObject* Py_IntEnum = NULL;
     $1 = PyObject_IsInstance($input, Py_IntEnum);
 }
 
+// typemap to convert results
+%fragment("py_from_enum"{Exiv2::name}, "header") {
+static PyObject* py_from_enum(Exiv2::name value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "name", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+}
+%typemap(out, fragment="py_from_enum"{Exiv2::name}) Exiv2::name {
+    $result = py_from_enum($1);
+    if (!$result)
+        SWIG_fail;
+}
+
 // Add enum to module during init
 %fragment("get_enum_list");
 %fragment("get_enum_object");
@@ -128,6 +143,22 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
          fragment="import_py_enum") Exiv2::class::name {
     $1 = PyObject_IsInstance($input, Py_IntEnum);
+}
+
+// typemap to convert results
+%fragment("py_from_enum"{Exiv2::class::name}, "header") {
+static PyObject* py_from_enum(Exiv2::class::name value) {
+    swig_type_info* desc = $descriptor(Exiv2::class*);
+    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+    return PyObject_CallFunction(
+        PyDict_GetItemString(cd->pytype->tp_dict, "name"), "(i)", value);
+};
+}
+%typemap(out, fragment="py_from_enum"{Exiv2::class::name})
+        Exiv2::class::name {
+    $result = py_from_enum($1);
+    if (!$result)
+        SWIG_fail;
 }
 
 // Add enum to type object during module init

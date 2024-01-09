@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -82,7 +82,7 @@ class TestPropertiesModule(unittest.TestCase):
         self.assertEqual(property_title, 'Description')
         self.assertIsNone(properties.propertyTitle(key2))
         property_type = properties.propertyType(key)
-        self.assertIsInstance(property_type, int)
+        self.assertIsInstance(property_type, exiv2.TypeId)
         self.assertEqual(property_type, exiv2.TypeId.langAlt)
         self.assertEqual(properties.propertyType(key2), exiv2.TypeId.xmpText)
         namespaces = properties.registeredNamespaces()
@@ -108,10 +108,10 @@ class TestPropertiesModule(unittest.TestCase):
         self.assertIsInstance(title, str)
         self.assertEqual(title, 'Description')
         type_id = property_info['typeId']
-        self.assertIsInstance(type_id, int)
+        self.assertIsInstance(type_id, exiv2.TypeId)
         self.assertEqual(type_id, exiv2.TypeId.langAlt)
         category = property_info['xmpCategory']
-        self.assertIsInstance(category, int)
+        self.assertIsInstance(category, exiv2.XmpCategory)
         self.assertEqual(category, exiv2.XmpCategory.External)
         value_type = property_info['xmpValueType']
         self.assertIsInstance(value_type, str)

@@ -98,7 +98,7 @@ class TestTypesModule(unittest.TestCase):
     def test_TypeInfo(self):
         info = exiv2.TypeInfo
         result = info.typeId('Rational')
-        self.assertIsInstance(result, int)
+        self.assertIsInstance(result, exiv2.TypeId)
         self.assertEqual(result, exiv2.TypeId.unsignedRational)
         result = info.typeName(exiv2.TypeId.unsignedRational)
         self.assertIsInstance(result, str)

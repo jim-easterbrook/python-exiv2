@@ -4559,6 +4559,14 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
 }
 
 
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
+
   #define SWIG_From_double   PyFloat_FromDouble 
 
 
@@ -5907,7 +5915,11 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_typeId(PyObject *self, PyObject *arg
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -7320,7 +7332,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_typeId(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;

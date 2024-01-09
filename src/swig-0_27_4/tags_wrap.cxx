@@ -4151,15 +4151,23 @@ public:
 };
 
 
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
+
 static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
-    return Py_BuildValue("{si,ss,ss,ss,si,si,si,si}",
+    return Py_BuildValue("{si,ss,ss,ss,si,si,sN,si}",
         "tag",       info->tag_,
         "name",      info->name_,
         "title",     info->title_,
         "desc",      info->desc_,
         "ifdId",     info->ifdId_,
         "sectionId", info->sectionId_,
-        "typeId",    info->typeId_,
+        "typeId",    py_from_enum(info->typeId_),
         "count",     info->count_);
 };
 
@@ -4170,6 +4178,10 @@ static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
     PyObject* list = PyList_New(0);
     while (item->tag_ != 0xFFFF) {
         py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;
@@ -4206,6 +4218,10 @@ static PyObject* pointer_to_list(const Exiv2::GroupInfo* ptr) {
     PyObject* list = PyList_New(0);
     while (item->tagList_ != 0) {
         py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;
@@ -5545,7 +5561,11 @@ SWIGINTERN PyObject *_wrap_ExifKey_defaultTypeId(PyObject *self, PyObject *args)
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;

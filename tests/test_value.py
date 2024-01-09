@@ -58,9 +58,10 @@ class TestValueModule(unittest.TestCase):
         self.check_result(value.size(), int, len(data))
         # Exiv2::CommentValue::typeId returns undefined
         if type_id == exiv2.TypeId.comment:
-            self.check_result(value.typeId(), int, exiv2.TypeId.undefined)
+            self.check_result(
+                value.typeId(), exiv2.TypeId, exiv2.TypeId.undefined)
         else:
-            self.check_result(value.typeId(), int, type_id)
+            self.check_result(value.typeId(), exiv2.TypeId, type_id)
 
     def do_conversion_tests(self, value, text, number):
         result = value.toFloat(0)
@@ -112,16 +113,18 @@ class TestValueModule(unittest.TestCase):
                       exiv2.XmpValue.XmpArrayType.xaAlt,
                       exiv2.XmpValue.XmpArrayType.xaNone):
             value.setXmpArrayType(type_)
-            self.check_result(value.xmpArrayType(), int, type_)
+            self.check_result(
+                value.xmpArrayType(), exiv2.XmpValue.XmpArrayType, type_)
         with self.assertWarns(DeprecationWarning):
             type_ = exiv2.XmpStruct.xsStruct
         for type_ in (exiv2.XmpValue.XmpStruct.xsStruct,
                       exiv2.XmpValue.XmpStruct.xsNone):
             value.setXmpStruct(type_)
-            self.check_result(value.xmpStruct(), int, type_)
+            self.check_result(
+                value.xmpStruct(), exiv2.XmpValue.XmpStruct, type_)
         value.setXmpStruct()
-        self.check_result(
-            value.xmpStruct(), int, exiv2.XmpValue.XmpStruct.xsStruct)
+        self.check_result(value.xmpStruct(), exiv2.XmpValue.XmpStruct,
+                          exiv2.XmpValue.XmpStruct.xsStruct)
 
     def test_AsciiValue(self):
         text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
@@ -154,11 +157,12 @@ class TestValueModule(unittest.TestCase):
         # other methods
         with self.assertWarns(DeprecationWarning):
             result = exiv2.CharsetId.ascii
-        self.check_result(
-            value.charsetId(), int, exiv2.CommentValue.CharsetId.unicode)
+        self.check_result(value.charsetId(), exiv2.CommentValue.CharsetId,
+                          exiv2.CommentValue.CharsetId.unicode)
         self.check_result(value.comment(), str, raw_text)
         self.check_result(value.detectCharset(raw_text), str, 'UCS-2LE')
-        self.check_result(value.byteOrder_, int, exiv2.ByteOrder.littleEndian)
+        self.check_result(
+            value.byteOrder_, exiv2.ByteOrder, exiv2.ByteOrder.littleEndian)
         self.do_common_tests(value, exiv2.TypeId.comment, text, data)
         self.do_common_string_tests(value, data)
         self.do_conversion_tests(value, text, data[0])
@@ -231,17 +235,17 @@ class TestValueModule(unittest.TestCase):
         # constructors
         value = exiv2.XmpArrayValue()
         self.assertIsInstance(value, exiv2.XmpArrayValue)
-        self.check_result(value.typeId(), int, exiv2.TypeId.xmpBag)
+        self.check_result(value.typeId(), exiv2.TypeId, exiv2.TypeId.xmpBag)
         self.assertEqual(len(value), 0)
         value = exiv2.XmpArrayValue(exiv2.TypeId.xmpSeq)
         self.assertIsInstance(value, exiv2.XmpArrayValue)
-        self.check_result(value.typeId(), int, exiv2.TypeId.xmpSeq)
+        self.check_result(value.typeId(), exiv2.TypeId, exiv2.TypeId.xmpSeq)
         value = exiv2.XmpArrayValue(text)
         self.assertIsInstance(value, exiv2.XmpArrayValue)
-        self.check_result(value.typeId(), int, exiv2.TypeId.xmpBag)
+        self.check_result(value.typeId(), exiv2.TypeId, exiv2.TypeId.xmpBag)
         value = exiv2.XmpArrayValue(text, exiv2.TypeId.xmpSeq)
         self.assertIsInstance(value, exiv2.XmpArrayValue)
-        self.check_result(value.typeId(), int, exiv2.TypeId.xmpSeq)
+        self.check_result(value.typeId(), exiv2.TypeId, exiv2.TypeId.xmpSeq)
         # other methods
         self.assertEqual(len(value), 2)
         self.check_result(value[0], str, text[0])
@@ -293,20 +297,22 @@ class TestValueModule(unittest.TestCase):
         # constructors
         value = exiv2.DataValue()
         self.assertIsInstance(value, exiv2.DataValue)
-        self.check_result(value.typeId(), int, exiv2.TypeId.undefined)
+        self.check_result(value.typeId(), exiv2.TypeId, exiv2.TypeId.undefined)
         self.assertEqual(len(value), 0)
         value = exiv2.DataValue(exiv2.TypeId.unsignedByte)
         self.assertIsInstance(value, exiv2.DataValue)
-        self.check_result(value.typeId(), int, exiv2.TypeId.unsignedByte)
+        self.check_result(
+            value.typeId(), exiv2.TypeId, exiv2.TypeId.unsignedByte)
         self.assertEqual(len(value), 0)
         value = exiv2.DataValue(data)
         self.assertIsInstance(value, exiv2.DataValue)
-        self.check_result(value.typeId(), int, exiv2.TypeId.undefined)
+        self.check_result(value.typeId(), exiv2.TypeId, exiv2.TypeId.undefined)
         check_data(value, data)
         value = exiv2.DataValue(
             data, exiv2.ByteOrder.invalidByteOrder, exiv2.TypeId.unsignedByte)
         self.assertIsInstance(value, exiv2.DataValue)
-        self.check_result(value.typeId(), int, exiv2.TypeId.unsignedByte)
+        self.check_result(
+            value.typeId(), exiv2.TypeId, exiv2.TypeId.unsignedByte)
         check_data(value, data)
         # other methods
         self.do_common_tests(value, exiv2.TypeId.unsignedByte, string, data)

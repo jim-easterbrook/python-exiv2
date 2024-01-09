@@ -4490,15 +4490,16 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
 
 
 static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
-    return Py_BuildValue("{si,ss,ss,ss,sN,sN,si,si,si,si,ss}",
+    return Py_BuildValue("{si,ss,ss,ss,sN,sN,si,si,sN,si,ss}",
         "number",     info->number_,
         "name",       info->name_,
         "title",      info->title_,
@@ -4507,7 +4508,7 @@ static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
         "repeatable", PyBool_FromLong(info->repeatable_),
         "minbytes",   info->minbytes_,
         "maxbytes",   info->maxbytes_,
-        "type",       info->type_,
+        "type",       py_from_enum(info->type_),
         "recordId",   info->recordId_,
         "photoshop",  info->photoshop_);
 
@@ -4520,6 +4521,10 @@ static PyObject* pointer_to_list(const Exiv2::DataSet* ptr) {
     PyObject* list = PyList_New(0);
     while (item->number_ != 0xffff) {
         py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;
@@ -4831,7 +4836,11 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetType(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;

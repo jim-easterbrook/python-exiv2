@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,6 +26,10 @@ static PyObject* pointer_to_list(const item_type* ptr) {
     PyObject* list = PyList_New(0);
     while (item->valid_test) {
         py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;

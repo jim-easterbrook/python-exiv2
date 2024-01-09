@@ -4218,22 +4218,31 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
+
+static PyObject* py_from_enum(Exiv2::XmpCategory value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "XmpCategory", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
 
 
 static PyObject* struct_to_dict(const Exiv2::XmpPropertyInfo* info) {
     if (!info)
         return SWIG_Py_Void();
-    return Py_BuildValue("{ss,ss,ss,si,si,ss}",
+    return Py_BuildValue("{ss,ss,ss,sN,sN,ss}",
         "name",         info->name_,
         "title",        info->title_,
         "xmpValueType", info->xmpValueType_,
-        "typeId",       info->typeId_,
-        "xmpCategory",  info->xmpCategory_,
+        "typeId",       py_from_enum(info->typeId_),
+        "xmpCategory",  py_from_enum(info->xmpCategory_),
         "desc",         info->desc_);
 };
 
@@ -4369,6 +4378,10 @@ static PyObject* pointer_to_list(const Exiv2::XmpPropertyInfo* ptr) {
     PyObject* list = PyList_New(0);
     while (item->name_ != 0) {
         py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;
@@ -4516,7 +4529,11 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyType(PyObject *self, PyObject *
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;

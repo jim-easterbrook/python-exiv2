@@ -4299,11 +4299,12 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 }
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
+static PyObject* py_from_enum(Exiv2::LogMsg::Level value) {
+    swig_type_info* desc = SWIGTYPE_p_Exiv2__LogMsg;
+    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+    return PyObject_CallFunction(
+        PyDict_GetItemString(cd->pytype->tp_dict, "Level"), "(i)", value);
+};
 
 #ifdef __cplusplus
 extern "C" {
@@ -4358,7 +4359,11 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;

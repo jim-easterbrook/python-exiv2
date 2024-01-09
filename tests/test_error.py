@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -30,9 +30,11 @@ class TestErrorModule(unittest.TestCase):
 
     def test_LogMsg(self):
         self.assertIsInstance(exiv2.LogMsg.Level, enum.EnumMeta)
-        self.check_result(exiv2.LogMsg.level(), int, exiv2.LogMsg.Level.warn)
+        self.check_result(
+            exiv2.LogMsg.level(), exiv2.LogMsg.Level, exiv2.LogMsg.Level.warn)
         exiv2.LogMsg.setLevel(exiv2.LogMsg.Level.debug)
-        self.check_result(exiv2.LogMsg.level(), int, exiv2.LogMsg.Level.debug)
+        self.check_result(
+            exiv2.LogMsg.level(), exiv2.LogMsg.Level, exiv2.LogMsg.Level.debug)
         # get exiv2 to log a message
         with self.assertLogs(level=logging.WARNING):
             comment = exiv2.CommentValue('charset=invalid Fred')

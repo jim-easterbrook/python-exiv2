@@ -4556,6 +4556,14 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 static PyObject* Py_IntEnum = NULL;
 
 
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
+
   #define SWIG_From_double   PyFloat_FromDouble 
 
 
@@ -6166,7 +6174,11 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_typeId(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -7764,7 +7776,11 @@ SWIGINTERN PyObject *_wrap_Exifdatum_typeId(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;

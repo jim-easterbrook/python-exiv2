@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -27,74 +27,6 @@
 %import "metadatum.i";
 
 UNIQUE_PTR(Exiv2::ExifKey);
-
-// ExifTags::groupList returns a static list as a pointer
-%fragment("struct_to_dict"{Exiv2::GroupInfo}, "header",
-          fragment="new_TagListFct") {
-static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
-    return Py_BuildValue("{si,ss,ss,sN}",
-        "ifdId",     info->ifdId_,
-        "ifdName",   info->ifdName_,
-        "groupName", info->groupName_,
-        "tagList",   new_TagListFct(info->tagList_));
-};
-}
-LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0)
-
-// ExifTags::tagList returns a static list as a pointer
-%fragment("struct_to_dict"{Exiv2::TagInfo}, "header") {
-static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
-    return Py_BuildValue("{si,ss,ss,ss,si,si,si,si}",
-        "tag",       info->tag_,
-        "name",      info->name_,
-        "title",     info->title_,
-        "desc",      info->desc_,
-        "ifdId",     info->ifdId_,
-        "sectionId", info->sectionId_,
-        "typeId",    info->typeId_,
-        "count",     info->count_);
-};
-}
-LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
-
-// Wrapper class for TagListFct function pointer
-#ifndef SWIGIMPORTED
-%ignore _TagListFct::_TagListFct;
-%feature("python:slot", "tp_call", functype="ternarycallfunc")
-    _TagListFct::__call__;
-%noexception _TagListFct::~_TagListFct;
-%noexception _TagListFct::__call__;
-%noexception _TagListFct::operator==;
-%noexception _TagListFct::operator!=;
-%inline %{
-class _TagListFct {
-private:
-    Exiv2::TagListFct func;
-public:
-    _TagListFct(Exiv2::TagListFct func) : func(func) {}
-    const Exiv2::TagInfo* __call__() {
-        return (*func)();
-    }
-    bool operator==(const _TagListFct &other) const {
-        return other.func == func;
-    }
-    bool operator!=(const _TagListFct &other) const {
-        return other.func != func;
-    }
-};
-%}
-%fragment("new_TagListFct", "header") {
-    static PyObject* new_TagListFct(Exiv2::TagListFct func) {
-        return SWIG_Python_NewPointerObj(NULL, new _TagListFct(func),
-            $descriptor(_TagListFct*), SWIG_POINTER_OWN);
-    }
-}
-#endif // SWIGIMPORTED
-
-// Wrap TagListFct return values
-%typemap(out, fragment="new_TagListFct") Exiv2::TagListFct {
-    $result = new_TagListFct($1);
-}
 
 // Add Exif specific enums
 #if EXIV2_VERSION_HEX >= 0x001c0000
@@ -148,6 +80,93 @@ ENUM(SectionId, "Section identifiers to logically group tags.\n"
         "adobeOpi",        Exiv2::SectionId::adobeOpi,
         "lastSectionId ",  Exiv2::SectionId::lastSectionId);
 #endif // EXIV2_VERSION_HEX
+
+// ExifTags::groupList returns a static list as a pointer
+%fragment("struct_to_dict"{Exiv2::GroupInfo}, "header",
+          fragment="new_TagListFct") {
+static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
+    return Py_BuildValue("{si,ss,ss,sN}",
+        "ifdId",     info->ifdId_,
+        "ifdName",   info->ifdName_,
+        "groupName", info->groupName_,
+        "tagList",   new_TagListFct(info->tagList_));
+};
+}
+LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0)
+
+// ExifTags::tagList returns a static list as a pointer
+#if EXIV2_VERSION_HEX >= 0x001c0000
+%fragment("struct_to_dict"{Exiv2::TagInfo}, "header",
+          fragment="py_from_enum"{Exiv2::SectionId},
+          fragment="py_from_enum"{Exiv2::TypeId}) {
+static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
+    return Py_BuildValue("{si,ss,ss,ss,si,sN,sN,si}",
+        "tag",       info->tag_,
+        "name",      info->name_,
+        "title",     info->title_,
+        "desc",      info->desc_,
+        "ifdId",     info->ifdId_,
+        "sectionId", py_from_enum(info->sectionId_),
+        "typeId",    py_from_enum(info->typeId_),
+        "count",     info->count_);
+};
+}
+#else // EXIV2_VERSION_HEX
+%fragment("struct_to_dict"{Exiv2::TagInfo}, "header",
+          fragment="py_from_enum"{Exiv2::TypeId}) {
+static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
+    return Py_BuildValue("{si,ss,ss,ss,si,si,sN,si}",
+        "tag",       info->tag_,
+        "name",      info->name_,
+        "title",     info->title_,
+        "desc",      info->desc_,
+        "ifdId",     info->ifdId_,
+        "sectionId", info->sectionId_,
+        "typeId",    py_from_enum(info->typeId_),
+        "count",     info->count_);
+};
+}
+#endif // EXIV2_VERSION_HEX
+LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
+
+// Wrapper class for TagListFct function pointer
+#ifndef SWIGIMPORTED
+%ignore _TagListFct::_TagListFct;
+%feature("python:slot", "tp_call", functype="ternarycallfunc")
+    _TagListFct::__call__;
+%noexception _TagListFct::~_TagListFct;
+%noexception _TagListFct::__call__;
+%noexception _TagListFct::operator==;
+%noexception _TagListFct::operator!=;
+%inline %{
+class _TagListFct {
+private:
+    Exiv2::TagListFct func;
+public:
+    _TagListFct(Exiv2::TagListFct func) : func(func) {}
+    const Exiv2::TagInfo* __call__() {
+        return (*func)();
+    }
+    bool operator==(const _TagListFct &other) const {
+        return other.func == func;
+    }
+    bool operator!=(const _TagListFct &other) const {
+        return other.func != func;
+    }
+};
+%}
+%fragment("new_TagListFct", "header") {
+    static PyObject* new_TagListFct(Exiv2::TagListFct func) {
+        return SWIG_Python_NewPointerObj(NULL, new _TagListFct(func),
+            $descriptor(_TagListFct*), SWIG_POINTER_OWN);
+    }
+}
+#endif // SWIGIMPORTED
+
+// Wrap TagListFct return values
+%typemap(out, fragment="new_TagListFct") Exiv2::TagListFct {
+    $result = new_TagListFct($1);
+}
 
 // Ignore structs replaced by Python dict
 %ignore Exiv2::GroupInfo;

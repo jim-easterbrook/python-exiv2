@@ -4134,57 +4134,6 @@ namespace swig {
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
-class _TagListFct {
-private:
-    Exiv2::TagListFct func;
-public:
-    _TagListFct(Exiv2::TagListFct func) : func(func) {}
-    const Exiv2::TagInfo* __call__() {
-        return (*func)();
-    }
-    bool operator==(const _TagListFct &other) const {
-        return other.func == func;
-    }
-    bool operator!=(const _TagListFct &other) const {
-        return other.func != func;
-    }
-};
-
-
-static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
-    return Py_BuildValue("{si,ss,ss,ss,si,si,si,si}",
-        "tag",       info->tag_,
-        "name",      info->name_,
-        "title",     info->title_,
-        "desc",      info->desc_,
-        "ifdId",     info->ifdId_,
-        "sectionId", info->sectionId_,
-        "typeId",    info->typeId_,
-        "count",     info->count_);
-};
-
-
-static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
-    const Exiv2::TagInfo* item = ptr;
-    PyObject* py_tmp = NULL;
-    PyObject* list = PyList_New(0);
-    while (item->tag_ != 0xFFFF) {
-        py_tmp = struct_to_dict(item);
-        PyList_Append(list, py_tmp);
-        Py_DECREF(py_tmp);
-        ++item;
-    }
-    return list;
-};
-
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
-{
-  return PyBool_FromLong(value ? 1 : 0);
-}
-
-
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -4222,6 +4171,77 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
 };
 
 
+class _TagListFct {
+private:
+    Exiv2::TagListFct func;
+public:
+    _TagListFct(Exiv2::TagListFct func) : func(func) {}
+    const Exiv2::TagInfo* __call__() {
+        return (*func)();
+    }
+    bool operator==(const _TagListFct &other) const {
+        return other.func == func;
+    }
+    bool operator!=(const _TagListFct &other) const {
+        return other.func != func;
+    }
+};
+
+
+static PyObject* py_from_enum(Exiv2::SectionId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "SectionId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* module = PyImport_ImportModule("exiv2");
+    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
+    Py_DECREF(module);
+    return result;
+};
+
+
+static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
+    return Py_BuildValue("{si,ss,ss,ss,si,sN,sN,si}",
+        "tag",       info->tag_,
+        "name",      info->name_,
+        "title",     info->title_,
+        "desc",      info->desc_,
+        "ifdId",     info->ifdId_,
+        "sectionId", py_from_enum(info->sectionId_),
+        "typeId",    py_from_enum(info->typeId_),
+        "count",     info->count_);
+};
+
+
+static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
+    const Exiv2::TagInfo* item = ptr;
+    PyObject* py_tmp = NULL;
+    PyObject* list = PyList_New(0);
+    while (item->tag_ != 0xFFFF) {
+        py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
+        PyList_Append(list, py_tmp);
+        Py_DECREF(py_tmp);
+        ++item;
+    }
+    return list;
+};
+
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_bool  (bool value)
+{
+  return PyBool_FromLong(value ? 1 : 0);
+}
+
+
     static PyObject* new_TagListFct(Exiv2::TagListFct func) {
         return SWIG_Python_NewPointerObj(NULL, new _TagListFct(func),
             SWIGTYPE_p__TagListFct, SWIG_POINTER_OWN);
@@ -4243,6 +4263,10 @@ static PyObject* pointer_to_list(const Exiv2::GroupInfo* ptr) {
     PyObject* list = PyList_New(0);
     while (item->tagList_ != 0) {
         py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;
@@ -5651,7 +5675,11 @@ SWIGINTERN PyObject *_wrap_ExifKey_defaultTypeId(PyObject *self, PyObject *args)
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -7270,6 +7298,24 @@ SWIG_init(void) {
   }
   
   
+  {
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+    return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+    return NULL;
+  }
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId",_get_enum_object(
+      "IfdId", "Type to specify the IFD to which a metadata belongs.\n"
+      "\nMaker note IFDs have been omitted from this enum.", _get_enum_list(0, "ifdIdNotSet",Exiv2::IfdId::ifdIdNotSet,"ifd0Id",Exiv2::IfdId::ifd0Id,"ifd1Id",Exiv2::IfdId::ifd1Id,"ifd2Id",Exiv2::IfdId::ifd2Id,"ifd3Id",Exiv2::IfdId::ifd3Id,"exifId",Exiv2::IfdId::exifId,"gpsId",Exiv2::IfdId::gpsId,"iopId",Exiv2::IfdId::iopId,"mpfId",Exiv2::IfdId::mpfId,"subImage1Id",Exiv2::IfdId::subImage1Id,"subImage2Id",Exiv2::IfdId::subImage2Id,"subImage3Id",Exiv2::IfdId::subImage3Id,"subImage4Id",Exiv2::IfdId::subImage4Id,"subImage5Id",Exiv2::IfdId::subImage5Id,"subImage6Id",Exiv2::IfdId::subImage6Id,"subImage7Id",Exiv2::IfdId::subImage7Id,"subImage8Id",Exiv2::IfdId::subImage8Id,"subImage9Id",Exiv2::IfdId::subImage9Id,"subThumb1Id",Exiv2::IfdId::subThumb1Id,"lastId",Exiv2::IfdId::lastId,"ignoreId",Exiv2::IfdId::ignoreId, NULL)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId",_get_enum_object(
+      "SectionId", "Section identifiers to logically group tags.\n"
+      "\nA section consists of nothing more than a name, based on the"
+      "\nExif standard.", _get_enum_list(0, "sectionIfNotSet",Exiv2::SectionId::sectionIdNotSet,"imgStruct",Exiv2::SectionId::imgStruct,"recOffset",Exiv2::SectionId::recOffset,"imgCharacter",Exiv2::SectionId::imgCharacter,"otherTags",Exiv2::SectionId::otherTags,"exifFormat",Exiv2::SectionId::exifFormat,"exifVersion",Exiv2::SectionId::exifVersion,"imgConfig",Exiv2::SectionId::imgConfig,"userInfo",Exiv2::SectionId::userInfo,"relatedFile",Exiv2::SectionId::relatedFile,"dateTime",Exiv2::SectionId::dateTime,"captureCond",Exiv2::SectionId::captureCond,"gpsTags",Exiv2::SectionId::gpsTags,"iopTags",Exiv2::SectionId::iopTags,"mpfTags",Exiv2::SectionId::mpfTags,"makerTags",Exiv2::SectionId::makerTags,"dngTags",Exiv2::SectionId::dngTags,"panaRaw",Exiv2::SectionId::panaRaw,"tiffEp",Exiv2::SectionId::tiffEp,"tiffPm6",Exiv2::SectionId::tiffPm6,"adobeOpi",Exiv2::SectionId::adobeOpi,"lastSectionId ",Exiv2::SectionId::lastSectionId, NULL)));
+  
   /* type '::_TagListFct' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin___TagListFct_type;
   builtin_pytype->tp_dict = d = PyDict_New();
@@ -7292,24 +7338,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "_TagListFct", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "_TagListFct");
   d = md;
-  
-  {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-    return NULL;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum)
-    return NULL;
-  }
-  
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId",_get_enum_object(
-      "IfdId", "Type to specify the IFD to which a metadata belongs.\n"
-      "\nMaker note IFDs have been omitted from this enum.", _get_enum_list(0, "ifdIdNotSet",Exiv2::IfdId::ifdIdNotSet,"ifd0Id",Exiv2::IfdId::ifd0Id,"ifd1Id",Exiv2::IfdId::ifd1Id,"ifd2Id",Exiv2::IfdId::ifd2Id,"ifd3Id",Exiv2::IfdId::ifd3Id,"exifId",Exiv2::IfdId::exifId,"gpsId",Exiv2::IfdId::gpsId,"iopId",Exiv2::IfdId::iopId,"mpfId",Exiv2::IfdId::mpfId,"subImage1Id",Exiv2::IfdId::subImage1Id,"subImage2Id",Exiv2::IfdId::subImage2Id,"subImage3Id",Exiv2::IfdId::subImage3Id,"subImage4Id",Exiv2::IfdId::subImage4Id,"subImage5Id",Exiv2::IfdId::subImage5Id,"subImage6Id",Exiv2::IfdId::subImage6Id,"subImage7Id",Exiv2::IfdId::subImage7Id,"subImage8Id",Exiv2::IfdId::subImage8Id,"subImage9Id",Exiv2::IfdId::subImage9Id,"subThumb1Id",Exiv2::IfdId::subThumb1Id,"lastId",Exiv2::IfdId::lastId,"ignoreId",Exiv2::IfdId::ignoreId, NULL)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId",_get_enum_object(
-      "SectionId", "Section identifiers to logically group tags.\n"
-      "\nA section consists of nothing more than a name, based on the"
-      "\nExif standard.", _get_enum_list(0, "sectionIfNotSet",Exiv2::SectionId::sectionIdNotSet,"imgStruct",Exiv2::SectionId::imgStruct,"recOffset",Exiv2::SectionId::recOffset,"imgCharacter",Exiv2::SectionId::imgCharacter,"otherTags",Exiv2::SectionId::otherTags,"exifFormat",Exiv2::SectionId::exifFormat,"exifVersion",Exiv2::SectionId::exifVersion,"imgConfig",Exiv2::SectionId::imgConfig,"userInfo",Exiv2::SectionId::userInfo,"relatedFile",Exiv2::SectionId::relatedFile,"dateTime",Exiv2::SectionId::dateTime,"captureCond",Exiv2::SectionId::captureCond,"gpsTags",Exiv2::SectionId::gpsTags,"iopTags",Exiv2::SectionId::iopTags,"mpfTags",Exiv2::SectionId::mpfTags,"makerTags",Exiv2::SectionId::makerTags,"dngTags",Exiv2::SectionId::dngTags,"panaRaw",Exiv2::SectionId::panaRaw,"tiffEp",Exiv2::SectionId::tiffEp,"tiffPm6",Exiv2::SectionId::tiffPm6,"adobeOpi",Exiv2::SectionId::adobeOpi,"lastSectionId ",Exiv2::SectionId::lastSectionId, NULL)));
   
   /* type 'Exiv2::ExifTags' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__ExifTags_type;
