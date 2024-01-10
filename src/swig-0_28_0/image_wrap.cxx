@@ -4545,6 +4545,15 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* get_enum_typeobject(Exiv2::MetadataId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "MetadataId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
 static PyObject* get_enum_typeobject(Exiv2::AccessMode value) {
     PyObject* result = PyObject_GetAttrString(exiv2_module, "AccessMode");
     // PyObject_GetAttrString returns a new reference, decref is safe as
@@ -4557,6 +4566,15 @@ static PyObject* get_enum_typeobject(Exiv2::AccessMode value) {
 static PyObject* py_from_enum(Exiv2::AccessMode value) {
     return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
 }
+
+
+static PyObject* get_enum_typeobject(Exiv2::ImageType value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "ImageType");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
 
 
 #include <limits.h>
@@ -4635,15 +4653,6 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   }  
   return res;
 }
-
-
-static PyObject* get_enum_typeobject(Exiv2::ImageType value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "ImageType");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
-};
 
 
 static PyObject* py_from_enum(Exiv2::ImageType value) {
@@ -5765,9 +5774,9 @@ SWIGINTERN PyObject *_wrap_Image_setByteOrder(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ByteOrder" "' instead of int", 1);
+        "Image_setByteOrder argument 2 type should be 'Exiv2::ByteOrder'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_setByteOrder" "', argument " "2"" of type '" "Exiv2::ByteOrder""'")
@@ -6060,9 +6069,9 @@ SWIGINTERN PyObject *_wrap_Image_checkMode(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::MetadataId" "' instead of int", 1);
+        "Image_checkMode argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_checkMode" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
@@ -6112,9 +6121,9 @@ SWIGINTERN PyObject *_wrap_Image_supportsMetadata(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::MetadataId" "' instead of int", 1);
+        "Image_supportsMetadata argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_supportsMetadata" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
@@ -6224,9 +6233,9 @@ SWIGINTERN PyObject *_wrap_Image_setTypeSupported(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ImageType" "' instead of int", 1);
+        "Image_setTypeSupported argument 2 type should be 'Exiv2::ImageType'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_setTypeSupported" "', argument " "2"" of type '" "Exiv2::ImageType""'")
@@ -6533,9 +6542,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ImageType" "' instead of int", 1);
+        "ImageFactory_create argument 1 type should be 'Exiv2::ImageType'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_create" "', argument " "1"" of type '" "Exiv2::ImageType""'")
@@ -6595,9 +6604,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_1(PyObject *self, Py_ssize_
   
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ImageType" "' instead of int", 1);
+        "ImageFactory_create argument 1 type should be 'Exiv2::ImageType'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_create" "', argument " "1"" of type '" "Exiv2::ImageType""'")
@@ -6867,9 +6876,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkMode(PyObject *self, PyObject *args
   
   if (!SWIG_Python_UnpackTuple(args, "ImageFactory_checkMode", 2, 2, swig_obj)) SWIG_fail;
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ImageType" "' instead of int", 1);
+        "ImageFactory_checkMode argument 1 type should be 'Exiv2::ImageType'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_checkMode" "', argument " "1"" of type '" "Exiv2::ImageType""'")
@@ -6878,9 +6887,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkMode(PyObject *self, PyObject *args
     arg1 = (Exiv2::ImageType)PyLong_AsLong(swig_obj[0]);
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::MetadataId" "' instead of int", 1);
+        "ImageFactory_checkMode argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_checkMode" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
@@ -6927,9 +6936,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkType(PyObject *self, PyObject *args
   
   if (!SWIG_Python_UnpackTuple(args, "ImageFactory_checkType", 3, 3, swig_obj)) SWIG_fail;
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ImageType" "' instead of int", 1);
+        "ImageFactory_checkType argument 1 type should be 'Exiv2::ImageType'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_checkType" "', argument " "1"" of type '" "Exiv2::ImageType""'")

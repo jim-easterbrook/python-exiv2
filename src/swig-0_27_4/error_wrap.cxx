@@ -4184,9 +4184,9 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::LogMsg::Level" "' instead of int", 1);
+        "LogMsg_setLevel argument 1 type should be 'Exiv2::LogMsg::Level'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LogMsg_setLevel" "', argument " "1"" of type '" "Exiv2::LogMsg::Level""'")

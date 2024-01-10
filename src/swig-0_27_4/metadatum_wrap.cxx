@@ -4337,6 +4337,15 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "ByteOrder");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
 static PyObject* Py_IntEnum = NULL;
 
 
@@ -5619,9 +5628,9 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ByteOrder" "' instead of int", 1);
+        "Metadatum_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Metadatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")

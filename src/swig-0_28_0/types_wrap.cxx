@@ -4326,6 +4326,15 @@ fail:
 };
 
 
+static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
 SWIGINTERNINLINE PyObject *
 SWIG_FromCharPtrAndSize(const char* carray, size_t size)
 {
@@ -4387,15 +4396,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   }
   return SWIG_ERROR;
 }
-
-
-static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
-};
 
 
 static PyObject* py_from_enum(Exiv2::TypeId value) {
@@ -5298,9 +5298,9 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeName(PyObject *self, PyObject *args) {
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::TypeId" "' instead of int", 1);
+        "TypeInfo_typeName argument 1 type should be 'Exiv2::TypeId'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TypeInfo_typeName" "', argument " "1"" of type '" "Exiv2::TypeId""'")
@@ -5385,9 +5385,9 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeSize(PyObject *self, PyObject *args) {
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::TypeId" "' instead of int", 1);
+        "TypeInfo_typeSize argument 1 type should be 'Exiv2::TypeId'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TypeInfo_typeSize" "', argument " "1"" of type '" "Exiv2::TypeId""'")

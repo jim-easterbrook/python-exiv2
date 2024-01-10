@@ -4376,6 +4376,15 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "ByteOrder");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
 static PyObject* Py_IntEnum = NULL;
 
 
@@ -5841,9 +5850,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_copy(PyObject *self, PyObject *args)
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ByteOrder" "' instead of int", 1);
+        "XmpData_iterator_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpData_iterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
@@ -6753,9 +6762,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_1(PyObject *self, Py_
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::TypeId" "' instead of int", 1);
+        "XmpData_iterator_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpData_iterator_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
@@ -6878,9 +6887,9 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, Py_ssi
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::TypeId" "' instead of int", 1);
+        "XmpData_iterator_value argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpData_iterator_value" "', argument " "2"" of type '" "Exiv2::TypeId""'")
@@ -7469,9 +7478,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ByteOrder" "' instead of int", 1);
+        "Xmpdatum_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Xmpdatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
@@ -8422,9 +8431,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t 
   }
   arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::TypeId" "' instead of int", 1);
+        "Xmpdatum_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Xmpdatum_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
@@ -8506,9 +8515,9 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nob
   }
   arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::TypeId" "' instead of int", 1);
+        "Xmpdatum_value argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Xmpdatum_value" "', argument " "2"" of type '" "Exiv2::TypeId""'")

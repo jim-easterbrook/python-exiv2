@@ -28,10 +28,10 @@
 }
 
 // deprecate passing integers where an enum is expected
-%typemap(in) pattern {
-    if (!PyObject_IsInstance($input, Py_IntEnum)) {
+%typemap(in, fragment="get_enum_typeobject"{pattern}) pattern {
+    if (!PyObject_IsInstance($input, get_enum_typeobject($1))) {
         PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Pass '" #pattern "' instead of int", 1);
+            "$symname argument $argnum type should be 'pattern'.", 1);
     }
     if (!PyLong_Check($input)) {
         %argument_fail(

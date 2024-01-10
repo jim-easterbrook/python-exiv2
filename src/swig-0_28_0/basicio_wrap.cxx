@@ -4575,6 +4575,14 @@ SWIG_AsVal_long_SS_long (PyObject *obj, long long *val)
 #endif
 
 
+static PyObject* get_enum_typeobject(Exiv2::BasicIo::Position value) {
+    swig_type_info* desc = SWIGTYPE_p_Exiv2__BasicIo;
+    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+    // PyDict_GetItemString returns a borrowed reference
+    return PyDict_GetItemString(cd->pytype->tp_dict, "Position");
+};
+
+
 SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
@@ -5383,9 +5391,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< int64_t >(val2);
   {
-    if (!PyObject_IsInstance(obj2, Py_IntEnum)) {
+    if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::BasicIo::Position" "' instead of int", 1);
+        "BasicIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
     }
     if (!PyLong_Check(obj2)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
@@ -6385,9 +6393,9 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< int64_t >(val2);
   {
-    if (!PyObject_IsInstance(obj2, Py_IntEnum)) {
+    if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::BasicIo::Position" "' instead of int", 1);
+        "FileIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
     }
     if (!PyLong_Check(obj2)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
@@ -7343,9 +7351,9 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< int64_t >(val2);
   {
-    if (!PyObject_IsInstance(obj2, Py_IntEnum)) {
+    if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::BasicIo::Position" "' instead of int", 1);
+        "MemIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
     }
     if (!PyLong_Check(obj2)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
@@ -8335,9 +8343,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< int64_t >(val2);
   {
-    if (!PyObject_IsInstance(obj2, Py_IntEnum)) {
+    if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::BasicIo::Position" "' instead of int", 1);
+        "RemoteIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
     }
     if (!PyLong_Check(obj2)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")

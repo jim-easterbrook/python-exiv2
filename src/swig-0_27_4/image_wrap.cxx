@@ -4545,6 +4545,15 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* get_enum_typeobject(Exiv2::MetadataId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "MetadataId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
 static PyObject* get_enum_typeobject(Exiv2::AccessMode value) {
     PyObject* result = PyObject_GetAttrString(exiv2_module, "AccessMode");
     // PyObject_GetAttrString returns a new reference, decref is safe as
@@ -5648,9 +5657,9 @@ SWIGINTERN PyObject *_wrap_Image_setByteOrder(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::ByteOrder" "' instead of int", 1);
+        "Image_setByteOrder argument 2 type should be 'Exiv2::ByteOrder'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_setByteOrder" "', argument " "2"" of type '" "Exiv2::ByteOrder""'")
@@ -5927,9 +5936,9 @@ SWIGINTERN PyObject *_wrap_Image_checkMode(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::MetadataId" "' instead of int", 1);
+        "Image_checkMode argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_checkMode" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
@@ -5977,9 +5986,9 @@ SWIGINTERN PyObject *_wrap_Image_supportsMetadata(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::MetadataId" "' instead of int", 1);
+        "Image_supportsMetadata argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
     if (!PyLong_Check(swig_obj[0])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_supportsMetadata" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
@@ -6687,9 +6696,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkMode(PyObject *self, PyObject *args
   } 
   arg1 = static_cast< int >(val1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], Py_IntEnum)) {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
       PyErr_WarnEx(PyExc_DeprecationWarning,
-        "Pass '""Exiv2::MetadataId" "' instead of int", 1);
+        "ImageFactory_checkMode argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
     if (!PyLong_Check(swig_obj[1])) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_checkMode" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
