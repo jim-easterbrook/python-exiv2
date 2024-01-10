@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -46,6 +46,16 @@ DATA_ITERATOR_TYPEMAPS(ExifData_iterator, Exiv2::ExifData::iterator)
 DATA_ITERATOR_CLASSES(
     ExifData_iterator, Exiv2::ExifData::iterator, Exiv2::Exifdatum)
 #endif
+
+// Get the current (or default if not set) type id of a datum
+%fragment("get_type_id"{Exiv2::Exifdatum}, "header") {
+static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
+    Exiv2::TypeId type_id = datum->typeId();
+    if (type_id != Exiv2::invalidTypeId)
+        return type_id;
+    return Exiv2::ExifKey(datum->key()).defaultTypeId();
+};
+}
 
 DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
 

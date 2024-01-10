@@ -28,32 +28,6 @@ static PyObject* exiv2_module = NULL;
 }
 }
 
-// Get the current (or default if not set) type id of a datum
-%fragment("get_type_id"{Exiv2::Exifdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::ExifKey(datum->key()).defaultTypeId();
-};
-}
-%fragment("get_type_id"{Exiv2::Iptcdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
-};
-}
-%fragment("get_type_id"{Exiv2::Xmpdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
-};
-}
-
 // Convert exiv2 type id to the appropriate value class type info
 %fragment("get_type_object", "header") {
 static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
