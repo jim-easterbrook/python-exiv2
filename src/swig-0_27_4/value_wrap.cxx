@@ -5489,7 +5489,18 @@ static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
 
 
 static PyObject* py_from_enum(Exiv2::TypeId value) {
-    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
 }
 
 
@@ -5917,12 +5928,34 @@ static PyObject* get_enum_typeobject(Exiv2::CommentValue::CharsetId value) {
 
 
 static PyObject* py_from_enum(Exiv2::CommentValue::CharsetId value) {
-    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
 }
 
 
 static PyObject* py_from_enum(Exiv2::ByteOrder value) {
-    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
 }
 
 SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value const &value){
@@ -5954,7 +5987,18 @@ static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpArrayType value) {
 
 
 static PyObject* py_from_enum(Exiv2::XmpValue::XmpArrayType value) {
-    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
 }
 
 
@@ -5967,7 +6011,18 @@ static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpStruct value) {
 
 
 static PyObject* py_from_enum(Exiv2::XmpValue::XmpStruct value) {
-    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
 }
 
 SWIGINTERN Exiv2::XmpTextValue *new_Exiv2_XmpTextValue__SWIG_2(Exiv2::Value const &value){
