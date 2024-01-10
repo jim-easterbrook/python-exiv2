@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,6 +15,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+// Import exiv2 package
+%fragment("_import_exiv2_decl", "header") {
+static PyObject* exiv2_module = NULL;
+}
+%fragment("import_exiv2", "init", fragment="_import_exiv2_decl") {
+{
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
+        return NULL;
+}
+}
 
 // Get the current (or default if not set) type id of a datum
 %fragment("get_type_id"{Exiv2::Exifdatum}, "header") {
