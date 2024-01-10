@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -72,12 +72,14 @@ class TestTagsModule(unittest.TestCase):
             self.check_result(info['ifdId'], int, 1)
         self.check_result(info['name'], str, 'ProcessingSoftware')
         if exiv2.testVersion(0, 28, 0):
-            self.check_result(info['sectionId'], int, exiv2.SectionId.otherTags)
+            self.check_result(
+                info['sectionId'], exiv2.SectionId, exiv2.SectionId.otherTags)
         else:
             self.check_result(info['sectionId'], int, 4)
         self.check_result(info['tag'], int, 11)
         self.check_result(info['title'], str, 'Processing Software')
-        self.check_result(info['typeId'], int, exiv2.TypeId.asciiString)
+        self.check_result(
+            info['typeId'], exiv2.TypeId, exiv2.TypeId.asciiString)
 
     def test_ExifKey(self):
         # constructors
@@ -94,7 +96,8 @@ class TestTagsModule(unittest.TestCase):
         key2 = key.clone()
         self.assertIsNot(key2, key)
         self.assertIsInstance(key2, exiv2.ExifKey)
-        self.check_result(key.defaultTypeId(), int, exiv2.TypeId.asciiString)
+        self.check_result(
+            key.defaultTypeId(), exiv2.TypeId, exiv2.TypeId.asciiString)
         self.check_result(key.familyName(), str, self.key_name.split('.')[0])
         self.check_result(key.groupName(), str, self.key_name.split('.')[1])
         self.check_result(key.idx(), int, 0)

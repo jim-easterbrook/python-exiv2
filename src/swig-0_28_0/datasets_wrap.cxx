@@ -4133,6 +4133,9 @@ namespace swig {
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
+static PyObject* exiv2_module = NULL;
+
+
   #define SWIG_From_long   PyInt_FromLong 
 
 
@@ -4490,15 +4493,33 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
+static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
 }
 
 
 static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
-    return Py_BuildValue("{si,ss,ss,ss,sN,sN,si,si,si,si,ss}",
+    return Py_BuildValue("{si,ss,ss,ss,sN,sN,si,si,sN,si,ss}",
         "number",     info->number_,
         "name",       info->name_,
         "title",      info->title_,
@@ -4507,7 +4528,7 @@ static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
         "repeatable", PyBool_FromLong(info->repeatable_),
         "minbytes",   info->minbytes_,
         "maxbytes",   info->maxbytes_,
-        "type",       info->type_,
+        "type",       py_from_enum(info->type_),
         "recordId",   info->recordId_,
         "photoshop",  info->photoshop_);
 
@@ -4520,6 +4541,10 @@ static PyObject* pointer_to_list(const Exiv2::DataSet* ptr) {
     PyObject* list = PyList_New(0);
     while (item->number_ != 0xffff) {
         py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;
@@ -4831,7 +4856,11 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetType(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -6893,11 +6922,14 @@ SWIG_init(void) {
   
   
   {
-    PyObject *module = PyImport_ImportModule("exiv2");
-    if (!module)
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
     return NULL;
-    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-    Py_DECREF(module);
+  }
+  
+  
+  {
+    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
     if (!PyExc_Exiv2Error)
     return NULL;
   }

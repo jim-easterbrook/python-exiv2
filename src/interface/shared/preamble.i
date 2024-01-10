@@ -19,6 +19,8 @@
 #include "exiv2/exiv2.hpp"
 %}
 
+%include "shared/fragments.i"
+
 // EXIV2API prepends every function declaration
 #define EXIV2API
 // Older versions of libexiv2 define these as well
@@ -29,17 +31,14 @@
 %feature("autodoc", "2");
 #endif
 
-// Get exception defined in __init__.py
+// Import PyExc_Exiv2Error exception
 %fragment("_import_exception_decl", "header") {
 static PyObject* PyExc_Exiv2Error = NULL;
 }
-%fragment("import_exception", "init", fragment="_import_exception_decl") {
+%fragment("import_exception", "init", fragment="_import_exception_decl",
+          fragment="import_exiv2") {
 {
-    PyObject *module = PyImport_ImportModule("exiv2");
-    if (!module)
-        return NULL;
-    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-    Py_DECREF(module);
+    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
     if (!PyExc_Exiv2Error)
         return NULL;
 }

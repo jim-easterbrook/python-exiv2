@@ -4136,6 +4136,9 @@ namespace swig {
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
+static PyObject* exiv2_module = NULL;
+
+
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -4155,22 +4158,20 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
+static PyObject* Py_IntEnum = NULL;
 
-static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
-    PyObject* module = NULL;
-    PyObject* IntEnum = NULL;
-    PyObject* result = NULL;
-    module = PyImport_ImportModule("enum");
-    if (!module)
-        goto fail;
-    IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    if (!IntEnum)
-        goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
-fail:
-    Py_XDECREF(module);
-    Py_XDECREF(IntEnum);
-    Py_XDECREF(enum_list);
+
+#include <cstdarg>
+static PyObject* _get_enum_object(const char* name, const char* doc,
+                                  PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
+                                             name, enum_list);
+    if (!result)
+        return NULL;
+    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
     return result;
 };
 
@@ -4220,22 +4221,65 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
+static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
+}
+
+
+static PyObject* get_enum_typeobject(Exiv2::XmpCategory value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "XmpCategory");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
+static PyObject* py_from_enum(Exiv2::XmpCategory value) {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
 }
 
 
 static PyObject* struct_to_dict(const Exiv2::XmpPropertyInfo* info) {
     if (!info)
         return SWIG_Py_Void();
-    return Py_BuildValue("{ss,ss,ss,si,si,ss}",
+    return Py_BuildValue("{ss,ss,ss,sN,sN,ss}",
         "name",         info->name_,
         "title",        info->title_,
         "xmpValueType", info->xmpValueType_,
-        "typeId",       info->typeId_,
-        "xmpCategory",  info->xmpCategory_,
+        "typeId",       py_from_enum(info->typeId_),
+        "xmpCategory",  py_from_enum(info->xmpCategory_),
         "desc",         info->desc_);
 };
 
@@ -4371,6 +4415,10 @@ static PyObject* pointer_to_list(const Exiv2::XmpPropertyInfo* ptr) {
     PyObject* list = PyList_New(0);
     while (item->name_ != 0) {
         py_tmp = struct_to_dict(item);
+        if (!py_tmp) {
+            Py_DECREF(list);
+            return NULL;
+        }
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
         ++item;
@@ -4512,7 +4560,11 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyType(PyObject *self, PyObject *
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -6850,30 +6902,31 @@ SWIG_init(void) {
   
   
   {
-    PyObject *module = PyImport_ImportModule("exiv2");
-    if (!module)
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
     return NULL;
-    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-    Py_DECREF(module);
+  }
+  
+  
+  {
+    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
     if (!PyExc_Exiv2Error)
     return NULL;
   }
   
   
   {
-    PyObject* enum_obj = _get_enum_list(0, "Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL);
-    if (!enum_obj)
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
     return NULL;
-    enum_obj = _get_enum_object("XmpCategory", enum_obj);
-    if (!enum_obj)
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
     return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("Category of an XMP property.")))
-    return NULL;
-    PyModule_AddObject(m, "XmpCategory", enum_obj);
-    SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpCategory");
   }
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",_get_enum_object(
+      "XmpCategory", "Category of an XMP property.", _get_enum_list(0, "xmpInternal",Exiv2::xmpInternal,"xmpExternal",Exiv2::xmpExternal,"Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL)));
   
   /* type 'Exiv2::XmpProperties' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpProperties_type;

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2022-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2022-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -161,6 +161,12 @@ static void %mangle(Exiv2::BasicIo)_releasebuff(
     Exiv2::BasicIo "Exiv2_BasicIo_releasebuff";
 
 // Make enum more Pythonic
+CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
+    "beg", Exiv2::BasicIo::beg,
+    "cur", Exiv2::BasicIo::cur,
+    "end", Exiv2::BasicIo::end);
+
+// deprecated since 2023-12-01
 DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
         "beg", Exiv2::BasicIo::beg,
         "cur", Exiv2::BasicIo::cur,
@@ -184,9 +190,3 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
 %ignore EXV_XPATH_MEMIO;
 
 %include "exiv2/basicio.hpp"
-
-// Make enum more Pythonic
-CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
-    "beg", Exiv2::BasicIo::beg,
-    "cur", Exiv2::BasicIo::cur,
-    "end", Exiv2::BasicIo::end);

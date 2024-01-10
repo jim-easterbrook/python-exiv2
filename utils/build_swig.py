@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,11 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import re
 import shutil
 import subprocess
 import sys
-import tempfile
 
 
 def get_version(incl_dir):
@@ -36,6 +34,22 @@ def get_version(incl_dir):
 
 
 def main():
+    # get SWIG version
+    cmd = ['swig', '-version']
+    try:
+        swig_version = str(subprocess.Popen(
+            cmd, stdout=subprocess.PIPE,
+            universal_newlines=True).communicate()[0])
+    except Exception:
+        print('ERROR: command "%s" failed' % ' '.join(cmd))
+        raise
+    for line in swig_version.splitlines():
+        if 'Version' in line:
+            swig_version = tuple(map(int, line.split()[-1].split('.')))
+            break
+    if swig_version < (4, 1, 0):
+        print('SWIG version 4.1.0 or later required')
+        return 1
     # get version to SWIG
     if len(sys.argv) < 2 or len(sys.argv) > 3:
         print('Usage: %s path ["minimal"]' % sys.argv[0])
@@ -84,19 +98,6 @@ def main():
     file_names = [os.path.splitext(x) for x in file_names]
     mod_names = [x[0] + x[1] for x in file_names if x[1] == '.py']
     ext_names = [x[0] for x in file_names if x[1] == '.i']
-    # get SWIG version
-    cmd = ['swig', '-version']
-    try:
-        swig_version = str(subprocess.Popen(
-            cmd, stdout=subprocess.PIPE,
-            universal_newlines=True).communicate()[0])
-    except Exception:
-        print('ERROR: command "%s" failed' % ' '.join(cmd))
-        raise
-    for line in swig_version.splitlines():
-        if 'Version' in line:
-            swig_version = tuple(map(int, line.split()[-1].split('.')))
-            break
     # convert exiv2 version to hex
     exiv2_version_hex = '0x{:02x}{:02x}{:02x}{:02x}'.format(*exiv2_version)
     # create output dir
@@ -107,57 +108,35 @@ def main():
     for mod_name in mod_names:
         shutil.copy2(os.path.join('src', 'interface', mod_name),
                      os.path.join(output_dir, mod_name))
-    # pre-process include files to a temporary directory
-    with tempfile.TemporaryDirectory() as copy_dir:
-        dest = os.path.join(copy_dir, 'exiv2')
-        os.makedirs(dest)
-        attr = re.compile(r'^\s*?(\[\[.*?\]\]\s*?)')
-        for file in os.listdir(incl_dir):
-            with open(os.path.join(incl_dir, file), 'r') as in_file:
-                with open(os.path.join(dest, file), 'w') as out_file:
-                    for line in in_file.readlines():
-                        if swig_version < (4, 2, 0):
-                            line = line.replace('static constexpr auto',
-                                                'static const char*')
-                        if swig_version < (4, 1, 0):
-                            line = attr.sub('', line)
-                        out_file.write(line)
-        # make options list
-        swig_opts = ['-c++', '-python', '-builtin',
-                     '-fastdispatch', '-fastproxy',
-                     '-Wextra', '-Werror']
-        if swig_version < (4, 1, 0):
-            swig_opts.append('-py3')
-        swig_opts.append('-I' + copy_dir)
-        for key in options:
-            if options[key]:
-                swig_opts.append('-D' + key)
-        swig_opts.append('-DEXIV2_VERSION_HEX=' + exiv2_version_hex)
-        swig_opts += ['-outdir', output_dir]
-        # do each swig module
-        for ext_name in ext_names:
-            cmd = ['swig'] + swig_opts
-            # Functions with just one parameter and a default value don't
-            # work with fastunpack.
-            # See https://github.com/swig/swig/issues/1126
-            if ext_name == 'basicio':
-                cmd.append('-nofastunpack')
-            # use -doxygen ?
-            if swig_version >= (4, 0, 0):
-                # -doxygen flag causes a syntax error on error.hpp in v0.26
-                if exiv2_version >= (0, 27) or ext_name not in ('error', ):
-                    cmd += ['-doxygen', '-DSWIG_DOXYGEN']
-            cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
-            cmd += [os.path.join(interface_dir, ext_name + '.i')]
-            print(' '.join(cmd))
-            subprocess.check_call(cmd)
+    # make options list
+    swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-DSWIG_DOXYGEN',
+                 '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
+                 '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
+                 '-I' + os.path.dirname(incl_dir), '-outdir', output_dir]
+    if exiv2_version >= (0, 28, 0) and swig_version < (4, 2, 0):
+        # bodge to get round SWIG choking on "static constexpr auto"
+        swig_opts.append('-Dauto=char*')
+    for key in options:
+        if options[key]:
+            swig_opts.append('-D' + key)
+    # do each swig module
+    for ext_name in ext_names:
+        cmd = ['swig'] + swig_opts
+        # Functions with just one parameter and a default value don't
+        # work with fastunpack.
+        # See https://github.com/swig/swig/issues/1126
+        if ext_name == 'basicio':
+            cmd.append('-nofastunpack')
+        cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
+        cmd += [os.path.join(interface_dir, ext_name + '.i')]
+        print(' '.join(cmd))
+        subprocess.check_call(cmd)
     # create init module
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
         im.write('''
 import os
 import sys
-import warnings
 
 if sys.platform == 'win32':
     _dir = os.path.join(os.path.dirname(__file__), 'lib')
@@ -169,31 +148,16 @@ if sys.platform == 'win32':
 class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors"""
     pass
-
-if sys.version_info < (3, 7):
-    # provide old AnyError for compatibility
-    AnyError = Exiv2Error
-else:
-    # issue deprecation warning if user imports AnyError
-    def __getattr__(name):
-        if name == 'AnyError':
-            warnings.warn("Please replace 'AnyError' with 'Exiv2Error'",
-                          DeprecationWarning)
-            return Exiv2Error
-        raise AttributeError
-
-_dir = os.path.join(os.path.dirname(__file__), 'locale')
-if os.path.isdir(_dir):
-    from exiv2.types import _set_locale_dir
-    _set_locale_dir(_dir)
-
 ''')
         im.write('__version__ = "%s"\n' % py_exiv2_version)
         im.write('__version_tuple__ = tuple((%s))\n\n' % ', '.join(
             py_exiv2_version.split('.')))
+        im.write('__all__ = []\n')
         for name in ext_names:
             im.write('from exiv2.%s import *\n' % name)
-        im.write("\n__all__ = [x for x in dir() if x[0] != '_']\n")
+            im.write('__all__ += exiv2._%s.__all__\n' % name)
+        im.write("\n__all__ = [x for x in __all__ if x[0] != '_']\n")
+        im.write('__all__.sort()\n')
     return 0
 
 

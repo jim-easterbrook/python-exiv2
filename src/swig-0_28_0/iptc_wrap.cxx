@@ -4140,6 +4140,9 @@ namespace swig {
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
+static PyObject* exiv2_module = NULL;
+
+
 #include <stdint.h>		// Use the C99 official header
 
 
@@ -4369,6 +4372,29 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "ByteOrder");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
+static PyObject* Py_IntEnum = NULL;
+
+
+  #define SWIG_From_long   PyInt_FromLong 
+
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+
+
 #include <limits.h>
 #if !defined(SWIG_NO_LLONG_MAX)
 # if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
@@ -4377,6 +4403,76 @@ SWIGINTERNINLINE PyObject*
 #   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
 # endif
 #endif
+
+
+#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
+#  define SWIG_LONG_LONG_AVAILABLE
+#endif
+
+
+#ifdef SWIG_LONG_LONG_AVAILABLE
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+#endif
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_size_t  (size_t value)
+{    
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  if (sizeof(size_t) <= sizeof(unsigned long)) {
+#endif
+    return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  } else {
+    /* assume sizeof(size_t) <= sizeof(unsigned long long) */
+    return SWIG_From_unsigned_SS_long_SS_long  (static_cast< unsigned long long >(value));
+  }
+#endif
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_unsigned_SS_short  (unsigned short value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
+
+
+static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
+}
 
 
 SWIGINTERN int
@@ -4460,126 +4556,6 @@ SWIG_CanCastAsInteger(double *d, double min, double max) {
    }
   }
   return 0;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_long (PyObject *obj, long* val)
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    if (val) *val = PyInt_AsLong(obj);
-    return SWIG_OK;
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    long v = PyLong_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    long v = PyInt_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      // Largest double not larger than LONG_MAX (not portably calculated easily)
-      // Note that double(LONG_MAX) is stored in a double rounded up by one (for 64-bit long)
-      // 0x7ffffffffffffc00LL == (int64_t)std::nextafter(double(__uint128_t(LONG_MAX)+1), double(0))
-      const double long_max = sizeof(long) == 8 ? 0x7ffffffffffffc00LL : LONG_MAX;
-      // No equivalent needed for 64-bit double(LONG_MIN) is exactly LONG_MIN
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, long_max)) {
-	if (val) *val = (long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
-
-
-  #define SWIG_From_long   PyInt_FromLong 
-
-
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-#endif
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_size_t  (size_t value)
-{    
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  if (sizeof(size_t) <= sizeof(unsigned long)) {
-#endif
-    return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  } else {
-    /* assume sizeof(size_t) <= sizeof(unsigned long long) */
-    return SWIG_From_unsigned_SS_long_SS_long  (static_cast< unsigned long long >(value));
-  }
-#endif
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_unsigned_SS_short  (unsigned short value)
-{    
-  return SWIG_From_unsigned_SS_long  (value);
-}
-
-
-SWIGINTERNINLINE PyObject * 
-SWIG_FromCharPtr(const char *cptr)
-{ 
-  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
 }
 
 
@@ -4714,6 +4690,70 @@ SWIGINTERNINLINE PyObject *
 SWIG_From_float  (float value)
 {    
   return SWIG_From_double  (value);
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_long (PyObject *obj, long* val)
+{
+#if PY_VERSION_HEX < 0x03000000
+  if (PyInt_Check(obj)) {
+    if (val) *val = PyInt_AsLong(obj);
+    return SWIG_OK;
+  } else
+#endif
+  if (PyLong_Check(obj)) {
+    long v = PyLong_AsLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      PyErr_Clear();
+      return SWIG_OverflowError;
+    }
+  }
+#ifdef SWIG_PYTHON_CAST_MODE
+  {
+    int dispatch = 0;
+    long v = PyInt_AsLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_AddCast(SWIG_OK);
+    } else {
+      PyErr_Clear();
+    }
+    if (!dispatch) {
+      double d;
+      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
+      // Largest double not larger than LONG_MAX (not portably calculated easily)
+      // Note that double(LONG_MAX) is stored in a double rounded up by one (for 64-bit long)
+      // 0x7ffffffffffffc00LL == (int64_t)std::nextafter(double(__uint128_t(LONG_MAX)+1), double(0))
+      const double long_max = sizeof(long) == 8 ? 0x7ffffffffffffc00LL : LONG_MAX;
+      // No equivalent needed for 64-bit double(LONG_MIN) is exactly LONG_MIN
+      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, long_max)) {
+	if (val) *val = (long)(d);
+	return res;
+      }
+    }
+  }
+#endif
+  return SWIG_TypeError;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_int (PyObject * obj, int *val)
+{
+  long v;
+  int res = SWIG_AsVal_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v < INT_MIN || v > INT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< int >(v);
+    }
+  }  
+  return res;
 }
 
 
@@ -5278,10 +5318,12 @@ static PyObject* set_value_from_py(Exiv2::Iptcdatum* datum, PyObject* py_value) 
 };
 
 SWIGINTERN Exiv2::Value::UniquePtr Exiv2_Iptcdatum_getValue__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
+        // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return self->getValue();
     }
 SWIGINTERN Exiv2::Value const &Exiv2_Iptcdatum_value__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
+        // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return self->value();
     }
@@ -5799,8 +5841,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_copy(PyObject *self, PyObject *args
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer _global_view ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
   size_t result;
   
@@ -5820,11 +5860,18 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_copy(PyObject *self, PyObject *args
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
-  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IptcData_iterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "IptcData_iterator_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
+    }
+    if (!PyLong_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "IptcData_iterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
+      ;
+    }
+    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+  }
   {
     // check buffer is large enough, assumes arg1 points to self
     if ((Py_ssize_t) arg1->size() > _global_view.len) {
@@ -6196,7 +6243,11 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_typeId(PyObject *self, PyObject *ar
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -6782,8 +6833,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_1(PyObject *self, Py
   Exiv2::TypeId arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
   Exiv2::Value::UniquePtr result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -6792,11 +6841,18 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_1(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_getValue" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
-  } 
-  arg2 = static_cast< Exiv2::TypeId >(val2);
+  {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "IptcData_iterator_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
+    }
+    if (!PyLong_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "IptcData_iterator_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
+      ;
+    }
+    arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+  }
   {
     try {
       result = Exiv2_Iptcdatum_getValue__SWIG_1((Exiv2::Iptcdatum*)(arg1)->operator ->(),arg2);
@@ -6903,8 +6959,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, Py_ss
   Exiv2::TypeId arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
   Exiv2::Value *result = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -6913,11 +6967,18 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, Py_ss
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_value" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_value" "', argument " "2"" of type '" "Exiv2::TypeId""'");
-  } 
-  arg2 = static_cast< Exiv2::TypeId >(val2);
+  {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "IptcData_iterator_value argument 2 type should be 'Exiv2::TypeId'.", 1);
+    }
+    if (!PyLong_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "IptcData_iterator_value" "', argument " "2"" of type '" "Exiv2::TypeId""'")
+      ;
+    }
+    arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+  }
   {
     try {
       result = (Exiv2::Value *) &Exiv2_Iptcdatum_value__SWIG_1((Exiv2::Iptcdatum*)(arg1)->operator ->(),arg2);
@@ -7479,8 +7540,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer _global_view ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
   size_t result;
   
@@ -7500,11 +7559,18 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
     }
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
-  ecode3 = SWIG_AsVal_int(swig_obj[1], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Iptcdatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'");
-  } 
-  arg3 = static_cast< Exiv2::ByteOrder >(val3);
+  {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "Iptcdatum_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
+    }
+    if (!PyLong_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Iptcdatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
+      ;
+    }
+    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+  }
   {
     // check buffer is large enough, assumes arg1 points to self
     if ((Py_ssize_t) arg1->size() > _global_view.len) {
@@ -7876,7 +7942,11 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_typeId(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    resultobj = py_from_enum(result);
+    if (!resultobj)
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -8503,8 +8573,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t
   Exiv2::TypeId arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
   Exiv2::Value::UniquePtr result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -8513,11 +8581,18 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_getValue" "', argument " "1"" of type '" "Exiv2::Iptcdatum *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Iptcdatum_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'");
-  } 
-  arg2 = static_cast< Exiv2::TypeId >(val2);
+  {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "Iptcdatum_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
+    }
+    if (!PyLong_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Iptcdatum_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
+      ;
+    }
+    arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+  }
   {
     try {
       result = Exiv2_Iptcdatum_getValue__SWIG_1(arg1,arg2);
@@ -8583,8 +8658,6 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
   Exiv2::TypeId arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
   Exiv2::Value *result = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -8593,11 +8666,18 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_value" "', argument " "1"" of type '" "Exiv2::Iptcdatum *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Iptcdatum_value" "', argument " "2"" of type '" "Exiv2::TypeId""'");
-  } 
-  arg2 = static_cast< Exiv2::TypeId >(val2);
+  {
+    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "Iptcdatum_value argument 2 type should be 'Exiv2::TypeId'.", 1);
+    }
+    if (!PyLong_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Iptcdatum_value" "', argument " "2"" of type '" "Exiv2::TypeId""'")
+      ;
+    }
+    arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+  }
   {
     try {
       result = (Exiv2::Value *) &Exiv2_Iptcdatum_value__SWIG_1(arg1,arg2);
@@ -11779,11 +11859,14 @@ SWIG_init(void) {
   
   
   {
-    PyObject *module = PyImport_ImportModule("exiv2");
-    if (!module)
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
     return NULL;
-    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-    Py_DECREF(module);
+  }
+  
+  
+  {
+    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
     if (!PyExc_Exiv2Error)
     return NULL;
   }
@@ -11815,6 +11898,17 @@ SWIG_init(void) {
   /* type '::IptcData_iterator' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__IptcData_iterator_type;
   builtin_pytype->tp_dict = d = PyDict_New();
+  
+  {
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+    return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+    return NULL;
+  }
+  
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;

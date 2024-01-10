@@ -3926,29 +3926,46 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_AutoPtr swig_types[0]
-#define SWIGTYPE_p_Exiv2__BasicIo swig_types[1]
-#define SWIGTYPE_p_Exiv2__DataBuf swig_types[2]
-#define SWIGTYPE_p_Exiv2__FileIo swig_types[3]
-#define SWIGTYPE_p_Exiv2__HttpIo swig_types[4]
-#define SWIGTYPE_p_Exiv2__MemIo swig_types[5]
-#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[6]
-#define SWIGTYPE_p_Exiv2__XPathIo swig_types[7]
-#define SWIGTYPE_p_SwigPyObject swig_types[8]
-#define SWIGTYPE_p_char swig_types[9]
-#define SWIGTYPE_p_first_type swig_types[10]
-#define SWIGTYPE_p_int swig_types[11]
-#define SWIGTYPE_p_long_long swig_types[12]
-#define SWIGTYPE_p_second_type swig_types[13]
-#define SWIGTYPE_p_short swig_types[14]
-#define SWIGTYPE_p_signed_char swig_types[15]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[16]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[17]
-#define SWIGTYPE_p_unsigned_char swig_types[18]
-#define SWIGTYPE_p_unsigned_int swig_types[19]
-#define SWIGTYPE_p_unsigned_long_long swig_types[20]
-#define SWIGTYPE_p_unsigned_short swig_types[21]
-static swig_type_info *swig_types[23];
-static swig_module_info swig_module = {swig_types, 22, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[1]
+#define SWIGTYPE_p_Exiv2__BasicIo swig_types[2]
+#define SWIGTYPE_p_Exiv2__CommentValue swig_types[3]
+#define SWIGTYPE_p_Exiv2__DataBuf swig_types[4]
+#define SWIGTYPE_p_Exiv2__DataValue swig_types[5]
+#define SWIGTYPE_p_Exiv2__DateValue swig_types[6]
+#define SWIGTYPE_p_Exiv2__FileIo swig_types[7]
+#define SWIGTYPE_p_Exiv2__HttpIo swig_types[8]
+#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[9]
+#define SWIGTYPE_p_Exiv2__MemIo swig_types[10]
+#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[11]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[12]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[13]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[14]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[15]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int_t swig_types[16]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_short_t swig_types[17]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[18]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[19]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_int_t swig_types[20]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_unsigned_short_t swig_types[21]
+#define SWIGTYPE_p_Exiv2__XPathIo swig_types[22]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[23]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[24]
+#define SWIGTYPE_p_SwigPyObject swig_types[25]
+#define SWIGTYPE_p_char swig_types[26]
+#define SWIGTYPE_p_first_type swig_types[27]
+#define SWIGTYPE_p_int swig_types[28]
+#define SWIGTYPE_p_long_long swig_types[29]
+#define SWIGTYPE_p_second_type swig_types[30]
+#define SWIGTYPE_p_short swig_types[31]
+#define SWIGTYPE_p_signed_char swig_types[32]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[33]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[34]
+#define SWIGTYPE_p_unsigned_char swig_types[35]
+#define SWIGTYPE_p_unsigned_int swig_types[36]
+#define SWIGTYPE_p_unsigned_long_long swig_types[37]
+#define SWIGTYPE_p_unsigned_short swig_types[38]
+static swig_type_info *swig_types[40];
+static swig_module_info swig_module = {swig_types, 39, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4105,6 +4122,9 @@ namespace swig {
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
+static PyObject* exiv2_module = NULL;
+
+
 #include <string>
 
 
@@ -4171,6 +4191,24 @@ static PyObject* _get_enum_list(int dummy, ...) {
 
 PyObject* _enum_list_Position() {
     return _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL);
+};
+
+
+static PyObject* Py_IntEnum = NULL;
+
+
+#include <cstdarg>
+static PyObject* _get_enum_object(const char* name, const char* doc,
+                                  PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
+                                             name, enum_list);
+    if (!result)
+        return NULL;
+    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    return result;
 };
 
 
@@ -4394,20 +4432,12 @@ SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val)
 }
 
 
-SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
+static PyObject* get_enum_typeobject(Exiv2::BasicIo::Position value) {
+    swig_type_info* desc = SWIGTYPE_p_Exiv2__BasicIo;
+    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+    // PyDict_GetItemString returns a borrowed reference
+    return PyDict_GetItemString(cd->pytype->tp_dict, "Position");
+};
 
 
 SWIGINTERN int
@@ -4730,26 +4760,6 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
 #endif
   return res;
 }
-
-
-
-static PyObject* _get_enum_object(const char* name, PyObject* enum_list) {
-    PyObject* module = NULL;
-    PyObject* IntEnum = NULL;
-    PyObject* result = NULL;
-    module = PyImport_ImportModule("enum");
-    if (!module)
-        goto fail;
-    IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    if (!IntEnum)
-        goto fail;
-    result = PyObject_CallFunction(IntEnum, "sO", name, enum_list);
-fail:
-    Py_XDECREF(module);
-    Py_XDECREF(IntEnum);
-    Py_XDECREF(enum_list);
-    return result;
-};
 
 #ifdef __cplusplus
 extern "C" {
@@ -5303,8 +5313,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   int result;
@@ -5320,11 +5328,18 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_seek" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
-  } 
-  arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
+  {
+    if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "BasicIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
+    }
+    if (!PyLong_Check(obj2)) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
+      ;
+    }
+    arg3 = (Exiv2::BasicIo::Position)PyLong_AsLong(obj2);
+  }
   {
     try {
       {
@@ -6266,8 +6281,6 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   int result;
@@ -6283,11 +6296,18 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FileIo_seek" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FileIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
-  } 
-  arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
+  {
+    if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "FileIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
+    }
+    if (!PyLong_Check(obj2)) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FileIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
+      ;
+    }
+    arg3 = (Exiv2::BasicIo::Position)PyLong_AsLong(obj2);
+  }
   {
     try {
       {
@@ -7195,8 +7215,6 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   int result;
@@ -7212,11 +7230,18 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MemIo_seek" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MemIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
-  } 
-  arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
+  {
+    if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "MemIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
+    }
+    if (!PyLong_Check(obj2)) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "MemIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
+      ;
+    }
+    arg3 = (Exiv2::BasicIo::Position)PyLong_AsLong(obj2);
+  }
   result = (int)(arg1)->seek(arg2,arg3);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
@@ -8127,8 +8152,6 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   int result;
@@ -8144,11 +8167,18 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RemoteIo_seek" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RemoteIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'");
-  } 
-  arg3 = static_cast< Exiv2::BasicIo::Position >(val3);
+  {
+    if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
+      PyErr_WarnEx(PyExc_DeprecationWarning,
+        "RemoteIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
+    }
+    if (!PyLong_Check(obj2)) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RemoteIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
+      ;
+    }
+    arg3 = (Exiv2::BasicIo::Position)PyLong_AsLong(obj2);
+  }
   result = (int)(arg1)->seek(arg2,arg3);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
@@ -10697,13 +10727,30 @@ static void *_p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo(void *x, int *SWIGUNUSEDPARM(n
     return (void *)((Exiv2::RemoteIo *)  ((Exiv2::HttpIo *) x));
 }
 static swig_type_info _swigt__p_AutoPtr = {"_p_AutoPtr", "AutoPtr *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__BasicIo = {"_p_Exiv2__BasicIo", "Exiv2::BasicIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__BasicIo_clientdata, 0};
+static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue", "Exiv2::CommentValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DataBuf = {"_p_Exiv2__DataBuf", "Exiv2::DataBuf *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__DataValue = {"_p_Exiv2__DataValue", "Exiv2::DataValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__DateValue = {"_p_Exiv2__DateValue", "Exiv2::DateValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__FileIo = {"_p_Exiv2__FileIo", "Exiv2::FileIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__FileIo_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__HttpIo = {"_p_Exiv2__HttpIo", "Exiv2::HttpIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__HttpIo_clientdata, 0};
+static swig_type_info _swigt__p_Exiv2__LangAltValue = {"_p_Exiv2__LangAltValue", "Exiv2::LangAltValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__MemIo = {"_p_Exiv2__MemIo", "Exiv2::MemIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__MemIo_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__RemoteIo = {"_p_Exiv2__RemoteIo", "Exiv2::RemoteIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__RemoteIo_clientdata, 0};
+static swig_type_info _swigt__p_Exiv2__StringValue = {"_p_Exiv2__StringValue", "Exiv2::StringValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__TimeValue = {"_p_Exiv2__TimeValue", "Exiv2::TimeValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__ValueTypeT_double_t = {"_p_Exiv2__ValueTypeT_double_t", "Exiv2::ValueType< double > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__ValueTypeT_float_t = {"_p_Exiv2__ValueTypeT_float_t", "Exiv2::ValueType< float > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__ValueTypeT_int_t = {"_p_Exiv2__ValueTypeT_int_t", "Exiv2::ValueType< int32_t > *|Exiv2::ValueType< int > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__ValueTypeT_short_t = {"_p_Exiv2__ValueTypeT_short_t", "Exiv2::ValueType< int16_t > *|Exiv2::ValueType< short > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t = {"_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t", "Exiv2::ValueType< Exiv2::Rational > *|Exiv2::ValueType< std::pair< int,int > > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t = {"_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t", "Exiv2::ValueType< Exiv2::URational > *|Exiv2::ValueType< std::pair< unsigned int,unsigned int > > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__ValueTypeT_unsigned_int_t = {"_p_Exiv2__ValueTypeT_unsigned_int_t", "Exiv2::ValueType< uint32_t > *|Exiv2::ValueType< unsigned int > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__ValueTypeT_unsigned_short_t = {"_p_Exiv2__ValueTypeT_unsigned_short_t", "Exiv2::ValueType< uint16_t > *|Exiv2::ValueType< unsigned short > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XPathIo = {"_p_Exiv2__XPathIo", "Exiv2::XPathIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__XPathIo_clientdata, 0};
+static swig_type_info _swigt__p_Exiv2__XmpArrayValue = {"_p_Exiv2__XmpArrayValue", "Exiv2::XmpArrayValue *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
@@ -10721,13 +10768,30 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "uint16_t
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_AutoPtr,
+  &_swigt__p_Exiv2__AsciiValue,
   &_swigt__p_Exiv2__BasicIo,
+  &_swigt__p_Exiv2__CommentValue,
   &_swigt__p_Exiv2__DataBuf,
+  &_swigt__p_Exiv2__DataValue,
+  &_swigt__p_Exiv2__DateValue,
   &_swigt__p_Exiv2__FileIo,
   &_swigt__p_Exiv2__HttpIo,
+  &_swigt__p_Exiv2__LangAltValue,
   &_swigt__p_Exiv2__MemIo,
   &_swigt__p_Exiv2__RemoteIo,
+  &_swigt__p_Exiv2__StringValue,
+  &_swigt__p_Exiv2__TimeValue,
+  &_swigt__p_Exiv2__ValueTypeT_double_t,
+  &_swigt__p_Exiv2__ValueTypeT_float_t,
+  &_swigt__p_Exiv2__ValueTypeT_int_t,
+  &_swigt__p_Exiv2__ValueTypeT_short_t,
+  &_swigt__p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t,
+  &_swigt__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t,
+  &_swigt__p_Exiv2__ValueTypeT_unsigned_int_t,
+  &_swigt__p_Exiv2__ValueTypeT_unsigned_short_t,
   &_swigt__p_Exiv2__XPathIo,
+  &_swigt__p_Exiv2__XmpArrayValue,
+  &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_SwigPyObject,
   &_swigt__p_char,
   &_swigt__p_first_type,
@@ -10745,13 +10809,30 @@ static swig_type_info *swig_type_initial[] = {
 };
 
 static swig_cast_info _swigc__p_AutoPtr[] = {  {&_swigt__p_AutoPtr, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__BasicIo[] = {  {&_swigt__p_Exiv2__BasicIo, 0, 0, 0},  {&_swigt__p_Exiv2__FileIo, _p_Exiv2__FileIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__MemIo, _p_Exiv2__MemIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__RemoteIo, _p_Exiv2__RemoteIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__BasicIo, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__CommentValue[] = {  {&_swigt__p_Exiv2__CommentValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DataBuf[] = {  {&_swigt__p_Exiv2__DataBuf, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__DataValue[] = {  {&_swigt__p_Exiv2__DataValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__DateValue[] = {  {&_swigt__p_Exiv2__DateValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__FileIo[] = {  {&_swigt__p_Exiv2__FileIo, 0, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__FileIo, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__HttpIo[] = {  {&_swigt__p_Exiv2__HttpIo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__LangAltValue[] = {  {&_swigt__p_Exiv2__LangAltValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__MemIo[] = {  {&_swigt__p_Exiv2__MemIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__RemoteIo[] = {  {&_swigt__p_Exiv2__RemoteIo, 0, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__StringValue[] = {  {&_swigt__p_Exiv2__StringValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__TimeValue[] = {  {&_swigt__p_Exiv2__TimeValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__ValueTypeT_double_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_double_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__ValueTypeT_float_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_float_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__ValueTypeT_int_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_int_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__ValueTypeT_short_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_short_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__ValueTypeT_unsigned_int_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__ValueTypeT_unsigned_short_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_unsigned_short_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XPathIo[] = {  {&_swigt__p_Exiv2__XPathIo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__XmpArrayValue[] = {  {&_swigt__p_Exiv2__XmpArrayValue, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -10769,13 +10850,30 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_AutoPtr,
+  _swigc__p_Exiv2__AsciiValue,
   _swigc__p_Exiv2__BasicIo,
+  _swigc__p_Exiv2__CommentValue,
   _swigc__p_Exiv2__DataBuf,
+  _swigc__p_Exiv2__DataValue,
+  _swigc__p_Exiv2__DateValue,
   _swigc__p_Exiv2__FileIo,
   _swigc__p_Exiv2__HttpIo,
+  _swigc__p_Exiv2__LangAltValue,
   _swigc__p_Exiv2__MemIo,
   _swigc__p_Exiv2__RemoteIo,
+  _swigc__p_Exiv2__StringValue,
+  _swigc__p_Exiv2__TimeValue,
+  _swigc__p_Exiv2__ValueTypeT_double_t,
+  _swigc__p_Exiv2__ValueTypeT_float_t,
+  _swigc__p_Exiv2__ValueTypeT_int_t,
+  _swigc__p_Exiv2__ValueTypeT_short_t,
+  _swigc__p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t,
+  _swigc__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t,
+  _swigc__p_Exiv2__ValueTypeT_unsigned_int_t,
+  _swigc__p_Exiv2__ValueTypeT_unsigned_short_t,
   _swigc__p_Exiv2__XPathIo,
+  _swigc__p_Exiv2__XmpArrayValue,
+  _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_SwigPyObject,
   _swigc__p_char,
   _swigc__p_first_type,
@@ -11260,11 +11358,14 @@ SWIG_init(void) {
   
   
   {
-    PyObject *module = PyImport_ImportModule("exiv2");
-    if (!module)
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
     return NULL;
-    PyExc_Exiv2Error = PyObject_GetAttrString(module, "Exiv2Error");
-    Py_DECREF(module);
+  }
+  
+  
+  {
+    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
     if (!PyExc_Exiv2Error)
     return NULL;
   }
@@ -11273,9 +11374,19 @@ SWIG_init(void) {
   /* type 'Exiv2::BasicIo' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__BasicIo_type;
   builtin_pytype->tp_dict = d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "beg",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::beg)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "cur",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::cur)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "end",SWIG_From_int(static_cast< int >(Exiv2::BasicIo::end)));
+  
+  {
+    PyObject* module = PyImport_ImportModule("enum");
+    if (!module)
+    return NULL;
+    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
+    Py_DECREF(module);
+    if (!Py_IntEnum)
+    return NULL;
+  }
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",_get_enum_object(
+      "Position", "Seek starting positions.", _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL)));
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
@@ -11465,23 +11576,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "HttpIo", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "HttpIo");
   d = md;
-  
-  {
-    PyObject* enum_obj = _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL);
-    if (!enum_obj)
-    return NULL;
-    enum_obj = _get_enum_object("Position", enum_obj);
-    if (!enum_obj)
-    return NULL;
-    if (PyObject_SetAttrString(
-        enum_obj, "__doc__", PyUnicode_FromString("Seek starting positions.")))
-    return NULL;
-    PyTypeObject* type =
-    (PyTypeObject *)&SwigPyBuiltin__Exiv2__BasicIo_type;
-    SWIG_Python_SetConstant(type->tp_dict, NULL, "Position", enum_obj);
-    PyType_Modified(type);
-  }
-  
   
   /* Initialize threading */
   SWIG_PYTHON_INITIALIZE_THREADS;

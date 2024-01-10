@@ -1,7 +1,6 @@
 
 import os
 import sys
-import warnings
 
 if sys.platform == 'win32':
     _dir = os.path.join(os.path.dirname(__file__), 'lib')
@@ -13,41 +12,40 @@ if sys.platform == 'win32':
 class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors"""
     pass
+__version__ = "0.16.2"
+__version_tuple__ = tuple((0, 16, 2))
 
-if sys.version_info < (3, 7):
-    # provide old AnyError for compatibility
-    AnyError = Exiv2Error
-else:
-    # issue deprecation warning if user imports AnyError
-    def __getattr__(name):
-        if name == 'AnyError':
-            warnings.warn("Please replace 'AnyError' with 'Exiv2Error'",
-                          DeprecationWarning)
-            return Exiv2Error
-        raise AttributeError
-
-_dir = os.path.join(os.path.dirname(__file__), 'locale')
-if os.path.isdir(_dir):
-    from exiv2.types import _set_locale_dir
-    _set_locale_dir(_dir)
-
-__version__ = "0.16.1"
-__version_tuple__ = tuple((0, 16, 1))
-
+__all__ = []
 from exiv2.basicio import *
+__all__ += exiv2._basicio.__all__
 from exiv2.datasets import *
+__all__ += exiv2._datasets.__all__
 from exiv2.easyaccess import *
+__all__ += exiv2._easyaccess.__all__
 from exiv2.error import *
+__all__ += exiv2._error.__all__
 from exiv2.exif import *
+__all__ += exiv2._exif.__all__
 from exiv2.image import *
+__all__ += exiv2._image.__all__
 from exiv2.iptc import *
+__all__ += exiv2._iptc.__all__
 from exiv2.metadatum import *
+__all__ += exiv2._metadatum.__all__
 from exiv2.preview import *
+__all__ += exiv2._preview.__all__
 from exiv2.properties import *
+__all__ += exiv2._properties.__all__
 from exiv2.tags import *
+__all__ += exiv2._tags.__all__
 from exiv2.types import *
+__all__ += exiv2._types.__all__
 from exiv2.value import *
+__all__ += exiv2._value.__all__
 from exiv2.version import *
+__all__ += exiv2._version.__all__
 from exiv2.xmp import *
+__all__ += exiv2._xmp.__all__
 
-__all__ = [x for x in dir() if x[0] != '_']
+__all__ = [x for x in __all__ if x[0] != '_']
+__all__.sort()

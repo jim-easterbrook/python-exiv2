@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 from setuptools import setup, Extension
 from setuptools import __version__ as setuptools_version
 import os
+import re
 import subprocess
 import sys
 
@@ -65,48 +66,46 @@ package_data = {'exiv2.examples': ['*.py', '*.rst']}
 
 if 'EXIV2_ROOT' in os.environ:
     # use local copy of libexiv2
-    packages.append('exiv2.lib')
-    package_dir['exiv2.lib'] = None
-    include_dirs = []
-    library_dirs = []
-    for root, dirs, files in os.walk(os.path.normpath(os.environ['EXIV2_ROOT'])):
-        root = os.path.relpath(root)
-        for file in files:
-            if file == 'exiv2.hpp':
-                include_dirs = [os.path.dirname(root)]
-                break
-            if file == 'exiv2.mo':
-                if 'exiv2.locale' not in packages:
-                    # add exiv2.locale package for libexiv2 localisation files
-                    packages.append('exiv2.locale')
-                    package_dir['exiv2.locale'] = os.path.dirname(
-                        os.path.dirname(root))
-                    package_data['exiv2.locale'] = ['*/LC_MESSAGES/exiv2.mo']
-                packages.append('exiv2.locale.'
-                                + '.'.join(root.split(os.sep)[-2:]))
-                break
-            if file in ('exiv2.lib', 'libexiv2.dll.a'):
-                # win32, mingw, cygwin
-                library_dirs = [root]
-                break
-            parts = file.split('.')
-            if not (parts[0] in ('exiv2', 'libexiv2')
-                    or parts[0].startswith('cygexiv2')):
-                continue
-            if len(parts) == 2 and parts[1] == 'dll':
-                # win32, mingw, cygwin
-                package_dir['exiv2.lib'] = root
-                package_data['exiv2.lib'] = ['*.dll']
-                break
-            if len(parts) == 3 and (parts[1] == 'so' or parts[2] == 'dylib'):
-                # linux, darwin
-                library_dirs = [root]
-                package_dir['exiv2.lib'] = root
-                package_data['exiv2.lib'] = [file]
-                break
-    if not (include_dirs and library_dirs and package_dir['exiv2.lib']):
-        print('ERROR: Include and library files not found')
+    exiv2_root = os.path.normpath(os.environ['EXIV2_ROOT'])
+    # header files
+    path = os.path.join(exiv2_root, 'include')
+    if not os.path.isfile(os.path.join(path, 'exiv2', 'exiv2.hpp')):
+        print('ERROR: Include files not found')
         sys.exit(1)
+    include_dirs = [path]
+    # library files
+    packages.append('exiv2.lib')
+    if platform == 'linux':
+        path = os.path.join(exiv2_root, 'lib64')
+        library_dirs = [path]
+        package_dir['exiv2.lib'] = path
+        package_data['exiv2.lib'] = [x for x in os.listdir(path)
+                                     if re.fullmatch('libexiv2\.so\.\d+', x)]
+    elif platform == 'darwin':
+        path = os.path.join(exiv2_root, 'lib')
+        library_dirs = [path]
+        package_dir['exiv2.lib'] = path
+        package_data['exiv2.lib'] = [x for x in os.listdir(path)
+                                     if re.fullmatch('libexiv2\.\d+\.dylib', x)]
+    elif platform in ('win32', 'mingw'):
+        library_dirs = [os.path.join(exiv2_root, 'lib')]
+        package_dir['exiv2.lib'] = os.path.join(exiv2_root, 'bin')
+        package_data['exiv2.lib'] = ['*.dll']
+    if not os.path.isdir(package_dir['exiv2.lib']):
+        print('ERROR: Library files not found')
+        sys.exit(1)
+    # locale files
+    path = os.path.join(exiv2_root, 'share', 'locale')
+    if not os.path.isdir(path):
+        print('WARNING: Locale files not found')
+    else:
+        packages.append('exiv2.locale')
+        package_dir['exiv2.locale'] = path
+        package_data['exiv2.locale'] = ['*/LC_MESSAGES/exiv2.mo']
+        for name in os.listdir(path):
+            if os.path.isfile(os.path.join(
+                    path, name, 'LC_MESSAGES', 'exiv2.mo')):
+                packages.append('exiv2.locale.' + name + '.' + 'LC_MESSAGES')
     # get exiv2 version from include files
     exiv2_version = get_version(include_dirs[0])
     mod_src_dir = get_mod_src_dir(exiv2_version)
@@ -155,8 +154,6 @@ if platform in ('linux', 'darwin', 'mingw'):
         extra_compile_args.append('-Werror')
     if exiv2_version >= [0, 28]:
         extra_compile_args.append('-std=gnu++17')
-        if platform == 'linux':
-            extra_link_args.append('-lstdc++fs')
     else:
         extra_compile_args.append('-std=c++98')
 if platform == 'win32':

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,6 +29,8 @@ UNIQUE_PTR(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
 ENUM(XmpCategory, "Category of an XMP property.",
+        "xmpInternal", Exiv2::xmpInternal,
+        "xmpExternal", Exiv2::xmpExternal,
         "Internal", Exiv2::xmpInternal,
         "External", Exiv2::xmpExternal);
 
@@ -48,16 +50,18 @@ ENUM(XmpCategory, "Category of an XMP property.",
     $result = SWIG_Python_AppendOutput($result, dict);
 }
 
-%fragment("struct_to_dict"{Exiv2::XmpPropertyInfo}, "header") {
+%fragment("struct_to_dict"{Exiv2::XmpPropertyInfo}, "header",
+          fragment="py_from_enum"{Exiv2::XmpCategory},
+          fragment="py_from_enum"{Exiv2::TypeId}) {
 static PyObject* struct_to_dict(const Exiv2::XmpPropertyInfo* info) {
     if (!info)
         return SWIG_Py_Void();
-    return Py_BuildValue("{ss,ss,ss,si,si,ss}",
+    return Py_BuildValue("{ss,ss,ss,sN,sN,ss}",
         "name",         info->name_,
         "title",        info->title_,
         "xmpValueType", info->xmpValueType_,
-        "typeId",       info->typeId_,
-        "xmpCategory",  info->xmpCategory_,
+        "typeId",       py_from_enum(info->typeId_),
+        "xmpCategory",  py_from_enum(info->xmpCategory_),
         "desc",         info->desc_);
 };
 }

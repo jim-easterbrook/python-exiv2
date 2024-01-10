@@ -120,10 +120,12 @@ KEEP_REFERENCE(datum_type&)
 // Extend Metadatum to allow getting value as a specific type.
 %extend datum_type {
     Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
+        // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return $self->getValue();
     }
     const Exiv2::Value& value(Exiv2::TypeId as_type) {
+        // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return $self->value();
     }

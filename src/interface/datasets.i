@@ -27,9 +27,10 @@ UNIQUE_PTR(Exiv2::IptcKey);
 
 // IptcDataSets::application2RecordList and IptcDataSets::envelopeRecordList
 // return a static list as a pointer
-%fragment("struct_to_dict"{Exiv2::DataSet}, "header") {
+%fragment("struct_to_dict"{Exiv2::DataSet}, "header",
+          fragment="py_from_enum"{Exiv2::TypeId}) {
 static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
-    return Py_BuildValue("{si,ss,ss,ss,sN,sN,si,si,si,si,ss}",
+    return Py_BuildValue("{si,ss,ss,ss,sN,sN,si,si,sN,si,ss}",
         "number",     info->number_,
         "name",       info->name_,
         "title",      info->title_,
@@ -38,7 +39,7 @@ static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
         "repeatable", PyBool_FromLong(info->repeatable_),
         "minbytes",   info->minbytes_,
         "maxbytes",   info->maxbytes_,
-        "type",       info->type_,
+        "type",       py_from_enum(info->type_),
         "recordId",   info->recordId_,
         "photoshop",  info->photoshop_);
 

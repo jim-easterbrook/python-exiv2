@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@
 %include "std_map.i"
 %include "std_string.i"
 %include "std_vector.i"
+%include "typemaps.i"
 
 %import "types.i"
 
@@ -120,11 +121,66 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 // CommentValue::detectCharset has a string reference parameter
 %apply const std::string& {std::string& c};
 
+// Make Exiv2::ByteOrder parameters optional
+%typemap(default) Exiv2::ByteOrder byteOrder {$1 = Exiv2::invalidByteOrder;}
+
+// Make Exiv2::TypeId parameters optional
+%typemap(default) Exiv2::TypeId typeId {$1 = Exiv2::undefined;}
+
+// Ignore now redundant overloaded methods
+%ignore Exiv2::DataValue::DataValue();
+%ignore Exiv2::DataValue::DataValue(byte const *, long);
+%ignore Exiv2::DataValue::DataValue(byte const *, long, ByteOrder);
+%ignore Exiv2::DataValue::DataValue(byte const *, size_t);
+%ignore Exiv2::DataValue::DataValue(byte const *, size_t, ByteOrder);
+
+// Make enums more Pythonic
+CLASS_ENUM(CommentValue, CharsetId,
+    "Character set identifiers for the character sets defined by Exif.",
+    "ascii",            Exiv2::CommentValue::ascii,
+    "jis",              Exiv2::CommentValue::jis,
+    "unicode",          Exiv2::CommentValue::unicode,
+    "undefined",        Exiv2::CommentValue::undefined,
+    "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
+    "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
+    "xaNone",   Exiv2::XmpValue::xaNone,
+    "xaAlt",    Exiv2::XmpValue::xaAlt,
+    "xaBag",    Exiv2::XmpValue::xaBag,
+    "xaSeq",    Exiv2::XmpValue::xaSeq);
+CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
+    "xsNone",   Exiv2::XmpValue::xsNone,
+    "xsStruct", Exiv2::XmpValue::xsStruct);
+
+// deprecated since 2023-12-01
+DEPRECATED_ENUM(CommentValue, CharsetId,
+    "Character set identifiers for the character sets defined by Exif.",
+        "ascii",            Exiv2::CommentValue::ascii,
+        "jis",              Exiv2::CommentValue::jis,
+        "unicode",          Exiv2::CommentValue::unicode,
+        "undefined",        Exiv2::CommentValue::undefined,
+        "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
+        "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+// deprecated since 2023-12-01
+DEPRECATED_ENUM(XmpValue, XmpArrayType, "XMP array types.",
+        "xaNone",   Exiv2::XmpValue::xaNone,
+        "xaAlt",    Exiv2::XmpValue::xaAlt,
+        "xaBag",    Exiv2::XmpValue::xaBag,
+        "xaSeq",    Exiv2::XmpValue::xaSeq);
+// deprecated since 2023-12-01
+DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
+        "xsNone",   Exiv2::XmpValue::xsNone,
+        "xsStruct", Exiv2::XmpValue::xsStruct);
+
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
 %define VALUE_SUBCLASS(type_name, part_name)
 %feature("python:slot", "sq_length", functype="lenfunc") type_name::count;
 %ignore type_name::value_;
+// Ignore overloaded methods replaced by default typemaps
+%ignore type_name::copy(byte *) const;
+%ignore type_name::read(byte const *, long);
+%ignore type_name::read(byte const *, size_t);
 %noexception type_name::~part_name;
 %noexception type_name::__getitem__;
 %noexception type_name::__setitem__;
@@ -133,6 +189,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %noexception type_name::size;
 %extend type_name {
     part_name(const Exiv2::Value& value) {
+        // deprecated since 2023-12-19
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use '" #type_name ".clone()' to copy value", 1);
         type_name* pv = dynamic_cast< type_name* >(value.clone().release());
@@ -160,6 +217,7 @@ UNIQUE_PTR(type_name)
     type_name::__getitem__;
 %extend type_name {
     item_type __getitem__(long single_idx) {
+        // deprecated since 2022-12-15
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use 'value = " #type_name "." #method "()'", 1);
         return $self->method();
@@ -168,8 +226,29 @@ UNIQUE_PTR(type_name)
 %enddef // SUBSCRIPT_SINGLE
 
 // Macro for Exiv2::ValueType classes
-%define VALUETYPE(type_name, item_type)
+%define VALUETYPE(type_name, item_type, type_id)
 VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
+// Use default typemap to handle "TypeId typeId=getType< T >()"
+%typemap(default) Exiv2::TypeId typeId {$1 = type_id;}
+// Ignore now overloaded constructors
+%ignore Exiv2::ValueType<item_type>::ValueType(item_type const &);
+#if EXIV2_VERSION_HEX < 0x001c0000
+%ignore Exiv2::ValueType<item_type>::ValueType(
+    byte const *, long, ByteOrder);
+%ignore Exiv2::ValueType<item_type>::ValueType();
+#else
+%ignore Exiv2::ValueType<item_type>::ValueType(
+    byte const *, size_t, ByteOrder);
+#endif
+// Also need to ignore equivalent primitive type definitions
+%ignore Exiv2::ValueType<item_type>::ValueType(short const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(unsigned short const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(int const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(unsigned int const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(std::pair< int,int > const &);
+%ignore Exiv2::ValueType<item_type>::ValueType(
+    std::pair< unsigned int,unsigned int > const &);
+// Access values as a list
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     Exiv2::ValueType<item_type>::__getitem__;
 // sq_ass_item would be more logical, but it doesn't work for deletion
@@ -181,6 +260,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %feature("docstring") Exiv2::ValueType<item_type>::append
 "Append a " #item_type " component to the value."
 %template() std::vector<item_type>;
+%typemap(default) const item_type* INPUT {$1 = NULL;}
 %extend Exiv2::ValueType<item_type> {
     // Constructor, reads values from a Python list
     ValueType<item_type>(Exiv2::ValueType<item_type>::ValueList value) {
@@ -191,11 +271,11 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     item_type __getitem__(long multi_idx) {
         return $self->value_[multi_idx];
     }
-    void __setitem__(long multi_idx, item_type value) {
-        $self->value_[multi_idx] = value;
-    }
-    void __setitem__(long multi_idx) {
-        $self->value_.erase($self->value_.begin() + multi_idx);
+    void __setitem__(long multi_idx, const item_type* INPUT) {
+        if (INPUT)
+            $self->value_[multi_idx] = *INPUT;
+        else
+            $self->value_.erase($self->value_.begin() + multi_idx);
     }
     void append(item_type value) {
         $self->value_.push_back(value);
@@ -217,6 +297,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %typemap(in) Exiv2::DateValue::Date &src (Exiv2::DateValue::Date date) {
     if (SWIG_IsOK(SWIG_ConvertPtr(
             $input, (void**)&$1, $descriptor(Exiv2::DateValue::Date*), 0))) {
+        // deprecated since 2023-12-08
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use dict instead of DateValue::Date", 1);
     }
@@ -255,6 +336,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %noexception Exiv2::DateValue::Date::__iter__;
 %extend Exiv2::DateValue::Date {
     PyObject* __iter__() {
+        // deprecated since 2023-12-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use getDate() to get Python dict", 1);
         PyObject* seq = Py_BuildValue("((si)(si)(si))",
@@ -293,6 +375,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %typemap(in) Exiv2::TimeValue::Time &src (Exiv2::TimeValue::Time time) {
     if (SWIG_IsOK(SWIG_ConvertPtr(
             $input, (void**)&$1, $descriptor(Exiv2::TimeValue::Time*), 0))) {
+        // deprecated since 2023-12-08
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use dict instead of TimeValue::Time", 1);
     }
@@ -338,6 +421,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %noexception Exiv2::TimeValue::Time::__iter__;
 %extend Exiv2::TimeValue::Time {
     PyObject* __iter__() {
+        // deprecated since 2023-12-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use getTime() to get Python dict", 1);
         PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))",
@@ -377,6 +461,7 @@ components."
 %noexception Exiv2::LangAltValue::values;
 %template() std::map<
     std::string, std::string, Exiv2::LangAltValueComparator>;
+%typemap(default) const std::string* INPUT {$1 = NULL;}
 %extend Exiv2::LangAltValue {
     // Constructor, reads values from a Python dict
     LangAltValue(Exiv2::LangAltValue::ValueType value) {
@@ -416,17 +501,18 @@ components."
         }
         return NULL;
     }
-    void __setitem__(const std::string& key, const std::string& value) {
-        $self->value_[key] = value;
-    }
-    PyObject* __setitem__(const std::string& key) {
-        typedef Exiv2::LangAltValue::ValueType::iterator iter;
-        iter pos = $self->value_.find(key);
-        if (pos == $self->value_.end()) {
-            PyErr_SetString(PyExc_KeyError, key.c_str());
-            return NULL;
+    PyObject* __setitem__(const std::string& key, const std::string* INPUT) {
+        if (INPUT)
+            $self->value_[key] = *INPUT;
+        else {
+            typedef Exiv2::LangAltValue::ValueType::iterator iter;
+            iter pos = $self->value_.find(key);
+            if (pos == $self->value_.end()) {
+                PyErr_SetString(PyExc_KeyError, key.c_str());
+                return NULL;
+            }
+            $self->value_.erase(pos);
         }
-        $self->value_.erase(pos);
         return SWIG_Py_Void();
     }
     bool __contains__(const std::string& key) {
@@ -478,17 +564,23 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     Exiv2::XmpArrayValue::count;
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     Exiv2::XmpArrayValue::__getitem__;
+%typemap(default) Exiv2::TypeId typeId_xmpBag {$1 = Exiv2::xmpBag;}
 %template() std::vector<std::string>;
 %extend Exiv2::XmpArrayValue {
     // Constructor, reads values from a Python list
     XmpArrayValue(std::vector<std::string> value,
-                  Exiv2::TypeId typeId=Exiv2::xmpBag) {
-        Exiv2::XmpArrayValue* result = new Exiv2::XmpArrayValue(typeId);
+                  Exiv2::TypeId typeId_xmpBag) {
+        Exiv2::XmpArrayValue* result =
+            new Exiv2::XmpArrayValue(typeId_xmpBag);
         for (std::vector<std::string>::const_iterator i = value.begin();
              i != value.end(); ++i) {
             result->read(*i);
         }
         return result;
+    }
+    // Replacement default constructor
+    XmpArrayValue(Exiv2::TypeId typeId_xmpBag) {
+        return new Exiv2::XmpArrayValue(typeId_xmpBag);
     }
     std::string __getitem__(long multi_idx) {
         return $self->toString(multi_idx);
@@ -497,32 +589,13 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
         $self->read(value);
     }
 }
-
-// Make enums more Pythonic
-DEPRECATED_ENUM(CommentValue, CharsetId,
-    "Character set identifiers for the character sets defined by Exif.",
-        "ascii",            Exiv2::CommentValue::ascii,
-        "jis",              Exiv2::CommentValue::jis,
-        "unicode",          Exiv2::CommentValue::unicode,
-        "undefined",        Exiv2::CommentValue::undefined,
-        "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
-        "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-DEPRECATED_ENUM(XmpValue, XmpArrayType, "XMP array types.",
-        "xaNone",   Exiv2::XmpValue::xaNone,
-        "xaAlt",    Exiv2::XmpValue::xaAlt,
-        "xaBag",    Exiv2::XmpValue::xaBag,
-        "xaSeq",    Exiv2::XmpValue::xaSeq);
-DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
-        "xsNone",   Exiv2::XmpValue::xsNone,
-        "xsStruct", Exiv2::XmpValue::xsStruct);
+%ignore Exiv2::XmpArrayValue::XmpArrayValue();
+%ignore Exiv2::XmpArrayValue::XmpArrayValue(TypeId);
 
 // Some classes wrongly appear to be abstract to SWIG
 %feature("notabstract") Exiv2::LangAltValue;
 %feature("notabstract") Exiv2::XmpArrayValue;
 %feature("notabstract") Exiv2::XmpTextValue;
-
-// Ignore ambiguous constructor
-%ignore Exiv2::ValueType< int32_t >::ValueType(TypeId typeId);
 
 // Ignore overloaded static xmpArrayType method. SWIG gets confused and makes
 // the other method static as well.
@@ -540,28 +613,14 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 
 %include "exiv2/value.hpp"
 
-CLASS_ENUM(CommentValue, CharsetId,
-    "Character set identifiers for the character sets defined by Exif.",
-    "ascii",            Exiv2::CommentValue::ascii,
-    "jis",              Exiv2::CommentValue::jis,
-    "unicode",          Exiv2::CommentValue::unicode,
-    "undefined",        Exiv2::CommentValue::undefined,
-    "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
-    "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
-    "xaNone",   Exiv2::XmpValue::xaNone,
-    "xaAlt",    Exiv2::XmpValue::xaAlt,
-    "xaBag",    Exiv2::XmpValue::xaBag,
-    "xaSeq",    Exiv2::XmpValue::xaSeq);
-CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
-    "xsNone",   Exiv2::XmpValue::xsNone,
-    "xsStruct", Exiv2::XmpValue::xsStruct);
+// Turn off default typemap for ValueType classes
+%typemap(default) Exiv2::ByteOrder byteOrder;
 
-VALUETYPE(UShortValue, uint16_t)
-VALUETYPE(ULongValue, uint32_t)
-VALUETYPE(URationalValue, Exiv2::URational)
-VALUETYPE(ShortValue, int16_t)
-VALUETYPE(LongValue, int32_t)
-VALUETYPE(RationalValue, Exiv2::Rational)
-VALUETYPE(FloatValue, float)
-VALUETYPE(DoubleValue, double)
+VALUETYPE(UShortValue, uint16_t, Exiv2::unsignedShort)
+VALUETYPE(ULongValue, uint32_t, Exiv2::unsignedLong)
+VALUETYPE(URationalValue, Exiv2::URational, Exiv2::unsignedRational)
+VALUETYPE(ShortValue, int16_t, Exiv2::signedShort)
+VALUETYPE(LongValue, int32_t, Exiv2::signedLong)
+VALUETYPE(RationalValue, Exiv2::Rational, Exiv2::signedRational)
+VALUETYPE(FloatValue, float, Exiv2::tiffFloat)
+VALUETYPE(DoubleValue, double, Exiv2::tiffDouble)
