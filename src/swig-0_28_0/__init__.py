@@ -1,7 +1,6 @@
 
 import os
 import sys
-import warnings
 
 if sys.platform == 'win32':
     _dir = os.path.join(os.path.dirname(__file__), 'lib')
@@ -13,18 +12,6 @@ if sys.platform == 'win32':
 class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors"""
     pass
-
-if sys.version_info < (3, 7):
-    # provide old AnyError for compatibility
-    AnyError = Exiv2Error
-else:
-    # issue deprecation warning if user imports AnyError
-    def __getattr__(name):
-        if name == 'AnyError':
-            warnings.warn("Please replace 'AnyError' with 'Exiv2Error'",
-                          DeprecationWarning)
-            return Exiv2Error
-        raise AttributeError
 __version__ = "0.16.2"
 __version_tuple__ = tuple((0, 16, 2))
 
