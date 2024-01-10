@@ -5146,10 +5146,12 @@ static PyObject* set_value_from_py(Exiv2::Exifdatum* datum, PyObject* py_value) 
 };
 
 SWIGINTERN Exiv2::Value::AutoPtr Exiv2_Exifdatum_getValue__SWIG_1(Exiv2::Exifdatum *self,Exiv2::TypeId as_type){
+        // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return self->getValue();
     }
 SWIGINTERN Exiv2::Value const &Exiv2_Exifdatum_value__SWIG_1(Exiv2::Exifdatum *self,Exiv2::TypeId as_type){
+        // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return self->value();
     }
@@ -6126,6 +6128,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_copy(PyObject *self, PyObject *args
   }
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ExifData_iterator_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
     }
@@ -6774,6 +6777,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_getValue__SWIG_1(PyObject *self, Py
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ExifData_iterator_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -6895,6 +6899,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value__SWIG_1(PyObject *self, Py_ss
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ExifData_iterator_value argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -7740,6 +7745,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_copy(PyObject *self, PyObject *args) {
   }
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Exifdatum_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
     }
@@ -8494,6 +8500,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Exifdatum_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -8576,6 +8583,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Exifdatum_value argument 2 type should be 'Exiv2::TypeId'.", 1);
     }

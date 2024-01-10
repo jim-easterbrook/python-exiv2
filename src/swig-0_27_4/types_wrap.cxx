@@ -4591,6 +4591,7 @@ SWIG_From_size_t  (size_t value)
 }
 
 SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *idx){
+        // deprecated since 2022-12-20
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use 'DataBuf.data()' to get a memoryview", 1);
         if (PySlice_Check(idx)) {
@@ -5260,6 +5261,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeName(PyObject *self, PyObject *args) {
   swig_obj[0] = args;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "TypeInfo_typeName argument 1 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -5343,6 +5345,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeSize(PyObject *self, PyObject *args) {
   swig_obj[0] = args;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "TypeInfo_typeSize argument 1 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -5791,6 +5794,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_pData__get(PyObject *self, PyObject *args) {
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
   
   
+  // deprecated since 2023-11-22
   PyErr_WarnEx(PyExc_DeprecationWarning,
     "use 'DataBuf.data()' to get data", 1);
   
@@ -5816,6 +5820,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_size__get(PyObject *self, PyObject *args) {
   result = (long) ((arg1)->size_);
   resultobj = SWIG_From_long(static_cast< long >(result));
   
+  // deprecated since 2023-11-22
   PyErr_WarnEx(PyExc_DeprecationWarning,
     "use 'DataBuf.size()' to get size", 1);
   

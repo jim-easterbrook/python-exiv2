@@ -30,6 +30,7 @@
 // deprecate passing integers where an enum is expected
 %typemap(in, fragment="get_enum_typeobject"{pattern}) pattern {
     if (!PyObject_IsInstance($input, get_enum_typeobject($1))) {
+        // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "$symname argument $argnum type should be 'pattern'.", 1);
     }

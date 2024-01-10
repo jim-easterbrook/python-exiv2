@@ -141,6 +141,7 @@ ENUM(TypeId, "Exiv2 value type identifiers.\n"
     }
 #if EXIV2_VERSION_HEX < 0x001c0000
     PyObject* __getitem__(PyObject* idx) {
+        // deprecated since 2022-12-20
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use 'DataBuf.data()' to get a memoryview", 1);
         if (PySlice_Check(idx)) {
@@ -222,10 +223,12 @@ RETURN_VIEW(Exiv2::byte* data, arg1->DATABUF_SIZE, PyBUF_WRITE,
 
 // Deprecate pData_ and size_ getters
 %typemap(ret) Exiv2::byte* pData_ %{
+    // deprecated since 2023-11-22
     PyErr_WarnEx(PyExc_DeprecationWarning,
         "use 'DataBuf.data()' to get data", 1);
 %}
 %typemap(ret) long size_ %{
+    // deprecated since 2023-11-22
     PyErr_WarnEx(PyExc_DeprecationWarning,
         "use 'DataBuf.size()' to get size", 1);
 %}

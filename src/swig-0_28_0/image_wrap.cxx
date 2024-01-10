@@ -5775,6 +5775,7 @@ SWIGINTERN PyObject *_wrap_Image_setByteOrder(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Image_setByteOrder argument 2 type should be 'Exiv2::ByteOrder'.", 1);
     }
@@ -6070,6 +6071,7 @@ SWIGINTERN PyObject *_wrap_Image_checkMode(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Image_checkMode argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
@@ -6122,6 +6124,7 @@ SWIGINTERN PyObject *_wrap_Image_supportsMetadata(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Image_supportsMetadata argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
@@ -6234,6 +6237,7 @@ SWIGINTERN PyObject *_wrap_Image_setTypeSupported(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Image_setTypeSupported argument 2 type should be 'Exiv2::ImageType'.", 1);
     }
@@ -6543,6 +6547,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ImageFactory_create argument 1 type should be 'Exiv2::ImageType'.", 1);
     }
@@ -6605,6 +6610,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_1(PyObject *self, Py_ssize_
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ImageFactory_create argument 1 type should be 'Exiv2::ImageType'.", 1);
     }
@@ -6877,6 +6883,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkMode(PyObject *self, PyObject *args
   if (!SWIG_Python_UnpackTuple(args, "ImageFactory_checkMode", 2, 2, swig_obj)) SWIG_fail;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ImageFactory_checkMode argument 1 type should be 'Exiv2::ImageType'.", 1);
     }
@@ -6888,6 +6895,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkMode(PyObject *self, PyObject *args
   }
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ImageFactory_checkMode argument 2 type should be 'Exiv2::MetadataId'.", 1);
     }
@@ -6937,6 +6945,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkType(PyObject *self, PyObject *args
   if (!SWIG_Python_UnpackTuple(args, "ImageFactory_checkType", 3, 3, swig_obj)) SWIG_fail;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ImageFactory_checkType argument 1 type should be 'Exiv2::ImageType'.", 1);
     }

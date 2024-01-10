@@ -5629,6 +5629,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
   }
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Metadatum_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
     }

@@ -5299,6 +5299,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeName(PyObject *self, PyObject *args) {
   swig_obj[0] = args;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "TypeInfo_typeName argument 1 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -5386,6 +5387,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeSize(PyObject *self, PyObject *args) {
   swig_obj[0] = args;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "TypeInfo_typeSize argument 1 type should be 'Exiv2::TypeId'.", 1);
     }

@@ -152,6 +152,7 @@ CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
     "xsNone",   Exiv2::XmpValue::xsNone,
     "xsStruct", Exiv2::XmpValue::xsStruct);
 
+// deprecated since 2023-12-01
 DEPRECATED_ENUM(CommentValue, CharsetId,
     "Character set identifiers for the character sets defined by Exif.",
         "ascii",            Exiv2::CommentValue::ascii,
@@ -160,11 +161,13 @@ DEPRECATED_ENUM(CommentValue, CharsetId,
         "undefined",        Exiv2::CommentValue::undefined,
         "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
         "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+// deprecated since 2023-12-01
 DEPRECATED_ENUM(XmpValue, XmpArrayType, "XMP array types.",
         "xaNone",   Exiv2::XmpValue::xaNone,
         "xaAlt",    Exiv2::XmpValue::xaAlt,
         "xaBag",    Exiv2::XmpValue::xaBag,
         "xaSeq",    Exiv2::XmpValue::xaSeq);
+// deprecated since 2023-12-01
 DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
         "xsNone",   Exiv2::XmpValue::xsNone,
         "xsStruct", Exiv2::XmpValue::xsStruct);
@@ -186,6 +189,7 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 %noexception type_name::size;
 %extend type_name {
     part_name(const Exiv2::Value& value) {
+        // deprecated since 2023-12-19
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use '" #type_name ".clone()' to copy value", 1);
         type_name* pv = dynamic_cast< type_name* >(value.clone().release());
@@ -213,6 +217,7 @@ UNIQUE_PTR(type_name)
     type_name::__getitem__;
 %extend type_name {
     item_type __getitem__(long single_idx) {
+        // deprecated since 2022-12-15
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use 'value = " #type_name "." #method "()'", 1);
         return $self->method();
@@ -292,6 +297,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %typemap(in) Exiv2::DateValue::Date &src (Exiv2::DateValue::Date date) {
     if (SWIG_IsOK(SWIG_ConvertPtr(
             $input, (void**)&$1, $descriptor(Exiv2::DateValue::Date*), 0))) {
+        // deprecated since 2023-12-08
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use dict instead of DateValue::Date", 1);
     }
@@ -330,6 +336,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %noexception Exiv2::DateValue::Date::__iter__;
 %extend Exiv2::DateValue::Date {
     PyObject* __iter__() {
+        // deprecated since 2023-12-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use getDate() to get Python dict", 1);
         PyObject* seq = Py_BuildValue("((si)(si)(si))",
@@ -368,6 +375,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %typemap(in) Exiv2::TimeValue::Time &src (Exiv2::TimeValue::Time time) {
     if (SWIG_IsOK(SWIG_ConvertPtr(
             $input, (void**)&$1, $descriptor(Exiv2::TimeValue::Time*), 0))) {
+        // deprecated since 2023-12-08
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use dict instead of TimeValue::Time", 1);
     }
@@ -413,6 +421,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %noexception Exiv2::TimeValue::Time::__iter__;
 %extend Exiv2::TimeValue::Time {
     PyObject* __iter__() {
+        // deprecated since 2023-12-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "use getTime() to get Python dict", 1);
         PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))",

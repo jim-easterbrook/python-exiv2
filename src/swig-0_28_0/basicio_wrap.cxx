@@ -5392,6 +5392,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   arg2 = static_cast< int64_t >(val2);
   {
     if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "BasicIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
     }
@@ -6394,6 +6395,7 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
   arg2 = static_cast< int64_t >(val2);
   {
     if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "FileIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
     }
@@ -7352,6 +7354,7 @@ SWIGINTERN PyObject *_wrap_MemIo_seek(PyObject *self, PyObject *args) {
   arg2 = static_cast< int64_t >(val2);
   {
     if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "MemIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
     }
@@ -8344,6 +8347,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_seek(PyObject *self, PyObject *args) {
   arg2 = static_cast< int64_t >(val2);
   {
     if (!PyObject_IsInstance(obj2, get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "RemoteIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
     }

@@ -4185,6 +4185,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
   swig_obj[0] = args;
   {
     if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "LogMsg_setLevel argument 1 type should be 'Exiv2::LogMsg::Level'.", 1);
     }

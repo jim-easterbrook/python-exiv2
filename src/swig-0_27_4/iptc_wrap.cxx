@@ -5145,10 +5145,12 @@ static PyObject* set_value_from_py(Exiv2::Iptcdatum* datum, PyObject* py_value) 
 };
 
 SWIGINTERN Exiv2::Value::AutoPtr Exiv2_Iptcdatum_getValue__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
+        // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return self->getValue();
     }
 SWIGINTERN Exiv2::Value const &Exiv2_Iptcdatum_value__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
+        // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
         return self->value();
     }
@@ -5725,6 +5727,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_copy(PyObject *self, PyObject *args
   }
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "IptcData_iterator_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
     }
@@ -6629,6 +6632,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_1(PyObject *self, Py
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "IptcData_iterator_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -6750,6 +6754,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, Py_ss
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "IptcData_iterator_value argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -7218,6 +7223,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
   }
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Iptcdatum_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
     }
@@ -8161,6 +8167,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Iptcdatum_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
     }
@@ -8243,6 +8250,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
   {
     if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Iptcdatum_value argument 2 type should be 'Exiv2::TypeId'.", 1);
     }

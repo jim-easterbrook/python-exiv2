@@ -166,6 +166,7 @@ CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
     "cur", Exiv2::BasicIo::cur,
     "end", Exiv2::BasicIo::end);
 
+// deprecated since 2023-12-01
 DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
         "beg", Exiv2::BasicIo::beg,
         "cur", Exiv2::BasicIo::cur,
