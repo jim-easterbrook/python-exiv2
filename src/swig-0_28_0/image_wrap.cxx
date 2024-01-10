@@ -4524,12 +4524,18 @@ SWIG_From_std_string  (const std::string& s)
 }
 
 
-static PyObject* py_from_enum(Exiv2::ByteOrder value) {
-    PyObject* module = PyImport_ImportModule("exiv2");
-    PyObject* result = PyObject_CallMethod(module, "ByteOrder", "(i)", value);
-    Py_DECREF(module);
+static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "ByteOrder");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
     return result;
 };
+
+
+static PyObject* py_from_enum(Exiv2::ByteOrder value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
 
 
 SWIGINTERNINLINE PyObject*
@@ -4539,12 +4545,18 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-static PyObject* py_from_enum(Exiv2::AccessMode value) {
-    PyObject* module = PyImport_ImportModule("exiv2");
-    PyObject* result = PyObject_CallMethod(module, "AccessMode", "(i)", value);
-    Py_DECREF(module);
+static PyObject* get_enum_typeobject(Exiv2::AccessMode value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "AccessMode");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
     return result;
 };
+
+
+static PyObject* py_from_enum(Exiv2::AccessMode value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
 
 
 #include <limits.h>
@@ -4625,12 +4637,18 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 }
 
 
-static PyObject* py_from_enum(Exiv2::ImageType value) {
-    PyObject* module = PyImport_ImportModule("exiv2");
-    PyObject* result = PyObject_CallMethod(module, "ImageType", "(i)", value);
-    Py_DECREF(module);
+static PyObject* get_enum_typeobject(Exiv2::ImageType value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "ImageType");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
     return result;
 };
+
+
+static PyObject* py_from_enum(Exiv2::ImageType value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
 
 
 #ifdef _WIN32

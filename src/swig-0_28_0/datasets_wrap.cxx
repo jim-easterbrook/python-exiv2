@@ -4493,12 +4493,18 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* module = PyImport_ImportModule("exiv2");
-    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
-    Py_DECREF(module);
+static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
     return result;
 };
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
 
 
 static PyObject* struct_to_dict(const Exiv2::DataSet* info) {

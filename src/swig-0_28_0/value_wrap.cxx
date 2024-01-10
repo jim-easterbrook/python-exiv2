@@ -5551,12 +5551,18 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
-static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* module = PyImport_ImportModule("exiv2");
-    PyObject* result = PyObject_CallMethod(module, "TypeId", "(i)", value);
-    Py_DECREF(module);
+static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
     return result;
 };
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
 
 
 static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
@@ -6059,20 +6065,31 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
-static PyObject* py_from_enum(Exiv2::CommentValue::CharsetId value) {
+static PyObject* get_enum_typeobject(Exiv2::CommentValue::CharsetId value) {
     swig_type_info* desc = SWIGTYPE_p_Exiv2__CommentValue;
     SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    return PyObject_CallFunction(
-        PyDict_GetItemString(cd->pytype->tp_dict, "CharsetId"), "(i)", value);
+    // PyDict_GetItemString returns a borrowed reference
+    return PyDict_GetItemString(cd->pytype->tp_dict, "CharsetId");
+};
+
+
+static PyObject* py_from_enum(Exiv2::CommentValue::CharsetId value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
+
+
+static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "ByteOrder");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
 };
 
 
 static PyObject* py_from_enum(Exiv2::ByteOrder value) {
-    PyObject* module = PyImport_ImportModule("exiv2");
-    PyObject* result = PyObject_CallMethod(module, "ByteOrder", "(i)", value);
-    Py_DECREF(module);
-    return result;
-};
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
 
 SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -6093,20 +6110,30 @@ SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value cons
         return pv;
     }
 
-static PyObject* py_from_enum(Exiv2::XmpValue::XmpArrayType value) {
+static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpArrayType value) {
     swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
     SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    return PyObject_CallFunction(
-        PyDict_GetItemString(cd->pytype->tp_dict, "XmpArrayType"), "(i)", value);
+    // PyDict_GetItemString returns a borrowed reference
+    return PyDict_GetItemString(cd->pytype->tp_dict, "XmpArrayType");
+};
+
+
+static PyObject* py_from_enum(Exiv2::XmpValue::XmpArrayType value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
+
+
+static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpStruct value) {
+    swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
+    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+    // PyDict_GetItemString returns a borrowed reference
+    return PyDict_GetItemString(cd->pytype->tp_dict, "XmpStruct");
 };
 
 
 static PyObject* py_from_enum(Exiv2::XmpValue::XmpStruct value) {
-    swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
-    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    return PyObject_CallFunction(
-        PyDict_GetItemString(cd->pytype->tp_dict, "XmpStruct"), "(i)", value);
-};
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
 
 SWIGINTERN Exiv2::XmpTextValue *new_Exiv2_XmpTextValue__SWIG_2(Exiv2::Value const &value){
         PyErr_WarnEx(PyExc_DeprecationWarning,

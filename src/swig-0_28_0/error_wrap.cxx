@@ -4161,12 +4161,17 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
 };
 
 
-static PyObject* py_from_enum(Exiv2::LogMsg::Level value) {
+static PyObject* get_enum_typeobject(Exiv2::LogMsg::Level value) {
     swig_type_info* desc = SWIGTYPE_p_Exiv2__LogMsg;
     SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    return PyObject_CallFunction(
-        PyDict_GetItemString(cd->pytype->tp_dict, "Level"), "(i)", value);
+    // PyDict_GetItemString returns a borrowed reference
+    return PyDict_GetItemString(cd->pytype->tp_dict, "Level");
 };
+
+
+static PyObject* py_from_enum(Exiv2::LogMsg::Level value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
 
 #ifdef __cplusplus
 extern "C" {

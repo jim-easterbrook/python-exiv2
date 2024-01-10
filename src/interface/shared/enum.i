@@ -18,6 +18,8 @@
 
 // Macros to make enums more Pythonic
 
+%include "shared/fragments.i"
+
 %define _ENUM_TYPEMAPS(pattern)
 // typemap to disambiguate enum from int
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
@@ -38,6 +40,12 @@
     $1 = (pattern)PyLong_AsLong($input);
 }
 
+%fragment("py_from_enum"{pattern}, "header",
+          fragment="get_enum_typeobject"{pattern}) {
+static PyObject* py_from_enum(pattern value) {
+    return PyObject_CallFunction(get_enum_typeobject(value), "(i)", value);
+}
+}
 %typemap(out, fragment="py_from_enum"{pattern}) pattern {
     $result = py_from_enum($1);
     if (!$result)
@@ -84,12 +92,14 @@ static PyObject* Py_IntEnum = NULL;
 
 %define ENUM(name, doc, contents...)
 _ENUM_TYPEMAPS(Exiv2::name);
-// fragment to convert results
-%fragment("py_from_enum"{Exiv2::name}, "header") {
-static PyObject* py_from_enum(Exiv2::name value) {
-    PyObject* module = PyImport_ImportModule("exiv2");
-    PyObject* result = PyObject_CallMethod(module, "name", "(i)", value);
-    Py_DECREF(module);
+// fragment to get enum object
+%fragment("get_enum_typeobject"{Exiv2::name}, "header",
+          fragment="import_exiv2") {
+static PyObject* get_enum_typeobject(Exiv2::name value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "name");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
     return result;
 };
 }
@@ -157,15 +167,16 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
 
 %define CLASS_ENUM(class, name, doc, contents...)
 _ENUM_TYPEMAPS(Exiv2::class::name);
-// fragment to convert results
-%fragment("py_from_enum"{Exiv2::class::name}, "header") {
-static PyObject* py_from_enum(Exiv2::class::name value) {
+// fragment to get enum object
+%fragment("get_enum_typeobject"{Exiv2::class::name}, "header") {
+static PyObject* get_enum_typeobject(Exiv2::class::name value) {
     swig_type_info* desc = $descriptor(Exiv2::class*);
     SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    return PyObject_CallFunction(
-        PyDict_GetItemString(cd->pytype->tp_dict, "name"), "(i)", value);
+    // PyDict_GetItemString returns a borrowed reference
+    return PyDict_GetItemString(cd->pytype->tp_dict, "name");
 };
 }
+
 // Add enum to type object during module init
 %extend Exiv2::class {
 %fragment("get_enum_list");
