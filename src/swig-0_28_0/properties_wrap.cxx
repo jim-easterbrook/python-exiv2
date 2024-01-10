@@ -7040,7 +7040,7 @@ SWIG_init(void) {
   }
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",_get_enum_object(
-      "XmpCategory", "Category of an XMP property.", _get_enum_list(0, "Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL)));
+      "XmpCategory", "Category of an XMP property.", _get_enum_list(0, "xmpInternal",Exiv2::xmpInternal,"xmpExternal",Exiv2::xmpExternal,"Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL)));
   
   /* type 'Exiv2::XmpProperties' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__XmpProperties_type;

@@ -8177,11 +8177,11 @@ SWIG_init(void) {
   }
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AccessMode",_get_enum_object(
-      "AccessMode", "An identifier for each mode of metadata support.", _get_enum_list(0, "none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL)));
+      "AccessMode", "An identifier for each mode of metadata support.", _get_enum_list(0, "amNone",Exiv2::amNone,"amRead",Exiv2::amRead,"amWrite",Exiv2::amWrite,"amReadWrite",Exiv2::amReadWrite,"none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ByteOrder",_get_enum_object(
       "ByteOrder", "Type to express the byte order (little or big endian).", _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "MetadataId",_get_enum_object(
-      "MetadataId", "An identifier for each type of metadata.", _get_enum_list(0, "none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL)));
+      "MetadataId", "An identifier for each type of metadata.", _get_enum_list(0, "mdNone",Exiv2::mdNone,"mdExif",Exiv2::mdExif,"mdIptc",Exiv2::mdIptc,"mdComment",Exiv2::mdComment,"mdXmp",Exiv2::mdXmp,"mdIccProfile",Exiv2::mdIccProfile,"none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "TypeId",_get_enum_object(
       "TypeId", "Exiv2 value type identifiers.\n"
       "\nUsed primarily as identifiers when creating Exiv2 Value instances. See"

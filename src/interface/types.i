@@ -83,6 +83,10 @@ if os.path.isdir(_dir):
 
 // Make various enums more Pythonic
 ENUM(AccessMode, "An identifier for each mode of metadata support.",
+        "amNone",      Exiv2::amNone,
+        "amRead",      Exiv2::amRead,
+        "amWrite",     Exiv2::amWrite,
+        "amReadWrite", Exiv2::amReadWrite,
         "none",      Exiv2::amNone,
         "Read",      Exiv2::amRead,
         "Write",     Exiv2::amWrite,
@@ -94,6 +98,12 @@ ENUM(ByteOrder, "Type to express the byte order (little or big endian).",
         "bigEndian",        Exiv2::bigEndian);
 
 ENUM(MetadataId, "An identifier for each type of metadata.",
+        "mdNone",       Exiv2::mdNone,
+        "mdExif",       Exiv2::mdExif,
+        "mdIptc",       Exiv2::mdIptc,
+        "mdComment",    Exiv2::mdComment,
+        "mdXmp",        Exiv2::mdXmp,
+        "mdIccProfile", Exiv2::mdIccProfile,
         "none",       Exiv2::mdNone,
         "Exif",       Exiv2::mdExif,
         "Iptc",       Exiv2::mdIptc,
