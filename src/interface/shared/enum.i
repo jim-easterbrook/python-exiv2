@@ -44,7 +44,7 @@
 %fragment("py_from_enum"{pattern}, "header",
           fragment="get_enum_typeobject"{pattern}) {
 static PyObject* py_from_enum(pattern value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(

@@ -4399,7 +4399,7 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 
 
 static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(

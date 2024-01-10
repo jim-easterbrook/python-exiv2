@@ -4191,6 +4191,31 @@ public:
 };
 
 
+static PyObject* get_enum_typeobject(Exiv2::IfdId value) {
+    PyObject* result = PyObject_GetAttrString(exiv2_module, "IfdId");
+    // PyObject_GetAttrString returns a new reference, decref is safe as
+    // the object is referred to elsewhere
+    Py_DECREF(result);
+    return result;
+};
+
+
+static PyObject* py_from_enum(Exiv2::IfdId value) {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
+}
+
+
 static PyObject* get_enum_typeobject(Exiv2::SectionId value) {
     PyObject* result = PyObject_GetAttrString(exiv2_module, "SectionId");
     // PyObject_GetAttrString returns a new reference, decref is safe as
@@ -4201,7 +4226,7 @@ static PyObject* get_enum_typeobject(Exiv2::SectionId value) {
 
 
 static PyObject* py_from_enum(Exiv2::SectionId value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4226,7 +4251,7 @@ static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
 
 
 static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4242,12 +4267,12 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
 
 
 static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
-    return Py_BuildValue("{si,ss,ss,ss,si,sN,sN,si}",
+    return Py_BuildValue("{si,ss,ss,ss,sN,sN,sN,si}",
         "tag",       info->tag_,
         "name",      info->name_,
         "title",     info->title_,
         "desc",      info->desc_,
-        "ifdId",     info->ifdId_,
+        "ifdId",     py_from_enum(info->ifdId_),
         "sectionId", py_from_enum(info->sectionId_),
         "typeId",    py_from_enum(info->typeId_),
         "count",     info->count_);
@@ -4286,8 +4311,8 @@ SWIGINTERNINLINE PyObject*
 
 
 static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
-    return Py_BuildValue("{si,ss,ss,sN}",
-        "ifdId",     info->ifdId_,
+    return Py_BuildValue("{sN,ss,ss,sN}",
+        "ifdId",     py_from_enum(info->ifdId_),
         "ifdName",   info->ifdName_,
         "groupName", info->groupName_,
         "tagList",   new_TagListFct(info->tagList_));

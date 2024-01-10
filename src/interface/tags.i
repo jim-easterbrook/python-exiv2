@@ -79,8 +79,38 @@ ENUM(SectionId, "Section identifiers to logically group tags.\n"
         "tiffPm6",         Exiv2::SectionId::tiffPm6,
         "adobeOpi",        Exiv2::SectionId::adobeOpi,
         "lastSectionId ",  Exiv2::SectionId::lastSectionId);
-#endif // EXIV2_VERSION_HEX
 
+// ExifTags::groupList returns a static list as a pointer
+%fragment("struct_to_dict"{Exiv2::GroupInfo}, "header",
+          fragment="py_from_enum"{Exiv2::IfdId},
+          fragment="new_TagListFct") {
+static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
+    return Py_BuildValue("{sN,ss,ss,sN}",
+        "ifdId",     py_from_enum(info->ifdId_),
+        "ifdName",   info->ifdName_,
+        "groupName", info->groupName_,
+        "tagList",   new_TagListFct(info->tagList_));
+};
+}
+
+// ExifTags::tagList returns a static list as a pointer
+%fragment("struct_to_dict"{Exiv2::TagInfo}, "header",
+          fragment="py_from_enum"{Exiv2::IfdId},
+          fragment="py_from_enum"{Exiv2::SectionId},
+          fragment="py_from_enum"{Exiv2::TypeId}) {
+static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
+    return Py_BuildValue("{si,ss,ss,ss,sN,sN,sN,si}",
+        "tag",       info->tag_,
+        "name",      info->name_,
+        "title",     info->title_,
+        "desc",      info->desc_,
+        "ifdId",     py_from_enum(info->ifdId_),
+        "sectionId", py_from_enum(info->sectionId_),
+        "typeId",    py_from_enum(info->typeId_),
+        "count",     info->count_);
+};
+}
+#else // EXIV2_VERSION_HEX
 // ExifTags::groupList returns a static list as a pointer
 %fragment("struct_to_dict"{Exiv2::GroupInfo}, "header",
           fragment="new_TagListFct") {
@@ -92,26 +122,8 @@ static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
         "tagList",   new_TagListFct(info->tagList_));
 };
 }
-LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0)
 
 // ExifTags::tagList returns a static list as a pointer
-#if EXIV2_VERSION_HEX >= 0x001c0000
-%fragment("struct_to_dict"{Exiv2::TagInfo}, "header",
-          fragment="py_from_enum"{Exiv2::SectionId},
-          fragment="py_from_enum"{Exiv2::TypeId}) {
-static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
-    return Py_BuildValue("{si,ss,ss,ss,si,sN,sN,si}",
-        "tag",       info->tag_,
-        "name",      info->name_,
-        "title",     info->title_,
-        "desc",      info->desc_,
-        "ifdId",     info->ifdId_,
-        "sectionId", py_from_enum(info->sectionId_),
-        "typeId",    py_from_enum(info->typeId_),
-        "count",     info->count_);
-};
-}
-#else // EXIV2_VERSION_HEX
 %fragment("struct_to_dict"{Exiv2::TagInfo}, "header",
           fragment="py_from_enum"{Exiv2::TypeId}) {
 static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
@@ -127,6 +139,7 @@ static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
 };
 }
 #endif // EXIV2_VERSION_HEX
+LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0)
 LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
 
 // Wrapper class for TagListFct function pointer

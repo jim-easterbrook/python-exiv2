@@ -4534,7 +4534,7 @@ static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
 
 
 static PyObject* py_from_enum(Exiv2::ByteOrder value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4575,7 +4575,7 @@ static PyObject* get_enum_typeobject(Exiv2::AccessMode value) {
 
 
 static PyObject* py_from_enum(Exiv2::AccessMode value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4678,7 +4678,7 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 
 
 static PyObject* py_from_enum(Exiv2::ImageType value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(

@@ -5489,7 +5489,7 @@ static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
 
 
 static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -5928,7 +5928,7 @@ static PyObject* get_enum_typeobject(Exiv2::CommentValue::CharsetId value) {
 
 
 static PyObject* py_from_enum(Exiv2::CommentValue::CharsetId value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -5944,7 +5944,7 @@ static PyObject* py_from_enum(Exiv2::CommentValue::CharsetId value) {
 
 
 static PyObject* py_from_enum(Exiv2::ByteOrder value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -5987,7 +5987,7 @@ static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpArrayType value) {
 
 
 static PyObject* py_from_enum(Exiv2::XmpValue::XmpArrayType value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -6011,7 +6011,7 @@ static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpStruct value) {
 
 
 static PyObject* py_from_enum(Exiv2::XmpValue::XmpStruct value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(

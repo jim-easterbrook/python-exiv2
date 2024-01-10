@@ -4231,7 +4231,7 @@ static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
 
 
 static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4256,7 +4256,7 @@ static PyObject* get_enum_typeobject(Exiv2::XmpCategory value) {
 
 
 static PyObject* py_from_enum(Exiv2::XmpCategory value) {
-    PyObject* py_int = PyLong_FromLong(value);
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
