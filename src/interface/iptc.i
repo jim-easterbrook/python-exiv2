@@ -20,12 +20,16 @@
 %include "shared/preamble.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
+%include "shared/exception.i"
 
 %include "stdint.i"
 %include "std_string.i"
 
 %import "datasets.i"
 %import "metadatum.i"
+
+// Catch all C++ exceptions
+EXCEPTION(,)
 
 EXTEND_METADATUM(Exiv2::Iptcdatum)
 

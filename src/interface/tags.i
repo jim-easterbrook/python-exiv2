@@ -21,10 +21,14 @@
 #if EXIV2_VERSION_HEX >= 0x001c0000
 %include "shared/enum.i"
 #endif
+%include "shared/exception.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i";
+
+// Catch all C++ exceptions
+EXCEPTION(,)
 
 UNIQUE_PTR(Exiv2::ExifKey);
 

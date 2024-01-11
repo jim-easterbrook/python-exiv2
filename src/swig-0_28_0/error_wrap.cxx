@@ -4101,12 +4101,6 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-static PyObject* PyExc_Exiv2Error = NULL;
-
-
-static PyObject* exiv2_module = NULL;
-
-
 #include <typeinfo>
 #include <stdexcept>
 
@@ -4206,20 +4200,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
     }
     arg1 = (Exiv2::LogMsg::Level)PyLong_AsLong(swig_obj[0]);
   }
-  {
-    try {
-      Exiv2::LogMsg::setLevel(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2::LogMsg::setLevel(arg1);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -4232,20 +4213,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
   Exiv2::LogMsg::Level result;
   
   if (!SWIG_Python_UnpackTuple(args, "LogMsg_level", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
   {
     resultobj = py_from_enum(result);
     if (!resultobj)
@@ -5100,20 +5068,6 @@ SWIG_init(void) {
 #endif
   
   SWIG_InstallConstants(d,swig_const_table);
-  
-  
-  {
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-    return NULL;
-  }
-  
-  
-  {
-    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error)
-    return NULL;
-  }
   
   
   {

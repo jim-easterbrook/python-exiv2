@@ -24,6 +24,7 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
+%include "shared/exception.i"
 %include "shared/fragments.i"
 %include "shared/unique_ptr.i"
 
@@ -34,6 +35,9 @@
 %include "typemaps.i"
 
 %import "types.i"
+
+// Catch all C++ exceptions
+EXCEPTION(,)
 
 UNIQUE_PTR(Exiv2::Value);
 

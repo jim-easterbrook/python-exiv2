@@ -18,12 +18,16 @@
 %module(package="exiv2") properties
 
 %include "shared/preamble.i"
+%include "shared/exception.i"
 %include "shared/enum.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 
 %import "datasets.i"
 %import "metadatum.i"
+
+// Catch all C++ exceptions
+EXCEPTION(,)
 
 UNIQUE_PTR(Exiv2::XmpKey);
 

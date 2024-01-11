@@ -4155,12 +4155,6 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-static PyObject* PyExc_Exiv2Error = NULL;
-
-
-static PyObject* exiv2_module = NULL;
-
-
 #include <string>
 
 
@@ -4315,6 +4309,12 @@ namespace swig {
 
 
 #include <vector>
+
+
+static PyObject* PyExc_Exiv2Error = NULL;
+
+
+static PyObject* exiv2_module = NULL;
 
 
 namespace swig {

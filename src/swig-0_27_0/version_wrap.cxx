@@ -4106,16 +4106,16 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-static PyObject* PyExc_Exiv2Error = NULL;
-
-
-static PyObject* exiv2_module = NULL;
-
-
 #include <stdint.h>		// Use the C99 official header
 
 
 #include <string>
+
+
+static PyObject* PyExc_Exiv2Error = NULL;
+
+
+static PyObject* exiv2_module = NULL;
 
 
 static PyObject* versionInfo() {

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
+%include "shared/exception.i"
 %include "shared/keep_reference.i"
 %include "shared/windows_path.i"
 
@@ -33,6 +34,9 @@
 %import "iptc.i";
 %import "tags.i";
 %import "xmp.i";
+
+// Catch all C++ exceptions
+EXCEPTION(,)
 
 UNIQUE_PTR(Exiv2::Image);
 

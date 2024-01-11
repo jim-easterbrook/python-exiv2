@@ -23,6 +23,7 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
+%include "shared/exception.i"
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 %include "shared/windows_path.i"
@@ -30,6 +31,9 @@
 %include "std_string.i"
 
 %import "types.i"
+
+// Catch all C++ exceptions
+EXCEPTION(,)
 
 UNIQUE_PTR(Exiv2::BasicIo);
 
