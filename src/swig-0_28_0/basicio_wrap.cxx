@@ -4580,12 +4580,13 @@ static PyObject* PyEnum_Exiv2_BasicIo_Position = NULL;
 
 static PyObject* get_enum_typeobject(Exiv2::BasicIo::Position value) {
     if (!PyEnum_Exiv2_BasicIo_Position) {
-        swig_type_info* desc = SWIGTYPE_p_Exiv2__BasicIo;
-        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-        PyEnum_Exiv2_BasicIo_Position = PyDict_GetItemString(
-            cd->pytype->tp_dict, "Position");
-        // PyDict_GetItemString returns a borrowed reference
-        Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
+        PyObject* parent_class = PyObject_GetAttrString(
+            exiv2_module, "BasicIo");
+        if (parent_class) {
+            PyEnum_Exiv2_BasicIo_Position = PyObject_GetAttrString(
+                parent_class, "Position");
+            Py_DECREF(parent_class);
+        }
     }
     return PyEnum_Exiv2_BasicIo_Position;
 };

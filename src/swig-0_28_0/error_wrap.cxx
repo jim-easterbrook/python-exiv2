@@ -4155,17 +4155,21 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
 };
 
 
+static PyObject* exiv2_module = NULL;
+
+
 static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
 
 
 static PyObject* get_enum_typeobject(Exiv2::LogMsg::Level value) {
     if (!PyEnum_Exiv2_LogMsg_Level) {
-        swig_type_info* desc = SWIGTYPE_p_Exiv2__LogMsg;
-        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-        PyEnum_Exiv2_LogMsg_Level = PyDict_GetItemString(
-            cd->pytype->tp_dict, "Level");
-        // PyDict_GetItemString returns a borrowed reference
-        Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
+        PyObject* parent_class = PyObject_GetAttrString(
+            exiv2_module, "LogMsg");
+        if (parent_class) {
+            PyEnum_Exiv2_LogMsg_Level = PyObject_GetAttrString(
+                parent_class, "Level");
+            Py_DECREF(parent_class);
+        }
     }
     return PyEnum_Exiv2_LogMsg_Level;
 };
@@ -5101,6 +5105,13 @@ SWIG_init(void) {
     Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
     Py_DECREF(module);
     if (!Py_IntEnum)
+    return NULL;
+  }
+  
+  
+  {
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
     return NULL;
   }
   

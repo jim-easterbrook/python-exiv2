@@ -5928,12 +5928,13 @@ static PyObject* PyEnum_Exiv2_CommentValue_CharsetId = NULL;
 
 static PyObject* get_enum_typeobject(Exiv2::CommentValue::CharsetId value) {
     if (!PyEnum_Exiv2_CommentValue_CharsetId) {
-        swig_type_info* desc = SWIGTYPE_p_Exiv2__CommentValue;
-        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-        PyEnum_Exiv2_CommentValue_CharsetId = PyDict_GetItemString(
-            cd->pytype->tp_dict, "CharsetId");
-        // PyDict_GetItemString returns a borrowed reference
-        Py_INCREF(PyEnum_Exiv2_CommentValue_CharsetId);
+        PyObject* parent_class = PyObject_GetAttrString(
+            exiv2_module, "CommentValue");
+        if (parent_class) {
+            PyEnum_Exiv2_CommentValue_CharsetId = PyObject_GetAttrString(
+                parent_class, "CharsetId");
+            Py_DECREF(parent_class);
+        }
     }
     return PyEnum_Exiv2_CommentValue_CharsetId;
 };
@@ -5995,12 +5996,13 @@ static PyObject* PyEnum_Exiv2_XmpValue_XmpArrayType = NULL;
 
 static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpArrayType value) {
     if (!PyEnum_Exiv2_XmpValue_XmpArrayType) {
-        swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
-        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-        PyEnum_Exiv2_XmpValue_XmpArrayType = PyDict_GetItemString(
-            cd->pytype->tp_dict, "XmpArrayType");
-        // PyDict_GetItemString returns a borrowed reference
-        Py_INCREF(PyEnum_Exiv2_XmpValue_XmpArrayType);
+        PyObject* parent_class = PyObject_GetAttrString(
+            exiv2_module, "XmpValue");
+        if (parent_class) {
+            PyEnum_Exiv2_XmpValue_XmpArrayType = PyObject_GetAttrString(
+                parent_class, "XmpArrayType");
+            Py_DECREF(parent_class);
+        }
     }
     return PyEnum_Exiv2_XmpValue_XmpArrayType;
 };
@@ -6027,12 +6029,13 @@ static PyObject* PyEnum_Exiv2_XmpValue_XmpStruct = NULL;
 
 static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpStruct value) {
     if (!PyEnum_Exiv2_XmpValue_XmpStruct) {
-        swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
-        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-        PyEnum_Exiv2_XmpValue_XmpStruct = PyDict_GetItemString(
-            cd->pytype->tp_dict, "XmpStruct");
-        // PyDict_GetItemString returns a borrowed reference
-        Py_INCREF(PyEnum_Exiv2_XmpValue_XmpStruct);
+        PyObject* parent_class = PyObject_GetAttrString(
+            exiv2_module, "XmpValue");
+        if (parent_class) {
+            PyEnum_Exiv2_XmpValue_XmpStruct = PyObject_GetAttrString(
+                parent_class, "XmpStruct");
+            Py_DECREF(parent_class);
+        }
     }
     return PyEnum_Exiv2_XmpValue_XmpStruct;
 };

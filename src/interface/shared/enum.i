@@ -186,15 +186,17 @@ static PyObject* _get_enum_object(const char* name, const char* doc,
 _ENUM_COMMON(Exiv2::class::name);
 // fragment to get enum object
 %fragment("get_enum_typeobject"{Exiv2::class::name}, "header",
+          fragment="import_exiv2",
           fragment="_declare_enum_object"{Exiv2::class::name}) {
 static PyObject* get_enum_typeobject(Exiv2::class::name value) {
     if (!PyEnum_%mangle(Exiv2::class::name)) {
-        swig_type_info* desc = $descriptor(Exiv2::class*);
-        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-        PyEnum_%mangle(Exiv2::class::name) = PyDict_GetItemString(
-            cd->pytype->tp_dict, "name");
-        // PyDict_GetItemString returns a borrowed reference
-        Py_INCREF(PyEnum_%mangle(Exiv2::class::name));
+        PyObject* parent_class = PyObject_GetAttrString(
+            exiv2_module, "class");
+        if (parent_class) {
+            PyEnum_%mangle(Exiv2::class::name) = PyObject_GetAttrString(
+                parent_class, "name");
+            Py_DECREF(parent_class);
+        }
     }
     return PyEnum_%mangle(Exiv2::class::name);
 };
