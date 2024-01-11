@@ -24,8 +24,12 @@
 
 %import "metadatum.i"
 
-// Catch all C++ exceptions
-EXCEPTION(,)
+// Catch some C++ exceptions
+%exception;
+EXCEPTION(Exiv2::IptcDataSets::dataSet,)
+EXCEPTION(Exiv2::IptcDataSets::recordId,)
+EXCEPTION(Exiv2::IptcKey::IptcKey(std::string),)
+EXCEPTION(Exiv2::IptcKey::IptcKey(std::string const &),)
 
 UNIQUE_PTR(Exiv2::IptcKey);
 
@@ -56,6 +60,7 @@ LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 %ignore Exiv2::Dictionary_i;
 %ignore Exiv2::IptcDataSets::dataSetList;
 %ignore Exiv2::IptcDataSets::IptcDataSets;
+%ignore Exiv2::IptcDataSets::~IptcDataSets;
 %ignore Exiv2::RecordInfo;
 %ignore Exiv2::StringSet;
 %ignore Exiv2::StringSet_i;
