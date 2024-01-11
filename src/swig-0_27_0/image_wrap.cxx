@@ -4324,6 +4324,29 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
+static PyObject* PyEnum_Exiv2_ImageType = NULL;
+
+
+static PyObject* _create_enum_Exiv2_ImageType(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_ImageType = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_ImageType)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_ImageType, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_ImageType);
+    return PyEnum_Exiv2_ImageType;
+};
+
+
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -4339,24 +4362,6 @@ static PyObject* _get_enum_list(int dummy, ...) {
         label = va_arg(args, char*);
     }
     va_end(args);
-    return result;
-};
-
-
-static PyObject* Py_IntEnum = NULL;
-
-
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
-        return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
-        return NULL;
     return result;
 };
 
@@ -8644,7 +8649,7 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ImageType",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ImageType",_create_enum_Exiv2_ImageType(
       "ImageType", "Supported image formats.", _get_enum_list(0, "arw",int(Exiv2::ImageType::arw),"bmff", int(19),
         "bmp",int(Exiv2::ImageType::bmp),"cr2",int(Exiv2::ImageType::cr2),"crw",int(Exiv2::ImageType::crw),"dng",int(Exiv2::ImageType::dng),"eps",int(Exiv2::ImageType::eps),"exv",int(Exiv2::ImageType::exv),"gif",int(Exiv2::ImageType::gif),"jp2",int(Exiv2::ImageType::jp2),"jpeg",int(Exiv2::ImageType::jpeg),"mrw",int(Exiv2::ImageType::mrw),"nef",int(Exiv2::ImageType::nef),"none",int(Exiv2::ImageType::none),"orf",int(Exiv2::ImageType::orf),"pgf",int(Exiv2::ImageType::pgf),"png",int(Exiv2::ImageType::png),"psd",int(Exiv2::ImageType::psd),"raf",int(Exiv2::ImageType::raf),"rw2",int(Exiv2::ImageType::rw2),"sr2",int(Exiv2::ImageType::sr2),"srw",int(Exiv2::ImageType::srw),"tga",int(Exiv2::ImageType::tga),"tiff",int(Exiv2::ImageType::tiff),     "asf",   int(24),      "mkv",   int(21),      "qtime", int(22),      "riff",  int(20),
         "webp", int(23),

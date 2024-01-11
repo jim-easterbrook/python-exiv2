@@ -4139,6 +4139,29 @@ static PyObject* PyExc_Exiv2Error = NULL;
 static PyObject* exiv2_module = NULL;
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
+static PyObject* PyEnum_Exiv2_XmpCategory = NULL;
+
+
+static PyObject* _create_enum_Exiv2_XmpCategory(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_XmpCategory = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_XmpCategory)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_XmpCategory, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_XmpCategory);
+    return PyEnum_Exiv2_XmpCategory;
+};
+
+
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -4154,24 +4177,6 @@ static PyObject* _get_enum_list(int dummy, ...) {
         label = va_arg(args, char*);
     }
     va_end(args);
-    return result;
-};
-
-
-static PyObject* Py_IntEnum = NULL;
-
-
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
-        return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
-        return NULL;
     return result;
 };
 
@@ -4246,9 +4251,6 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
     Py_DECREF(py_int);
     return result;
 }
-
-
-static PyObject* PyEnum_Exiv2_XmpCategory = NULL;
 
 
 static PyObject* get_enum_typeobject(Exiv2::XmpCategory value) {
@@ -6929,7 +6931,7 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",_create_enum_Exiv2_XmpCategory(
       "XmpCategory", "Category of an XMP property.", _get_enum_list(0, "xmpInternal",Exiv2::xmpInternal,"xmpExternal",Exiv2::xmpExternal,"Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL)));
   
   /* type 'Exiv2::XmpProperties' */

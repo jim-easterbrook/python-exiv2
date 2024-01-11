@@ -4197,18 +4197,23 @@ PyObject* _enum_list_Position() {
 static PyObject* Py_IntEnum = NULL;
 
 
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
+static PyObject* PyEnum_Exiv2_BasicIo_Position = NULL;
+
+
+static PyObject* _create_enum_Exiv2_BasicIo_Position(
+        const char* name, const char* doc, PyObject* enum_list) {
     if (!enum_list)
         return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
+    PyEnum_Exiv2_BasicIo_Position = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_BasicIo_Position)
         return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_BasicIo_Position, "__doc__", PyUnicode_FromString(doc)))
         return NULL;
-    return result;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
+    return PyEnum_Exiv2_BasicIo_Position;
 };
 
 
@@ -4573,9 +4578,6 @@ SWIG_AsVal_long_SS_long (PyObject *obj, long long *val)
   return res;
 }
 #endif
-
-
-static PyObject* PyEnum_Exiv2_BasicIo_Position = NULL;
 
 
 static PyObject* get_enum_typeobject(Exiv2::BasicIo::Position value) {
@@ -11576,7 +11578,7 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",_create_enum_Exiv2_BasicIo_Position(
       "Position", "Seek starting positions.", _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL)));
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;

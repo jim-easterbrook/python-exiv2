@@ -4118,6 +4118,29 @@ static void log_to_python(int level, const char* msg) {
 };
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
+static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
+
+
+static PyObject* _create_enum_Exiv2_LogMsg_Level(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_LogMsg_Level = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_LogMsg_Level)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_LogMsg_Level, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
+    return PyEnum_Exiv2_LogMsg_Level;
+};
+
+
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -4137,28 +4160,7 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
-static PyObject* Py_IntEnum = NULL;
-
-
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
-        return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
-        return NULL;
-    return result;
-};
-
-
 static PyObject* exiv2_module = NULL;
-
-
-static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
 
 
 static PyObject* get_enum_typeobject(Exiv2::LogMsg::Level value) {
@@ -5115,7 +5117,7 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Level",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Level",_create_enum_Exiv2_LogMsg_Level(
       "Level", "Defined log levels.\n"
       "\nTo suppress all log messages, either set the log level to mute or set"
       "\nthe log message handler to None.", _get_enum_list(0, "debug",Exiv2::LogMsg::debug,"info",Exiv2::LogMsg::info,"warn",Exiv2::LogMsg::warn,"error",Exiv2::LogMsg::error,"mute",Exiv2::LogMsg::mute, NULL)));

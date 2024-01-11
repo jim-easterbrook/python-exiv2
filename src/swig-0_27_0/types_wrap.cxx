@@ -4273,6 +4273,29 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char **cptr, size_t *psize, int *alloc)
 #define DATABUF_SIZE size_
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
+static PyObject* PyEnum_Exiv2_AccessMode = NULL;
+
+
+static PyObject* _create_enum_Exiv2_AccessMode(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_AccessMode = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_AccessMode)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_AccessMode, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_AccessMode);
+    return PyEnum_Exiv2_AccessMode;
+};
+
+
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -4292,21 +4315,63 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
-static PyObject* Py_IntEnum = NULL;
+static PyObject* PyEnum_Exiv2_ByteOrder = NULL;
 
 
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
+static PyObject* _create_enum_Exiv2_ByteOrder(
+        const char* name, const char* doc, PyObject* enum_list) {
     if (!enum_list)
         return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
+    PyEnum_Exiv2_ByteOrder = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_ByteOrder)
         return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_ByteOrder, "__doc__", PyUnicode_FromString(doc)))
         return NULL;
-    return result;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_ByteOrder);
+    return PyEnum_Exiv2_ByteOrder;
+};
+
+
+static PyObject* PyEnum_Exiv2_MetadataId = NULL;
+
+
+static PyObject* _create_enum_Exiv2_MetadataId(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_MetadataId = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_MetadataId)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_MetadataId, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_MetadataId);
+    return PyEnum_Exiv2_MetadataId;
+};
+
+
+static PyObject* PyEnum_Exiv2_TypeId = NULL;
+
+
+static PyObject* _create_enum_Exiv2_TypeId(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_TypeId = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_TypeId)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_TypeId, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_TypeId);
+    return PyEnum_Exiv2_TypeId;
 };
 
 
@@ -4325,9 +4390,6 @@ fail:
     view->obj = NULL;
     return -1;
 };
-
-
-static PyObject* PyEnum_Exiv2_TypeId = NULL;
 
 
 static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
@@ -8179,13 +8241,13 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AccessMode",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AccessMode",_create_enum_Exiv2_AccessMode(
       "AccessMode", "An identifier for each mode of metadata support.", _get_enum_list(0, "amNone",Exiv2::amNone,"amRead",Exiv2::amRead,"amWrite",Exiv2::amWrite,"amReadWrite",Exiv2::amReadWrite,"none",Exiv2::amNone,"Read",Exiv2::amRead,"Write",Exiv2::amWrite,"ReadWrite",Exiv2::amReadWrite, NULL)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ByteOrder",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ByteOrder",_create_enum_Exiv2_ByteOrder(
       "ByteOrder", "Type to express the byte order (little or big endian).", _get_enum_list(0, "invalidByteOrder",Exiv2::invalidByteOrder,"littleEndian",Exiv2::littleEndian,"bigEndian",Exiv2::bigEndian, NULL)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "MetadataId",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "MetadataId",_create_enum_Exiv2_MetadataId(
       "MetadataId", "An identifier for each type of metadata.", _get_enum_list(0, "mdNone",Exiv2::mdNone,"mdExif",Exiv2::mdExif,"mdIptc",Exiv2::mdIptc,"mdComment",Exiv2::mdComment,"mdXmp",Exiv2::mdXmp,"mdIccProfile",Exiv2::mdIccProfile,"none",Exiv2::mdNone,"Exif",Exiv2::mdExif,"Iptc",Exiv2::mdIptc,"Comment",Exiv2::mdComment,"Xmp",Exiv2::mdXmp,"IccProfile",Exiv2::mdIccProfile, NULL)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "TypeId",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "TypeId",_create_enum_Exiv2_TypeId(
       "TypeId", "Exiv2 value type identifiers.\n"
       "\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
       "\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.", _get_enum_list(0, "unsignedByte",Exiv2::unsignedByte,"asciiString",Exiv2::asciiString,"unsignedShort",Exiv2::unsignedShort,"unsignedLong",Exiv2::unsignedLong,"unsignedRational",Exiv2::unsignedRational,"signedByte",Exiv2::signedByte,"undefined",Exiv2::undefined,"signedShort",Exiv2::signedShort,"signedLong",Exiv2::signedLong,"signedRational",Exiv2::signedRational,"tiffFloat",Exiv2::tiffFloat,"tiffDouble",Exiv2::tiffDouble,"tiffIfd",Exiv2::tiffIfd,"string",Exiv2::string,"date",Exiv2::date,"time",Exiv2::time,"comment",Exiv2::comment,"directory",Exiv2::directory,"xmpText",Exiv2::xmpText,"xmpAlt",Exiv2::xmpAlt,"xmpBag",Exiv2::xmpBag,"xmpSeq",Exiv2::xmpSeq,"langAlt",Exiv2::langAlt,"invalidTypeId",Exiv2::invalidTypeId,"lastTypeId",Exiv2::lastTypeId, NULL)));
