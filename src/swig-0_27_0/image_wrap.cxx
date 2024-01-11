@@ -4524,12 +4524,14 @@ SWIG_From_std_string  (const std::string& s)
 }
 
 
+static PyObject* PyEnum_Exiv2_ByteOrder = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "ByteOrder");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_ByteOrder)
+        PyEnum_Exiv2_ByteOrder = PyObject_GetAttrString(
+            exiv2_module, "ByteOrder");
+    return PyEnum_Exiv2_ByteOrder;
 };
 
 
@@ -4556,21 +4558,25 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* PyEnum_Exiv2_MetadataId = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::MetadataId value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "MetadataId");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_MetadataId)
+        PyEnum_Exiv2_MetadataId = PyObject_GetAttrString(
+            exiv2_module, "MetadataId");
+    return PyEnum_Exiv2_MetadataId;
 };
 
 
+static PyObject* PyEnum_Exiv2_AccessMode = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::AccessMode value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "AccessMode");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_AccessMode)
+        PyEnum_Exiv2_AccessMode = PyObject_GetAttrString(
+            exiv2_module, "AccessMode");
+    return PyEnum_Exiv2_AccessMode;
 };
 
 

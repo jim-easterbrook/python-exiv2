@@ -5197,12 +5197,14 @@ namespace swig {
 }
 
 
+static PyObject* PyEnum_Exiv2_ByteOrder = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "ByteOrder");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_ByteOrder)
+        PyEnum_Exiv2_ByteOrder = PyObject_GetAttrString(
+            exiv2_module, "ByteOrder");
+    return PyEnum_Exiv2_ByteOrder;
 };
 
 
@@ -5479,12 +5481,14 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 
+static PyObject* PyEnum_Exiv2_TypeId = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_TypeId)
+        PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
+            exiv2_module, "TypeId");
+    return PyEnum_Exiv2_TypeId;
 };
 
 
@@ -5919,11 +5923,19 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
+static PyObject* PyEnum_Exiv2_CommentValue_CharsetId = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::CommentValue::CharsetId value) {
-    swig_type_info* desc = SWIGTYPE_p_Exiv2__CommentValue;
-    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    // PyDict_GetItemString returns a borrowed reference
-    return PyDict_GetItemString(cd->pytype->tp_dict, "CharsetId");
+    if (!PyEnum_Exiv2_CommentValue_CharsetId) {
+        swig_type_info* desc = SWIGTYPE_p_Exiv2__CommentValue;
+        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+        PyEnum_Exiv2_CommentValue_CharsetId = PyDict_GetItemString(
+            cd->pytype->tp_dict, "CharsetId");
+        // PyDict_GetItemString returns a borrowed reference
+        Py_INCREF(PyEnum_Exiv2_CommentValue_CharsetId);
+    }
+    return PyEnum_Exiv2_CommentValue_CharsetId;
 };
 
 
@@ -5978,11 +5990,19 @@ SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value cons
         return pv;
     }
 
+static PyObject* PyEnum_Exiv2_XmpValue_XmpArrayType = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpArrayType value) {
-    swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
-    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    // PyDict_GetItemString returns a borrowed reference
-    return PyDict_GetItemString(cd->pytype->tp_dict, "XmpArrayType");
+    if (!PyEnum_Exiv2_XmpValue_XmpArrayType) {
+        swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
+        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+        PyEnum_Exiv2_XmpValue_XmpArrayType = PyDict_GetItemString(
+            cd->pytype->tp_dict, "XmpArrayType");
+        // PyDict_GetItemString returns a borrowed reference
+        Py_INCREF(PyEnum_Exiv2_XmpValue_XmpArrayType);
+    }
+    return PyEnum_Exiv2_XmpValue_XmpArrayType;
 };
 
 
@@ -6002,11 +6022,19 @@ static PyObject* py_from_enum(Exiv2::XmpValue::XmpArrayType value) {
 }
 
 
+static PyObject* PyEnum_Exiv2_XmpValue_XmpStruct = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpStruct value) {
-    swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
-    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    // PyDict_GetItemString returns a borrowed reference
-    return PyDict_GetItemString(cd->pytype->tp_dict, "XmpStruct");
+    if (!PyEnum_Exiv2_XmpValue_XmpStruct) {
+        swig_type_info* desc = SWIGTYPE_p_Exiv2__XmpValue;
+        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+        PyEnum_Exiv2_XmpValue_XmpStruct = PyDict_GetItemString(
+            cd->pytype->tp_dict, "XmpStruct");
+        // PyDict_GetItemString returns a borrowed reference
+        Py_INCREF(PyEnum_Exiv2_XmpValue_XmpStruct);
+    }
+    return PyEnum_Exiv2_XmpValue_XmpStruct;
 };
 
 

@@ -4221,12 +4221,14 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
+static PyObject* PyEnum_Exiv2_TypeId = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_TypeId)
+        PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
+            exiv2_module, "TypeId");
+    return PyEnum_Exiv2_TypeId;
 };
 
 
@@ -4246,12 +4248,14 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
 }
 
 
+static PyObject* PyEnum_Exiv2_XmpCategory = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::XmpCategory value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "XmpCategory");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_XmpCategory)
+        PyEnum_Exiv2_XmpCategory = PyObject_GetAttrString(
+            exiv2_module, "XmpCategory");
+    return PyEnum_Exiv2_XmpCategory;
 };
 
 

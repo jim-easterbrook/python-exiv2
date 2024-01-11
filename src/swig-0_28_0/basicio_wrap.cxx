@@ -4575,11 +4575,19 @@ SWIG_AsVal_long_SS_long (PyObject *obj, long long *val)
 #endif
 
 
+static PyObject* PyEnum_Exiv2_BasicIo_Position = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::BasicIo::Position value) {
-    swig_type_info* desc = SWIGTYPE_p_Exiv2__BasicIo;
-    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    // PyDict_GetItemString returns a borrowed reference
-    return PyDict_GetItemString(cd->pytype->tp_dict, "Position");
+    if (!PyEnum_Exiv2_BasicIo_Position) {
+        swig_type_info* desc = SWIGTYPE_p_Exiv2__BasicIo;
+        SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
+        PyEnum_Exiv2_BasicIo_Position = PyDict_GetItemString(
+            cd->pytype->tp_dict, "Position");
+        // PyDict_GetItemString returns a borrowed reference
+        Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
+    }
+    return PyEnum_Exiv2_BasicIo_Position;
 };
 
 

@@ -4191,12 +4191,14 @@ public:
 };
 
 
+static PyObject* PyEnum_Exiv2_IfdId = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::IfdId value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "IfdId");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_IfdId)
+        PyEnum_Exiv2_IfdId = PyObject_GetAttrString(
+            exiv2_module, "IfdId");
+    return PyEnum_Exiv2_IfdId;
 };
 
 
@@ -4216,12 +4218,14 @@ static PyObject* py_from_enum(Exiv2::IfdId value) {
 }
 
 
+static PyObject* PyEnum_Exiv2_SectionId = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::SectionId value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "SectionId");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_SectionId)
+        PyEnum_Exiv2_SectionId = PyObject_GetAttrString(
+            exiv2_module, "SectionId");
+    return PyEnum_Exiv2_SectionId;
 };
 
 
@@ -4241,12 +4245,14 @@ static PyObject* py_from_enum(Exiv2::SectionId value) {
 }
 
 
+static PyObject* PyEnum_Exiv2_TypeId = NULL;
+
+
 static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
-    PyObject* result = PyObject_GetAttrString(exiv2_module, "TypeId");
-    // PyObject_GetAttrString returns a new reference, decref is safe as
-    // the object is referred to elsewhere
-    Py_DECREF(result);
-    return result;
+    if (!PyEnum_Exiv2_TypeId)
+        PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
+            exiv2_module, "TypeId");
+    return PyEnum_Exiv2_TypeId;
 };
 
 
