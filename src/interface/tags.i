@@ -27,8 +27,10 @@
 
 %import "metadatum.i";
 
-// Catch all C++ exceptions
-EXCEPTION(,)
+// Catch some C++ exceptions
+%exception;
+EXCEPTION(Exiv2::ExifKey::ExifKey,)
+EXCEPTION(Exiv2::ExifKey::clone,)
 
 UNIQUE_PTR(Exiv2::ExifKey);
 
@@ -191,6 +193,7 @@ public:
 %ignore Exiv2::TagInfo;
 
 // Ignore stuff that Python can't use
+%ignore Exiv2::ExifTags::~ExifTags;
 %ignore Exiv2::ExifTags::taglist;
 
 // Ignore unneeded key constructor
