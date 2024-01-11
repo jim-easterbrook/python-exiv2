@@ -114,13 +114,13 @@ KEEP_REFERENCE(Exiv2::DataBuf&)
 
 // Make image types available
 #if (EXIV2_VERSION_HEX >= 0x001c0000)
-#define _BMFF "bmff", int(Exiv2::ImageType::bmff),
-#define _WEBP "webp", int(Exiv2::ImageType::webp),
+#define _BMFF "bmff", Exiv2::ImageType::bmff,
+#define _WEBP "webp", Exiv2::ImageType::webp,
 #define _VIDEO \
-    "asf",   int(Exiv2::ImageType::asf), \
-    "mkv",   int(Exiv2::ImageType::mkv), \
-    "qtime", int(Exiv2::ImageType::qtime), \
-    "riff",  int(Exiv2::ImageType::riff),
+    "asf",   Exiv2::ImageType::asf, \
+    "mkv",   Exiv2::ImageType::mkv, \
+    "qtime", Exiv2::ImageType::qtime, \
+    "riff",  Exiv2::ImageType::riff,
 #else
 #define _BMFF "bmff", int(19),
 #define _WEBP "webp", int(23),
@@ -132,33 +132,33 @@ KEEP_REFERENCE(Exiv2::DataBuf&)
 #endif
 
 ENUM(ImageType, "Supported image formats.",
-        "arw",  int(Exiv2::ImageType::arw),
+        "arw",  Exiv2::ImageType::arw,
         _BMFF
-        "bmp",  int(Exiv2::ImageType::bmp),
-        "cr2",  int(Exiv2::ImageType::cr2),
-        "crw",  int(Exiv2::ImageType::crw),
-        "dng",  int(Exiv2::ImageType::dng),
-        "eps",  int(Exiv2::ImageType::eps),
-        "exv",  int(Exiv2::ImageType::exv),
-        "gif",  int(Exiv2::ImageType::gif),
-        "jp2",  int(Exiv2::ImageType::jp2),
-        "jpeg", int(Exiv2::ImageType::jpeg),
-        "mrw",  int(Exiv2::ImageType::mrw),
-        "nef",  int(Exiv2::ImageType::nef),
-        "none", int(Exiv2::ImageType::none),
-        "orf",  int(Exiv2::ImageType::orf),
-        "pgf",  int(Exiv2::ImageType::pgf),
-        "png",  int(Exiv2::ImageType::png),
-        "psd",  int(Exiv2::ImageType::psd),
-        "raf",  int(Exiv2::ImageType::raf),
-        "rw2",  int(Exiv2::ImageType::rw2),
-        "sr2",  int(Exiv2::ImageType::sr2),
-        "srw",  int(Exiv2::ImageType::srw),
-        "tga",  int(Exiv2::ImageType::tga),
-        "tiff", int(Exiv2::ImageType::tiff),
+        "bmp",  Exiv2::ImageType::bmp,
+        "cr2",  Exiv2::ImageType::cr2,
+        "crw",  Exiv2::ImageType::crw,
+        "dng",  Exiv2::ImageType::dng,
+        "eps",  Exiv2::ImageType::eps,
+        "exv",  Exiv2::ImageType::exv,
+        "gif",  Exiv2::ImageType::gif,
+        "jp2",  Exiv2::ImageType::jp2,
+        "jpeg", Exiv2::ImageType::jpeg,
+        "mrw",  Exiv2::ImageType::mrw,
+        "nef",  Exiv2::ImageType::nef,
+        "none", Exiv2::ImageType::none,
+        "orf",  Exiv2::ImageType::orf,
+        "pgf",  Exiv2::ImageType::pgf,
+        "png",  Exiv2::ImageType::png,
+        "psd",  Exiv2::ImageType::psd,
+        "raf",  Exiv2::ImageType::raf,
+        "rw2",  Exiv2::ImageType::rw2,
+        "sr2",  Exiv2::ImageType::sr2,
+        "srw",  Exiv2::ImageType::srw,
+        "tga",  Exiv2::ImageType::tga,
+        "tiff", Exiv2::ImageType::tiff,
         _VIDEO
         _WEBP
-        "xmp",  int(Exiv2::ImageType::xmp));
+        "xmp",  Exiv2::ImageType::xmp);
 %ignore Exiv2::ImageType::none;
 
 // Ignore const versions of methods
