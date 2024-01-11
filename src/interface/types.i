@@ -27,7 +27,7 @@
 %include "std_string.i"
 
 // Catch all C++ exceptions
-EXCEPTION(,)
+EXCEPTION()
 
 // Some calls don't raise exceptions
 %noexception Exiv2::DataBuf::data;

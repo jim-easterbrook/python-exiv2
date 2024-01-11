@@ -17,11 +17,13 @@
 
 %include "shared/fragments.i"
 
+%include "exception.i"
+
 // Import PyExc_Exiv2Error exception
 %fragment("_import_exception_decl", "header") {
 static PyObject* PyExc_Exiv2Error = NULL;
 }
-%fragment("import_exception", "init", fragment="_import_exception_decl",
+%fragment("_import_exception", "init", fragment="_import_exception_decl",
           fragment="import_exiv2") {
 {
     PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
@@ -30,22 +32,34 @@ static PyObject* PyExc_Exiv2Error = NULL;
 }
 }
 
-// Macro to define %exception directives
-%define EXCEPTION(method, precheck)
-%fragment("import_exception");
-%exception method {
-precheck
+// Function that re-raises an exception to handle different types
+%fragment("_set_python_exception", "header", fragment="_import_exception") {
+static void _set_python_exception() {
     try {
-        $action
+        throw;
+    }
 #if EXIV2_VERSION_HEX < 0x001c0000
-    } catch(Exiv2::AnyError const& e) {
+    catch(Exiv2::AnyError const& e) {
 #else
-    } catch(Exiv2::Error const& e) {
+    catch(Exiv2::Error const& e) {
 #endif
         PyErr_SetString(PyExc_Exiv2Error, e.what());
-        SWIG_fail;
-    } catch(std::exception const& e) {
-        PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    SWIG_CATCH_STDEXCEPT
+fail:
+    return;
+};
+}
+
+// Macro to define %exception directives
+%define EXCEPTION(method)
+%fragment("_set_python_exception");
+%exception method {
+    try {
+        $action
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
         SWIG_fail;
     }
 }

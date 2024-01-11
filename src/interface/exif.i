@@ -32,7 +32,7 @@
 %import "tags.i"
 
 // Catch all C++ exceptions
-EXCEPTION(,)
+EXCEPTION()
 
 // ExifThumb keeps a reference to the ExifData it uses
 KEEP_REFERENCE_EX(Exiv2::ExifThumb*, swig_obj[0])

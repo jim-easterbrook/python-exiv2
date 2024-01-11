@@ -33,7 +33,7 @@
 %import "types.i"
 
 // Catch all C++ exceptions
-EXCEPTION(,)
+EXCEPTION()
 
 UNIQUE_PTR(Exiv2::BasicIo);
 

@@ -4105,6 +4105,39 @@ static PyObject* PyExc_Exiv2Error = NULL;
 
 static PyObject* exiv2_module = NULL;
 
+
+static void _set_python_exception() {
+    try {
+        throw;
+    }
+
+    catch(Exiv2::AnyError const& e) {
+
+
+
+        PyErr_SetString(PyExc_Exiv2Error, e.what());
+    }
+    /*@SWIG:/usr/local/share/swig/4.2.0/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+  catch (std::invalid_argument& e) {
+    SWIG_exception_fail(SWIG_ValueError, e.what() );
+  } catch (std::domain_error& e) {
+    SWIG_exception_fail(SWIG_ValueError, e.what() );
+  } catch (std::overflow_error& e) {
+    SWIG_exception_fail(SWIG_OverflowError, e.what() );
+  } catch (std::out_of_range& e) {
+    SWIG_exception_fail(SWIG_IndexError, e.what() );
+  } catch (std::length_error& e) {
+    SWIG_exception_fail(SWIG_IndexError, e.what() );
+  } catch (std::runtime_error& e) {
+    SWIG_exception_fail(SWIG_RuntimeError, e.what() );
+  } catch (std::exception& e) {
+    SWIG_exception_fail(SWIG_SystemError, e.what() );
+  }
+/*@SWIG@*/
+fail:
+    return;
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -4133,12 +4166,9 @@ SWIGINTERN PyObject *_wrap_orientation(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::orientation((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4180,12 +4210,9 @@ SWIGINTERN PyObject *_wrap_isoSpeed(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::isoSpeed((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4227,12 +4254,9 @@ SWIGINTERN PyObject *_wrap_flashBias(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::flashBias((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4274,12 +4298,9 @@ SWIGINTERN PyObject *_wrap_exposureMode(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::exposureMode((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4321,12 +4342,9 @@ SWIGINTERN PyObject *_wrap_sceneMode(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::sceneMode((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4368,12 +4386,9 @@ SWIGINTERN PyObject *_wrap_macroMode(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::macroMode((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4415,12 +4430,9 @@ SWIGINTERN PyObject *_wrap_imageQuality(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::imageQuality((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4462,12 +4474,9 @@ SWIGINTERN PyObject *_wrap_whiteBalance(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::whiteBalance((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4509,12 +4518,9 @@ SWIGINTERN PyObject *_wrap_lensName(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::lensName((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4556,12 +4562,9 @@ SWIGINTERN PyObject *_wrap_saturation(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::saturation((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4603,12 +4606,9 @@ SWIGINTERN PyObject *_wrap_sharpness(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::sharpness((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4650,12 +4650,9 @@ SWIGINTERN PyObject *_wrap_contrast(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::contrast((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4697,12 +4694,9 @@ SWIGINTERN PyObject *_wrap_sceneCaptureType(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::sceneCaptureType((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4744,12 +4738,9 @@ SWIGINTERN PyObject *_wrap_meteringMode(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::meteringMode((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4791,12 +4782,9 @@ SWIGINTERN PyObject *_wrap_make(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::make((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4838,12 +4826,9 @@ SWIGINTERN PyObject *_wrap_model(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::model((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4885,12 +4870,9 @@ SWIGINTERN PyObject *_wrap_exposureTime(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::exposureTime((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4932,12 +4914,9 @@ SWIGINTERN PyObject *_wrap_fNumber(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::fNumber((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4979,12 +4958,9 @@ SWIGINTERN PyObject *_wrap_subjectDistance(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::subjectDistance((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5026,12 +5002,9 @@ SWIGINTERN PyObject *_wrap_serialNumber(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::serialNumber((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5073,12 +5046,9 @@ SWIGINTERN PyObject *_wrap_focalLength(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::focalLength((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5120,12 +5090,9 @@ SWIGINTERN PyObject *_wrap_afPoint(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::afPoint((Exiv2::ExifData const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }

@@ -29,8 +29,8 @@
 
 // Catch some C++ exceptions
 %exception;
-EXCEPTION(Exiv2::ExifKey::ExifKey,)
-EXCEPTION(Exiv2::ExifKey::clone,)
+EXCEPTION(Exiv2::ExifKey::ExifKey)
+EXCEPTION(Exiv2::ExifKey::clone)
 
 UNIQUE_PTR(Exiv2::ExifKey);
 

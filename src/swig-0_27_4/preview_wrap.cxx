@@ -4317,6 +4317,39 @@ static PyObject* PyExc_Exiv2Error = NULL;
 static PyObject* exiv2_module = NULL;
 
 
+static void _set_python_exception() {
+    try {
+        throw;
+    }
+
+    catch(Exiv2::AnyError const& e) {
+
+
+
+        PyErr_SetString(PyExc_Exiv2Error, e.what());
+    }
+    /*@SWIG:/usr/local/share/swig/4.2.0/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+  catch (std::invalid_argument& e) {
+    SWIG_exception_fail(SWIG_ValueError, e.what() );
+  } catch (std::domain_error& e) {
+    SWIG_exception_fail(SWIG_ValueError, e.what() );
+  } catch (std::overflow_error& e) {
+    SWIG_exception_fail(SWIG_OverflowError, e.what() );
+  } catch (std::out_of_range& e) {
+    SWIG_exception_fail(SWIG_IndexError, e.what() );
+  } catch (std::length_error& e) {
+    SWIG_exception_fail(SWIG_IndexError, e.what() );
+  } catch (std::runtime_error& e) {
+    SWIG_exception_fail(SWIG_RuntimeError, e.what() );
+  } catch (std::exception& e) {
+    SWIG_exception_fail(SWIG_SystemError, e.what() );
+  }
+/*@SWIG@*/
+fail:
+    return;
+};
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {
@@ -5739,12 +5772,9 @@ SWIGINTERN int _wrap_new_PreviewProperties(PyObject *self, PyObject *args, PyObj
   {
     try {
       result = (Exiv2::PreviewProperties *)new Exiv2::PreviewProperties();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5770,12 +5800,9 @@ SWIGINTERN PyObject *_wrap_delete_PreviewProperties(PyObject *self, PyObject *ar
   {
     try {
       delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5809,12 +5836,9 @@ SWIGINTERN int _wrap_new_PreviewImage(PyObject *self, PyObject *args, PyObject *
   {
     try {
       result = (Exiv2::PreviewImage *)new Exiv2::PreviewImage((Exiv2::PreviewImage const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5840,12 +5864,9 @@ SWIGINTERN PyObject *_wrap_delete_PreviewImage(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5872,12 +5893,9 @@ SWIGINTERN PyObject *_wrap_PreviewImage_copy(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::PreviewImage const *)arg1)->copy();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5971,12 +5989,9 @@ SWIGINTERN PyObject *_wrap_PreviewImage_writeFile(PyObject *self, PyObject *args
   {
     try {
       result = (long)((Exiv2::PreviewImage const *)arg1)->writeFile((std::string const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6145,12 +6160,9 @@ SWIGINTERN int _wrap_new_PreviewManager(PyObject *self, PyObject *args, PyObject
   {
     try {
       result = (Exiv2::PreviewManager *)new Exiv2::PreviewManager((Exiv2::Image const &)*arg1);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6183,12 +6195,9 @@ SWIGINTERN PyObject *_wrap_PreviewManager_getPreviewProperties(PyObject *self, P
   {
     try {
       result = ((Exiv2::PreviewManager const *)arg1)->getPreviewProperties();
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6228,12 +6237,9 @@ SWIGINTERN PyObject *_wrap_PreviewManager_getPreviewImage(PyObject *self, PyObje
   {
     try {
       result = ((Exiv2::PreviewManager const *)arg1)->getPreviewImage((Exiv2::PreviewProperties const &)*arg2);
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6259,12 +6265,9 @@ SWIGINTERN PyObject *_wrap_delete_PreviewManager(PyObject *self, PyObject *args)
   {
     try {
       delete arg1;
-      
-    } catch(Exiv2::AnyError const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }

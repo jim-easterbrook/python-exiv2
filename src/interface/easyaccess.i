@@ -21,7 +21,7 @@
 %include "shared/exception.i"
 
 // Catch all C++ exceptions
-EXCEPTION(,)
+EXCEPTION()
 
 // Store data.end() after converting input
 %typemap(check) Exiv2::ExifData& (Exiv2::ExifData::const_iterator _global_end) %{

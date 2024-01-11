@@ -26,10 +26,10 @@
 
 // Catch some C++ exceptions
 %exception;
-EXCEPTION(Exiv2::IptcDataSets::dataSet,)
-EXCEPTION(Exiv2::IptcDataSets::recordId,)
-EXCEPTION(Exiv2::IptcKey::IptcKey(std::string),)
-EXCEPTION(Exiv2::IptcKey::IptcKey(std::string const &),)
+EXCEPTION(Exiv2::IptcDataSets::dataSet)
+EXCEPTION(Exiv2::IptcDataSets::recordId)
+EXCEPTION(Exiv2::IptcKey::IptcKey(std::string))
+EXCEPTION(Exiv2::IptcKey::IptcKey(std::string const &))
 
 UNIQUE_PTR(Exiv2::IptcKey);
 

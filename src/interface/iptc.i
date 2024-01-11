@@ -29,7 +29,7 @@
 %import "metadatum.i"
 
 // Catch all C++ exceptions
-EXCEPTION(,)
+EXCEPTION()
 
 EXTEND_METADATUM(Exiv2::Iptcdatum)
 

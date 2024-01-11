@@ -27,7 +27,7 @@
 %import "metadatum.i"
 
 // Catch all C++ exceptions...
-EXCEPTION(,)
+EXCEPTION()
 
 // ...except these
 %noexception Exiv2::XmpKey::~XmpKey;
