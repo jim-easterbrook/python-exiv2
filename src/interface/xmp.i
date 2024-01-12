@@ -49,6 +49,21 @@ static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
 };
 }
 
+// XmpData::eraseFamily takes an iterator reference (and invalidates it)
+%typemap(in) Exiv2::XmpData::iterator& (Exiv2::XmpData::iterator it) {
+    XmpData_iterator_base* argp = NULL;
+    int res = SWIG_ConvertPtr(
+        $input, (void**)&argp, $descriptor(XmpData_iterator_base*), 0);
+    if (!SWIG_IsOK(res)) {
+        %argument_fail(res, XmpData_iterator_base, $symname, $argnum);
+    }
+    if (!argp) {
+        %argument_nullref(XmpData_iterator_base, $symname, $argnum);
+    }
+    it = **argp;
+    $1 = &it;
+}
+
 DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
 
 // Ignore const overloads of some methods

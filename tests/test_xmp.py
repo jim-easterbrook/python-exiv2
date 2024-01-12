@@ -69,7 +69,12 @@ class TestXmpModule(unittest.TestCase):
         k = data.erase(k)
         self.assertIsInstance(k, exiv2.XmpData_iterator)
         self.assertEqual(k.key(), 'Xmp.xmp.ModifyDate')
+        self.assertEqual(len(data), 27)
+        k = data.findKey(exiv2.XmpKey('Xmp.iptcExt.LocationCreated'))
+        data.eraseFamily(k)
+        self.assertEqual(len(data), 21)
         # access by key
+        self.image.readMetadata()
         self.assertEqual('Xmp.dc.creator' in data, True)
         self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum)
         del data['Xmp.dc.creator']
@@ -89,18 +94,18 @@ class TestXmpModule(unittest.TestCase):
         while b != e:
             next(b)
             count += 1
-        self.assertEqual(count, 27)
+        self.assertEqual(count, 26)
         count = 0
         for d in data:
             count += 1
-        self.assertEqual(count, 27)
+        self.assertEqual(count, 26)
         count = len(list(data))
-        self.assertEqual(count, 27)
+        self.assertEqual(count, 26)
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Xmp.dc.creator')
         # other methods
-        self.assertEqual(data.count(), 27)
+        self.assertEqual(data.count(), 26)
         self.assertEqual(data.empty(), False)
         data.clear()
         self.assertEqual(len(data), 0)
