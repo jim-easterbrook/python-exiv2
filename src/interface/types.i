@@ -20,10 +20,14 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
+%include "shared/exception.i"
 
 %include "stdint.i"
 %include "std_pair.i"
 %include "std_string.i"
+
+// Catch all C++ exceptions
+EXCEPTION()
 
 // Some calls don't raise exceptions
 %noexception Exiv2::DataBuf::data;

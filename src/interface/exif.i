@@ -21,6 +21,7 @@
 %include "shared/buffers.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
+%include "shared/exception.i"
 %include "shared/keep_reference.i"
 %include "shared/windows_path.i"
 
@@ -29,6 +30,9 @@
 
 %import "metadatum.i"
 %import "tags.i"
+
+// Catch all C++ exceptions
+EXCEPTION()
 
 // ExifThumb keeps a reference to the ExifData it uses
 KEEP_REFERENCE_EX(Exiv2::ExifThumb*, swig_obj[0])

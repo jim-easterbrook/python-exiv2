@@ -4106,16 +4106,49 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
+#include <stdint.h>		// Use the C99 official header
+
+
+#include <string>
+
+
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
 static PyObject* exiv2_module = NULL;
 
 
-#include <stdint.h>		// Use the C99 official header
+static void _set_python_exception() {
+    try {
+        throw;
+    }
 
 
-#include <string>
+
+    catch(Exiv2::Error const& e) {
+
+        PyErr_SetString(PyExc_Exiv2Error, e.what());
+    }
+    /*@SWIG:/usr/local/share/swig/4.2.0/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+  catch (std::invalid_argument& e) {
+    SWIG_exception_fail(SWIG_ValueError, e.what() );
+  } catch (std::domain_error& e) {
+    SWIG_exception_fail(SWIG_ValueError, e.what() );
+  } catch (std::overflow_error& e) {
+    SWIG_exception_fail(SWIG_OverflowError, e.what() );
+  } catch (std::out_of_range& e) {
+    SWIG_exception_fail(SWIG_IndexError, e.what() );
+  } catch (std::length_error& e) {
+    SWIG_exception_fail(SWIG_IndexError, e.what() );
+  } catch (std::runtime_error& e) {
+    SWIG_exception_fail(SWIG_RuntimeError, e.what() );
+  } catch (std::exception& e) {
+    SWIG_exception_fail(SWIG_SystemError, e.what() );
+  }
+/*@SWIG@*/
+fail:
+    return;
+};
 
 
 static PyObject* versionInfo() {
@@ -4387,14 +4420,9 @@ SWIGINTERN PyObject *_wrap_versionInfo(PyObject *self, PyObject *args) {
   {
     try {
       result = (PyObject *)versionInfo();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4413,14 +4441,9 @@ SWIGINTERN PyObject *_wrap_versionNumber(PyObject *self, PyObject *args) {
   {
     try {
       result = (uint32_t)Exiv2::versionNumber();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4439,14 +4462,9 @@ SWIGINTERN PyObject *_wrap_versionString(PyObject *self, PyObject *args) {
   {
     try {
       result = Exiv2::versionString();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4465,14 +4483,9 @@ SWIGINTERN PyObject *_wrap_versionNumberHexString(PyObject *self, PyObject *args
   {
     try {
       result = Exiv2::versionNumberHexString();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4491,14 +4504,9 @@ SWIGINTERN PyObject *_wrap_version(PyObject *self, PyObject *args) {
   {
     try {
       result = (char *)Exiv2::version();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4542,14 +4550,9 @@ SWIGINTERN PyObject *_wrap_testVersion(PyObject *self, PyObject *args) {
   {
     try {
       result = (bool)Exiv2::testVersion(arg1,arg2,arg3);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }

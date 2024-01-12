@@ -18,12 +18,30 @@
 %module(package="exiv2") properties
 
 %include "shared/preamble.i"
+%include "shared/exception.i"
 %include "shared/enum.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 
 %import "datasets.i"
 %import "metadatum.i"
+
+// Catch all C++ exceptions...
+EXCEPTION()
+
+// ...except these
+%noexception Exiv2::XmpKey::~XmpKey;
+%noexception Exiv2::XmpKey::familyName;
+%noexception Exiv2::XmpKey::groupName;
+%noexception Exiv2::XmpKey::key;
+%noexception Exiv2::XmpKey::tag;
+%noexception Exiv2::XmpKey::tagLabel;
+%noexception Exiv2::XmpKey::tagName;
+%noexception Exiv2::XmpProperties::prefix;
+%noexception Exiv2::XmpProperties::propertyDesc;
+%noexception Exiv2::XmpProperties::propertyInfo;
+%noexception Exiv2::XmpProperties::propertyTitle;
+%noexception Exiv2::XmpProperties::propertyType;
 
 UNIQUE_PTR(Exiv2::XmpKey);
 
@@ -108,6 +126,7 @@ static PyObject* struct_to_dict(const Exiv2::XmpNsInfo* info) {
 %ignore Exiv2::XmpNsInfo::Ns;
 
 // Ignore stuff Python can't use
+%ignore Exiv2::XmpProperties::~XmpProperties;
 %ignore Exiv2::XmpProperties::lookupNsRegistry;
 %ignore Exiv2::XmpProperties::printProperties;
 %ignore Exiv2::XmpProperties::printProperty;

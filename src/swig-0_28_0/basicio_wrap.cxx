@@ -4119,13 +4119,46 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
+#include <string>
+
+
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
 static PyObject* exiv2_module = NULL;
 
 
-#include <string>
+static void _set_python_exception() {
+    try {
+        throw;
+    }
+
+
+
+    catch(Exiv2::Error const& e) {
+
+        PyErr_SetString(PyExc_Exiv2Error, e.what());
+    }
+    /*@SWIG:/usr/local/share/swig/4.2.0/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+  catch (std::invalid_argument& e) {
+    SWIG_exception_fail(SWIG_ValueError, e.what() );
+  } catch (std::domain_error& e) {
+    SWIG_exception_fail(SWIG_ValueError, e.what() );
+  } catch (std::overflow_error& e) {
+    SWIG_exception_fail(SWIG_OverflowError, e.what() );
+  } catch (std::out_of_range& e) {
+    SWIG_exception_fail(SWIG_IndexError, e.what() );
+  } catch (std::length_error& e) {
+    SWIG_exception_fail(SWIG_IndexError, e.what() );
+  } catch (std::runtime_error& e) {
+    SWIG_exception_fail(SWIG_RuntimeError, e.what() );
+  } catch (std::exception& e) {
+    SWIG_exception_fail(SWIG_SystemError, e.what() );
+  }
+/*@SWIG@*/
+fail:
+    return;
+};
 
 
 static int Exiv2_BasicIo_getbuff(
@@ -4197,18 +4230,23 @@ PyObject* _enum_list_Position() {
 static PyObject* Py_IntEnum = NULL;
 
 
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
+static PyObject* PyEnum_Exiv2_BasicIo_Position = NULL;
+
+
+static PyObject* _create_enum_Exiv2_BasicIo_Position(
+        const char* name, const char* doc, PyObject* enum_list) {
     if (!enum_list)
         return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
+    PyEnum_Exiv2_BasicIo_Position = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_BasicIo_Position)
         return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_BasicIo_Position, "__doc__", PyUnicode_FromString(doc)))
         return NULL;
-    return result;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
+    return PyEnum_Exiv2_BasicIo_Position;
 };
 
 
@@ -4576,10 +4614,16 @@ SWIG_AsVal_long_SS_long (PyObject *obj, long long *val)
 
 
 static PyObject* get_enum_typeobject(Exiv2::BasicIo::Position value) {
-    swig_type_info* desc = SWIGTYPE_p_Exiv2__BasicIo;
-    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    // PyDict_GetItemString returns a borrowed reference
-    return PyDict_GetItemString(cd->pytype->tp_dict, "Position");
+    if (!PyEnum_Exiv2_BasicIo_Position) {
+        PyObject* parent_class = PyObject_GetAttrString(
+            exiv2_module, "BasicIo");
+        if (parent_class) {
+            PyEnum_Exiv2_BasicIo_Position = PyObject_GetAttrString(
+                parent_class, "Position");
+            Py_DECREF(parent_class);
+        }
+    }
+    return PyEnum_Exiv2_BasicIo_Position;
 };
 
 
@@ -4834,14 +4878,9 @@ SWIGINTERN PyObject *_wrap_delete_BasicIo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4872,14 +4911,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_open(PyObject *self, PyObject *args) {
         result = (int)(arg1)->open();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4910,14 +4944,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_close(PyObject *self, PyObject *args) {
         result = (int)(arg1)->close();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -4963,14 +4992,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, PyObject *args)
         result = (arg1)->write((Exiv2::byte const *)arg2,arg3);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5019,14 +5043,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, PyObject *args)
         result = (arg1)->write(*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5104,14 +5123,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_putb(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)(arg1)->putb(arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5151,14 +5165,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, PyObject *args) 
         result = (arg1)->read(arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5220,14 +5229,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
         result = (arg1)->read(arg2,arg3);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5299,14 +5303,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_getb(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)(arg1)->getb();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5348,14 +5347,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_transfer(PyObject *self, PyObject *args) {
         (arg1)->transfer(*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5409,14 +5403,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
         result = (int)(arg1)->seek(arg2,arg3);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5461,14 +5450,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
         result = (Exiv2::byte *)(arg1)->mmap(arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5505,14 +5489,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_munmap(PyObject *self, PyObject *args) {
         result = (int)(arg1)->munmap();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5539,14 +5518,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_tell(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::BasicIo const *)arg1)->tell();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5573,14 +5547,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_size(PyObject *self, PyObject *args) {
   {
     try {
       result = ((Exiv2::BasicIo const *)arg1)->size();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5713,14 +5682,9 @@ SWIGINTERN int _wrap_new_FileIo(PyObject *self, PyObject *args, PyObject *kwargs
   {
     try {
       result = (Exiv2::FileIo *)new Exiv2::FileIo((std::string const &)*arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5748,14 +5712,9 @@ SWIGINTERN PyObject *_wrap_delete_FileIo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5800,14 +5759,9 @@ SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_0(PyObject *self, PyObject *args) {
         result = (int)(arg1)->open((std::string const &)*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5840,14 +5794,9 @@ SWIGINTERN PyObject *_wrap_FileIo_open__SWIG_1(PyObject *self, PyObject *args) {
         result = (int)(arg1)->open();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5913,14 +5862,9 @@ SWIGINTERN PyObject *_wrap_FileIo_close(PyObject *self, PyObject *args) {
         result = (int)(arg1)->close();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -5966,14 +5910,9 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_0(PyObject *self, PyObject *args) 
         result = (arg1)->write((Exiv2::byte const *)arg2,arg3);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6022,14 +5961,9 @@ SWIGINTERN PyObject *_wrap_FileIo_write__SWIG_1(PyObject *self, PyObject *args) 
         result = (arg1)->write(*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6107,14 +6041,9 @@ SWIGINTERN PyObject *_wrap_FileIo_putb(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)(arg1)->putb(arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6154,14 +6083,9 @@ SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_0(PyObject *self, PyObject *args) {
         result = (arg1)->read(arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6223,14 +6147,9 @@ SWIGINTERN PyObject *_wrap_FileIo_read__SWIG_1(PyObject *self, PyObject *args) {
         result = (arg1)->read(arg2,arg3);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6302,14 +6221,9 @@ SWIGINTERN PyObject *_wrap_FileIo_getb(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)(arg1)->getb();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6351,14 +6265,9 @@ SWIGINTERN PyObject *_wrap_FileIo_transfer(PyObject *self, PyObject *args) {
         (arg1)->transfer(*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6412,14 +6321,9 @@ SWIGINTERN PyObject *_wrap_FileIo_seek(PyObject *self, PyObject *args) {
         result = (int)(arg1)->seek(arg2,arg3);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6464,14 +6368,9 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap(PyObject *self, PyObject *args) {
         result = (Exiv2::byte *)(arg1)->mmap(arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6508,14 +6407,9 @@ SWIGINTERN PyObject *_wrap_FileIo_munmap(PyObject *self, PyObject *args) {
         result = (int)(arg1)->munmap();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6560,14 +6454,9 @@ SWIGINTERN PyObject *_wrap_FileIo_setPath(PyObject *self, PyObject *args) {
   {
     try {
       (arg1)->setPath((std::string const &)*arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6600,14 +6489,9 @@ SWIGINTERN PyObject *_wrap_FileIo_tell(PyObject *self, PyObject *args) {
         result = ((Exiv2::FileIo const *)arg1)->tell();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6638,14 +6522,9 @@ SWIGINTERN PyObject *_wrap_FileIo_size(PyObject *self, PyObject *args) {
         result = ((Exiv2::FileIo const *)arg1)->size();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6759,14 +6638,9 @@ SWIGINTERN int _wrap_new_MemIo__SWIG_0(PyObject *self, PyObject *args, PyObject 
   {
     try {
       result = (Exiv2::MemIo *)new Exiv2::MemIo();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6801,14 +6675,9 @@ SWIGINTERN int _wrap_new_MemIo__SWIG_1(PyObject *self, PyObject *args, PyObject 
   {
     try {
       result = (Exiv2::MemIo *)new Exiv2::MemIo((Exiv2::byte const *)arg1,arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -6882,14 +6751,9 @@ SWIGINTERN PyObject *_wrap_delete_MemIo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7092,14 +6956,9 @@ SWIGINTERN PyObject *_wrap_MemIo_putb(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)(arg1)->putb(arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7261,14 +7120,9 @@ SWIGINTERN PyObject *_wrap_MemIo_getb(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)(arg1)->getb();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7310,14 +7164,9 @@ SWIGINTERN PyObject *_wrap_MemIo_transfer(PyObject *self, PyObject *args) {
         (arg1)->transfer(*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7596,14 +7445,9 @@ SWIGINTERN int _wrap_new_XPathIo(PyObject *self, PyObject *args, PyObject *kwarg
   {
     try {
       result = (Exiv2::XPathIo *)new Exiv2::XPathIo((std::string const &)*arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7631,14 +7475,9 @@ SWIGINTERN PyObject *_wrap_delete_XPathIo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7680,14 +7519,9 @@ SWIGINTERN PyObject *_wrap_XPathIo_transfer(PyObject *self, PyObject *args) {
         (arg1)->transfer(*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7725,14 +7559,9 @@ SWIGINTERN PyObject *_wrap_XPathIo_writeDataToFile(PyObject *self, PyObject *arg
   {
     try {
       result = Exiv2::XPathIo::writeDataToFile((std::string const &)*arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7756,14 +7585,9 @@ SWIGINTERN int _wrap_new_RemoteIo(PyObject *self, PyObject *args, PyObject *kwar
   {
     try {
       result = (Exiv2::RemoteIo *)new Exiv2::RemoteIo();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7789,14 +7613,9 @@ SWIGINTERN PyObject *_wrap_delete_RemoteIo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7827,14 +7646,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_open(PyObject *self, PyObject *args) {
         result = (int)(arg1)->open();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7865,14 +7679,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_close(PyObject *self, PyObject *args) {
         result = (int)(arg1)->close();
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7918,14 +7727,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_0(PyObject *self, PyObject *args
         result = (arg1)->write((Exiv2::byte const *)arg2,arg3);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -7974,14 +7778,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_write__SWIG_1(PyObject *self, PyObject *args
         result = (arg1)->write(*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8059,14 +7858,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_putb(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)(arg1)->putb(arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8106,14 +7900,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_0(PyObject *self, PyObject *args)
         result = (arg1)->read(arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8175,14 +7964,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_read__SWIG_1(PyObject *self, PyObject *args)
         result = (arg1)->read(arg2,arg3);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8254,14 +8038,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_getb(PyObject *self, PyObject *args) {
   {
     try {
       result = (int)(arg1)->getb();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8303,14 +8082,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_transfer(PyObject *self, PyObject *args) {
         (arg1)->transfer(*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8399,14 +8173,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap(PyObject *self, PyObject *args) {
         result = (Exiv2::byte *)(arg1)->mmap(arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8617,14 +8386,9 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_0(PyObject *self, PyObject *args, PyObject
   {
     try {
       result = (Exiv2::HttpIo *)new Exiv2::HttpIo((std::string const &)*arg1,arg2);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8665,14 +8429,9 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_1(PyObject *self, PyObject *args, PyObject
   {
     try {
       result = (Exiv2::HttpIo *)new Exiv2::HttpIo((std::string const &)*arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -8734,14 +8493,9 @@ SWIGINTERN PyObject *_wrap_delete_HttpIo(PyObject *self, PyObject *args) {
   {
     try {
       delete arg1;
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
       SWIG_fail;
     }
   }
@@ -11567,7 +11321,7 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",_get_enum_object(
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",_create_enum_Exiv2_BasicIo_Position(
       "Position", "Seek starting positions.", _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL)));
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;

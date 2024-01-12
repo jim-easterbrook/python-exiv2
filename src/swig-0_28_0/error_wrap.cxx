@@ -4101,12 +4101,6 @@ namespace swig {
 #include "exiv2/exiv2.hpp"
 
 
-static PyObject* PyExc_Exiv2Error = NULL;
-
-
-static PyObject* exiv2_module = NULL;
-
-
 #include <typeinfo>
 #include <stdexcept>
 
@@ -4121,6 +4115,29 @@ static void log_to_python(int level, const char* msg) {
         logger, "log", "(is#)", (level + 1) * 10, msg, len);
     Py_XDECREF(res);
     PyGILState_Release(gstate);
+};
+
+
+static PyObject* Py_IntEnum = NULL;
+
+
+static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
+
+
+static PyObject* _create_enum_Exiv2_LogMsg_Level(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_LogMsg_Level = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_LogMsg_Level)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_LogMsg_Level, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
+    return PyEnum_Exiv2_LogMsg_Level;
 };
 
 
@@ -4143,29 +4160,20 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
-static PyObject* Py_IntEnum = NULL;
-
-
-#include <cstdarg>
-static PyObject* _get_enum_object(const char* name, const char* doc,
-                                  PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyObject* result = PyObject_CallFunction(Py_IntEnum, "sN",
-                                             name, enum_list);
-    if (!result)
-        return NULL;
-    if (PyObject_SetAttrString(result, "__doc__", PyUnicode_FromString(doc)))
-        return NULL;
-    return result;
-};
+static PyObject* exiv2_module = NULL;
 
 
 static PyObject* get_enum_typeobject(Exiv2::LogMsg::Level value) {
-    swig_type_info* desc = SWIGTYPE_p_Exiv2__LogMsg;
-    SwigPyClientData* cd = (SwigPyClientData*)desc->clientdata;
-    // PyDict_GetItemString returns a borrowed reference
-    return PyDict_GetItemString(cd->pytype->tp_dict, "Level");
+    if (!PyEnum_Exiv2_LogMsg_Level) {
+        PyObject* parent_class = PyObject_GetAttrString(
+            exiv2_module, "LogMsg");
+        if (parent_class) {
+            PyEnum_Exiv2_LogMsg_Level = PyObject_GetAttrString(
+                parent_class, "Level");
+            Py_DECREF(parent_class);
+        }
+    }
+    return PyEnum_Exiv2_LogMsg_Level;
 };
 
 
@@ -4206,20 +4214,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
     }
     arg1 = (Exiv2::LogMsg::Level)PyLong_AsLong(swig_obj[0]);
   }
-  {
-    try {
-      Exiv2::LogMsg::setLevel(arg1);
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  Exiv2::LogMsg::setLevel(arg1);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -4232,20 +4227,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
   Exiv2::LogMsg::Level result;
   
   if (!SWIG_Python_UnpackTuple(args, "LogMsg_level", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
-      
-      
-      
-    } catch(Exiv2::Error const& e) {
-      PyErr_SetString(PyExc_Exiv2Error, e.what());
-      SWIG_fail;
-    } catch(std::exception const& e) {
-      PyErr_SetString(PyExc_RuntimeError, e.what());
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
   {
     resultobj = py_from_enum(result);
     if (!resultobj)
@@ -5103,20 +5085,6 @@ SWIG_init(void) {
   
   
   {
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-    return NULL;
-  }
-  
-  
-  {
-    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error)
-    return NULL;
-  }
-  
-  
-  {
     PyObject *module = PyImport_ImportModule("logging");
     if (!module)
     return NULL;
@@ -5142,7 +5110,14 @@ SWIG_init(void) {
     return NULL;
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Level",_get_enum_object(
+  
+  {
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
+    return NULL;
+  }
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Level",_create_enum_Exiv2_LogMsg_Level(
       "Level", "Defined log levels.\n"
       "\nTo suppress all log messages, either set the log level to mute or set"
       "\nthe log message handler to None.", _get_enum_list(0, "debug",Exiv2::LogMsg::debug,"info",Exiv2::LogMsg::info,"warn",Exiv2::LogMsg::warn,"error",Exiv2::LogMsg::error,"mute",Exiv2::LogMsg::mute, NULL)));

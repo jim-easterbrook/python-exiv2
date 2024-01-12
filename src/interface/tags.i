@@ -21,10 +21,16 @@
 #if EXIV2_VERSION_HEX >= 0x001c0000
 %include "shared/enum.i"
 #endif
+%include "shared/exception.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i";
+
+// Catch some C++ exceptions
+%exception;
+EXCEPTION(Exiv2::ExifKey::ExifKey)
+EXCEPTION(Exiv2::ExifKey::clone)
 
 UNIQUE_PTR(Exiv2::ExifKey);
 
@@ -187,6 +193,7 @@ public:
 %ignore Exiv2::TagInfo;
 
 // Ignore stuff that Python can't use
+%ignore Exiv2::ExifTags::~ExifTags;
 %ignore Exiv2::ExifTags::taglist;
 
 // Ignore unneeded key constructor

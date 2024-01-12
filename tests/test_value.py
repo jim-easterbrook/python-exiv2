@@ -49,6 +49,8 @@ class TestValueModule(unittest.TestCase):
         else:
             self.check_result(value.count(), int, len(data))
         self.check_result(value.ok(), bool, True)
+        with self.assertWarns(DeprecationWarning):
+            result = exiv2.Value.create(int(type_id))
         result = exiv2.Value.create(type_id)
         self.assertEqual(result.read(string), 0)
         self.assertEqual(str(result), string)
@@ -112,6 +114,8 @@ class TestValueModule(unittest.TestCase):
                       exiv2.XmpValue.XmpArrayType.xaBag,
                       exiv2.XmpValue.XmpArrayType.xaAlt,
                       exiv2.XmpValue.XmpArrayType.xaNone):
+            with self.assertWarns(DeprecationWarning):
+                value.setXmpArrayType(int(type_))
             value.setXmpArrayType(type_)
             self.check_result(
                 value.xmpArrayType(), exiv2.XmpValue.XmpArrayType, type_)

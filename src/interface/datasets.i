@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,10 +18,18 @@
 %module(package="exiv2") datasets
 
 %include "shared/preamble.i"
+%include "shared/exception.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i"
+
+// Catch some C++ exceptions
+%exception;
+EXCEPTION(Exiv2::IptcDataSets::dataSet)
+EXCEPTION(Exiv2::IptcDataSets::recordId)
+EXCEPTION(Exiv2::IptcKey::IptcKey(std::string))
+EXCEPTION(Exiv2::IptcKey::IptcKey(std::string const &))
 
 UNIQUE_PTR(Exiv2::IptcKey);
 
@@ -52,6 +60,7 @@ LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 %ignore Exiv2::Dictionary_i;
 %ignore Exiv2::IptcDataSets::dataSetList;
 %ignore Exiv2::IptcDataSets::IptcDataSets;
+%ignore Exiv2::IptcDataSets::~IptcDataSets;
 %ignore Exiv2::RecordInfo;
 %ignore Exiv2::StringSet;
 %ignore Exiv2::StringSet_i;

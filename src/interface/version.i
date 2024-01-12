@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,9 +18,13 @@
 %module(package="exiv2") version
 
 %include "shared/preamble.i"
+%include "shared/exception.i"
 
 %include "stdint.i"
 %include "std_string.i"
+
+// Catch all C++ exceptions
+EXCEPTION()
 
 // Function to report build options used
 %feature("docstring") versionInfo "Return a dict of libexiv2 build options."

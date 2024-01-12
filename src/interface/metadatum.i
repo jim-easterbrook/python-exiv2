@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 #pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
 
 %include "shared/preamble.i"
+%include "shared/exception.i"
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 
@@ -27,6 +28,9 @@
 
 %import "types.i"
 %import "value.i"
+
+// Catch all C++ exceptions
+EXCEPTION()
 
 UNIQUE_PTR(Exiv2::Key);
 

@@ -24,6 +24,7 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
+%include "shared/exception.i"
 %include "shared/fragments.i"
 %include "shared/unique_ptr.i"
 
@@ -34,6 +35,9 @@
 %include "typemaps.i"
 
 %import "types.i"
+
+// Catch all C++ exceptions
+EXCEPTION()
 
 UNIQUE_PTR(Exiv2::Value);
 
@@ -189,7 +193,7 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 %noexception type_name::size;
 %extend type_name {
     part_name(const Exiv2::Value& value) {
-        // deprecated since 2023-12-19
+        // deprecated since 2022-12-28
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "Use '" #type_name ".clone()' to copy value", 1);
         type_name* pv = dynamic_cast< type_name* >(value.clone().release());
