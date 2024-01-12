@@ -152,7 +152,7 @@ class Exiv2Error(Exception):
         im.write('__version__ = "%s"\n' % py_exiv2_version)
         im.write('__version_tuple__ = tuple((%s))\n\n' % ', '.join(
             py_exiv2_version.split('.')))
-        im.write('__all__ = []\n')
+        im.write('__all__ = ["Exiv2Error"]\n')
         for name in ext_names:
             im.write('from exiv2.%s import *\n' % name)
             im.write('__all__ += exiv2._%s.__all__\n' % name)

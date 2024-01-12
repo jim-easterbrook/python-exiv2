@@ -15,7 +15,7 @@ class Exiv2Error(Exception):
 __version__ = "0.16.2"
 __version_tuple__ = tuple((0, 16, 2))
 
-__all__ = []
+__all__ = ["Exiv2Error"]
 from exiv2.basicio import *
 __all__ += exiv2._basicio.__all__
 from exiv2.datasets import *
