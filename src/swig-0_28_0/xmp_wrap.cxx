@@ -8584,7 +8584,8 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   {
     XmpData_iterator_base* tmp = new XmpData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8707,7 +8708,8 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
   {
     XmpData_iterator_base* tmp = new XmpData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8737,7 +8739,8 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
   {
     XmpData_iterator_base* tmp = new XmpData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8788,7 +8791,8 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
   {
     XmpData_iterator_base* tmp = new XmpData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {

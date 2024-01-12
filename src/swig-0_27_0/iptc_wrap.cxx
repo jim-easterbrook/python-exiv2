@@ -8413,7 +8413,8 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   {
     IptcData_iterator_base* tmp = new IptcData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8519,7 +8520,8 @@ SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
   {
     IptcData_iterator_base* tmp = new IptcData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8549,7 +8551,8 @@ SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
   {
     IptcData_iterator_base* tmp = new IptcData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8600,7 +8603,8 @@ SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
   {
     IptcData_iterator_base* tmp = new IptcData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8654,7 +8658,8 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, Py_ssize_t no
   {
     IptcData_iterator_base* tmp = new IptcData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
@@ -8700,7 +8705,8 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, Py_ssize_t no
   {
     IptcData_iterator_base* tmp = new IptcData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base, 0);
+      tmp->valid() ? SWIGTYPE_p_IptcData_iterator : SWIGTYPE_p_IptcData_iterator_base,
+      SWIG_POINTER_OWN);
   }
   
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
