@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -37,7 +37,7 @@ class TestBasicIoModule(unittest.TestCase):
     def test_FileIo(self):
         # most functions are tested in test_MemIo
         io = exiv2.FileIo(self.image_path)
-        self.assertIsInstance(io, exiv2.BasicIo)
+        self.assertIsInstance(io, exiv2.FileIo)
         self.assertEqual(io.error(), False)
         self.assertEqual(io.path(), self.image_path)
         self.assertEqual(io.size(), 15125)
@@ -51,7 +51,7 @@ class TestBasicIoModule(unittest.TestCase):
     def test_MemIo(self):
         # empty buffer
         io = exiv2.MemIo()
-        self.assertIsInstance(io, exiv2.BasicIo)
+        self.assertIsInstance(io, exiv2.MemIo)
         self.assertEqual(io.size(), 0)
         # mmap data access
         with io.mmap(False) as view:
@@ -77,7 +77,7 @@ class TestBasicIoModule(unittest.TestCase):
                 view[0] = 0
         # non-empty buffer
         io = exiv2.MemIo(self.data)
-        self.assertIsInstance(io, exiv2.BasicIo)
+        self.assertIsInstance(io, exiv2.MemIo)
         self.assertEqual(io.error(), False)
         self.assertEqual(io.path(), 'MemIo')
         self.assertEqual(io.size(), len(self.data))

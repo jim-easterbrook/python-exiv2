@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -102,7 +102,7 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(image.good(), True)
         self.assertEqual(image.iccProfileDefined(), True)
         self.assertEqual(image.imageType(), exiv2.ImageType.jpeg)
-        self.assertIsInstance(image.io(), exiv2.BasicIo)
+        self.assertIsInstance(image.io(), exiv2.MemIo)
         self.assertEqual(image.mimeType(), 'image/jpeg')
         self.assertEqual(image.pixelHeight(), 200)
         self.assertEqual(image.pixelWidth(), 200)
@@ -124,7 +124,7 @@ class TestImageModule(unittest.TestCase):
             temp_file = os.path.join(tmp_dir, 'image.jpg')
             self.assertIsInstance(
                 factory.create(exiv2.ImageType.jpeg, temp_file), exiv2.Image)
-        self.assertIsInstance(factory.createIo(self.image_path), exiv2.BasicIo)
+        self.assertIsInstance(factory.createIo(self.image_path), exiv2.FileIo)
         self.assertEqual(factory.getType(self.image_path), exiv2.ImageType.jpeg)
         self.assertEqual(factory.getType(self.image_data), exiv2.ImageType.jpeg)
         self.assertEqual(factory.getType(io), exiv2.ImageType.jpeg)

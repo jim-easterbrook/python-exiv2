@@ -76,6 +76,35 @@ WINDOWS_PATH(const std::string& orgPath)
 WINDOWS_PATH(const std::string& url)
 WINDOWS_PATH_OUT(path)
 
+// Convert BasicIo return values to actual subclass
+%fragment("basicio_subtype", "header") {
+static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
+    if (dynamic_cast<Exiv2::MemIo*>(ptr))
+        return $descriptor(Exiv2::MemIo*);
+    else if (dynamic_cast<Exiv2::FileIo*>(ptr)) {
+        if (dynamic_cast<Exiv2::XPathIo*>(ptr))
+            return $descriptor(Exiv2::XPathIo*);
+        else
+            return $descriptor(Exiv2::FileIo*);
+    }
+    else if (dynamic_cast<Exiv2::RemoteIo*>(ptr)) {
+        if (dynamic_cast<Exiv2::HttpIo*>(ptr))
+            return $descriptor(Exiv2::HttpIo*);
+        else
+            return $descriptor(Exiv2::RemoteIo*);
+    }
+    return $descriptor(Exiv2::BasicIo*);
+};
+}
+%typemap(out, fragment="basicio_subtype") Exiv2::BasicIo& {
+    $result = SWIG_NewPointerObj($1, basicio_subtype($1), 0);
+}
+%typemap(out, fragment="basicio_subtype") Exiv2::BasicIo::SMART_PTR {
+    Exiv2::BasicIo* ptr = (&$1)->release();
+    $result = SWIG_NewPointerObj(
+        ptr, basicio_subtype(ptr), SWIG_POINTER_OWN);
+}
+
 // BasicIo return values keep a reference to the Image they refer to
 KEEP_REFERENCE(Exiv2::BasicIo&)
 
