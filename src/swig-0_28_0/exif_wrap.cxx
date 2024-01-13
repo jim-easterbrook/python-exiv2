@@ -5327,9 +5327,6 @@ static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
 
 
 static PyObject* set_value_from_py(Exiv2::Exifdatum* datum, PyObject* py_value) {
-    // Set the value from a Python object. The datum's current or default
-    // type is used to create an Exiv2::Value object (via Python) from
-    // the Python object.
     swig_type_info* ty_info = get_type_object(get_type_id(datum));
     SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
     // Call type object to invoke constructor

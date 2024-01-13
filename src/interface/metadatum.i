@@ -41,6 +41,36 @@ UNIQUE_PTR(key_type);
 KEEP_REFERENCE(const Exiv2::Value&)
 // Keep a reference to any object that returns a reference to a datum.
 KEEP_REFERENCE(datum_type&)
+// Set the datum's value from a Python object. The datum's current or default
+// type is used to create an Exiv2::Value object (via Python) from the Python
+// object.
+%fragment("set_value_from_py"{datum_type}, "header",
+          fragment="get_type_object", fragment="get_type_id"{datum_type}) {
+static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
+    swig_type_info* ty_info = get_type_object(get_type_id(datum));
+    SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+    // Call type object to invoke constructor
+    PyObject* args = PyTuple_Pack(1, py_value);
+    PyObject* swig_obj = PyObject_CallObject(
+        (PyObject*)cl_data->pytype, args);
+    Py_DECREF(args);
+    if (!swig_obj)
+        return NULL;
+    // Convert constructed object to Exiv2::Value
+    Exiv2::Value* value = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
+        PyErr_SetString(
+            PyExc_RuntimeError, "set_value_from_py: invalid conversion");
+        Py_DECREF(swig_obj);
+        return NULL;
+    }
+    // Set value
+    datum->setValue(value);
+    Py_DECREF(swig_obj);
+    return SWIG_Py_Void();
+};
+}
 %feature("python:slot", "tp_str", functype="reprfunc") datum_type::__str__;
 %extend datum_type {
     std::string __str__() {

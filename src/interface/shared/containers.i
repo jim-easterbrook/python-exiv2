@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,36 +38,6 @@
     base_class::__setitem__;
 %feature("python:slot", "sq_contains", functype="objobjproc")
     base_class::__contains__;
-%fragment("set_value_from_py"{datum_type}, "header",
-          fragment="get_type_object", fragment="get_type_id"{datum_type}) {
-static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
-    // Set the value from a Python object. The datum's current or default
-    // type is used to create an Exiv2::Value object (via Python) from
-    // the Python object.
-    swig_type_info* ty_info = get_type_object(get_type_id(datum));
-    SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
-    // Call type object to invoke constructor
-    PyObject* args = PyTuple_Pack(1, py_value);
-    PyObject* swig_obj = PyObject_CallObject(
-        (PyObject*)cl_data->pytype, args);
-    Py_DECREF(args);
-    if (!swig_obj)
-        return NULL;
-    // Convert constructed object to Exiv2::Value
-    Exiv2::Value* value = 0;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
-        PyErr_SetString(
-            PyExc_RuntimeError, "set_value_from_py: invalid conversion");
-        Py_DECREF(swig_obj);
-        return NULL;
-    }
-    // Set value
-    datum->setValue(value);
-    Py_DECREF(swig_obj);
-    return SWIG_Py_Void();
-};
-}
 %extend base_class {
     %fragment("get_type_id"{datum_type});
     %fragment("set_value_from_py"{datum_type});
