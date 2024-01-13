@@ -7392,26 +7392,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_Value(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = (Exiv2::Value *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_Value", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Value" "', argument " "1"" of type '" "Exiv2::Value *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Value_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::Value *arg1 = (Exiv2::Value *) 0 ;
@@ -8331,8 +8311,6 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Value) /* defines _wrap_delete_Value_destructor_closure */
-
 SWIGPY_LENFUNC_CLOSURE(_wrap_Value_count) /* defines _wrap_Value_count_lenfunc_closure */
 
 SWIGPY_REPRFUNC_CLOSURE(_wrap_Value___str__) /* defines _wrap_Value___str___reprfunc_closure */
@@ -9180,26 +9158,6 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DataValue) /* defines _wrap_delete_DataVa
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_DataValue_count) /* defines _wrap_DataValue_count_lenfunc_closure */
 
-SWIGINTERN PyObject *_wrap_delete_StringValueBase(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_StringValueBase", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__StringValueBase, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_StringValueBase" "', argument " "1"" of type '" "Exiv2::StringValueBase *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
@@ -9840,8 +9798,6 @@ fail:
   return NULL;
 }
 
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_StringValueBase) /* defines _wrap_delete_StringValueBase_destructor_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_StringValueBase_count) /* defines _wrap_StringValueBase_count_lenfunc_closure */
 
@@ -11415,28 +11371,6 @@ fail:
   return 0;
 }
 
-
-SWIGINTERN PyObject *_wrap_delete_XmpValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpValue *arg1 = (Exiv2::XmpValue *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_XmpValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpValue, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpValue" "', argument " "1"" of type '" "Exiv2::XmpValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpValue) /* defines _wrap_delete_XmpValue_destructor_closure */
 
 SWIGINTERN int _wrap_new_XmpTextValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
@@ -26512,7 +26446,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__Value_type = {
     "exiv2.value.Value",                      /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_Value_destructor_closure,    /* tp_dealloc */
+    SwigPyBuiltin_BadDealloc,                 /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                            /* tp_print */
 #else
@@ -27004,7 +26938,29 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__DataValue_clientdata = {0, 0, 
 
 static SwigPyGetSet StringValueBase___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__StringValueBase_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Virtual destructor.", &StringValueBase___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"*Overload 1:*\n"
+		"Read the value from buf. This default implementation uses buf as it is.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"         Read the value from a character buffer.\n"
+		"\n"
+		"         Notes: The byte order is required by the interface but not used by this\n"
+		"               method, so just use the default.\n"
+		"\n"
+		"         :type buf: bytes-like object\n"
+		"         :param buf: Pointer to the data buffer to read from\n"
+		"         :type len: int\n"
+		"         :param len: Number of bytes in the data buffer\n"
+		"         :type byteOrder: int, optional\n"
+		"         :param byteOrder: Byte order. Not needed.\n"
+		"\n"
+		"         :rtype: int\n"
+		"         :return: 0 if successful.\n"
+		"", &StringValueBase___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -27088,7 +27044,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__StringValueBase_type = {
     "exiv2.value.StringValueBase",            /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_StringValueBase_destructor_closure,              /* tp_dealloc */
+    SwigPyBuiltin_BadDealloc,                 /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                            /* tp_print */
 #else
@@ -28184,7 +28140,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpValue_type = {
     "exiv2.value.XmpValue",                   /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_XmpValue_destructor_closure, /* tp_dealloc */
+    SwigPyBuiltin_BadDealloc,                 /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                            /* tp_print */
 #else

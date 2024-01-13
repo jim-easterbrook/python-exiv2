@@ -648,6 +648,11 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
 // the other method static as well.
 %ignore Exiv2::XmpValue::xmpArrayType(TypeId typeId);
 
+// Ignore "abstract" base class destructors.
+%ignore Exiv2::Value::~Value;
+%ignore Exiv2::StringValueBase::~StringValueBase;
+%ignore Exiv2::XmpValue::~XmpValue;
+
 // Ignore stuff Python can't use or SWIG can't handle
 %ignore Exiv2::getValue;
 %ignore Exiv2::operator<<;
