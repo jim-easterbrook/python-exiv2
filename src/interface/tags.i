@@ -32,7 +32,7 @@
 EXCEPTION(Exiv2::ExifKey::ExifKey)
 EXCEPTION(Exiv2::ExifKey::clone)
 
-UNIQUE_PTR(Exiv2::ExifKey);
+EXTEND_KEY(Exiv2::ExifKey);
 
 // Add Exif specific enums
 #if EXIV2_VERSION_HEX >= 0x001c0000

@@ -31,7 +31,7 @@ EXCEPTION(Exiv2::IptcDataSets::recordId)
 EXCEPTION(Exiv2::IptcKey::IptcKey(std::string))
 EXCEPTION(Exiv2::IptcKey::IptcKey(std::string const &))
 
-UNIQUE_PTR(Exiv2::IptcKey);
+EXTEND_KEY(Exiv2::IptcKey);
 
 // IptcDataSets::application2RecordList and IptcDataSets::envelopeRecordList
 // return a static list as a pointer

@@ -43,7 +43,7 @@ EXCEPTION()
 %noexception Exiv2::XmpProperties::propertyTitle;
 %noexception Exiv2::XmpProperties::propertyType;
 
-UNIQUE_PTR(Exiv2::XmpKey);
+EXTEND_KEY(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
 ENUM(XmpCategory, "Category of an XMP property.",

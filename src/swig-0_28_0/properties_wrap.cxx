@@ -5382,6 +5382,8 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpKey) /* defines _wrap_delete_XmpKey_destructor_closure */
 
+SWIGPY_REPRFUNC_CLOSURE(_wrap_XmpKey_key) /* defines _wrap_XmpKey_key_reprfunc_closure */
+
 static PyMethodDef SwigMethods[] = {
 	 { NULL, NULL, 0, NULL }
 };
@@ -5833,7 +5835,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpKey_type = {
     &SwigPyBuiltin__Exiv2__XmpKey_type.as_mapping,                /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_XmpKey_key_reprfunc_closure,        /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__XmpKey_type.as_buffer,                 /* tp_as_buffer */
@@ -6330,7 +6332,7 @@ static swig_const_info swig_const_table[] = {
 #ifdef __cplusplus
 }
 #endif
-static PyTypeObject *builtin_bases[3];
+static PyTypeObject *builtin_bases[2];
 
 /* -----------------------------------------------------------------------------
  * Type initialization:
@@ -6844,17 +6846,6 @@ SWIG_init(void) {
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
-  builtin_basetype = SWIG_MangledTypeQuery("_p_Exiv2__Key");
-  if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
-    builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
-  } else {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'XmpKey' as base 'Exiv2::Key' has not been initialized.\n");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
   builtin_bases[builtin_base_count] = NULL;
   SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
   PyDict_SetItemString(d, "this", this_descr);

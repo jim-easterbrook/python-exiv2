@@ -32,17 +32,14 @@
 // Catch all C++ exceptions
 EXCEPTION()
 
-UNIQUE_PTR(Exiv2::Key);
-
 // Keep a reference to Metadatum when calling value()
 KEEP_REFERENCE(const Exiv2::Value&)
 
-%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Key::__str__;
-%extend Exiv2::Key {
-    std::string __str__() {
-        return $self->key();
-    }
-}
+%define EXTEND_KEY(key_type)
+UNIQUE_PTR(key_type);
+%feature("python:slot", "tp_str", functype="reprfunc") key_type::key;
+%enddef // EXTEND_KEY
+
 #ifndef SWIGIMPORTED
 %feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Metadatum::__str__;
 %extend Exiv2::Metadatum {
@@ -52,9 +49,9 @@ KEEP_REFERENCE(const Exiv2::Value&)
 }
 #endif
 
+%ignore Exiv2::Key;
 %ignore Exiv2::Key::operator=;
 %ignore Exiv2::Metadatum::operator=;
-%ignore Exiv2::Key::write;
 %ignore Exiv2::Metadatum::write;
 %ignore Exiv2::cmpMetadataByKey;
 %ignore Exiv2::cmpMetadataByTag;
