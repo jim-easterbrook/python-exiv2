@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -120,6 +120,9 @@ class TestXmpModule(unittest.TestCase):
 
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
+        buf = bytearray(datum.size())
+        with self.assertRaises(exiv2.Exiv2Error):
+            datum.copy(buf, exiv2.ByteOrder.littleEndian)
         self.assertEqual(datum.count(), 3)
         self.assertEqual(datum.familyName(), 'Xmp')
         self.assertIsInstance(datum.getValue(), exiv2.LangAltValue)
