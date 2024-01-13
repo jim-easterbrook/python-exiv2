@@ -17,6 +17,8 @@
 
 %module(package="exiv2") exif
 
+#pragma SWIG nowarn=508 // Declaration of '__str__' shadows declaration accessible via operator->()
+
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/containers.i"

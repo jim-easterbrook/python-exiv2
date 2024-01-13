@@ -40,17 +40,9 @@ UNIQUE_PTR(key_type);
 %feature("python:slot", "tp_str", functype="reprfunc") key_type::key;
 %enddef // EXTEND_KEY
 
-#ifndef SWIGIMPORTED
-%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Metadatum::__str__;
-%extend Exiv2::Metadatum {
-    std::string __str__() {
-        return $self->key() + ": " + $self->print();
-    }
-}
-#endif
-
 %ignore Exiv2::Key;
 %ignore Exiv2::Key::operator=;
+%ignore Exiv2::Metadatum;
 %ignore Exiv2::Metadatum::operator=;
 %ignore Exiv2::Metadatum::write;
 %ignore Exiv2::cmpMetadataByKey;

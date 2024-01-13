@@ -5353,6 +5353,9 @@ static PyObject* set_value_from_py(Exiv2::Iptcdatum* datum, PyObject* py_value) 
     return SWIG_Py_Void();
 };
 
+SWIGINTERN std::string Exiv2_Iptcdatum___str__(Exiv2::Iptcdatum *self){
+        return self->key() + ": " + self->print();
+    }
 SWIGINTERN Exiv2::Value::UniquePtr Exiv2_Iptcdatum_getValue__SWIG_1(Exiv2::Iptcdatum *self,Exiv2::TypeId as_type){
         // deprecated since 2023-12-07
         PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
@@ -8278,6 +8281,35 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Iptcdatum___str__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Iptcdatum___str__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum___str__" "', argument " "1"" of type '" "Exiv2::Iptcdatum *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
+  {
+    try {
+      result = Exiv2_Iptcdatum___str__(arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
@@ -8516,6 +8548,8 @@ fail:
 
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Iptcdatum) /* defines _wrap_delete_Iptcdatum_destructor_closure */
+
+SWIGPY_REPRFUNC_CLOSURE(_wrap_Iptcdatum___str__) /* defines _wrap_Iptcdatum___str___reprfunc_closure */
 
 SWIGINTERN PyObject *_wrap_IptcData_add__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -10146,6 +10180,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Iptcdatum_methods[] = {
   { "toRational", _wrap_Iptcdatum_toRational, METH_VARARGS, "" },
   { "getValue", _wrap_Iptcdatum_getValue, METH_VARARGS, "" },
   { "value", _wrap_Iptcdatum_value, METH_VARARGS, "" },
+  { "__str__", _wrap_Iptcdatum___str__, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -10179,7 +10214,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__Iptcdatum_type = {
     &SwigPyBuiltin__Exiv2__Iptcdatum_type.as_mapping,             /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_Iptcdatum___str___reprfunc_closure, /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__Iptcdatum_type.as_buffer,              /* tp_as_buffer */
@@ -11551,17 +11586,6 @@ SWIG_init(void) {
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
-  builtin_basetype = SWIG_MangledTypeQuery("_p_Exiv2__Metadatum");
-  if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
-    builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
-  } else {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'Iptcdatum' as base 'Exiv2::Metadatum' has not been initialized.\n");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
   builtin_bases[builtin_base_count] = NULL;
   SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
   PyDict_SetItemString(d, "this", this_descr);
