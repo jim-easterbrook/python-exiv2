@@ -4126,48 +4126,6 @@ namespace swig {
 
 #include "exiv2/exiv2.hpp"
 
-
-#include <string>
-
-
-static PyObject* PyExc_Exiv2Error = NULL;
-
-
-static PyObject* exiv2_module = NULL;
-
-
-static void _set_python_exception() {
-    try {
-        throw;
-    }
-
-    catch(Exiv2::AnyError const& e) {
-
-
-
-        PyErr_SetString(PyExc_Exiv2Error, e.what());
-    }
-    /*@SWIG:/usr/local/share/swig/4.2.0/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
-  catch (std::invalid_argument& e) {
-    SWIG_exception_fail(SWIG_ValueError, e.what() );
-  } catch (std::domain_error& e) {
-    SWIG_exception_fail(SWIG_ValueError, e.what() );
-  } catch (std::overflow_error& e) {
-    SWIG_exception_fail(SWIG_OverflowError, e.what() );
-  } catch (std::out_of_range& e) {
-    SWIG_exception_fail(SWIG_IndexError, e.what() );
-  } catch (std::length_error& e) {
-    SWIG_exception_fail(SWIG_IndexError, e.what() );
-  } catch (std::runtime_error& e) {
-    SWIG_exception_fail(SWIG_RuntimeError, e.what() );
-  } catch (std::exception& e) {
-    SWIG_exception_fail(SWIG_SystemError, e.what() );
-  }
-/*@SWIG@*/
-fail:
-    return;
-};
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -4916,20 +4874,6 @@ SWIG_init(void) {
 #endif
   
   SWIG_InstallConstants(d,swig_const_table);
-  
-  
-  {
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-    return NULL;
-  }
-  
-  
-  {
-    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error)
-    return NULL;
-  }
   
 #if PY_VERSION_HEX >= 0x03000000
   return m;

@@ -17,28 +17,55 @@
 
 %module(package="exiv2") metadatum
 
-#pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
+#pragma SWIG nowarn=314 // 'print' is a python keyword, renaming to '_print'
 
 %include "shared/preamble.i"
-%include "shared/exception.i"
+%include "shared/containers.i"
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 
-%include "std_string.i"
-
 %import "types.i"
 %import "value.i"
-
-// Catch all C++ exceptions
-EXCEPTION()
-
-// Keep a reference to Metadatum when calling value()
-KEEP_REFERENCE(const Exiv2::Value&)
 
 %define EXTEND_KEY(key_type)
 UNIQUE_PTR(key_type);
 %feature("python:slot", "tp_str", functype="reprfunc") key_type::key;
 %enddef // EXTEND_KEY
+
+// Macro for Metadatum subclasses
+%define EXTEND_METADATUM(datum_type)
+// Turn off exception checking for methods that are guaranteed not to throw
+%noexception datum_type::count;
+%noexception datum_type::size;
+// Keep a reference to Metadatum when calling value()
+KEEP_REFERENCE(const Exiv2::Value&)
+// Keep a reference to any object that returns a reference to a datum.
+KEEP_REFERENCE(datum_type&)
+%feature("python:slot", "tp_str", functype="reprfunc") datum_type::__str__;
+%extend datum_type {
+    std::string __str__() {
+        return $self->key() + ": " + $self->print();
+    }
+    // Extend Metadatum to allow getting value as a specific type.
+    Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
+        // deprecated since 2023-12-07
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return $self->getValue();
+    }
+    const Exiv2::Value& value(Exiv2::TypeId as_type) {
+        // deprecated since 2023-12-07
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return $self->value();
+    }
+    // Set the value from a Python object. The datum's current or default
+    // type is used to create an Exiv2::Value object (via Python) from the
+    // Python object.
+    %fragment("set_value_from_py"{datum_type});
+    PyObject* setValue(PyObject* py_value) {
+        return set_value_from_py($self, py_value);
+    }
+}
+%enddef // EXTEND_METADATUM
 
 %ignore Exiv2::Key;
 %ignore Exiv2::Key::operator=;
