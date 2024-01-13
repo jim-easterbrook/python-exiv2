@@ -16,9 +16,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-%include "shared/fragments.i"
-
-
 // Macro to wrap data containers.
 %define DATA_CONTAINER(base_class, datum_type, key_type)
 // Turn off exception checking for methods that are guaranteed not to throw

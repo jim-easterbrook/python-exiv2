@@ -15,9 +15,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%include "shared/fragments.i"
-
 %include "exception.i"
+
+// Import exiv2 package
+%fragment("_import_exiv2_decl", "header") {
+static PyObject* exiv2_module = NULL;
+}
+%fragment("import_exiv2", "init", fragment="_import_exiv2_decl") {
+{
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
+        return NULL;
+}
+}
 
 // Import PyExc_Exiv2Error exception
 %fragment("_import_exception_decl", "header") {

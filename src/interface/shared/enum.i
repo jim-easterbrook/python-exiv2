@@ -18,7 +18,7 @@
 
 // Macros to make enums more Pythonic
 
-%include "shared/fragments.i"
+%include "shared/exception.i"  // for import_exiv2 fragment
 
 %define _ENUM_COMMON(pattern)
 // static variable to hold Python enum object
