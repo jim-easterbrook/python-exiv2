@@ -30,6 +30,7 @@
 
 %include "std_string.i"
 
+%import "error.i"
 %import "types.i"
 
 // Catch all C++ exceptions
@@ -104,6 +105,12 @@ static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
     $result = SWIG_NewPointerObj(
         ptr, basicio_subtype(ptr), SWIG_POINTER_OWN);
 }
+
+// readOrThrow has an optional ErrorCode parameter, seekOrThrow isn't
+// optional but this typemap makes it so
+%typemap(default) Exiv2::ErrorCode err
+    {$1 = Exiv2::ErrorCode::kerCorruptedMetadata;}
+%ignore Exiv2::BasicIo::readOrThrow(byte *, size_t);
 
 // BasicIo return values keep a reference to the Image they refer to
 KEEP_REFERENCE(Exiv2::BasicIo&)
@@ -210,8 +217,6 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
 %ignore Exiv2::BasicIo::~BasicIo;
 %ignore Exiv2::BasicIo::bigBlock_;
 %ignore Exiv2::BasicIo::populateFakeData;
-%ignore Exiv2::BasicIo::readOrThrow;
-%ignore Exiv2::BasicIo::seekOrThrow;
 %ignore Exiv2::IoCloser;
 %ignore Exiv2::ReplaceStringInPlace;
 %ignore Exiv2::readFile;

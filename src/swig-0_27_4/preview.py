@@ -7,6 +7,7 @@
 from sys import version_info as _swig_python_version_info
 import exiv2.image
 import exiv2.basicio
+import exiv2.error
 import exiv2.types
 import exiv2.exif
 import exiv2.metadatum

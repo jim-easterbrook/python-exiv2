@@ -105,6 +105,8 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(
                 io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
                 exiv2.ErrorCode.kerGeneralError)
+            with self.assertRaises(exiv2.Exiv2Error):
+                io.seekOrThrow(len(self.data) + 10, exiv2.BasicIo.Position.beg)
         else:
             self.assertEqual(
                 io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
@@ -122,6 +124,9 @@ class TestBasicIoModule(unittest.TestCase):
         buf = bytearray(len(self.data))
         self.assertEqual(io.read(buf, len(self.data)), len(self.data))
         self.assertEqual(buf, self.data)
+        if exiv2.testVersion(0, 28, 0):
+            with self.assertRaises(exiv2.Exiv2Error):
+                io.readOrThrow(buf, len(self.data))
         self.assertEqual(io.tell(), len(self.data))
         self.assertEqual(io.getb(), -1)
         # writing data
