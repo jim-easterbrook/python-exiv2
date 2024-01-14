@@ -4104,23 +4104,23 @@ static void log_to_python(int level, const char* msg) {
 static PyObject* Py_IntEnum = NULL;
 
 
-static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
+static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
 
 
-static PyObject* _create_enum_Exiv2_LogMsg_Level(
+static PyObject* _create_enum_Exiv2_ErrorCode(
         const char* name, const char* doc, PyObject* enum_list) {
     if (!enum_list)
         return NULL;
-    PyEnum_Exiv2_LogMsg_Level = PyObject_CallFunction(
+    PyEnum_Exiv2_ErrorCode = PyObject_CallFunction(
             Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_LogMsg_Level)
+    if (!PyEnum_Exiv2_ErrorCode)
         return NULL;
     if (PyObject_SetAttrString(
-            PyEnum_Exiv2_LogMsg_Level, "__doc__", PyUnicode_FromString(doc)))
+            PyEnum_Exiv2_ErrorCode, "__doc__", PyUnicode_FromString(doc)))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
-    return PyEnum_Exiv2_LogMsg_Level;
+    Py_INCREF(PyEnum_Exiv2_ErrorCode);
+    return PyEnum_Exiv2_ErrorCode;
 };
 
 
@@ -4140,6 +4140,26 @@ static PyObject* _get_enum_list(int dummy, ...) {
     }
     va_end(args);
     return result;
+};
+
+
+static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
+
+
+static PyObject* _create_enum_Exiv2_LogMsg_Level(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_LogMsg_Level = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_LogMsg_Level)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_LogMsg_Level, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
+    return PyEnum_Exiv2_LogMsg_Level;
 };
 
 
@@ -5011,10 +5031,6 @@ SWIG_init(void) {
   }
   
   
-  /* type 'Exiv2::LogMsg' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  
   {
     PyObject* module = PyImport_ImportModule("enum");
     if (!module)
@@ -5025,6 +5041,12 @@ SWIG_init(void) {
     return NULL;
   }
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ErrorCode",_create_enum_Exiv2_ErrorCode(
+      "ErrorCode", "Complete list of all Exiv2 error codes.", _get_enum_list(0, "kerGeneralError",Exiv2::kerGeneralError,"kerSuccess",Exiv2::kerSuccess,"kerErrorMessage",Exiv2::kerErrorMessage,"kerCallFailed",Exiv2::kerCallFailed,"kerNotAnImage",Exiv2::kerNotAnImage,"kerInvalidDataset",Exiv2::kerInvalidDataset,"kerInvalidRecord",Exiv2::kerInvalidRecord,"kerInvalidKey",Exiv2::kerInvalidKey,"kerInvalidTag",Exiv2::kerInvalidTag,"kerValueNotSet",Exiv2::kerValueNotSet,"kerDataSourceOpenFailed",Exiv2::kerDataSourceOpenFailed,"kerFileOpenFailed",Exiv2::kerFileOpenFailed,"kerFileContainsUnknownImageType",Exiv2::kerFileContainsUnknownImageType,"kerMemoryContainsUnknownImageType",Exiv2::kerMemoryContainsUnknownImageType,"kerUnsupportedImageType",Exiv2::kerUnsupportedImageType,"kerFailedToReadImageData",Exiv2::kerFailedToReadImageData,"kerNotAJpeg",Exiv2::kerNotAJpeg,"kerFailedToMapFileForReadWrite",Exiv2::kerFailedToMapFileForReadWrite,"kerFileRenameFailed",Exiv2::kerFileRenameFailed,"kerTransferFailed",Exiv2::kerTransferFailed,"kerMemoryTransferFailed",Exiv2::kerMemoryTransferFailed,"kerInputDataReadFailed",Exiv2::kerInputDataReadFailed,"kerImageWriteFailed",Exiv2::kerImageWriteFailed,"kerNoImageInInputData",Exiv2::kerNoImageInInputData,"kerInvalidIfdId",Exiv2::kerInvalidIfdId,"kerValueTooLarge",Exiv2::kerValueTooLarge,"kerDataAreaValueTooLarge",Exiv2::kerDataAreaValueTooLarge,"kerOffsetOutOfRange",Exiv2::kerOffsetOutOfRange,"kerUnsupportedDataAreaOffsetType",Exiv2::kerUnsupportedDataAreaOffsetType,"kerInvalidCharset",Exiv2::kerInvalidCharset,"kerUnsupportedDateFormat",Exiv2::kerUnsupportedDateFormat,"kerUnsupportedTimeFormat",Exiv2::kerUnsupportedTimeFormat,"kerWritingImageFormatUnsupported",Exiv2::kerWritingImageFormatUnsupported,"kerInvalidSettingForImage",Exiv2::kerInvalidSettingForImage,"kerNotACrwImage",Exiv2::kerNotACrwImage,"kerFunctionNotSupported",Exiv2::kerFunctionNotSupported,"kerNoNamespaceInfoForXmpPrefix",Exiv2::kerNoNamespaceInfoForXmpPrefix,"kerNoPrefixForNamespace",Exiv2::kerNoPrefixForNamespace,"kerTooLargeJpegSegment",Exiv2::kerTooLargeJpegSegment,"kerUnhandledXmpdatum",Exiv2::kerUnhandledXmpdatum,"kerUnhandledXmpNode",Exiv2::kerUnhandledXmpNode,"kerXMPToolkitError",Exiv2::kerXMPToolkitError,"kerDecodeLangAltPropertyFailed",Exiv2::kerDecodeLangAltPropertyFailed,"kerDecodeLangAltQualifierFailed",Exiv2::kerDecodeLangAltQualifierFailed,"kerEncodeLangAltPropertyFailed",Exiv2::kerEncodeLangAltPropertyFailed,"kerPropertyNameIdentificationFailed",Exiv2::kerPropertyNameIdentificationFailed,"kerSchemaNamespaceNotRegistered",Exiv2::kerSchemaNamespaceNotRegistered,"kerNoNamespaceForPrefix",Exiv2::kerNoNamespaceForPrefix,"kerAliasesNotSupported",Exiv2::kerAliasesNotSupported,"kerInvalidXmpText",Exiv2::kerInvalidXmpText,"kerTooManyTiffDirectoryEntries",Exiv2::kerTooManyTiffDirectoryEntries,"kerMultipleTiffArrayElementTagsInDirectory",Exiv2::kerMultipleTiffArrayElementTagsInDirectory,"kerWrongTiffArrayElementTagType",Exiv2::kerWrongTiffArrayElementTagType,"kerInvalidKeyXmpValue",Exiv2::kerInvalidKeyXmpValue,"kerInvalidIccProfile",Exiv2::kerInvalidIccProfile,"kerInvalidXMP",Exiv2::kerInvalidXMP,"kerTiffDirectoryTooLarge",Exiv2::kerTiffDirectoryTooLarge,"kerInvalidTypeValue",Exiv2::kerInvalidTypeValue,"kerInvalidMalloc",Exiv2::kerInvalidMalloc,"kerCorruptedMetadata",Exiv2::kerCorruptedMetadata,"kerArithmeticOverflow",Exiv2::kerArithmeticOverflow,"kerMallocFailed",Exiv2::kerMallocFailed, NULL)));
+  
+  /* type 'Exiv2::LogMsg' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
+  builtin_pytype->tp_dict = d = PyDict_New();
   
   {
     exiv2_module = PyImport_ImportModule("exiv2");
