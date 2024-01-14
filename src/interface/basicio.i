@@ -18,7 +18,7 @@
 %module(package="exiv2", threads="1") basicio
 %nothread;
 
-#pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
+#pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
@@ -108,14 +108,6 @@ static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
 // BasicIo return values keep a reference to the Image they refer to
 KEEP_REFERENCE(Exiv2::BasicIo&)
 
-// Enable len(io)
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::BasicIo::size;
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::FileIo::size;
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::RemoteIo::size;
-
 // Allow BasicIo::write to take any Python buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
 INPUT_BUFFER_RO(const Exiv2::byte* data, size_t wcount)
@@ -145,8 +137,8 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 }
 
 // Expose BasicIo contents as a Python buffer
-%fragment("get_buffer"{Exiv2::BasicIo}, "header") {
-static int %mangle(Exiv2::BasicIo)_getbuff(
+%fragment("Exiv2_BasicIo_getbuffer", "header") {
+static int Exiv2_BasicIo_getbuffer(
         PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::BasicIo* self = 0;
     Exiv2::byte* ptr = 0;
@@ -174,7 +166,7 @@ fail:
     view->obj = NULL;
     return -1;
 };
-static void %mangle(Exiv2::BasicIo)_releasebuff(
+static void Exiv2_BasicIo_releasebuffer(
         PyObject* exporter, Py_buffer* view) {
     Exiv2::BasicIo* self = 0;
     if (!SWIG_IsOK(SWIG_ConvertPtr(
@@ -187,11 +179,21 @@ static void %mangle(Exiv2::BasicIo)_releasebuff(
     SWIG_PYTHON_THREAD_END_ALLOW;
 };
 }
-%fragment("get_buffer"{Exiv2::BasicIo});
+
+%define EXTEND_BASICIO(io_type)
+// Enable len(io_type)
+%feature("python:slot", "sq_length", functype="lenfunc") io_type::size;
+// Expose io_type contents as a Python buffer
+%fragment("Exiv2_BasicIo_getbuffer");
 %feature("python:bf_getbuffer", functype="getbufferproc")
-    Exiv2::BasicIo "Exiv2_BasicIo_getbuff";
+    io_type "Exiv2_BasicIo_getbuffer";
 %feature("python:bf_releasebuffer", functype="releasebufferproc")
-    Exiv2::BasicIo "Exiv2_BasicIo_releasebuff";
+    io_type "Exiv2_BasicIo_releasebuffer";
+%enddef // EXTEND_BASICIO
+
+EXTEND_BASICIO(Exiv2::FileIo)
+EXTEND_BASICIO(Exiv2::MemIo)
+EXTEND_BASICIO(Exiv2::RemoteIo)
 
 // Make enum more Pythonic
 CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
@@ -205,6 +207,7 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
         "cur", Exiv2::BasicIo::cur,
         "end", Exiv2::BasicIo::end);
 
+%ignore Exiv2::BasicIo::~BasicIo;
 %ignore Exiv2::BasicIo::bigBlock_;
 %ignore Exiv2::BasicIo::populateFakeData;
 %ignore Exiv2::BasicIo::readOrThrow;

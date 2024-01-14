@@ -4144,7 +4144,7 @@ fail:
 };
 
 
-static int Exiv2_BasicIo_getbuff(
+static int Exiv2_BasicIo_getbuffer(
         PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::BasicIo* self = 0;
     Exiv2::byte* ptr = 0;
@@ -4172,7 +4172,7 @@ fail:
     view->obj = NULL;
     return -1;
 };
-static void Exiv2_BasicIo_releasebuff(
+static void Exiv2_BasicIo_releasebuffer(
         PyObject* exporter, Py_buffer* view) {
     Exiv2::BasicIo* self = 0;
     if (!SWIG_IsOK(SWIG_ConvertPtr(
@@ -4840,34 +4840,6 @@ SWIGINTERN PyObject *_wrap__enum_list_Position(PyObject *self, PyObject *args) {
   if (!PyArg_UnpackTuple(args, "_enum_list_Position", 0, 0)) SWIG_fail;
   result = (PyObject *)_enum_list_Position();
   resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_BasicIo(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_BasicIo takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_BasicIo" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -5632,10 +5604,6 @@ fail:
   return NULL;
 }
 
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_BasicIo) /* defines _wrap_delete_BasicIo_destructor_closure */
-
-SWIGPY_LENFUNC_CLOSURE(_wrap_BasicIo_size) /* defines _wrap_BasicIo_size_lenfunc_closure */
 
 SWIGINTERN int _wrap_new_FileIo(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -7400,6 +7368,8 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_MemIo) /* defines _wrap_delete_MemIo_destructor_closure */
 
+SWIGPY_LENFUNC_CLOSURE(_wrap_MemIo_size) /* defines _wrap_MemIo_size_lenfunc_closure */
+
 SWIGINTERN int _wrap_new_XPathIo(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -8705,7 +8675,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     "exiv2.basicio.BasicIo",                  /* tp_name */
     sizeof(SwigPyObject),                     /* tp_basicsize */
     0,                                        /* tp_itemsize */
-    _wrap_delete_BasicIo_destructor_closure,  /* tp_dealloc */
+    SwigPyBuiltin_BadDealloc,                 /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                            /* tp_print */
 #else
@@ -8859,7 +8829,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    _wrap_BasicIo_size_lenfunc_closure,       /* sq_length */
+    (lenfunc) 0,                              /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */
@@ -8885,8 +8855,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    Exiv2_BasicIo_getbuff,                    /* bf_getbuffer */
-    Exiv2_BasicIo_releasebuff,                /* bf_releasebuffer */
+    (getbufferproc) 0,                        /* bf_getbuffer */
+    (releasebufferproc) 0,                    /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */
@@ -9312,8 +9282,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__FileIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
+    Exiv2_BasicIo_getbuffer,                  /* bf_getbuffer */
+    Exiv2_BasicIo_releasebuffer,              /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */
@@ -9688,7 +9658,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__MemIo_type = {
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    (lenfunc) 0,                              /* sq_length */
+    _wrap_MemIo_size_lenfunc_closure,         /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */
@@ -9714,8 +9684,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__MemIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
+    Exiv2_BasicIo_getbuffer,                  /* bf_getbuffer */
+    Exiv2_BasicIo_releasebuffer,              /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */
@@ -10347,8 +10317,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__RemoteIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    (getbufferproc) 0,                        /* bf_getbuffer */
-    (releasebufferproc) 0,                    /* bf_releasebuffer */
+    Exiv2_BasicIo_getbuffer,                  /* bf_getbuffer */
+    Exiv2_BasicIo_releasebuffer,              /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */
