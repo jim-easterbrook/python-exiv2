@@ -86,7 +86,7 @@ if os.path.isdir(_dir):
 #endif
 
 // Make various enums more Pythonic
-ENUM(AccessMode, "An identifier for each mode of metadata support.",
+DEFINE_ENUM(AccessMode, "An identifier for each mode of metadata support.",
         "amNone",      Exiv2::amNone,
         "amRead",      Exiv2::amRead,
         "amWrite",     Exiv2::amWrite,
@@ -96,12 +96,13 @@ ENUM(AccessMode, "An identifier for each mode of metadata support.",
         "Write",     Exiv2::amWrite,
         "ReadWrite", Exiv2::amReadWrite);
 
-ENUM(ByteOrder, "Type to express the byte order (little or big endian).",
+DEFINE_ENUM(ByteOrder,
+    "Type to express the byte order (little or big endian).",
         "invalidByteOrder", Exiv2::invalidByteOrder,
         "littleEndian",     Exiv2::littleEndian,
         "bigEndian",        Exiv2::bigEndian);
 
-ENUM(MetadataId, "An identifier for each type of metadata.",
+DEFINE_ENUM(MetadataId, "An identifier for each type of metadata.",
         "mdNone",       Exiv2::mdNone,
         "mdExif",       Exiv2::mdExif,
         "mdIptc",       Exiv2::mdIptc,
@@ -115,7 +116,7 @@ ENUM(MetadataId, "An identifier for each type of metadata.",
         "Xmp",        Exiv2::mdXmp,
         "IccProfile", Exiv2::mdIccProfile);
 
-ENUM(TypeId, "Exiv2 value type identifiers.\n"
+DEFINE_ENUM(TypeId, "Exiv2 value type identifiers.\n"
 "\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
 "\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.",
         "unsignedByte",     Exiv2::unsignedByte,

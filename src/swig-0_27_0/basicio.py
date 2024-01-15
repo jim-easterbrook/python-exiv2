@@ -5,7 +5,6 @@
 # the SWIG interface file instead.
 
 from sys import version_info as _swig_python_version_info
-import exiv2.error
 import exiv2.types
 
 # Pull in all the attributes from the low-level C/C++ module

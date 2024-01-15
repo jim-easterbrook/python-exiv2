@@ -35,6 +35,9 @@
 
 %import "types.i"
 
+IMPORT_ENUM(ByteOrder)
+IMPORT_ENUM(TypeId)
+
 // Catch all C++ exceptions
 EXCEPTION()
 
@@ -182,7 +185,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %ignore Exiv2::DataValue::DataValue(byte const *, size_t, ByteOrder);
 
 // Make enums more Pythonic
-CLASS_ENUM(CommentValue, CharsetId,
+DEFINE_CLASS_ENUM(CommentValue, CharsetId,
     "Character set identifiers for the character sets defined by Exif.",
     "ascii",            Exiv2::CommentValue::ascii,
     "jis",              Exiv2::CommentValue::jis,
@@ -190,12 +193,12 @@ CLASS_ENUM(CommentValue, CharsetId,
     "undefined",        Exiv2::CommentValue::undefined,
     "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
     "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
+DEFINE_CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
     "xaNone",   Exiv2::XmpValue::xaNone,
     "xaAlt",    Exiv2::XmpValue::xaAlt,
     "xaBag",    Exiv2::XmpValue::xaBag,
     "xaSeq",    Exiv2::XmpValue::xaSeq);
-CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
+DEFINE_CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
     "xsNone",   Exiv2::XmpValue::xsNone,
     "xsStruct", Exiv2::XmpValue::xsStruct);
 

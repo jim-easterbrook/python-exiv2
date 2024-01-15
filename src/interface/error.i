@@ -64,7 +64,7 @@ static void log_to_python(int level, const char* msg) {
 %ignore Exiv2::LogMsg::defaultHandler;
 %ignore Exiv2::operator<<;
 
-CLASS_ENUM(LogMsg, Level, "Defined log levels.\n"
+DEFINE_CLASS_ENUM(LogMsg, Level, "Defined log levels.\n"
 "\nTo suppress all log messages, either set the log level to mute or set"
 "\nthe log message handler to None.",
     "debug", Exiv2::LogMsg::debug,
@@ -74,7 +74,7 @@ CLASS_ENUM(LogMsg, Level, "Defined log levels.\n"
     "mute",  Exiv2::LogMsg::mute);
 
 #if EXIV2_VERSION_HEX >= 0x001c0000
-ENUM(ErrorCode, "Complete list of all Exiv2 error codes.",
+DEFINE_ENUM(ErrorCode, "Complete list of all Exiv2 error codes.",
     "kerSuccess",                Exiv2::ErrorCode::kerSuccess,
     "kerGeneralError",           Exiv2::ErrorCode::kerGeneralError,
     "kerErrorMessage",           Exiv2::ErrorCode::kerErrorMessage,
@@ -155,7 +155,7 @@ ENUM(ErrorCode, "Complete list of all Exiv2 error codes.",
     "kerInvalidIconvEncoding",   Exiv2::ErrorCode::kerInvalidIconvEncoding,
     "kerErrorCount",             Exiv2::ErrorCode::kerErrorCount)
 #else
-ENUM(ErrorCode, "Complete list of all Exiv2 error codes.",
+DEFINE_ENUM(ErrorCode, "Complete list of all Exiv2 error codes.",
     "kerGeneralError",                Exiv2::kerGeneralError,
     "kerSuccess",                     Exiv2::kerSuccess,
     "kerErrorMessage",                Exiv2::kerErrorMessage,

@@ -18,11 +18,14 @@
 %module(package="exiv2") datasets
 
 %include "shared/preamble.i"
+%include "shared/enum.i"
 %include "shared/exception.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i"
+
+IMPORT_ENUM(TypeId)
 
 // Catch some C++ exceptions
 %exception;

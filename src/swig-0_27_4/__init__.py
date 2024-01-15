@@ -10,8 +10,16 @@ if sys.platform == 'win32':
         os.environ['PATH'] = _dir + ';' + os.environ['PATH']
 
 class Exiv2Error(Exception):
-    """Python exception raised by exiv2 library errors"""
-    pass
+    """Python exception raised by exiv2 library errors.
+
+    Attributes:
+        code -- Exiv2::ErrorCode
+        message -- string
+    """
+    def __init__(self, code, message):
+        self.code= code
+        self.message = message
+
 __version__ = "0.16.2"
 __version_tuple__ = tuple((0, 16, 2))
 

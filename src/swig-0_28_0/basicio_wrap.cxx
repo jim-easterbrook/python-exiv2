@@ -3925,30 +3925,31 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_Exiv2__BasicIo swig_types[0]
-#define SWIGTYPE_p_Exiv2__DataBuf swig_types[1]
-#define SWIGTYPE_p_Exiv2__FileIo swig_types[2]
-#define SWIGTYPE_p_Exiv2__HttpIo swig_types[3]
-#define SWIGTYPE_p_Exiv2__MemIo swig_types[4]
-#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[5]
-#define SWIGTYPE_p_Exiv2__XPathIo swig_types[6]
-#define SWIGTYPE_p_SwigPyObject swig_types[7]
-#define SWIGTYPE_p_UniquePtr swig_types[8]
-#define SWIGTYPE_p_char swig_types[9]
-#define SWIGTYPE_p_first_type swig_types[10]
-#define SWIGTYPE_p_int swig_types[11]
-#define SWIGTYPE_p_long_long swig_types[12]
-#define SWIGTYPE_p_second_type swig_types[13]
-#define SWIGTYPE_p_short swig_types[14]
-#define SWIGTYPE_p_signed_char swig_types[15]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[16]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[17]
-#define SWIGTYPE_p_unsigned_char swig_types[18]
-#define SWIGTYPE_p_unsigned_int swig_types[19]
-#define SWIGTYPE_p_unsigned_long_long swig_types[20]
-#define SWIGTYPE_p_unsigned_short swig_types[21]
-static swig_type_info *swig_types[23];
-static swig_module_info swig_module = {swig_types, 22, 0, 0, 0, 0};
+#define SWIGTYPE_p_ErrorCode swig_types[0]
+#define SWIGTYPE_p_Exiv2__BasicIo swig_types[1]
+#define SWIGTYPE_p_Exiv2__DataBuf swig_types[2]
+#define SWIGTYPE_p_Exiv2__FileIo swig_types[3]
+#define SWIGTYPE_p_Exiv2__HttpIo swig_types[4]
+#define SWIGTYPE_p_Exiv2__MemIo swig_types[5]
+#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[6]
+#define SWIGTYPE_p_Exiv2__XPathIo swig_types[7]
+#define SWIGTYPE_p_SwigPyObject swig_types[8]
+#define SWIGTYPE_p_UniquePtr swig_types[9]
+#define SWIGTYPE_p_char swig_types[10]
+#define SWIGTYPE_p_first_type swig_types[11]
+#define SWIGTYPE_p_int swig_types[12]
+#define SWIGTYPE_p_long_long swig_types[13]
+#define SWIGTYPE_p_second_type swig_types[14]
+#define SWIGTYPE_p_short swig_types[15]
+#define SWIGTYPE_p_signed_char swig_types[16]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[17]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[18]
+#define SWIGTYPE_p_unsigned_char swig_types[19]
+#define SWIGTYPE_p_unsigned_int swig_types[20]
+#define SWIGTYPE_p_unsigned_long_long swig_types[21]
+#define SWIGTYPE_p_unsigned_short swig_types[22]
+static swig_type_info *swig_types[24];
+static swig_module_info swig_module = {swig_types, 23, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4111,6 +4112,33 @@ static PyObject* PyExc_Exiv2Error = NULL;
 static PyObject* exiv2_module = NULL;
 
 
+static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
+
+
+static PyObject* get_enum_typeobject(Exiv2::ErrorCode value) {
+    if (!PyEnum_Exiv2_ErrorCode)
+        PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
+            exiv2_module, "ErrorCode");
+    return PyEnum_Exiv2_ErrorCode;
+};
+
+
+static PyObject* py_from_enum(Exiv2::ErrorCode value) {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject(value), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
+}
+
+
 static void _set_python_exception() {
     try {
         throw;
@@ -4118,10 +4146,18 @@ static void _set_python_exception() {
 
 
 
-    catch(Exiv2::Error const& e) {
 
-        PyErr_SetString(PyExc_Exiv2Error, e.what());
+
+
+
+
+    catch(Exiv2::Error const& e) {
+        PyObject* args = Py_BuildValue(
+            "Ns", py_from_enum(e.code()), e.what());
+        PyErr_SetObject(PyExc_Exiv2Error, args);
+        Py_DECREF(args);
     }
+
     /*@SWIG:/usr/local/share/swig/4.2.0/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
   catch (std::invalid_argument& e) {
     SWIG_exception_fail(SWIG_ValueError, e.what() );
@@ -4142,6 +4178,9 @@ static void _set_python_exception() {
 fail:
     return;
 };
+
+
+typedef Exiv2::ErrorCode ErrorCode;
 
 
 static int Exiv2_BasicIo_getbuffer(
@@ -4504,17 +4543,6 @@ SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val)
   }  
   return res;
 }
-
-
-static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
-
-
-static PyObject* get_enum_typeobject(Exiv2::ErrorCode value) {
-    if (!PyEnum_Exiv2_ErrorCode)
-        PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
-            exiv2_module, "ErrorCode");
-    return PyEnum_Exiv2_ErrorCode;
-};
 
 
 SWIGINTERN int
@@ -5258,12 +5286,14 @@ SWIGINTERN PyObject *_wrap_BasicIo_readOrThrow(PyObject *self, PyObject *args) {
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
   size_t arg3 ;
-  Exiv2::ErrorCode arg4 ;
+  ErrorCode arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer _global_view ;
   size_t val3 ;
   int ecode3 = 0 ;
+  void *argp4 ;
+  int res4 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
@@ -5294,16 +5324,17 @@ SWIGINTERN PyObject *_wrap_BasicIo_readOrThrow(PyObject *self, PyObject *args) {
   arg3 = static_cast< size_t >(val3);
   if (obj3) {
     {
-      if (!PyObject_IsInstance(obj3, get_enum_typeobject(arg4))) {
-        // deprecated since 2024-01-09
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-          "BasicIo_readOrThrow argument 4 type should be 'Exiv2::ErrorCode'.", 1);
+      res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_ErrorCode,  0  | 0);
+      if (!SWIG_IsOK(res4)) {
+        SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "BasicIo_readOrThrow" "', argument " "4"" of type '" "ErrorCode""'"); 
+      }  
+      if (!argp4) {
+        SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "BasicIo_readOrThrow" "', argument " "4"" of type '" "ErrorCode""'");
+      } else {
+        ErrorCode * temp = reinterpret_cast< ErrorCode * >(argp4);
+        arg4 = *temp;
+        if (SWIG_IsNewObj(res4)) delete temp;
       }
-      if (!PyLong_Check(obj3)) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_readOrThrow" "', argument " "4"" of type '" "Exiv2::ErrorCode""'")
-        ;
-      }
-      arg4 = (Exiv2::ErrorCode)PyLong_AsLong(obj3);
     }
   }
   {
@@ -5472,11 +5503,13 @@ SWIGINTERN PyObject *_wrap_BasicIo_seekOrThrow(PyObject *self, PyObject *args) {
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   int64_t arg2 ;
   Exiv2::BasicIo::Position arg3 ;
-  Exiv2::ErrorCode arg4 ;
+  ErrorCode arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long long val2 ;
   int ecode2 = 0 ;
+  void *argp4 ;
+  int res4 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
@@ -5509,16 +5542,17 @@ SWIGINTERN PyObject *_wrap_BasicIo_seekOrThrow(PyObject *self, PyObject *args) {
   }
   if (obj3) {
     {
-      if (!PyObject_IsInstance(obj3, get_enum_typeobject(arg4))) {
-        // deprecated since 2024-01-09
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-          "BasicIo_seekOrThrow argument 4 type should be 'Exiv2::ErrorCode'.", 1);
+      res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_ErrorCode,  0  | 0);
+      if (!SWIG_IsOK(res4)) {
+        SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "BasicIo_seekOrThrow" "', argument " "4"" of type '" "ErrorCode""'"); 
+      }  
+      if (!argp4) {
+        SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "BasicIo_seekOrThrow" "', argument " "4"" of type '" "ErrorCode""'");
+      } else {
+        ErrorCode * temp = reinterpret_cast< ErrorCode * >(argp4);
+        arg4 = *temp;
+        if (SWIG_IsNewObj(res4)) delete temp;
       }
-      if (!PyLong_Check(obj3)) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_seekOrThrow" "', argument " "4"" of type '" "Exiv2::ErrorCode""'")
-        ;
-      }
-      arg4 = (Exiv2::ErrorCode)PyLong_AsLong(obj3);
     }
   }
   {
@@ -8764,7 +8798,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		":type rcount: int\n"
 		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
 		"        read if *rcount* bytes are not available.\n"
-		":type err: int, optional\n"
+		":type err: ErrorCode, optional\n"
 		":param err: Error code to use if an exception is thrown.\n"
 		"" },
   { "getb", _wrap_BasicIo_getb, METH_VARARGS, "\n"
@@ -8809,7 +8843,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"        to the starting position specified by *pos*\n"
 		":type pos: int\n"
 		":param pos: Position from which the seek should start\n"
-		":type err: int\n"
+		":type err: ErrorCode\n"
 		":param err: Error code to use if an exception is thrown.\n"
 		"" },
   { "mmap", _wrap_BasicIo_mmap, METH_VARARGS, "\n"
@@ -10805,6 +10839,7 @@ static void *_p_Exiv2__XPathIoTo_p_Exiv2__FileIo(void *x, int *SWIGUNUSEDPARM(ne
 static void *_p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::RemoteIo *)  ((Exiv2::HttpIo *) x));
 }
+static swig_type_info _swigt__p_ErrorCode = {"_p_ErrorCode", "ErrorCode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__BasicIo = {"_p_Exiv2__BasicIo", "Exiv2::BasicIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__BasicIo_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__DataBuf = {"_p_Exiv2__DataBuf", "Exiv2::DataBuf *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__FileIo = {"_p_Exiv2__FileIo", "Exiv2::FileIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__FileIo_clientdata, 0};
@@ -10829,6 +10864,7 @@ static swig_type_info _swigt__p_unsigned_long_long = {"_p_unsigned_long_long", "
 static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "uint16_t *|uint_least16_t *|unsigned short *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
+  &_swigt__p_ErrorCode,
   &_swigt__p_Exiv2__BasicIo,
   &_swigt__p_Exiv2__DataBuf,
   &_swigt__p_Exiv2__FileIo,
@@ -10853,6 +10889,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_unsigned_short,
 };
 
+static swig_cast_info _swigc__p_ErrorCode[] = {  {&_swigt__p_ErrorCode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__BasicIo[] = {  {&_swigt__p_Exiv2__BasicIo, 0, 0, 0},  {&_swigt__p_Exiv2__FileIo, _p_Exiv2__FileIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__MemIo, _p_Exiv2__MemIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__RemoteIo, _p_Exiv2__RemoteIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__BasicIo, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DataBuf[] = {  {&_swigt__p_Exiv2__DataBuf, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__FileIo[] = {  {&_swigt__p_Exiv2__FileIo, 0, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__FileIo, 0, 0},{0, 0, 0, 0}};
@@ -10877,6 +10914,7 @@ static swig_cast_info _swigc__p_unsigned_long_long[] = {  {&_swigt__p_unsigned_l
 static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
+  _swigc__p_ErrorCode,
   _swigc__p_Exiv2__BasicIo,
   _swigc__p_Exiv2__DataBuf,
   _swigc__p_Exiv2__FileIo,

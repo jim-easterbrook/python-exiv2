@@ -30,7 +30,6 @@
 %include "std_vector.i"
 
 %import "image.i";
-%import "types.i";
 
 // Catch all C++ exceptions
 EXCEPTION()

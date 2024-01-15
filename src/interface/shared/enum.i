@@ -18,7 +18,17 @@
 
 // Macros to make enums more Pythonic
 
-%include "shared/exception.i"  // for import_exiv2 fragment
+// Import exiv2 package
+%fragment("_import_exiv2_decl", "header") {
+static PyObject* exiv2_module = NULL;
+}
+%fragment("import_exiv2", "init", fragment="_import_exiv2_decl") {
+{
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
+        return NULL;
+}
+}
 
 %define _ENUM_COMMON(pattern)
 // static variable to hold Python enum object
@@ -128,7 +138,7 @@ static PyObject* Py_IntEnum = NULL;
 }
 }
 
-%define ENUM(name, doc, contents...)
+%define IMPORT_ENUM(name)
 _ENUM_COMMON(Exiv2::name);
 // fragment to get enum object
 %fragment("get_enum_typeobject"{Exiv2::name}, "header",
@@ -141,14 +151,17 @@ static PyObject* get_enum_typeobject(Exiv2::name value) {
     return PyEnum_%mangle(Exiv2::name);
 };
 }
+%enddef // IMPORT_ENUM
 
+%define DEFINE_ENUM(name, doc, contents...)
+IMPORT_ENUM(name)
 // Add enum to module during init
 %fragment("_create_enum_object"{Exiv2::name});
 %fragment("get_enum_list");
 %constant PyObject* name = _create_enum_%mangle(Exiv2::name)(
     "name", doc, _get_enum_list(0, contents, NULL));
 %ignore Exiv2::name;
-%enddef // ENUM
+%enddef // DEFINE_ENUM
 
 %define DEPRECATED_ENUM(moved_to, enum_name, doc, contents...)
 // typemap to disambiguate enum from int
@@ -186,7 +199,7 @@ enum_name.__doc__ = doc
 %ignore Exiv2::enum_name;
 %enddef // DEPRECATED_ENUM
 
-%define CLASS_ENUM(class, name, doc, contents...)
+%define IMPORT_CLASS_ENUM(class, name)
 _ENUM_COMMON(Exiv2::class::name);
 // fragment to get enum object
 %fragment("get_enum_typeobject"{Exiv2::class::name}, "header",
@@ -205,7 +218,10 @@ static PyObject* get_enum_typeobject(Exiv2::class::name value) {
     return PyEnum_%mangle(Exiv2::class::name);
 };
 }
+%enddef // IMPORT_CLASS_ENUM
 
+%define DEFINE_CLASS_ENUM(class, name, doc, contents...)
+IMPORT_CLASS_ENUM(class, name)
 // Add enum as static class member during module init
 %extend Exiv2::class {
 %fragment("_create_enum_object"{Exiv2::class::name});
@@ -214,4 +230,4 @@ static PyObject* get_enum_typeobject(Exiv2::class::name value) {
     "name", doc, _get_enum_list(0, contents, NULL));
 }
 %ignore Exiv2::class::name;
-%enddef // CLASS_ENUM
+%enddef // DEFINE_CLASS_ENUM

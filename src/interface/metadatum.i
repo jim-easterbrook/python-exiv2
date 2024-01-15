@@ -24,7 +24,6 @@
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 
-%import "types.i"
 %import "value.i"
 
 %define EXTEND_KEY(key_type)

@@ -121,8 +121,10 @@ class TestXmpModule(unittest.TestCase):
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
         buf = bytearray(datum.size())
-        with self.assertRaises(exiv2.Exiv2Error):
+        with self.assertRaises(exiv2.Exiv2Error) as cm:
             datum.copy(buf, exiv2.ByteOrder.littleEndian)
+        self.assertEqual(cm.exception.code,
+                         exiv2.ErrorCode.kerFunctionNotSupported)
         self.assertEqual(datum.count(), 3)
         self.assertEqual(datum.familyName(), 'Xmp')
         self.assertIsInstance(datum.getValue(), exiv2.LangAltValue)

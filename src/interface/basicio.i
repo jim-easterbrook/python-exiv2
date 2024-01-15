@@ -30,7 +30,6 @@
 
 %include "std_string.i"
 
-%import "error.i"
 %import "types.i"
 
 // Catch all C++ exceptions
@@ -106,9 +105,14 @@ static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
         ptr, basicio_subtype(ptr), SWIG_POINTER_OWN);
 }
 
+// readOrThrow & seekOrThrow use ErrorCode without Exiv2:: prefix
+%{
+typedef Exiv2::ErrorCode ErrorCode;
+%}
+
 // readOrThrow has an optional ErrorCode parameter, seekOrThrow isn't
 // optional but this typemap makes it so
-%typemap(default) Exiv2::ErrorCode err
+%typemap(default) ErrorCode err
     {$1 = Exiv2::ErrorCode::kerCorruptedMetadata;}
 %ignore Exiv2::BasicIo::readOrThrow(byte *, size_t);
 
@@ -203,7 +207,7 @@ EXTEND_BASICIO(Exiv2::MemIo)
 EXTEND_BASICIO(Exiv2::RemoteIo)
 
 // Make enum more Pythonic
-CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
+DEFINE_CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
     "beg", Exiv2::BasicIo::beg,
     "cur", Exiv2::BasicIo::cur,
     "end", Exiv2::BasicIo::end);

@@ -32,8 +32,11 @@
 %import "basicio.i";
 %import "exif.i";
 %import "iptc.i";
-%import "tags.i";
 %import "xmp.i";
+
+IMPORT_ENUM(AccessMode)
+IMPORT_ENUM(ByteOrder)
+IMPORT_ENUM(MetadataId)
 
 // Catch all C++ exceptions
 EXCEPTION()
@@ -131,7 +134,7 @@ KEEP_REFERENCE(Exiv2::DataBuf&)
     "riff",  int(20),
 #endif
 
-ENUM(ImageType, "Supported image formats.",
+DEFINE_ENUM(ImageType, "Supported image formats.",
         "arw",  Exiv2::ImageType::arw,
         _BMFF
         "bmp",  Exiv2::ImageType::bmp,

@@ -18,14 +18,14 @@
 %module(package="exiv2") tags
 
 %include "shared/preamble.i"
-#if EXIV2_VERSION_HEX >= 0x001c0000
 %include "shared/enum.i"
-#endif
 %include "shared/exception.i"
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i";
+
+IMPORT_ENUM(TypeId)
 
 // Catch some C++ exceptions
 %exception;
@@ -36,7 +36,7 @@ EXTEND_KEY(Exiv2::ExifKey);
 
 // Add Exif specific enums
 #if EXIV2_VERSION_HEX >= 0x001c0000
-ENUM(IfdId, "Type to specify the IFD to which a metadata belongs.\n"
+DEFINE_ENUM(IfdId, "Type to specify the IFD to which a metadata belongs.\n"
 "\nMaker note IFDs have been omitted from this enum.",
         "ifdIdNotSet", Exiv2::IfdId::ifdIdNotSet,
         "ifd0Id",      Exiv2::IfdId::ifd0Id,
@@ -60,7 +60,7 @@ ENUM(IfdId, "Type to specify the IFD to which a metadata belongs.\n"
         "lastId",      Exiv2::IfdId::lastId,
         "ignoreId",    Exiv2::IfdId::ignoreId);
 
-ENUM(SectionId, "Section identifiers to logically group tags.\n"
+DEFINE_ENUM(SectionId, "Section identifiers to logically group tags.\n"
 "\nA section consists of nothing more than a name, based on the"
 "\nExif standard.",
         "sectionIfNotSet", Exiv2::SectionId::sectionIdNotSet,

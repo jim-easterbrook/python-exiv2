@@ -6,12 +6,11 @@
 
 from sys import version_info as _swig_python_version_info
 import exiv2.basicio
-import exiv2.error
 import exiv2.types
 import exiv2.exif
+import exiv2.tags
 import exiv2.metadatum
 import exiv2.value
-import exiv2.tags
 import exiv2.iptc
 import exiv2.datasets
 import exiv2.xmp
