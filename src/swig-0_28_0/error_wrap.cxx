@@ -4166,7 +4166,7 @@ static PyObject* _create_enum_Exiv2_LogMsg_Level(
 static PyObject* exiv2_module = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::LogMsg::Level value) {
+static PyObject* get_enum_typeobject_Exiv2_LogMsg_Level() {
     if (!PyEnum_Exiv2_LogMsg_Level) {
         PyObject* parent_class = PyObject_GetAttrString(
             exiv2_module, "LogMsg");
@@ -4185,7 +4185,7 @@ static PyObject* py_from_enum(Exiv2::LogMsg::Level value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_LogMsg_Level(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -4206,7 +4206,8 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   {
-    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+    if (!PyObject_IsInstance(swig_obj[0],
+        get_enum_typeobject_Exiv2_LogMsg_Level())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "LogMsg_setLevel argument 1 type should be 'Exiv2::LogMsg::Level'.", 1);

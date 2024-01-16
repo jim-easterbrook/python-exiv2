@@ -4141,7 +4141,7 @@ static PyObject* exiv2_module = NULL;
 static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::ErrorCode value) {
+static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
     if (!PyEnum_Exiv2_ErrorCode)
         PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
             exiv2_module, "ErrorCode");
@@ -4154,7 +4154,7 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_ErrorCode(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -4296,7 +4296,7 @@ SWIG_FromCharPtr(const char *cptr)
 static PyObject* PyEnum_Exiv2_TypeId = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+static PyObject* get_enum_typeobject_Exiv2_TypeId() {
     if (!PyEnum_Exiv2_TypeId)
         PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
             exiv2_module, "TypeId");
@@ -4309,7 +4309,7 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -4320,7 +4320,7 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
 }
 
 
-static PyObject* get_enum_typeobject(Exiv2::XmpCategory value) {
+static PyObject* get_enum_typeobject_Exiv2_XmpCategory() {
     if (!PyEnum_Exiv2_XmpCategory)
         PyEnum_Exiv2_XmpCategory = PyObject_GetAttrString(
             exiv2_module, "XmpCategory");
@@ -4333,7 +4333,7 @@ static PyObject* py_from_enum(Exiv2::XmpCategory value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_XmpCategory(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();

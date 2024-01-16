@@ -105,7 +105,8 @@ static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
         ptr, basicio_subtype(ptr), SWIG_POINTER_OWN);
 }
 
-// readOrThrow & seekOrThrow use ErrorCode without Exiv2:: prefix
+// readOrThrow & seekOrThrow use ErrorCode internally without Exiv2:: prefix
+// as if SWIG doesn't realise ErrorCode is in the Exiv2 namespace
 %{
 typedef Exiv2::ErrorCode ErrorCode;
 %}

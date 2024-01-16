@@ -4309,7 +4309,7 @@ static PyObject* exiv2_module = NULL;
 static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::ErrorCode value) {
+static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
     if (!PyEnum_Exiv2_ErrorCode)
         PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
             exiv2_module, "ErrorCode");
@@ -4322,7 +4322,7 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_ErrorCode(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -5268,7 +5268,7 @@ namespace swig {
 static PyObject* PyEnum_Exiv2_ByteOrder = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
+static PyObject* get_enum_typeobject_Exiv2_ByteOrder() {
     if (!PyEnum_Exiv2_ByteOrder)
         PyEnum_Exiv2_ByteOrder = PyObject_GetAttrString(
             exiv2_module, "ByteOrder");
@@ -5633,7 +5633,7 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 static PyObject* PyEnum_Exiv2_TypeId = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+static PyObject* get_enum_typeobject_Exiv2_TypeId() {
     if (!PyEnum_Exiv2_TypeId)
         PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
             exiv2_module, "TypeId");
@@ -5646,7 +5646,7 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -6166,7 +6166,7 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
-static PyObject* get_enum_typeobject(Exiv2::CommentValue::CharsetId value) {
+static PyObject* get_enum_typeobject_Exiv2_CommentValue_CharsetId() {
     if (!PyEnum_Exiv2_CommentValue_CharsetId) {
         PyObject* parent_class = PyObject_GetAttrString(
             exiv2_module, "CommentValue");
@@ -6185,7 +6185,7 @@ static PyObject* py_from_enum(Exiv2::CommentValue::CharsetId value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_CommentValue_CharsetId(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -6201,7 +6201,7 @@ static PyObject* py_from_enum(Exiv2::ByteOrder value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_ByteOrder(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -6271,7 +6271,7 @@ static PyObject* _create_enum_Exiv2_XmpValue_XmpStruct(
 };
 
 
-static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpArrayType value) {
+static PyObject* get_enum_typeobject_Exiv2_XmpValue_XmpArrayType() {
     if (!PyEnum_Exiv2_XmpValue_XmpArrayType) {
         PyObject* parent_class = PyObject_GetAttrString(
             exiv2_module, "XmpValue");
@@ -6290,7 +6290,7 @@ static PyObject* py_from_enum(Exiv2::XmpValue::XmpArrayType value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_XmpValue_XmpArrayType(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -6301,7 +6301,7 @@ static PyObject* py_from_enum(Exiv2::XmpValue::XmpArrayType value) {
 }
 
 
-static PyObject* get_enum_typeobject(Exiv2::XmpValue::XmpStruct value) {
+static PyObject* get_enum_typeobject_Exiv2_XmpValue_XmpStruct() {
     if (!PyEnum_Exiv2_XmpValue_XmpStruct) {
         PyObject* parent_class = PyObject_GetAttrString(
             exiv2_module, "XmpValue");
@@ -6320,7 +6320,7 @@ static PyObject* py_from_enum(Exiv2::XmpValue::XmpStruct value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_XmpValue_XmpStruct(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -7563,7 +7563,8 @@ SWIGINTERN PyObject *_wrap_Value_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "Value_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -7822,7 +7823,8 @@ SWIGINTERN PyObject *_wrap_Value_copy(PyObject *self, PyObject *args) {
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "Value_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -8478,7 +8480,8 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
   if (!SWIG_Python_UnpackTuple(args, "Value_create", 0, 1, swig_obj)) SWIG_fail;
   if (swig_obj[0]) {
     {
-      if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      if (!PyObject_IsInstance(swig_obj[0],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "Value_create argument 1 type should be 'Exiv2::TypeId'.", 1);
@@ -8559,7 +8562,8 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyO
   if ((nobjs < 0) || (nobjs > 1)) SWIG_fail;
   if (swig_obj[0]) {
     {
-      if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      if (!PyObject_IsInstance(swig_obj[0],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_DataValue argument 1 type should be 'Exiv2::TypeId'.", 1);
@@ -8616,7 +8620,8 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_DataValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -8630,7 +8635,8 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_DataValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -8697,7 +8703,8 @@ SWIGINTERN PyObject *_wrap_DataValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "DataValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -8873,7 +8880,8 @@ SWIGINTERN PyObject *_wrap_DataValue_copy(PyObject *self, PyObject *args) {
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "DataValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -9563,7 +9571,8 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_1(PyObject *self, Py_ssize
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "StringValueBase_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -9695,7 +9704,8 @@ SWIGINTERN PyObject *_wrap_StringValueBase_copy(PyObject *self, PyObject *args) 
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "StringValueBase_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -10464,7 +10474,8 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read__SWIG_0(PyObject *self, Py_ssize_t no
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "AsciiValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -10874,7 +10885,8 @@ SWIGINTERN PyObject *_wrap_CommentValue_read__SWIG_1(PyObject *self, Py_ssize_t 
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "CommentValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -11006,7 +11018,8 @@ SWIGINTERN PyObject *_wrap_CommentValue_copy(PyObject *self, PyObject *args) {
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "CommentValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -11244,7 +11257,8 @@ SWIGINTERN PyObject *_wrap_CommentValue_byteOrder__set(PyObject *self, PyObject 
   }
   arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
+    if (!PyObject_IsInstance(swig_obj[0],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "CommentValue_byteOrder__set argument 2 type should be 'Exiv2::ByteOrder'.", 1);
@@ -11487,7 +11501,8 @@ SWIGINTERN PyObject *_wrap_XmpValue_copy(PyObject *self, PyObject *args) {
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "XmpValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -11548,7 +11563,8 @@ SWIGINTERN PyObject *_wrap_XmpValue_setXmpArrayType(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg2))) {
+    if (!PyObject_IsInstance(swig_obj[0],
+        get_enum_typeobject_Exiv2_XmpValue_XmpArrayType())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "XmpValue_setXmpArrayType argument 2 type should be 'Exiv2::XmpValue::XmpArrayType'.", 1);
@@ -11581,7 +11597,8 @@ SWIGINTERN PyObject *_wrap_XmpValue_setXmpStruct__SWIG_0(PyObject *self, Py_ssiz
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_XmpValue_XmpStruct())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "XmpValue_setXmpStruct argument 2 type should be 'Exiv2::XmpValue::XmpStruct'.", 1);
@@ -11682,7 +11699,8 @@ SWIGINTERN PyObject *_wrap_XmpValue_read__SWIG_0(PyObject *self, Py_ssize_t nobj
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "XmpValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -11885,7 +11903,8 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0(PyObject *self, Py_ssize_t 
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "XmpTextValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -12644,7 +12663,8 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read__SWIG_0(PyObject *self, Py_ssize_t
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "XmpArrayValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -13281,7 +13301,8 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_XmpArrayValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -13320,7 +13341,8 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_2(PyObject *self, Py_ssize_t nobjs,
   if ((nobjs < 0) || (nobjs > 1)) SWIG_fail;
   if (swig_obj[0]) {
     {
-      if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+      if (!PyObject_IsInstance(swig_obj[0],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_XmpArrayValue argument 1 type should be 'Exiv2::TypeId'.", 1);
@@ -13584,7 +13606,8 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read__SWIG_0(PyObject *self, Py_ssize_t 
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "LangAltValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -14704,7 +14727,8 @@ SWIGINTERN PyObject *_wrap_DateValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "DateValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -14930,7 +14954,8 @@ SWIGINTERN PyObject *_wrap_DateValue_copy(PyObject *self, PyObject *args) {
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "DateValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -16054,7 +16079,8 @@ SWIGINTERN PyObject *_wrap_TimeValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "TimeValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -16284,7 +16310,8 @@ SWIGINTERN PyObject *_wrap_TimeValue_copy(PyObject *self, PyObject *args) {
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_ByteOrder())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "TimeValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -17474,7 +17501,8 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
     arg2 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "new_UShortValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -17487,7 +17515,8 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_UShortValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -17542,7 +17571,8 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, P
   arg1 = &temp1;
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_UShortValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -17659,7 +17689,8 @@ SWIGINTERN PyObject *_wrap_UShortValue_read__SWIG_0(PyObject *self, Py_ssize_t n
     arg3 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+    if (!PyObject_IsInstance(swig_obj[2],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "UShortValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -17875,7 +17906,8 @@ SWIGINTERN PyObject *_wrap_UShortValue_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "UShortValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -18756,7 +18788,8 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
     arg2 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "new_ULongValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -18769,7 +18802,8 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_ULongValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -18824,7 +18858,8 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
   arg1 = &temp1;
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_ULongValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -18941,7 +18976,8 @@ SWIGINTERN PyObject *_wrap_ULongValue_read__SWIG_0(PyObject *self, Py_ssize_t no
     arg3 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+    if (!PyObject_IsInstance(swig_obj[2],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ULongValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -19157,7 +19193,8 @@ SWIGINTERN PyObject *_wrap_ULongValue_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ULongValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -20038,7 +20075,8 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs
     arg2 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "new_URationalValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -20051,7 +20089,8 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_URationalValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -20109,7 +20148,8 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_2(PyObject *self, Py_ssize_t nobjs
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_URationalValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -20228,7 +20268,8 @@ SWIGINTERN PyObject *_wrap_URationalValue_read__SWIG_0(PyObject *self, Py_ssize_
     arg3 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+    if (!PyObject_IsInstance(swig_obj[2],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "URationalValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -20444,7 +20485,8 @@ SWIGINTERN PyObject *_wrap_URationalValue_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "URationalValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -21319,7 +21361,8 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
     arg2 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "new_ShortValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -21332,7 +21375,8 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_ShortValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -21387,7 +21431,8 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
   arg1 = &temp1;
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_ShortValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -21504,7 +21549,8 @@ SWIGINTERN PyObject *_wrap_ShortValue_read__SWIG_0(PyObject *self, Py_ssize_t no
     arg3 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+    if (!PyObject_IsInstance(swig_obj[2],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ShortValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -21720,7 +21766,8 @@ SWIGINTERN PyObject *_wrap_ShortValue_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "ShortValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -22601,7 +22648,8 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
     arg2 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "new_LongValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -22614,7 +22662,8 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_LongValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -22669,7 +22718,8 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
   arg1 = &temp1;
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_LongValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -22786,7 +22836,8 @@ SWIGINTERN PyObject *_wrap_LongValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
     arg3 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+    if (!PyObject_IsInstance(swig_obj[2],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "LongValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -23002,7 +23053,8 @@ SWIGINTERN PyObject *_wrap_LongValue_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "LongValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -23883,7 +23935,8 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
     arg2 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "new_RationalValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -23896,7 +23949,8 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_RationalValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -23954,7 +24008,8 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_2(PyObject *self, Py_ssize_t nobjs,
   }
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_RationalValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -24073,7 +24128,8 @@ SWIGINTERN PyObject *_wrap_RationalValue_read__SWIG_0(PyObject *self, Py_ssize_t
     arg3 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+    if (!PyObject_IsInstance(swig_obj[2],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "RationalValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -24289,7 +24345,8 @@ SWIGINTERN PyObject *_wrap_RationalValue_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "RationalValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -25164,7 +25221,8 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
     arg2 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "new_FloatValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -25177,7 +25235,8 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_FloatValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -25232,7 +25291,8 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
   arg1 = &temp1;
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_FloatValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -25349,7 +25409,8 @@ SWIGINTERN PyObject *_wrap_FloatValue_read__SWIG_0(PyObject *self, Py_ssize_t no
     arg3 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+    if (!PyObject_IsInstance(swig_obj[2],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "FloatValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -25565,7 +25626,8 @@ SWIGINTERN PyObject *_wrap_FloatValue_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "FloatValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -26446,7 +26508,8 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
     arg2 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "new_DoubleValue argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -26459,7 +26522,8 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
   }
   if (swig_obj[2]) {
     {
-      if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+      if (!PyObject_IsInstance(swig_obj[2],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_DoubleValue argument 4 type should be 'Exiv2::TypeId'.", 1);
@@ -26514,7 +26578,8 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, P
   arg1 = &temp1;
   if (swig_obj[1]) {
     {
-      if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+      if (!PyObject_IsInstance(swig_obj[1],
+          get_enum_typeobject_Exiv2_TypeId())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
           "new_DoubleValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -26631,7 +26696,8 @@ SWIGINTERN PyObject *_wrap_DoubleValue_read__SWIG_0(PyObject *self, Py_ssize_t n
     arg3 = (size_t) buff->len;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[2], get_enum_typeobject(arg4))) {
+    if (!PyObject_IsInstance(swig_obj[2],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "DoubleValue_read argument 4 type should be 'Exiv2::ByteOrder'.", 1);
@@ -26847,7 +26913,8 @@ SWIGINTERN PyObject *_wrap_DoubleValue_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "DoubleValue_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);

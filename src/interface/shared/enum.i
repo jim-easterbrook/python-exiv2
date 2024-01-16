@@ -65,7 +65,8 @@ static PyObject* _create_enum_%mangle(pattern)(
 
 // deprecate passing integers where an enum is expected
 %typemap(in, fragment="get_enum_typeobject"{pattern}) pattern {
-    if (!PyObject_IsInstance($input, get_enum_typeobject($1))) {
+    if (!PyObject_IsInstance($input,
+                             get_enum_typeobject_%mangle(pattern)())) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
             "$symname argument $argnum type should be 'pattern'.", 1);
@@ -84,7 +85,7 @@ static PyObject* py_from_enum(pattern value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_%mangle(pattern)(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -144,7 +145,7 @@ _ENUM_COMMON(Exiv2::name);
 %fragment("get_enum_typeobject"{Exiv2::name}, "header",
           fragment="import_exiv2",
           fragment="_declare_enum_object"{Exiv2::name}) {
-static PyObject* get_enum_typeobject(Exiv2::name value) {
+static PyObject* get_enum_typeobject_%mangle(Exiv2::name)() {
     if (!PyEnum_%mangle(Exiv2::name))
         PyEnum_%mangle(Exiv2::name) = PyObject_GetAttrString(
             exiv2_module, "name");
@@ -205,7 +206,7 @@ _ENUM_COMMON(Exiv2::class::name);
 %fragment("get_enum_typeobject"{Exiv2::class::name}, "header",
           fragment="import_exiv2",
           fragment="_declare_enum_object"{Exiv2::class::name}) {
-static PyObject* get_enum_typeobject(Exiv2::class::name value) {
+static PyObject* get_enum_typeobject_%mangle(Exiv2::class::name)() {
     if (!PyEnum_%mangle(Exiv2::class::name)) {
         PyObject* parent_class = PyObject_GetAttrString(
             exiv2_module, "class");

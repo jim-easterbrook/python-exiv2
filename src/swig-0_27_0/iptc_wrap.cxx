@@ -4151,7 +4151,7 @@ static PyObject* exiv2_module = NULL;
 static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::ErrorCode value) {
+static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
     if (!PyEnum_Exiv2_ErrorCode)
         PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
             exiv2_module, "ErrorCode");
@@ -4164,7 +4164,7 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_ErrorCode(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -4442,7 +4442,7 @@ SWIGINTERNINLINE PyObject*
 static PyObject* PyEnum_Exiv2_ByteOrder = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::ByteOrder value) {
+static PyObject* get_enum_typeobject_Exiv2_ByteOrder() {
     if (!PyEnum_Exiv2_ByteOrder)
         PyEnum_Exiv2_ByteOrder = PyObject_GetAttrString(
             exiv2_module, "ByteOrder");
@@ -4481,7 +4481,7 @@ SWIG_FromCharPtr(const char *cptr)
 static PyObject* PyEnum_Exiv2_TypeId = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+static PyObject* get_enum_typeobject_Exiv2_TypeId() {
     if (!PyEnum_Exiv2_TypeId)
         PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
             exiv2_module, "TypeId");
@@ -4494,7 +4494,7 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -5787,7 +5787,8 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_copy(PyObject *self, PyObject *args
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "IptcData_iterator_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -6629,7 +6630,8 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_1(PyObject *self, Py
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_TypeId())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "IptcData_iterator_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -6745,7 +6747,8 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, Py_ss
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_TypeId())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "IptcData_iterator_value argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -7187,7 +7190,8 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
     arg2 = (Exiv2::byte *) _global_view.buf;
   }
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg3))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_ByteOrder())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Iptcdatum_copy argument 3 type should be 'Exiv2::ByteOrder'.", 1);
@@ -8094,7 +8098,8 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_TypeId())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Iptcdatum_getValue argument 2 type should be 'Exiv2::TypeId'.", 1);
@@ -8174,7 +8179,8 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
   {
-    if (!PyObject_IsInstance(swig_obj[1], get_enum_typeobject(arg2))) {
+    if (!PyObject_IsInstance(swig_obj[1],
+        get_enum_typeobject_Exiv2_TypeId())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "Iptcdatum_value argument 2 type should be 'Exiv2::TypeId'.", 1);
