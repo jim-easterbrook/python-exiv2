@@ -6413,19 +6413,15 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   
-  if (resultobj && SwigPyObject_Check(resultobj)) {
-    PyObject_SetAttrString(
-      resultobj, "_refers_to", _global_view);
-  }
+  if (SwigPyObject_Check(resultobj))
+  PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+  
+  
   Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (resultobj && SwigPyObject_Check(resultobj)) {
-    PyObject_SetAttrString(
-      resultobj, "_refers_to", _global_view);
-  }
   Py_XDECREF(_global_view);
   
   return NULL;
@@ -6679,19 +6675,15 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
     SWIG_fail;
   }
   
-  if (resultobj && SwigPyObject_Check(resultobj)) {
-    PyObject_SetAttrString(
-      resultobj, "_refers_to", _global_view);
-  }
+  if (SwigPyObject_Check(resultobj))
+  PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+  
+  
   Py_XDECREF(_global_view);
   
   return resultobj;
 fail:
   
-  if (resultobj && SwigPyObject_Check(resultobj)) {
-    PyObject_SetAttrString(
-      resultobj, "_refers_to", _global_view);
-  }
   Py_XDECREF(_global_view);
   
   return NULL;
