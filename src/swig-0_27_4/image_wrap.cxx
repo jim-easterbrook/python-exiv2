@@ -4781,6 +4781,14 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 }
 
 
+static PyObject* get_enum_typeobject_Exiv2_ImageType() {
+    if (!PyEnum_Exiv2_ImageType)
+        PyEnum_Exiv2_ImageType = PyObject_GetAttrString(
+            exiv2_module, "ImageType");
+    return PyEnum_Exiv2_ImageType;
+};
+
+
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -6162,7 +6170,20 @@ SWIGINTERN PyObject *_wrap_Image_imageType(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(result));
+    if (!py_int)
+    SWIG_fail;
+    resultobj = PyObject_CallFunctionObjArgs(
+      get_enum_typeobject_Exiv2_ImageType(), py_int, NULL);
+    if (resultobj)
+    Py_DECREF(py_int);
+    else {
+      // Assume value is not currently in enum, so return int
+      PyErr_Clear();
+      resultobj = py_int;
+    }
+  }
   return resultobj;
 fail:
   return NULL;
@@ -6529,7 +6550,20 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_0(PyObject *self, Py_ssize
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(result));
+    if (!py_int)
+    SWIG_fail;
+    resultobj = PyObject_CallFunctionObjArgs(
+      get_enum_typeobject_Exiv2_ImageType(), py_int, NULL);
+    if (resultobj)
+    Py_DECREF(py_int);
+    else {
+      // Assume value is not currently in enum, so return int
+      PyErr_Clear();
+      resultobj = py_int;
+    }
+  }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
 fail:
@@ -6566,7 +6600,20 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(result));
+    if (!py_int)
+    SWIG_fail;
+    resultobj = PyObject_CallFunctionObjArgs(
+      get_enum_typeobject_Exiv2_ImageType(), py_int, NULL);
+    if (resultobj)
+    Py_DECREF(py_int);
+    else {
+      // Assume value is not currently in enum, so return int
+      PyErr_Clear();
+      resultobj = py_int;
+    }
+  }
   
   if (SwigPyObject_Check(resultobj))
   PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
@@ -6608,7 +6655,20 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_2(PyObject *self, Py_ssize
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>(result));
+    if (!py_int)
+    SWIG_fail;
+    resultobj = PyObject_CallFunctionObjArgs(
+      get_enum_typeobject_Exiv2_ImageType(), py_int, NULL);
+    if (resultobj)
+    Py_DECREF(py_int);
+    else {
+      // Assume value is not currently in enum, so return int
+      PyErr_Clear();
+      resultobj = py_int;
+    }
+  }
   return resultobj;
 fail:
   return NULL;

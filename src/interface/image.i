@@ -60,6 +60,25 @@ INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
     }
 %}
 
+#if EXIV2_VERSION_HEX < 0x001c0000
+// Convert ImageType results from int
+%typemap(out, fragment="get_enum_typeobject"{Exiv2::ImageType})
+        int getType, int imageType {
+    PyObject* py_int = PyLong_FromLong(static_cast<long>($1));
+    if (!py_int)
+        SWIG_fail;
+    $result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject_%mangle(Exiv2::ImageType)(), py_int, NULL);
+    if ($result)
+        Py_DECREF(py_int);
+    else {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        $result = py_int;
+        }
+}
+#endif // EXIV2_VERSION_HEX
+
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
 
