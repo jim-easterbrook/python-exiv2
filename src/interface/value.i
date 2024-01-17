@@ -25,7 +25,6 @@
 %include "shared/buffers.i"
 %include "shared/enum.i"
 %include "shared/exception.i"
-%include "shared/fragments.i"
 %include "shared/unique_ptr.i"
 
 %include "stdint.i"
@@ -35,6 +34,9 @@
 %include "typemaps.i"
 
 %import "types.i"
+
+IMPORT_ENUM(ByteOrder)
+IMPORT_ENUM(TypeId)
 
 // Catch all C++ exceptions
 EXCEPTION()
@@ -84,6 +86,50 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, Exiv2::ByteOrder byteOrder)
     }
 }
 // Downcast base class pointers to derived class
+// Convert exiv2 type id to the appropriate value class type info
+%fragment("get_type_object", "header") {
+static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
+    switch(type_id) {
+        case Exiv2::asciiString:
+            return $descriptor(Exiv2::AsciiValue*);
+        case Exiv2::unsignedShort:
+            return $descriptor(Exiv2::ValueType<uint16_t>*);
+        case Exiv2::unsignedLong:
+        case Exiv2::tiffIfd:
+            return $descriptor(Exiv2::ValueType<uint32_t>*);
+        case Exiv2::unsignedRational:
+            return $descriptor(Exiv2::ValueType<Exiv2::URational>*);
+        case Exiv2::signedShort:
+            return $descriptor(Exiv2::ValueType<int16_t>*);
+        case Exiv2::signedLong:
+            return $descriptor(Exiv2::ValueType<int32_t>*);
+        case Exiv2::signedRational:
+            return $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
+        case Exiv2::tiffFloat:
+            return $descriptor(Exiv2::ValueType<float>*);
+        case Exiv2::tiffDouble:
+            return $descriptor(Exiv2::ValueType<double>*);
+        case Exiv2::string:
+            return $descriptor(Exiv2::StringValue*);
+        case Exiv2::date:
+            return $descriptor(Exiv2::DateValue*);
+        case Exiv2::time:
+            return $descriptor(Exiv2::TimeValue*);
+        case Exiv2::comment:
+            return $descriptor(Exiv2::CommentValue*);
+        case Exiv2::xmpText:
+            return $descriptor(Exiv2::XmpTextValue*);
+        case Exiv2::xmpAlt:
+        case Exiv2::xmpBag:
+        case Exiv2::xmpSeq:
+            return $descriptor(Exiv2::XmpArrayValue*);
+        case Exiv2::langAlt:
+            return $descriptor(Exiv2::LangAltValue*);
+        default:
+            return $descriptor(Exiv2::DataValue*);
+    }
+};
+}
 // Function to get swig type for an Exiv2 type id
 %fragment("get_swig_type", "header", fragment="get_type_object") {
 static swig_type_info* get_swig_type(Exiv2::Value* value) {
@@ -139,7 +185,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %ignore Exiv2::DataValue::DataValue(byte const *, size_t, ByteOrder);
 
 // Make enums more Pythonic
-CLASS_ENUM(CommentValue, CharsetId,
+DEFINE_CLASS_ENUM(CommentValue, CharsetId,
     "Character set identifiers for the character sets defined by Exif.",
     "ascii",            Exiv2::CommentValue::ascii,
     "jis",              Exiv2::CommentValue::jis,
@@ -147,12 +193,12 @@ CLASS_ENUM(CommentValue, CharsetId,
     "undefined",        Exiv2::CommentValue::undefined,
     "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
     "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
+DEFINE_CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
     "xaNone",   Exiv2::XmpValue::xaNone,
     "xaAlt",    Exiv2::XmpValue::xaAlt,
     "xaBag",    Exiv2::XmpValue::xaBag,
     "xaSeq",    Exiv2::XmpValue::xaSeq);
-CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
+DEFINE_CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
     "xsNone",   Exiv2::XmpValue::xsNone,
     "xsStruct", Exiv2::XmpValue::xsStruct);
 
@@ -604,6 +650,11 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
 // Ignore overloaded static xmpArrayType method. SWIG gets confused and makes
 // the other method static as well.
 %ignore Exiv2::XmpValue::xmpArrayType(TypeId typeId);
+
+// Ignore "abstract" base class destructors.
+%ignore Exiv2::Value::~Value;
+%ignore Exiv2::StringValueBase::~StringValueBase;
+%ignore Exiv2::XmpValue::~XmpValue;
 
 // Ignore stuff Python can't use or SWIG can't handle
 %ignore Exiv2::getValue;

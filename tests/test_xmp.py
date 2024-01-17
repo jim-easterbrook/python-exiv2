@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -69,7 +69,12 @@ class TestXmpModule(unittest.TestCase):
         k = data.erase(k)
         self.assertIsInstance(k, exiv2.XmpData_iterator)
         self.assertEqual(k.key(), 'Xmp.xmp.ModifyDate')
+        self.assertEqual(len(data), 27)
+        k = data.findKey(exiv2.XmpKey('Xmp.iptcExt.LocationCreated'))
+        data.eraseFamily(k)
+        self.assertEqual(len(data), 21)
         # access by key
+        self.image.readMetadata()
         self.assertEqual('Xmp.dc.creator' in data, True)
         self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum)
         del data['Xmp.dc.creator']
@@ -89,18 +94,18 @@ class TestXmpModule(unittest.TestCase):
         while b != e:
             next(b)
             count += 1
-        self.assertEqual(count, 27)
+        self.assertEqual(count, 26)
         count = 0
         for d in data:
             count += 1
-        self.assertEqual(count, 27)
+        self.assertEqual(count, 26)
         count = len(list(data))
-        self.assertEqual(count, 27)
+        self.assertEqual(count, 26)
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Xmp.dc.creator')
         # other methods
-        self.assertEqual(data.count(), 27)
+        self.assertEqual(data.count(), 26)
         self.assertEqual(data.empty(), False)
         data.clear()
         self.assertEqual(len(data), 0)
@@ -115,6 +120,11 @@ class TestXmpModule(unittest.TestCase):
 
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
+        buf = bytearray(datum.size())
+        with self.assertRaises(exiv2.Exiv2Error) as cm:
+            datum.copy(buf, exiv2.ByteOrder.littleEndian)
+        self.assertEqual(cm.exception.code,
+                         exiv2.ErrorCode.kerFunctionNotSupported)
         self.assertEqual(datum.count(), 3)
         self.assertEqual(datum.familyName(), 'Xmp')
         self.assertIsInstance(datum.getValue(), exiv2.LangAltValue)

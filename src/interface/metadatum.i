@@ -17,44 +17,89 @@
 
 %module(package="exiv2") metadatum
 
-#pragma SWIG nowarn=314     // 'print' is a python keyword, renaming to '_print'
+#pragma SWIG nowarn=314 // 'print' is a python keyword, renaming to '_print'
 
 %include "shared/preamble.i"
-%include "shared/exception.i"
+%include "shared/containers.i"
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 
-%include "std_string.i"
-
-%import "types.i"
 %import "value.i"
 
-// Catch all C++ exceptions
-EXCEPTION()
+%define EXTEND_KEY(key_type)
+UNIQUE_PTR(key_type);
+%feature("python:slot", "tp_str", functype="reprfunc") key_type::key;
+%enddef // EXTEND_KEY
 
-UNIQUE_PTR(Exiv2::Key);
-
+// Macro for Metadatum subclasses
+%define EXTEND_METADATUM(datum_type)
+// Turn off exception checking for methods that are guaranteed not to throw
+%noexception datum_type::count;
+%noexception datum_type::size;
 // Keep a reference to Metadatum when calling value()
 KEEP_REFERENCE(const Exiv2::Value&)
-
-%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Key::__str__;
-%extend Exiv2::Key {
-    std::string __str__() {
-        return $self->key();
+// Keep a reference to any object that returns a reference to a datum.
+KEEP_REFERENCE(datum_type&)
+// Set the datum's value from a Python object. The datum's current or default
+// type is used to create an Exiv2::Value object (via Python) from the Python
+// object.
+%fragment("set_value_from_py"{datum_type}, "header",
+          fragment="get_type_object", fragment="get_type_id"{datum_type}) {
+static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
+    swig_type_info* ty_info = get_type_object(get_type_id(datum));
+    SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+    // Call type object to invoke constructor
+    PyObject* args = PyTuple_Pack(1, py_value);
+    PyObject* swig_obj = PyObject_CallObject(
+        (PyObject*)cl_data->pytype, args);
+    Py_DECREF(args);
+    if (!swig_obj)
+        return NULL;
+    // Convert constructed object to Exiv2::Value
+    Exiv2::Value* value = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
+        PyErr_SetString(
+            PyExc_RuntimeError, "set_value_from_py: invalid conversion");
+        Py_DECREF(swig_obj);
+        return NULL;
     }
+    // Set value
+    datum->setValue(value);
+    Py_DECREF(swig_obj);
+    return SWIG_Py_Void();
+};
 }
-#ifndef SWIGIMPORTED
-%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Metadatum::__str__;
-%extend Exiv2::Metadatum {
+%feature("python:slot", "tp_str", functype="reprfunc") datum_type::__str__;
+%extend datum_type {
     std::string __str__() {
         return $self->key() + ": " + $self->print();
     }
+    // Extend Metadatum to allow getting value as a specific type.
+    Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
+        // deprecated since 2023-12-07
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return $self->getValue();
+    }
+    const Exiv2::Value& value(Exiv2::TypeId as_type) {
+        // deprecated since 2023-12-07
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return $self->value();
+    }
+    // Set the value from a Python object. The datum's current or default
+    // type is used to create an Exiv2::Value object (via Python) from the
+    // Python object.
+    %fragment("set_value_from_py"{datum_type});
+    PyObject* setValue(PyObject* py_value) {
+        return set_value_from_py($self, py_value);
+    }
 }
-#endif
+%enddef // EXTEND_METADATUM
 
+%ignore Exiv2::Key;
 %ignore Exiv2::Key::operator=;
+%ignore Exiv2::Metadatum;
 %ignore Exiv2::Metadatum::operator=;
-%ignore Exiv2::Key::write;
 %ignore Exiv2::Metadatum::write;
 %ignore Exiv2::cmpMetadataByKey;
 %ignore Exiv2::cmpMetadataByTag;

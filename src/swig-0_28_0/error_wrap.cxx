@@ -3924,30 +3924,13 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[0]
-#define SWIGTYPE_p_Exiv2__CommentValue swig_types[1]
-#define SWIGTYPE_p_Exiv2__DataValue swig_types[2]
-#define SWIGTYPE_p_Exiv2__DateValue swig_types[3]
-#define SWIGTYPE_p_Exiv2__Error swig_types[4]
-#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[5]
-#define SWIGTYPE_p_Exiv2__LogMsg swig_types[6]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[7]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[8]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_Exiv2__Rational_t swig_types[9]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_Exiv2__URational_t swig_types[10]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[11]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[12]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[13]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[14]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[15]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[16]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[17]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[18]
-#define SWIGTYPE_p_SwigPyObject swig_types[19]
-#define SWIGTYPE_p_char swig_types[20]
-#define SWIGTYPE_p_std__exception swig_types[21]
-static swig_type_info *swig_types[23];
-static swig_module_info swig_module = {swig_types, 22, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__Error swig_types[0]
+#define SWIGTYPE_p_Exiv2__LogMsg swig_types[1]
+#define SWIGTYPE_p_SwigPyObject swig_types[2]
+#define SWIGTYPE_p_char swig_types[3]
+#define SWIGTYPE_p_std__exception swig_types[4]
+static swig_type_info *swig_types[6];
+static swig_module_info swig_module = {swig_types, 5, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4121,23 +4104,23 @@ static void log_to_python(int level, const char* msg) {
 static PyObject* Py_IntEnum = NULL;
 
 
-static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
+static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
 
 
-static PyObject* _create_enum_Exiv2_LogMsg_Level(
+static PyObject* _create_enum_Exiv2_ErrorCode(
         const char* name, const char* doc, PyObject* enum_list) {
     if (!enum_list)
         return NULL;
-    PyEnum_Exiv2_LogMsg_Level = PyObject_CallFunction(
+    PyEnum_Exiv2_ErrorCode = PyObject_CallFunction(
             Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_LogMsg_Level)
+    if (!PyEnum_Exiv2_ErrorCode)
         return NULL;
     if (PyObject_SetAttrString(
-            PyEnum_Exiv2_LogMsg_Level, "__doc__", PyUnicode_FromString(doc)))
+            PyEnum_Exiv2_ErrorCode, "__doc__", PyUnicode_FromString(doc)))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
-    return PyEnum_Exiv2_LogMsg_Level;
+    Py_INCREF(PyEnum_Exiv2_ErrorCode);
+    return PyEnum_Exiv2_ErrorCode;
 };
 
 
@@ -4160,10 +4143,30 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
+static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
+
+
+static PyObject* _create_enum_Exiv2_LogMsg_Level(
+        const char* name, const char* doc, PyObject* enum_list) {
+    if (!enum_list)
+        return NULL;
+    PyEnum_Exiv2_LogMsg_Level = PyObject_CallFunction(
+            Py_IntEnum, "sN", name, enum_list);
+    if (!PyEnum_Exiv2_LogMsg_Level)
+        return NULL;
+    if (PyObject_SetAttrString(
+            PyEnum_Exiv2_LogMsg_Level, "__doc__", PyUnicode_FromString(doc)))
+        return NULL;
+    // SWIG_Python_SetConstant will decref PyEnum object
+    Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
+    return PyEnum_Exiv2_LogMsg_Level;
+};
+
+
 static PyObject* exiv2_module = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::LogMsg::Level value) {
+static PyObject* get_enum_typeobject_Exiv2_LogMsg_Level() {
     if (!PyEnum_Exiv2_LogMsg_Level) {
         PyObject* parent_class = PyObject_GetAttrString(
             exiv2_module, "LogMsg");
@@ -4177,12 +4180,12 @@ static PyObject* get_enum_typeobject(Exiv2::LogMsg::Level value) {
 };
 
 
-static PyObject* py_from_enum(Exiv2::LogMsg::Level value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_LogMsg_Level(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_LogMsg_Level(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -4190,7 +4193,7 @@ static PyObject* py_from_enum(Exiv2::LogMsg::Level value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
 
 #ifdef __cplusplus
 extern "C" {
@@ -4203,7 +4206,8 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   {
-    if (!PyObject_IsInstance(swig_obj[0], get_enum_typeobject(arg1))) {
+    if (!PyObject_IsInstance(swig_obj[0],
+        get_enum_typeobject_Exiv2_LogMsg_Level())) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "LogMsg_setLevel argument 1 type should be 'Exiv2::LogMsg::Level'.", 1);
@@ -4212,7 +4216,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LogMsg_setLevel" "', argument " "1"" of type '" "Exiv2::LogMsg::Level""'")
       ;
     }
-    arg1 = (Exiv2::LogMsg::Level)PyLong_AsLong(swig_obj[0]);
+    arg1 = static_cast< Exiv2::LogMsg::Level >(PyLong_AsLong(swig_obj[0]));
   }
   Exiv2::LogMsg::setLevel(arg1);
   resultobj = SWIG_Py_Void();
@@ -4229,7 +4233,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
   if (!SWIG_Python_UnpackTuple(args, "LogMsg_level", 0, 0, 0)) SWIG_fail;
   result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_LogMsg_Level(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -4521,97 +4525,29 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__LogMsg_clientdata = {0, 0, 0, 
 static void *_p_Exiv2__ErrorTo_p_std__exception(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((std::exception *)  ((Exiv2::Error *) x));
 }
-static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue", "Exiv2::CommentValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__DataValue = {"_p_Exiv2__DataValue", "Exiv2::DataValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__DateValue = {"_p_Exiv2__DateValue", "Exiv2::DateValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__LangAltValue = {"_p_Exiv2__LangAltValue", "Exiv2::LangAltValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__LogMsg = {"_p_Exiv2__LogMsg", "Exiv2::LogMsg *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__LogMsg_clientdata, 0};
-static swig_type_info _swigt__p_Exiv2__StringValue = {"_p_Exiv2__StringValue", "Exiv2::StringValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__TimeValue = {"_p_Exiv2__TimeValue", "Exiv2::TimeValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ValueTypeT_Exiv2__Rational_t = {"_p_Exiv2__ValueTypeT_Exiv2__Rational_t", "Exiv2::ValueType< Exiv2::Rational > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ValueTypeT_Exiv2__URational_t = {"_p_Exiv2__ValueTypeT_Exiv2__URational_t", "Exiv2::ValueType< Exiv2::URational > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ValueTypeT_double_t = {"_p_Exiv2__ValueTypeT_double_t", "Exiv2::ValueType< double > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ValueTypeT_float_t = {"_p_Exiv2__ValueTypeT_float_t", "Exiv2::ValueType< float > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ValueTypeT_int16_t_t = {"_p_Exiv2__ValueTypeT_int16_t_t", "Exiv2::ValueType< int16_t > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ValueTypeT_int32_t_t = {"_p_Exiv2__ValueTypeT_int32_t_t", "Exiv2::ValueType< int32_t > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ValueTypeT_uint16_t_t = {"_p_Exiv2__ValueTypeT_uint16_t_t", "Exiv2::ValueType< uint16_t > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__ValueTypeT_uint32_t_t = {"_p_Exiv2__ValueTypeT_uint32_t_t", "Exiv2::ValueType< uint32_t > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__XmpArrayValue = {"_p_Exiv2__XmpArrayValue", "Exiv2::XmpArrayValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__exception = {"_p_std__exception", "std::exception *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Error = {"_p_Exiv2__Error", 0, 0, 0, 0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_Exiv2__AsciiValue,
-  &_swigt__p_Exiv2__CommentValue,
-  &_swigt__p_Exiv2__DataValue,
-  &_swigt__p_Exiv2__DateValue,
   &_swigt__p_Exiv2__Error,
-  &_swigt__p_Exiv2__LangAltValue,
   &_swigt__p_Exiv2__LogMsg,
-  &_swigt__p_Exiv2__StringValue,
-  &_swigt__p_Exiv2__TimeValue,
-  &_swigt__p_Exiv2__ValueTypeT_Exiv2__Rational_t,
-  &_swigt__p_Exiv2__ValueTypeT_Exiv2__URational_t,
-  &_swigt__p_Exiv2__ValueTypeT_double_t,
-  &_swigt__p_Exiv2__ValueTypeT_float_t,
-  &_swigt__p_Exiv2__ValueTypeT_int16_t_t,
-  &_swigt__p_Exiv2__ValueTypeT_int32_t_t,
-  &_swigt__p_Exiv2__ValueTypeT_uint16_t_t,
-  &_swigt__p_Exiv2__ValueTypeT_uint32_t_t,
-  &_swigt__p_Exiv2__XmpArrayValue,
-  &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_SwigPyObject,
   &_swigt__p_char,
   &_swigt__p_std__exception,
 };
 
-static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__CommentValue[] = {  {&_swigt__p_Exiv2__CommentValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__DataValue[] = {  {&_swigt__p_Exiv2__DataValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__DateValue[] = {  {&_swigt__p_Exiv2__DateValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__LangAltValue[] = {  {&_swigt__p_Exiv2__LangAltValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LogMsg[] = {  {&_swigt__p_Exiv2__LogMsg, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__StringValue[] = {  {&_swigt__p_Exiv2__StringValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__TimeValue[] = {  {&_swigt__p_Exiv2__TimeValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ValueTypeT_Exiv2__Rational_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_Exiv2__Rational_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ValueTypeT_Exiv2__URational_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_Exiv2__URational_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ValueTypeT_double_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_double_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ValueTypeT_float_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_float_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ValueTypeT_int16_t_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_int16_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ValueTypeT_int32_t_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_int32_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ValueTypeT_uint16_t_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_uint16_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__ValueTypeT_uint32_t_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_uint32_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__XmpArrayValue[] = {  {&_swigt__p_Exiv2__XmpArrayValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Error[] = {{&_swigt__p_Exiv2__Error, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__exception[] = {  {&_swigt__p_std__exception, 0, 0, 0},  {&_swigt__p_Exiv2__Error, _p_Exiv2__ErrorTo_p_std__exception, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_Exiv2__AsciiValue,
-  _swigc__p_Exiv2__CommentValue,
-  _swigc__p_Exiv2__DataValue,
-  _swigc__p_Exiv2__DateValue,
   _swigc__p_Exiv2__Error,
-  _swigc__p_Exiv2__LangAltValue,
   _swigc__p_Exiv2__LogMsg,
-  _swigc__p_Exiv2__StringValue,
-  _swigc__p_Exiv2__TimeValue,
-  _swigc__p_Exiv2__ValueTypeT_Exiv2__Rational_t,
-  _swigc__p_Exiv2__ValueTypeT_Exiv2__URational_t,
-  _swigc__p_Exiv2__ValueTypeT_double_t,
-  _swigc__p_Exiv2__ValueTypeT_float_t,
-  _swigc__p_Exiv2__ValueTypeT_int16_t_t,
-  _swigc__p_Exiv2__ValueTypeT_int32_t_t,
-  _swigc__p_Exiv2__ValueTypeT_uint16_t_t,
-  _swigc__p_Exiv2__ValueTypeT_uint32_t_t,
-  _swigc__p_Exiv2__XmpArrayValue,
-  _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_SwigPyObject,
   _swigc__p_char,
   _swigc__p_std__exception,
@@ -5096,10 +5032,6 @@ SWIG_init(void) {
   }
   
   
-  /* type 'Exiv2::LogMsg' */
-  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
-  builtin_pytype->tp_dict = d = PyDict_New();
-  
   {
     PyObject* module = PyImport_ImportModule("enum");
     if (!module)
@@ -5110,6 +5042,12 @@ SWIG_init(void) {
     return NULL;
   }
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ErrorCode",_create_enum_Exiv2_ErrorCode(
+      "ErrorCode", "Complete list of all Exiv2 error codes.", _get_enum_list(0, "kerSuccess",Exiv2::ErrorCode::kerSuccess,"kerGeneralError",Exiv2::ErrorCode::kerGeneralError,"kerErrorMessage",Exiv2::ErrorCode::kerErrorMessage,"kerCallFailed",Exiv2::ErrorCode::kerCallFailed,"kerNotAnImage",Exiv2::ErrorCode::kerNotAnImage,"kerInvalidDataset",Exiv2::ErrorCode::kerInvalidDataset,"kerInvalidRecord",Exiv2::ErrorCode::kerInvalidRecord,"kerInvalidKey",Exiv2::ErrorCode::kerInvalidKey,"kerInvalidTag",Exiv2::ErrorCode::kerInvalidTag,"kerValueNotSet",Exiv2::ErrorCode::kerValueNotSet,"kerDataSourceOpenFailed",Exiv2::ErrorCode::kerDataSourceOpenFailed,"kerFileOpenFailed",Exiv2::ErrorCode::kerFileOpenFailed,"kerFileContainsUnknownImageType",Exiv2::ErrorCode::kerFileContainsUnknownImageType,"kerMemoryContainsUnknownImageType",Exiv2::ErrorCode::kerMemoryContainsUnknownImageType,"kerUnsupportedImageType",Exiv2::ErrorCode::kerUnsupportedImageType,"kerFailedToReadImageData",Exiv2::ErrorCode::kerFailedToReadImageData,"kerNotAJpeg",Exiv2::ErrorCode::kerNotAJpeg,"kerFailedToMapFileForReadWrite",Exiv2::ErrorCode::kerFailedToMapFileForReadWrite,"kerFileRenameFailed",Exiv2::ErrorCode::kerFileRenameFailed,"kerTransferFailed",Exiv2::ErrorCode::kerTransferFailed,"kerMemoryTransferFailed",Exiv2::ErrorCode::kerMemoryTransferFailed,"kerInputDataReadFailed",Exiv2::ErrorCode::kerInputDataReadFailed,"kerImageWriteFailed",Exiv2::ErrorCode::kerImageWriteFailed,"kerNoImageInInputData",Exiv2::ErrorCode::kerNoImageInInputData,"kerInvalidIfdId",Exiv2::ErrorCode::kerInvalidIfdId,"kerValueTooLarge",Exiv2::ErrorCode::kerValueTooLarge,"kerDataAreaValueTooLarge",Exiv2::ErrorCode::kerDataAreaValueTooLarge,"kerOffsetOutOfRange",Exiv2::ErrorCode::kerOffsetOutOfRange,"kerUnsupportedDataAreaOffsetType",Exiv2::ErrorCode::kerUnsupportedDataAreaOffsetType,"kerInvalidCharset",Exiv2::ErrorCode::kerInvalidCharset,"kerUnsupportedDateFormat",Exiv2::ErrorCode::kerUnsupportedDateFormat,"kerUnsupportedTimeFormat",Exiv2::ErrorCode::kerUnsupportedTimeFormat,"kerWritingImageFormatUnsupported",Exiv2::ErrorCode::kerWritingImageFormatUnsupported,"kerInvalidSettingForImage",Exiv2::ErrorCode::kerInvalidSettingForImage,"kerNotACrwImage",Exiv2::ErrorCode::kerNotACrwImage,"kerFunctionNotSupported",Exiv2::ErrorCode::kerFunctionNotSupported,"kerNoNamespaceInfoForXmpPrefix",Exiv2::ErrorCode::kerNoNamespaceInfoForXmpPrefix,"kerNoPrefixForNamespace",Exiv2::ErrorCode::kerNoPrefixForNamespace,"kerTooLargeJpegSegment",Exiv2::ErrorCode::kerTooLargeJpegSegment,"kerUnhandledXmpdatum",Exiv2::ErrorCode::kerUnhandledXmpdatum,"kerUnhandledXmpNode",Exiv2::ErrorCode::kerUnhandledXmpNode,"kerXMPToolkitError",Exiv2::ErrorCode::kerXMPToolkitError,"kerDecodeLangAltPropertyFailed",Exiv2::ErrorCode::kerDecodeLangAltPropertyFailed,"kerDecodeLangAltQualifierFailed",Exiv2::ErrorCode::kerDecodeLangAltQualifierFailed,"kerEncodeLangAltPropertyFailed",Exiv2::ErrorCode::kerEncodeLangAltPropertyFailed,"kerPropertyNameIdentificationFailed",Exiv2::ErrorCode::kerPropertyNameIdentificationFailed,"kerSchemaNamespaceNotRegistered",Exiv2::ErrorCode::kerSchemaNamespaceNotRegistered,"kerNoNamespaceForPrefix",Exiv2::ErrorCode::kerNoNamespaceForPrefix,"kerAliasesNotSupported",Exiv2::ErrorCode::kerAliasesNotSupported,"kerInvalidXmpText",Exiv2::ErrorCode::kerInvalidXmpText,"kerTooManyTiffDirectoryEntries",Exiv2::ErrorCode::kerTooManyTiffDirectoryEntries,"kerMultipleTiffArrayElementTagsInDirectory",Exiv2::ErrorCode::kerMultipleTiffArrayElementTagsInDirectory,"kerWrongTiffArrayElementTagType",Exiv2::ErrorCode::kerWrongTiffArrayElementTagType,"kerInvalidKeyXmpValue",Exiv2::ErrorCode::kerInvalidKeyXmpValue,"kerInvalidIccProfile",Exiv2::ErrorCode::kerInvalidIccProfile,"kerInvalidXMP",Exiv2::ErrorCode::kerInvalidXMP,"kerTiffDirectoryTooLarge",Exiv2::ErrorCode::kerTiffDirectoryTooLarge,"kerInvalidTypeValue",Exiv2::ErrorCode::kerInvalidTypeValue,"kerInvalidLangAltValue",Exiv2::ErrorCode::kerInvalidLangAltValue,"kerInvalidMalloc",Exiv2::ErrorCode::kerInvalidMalloc,"kerCorruptedMetadata",Exiv2::ErrorCode::kerCorruptedMetadata,"kerArithmeticOverflow",Exiv2::ErrorCode::kerArithmeticOverflow,"kerMallocFailed",Exiv2::ErrorCode::kerMallocFailed,"kerInvalidIconvEncoding",Exiv2::ErrorCode::kerInvalidIconvEncoding,"kerErrorCount",Exiv2::ErrorCode::kerErrorCount, NULL)));
+  
+  /* type 'Exiv2::LogMsg' */
+  builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
+  builtin_pytype->tp_dict = d = PyDict_New();
   
   {
     exiv2_module = PyImport_ImportModule("exiv2");

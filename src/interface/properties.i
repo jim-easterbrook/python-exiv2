@@ -23,8 +23,9 @@
 %include "shared/static_list.i"
 %include "shared/unique_ptr.i"
 
-%import "datasets.i"
 %import "metadatum.i"
+
+IMPORT_ENUM(TypeId)
 
 // Catch all C++ exceptions...
 EXCEPTION()
@@ -43,10 +44,10 @@ EXCEPTION()
 %noexception Exiv2::XmpProperties::propertyTitle;
 %noexception Exiv2::XmpProperties::propertyType;
 
-UNIQUE_PTR(Exiv2::XmpKey);
+EXTEND_KEY(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
-ENUM(XmpCategory, "Category of an XMP property.",
+DEFINE_ENUM(XmpCategory, "Category of an XMP property.",
         "xmpInternal", Exiv2::xmpInternal,
         "xmpExternal", Exiv2::xmpExternal,
         "Internal", Exiv2::xmpInternal,

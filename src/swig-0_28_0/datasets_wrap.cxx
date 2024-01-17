@@ -4136,6 +4136,38 @@ static PyObject* PyExc_Exiv2Error = NULL;
 static PyObject* exiv2_module = NULL;
 
 
+static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
+
+
+static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
+    if (!PyEnum_Exiv2_ErrorCode)
+        PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
+            exiv2_module, "ErrorCode");
+    return PyEnum_Exiv2_ErrorCode;
+};
+
+
+static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject_Exiv2_ErrorCode(), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
+};
+
+
+static PyObject* py_from_enum(Exiv2::ErrorCode value) {
+    return py_from_enum_Exiv2_ErrorCode(static_cast<long>(value));
+};
+
+
 static void _set_python_exception() {
     try {
         throw;
@@ -4143,10 +4175,18 @@ static void _set_python_exception() {
 
 
 
-    catch(Exiv2::Error const& e) {
 
-        PyErr_SetString(PyExc_Exiv2Error, e.what());
+
+
+
+
+    catch(Exiv2::Error const& e) {
+        PyObject* args = Py_BuildValue(
+            "Ns", py_from_enum(e.code()), e.what());
+        PyErr_SetObject(PyExc_Exiv2Error, args);
+        Py_DECREF(args);
     }
+
     /*@SWIG:/usr/local/share/swig/4.2.0/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
   catch (std::invalid_argument& e) {
     SWIG_exception_fail(SWIG_ValueError, e.what() );
@@ -4529,7 +4569,7 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 static PyObject* PyEnum_Exiv2_TypeId = NULL;
 
 
-static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
+static PyObject* get_enum_typeobject_Exiv2_TypeId() {
     if (!PyEnum_Exiv2_TypeId)
         PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
             exiv2_module, "TypeId");
@@ -4537,12 +4577,12 @@ static PyObject* get_enum_typeobject(Exiv2::TypeId value) {
 };
 
 
-static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_TypeId(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject(value), py_int, NULL);
+        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -4550,7 +4590,12 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    return py_from_enum_Exiv2_TypeId(static_cast<long>(value));
+};
 
 
 static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
@@ -4809,7 +4854,7 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetType(PyObject *self, PyObject *ar
   arg2 = static_cast< uint16_t >(val2);
   result = (Exiv2::TypeId)Exiv2::IptcDataSets::dataSetType(arg1,arg2);
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_TypeId(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -5255,6 +5300,8 @@ fail:
 }
 
 
+SWIGPY_REPRFUNC_CLOSURE(_wrap_IptcKey_key) /* defines _wrap_IptcKey_key_reprfunc_closure */
+
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcKey) /* defines _wrap_delete_IptcKey_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
@@ -5680,7 +5727,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__IptcKey_type = {
     &SwigPyBuiltin__Exiv2__IptcKey_type.as_mapping,               /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_IptcKey_key_reprfunc_closure,       /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__IptcKey_type.as_buffer,                /* tp_as_buffer */
@@ -6162,7 +6209,7 @@ static swig_const_info swig_const_table[] = {
 #ifdef __cplusplus
 }
 #endif
-static PyTypeObject *builtin_bases[3];
+static PyTypeObject *builtin_bases[2];
 
 /* -----------------------------------------------------------------------------
  * Type initialization:
@@ -6737,17 +6784,6 @@ SWIG_init(void) {
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
-  builtin_basetype = SWIG_MangledTypeQuery("_p_Exiv2__Key");
-  if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
-    builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
-  } else {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcKey' as base 'Exiv2::Key' has not been initialized.\n");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
   builtin_bases[builtin_base_count] = NULL;
   SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
   PyDict_SetItemString(d, "this", this_descr);

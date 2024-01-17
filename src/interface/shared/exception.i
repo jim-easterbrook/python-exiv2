@@ -15,9 +15,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%include "shared/fragments.i"
+%include "shared/enum.i"
 
 %include "exception.i"
+
+IMPORT_ENUM(ErrorCode)
 
 // Import PyExc_Exiv2Error exception
 %fragment("_import_exception_decl", "header") {
@@ -33,18 +35,27 @@ static PyObject* PyExc_Exiv2Error = NULL;
 }
 
 // Function that re-raises an exception to handle different types
-%fragment("_set_python_exception", "header", fragment="_import_exception") {
+%fragment("_set_python_exception", "header", fragment="_import_exception",
+          fragment="py_from_enum"{Exiv2::ErrorCode}) {
 static void _set_python_exception() {
     try {
         throw;
     }
 #if EXIV2_VERSION_HEX < 0x001c0000
     catch(Exiv2::AnyError const& e) {
+        PyObject* args = Py_BuildValue(
+            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), e.what());
+        PyErr_SetObject(PyExc_Exiv2Error, args);
+        Py_DECREF(args);
+    }
 #else
     catch(Exiv2::Error const& e) {
-#endif
-        PyErr_SetString(PyExc_Exiv2Error, e.what());
+        PyObject* args = Py_BuildValue(
+            "Ns", py_from_enum(e.code()), e.what());
+        PyErr_SetObject(PyExc_Exiv2Error, args);
+        Py_DECREF(args);
     }
+#endif
     SWIG_CATCH_STDEXCEPT
 fail:
     return;

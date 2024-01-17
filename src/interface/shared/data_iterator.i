@@ -124,7 +124,8 @@ public:
 %typemap(out) iterator_type {
     name##_base* tmp = new name##_base($1, arg1->end());
     $result = SWIG_NewPointerObj((void*)tmp,
-        tmp->valid() ? $descriptor(name*) : $descriptor(name##_base*), 0);
+        tmp->valid() ? $descriptor(name*) : $descriptor(name##_base*),
+        SWIG_POINTER_OWN);
 };
 // Keep a reference to the data being iterated
 KEEP_REFERENCE(iterator_type)

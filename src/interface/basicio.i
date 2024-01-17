@@ -18,7 +18,7 @@
 %module(package="exiv2", threads="1") basicio
 %nothread;
 
-#pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
+#pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
@@ -76,16 +76,49 @@ WINDOWS_PATH(const std::string& orgPath)
 WINDOWS_PATH(const std::string& url)
 WINDOWS_PATH_OUT(path)
 
+// Convert BasicIo return values to actual subclass
+%fragment("basicio_subtype", "header") {
+static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
+    if (dynamic_cast<Exiv2::MemIo*>(ptr))
+        return $descriptor(Exiv2::MemIo*);
+    else if (dynamic_cast<Exiv2::FileIo*>(ptr)) {
+        if (dynamic_cast<Exiv2::XPathIo*>(ptr))
+            return $descriptor(Exiv2::XPathIo*);
+        else
+            return $descriptor(Exiv2::FileIo*);
+    }
+    else if (dynamic_cast<Exiv2::RemoteIo*>(ptr)) {
+        if (dynamic_cast<Exiv2::HttpIo*>(ptr))
+            return $descriptor(Exiv2::HttpIo*);
+        else
+            return $descriptor(Exiv2::RemoteIo*);
+    }
+    return $descriptor(Exiv2::BasicIo*);
+};
+}
+%typemap(out, fragment="basicio_subtype") Exiv2::BasicIo& {
+    $result = SWIG_NewPointerObj($1, basicio_subtype($1), 0);
+}
+%typemap(out, fragment="basicio_subtype") Exiv2::BasicIo::SMART_PTR {
+    Exiv2::BasicIo* ptr = (&$1)->release();
+    $result = SWIG_NewPointerObj(
+        ptr, basicio_subtype(ptr), SWIG_POINTER_OWN);
+}
+
+// readOrThrow & seekOrThrow use ErrorCode internally without Exiv2:: prefix
+// as if SWIG doesn't realise ErrorCode is in the Exiv2 namespace
+%{
+typedef Exiv2::ErrorCode ErrorCode;
+%}
+
+// readOrThrow has an optional ErrorCode parameter, seekOrThrow isn't
+// optional but this typemap makes it so
+%typemap(default) ErrorCode err
+    {$1 = Exiv2::ErrorCode::kerCorruptedMetadata;}
+%ignore Exiv2::BasicIo::readOrThrow(byte *, size_t);
+
 // BasicIo return values keep a reference to the Image they refer to
 KEEP_REFERENCE(Exiv2::BasicIo&)
-
-// Enable len(io)
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::BasicIo::size;
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::FileIo::size;
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::RemoteIo::size;
 
 // Allow BasicIo::write to take any Python buffer
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
@@ -116,8 +149,8 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 }
 
 // Expose BasicIo contents as a Python buffer
-%fragment("get_buffer"{Exiv2::BasicIo}, "header") {
-static int %mangle(Exiv2::BasicIo)_getbuff(
+%fragment("Exiv2_BasicIo_getbuffer", "header") {
+static int Exiv2_BasicIo_getbuffer(
         PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::BasicIo* self = 0;
     Exiv2::byte* ptr = 0;
@@ -145,7 +178,7 @@ fail:
     view->obj = NULL;
     return -1;
 };
-static void %mangle(Exiv2::BasicIo)_releasebuff(
+static void Exiv2_BasicIo_releasebuffer(
         PyObject* exporter, Py_buffer* view) {
     Exiv2::BasicIo* self = 0;
     if (!SWIG_IsOK(SWIG_ConvertPtr(
@@ -158,14 +191,24 @@ static void %mangle(Exiv2::BasicIo)_releasebuff(
     SWIG_PYTHON_THREAD_END_ALLOW;
 };
 }
-%fragment("get_buffer"{Exiv2::BasicIo});
+
+%define EXTEND_BASICIO(io_type)
+// Enable len(io_type)
+%feature("python:slot", "sq_length", functype="lenfunc") io_type::size;
+// Expose io_type contents as a Python buffer
+%fragment("Exiv2_BasicIo_getbuffer");
 %feature("python:bf_getbuffer", functype="getbufferproc")
-    Exiv2::BasicIo "Exiv2_BasicIo_getbuff";
+    io_type "Exiv2_BasicIo_getbuffer";
 %feature("python:bf_releasebuffer", functype="releasebufferproc")
-    Exiv2::BasicIo "Exiv2_BasicIo_releasebuff";
+    io_type "Exiv2_BasicIo_releasebuffer";
+%enddef // EXTEND_BASICIO
+
+EXTEND_BASICIO(Exiv2::FileIo)
+EXTEND_BASICIO(Exiv2::MemIo)
+EXTEND_BASICIO(Exiv2::RemoteIo)
 
 // Make enum more Pythonic
-CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
+DEFINE_CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
     "beg", Exiv2::BasicIo::beg,
     "cur", Exiv2::BasicIo::cur,
     "end", Exiv2::BasicIo::end);
@@ -176,10 +219,9 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
         "cur", Exiv2::BasicIo::cur,
         "end", Exiv2::BasicIo::end);
 
+%ignore Exiv2::BasicIo::~BasicIo;
 %ignore Exiv2::BasicIo::bigBlock_;
 %ignore Exiv2::BasicIo::populateFakeData;
-%ignore Exiv2::BasicIo::readOrThrow;
-%ignore Exiv2::BasicIo::seekOrThrow;
 %ignore Exiv2::IoCloser;
 %ignore Exiv2::ReplaceStringInPlace;
 %ignore Exiv2::readFile;

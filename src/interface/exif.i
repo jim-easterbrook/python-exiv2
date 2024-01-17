@@ -17,10 +17,13 @@
 
 %module(package="exiv2") exif
 
+#pragma SWIG nowarn=508 // Declaration of '__str__' shadows declaration accessible via operator->()
+
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
+%include "shared/enum.i"
 %include "shared/exception.i"
 %include "shared/keep_reference.i"
 %include "shared/windows_path.i"
@@ -28,8 +31,10 @@
 %include "stdint.i"
 %include "std_string.i"
 
-%import "metadatum.i"
 %import "tags.i"
+
+IMPORT_ENUM(ByteOrder)
+IMPORT_ENUM(TypeId)
 
 // Catch all C++ exceptions
 EXCEPTION()

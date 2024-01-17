@@ -39,8 +39,10 @@ class TestErrorModule(unittest.TestCase):
         with self.assertLogs(level=logging.WARNING):
             comment = exiv2.CommentValue('charset=invalid Fred')
         # get exiv2 to raise an exception
-        with self.assertRaises(exiv2.Exiv2Error):
+        with self.assertRaises(exiv2.Exiv2Error) as cm:
             image = exiv2.ImageFactory.open('non-existing.jpg')
+        self.assertEqual(cm.exception.code,
+                         exiv2.ErrorCode.kerDataSourceOpenFailed)
 
 
 if __name__ == '__main__':

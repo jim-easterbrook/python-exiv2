@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -34,6 +34,10 @@ class TestImageModule(unittest.TestCase):
         with open(cls.image_path, 'rb') as f:
             cls.image_data = f.read()
 
+    def check_result(self, result, expected_type, expected_value):
+        self.assertIsInstance(result, expected_type)
+        self.assertEqual(result, expected_value)
+
     def test_Image(self):
         if exiv2.testVersion(0, 27, 4):
             self.assertIsInstance(exiv2.enableBMFF(True), bool)
@@ -42,13 +46,13 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(len(image.io()), 15125)
         # test clearMetadata
         image.readMetadata()
-        self.assertEqual(image.comment(), 'Created with GIMP')
+        self.check_result(image.comment(), str, 'Created with GIMP')
         self.assertEqual(len(image.exifData()), 29)
         self.assertEqual(len(image.iptcData()), 19)
         self.assertEqual(len(image.xmpData()), 26)
         self.assertEqual(len(image.iccProfile()), 672)
         image.clearMetadata()
-        self.assertEqual(image.comment(), '')
+        self.check_result(image.comment(), str, '')
         self.assertEqual(len(image.exifData()), 0)
         self.assertEqual(len(image.iptcData()), 0)
         self.assertEqual(len(image.xmpData()), 0)
@@ -59,7 +63,7 @@ class TestImageModule(unittest.TestCase):
         image2 = exiv2.ImageFactory.open(self.image_data)
         image2.readMetadata()
         image.setComment(image2.comment())
-        self.assertEqual(image.comment(), 'Created with GIMP')
+        self.check_result(image.comment(), str, 'Created with GIMP')
         image.setExifData(image2.exifData())
         self.assertEqual(len(image.exifData()), 29)
         image.setIptcData(image2.iptcData())
@@ -76,9 +80,9 @@ class TestImageModule(unittest.TestCase):
         # test clearing individual parts
         image = exiv2.ImageFactory.open(self.image_data)
         image.readMetadata()
-        self.assertEqual(image.comment(), 'Created with GIMP')
+        self.check_result(image.comment(), str, 'Created with GIMP')
         image.clearComment()
-        self.assertEqual(image.comment(), '')
+        self.check_result(image.comment(), str, '')
         self.assertEqual(len(image.exifData()), 29)
         image.clearExifData()
         self.assertEqual(len(image.exifData()), 0)
@@ -87,7 +91,7 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(len(image.iptcData()), 0)
         self.assertEqual(len(image.xmpPacket()), 4234)
         image.clearXmpPacket()
-        self.assertEqual(image.xmpPacket(), '')
+        self.check_result(image.xmpPacket(), str, '')
         self.assertEqual(len(image.xmpData()), 26)
         image.clearXmpData()
         self.assertEqual(len(image.xmpData()), 0)
@@ -96,38 +100,49 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(len(image.iccProfile()), 0)
         # test other methods
         image.readMetadata()
-        self.assertEqual(image.byteOrder(), exiv2.ByteOrder.littleEndian)
-        self.assertEqual(image.checkMode(exiv2.MetadataId.Exif),
-                         exiv2.AccessMode.ReadWrite)
-        self.assertEqual(image.good(), True)
-        self.assertEqual(image.iccProfileDefined(), True)
-        self.assertEqual(image.imageType(), exiv2.ImageType.jpeg)
-        self.assertIsInstance(image.io(), exiv2.BasicIo)
-        self.assertEqual(image.mimeType(), 'image/jpeg')
-        self.assertEqual(image.pixelHeight(), 200)
-        self.assertEqual(image.pixelWidth(), 200)
+        self.check_result(image.byteOrder(),
+                          exiv2.ByteOrder, exiv2.ByteOrder.littleEndian)
+        self.check_result(image.checkMode(exiv2.MetadataId.Exif),
+                          exiv2.AccessMode, exiv2.AccessMode.ReadWrite)
+        self.check_result(image.good(), bool, True)
+        self.check_result(image.iccProfileDefined(), bool, True)
+        self.check_result(image.imageType(),
+                          exiv2.ImageType, exiv2.ImageType.jpeg)
+        self.assertIsInstance(image.io(), exiv2.MemIo)
+        self.check_result(image.mimeType(), str, 'image/jpeg')
+        self.check_result(image.pixelHeight(), int, 200)
+        self.check_result(image.pixelWidth(), int, 200)
         image.setByteOrder(exiv2.ByteOrder.littleEndian)
         image.setComment('fred')
-        self.assertEqual(image.comment(), 'fred')
+        self.check_result(image.comment(), str, 'fred')
 
     def test_ImageFactory(self):
         factory = exiv2.ImageFactory
-        self.assertEqual(
+        with self.assertWarns(DeprecationWarning):
+            factory.checkMode(int(exiv2.ImageType.jpeg), exiv2.MetadataId.Exif)
+        self.check_result(
             factory.checkMode(exiv2.ImageType.jpeg, exiv2.MetadataId.Exif),
-            exiv2.AccessMode.ReadWrite)
+            exiv2.AccessMode, exiv2.AccessMode.ReadWrite)
         io = exiv2.MemIo(self.image_data)
-        self.assertEqual(
-            factory.checkType(exiv2.ImageType.jpeg, io, False), True)
+        with self.assertWarns(DeprecationWarning):
+            factory.checkType(int(exiv2.ImageType.jpeg), io, False)
+        self.check_result(
+            factory.checkType(exiv2.ImageType.jpeg, io, False), bool, True)
+        with self.assertWarns(DeprecationWarning):
+            factory.create(int(exiv2.ImageType.jpeg))
         self.assertIsInstance(
             factory.create(exiv2.ImageType.jpeg), exiv2.Image)
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'image.jpg')
             self.assertIsInstance(
                 factory.create(exiv2.ImageType.jpeg, temp_file), exiv2.Image)
-        self.assertIsInstance(factory.createIo(self.image_path), exiv2.BasicIo)
-        self.assertEqual(factory.getType(self.image_path), exiv2.ImageType.jpeg)
-        self.assertEqual(factory.getType(self.image_data), exiv2.ImageType.jpeg)
-        self.assertEqual(factory.getType(io), exiv2.ImageType.jpeg)
+        self.assertIsInstance(factory.createIo(self.image_path), exiv2.FileIo)
+        self.check_result(factory.getType(self.image_path),
+                          exiv2.ImageType, exiv2.ImageType.jpeg)
+        self.check_result(factory.getType(self.image_data),
+                          exiv2.ImageType, exiv2.ImageType.jpeg)
+        self.check_result(factory.getType(io),
+                          exiv2.ImageType, exiv2.ImageType.jpeg)
         self.assertIsInstance(factory.open(self.image_path), exiv2.Image)
         self.assertIsInstance(factory.open(self.image_data), exiv2.Image)
 

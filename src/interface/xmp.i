@@ -17,16 +17,21 @@
 
 %module(package="exiv2") xmp
 
+#pragma SWIG nowarn=508 // Declaration of '__str__' shadows declaration accessible via operator->()
+
 %include "shared/preamble.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
+%include "shared/enum.i"
 %include "shared/exception.i"
 
 %include "stdint.i"
 %include "std_string.i"
 
-%import "metadatum.i"
 %import "properties.i"
+
+IMPORT_ENUM(ByteOrder)
+IMPORT_ENUM(TypeId)
 
 // Catch all C++ exceptions
 EXCEPTION()
@@ -47,6 +52,21 @@ static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
         return type_id;
     return Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
 };
+}
+
+// XmpData::eraseFamily takes an iterator reference (and invalidates it)
+%typemap(in) Exiv2::XmpData::iterator& (Exiv2::XmpData::iterator it) {
+    XmpData_iterator_base* argp = NULL;
+    int res = SWIG_ConvertPtr(
+        $input, (void**)&argp, $descriptor(XmpData_iterator_base*), 0);
+    if (!SWIG_IsOK(res)) {
+        %argument_fail(res, XmpData_iterator_base, $symname, $argnum);
+    }
+    if (!argp) {
+        %argument_nullref(XmpData_iterator_base, $symname, $argnum);
+    }
+    it = **argp;
+    $1 = &it;
 }
 
 DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
