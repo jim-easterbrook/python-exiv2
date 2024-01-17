@@ -97,5 +97,6 @@ RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
 %immutable Exiv2::PreviewProperties::id_;
 
 %ignore Exiv2::PreviewImage::operator=;
+%ignore Exiv2::PreviewProperties::PreviewProperties;
 
 %include "exiv2/preview.hpp"

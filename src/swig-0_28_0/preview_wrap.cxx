@@ -5802,28 +5802,6 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_PreviewProperties(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::PreviewProperties *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_PreviewProperties")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_PreviewProperties", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::PreviewProperties *)new Exiv2::PreviewProperties();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__PreviewProperties, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_PreviewProperties(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
@@ -6413,7 +6391,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__PreviewProperties_type = {
     (descrgetfunc) 0,                         /* tp_descr_get */
     (descrsetfunc) 0,                         /* tp_descr_set */
     offsetof(SwigPyObject, dict),             /* tp_dictoffset */
-    _wrap_new_PreviewProperties,              /* tp_init */
+    SwigPyBuiltin_BadInit,                    /* tp_init */
     (allocfunc) 0,                            /* tp_alloc */
     (newfunc) 0,                              /* tp_new */
     (freefunc) 0,                             /* tp_free */
