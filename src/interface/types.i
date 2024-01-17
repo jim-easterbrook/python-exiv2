@@ -202,26 +202,15 @@ INPUT_BUFFER_RO(const Exiv2::byte *pData, size_t size)
 #endif
 
 // Expose Exiv2::DataBuf contents as a Python buffer
-%fragment("get_buffer"{Exiv2::DataBuf}, "header") {
-static int %mangle(Exiv2::DataBuf)_getbuff(
-        PyObject* exporter, Py_buffer* view, int flags) {
-    Exiv2::DataBuf* self = 0;
-    bool writeable = flags && PyBUF_WRITABLE;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, $descriptor(Exiv2::DataBuf*), 0)))
-        goto fail;
-    return PyBuffer_FillInfo(
-        view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
-        writeable ? 0 : 1, flags);
-fail:
-    PyErr_SetNone(PyExc_BufferError);
-    view->obj = NULL;
-    return -1;
+%fragment("get_ptr_size"{Exiv2::DataBuf}, "header") {
+static bool get_ptr_size(Exiv2::DataBuf* self, bool is_writeable,
+                         Exiv2::byte** ptr, Py_ssize_t* size) {
+    *ptr = self->DATABUF_DATA;
+    *size = self->DATABUF_SIZE;
+    return true;
 };
 }
-%fragment("get_buffer"{Exiv2::DataBuf});
-%feature("python:bf_getbuffer", functype="getbufferproc")
-    Exiv2::DataBuf "Exiv2_DataBuf_getbuff";
+EXPOSE_OBJECT_BUFFER(Exiv2::DataBuf, true, false)
 
 // Convert pData_ and data() result to a memoryview
 RETURN_VIEW(Exiv2::byte* pData_, arg1->DATABUF_SIZE, PyBUF_WRITE,

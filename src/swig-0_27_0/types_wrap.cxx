@@ -4431,16 +4431,27 @@ static PyObject* _create_enum_Exiv2_TypeId(
 };
 
 
-static int Exiv2_DataBuf_getbuff(
+static bool get_ptr_size(Exiv2::DataBuf* self, bool is_writeable,
+                         Exiv2::byte** ptr, Py_ssize_t* size) {
+    *ptr = self->DATABUF_DATA;
+    *size = self->DATABUF_SIZE;
+    return true;
+};
+
+
+static int getbuffer_Exiv2_DataBuf(
         PyObject* exporter, Py_buffer* view, int flags) {
     Exiv2::DataBuf* self = 0;
-    bool writeable = flags && PyBUF_WRITABLE;
+    Exiv2::byte* ptr = 0;
+    Py_ssize_t size = 0;
+    bool is_writeable = true && (flags && PyBUF_WRITABLE);
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0)))
         goto fail;
-    return PyBuffer_FillInfo(
-        view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
-        writeable ? 0 : 1, flags);
+    if (!get_ptr_size(self, is_writeable, &ptr, &size))
+        goto fail;
+    return PyBuffer_FillInfo(view, exporter, ptr,
+        ptr ? size : 0, is_writeable ? 0 : 1, flags);
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
@@ -7094,7 +7105,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataBuf_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    Exiv2_DataBuf_getbuff,                    /* bf_getbuffer */
+    getbuffer_Exiv2_DataBuf,                  /* bf_getbuffer */
     (releasebufferproc) 0,                    /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */

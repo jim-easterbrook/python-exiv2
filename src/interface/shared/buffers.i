@@ -89,3 +89,58 @@ INPUT_BUFFER_RO(buf_type, len_type)
 
 WARNING: do not resize or delete the object while using the view."
 %enddef // RETURN_VIEW
+
+
+// Macros to expose object data with a buffer interface
+%define _BF_GETBUFFER(object_type, writeable, get_func)
+%fragment("getbuffer"{object_type}, "header",
+          fragment="get_ptr_size"{object_type}) {
+static int getbuffer_%mangle(object_type)(
+        PyObject* exporter, Py_buffer* view, int flags) {
+    object_type* self = 0;
+    Exiv2::byte* ptr = 0;
+    Py_ssize_t size = 0;
+    bool is_writeable = writeable && (flags && PyBUF_WRITABLE);
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, $descriptor(object_type*), 0)))
+        goto fail;
+    if (!get_ptr_size(self, is_writeable, &ptr, &size))
+        goto fail;
+    return PyBuffer_FillInfo(view, exporter, ptr,
+        ptr ? size : 0, is_writeable ? 0 : 1, flags);
+fail:
+    PyErr_SetNone(PyExc_BufferError);
+    view->obj = NULL;
+    return -1;
+};
+}
+%fragment("getbuffer"{object_type});
+%feature("python:bf_getbuffer", functype="getbufferproc")
+    object_type "get_func";
+%enddef // _BF_GETBUFFER
+
+%define _BF_RELEASEBUFFER(object_type, release_func)
+%fragment("releasebuffer"{object_type}, "header",
+          fragment="release_ptr"{object_type}) {
+static void releasebuffer_%mangle(object_type)(
+        PyObject* exporter, Py_buffer* view) {
+    object_type* self = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, $descriptor(object_type*), 0)))
+        return;
+    release_ptr(self);
+};
+}
+%fragment("releasebuffer"{object_type});
+%feature("python:bf_releasebuffer", functype="releasebufferproc")
+    object_type "release_func";
+%enddef // _BF_RELEASEBUFFER
+
+%define EXPOSE_OBJECT_BUFFER(object_type, writeable, with_release)
+// Add getbuffer slot to an object type
+_BF_GETBUFFER(object_type, writeable, getbuffer_%mangle(object_type))
+#if with_release
+// Add releasebuffer slot to an object type (not often needed)
+_BF_RELEASEBUFFER(object_type, releasebuffer_%mangle(object_type))
+#endif
+%enddef // EXPOSE_OBJECT_BUFFER
