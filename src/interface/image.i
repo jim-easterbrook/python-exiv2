@@ -183,6 +183,11 @@ DEFINE_ENUM(ImageType, "Supported image formats.",
         "xmp",  Exiv2::ImageType::xmp);
 %ignore Exiv2::ImageType::none;
 
+// Use ImageType enum in Exiv2 before v0.28.0
+#if EXIV2_VERSION_HEX < 0x001c0000
+%apply Exiv2::ImageType {int type};
+#endif  // EXIV2_VERSION_HEX
+
 // Ignore const versions of methods
 %ignore Exiv2::Image::exifData() const;
 %ignore Exiv2::Image::iptcData() const;

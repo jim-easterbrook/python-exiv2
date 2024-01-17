@@ -75,7 +75,7 @@ static PyObject* _create_enum_%mangle(pattern)(
         %argument_fail(
             SWIG_TypeError, "pattern", $symname, $argnum);
     }
-    $1 = (pattern)PyLong_AsLong($input);
+    $1 = static_cast< $1_type >(PyLong_AsLong($input));
 }
 
 %fragment("py_from_enum"{pattern}, "header",

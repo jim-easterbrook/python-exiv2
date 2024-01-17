@@ -5429,7 +5429,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeName(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TypeInfo_typeName" "', argument " "1"" of type '" "Exiv2::TypeId""'")
       ;
     }
-    arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+    arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
   }
   {
     try {
@@ -5508,7 +5508,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeSize(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TypeInfo_typeSize" "', argument " "1"" of type '" "Exiv2::TypeId""'")
       ;
     }
-    arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+    arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
   }
   {
     try {

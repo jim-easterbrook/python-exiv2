@@ -7470,7 +7470,7 @@ SWIGINTERN PyObject *_wrap_Value_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -7730,7 +7730,7 @@ SWIGINTERN PyObject *_wrap_Value_copy(PyObject *self, PyObject *args) {
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+      arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -8292,7 +8292,7 @@ SWIGINTERN PyObject *_wrap_Value_create(PyObject *self, PyObject *args) {
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_create" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -8374,7 +8374,7 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyO
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -8432,7 +8432,7 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+      arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
     }
   }
   if (swig_obj[2]) {
@@ -8447,7 +8447,7 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -8535,7 +8535,7 @@ SWIGINTERN PyObject *_wrap_DataValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -8712,7 +8712,7 @@ SWIGINTERN PyObject *_wrap_DataValue_copy(PyObject *self, PyObject *args) {
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+      arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -9288,7 +9288,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_1(PyObject *self, Py_ssize
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -9421,7 +9421,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_copy(PyObject *self, PyObject *args) 
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+      arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -10116,7 +10116,7 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read__SWIG_0(PyObject *self, Py_ssize_t no
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "AsciiValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -10527,7 +10527,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_read__SWIG_1(PyObject *self, Py_ssize_t 
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "CommentValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -10660,7 +10660,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_copy(PyObject *self, PyObject *args) {
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "CommentValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+      arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -10899,7 +10899,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_byteOrder__set(PyObject *self, PyObject 
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "CommentValue_byteOrder__set" "', argument " "2"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg2 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[0]);
+    arg2 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[0]));
   }
   if (arg1) (arg1)->byteOrder_ = arg2;
   resultobj = SWIG_Py_Void();
@@ -11123,7 +11123,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_copy(PyObject *self, PyObject *args) {
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+      arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -11185,7 +11185,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_setXmpArrayType(PyObject *self, PyObject *ar
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_setXmpArrayType" "', argument " "2"" of type '" "Exiv2::XmpValue::XmpArrayType""'")
       ;
     }
-    arg2 = (Exiv2::XmpValue::XmpArrayType)PyLong_AsLong(swig_obj[0]);
+    arg2 = static_cast< Exiv2::XmpValue::XmpArrayType >(PyLong_AsLong(swig_obj[0]));
   }
   (arg1)->setXmpArrayType(arg2);
   resultobj = SWIG_Py_Void();
@@ -11219,7 +11219,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_setXmpStruct__SWIG_0(PyObject *self, Py_ssiz
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_setXmpStruct" "', argument " "2"" of type '" "Exiv2::XmpValue::XmpStruct""'")
       ;
     }
-    arg2 = (Exiv2::XmpValue::XmpStruct)PyLong_AsLong(swig_obj[1]);
+    arg2 = static_cast< Exiv2::XmpValue::XmpStruct >(PyLong_AsLong(swig_obj[1]));
   }
   (arg1)->setXmpStruct(arg2);
   resultobj = SWIG_Py_Void();
@@ -11321,7 +11321,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_read__SWIG_0(PyObject *self, Py_ssize_t nobj
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -11525,7 +11525,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0(PyObject *self, Py_ssize_t 
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpTextValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -12190,7 +12190,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read__SWIG_0(PyObject *self, Py_ssize_t
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpArrayValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -12733,7 +12733,7 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_XmpArrayValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -12773,7 +12773,7 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_2(PyObject *self, Py_ssize_t nobjs,
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_XmpArrayValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -13038,7 +13038,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read__SWIG_0(PyObject *self, Py_ssize_t 
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LangAltValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -14084,7 +14084,7 @@ SWIGINTERN PyObject *_wrap_DateValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -14311,7 +14311,7 @@ SWIGINTERN PyObject *_wrap_DateValue_copy(PyObject *self, PyObject *args) {
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+      arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -15341,7 +15341,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -15572,7 +15572,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_copy(PyObject *self, PyObject *args) {
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
         ;
       }
-      arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+      arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -16613,7 +16613,7 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, P
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -16667,7 +16667,7 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   if (swig_obj[2]) {
     {
@@ -16681,7 +16681,7 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -16737,7 +16737,7 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, P
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -16855,7 +16855,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_read__SWIG_0(PyObject *self, Py_ssize_t n
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+    arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
   }
   {
     try {
@@ -17072,7 +17072,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -17833,7 +17833,7 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -17887,7 +17887,7 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   if (swig_obj[2]) {
     {
@@ -17901,7 +17901,7 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -17957,7 +17957,7 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -18075,7 +18075,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_read__SWIG_0(PyObject *self, Py_ssize_t no
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+    arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
   }
   {
     try {
@@ -18292,7 +18292,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -19053,7 +19053,7 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_0(PyObject *self, Py_ssize_t nobjs
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -19107,7 +19107,7 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   if (swig_obj[2]) {
     {
@@ -19121,7 +19121,7 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -19180,7 +19180,7 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_2(PyObject *self, Py_ssize_t nobjs
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -19300,7 +19300,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_read__SWIG_0(PyObject *self, Py_ssize_
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+    arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
   }
   {
     try {
@@ -19517,7 +19517,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -20272,7 +20272,7 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -20326,7 +20326,7 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   if (swig_obj[2]) {
     {
@@ -20340,7 +20340,7 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -20396,7 +20396,7 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -20514,7 +20514,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_read__SWIG_0(PyObject *self, Py_ssize_t no
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+    arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
   }
   {
     try {
@@ -20731,7 +20731,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -21492,7 +21492,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyO
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -21546,7 +21546,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   if (swig_obj[2]) {
     {
@@ -21560,7 +21560,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyO
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -21616,7 +21616,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyO
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -21734,7 +21734,7 @@ SWIGINTERN PyObject *_wrap_LongValue_read__SWIG_0(PyObject *self, Py_ssize_t nob
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+    arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
   }
   {
     try {
@@ -21951,7 +21951,7 @@ SWIGINTERN PyObject *_wrap_LongValue_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -22712,7 +22712,7 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_0(PyObject *self, Py_ssize_t nobjs,
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -22766,7 +22766,7 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   if (swig_obj[2]) {
     {
@@ -22780,7 +22780,7 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -22839,7 +22839,7 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_2(PyObject *self, Py_ssize_t nobjs,
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -22959,7 +22959,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_read__SWIG_0(PyObject *self, Py_ssize_t
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+    arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
   }
   {
     try {
@@ -23176,7 +23176,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -23931,7 +23931,7 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -23985,7 +23985,7 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   if (swig_obj[2]) {
     {
@@ -23999,7 +23999,7 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -24055,7 +24055,7 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, Py
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -24173,7 +24173,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_read__SWIG_0(PyObject *self, Py_ssize_t no
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+    arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
   }
   {
     try {
@@ -24390,7 +24390,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -25151,7 +25151,7 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_0(PyObject *self, Py_ssize_t nobjs, P
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "1"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg1 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[0]);
+      arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
     }
   }
   {
@@ -25205,7 +25205,7 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   if (swig_obj[2]) {
     {
@@ -25219,7 +25219,7 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "4"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg4 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[2]);
+      arg4 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[2]));
     }
   }
   {
@@ -25275,7 +25275,7 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, P
         SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
         ;
       }
-      arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+      arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
     }
   }
   {
@@ -25393,7 +25393,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_read__SWIG_0(PyObject *self, Py_ssize_t n
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_read" "', argument " "4"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg4 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[2]);
+    arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[2]));
   }
   {
     try {
@@ -25610,7 +25610,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self

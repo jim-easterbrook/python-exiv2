@@ -4216,7 +4216,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_setLevel(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LogMsg_setLevel" "', argument " "1"" of type '" "Exiv2::LogMsg::Level""'")
       ;
     }
-    arg1 = (Exiv2::LogMsg::Level)PyLong_AsLong(swig_obj[0]);
+    arg1 = static_cast< Exiv2::LogMsg::Level >(PyLong_AsLong(swig_obj[0]));
   }
   Exiv2::LogMsg::setLevel(arg1);
   resultobj = SWIG_Py_Void();

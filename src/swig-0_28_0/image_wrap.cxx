@@ -5788,7 +5788,7 @@ SWIGINTERN PyObject *_wrap_Image_setByteOrder(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_setByteOrder" "', argument " "2"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg2 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[0]);
+    arg2 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[0]));
   }
   {
     try {
@@ -6047,7 +6047,7 @@ SWIGINTERN PyObject *_wrap_Image_checkMode(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_checkMode" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
       ;
     }
-    arg2 = (Exiv2::MetadataId)PyLong_AsLong(swig_obj[0]);
+    arg2 = static_cast< Exiv2::MetadataId >(PyLong_AsLong(swig_obj[0]));
   }
   {
     try {
@@ -6096,7 +6096,7 @@ SWIGINTERN PyObject *_wrap_Image_supportsMetadata(PyObject *self, PyObject *args
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_supportsMetadata" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
       ;
     }
-    arg2 = (Exiv2::MetadataId)PyLong_AsLong(swig_obj[0]);
+    arg2 = static_cast< Exiv2::MetadataId >(PyLong_AsLong(swig_obj[0]));
   }
   {
     try {
@@ -6200,7 +6200,7 @@ SWIGINTERN PyObject *_wrap_Image_setTypeSupported(PyObject *self, PyObject *args
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Image_setTypeSupported" "', argument " "2"" of type '" "Exiv2::ImageType""'")
       ;
     }
-    arg2 = (Exiv2::ImageType)PyLong_AsLong(swig_obj[0]);
+    arg2 = static_cast< Exiv2::ImageType >(PyLong_AsLong(swig_obj[0]));
   }
   ecode3 = SWIG_AsVal_unsigned_SS_short(swig_obj[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
@@ -6484,7 +6484,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_create" "', argument " "1"" of type '" "Exiv2::ImageType""'")
       ;
     }
-    arg1 = (Exiv2::ImageType)PyLong_AsLong(swig_obj[0]);
+    arg1 = static_cast< Exiv2::ImageType >(PyLong_AsLong(swig_obj[0]));
   }
   {
     std::string *ptr = (std::string *)0;
@@ -6543,7 +6543,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_1(PyObject *self, Py_ssize_
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_create" "', argument " "1"" of type '" "Exiv2::ImageType""'")
       ;
     }
-    arg1 = (Exiv2::ImageType)PyLong_AsLong(swig_obj[0]);
+    arg1 = static_cast< Exiv2::ImageType >(PyLong_AsLong(swig_obj[0]));
   }
   {
     try {
@@ -6793,7 +6793,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkMode(PyObject *self, PyObject *args
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_checkMode" "', argument " "1"" of type '" "Exiv2::ImageType""'")
       ;
     }
-    arg1 = (Exiv2::ImageType)PyLong_AsLong(swig_obj[0]);
+    arg1 = static_cast< Exiv2::ImageType >(PyLong_AsLong(swig_obj[0]));
   }
   {
     if (!PyObject_IsInstance(swig_obj[1],
@@ -6806,7 +6806,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkMode(PyObject *self, PyObject *args
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_checkMode" "', argument " "2"" of type '" "Exiv2::MetadataId""'")
       ;
     }
-    arg2 = (Exiv2::MetadataId)PyLong_AsLong(swig_obj[1]);
+    arg2 = static_cast< Exiv2::MetadataId >(PyLong_AsLong(swig_obj[1]));
   }
   {
     try {
@@ -6852,7 +6852,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkType(PyObject *self, PyObject *args
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_checkType" "', argument " "1"" of type '" "Exiv2::ImageType""'")
       ;
     }
-    arg1 = (Exiv2::ImageType)PyLong_AsLong(swig_obj[0]);
+    arg1 = static_cast< Exiv2::ImageType >(PyLong_AsLong(swig_obj[0]));
   }
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
   if (!SWIG_IsOK(res2)) {

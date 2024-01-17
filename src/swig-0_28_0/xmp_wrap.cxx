@@ -5908,7 +5908,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_copy(PyObject *self, PyObject *args)
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpData_iterator_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -6722,7 +6722,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_1(PyObject *self, Py_
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpData_iterator_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
       ;
     }
-    arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+    arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
   }
   {
     try {
@@ -6839,7 +6839,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, Py_ssi
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpData_iterator_value" "', argument " "2"" of type '" "Exiv2::TypeId""'")
       ;
     }
-    arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+    arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
   }
   {
     try {
@@ -7377,7 +7377,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_copy(PyObject *self, PyObject *args) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Xmpdatum_copy" "', argument " "3"" of type '" "Exiv2::ByteOrder""'")
       ;
     }
-    arg3 = (Exiv2::ByteOrder)PyLong_AsLong(swig_obj[1]);
+    arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[1]));
   }
   {
     // check buffer is large enough, assumes arg1 points to self
@@ -8256,7 +8256,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_getValue__SWIG_1(PyObject *self, Py_ssize_t 
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Xmpdatum_getValue" "', argument " "2"" of type '" "Exiv2::TypeId""'")
       ;
     }
-    arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+    arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
   }
   {
     try {
@@ -8337,7 +8337,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nob
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Xmpdatum_value" "', argument " "2"" of type '" "Exiv2::TypeId""'")
       ;
     }
-    arg2 = (Exiv2::TypeId)PyLong_AsLong(swig_obj[1]);
+    arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[1]));
   }
   {
     try {
