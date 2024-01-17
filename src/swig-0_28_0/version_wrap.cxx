@@ -4112,8 +4112,8 @@ static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::ErrorCode value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4125,7 +4125,12 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::ErrorCode value) {
+    return py_from_enum_Exiv2_ErrorCode(static_cast<long>(value));
+};
 
 
 static void _set_python_exception() {

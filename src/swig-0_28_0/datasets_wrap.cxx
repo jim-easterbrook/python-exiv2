@@ -4147,8 +4147,8 @@ static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::ErrorCode value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4160,7 +4160,12 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::ErrorCode value) {
+    return py_from_enum_Exiv2_ErrorCode(static_cast<long>(value));
+};
 
 
 static void _set_python_exception() {
@@ -4572,8 +4577,8 @@ static PyObject* get_enum_typeobject_Exiv2_TypeId() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_TypeId(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4585,7 +4590,12 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    return py_from_enum_Exiv2_TypeId(static_cast<long>(value));
+};
 
 
 static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
@@ -4844,7 +4854,7 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetType(PyObject *self, PyObject *ar
   arg2 = static_cast< uint16_t >(val2);
   result = (Exiv2::TypeId)Exiv2::IptcDataSets::dataSetType(arg1,arg2);
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_TypeId(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }

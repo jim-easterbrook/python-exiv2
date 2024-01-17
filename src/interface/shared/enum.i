@@ -78,10 +78,10 @@ static PyObject* _create_enum_%mangle(pattern)(
     $1 = static_cast< $1_type >(PyLong_AsLong($input));
 }
 
-%fragment("py_from_enum"{pattern}, "header",
+%fragment("py_from_enum_ex"{pattern}, "header",
           fragment="get_enum_typeobject"{pattern}) {
-static PyObject* py_from_enum(pattern value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_%mangle(pattern)(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -93,10 +93,16 @@ static PyObject* py_from_enum(pattern value) {
         }
     Py_DECREF(py_int);
     return result;
+};
 }
+%fragment("py_from_enum"{pattern}, "header",
+          fragment="py_from_enum_ex"{pattern}) {
+static PyObject* py_from_enum(pattern value) {
+    return py_from_enum_%mangle(pattern)(static_cast<long>(value));
+};
 }
-%typemap(out, fragment="py_from_enum"{pattern}) pattern {
-    $result = py_from_enum($1);
+%typemap(out, fragment="py_from_enum_ex"{pattern}) pattern {
+    $result = py_from_enum_%mangle(pattern)(static_cast<long>($1));
     if (!$result)
         SWIG_fail;
 }

@@ -4148,8 +4148,8 @@ static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::ErrorCode value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4161,7 +4161,12 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::ErrorCode value) {
+    return py_from_enum_Exiv2_ErrorCode(static_cast<long>(value));
+};
 
 
 static void _set_python_exception() {
@@ -4292,8 +4297,8 @@ static PyObject* get_enum_typeobject_Exiv2_IfdId() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::IfdId value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_IfdId(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4305,7 +4310,12 @@ static PyObject* py_from_enum(Exiv2::IfdId value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::IfdId value) {
+    return py_from_enum_Exiv2_IfdId(static_cast<long>(value));
+};
 
 
 static PyObject* get_enum_typeobject_Exiv2_SectionId() {
@@ -4316,8 +4326,8 @@ static PyObject* get_enum_typeobject_Exiv2_SectionId() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::SectionId value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_SectionId(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4329,7 +4339,12 @@ static PyObject* py_from_enum(Exiv2::SectionId value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::SectionId value) {
+    return py_from_enum_Exiv2_SectionId(static_cast<long>(value));
+};
 
 
 static PyObject* PyEnum_Exiv2_TypeId = NULL;
@@ -4343,8 +4358,8 @@ static PyObject* get_enum_typeobject_Exiv2_TypeId() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::TypeId value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_TypeId(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4356,7 +4371,12 @@ static PyObject* py_from_enum(Exiv2::TypeId value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::TypeId value) {
+    return py_from_enum_Exiv2_TypeId(static_cast<long>(value));
+};
 
 
 static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
@@ -5547,7 +5567,7 @@ SWIGINTERN PyObject *_wrap_ExifKey_defaultTypeId(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< Exiv2::ExifKey * >(argp1);
   result = (Exiv2::TypeId)((Exiv2::ExifKey const *)arg1)->defaultTypeId();
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_TypeId(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }

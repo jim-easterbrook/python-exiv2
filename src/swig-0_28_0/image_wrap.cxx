@@ -4172,8 +4172,8 @@ static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::ErrorCode value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4185,7 +4185,12 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
+
+
+static PyObject* py_from_enum(Exiv2::ErrorCode value) {
+    return py_from_enum_Exiv2_ErrorCode(static_cast<long>(value));
+};
 
 
 static void _set_python_exception() {
@@ -4607,8 +4612,8 @@ static PyObject* get_enum_typeobject_Exiv2_ByteOrder() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::ByteOrder value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_ByteOrder(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4620,7 +4625,7 @@ static PyObject* py_from_enum(Exiv2::ByteOrder value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
 
 
 SWIGINTERNINLINE PyObject*
@@ -4671,8 +4676,8 @@ static PyObject* get_enum_typeobject_Exiv2_AccessMode() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::AccessMode value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_AccessMode(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4684,7 +4689,7 @@ static PyObject* py_from_enum(Exiv2::AccessMode value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
 
 
 static PyObject* get_enum_typeobject_Exiv2_ImageType() {
@@ -4773,8 +4778,8 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 }
 
 
-static PyObject* py_from_enum(Exiv2::ImageType value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_ImageType(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4786,7 +4791,7 @@ static PyObject* py_from_enum(Exiv2::ImageType value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
 
 
 #ifdef _WIN32
@@ -5829,7 +5834,7 @@ SWIGINTERN PyObject *_wrap_Image_byteOrder(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_ByteOrder(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -6059,7 +6064,7 @@ SWIGINTERN PyObject *_wrap_Image_checkMode(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_AccessMode(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -6246,7 +6251,7 @@ SWIGINTERN PyObject *_wrap_Image_imageType(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_ImageType(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -6629,7 +6634,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_0(PyObject *self, Py_ssize
     }
   }
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_ImageType(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -6670,7 +6675,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
     }
   }
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_ImageType(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -6716,7 +6721,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_2(PyObject *self, Py_ssize
     }
   }
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_ImageType(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -6818,7 +6823,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkMode(PyObject *self, PyObject *args
     }
   }
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_AccessMode(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }

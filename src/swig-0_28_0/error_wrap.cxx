@@ -4180,8 +4180,8 @@ static PyObject* get_enum_typeobject_Exiv2_LogMsg_Level() {
 };
 
 
-static PyObject* py_from_enum(Exiv2::LogMsg::Level value) {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>(value));
+static PyObject* py_from_enum_Exiv2_LogMsg_Level(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
@@ -4193,7 +4193,7 @@ static PyObject* py_from_enum(Exiv2::LogMsg::Level value) {
         }
     Py_DECREF(py_int);
     return result;
-}
+};
 
 #ifdef __cplusplus
 extern "C" {
@@ -4233,7 +4233,7 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
   if (!SWIG_Python_UnpackTuple(args, "LogMsg_level", 0, 0, 0)) SWIG_fail;
   result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
   {
-    resultobj = py_from_enum(result);
+    resultobj = py_from_enum_Exiv2_LogMsg_Level(static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }

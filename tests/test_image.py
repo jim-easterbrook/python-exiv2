@@ -118,12 +118,18 @@ class TestImageModule(unittest.TestCase):
 
     def test_ImageFactory(self):
         factory = exiv2.ImageFactory
+        with self.assertWarns(DeprecationWarning):
+            factory.checkMode(int(exiv2.ImageType.jpeg), exiv2.MetadataId.Exif)
         self.check_result(
             factory.checkMode(exiv2.ImageType.jpeg, exiv2.MetadataId.Exif),
             exiv2.AccessMode, exiv2.AccessMode.ReadWrite)
         io = exiv2.MemIo(self.image_data)
+        with self.assertWarns(DeprecationWarning):
+            factory.checkType(int(exiv2.ImageType.jpeg), io, False)
         self.check_result(
             factory.checkType(exiv2.ImageType.jpeg, io, False), bool, True)
+        with self.assertWarns(DeprecationWarning):
+            factory.create(int(exiv2.ImageType.jpeg))
         self.assertIsInstance(
             factory.create(exiv2.ImageType.jpeg), exiv2.Image)
         with tempfile.TemporaryDirectory() as tmp_dir:

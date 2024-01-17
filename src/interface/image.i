@@ -60,25 +60,6 @@ INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
     }
 %}
 
-#if EXIV2_VERSION_HEX < 0x001c0000
-// Convert ImageType results from int
-%typemap(out, fragment="get_enum_typeobject"{Exiv2::ImageType})
-        int getType, int imageType {
-    PyObject* py_int = PyLong_FromLong(static_cast<long>($1));
-    if (!py_int)
-        SWIG_fail;
-    $result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_%mangle(Exiv2::ImageType)(), py_int, NULL);
-    if ($result)
-        Py_DECREF(py_int);
-    else {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        $result = py_int;
-        }
-}
-#endif // EXIV2_VERSION_HEX
-
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
 
@@ -183,9 +164,11 @@ DEFINE_ENUM(ImageType, "Supported image formats.",
         "xmp",  Exiv2::ImageType::xmp);
 %ignore Exiv2::ImageType::none;
 
-// Use ImageType enum in Exiv2 before v0.28.0
 #if EXIV2_VERSION_HEX < 0x001c0000
+// Convert ImageType results and parameters from int
 %apply Exiv2::ImageType {int type};
+%apply Exiv2::ImageType {int getType};
+%apply Exiv2::ImageType {int imageType};
 #endif  // EXIV2_VERSION_HEX
 
 // Ignore const versions of methods
