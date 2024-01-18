@@ -5452,6 +5452,7 @@ SWIGINTERN PyObject *_wrap_Image_iccProfile(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -5555,6 +5556,7 @@ SWIGINTERN PyObject *_wrap_Image_exifData(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -5589,6 +5591,7 @@ SWIGINTERN PyObject *_wrap_Image_iptcData(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -5623,6 +5626,7 @@ SWIGINTERN PyObject *_wrap_Image_xmpData(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -5946,6 +5950,7 @@ SWIGINTERN PyObject *_wrap_Image_io(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(result, basicio_subtype(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }

@@ -5479,6 +5479,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_base___iter__(PyObject *self, PyObje
       result->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base, 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -6809,6 +6810,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_0(PyObject *self, Py_ssi
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -6859,6 +6861,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, Py_ssi
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -8197,6 +8200,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_0(PyObject *self, Py_ssize_t nob
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -8357,6 +8361,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nob
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -8663,6 +8668,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -8787,6 +8793,7 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -8818,6 +8825,7 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -8870,6 +8878,7 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -9126,6 +9135,7 @@ SWIGINTERN PyObject *_wrap_XmpData___getitem__(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
