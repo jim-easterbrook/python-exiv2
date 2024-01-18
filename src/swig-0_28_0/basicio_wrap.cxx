@@ -5750,10 +5750,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -6662,10 +6661,9 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -7531,10 +7529,9 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap(PyObject *self, PyObject *args) {
     arg2 = static_cast< bool >(val2);
   }
   result = (Exiv2::byte *)(arg1)->mmap(arg2);
-  {
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -8461,10 +8458,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;

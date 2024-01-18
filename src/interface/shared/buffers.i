@@ -84,10 +84,12 @@ INPUT_BUFFER_RO(buf_type, len_type)
 %typemap(out) (signature) %{
     $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
 %}
+#if #doc_method != ""
 %feature("docstring") doc_method
 "Returns a temporary Python memoryview of the object's data.
 
 WARNING: do not resize or delete the object while using the view."
+#endif
 %enddef // RETURN_VIEW
 
 
