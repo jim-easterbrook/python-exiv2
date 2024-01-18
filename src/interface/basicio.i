@@ -141,11 +141,8 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 #endif
 // Convert mmap() result to a Python memoryview, assumes arg2 = isWriteable
 %typemap(out) Exiv2::byte* mmap {
-    size_t len = arg1->size();
-    if (!$1)
-        len = 0;
     $result = PyMemoryView_FromMemory(
-        (char*)$1, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
+        (char*)$1, $1 ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
 }
 
 %define EXTEND_BASICIO(io_type)
