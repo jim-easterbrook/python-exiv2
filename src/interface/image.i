@@ -18,7 +18,7 @@
 %module(package="exiv2", threads="1") image
 %nothread;
 
-#pragma SWIG nowarn=321     // 'open' conflicts with a built-in name in python
+#pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
@@ -88,18 +88,12 @@ static bool enableBMFF(bool enable) {
 }
 %}
 
-// In v0.28.0 Image::setIccProfile takes ownership of its DataBuf input
+// In v0.28.x Image::setIccProfile takes ownership of its DataBuf input
 // so we make a copy for it to own.
 #if EXIV2_VERSION_HEX >= 0x001c0000
-%typemap(in) Exiv2::DataBuf&& (int res = 0, Exiv2::DataBuf* argp = NULL) {
-    res = SWIG_ConvertPtr($input, (void**)&argp, $1_descriptor, 0);
-    if (!SWIG_IsOK(res)) {
-        %argument_fail(res, $1_basetype, $symname, $argnum);
-    }
-    if (!argp) {
-        %argument_nullref($1_basetype, $symname, $argnum);
-    }
-    $1 = new Exiv2::DataBuf(argp->c_data(), argp->size());
+%typemap(in) Exiv2::DataBuf&& {
+    $typemap(in, Exiv2::DataBuf*)
+    $1 = new Exiv2::DataBuf($1->c_data(), $1->size());
 }
 #endif
 

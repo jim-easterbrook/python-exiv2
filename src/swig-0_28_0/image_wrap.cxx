@@ -5392,8 +5392,8 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile(PyObject *self, PyObject *args) {
   bool arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 = 0 ;
-  Exiv2::DataBuf *argp2 = NULL ;
+  void *argp10 = 0 ;
+  int res10 = 0 ;
   bool val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
@@ -5408,14 +5408,12 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(swig_obj[0], (void**)&argp2, SWIGTYPE_p_Exiv2__DataBuf, 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
+    res10 = SWIG_ConvertPtr(swig_obj[0], &argp10,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+    if (!SWIG_IsOK(res10)) {
+      SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "Image_setIccProfile" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
     }
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Image_setIccProfile" "', argument " "2"" of type '" "Exiv2::DataBuf""'");
-    }
-    arg2 = new Exiv2::DataBuf(argp2->c_data(), argp2->size());
+    arg2 = reinterpret_cast< Exiv2::DataBuf * >(argp10);
+    arg2 = new Exiv2::DataBuf(arg2->c_data(), arg2->size());
   }
   if (swig_obj[1]) {
     ecode3 = SWIG_AsVal_bool(swig_obj[1], &val3);
