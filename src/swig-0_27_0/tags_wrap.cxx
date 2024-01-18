@@ -4218,12 +4218,6 @@ public:
     const Exiv2::TagInfo* __call__() {
         return (*func)();
     }
-    bool operator==(const _TagListFct &other) const {
-        return other.func == func;
-    }
-    bool operator!=(const _TagListFct &other) const {
-        return other.func != func;
-    }
 };
 
 
@@ -4288,13 +4282,6 @@ static PyObject* pointer_to_list(const Exiv2::TagInfo* ptr) {
     }
     return list;
 };
-
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
-{
-  return PyBool_FromLong(value ? 1 : 0);
-}
 
 
     static PyObject* new_TagListFct(Exiv2::TagListFct func) {
@@ -4508,6 +4495,13 @@ SWIGINTERNINLINE PyObject *
 SWIG_From_unsigned_SS_short  (unsigned short value)
 {    
   return SWIG_From_unsigned_SS_long  (value);
+}
+
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_bool  (bool value)
+{
+  return PyBool_FromLong(value ? 1 : 0);
 }
 
 
@@ -4773,84 +4767,6 @@ SWIGINTERN PyObject *_wrap__TagListFct___call__(PyObject *self, PyObject *args) 
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap__TagListFct___eq__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  _TagListFct *arg1 = (_TagListFct *) 0 ;
-  _TagListFct *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_TagListFct___eq__" "', argument " "1"" of type '" "_TagListFct const *""'"); 
-  }
-  arg1 = reinterpret_cast< _TagListFct * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p__TagListFct,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_TagListFct___eq__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "_TagListFct___eq__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
-  }
-  arg2 = reinterpret_cast< _TagListFct * >(argp2);
-  result = (bool)((_TagListFct const *)arg1)->operator ==((_TagListFct const &)*arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_TypeError)) {
-    return NULL;
-  }
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap__TagListFct___ne__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  _TagListFct *arg1 = (_TagListFct *) 0 ;
-  _TagListFct *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  bool result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p__TagListFct, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_TagListFct___ne__" "', argument " "1"" of type '" "_TagListFct const *""'"); 
-  }
-  arg1 = reinterpret_cast< _TagListFct * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[0], &argp2, SWIGTYPE_p__TagListFct,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_TagListFct___ne__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "_TagListFct___ne__" "', argument " "2"" of type '" "_TagListFct const &""'"); 
-  }
-  arg2 = reinterpret_cast< _TagListFct * >(argp2);
-  result = (bool)((_TagListFct const *)arg1)->operator !=((_TagListFct const &)*arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_TypeError)) {
-    return NULL;
-  }
-  PyErr_Clear();
-  Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
 }
 
 
@@ -5512,11 +5428,6 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin___TagListFct_getset[] = {
 SWIGINTERN PyObject *
 SwigPyBuiltin___TagListFct_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
-  switch (op) {
-    case Py_EQ : result = _wrap__TagListFct___eq__(self, other); break;
-    case Py_NE : result = _wrap__TagListFct___ne__(self, other); break;
-    default : break;
-  }
   if (!result && !PyErr_Occurred()) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -5530,8 +5441,6 @@ SwigPyBuiltin___TagListFct_richcompare(PyObject *self, PyObject *other, int op) 
 
 SWIGINTERN PyMethodDef SwigPyBuiltin___TagListFct_methods[] = {
   { "__call__", _wrap__TagListFct___call__, METH_NOARGS, "" },
-  { "__eq__", _wrap__TagListFct___eq__, METH_O, "" },
-  { "__ne__", _wrap__TagListFct___ne__, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

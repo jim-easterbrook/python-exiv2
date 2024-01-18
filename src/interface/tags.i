@@ -155,8 +155,6 @@ LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
     _TagListFct::__call__;
 %noexception _TagListFct::~_TagListFct;
 %noexception _TagListFct::__call__;
-%noexception _TagListFct::operator==;
-%noexception _TagListFct::operator!=;
 %inline %{
 class _TagListFct {
 private:
@@ -165,12 +163,6 @@ public:
     _TagListFct(Exiv2::TagListFct func) : func(func) {}
     const Exiv2::TagInfo* __call__() {
         return (*func)();
-    }
-    bool operator==(const _TagListFct &other) const {
-        return other.func == func;
-    }
-    bool operator!=(const _TagListFct &other) const {
-        return other.func != func;
     }
 };
 %}
