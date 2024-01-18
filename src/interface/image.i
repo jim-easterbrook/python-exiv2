@@ -97,7 +97,7 @@ static bool enableBMFF(bool enable) {
 }
 #endif
 
-// exifData(), iptcData(), xmpData(), and iccProfile return values need to
+// exifData(), iptcData(), xmpData(), and iccProfile() return values need to
 // keep a reference to Image.
 KEEP_REFERENCE(Exiv2::ExifData&)
 KEEP_REFERENCE(Exiv2::IptcData&)
@@ -171,14 +171,12 @@ DEFINE_ENUM(ImageType, "Supported image formats.",
 %ignore Exiv2::Image::xmpData() const;
 %ignore Exiv2::Image::xmpPacket() const;
 
+// Python uses BasicIo's buffer interface so these methods aren't needed
+%ignore Exiv2::ImageFactory::create(int, BasicIo::SMART_PTR);
+%ignore Exiv2::ImageFactory::create(ImageType, BasicIo::SMART_PTR);
+%ignore Exiv2::ImageFactory::open(BasicIo::SMART_PTR);
+
 // Ignore stuff Python can't use
-#if EXIV2_VERSION_HEX < 0x001c0000
-%ignore Exiv2::ImageFactory::create(int, BasicIo::AutoPtr);
-%ignore Exiv2::ImageFactory::open(BasicIo::AutoPtr);
-#else
-%ignore Exiv2::ImageFactory::create(ImageType, BasicIo::UniquePtr);
-%ignore Exiv2::ImageFactory::open(BasicIo::UniquePtr);
-#endif  // EXIV2_VERSION_HEX
 %ignore Exiv2::Image::printStructure;
 %ignore Exiv2::Image::printTiffStructure;
 %ignore Exiv2::Image::printIFDStructure;
