@@ -4229,7 +4229,8 @@ protected:
     Exiv2::ExifData::iterator end;
     Exiv2::ExifData::iterator safe_ptr;
 public:
-    ExifData_iterator_base(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end) {
+    ExifData_iterator_base(Exiv2::ExifData::iterator ptr,
+                                   Exiv2::ExifData::iterator end) {
         this->ptr = ptr;
         this->end = end;
         safe_ptr = ptr;
@@ -4245,8 +4246,12 @@ public:
         return result;
     }
     Exiv2::ExifData::iterator operator*() const { return ptr; }
-    bool operator==(const ExifData_iterator_base &other) const { return *other == ptr; }
-    bool operator!=(const ExifData_iterator_base &other) const { return *other != ptr; }
+    bool operator==(const ExifData_iterator_base &other) const {
+        return *other == ptr;
+    }
+    bool operator!=(const ExifData_iterator_base &other) const {
+        return *other != ptr;
+    }
     std::string __str__() {
         if (valid())
             return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
@@ -5559,7 +5564,8 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_base___iter__(PyObject *self, PyObj
   result = (ExifData_iterator_base *)(arg1)->__iter__();
   {
     resultobj = SWIG_NewPointerObj((void*)result,
-      result->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base, 0);
+      result->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base, 0);
   }
   
   if (resultobj != Py_None)
@@ -9634,8 +9640,6 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 ;
-  ExifData_iterator_base *argp2 ;
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -9644,17 +9648,19 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_erase" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  res2 = SWIG_ConvertPtr(
-    swig_obj[1], (void**)&argp2, SWIGTYPE_p_ExifData_iterator_base, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+  {
+    ExifData_iterator_base *argp = NULL;
+    int res = SWIG_ConvertPtr(swig_obj[1], (void**)&argp,
+      SWIGTYPE_p_ExifData_iterator_base, 0);
+    if (!SWIG_IsOK(res)) {
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'")
+      ;
+    }
+    if (!argp) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+    }
+    arg2 = **argp;
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
-  }
-  arg2 = **argp2;
-  
   {
     try {
       result = (arg1)->erase(arg2);
@@ -9667,7 +9673,8 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
@@ -9689,10 +9696,6 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 ;
-  ExifData_iterator_base *argp2 ;
-  int res3 ;
-  ExifData_iterator_base *argp3 ;
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > result;
   
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
@@ -9701,28 +9704,32 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_erase" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  res2 = SWIG_ConvertPtr(
-    swig_obj[1], (void**)&argp2, SWIGTYPE_p_ExifData_iterator_base, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+  {
+    ExifData_iterator_base *argp = NULL;
+    int res = SWIG_ConvertPtr(swig_obj[1], (void**)&argp,
+      SWIGTYPE_p_ExifData_iterator_base, 0);
+    if (!SWIG_IsOK(res)) {
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'")
+      ;
+    }
+    if (!argp) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+    }
+    arg2 = **argp;
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+  {
+    ExifData_iterator_base *argp = NULL;
+    int res = SWIG_ConvertPtr(swig_obj[2], (void**)&argp,
+      SWIGTYPE_p_ExifData_iterator_base, 0);
+    if (!SWIG_IsOK(res)) {
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifData_iterator_base""'")
+      ;
+    }
+    if (!argp) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifData_iterator_base""'");
+    }
+    arg3 = **argp;
   }
-  arg2 = **argp2;
-  
-  
-  res3 = SWIG_ConvertPtr(
-    swig_obj[2], (void**)&argp3, SWIGTYPE_p_ExifData_iterator_base, 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifData_iterator_base""'");
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifData_iterator_base""'");
-  }
-  arg3 = **argp3;
-  
   {
     try {
       result = (arg1)->erase(arg2,arg3);
@@ -9735,7 +9742,8 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
@@ -9872,7 +9880,8 @@ SWIGINTERN PyObject *_wrap_ExifData_begin(PyObject *self, PyObject *args) {
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
@@ -9904,7 +9913,8 @@ SWIGINTERN PyObject *_wrap_ExifData_end(PyObject *self, PyObject *args) {
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
@@ -9957,7 +9967,8 @@ SWIGINTERN PyObject *_wrap_ExifData_findKey(PyObject *self, PyObject *args) {
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   

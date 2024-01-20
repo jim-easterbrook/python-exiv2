@@ -4231,7 +4231,8 @@ protected:
     Exiv2::XmpData::iterator end;
     Exiv2::XmpData::iterator safe_ptr;
 public:
-    XmpData_iterator_base(Exiv2::XmpData::iterator ptr, Exiv2::XmpData::iterator end) {
+    XmpData_iterator_base(Exiv2::XmpData::iterator ptr,
+                                   Exiv2::XmpData::iterator end) {
         this->ptr = ptr;
         this->end = end;
         safe_ptr = ptr;
@@ -4247,8 +4248,12 @@ public:
         return result;
     }
     Exiv2::XmpData::iterator operator*() const { return ptr; }
-    bool operator==(const XmpData_iterator_base &other) const { return *other == ptr; }
-    bool operator!=(const XmpData_iterator_base &other) const { return *other != ptr; }
+    bool operator==(const XmpData_iterator_base &other) const {
+        return *other == ptr;
+    }
+    bool operator!=(const XmpData_iterator_base &other) const {
+        return *other != ptr;
+    }
     std::string __str__() {
         if (valid())
             return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
@@ -5476,7 +5481,8 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_base___iter__(PyObject *self, PyObje
   result = (XmpData_iterator_base *)(arg1)->__iter__();
   {
     resultobj = SWIG_NewPointerObj((void*)result,
-      result->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base, 0);
+      result->valid() ? SWIGTYPE_p_XmpData_iterator :
+      SWIGTYPE_p_XmpData_iterator_base, 0);
   }
   
   if (resultobj != Py_None)
@@ -8629,8 +8635,6 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   SwigValueWrapper< std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 ;
-  XmpData_iterator_base *argp2 ;
   PyObject *swig_obj[2] ;
   SwigValueWrapper< std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator > result;
   
@@ -8641,17 +8645,19 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_erase" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
-  
-  res2 = SWIG_ConvertPtr(
-    swig_obj[0], (void**)&argp2, SWIGTYPE_p_XmpData_iterator_base, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpData_iterator_base""'");
+  {
+    XmpData_iterator_base *argp = NULL;
+    int res = SWIG_ConvertPtr(swig_obj[0], (void**)&argp,
+      SWIGTYPE_p_XmpData_iterator_base, 0);
+    if (!SWIG_IsOK(res)) {
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpData_iterator_base""'")
+      ;
+    }
+    if (!argp) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpData_iterator_base""'");
+    }
+    arg2 = **argp;
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpData_iterator_base""'");
-  }
-  arg2 = **argp2;
-  
   {
     try {
       result = (arg1)->erase(arg2);
@@ -8664,7 +8670,8 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   {
     XmpData_iterator_base* tmp = new XmpData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_XmpData_iterator :
+      SWIGTYPE_p_XmpData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
@@ -8697,10 +8704,11 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
   {
     XmpData_iterator_base* argp = NULL;
-    int res = SWIG_ConvertPtr(
-      swig_obj[0], (void**)&argp, SWIGTYPE_p_XmpData_iterator_base, 0);
+    int res = SWIG_ConvertPtr(swig_obj[0], (void**)&argp,
+      SWIGTYPE_p_XmpData_iterator_base, 0);
     if (!SWIG_IsOK(res)) {
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpData_eraseFamily" "', argument " "2"" of type '" "XmpData_iterator_base""'");
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpData_eraseFamily" "', argument " "2"" of type '" "XmpData_iterator_base""'")
+      ;
     }
     if (!argp) {
       SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "XmpData_eraseFamily" "', argument " "2"" of type '" "XmpData_iterator_base""'");
@@ -8789,7 +8797,8 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
   {
     XmpData_iterator_base* tmp = new XmpData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_XmpData_iterator :
+      SWIGTYPE_p_XmpData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
@@ -8821,7 +8830,8 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
   {
     XmpData_iterator_base* tmp = new XmpData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_XmpData_iterator :
+      SWIGTYPE_p_XmpData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
@@ -8874,7 +8884,8 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
   {
     XmpData_iterator_base* tmp = new XmpData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_XmpData_iterator : SWIGTYPE_p_XmpData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_XmpData_iterator :
+      SWIGTYPE_p_XmpData_iterator_base,
       SWIG_POINTER_OWN);
   }
   

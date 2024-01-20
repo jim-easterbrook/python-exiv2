@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,34 +20,34 @@
 
 
 // Macros to wrap data iterators
-%define DATA_ITERATOR_CLASSES(name, iterator_type, datum_type)
+%define DATA_ITERATOR_CLASSES(container_type, datum_type)
 %feature("python:slot", "tp_str", functype="reprfunc")
-    name##_base::__str__;
+    container_type##_iterator_base::__str__;
 %feature("python:slot", "tp_iter", functype="getiterfunc")
-    name##_base::__iter__;
+    container_type##_iterator_base::__iter__;
 %feature("python:slot", "tp_iternext", functype="iternextfunc")
-    name##_base::__next__;
-%noexception name##_base::__iter__;
-%noexception name##_base::operator==;
-%noexception name##_base::operator!=;
-%ignore name##_base::size;
-%ignore name##_base::name##_base;
-%ignore name##_base::operator*;
-%ignore name##_base::valid;
-%feature("docstring") name "
-Python wrapper for an " #iterator_type ". It has most of
-the methods of " #datum_type " allowing easy access to the
+    container_type##_iterator_base::__next__;
+%noexception container_type##_iterator_base::__iter__;
+%noexception container_type##_iterator_base::operator==;
+%noexception container_type##_iterator_base::operator!=;
+%ignore container_type##_iterator_base::size;
+%ignore container_type##_iterator_base::##container_type##_iterator_base;
+%ignore container_type##_iterator_base::operator*;
+%ignore container_type##_iterator_base::valid;
+%feature("docstring") container_type##_iterator "
+Python wrapper for an Exiv2::container_type::iterator. It has most of
+the methods of Exiv2::datum_type allowing easy access to the
 data it points to.
 "
-%feature("docstring") name##_base "
-Python wrapper for an " #iterator_type " that points to
+%feature("docstring") container_type##_iterator_base "
+Python wrapper for an Exiv2::container_type::iterator that points to
 the 'end' value and can not be dereferenced.
 "
 // Creating a new iterator keeps a reference to the current one
-KEEP_REFERENCE(name*)
-KEEP_REFERENCE(name##_base*)
+KEEP_REFERENCE(container_type##_iterator*)
+KEEP_REFERENCE(container_type##_iterator_base*)
 // Detect end of iteration
-%exception name##_base::__next__ %{
+%exception container_type##_iterator_base::__next__ %{
     $action
     if (!result) {
         PyErr_SetNone(PyExc_StopIteration);
@@ -56,30 +56,35 @@ KEEP_REFERENCE(name##_base*)
 %}
 %inline %{
 // Base class implements all methods except dereferencing
-class name##_base {
+class container_type##_iterator_base {
 protected:
-    iterator_type ptr;
-    iterator_type end;
-    iterator_type safe_ptr;
+    Exiv2::container_type::iterator ptr;
+    Exiv2::container_type::iterator end;
+    Exiv2::container_type::iterator safe_ptr;
 public:
-    name##_base(iterator_type ptr, iterator_type end) {
+    container_type##_iterator_base(Exiv2::container_type::iterator ptr,
+                                   Exiv2::container_type::iterator end) {
         this->ptr = ptr;
         this->end = end;
         safe_ptr = ptr;
     }
-    name##_base* __iter__() { return this; }
-    datum_type* __next__() {
+    container_type##_iterator_base* __iter__() { return this; }
+    Exiv2::datum_type* __next__() {
         if (!valid())
             return NULL;
-        datum_type* result = &(*safe_ptr);
+        Exiv2::datum_type* result = &(*safe_ptr);
         ptr++;
         if (valid())
             safe_ptr = ptr;
         return result;
     }
-    iterator_type operator*() const { return ptr; }
-    bool operator==(const name##_base &other) const { return *other == ptr; }
-    bool operator!=(const name##_base &other) const { return *other != ptr; }
+    Exiv2::container_type::iterator operator*() const { return ptr; }
+    bool operator==(const container_type##_iterator_base &other) const {
+        return *other == ptr;
+    }
+    bool operator!=(const container_type##_iterator_base &other) const {
+        return *other != ptr;
+    }
     std::string __str__() {
         if (valid())
             return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
@@ -95,38 +100,58 @@ public:
 };
 // Derived class can be dereferenced, giving Python access to all datum
 // methods.
-class name : public name##_base {
+class container_type##_iterator : public container_type##_iterator_base {
 public:
-    datum_type* operator->() const { return &(*safe_ptr); }
+    Exiv2::datum_type* operator->() const { return &(*safe_ptr); }
 };
 %}
 %enddef // DATA_ITERATOR_CLASSES
 
 // Declare typemaps for data iterators.
-%define DATA_ITERATOR_TYPEMAPS(name, iterator_type)
-%typemap(in) iterator_type (int res, name##_base *argp) %{
-    res = SWIG_ConvertPtr(
-        $input, (void**)&argp, $descriptor(name##_base*), 0);
+%define DATA_ITERATOR_TYPEMAPS(container_type)
+%typemap(in) Exiv2::container_type::iterator {
+    container_type##_iterator_base *argp = NULL;
+    int res = SWIG_ConvertPtr($input, (void**)&argp,
+            $descriptor(container_type##_iterator_base*), 0);
     if (!SWIG_IsOK(res)) {
-        %argument_fail(res, name##_base, $symname, $argnum);
+        %argument_fail(res,
+            container_type##_iterator_base, $symname, $argnum);
     }
     if (!argp) {
-        %argument_nullref(name##_base, $symname, $argnum);
+        %argument_nullref(container_type##_iterator_base, $symname, $argnum);
     }
     $1 = **argp;
-%};
+}
+// XmpData::eraseFamily takes an iterator reference (and invalidates it)
+%typemap(in) Exiv2::container_type::iterator&
+        (Exiv2::container_type::iterator it) {
+    container_type##_iterator_base* argp = NULL;
+    int res = SWIG_ConvertPtr($input, (void**)&argp,
+            $descriptor(container_type##_iterator_base*), 0);
+    if (!SWIG_IsOK(res)) {
+        %argument_fail(res,
+            container_type##_iterator_base, $symname, $argnum);
+    }
+    if (!argp) {
+        %argument_nullref(container_type##_iterator_base, $symname, $argnum);
+    }
+    it = **argp;
+    $1 = &it;
+}
 // Return types depend on validity of iterator
-%typemap(out) name##_base* {
+%typemap(out) container_type##_iterator_base* {
     $result = SWIG_NewPointerObj((void*)$1,
-        $1->valid() ? $descriptor(name*) : $descriptor(name##_base*), 0);
+        $1->valid() ? $descriptor(container_type##_iterator*) :
+                      $descriptor(container_type##_iterator_base*), 0);
 }
 // Assumes arg1 is the base class parent
-%typemap(out) iterator_type {
-    name##_base* tmp = new name##_base($1, arg1->end());
+%typemap(out) Exiv2::container_type::iterator {
+    container_type##_iterator_base* tmp = new container_type##_iterator_base($1, arg1->end());
     $result = SWIG_NewPointerObj((void*)tmp,
-        tmp->valid() ? $descriptor(name*) : $descriptor(name##_base*),
+        tmp->valid() ? $descriptor(container_type##_iterator*) :
+                       $descriptor(container_type##_iterator_base*),
         SWIG_POINTER_OWN);
-};
+}
 // Keep a reference to the data being iterated
-KEEP_REFERENCE(iterator_type)
+KEEP_REFERENCE(Exiv2::container_type::iterator)
 %enddef // DATA_ITERATOR_TYPEMAPS

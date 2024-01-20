@@ -50,10 +50,9 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t size)
 
 EXTEND_METADATUM(Exiv2::Exifdatum)
 
-DATA_ITERATOR_TYPEMAPS(ExifData_iterator, Exiv2::ExifData::iterator)
+DATA_ITERATOR_TYPEMAPS(ExifData)
 #ifndef SWIGIMPORTED
-DATA_ITERATOR_CLASSES(
-    ExifData_iterator, Exiv2::ExifData::iterator, Exiv2::Exifdatum)
+DATA_ITERATOR_CLASSES(ExifData, Exifdatum)
 #endif
 
 // Get the current (or default if not set) type id of a datum
