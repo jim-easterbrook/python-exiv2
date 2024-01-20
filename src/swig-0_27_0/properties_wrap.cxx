@@ -4760,7 +4760,10 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyList(PyObject *self, PyObject *
     }
   }
   {
-    resultobj = SWIG_Python_AppendOutput(resultobj, pointer_to_list(result));
+    PyObject* list = pointer_to_list(result);
+    if (!list)
+    SWIG_fail;
+    resultobj = SWIG_Python_AppendOutput(resultobj, list);
   }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;

@@ -38,6 +38,9 @@ static PyObject* pointer_to_list(const item_type* ptr) {
 };
 }
 %typemap(out, fragment="pointer_to_list"{item_type}) pattern {
-    $result = SWIG_Python_AppendOutput($result, pointer_to_list($1));
+    PyObject* list = pointer_to_list($1);
+    if (!list)
+        SWIG_fail;
+    $result = SWIG_Python_AppendOutput($result, list);
 }
 %enddef // LIST_POINTER
