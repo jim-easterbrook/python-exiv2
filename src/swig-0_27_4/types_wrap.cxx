@@ -4432,9 +4432,9 @@ static PyObject* _create_enum_Exiv2_TypeId(
 
 
 static bool get_ptr_size(Exiv2::DataBuf* self, bool is_writeable,
-                         Exiv2::byte** ptr, Py_ssize_t* size) {
-    *ptr = self->DATABUF_DATA;
-    *size = self->DATABUF_SIZE;
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+    ptr = self->DATABUF_DATA;
+    size = self->DATABUF_SIZE;
     return true;
 };
 
@@ -4448,7 +4448,7 @@ static int getbuffer_Exiv2_DataBuf(
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, &ptr, &size))
+    if (!get_ptr_size(self, is_writeable, ptr, size))
         goto fail;
     return PyBuffer_FillInfo(view, exporter, ptr,
         ptr ? size : 0, is_writeable ? 0 : 1, flags);

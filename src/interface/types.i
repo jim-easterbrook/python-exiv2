@@ -204,9 +204,9 @@ INPUT_BUFFER_RO(const Exiv2::byte *pData, size_t size)
 // Expose Exiv2::DataBuf contents as a Python buffer
 %fragment("get_ptr_size"{Exiv2::DataBuf}, "header") {
 static bool get_ptr_size(Exiv2::DataBuf* self, bool is_writeable,
-                         Exiv2::byte** ptr, Py_ssize_t* size) {
-    *ptr = self->DATABUF_DATA;
-    *size = self->DATABUF_SIZE;
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+    ptr = self->DATABUF_DATA;
+    size = self->DATABUF_SIZE;
     return true;
 };
 }

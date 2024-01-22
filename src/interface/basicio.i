@@ -149,12 +149,12 @@ RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
 // Expose io_type contents as a Python buffer
 %fragment("get_ptr_size"{io_type}, "header") {
 static bool get_ptr_size(io_type* self, bool is_writeable,
-                         Exiv2::byte** ptr, Py_ssize_t* size) {
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
         return false;
     try {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        *ptr = self->mmap(is_writeable);
+        ptr = self->mmap(is_writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
 #if EXIV2_VERSION_HEX < 0x001c0000
     } catch(Exiv2::AnyError const& e) {
@@ -163,7 +163,7 @@ static bool get_ptr_size(io_type* self, bool is_writeable,
 #endif
         return false;
     }
-    *size = self->size();
+    size = self->size();
     return true;
 };
 }

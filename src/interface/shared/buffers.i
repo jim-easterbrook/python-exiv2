@@ -106,7 +106,7 @@ static int getbuffer_%mangle(object_type)(
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, $descriptor(object_type*), 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, &ptr, &size))
+    if (!get_ptr_size(self, is_writeable, ptr, size))
         goto fail;
     return PyBuffer_FillInfo(view, exporter, ptr,
         ptr ? size : 0, is_writeable ? 0 : 1, flags);

@@ -4188,12 +4188,12 @@ typedef Exiv2::ErrorCode ErrorCode;
 
 
 static bool get_ptr_size(Exiv2::FileIo* self, bool is_writeable,
-                         Exiv2::byte** ptr, Py_ssize_t* size) {
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
         return false;
     try {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        *ptr = self->mmap(is_writeable);
+        ptr = self->mmap(is_writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
 
     } catch(Exiv2::AnyError const& e) {
@@ -4202,7 +4202,7 @@ static bool get_ptr_size(Exiv2::FileIo* self, bool is_writeable,
 
         return false;
     }
-    *size = self->size();
+    size = self->size();
     return true;
 };
 
@@ -4216,7 +4216,7 @@ static int getbuffer_Exiv2_FileIo(
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, SWIGTYPE_p_Exiv2__FileIo, 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, &ptr, &size))
+    if (!get_ptr_size(self, is_writeable, ptr, size))
         goto fail;
     return PyBuffer_FillInfo(view, exporter, ptr,
         ptr ? size : 0, is_writeable ? 0 : 1, flags);
@@ -4246,12 +4246,12 @@ static void releasebuffer_Exiv2_FileIo(
 
 
 static bool get_ptr_size(Exiv2::MemIo* self, bool is_writeable,
-                         Exiv2::byte** ptr, Py_ssize_t* size) {
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
         return false;
     try {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        *ptr = self->mmap(is_writeable);
+        ptr = self->mmap(is_writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
 
     } catch(Exiv2::AnyError const& e) {
@@ -4260,7 +4260,7 @@ static bool get_ptr_size(Exiv2::MemIo* self, bool is_writeable,
 
         return false;
     }
-    *size = self->size();
+    size = self->size();
     return true;
 };
 
@@ -4274,7 +4274,7 @@ static int getbuffer_Exiv2_MemIo(
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, SWIGTYPE_p_Exiv2__MemIo, 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, &ptr, &size))
+    if (!get_ptr_size(self, is_writeable, ptr, size))
         goto fail;
     return PyBuffer_FillInfo(view, exporter, ptr,
         ptr ? size : 0, is_writeable ? 0 : 1, flags);
@@ -4304,12 +4304,12 @@ static void releasebuffer_Exiv2_MemIo(
 
 
 static bool get_ptr_size(Exiv2::RemoteIo* self, bool is_writeable,
-                         Exiv2::byte** ptr, Py_ssize_t* size) {
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
         return false;
     try {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        *ptr = self->mmap(is_writeable);
+        ptr = self->mmap(is_writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
 
     } catch(Exiv2::AnyError const& e) {
@@ -4318,7 +4318,7 @@ static bool get_ptr_size(Exiv2::RemoteIo* self, bool is_writeable,
 
         return false;
     }
-    *size = self->size();
+    size = self->size();
     return true;
 };
 
@@ -4332,7 +4332,7 @@ static int getbuffer_Exiv2_RemoteIo(
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, SWIGTYPE_p_Exiv2__RemoteIo, 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, &ptr, &size))
+    if (!get_ptr_size(self, is_writeable, ptr, size))
         goto fail;
     return PyBuffer_FillInfo(view, exporter, ptr,
         ptr ? size : 0, is_writeable ? 0 : 1, flags);

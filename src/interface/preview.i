@@ -67,9 +67,9 @@ KEEP_REFERENCE_EX(Exiv2::PreviewManager*, swig_obj[0])
 // Expose Exiv2::PreviewImage contents as a Python buffer
 %fragment("get_ptr_size"{Exiv2::PreviewImage}, "header") {
 static bool get_ptr_size(Exiv2::PreviewImage* self, bool is_writeable,
-                         Exiv2::byte** ptr, Py_ssize_t* size) {
-    *ptr = (Exiv2::byte*)self->pData();
-    *size = self->size();
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+    ptr = (Exiv2::byte*)self->pData();
+    size = self->size();
     return true;
 };
 }
