@@ -4732,6 +4732,23 @@ SWIG_From_size_t  (size_t value)
 #endif
 }
 
+SWIGINTERN bool Exiv2_DataBuf___eq__(Exiv2::DataBuf *self,Exiv2::byte const *pData,long size){
+        if (self->size_ != size)
+            return false;
+        return std::memcmp(self->pData_, pData, size) == 0;
+    }
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_bool  (bool value)
+{
+  return PyBool_FromLong(value ? 1 : 0);
+}
+
+SWIGINTERN bool Exiv2_DataBuf___ne__(Exiv2::DataBuf *self,Exiv2::byte const *pData,long size){
+        if (self->size_ != size)
+            return true;
+        return std::memcmp(self->pData_, pData, size) != 0;
+    }
 SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *idx){
         // deprecated since 2022-12-20
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -5962,6 +5979,118 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataBuf___eq__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  long arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_view = NULL ;
+  PyObject *swig_obj[2] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf___eq__" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
+  {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    if (!_global_view) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataBuf___eq__" "', argument " "2"" of type '" "bytes-like object""'")
+      ;
+    }
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
+  }
+  {
+    try {
+      result = (bool)Exiv2_DataBuf___eq__(arg1,(unsigned char const *)arg2,arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  
+  Py_XDECREF(_global_view);
+  
+  return resultobj;
+fail:
+  
+  Py_XDECREF(_global_view);
+  
+  if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_TypeError)) {
+    return NULL;
+  }
+  PyErr_Clear();
+  Py_INCREF(Py_NotImplemented);
+  return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataBuf___ne__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
+  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
+  long arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_view = NULL ;
+  PyObject *swig_obj[2] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf___ne__" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
+  {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    if (!_global_view) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataBuf___ne__" "', argument " "2"" of type '" "bytes-like object""'")
+      ;
+    }
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg2 = (Exiv2::byte *) buff->buf;
+    arg3 = (long) buff->len;
+  }
+  {
+    try {
+      result = (bool)Exiv2_DataBuf___ne__(arg1,(unsigned char const *)arg2,arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  
+  Py_XDECREF(_global_view);
+  
+  return resultobj;
+fail:
+  
+  Py_XDECREF(_global_view);
+  
+  if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_TypeError)) {
+    return NULL;
+  }
+  PyErr_Clear();
+  Py_INCREF(Py_NotImplemented);
+  return Py_NotImplemented;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataBuf___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
@@ -6885,6 +7014,11 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__DataBuf_getset[] = {
 SWIGINTERN PyObject *
 SwigPyBuiltin__Exiv2__DataBuf_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
+  switch (op) {
+    case Py_EQ : result = _wrap_DataBuf___eq__(self, other); break;
+    case Py_NE : result = _wrap_DataBuf___ne__(self, other); break;
+    default : break;
+  }
   if (!result && !PyErr_Occurred()) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -6905,6 +7039,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
   { "free", _wrap_DataBuf_free, METH_NOARGS, "           Free the internal buffer and reset the size to 0." },
   { "reset", _wrap_DataBuf_reset, METH_VARARGS, " Reset value" },
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },
+  { "__eq__", _wrap_DataBuf___eq__, METH_O, "" },
+  { "__ne__", _wrap_DataBuf___ne__, METH_O, "" },
   { "__getitem__", _wrap_DataBuf___getitem__, METH_O, "" },
   { "data", _wrap_DataBuf_data, METH_NOARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"

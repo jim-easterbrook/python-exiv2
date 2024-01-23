@@ -154,7 +154,28 @@ DEFINE_ENUM(TypeId, "Exiv2 value type identifiers.\n"
     size_t __len__() {
         return $self->DATABUF_SIZE;
     }
-#if EXIV2_VERSION_HEX < 0x001c0000
+#if EXIV2_VERSION_HEX >= 0x001c0000
+    bool __eq__(const Exiv2::byte *pData, size_t size) {
+        if ($self->size() != size)
+            return false;
+        return $self->cmpBytes(0, pData, size) == 0;
+    }
+    bool __ne__(const Exiv2::byte *pData, size_t size) {
+        if ($self->size() != size)
+            return true;
+        return $self->cmpBytes(0, pData, size) != 0;
+    }
+#else
+    bool __eq__(const Exiv2::byte *pData, long size) {
+        if ($self->size_ != size)
+            return false;
+        return std::memcmp($self->pData_, pData, size) == 0;
+    }
+    bool __ne__(const Exiv2::byte *pData, long size) {
+        if ($self->size_ != size)
+            return true;
+        return std::memcmp($self->pData_, pData, size) != 0;
+    }
     PyObject* __getitem__(PyObject* idx) {
         // deprecated since 2022-12-20
         PyErr_WarnEx(PyExc_DeprecationWarning,

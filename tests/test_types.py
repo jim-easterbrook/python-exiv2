@@ -49,6 +49,10 @@ class TestTypesModule(unittest.TestCase):
             view[49] = 99
             self.check_result(view[49], int, 99)
         buf = exiv2.DataBuf(data)
+        self.assertEqual(buf, data)
+        self.assertEqual(data, buf)
+        self.assertNotEqual(buf, b'fred')
+        self.assertNotEqual(b'fred', buf)
         if exiv2.testVersion(0, 28, 0):
             self.assertEqual(buf.cmpBytes(0, data), 0)
             self.assertEqual(buf.cmpBytes(5, data[5:]), 0)
