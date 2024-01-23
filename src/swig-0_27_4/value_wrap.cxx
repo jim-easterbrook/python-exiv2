@@ -6398,8 +6398,8 @@ SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_1(std::vector< st
 SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_2(Exiv2::TypeId typeId_xmpBag){
         return new Exiv2::XmpArrayValue(typeId_xmpBag);
     }
-SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *self,long multi_idx){
-        return self->toString(multi_idx);
+SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *self,Py_ssize_t i){
+        return self->toString(i);
     }
 SWIGINTERN void Exiv2_XmpArrayValue_append(Exiv2::XmpArrayValue *self,std::string value){
         self->read(value);
@@ -6864,14 +6864,14 @@ SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SW
         result->value_ = value;
         return result;
     }
-SWIGINTERN uint16_t Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx){
-        return self->value_[multi_idx];
+SWIGINTERN uint16_t Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(Exiv2::ValueType< uint16_t > *self,Py_ssize_t i){
+        return self->value_[i];
     }
-SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(Exiv2::ValueType< uint16_t > *self,long multi_idx,uint16_t const *INPUT){
+SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(Exiv2::ValueType< uint16_t > *self,Py_ssize_t i,uint16_t const *INPUT){
         if (INPUT)
-            self->value_[multi_idx] = *INPUT;
+            self->value_[i] = *INPUT;
         else
-            self->value_.erase(self->value_.begin() + multi_idx);
+            self->value_.erase(self->value_.begin() + i);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint16_t_Sg__append(Exiv2::ValueType< uint16_t > *self,uint16_t value){
         self->value_.push_back(value);
@@ -6953,14 +6953,14 @@ SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SW
         result->value_ = value;
         return result;
     }
-SWIGINTERN uint32_t Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx){
-        return self->value_[multi_idx];
+SWIGINTERN uint32_t Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(Exiv2::ValueType< uint32_t > *self,Py_ssize_t i){
+        return self->value_[i];
     }
-SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(Exiv2::ValueType< uint32_t > *self,long multi_idx,uint32_t const *INPUT){
+SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(Exiv2::ValueType< uint32_t > *self,Py_ssize_t i,uint32_t const *INPUT){
         if (INPUT)
-            self->value_[multi_idx] = *INPUT;
+            self->value_[i] = *INPUT;
         else
-            self->value_.erase(self->value_.begin() + multi_idx);
+            self->value_.erase(self->value_.begin() + i);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg__append(Exiv2::ValueType< uint32_t > *self,uint32_t value){
         self->value_.push_back(value);
@@ -7009,14 +7009,14 @@ SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_UR
         result->value_ = value;
         return result;
     }
-SWIGINTERN Exiv2::URational Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(Exiv2::ValueType< Exiv2::URational > *self,long multi_idx){
-        return self->value_[multi_idx];
+SWIGINTERN Exiv2::URational Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(Exiv2::ValueType< Exiv2::URational > *self,Py_ssize_t i){
+        return self->value_[i];
     }
-SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(Exiv2::ValueType< Exiv2::URational > *self,long multi_idx,Exiv2::URational const *INPUT){
+SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(Exiv2::ValueType< Exiv2::URational > *self,Py_ssize_t i,Exiv2::URational const *INPUT){
         if (INPUT)
-            self->value_[multi_idx] = *INPUT;
+            self->value_[i] = *INPUT;
         else
-            self->value_.erase(self->value_.begin() + multi_idx);
+            self->value_.erase(self->value_.begin() + i);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_URational_Sg__append(Exiv2::ValueType< Exiv2::URational > *self,Exiv2::URational value){
         self->value_.push_back(value);
@@ -7098,14 +7098,14 @@ SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG
         result->value_ = value;
         return result;
     }
-SWIGINTERN int16_t Exiv2_ValueType_Sl_int16_t_Sg____getitem__(Exiv2::ValueType< int16_t > *self,long multi_idx){
-        return self->value_[multi_idx];
+SWIGINTERN int16_t Exiv2_ValueType_Sl_int16_t_Sg____getitem__(Exiv2::ValueType< int16_t > *self,Py_ssize_t i){
+        return self->value_[i];
     }
-SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg____setitem__(Exiv2::ValueType< int16_t > *self,long multi_idx,int16_t const *INPUT){
+SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg____setitem__(Exiv2::ValueType< int16_t > *self,Py_ssize_t i,int16_t const *INPUT){
         if (INPUT)
-            self->value_[multi_idx] = *INPUT;
+            self->value_[i] = *INPUT;
         else
-            self->value_.erase(self->value_.begin() + multi_idx);
+            self->value_.erase(self->value_.begin() + i);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg__append(Exiv2::ValueType< int16_t > *self,int16_t value){
         self->value_.push_back(value);
@@ -7144,14 +7144,14 @@ SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG
         result->value_ = value;
         return result;
     }
-SWIGINTERN int32_t Exiv2_ValueType_Sl_int32_t_Sg____getitem__(Exiv2::ValueType< int32_t > *self,long multi_idx){
-        return self->value_[multi_idx];
+SWIGINTERN int32_t Exiv2_ValueType_Sl_int32_t_Sg____getitem__(Exiv2::ValueType< int32_t > *self,Py_ssize_t i){
+        return self->value_[i];
     }
-SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg____setitem__(Exiv2::ValueType< int32_t > *self,long multi_idx,int32_t const *INPUT){
+SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg____setitem__(Exiv2::ValueType< int32_t > *self,Py_ssize_t i,int32_t const *INPUT){
         if (INPUT)
-            self->value_[multi_idx] = *INPUT;
+            self->value_[i] = *INPUT;
         else
-            self->value_.erase(self->value_.begin() + multi_idx);
+            self->value_.erase(self->value_.begin() + i);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg__append(Exiv2::ValueType< int32_t > *self,int32_t value){
         self->value_.push_back(value);
@@ -7190,14 +7190,14 @@ SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rat
         result->value_ = value;
         return result;
     }
-SWIGINTERN Exiv2::Rational Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(Exiv2::ValueType< Exiv2::Rational > *self,long multi_idx){
-        return self->value_[multi_idx];
+SWIGINTERN Exiv2::Rational Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(Exiv2::ValueType< Exiv2::Rational > *self,Py_ssize_t i){
+        return self->value_[i];
     }
-SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(Exiv2::ValueType< Exiv2::Rational > *self,long multi_idx,Exiv2::Rational const *INPUT){
+SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(Exiv2::ValueType< Exiv2::Rational > *self,Py_ssize_t i,Exiv2::Rational const *INPUT){
         if (INPUT)
-            self->value_[multi_idx] = *INPUT;
+            self->value_[i] = *INPUT;
         else
-            self->value_.erase(self->value_.begin() + multi_idx);
+            self->value_.erase(self->value_.begin() + i);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_Exiv2_Rational_Sg__append(Exiv2::ValueType< Exiv2::Rational > *self,Exiv2::Rational value){
         self->value_.push_back(value);
@@ -7312,14 +7312,14 @@ SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_5(E
         result->value_ = value;
         return result;
     }
-SWIGINTERN float Exiv2_ValueType_Sl_float_Sg____getitem__(Exiv2::ValueType< float > *self,long multi_idx){
-        return self->value_[multi_idx];
+SWIGINTERN float Exiv2_ValueType_Sl_float_Sg____getitem__(Exiv2::ValueType< float > *self,Py_ssize_t i){
+        return self->value_[i];
     }
-SWIGINTERN void Exiv2_ValueType_Sl_float_Sg____setitem__(Exiv2::ValueType< float > *self,long multi_idx,float const *INPUT){
+SWIGINTERN void Exiv2_ValueType_Sl_float_Sg____setitem__(Exiv2::ValueType< float > *self,Py_ssize_t i,float const *INPUT){
         if (INPUT)
-            self->value_[multi_idx] = *INPUT;
+            self->value_[i] = *INPUT;
         else
-            self->value_.erase(self->value_.begin() + multi_idx);
+            self->value_.erase(self->value_.begin() + i);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_float_Sg__append(Exiv2::ValueType< float > *self,float value){
         self->value_.push_back(value);
@@ -7378,14 +7378,14 @@ SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_5
         result->value_ = value;
         return result;
     }
-SWIGINTERN double Exiv2_ValueType_Sl_double_Sg____getitem__(Exiv2::ValueType< double > *self,long multi_idx){
-        return self->value_[multi_idx];
+SWIGINTERN double Exiv2_ValueType_Sl_double_Sg____getitem__(Exiv2::ValueType< double > *self,Py_ssize_t i){
+        return self->value_[i];
     }
-SWIGINTERN void Exiv2_ValueType_Sl_double_Sg____setitem__(Exiv2::ValueType< double > *self,long multi_idx,double const *INPUT){
+SWIGINTERN void Exiv2_ValueType_Sl_double_Sg____setitem__(Exiv2::ValueType< double > *self,Py_ssize_t i,double const *INPUT){
         if (INPUT)
-            self->value_[multi_idx] = *INPUT;
+            self->value_[i] = *INPUT;
         else
-            self->value_.erase(self->value_.begin() + multi_idx);
+            self->value_.erase(self->value_.begin() + i);
     }
 SWIGINTERN void Exiv2_ValueType_Sl_double_Sg__append(Exiv2::ValueType< double > *self,double value){
         self->value_.push_back(value);
@@ -12851,7 +12851,7 @@ fail:
 SWIGINTERN PyObject *_wrap_XmpArrayValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpArrayValue *arg1 = (Exiv2::XmpArrayValue *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -12868,16 +12868,16 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue___getitem__(PyObject *self, PyObject *a
   arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpArrayValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpArrayValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = Exiv2_XmpArrayValue___getitem__(arg1,arg2);
+  result = Exiv2_XmpArrayValue___getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -17690,7 +17690,7 @@ fail:
 SWIGINTERN PyObject *_wrap_UShortValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< uint16_t > *arg1 = (Exiv2::ValueType< uint16_t > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -17707,16 +17707,16 @@ SWIGINTERN PyObject *_wrap_UShortValue___getitem__(PyObject *self, PyObject *arg
   arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "UShortValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "UShortValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = (uint16_t)Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(arg1,arg2);
+  result = (uint16_t)Exiv2_ValueType_Sl_uint16_t_Sg____getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
   return resultobj;
 fail:
@@ -17727,7 +17727,7 @@ fail:
 SWIGINTERN PyObject *_wrap_UShortValue___setitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< uint16_t > *arg1 = (Exiv2::ValueType< uint16_t > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   uint16_t *arg3 = (uint16_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -17748,9 +17748,9 @@ SWIGINTERN PyObject *_wrap_UShortValue___setitem__(PyObject *self, PyObject *arg
   arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "UShortValue___setitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "UShortValue___setitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   if (swig_obj[1]) {
     if (!(SWIG_IsOK((res3 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg3),SWIGTYPE_p_unsigned_short,0))))) {
       unsigned short val; 
@@ -17764,12 +17764,12 @@ SWIGINTERN PyObject *_wrap_UShortValue___setitem__(PyObject *self, PyObject *arg
     }
   }
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(arg1,arg2,(unsigned short const *)arg3);
+  Exiv2_ValueType_Sl_uint16_t_Sg____setitem__(arg1,SWIG_STD_MOVE(arg2),(unsigned short const *)arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -18910,7 +18910,7 @@ fail:
 SWIGINTERN PyObject *_wrap_ULongValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< uint32_t > *arg1 = (Exiv2::ValueType< uint32_t > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -18927,16 +18927,16 @@ SWIGINTERN PyObject *_wrap_ULongValue___getitem__(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ULongValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ULongValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = (uint32_t)Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(arg1,arg2);
+  result = (uint32_t)Exiv2_ValueType_Sl_uint32_t_Sg____getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
   return resultobj;
 fail:
@@ -18947,7 +18947,7 @@ fail:
 SWIGINTERN PyObject *_wrap_ULongValue___setitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< uint32_t > *arg1 = (Exiv2::ValueType< uint32_t > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   uint32_t *arg3 = (uint32_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -18968,9 +18968,9 @@ SWIGINTERN PyObject *_wrap_ULongValue___setitem__(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ULongValue___setitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ULongValue___setitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   if (swig_obj[1]) {
     if (!(SWIG_IsOK((res3 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg3),SWIGTYPE_p_unsigned_int,0))))) {
       unsigned int val; 
@@ -18984,12 +18984,12 @@ SWIGINTERN PyObject *_wrap_ULongValue___setitem__(PyObject *self, PyObject *args
     }
   }
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(arg1,arg2,(unsigned int const *)arg3);
+  Exiv2_ValueType_Sl_uint32_t_Sg____setitem__(arg1,SWIG_STD_MOVE(arg2),(unsigned int const *)arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -20133,7 +20133,7 @@ fail:
 SWIGINTERN PyObject *_wrap_URationalValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< Exiv2::URational > *arg1 = (Exiv2::ValueType< Exiv2::URational > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -20150,16 +20150,16 @@ SWIGINTERN PyObject *_wrap_URationalValue___getitem__(PyObject *self, PyObject *
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "URationalValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "URationalValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(arg1,arg2);
+  result = Exiv2_ValueType_Sl_Exiv2_URational_Sg____getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = swig::from(static_cast< std::pair< unsigned int,unsigned int > >(result));
   return resultobj;
 fail:
@@ -20170,7 +20170,7 @@ fail:
 SWIGINTERN PyObject *_wrap_URationalValue___setitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< Exiv2::URational > *arg1 = (Exiv2::ValueType< Exiv2::URational > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   Exiv2::URational *arg3 = (Exiv2::URational *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -20190,9 +20190,9 @@ SWIGINTERN PyObject *_wrap_URationalValue___setitem__(PyObject *self, PyObject *
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "URationalValue___setitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "URationalValue___setitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   if (swig_obj[1]) {
     res3 = swig::asptr(swig_obj[1], &arg3);
     if (!SWIG_IsOK(res3)) {
@@ -20201,12 +20201,12 @@ SWIGINTERN PyObject *_wrap_URationalValue___setitem__(PyObject *self, PyObject *
     res3 = SWIG_AddTmpMask(res3);
   }
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(arg1,arg2,(std::pair< unsigned int,unsigned int > const *)arg3);
+  Exiv2_ValueType_Sl_Exiv2_URational_Sg____setitem__(arg1,SWIG_STD_MOVE(arg2),(std::pair< unsigned int,unsigned int > const *)arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -21349,7 +21349,7 @@ fail:
 SWIGINTERN PyObject *_wrap_ShortValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< int16_t > *arg1 = (Exiv2::ValueType< int16_t > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -21366,16 +21366,16 @@ SWIGINTERN PyObject *_wrap_ShortValue___getitem__(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ShortValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ShortValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = (int16_t)Exiv2_ValueType_Sl_int16_t_Sg____getitem__(arg1,arg2);
+  result = (int16_t)Exiv2_ValueType_Sl_int16_t_Sg____getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_From_short(static_cast< short >(result));
   return resultobj;
 fail:
@@ -21386,7 +21386,7 @@ fail:
 SWIGINTERN PyObject *_wrap_ShortValue___setitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< int16_t > *arg1 = (Exiv2::ValueType< int16_t > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   int16_t *arg3 = (int16_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -21407,9 +21407,9 @@ SWIGINTERN PyObject *_wrap_ShortValue___setitem__(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ShortValue___setitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ShortValue___setitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   if (swig_obj[1]) {
     if (!(SWIG_IsOK((res3 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg3),SWIGTYPE_p_short,0))))) {
       short val; 
@@ -21423,12 +21423,12 @@ SWIGINTERN PyObject *_wrap_ShortValue___setitem__(PyObject *self, PyObject *args
     }
   }
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  Exiv2_ValueType_Sl_int16_t_Sg____setitem__(arg1,arg2,(short const *)arg3);
+  Exiv2_ValueType_Sl_int16_t_Sg____setitem__(arg1,SWIG_STD_MOVE(arg2),(short const *)arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -22569,7 +22569,7 @@ fail:
 SWIGINTERN PyObject *_wrap_LongValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< int32_t > *arg1 = (Exiv2::ValueType< int32_t > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -22586,16 +22586,16 @@ SWIGINTERN PyObject *_wrap_LongValue___getitem__(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LongValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LongValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = (int32_t)Exiv2_ValueType_Sl_int32_t_Sg____getitem__(arg1,arg2);
+  result = (int32_t)Exiv2_ValueType_Sl_int32_t_Sg____getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -22606,7 +22606,7 @@ fail:
 SWIGINTERN PyObject *_wrap_LongValue___setitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< int32_t > *arg1 = (Exiv2::ValueType< int32_t > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   int32_t *arg3 = (int32_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -22627,9 +22627,9 @@ SWIGINTERN PyObject *_wrap_LongValue___setitem__(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LongValue___setitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LongValue___setitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   if (swig_obj[1]) {
     if (!(SWIG_IsOK((res3 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg3),SWIGTYPE_p_int,0))))) {
       int val; 
@@ -22643,12 +22643,12 @@ SWIGINTERN PyObject *_wrap_LongValue___setitem__(PyObject *self, PyObject *args)
     }
   }
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  Exiv2_ValueType_Sl_int32_t_Sg____setitem__(arg1,arg2,(int const *)arg3);
+  Exiv2_ValueType_Sl_int32_t_Sg____setitem__(arg1,SWIG_STD_MOVE(arg2),(int const *)arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -23792,7 +23792,7 @@ fail:
 SWIGINTERN PyObject *_wrap_RationalValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< Exiv2::Rational > *arg1 = (Exiv2::ValueType< Exiv2::Rational > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -23809,16 +23809,16 @@ SWIGINTERN PyObject *_wrap_RationalValue___getitem__(PyObject *self, PyObject *a
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RationalValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RationalValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(arg1,arg2);
+  result = Exiv2_ValueType_Sl_Exiv2_Rational_Sg____getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = swig::from(static_cast< std::pair< int,int > >(result));
   return resultobj;
 fail:
@@ -23829,7 +23829,7 @@ fail:
 SWIGINTERN PyObject *_wrap_RationalValue___setitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< Exiv2::Rational > *arg1 = (Exiv2::ValueType< Exiv2::Rational > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   Exiv2::Rational *arg3 = (Exiv2::Rational *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -23849,9 +23849,9 @@ SWIGINTERN PyObject *_wrap_RationalValue___setitem__(PyObject *self, PyObject *a
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RationalValue___setitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RationalValue___setitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   if (swig_obj[1]) {
     res3 = swig::asptr(swig_obj[1], &arg3);
     if (!SWIG_IsOK(res3)) {
@@ -23860,12 +23860,12 @@ SWIGINTERN PyObject *_wrap_RationalValue___setitem__(PyObject *self, PyObject *a
     res3 = SWIG_AddTmpMask(res3);
   }
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(arg1,arg2,(std::pair< int,int > const *)arg3);
+  Exiv2_ValueType_Sl_Exiv2_Rational_Sg____setitem__(arg1,SWIG_STD_MOVE(arg2),(std::pair< int,int > const *)arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -25008,7 +25008,7 @@ fail:
 SWIGINTERN PyObject *_wrap_FloatValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< float > *arg1 = (Exiv2::ValueType< float > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -25025,16 +25025,16 @@ SWIGINTERN PyObject *_wrap_FloatValue___getitem__(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FloatValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FloatValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = (float)Exiv2_ValueType_Sl_float_Sg____getitem__(arg1,arg2);
+  result = (float)Exiv2_ValueType_Sl_float_Sg____getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_From_float(static_cast< float >(result));
   return resultobj;
 fail:
@@ -25045,7 +25045,7 @@ fail:
 SWIGINTERN PyObject *_wrap_FloatValue___setitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< float > *arg1 = (Exiv2::ValueType< float > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   float *arg3 = (float *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -25066,9 +25066,9 @@ SWIGINTERN PyObject *_wrap_FloatValue___setitem__(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FloatValue___setitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FloatValue___setitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   if (swig_obj[1]) {
     if (!(SWIG_IsOK((res3 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg3),SWIGTYPE_p_float,0))))) {
       float val; 
@@ -25082,12 +25082,12 @@ SWIGINTERN PyObject *_wrap_FloatValue___setitem__(PyObject *self, PyObject *args
     }
   }
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  Exiv2_ValueType_Sl_float_Sg____setitem__(arg1,arg2,(float const *)arg3);
+  Exiv2_ValueType_Sl_float_Sg____setitem__(arg1,SWIG_STD_MOVE(arg2),(float const *)arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -26228,7 +26228,7 @@ fail:
 SWIGINTERN PyObject *_wrap_DoubleValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< double > *arg1 = (Exiv2::ValueType< double > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -26245,16 +26245,16 @@ SWIGINTERN PyObject *_wrap_DoubleValue___getitem__(PyObject *self, PyObject *arg
   arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DoubleValue___getitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DoubleValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  result = (double)Exiv2_ValueType_Sl_double_Sg____getitem__(arg1,arg2);
+  result = (double)Exiv2_ValueType_Sl_double_Sg____getitem__(arg1,SWIG_STD_MOVE(arg2));
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -26265,7 +26265,7 @@ fail:
 SWIGINTERN PyObject *_wrap_DoubleValue___setitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< double > *arg1 = (Exiv2::ValueType< double > *) 0 ;
-  long arg2 ;
+  Py_ssize_t arg2 ;
   double *arg3 = (double *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -26286,9 +26286,9 @@ SWIGINTERN PyObject *_wrap_DoubleValue___setitem__(PyObject *self, PyObject *arg
   arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
   ecode2 = SWIG_AsVal_long(swig_obj[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DoubleValue___setitem__" "', argument " "2"" of type '" "long""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DoubleValue___setitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
   } 
-  arg2 = static_cast< long >(val2);
+  arg2 = static_cast< Py_ssize_t >(val2);
   if (swig_obj[1]) {
     if (!(SWIG_IsOK((res3 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg3),SWIGTYPE_p_double,0))))) {
       double val; 
@@ -26302,12 +26302,12 @@ SWIGINTERN PyObject *_wrap_DoubleValue___setitem__(PyObject *self, PyObject *arg
     }
   }
   
-  if (arg2 < 0 || arg2 >= (long)arg1->count()) {
+  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
     PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
     SWIG_fail;
   }
   
-  Exiv2_ValueType_Sl_double_Sg____setitem__(arg1,arg2,(double const *)arg3);
+  Exiv2_ValueType_Sl_double_Sg____setitem__(arg1,SWIG_STD_MOVE(arg2),(double const *)arg3);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;

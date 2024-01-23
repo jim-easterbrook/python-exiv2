@@ -55,9 +55,12 @@ UNIQUE_PTR(Exiv2::Value);
 %noexception Exiv2::XmpValue::xmpStruct;
 
 // ---- Typemaps ----
+// SWIG doesn't have typemaps for Py_ssize_t
+%apply long {Py_ssize_t};
+
 // for indexing multi-value values, assumes arg1 points to self
-%typemap(check) long multi_idx %{
-    if ($1 < 0 || $1 >= (long)arg1->count()) {
+%typemap(check) Py_ssize_t i %{
+    if ($1 < 0 || $1 >= static_cast< Py_ssize_t >(arg1->count())) {
         PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
         SWIG_fail;
     }
@@ -324,14 +327,14 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         result->value_ = value;
         return result;
     }
-    item_type __getitem__(long multi_idx) {
-        return $self->value_[multi_idx];
+    item_type __getitem__(Py_ssize_t i) {
+        return $self->value_[i];
     }
-    void __setitem__(long multi_idx, const item_type* INPUT) {
+    void __setitem__(Py_ssize_t i, const item_type* INPUT) {
         if (INPUT)
-            $self->value_[multi_idx] = *INPUT;
+            $self->value_[i] = *INPUT;
         else
-            $self->value_.erase($self->value_.begin() + multi_idx);
+            $self->value_.erase($self->value_.begin() + i);
     }
     void append(item_type value) {
         $self->value_.push_back(value);
@@ -638,8 +641,8 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     XmpArrayValue(Exiv2::TypeId typeId_xmpBag) {
         return new Exiv2::XmpArrayValue(typeId_xmpBag);
     }
-    std::string __getitem__(long multi_idx) {
-        return $self->toString(multi_idx);
+    std::string __getitem__(Py_ssize_t i) {
+        return $self->toString(i);
     }
     void append(std::string value) {
         $self->read(value);
