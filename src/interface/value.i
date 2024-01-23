@@ -301,9 +301,15 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 // Access values as a list
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     Exiv2::ValueType<item_type>::__getitem__;
-// sq_ass_item would be more logical, but it doesn't work for deletion
+#if SWIG_VERSION >= 0x040201
+%feature("python:slot", "sq_ass_item", functype="ssizeobjargproc")
+    Exiv2::ValueType<item_type>::__setitem__;
+#else
+// sq_ass_item segfaults when used to delete element
+// See https://github.com/swig/swig/pull/2771
 %feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
     Exiv2::ValueType<item_type>::__setitem__;
+#endif // SWIG_VERSION
 %feature("docstring") Exiv2::ValueType<item_type>
 "Sequence of " #item_type " values.\n"
 "The data components can be accessed like a Python list."

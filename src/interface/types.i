@@ -146,7 +146,7 @@ DEFINE_ENUM(TypeId, "Exiv2 value type identifiers.\n"
         "lastTypeId",       Exiv2::lastTypeId);
 
 // Make Exiv2::DataBuf behave more like a tuple of ints
-%feature("python:slot", "mp_length", functype="lenfunc")
+%feature("python:slot", "sq_length", functype="lenfunc")
     Exiv2::DataBuf::__len__;
 %feature("python:slot", "mp_subscript", functype="binaryfunc")
     Exiv2::DataBuf::__getitem__;

@@ -6772,12 +6772,12 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__PreviewImage_type = {
 #endif
   },
   {
-    _wrap_PreviewImage___len___lenfunc_closure,                   /* mp_length */
+    (lenfunc) 0,                              /* mp_length */
     (binaryfunc) 0,                           /* mp_subscript */
     (objobjargproc) 0,                        /* mp_ass_subscript */
   },
   {
-    (lenfunc) 0,                              /* sq_length */
+    _wrap_PreviewImage___len___lenfunc_closure,                   /* sq_length */
     (binaryfunc) 0,                           /* sq_concat */
     (ssizeargfunc) 0,                         /* sq_repeat */
     (ssizeargfunc) 0,                         /* sq_item */

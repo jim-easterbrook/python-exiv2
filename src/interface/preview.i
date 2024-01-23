@@ -56,7 +56,7 @@ WINDOWS_PATH_OUT(extension)
 KEEP_REFERENCE_EX(Exiv2::PreviewManager*, swig_obj[0])
 
 // Enable len(PreviewImage)
-%feature("python:slot", "mp_length", functype="lenfunc")
+%feature("python:slot", "sq_length", functype="lenfunc")
     Exiv2::PreviewImage::__len__;
 %extend Exiv2::PreviewImage {
     size_t __len__() {
