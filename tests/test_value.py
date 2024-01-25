@@ -336,9 +336,8 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.month, today.month)
         self.assertIsInstance(value.day, int)
         self.assertEqual(value.day, today.day)
-        with self.assertWarns(DeprecationWarning):
-            self.assertEqual(dict(value), {
-                'year': today.year, 'month': today.month, 'day': today.day})
+        self.assertEqual(dict(value), {
+            'year': today.year, 'month': today.month, 'day': today.day})
 
     def test_DateValue(self):
         py_date = datetime.date.today()
@@ -352,11 +351,7 @@ class TestValueModule(unittest.TestCase):
         # constructors
         value = exiv2.DateValue()
         self.assertIsInstance(value, exiv2.DateValue)
-        value = exiv2.DateValue(date_dict)
-        self.assertIsInstance(value, exiv2.DateValue)
-        self.assertEqual(str(value), py_date.isoformat())
-        with self.assertWarns(DeprecationWarning):
-            value = exiv2.DateValue(exiv_date)
+        value = exiv2.DateValue(exiv_date)
         self.assertIsInstance(value, exiv2.DateValue)
         self.assertEqual(str(value), py_date.isoformat())
         value = exiv2.DateValue(py_date.year, py_date.month, py_date.day)
@@ -365,11 +360,8 @@ class TestValueModule(unittest.TestCase):
         # other methods
         with self.assertWarns(DeprecationWarning):
             result = value[0]
-        self.check_result(value.getDate(), dict, date_dict)
-        with self.assertWarns(DeprecationWarning):
-            value.setDate(exiv_date)
-        self.assertEqual(str(value), py_date.isoformat())
-        value.setDate(date_dict)
+        self.check_result(dict(value.getDate()), dict, date_dict)
+        value.setDate(exiv_date)
         self.assertEqual(str(value), py_date.isoformat())
         value.setDate(py_date.year, py_date.month, py_date.day)
         self.assertEqual(str(value), py_date.isoformat())
@@ -398,10 +390,9 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.tzHour, 1)
         self.assertIsInstance(value.tzMinute, int)
         self.assertEqual(value.tzMinute, 30)
-        with self.assertWarns(DeprecationWarning):
-            self.assertEqual(dict(value), {
-                'hour': now.hour, 'minute': now.minute, 'second': now.second,
-                'tzHour': 1, 'tzMinute': 30})
+        self.assertEqual(dict(value), {
+            'hour': now.hour, 'minute': now.minute, 'second': now.second,
+            'tzHour': 1, 'tzMinute': 30})
 
     def test_TimeValue(self):
         py_tz = datetime.timezone(datetime.timedelta(hours=1, minutes=30))
@@ -419,11 +410,7 @@ class TestValueModule(unittest.TestCase):
         # constructors
         value = exiv2.TimeValue()
         self.assertIsInstance(value, exiv2.TimeValue)
-        value = exiv2.TimeValue(time_dict)
-        self.assertIsInstance(value, exiv2.TimeValue)
-        self.assertEqual(str(value), py_time.isoformat())
-        with self.assertWarns(DeprecationWarning):
-            value = exiv2.TimeValue(exiv_time)
+        value = exiv2.TimeValue(exiv_time)
         self.assertIsInstance(value, exiv2.TimeValue)
         self.assertEqual(str(value), py_time.isoformat())
         value = exiv2.TimeValue(py_time.hour, py_time.minute, py_time.second)
@@ -438,11 +425,8 @@ class TestValueModule(unittest.TestCase):
         # other methods
         with self.assertWarns(DeprecationWarning):
             result = value[0]
-        self.check_result(value.getTime(), dict, time_dict)
-        with self.assertWarns(DeprecationWarning):
-            value.setTime(exiv_time)
-        self.assertEqual(str(value), py_time.isoformat())
-        value.setTime(time_dict)
+        self.check_result(dict(value.getTime()), dict, time_dict)
+        value.setTime(exiv_time)
         self.assertEqual(str(value), py_time.isoformat())
         value.setTime(py_time.hour, py_time.minute)
         value.setTime(py_time.hour, py_time.minute, py_time.second)

@@ -6666,15 +6666,90 @@ SWIGINTERN Exiv2::DateValue::Date Exiv2_DateValue___getitem__(Exiv2::DateValue *
             "Use 'value = ""Exiv2::DateValue" ".""getDate" "()'", 1);
         return self->getDate();
     }
-SWIGINTERN PyObject *Exiv2_DateValue_Date___iter__(Exiv2::DateValue::Date *self){
-        // deprecated since 2023-12-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use getDate() to get Python dict", 1);
-        PyObject* seq = Py_BuildValue("((si)(si)(si))",
-            "year", self->year, "month", self->month, "day", self->day);
+
+static PyObject* list_getset(
+        PyObject* obj, PyObject* (*conv)(PyObject*, PyGetSetDef*)) {
+    PyGetSetDef* getset = obj->ob_type->tp_getset;
+    PyObject* result = PyList_New(0);
+    PyObject* item = NULL;
+    while (getset->name) {
+        if (getset->name[0] != '_') {
+            item = (*conv)(obj, getset);
+            PyList_Append(result, item);
+            Py_DECREF(item);
+        }
+        getset++;
+    }
+    return result;
+};
+static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
+    unsigned int len = strlen(name);
+    PyGetSetDef* getset = obj->ob_type->tp_getset;
+    while (getset->name) {
+        unsigned int cmp_len = strlen(getset->name);
+        if (getset->name[cmp_len-1] == '_')
+            cmp_len--;
+        if ((cmp_len == len) && (strncmp(getset->name, name, len) == 0))
+            return getset;
+        getset++;
+    }
+    PyErr_Format(
+        PyExc_KeyError, "'%s' not in '%s'", name, obj->ob_type->tp_name);
+    return NULL;
+};
+static PyObject* getset_to_item(PyObject* obj, PyGetSetDef* getset) {
+    unsigned int len = strlen(getset->name);
+    if (getset->name[len-1] == '_')
+        len--;
+    return Py_BuildValue("(s#N)", getset->name, len,
+        getset->get(obj, getset->closure));
+};
+static PyObject* getset_to_key(PyObject* obj, PyGetSetDef* getset) {
+    unsigned int len = strlen(getset->name);
+    if (getset->name[len-1] == '_')
+        len--;
+    return Py_BuildValue("s#", getset->name, len);
+};
+static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("N", getset->get(obj, getset->closure));
+};
+
+SWIGINTERN PyObject *Exiv2_DateValue_Date_items(Exiv2::DateValue::Date *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_item);
+    }
+SWIGINTERN PyObject *Exiv2_DateValue_Date_keys(Exiv2::DateValue::Date *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_key);
+    }
+SWIGINTERN PyObject *Exiv2_DateValue_Date_values(Exiv2::DateValue::Date *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_value);
+    }
+SWIGINTERN PyObject *Exiv2_DateValue_Date___iter__(Exiv2::DateValue::Date *self,PyObject *py_self){
+        PyObject* seq =
+            Exiv2_DateValue_Date_keys(self, py_self);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
         return result;
+    }
+SWIGINTERN PyObject *Exiv2_DateValue_Date___getitem__(Exiv2::DateValue::Date *self,PyObject *py_self,std::string const &key){
+        PyGetSetDef* getset = find_getset(py_self, key.c_str());
+        if (!getset)
+            return NULL;
+        return getset->get(py_self, getset->closure);
+    }
+SWIGINTERN PyObject *Exiv2_DateValue_Date___setitem__(Exiv2::DateValue::Date *self,PyObject *py_self,std::string const &key,PyObject *value){
+        PyGetSetDef* getset = find_getset(py_self, key.c_str());
+        if (!getset)
+            return NULL;
+        if (!value)
+            return PyErr_Format(PyExc_TypeError,
+                "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
+                key.c_str());
+        if (!getset->set)
+            return PyErr_Format(PyExc_TypeError, "%s['%s'] is read-only",
+                                py_self->ob_type->tp_name, key.c_str());
+        if (getset->set(py_self, value, getset->closure) != 0)
+            return NULL;
+        return SWIG_Py_Void();
     }
 SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_2(Exiv2::TimeValue::Time &src){
         Exiv2::TimeValue* self = new Exiv2::TimeValue;
@@ -6715,17 +6790,42 @@ SWIGINTERN Exiv2::TimeValue::Time Exiv2_TimeValue___getitem__(Exiv2::TimeValue *
             "Use 'value = ""Exiv2::TimeValue" ".""getTime" "()'", 1);
         return self->getTime();
     }
-SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self){
-        // deprecated since 2023-12-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use getTime() to get Python dict", 1);
-        PyObject* seq = Py_BuildValue("((si)(si)(si)(si)(si))",
-            "hour", self->hour, "minute", self->minute,
-            "second", self->second,
-            "tzHour", self->tzHour, "tzMinute", self->tzMinute);
+SWIGINTERN PyObject *Exiv2_TimeValue_Time_items(Exiv2::TimeValue::Time *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_item);
+    }
+SWIGINTERN PyObject *Exiv2_TimeValue_Time_keys(Exiv2::TimeValue::Time *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_key);
+    }
+SWIGINTERN PyObject *Exiv2_TimeValue_Time_values(Exiv2::TimeValue::Time *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_value);
+    }
+SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self,PyObject *py_self){
+        PyObject* seq =
+            Exiv2_TimeValue_Time_keys(self, py_self);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
         return result;
+    }
+SWIGINTERN PyObject *Exiv2_TimeValue_Time___getitem__(Exiv2::TimeValue::Time *self,PyObject *py_self,std::string const &key){
+        PyGetSetDef* getset = find_getset(py_self, key.c_str());
+        if (!getset)
+            return NULL;
+        return getset->get(py_self, getset->closure);
+    }
+SWIGINTERN PyObject *Exiv2_TimeValue_Time___setitem__(Exiv2::TimeValue::Time *self,PyObject *py_self,std::string const &key,PyObject *value){
+        PyGetSetDef* getset = find_getset(py_self, key.c_str());
+        if (!getset)
+            return NULL;
+        if (!value)
+            return PyErr_Format(PyExc_TypeError,
+                "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
+                key.c_str());
+        if (!getset->set)
+            return PyErr_Format(PyExc_TypeError, "%s['%s'] is read-only",
+                                py_self->ob_type->tp_name, key.c_str());
+        if (getset->set(py_self, value, getset->closure) != 0)
+            return NULL;
+        return SWIG_Py_Void();
     }
 
 SWIGINTERN int
@@ -14199,7 +14299,8 @@ SWIGINTERN PyObject *_wrap_DateValue_setDate__SWIG_0(PyObject *self, Py_ssize_t 
   Exiv2::DateValue::Date *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::DateValue::Date date2 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
@@ -14207,26 +14308,14 @@ SWIGINTERN PyObject *_wrap_DateValue_setDate__SWIG_0(PyObject *self, Py_ssize_t 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_setDate" "', argument " "1"" of type '" "Exiv2::DateValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  {
-    if (SWIG_IsOK(SWIG_ConvertPtr(
-          swig_obj[1], (void**)&arg2, SWIGTYPE_p_Exiv2__DateValue__Date, 0))) {
-      // deprecated since 2023-12-08
-      PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use dict instead of DateValue::Date", 1);
-    }
-    else {
-      if (!PyDict_Check(swig_obj[1])) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_setDate" "', argument " "2"" of type '" "dict""'");
-      }
-      PyObject* py_val = PyDict_GetItemString(swig_obj[1], "year");
-      date2.year = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[1], "month");
-      date2.month = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[1], "day");
-      date2.day = py_val ? PyLong_AsLong(py_val) : 0;
-      arg2 = &date2;
-    }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__DateValue__Date,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DateValue_setDate" "', argument " "2"" of type '" "Exiv2::DateValue::Date const &""'"); 
   }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DateValue_setDate" "', argument " "2"" of type '" "Exiv2::DateValue::Date const &""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::DateValue::Date * >(argp2);
   {
     try {
       (arg1)->setDate((Exiv2::DateValue::Date const &)*arg2);
@@ -14374,10 +14463,7 @@ SWIGINTERN PyObject *_wrap_DateValue_getDate(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    resultobj = Py_BuildValue("{si,si,si}",
-      "year", result->year, "month", result->month, "day", result->day);
-  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -14714,30 +14800,19 @@ fail:
 SWIGINTERN int _wrap_new_DateValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::DateValue::Date *arg1 = 0 ;
-  Exiv2::DateValue::Date date1 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
   Exiv2::DateValue *result = 0 ;
   
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    if (SWIG_IsOK(SWIG_ConvertPtr(
-          swig_obj[0], (void**)&arg1, SWIGTYPE_p_Exiv2__DateValue__Date, 0))) {
-      // deprecated since 2023-12-08
-      PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use dict instead of DateValue::Date", 1);
-    }
-    else {
-      if (!PyDict_Check(swig_obj[0])) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DateValue" "', argument " "1"" of type '" "dict""'");
-      }
-      PyObject* py_val = PyDict_GetItemString(swig_obj[0], "year");
-      date1.year = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[0], "month");
-      date1.month = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[0], "day");
-      date1.day = py_val ? PyLong_AsLong(py_val) : 0;
-      arg1 = &date1;
-    }
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__DateValue__Date,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DateValue" "', argument " "1"" of type '" "Exiv2::DateValue::Date &""'"); 
   }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_DateValue" "', argument " "1"" of type '" "Exiv2::DateValue::Date &""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue::Date * >(argp1);
   {
     try {
       result = (Exiv2::DateValue *)new_Exiv2_DateValue__SWIG_2(*arg1);
@@ -14885,16 +14960,17 @@ SWIGINTERN int _wrap_new_DateValue(PyObject *self, PyObject *args, PyObject *kwa
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__DateValue__Date, SWIG_POINTER_NO_NULL);
       _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_2;
-    return _wrap_new_DateValue__SWIG_3(self, argc, argv);
+    return _wrap_new_DateValue__SWIG_2(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
-    int retval = _wrap_new_DateValue__SWIG_2(self, argc, argv);
+    int retval = _wrap_new_DateValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -15133,23 +15209,240 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Date___iter__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Date_items(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DateValue::Date *arg1 = (Exiv2::DateValue::Date *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *result = 0 ;
   
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Date_items", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Date_items" "', argument " "1"" of type '" "Exiv2::DateValue::Date *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue::Date * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_DateValue_Date_items(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Date_keys(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue::Date *arg1 = (Exiv2::DateValue::Date *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Date_keys", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Date_keys" "', argument " "1"" of type '" "Exiv2::DateValue::Date *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue::Date * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_DateValue_Date_keys(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Date_values(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue::Date *arg1 = (Exiv2::DateValue::Date *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Date_values", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Date_values" "', argument " "1"" of type '" "Exiv2::DateValue::Date *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue::Date * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_DateValue_Date_values(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Date___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue::Date *arg1 = (Exiv2::DateValue::Date *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
   if (!SWIG_Python_UnpackTuple(args, "Date___iter__", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Date___iter__" "', argument " "1"" of type '" "Exiv2::DateValue::Date *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DateValue::Date * >(argp1);
-  result = (PyObject *)Exiv2_DateValue_Date___iter__(arg1);
+  {
+    try {
+      result = (PyObject *)Exiv2_DateValue_Date___iter__(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = result;
   return resultobj;
 fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Date___getitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue::Date *arg1 = (Exiv2::DateValue::Date *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Date___getitem__" "', argument " "1"" of type '" "Exiv2::DateValue::Date *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue::Date * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Date___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Date___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_DateValue_Date___getitem__(arg1,arg2,(std::string const &)*arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Date___setitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue::Date *arg1 = (Exiv2::DateValue::Date *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  std::string *arg3 = 0 ;
+  PyObject *arg4 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[3] ;
+  PyObject *result = 0 ;
+  
+  {
+    arg4 = NULL;
+  }
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Date___setitem__", 1, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Date___setitem__" "', argument " "1"" of type '" "Exiv2::DateValue::Date *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue::Date * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Date___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Date___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  if (swig_obj[1]) {
+    arg4 = swig_obj[1];
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_DateValue_Date___setitem__(arg1,arg2,(std::string const &)*arg3,arg4);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
   return NULL;
 }
 
@@ -15183,6 +15476,8 @@ fail:
 
 
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_Date___iter__) /* defines _wrap_Date___iter___getiterfunc_closure */
+
+SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_Date___setitem__) /* defines _wrap_Date___setitem___objobjargproc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Date) /* defines _wrap_delete_Date_destructor_closure */
 
@@ -15456,7 +15751,8 @@ SWIGINTERN PyObject *_wrap_TimeValue_setTime__SWIG_0(PyObject *self, Py_ssize_t 
   Exiv2::TimeValue::Time *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::TimeValue::Time time2 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
@@ -15464,30 +15760,14 @@ SWIGINTERN PyObject *_wrap_TimeValue_setTime__SWIG_0(PyObject *self, Py_ssize_t 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_setTime" "', argument " "1"" of type '" "Exiv2::TimeValue *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  {
-    if (SWIG_IsOK(SWIG_ConvertPtr(
-          swig_obj[1], (void**)&arg2, SWIGTYPE_p_Exiv2__TimeValue__Time, 0))) {
-      // deprecated since 2023-12-08
-      PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use dict instead of TimeValue::Time", 1);
-    }
-    else {
-      if (!PyDict_Check(swig_obj[1])) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_setTime" "', argument " "2"" of type '" "dict""'");
-      }
-      PyObject* py_val = PyDict_GetItemString(swig_obj[1], "hour");
-      time2.hour = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[1], "minute");
-      time2.minute = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[1], "second");
-      time2.second = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[1], "tzHour");
-      time2.tzHour = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[1], "tzMinute");
-      time2.tzMinute = py_val ? PyLong_AsLong(py_val) : 0;
-      arg2 = &time2;
-    }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Exiv2__TimeValue__Time,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TimeValue_setTime" "', argument " "2"" of type '" "Exiv2::TimeValue::Time const &""'"); 
   }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "TimeValue_setTime" "', argument " "2"" of type '" "Exiv2::TimeValue::Time const &""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp2);
   {
     try {
       (arg1)->setTime((Exiv2::TimeValue::Time const &)*arg2);
@@ -15635,11 +15915,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_getTime(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    resultobj = Py_BuildValue("{si,si,si,si,si}",
-      "hour", result->hour, "minute", result->minute, "second", result->second,
-      "tzHour", result->tzHour, "tzMinute", result->tzMinute);
-  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -15976,34 +16252,19 @@ fail:
 SWIGINTERN int _wrap_new_TimeValue__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::TimeValue::Time *arg1 = 0 ;
-  Exiv2::TimeValue::Time time1 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
   Exiv2::TimeValue *result = 0 ;
   
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    if (SWIG_IsOK(SWIG_ConvertPtr(
-          swig_obj[0], (void**)&arg1, SWIGTYPE_p_Exiv2__TimeValue__Time, 0))) {
-      // deprecated since 2023-12-08
-      PyErr_WarnEx(PyExc_DeprecationWarning,
-        "use dict instead of TimeValue::Time", 1);
-    }
-    else {
-      if (!PyDict_Check(swig_obj[0])) {
-        SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_TimeValue" "', argument " "1"" of type '" "dict""'");
-      }
-      PyObject* py_val = PyDict_GetItemString(swig_obj[0], "hour");
-      time1.hour = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[0], "minute");
-      time1.minute = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[0], "second");
-      time1.second = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[0], "tzHour");
-      time1.tzHour = py_val ? PyLong_AsLong(py_val) : 0;
-      py_val = PyDict_GetItemString(swig_obj[0], "tzMinute");
-      time1.tzMinute = py_val ? PyLong_AsLong(py_val) : 0;
-      arg1 = &time1;
-    }
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Exiv2__TimeValue__Time,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_TimeValue" "', argument " "1"" of type '" "Exiv2::TimeValue::Time &""'"); 
   }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_TimeValue" "', argument " "1"" of type '" "Exiv2::TimeValue::Time &""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp1);
   {
     try {
       result = (Exiv2::TimeValue *)new_Exiv2_TimeValue__SWIG_2(*arg1);
@@ -16182,16 +16443,17 @@ SWIGINTERN int _wrap_new_TimeValue(PyObject *self, PyObject *args, PyObject *kwa
   if (argc == 1) {
     int _v = 0;
     {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__TimeValue__Time, SWIG_POINTER_NO_NULL);
       _v = SWIG_CheckState(res);
     }
     if (!_v) goto check_2;
-    return _wrap_new_TimeValue__SWIG_3(self, argc, argv);
+    return _wrap_new_TimeValue__SWIG_2(self, argc, argv);
   }
 check_2:
   
   if (argc == 1) {
-    int retval = _wrap_new_TimeValue__SWIG_2(self, argc, argv);
+    int retval = _wrap_new_TimeValue__SWIG_3(self, argc, argv);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -16544,23 +16806,240 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Time___iter__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Time_items(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::TimeValue::Time *arg1 = (Exiv2::TimeValue::Time *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *result = 0 ;
   
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Time_items", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Time_items" "', argument " "1"" of type '" "Exiv2::TimeValue::Time *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_TimeValue_Time_items(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Time_keys(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue::Time *arg1 = (Exiv2::TimeValue::Time *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Time_keys", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Time_keys" "', argument " "1"" of type '" "Exiv2::TimeValue::Time *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_TimeValue_Time_keys(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Time_values(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue::Time *arg1 = (Exiv2::TimeValue::Time *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Time_values", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Time_values" "', argument " "1"" of type '" "Exiv2::TimeValue::Time *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_TimeValue_Time_values(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Time___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue::Time *arg1 = (Exiv2::TimeValue::Time *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
   if (!SWIG_Python_UnpackTuple(args, "Time___iter__", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Time___iter__" "', argument " "1"" of type '" "Exiv2::TimeValue::Time *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp1);
-  result = (PyObject *)Exiv2_TimeValue_Time___iter__(arg1);
+  {
+    try {
+      result = (PyObject *)Exiv2_TimeValue_Time___iter__(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = result;
   return resultobj;
 fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Time___getitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue::Time *arg1 = (Exiv2::TimeValue::Time *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Time___getitem__" "', argument " "1"" of type '" "Exiv2::TimeValue::Time *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Time___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Time___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_TimeValue_Time___getitem__(arg1,arg2,(std::string const &)*arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Time___setitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue::Time *arg1 = (Exiv2::TimeValue::Time *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  std::string *arg3 = 0 ;
+  PyObject *arg4 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[3] ;
+  PyObject *result = 0 ;
+  
+  {
+    arg4 = NULL;
+  }
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Time___setitem__", 1, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Time___setitem__" "', argument " "1"" of type '" "Exiv2::TimeValue::Time *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Time___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Time___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  if (swig_obj[1]) {
+    arg4 = swig_obj[1];
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_TimeValue_Time___setitem__(arg1,arg2,(std::string const &)*arg3,arg4);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
   return NULL;
 }
 
@@ -16594,6 +17073,8 @@ fail:
 
 
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_Time___iter__) /* defines _wrap_Time___iter___getiterfunc_closure */
+
+SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_Time___setitem__) /* defines _wrap_Time___setitem___objobjargproc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Time) /* defines _wrap_delete_Time_destructor_closure */
 
@@ -29748,7 +30229,12 @@ SwigPyBuiltin__Exiv2__DateValue__Date_richcompare(PyObject *self, PyObject *othe
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue__Date_methods[] = {
+  { "items", _wrap_Date_items, METH_NOARGS, "" },
+  { "keys", _wrap_Date_keys, METH_NOARGS, "" },
+  { "values", _wrap_Date_values, METH_NOARGS, "" },
   { "__iter__", _wrap_Date___iter__, METH_NOARGS, "" },
+  { "__getitem__", _wrap_Date___getitem__, METH_O, "" },
+  { "__setitem__", _wrap_Date___setitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -29907,8 +30393,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DateValue__Date_type = {
   },
   {
     (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
+    _wrap_Date___getitem__,                   /* mp_subscript */
+    _wrap_Date___setitem___objobjargproc_closure,                 /* mp_ass_subscript */
   },
   {
     (lenfunc) 0,                              /* sq_length */
@@ -30301,7 +30787,12 @@ SwigPyBuiltin__Exiv2__TimeValue__Time_richcompare(PyObject *self, PyObject *othe
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TimeValue__Time_methods[] = {
+  { "items", _wrap_Time_items, METH_NOARGS, "" },
+  { "keys", _wrap_Time_keys, METH_NOARGS, "" },
+  { "values", _wrap_Time_values, METH_NOARGS, "" },
   { "__iter__", _wrap_Time___iter__, METH_NOARGS, "" },
+  { "__getitem__", _wrap_Time___getitem__, METH_O, "" },
+  { "__setitem__", _wrap_Time___setitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -30460,8 +30951,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__TimeValue__Time_type = {
   },
   {
     (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
+    _wrap_Time___getitem__,                   /* mp_subscript */
+    _wrap_Time___setitem___objobjargproc_closure,                 /* mp_ass_subscript */
   },
   {
     (lenfunc) 0,                              /* sq_length */
