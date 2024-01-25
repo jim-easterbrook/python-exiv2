@@ -146,7 +146,7 @@ DEFINE_ENUM(TypeId, "Exiv2 value type identifiers.\n"
         "lastTypeId",       Exiv2::lastTypeId);
 
 // Make Exiv2::DataBuf behave more like a tuple of ints
-%feature("python:slot", "mp_length", functype="lenfunc")
+%feature("python:slot", "sq_length", functype="lenfunc")
     Exiv2::DataBuf::__len__;
 %feature("python:slot", "mp_subscript", functype="binaryfunc")
     Exiv2::DataBuf::__getitem__;
@@ -154,7 +154,28 @@ DEFINE_ENUM(TypeId, "Exiv2 value type identifiers.\n"
     size_t __len__() {
         return $self->DATABUF_SIZE;
     }
-#if EXIV2_VERSION_HEX < 0x001c0000
+#if EXIV2_VERSION_HEX >= 0x001c0000
+    bool __eq__(const Exiv2::byte *pData, size_t size) {
+        if ($self->size() != size)
+            return false;
+        return $self->cmpBytes(0, pData, size) == 0;
+    }
+    bool __ne__(const Exiv2::byte *pData, size_t size) {
+        if ($self->size() != size)
+            return true;
+        return $self->cmpBytes(0, pData, size) != 0;
+    }
+#else
+    bool __eq__(const Exiv2::byte *pData, long size) {
+        if ($self->size_ != size)
+            return false;
+        return std::memcmp($self->pData_, pData, size) == 0;
+    }
+    bool __ne__(const Exiv2::byte *pData, long size) {
+        if ($self->size_ != size)
+            return true;
+        return std::memcmp($self->pData_, pData, size) != 0;
+    }
     PyObject* __getitem__(PyObject* idx) {
         // deprecated since 2022-12-20
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -202,26 +223,15 @@ INPUT_BUFFER_RO(const Exiv2::byte *pData, size_t size)
 #endif
 
 // Expose Exiv2::DataBuf contents as a Python buffer
-%fragment("get_buffer"{Exiv2::DataBuf}, "header") {
-static int %mangle(Exiv2::DataBuf)_getbuff(
-        PyObject* exporter, Py_buffer* view, int flags) {
-    Exiv2::DataBuf* self = 0;
-    bool writeable = flags && PyBUF_WRITABLE;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, $descriptor(Exiv2::DataBuf*), 0)))
-        goto fail;
-    return PyBuffer_FillInfo(
-        view, exporter, self->DATABUF_DATA, self->DATABUF_SIZE,
-        writeable ? 0 : 1, flags);
-fail:
-    PyErr_SetNone(PyExc_BufferError);
-    view->obj = NULL;
-    return -1;
+%fragment("get_ptr_size"{Exiv2::DataBuf}, "header") {
+static bool get_ptr_size(Exiv2::DataBuf* self, bool is_writeable,
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+    ptr = self->DATABUF_DATA;
+    size = self->DATABUF_SIZE;
+    return true;
 };
 }
-%fragment("get_buffer"{Exiv2::DataBuf});
-%feature("python:bf_getbuffer", functype="getbufferproc")
-    Exiv2::DataBuf "Exiv2_DataBuf_getbuff";
+EXPOSE_OBJECT_BUFFER(Exiv2::DataBuf, true, false)
 
 // Convert pData_ and data() result to a memoryview
 RETURN_VIEW(Exiv2::byte* pData_, arg1->DATABUF_SIZE, PyBUF_WRITE,

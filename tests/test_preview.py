@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2022-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2022-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -36,6 +36,10 @@ class TestPreviewModule(unittest.TestCase):
         cls.image = exiv2.ImageFactory.open(cls.image_data)
         cls.image.readMetadata()
 
+    def check_result(self, result, expected_type, expected_value):
+        self.assertIsInstance(result, expected_type)
+        self.assertEqual(result, expected_value)
+
     def test_PreviewImage(self):
         manager = exiv2.PreviewManager(self.image)
         props = manager.getPreviewProperties()
@@ -47,16 +51,15 @@ class TestPreviewModule(unittest.TestCase):
         copy = preview.copy()
         self.assertIsInstance(copy, exiv2.DataBuf)
         with preview.pData() as data:
-            self.assertIsInstance(data, memoryview)
+            self.check_result(data, memoryview, copy)
             self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
-            self.assertEqual(data, copy)
         self.assertEqual(memoryview(preview), copy)
-        self.assertEqual(preview.extension(), '.jpg')
-        self.assertEqual(preview.height(), 120)
-        self.assertEqual(preview.id(), 4)
-        self.assertEqual(preview.mimeType(), 'image/jpeg')
-        self.assertEqual(preview.size(), 2532)
-        self.assertEqual(preview.width(), 160)
+        self.check_result(preview.extension(), str, '.jpg')
+        self.check_result(preview.height(), int, 120)
+        self.check_result(preview.id(), int, 4)
+        self.check_result(preview.mimeType(), str, 'image/jpeg')
+        self.check_result(preview.size(), int, 2532)
+        self.check_result(preview.width(), int, 160)
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'image.jpg')
             self.assertEqual(preview.writeFile(temp_file), 2532)
@@ -75,12 +78,34 @@ class TestPreviewModule(unittest.TestCase):
     def test_PreviewProperties(self):
         properties = exiv2.PreviewManager(self.image).getPreviewProperties()[0]
         self.assertIsInstance(properties, exiv2.PreviewProperties)
-        self.assertEqual(properties.extension_, '.jpg')
-        self.assertEqual(properties.height_, 120)
-        self.assertEqual(properties.id_, 4)
-        self.assertEqual(properties.mimeType_, 'image/jpeg')
-        self.assertEqual(properties.size_, 2532)
-        self.assertEqual(properties.width_, 160)
+        self.check_result(properties.extension_, str, '.jpg')
+        self.check_result(properties.height_, int, 120)
+        self.check_result(properties.id_, int, 4)
+        self.check_result(properties.mimeType_, str, 'image/jpeg')
+        self.check_result(properties.size_, int, 2532)
+        self.check_result(properties.width_, int, 160)
+        keys = properties.keys()
+        self.assertIsInstance(keys, list)
+        self.assertEqual(len(keys), 6)
+        values = properties.values()
+        self.assertIsInstance(values, list)
+        self.assertEqual(len(values), 6)
+        items = properties.items()
+        self.assertIsInstance(items, list)
+        self.assertEqual(len(items), 6)
+        for k in properties:
+            v = properties[k]
+            self.assertIn(k, keys)
+            self.assertIn(v, values)
+            self.assertIn((k, v), items)
+            with self.assertRaises(TypeError):
+                properties[k] = 123
+            with self.assertRaises(TypeError):
+                del properties[k]
+        with self.assertRaises(KeyError):
+            a = properties['fred']
+        with self.assertRaises(KeyError):
+            properties['fred'] = 123
 
     def test_ref_counts(self):
         # manager keeps reference to image

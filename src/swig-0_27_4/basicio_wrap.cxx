@@ -4187,45 +4187,177 @@ fail:
 typedef Exiv2::ErrorCode ErrorCode;
 
 
-static int Exiv2_BasicIo_getbuffer(
-        PyObject* exporter, Py_buffer* view, int flags) {
-    Exiv2::BasicIo* self = 0;
-    Exiv2::byte* ptr = 0;
-    bool writeable = flags && PyBUF_WRITABLE;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0)))
-        goto fail;
+static bool get_ptr_size(Exiv2::FileIo* self, bool is_writeable,
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
-        goto fail;
+        return false;
     try {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        ptr = self->mmap(writeable);
+        ptr = self->mmap(is_writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
 
     } catch(Exiv2::AnyError const& e) {
 
 
 
-        goto fail;
+        return false;
     }
+    size = self->size();
+    return true;
+};
+
+
+static int getbuffer_Exiv2_FileIo(
+        PyObject* exporter, Py_buffer* view, int flags) {
+    Exiv2::FileIo* self = 0;
+    Exiv2::byte* ptr = 0;
+    Py_ssize_t size = 0;
+    bool is_writeable = true && (flags && PyBUF_WRITABLE);
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__FileIo, 0)))
+        goto fail;
+    if (!get_ptr_size(self, is_writeable, ptr, size))
+        goto fail;
     return PyBuffer_FillInfo(view, exporter, ptr,
-        ptr ? self->size() : 0, writeable ? 0 : 1, flags);
+        ptr ? size : 0, is_writeable ? 0 : 1, flags);
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
 };
-static void Exiv2_BasicIo_releasebuffer(
-        PyObject* exporter, Py_buffer* view) {
-    Exiv2::BasicIo* self = 0;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0))) {
-        return;
-    }
+
+
+static void release_ptr(Exiv2::FileIo* self) {
     SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     self->munmap();
     self->close();
     SWIG_PYTHON_THREAD_END_ALLOW;
+};
+
+
+static void releasebuffer_Exiv2_FileIo(
+        PyObject* exporter, Py_buffer* view) {
+    Exiv2::FileIo* self = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__FileIo, 0)))
+        return;
+    release_ptr(self);
+};
+
+
+static bool get_ptr_size(Exiv2::MemIo* self, bool is_writeable,
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+    if (self->open())
+        return false;
+    try {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        ptr = self->mmap(is_writeable);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+
+    } catch(Exiv2::AnyError const& e) {
+
+
+
+        return false;
+    }
+    size = self->size();
+    return true;
+};
+
+
+static int getbuffer_Exiv2_MemIo(
+        PyObject* exporter, Py_buffer* view, int flags) {
+    Exiv2::MemIo* self = 0;
+    Exiv2::byte* ptr = 0;
+    Py_ssize_t size = 0;
+    bool is_writeable = true && (flags && PyBUF_WRITABLE);
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__MemIo, 0)))
+        goto fail;
+    if (!get_ptr_size(self, is_writeable, ptr, size))
+        goto fail;
+    return PyBuffer_FillInfo(view, exporter, ptr,
+        ptr ? size : 0, is_writeable ? 0 : 1, flags);
+fail:
+    PyErr_SetNone(PyExc_BufferError);
+    view->obj = NULL;
+    return -1;
+};
+
+
+static void release_ptr(Exiv2::MemIo* self) {
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    self->munmap();
+    self->close();
+    SWIG_PYTHON_THREAD_END_ALLOW;
+};
+
+
+static void releasebuffer_Exiv2_MemIo(
+        PyObject* exporter, Py_buffer* view) {
+    Exiv2::MemIo* self = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__MemIo, 0)))
+        return;
+    release_ptr(self);
+};
+
+
+static bool get_ptr_size(Exiv2::RemoteIo* self, bool is_writeable,
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+    if (self->open())
+        return false;
+    try {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        ptr = self->mmap(is_writeable);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+
+    } catch(Exiv2::AnyError const& e) {
+
+
+
+        return false;
+    }
+    size = self->size();
+    return true;
+};
+
+
+static int getbuffer_Exiv2_RemoteIo(
+        PyObject* exporter, Py_buffer* view, int flags) {
+    Exiv2::RemoteIo* self = 0;
+    Exiv2::byte* ptr = 0;
+    Py_ssize_t size = 0;
+    bool is_writeable = true && (flags && PyBUF_WRITABLE);
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__RemoteIo, 0)))
+        goto fail;
+    if (!get_ptr_size(self, is_writeable, ptr, size))
+        goto fail;
+    return PyBuffer_FillInfo(view, exporter, ptr,
+        ptr ? size : 0, is_writeable ? 0 : 1, flags);
+fail:
+    PyErr_SetNone(PyExc_BufferError);
+    view->obj = NULL;
+    return -1;
+};
+
+
+static void release_ptr(Exiv2::RemoteIo* self) {
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    self->munmap();
+    self->close();
+    SWIG_PYTHON_THREAD_END_ALLOW;
+};
+
+
+static void releasebuffer_Exiv2_RemoteIo(
+        PyObject* exporter, Py_buffer* view) {
+    Exiv2::RemoteIo* self = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(
+            exporter, (void**)&self, SWIGTYPE_p_Exiv2__RemoteIo, 0)))
+        return;
+    release_ptr(self);
 };
 
 
@@ -5413,13 +5545,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    size_t len = arg1->size();
-    if (!result)
-    len = 0;
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -6327,13 +6455,9 @@ SWIGINTERN PyObject *_wrap_FileIo_mmap(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    size_t len = arg1->size();
-    if (!result)
-    len = 0;
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -7198,13 +7322,9 @@ SWIGINTERN PyObject *_wrap_MemIo_mmap(PyObject *self, PyObject *args) {
     arg2 = static_cast< bool >(val2);
   }
   result = (Exiv2::byte *)(arg1)->mmap(arg2);
-  {
-    size_t len = arg1->size();
-    if (!result)
-    len = 0;
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -8108,13 +8228,9 @@ SWIGINTERN PyObject *_wrap_RemoteIo_mmap(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  {
-    size_t len = arg1->size();
-    if (!result)
-    len = 0;
-    resultobj = PyMemoryView_FromMemory(
-      (char*)result, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -9242,8 +9358,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__FileIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    Exiv2_BasicIo_getbuffer,                  /* bf_getbuffer */
-    Exiv2_BasicIo_releasebuffer,              /* bf_releasebuffer */
+    getbuffer_Exiv2_FileIo,                   /* bf_getbuffer */
+    releasebuffer_Exiv2_FileIo,               /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */
@@ -9656,8 +9772,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__MemIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    Exiv2_BasicIo_getbuffer,                  /* bf_getbuffer */
-    Exiv2_BasicIo_releasebuffer,              /* bf_releasebuffer */
+    getbuffer_Exiv2_MemIo,                    /* bf_getbuffer */
+    releasebuffer_Exiv2_MemIo,                /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */
@@ -10300,8 +10416,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__RemoteIo_type = {
     (segcountproc) 0,                         /* bf_getsegcount */
     (charbufferproc) 0,                       /* bf_getcharbuffer */
 #endif
-    Exiv2_BasicIo_getbuffer,                  /* bf_getbuffer */
-    Exiv2_BasicIo_releasebuffer,              /* bf_releasebuffer */
+    getbuffer_Exiv2_RemoteIo,                 /* bf_getbuffer */
+    releasebuffer_Exiv2_RemoteIo,             /* bf_releasebuffer */
   },
     (PyObject *) 0,                           /* ht_name */
     (PyObject *) 0,                           /* ht_slots */

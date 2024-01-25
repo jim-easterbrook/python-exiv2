@@ -16,28 +16,28 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-// Macro to convert pointer to static list to a Python list of structs
+// Macro to convert pointer to static list to a Python list of objects
 %define LIST_POINTER(pattern, item_type, valid_test)
-%fragment("pointer_to_list"{item_type}, "header",
-          fragment="struct_to_dict"{item_type}) {
-static PyObject* pointer_to_list(const item_type* ptr) {
-    const item_type* item = ptr;
-    PyObject* py_tmp = NULL;
+%fragment("pointer_to_list"{item_type}, "header") {
+static PyObject* pointer_to_list(item_type* ptr) {
     PyObject* list = PyList_New(0);
-    while (item->valid_test) {
-        py_tmp = struct_to_dict(item);
-        if (!py_tmp) {
-            Py_DECREF(list);
-            return NULL;
-        }
+    if (!ptr)
+        return list;
+    PyObject* py_tmp = NULL;
+    while (ptr->valid_test) {
+        py_tmp = SWIG_Python_NewPointerObj(
+            NULL, ptr, $descriptor(item_type*), 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++item;
+        ++ptr;
     }
     return list;
 };
 }
 %typemap(out, fragment="pointer_to_list"{item_type}) pattern {
-    $result = SWIG_Python_AppendOutput($result, pointer_to_list($1));
+    PyObject* list = pointer_to_list($1);
+    if (!list)
+        SWIG_fail;
+    $result = SWIG_Python_AppendOutput($result, list);
 }
 %enddef // LIST_POINTER

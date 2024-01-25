@@ -3932,18 +3932,18 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__DataBuf swig_types[5]
 #define SWIGTYPE_p_Exiv2__DataValue swig_types[6]
 #define SWIGTYPE_p_Exiv2__DateValue swig_types[7]
-#define SWIGTYPE_p_Exiv2__DateValue__Date swig_types[8]
-#define SWIGTYPE_p_Exiv2__ExifData swig_types[9]
-#define SWIGTYPE_p_Exiv2__ExifKey swig_types[10]
-#define SWIGTYPE_p_Exiv2__ExifThumb swig_types[11]
-#define SWIGTYPE_p_Exiv2__ExifThumbC swig_types[12]
-#define SWIGTYPE_p_Exiv2__Exifdatum swig_types[13]
+#define SWIGTYPE_p_Exiv2__ExifData swig_types[8]
+#define SWIGTYPE_p_Exiv2__ExifKey swig_types[9]
+#define SWIGTYPE_p_Exiv2__ExifThumb swig_types[10]
+#define SWIGTYPE_p_Exiv2__ExifThumbC swig_types[11]
+#define SWIGTYPE_p_Exiv2__Exifdatum swig_types[12]
+#define SWIGTYPE_p_Exiv2__GroupInfo swig_types[13]
 #define SWIGTYPE_p_Exiv2__LangAltValue swig_types[14]
 #define SWIGTYPE_p_Exiv2__Metadatum swig_types[15]
 #define SWIGTYPE_p_Exiv2__StringValue swig_types[16]
 #define SWIGTYPE_p_Exiv2__StringValueBase swig_types[17]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[18]
-#define SWIGTYPE_p_Exiv2__TimeValue__Time swig_types[19]
+#define SWIGTYPE_p_Exiv2__TagInfo swig_types[18]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[19]
 #define SWIGTYPE_p_Exiv2__Value swig_types[20]
 #define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[21]
 #define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[22]
@@ -4229,7 +4229,8 @@ protected:
     Exiv2::ExifData::iterator end;
     Exiv2::ExifData::iterator safe_ptr;
 public:
-    ExifData_iterator_base(Exiv2::ExifData::iterator ptr, Exiv2::ExifData::iterator end) {
+    ExifData_iterator_base(Exiv2::ExifData::iterator ptr,
+                                   Exiv2::ExifData::iterator end) {
         this->ptr = ptr;
         this->end = end;
         safe_ptr = ptr;
@@ -4245,8 +4246,12 @@ public:
         return result;
     }
     Exiv2::ExifData::iterator operator*() const { return ptr; }
-    bool operator==(const ExifData_iterator_base &other) const { return *other == ptr; }
-    bool operator!=(const ExifData_iterator_base &other) const { return *other != ptr; }
+    bool operator==(const ExifData_iterator_base &other) const {
+        return *other == ptr;
+    }
+    bool operator!=(const ExifData_iterator_base &other) const {
+        return *other != ptr;
+    }
     std::string __str__() {
         if (valid())
             return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
@@ -5456,9 +5461,11 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_base___iter__(PyObject *self, PyObj
   result = (ExifData_iterator_base *)(arg1)->__iter__();
   {
     resultobj = SWIG_NewPointerObj((void*)result,
-      result->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base, 0);
+      result->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base, 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -6869,6 +6876,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value__SWIG_0(PyObject *self, Py_ss
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -6919,6 +6927,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value__SWIG_1(PyObject *self, Py_ss
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -8303,6 +8312,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_value__SWIG_0(PyObject *self, Py_ssize_t no
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -8524,6 +8534,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -9373,8 +9384,6 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 ;
-  ExifData_iterator_base *argp2 ;
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
@@ -9383,17 +9392,19 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_erase" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  res2 = SWIG_ConvertPtr(
-    swig_obj[1], (void**)&argp2, SWIGTYPE_p_ExifData_iterator_base, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+  {
+    ExifData_iterator_base *argp = NULL;
+    int res = SWIG_ConvertPtr(swig_obj[1], (void**)&argp,
+      SWIGTYPE_p_ExifData_iterator_base, 0);
+    if (!SWIG_IsOK(res)) {
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'")
+      ;
+    }
+    if (!argp) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+    }
+    arg2 = **argp;
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
-  }
-  arg2 = **argp2;
-  
   {
     try {
       result = (arg1)->erase(arg2);
@@ -9406,10 +9417,12 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, Py_ssize_t nob
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -9427,10 +9440,6 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 ;
-  ExifData_iterator_base *argp2 ;
-  int res3 ;
-  ExifData_iterator_base *argp3 ;
   SwigValueWrapper< std::list< Exiv2::Exifdatum >::iterator > result;
   
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
@@ -9439,28 +9448,32 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_erase" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  res2 = SWIG_ConvertPtr(
-    swig_obj[1], (void**)&argp2, SWIGTYPE_p_ExifData_iterator_base, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+  {
+    ExifData_iterator_base *argp = NULL;
+    int res = SWIG_ConvertPtr(swig_obj[1], (void**)&argp,
+      SWIGTYPE_p_ExifData_iterator_base, 0);
+    if (!SWIG_IsOK(res)) {
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'")
+      ;
+    }
+    if (!argp) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+    }
+    arg2 = **argp;
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "2"" of type '" "ExifData_iterator_base""'");
+  {
+    ExifData_iterator_base *argp = NULL;
+    int res = SWIG_ConvertPtr(swig_obj[2], (void**)&argp,
+      SWIGTYPE_p_ExifData_iterator_base, 0);
+    if (!SWIG_IsOK(res)) {
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifData_iterator_base""'")
+      ;
+    }
+    if (!argp) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifData_iterator_base""'");
+    }
+    arg3 = **argp;
   }
-  arg2 = **argp2;
-  
-  
-  res3 = SWIG_ConvertPtr(
-    swig_obj[2], (void**)&argp3, SWIGTYPE_p_ExifData_iterator_base, 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifData_iterator_base""'");
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExifData_erase" "', argument " "3"" of type '" "ExifData_iterator_base""'");
-  }
-  arg3 = **argp3;
-  
   {
     try {
       result = (arg1)->erase(arg2,arg3);
@@ -9473,10 +9486,12 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, Py_ssize_t nob
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -9609,10 +9624,12 @@ SWIGINTERN PyObject *_wrap_ExifData_begin(PyObject *self, PyObject *args) {
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -9640,10 +9657,12 @@ SWIGINTERN PyObject *_wrap_ExifData_end(PyObject *self, PyObject *args) {
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -9692,10 +9711,12 @@ SWIGINTERN PyObject *_wrap_ExifData_findKey(PyObject *self, PyObject *args) {
   {
     ExifData_iterator_base* tmp = new ExifData_iterator_base(result, arg1->end());
     resultobj = SWIG_NewPointerObj((void*)tmp,
-      tmp->valid() ? SWIGTYPE_p_ExifData_iterator : SWIGTYPE_p_ExifData_iterator_base,
+      tmp->valid() ? SWIGTYPE_p_ExifData_iterator :
+      SWIGTYPE_p_ExifData_iterator_base,
       SWIG_POINTER_OWN);
   }
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -9788,6 +9809,7 @@ SWIGINTERN PyObject *_wrap_ExifData___getitem__(PyObject *self, PyObject *args) 
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   
+  if (resultobj != Py_None)
   if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
@@ -12043,18 +12065,18 @@ static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue",
 static swig_type_info _swigt__p_Exiv2__DataBuf = {"_p_Exiv2__DataBuf", "Exiv2::DataBuf *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DataValue = {"_p_Exiv2__DataValue", "Exiv2::DataValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DateValue = {"_p_Exiv2__DateValue", "Exiv2::DateValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__DateValue__Date = {"_p_Exiv2__DateValue__Date", "Exiv2::DateValue::Date *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ExifData = {"_p_Exiv2__ExifData", "Exiv2::ExifData *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifData_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__ExifKey = {"_p_Exiv2__ExifKey", "Exiv2::ExifKey *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ExifThumb = {"_p_Exiv2__ExifThumb", "Exiv2::ExifThumb *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifThumb_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__ExifThumbC = {"_p_Exiv2__ExifThumbC", "Exiv2::ExifThumbC *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifThumbC_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__Exifdatum = {"_p_Exiv2__Exifdatum", "Exiv2::Exifdatum *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__Exifdatum_clientdata, 0};
+static swig_type_info _swigt__p_Exiv2__GroupInfo = {"_p_Exiv2__GroupInfo", "Exiv2::GroupInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__LangAltValue = {"_p_Exiv2__LangAltValue", "Exiv2::LangAltValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Metadatum = {"_p_Exiv2__Metadatum", "Exiv2::Metadatum *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__StringValue = {"_p_Exiv2__StringValue", "Exiv2::StringValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__StringValueBase = {"_p_Exiv2__StringValueBase", "Exiv2::StringValueBase *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__TagInfo = {"_p_Exiv2__TagInfo", "Exiv2::TagInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__TimeValue = {"_p_Exiv2__TimeValue", "Exiv2::TimeValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__TimeValue__Time = {"_p_Exiv2__TimeValue__Time", "Exiv2::TimeValue::Time *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Value = {"_p_Exiv2__Value", "Exiv2::Value *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ValueTypeT_double_t = {"_p_Exiv2__ValueTypeT_double_t", "Exiv2::DoubleValue *|Exiv2::ValueType< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__ValueTypeT_float_t = {"_p_Exiv2__ValueTypeT_float_t", "Exiv2::FloatValue *|Exiv2::ValueType< float > *", 0, 0, (void*)0, 0};
@@ -12103,18 +12125,18 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__DataBuf,
   &_swigt__p_Exiv2__DataValue,
   &_swigt__p_Exiv2__DateValue,
-  &_swigt__p_Exiv2__DateValue__Date,
   &_swigt__p_Exiv2__ExifData,
   &_swigt__p_Exiv2__ExifKey,
   &_swigt__p_Exiv2__ExifThumb,
   &_swigt__p_Exiv2__ExifThumbC,
   &_swigt__p_Exiv2__Exifdatum,
+  &_swigt__p_Exiv2__GroupInfo,
   &_swigt__p_Exiv2__LangAltValue,
   &_swigt__p_Exiv2__Metadatum,
   &_swigt__p_Exiv2__StringValue,
   &_swigt__p_Exiv2__StringValueBase,
+  &_swigt__p_Exiv2__TagInfo,
   &_swigt__p_Exiv2__TimeValue,
-  &_swigt__p_Exiv2__TimeValue__Time,
   &_swigt__p_Exiv2__Value,
   &_swigt__p_Exiv2__ValueTypeT_double_t,
   &_swigt__p_Exiv2__ValueTypeT_float_t,
@@ -12163,18 +12185,18 @@ static swig_cast_info _swigc__p_Exiv2__CommentValue[] = {  {&_swigt__p_Exiv2__Co
 static swig_cast_info _swigc__p_Exiv2__DataBuf[] = {  {&_swigt__p_Exiv2__DataBuf, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DataValue[] = {  {&_swigt__p_Exiv2__DataValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DateValue[] = {  {&_swigt__p_Exiv2__DateValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__DateValue__Date[] = {  {&_swigt__p_Exiv2__DateValue__Date, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifData[] = {  {&_swigt__p_Exiv2__ExifData, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifKey[] = {  {&_swigt__p_Exiv2__ExifKey, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifThumb[] = {  {&_swigt__p_Exiv2__ExifThumb, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ExifThumbC[] = {  {&_swigt__p_Exiv2__ExifThumbC, 0, 0, 0},  {&_swigt__p_Exiv2__ExifThumb, _p_Exiv2__ExifThumbTo_p_Exiv2__ExifThumbC, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Exifdatum[] = {  {&_swigt__p_Exiv2__Exifdatum, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__GroupInfo[] = {  {&_swigt__p_Exiv2__GroupInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LangAltValue[] = {  {&_swigt__p_Exiv2__LangAltValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Metadatum[] = {  {&_swigt__p_Exiv2__Metadatum, 0, 0, 0},  {&_swigt__p_Exiv2__Exifdatum, _p_Exiv2__ExifdatumTo_p_Exiv2__Metadatum, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValue[] = {  {&_swigt__p_Exiv2__StringValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValueBase[] = {  {&_swigt__p_Exiv2__StringValueBase, 0, 0, 0},  {&_swigt__p_Exiv2__AsciiValue, _p_Exiv2__AsciiValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__CommentValue, _p_Exiv2__CommentValueTo_p_Exiv2__StringValueBase, 0, 0},  {&_swigt__p_Exiv2__StringValue, _p_Exiv2__StringValueTo_p_Exiv2__StringValueBase, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__TagInfo[] = {  {&_swigt__p_Exiv2__TagInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__TimeValue[] = {  {&_swigt__p_Exiv2__TimeValue, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__TimeValue__Time[] = {  {&_swigt__p_Exiv2__TimeValue__Time, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Value[] = {  {&_swigt__p_Exiv2__Value, 0, 0, 0},  {&_swigt__p_Exiv2__AsciiValue, _p_Exiv2__AsciiValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__CommentValue, _p_Exiv2__CommentValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__DataValue, _p_Exiv2__DataValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__DateValue, _p_Exiv2__DateValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__StringValue, _p_Exiv2__StringValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__StringValueBase, _p_Exiv2__StringValueBaseTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__TimeValue, _p_Exiv2__TimeValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_double_t, _p_Exiv2__ValueTypeT_double_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_float_t, _p_Exiv2__ValueTypeT_float_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_int16_t_t, _p_Exiv2__ValueTypeT_int16_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_int32_t_t, _p_Exiv2__ValueTypeT_int32_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, _p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, _p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_uint16_t_t, _p_Exiv2__ValueTypeT_uint16_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__ValueTypeT_uint32_t_t, _p_Exiv2__ValueTypeT_uint32_t_tTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__Value, 0, 0},  {&_swigt__p_Exiv2__XmpValue, _p_Exiv2__XmpValueTo_p_Exiv2__Value, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ValueTypeT_double_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__ValueTypeT_float_t[] = {  {&_swigt__p_Exiv2__ValueTypeT_float_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -12223,18 +12245,18 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__DataBuf,
   _swigc__p_Exiv2__DataValue,
   _swigc__p_Exiv2__DateValue,
-  _swigc__p_Exiv2__DateValue__Date,
   _swigc__p_Exiv2__ExifData,
   _swigc__p_Exiv2__ExifKey,
   _swigc__p_Exiv2__ExifThumb,
   _swigc__p_Exiv2__ExifThumbC,
   _swigc__p_Exiv2__Exifdatum,
+  _swigc__p_Exiv2__GroupInfo,
   _swigc__p_Exiv2__LangAltValue,
   _swigc__p_Exiv2__Metadatum,
   _swigc__p_Exiv2__StringValue,
   _swigc__p_Exiv2__StringValueBase,
+  _swigc__p_Exiv2__TagInfo,
   _swigc__p_Exiv2__TimeValue,
-  _swigc__p_Exiv2__TimeValue__Time,
   _swigc__p_Exiv2__Value,
   _swigc__p_Exiv2__ValueTypeT_double_t,
   _swigc__p_Exiv2__ValueTypeT_float_t,

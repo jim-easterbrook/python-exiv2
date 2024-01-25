@@ -38,10 +38,9 @@ EXCEPTION()
 
 EXTEND_METADATUM(Exiv2::Iptcdatum)
 
-DATA_ITERATOR_TYPEMAPS(IptcData_iterator, Exiv2::IptcData::iterator)
+DATA_ITERATOR_TYPEMAPS(IptcData)
 #ifndef SWIGIMPORTED
-DATA_ITERATOR_CLASSES(
-    IptcData_iterator, Exiv2::IptcData::iterator, Exiv2::Iptcdatum)
+DATA_ITERATOR_CLASSES(IptcData, Iptcdatum)
 #endif
 
 // Get the current (or default if not set) type id of a datum

@@ -24,6 +24,7 @@
 %include "shared/buffers.i"
 %include "shared/exception.i"
 %include "shared/keep_reference.i"
+%include "shared/struct_dict.i"
 %include "shared/windows_path.i"
 
 %include "std_string.i"
@@ -56,7 +57,7 @@ WINDOWS_PATH_OUT(extension)
 KEEP_REFERENCE_EX(Exiv2::PreviewManager*, swig_obj[0])
 
 // Enable len(PreviewImage)
-%feature("python:slot", "mp_length", functype="lenfunc")
+%feature("python:slot", "sq_length", functype="lenfunc")
     Exiv2::PreviewImage::__len__;
 %extend Exiv2::PreviewImage {
     size_t __len__() {
@@ -65,28 +66,22 @@ KEEP_REFERENCE_EX(Exiv2::PreviewManager*, swig_obj[0])
 }
 
 // Expose Exiv2::PreviewImage contents as a Python buffer
-%fragment("get_buffer"{Exiv2::PreviewImage}, "header") {
-static int %mangle(Exiv2::PreviewImage)_getbuff(
-        PyObject* exporter, Py_buffer* view, int flags) {
-    Exiv2::PreviewImage* self = 0;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, $descriptor(Exiv2::PreviewImage*), 0)))
-        goto fail;
-    return PyBuffer_FillInfo(
-        view, exporter, (void*)self->pData(), self->size(), 1, flags);
-fail:
-    PyErr_SetNone(PyExc_BufferError);
-    view->obj = NULL;
-    return -1;
+%fragment("get_ptr_size"{Exiv2::PreviewImage}, "header") {
+static bool get_ptr_size(Exiv2::PreviewImage* self, bool is_writeable,
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+    ptr = (Exiv2::byte*)self->pData();
+    size = self->size();
+    return true;
 };
 }
-%fragment("get_buffer"{Exiv2::PreviewImage});
-%feature("python:bf_getbuffer", functype="getbufferproc")
-    Exiv2::PreviewImage "Exiv2_PreviewImage_getbuff";
+EXPOSE_OBJECT_BUFFER(Exiv2::PreviewImage, false, false)
 
 // Convert pData result to a Python memoryview
 RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
             Exiv2::PreviewImage::pData)
+
+// Give Exiv2::PreviewProperties dict-like behaviour
+STRUCT_DICT(Exiv2::PreviewProperties)
 
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;
@@ -97,5 +92,6 @@ RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
 %immutable Exiv2::PreviewProperties::id_;
 
 %ignore Exiv2::PreviewImage::operator=;
+%ignore Exiv2::PreviewProperties::PreviewProperties;
 
 %include "exiv2/preview.hpp"

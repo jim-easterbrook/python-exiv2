@@ -21,6 +21,7 @@
 %include "shared/enum.i"
 %include "shared/exception.i"
 %include "shared/static_list.i"
+%include "shared/struct_dict.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i";
@@ -85,68 +86,18 @@ DEFINE_ENUM(SectionId, "Section identifiers to logically group tags.\n"
         "tiffPm6",         Exiv2::SectionId::tiffPm6,
         "adobeOpi",        Exiv2::SectionId::adobeOpi,
         "lastSectionId ",  Exiv2::SectionId::lastSectionId);
-
-// ExifTags::groupList returns a static list as a pointer
-%fragment("struct_to_dict"{Exiv2::GroupInfo}, "header",
-          fragment="py_from_enum"{Exiv2::IfdId},
-          fragment="new_TagListFct") {
-static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
-    return Py_BuildValue("{sN,ss,ss,sN}",
-        "ifdId",     py_from_enum(info->ifdId_),
-        "ifdName",   info->ifdName_,
-        "groupName", info->groupName_,
-        "tagList",   new_TagListFct(info->tagList_));
-};
-}
-
-// ExifTags::tagList returns a static list as a pointer
-%fragment("struct_to_dict"{Exiv2::TagInfo}, "header",
-          fragment="py_from_enum"{Exiv2::IfdId},
-          fragment="py_from_enum"{Exiv2::SectionId},
-          fragment="py_from_enum"{Exiv2::TypeId}) {
-static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
-    return Py_BuildValue("{si,ss,ss,ss,sN,sN,sN,si}",
-        "tag",       info->tag_,
-        "name",      info->name_,
-        "title",     info->title_,
-        "desc",      info->desc_,
-        "ifdId",     py_from_enum(info->ifdId_),
-        "sectionId", py_from_enum(info->sectionId_),
-        "typeId",    py_from_enum(info->typeId_),
-        "count",     info->count_);
-};
-}
-#else // EXIV2_VERSION_HEX
-// ExifTags::groupList returns a static list as a pointer
-%fragment("struct_to_dict"{Exiv2::GroupInfo}, "header",
-          fragment="new_TagListFct") {
-static PyObject* struct_to_dict(const Exiv2::GroupInfo* info) {
-    return Py_BuildValue("{si,ss,ss,sN}",
-        "ifdId",     info->ifdId_,
-        "ifdName",   info->ifdName_,
-        "groupName", info->groupName_,
-        "tagList",   new_TagListFct(info->tagList_));
-};
-}
-
-// ExifTags::tagList returns a static list as a pointer
-%fragment("struct_to_dict"{Exiv2::TagInfo}, "header",
-          fragment="py_from_enum"{Exiv2::TypeId}) {
-static PyObject* struct_to_dict(const Exiv2::TagInfo* info) {
-    return Py_BuildValue("{si,ss,ss,ss,si,si,sN,si}",
-        "tag",       info->tag_,
-        "name",      info->name_,
-        "title",     info->title_,
-        "desc",      info->desc_,
-        "ifdId",     info->ifdId_,
-        "sectionId", info->sectionId_,
-        "typeId",    py_from_enum(info->typeId_),
-        "count",     info->count_);
-};
-}
 #endif // EXIV2_VERSION_HEX
-LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_ != 0)
+
+// Convert ExifTags::groupList() result to a Python list of GroupInfo objects
+LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_)
+// Convert ExifTags::tagList() result to a Python list of TagInfo objects
 LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
+
+// Give Exiv2::GroupInfo dict-like behaviour
+STRUCT_DICT(Exiv2::GroupInfo)
+
+// Give Exiv2::TagInfo dict-like behaviour
+STRUCT_DICT(Exiv2::TagInfo)
 
 // Wrapper class for TagListFct function pointer
 #ifndef SWIGIMPORTED
@@ -155,8 +106,6 @@ LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
     _TagListFct::__call__;
 %noexception _TagListFct::~_TagListFct;
 %noexception _TagListFct::__call__;
-%noexception _TagListFct::operator==;
-%noexception _TagListFct::operator!=;
 %inline %{
 class _TagListFct {
 private:
@@ -165,12 +114,6 @@ public:
     _TagListFct(Exiv2::TagListFct func) : func(func) {}
     const Exiv2::TagInfo* __call__() {
         return (*func)();
-    }
-    bool operator==(const _TagListFct &other) const {
-        return other.func == func;
-    }
-    bool operator!=(const _TagListFct &other) const {
-        return other.func != func;
     }
 };
 %}
@@ -187,13 +130,16 @@ public:
     $result = new_TagListFct($1);
 }
 
-// Ignore structs replaced by Python dict
-%ignore Exiv2::GroupInfo;
-%ignore Exiv2::GroupInfo::GroupName;
-%ignore Exiv2::TagInfo;
-
-// Ignore stuff that Python can't use
+// Structs are all static data
+%ignore Exiv2::GroupInfo::GroupInfo;
+%ignore Exiv2::GroupInfo::~GroupInfo;
+%ignore Exiv2::TagInfo::TagInfo;
+%ignore Exiv2::TagInfo::~TagInfo;
 %ignore Exiv2::ExifTags::~ExifTags;
+
+// Ignore stuff that Python can't use or doesn't need
+%ignore Exiv2::GroupInfo::operator==;
+%ignore Exiv2::GroupInfo::GroupName;
 %ignore Exiv2::ExifTags::taglist;
 
 // Ignore unneeded key constructor

@@ -26,6 +26,10 @@ import exiv2
 
 
 class TestTypesModule(unittest.TestCase):
+    def check_result(self, result, expected_type, expected_value):
+        self.assertIsInstance(result, expected_type)
+        self.assertEqual(result, expected_value)
+
     def test_DataBuf(self):
         data = bytes(random.choices(range(256), k=128))
         # constructors
@@ -36,19 +40,19 @@ class TestTypesModule(unittest.TestCase):
         self.assertEqual(len(buf), 4)
         buf = exiv2.DataBuf(data)
         self.assertEqual(len(buf), len(data))
-        self.assertEqual(buf.data(), data)
+        self.check_result(buf.data(), memoryview, data)
         # other methods
-        result = buf.size()
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, len(data))
+        self.check_result(buf.size(), int, len(data))
         with buf.data() as view:
             self.assertIsInstance(view, memoryview)
-            result = view[23]
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, data[23])
+            self.check_result(view[23], int, data[23])
             view[49] = 99
-            self.assertEqual(view[49], 99)
+            self.check_result(view[49], int, 99)
         buf = exiv2.DataBuf(data)
+        self.assertEqual(buf, data)
+        self.assertEqual(data, buf)
+        self.assertNotEqual(buf, b'fred')
+        self.assertNotEqual(b'fred', buf)
         if exiv2.testVersion(0, 28, 0):
             self.assertEqual(buf.cmpBytes(0, data), 0)
             self.assertEqual(buf.cmpBytes(5, data[5:]), 0)
@@ -61,6 +65,10 @@ class TestTypesModule(unittest.TestCase):
         else:
             with self.assertWarns(DeprecationWarning):
                 result = buf[23]
+            with self.assertWarns(DeprecationWarning):
+                self.check_result(buf.pData_, memoryview, data)
+            with self.assertWarns(DeprecationWarning):
+                self.check_result(buf.size_, int, len(data))
             buf.free()
             self.assertEqual(len(buf), 0)
         buf = exiv2.DataBuf(data)
@@ -80,32 +88,20 @@ class TestTypesModule(unittest.TestCase):
             # other methods
             self.assertEqual(len(value), 2)
             self.assertEqual(repr(value), '(13, 7)')
-            result = value[0]
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, 13)
-            result = value[1]
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, 7)
-            result = value.first
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, value[0])
-            result = value.second
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, value[1])
+            self.check_result(value[0], int, 13)
+            self.check_result(value[1], int, 7)
+            self.check_result(value.first, int, value[0])
+            self.check_result(value.second, int, value[1])
             value[0] = 23
-            self.assertEqual(value[0], 23)
+            self.check_result(value[0], int, 23)
 
     def test_TypeInfo(self):
         info = exiv2.TypeInfo
-        result = info.typeId('Rational')
-        self.assertIsInstance(result, exiv2.TypeId)
-        self.assertEqual(result, exiv2.TypeId.unsignedRational)
-        result = info.typeName(exiv2.TypeId.unsignedRational)
-        self.assertIsInstance(result, str)
-        self.assertEqual(result, 'Rational')
-        result = info.typeSize(exiv2.TypeId.unsignedRational)
-        self.assertIsInstance(result, int)
-        self.assertEqual(result, 8)
+        self.check_result(info.typeId('Rational'),
+                          exiv2.TypeId, exiv2.TypeId.unsignedRational)
+        self.check_result(info.typeName(exiv2.TypeId.unsignedRational),
+                          str, 'Rational')
+        self.check_result(info.typeSize(exiv2.TypeId.unsignedRational), int, 8)
 
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_NLS'],
                          'no localisation available')
@@ -114,7 +110,7 @@ class TestTypesModule(unittest.TestCase):
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
         # clear current locale
         locale.setlocale(locale.LC_ALL, 'C')
-        self.assertEqual(exiv2.exvGettext(str_en), str_en)
+        self.check_result(exiv2.exvGettext(str_en), str, str_en)
         # set German locale
         if sys.platform == 'win32':
             name = 'German'
@@ -134,7 +130,7 @@ class TestTypesModule(unittest.TestCase):
         if name != 'de_DE' and sys.platform != 'win32':
             self.skipTest("locale environment ignored")
         # test localisation
-        self.assertEqual(exiv2.exvGettext(str_en), str_de)
+        self.check_result(exiv2.exvGettext(str_en), str, str_de)
 
 
 if __name__ == '__main__':

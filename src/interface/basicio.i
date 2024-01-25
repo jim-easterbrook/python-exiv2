@@ -140,67 +140,42 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 %ignore Exiv2::BasicIo::mmap();
 #endif
 // Convert mmap() result to a Python memoryview, assumes arg2 = isWriteable
-%typemap(out) Exiv2::byte* mmap {
-    size_t len = arg1->size();
-    if (!$1)
-        len = 0;
-    $result = PyMemoryView_FromMemory(
-        (char*)$1, len, arg2 ? PyBUF_WRITE : PyBUF_READ);
-}
+RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
+            arg2 ? PyBUF_WRITE : PyBUF_READ,)
 
-// Expose BasicIo contents as a Python buffer
-%fragment("Exiv2_BasicIo_getbuffer", "header") {
-static int Exiv2_BasicIo_getbuffer(
-        PyObject* exporter, Py_buffer* view, int flags) {
-    Exiv2::BasicIo* self = 0;
-    Exiv2::byte* ptr = 0;
-    bool writeable = flags && PyBUF_WRITABLE;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, $descriptor(Exiv2::BasicIo*), 0)))
-        goto fail;
+%define EXTEND_BASICIO(io_type)
+// Enable len(io_type)
+%feature("python:slot", "sq_length", functype="lenfunc") io_type::size;
+// Expose io_type contents as a Python buffer
+%fragment("get_ptr_size"{io_type}, "header") {
+static bool get_ptr_size(io_type* self, bool is_writeable,
+                         Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
-        goto fail;
+        return false;
     try {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        ptr = self->mmap(writeable);
+        ptr = self->mmap(is_writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
 #if EXIV2_VERSION_HEX < 0x001c0000
     } catch(Exiv2::AnyError const& e) {
 #else
     } catch(Exiv2::Error const& e) {
 #endif
-        goto fail;
+        return false;
     }
-    return PyBuffer_FillInfo(view, exporter, ptr,
-        ptr ? self->size() : 0, writeable ? 0 : 1, flags);
-fail:
-    PyErr_SetNone(PyExc_BufferError);
-    view->obj = NULL;
-    return -1;
+    size = self->size();
+    return true;
 };
-static void Exiv2_BasicIo_releasebuffer(
-        PyObject* exporter, Py_buffer* view) {
-    Exiv2::BasicIo* self = 0;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, $descriptor(Exiv2::BasicIo*), 0))) {
-        return;
-    }
+}
+%fragment("release_ptr"{io_type}, "header") {
+static void release_ptr(io_type* self) {
     SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     self->munmap();
     self->close();
     SWIG_PYTHON_THREAD_END_ALLOW;
 };
 }
-
-%define EXTEND_BASICIO(io_type)
-// Enable len(io_type)
-%feature("python:slot", "sq_length", functype="lenfunc") io_type::size;
-// Expose io_type contents as a Python buffer
-%fragment("Exiv2_BasicIo_getbuffer");
-%feature("python:bf_getbuffer", functype="getbufferproc")
-    io_type "Exiv2_BasicIo_getbuffer";
-%feature("python:bf_releasebuffer", functype="releasebufferproc")
-    io_type "Exiv2_BasicIo_releasebuffer";
+EXPOSE_OBJECT_BUFFER(io_type, true, true)
 %enddef // EXTEND_BASICIO
 
 EXTEND_BASICIO(Exiv2::FileIo)
