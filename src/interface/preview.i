@@ -24,6 +24,7 @@
 %include "shared/buffers.i"
 %include "shared/exception.i"
 %include "shared/keep_reference.i"
+%include "shared/struct_dict.i"
 %include "shared/windows_path.i"
 
 %include "std_string.i"
@@ -78,6 +79,9 @@ EXPOSE_OBJECT_BUFFER(Exiv2::PreviewImage, false, false)
 // Convert pData result to a Python memoryview
 RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
             Exiv2::PreviewImage::pData)
+
+// Give Exiv2::PreviewProperties dict-like behaviour
+STRUCT_DICT(Exiv2::PreviewProperties)
 
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;

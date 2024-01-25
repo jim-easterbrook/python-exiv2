@@ -5274,6 +5274,46 @@ fail:
 };
 
 
+static PyObject* list_getset(
+        PyObject* obj, PyObject* (*conv)(PyObject*, PyGetSetDef*)) {
+    PyGetSetDef* getset = obj->ob_type->tp_getset;
+    PyObject* result = PyList_New(0);
+    PyObject* item = NULL;
+    while (getset->name) {
+        if (getset->name[0] != '_') {
+            item = (*conv)(obj, getset);
+            PyList_Append(result, item);
+            Py_DECREF(item);
+        }
+        getset++;
+    }
+    return result;
+};
+static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
+    unsigned int len = strlen(name);
+    PyGetSetDef* getset = obj->ob_type->tp_getset;
+    while (getset->name) {
+        if ((strlen(getset->name) == len + 1)
+                && (strncmp(getset->name, name, len) == 0))
+            return getset;
+        getset++;
+    }
+    PyErr_Format(
+        PyExc_KeyError, "'%s' not in '%s'", name, obj->ob_type->tp_name);
+    return NULL;
+};
+static PyObject* getset_to_item(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("(s#N)", getset->name, strlen(getset->name)-1,
+        getset->get(obj, getset->closure));
+};
+static PyObject* getset_to_key(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("s#", getset->name, strlen(getset->name)-1);
+};
+static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("N", getset->get(obj, getset->closure));
+};
+
+
 SWIGINTERN swig_type_info*
 SWIG_pchar_descriptor(void)
 {
@@ -5332,6 +5372,22 @@ SWIGINTERNINLINE PyObject*
   return PyInt_FromLong((long) value);
 }
 
+SWIGINTERN PyObject *Exiv2_PreviewProperties_items(Exiv2::PreviewProperties *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_item);
+    }
+SWIGINTERN PyObject *Exiv2_PreviewProperties_keys(Exiv2::PreviewProperties *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_key);
+    }
+SWIGINTERN PyObject *Exiv2_PreviewProperties_values(Exiv2::PreviewProperties *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_value);
+    }
+SWIGINTERN PyObject *Exiv2_PreviewProperties___iter__(Exiv2::PreviewProperties *self,PyObject *py_self){
+        PyObject* seq =
+            Exiv2_PreviewProperties_keys(self, py_self);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
+    }
 
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
@@ -5450,6 +5506,27 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   return SWIG_ERROR;
 }
 
+SWIGINTERN PyObject *Exiv2_PreviewProperties___getitem__(Exiv2::PreviewProperties *self,PyObject *py_self,std::string const &key){
+        PyGetSetDef* getset = find_getset(py_self, key.c_str());
+        if (!getset)
+            return NULL;
+        return getset->get(py_self, getset->closure);
+    }
+SWIGINTERN PyObject *Exiv2_PreviewProperties___setitem__(Exiv2::PreviewProperties *self,PyObject *py_self,std::string const &key,PyObject *value){
+        PyGetSetDef* getset = find_getset(py_self, key.c_str());
+        if (!getset)
+            return NULL;
+        if (!value)
+            return PyErr_Format(PyExc_TypeError,
+                "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
+                key.c_str());
+        if (!getset->set)
+            return PyErr_Format(PyExc_TypeError, "%s['%s'] is read-only",
+                                py_self->ob_type->tp_name, key.c_str());
+        if (getset->set(py_self, value, getset->closure) != 0)
+            return NULL;
+        return SWIG_Py_Void();
+    }
 
 #ifdef _WIN32
 #include <windows.h>
@@ -5815,6 +5892,244 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_PreviewProperties_items(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "PreviewProperties_items", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties_items" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_PreviewProperties_items(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PreviewProperties_keys(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "PreviewProperties_keys", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties_keys" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_PreviewProperties_keys(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PreviewProperties_values(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "PreviewProperties_values", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties_values" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_PreviewProperties_values(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PreviewProperties___iter__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "PreviewProperties___iter__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties___iter__" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_PreviewProperties___iter__(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PreviewProperties___getitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties___getitem__" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "PreviewProperties___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PreviewProperties___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_PreviewProperties___getitem__(arg1,arg2,(std::string const &)*arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PreviewProperties___setitem__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  std::string *arg3 = 0 ;
+  PyObject *arg4 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[3] ;
+  PyObject *result = 0 ;
+  
+  {
+    arg4 = NULL;
+  }
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "PreviewProperties___setitem__", 1, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties___setitem__" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "PreviewProperties___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PreviewProperties___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  if (swig_obj[1]) {
+    arg4 = swig_obj[1];
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_PreviewProperties___setitem__(arg1,arg2,(std::string const &)*arg3,arg4);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_PreviewProperties(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
@@ -5842,6 +6157,10 @@ fail:
   return NULL;
 }
 
+
+SWIGPY_GETITERFUNC_CLOSURE(_wrap_PreviewProperties___iter__) /* defines _wrap_PreviewProperties___iter___getiterfunc_closure */
+
+SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_PreviewProperties___setitem__) /* defines _wrap_PreviewProperties___setitem___objobjargproc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_PreviewProperties) /* defines _wrap_delete_PreviewProperties_destructor_closure */
 
@@ -6347,6 +6666,12 @@ SwigPyBuiltin__Exiv2__PreviewProperties_richcompare(PyObject *self, PyObject *ot
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewProperties_methods[] = {
+  { "items", _wrap_PreviewProperties_items, METH_NOARGS, "" },
+  { "keys", _wrap_PreviewProperties_keys, METH_NOARGS, "" },
+  { "values", _wrap_PreviewProperties_values, METH_NOARGS, "" },
+  { "__iter__", _wrap_PreviewProperties___iter__, METH_NOARGS, "" },
+  { "__getitem__", _wrap_PreviewProperties___getitem__, METH_O, "" },
+  { "__setitem__", _wrap_PreviewProperties___setitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6394,7 +6719,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__PreviewProperties_type = {
     (inquiry) 0,                              /* tp_clear */
     SwigPyBuiltin__Exiv2__PreviewProperties_richcompare,          /* tp_richcompare */
     0,                                        /* tp_weaklistoffset */
-    (getiterfunc) 0,                          /* tp_iter */
+    _wrap_PreviewProperties___iter___getiterfunc_closure,         /* tp_iter */
     (iternextfunc) 0,                         /* tp_iternext */
     SwigPyBuiltin__Exiv2__PreviewProperties_methods,              /* tp_methods */
     0,                                        /* tp_members */
@@ -6505,8 +6830,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__PreviewProperties_type = {
   },
   {
     (lenfunc) 0,                              /* mp_length */
-    (binaryfunc) 0,                           /* mp_subscript */
-    (objobjargproc) 0,                        /* mp_ass_subscript */
+    _wrap_PreviewProperties___getitem__,      /* mp_subscript */
+    _wrap_PreviewProperties___setitem___objobjargproc_closure,    /* mp_ass_subscript */
   },
   {
     (lenfunc) 0,                              /* sq_length */
