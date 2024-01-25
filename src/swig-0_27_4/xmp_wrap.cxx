@@ -3951,41 +3951,42 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__XmpData swig_types[24]
 #define SWIGTYPE_p_Exiv2__XmpKey swig_types[25]
 #define SWIGTYPE_p_Exiv2__XmpParser swig_types[26]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[27]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[28]
-#define SWIGTYPE_p_Exiv2__Xmpdatum swig_types[29]
-#define SWIGTYPE_p_NsRegistry swig_types[30]
-#define SWIGTYPE_p_SwigPyObject swig_types[31]
-#define SWIGTYPE_p_ValueList swig_types[32]
-#define SWIGTYPE_p_ValueType swig_types[33]
-#define SWIGTYPE_p_XmpData_iterator swig_types[34]
-#define SWIGTYPE_p_XmpData_iterator_base swig_types[35]
-#define SWIGTYPE_p_allocator_type swig_types[36]
-#define SWIGTYPE_p_char swig_types[37]
-#define SWIGTYPE_p_const_iterator swig_types[38]
-#define SWIGTYPE_p_difference_type swig_types[39]
-#define SWIGTYPE_p_f_p_void_bool__void swig_types[40]
-#define SWIGTYPE_p_first_type swig_types[41]
-#define SWIGTYPE_p_int swig_types[42]
-#define SWIGTYPE_p_iterator swig_types[43]
-#define SWIGTYPE_p_key_type swig_types[44]
-#define SWIGTYPE_p_long_long swig_types[45]
-#define SWIGTYPE_p_mapped_type swig_types[46]
-#define SWIGTYPE_p_second_type swig_types[47]
-#define SWIGTYPE_p_short swig_types[48]
-#define SWIGTYPE_p_signed_char swig_types[49]
-#define SWIGTYPE_p_size_type swig_types[50]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[51]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[52]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[53]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[54]
-#define SWIGTYPE_p_unsigned_char swig_types[55]
-#define SWIGTYPE_p_unsigned_int swig_types[56]
-#define SWIGTYPE_p_unsigned_long_long swig_types[57]
-#define SWIGTYPE_p_unsigned_short swig_types[58]
-#define SWIGTYPE_p_value_type swig_types[59]
-static swig_type_info *swig_types[61];
-static swig_module_info swig_module = {swig_types, 60, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__XmpPropertyInfo swig_types[27]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[28]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[29]
+#define SWIGTYPE_p_Exiv2__Xmpdatum swig_types[30]
+#define SWIGTYPE_p_NsRegistry swig_types[31]
+#define SWIGTYPE_p_SwigPyObject swig_types[32]
+#define SWIGTYPE_p_ValueList swig_types[33]
+#define SWIGTYPE_p_ValueType swig_types[34]
+#define SWIGTYPE_p_XmpData_iterator swig_types[35]
+#define SWIGTYPE_p_XmpData_iterator_base swig_types[36]
+#define SWIGTYPE_p_allocator_type swig_types[37]
+#define SWIGTYPE_p_char swig_types[38]
+#define SWIGTYPE_p_const_iterator swig_types[39]
+#define SWIGTYPE_p_difference_type swig_types[40]
+#define SWIGTYPE_p_f_p_void_bool__void swig_types[41]
+#define SWIGTYPE_p_first_type swig_types[42]
+#define SWIGTYPE_p_int swig_types[43]
+#define SWIGTYPE_p_iterator swig_types[44]
+#define SWIGTYPE_p_key_type swig_types[45]
+#define SWIGTYPE_p_long_long swig_types[46]
+#define SWIGTYPE_p_mapped_type swig_types[47]
+#define SWIGTYPE_p_second_type swig_types[48]
+#define SWIGTYPE_p_short swig_types[49]
+#define SWIGTYPE_p_signed_char swig_types[50]
+#define SWIGTYPE_p_size_type swig_types[51]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[52]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[53]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[54]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[55]
+#define SWIGTYPE_p_unsigned_char swig_types[56]
+#define SWIGTYPE_p_unsigned_int swig_types[57]
+#define SWIGTYPE_p_unsigned_long_long swig_types[58]
+#define SWIGTYPE_p_unsigned_short swig_types[59]
+#define SWIGTYPE_p_value_type swig_types[60]
+static swig_type_info *swig_types[62];
+static swig_module_info swig_module = {swig_types, 61, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -10932,6 +10933,7 @@ static swig_type_info _swigt__p_Exiv2__XmpArrayValue = {"_p_Exiv2__XmpArrayValue
 static swig_type_info _swigt__p_Exiv2__XmpData = {"_p_Exiv2__XmpData", "Exiv2::XmpData *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__XmpData_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__XmpKey = {"_p_Exiv2__XmpKey", "Exiv2::XmpKey *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpParser = {"_p_Exiv2__XmpParser", "Exiv2::XmpParser *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__XmpParser_clientdata, 0};
+static swig_type_info _swigt__p_Exiv2__XmpPropertyInfo = {"_p_Exiv2__XmpPropertyInfo", "Exiv2::XmpPropertyInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Xmpdatum = {"_p_Exiv2__Xmpdatum", "Exiv2::Xmpdatum *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__Xmpdatum_clientdata, 0};
@@ -10994,6 +10996,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpData,
   &_swigt__p_Exiv2__XmpKey,
   &_swigt__p_Exiv2__XmpParser,
+  &_swigt__p_Exiv2__XmpPropertyInfo,
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
   &_swigt__p_Exiv2__Xmpdatum,
@@ -11056,6 +11059,7 @@ static swig_cast_info _swigc__p_Exiv2__XmpArrayValue[] = {  {&_swigt__p_Exiv2__X
 static swig_cast_info _swigc__p_Exiv2__XmpData[] = {  {&_swigt__p_Exiv2__XmpData, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpKey[] = {  {&_swigt__p_Exiv2__XmpKey, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpParser[] = {  {&_swigt__p_Exiv2__XmpParser, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__XmpPropertyInfo[] = {  {&_swigt__p_Exiv2__XmpPropertyInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Xmpdatum[] = {  {&_swigt__p_Exiv2__Xmpdatum, 0, 0, 0},{0, 0, 0, 0}};
@@ -11118,6 +11122,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpData,
   _swigc__p_Exiv2__XmpKey,
   _swigc__p_Exiv2__XmpParser,
+  _swigc__p_Exiv2__XmpPropertyInfo,
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
   _swigc__p_Exiv2__Xmpdatum,

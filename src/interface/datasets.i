@@ -21,6 +21,7 @@
 %include "shared/enum.i"
 %include "shared/exception.i"
 %include "shared/static_list.i"
+%include "shared/struct_dict.i"
 %include "shared/unique_ptr.i"
 
 %import "metadatum.i"
@@ -38,32 +39,21 @@ EXTEND_KEY(Exiv2::IptcKey);
 
 // IptcDataSets::application2RecordList and IptcDataSets::envelopeRecordList
 // return a static list as a pointer
-%fragment("struct_to_dict"{Exiv2::DataSet}, "header",
-          fragment="py_from_enum"{Exiv2::TypeId}) {
-static PyObject* struct_to_dict(const Exiv2::DataSet* info) {
-    return Py_BuildValue("{si,ss,ss,ss,sN,sN,si,si,sN,si,ss}",
-        "number",     info->number_,
-        "name",       info->name_,
-        "title",      info->title_,
-        "desc",       info->desc_,
-        "mandatory",  PyBool_FromLong(info->mandatory_),
-        "repeatable", PyBool_FromLong(info->repeatable_),
-        "minbytes",   info->minbytes_,
-        "maxbytes",   info->maxbytes_,
-        "type",       py_from_enum(info->type_),
-        "recordId",   info->recordId_,
-        "photoshop",  info->photoshop_);
-
-};
-}
 LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 
-%ignore Exiv2::DataSet;
+// Give Exiv2::DataSet dict-like behaviour
+STRUCT_DICT(Exiv2::DataSet)
+
+// Structs are all static data
+%ignore Exiv2::IptcDataSets::IptcDataSets;
+%ignore Exiv2::IptcDataSets::~IptcDataSets;
+%ignore Exiv2::DataSet::DataSet;
+%ignore Exiv2::DataSet::~DataSet;
+
+// Ignore stuff that Python can't use or doesn't need
 %ignore Exiv2::Dictionary;
 %ignore Exiv2::Dictionary_i;
 %ignore Exiv2::IptcDataSets::dataSetList;
-%ignore Exiv2::IptcDataSets::IptcDataSets;
-%ignore Exiv2::IptcDataSets::~IptcDataSets;
 %ignore Exiv2::RecordInfo;
 %ignore Exiv2::StringSet;
 %ignore Exiv2::StringSet_i;
