@@ -20,15 +20,16 @@
 %define LIST_POINTER(pattern, item_type, valid_test)
 %fragment("pointer_to_list"{item_type}, "header") {
 static PyObject* pointer_to_list(item_type* ptr) {
-    item_type* item = ptr;
-    PyObject* py_tmp = NULL;
     PyObject* list = PyList_New(0);
-    while (item->valid_test) {
+    if (!ptr)
+        return list;
+    PyObject* py_tmp = NULL;
+    while (ptr->valid_test) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, item, $descriptor(item_type*), 0);
+            NULL, ptr, $descriptor(item_type*), 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++item;
+        ++ptr;
     }
     return list;
 };

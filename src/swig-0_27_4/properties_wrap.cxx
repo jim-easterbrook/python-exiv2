@@ -4553,15 +4553,16 @@ SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___setitem__(Exiv2::XmpPropertyInfo *s
     }
 
 static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
-    Exiv2::XmpPropertyInfo* item = ptr;
-    PyObject* py_tmp = NULL;
     PyObject* list = PyList_New(0);
-    while (item->name_) {
+    if (!ptr)
+        return list;
+    PyObject* py_tmp = NULL;
+    while (ptr->name_) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, item, SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0);
+            NULL, ptr, SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++item;
+        ++ptr;
     }
     return list;
 };

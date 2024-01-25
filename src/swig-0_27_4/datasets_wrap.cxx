@@ -4685,15 +4685,16 @@ SWIG_From_std_string  (const std::string& s)
 
 
 static PyObject* pointer_to_list(Exiv2::DataSet* ptr) {
-    Exiv2::DataSet* item = ptr;
-    PyObject* py_tmp = NULL;
     PyObject* list = PyList_New(0);
-    while (item->number_ != 0xffff) {
+    if (!ptr)
+        return list;
+    PyObject* py_tmp = NULL;
+    while (ptr->number_ != 0xffff) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, item, SWIGTYPE_p_Exiv2__DataSet, 0);
+            NULL, ptr, SWIGTYPE_p_Exiv2__DataSet, 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++item;
+        ++ptr;
     }
     return list;
 };

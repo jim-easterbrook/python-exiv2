@@ -4285,15 +4285,16 @@ public:
 
 
 static PyObject* pointer_to_list(Exiv2::TagInfo* ptr) {
-    Exiv2::TagInfo* item = ptr;
-    PyObject* py_tmp = NULL;
     PyObject* list = PyList_New(0);
-    while (item->tag_ != 0xFFFF) {
+    if (!ptr)
+        return list;
+    PyObject* py_tmp = NULL;
+    while (ptr->tag_ != 0xFFFF) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, item, SWIGTYPE_p_Exiv2__TagInfo, 0);
+            NULL, ptr, SWIGTYPE_p_Exiv2__TagInfo, 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++item;
+        ++ptr;
     }
     return list;
 };
@@ -4691,15 +4692,16 @@ SWIGINTERN PyObject *Exiv2_TagInfo___setitem__(Exiv2::TagInfo *self,PyObject *py
     }
 
 static PyObject* pointer_to_list(Exiv2::GroupInfo* ptr) {
-    Exiv2::GroupInfo* item = ptr;
-    PyObject* py_tmp = NULL;
     PyObject* list = PyList_New(0);
-    while (item->tagList_) {
+    if (!ptr)
+        return list;
+    PyObject* py_tmp = NULL;
+    while (ptr->tagList_) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, item, SWIGTYPE_p_Exiv2__GroupInfo, 0);
+            NULL, ptr, SWIGTYPE_p_Exiv2__GroupInfo, 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++item;
+        ++ptr;
     }
     return list;
 };
