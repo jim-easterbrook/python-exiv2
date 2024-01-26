@@ -3934,22 +3934,21 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__RemoteIo swig_types[6]
 #define SWIGTYPE_p_Exiv2__XPathIo swig_types[7]
 #define SWIGTYPE_p_SwigPyObject swig_types[8]
-#define SWIGTYPE_p_UniquePtr swig_types[9]
-#define SWIGTYPE_p_char swig_types[10]
-#define SWIGTYPE_p_first_type swig_types[11]
-#define SWIGTYPE_p_int swig_types[12]
-#define SWIGTYPE_p_long_long swig_types[13]
-#define SWIGTYPE_p_second_type swig_types[14]
-#define SWIGTYPE_p_short swig_types[15]
-#define SWIGTYPE_p_signed_char swig_types[16]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[17]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[18]
-#define SWIGTYPE_p_unsigned_char swig_types[19]
-#define SWIGTYPE_p_unsigned_int swig_types[20]
-#define SWIGTYPE_p_unsigned_long_long swig_types[21]
-#define SWIGTYPE_p_unsigned_short swig_types[22]
-static swig_type_info *swig_types[24];
-static swig_module_info swig_module = {swig_types, 23, 0, 0, 0, 0};
+#define SWIGTYPE_p_char swig_types[9]
+#define SWIGTYPE_p_first_type swig_types[10]
+#define SWIGTYPE_p_int swig_types[11]
+#define SWIGTYPE_p_long_long swig_types[12]
+#define SWIGTYPE_p_second_type swig_types[13]
+#define SWIGTYPE_p_short swig_types[14]
+#define SWIGTYPE_p_signed_char swig_types[15]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[16]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[17]
+#define SWIGTYPE_p_unsigned_char swig_types[18]
+#define SWIGTYPE_p_unsigned_int swig_types[19]
+#define SWIGTYPE_p_unsigned_long_long swig_types[20]
+#define SWIGTYPE_p_unsigned_short swig_types[21]
+static swig_type_info *swig_types[23];
+static swig_module_info swig_module = {swig_types, 22, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -10970,7 +10969,6 @@ static swig_type_info _swigt__p_Exiv2__MemIo = {"_p_Exiv2__MemIo", "Exiv2::MemIo
 static swig_type_info _swigt__p_Exiv2__RemoteIo = {"_p_Exiv2__RemoteIo", "Exiv2::RemoteIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__RemoteIo_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__XPathIo = {"_p_Exiv2__XPathIo", "Exiv2::XPathIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__XPathIo_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_UniquePtr = {"_p_UniquePtr", "UniquePtr *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "int32_t *|int_fast16_t *|int_fast32_t *|int_least32_t *|intptr_t *|int *", 0, 0, (void*)0, 0};
@@ -10995,7 +10993,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__RemoteIo,
   &_swigt__p_Exiv2__XPathIo,
   &_swigt__p_SwigPyObject,
-  &_swigt__p_UniquePtr,
   &_swigt__p_char,
   &_swigt__p_first_type,
   &_swigt__p_int,
@@ -11020,7 +11017,6 @@ static swig_cast_info _swigc__p_Exiv2__MemIo[] = {  {&_swigt__p_Exiv2__MemIo, 0,
 static swig_cast_info _swigc__p_Exiv2__RemoteIo[] = {  {&_swigt__p_Exiv2__RemoteIo, 0, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XPathIo[] = {  {&_swigt__p_Exiv2__XPathIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_UniquePtr[] = {  {&_swigt__p_UniquePtr, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
@@ -11045,7 +11041,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__RemoteIo,
   _swigc__p_Exiv2__XPathIo,
   _swigc__p_SwigPyObject,
-  _swigc__p_UniquePtr,
   _swigc__p_char,
   _swigc__p_first_type,
   _swigc__p_int,

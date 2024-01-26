@@ -3924,54 +3924,52 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_AutoPtr swig_types[0]
-#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[1]
-#define SWIGTYPE_p_Exiv2__CommentValue swig_types[2]
-#define SWIGTYPE_p_Exiv2__DataBuf swig_types[3]
-#define SWIGTYPE_p_Exiv2__DataValue swig_types[4]
-#define SWIGTYPE_p_Exiv2__DateValue swig_types[5]
-#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[6]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[7]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[8]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[9]
-#define SWIGTYPE_p_Exiv2__Value swig_types[10]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[11]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[12]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[13]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[14]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[15]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[16]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[17]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[18]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[19]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[20]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[21]
-#define SWIGTYPE_p_SwigPyObject swig_types[22]
-#define SWIGTYPE_p_ValueList swig_types[23]
-#define SWIGTYPE_p_ValueType swig_types[24]
-#define SWIGTYPE_p_allocator_type swig_types[25]
-#define SWIGTYPE_p_char swig_types[26]
-#define SWIGTYPE_p_const_iterator swig_types[27]
-#define SWIGTYPE_p_difference_type swig_types[28]
-#define SWIGTYPE_p_first_type swig_types[29]
-#define SWIGTYPE_p_int swig_types[30]
-#define SWIGTYPE_p_iterator swig_types[31]
-#define SWIGTYPE_p_key_type swig_types[32]
-#define SWIGTYPE_p_long_long swig_types[33]
-#define SWIGTYPE_p_mapped_type swig_types[34]
-#define SWIGTYPE_p_second_type swig_types[35]
-#define SWIGTYPE_p_short swig_types[36]
-#define SWIGTYPE_p_signed_char swig_types[37]
-#define SWIGTYPE_p_size_type swig_types[38]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[39]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[40]
-#define SWIGTYPE_p_unsigned_char swig_types[41]
-#define SWIGTYPE_p_unsigned_int swig_types[42]
-#define SWIGTYPE_p_unsigned_long_long swig_types[43]
-#define SWIGTYPE_p_unsigned_short swig_types[44]
-#define SWIGTYPE_p_value_type swig_types[45]
-static swig_type_info *swig_types[47];
-static swig_module_info swig_module = {swig_types, 46, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[0]
+#define SWIGTYPE_p_Exiv2__CommentValue swig_types[1]
+#define SWIGTYPE_p_Exiv2__DataBuf swig_types[2]
+#define SWIGTYPE_p_Exiv2__DataValue swig_types[3]
+#define SWIGTYPE_p_Exiv2__DateValue swig_types[4]
+#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[5]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[6]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[7]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[8]
+#define SWIGTYPE_p_Exiv2__Value swig_types[9]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[10]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[11]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[12]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[13]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[14]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[15]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[16]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[17]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[18]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[19]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[20]
+#define SWIGTYPE_p_SwigPyObject swig_types[21]
+#define SWIGTYPE_p_ValueType swig_types[22]
+#define SWIGTYPE_p_allocator_type swig_types[23]
+#define SWIGTYPE_p_char swig_types[24]
+#define SWIGTYPE_p_const_iterator swig_types[25]
+#define SWIGTYPE_p_difference_type swig_types[26]
+#define SWIGTYPE_p_first_type swig_types[27]
+#define SWIGTYPE_p_int swig_types[28]
+#define SWIGTYPE_p_iterator swig_types[29]
+#define SWIGTYPE_p_key_type swig_types[30]
+#define SWIGTYPE_p_long_long swig_types[31]
+#define SWIGTYPE_p_mapped_type swig_types[32]
+#define SWIGTYPE_p_second_type swig_types[33]
+#define SWIGTYPE_p_short swig_types[34]
+#define SWIGTYPE_p_signed_char swig_types[35]
+#define SWIGTYPE_p_size_type swig_types[36]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[37]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[38]
+#define SWIGTYPE_p_unsigned_char swig_types[39]
+#define SWIGTYPE_p_unsigned_int swig_types[40]
+#define SWIGTYPE_p_unsigned_long_long swig_types[41]
+#define SWIGTYPE_p_unsigned_short swig_types[42]
+#define SWIGTYPE_p_value_type swig_types[43]
+static swig_type_info *swig_types[45];
+static swig_module_info swig_module = {swig_types, 44, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4209,7 +4207,6 @@ static void *_p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSE
 static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
 }
-static swig_type_info _swigt__p_AutoPtr = {"_p_AutoPtr", "AutoPtr *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue", "Exiv2::CommentValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__DataBuf = {"_p_Exiv2__DataBuf", "Exiv2::DataBuf *", 0, 0, (void*)0, 0};
@@ -4232,7 +4229,6 @@ static swig_type_info _swigt__p_Exiv2__XmpArrayValue = {"_p_Exiv2__XmpArrayValue
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -4257,7 +4253,6 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "uint16_t
 static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_AutoPtr,
   &_swigt__p_Exiv2__AsciiValue,
   &_swigt__p_Exiv2__CommentValue,
   &_swigt__p_Exiv2__DataBuf,
@@ -4280,7 +4275,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
   &_swigt__p_SwigPyObject,
-  &_swigt__p_ValueList,
   &_swigt__p_ValueType,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
@@ -4305,7 +4299,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_value_type,
 };
 
-static swig_cast_info _swigc__p_AutoPtr[] = {  {&_swigt__p_AutoPtr, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__CommentValue[] = {  {&_swigt__p_Exiv2__CommentValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DataBuf[] = {  {&_swigt__p_Exiv2__DataBuf, 0, 0, 0},{0, 0, 0, 0}};
@@ -4328,7 +4321,6 @@ static swig_cast_info _swigc__p_Exiv2__XmpArrayValue[] = {  {&_swigt__p_Exiv2__X
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -4353,7 +4345,6 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_AutoPtr,
   _swigc__p_Exiv2__AsciiValue,
   _swigc__p_Exiv2__CommentValue,
   _swigc__p_Exiv2__DataBuf,
@@ -4376,7 +4367,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
   _swigc__p_SwigPyObject,
-  _swigc__p_ValueList,
   _swigc__p_ValueType,
   _swigc__p_allocator_type,
   _swigc__p_char,

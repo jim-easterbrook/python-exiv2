@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 // Stuff to handle auto_ptr or unique_ptr
 #if EXIV2_VERSION_HEX < 0x001c0000
 #define SMART_PTR AutoPtr
+%ignore AutoPtr;
 %define UNIQUE_PTR(pointed_type)
 %include "std_auto_ptr.i"
 %typemap(doctype) pointed_type##::AutoPtr "pointed_type object"
@@ -26,6 +27,7 @@
 %enddef // UNIQUE_PTR
 #else
 #define SMART_PTR UniquePtr
+%ignore UniquePtr;
 #if SWIG_VERSION >= 0x040100
 %define UNIQUE_PTR(pointed_type)
 %include "std_unique_ptr.i"

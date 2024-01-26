@@ -580,6 +580,7 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
 %ignore Exiv2::CommentValue::CharsetTable;
 %ignore Exiv2::LangAltValueComparator;
 %ignore LARGE_INT;
+%ignore ValueList;
 
 %include "exiv2/value.hpp"
 
