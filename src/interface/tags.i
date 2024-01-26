@@ -141,6 +141,7 @@ public:
 %ignore Exiv2::GroupInfo::operator==;
 %ignore Exiv2::GroupInfo::GroupName;
 %ignore Exiv2::ExifTags::taglist;
+%ignore Exiv2::TagInfo::printFct_;
 
 // Ignore unneeded key constructor
 %ignore Exiv2::ExifKey::ExifKey(const TagInfo&);
