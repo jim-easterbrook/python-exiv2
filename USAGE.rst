@@ -52,6 +52,37 @@ In python-exiv2 most of the C++ enums are represented by Python enum_ classes, e
 Unfortunately there is no easy way to deprecate the SWIG generated top level constants, but they will eventually be removed from python-exiv2.
 Please ensure you only use the enum classes in your use of python-exiv2.
 
+Data structures
+---------------
+
+Some parts of the Exiv2 API use structures to hold several related data items.
+For example, the `Exiv2::ExifTags`_ class has a ``tagList()`` method that returns a list of `Exiv2::TagInfo`_ structs.
+In Python these structs have dict_ like behaviour, so the members can be accessed more easily:
+
+.. code:: python
+
+    >>> import exiv2
+    >>> info = exiv2.ExifTags.tagList('Image')[0]
+    >>> print(info.title_)
+    Processing Software
+    >>> print(info['title'])
+    Processing Software
+    >>> print(info.keys())
+    ['tag', 'title', 'sectionId', 'desc', 'typeId', 'ifdId', 'count', 'name']
+    >>> from pprint import pprint
+    >>> pprint(dict(info))
+    {'count': 0,
+     'desc': 'The name and version of the software used to post-process the '
+             'picture.',
+     'ifdId': <IfdId.ifd0Id: 1>,
+     'name': 'ProcessingSoftware',
+     'sectionId': <SectionId.otherTags: 4>,
+     'tag': 11,
+     'title': 'Processing Software',
+     'typeId': <TypeId.asciiString: 2>}
+
+Note that struct member names ending with an underscore have the underscore removed in the dict_ like interface.
+
 Reading data values
 -------------------
 
@@ -435,6 +466,8 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://exiv2.org/doc/classExiv2_1_1BasicIo.html
 .. _Exiv2::DataBuf::data:
     https://exiv2.org/doc/structExiv2_1_1DataBuf.html
+.. _Exiv2::ExifTags:
+    https://exiv2.org/doc/classExiv2_1_1ExifTags.html
 .. _Exiv2::ExifThumb::setJpegThumbnail:
     https://exiv2.org/doc/classExiv2_1_1ExifThumb.html
 .. _Exiv2::Image:
@@ -445,6 +478,8 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://exiv2.org/doc/classExiv2_1_1MemIo.html
 .. _Exiv2::Metadatum:
     https://exiv2.org/doc/classExiv2_1_1Metadatum.html
+.. _Exiv2::TagInfo:
+    https://exiv2.org/doc/structExiv2_1_1TagInfo.html
 .. _Exiv2::TypeId:
     https://exiv2.org/doc/namespaceExiv2.html#a5153319711f35fe81cbc13f4b852450c
 .. _Exiv2::Value:
