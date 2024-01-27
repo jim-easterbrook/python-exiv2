@@ -57,7 +57,7 @@ Data structures
 
 Some parts of the Exiv2 API use structures to hold several related data items.
 For example, the `Exiv2::ExifTags`_ class has a ``tagList()`` method that returns a list of `Exiv2::TagInfo`_ structs.
-In Python these structs have dict_ like behaviour, so the members can be accessed more easily:
+In python-exiv2 (since v0.16.2) these structs have dict_ like behaviour, so the members can be accessed more easily:
 
 .. code:: python
 
