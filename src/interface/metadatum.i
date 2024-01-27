@@ -74,11 +74,7 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     return SWIG_Py_Void();
 };
 }
-%feature("python:slot", "tp_str", functype="reprfunc") datum_type::__str__;
 %extend datum_type {
-    std::string __str__() {
-        return $self->key() + ": " + $self->print();
-    }
     // Extend Metadatum to allow getting value as a specific type.
     Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
         // deprecated since 2023-12-07
@@ -99,6 +95,15 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     }
 }
 %enddef // EXTEND_METADATUM
+
+// Extend base type
+%feature("python:slot", "tp_str", functype="reprfunc")
+    Exiv2::Metadatum::__str__;
+%extend Exiv2::Metadatum {
+    std::string __str__() {
+        return $self->key() + ": " + $self->print();
+    }
+}
 
 %ignore Exiv2::Key;
 %ignore Exiv2::Key::operator=;

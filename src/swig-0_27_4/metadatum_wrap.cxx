@@ -5127,6 +5127,9 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 };
 
 
+SWIGINTERN std::string Exiv2_Metadatum___str__(Exiv2::Metadatum *self){
+        return self->key() + ": " + self->print();
+    }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6186,6 +6189,37 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Metadatum___str__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Metadatum___str__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum___str__" "', argument " "1"" of type '" "Exiv2::Metadatum *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
+  {
+    try {
+      result = Exiv2_Metadatum___str__(arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGPY_REPRFUNC_CLOSURE(_wrap_Metadatum___str__) /* defines _wrap_Metadatum___str___reprfunc_closure */
+
 static PyMethodDef SwigMethods[] = {
 	 { NULL, NULL, 0, NULL }
 };
@@ -6330,6 +6364,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		":return: A constant reference to the value.\n"
 		":raises: Error if the value is not set.\n"
 		"" },
+  { "__str__", _wrap_Metadatum___str__, METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6363,7 +6398,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__Metadatum_type = {
     &SwigPyBuiltin__Exiv2__Metadatum_type.as_mapping,             /* tp_as_mapping */
     SwigPyObject_hash,                        /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
-    (reprfunc) 0,                             /* tp_str */
+    _wrap_Metadatum___str___reprfunc_closure, /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */
     (setattrofunc) 0,                         /* tp_setattro */
     &SwigPyBuiltin__Exiv2__Metadatum_type.as_buffer,              /* tp_as_buffer */
