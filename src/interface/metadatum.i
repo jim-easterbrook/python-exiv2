@@ -21,10 +21,14 @@
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
+%include "shared/exception.i"
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 
 %import "value.i"
+
+// Catch all C++ exceptions
+EXCEPTION()
 
 %define EXTEND_KEY(key_type)
 UNIQUE_PTR(key_type);
@@ -98,7 +102,7 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
 
 %ignore Exiv2::Key;
 %ignore Exiv2::Key::operator=;
-%ignore Exiv2::Metadatum;
+%ignore Exiv2::Metadatum::~Metadatum;
 %ignore Exiv2::Metadatum::operator=;
 %ignore Exiv2::Metadatum::write;
 %ignore Exiv2::cmpMetadataByKey;
