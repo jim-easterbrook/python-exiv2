@@ -121,6 +121,9 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(len(data_area), 0)
         self.assertEqual(datum.familyName(), 'Exif')
         self.assertIsInstance(datum.getValue(), exiv2.AsciiValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.getValue(exiv2.TypeId.asciiString), exiv2.AsciiValue)
         self.assertEqual(datum.groupName(), 'Image')
         self.assertEqual(datum.idx(), 2)
         self.assertEqual(datum.ifdName(), 'IFD0')
@@ -143,6 +146,9 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(datum.typeName(), 'Ascii')
         self.assertEqual(datum.typeSize(), 1)
         self.assertIsInstance(datum.value(), exiv2.AsciiValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.value(exiv2.TypeId.asciiString), exiv2.AsciiValue)
         datum.setValue('fred')
         datum.setValue(exiv2.AsciiValue('Acme'))
         with self.assertRaises(TypeError):

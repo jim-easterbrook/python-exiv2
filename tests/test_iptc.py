@@ -127,6 +127,9 @@ class TestIptcModule(unittest.TestCase):
         self.assertEqual(datum.count(), 28)
         self.assertEqual(datum.familyName(), 'Iptc')
         self.assertIsInstance(datum.getValue(), exiv2.StringValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.getValue(exiv2.TypeId.string), exiv2.StringValue)
         self.assertEqual(datum.groupName(), 'Application2')
         self.assertEqual(datum.key(), 'Iptc.Application2.Caption')
         self.assertEqual(datum.record(), exiv2.IptcDataSets.application2)
@@ -147,6 +150,9 @@ class TestIptcModule(unittest.TestCase):
         self.assertEqual(datum.typeName(), 'String')
         self.assertEqual(datum.typeSize(), 1)
         self.assertIsInstance(datum.value(), exiv2.StringValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.value(exiv2.TypeId.string), exiv2.StringValue)
         datum.setValue('fred')
         datum.setValue(exiv2.StringValue('Acme'))
         with self.assertRaises(TypeError):
