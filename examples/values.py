@@ -48,13 +48,13 @@ def main():
                            py_datetime.second, tz_hour, tz_minute)
     print("Exiv2 time:", time)
     # Exiv2 -> Python
-    date_dict = date.getDate()
-    time_dict = time.getTime()
+    date_st = date.getDate()
+    time_st = time.getTime()
     tz_info = datetime.timezone(datetime.timedelta(
-        hours=time_dict['tzHour'], minutes=time_dict['tzMinute']))
-    del time_dict['tzHour']
-    del time_dict['tzMinute']
-    py_datetime = datetime.datetime(**date_dict, **time_dict, tzinfo=tz_info);
+        hours=time_st.tzHour, minutes=time_st.tzMinute))
+    py_datetime = datetime.datetime(
+        **date_st, hour=time_st.hour, minute=time_st.minute,
+        second=time_st.second, tzinfo=tz_info);
     print("Python datetime:", py_datetime)
 
     print('==== ShortValue ====')
