@@ -5411,7 +5411,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Metadatum__print__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_Metadatum_print__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
   Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
@@ -5424,12 +5424,12 @@ SWIGINTERN PyObject *_wrap_Metadatum__print__SWIG_0(PyObject *self, Py_ssize_t n
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum__print" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum_print" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Metadatum__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Metadatum_print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   {
@@ -5448,7 +5448,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Metadatum__print__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_Metadatum_print__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
   void *argp1 = 0 ;
@@ -5458,7 +5458,7 @@ SWIGINTERN PyObject *_wrap_Metadatum__print__SWIG_1(PyObject *self, Py_ssize_t n
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum__print" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum_print" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
   {
@@ -5477,28 +5477,28 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Metadatum__print(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Metadatum_print(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Metadatum__print", 0, 2, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Metadatum_print", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 1) {
-    PyObject *retobj = _wrap_Metadatum__print__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_Metadatum_print__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 2) {
-    PyObject *retobj = _wrap_Metadatum__print__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_Metadatum_print__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Metadatum__print'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Metadatum_print'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Metadatum::print(Exiv2::ExifData const *) const\n"
     "    Exiv2::Metadatum::print() const\n");
@@ -6560,7 +6560,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		"       not have a value yet, then one is created. See subclasses for\n"
 		"       more details. Return 0 if the value was read successfully.\n"
 		"" },
-  { "_print", _wrap_Metadatum__print, METH_VARARGS, "\n"
+  { "print", _wrap_Metadatum_print, METH_VARARGS, "\n"
 		"Write the interpreted value to a string.\n"
 		"\n"
 		"Implemented in terms of write(), see there.\n"

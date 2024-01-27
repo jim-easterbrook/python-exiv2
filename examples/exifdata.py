@@ -2,7 +2,7 @@
 
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ def formatJSON(exifData):
     for datum in exifData:
         count += 1
         print('  "{}":"{}"{}'.format(
-            datum.key(), datum._print(exifData).replace('"', r'\"'),
+            datum.key(), datum.print(exifData).replace('"', r'\"'),
             ('',',')[count != length]))
     print('}')
 
@@ -50,7 +50,7 @@ def formatXML(exifData):
         count += 1
         print('  <{key}>{value}<{key}/>'.format(
             key=datum.key(),
-            value=datum._print(exifData).replace(
+            value=datum.print(exifData).replace(
                 '<', '&lt;').replace('>', '&gt')))
     print('</exif>')
 
@@ -83,7 +83,7 @@ def main():
         formats[format_](exifData)
 
         return 0
-    except exiv2.AnyError as e:
+    except exiv2.Exiv2Error as e:
         print('*** error exiv2 exception "{}" ***'.format(str(e)))
         return 4;
     except Exception as e:

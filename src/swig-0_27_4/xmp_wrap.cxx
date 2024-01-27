@@ -6709,7 +6709,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpData_iterator__print__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_XmpData_iterator_print__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
   Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
@@ -6722,12 +6722,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator__print__SWIG_0(PyObject *self, Py_ss
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator__print" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_print" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_iterator__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_iterator_print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   {
@@ -6746,7 +6746,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpData_iterator__print__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_XmpData_iterator_print__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
   void *argp1 = 0 ;
@@ -6756,7 +6756,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator__print__SWIG_1(PyObject *self, Py_ss
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator__print" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_print" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
@@ -6775,28 +6775,28 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpData_iterator__print(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_XmpData_iterator_print(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
   (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData_iterator__print", 0, 2, argv+1))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpData_iterator_print", 0, 2, argv+1))) SWIG_fail;
   argv[0] = self;
   if (argc == 1) {
-    PyObject *retobj = _wrap_XmpData_iterator__print__SWIG_1(self, argc, argv);
+    PyObject *retobj = _wrap_XmpData_iterator_print__SWIG_1(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   if (argc == 2) {
-    PyObject *retobj = _wrap_XmpData_iterator__print__SWIG_0(self, argc, argv);
+    PyObject *retobj = _wrap_XmpData_iterator_print__SWIG_0(self, argc, argv);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_iterator__print'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_iterator_print'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Metadatum::print(Exiv2::ExifData const *) const\n"
     "    Exiv2::Metadatum::print() const\n");
@@ -9643,7 +9643,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__XmpData_iterator_methods[] = {
   { "toRational", _wrap_XmpData_iterator_toRational, METH_VARARGS, "" },
   { "getValue", _wrap_XmpData_iterator_getValue, METH_VARARGS, "" },
   { "value", _wrap_XmpData_iterator_value, METH_VARARGS, "" },
-  { "_print", _wrap_XmpData_iterator__print, METH_VARARGS, "\n"
+  { "print", _wrap_XmpData_iterator_print, METH_VARARGS, "\n"
 		"Write the interpreted value to a string.\n"
 		"\n"
 		"Implemented in terms of write(), see there.\n"

@@ -17,7 +17,7 @@
 
 %module(package="exiv2") metadatum
 
-#pragma SWIG nowarn=314 // 'print' is a python keyword, renaming to '_print'
+%namewarn("") "print"; // don't rename print methods
 
 %include "shared/preamble.i"
 %include "shared/containers.i"

@@ -133,6 +133,9 @@ class TestXmpModule(unittest.TestCase):
                 datum.getValue(exiv2.TypeId.langAlt), exiv2.LangAltValue)
         self.assertEqual(datum.groupName(), 'dc')
         self.assertEqual(datum.key(), 'Xmp.dc.description')
+        self.assertEqual(datum.print(), 'lang="x-default" Good view of the'
+            ' lighthouse., lang="en-GB" Good view of the lighthouse., lang="de"'
+            ' Gute Sicht auf den Leuchtturm.')
         self.assertEqual(datum.size(), 130)
         self.assertEqual(datum.tag(), 0)
         self.assertEqual(datum.tagLabel(), 'Description')

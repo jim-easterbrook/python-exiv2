@@ -2,7 +2,7 @@
 
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ def main():
         xmpData["Xmp.dc.five"]    = '256'
         xmpData["Xmp.dc.six"]     = 'False'
  
-    except exiv2.AnyError as e:
+    except exiv2.Exiv2Error as e:
         print('Caught Exiv2 exception "{}"'.format(str(e)))
         return -1;
     finally:
