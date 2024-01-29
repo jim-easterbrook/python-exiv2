@@ -136,6 +136,8 @@ class TestXmpModule(unittest.TestCase):
         self.assertEqual(datum.print(), 'lang="x-default" Good view of the'
             ' lighthouse., lang="en-GB" Good view of the lighthouse., lang="de"'
             ' Gute Sicht auf den Leuchtturm.')
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(datum._print(), datum.print())
         self.assertEqual(datum.size(), 130)
         self.assertEqual(datum.tag(), 0)
         self.assertEqual(datum.tagLabel(), 'Description')

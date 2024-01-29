@@ -129,6 +129,8 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(datum.ifdName(), 'IFD0')
         self.assertEqual(datum.key(), 'Exif.Image.ImageDescription')
         self.assertEqual(datum.print(), 'Good view of the lighthouse.')
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(datum._print(), datum.print())
         self.assertEqual(datum.setDataArea(b'fred'), -1)
         self.assertEqual(datum.size(), 28)
         self.assertEqual(datum.sizeDataArea(), 0)

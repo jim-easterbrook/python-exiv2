@@ -5405,6 +5405,12 @@ SWIGINTERN Exiv2::Value const &Exiv2_Iptcdatum_value__SWIG_1(Exiv2::Iptcdatum *s
 SWIGINTERN PyObject *Exiv2_Iptcdatum_setValue__SWIG_2(Exiv2::Iptcdatum *self,PyObject *py_value){
         return set_value_from_py(self, py_value);
     }
+SWIGINTERN std::string Exiv2_Iptcdatum__print__SWIG_0(Exiv2::Iptcdatum const *self,Exiv2::ExifData const *pMetadata=NULL){
+        // deprecated since 2024-01-29
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+                     "'_print' has been replaced by 'print'", 1);
+        return self->print(pMetadata);
+    }
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
@@ -6954,6 +6960,101 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Iptcdatum::value() const\n"
     "    Exiv2::Iptcdatum::value(Exiv2::TypeId)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_iterator__print__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
+  Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  std::string result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator__print" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_iterator__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
+  {
+    try {
+      result = Exiv2_Iptcdatum__print__SWIG_0((Exiv2::Iptcdatum*)(arg1)->operator ->(),(Exiv2::ExifData const *)arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_iterator__print__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator__print" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
+  {
+    try {
+      result = Exiv2_Iptcdatum__print__SWIG_0((Exiv2::Iptcdatum*)(arg1)->operator ->());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_iterator__print(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IptcData_iterator__print", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_IptcData_iterator__print__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_IptcData_iterator__print__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator__print'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Iptcdatum::_print(Exiv2::ExifData const *) const\n"
+    "    Exiv2::Iptcdatum::_print() const\n");
   return 0;
 }
 
@@ -8566,6 +8667,101 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Iptcdatum__print__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
+  Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  std::string result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum__print" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Iptcdatum__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+  }
+  arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
+  {
+    try {
+      result = Exiv2_Iptcdatum__print__SWIG_0((Exiv2::Iptcdatum const *)arg1,(Exiv2::ExifData const *)arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Iptcdatum__print__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum__print" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
+  {
+    try {
+      result = Exiv2_Iptcdatum__print__SWIG_0((Exiv2::Iptcdatum const *)arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Iptcdatum__print(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Iptcdatum__print", 0, 2, argv+1))) SWIG_fail;
+  argv[0] = self;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_Iptcdatum__print__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_Iptcdatum__print__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Iptcdatum__print'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Iptcdatum::_print(Exiv2::ExifData const *) const\n"
+    "    Exiv2::Iptcdatum::_print() const\n");
+  return 0;
+}
+
+
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Iptcdatum) /* defines _wrap_delete_Iptcdatum_destructor_closure */
 
 SWIGINTERN PyObject *_wrap_IptcData_add__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
@@ -9905,6 +10101,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_iterator_methods[] = {
   { "toRational", _wrap_IptcData_iterator_toRational, METH_VARARGS, "" },
   { "getValue", _wrap_IptcData_iterator_getValue, METH_VARARGS, "" },
   { "value", _wrap_IptcData_iterator_value, METH_VARARGS, "" },
+  { "_print", _wrap_IptcData_iterator__print, METH_VARARGS, "" },
   { "print", _wrap_IptcData_iterator_print, METH_VARARGS, "\n"
 		"Write the interpreted value to a string.\n"
 		"\n"
@@ -10210,6 +10407,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Iptcdatum_methods[] = {
   { "toRational", _wrap_Iptcdatum_toRational, METH_VARARGS, "" },
   { "getValue", _wrap_Iptcdatum_getValue, METH_VARARGS, "" },
   { "value", _wrap_Iptcdatum_value, METH_VARARGS, "" },
+  { "_print", _wrap_Iptcdatum__print, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

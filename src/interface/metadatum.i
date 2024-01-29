@@ -93,6 +93,13 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     PyObject* setValue(PyObject* py_value) {
         return set_value_from_py($self, py_value);
     }
+    // Old _print method for compatibility
+    std::string _print(const Exiv2::ExifData* pMetadata=NULL) const {
+        // deprecated since 2024-01-29
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+                     "'_print' has been replaced by 'print'", 1);
+        return $self->print(pMetadata);
+    }
 }
 %enddef // EXTEND_METADATUM
 
