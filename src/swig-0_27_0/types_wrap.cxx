@@ -3936,13 +3936,12 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_signed_char swig_types[9]
 #define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[10]
 #define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[11]
-#define SWIGTYPE_p_std__pairT_unsigned_char_p_long_t swig_types[12]
-#define SWIGTYPE_p_unsigned_char swig_types[13]
-#define SWIGTYPE_p_unsigned_int swig_types[14]
-#define SWIGTYPE_p_unsigned_long_long swig_types[15]
-#define SWIGTYPE_p_unsigned_short swig_types[16]
-static swig_type_info *swig_types[18];
-static swig_module_info swig_module = {swig_types, 17, 0, 0, 0, 0};
+#define SWIGTYPE_p_unsigned_char swig_types[12]
+#define SWIGTYPE_p_unsigned_int swig_types[13]
+#define SWIGTYPE_p_unsigned_long_long swig_types[14]
+#define SWIGTYPE_p_unsigned_short swig_types[15]
+static swig_type_info *swig_types[17];
+static swig_module_info swig_module = {swig_types, 16, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5819,49 +5818,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DataBuf_reset__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
-  SwigValueWrapper< std::pair< unsigned char *,long > > arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_reset" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__pairT_unsigned_char_p_long_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataBuf_reset" "', argument " "2"" of type '" "std::pair< Exiv2::byte *,long >""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataBuf_reset" "', argument " "2"" of type '" "std::pair< Exiv2::byte *,long >""'");
-    } else {
-      std::pair< Exiv2::byte *,long > * temp = reinterpret_cast< std::pair< Exiv2::byte *,long > * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  (arg1)->reset(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_DataBuf_reset__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_DataBuf_reset(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "DataBuf_reset", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf_reset" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
@@ -5872,35 +5835,6 @@ SWIGINTERN PyObject *_wrap_DataBuf_reset__SWIG_1(PyObject *self, Py_ssize_t nobj
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_DataBuf_reset(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "DataBuf_reset", 0, 2, argv+1))) SWIG_fail;
-  argv[0] = self;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_DataBuf_reset__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_DataBuf_reset__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DataBuf_reset'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::DataBuf::reset(std::pair< Exiv2::byte *,long >)\n"
-    "    Exiv2::DataBuf::reset()\n");
-  return 0;
 }
 
 
@@ -7037,7 +6971,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
 		"       new memory is allocated and the buffer size doesn't change.\n"
 		"" },
   { "free", _wrap_DataBuf_free, METH_NOARGS, "           Free the internal buffer and reset the size to 0." },
-  { "reset", _wrap_DataBuf_reset, METH_VARARGS, " Reset value" },
+  { "reset", _wrap_DataBuf_reset, METH_NOARGS, " Reset value" },
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },
   { "__eq__", _wrap_DataBuf___eq__, METH_O, "" },
   { "__ne__", _wrap_DataBuf___ne__, METH_O, "" },
@@ -7760,7 +7694,6 @@ static swig_type_info _swigt__p_short = {"_p_short", "int16_t *|int_least16_t *|
 static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "int8_t *|int_fast8_t *|int_least8_t *|signed char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int32_t_int32_t_t = {"_p_std__pairT_int32_t_int32_t_t", "Exiv2::Rational *|std::pair< int32_t,int32_t > *|std::pair< int,int > *", 0, 0, (void*)&SwigPyBuiltin__std__pairT_int32_t_int32_t_t_clientdata, 0};
 static swig_type_info _swigt__p_std__pairT_uint32_t_uint32_t_t = {"_p_std__pairT_uint32_t_uint32_t_t", "Exiv2::URational *|std::pair< uint32_t,uint32_t > *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)&SwigPyBuiltin__std__pairT_uint32_t_uint32_t_t_clientdata, 0};
-static swig_type_info _swigt__p_std__pairT_unsigned_char_p_long_t = {"_p_std__pairT_unsigned_char_p_long_t", "std::pair< Exiv2::byte *,long > *|std::pair< unsigned char *,long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "Exiv2::byte *|uint8_t *|uint_fast8_t *|uint_least8_t *|unsigned char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "uint32_t *|uint_fast16_t *|uint_fast32_t *|uint_least32_t *|uintptr_t *|unsigned int *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long_long = {"_p_unsigned_long_long", "uint64_t *|uint_fast64_t *|uint_least64_t *|uintmax_t *|unsigned long long *", 0, 0, (void*)0, 0};
@@ -7779,7 +7712,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_signed_char,
   &_swigt__p_std__pairT_int32_t_int32_t_t,
   &_swigt__p_std__pairT_uint32_t_uint32_t_t,
-  &_swigt__p_std__pairT_unsigned_char_p_long_t,
   &_swigt__p_unsigned_char,
   &_swigt__p_unsigned_int,
   &_swigt__p_unsigned_long_long,
@@ -7798,7 +7730,6 @@ static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 
 static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int32_t_int32_t_t[] = {  {&_swigt__p_std__pairT_int32_t_int32_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_uint32_t_uint32_t_t[] = {  {&_swigt__p_std__pairT_uint32_t_uint32_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__pairT_unsigned_char_p_long_t[] = {  {&_swigt__p_std__pairT_unsigned_char_p_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_long_long[] = {  {&_swigt__p_unsigned_long_long, 0, 0, 0},{0, 0, 0, 0}};
@@ -7817,7 +7748,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_signed_char,
   _swigc__p_std__pairT_int32_t_int32_t_t,
   _swigc__p_std__pairT_uint32_t_uint32_t_t,
-  _swigc__p_std__pairT_unsigned_char_p_long_t,
   _swigc__p_unsigned_char,
   _swigc__p_unsigned_int,
   _swigc__p_unsigned_long_long,
