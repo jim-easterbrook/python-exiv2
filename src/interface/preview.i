@@ -54,7 +54,7 @@ WINDOWS_PATH_OUT(extension)
 %template() std::vector<Exiv2::PreviewProperties>;
 
 // Make sure PreviewManager keeps a reference to the image it's using
-KEEP_REFERENCE_EX(Exiv2::PreviewManager*, swig_obj[0])
+KEEP_REFERENCE_EX(Exiv2::PreviewManager*, args)
 
 // Enable len(PreviewImage)
 %feature("python:slot", "sq_length", functype="lenfunc")

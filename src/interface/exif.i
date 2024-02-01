@@ -40,7 +40,7 @@ IMPORT_ENUM(TypeId)
 EXCEPTION()
 
 // ExifThumb keeps a reference to the ExifData it uses
-KEEP_REFERENCE_EX(Exiv2::ExifThumb*, swig_obj[0])
+KEEP_REFERENCE_EX(Exiv2::ExifThumb*, args)
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)
