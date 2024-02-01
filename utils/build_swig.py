@@ -19,6 +19,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 
 
 def get_version(incl_dir):
@@ -108,29 +109,39 @@ def main():
     for mod_name in mod_names:
         shutil.copy2(os.path.join('src', 'interface', mod_name),
                      os.path.join(output_dir, mod_name))
-    # make options list
-    swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-DSWIG_DOXYGEN',
-                 '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
-                 '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
-                 '-I' + os.path.dirname(incl_dir), '-outdir', output_dir]
-    if exiv2_version >= (0, 28, 0) and swig_version < (4, 2, 0):
-        # bodge to get round SWIG choking on "static constexpr auto"
-        swig_opts.append('-Dauto=char*')
-    for key in options:
-        if options[key]:
-            swig_opts.append('-D' + key)
-    # do each swig module
-    for ext_name in ext_names:
-        cmd = ['swig'] + swig_opts
-        # Functions with just one parameter and a default value don't
-        # work with fastunpack.
-        # See https://github.com/swig/swig/issues/1126
-        if ext_name == 'basicio':
-            cmd.append('-nofastunpack')
-        cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
-        cmd += [os.path.join(interface_dir, ext_name + '.i')]
-        print(' '.join(cmd))
-        subprocess.check_call(cmd)
+    # pre-process include files to a temporary directory
+    with tempfile.TemporaryDirectory() as copy_dir:
+        dest = os.path.join(copy_dir, 'exiv2')
+        os.makedirs(dest)
+        for file in os.listdir(incl_dir):
+            with open(os.path.join(incl_dir, file), 'r') as in_file:
+                with open(os.path.join(dest, file), 'w') as out_file:
+                    for line in in_file.readlines():
+                        if swig_version < (4, 2, 0):
+                            line = line.replace('static constexpr auto',
+                                                'static const char*')
+                        out_file.write(line)
+        # make options list
+        swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-DSWIG_DOXYGEN',
+                     '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
+                     '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
+                     '-I' + copy_dir, '-outdir', output_dir]
+        for key in options:
+            if options[key]:
+                swig_opts.append('-D' + key)
+        # do each swig module
+        for ext_name in ext_names:
+            cmd = ['swig'] + swig_opts
+            # Functions with just one parameter and a default value don't
+            # work with fastunpack.
+            # See https://github.com/swig/swig/issues/2786
+            if swig_version < (4, 2, 1) and ext_name in (
+                    'basicio', ):
+                cmd.append('-nofastunpack')
+            cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
+            cmd += [os.path.join(interface_dir, ext_name + '.i')]
+            print(' '.join(cmd))
+            subprocess.check_call(cmd)
     # create init module
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
