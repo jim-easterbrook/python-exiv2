@@ -38,6 +38,10 @@ EXCEPTION()
 %ignore Exiv2::Metadatum::toRational() const;
 %ignore Exiv2::Metadatum::toUint32() const;
 
+// Use default parameter in print()
+%typemap(default) const Exiv2::ExifData* pMetadata {$1 = NULL;}
+%ignore Exiv2::Metadatum::print() const;
+
 %define EXTEND_KEY(key_type)
 UNIQUE_PTR(key_type);
 %feature("python:slot", "tp_str", functype="reprfunc") key_type::key;
@@ -102,7 +106,7 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
         return set_value_from_py($self, py_value);
     }
     // Old _print method for compatibility
-    std::string _print(const Exiv2::ExifData* pMetadata=NULL) const {
+    std::string _print(const Exiv2::ExifData* pMetadata) const {
         // deprecated since 2024-01-29
         PyErr_WarnEx(PyExc_DeprecationWarning,
                      "'_print' has been replaced by 'print'", 1);

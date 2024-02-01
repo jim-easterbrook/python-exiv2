@@ -5245,7 +5245,7 @@ SWIGINTERN Exiv2::Value const &Exiv2_Exifdatum_value__SWIG_1(Exiv2::Exifdatum *s
 SWIGINTERN PyObject *Exiv2_Exifdatum_setValue__SWIG_2(Exiv2::Exifdatum *self,PyObject *py_value){
         return set_value_from_py(self, py_value);
     }
-SWIGINTERN std::string Exiv2_Exifdatum__print__SWIG_0(Exiv2::Exifdatum const *self,Exiv2::ExifData const *pMetadata=NULL){
+SWIGINTERN std::string Exiv2_Exifdatum__print(Exiv2::Exifdatum const *self,Exiv2::ExifData const *pMetadata){
         // deprecated since 2024-01-29
         PyErr_WarnEx(PyExc_DeprecationWarning,
                      "'_print' has been replaced by 'print'", 1);
@@ -6901,109 +6901,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ExifData_iterator__print__SWIG_0(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
-  Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "ExifData_iterator__print", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator__print" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_iterator__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
-  {
-    try {
-      result = Exiv2_Exifdatum__print__SWIG_0((Exiv2::Exifdatum*)(arg1)->operator ->(),(Exiv2::ExifData const *)arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifData_iterator__print__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "ExifData_iterator__print takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator__print" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  {
-    try {
-      result = Exiv2_Exifdatum__print__SWIG_0((Exiv2::Exifdatum*)(arg1)->operator ->());
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ExifData_iterator__print(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_ExifData_iterator__print__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_ExifData_iterator__print__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifData_iterator__print'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Exifdatum::_print(Exiv2::ExifData const *) const\n"
-    "    Exiv2::Exifdatum::_print() const\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifData_iterator_print__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
   Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
@@ -7014,49 +6912,25 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_print__SWIG_0(PyObject *self, PyObj
   PyObject * obj1 = 0 ;
   std::string result;
   
-  if (!PyArg_UnpackTuple(args, "ExifData_iterator_print", 1, 1, &obj1)) SWIG_fail;
+  {
+    arg2 = NULL;
+  }
+  if (!PyArg_UnpackTuple(args, "ExifData_iterator__print", 0, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_print" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator__print" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_iterator_print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+  if (obj1) {
+    res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_iterator__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+    }
+    arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   }
-  arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   {
     try {
-      result = (*arg1)->print((Exiv2::ExifData const *)arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifData_iterator_print__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "ExifData_iterator_print takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_print" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  {
-    try {
-      result = (*arg1)->print();
+      result = Exiv2_Exifdatum__print((Exiv2::Exifdatum*)(arg1)->operator ->(),(Exiv2::ExifData const *)arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -7071,37 +6945,45 @@ fail:
 
 
 SWIGINTERN PyObject *_wrap_ExifData_iterator_print(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
+  PyObject *resultobj = 0;
+  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
+  Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj1 = 0 ;
+  std::string result;
   
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  {
+    arg2 = NULL;
   }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_ExifData_iterator_print__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "ExifData_iterator_print", 0, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_print" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
   }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_ExifData_iterator_print__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
+  if (obj1) {
+    res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData_iterator_print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+    }
+    arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   }
-  
+  {
+    try {
+      result = (*arg1)->print((Exiv2::ExifData const *)arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifData_iterator_print'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Metadatum::print(Exiv2::ExifData const *) const\n"
-    "    Exiv2::Metadatum::print() const\n");
-  return 0;
+  return NULL;
 }
 
 
@@ -8491,7 +8373,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Exifdatum__print__SWIG_0(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Exifdatum__print(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
   Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
@@ -8502,20 +8384,25 @@ SWIGINTERN PyObject *_wrap_Exifdatum__print__SWIG_0(PyObject *self, PyObject *ar
   PyObject * obj1 = 0 ;
   std::string result;
   
-  if (!PyArg_UnpackTuple(args, "Exifdatum__print", 1, 1, &obj1)) SWIG_fail;
+  {
+    arg2 = NULL;
+  }
+  if (!PyArg_UnpackTuple(args, "Exifdatum__print", 0, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum__print" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Exifdatum__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+  if (obj1) {
+    res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Exifdatum__print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+    }
+    arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   }
-  arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   {
     try {
-      result = Exiv2_Exifdatum__print__SWIG_0((Exiv2::Exifdatum const *)arg1,(Exiv2::ExifData const *)arg2);
+      result = Exiv2_Exifdatum__print((Exiv2::Exifdatum const *)arg1,(Exiv2::ExifData const *)arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -8526,70 +8413,6 @@ SWIGINTERN PyObject *_wrap_Exifdatum__print__SWIG_0(PyObject *self, PyObject *ar
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Exifdatum__print__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Exifdatum__print takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum__print" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
-  {
-    try {
-      result = Exiv2_Exifdatum__print__SWIG_0((Exiv2::Exifdatum const *)arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Exifdatum__print(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_Exifdatum__print__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_Exifdatum__print__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Exifdatum__print'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Exifdatum::_print(Exiv2::ExifData const *) const\n"
-    "    Exiv2::Exifdatum::_print() const\n");
-  return 0;
 }
 
 

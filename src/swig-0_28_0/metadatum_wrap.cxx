@@ -5419,7 +5419,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Metadatum_print__SWIG_0(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Metadatum_print(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
   Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
@@ -5430,17 +5430,22 @@ SWIGINTERN PyObject *_wrap_Metadatum_print__SWIG_0(PyObject *self, PyObject *arg
   PyObject * obj1 = 0 ;
   std::string result;
   
-  if (!PyArg_UnpackTuple(args, "Metadatum_print", 1, 1, &obj1)) SWIG_fail;
+  {
+    arg2 = NULL;
+  }
+  if (!PyArg_UnpackTuple(args, "Metadatum_print", 0, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum_print" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Metadatum_print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+  if (obj1) {
+    res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Metadatum_print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
+    }
+    arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   }
-  arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->print((Exiv2::ExifData const *)arg2);
@@ -5454,70 +5459,6 @@ SWIGINTERN PyObject *_wrap_Metadatum_print__SWIG_0(PyObject *self, PyObject *arg
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Metadatum_print__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Metadatum_print takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum_print" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
-  {
-    try {
-      result = ((Exiv2::Metadatum const *)arg1)->print();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Metadatum_print(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_Metadatum_print__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_Metadatum_print__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Metadatum_print'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Metadatum::print(Exiv2::ExifData const *) const\n"
-    "    Exiv2::Metadatum::print() const\n");
-  return 0;
 }
 
 
