@@ -124,6 +124,8 @@ def main():
                                             'toString(size_t i)')
                         line = line.replace('toString(long n)',
                                             'toString(long i)')
+                        line = line.replace('/*isWriteable*/',
+                                            'isWriteable')
                         out_file.write(line)
         # make options list
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-DSWIG_DOXYGEN',
