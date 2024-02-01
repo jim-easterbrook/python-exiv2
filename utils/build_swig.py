@@ -120,6 +120,10 @@ def main():
                         if swig_version < (4, 2, 0):
                             line = line.replace('static constexpr auto',
                                                 'static const char*')
+                        line = line.replace('toString(size_t n)',
+                                            'toString(size_t i)')
+                        line = line.replace('toString(long n)',
+                                            'toString(long i)')
                         out_file.write(line)
         # make options list
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-DSWIG_DOXYGEN',
@@ -136,7 +140,7 @@ def main():
             # work with fastunpack.
             # See https://github.com/swig/swig/issues/2786
             if swig_version < (4, 2, 1) and ext_name in (
-                    'basicio', ):
+                    'basicio', 'exif', 'iptc', 'metadatum', 'value', 'xmp'):
                 cmd.append('-nofastunpack')
             cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
             cmd += [os.path.join(interface_dir, ext_name + '.i')]

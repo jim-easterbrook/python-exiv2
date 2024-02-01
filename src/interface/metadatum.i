@@ -30,6 +30,14 @@
 // Catch all C++ exceptions
 EXCEPTION()
 
+// Use default parameter for toFloat etc.
+%typemap(default) long n, size_t n {$1 = 0;}
+%ignore Exiv2::Metadatum::toFloat() const;
+%ignore Exiv2::Metadatum::toInt64() const;
+%ignore Exiv2::Metadatum::toLong() const;
+%ignore Exiv2::Metadatum::toRational() const;
+%ignore Exiv2::Metadatum::toUint32() const;
+
 %define EXTEND_KEY(key_type)
 UNIQUE_PTR(key_type);
 %feature("python:slot", "tp_str", functype="reprfunc") key_type::key;

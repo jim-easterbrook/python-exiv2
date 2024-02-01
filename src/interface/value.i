@@ -181,12 +181,20 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 // Make Exiv2::TypeId parameters optional
 %typemap(default) Exiv2::TypeId typeId {$1 = Exiv2::undefined;}
 
+// Use default parameter for toFloat etc.
+%typemap(default) long n, size_t n {$1 = 0;}
+
 // Ignore now redundant overloaded methods
 %ignore Exiv2::DataValue::DataValue();
 %ignore Exiv2::DataValue::DataValue(byte const *, long);
 %ignore Exiv2::DataValue::DataValue(byte const *, long, ByteOrder);
 %ignore Exiv2::DataValue::DataValue(byte const *, size_t);
 %ignore Exiv2::DataValue::DataValue(byte const *, size_t, ByteOrder);
+%ignore Exiv2::Value::toFloat() const;
+%ignore Exiv2::Value::toInt64() const;
+%ignore Exiv2::Value::toLong() const;
+%ignore Exiv2::Value::toRational() const;
+%ignore Exiv2::Value::toUint32() const;
 
 // Make enums more Pythonic
 DEFINE_CLASS_ENUM(CommentValue, CharsetId,
