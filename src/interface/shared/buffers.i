@@ -141,7 +141,7 @@ static void releasebuffer_%mangle(object_type)(
 %define EXPOSE_OBJECT_BUFFER(object_type, writeable, with_release)
 // Add getbuffer slot to an object type
 _BF_GETBUFFER(object_type, writeable, getbuffer_%mangle(object_type))
-#if with_release
+#if #with_release == "true"
 // Add releasebuffer slot to an object type (not often needed)
 _BF_RELEASEBUFFER(object_type, releasebuffer_%mangle(object_type))
 #endif
