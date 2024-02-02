@@ -53,6 +53,10 @@ UNIQUE_PTR(Exiv2::Image);
 INPUT_BUFFER_RO_EX(const Exiv2::byte* data, long size)
 INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
 
+// ImageFactory can get type from a buffer
+// (Signature changed in build_swig.py pre-processing.)
+INPUT_BUFFER_RO(const Exiv2::byte* data, int size)
+
 // Release memory buffer after writeMetadata, as it creates its own copy
 %typemap(ret) void writeMetadata %{
     if (PyObject_HasAttrString(self, "_refers_to")) {

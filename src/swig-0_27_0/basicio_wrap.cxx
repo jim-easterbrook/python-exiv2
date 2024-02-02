@@ -6758,7 +6758,6 @@ SWIGINTERN int _wrap_new_MemIo__SWIG_1(PyObject *self, PyObject *args, PyObject 
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__MemIo, SWIG_BUILTIN_INIT |  0 );
   
-  if (SwigPyObject_Check(resultobj))
   PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
   
   

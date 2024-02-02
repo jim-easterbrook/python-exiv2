@@ -43,8 +43,7 @@
 %define INPUT_BUFFER_RO_EX(buf_type, len_type)
 INPUT_BUFFER_RO(buf_type, len_type)
 %typemap(argout) (buf_type, len_type) %{
-    if (SwigPyObject_Check(resultobj))
-        PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+    PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
 %}
 %enddef // INPUT_BUFFER_RO_EX
 

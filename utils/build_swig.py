@@ -110,23 +110,35 @@ def main():
         shutil.copy2(os.path.join('src', 'interface', mod_name),
                      os.path.join(output_dir, mod_name))
     # pre-process include files to a temporary directory
+    subst = {
+        'basicio.hpp': [('/*isWriteable*/', 'isWriteable')],
+        'image.hpp': [('getType(const byte* data, size_t',
+                       'getType(const byte* data, int'),
+                      ('getType(const byte* data, long',
+                       'getType(const byte* data, int')],
+        'metadatum.hpp': [('toString(size_t n)', 'toString(size_t i)'),
+                          ('toString(long n)', 'toString(long i)')],
+        }
+    for key in ('exif.hpp', 'iptc.hpp', 'value.hpp',
+                'xmp.hpp', 'xmp_exiv2.hpp'):
+        subst[key] = subst['metadatum.hpp']
+    if swig_version < (4, 2, 0):
+        subst['basicio.hpp'].append(('static constexpr auto',
+                                     'static const char*'))
     with tempfile.TemporaryDirectory() as copy_dir:
         dest = os.path.join(copy_dir, 'exiv2')
         os.makedirs(dest)
         for file in os.listdir(incl_dir):
-            with open(os.path.join(incl_dir, file), 'r') as in_file:
-                with open(os.path.join(dest, file), 'w') as out_file:
-                    for line in in_file.readlines():
-                        if swig_version < (4, 2, 0):
-                            line = line.replace('static constexpr auto',
-                                                'static const char*')
-                        line = line.replace('toString(size_t n)',
-                                            'toString(size_t i)')
-                        line = line.replace('toString(long n)',
-                                            'toString(long i)')
-                        line = line.replace('/*isWriteable*/',
-                                            'isWriteable')
-                        out_file.write(line)
+            if file in subst:
+                with open(os.path.join(incl_dir, file), 'r') as in_file:
+                    with open(os.path.join(dest, file), 'w') as out_file:
+                        for line in in_file.readlines():
+                            for from_to in subst[file]:
+                                line = line.replace(*from_to)
+                            out_file.write(line)
+            else:
+                shutil.copy(os.path.join(incl_dir, file),
+                            os.path.join(dest, file))
         # make options list
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-DSWIG_DOXYGEN',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
