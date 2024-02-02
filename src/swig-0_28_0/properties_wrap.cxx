@@ -6755,7 +6755,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
 		"       for unknown keys is xmpText.\n"
 		":type key: :py:class:`XmpKey`\n"
 		":param key: The property key\n"
-		":rtype: int\n"
+		":rtype: Exiv2::TypeId\n"
 		":return: The type of the property\n"
 		"" },
   { "propertyInfo", (PyCFunction)(void(*)(void))_wrap_XmpProperties_propertyInfo, METH_STATIC|METH_O, "\n"

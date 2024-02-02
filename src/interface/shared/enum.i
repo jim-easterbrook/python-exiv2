@@ -106,6 +106,7 @@ static PyObject* py_from_enum(pattern value) {
     if (!$result)
         SWIG_fail;
 }
+%typemap(doctype) pattern #pattern
 %enddef // _ENUM_COMMON
 
 // Function to return enum members as Python list
