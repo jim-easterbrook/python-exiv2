@@ -112,10 +112,14 @@ def main():
     # pre-process include files to a temporary directory
     subst = {
         'basicio.hpp': [('/*isWriteable*/', 'isWriteable')],
-        'image.hpp': [('getType(const byte* data, size_t',
-                       'getType(const byte* data, int'),
-                      ('getType(const byte* data, long',
-                       'getType(const byte* data, int')],
+        'image.hpp': [('getType(const byte* data, size_t size',
+                       'getType(const byte* data, size_t A'),
+                      ('getType(const byte* data, long size',
+                       'getType(const byte* data, long A'),
+                      ('open(const byte* data, size_t size',
+                       'open(const byte* data, size_t B'),
+                      ('open(const byte* data, long size',
+                       'open(const byte* data, long B')],
         'metadatum.hpp': [('toString(size_t n)', 'toString(size_t i)'),
                           ('toString(long n)', 'toString(long i)')],
         }

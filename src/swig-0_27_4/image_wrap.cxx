@@ -4829,22 +4829,6 @@ static int transcode_path(std::string *path, bool to_cp) {
     return 0;
 };
 
-
-SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6599,7 +6583,7 @@ fail:
 SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  int arg2 ;
+  long arg2 ;
   PyObject *_global_view = NULL ;
   int result;
   
@@ -6613,7 +6597,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
     }
     Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
-    arg2 = (int) buff->len;
+    arg2 = (long) buff->len;
   }
   {
     try {
@@ -6719,7 +6703,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ImageFactory_getType'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::ImageFactory::getType(std::string const &)\n"
-    "    Exiv2::ImageFactory::getType(Exiv2::byte const *,int)\n"
+    "    Exiv2::ImageFactory::getType(Exiv2::byte const *,long)\n"
     "    Exiv2::ImageFactory::getType(Exiv2::BasicIo &)\n");
   return 0;
 }
@@ -7447,7 +7431,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		":type data: bytes-like object\n"
 		":param data: Pointer to a data buffer containing an image. The contents\n"
 		"        of the memory are tested to determine the image type.\n"
-		":type size: int\n"
 		":param size: Number of bytes pointed to by *data*.\n"
 		":rtype: Exiv2::Image object\n"
 		":return: An auto-pointer that owns an Image instance whose type\n"
@@ -7499,7 +7482,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		":type data: bytes-like object\n"
 		":param data: Pointer to a data buffer containing an image. The contents\n"
 		"        of the memory are tested to determine the image type.\n"
-		":type size: int\n"
 		":param size: Number of bytes pointed to by *data*.\n"
 		":rtype: Exiv2::ImageType\n"
 		":return: %Image type or Image::none if the type is not recognized.\n"
