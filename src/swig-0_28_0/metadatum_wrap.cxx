@@ -6395,7 +6395,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		"subclass of Value to make use of the interface of the subclass to set\n"
 		"or modify its contents.\n"
 		"\n"
-		":rtype: Exiv2::Value object\n"
+		":rtype: :py:class:`Value`\n"
 		":return: An auto-pointer containing a pointer to a copy (clone) of the\n"
 		"            value, 0 if the value is not set.\n"
 		"" },

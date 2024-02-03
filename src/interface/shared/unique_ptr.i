@@ -22,7 +22,7 @@
 %ignore AutoPtr;
 %define UNIQUE_PTR(pointed_type)
 %include "std_auto_ptr.i"
-%typemap(doctype) pointed_type##::AutoPtr "pointed_type object"
+%typemap(doctype) pointed_type##::AutoPtr #pointed_type
 %auto_ptr(pointed_type)
 %enddef // UNIQUE_PTR
 #else
@@ -31,7 +31,7 @@
 #if SWIG_VERSION >= 0x040100
 %define UNIQUE_PTR(pointed_type)
 %include "std_unique_ptr.i"
-%typemap(doctype) pointed_type##::UniquePtr "pointed_type object"
+%typemap(doctype) pointed_type##::UniquePtr #pointed_type
 %unique_ptr(pointed_type)
 %enddef // UNIQUE_PTR
 #else

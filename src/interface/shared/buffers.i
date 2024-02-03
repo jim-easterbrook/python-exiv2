@@ -80,6 +80,7 @@ INPUT_BUFFER_RO(buf_type, len_type)
 // Macro to convert byte* return value to memoryview
 // WARNING: return value does not keep a reference to the data it points to
 %define RETURN_VIEW(signature, size_func, flags, doc_method)
+%typemap(doctype) signature "memoryview";
 %typemap(out) (signature) %{
     $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
 %}

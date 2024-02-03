@@ -8973,7 +8973,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		":type isWriteable: boolean, optional\n"
 		":param isWriteable: Set to true if the mapped area should be writeable\n"
 		"           (default is false).\n"
-		":rtype: Exiv2::byte\n"
+		":rtype: memoryview\n"
 		":return: A pointer to the mapped area.\n"
 		":raises: Error In case of failure.\n"
 		"" },
@@ -9404,7 +9404,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		":type isWriteable: boolean, optional\n"
 		":param isWriteable: Set to true if the mapped area should be writeable\n"
 		"           (default is false).\n"
-		":rtype: Exiv2::byte\n"
+		":rtype: memoryview\n"
 		":return: A pointer to the mapped area.\n"
 		":raises: Error In case of failure.\n"
 		"" },
@@ -10445,7 +10445,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
   { "seek", _wrap_RemoteIo_seek, METH_VARARGS, "" },
   { "mmap", _wrap_RemoteIo_mmap, METH_VARARGS, "\n"
 		"Not support\n"
-		":rtype: Exiv2::byte\n"
+		":rtype: memoryview\n"
 		":return: NULL\n"
 		"" },
   { "munmap", _wrap_RemoteIo_munmap, METH_VARARGS, "\n"
