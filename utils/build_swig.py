@@ -144,7 +144,7 @@ def main():
                 shutil.copy(os.path.join(incl_dir, file),
                             os.path.join(dest, file))
         # make options list
-        swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-DSWIG_DOXYGEN',
+        swig_opts = ['-c++', '-python', '-builtin', '-doxygen',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
                      '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
                      '-I' + copy_dir, '-outdir', output_dir]
