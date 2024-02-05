@@ -6987,6 +6987,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
 		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
 		"WARNING: do not resize or delete the object while using the view.\n"
+		"\n"
+		":rtype: memoryview\n"
 		"" },
   { "empty", _wrap_DataBuf_empty, METH_NOARGS, "" },
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },

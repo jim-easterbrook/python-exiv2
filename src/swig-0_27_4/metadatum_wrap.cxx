@@ -6099,7 +6099,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		"The user must ensure that the buffer has enough memory. Otherwise\n"
 		"the call results in undefined behaviour.\n"
 		"\n"
-		":type buf: writeable bytes-like object\n"
+		":type buf: writeable :py:term:`bytes-like object`\n"
 		":param buf: Data buffer to write to.\n"
 		":type byteOrder: Exiv2::ByteOrder\n"
 		":param byteOrder: Applicable byte order (little or big endian).\n"

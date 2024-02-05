@@ -18,7 +18,7 @@
 
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)
-%typemap(doctype) buf_type "bytes-like object";
+%typemap(doctype) buf_type ":py:term:`bytes-like object`";
 %typemap(in) (buf_type, len_type) (PyObject* _global_view = NULL) {
     _global_view = PyMemoryView_GetContiguous($input, PyBUF_READ, 'A');
     if (!_global_view) {
@@ -50,7 +50,7 @@ INPUT_BUFFER_RO(buf_type, len_type)
 
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)
-%typemap(doctype) buf_type "writeable bytes-like object";
+%typemap(doctype) buf_type "writeable :py:term:`bytes-like object`";
 %typemap(in) (buf_type) (Py_buffer _global_view) {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer(
@@ -88,7 +88,9 @@ INPUT_BUFFER_RO(buf_type, len_type)
 %feature("docstring") doc_method
 "Returns a temporary Python memoryview of the object's data.
 
-WARNING: do not resize or delete the object while using the view."
+WARNING: do not resize or delete the object while using the view.
+
+:rtype: memoryview"
 #endif
 %enddef // RETURN_VIEW
 
