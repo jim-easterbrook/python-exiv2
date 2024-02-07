@@ -4342,8 +4342,13 @@ static PyObject* _create_enum_Exiv2_AccessMode(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_AccessMode)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_AccessMode, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_AccessMode, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_AccessMode, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_AccessMode);
@@ -4381,8 +4386,13 @@ static PyObject* _create_enum_Exiv2_ByteOrder(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_ByteOrder)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_ByteOrder, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_ByteOrder, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_ByteOrder, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_ByteOrder);
@@ -4401,8 +4411,13 @@ static PyObject* _create_enum_Exiv2_MetadataId(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_MetadataId)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_MetadataId, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_MetadataId, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_MetadataId, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_MetadataId);
@@ -4421,8 +4436,13 @@ static PyObject* _create_enum_Exiv2_TypeId(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_TypeId)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_TypeId, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_TypeId, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_TypeId, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_TypeId);

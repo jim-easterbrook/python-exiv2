@@ -4222,8 +4222,13 @@ static PyObject* _create_enum_Exiv2_XmpCategory(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_XmpCategory)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_XmpCategory, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpCategory, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpCategory, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_XmpCategory);

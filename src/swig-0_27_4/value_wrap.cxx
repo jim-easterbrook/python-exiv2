@@ -5980,8 +5980,13 @@ static PyObject* _create_enum_Exiv2_CommentValue_CharsetId(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_CommentValue_CharsetId)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_CommentValue_CharsetId, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_CommentValue_CharsetId, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_CommentValue_CharsetId, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_CommentValue_CharsetId);
@@ -6075,8 +6080,13 @@ static PyObject* _create_enum_Exiv2_XmpValue_XmpArrayType(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_XmpValue_XmpArrayType)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_XmpValue_XmpArrayType, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpValue_XmpArrayType, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpValue_XmpArrayType, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_XmpValue_XmpArrayType);
@@ -6095,8 +6105,13 @@ static PyObject* _create_enum_Exiv2_XmpValue_XmpStruct(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_XmpValue_XmpStruct)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_XmpValue_XmpStruct, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpValue_XmpStruct, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpValue_XmpStruct, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_XmpValue_XmpStruct);
