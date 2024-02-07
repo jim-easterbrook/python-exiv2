@@ -106,7 +106,6 @@ static PyObject* py_from_enum(pattern value) {
     if (!$result)
         SWIG_fail;
 }
-%typemap(doctype) pattern #pattern
 %enddef // _ENUM_COMMON
 
 // Function to return enum members as Python list
@@ -148,6 +147,7 @@ static PyObject* Py_IntEnum = NULL;
 
 %define IMPORT_ENUM(name)
 _ENUM_COMMON(Exiv2::name);
+%typemap(doctype) Exiv2::name ":py:class:`" #name "`"
 // fragment to get enum object
 %fragment("get_enum_typeobject"{Exiv2::name}, "header",
           fragment="import_exiv2",
@@ -207,23 +207,24 @@ enum_name.__doc__ = doc
 %ignore Exiv2::enum_name;
 %enddef // DEPRECATED_ENUM
 
-%define IMPORT_CLASS_ENUM(class, name)
-_ENUM_COMMON(Exiv2::class::name);
+%define IMPORT_CLASS_ENUM(klass, name)
+_ENUM_COMMON(Exiv2::klass::name);
+%typemap(doctype) Exiv2::klass::name ":py:class:`" #klass "." #name "`"
 // fragment to get enum object
-%fragment("get_enum_typeobject"{Exiv2::class::name}, "header",
+%fragment("get_enum_typeobject"{Exiv2::klass::name}, "header",
           fragment="import_exiv2",
-          fragment="_declare_enum_object"{Exiv2::class::name}) {
-static PyObject* get_enum_typeobject_%mangle(Exiv2::class::name)() {
-    if (!PyEnum_%mangle(Exiv2::class::name)) {
+          fragment="_declare_enum_object"{Exiv2::klass::name}) {
+static PyObject* get_enum_typeobject_%mangle(Exiv2::klass::name)() {
+    if (!PyEnum_%mangle(Exiv2::klass::name)) {
         PyObject* parent_class = PyObject_GetAttrString(
-            exiv2_module, "class");
+            exiv2_module, "klass");
         if (parent_class) {
-            PyEnum_%mangle(Exiv2::class::name) = PyObject_GetAttrString(
+            PyEnum_%mangle(Exiv2::klass::name) = PyObject_GetAttrString(
                 parent_class, "name");
             Py_DECREF(parent_class);
         }
     }
-    return PyEnum_%mangle(Exiv2::class::name);
+    return PyEnum_%mangle(Exiv2::klass::name);
 };
 }
 %enddef // IMPORT_CLASS_ENUM

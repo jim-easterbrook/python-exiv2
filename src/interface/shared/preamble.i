@@ -24,3 +24,7 @@
 // Older versions of libexiv2 define these as well
 #define EXV_DLLLOCAL
 #define EXV_DLLPUBLIC
+
+%typemap(doctype) bool "bool"
+%typemap(doctype) Exiv2::byte "int"
+%typemap(doctype) std::string "str"

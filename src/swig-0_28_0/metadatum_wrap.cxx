@@ -6335,7 +6335,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		"\n"
 		":type buf: writeable :py:term:`bytes-like object`\n"
 		":param buf: Data buffer to write to.\n"
-		":type byteOrder: Exiv2::ByteOrder\n"
+		":type byteOrder: :py:class:`ByteOrder`\n"
 		":param byteOrder: Applicable byte order (little or big endian).\n"
 		":rtype: int\n"
 		":return: Number of characters written.\n"

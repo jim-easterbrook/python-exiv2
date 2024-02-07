@@ -6932,7 +6932,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
 		"type of the preview image, so *path* should not include an extension.\n"
 		"The function will overwrite an existing file of the same name.\n"
 		"\n"
-		":type path: string\n"
+		":type path: str\n"
 		":param path: File name of the preview image without extension.\n"
 		":rtype: int\n"
 		":return: The number of bytes written.\n"

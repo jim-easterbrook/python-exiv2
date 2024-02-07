@@ -9451,7 +9451,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_iterator_methods[] = {
 		"" },
   { "recordName", _wrap_IptcData_iterator_recordName, METH_VARARGS, "\n"
 		"Return the name of the record (deprecated)\n"
-		":rtype: string\n"
+		":rtype: str\n"
 		":return: record name\n"
 		"" },
   { "record", _wrap_IptcData_iterator_record, METH_VARARGS, "\n"
@@ -9463,7 +9463,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_iterator_methods[] = {
   { "groupName", _wrap_IptcData_iterator_groupName, METH_VARARGS, "" },
   { "tagName", _wrap_IptcData_iterator_tagName, METH_VARARGS, "\n"
 		"Return the name of the tag (aka dataset)\n"
-		":rtype: string\n"
+		":rtype: str\n"
 		":return: tag name\n"
 		"" },
   { "tagLabel", _wrap_IptcData_iterator_tagLabel, METH_VARARGS, "" },
@@ -9760,7 +9760,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Iptcdatum_methods[] = {
 		"" },
   { "recordName", _wrap_Iptcdatum_recordName, METH_VARARGS, "\n"
 		"Return the name of the record (deprecated)\n"
-		":rtype: string\n"
+		":rtype: str\n"
 		":return: record name\n"
 		"" },
   { "record", _wrap_Iptcdatum_record, METH_VARARGS, "\n"
@@ -9772,7 +9772,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Iptcdatum_methods[] = {
   { "groupName", _wrap_Iptcdatum_groupName, METH_VARARGS, "" },
   { "tagName", _wrap_Iptcdatum_tagName, METH_VARARGS, "\n"
 		"Return the name of the tag (aka dataset)\n"
-		":rtype: string\n"
+		":rtype: str\n"
 		":return: tag name\n"
 		"" },
   { "tagLabel", _wrap_Iptcdatum_tagLabel, METH_VARARGS, "" },

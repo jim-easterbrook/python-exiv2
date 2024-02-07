@@ -10601,7 +10601,7 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpParser_getset[] = {
 		"\n"
 		"    }\n"
 		"\n"
-		":rtype: boolean\n"
+		":rtype: bool\n"
 		":return: True if the initialization was successful, else false.\n"
 		"", &XmpParser___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
@@ -10675,7 +10675,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpParser_methods[] = {
 		"\n"
 		"    }\n"
 		"\n"
-		":rtype: boolean\n"
+		":rtype: bool\n"
 		":return: True if the initialization was successful, else false.\n"
 		"" },
   { "terminate", (PyCFunction)(void(*)(void))_wrap_XmpParser_terminate, METH_STATIC|METH_VARARGS, "\n"
