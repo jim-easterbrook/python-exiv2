@@ -54,6 +54,15 @@ static void log_to_python(int level, const char* msg) {
 }
 %}
 
+// Provide Python logger and default logger as attributes of LogMsg
+%extend Exiv2::LogMsg {
+%constant PyObject* pythonHandler = SWIG_NewFunctionPtrObj(
+    (void*)log_to_python, SWIGTYPE_p_f_int_p_q_const__char__void);
+%constant PyObject* defaultHandler = SWIG_NewFunctionPtrObj(
+    (void*)Exiv2::LogMsg::defaultHandler,
+    SWIGTYPE_p_f_int_p_q_const__char__void);
+}
+
 // Ignore anything that's unusable from Python
 %ignore Exiv2::AnyError;
 %ignore Exiv2::Error;
@@ -62,8 +71,6 @@ static void log_to_python(int level, const char* msg) {
 %ignore Exiv2::LogMsg::LogMsg;
 %ignore Exiv2::LogMsg::~LogMsg;
 %ignore Exiv2::LogMsg::os;
-%ignore Exiv2::LogMsg::handler;
-%ignore Exiv2::LogMsg::setHandler;
 %ignore Exiv2::LogMsg::defaultHandler;
 %ignore Exiv2::operator<<;
 
