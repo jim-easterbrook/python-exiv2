@@ -2,7 +2,7 @@
 
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -87,7 +87,7 @@ def main():
         key = exiv2.ExifKey("Exif.Image.PrimaryChromaticities")
         pos = exifData.findKey(key)
         if pos == exifData.end():
-            raise exiv2.AnyError("Key not found")
+            raise exiv2.Exiv2Error("Key not found")
         # Get a copy of the value
         v = pos.getValue()
         # Downcast the Value pointer to its actual type
@@ -102,7 +102,7 @@ def main():
         key = exiv2.ExifKey("Exif.Image.PrimaryChromaticities")
         pos = exifData.findKey(key)
         if pos == exifData.end():
-            raise exiv2.AnyError("Key not found")
+            raise exiv2.Exiv2Error("Key not found")
         exifData.erase(pos)
         print('Deleted key "{}"'.format(key))
 
@@ -114,7 +114,7 @@ def main():
         image.writeMetadata()
 
         return 0
-    except exiv2.AnyError as e:
+    except exiv2.Exiv2Error as e:
         print('Caught Exiv2 exception "{}"'.format(str(e)))
         return -1;
     finally:

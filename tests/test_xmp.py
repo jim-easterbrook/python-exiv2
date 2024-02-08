@@ -128,8 +128,16 @@ class TestXmpModule(unittest.TestCase):
         self.assertEqual(datum.count(), 3)
         self.assertEqual(datum.familyName(), 'Xmp')
         self.assertIsInstance(datum.getValue(), exiv2.LangAltValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.getValue(exiv2.TypeId.langAlt), exiv2.LangAltValue)
         self.assertEqual(datum.groupName(), 'dc')
         self.assertEqual(datum.key(), 'Xmp.dc.description')
+        self.assertEqual(datum.print(), 'lang="x-default" Good view of the'
+            ' lighthouse., lang="en-GB" Good view of the lighthouse., lang="de"'
+            ' Gute Sicht auf den Leuchtturm.')
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(datum._print(), datum.print())
         self.assertEqual(datum.size(), 130)
         self.assertEqual(datum.tag(), 0)
         self.assertEqual(datum.tagLabel(), 'Description')
@@ -149,6 +157,9 @@ class TestXmpModule(unittest.TestCase):
         self.assertEqual(datum.typeName(), 'LangAlt')
         self.assertEqual(datum.typeSize(), 0)
         self.assertIsInstance(datum.value(), exiv2.LangAltValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.value(exiv2.TypeId.langAlt), exiv2.LangAltValue)
         datum.setValue('fred')
         datum.setValue(exiv2.XmpTextValue('Acme'))
         with self.assertRaises(TypeError):

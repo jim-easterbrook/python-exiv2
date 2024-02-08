@@ -18,6 +18,10 @@
 %module(package="exiv2", threads="1") basicio
 %nothread;
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Classes to access files, memory and remote data.";
+#endif
+
 #pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"
@@ -132,13 +136,10 @@ INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
 OUTPUT_BUFFER_RW(Exiv2::byte* buf, long rcount)
 OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 
-// Use default typemap for isWriteable parameter. Some derived classes don't
-// name the parameter so a plain bool typemap is needed. This is far too
-// general, so SWIGIMPORTED is used to limit it to this module.
-#ifndef SWIGIMPORTED
-%typemap(default) bool {$1 = false;}
+// Use default typemap for isWriteable parameter.
+%typemap(default) bool isWriteable {$1 = false;}
 %ignore Exiv2::BasicIo::mmap();
-#endif
+
 // Convert mmap() result to a Python memoryview, assumes arg2 = isWriteable
 RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
             arg2 ? PyBUF_WRITE : PyBUF_READ,)

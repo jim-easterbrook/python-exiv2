@@ -3951,34 +3951,31 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__XmpPropertyInfo swig_types[24]
 #define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[25]
 #define SWIGTYPE_p_Exiv2__XmpValue swig_types[26]
-#define SWIGTYPE_p_NsRegistry swig_types[27]
-#define SWIGTYPE_p_SwigPyObject swig_types[28]
-#define SWIGTYPE_p_UniquePtr swig_types[29]
-#define SWIGTYPE_p_ValueList swig_types[30]
-#define SWIGTYPE_p_ValueType swig_types[31]
-#define SWIGTYPE_p_allocator_type swig_types[32]
-#define SWIGTYPE_p_char swig_types[33]
-#define SWIGTYPE_p_const_iterator swig_types[34]
-#define SWIGTYPE_p_difference_type swig_types[35]
-#define SWIGTYPE_p_first_type swig_types[36]
-#define SWIGTYPE_p_int swig_types[37]
-#define SWIGTYPE_p_iterator swig_types[38]
-#define SWIGTYPE_p_key_type swig_types[39]
-#define SWIGTYPE_p_long_long swig_types[40]
-#define SWIGTYPE_p_mapped_type swig_types[41]
-#define SWIGTYPE_p_second_type swig_types[42]
-#define SWIGTYPE_p_short swig_types[43]
-#define SWIGTYPE_p_signed_char swig_types[44]
-#define SWIGTYPE_p_size_type swig_types[45]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[46]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[47]
-#define SWIGTYPE_p_unsigned_char swig_types[48]
-#define SWIGTYPE_p_unsigned_int swig_types[49]
-#define SWIGTYPE_p_unsigned_long_long swig_types[50]
-#define SWIGTYPE_p_unsigned_short swig_types[51]
-#define SWIGTYPE_p_value_type swig_types[52]
-static swig_type_info *swig_types[54];
-static swig_module_info swig_module = {swig_types, 53, 0, 0, 0, 0};
+#define SWIGTYPE_p_SwigPyObject swig_types[27]
+#define SWIGTYPE_p_ValueType swig_types[28]
+#define SWIGTYPE_p_allocator_type swig_types[29]
+#define SWIGTYPE_p_char swig_types[30]
+#define SWIGTYPE_p_const_iterator swig_types[31]
+#define SWIGTYPE_p_difference_type swig_types[32]
+#define SWIGTYPE_p_first_type swig_types[33]
+#define SWIGTYPE_p_int swig_types[34]
+#define SWIGTYPE_p_iterator swig_types[35]
+#define SWIGTYPE_p_key_type swig_types[36]
+#define SWIGTYPE_p_long_long swig_types[37]
+#define SWIGTYPE_p_mapped_type swig_types[38]
+#define SWIGTYPE_p_second_type swig_types[39]
+#define SWIGTYPE_p_short swig_types[40]
+#define SWIGTYPE_p_signed_char swig_types[41]
+#define SWIGTYPE_p_size_type swig_types[42]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[43]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[44]
+#define SWIGTYPE_p_unsigned_char swig_types[45]
+#define SWIGTYPE_p_unsigned_int swig_types[46]
+#define SWIGTYPE_p_unsigned_long_long swig_types[47]
+#define SWIGTYPE_p_unsigned_short swig_types[48]
+#define SWIGTYPE_p_value_type swig_types[49]
+static swig_type_info *swig_types[51];
+static swig_module_info swig_module = {swig_types, 50, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4129,6 +4126,51 @@ namespace swig {
 #include <stddef.h>
 
 
+SWIGINTERN swig_type_info*
+SWIG_pchar_descriptor(void)
+{
+  static int init = 0;
+  static swig_type_info* info = 0;
+  if (!init) {
+    info = SWIG_TypeQuery("_p_char");
+    init = 1;
+  }
+  return info;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
+#endif
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
+    }
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
+
+
 #include "exiv2/exiv2.hpp"
 
 
@@ -4225,8 +4267,13 @@ static PyObject* _create_enum_Exiv2_XmpCategory(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_XmpCategory)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_XmpCategory, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpCategory, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpCategory, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_XmpCategory);
@@ -4299,51 +4346,6 @@ static PyObject* getset_to_key(PyObject* obj, PyGetSetDef* getset) {
 static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("N", getset->get(obj, getset->closure));
 };
-
-
-SWIGINTERN swig_type_info*
-SWIG_pchar_descriptor(void)
-{
-  static int init = 0;
-  static swig_type_info* info = 0;
-  if (!init) {
-    info = SWIG_TypeQuery("_p_char");
-    init = 1;
-  }
-  return info;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
-}
-
-
-SWIGINTERNINLINE PyObject * 
-SWIG_FromCharPtr(const char *cptr)
-{ 
-  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
-}
 
 
 static PyObject* PyEnum_Exiv2_TypeId = NULL;
@@ -6758,7 +6760,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
 		"       for unknown keys is xmpText.\n"
 		":type key: :py:class:`XmpKey`\n"
 		":param key: The property key\n"
-		":rtype: int\n"
+		":rtype: :py:class:`TypeId`\n"
 		":return: The type of the property\n"
 		"" },
   { "propertyInfo", (PyCFunction)(void(*)(void))_wrap_XmpProperties_propertyInfo, METH_STATIC|METH_O, "\n"
@@ -6777,16 +6779,16 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
   { "ns", (PyCFunction)(void(*)(void))_wrap_XmpProperties_ns, METH_STATIC|METH_O, "\n"
 		"Return the namespace name for the schema associated\n"
 		"       with *prefix*.\n"
-		":type prefix: string\n"
+		":type prefix: str\n"
 		":param prefix: Prefix\n"
-		":rtype: string\n"
+		":rtype: str\n"
 		":return: The namespace name\n"
 		":raises: Error if no namespace is registered with *prefix*.\n"
 		"" },
   { "nsDesc", (PyCFunction)(void(*)(void))_wrap_XmpProperties_nsDesc, METH_STATIC|METH_O, "\n"
 		"Return the namespace description for the schema associated\n"
 		"       with *prefix*.\n"
-		":type prefix: string\n"
+		":type prefix: str\n"
 		":param prefix: Prefix\n"
 		":rtype: string\n"
 		":return: The namespace description\n"
@@ -6794,7 +6796,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
 		"" },
   { "propertyList", (PyCFunction)(void(*)(void))_wrap_XmpProperties_propertyList, METH_STATIC|METH_O, "\n"
 		"Return read-only list of built-in properties for *prefix*.\n"
-		":type prefix: string\n"
+		":type prefix: str\n"
 		":param prefix: Prefix\n"
 		":rtype: :py:class:`XmpPropertyInfo`\n"
 		":return: Pointer to the built-in properties for prefix, may be 0 if\n"
@@ -6804,7 +6806,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
   { "nsInfo", (PyCFunction)(void(*)(void))_wrap_XmpProperties_nsInfo, METH_STATIC|METH_O, "\n"
 		"Return information about a schema namespace for *prefix*.\n"
 		"       Always returns a valid pointer.\n"
-		":type prefix: string\n"
+		":type prefix: str\n"
 		":param prefix: The prefix\n"
 		":rtype: :py:class:`XmpNsInfo`\n"
 		":return: A pointer to the related information\n"
@@ -6812,9 +6814,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpProperties_methods[] = {
 		"" },
   { "prefix", (PyCFunction)(void(*)(void))_wrap_XmpProperties_prefix, METH_STATIC|METH_O, "\n"
 		"Return the (preferred) prefix for schema namespace *ns*.\n"
-		":type ns: string\n"
+		":type ns: str\n"
 		":param ns: Schema namespace\n"
-		":rtype: string\n"
+		":rtype: str\n"
 		":return: The prefix or an empty string if namespace *ns* is not\n"
 		"           registered.\n"
 		"" },
@@ -7068,7 +7070,7 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpKey_getset[] = {
 		"\n"
 		"   Constructor to create an XMP key from a key string.\n"
 		"\n"
-		"   :type key: string\n"
+		"   :type key: str\n"
 		"   :param key: The key string.\n"
 		"   :raises: Error if the first part of the key is not '**Xmp**' or\n"
 		"              the second part of the key cannot be parsed and converted\n"
@@ -7081,9 +7083,9 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpKey_getset[] = {
 		"   Constructor to create an XMP key from a schema prefix\n"
 		"          and a property name.\n"
 		"\n"
-		"   :type prefix: string\n"
+		"   :type prefix: str\n"
 		"   :param prefix:   Schema prefix name\n"
-		"   :type property: string\n"
+		"   :type property: str\n"
 		"   :param property: Property name\n"
 		"\n"
 		"   :raises: Error if the schema prefix is not known.\n"
@@ -7444,10 +7446,7 @@ static swig_type_info _swigt__p_Exiv2__XmpProperties = {"_p_Exiv2__XmpProperties
 static swig_type_info _swigt__p_Exiv2__XmpPropertyInfo = {"_p_Exiv2__XmpPropertyInfo", "Exiv2::XmpPropertyInfo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__XmpPropertyInfo_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_NsRegistry = {"_p_NsRegistry", "NsRegistry *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_UniquePtr = {"_p_UniquePtr", "UniquePtr *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -7499,10 +7498,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpPropertyInfo,
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
-  &_swigt__p_NsRegistry,
   &_swigt__p_SwigPyObject,
-  &_swigt__p_UniquePtr,
-  &_swigt__p_ValueList,
   &_swigt__p_ValueType,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
@@ -7554,10 +7550,7 @@ static swig_cast_info _swigc__p_Exiv2__XmpProperties[] = {  {&_swigt__p_Exiv2__X
 static swig_cast_info _swigc__p_Exiv2__XmpPropertyInfo[] = {  {&_swigt__p_Exiv2__XmpPropertyInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_NsRegistry[] = {  {&_swigt__p_NsRegistry, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_UniquePtr[] = {  {&_swigt__p_UniquePtr, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -7609,10 +7602,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpPropertyInfo,
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
-  _swigc__p_NsRegistry,
   _swigc__p_SwigPyObject,
-  _swigc__p_UniquePtr,
-  _swigc__p_ValueList,
   _swigc__p_ValueType,
   _swigc__p_allocator_type,
   _swigc__p_char,
@@ -8103,6 +8093,7 @@ SWIG_init(void) {
   
   SWIG_InstallConstants(d,swig_const_table);
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("XMP key class and data attributes."));
   
   {
     exiv2_module = PyImport_ImportModule("exiv2");

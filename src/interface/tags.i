@@ -17,6 +17,10 @@
 
 %module(package="exiv2") tags
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Exif key class and data attributes.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/enum.i"
 %include "shared/exception.i"
@@ -141,6 +145,7 @@ public:
 %ignore Exiv2::GroupInfo::operator==;
 %ignore Exiv2::GroupInfo::GroupName;
 %ignore Exiv2::ExifTags::taglist;
+%ignore Exiv2::TagInfo::printFct_;
 
 // Ignore unneeded key constructor
 %ignore Exiv2::ExifKey::ExifKey(const TagInfo&);

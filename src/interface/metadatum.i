@@ -17,14 +17,34 @@
 
 %module(package="exiv2") metadatum
 
-#pragma SWIG nowarn=314 // 'print' is a python keyword, renaming to '_print'
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Exiv2 metadatum base class.";
+#endif
+
+%namewarn("") "print"; // don't rename print methods
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
+%include "shared/exception.i"
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
 
 %import "value.i"
+
+// Catch all C++ exceptions
+EXCEPTION()
+
+// Use default parameter for toFloat etc.
+%typemap(default) long n, size_t n {$1 = 0;}
+%ignore Exiv2::Metadatum::toFloat() const;
+%ignore Exiv2::Metadatum::toInt64() const;
+%ignore Exiv2::Metadatum::toLong() const;
+%ignore Exiv2::Metadatum::toRational() const;
+%ignore Exiv2::Metadatum::toUint32() const;
+
+// Use default parameter in print()
+%typemap(default) const Exiv2::ExifData* pMetadata {$1 = NULL;}
+%ignore Exiv2::Metadatum::print() const;
 
 %define EXTEND_KEY(key_type)
 UNIQUE_PTR(key_type);
@@ -70,11 +90,7 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     return SWIG_Py_Void();
 };
 }
-%feature("python:slot", "tp_str", functype="reprfunc") datum_type::__str__;
 %extend datum_type {
-    std::string __str__() {
-        return $self->key() + ": " + $self->print();
-    }
     // Extend Metadatum to allow getting value as a specific type.
     Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
         // deprecated since 2023-12-07
@@ -93,12 +109,28 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     PyObject* setValue(PyObject* py_value) {
         return set_value_from_py($self, py_value);
     }
+    // Old _print method for compatibility
+    std::string _print(const Exiv2::ExifData* pMetadata) const {
+        // deprecated since 2024-01-29
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+                     "'_print' has been replaced by 'print'", 1);
+        return $self->print(pMetadata);
+    }
 }
 %enddef // EXTEND_METADATUM
 
+// Extend base type
+%feature("python:slot", "tp_str", functype="reprfunc")
+    Exiv2::Metadatum::__str__;
+%extend Exiv2::Metadatum {
+    std::string __str__() {
+        return $self->key() + ": " + $self->print();
+    }
+}
+
 %ignore Exiv2::Key;
 %ignore Exiv2::Key::operator=;
-%ignore Exiv2::Metadatum;
+%ignore Exiv2::Metadatum::~Metadatum;
 %ignore Exiv2::Metadatum::operator=;
 %ignore Exiv2::Metadatum::write;
 %ignore Exiv2::cmpMetadataByKey;

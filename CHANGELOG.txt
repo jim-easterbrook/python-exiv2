@@ -18,10 +18,12 @@ along with this program.  If not, see
 
 Changes in v0.16.2:
   1/ Removed AnyError alias of Exiv2Error exception.
-  2/ Improved handling of enums:
+  2/ Metadatum.print() method is no longer renamed to _print.
+  3/ Improved handling of enums:
      1/ Enum results are returned as Python enum instead of int.
      2/ Passing ints as enum parameters is deprecated.
-  3/ SWIG v4.1.0 or later required to run SWIG.
+  4/ Added dict-like behaviour to "data" structs.
+  5/ SWIG v4.1.0 or later required to run SWIG.
 
 Changes in v0.16.1:
   1/ Binary wheels incorporate libexiv2 v0.27.7.

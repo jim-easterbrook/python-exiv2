@@ -3925,82 +3925,79 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_AutoPtr swig_types[0]
-#define SWIGTYPE_p_ExifData_iterator swig_types[1]
-#define SWIGTYPE_p_ExifData_iterator_base swig_types[2]
-#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[3]
-#define SWIGTYPE_p_Exiv2__BasicIo swig_types[4]
-#define SWIGTYPE_p_Exiv2__CommentValue swig_types[5]
-#define SWIGTYPE_p_Exiv2__DataBuf swig_types[6]
-#define SWIGTYPE_p_Exiv2__DataSet swig_types[7]
-#define SWIGTYPE_p_Exiv2__DataValue swig_types[8]
-#define SWIGTYPE_p_Exiv2__DateValue swig_types[9]
-#define SWIGTYPE_p_Exiv2__ExifData swig_types[10]
-#define SWIGTYPE_p_Exiv2__ExifKey swig_types[11]
-#define SWIGTYPE_p_Exiv2__FileIo swig_types[12]
-#define SWIGTYPE_p_Exiv2__GroupInfo swig_types[13]
-#define SWIGTYPE_p_Exiv2__HttpIo swig_types[14]
-#define SWIGTYPE_p_Exiv2__Image swig_types[15]
-#define SWIGTYPE_p_Exiv2__ImageFactory swig_types[16]
-#define SWIGTYPE_p_Exiv2__IptcData swig_types[17]
-#define SWIGTYPE_p_Exiv2__IptcKey swig_types[18]
-#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[19]
-#define SWIGTYPE_p_Exiv2__MemIo swig_types[20]
-#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[21]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[22]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[23]
-#define SWIGTYPE_p_Exiv2__TagInfo swig_types[24]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[25]
-#define SWIGTYPE_p_Exiv2__Value swig_types[26]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[27]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[28]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[29]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[30]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[31]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[32]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[33]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[34]
-#define SWIGTYPE_p_Exiv2__XPathIo swig_types[35]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[36]
-#define SWIGTYPE_p_Exiv2__XmpData swig_types[37]
-#define SWIGTYPE_p_Exiv2__XmpKey swig_types[38]
-#define SWIGTYPE_p_Exiv2__XmpPropertyInfo swig_types[39]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[40]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[41]
-#define SWIGTYPE_p_IptcData_iterator swig_types[42]
-#define SWIGTYPE_p_IptcData_iterator_base swig_types[43]
-#define SWIGTYPE_p_NsRegistry swig_types[44]
-#define SWIGTYPE_p_SwigPyObject swig_types[45]
-#define SWIGTYPE_p_ValueList swig_types[46]
-#define SWIGTYPE_p_ValueType swig_types[47]
-#define SWIGTYPE_p_XmpData_iterator swig_types[48]
-#define SWIGTYPE_p_XmpData_iterator_base swig_types[49]
-#define SWIGTYPE_p_allocator_type swig_types[50]
-#define SWIGTYPE_p_char swig_types[51]
-#define SWIGTYPE_p_const_iterator swig_types[52]
-#define SWIGTYPE_p_difference_type swig_types[53]
-#define SWIGTYPE_p_first_type swig_types[54]
-#define SWIGTYPE_p_int swig_types[55]
-#define SWIGTYPE_p_iterator swig_types[56]
-#define SWIGTYPE_p_key_type swig_types[57]
-#define SWIGTYPE_p_long_long swig_types[58]
-#define SWIGTYPE_p_mapped_type swig_types[59]
-#define SWIGTYPE_p_second_type swig_types[60]
-#define SWIGTYPE_p_short swig_types[61]
-#define SWIGTYPE_p_signed_char swig_types[62]
-#define SWIGTYPE_p_size_type swig_types[63]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[64]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[65]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[66]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[67]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[68]
-#define SWIGTYPE_p_unsigned_char swig_types[69]
-#define SWIGTYPE_p_unsigned_int swig_types[70]
-#define SWIGTYPE_p_unsigned_long_long swig_types[71]
-#define SWIGTYPE_p_unsigned_short swig_types[72]
-#define SWIGTYPE_p_value_type swig_types[73]
-static swig_type_info *swig_types[75];
-static swig_module_info swig_module = {swig_types, 74, 0, 0, 0, 0};
+#define SWIGTYPE_p_ExifData_iterator swig_types[0]
+#define SWIGTYPE_p_ExifData_iterator_base swig_types[1]
+#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[2]
+#define SWIGTYPE_p_Exiv2__BasicIo swig_types[3]
+#define SWIGTYPE_p_Exiv2__CommentValue swig_types[4]
+#define SWIGTYPE_p_Exiv2__DataBuf swig_types[5]
+#define SWIGTYPE_p_Exiv2__DataSet swig_types[6]
+#define SWIGTYPE_p_Exiv2__DataValue swig_types[7]
+#define SWIGTYPE_p_Exiv2__DateValue swig_types[8]
+#define SWIGTYPE_p_Exiv2__ExifData swig_types[9]
+#define SWIGTYPE_p_Exiv2__ExifKey swig_types[10]
+#define SWIGTYPE_p_Exiv2__FileIo swig_types[11]
+#define SWIGTYPE_p_Exiv2__GroupInfo swig_types[12]
+#define SWIGTYPE_p_Exiv2__HttpIo swig_types[13]
+#define SWIGTYPE_p_Exiv2__Image swig_types[14]
+#define SWIGTYPE_p_Exiv2__ImageFactory swig_types[15]
+#define SWIGTYPE_p_Exiv2__IptcData swig_types[16]
+#define SWIGTYPE_p_Exiv2__IptcKey swig_types[17]
+#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[18]
+#define SWIGTYPE_p_Exiv2__MemIo swig_types[19]
+#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[20]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[21]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[22]
+#define SWIGTYPE_p_Exiv2__TagInfo swig_types[23]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[24]
+#define SWIGTYPE_p_Exiv2__Value swig_types[25]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[26]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[27]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[28]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[29]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[30]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[31]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[32]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[33]
+#define SWIGTYPE_p_Exiv2__XPathIo swig_types[34]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[35]
+#define SWIGTYPE_p_Exiv2__XmpData swig_types[36]
+#define SWIGTYPE_p_Exiv2__XmpKey swig_types[37]
+#define SWIGTYPE_p_Exiv2__XmpPropertyInfo swig_types[38]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[39]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[40]
+#define SWIGTYPE_p_IptcData_iterator swig_types[41]
+#define SWIGTYPE_p_IptcData_iterator_base swig_types[42]
+#define SWIGTYPE_p_SwigPyObject swig_types[43]
+#define SWIGTYPE_p_ValueType swig_types[44]
+#define SWIGTYPE_p_XmpData_iterator swig_types[45]
+#define SWIGTYPE_p_XmpData_iterator_base swig_types[46]
+#define SWIGTYPE_p_allocator_type swig_types[47]
+#define SWIGTYPE_p_char swig_types[48]
+#define SWIGTYPE_p_const_iterator swig_types[49]
+#define SWIGTYPE_p_difference_type swig_types[50]
+#define SWIGTYPE_p_first_type swig_types[51]
+#define SWIGTYPE_p_int swig_types[52]
+#define SWIGTYPE_p_iterator swig_types[53]
+#define SWIGTYPE_p_key_type swig_types[54]
+#define SWIGTYPE_p_long_long swig_types[55]
+#define SWIGTYPE_p_mapped_type swig_types[56]
+#define SWIGTYPE_p_second_type swig_types[57]
+#define SWIGTYPE_p_short swig_types[58]
+#define SWIGTYPE_p_signed_char swig_types[59]
+#define SWIGTYPE_p_size_type swig_types[60]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[61]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[62]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[63]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[64]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[65]
+#define SWIGTYPE_p_unsigned_char swig_types[66]
+#define SWIGTYPE_p_unsigned_int swig_types[67]
+#define SWIGTYPE_p_unsigned_long_long swig_types[68]
+#define SWIGTYPE_p_unsigned_short swig_types[69]
+#define SWIGTYPE_p_value_type swig_types[70]
+static swig_type_info *swig_types[72];
+static swig_module_info swig_module = {swig_types, 71, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4149,6 +4146,51 @@ namespace swig {
 
 
 #include <stddef.h>
+
+
+SWIGINTERN swig_type_info*
+SWIG_pchar_descriptor(void)
+{
+  static int init = 0;
+  static swig_type_info* info = 0;
+  if (!init) {
+    info = SWIG_TypeQuery("_p_char");
+    init = 1;
+  }
+  return info;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
+#endif
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
+    }
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
 
 
 #include "exiv2/exiv2.hpp"
@@ -4412,8 +4454,13 @@ static PyObject* _create_enum_Exiv2_ImageType(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_ImageType)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_ImageType, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_ImageType, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_ImageType, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_ImageType);
@@ -4438,19 +4485,6 @@ static PyObject* _get_enum_list(int dummy, ...) {
     va_end(args);
     return result;
 };
-
-
-SWIGINTERN swig_type_info*
-SWIG_pchar_descriptor(void)
-{
-  static int init = 0;
-  static swig_type_info* info = 0;
-  if (!init) {
-    info = SWIG_TypeQuery("_p_char");
-    init = 1;
-  }
-  return info;
-}
 
 
 /* Return string from Python obj. NOTE: obj must remain in scope in order
@@ -4568,31 +4602,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
     }
   }
   return SWIG_ERROR;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
 }
 
 
@@ -6356,7 +6365,6 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   
-  if (SwigPyObject_Check(resultobj))
   PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
   
   
@@ -6617,10 +6625,6 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
     if (!resultobj)
     SWIG_fail;
   }
-  
-  if (SwigPyObject_Check(resultobj))
-  PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
-  
   
   Py_XDECREF(_global_view);
   
@@ -6936,7 +6940,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
 		"data. In order to write from parsed XMP data again, use\n"
 		"either writeXmpFromPacket(false) or setXmpData().\n"
 		"\n"
-		":type xmpPacket: string\n"
+		":type xmpPacket: str\n"
 		":param xmpPacket: A string containing the raw XMP packet.\n"
 		"" },
   { "clearXmpPacket", _wrap_Image_clearXmpPacket, METH_NOARGS, "\n"
@@ -6980,7 +6984,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
   { "setComment", _wrap_Image_setComment, METH_O, "\n"
 		"Set the image comment. The new comment is not written\n"
 		"    to the image until the writeMetadata() method is called.\n"
-		":type comment: string\n"
+		":type comment: str\n"
 		":param comment: String containing comment.\n"
 		"" },
   { "clearComment", _wrap_Image_clearComment, METH_NOARGS, "\n"
@@ -6992,7 +6996,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
 		"    to the image until the writeMetadata() method is called.\n"
 		":type iccProfile: :py:class:`DataBuf`\n"
 		":param iccProfile: DataBuf containing profile (binary)\n"
-		":type bTestValid: boolean, optional\n"
+		":type bTestValid: bool, optional\n"
 		":param bTestValid: - tests that iccProfile contains credible data\n"
 		"" },
   { "clearIccProfile", _wrap_Image_clearIccProfile, METH_NOARGS, "\n"
@@ -7089,7 +7093,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
   { "good", _wrap_Image_good, METH_NOARGS, "\n"
 		"Check if the Image instance is valid. Use after object\n"
 		"    construction.\n"
-		":rtype: boolean\n"
+		":rtype: bool\n"
 		":return: true if the Image is in a valid state.\n"
 		"" },
   { "mimeType", _wrap_Image_mimeType, METH_NOARGS, "\n"
@@ -7123,9 +7127,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
   { "checkMode", _wrap_Image_checkMode, METH_O, "\n"
 		"Returns the access mode, i.e., the metadata functions, which\n"
 		"   this image supports for the metadata type *metadataId*.\n"
-		":type metadataId: int\n"
+		":type metadataId: :py:class:`MetadataId`\n"
 		":param metadataId: The metadata identifier.\n"
-		":rtype: int\n"
+		":rtype: :py:class:`AccessMode`\n"
 		":return: Access mode for the requested image type and metadata identifier.\n"
 		"" },
   { "supportsMetadata", _wrap_Image_supportsMetadata, METH_O, "\n"
@@ -7366,12 +7370,12 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__ImageFactory_getset[] = {
 		"Http path can be handled by either HttpIo or CurlIo. Https, ftp paths\n"
 		"are handled by CurlIo. Ssh, sftp paths are handled by SshIo. Others are handled by FileIo.\n"
 		"\n"
-		":type path: string\n"
+		":type path: str\n"
 		":param path: %Image file.\n"
-		":type useCurl: boolean, optional\n"
+		":type useCurl: bool, optional\n"
 		":param useCurl: Indicate whether the libcurl is used or not.\n"
 		"          If it's true, http is handled by CurlIo. Otherwise it is handled by HttpIo.\n"
-		":rtype: Exiv2::BasicIo object\n"
+		":rtype: :py:class:`BasicIo`\n"
 		":return: An auto-pointer that owns an BasicIo instance.\n"
 		":raises: Error If the file is not found or it is unable to connect to the server to\n"
 		"          read the remote file.\n"
@@ -7401,12 +7405,12 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		"Http path can be handled by either HttpIo or CurlIo. Https, ftp paths\n"
 		"are handled by CurlIo. Ssh, sftp paths are handled by SshIo. Others are handled by FileIo.\n"
 		"\n"
-		":type path: string\n"
+		":type path: str\n"
 		":param path: %Image file.\n"
-		":type useCurl: boolean, optional\n"
+		":type useCurl: bool, optional\n"
 		":param useCurl: Indicate whether the libcurl is used or not.\n"
 		"          If it's true, http is handled by CurlIo. Otherwise it is handled by HttpIo.\n"
-		":rtype: Exiv2::BasicIo object\n"
+		":rtype: :py:class:`BasicIo`\n"
 		":return: An auto-pointer that owns an BasicIo instance.\n"
 		":raises: Error If the file is not found or it is unable to connect to the server to\n"
 		"          read the remote file.\n"
@@ -7417,13 +7421,13 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		"Create an Image subclass of the appropriate type by reading\n"
 		"    the specified file. %Image type is derived from the file\n"
 		"    contents.\n"
-		":type path: string\n"
+		":type path: str\n"
 		":param path: %Image file. The contents of the file are tested to\n"
 		"        determine the image type. File extension is ignored.\n"
-		":type useCurl: boolean, optional\n"
+		":type useCurl: bool, optional\n"
 		":param useCurl: Indicate whether the libcurl is used or not.\n"
 		"          If it's true, http is handled by CurlIo. Otherwise it is handled by HttpIo.\n"
-		":rtype: Exiv2::Image object\n"
+		":rtype: :py:class:`Image`\n"
 		":return: An auto-pointer that owns an Image instance whose type\n"
 		"        matches that of the file.\n"
 		":raises: Error If opening the file fails or it contains data of an\n"
@@ -7436,12 +7440,11 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		"Create an Image subclass of the appropriate type by reading\n"
 		"    the provided memory. %Image type is derived from the memory\n"
 		"    contents.\n"
-		":type data: bytes-like object\n"
+		":type data: :py:term:`bytes-like object`\n"
 		":param data: Pointer to a data buffer containing an image. The contents\n"
 		"        of the memory are tested to determine the image type.\n"
-		":type size: int\n"
 		":param size: Number of bytes pointed to by *data*.\n"
-		":rtype: Exiv2::Image object\n"
+		":rtype: :py:class:`Image`\n"
 		":return: An auto-pointer that owns an Image instance whose type\n"
 		"        matches that of the data buffer.\n"
 		":raises: Error If the memory contains data of an unknown image type.\n"
@@ -7451,11 +7454,11 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		"\n"
 		"Create an Image subclass of the requested type by creating a\n"
 		"    new image file. If the file already exists, it will be overwritten.\n"
-		":type type: int\n"
+		":type type: :py:class:`ImageType`\n"
 		":param type: Type of the image to be created.\n"
-		":type path: string\n"
+		":type path: str\n"
 		":param path: %Image file to create. File extension is ignored.\n"
-		":rtype: Exiv2::Image object\n"
+		":rtype: :py:class:`Image`\n"
 		":return: An auto-pointer that owns an Image instance of the requested\n"
 		"        type.\n"
 		":raises: Error If the image type is not supported.\n"
@@ -7466,9 +7469,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		"\n"
 		"Create an Image subclass of the requested type by creating a\n"
 		"    new image in memory.\n"
-		":type type: int\n"
+		":type type: :py:class:`ImageType`\n"
 		":param type: Type of the image to be created.\n"
-		":rtype: Exiv2::Image object\n"
+		":rtype: :py:class:`Image`\n"
 		":return: An auto-pointer that owns an Image instance of the requested\n"
 		"        type.\n"
 		":raises: Error If the image type is not supported\n"
@@ -7477,10 +7480,10 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		"*Overload 1:*\n"
 		"\n"
 		"Returns the image type of the provided file.\n"
-		":type path: string\n"
+		":type path: str\n"
 		":param path: %Image file. The contents of the file are tested to\n"
 		"        determine the image type. File extension is ignored.\n"
-		":rtype: int\n"
+		":rtype: :py:class:`ImageType`\n"
 		":return: %Image type or Image::none if the type is not recognized.\n"
 		"\n"
 		"|\n"
@@ -7488,12 +7491,11 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		"*Overload 2:*\n"
 		"\n"
 		"Returns the image type of the provided data buffer.\n"
-		":type data: bytes-like object\n"
+		":type data: :py:term:`bytes-like object`\n"
 		":param data: Pointer to a data buffer containing an image. The contents\n"
 		"        of the memory are tested to determine the image type.\n"
-		":type size: int\n"
 		":param size: Number of bytes pointed to by *data*.\n"
-		":rtype: int\n"
+		":rtype: :py:class:`ImageType`\n"
 		":return: %Image type or Image::none if the type is not recognized.\n"
 		"\n"
 		"|\n"
@@ -7505,17 +7507,17 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		":type io: :py:class:`BasicIo`\n"
 		":param io: A BasicIo instance that provides image data. The contents\n"
 		"        of the image data are tested to determine the type.\n"
-		":rtype: int\n"
+		":rtype: :py:class:`ImageType`\n"
 		":return: %Image type or Image::none if the type is not recognized.\n"
 		"" },
   { "checkMode", (PyCFunction)(void(*)(void))_wrap_ImageFactory_checkMode, METH_STATIC|METH_VARARGS, "\n"
 		"Returns the access mode or supported metadata functions for an\n"
 		"    image type and a metadata type.\n"
-		":type type: int\n"
+		":type type: :py:class:`ImageType`\n"
 		":param type:       The image type.\n"
-		":type metadataId: int\n"
+		":type metadataId: :py:class:`MetadataId`\n"
 		":param metadataId: The metadata identifier.\n"
-		":rtype: int\n"
+		":rtype: :py:class:`AccessMode`\n"
 		":return: Access mode for the requested image type and metadata identifier.\n"
 		":raises: Error(kerUnsupportedImageType) if the image type is not supported.\n"
 		"" },
@@ -7530,16 +7532,16 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		"undefined. Consult the stream state to obtain more\n"
 		"information in this case.\n"
 		"\n"
-		":type type: int\n"
+		":type type: :py:class:`ImageType`\n"
 		":param type: Type of the image.\n"
 		":type io: :py:class:`BasicIo`\n"
 		":param io: BasicIo instance to read from.\n"
-		":type advance: boolean\n"
+		":type advance: bool\n"
 		":param advance: Flag indicating whether the position of the io\n"
 		"        should be advanced by the number of characters read to\n"
 		"        analyse the data (true) or left at its original\n"
 		"        position (false). This applies only if the type matches.\n"
-		":rtype: boolean\n"
+		":rtype: bool\n"
 		":return: true  if the data matches the type of this class;\n"
 		"\n"
 		"             false if the data does not match\n"
@@ -7860,7 +7862,6 @@ static void *_p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSE
 static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
 }
-static swig_type_info _swigt__p_AutoPtr = {"_p_AutoPtr", "AutoPtr *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ExifData_iterator = {"_p_ExifData_iterator", "ExifData_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ExifData_iterator_base = {"_p_ExifData_iterator_base", "ExifData_iterator_base *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
@@ -7904,9 +7905,7 @@ static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue",
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IptcData_iterator = {"_p_IptcData_iterator", "IptcData_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IptcData_iterator_base = {"_p_IptcData_iterator_base", "IptcData_iterator_base *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_NsRegistry = {"_p_NsRegistry", "NsRegistry *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ValueList = {"_p_ValueList", "ValueList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_XmpData_iterator = {"_p_XmpData_iterator", "XmpData_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_XmpData_iterator_base = {"_p_XmpData_iterator_base", "XmpData_iterator_base *", 0, 0, (void*)0, 0};
@@ -7936,7 +7935,6 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "uint16_t
 static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_AutoPtr,
   &_swigt__p_ExifData_iterator,
   &_swigt__p_ExifData_iterator_base,
   &_swigt__p_Exiv2__AsciiValue,
@@ -7980,9 +7978,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpValue,
   &_swigt__p_IptcData_iterator,
   &_swigt__p_IptcData_iterator_base,
-  &_swigt__p_NsRegistry,
   &_swigt__p_SwigPyObject,
-  &_swigt__p_ValueList,
   &_swigt__p_ValueType,
   &_swigt__p_XmpData_iterator,
   &_swigt__p_XmpData_iterator_base,
@@ -8012,7 +8008,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_value_type,
 };
 
-static swig_cast_info _swigc__p_AutoPtr[] = {  {&_swigt__p_AutoPtr, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ExifData_iterator[] = {  {&_swigt__p_ExifData_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ExifData_iterator_base[] = {  {&_swigt__p_ExifData_iterator_base, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
@@ -8056,9 +8051,7 @@ static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__Xm
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IptcData_iterator[] = {  {&_swigt__p_IptcData_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IptcData_iterator_base[] = {  {&_swigt__p_IptcData_iterator_base, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_NsRegistry[] = {  {&_swigt__p_NsRegistry, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ValueList[] = {  {&_swigt__p_ValueList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_XmpData_iterator[] = {  {&_swigt__p_XmpData_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_XmpData_iterator_base[] = {  {&_swigt__p_XmpData_iterator_base, 0, 0, 0},{0, 0, 0, 0}};
@@ -8088,7 +8081,6 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_AutoPtr,
   _swigc__p_ExifData_iterator,
   _swigc__p_ExifData_iterator_base,
   _swigc__p_Exiv2__AsciiValue,
@@ -8132,9 +8124,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpValue,
   _swigc__p_IptcData_iterator,
   _swigc__p_IptcData_iterator_base,
-  _swigc__p_NsRegistry,
   _swigc__p_SwigPyObject,
-  _swigc__p_ValueList,
   _swigc__p_ValueType,
   _swigc__p_XmpData_iterator,
   _swigc__p_XmpData_iterator_base,
@@ -8630,6 +8620,7 @@ SWIG_init(void) {
   
   SWIG_InstallConstants(d,swig_const_table);
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Image & ImageFactory classes."));
   
   {
     exiv2_module = PyImport_ImportModule("exiv2");

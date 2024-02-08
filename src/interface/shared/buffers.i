@@ -18,7 +18,7 @@
 
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)
-%typemap(doctype) buf_type "bytes-like object";
+%typemap(doctype) buf_type ":py:term:`bytes-like object`";
 %typemap(in) (buf_type, len_type) (PyObject* _global_view = NULL) {
     _global_view = PyMemoryView_GetContiguous($input, PyBUF_READ, 'A');
     if (!_global_view) {
@@ -43,15 +43,14 @@
 %define INPUT_BUFFER_RO_EX(buf_type, len_type)
 INPUT_BUFFER_RO(buf_type, len_type)
 %typemap(argout) (buf_type, len_type) %{
-    if (SwigPyObject_Check(resultobj))
-        PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+    PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
 %}
 %enddef // INPUT_BUFFER_RO_EX
 
 
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)
-%typemap(doctype) buf_type "writeable bytes-like object";
+%typemap(doctype) buf_type "writeable :py:term:`bytes-like object`";
 %typemap(in) (buf_type) (Py_buffer _global_view) {
     _global_view.obj = NULL;
     if (PyObject_GetBuffer(
@@ -81,6 +80,7 @@ INPUT_BUFFER_RO(buf_type, len_type)
 // Macro to convert byte* return value to memoryview
 // WARNING: return value does not keep a reference to the data it points to
 %define RETURN_VIEW(signature, size_func, flags, doc_method)
+%typemap(doctype) signature "memoryview";
 %typemap(out) (signature) %{
     $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
 %}
@@ -88,7 +88,9 @@ INPUT_BUFFER_RO(buf_type, len_type)
 %feature("docstring") doc_method
 "Returns a temporary Python memoryview of the object's data.
 
-WARNING: do not resize or delete the object while using the view."
+WARNING: do not resize or delete the object while using the view.
+
+:rtype: memoryview"
 #endif
 %enddef // RETURN_VIEW
 
@@ -141,7 +143,7 @@ static void releasebuffer_%mangle(object_type)(
 %define EXPOSE_OBJECT_BUFFER(object_type, writeable, with_release)
 // Add getbuffer slot to an object type
 _BF_GETBUFFER(object_type, writeable, getbuffer_%mangle(object_type))
-#if with_release
+#if #with_release == "true"
 // Add releasebuffer slot to an object type (not often needed)
 _BF_RELEASEBUFFER(object_type, releasebuffer_%mangle(object_type))
 #endif

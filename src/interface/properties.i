@@ -17,6 +17,10 @@
 
 %module(package="exiv2") properties
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "XMP key class and data attributes.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/exception.i"
 %include "shared/enum.i"
@@ -100,6 +104,7 @@ STRUCT_DICT(Exiv2::XmpNsInfo)
 %ignore Exiv2::XmpNsInfo::operator==;
 %ignore Exiv2::XmpNsInfo::Prefix;
 %ignore Exiv2::XmpNsInfo::Ns;
+%ignore NsRegistry;
 
 // Ignore stuff Python can't use
 %ignore Exiv2::XmpProperties::lookupNsRegistry;

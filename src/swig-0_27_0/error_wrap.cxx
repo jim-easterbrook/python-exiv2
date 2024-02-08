@@ -3928,9 +3928,10 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__LogMsg swig_types[1]
 #define SWIGTYPE_p_SwigPyObject swig_types[2]
 #define SWIGTYPE_p_char swig_types[3]
-#define SWIGTYPE_p_std__exception swig_types[4]
-static swig_type_info *swig_types[6];
-static swig_module_info swig_module = {swig_types, 5, 0, 0, 0, 0};
+#define SWIGTYPE_p_f_int_p_q_const__char__void swig_types[4]
+#define SWIGTYPE_p_std__exception swig_types[5]
+static swig_type_info *swig_types[7];
+static swig_module_info swig_module = {swig_types, 6, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4081,6 +4082,51 @@ namespace swig {
 #include <stddef.h>
 
 
+SWIGINTERN swig_type_info*
+SWIG_pchar_descriptor(void)
+{
+  static int init = 0;
+  static swig_type_info* info = 0;
+  if (!init) {
+    info = SWIG_TypeQuery("_p_char");
+    init = 1;
+  }
+  return info;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
+#endif
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
+    }
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
+
+
 #include "exiv2/exiv2.hpp"
 
 
@@ -4115,8 +4161,13 @@ static PyObject* _create_enum_Exiv2_ErrorCode(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_ErrorCode)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_ErrorCode, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_ErrorCode, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_ErrorCode, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_ErrorCode);
@@ -4154,8 +4205,13 @@ static PyObject* _create_enum_Exiv2_LogMsg_Level(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_LogMsg_Level)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_LogMsg_Level, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_LogMsg_Level, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_LogMsg_Level, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
@@ -4226,6 +4282,27 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_LogMsg_setHandler(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LogMsg::Handler arg1 = (Exiv2::LogMsg::Handler) 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  {
+    int res = SWIG_ConvertFunctionPtr(swig_obj[0], (void**)(&arg1), SWIGTYPE_p_f_int_p_q_const__char__void);
+    if (!SWIG_IsOK(res)) {
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "LogMsg_setHandler" "', argument " "1"" of type '" "Exiv2::LogMsg::Handler""'"); 
+    }
+  }
+  Exiv2::LogMsg::setHandler(arg1);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::LogMsg::Level result;
@@ -4237,6 +4314,19 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
     if (!resultobj)
     SWIG_fail;
   }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LogMsg_handler(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LogMsg::Handler result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LogMsg_handler", 0, 0, 0)) SWIG_fail;
+  result = (Exiv2::LogMsg::Handler)Exiv2::LogMsg::handler();
+  resultobj = SWIG_NewFunctionPtrObj((void *)(result), SWIGTYPE_p_f_int_p_q_const__char__void);
   return resultobj;
 fail:
   return NULL;
@@ -4279,7 +4369,13 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LogMsg_methods[] = {
 		"       log level is ``warn``. To suppress all log messages, set the log\n"
 		"       level to ``mute`` (or set the log message handler to 0).\n"
 		"" },
+  { "setHandler", (PyCFunction)(void(*)(void))_wrap_LogMsg_setHandler, METH_STATIC|METH_O, "\n"
+		"Set the log message handler. The default handler writes log\n"
+		"       messages to standard error. To suppress all log messages, set\n"
+		"       the log message handler to 0 (or set the log level to ``mute)``.\n"
+		"" },
   { "level", (PyCFunction)(void(*)(void))_wrap_LogMsg_level, METH_STATIC|METH_NOARGS, " Return the current log level" },
+  { "handler", (PyCFunction)(void(*)(void))_wrap_LogMsg_handler, METH_STATIC|METH_NOARGS, " Return the current log message handler" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -4528,6 +4624,7 @@ static void *_p_Exiv2__AnyErrorTo_p_std__exception(void *x, int *SWIGUNUSEDPARM(
 static swig_type_info _swigt__p_Exiv2__LogMsg = {"_p_Exiv2__LogMsg", "Exiv2::LogMsg *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__LogMsg_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_f_int_p_q_const__char__void = {"_p_f_int_p_q_const__char__void", "Exiv2::LogMsg::Handler|void (*)(int,char const *)", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__exception = {"_p_std__exception", "std::exception *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AnyError = {"_p_Exiv2__AnyError", 0, 0, 0, 0, 0};
 
@@ -4536,12 +4633,14 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__LogMsg,
   &_swigt__p_SwigPyObject,
   &_swigt__p_char,
+  &_swigt__p_f_int_p_q_const__char__void,
   &_swigt__p_std__exception,
 };
 
 static swig_cast_info _swigc__p_Exiv2__LogMsg[] = {  {&_swigt__p_Exiv2__LogMsg, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_f_int_p_q_const__char__void[] = {  {&_swigt__p_f_int_p_q_const__char__void, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AnyError[] = {{&_swigt__p_Exiv2__AnyError, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__exception[] = {  {&_swigt__p_std__exception, 0, 0, 0},  {&_swigt__p_Exiv2__AnyError, _p_Exiv2__AnyErrorTo_p_std__exception, 0, 0},{0, 0, 0, 0}};
 
@@ -4550,6 +4649,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__LogMsg,
   _swigc__p_SwigPyObject,
   _swigc__p_char,
+  _swigc__p_f_int_p_q_const__char__void,
   _swigc__p_std__exception,
 };
 
@@ -5019,6 +5119,7 @@ SWIG_init(void) {
   
   SWIG_InstallConstants(d,swig_const_table);
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 error codes and log messages."));
   
   {
     PyObject *module = PyImport_ImportModule("logging");
@@ -5055,6 +5156,11 @@ SWIG_init(void) {
     return NULL;
   }
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "pythonHandler",SWIG_NewFunctionPtrObj(
+      (void*)log_to_python, SWIGTYPE_p_f_int_p_q_const__char__void));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "defaultHandler",SWIG_NewFunctionPtrObj(
+      (void*)Exiv2::LogMsg::defaultHandler,
+      SWIGTYPE_p_f_int_p_q_const__char__void));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Level",_create_enum_Exiv2_LogMsg_Level(
       "Level", "Defined log levels.\n"
       "\nTo suppress all log messages, either set the log level to mute or set"

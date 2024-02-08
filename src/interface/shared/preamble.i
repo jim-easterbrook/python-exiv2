@@ -25,6 +25,6 @@
 #define EXV_DLLLOCAL
 #define EXV_DLLPUBLIC
 
-#ifndef SWIG_DOXYGEN
-%feature("autodoc", "2");
-#endif
+%typemap(doctype) bool "bool"
+%typemap(doctype) Exiv2::byte "int"
+%typemap(doctype) std::string "str"

@@ -17,6 +17,10 @@
 
 %module(package="exiv2") types
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Exiv2 metadata data types and utility classes.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"
@@ -273,6 +277,7 @@ INPUT_BUFFER_RO(const void *buf, size_t bufsize)
 %ignore Exiv2::DataBuf::c_str;
 %ignore Exiv2::DataBuf::data(size_t offset);
 %ignore Exiv2::DataBuf::release;
+%ignore Exiv2::DataBuf::reset(std::pair<byte*, long>);
 %ignore Exiv2::DataBuf::read_uint8;
 %ignore Exiv2::DataBuf::read_uint16;
 %ignore Exiv2::DataBuf::read_uint32;

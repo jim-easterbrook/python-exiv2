@@ -18,6 +18,10 @@
 %module(package="exiv2", threads="1") image
 %nothread;
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Image & ImageFactory classes.";
+#endif
+
 #pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"
@@ -50,8 +54,14 @@ UNIQUE_PTR(Exiv2::Image);
 %thread Exiv2::ImageFactory::open;
 
 // ImageFactory can open image from a buffer
-INPUT_BUFFER_RO_EX(const Exiv2::byte* data, long size)
-INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
+// (Signature changed in build_swig.py pre-processing.)
+INPUT_BUFFER_RO_EX(const Exiv2::byte* data, long B)
+INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t B)
+
+// ImageFactory can get type from a buffer
+// (Signature changed in build_swig.py pre-processing.)
+INPUT_BUFFER_RO(const Exiv2::byte* data, long A)
+INPUT_BUFFER_RO(const Exiv2::byte* data, size_t A)
 
 // Release memory buffer after writeMetadata, as it creates its own copy
 %typemap(ret) void writeMetadata %{

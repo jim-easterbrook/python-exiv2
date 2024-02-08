@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -121,10 +121,16 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(len(data_area), 0)
         self.assertEqual(datum.familyName(), 'Exif')
         self.assertIsInstance(datum.getValue(), exiv2.AsciiValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.getValue(exiv2.TypeId.asciiString), exiv2.AsciiValue)
         self.assertEqual(datum.groupName(), 'Image')
         self.assertEqual(datum.idx(), 2)
         self.assertEqual(datum.ifdName(), 'IFD0')
         self.assertEqual(datum.key(), 'Exif.Image.ImageDescription')
+        self.assertEqual(datum.print(), 'Good view of the lighthouse.')
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(datum._print(), datum.print())
         self.assertEqual(datum.setDataArea(b'fred'), -1)
         self.assertEqual(datum.size(), 28)
         self.assertEqual(datum.sizeDataArea(), 0)
@@ -143,6 +149,9 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(datum.typeName(), 'Ascii')
         self.assertEqual(datum.typeSize(), 1)
         self.assertIsInstance(datum.value(), exiv2.AsciiValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.value(exiv2.TypeId.asciiString), exiv2.AsciiValue)
         datum.setValue('fred')
         datum.setValue(exiv2.AsciiValue('Acme'))
         with self.assertRaises(TypeError):

@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -127,8 +127,14 @@ class TestIptcModule(unittest.TestCase):
         self.assertEqual(datum.count(), 28)
         self.assertEqual(datum.familyName(), 'Iptc')
         self.assertIsInstance(datum.getValue(), exiv2.StringValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.getValue(exiv2.TypeId.string), exiv2.StringValue)
         self.assertEqual(datum.groupName(), 'Application2')
         self.assertEqual(datum.key(), 'Iptc.Application2.Caption')
+        self.assertEqual(datum.print(), 'Good view of the lighthouse.')
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(datum._print(), datum.print())
         self.assertEqual(datum.record(), exiv2.IptcDataSets.application2)
         self.assertEqual(datum.recordName(), 'Application2')
         self.assertEqual(datum.size(), 28)
@@ -147,6 +153,9 @@ class TestIptcModule(unittest.TestCase):
         self.assertEqual(datum.typeName(), 'String')
         self.assertEqual(datum.typeSize(), 1)
         self.assertIsInstance(datum.value(), exiv2.StringValue)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                datum.value(exiv2.TypeId.string), exiv2.StringValue)
         datum.setValue('fred')
         datum.setValue(exiv2.StringValue('Acme'))
         with self.assertRaises(TypeError):

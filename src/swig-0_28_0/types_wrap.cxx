@@ -4092,6 +4092,51 @@ namespace swig {
 #include <stddef.h>
 
 
+SWIGINTERN swig_type_info*
+SWIG_pchar_descriptor(void)
+{
+  static int init = 0;
+  static swig_type_info* info = 0;
+  if (!init) {
+    info = SWIG_TypeQuery("_p_char");
+    init = 1;
+  }
+  return info;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
+#endif
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
+    }
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
+
+
 #include "exiv2/exiv2.hpp"
 
 
@@ -4221,19 +4266,6 @@ void _set_locale_dir(const char* dirname) {
 };
 
 
-SWIGINTERN swig_type_info*
-SWIG_pchar_descriptor(void)
-{
-  static int init = 0;
-  static swig_type_info* info = 0;
-  if (!init) {
-    info = SWIG_TypeQuery("_p_char");
-    init = 1;
-  }
-  return info;
-}
-
-
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
 SWIGINTERN int
@@ -4342,8 +4374,13 @@ static PyObject* _create_enum_Exiv2_AccessMode(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_AccessMode)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_AccessMode, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_AccessMode, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_AccessMode, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_AccessMode);
@@ -4381,8 +4418,13 @@ static PyObject* _create_enum_Exiv2_ByteOrder(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_ByteOrder)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_ByteOrder, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_ByteOrder, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_ByteOrder, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_ByteOrder);
@@ -4401,8 +4443,13 @@ static PyObject* _create_enum_Exiv2_MetadataId(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_MetadataId)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_MetadataId, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_MetadataId, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_MetadataId, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_MetadataId);
@@ -4421,8 +4468,13 @@ static PyObject* _create_enum_Exiv2_TypeId(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_TypeId)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_TypeId, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_TypeId, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_TypeId, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_TypeId);
@@ -4464,38 +4516,6 @@ static PyObject* get_enum_typeobject_Exiv2_TypeId() {
             exiv2_module, "TypeId");
     return PyEnum_Exiv2_TypeId;
 };
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
-}
-
-
-SWIGINTERNINLINE PyObject * 
-SWIG_FromCharPtr(const char *cptr)
-{ 
-  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
-}
 
 
 SWIGINTERN int
@@ -6987,6 +7007,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
 		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
 		"WARNING: do not resize or delete the object while using the view.\n"
+		"\n"
+		":rtype: memoryview\n"
 		"" },
   { "empty", _wrap_DataBuf_empty, METH_NOARGS, "" },
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },
@@ -8230,6 +8252,7 @@ SWIG_init(void) {
   
   SWIG_InstallConstants(d,swig_const_table);
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 metadata data types and utility classes."));
   
   {
     exiv2_module = PyImport_ImportModule("exiv2");

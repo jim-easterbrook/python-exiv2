@@ -2,7 +2,7 @@
 
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-22  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ def main():
         print(exifData[key])
 
         return 0
-    except exiv2.AnyError as e:
+    except exiv2.Exiv2Error as e:
         print('*** error exiv2 exception "{}" ***'.format(str(e)))
         return 4;
     except Exception as e:

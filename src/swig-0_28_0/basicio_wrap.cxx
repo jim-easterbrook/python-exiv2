@@ -3934,22 +3934,21 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__RemoteIo swig_types[6]
 #define SWIGTYPE_p_Exiv2__XPathIo swig_types[7]
 #define SWIGTYPE_p_SwigPyObject swig_types[8]
-#define SWIGTYPE_p_UniquePtr swig_types[9]
-#define SWIGTYPE_p_char swig_types[10]
-#define SWIGTYPE_p_first_type swig_types[11]
-#define SWIGTYPE_p_int swig_types[12]
-#define SWIGTYPE_p_long_long swig_types[13]
-#define SWIGTYPE_p_second_type swig_types[14]
-#define SWIGTYPE_p_short swig_types[15]
-#define SWIGTYPE_p_signed_char swig_types[16]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[17]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[18]
-#define SWIGTYPE_p_unsigned_char swig_types[19]
-#define SWIGTYPE_p_unsigned_int swig_types[20]
-#define SWIGTYPE_p_unsigned_long_long swig_types[21]
-#define SWIGTYPE_p_unsigned_short swig_types[22]
-static swig_type_info *swig_types[24];
-static swig_module_info swig_module = {swig_types, 23, 0, 0, 0, 0};
+#define SWIGTYPE_p_char swig_types[9]
+#define SWIGTYPE_p_first_type swig_types[10]
+#define SWIGTYPE_p_int swig_types[11]
+#define SWIGTYPE_p_long_long swig_types[12]
+#define SWIGTYPE_p_second_type swig_types[13]
+#define SWIGTYPE_p_short swig_types[14]
+#define SWIGTYPE_p_signed_char swig_types[15]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[16]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[17]
+#define SWIGTYPE_p_unsigned_char swig_types[18]
+#define SWIGTYPE_p_unsigned_int swig_types[19]
+#define SWIGTYPE_p_unsigned_long_long swig_types[20]
+#define SWIGTYPE_p_unsigned_short swig_types[21]
+static swig_type_info *swig_types[23];
+static swig_module_info swig_module = {swig_types, 22, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4098,6 +4097,51 @@ namespace swig {
 
 
 #include <stddef.h>
+
+
+SWIGINTERN swig_type_info*
+SWIG_pchar_descriptor(void)
+{
+  static int init = 0;
+  static swig_type_info* info = 0;
+  if (!init) {
+    info = SWIG_TypeQuery("_p_char");
+    init = 1;
+  }
+  return info;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
+#endif
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
+    }
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
 
 
 #include "exiv2/exiv2.hpp"
@@ -4400,8 +4444,13 @@ static PyObject* _create_enum_Exiv2_BasicIo_Position(
             Py_IntEnum, "sN", name, enum_list);
     if (!PyEnum_Exiv2_BasicIo_Position)
         return NULL;
-    if (PyObject_SetAttrString(
-            PyEnum_Exiv2_BasicIo_Position, "__doc__", PyUnicode_FromString(doc)))
+    if (PyObject_SetAttrString(PyEnum_Exiv2_BasicIo_Position, "__doc__",
+            PyUnicode_FromString(doc)))
+        return NULL;
+    std::string mod_name = "exiv2.";
+    mod_name += SWIG_name + 1;
+    if (PyObject_SetAttrString(PyEnum_Exiv2_BasicIo_Position, "__module__",
+            PyUnicode_FromString(mod_name.c_str())))
         return NULL;
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
@@ -4844,19 +4893,6 @@ static int transcode_path(std::string *path, bool to_cp) {
 };
 
 
-SWIGINTERN swig_type_info*
-SWIG_pchar_descriptor(void)
-{
-  static int init = 0;
-  static swig_type_info* info = 0;
-  if (!init) {
-    info = SWIG_TypeQuery("_p_char");
-    init = 1;
-  }
-  return info;
-}
-
-
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
 SWIGINTERN int
@@ -4972,31 +5008,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
     }
   }
   return SWIG_ERROR;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
 }
 
 
@@ -6966,7 +6977,6 @@ SWIGINTERN int _wrap_new_MemIo__SWIG_1(PyObject *self, PyObject *args, PyObject 
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__MemIo, SWIG_BUILTIN_INIT |  0 );
   
-  if (SwigPyObject_Check(resultobj))
   PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
   
   
@@ -8842,7 +8852,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"Write data to the IO source. Current IO position is advanced\n"
 		"    by the number of bytes written.\n"
-		":type data: bytes-like object\n"
+		":type data: :py:term:`bytes-like object`\n"
 		":param data: Pointer to data. Data must be at least *wcount*\n"
 		"        bytes long\n"
 		":type wcount: int\n"
@@ -8870,7 +8880,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
   { "putb", _wrap_BasicIo_putb, METH_VARARGS, "\n"
 		"Write one byte to the IO source. Current IO position is\n"
 		"    advanced by one byte.\n"
-		":type data: Exiv2::byte\n"
+		":type data: int\n"
 		":param data: The single byte to be written.\n"
 		":rtype: int\n"
 		":return: The value of the byte written if successful;\n"
@@ -8898,7 +8908,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"Read data from the IO source. Reading starts at the current\n"
 		"    IO position and the position is advanced by the number of bytes\n"
 		"    read.\n"
-		":type buf: writeable bytes-like object\n"
+		":type buf: writeable :py:term:`bytes-like object`\n"
 		":param buf: Pointer to a block of memory into which the read data\n"
 		"        is stored. The memory block must be at least *rcount* bytes\n"
 		"        long.\n"
@@ -8913,7 +8923,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
   { "readOrThrow", _wrap_BasicIo_readOrThrow, METH_VARARGS, "\n"
 		"Safe version of `read()` that checks for errors and throws\n"
 		"    an exception if the read was unsuccessful.\n"
-		":type buf: writeable bytes-like object\n"
+		":type buf: writeable :py:term:`bytes-like object`\n"
 		":param buf: Pointer to a block of memory into which the read data\n"
 		"        is stored. The memory block must be at least *rcount* bytes\n"
 		"        long.\n"
@@ -8950,7 +8960,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		":type offset: int\n"
 		":param offset: Number of bytes to move the position relative\n"
 		"        to the starting position specified by *pos*\n"
-		":type pos: int\n"
+		":type pos: :py:class:`BasicIo.Position`\n"
 		":param pos: Position from which the seek should start\n"
 		":rtype: int\n"
 		":return: 0 if successful;\n"
@@ -8963,7 +8973,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		":type offset: int\n"
 		":param offset: Number of bytes to move the position relative\n"
 		"        to the starting position specified by *pos*\n"
-		":type pos: int\n"
+		":type pos: :py:class:`BasicIo.Position`\n"
 		":param pos: Position from which the seek should start\n"
 		":type err: ErrorCode\n"
 		":param err: Error code to use if an exception is thrown.\n"
@@ -8972,10 +8982,10 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"Direct access to the IO data. For files, this is done by\n"
 		"       mapping the file into the process's address space; for memory\n"
 		"       blocks, this allows direct access to the memory block.\n"
-		":type isWriteable: boolean, optional\n"
+		":type isWriteable: bool, optional\n"
 		":param isWriteable: Set to true if the mapped area should be writeable\n"
 		"           (default is false).\n"
-		":rtype: Exiv2::byte\n"
+		":rtype: memoryview\n"
 		":return: A pointer to the mapped area.\n"
 		":raises: Error In case of failure.\n"
 		"" },
@@ -9232,7 +9242,7 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__FileIo_getset[] = {
 		"Constructor that accepts the file path on which IO will be\n"
 		"    performed. The constructor does not open the file, and\n"
 		"    therefore never fails.\n"
-		":type path: string\n"
+		":type path: str\n"
 		":param path: The full path of a file\n"
 		"", &FileIo___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
@@ -9268,7 +9278,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"files can be opened in binary or text mode, this class has\n"
 		"only been tested carefully in binary mode.\n"
 		"\n"
-		":type mode: string\n"
+		":type mode: str\n"
 		":param mode: Specified that type of access allowed on the file.\n"
 		"        Valid values match those of the C fopen command exactly.\n"
 		":rtype: int\n"
@@ -9301,7 +9311,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"\n"
 		"Write data to the file. The file position is advanced\n"
 		"    by the number of bytes written.\n"
-		":type data: bytes-like object\n"
+		":type data: :py:term:`bytes-like object`\n"
 		":param data: Pointer to data. Data must be at least *wcount*\n"
 		"        bytes long\n"
 		":type wcount: int\n"
@@ -9329,7 +9339,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
   { "putb", _wrap_FileIo_putb, METH_VARARGS, "\n"
 		"Write one byte to the file. The file position is\n"
 		"    advanced by one byte.\n"
-		":type data: Exiv2::byte\n"
+		":type data: int\n"
 		":param data: The single byte to be written.\n"
 		":rtype: int\n"
 		":return: The value of the byte written if successful;\n"
@@ -9357,7 +9367,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"Read data from the file. Reading starts at the current\n"
 		"    file position and the position is advanced by the number of\n"
 		"    bytes read.\n"
-		":type buf: writeable bytes-like object\n"
+		":type buf: writeable :py:term:`bytes-like object`\n"
 		":param buf: Pointer to a block of memory into which the read data\n"
 		"        is stored. The memory block must be at least *rcount* bytes\n"
 		"        long.\n"
@@ -9403,10 +9413,10 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__FileIo_methods[] = {
 		"       changes may not be written back to the underlying file until\n"
 		"       munmap() is called. The pointer is valid only as long as the\n"
 		"       FileIo object exists.\n"
-		":type isWriteable: boolean, optional\n"
+		":type isWriteable: bool, optional\n"
 		":param isWriteable: Set to true if the mapped area should be writeable\n"
 		"           (default is false).\n"
-		":rtype: Exiv2::byte\n"
+		":rtype: memoryview\n"
 		":return: A pointer to the mapped area.\n"
 		":raises: Error In case of failure.\n"
 		"" },
@@ -9666,7 +9676,7 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__MemIo_getset[] = {
 		"   Constructor that accepts a block of memory. A copy-on-write\n"
 		"       algorithm allows read operations directly from the original data\n"
 		"       and will create a copy of the buffer on the first write operation.\n"
-		"   :type data: bytes-like object\n"
+		"   :type data: :py:term:`bytes-like object`\n"
 		"   :param data: Pointer to data. Data must be at least *size* bytes long\n"
 		"   :type size: int\n"
 		"   :param size: Number of bytes to copy.\n"
@@ -9712,7 +9722,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		"Write data to the memory block. If needed, the size of the\n"
 		"    internal memory block is expanded. The IO position is advanced\n"
 		"    by the number of bytes written.\n"
-		":type data: bytes-like object\n"
+		":type data: :py:term:`bytes-like object`\n"
 		":param data: Pointer to data. Data must be at least *wcount*\n"
 		"        bytes long\n"
 		":type wcount: int\n"
@@ -9741,7 +9751,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
   { "putb", _wrap_MemIo_putb, METH_VARARGS, "\n"
 		"Write one byte to the memory block. The IO position is\n"
 		"    advanced by one byte.\n"
-		":type data: Exiv2::byte\n"
+		":type data: int\n"
 		":param data: The single byte to be written.\n"
 		":rtype: int\n"
 		":return: The value of the byte written if successful;\n"
@@ -9769,7 +9779,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__MemIo_methods[] = {
 		"Read data from the memory block. Reading starts at the current\n"
 		"    IO position and the position is advanced by the number of\n"
 		"    bytes read.\n"
-		":type buf: writeable bytes-like object\n"
+		":type buf: writeable :py:term:`bytes-like object`\n"
 		":param buf: Pointer to a block of memory into which the read data\n"
 		"        is stored. The memory block must be at least *rcount* bytes\n"
 		"        long.\n"
@@ -10087,9 +10097,9 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XPathIo_methods[] = {
 		"" },
   { "writeDataToFile", (PyCFunction)(void(*)(void))_wrap_XPathIo_writeDataToFile, METH_STATIC|METH_VARARGS, "\n"
 		"Read the data from stdin/data uri path and write them to the file.\n"
-		":type orgPath: string\n"
+		":type orgPath: str\n"
 		":param orgPath: It equals \"-\" if the input data's from stdin. Otherwise, it's data uri path.\n"
-		":rtype: string\n"
+		":rtype: str\n"
 		":return: the name of the new file.\n"
 		":raises: Error if it fails.\n"
 		"" },
@@ -10407,7 +10417,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
 		"    bytes read.\n"
 		"    If the memory blocks are not populated (!= bMemory), it will connect to server\n"
 		"    and populate the data to memory blocks.\n"
-		":type buf: writeable bytes-like object\n"
+		":type buf: writeable :py:term:`bytes-like object`\n"
 		":param buf: Pointer to a block of memory into which the read data\n"
 		"        is stored. The memory block must be at least *rcount* bytes\n"
 		"        long.\n"
@@ -10447,7 +10457,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__RemoteIo_methods[] = {
   { "seek", _wrap_RemoteIo_seek, METH_VARARGS, "" },
   { "mmap", _wrap_RemoteIo_mmap, METH_VARARGS, "\n"
 		"Not support\n"
-		":rtype: Exiv2::byte\n"
+		":rtype: memoryview\n"
 		":return: NULL\n"
 		"" },
   { "munmap", _wrap_RemoteIo_munmap, METH_VARARGS, "\n"
@@ -10694,7 +10704,7 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__HttpIo_getset[] = {
 		"Constructor that accepts the http URL on which IO will be\n"
 		"    performed. The constructor does not open the file, and\n"
 		"    therefore never fails.\n"
-		":type url: string\n"
+		":type url: str\n"
 		":param url: The full path of url\n"
 		":type blockSize: int, optional\n"
 		":param blockSize: the size of the memory block. The file content is\n"
@@ -10970,7 +10980,6 @@ static swig_type_info _swigt__p_Exiv2__MemIo = {"_p_Exiv2__MemIo", "Exiv2::MemIo
 static swig_type_info _swigt__p_Exiv2__RemoteIo = {"_p_Exiv2__RemoteIo", "Exiv2::RemoteIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__RemoteIo_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__XPathIo = {"_p_Exiv2__XPathIo", "Exiv2::XPathIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__XPathIo_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_UniquePtr = {"_p_UniquePtr", "UniquePtr *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "int32_t *|int_fast16_t *|int_fast32_t *|int_least32_t *|intptr_t *|int *", 0, 0, (void*)0, 0};
@@ -10995,7 +11004,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__RemoteIo,
   &_swigt__p_Exiv2__XPathIo,
   &_swigt__p_SwigPyObject,
-  &_swigt__p_UniquePtr,
   &_swigt__p_char,
   &_swigt__p_first_type,
   &_swigt__p_int,
@@ -11020,7 +11028,6 @@ static swig_cast_info _swigc__p_Exiv2__MemIo[] = {  {&_swigt__p_Exiv2__MemIo, 0,
 static swig_cast_info _swigc__p_Exiv2__RemoteIo[] = {  {&_swigt__p_Exiv2__RemoteIo, 0, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XPathIo[] = {  {&_swigt__p_Exiv2__XPathIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_UniquePtr[] = {  {&_swigt__p_UniquePtr, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
@@ -11045,7 +11052,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__RemoteIo,
   _swigc__p_Exiv2__XPathIo,
   _swigc__p_SwigPyObject,
-  _swigc__p_UniquePtr,
   _swigc__p_char,
   _swigc__p_first_type,
   _swigc__p_int,
@@ -11527,6 +11533,7 @@ SWIG_init(void) {
   
   SWIG_InstallConstants(d,swig_const_table);
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Classes to access files, memory and remote data."));
   
   {
     exiv2_module = PyImport_ImportModule("exiv2");
