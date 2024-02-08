@@ -18,6 +18,10 @@
 %module(package="exiv2", threads="1") basicio
 %nothread;
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Classes to access files, memory and remote data.";
+#endif
+
 #pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"

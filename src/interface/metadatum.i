@@ -17,6 +17,10 @@
 
 %module(package="exiv2") metadatum
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Exiv2 metadatum base class.";
+#endif
+
 %namewarn("") "print"; // don't rename print methods
 
 %include "shared/preamble.i"

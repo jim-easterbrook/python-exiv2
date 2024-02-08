@@ -17,6 +17,10 @@
 
 %module(package="exiv2") types
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Exiv2 metadata data types and utility classes.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/enum.i"

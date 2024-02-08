@@ -17,6 +17,10 @@
 
 %module(package="exiv2") xmp
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "XMP metadatum, container and iterators.";
+#endif
+
 #pragma SWIG nowarn=508 // Declaration of '__str__' shadows declaration accessible via operator->()
 
 %include "shared/preamble.i"

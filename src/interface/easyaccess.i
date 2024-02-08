@@ -17,6 +17,10 @@
 
 %module(package="exiv2") easyaccess
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Simplified reading of Exif metadata.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/exception.i"
 

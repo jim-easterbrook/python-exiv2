@@ -18,6 +18,10 @@
 %module(package="exiv2", threads="1") image
 %nothread;
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Image & ImageFactory classes.";
+#endif
+
 #pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"

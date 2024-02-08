@@ -18,6 +18,10 @@
 %module(package="exiv2") value
 %feature("flatnested", "1");
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Exiv2 metadata value classes.";
+#endif
+
 // We don't need Python access to SwigPyIterator
 %ignore SwigPyIterator;
 

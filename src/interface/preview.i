@@ -17,6 +17,12 @@
 
 %module(package="exiv2") preview
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Access to preview images.
+
+For Exif thumbnail images see the :py:class:`ExifThumb` class.";
+#endif
+
 // We don't need Python access to SwigPyIterator
 %ignore SwigPyIterator;
 

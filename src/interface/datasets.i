@@ -17,6 +17,10 @@
 
 %module(package="exiv2") datasets
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "IPTC key class and data attributes.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/enum.i"
 %include "shared/exception.i"

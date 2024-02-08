@@ -17,6 +17,10 @@
 
 %module(package="exiv2") error
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Exiv2 error codes and log messages.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/enum.i"
 
@@ -55,7 +59,6 @@ static void log_to_python(int level, const char* msg) {
 %ignore Exiv2::Error;
 %ignore Exiv2::WError;
 %ignore Exiv2::errMsg;
-%ignore Exiv2::ErrorCode;
 %ignore Exiv2::LogMsg::LogMsg;
 %ignore Exiv2::LogMsg::~LogMsg;
 %ignore Exiv2::LogMsg::os;

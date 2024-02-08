@@ -17,6 +17,10 @@
 
 %module(package="exiv2") version
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "Exiv2 library version information.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/exception.i"
 

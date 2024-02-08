@@ -17,6 +17,10 @@
 
 %module(package="exiv2") properties
 
+#ifndef SWIGIMPORTED
+%constant char* __doc__ = "XMP key class and data attributes.";
+#endif
+
 %include "shared/preamble.i"
 %include "shared/exception.i"
 %include "shared/enum.i"
