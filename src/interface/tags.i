@@ -89,7 +89,7 @@ DEFINE_ENUM(SectionId, "Section identifiers to logically group tags.\n"
         "tiffEp",          Exiv2::SectionId::tiffEp,
         "tiffPm6",         Exiv2::SectionId::tiffPm6,
         "adobeOpi",        Exiv2::SectionId::adobeOpi,
-        "lastSectionId ",  Exiv2::SectionId::lastSectionId);
+        "lastSectionId",   Exiv2::SectionId::lastSectionId);
 #endif // EXIV2_VERSION_HEX
 
 // Convert ExifTags::groupList() result to a Python list of GroupInfo objects
