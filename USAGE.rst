@@ -32,7 +32,16 @@ Error handling
 
 libexiv2_ has a multilevel warning system a bit like Python's standard logger.
 The Python interface redirects all Exiv2 messages to Python logging with an appropriate log level.
-The ``exiv2.LogMsg.setLevel`` function can be used to control what severity of messages are logged.
+The ``exiv2.LogMsg.setLevel()`` method can be used to control what severity of messages are logged.
+
+Since python-exiv2 v0.16.2 the ``exiv2.LogMsg.setHandler()`` method can be used to set the handler.
+The Python logging handler is ``exiv2.LogMsg.pythonHandler`` and the Exiv2 default handler is ``exiv2.LogMsg.defaultHandler``.
+
+NULL values
+-----------
+
+Some libexiv2_ functions that expect a pointer to an object or data can have ``NULL`` (sometimes documented as ``0``) passed to them to represent "no value".
+In Python ``None`` is used instead.
 
 Deprecation warnings
 --------------------
