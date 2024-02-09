@@ -12,15 +12,16 @@ if sys.platform == 'win32':
 class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors.
 
-    Attributes:
-        code -- Exiv2::ErrorCode
-        message -- string
+    :ivar ErrorCode code: The Exiv2 error code that caused the exception.
+    :ivar str message: The message associated with the exception.
     """
     def __init__(self, code, message):
         self.code= code
         self.message = message
 
+#: python-exiv2 version as a string
 __version__ = "0.16.2"
+#: python-exiv2 version as a tuple of ints
 __version_tuple__ = tuple((0, 16, 2))
 
 __all__ = ["Exiv2Error"]

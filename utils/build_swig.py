@@ -167,7 +167,7 @@ def main():
     # create init module
     init_file = os.path.join(output_dir, '__init__.py')
     with open(init_file, 'w') as im:
-        im.write('''
+        im.write(f'''
 import os
 import sys
 
@@ -181,24 +181,27 @@ if sys.platform == 'win32':
 class Exiv2Error(Exception):
     """Python exception raised by exiv2 library errors.
 
-    Attributes:
-        code -- Exiv2::ErrorCode
-        message -- string
+    :ivar ErrorCode code: The Exiv2 error code that caused the exception.
+    :ivar str message: The message associated with the exception.
     """
     def __init__(self, code, message):
         self.code= code
         self.message = message
 
+#: python-exiv2 version as a string
+__version__ = "{py_exiv2_version}"
+#: python-exiv2 version as a tuple of ints
+__version_tuple__ = tuple(({', '.join(py_exiv2_version.split('.'))}))
+
+__all__ = ["Exiv2Error"]
 ''')
-        im.write('__version__ = "%s"\n' % py_exiv2_version)
-        im.write('__version_tuple__ = tuple((%s))\n\n' % ', '.join(
-            py_exiv2_version.split('.')))
-        im.write('__all__ = ["Exiv2Error"]\n')
         for name in ext_names:
-            im.write('from exiv2.%s import *\n' % name)
-            im.write('__all__ += exiv2._%s.__all__\n' % name)
-        im.write("\n__all__ = [x for x in __all__ if x[0] != '_']\n")
-        im.write('__all__.sort()\n')
+            im.write(f'from exiv2.{name} import *\n')
+            im.write(f'__all__ += exiv2._{name}.__all__\n')
+        im.write("""
+__all__ = [x for x in __all__ if x[0] != '_']
+__all__.sort()
+""")
     return 0
 
 
