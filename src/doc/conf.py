@@ -76,6 +76,12 @@ class_re = re.compile(r':class:`(\w+?)`')
 percent_re = re.compile(r'%(\w+?)[|(\s]')
 
 def process_docstring(app, what, name, obj, options, lines):
+    if name == 'exiv2._version.__version__':
+        lines[:] = ['python-exiv2 version as a string']
+        return
+    if name == 'exiv2._version.__version_tuple__':
+        lines[:] = ['python-exiv2 version as a tuple of ints']
+        return
     if name.endswith('XmpParser.initialize'):
         # fix broken code block comment parsing by SWIG
         in_code_block = False
@@ -167,7 +173,8 @@ def process_docstring(app, what, name, obj, options, lines):
                     idx += 1
                     parts = lines[idx].split('|')
                     lines[idx] = parts[0] + '    ' + '|'.join(parts[1:-1])
-        elif words[0] in (':type', ':param', ':rtype:', ':return:', ':raises:'):
+        elif words[0] in (':type', ':param', ':rtype:', ':return:', ':raises:',
+                          ':ivar'):
             if idx > 0 and lines[idx-1]:
                 lines.insert(idx, '')
                 idx += 1

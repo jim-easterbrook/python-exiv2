@@ -22,6 +22,7 @@ Modules
 .. autosummary::
    :toctree: api
    :recursive:
+   :template: module.rst
 
    exiv2._image
    exiv2._exif
