@@ -5132,6 +5132,10 @@ SWIG_init(void) {
     return NULL;
   }
   
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__version__",PyObject_GetAttrString(
+      exiv2_module, "__version__"));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__version_tuple__",PyObject_GetAttrString(
+      exiv2_module, "__version_tuple__"));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

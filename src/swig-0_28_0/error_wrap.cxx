@@ -4134,6 +4134,9 @@ SWIG_FromCharPtr(const char *cptr)
 #include <stdexcept>
 
 
+static PyObject* exiv2_module = NULL;
+
+
 static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     Py_ssize_t len = strlen(msg);
@@ -4217,9 +4220,6 @@ static PyObject* _create_enum_Exiv2_LogMsg_Level(
     Py_INCREF(PyEnum_Exiv2_LogMsg_Level);
     return PyEnum_Exiv2_LogMsg_Level;
 };
-
-
-static PyObject* exiv2_module = NULL;
 
 
 static PyObject* get_enum_typeobject_Exiv2_LogMsg_Level() {
@@ -5122,6 +5122,15 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 error codes and log messages."));
   
   {
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
+    return NULL;
+  }
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Exiv2Error",PyObject_GetAttrString(
+      exiv2_module, "Exiv2Error"));
+  
+  {
     PyObject *module = PyImport_ImportModule("logging");
     if (!module)
     return NULL;
@@ -5149,13 +5158,6 @@ SWIG_init(void) {
   /* type 'Exiv2::LogMsg' */
   builtin_pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__LogMsg_type;
   builtin_pytype->tp_dict = d = PyDict_New();
-  
-  {
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-    return NULL;
-  }
-  
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "pythonHandler",SWIG_NewFunctionPtrObj(
       (void*)log_to_python, SWIGTYPE_p_f_int_p_q_const__char__void));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "defaultHandler",SWIG_NewFunctionPtrObj(
