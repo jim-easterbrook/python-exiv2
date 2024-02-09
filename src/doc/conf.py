@@ -52,6 +52,7 @@ version = exiv2.__version__
 # ones.
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.autosummary',
+              'sphinx.ext.inheritance_diagram',
               'sphinx.ext.intersphinx']
 
 autosummary_imported_members = True
