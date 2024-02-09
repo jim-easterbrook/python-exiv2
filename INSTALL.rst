@@ -1,7 +1,7 @@
 Installation
 ============
 
-As mentioned in `<README.rst>`_, on most computers `python-exiv2`_ can be installed with a simple pip_ command::
+As mentioned in `README.rst`_, on most computers `python-exiv2`_ can be installed with a simple pip_ command::
 
     C:\>pip install exiv2
     Collecting exiv2
@@ -267,3 +267,4 @@ After running ``build_swig.py`` you can build and install a wheel as before::
     https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019
 .. _wheel:        https://www.python.org/dev/peps/pep-0427/
 .. _zlib:         https://zlib.net/
+.. _README.rst:   README.rst

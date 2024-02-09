@@ -42,7 +42,7 @@ Here is an example of its use:
     'Jim Easterbrook'
     >>>
 
-Please see `<USAGE.rst>`_ for more help with using the Python interface to libexiv2.
+Please see `USAGE.rst`_ for more help with using the Python interface to libexiv2.
 
 Transition to libexiv2 v0.28.x
 ------------------------------
@@ -103,7 +103,7 @@ or on Linux or MacOS::
     $ pip3 install --user exiv2
 
 If the available wheels are not compatible with your operating system or Python version then pip will download the python-exiv2 source and attempt to compile it.
-For more information, and details of how to compile python-exiv2 and libexiv2, see `<INSTALL.rst>`_.
+For more information, and details of how to compile python-exiv2 and libexiv2, see `INSTALL.rst`_.
 
 Problems?
 ---------
@@ -125,3 +125,5 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _Python3:           https://www.python.org/
 .. _statement on BMFF: https://github.com/exiv2/exiv2#BMFF
 .. _Visual C++:        https://wiki.python.org/moin/WindowsCompilers
+.. _INSTALL.rst:       INSTALL.rst
+.. _USAGE.rst:         USAGE.rst

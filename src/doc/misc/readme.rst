@@ -6,3 +6,7 @@ Project overview
 
 .. include:: ../../../README.rst
    :start-line: 2
+   :end-before: .. _INSTALL
+
+.. _INSTALL.rst: install.html
+.. _USAGE.rst:   usage.html
