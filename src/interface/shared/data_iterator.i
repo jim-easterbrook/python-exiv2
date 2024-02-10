@@ -35,14 +35,12 @@
 %ignore container_type##_iterator_base::operator*;
 %ignore container_type##_iterator_base::valid;
 %feature("docstring") container_type##_iterator "
-Python wrapper for an Exiv2::container_type::iterator. It has most of
-the methods of Exiv2::datum_type allowing easy access to the
-data it points to.
-"
+Python wrapper for an :class:`" #container_type "` iterator. It has most of
+the methods of :class:`" #datum_type "` allowing easy access to the
+data it points to."
 %feature("docstring") container_type##_iterator_base "
-Python wrapper for an Exiv2::container_type::iterator that points to
-the 'end' value and can not be dereferenced.
-"
+Python wrapper for an :class:`" #container_type "` iterator that points to
+the 'end' value and can not be dereferenced."
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(container_type##_iterator*)
 KEEP_REFERENCE(container_type##_iterator_base*)

@@ -9235,9 +9235,8 @@ static PyHeapTypeObject SwigPyBuiltin__IptcData_iterator_base_type = {
 #endif
     "\n"
 		"\n"
-		"Python wrapper for an Exiv2::IptcData::iterator that points to\n"
+		"Python wrapper for an :class:`IptcData` iterator that points to\n"
 		"the 'end' value and can not be dereferenced.\n"
-		"\n"
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
@@ -9529,10 +9528,9 @@ static PyHeapTypeObject SwigPyBuiltin__IptcData_iterator_type = {
 #endif
     "\n"
 		"\n"
-		"Python wrapper for an Exiv2::IptcData::iterator. It has most of\n"
-		"the methods of Exiv2::Iptcdatum allowing easy access to the\n"
+		"Python wrapper for an :class:`IptcData` iterator. It has most of\n"
+		"the methods of :class:`Iptcdatum` allowing easy access to the\n"
 		"data it points to.\n"
-		"\n"
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */

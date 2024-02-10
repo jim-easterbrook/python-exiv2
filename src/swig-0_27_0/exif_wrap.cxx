@@ -10072,9 +10072,8 @@ static PyHeapTypeObject SwigPyBuiltin__ExifData_iterator_base_type = {
 #endif
     "\n"
 		"\n"
-		"Python wrapper for an Exiv2::ExifData::iterator that points to\n"
+		"Python wrapper for an :class:`ExifData` iterator that points to\n"
 		"the 'end' value and can not be dereferenced.\n"
-		"\n"
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
@@ -10392,10 +10391,9 @@ static PyHeapTypeObject SwigPyBuiltin__ExifData_iterator_type = {
 #endif
     "\n"
 		"\n"
-		"Python wrapper for an Exiv2::ExifData::iterator. It has most of\n"
-		"the methods of Exiv2::Exifdatum allowing easy access to the\n"
+		"Python wrapper for an :class:`ExifData` iterator. It has most of\n"
+		"the methods of :class:`Exifdatum` allowing easy access to the\n"
 		"data it points to.\n"
-		"\n"
 		"",/* tp_doc */
     (traverseproc) 0,                         /* tp_traverse */
     (inquiry) 0,                              /* tp_clear */
