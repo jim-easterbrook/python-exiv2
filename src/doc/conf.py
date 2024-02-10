@@ -74,7 +74,7 @@ add_module_names = False
 import re
 
 class_re = re.compile(r':class:`(\w+?)`')
-percent_re = re.compile(r'%(\w+?)[|(\s]')
+percent_re = re.compile(r'%(\w+?)([|(\s]|$)')
 
 def process_docstring(app, what, name, obj, options, lines):
     if name == 'exiv2._version.__version__':
