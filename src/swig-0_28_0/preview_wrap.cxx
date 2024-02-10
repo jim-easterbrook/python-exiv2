@@ -6655,11 +6655,11 @@ static SwigPyGetSet PreviewProperties_width__getset = { _wrap_PreviewProperties_
 static SwigPyGetSet PreviewProperties___dict___getset = { SwigPyObject_get___dict__, 0 };
 static SwigPyGetSet PreviewProperties_extension__getset = { _wrap_PreviewProperties_extension__get, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__PreviewProperties_getset[] = {
-    { (char *)"height_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &PreviewProperties_height__getset },
-    { (char *)"id_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &PreviewProperties_id__getset },
+    { (char *)"height_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Preview image height in pixels or 0 for unknown height.", &PreviewProperties_height__getset },
+    { (char *)"id_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Identifies type of preview image.", &PreviewProperties_id__getset },
     { (char *)"mimeType_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Preview image mime type.", &PreviewProperties_mimeType__getset },
-    { (char *)"size_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &PreviewProperties_size__getset },
-    { (char *)"width_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &PreviewProperties_width__getset },
+    { (char *)"size_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Preview image size in bytes.", &PreviewProperties_size__getset },
+    { (char *)"width_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Preview image width in pixels or 0 for unknown width.", &PreviewProperties_width__getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Preview image mime type.", &PreviewProperties___dict___getset },
     { (char *)"extension_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)" Preview image extension.", &PreviewProperties_extension__getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */

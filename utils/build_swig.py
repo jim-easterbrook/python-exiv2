@@ -122,6 +122,7 @@ def main():
                        'open(const byte* data, long B')],
         'metadatum.hpp': [('toString(size_t n)', 'toString(size_t i)'),
                           ('toString(long n)', 'toString(long i)')],
+        'preview.hpp': [('_{};', '_;')],
         }
     for key in ('exif.hpp', 'iptc.hpp', 'value.hpp',
                 'xmp.hpp', 'xmp_exiv2.hpp'):
