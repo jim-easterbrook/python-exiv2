@@ -7191,8 +7191,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
 		"" },
   { "good", _wrap_Image_good, METH_NOARGS, "\n"
 		"Check if the Image instance is valid. Use after object construction.\n"
-		"   :rtype: bool\n"
-		"   :return: true if the Image is in a valid state.\n"
+		":rtype: bool\n"
+		":return: true if the Image is in a valid state.\n"
 		"" },
   { "mimeType", _wrap_Image_mimeType, METH_NOARGS, "\n"
 		"Return the MIME type of the image.\n"
