@@ -5851,9 +5851,23 @@ SwigPyBuiltin__Exiv2__DataSet_richcompare(PyObject *self, PyObject *other, int o
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataSet_methods[] = {
-  { "items", _wrap_DataSet_items, METH_NOARGS, "" },
-  { "keys", _wrap_DataSet_keys, METH_NOARGS, "" },
-  { "values", _wrap_DataSet_values, METH_NOARGS, "" },
+  { "items", _wrap_DataSet_items, METH_NOARGS, "\n"
+		"Get structure members.\n"
+		":rtype: list of (str, value) tuple\n"
+		":return: structure member (name, value) pairs (with any trailing\n"
+		"    underscores removed from names).\n"
+		"" },
+  { "keys", _wrap_DataSet_keys, METH_NOARGS, "\n"
+		"Get structure member names.\n"
+		":rtype: list of str\n"
+		":return: structure member names (with any trailing underscores\n"
+		"    removed).\n"
+		"" },
+  { "values", _wrap_DataSet_values, METH_NOARGS, "\n"
+		"Get structure member values.\n"
+		":rtype: list of value\n"
+		":return: structure member values.\n"
+		"" },
   { "__iter__", _wrap_DataSet___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_DataSet___getitem__, METH_O, "" },
   { "__setitem__", _wrap_DataSet___setitem__, METH_VARARGS, "" },

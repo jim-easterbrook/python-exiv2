@@ -28261,9 +28261,23 @@ SwigPyBuiltin__Exiv2__DateValue__Date_richcompare(PyObject *self, PyObject *othe
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue__Date_methods[] = {
-  { "items", _wrap_Date_items, METH_VARARGS, "" },
-  { "keys", _wrap_Date_keys, METH_VARARGS, "" },
-  { "values", _wrap_Date_values, METH_VARARGS, "" },
+  { "items", _wrap_Date_items, METH_VARARGS, "\n"
+		"Get structure members.\n"
+		":rtype: list of (str, value) tuple\n"
+		":return: structure member (name, value) pairs (with any trailing\n"
+		"    underscores removed from names).\n"
+		"" },
+  { "keys", _wrap_Date_keys, METH_VARARGS, "\n"
+		"Get structure member names.\n"
+		":rtype: list of str\n"
+		":return: structure member names (with any trailing underscores\n"
+		"    removed).\n"
+		"" },
+  { "values", _wrap_Date_values, METH_VARARGS, "\n"
+		"Get structure member values.\n"
+		":rtype: list of value\n"
+		":return: structure member values.\n"
+		"" },
   { "__iter__", _wrap_Date___iter__, METH_VARARGS, "" },
   { "__getitem__", _wrap_Date___getitem__, METH_VARARGS, "" },
   { "__setitem__", _wrap_Date___setitem__, METH_VARARGS, "" },
@@ -28829,9 +28843,23 @@ SwigPyBuiltin__Exiv2__TimeValue__Time_richcompare(PyObject *self, PyObject *othe
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TimeValue__Time_methods[] = {
-  { "items", _wrap_Time_items, METH_VARARGS, "" },
-  { "keys", _wrap_Time_keys, METH_VARARGS, "" },
-  { "values", _wrap_Time_values, METH_VARARGS, "" },
+  { "items", _wrap_Time_items, METH_VARARGS, "\n"
+		"Get structure members.\n"
+		":rtype: list of (str, value) tuple\n"
+		":return: structure member (name, value) pairs (with any trailing\n"
+		"    underscores removed from names).\n"
+		"" },
+  { "keys", _wrap_Time_keys, METH_VARARGS, "\n"
+		"Get structure member names.\n"
+		":rtype: list of str\n"
+		":return: structure member names (with any trailing underscores\n"
+		"    removed).\n"
+		"" },
+  { "values", _wrap_Time_values, METH_VARARGS, "\n"
+		"Get structure member values.\n"
+		":rtype: list of value\n"
+		":return: structure member values.\n"
+		"" },
   { "__iter__", _wrap_Time___iter__, METH_VARARGS, "" },
   { "__getitem__", _wrap_Time___getitem__, METH_VARARGS, "" },
   { "__setitem__", _wrap_Time___setitem__, METH_VARARGS, "" },

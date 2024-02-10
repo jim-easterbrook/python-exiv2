@@ -6680,9 +6680,23 @@ SwigPyBuiltin__Exiv2__PreviewProperties_richcompare(PyObject *self, PyObject *ot
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewProperties_methods[] = {
-  { "items", _wrap_PreviewProperties_items, METH_NOARGS, "" },
-  { "keys", _wrap_PreviewProperties_keys, METH_NOARGS, "" },
-  { "values", _wrap_PreviewProperties_values, METH_NOARGS, "" },
+  { "items", _wrap_PreviewProperties_items, METH_NOARGS, "\n"
+		"Get structure members.\n"
+		":rtype: list of (str, value) tuple\n"
+		":return: structure member (name, value) pairs (with any trailing\n"
+		"    underscores removed from names).\n"
+		"" },
+  { "keys", _wrap_PreviewProperties_keys, METH_NOARGS, "\n"
+		"Get structure member names.\n"
+		":rtype: list of str\n"
+		":return: structure member names (with any trailing underscores\n"
+		"    removed).\n"
+		"" },
+  { "values", _wrap_PreviewProperties_values, METH_NOARGS, "\n"
+		"Get structure member values.\n"
+		":rtype: list of value\n"
+		":return: structure member values.\n"
+		"" },
   { "__iter__", _wrap_PreviewProperties___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_PreviewProperties___getitem__, METH_O, "" },
   { "__setitem__", _wrap_PreviewProperties___setitem__, METH_VARARGS, "" },

@@ -80,6 +80,18 @@ static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
 // Typemaps for slot functions
 %typemap(in, numinputs=0) PyObject* py_self {$1 = self;}
 %typemap(default) PyObject* value {$1 = NULL;}
+// Document functions
+%feature("docstring") struct_type::items "Get structure members.
+:rtype: list of (str, value) tuple
+:return: structure member (name, value) pairs (with any trailing
+    underscores removed from names)."
+%feature("docstring") struct_type::keys "Get structure member names.
+:rtype: list of str
+:return: structure member names (with any trailing underscores
+    removed)."
+%feature("docstring") struct_type::values "Get structure member values.
+:rtype: list of value
+:return: structure member values."
 // Add functions
 %extend struct_type {
     %fragment("getset_functions");

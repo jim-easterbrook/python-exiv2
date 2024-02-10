@@ -6215,9 +6215,23 @@ SwigPyBuiltin__Exiv2__XmpPropertyInfo_richcompare(PyObject *self, PyObject *othe
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpPropertyInfo_methods[] = {
-  { "items", _wrap_XmpPropertyInfo_items, METH_NOARGS, "" },
-  { "keys", _wrap_XmpPropertyInfo_keys, METH_NOARGS, "" },
-  { "values", _wrap_XmpPropertyInfo_values, METH_NOARGS, "" },
+  { "items", _wrap_XmpPropertyInfo_items, METH_NOARGS, "\n"
+		"Get structure members.\n"
+		":rtype: list of (str, value) tuple\n"
+		":return: structure member (name, value) pairs (with any trailing\n"
+		"    underscores removed from names).\n"
+		"" },
+  { "keys", _wrap_XmpPropertyInfo_keys, METH_NOARGS, "\n"
+		"Get structure member names.\n"
+		":rtype: list of str\n"
+		":return: structure member names (with any trailing underscores\n"
+		"    removed).\n"
+		"" },
+  { "values", _wrap_XmpPropertyInfo_values, METH_NOARGS, "\n"
+		"Get structure member values.\n"
+		":rtype: list of value\n"
+		":return: structure member values.\n"
+		"" },
   { "__iter__", _wrap_XmpPropertyInfo___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_XmpPropertyInfo___getitem__, METH_O, "" },
   { "__setitem__", _wrap_XmpPropertyInfo___setitem__, METH_VARARGS, "" },
@@ -6463,9 +6477,23 @@ SwigPyBuiltin__Exiv2__XmpNsInfo_richcompare(PyObject *self, PyObject *other, int
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpNsInfo_methods[] = {
-  { "items", _wrap_XmpNsInfo_items, METH_NOARGS, "" },
-  { "keys", _wrap_XmpNsInfo_keys, METH_NOARGS, "" },
-  { "values", _wrap_XmpNsInfo_values, METH_NOARGS, "" },
+  { "items", _wrap_XmpNsInfo_items, METH_NOARGS, "\n"
+		"Get structure members.\n"
+		":rtype: list of (str, value) tuple\n"
+		":return: structure member (name, value) pairs (with any trailing\n"
+		"    underscores removed from names).\n"
+		"" },
+  { "keys", _wrap_XmpNsInfo_keys, METH_NOARGS, "\n"
+		"Get structure member names.\n"
+		":rtype: list of str\n"
+		":return: structure member names (with any trailing underscores\n"
+		"    removed).\n"
+		"" },
+  { "values", _wrap_XmpNsInfo_values, METH_NOARGS, "\n"
+		"Get structure member values.\n"
+		":rtype: list of value\n"
+		":return: structure member values.\n"
+		"" },
   { "__iter__", _wrap_XmpNsInfo___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_XmpNsInfo___getitem__, METH_O, "" },
   { "__setitem__", _wrap_XmpNsInfo___setitem__, METH_VARARGS, "" },

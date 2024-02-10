@@ -6434,9 +6434,23 @@ SwigPyBuiltin__Exiv2__GroupInfo_richcompare(PyObject *self, PyObject *other, int
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__GroupInfo_methods[] = {
-  { "items", _wrap_GroupInfo_items, METH_NOARGS, "" },
-  { "keys", _wrap_GroupInfo_keys, METH_NOARGS, "" },
-  { "values", _wrap_GroupInfo_values, METH_NOARGS, "" },
+  { "items", _wrap_GroupInfo_items, METH_NOARGS, "\n"
+		"Get structure members.\n"
+		":rtype: list of (str, value) tuple\n"
+		":return: structure member (name, value) pairs (with any trailing\n"
+		"    underscores removed from names).\n"
+		"" },
+  { "keys", _wrap_GroupInfo_keys, METH_NOARGS, "\n"
+		"Get structure member names.\n"
+		":rtype: list of str\n"
+		":return: structure member names (with any trailing underscores\n"
+		"    removed).\n"
+		"" },
+  { "values", _wrap_GroupInfo_values, METH_NOARGS, "\n"
+		"Get structure member values.\n"
+		":rtype: list of value\n"
+		":return: structure member values.\n"
+		"" },
   { "__iter__", _wrap_GroupInfo___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_GroupInfo___getitem__, METH_O, "" },
   { "__setitem__", _wrap_GroupInfo___setitem__, METH_VARARGS, "" },
@@ -6690,9 +6704,23 @@ SwigPyBuiltin__Exiv2__TagInfo_richcompare(PyObject *self, PyObject *other, int o
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TagInfo_methods[] = {
-  { "items", _wrap_TagInfo_items, METH_NOARGS, "" },
-  { "keys", _wrap_TagInfo_keys, METH_NOARGS, "" },
-  { "values", _wrap_TagInfo_values, METH_NOARGS, "" },
+  { "items", _wrap_TagInfo_items, METH_NOARGS, "\n"
+		"Get structure members.\n"
+		":rtype: list of (str, value) tuple\n"
+		":return: structure member (name, value) pairs (with any trailing\n"
+		"    underscores removed from names).\n"
+		"" },
+  { "keys", _wrap_TagInfo_keys, METH_NOARGS, "\n"
+		"Get structure member names.\n"
+		":rtype: list of str\n"
+		":return: structure member names (with any trailing underscores\n"
+		"    removed).\n"
+		"" },
+  { "values", _wrap_TagInfo_values, METH_NOARGS, "\n"
+		"Get structure member values.\n"
+		":rtype: list of value\n"
+		":return: structure member values.\n"
+		"" },
   { "__iter__", _wrap_TagInfo___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_TagInfo___getitem__, METH_O, "" },
   { "__setitem__", _wrap_TagInfo___setitem__, METH_VARARGS, "" },
