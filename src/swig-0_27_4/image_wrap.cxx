@@ -6861,13 +6861,31 @@ fail:
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ImageFactory) /* defines _wrap_delete_ImageFactory_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
-	 { "enableBMFF", _wrap_enableBMFF, METH_VARARGS, NULL},
+	 { "enableBMFF", _wrap_enableBMFF, METH_VARARGS, "\n"
+		"Enable BMFF support.\n"
+		"\n"
+		"If libexiv2 has been built with BMFF support included it can be enabled\n"
+		"by calling enableBMFF(True).\n"
+		":type enable: bool, optional\n"
+		":param enable: Set to True to enable BMFF file access.\n"
+		":rtype: bool\n"
+		":return: True if libexiv2 has been built with BMFF support.\n"
+		""},
 	 { NULL, NULL, 0, NULL }
 };
 
 static SwigPyGetSet Image___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Image_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &Image___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"Enable BMFF support.\n"
+		"\n"
+		"If libexiv2 has been built with BMFF support included it can be enabled\n"
+		"by calling enableBMFF(True).\n"
+		":type enable: bool, optional\n"
+		":param enable: Set to True to enable BMFF file access.\n"
+		":rtype: bool\n"
+		":return: True if libexiv2 has been built with BMFF support.\n"
+		"", &Image___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
