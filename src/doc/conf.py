@@ -83,6 +83,10 @@ def process_docstring(app, what, name, obj, options, lines):
     if name == 'exiv2._version.__version_tuple__':
         lines[:] = ['python-exiv2 version as a tuple of ints']
         return
+    # fixes for particular problems
+    if name.endswith('error.LogMsg') or name.endswith('iptc.Iptcdatum'):
+        # first line is not indented
+        lines[0] = '       ' + lines[0]
     if name.endswith('XmpParser.initialize'):
         # fix broken code block comment parsing by SWIG
         in_code_block = False
@@ -98,6 +102,11 @@ def process_docstring(app, what, name, obj, options, lines):
                 break
             if in_code_block and lines[idx][0] != ' ':
                 lines[idx] = indent + '// ' + lines[idx]
+    if name.endswith('ExifThumb.erase'):
+        # fix %Thumbnail
+        for idx in range(len(lines)):
+            lines[idx] = lines[idx].replace(
+                'Exif.%Thumbnail.*', '``Exif.Thumbnail.*``')
     if name.endswith('Io.read'):
         # fix size_ member
         for idx in range(len(lines)):
@@ -123,15 +132,35 @@ def process_docstring(app, what, name, obj, options, lines):
             part_name = match.group(1)
             line = line.replace('%' + part_name, '``' + part_name + '`` ')
         lines[idx] = line
+    # remove arbitrary indentation
+    remove = None
+    for idx in range(len(lines)):
+        line = lines[idx]
+        active_line = line.lstrip()
+        if not active_line:
+            lines[idx] = ''
+            continue
+        indent = len(line) - len(active_line)
+        if remove is None:
+            remove = indent
+        if active_line == '|' or active_line.startswith('*Overload'):
+            # reset
+            remove = None
+        elif indent < remove:
+            # unexpected unindentation
+            print(name)
+            print('unexpected unindentation', idx, line)
+            remove = None
+        else:
+            lines[idx] = line[remove:]
     # convert to Sphinx-compatible reStructuredText
     idx = 0
     while idx < len(lines):
         line = lines[idx]
-        active_line = line.lstrip()
-        if not active_line:
+        if not line:
             idx += 1
-            min_indent = None
             continue
+        active_line = line.lstrip()
         indent = len(line) - len(active_line)
         min_indent = ' ' * (indent + 1)
         words = active_line.split()
@@ -140,9 +169,8 @@ def process_docstring(app, what, name, obj, options, lines):
             # Copy until not indented
             while True:
                 idx += 1
-                if idx >= len(lines):
-                    break
-                if lines[idx] and not lines[idx].startswith(min_indent):
+                if idx >= len(lines) or (
+                        lines[idx] and not lines[idx].startswith(min_indent)):
                     break
             continue
         while min_indent and lines[idx+1].startswith(min_indent):
@@ -152,23 +180,19 @@ def process_docstring(app, what, name, obj, options, lines):
         active_line = line.lstrip()
         if active_line == '|':
             # unneeded separator between overloads
-            del lines[idx]
-            if not lines[idx]:
-                del lines[idx]
-                idx -= 1
-            idx -= 1
+            del lines[idx:idx+2]
+            idx -= 2
         elif active_line[0] == '|':
-            # possibly a table
+            # probably a table
             parts = line.split('|')
             if len(parts) > 3 and parts[0].strip() == '' and parts[-1] == '':
                 if idx > 0 and lines[idx-1]:
                     lines.insert(idx, '')
                     idx += 1
                 header = ['"{}"'.format(x.strip('*')) for x in parts[1:-1]]
-                lines[idx:idx+1] = [parts[0] + '.. csv-table::',
-                                    parts[0] + '    :delim: |',
-                                    parts[0] + '    :header: ' + ', '.join(header),
-                                    '']
+                lines[idx:idx+1] = [
+                    parts[0] + '.. csv-table::', parts[0] + '    :delim: |',
+                    parts[0] + '    :header: ' + ', '.join(header), '']
                 idx += 3
                 while lines[idx+1]:
                     idx += 1
@@ -176,33 +200,32 @@ def process_docstring(app, what, name, obj, options, lines):
                     lines[idx] = parts[0] + '    ' + '|'.join(parts[1:-1])
         elif words[0] in (':type', ':param', ':rtype:', ':return:', ':raises:',
                           ':ivar'):
+            # insert a blank line above
             if idx > 0 and lines[idx-1]:
                 lines.insert(idx, '')
                 idx += 1
         elif words[0] == '``':
-            if idx > 0 and lines[idx-1]:
-                lines.insert(idx, '')
-                idx += 1
+            # convert to a code block
             lines[idx:idx+1] = [lines[idx].replace('``', '.. code::'), '']
             idx += 1
             while lines[idx+1].strip() != '``':
                 idx += 1
                 lines[idx] = (' ' * 4) + lines[idx]
             del lines[idx+1]
+        elif words[0] == '*Overload':
+            # ensure next line is blank
+            if lines[idx+1]:
+                idx += 1
+                lines.insert(idx, '')
         elif words[0] == 'WARNING:':
-            if idx > 0 and lines[idx-1]:
-                lines.insert(idx, '')
-                idx += 1
-            lines[idx] = lines[idx].replace('WARNING:', '.. warning::')
+            lines[idx:idx+1] = ['', line.replace('WARNING:', '.. warning::')]
+            idx += 1
         elif words[0] == 'Notes:':
-            if idx > 0 and lines[idx-1]:
-                lines.insert(idx, '')
-                idx += 1
-            indent = 4 + len(lines[idx]) - len(active_line)
-            lines[idx] = lines[idx].replace('Notes:', '.. note::')
+            lines[idx:idx+1] = ['', line.replace('Notes:', '.. note::')]
+            idx += 1
             while lines[idx+1]:
                 idx += 1
-                lines[idx] = (' ' * indent) + lines[idx].lstrip()
+                lines[idx] = min_indent + lines[idx].lstrip()
         idx += 1
 
 def setup(app):
