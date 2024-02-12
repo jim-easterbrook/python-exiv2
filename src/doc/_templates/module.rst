@@ -15,6 +15,11 @@
        :top-classes: exiv2.value.Value
    {% endif %}
 
+   {% if fullname == "exiv2._basicio" %}
+   .. inheritance-diagram:: {{ classes | join(" ") }}
+       :top-classes: exiv2.basicio.BasicIo
+   {% endif %}
+
    .. autosummary::
    {% for item in classes %}
       {{ item }}
