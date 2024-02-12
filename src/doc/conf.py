@@ -77,11 +77,17 @@ class_re = re.compile(r':class:`(\w+?)`')
 percent_re = re.compile(r'%(\w+?)([.|(\s]|$)')
 
 def process_docstring(app, what, name, obj, options, lines):
+    # replace/modify some docstrings
     if name == 'exiv2._version.__version__':
-        lines[:] = ['python-exiv2 version as a string']
+        lines[:] = ['python-exiv2 version as a string', '']
         return
     if name == 'exiv2._version.__version_tuple__':
-        lines[:] = ['python-exiv2 version as a tuple of ints']
+        lines[:] = ['python-exiv2 version as a tuple of ints', '']
+        return
+    if 'iterator' in name and not lines:
+        parts = name.split('.')
+        lines[:] = ['See :meth:`{}.{}`.'.format(parts[2].replace(
+            'Data_iterator', 'datum'), parts[3]), '']
         return
     # fixes for particular problems
     if name.endswith('error.LogMsg') or name.endswith('iptc.Iptcdatum'):
