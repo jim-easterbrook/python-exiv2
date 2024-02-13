@@ -22,8 +22,8 @@ jobs:
       - name: Download inih
         run: >
           wget -nv
-          https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/i/inih-57-1.el8.x86_64.rpm
-          https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/i/inih-devel-57-1.el8.x86_64.rpm
+          https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/i/inih-58-1.el8.x86_64.rpm
+          https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/i/inih-devel-58-1.el8.x86_64.rpm
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.2
