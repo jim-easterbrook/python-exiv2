@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.16.3:
+  1/ Binary wheels incorporate libexiv2 v0.28.2.
+
 Changes in v0.16.2:
   1/ Removed AnyError alias of Exiv2Error exception.
   2/ Metadatum.print() method is no longer renamed to _print.
