@@ -23,7 +23,10 @@ Changes in v0.16.2:
      1/ Enum results are returned as Python enum instead of int.
      2/ Passing ints as enum parameters is deprecated.
   4/ Added dict-like behaviour to "data" structs.
-  5/ SWIG v4.1.0 or later required to run SWIG.
+  5/ Log handlers can be set/cleared from Python.
+  6/ Made docs available on readthedocs.org
+  7/ SWIG v4.1.0 or later required to run SWIG.
+  8/ Binary wheels incorporate libexiv2 v0.27.7.
 
 Changes in v0.16.1:
   1/ Binary wheels incorporate libexiv2 v0.27.7.
