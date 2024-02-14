@@ -78,6 +78,8 @@ Recent versions of SWIG_ can convert this documentation to pydoc_ format in the 
                 data is not valid (does not look like data of the specific image
                 type).
 
+This is then converted to web pages by Sphinx_ and hosted on ReadTheDocs_.
+
 Unfortunately some documentation gets lost in the manipulations needed to make a useful interface.
 The C++ documentation is still needed in these cases.
 
@@ -123,6 +125,8 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _SWIG:              http://swig.org/
 .. _pydoc:             https://docs.python.org/3/library/pydoc.html
 .. _Python3:           https://www.python.org/
+.. _ReadTheDocs:       https://python-exiv2.readthedocs.io/
+.. _Sphinx:            https://www.sphinx-doc.org/
 .. _statement on BMFF: https://github.com/exiv2/exiv2#BMFF
 .. _Visual C++:        https://wiki.python.org/moin/WindowsCompilers
 .. _INSTALL.rst:       INSTALL.rst
