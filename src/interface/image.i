@@ -88,6 +88,14 @@ WINDOWS_PATH(const std::string& path)
 %ignore Exiv2::enableBMFF();
 
 // Make enableBMFF() function available regardless of exiv2 version
+%feature("docstring") enableBMFF "Enable BMFF support.
+
+If libexiv2 has been built with BMFF support included it can be enabled
+by calling enableBMFF(True).
+:type enable: bool, optional
+:param enable: Set to True to enable BMFF file access.
+:rtype: bool
+:return: True if libexiv2 has been built with BMFF support.";
 %inline %{
 static bool enableBMFF(bool enable) {
 #ifdef EXV_ENABLE_BMFF

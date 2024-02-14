@@ -42,7 +42,7 @@ Here is an example of its use:
     'Jim Easterbrook'
     >>>
 
-Please see `<USAGE.rst>`_ for more help with using the Python interface to libexiv2.
+Please see `USAGE.rst`_ for more help with using the Python interface to libexiv2.
 
 Transition to libexiv2 v0.28.x
 ------------------------------
@@ -78,6 +78,8 @@ Recent versions of SWIG_ can convert this documentation to pydoc_ format in the 
                 data is not valid (does not look like data of the specific image
                 type).
 
+This is then converted to web pages by Sphinx_ and hosted on ReadTheDocs_.
+
 Unfortunately some documentation gets lost in the manipulations needed to make a useful interface.
 The C++ documentation is still needed in these cases.
 
@@ -103,7 +105,7 @@ or on Linux or MacOS::
     $ pip3 install --user exiv2
 
 If the available wheels are not compatible with your operating system or Python version then pip will download the python-exiv2 source and attempt to compile it.
-For more information, and details of how to compile python-exiv2 and libexiv2, see `<INSTALL.rst>`_.
+For more information, and details of how to compile python-exiv2 and libexiv2, see `INSTALL.rst`_.
 
 Problems?
 ---------
@@ -123,5 +125,9 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _SWIG:              http://swig.org/
 .. _pydoc:             https://docs.python.org/3/library/pydoc.html
 .. _Python3:           https://www.python.org/
+.. _ReadTheDocs:       https://python-exiv2.readthedocs.io/
+.. _Sphinx:            https://www.sphinx-doc.org/
 .. _statement on BMFF: https://github.com/exiv2/exiv2#BMFF
 .. _Visual C++:        https://wiki.python.org/moin/WindowsCompilers
+.. _INSTALL.rst:       INSTALL.rst
+.. _USAGE.rst:         USAGE.rst

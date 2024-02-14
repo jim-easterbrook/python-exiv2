@@ -47,11 +47,18 @@ for name in os.listdir('src'):
     parts = name.split('-')
     if parts[0] == 'swig' and parts[1] not in swigged_versions:
         swigged_versions.append([int(x) for x in parts[1].split('_')])
-swigged_versions.sort(reverse=True)
+    swigged_versions.sort()
 
 def get_mod_src_dir(exiv2_version):
+    if len(exiv2_version) < 3:
+        exiv2_version += [0]
+    swigged_versions.sort()
     for v in swigged_versions:
-        if exiv2_version + [0] >= v:
+        if v >= exiv2_version and v[:2] == exiv2_version[:2]:
+            return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
+    swigged_versions.sort(reverse=True)
+    for v in swigged_versions:
+        if v[:2] == exiv2_version[:2]:
             return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
     return None
 

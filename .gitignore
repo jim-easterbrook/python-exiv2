@@ -1,4 +1,6 @@
-build
-dist
+/build
+/doc
+/dist
+/src/doc/api
 exiv2.egg-info
 __pycache__

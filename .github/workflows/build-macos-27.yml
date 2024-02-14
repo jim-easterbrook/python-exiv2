@@ -21,7 +21,7 @@ jobs:
           mv exiv2-0.27.7-Source libexiv2
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.16.2
+        uses: pypa/cibuildwheel@v2.16.5
         env:
           CIBW_ARCHS: x86_64
           CIBW_ENVIRONMENT: EXIV2_ROOT=libexiv2/build-macos/install
