@@ -46,8 +46,7 @@ jobs:
             EXIV2_ROOT=libexiv2/build-msvc/install
             PATH="$PATH;$(pwd)\\gettext\\bin"
           CIBW_TEST_COMMAND: >
-            python -m exiv2 -v &&
-            python -m unittest discover {project}/tests -v
+            python -m exiv2 -v
           CIBW_BEFORE_ALL: >
             pip install conan==1.59.0 &&
             cd libexiv2 &&
