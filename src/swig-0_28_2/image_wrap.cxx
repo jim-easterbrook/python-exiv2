@@ -7210,7 +7210,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
   { "io", _wrap_Image_io, METH_NOARGS, "\n"
 		"Return a reference to the BasicIo instance being used for Io.\n"
 		"\n"
-		"This refence is particularly useful to reading the results of\n"
+		"This reference is particularly useful to reading the results of\n"
 		"operations on a MemIo instance. For example after metadata has\n"
 		"been modified and the writeMetadata() method has been called,\n"
 		"this method can be used to get access to the modified image.\n"

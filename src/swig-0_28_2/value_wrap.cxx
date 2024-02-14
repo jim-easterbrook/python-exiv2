@@ -28389,10 +28389,10 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue_methods[] = {
   { "getDate", _wrap_DateValue_getDate, METH_VARARGS, " Return date struct containing date information" },
   { "count", _wrap_DateValue_count, METH_VARARGS, "" },
   { "size", _wrap_DateValue_size, METH_VARARGS, "" },
-  { "toInt64", _wrap_DateValue_toInt64, METH_VARARGS, " Return the value as a UNIX calender time converted to int64_t." },
-  { "toUint32", _wrap_DateValue_toUint32, METH_VARARGS, " Return the value as a UNIX calender time converted to uint32_t." },
-  { "toFloat", _wrap_DateValue_toFloat, METH_VARARGS, " Return the value as a UNIX calender time converted to float." },
-  { "toRational", _wrap_DateValue_toRational, METH_VARARGS, " Return the value as a UNIX calender time  converted to Rational." },
+  { "toInt64", _wrap_DateValue_toInt64, METH_VARARGS, " Return the value as a UNIX calendar time converted to int64_t." },
+  { "toUint32", _wrap_DateValue_toUint32, METH_VARARGS, " Return the value as a UNIX calendar time converted to uint32_t." },
+  { "toFloat", _wrap_DateValue_toFloat, METH_VARARGS, " Return the value as a UNIX calendar time converted to float." },
+  { "toRational", _wrap_DateValue_toRational, METH_VARARGS, " Return the value as a UNIX calendar time converted to Rational." },
   { "__getitem__", _wrap_DateValue___getitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
