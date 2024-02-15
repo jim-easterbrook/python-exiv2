@@ -26,15 +26,10 @@ import exiv2
 class TestXmpModule(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        exiv2.XmpParser.initialize()
         test_dir = os.path.dirname(__file__)
         # open image in memory so we don't corrupt the file
         with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
             cls.image = exiv2.ImageFactory.open(f.read())
-
-    @classmethod
-    def tearDownClass(cls):
-        exiv2.XmpParser.terminate()
 
     def test_XmpData(self):
         # empty container

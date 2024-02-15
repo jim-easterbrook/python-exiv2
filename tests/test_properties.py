@@ -34,6 +34,10 @@ class TestPropertiesModule(unittest.TestCase):
     def setUpClass(cls):
         exiv2.XmpParser.initialize()
 
+    @classmethod
+    def tearDownClass(cls):
+        exiv2.XmpParser.terminate()
+
     def check_result(self, result, expected_type, expected_value):
         self.assertIsInstance(result, expected_type)
         self.assertEqual(result, expected_value)

@@ -27,7 +27,6 @@ import exiv2
 class TestImageModule(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        exiv2.XmpParser.initialize()
         test_dir = os.path.dirname(__file__)
         cls.image_path = os.path.join(test_dir, 'image_02.jpg')
         # read image file data into memory
