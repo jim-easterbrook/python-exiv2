@@ -11,5 +11,6 @@ Python-exiv2 documentation
    misc/readme
    misc/install
    misc/usage
+   misc/changelog
    misc/api
 
