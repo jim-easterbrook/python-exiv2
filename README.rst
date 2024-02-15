@@ -1,5 +1,5 @@
-python-exiv2 v\ 0.16.4
-======================
+python-exiv2 v\ 0.16.3-1
+========================
 
 python-exiv2 is a low level interface (or binding) to the exiv2_ C++ library.
 It is built using SWIG_ to automatically generate the interface code.
