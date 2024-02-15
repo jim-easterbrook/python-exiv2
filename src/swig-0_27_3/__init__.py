@@ -20,9 +20,9 @@ class Exiv2Error(Exception):
         self.message = message
 
 #: python-exiv2 version as a string
-__version__ = "0.16.3"
+__version__ = "0.16.4"
 #: python-exiv2 version as a tuple of ints
-__version_tuple__ = tuple((0, 16, 3))
+__version_tuple__ = tuple((0, 16, 4))
 
 __all__ = ["Exiv2Error"]
 from exiv2.basicio import *

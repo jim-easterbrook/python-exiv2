@@ -7664,7 +7664,7 @@ static swig_const_info swig_const_table[] = {
 #ifdef __cplusplus
 }
 #endif
-static PyTypeObject *builtin_bases[2];
+static PyTypeObject *builtin_bases[3];
 
 /* -----------------------------------------------------------------------------
  * Type initialization:
@@ -8225,6 +8225,17 @@ SWIG_init(void) {
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
+  builtin_basetype = SWIG_MangledTypeQuery("_p_Exiv2__Key");
+  if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
+    builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
+  } else {
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'XmpKey' as base 'Exiv2::Key' has not been initialized.\n");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
   builtin_bases[builtin_base_count] = NULL;
   SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
   PyDict_SetItemString(d, "this", this_descr);
