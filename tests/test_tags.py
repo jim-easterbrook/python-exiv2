@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import os
 import unittest
 
 import exiv2
@@ -25,6 +26,14 @@ class TestTagsModule(unittest.TestCase):
     key_name = 'Exif.Image.ImageDescription'
     group_name = 'Image'
     tag = 270
+
+    @classmethod
+    def setUpClass(cls):
+        # clear locale
+        name = 'en_US.UTF-8'
+        os.environ['LC_ALL'] = name
+        os.environ['LANG'] = name
+        os.environ['LANGUAGE'] = name
 
     def check_result(self, result, expected_type, expected_value):
         self.assertIsInstance(result, expected_type)

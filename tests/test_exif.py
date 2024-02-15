@@ -31,6 +31,11 @@ class TestExifModule(unittest.TestCase):
         # open image in memory so we don't corrupt the file
         with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
             cls.image = exiv2.ImageFactory.open(f.read())
+        # clear locale
+        name = 'en_US.UTF-8'
+        os.environ['LC_ALL'] = name
+        os.environ['LANG'] = name
+        os.environ['LANGUAGE'] = name
 
     def test_ExifData(self):
         # empty container

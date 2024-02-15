@@ -131,6 +131,11 @@ class TestTypesModule(unittest.TestCase):
             self.skipTest("locale environment ignored")
         # test localisation
         self.check_result(exiv2.exvGettext(str_en), str, str_de)
+        # clear locale
+        name = 'en_US.UTF-8'
+        os.environ['LC_ALL'] = name
+        os.environ['LANG'] = name
+        os.environ['LANGUAGE'] = name
 
 
 if __name__ == '__main__':
