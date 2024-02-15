@@ -4166,14 +4166,52 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
 };
 
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+static int utf8_to_wcp(std::string *str, bool to_cp) {
+#ifdef _WIN32
+    UINT cp_in = CP_UTF8;
+    UINT cp_out = GetACP();
+    if (cp_out == cp_in)
+        return 0;
+    if (!to_cp) {
+        cp_in = cp_out;
+        cp_out = CP_UTF8;
+    }
+    int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                                   NULL, 0);
+    if (!size)
+        return -1;
+    std::wstring wide_str;
+    wide_str.resize(size);
+    if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                             &wide_str[0], size))
+        return -1;
+    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                               NULL, 0, NULL, NULL);
+    if (!size)
+        return -1;
+    str->resize(size);
+    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                             &(*str)[0], size, NULL, NULL))
+        return -1;
+#endif
+    return 0;
+};
+
+
 static void _set_python_exception() {
     try {
         throw;
     }
 
     catch(Exiv2::AnyError const& e) {
+        std::string msg = e.what();
+        utf8_to_wcp(&msg, false);
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), e.what());
+            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }

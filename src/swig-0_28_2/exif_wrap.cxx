@@ -4225,10 +4225,48 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
 };
 
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+static int utf8_to_wcp(std::string *str, bool to_cp) {
+#ifdef _WIN32
+    UINT cp_in = CP_UTF8;
+    UINT cp_out = GetACP();
+    if (cp_out == cp_in)
+        return 0;
+    if (!to_cp) {
+        cp_in = cp_out;
+        cp_out = CP_UTF8;
+    }
+    int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                                   NULL, 0);
+    if (!size)
+        return -1;
+    std::wstring wide_str;
+    wide_str.resize(size);
+    if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                             &wide_str[0], size))
+        return -1;
+    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                               NULL, 0, NULL, NULL);
+    if (!size)
+        return -1;
+    str->resize(size);
+    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                             &(*str)[0], size, NULL, NULL))
+        return -1;
+#endif
+    return 0;
+};
+
+
 static void _set_python_exception() {
     try {
         throw;
     }
+
+
 
 
 
@@ -5414,43 +5452,6 @@ SWIGINTERN std::string Exiv2_Exifdatum__print(Exiv2::Exifdatum const *self,Exiv2
                      "'_print' has been replaced by 'print'", 1);
         return self->print(pMetadata);
     }
-
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-static int transcode_path(std::string *path, bool to_cp) {
-#ifdef _WIN32
-    UINT cp_in = CP_UTF8;
-    UINT cp_out = GetACP();
-    if (cp_out == cp_in)
-        return 0;
-    if (!to_cp) {
-        cp_in = cp_out;
-        cp_out = CP_UTF8;
-    }
-    // Convert utf-8 path to active code page, via widechar version
-    int size = MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                                   NULL, 0);
-    if (!size)
-        return -1;
-    std::wstring wide_str;
-    wide_str.resize(size);
-    if (!MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                             &wide_str[0], size))
-        return -1;
-    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                               NULL, 0, NULL, NULL);
-    if (!size)
-        return -1;
-    path->resize(size);
-    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                             &(*path)[0], size, NULL, NULL))
-        return -1;
-#endif
-    return 0;
-};
-
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
@@ -8717,7 +8718,7 @@ SWIGINTERN PyObject *_wrap_ExifThumbC_writeFile(PyObject *self, PyObject *args) 
     arg2 = ptr;
   }
   {
-    if (transcode_path(arg2, true) < 0) {
+    if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -8925,7 +8926,7 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_0(PyObject *self, Py
   } 
   arg5 = static_cast< uint16_t >(val5);
   {
-    if (transcode_path(arg2, true) < 0) {
+    if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -9054,7 +9055,7 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_2(PyObject *self, Py
     arg2 = ptr;
   }
   {
-    if (transcode_path(arg2, true) < 0) {
+    if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }

@@ -4187,14 +4187,52 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
 };
 
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+static int utf8_to_wcp(std::string *str, bool to_cp) {
+#ifdef _WIN32
+    UINT cp_in = CP_UTF8;
+    UINT cp_out = GetACP();
+    if (cp_out == cp_in)
+        return 0;
+    if (!to_cp) {
+        cp_in = cp_out;
+        cp_out = CP_UTF8;
+    }
+    int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                                   NULL, 0);
+    if (!size)
+        return -1;
+    std::wstring wide_str;
+    wide_str.resize(size);
+    if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                             &wide_str[0], size))
+        return -1;
+    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                               NULL, 0, NULL, NULL);
+    if (!size)
+        return -1;
+    str->resize(size);
+    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                             &(*str)[0], size, NULL, NULL))
+        return -1;
+#endif
+    return 0;
+};
+
+
 static void _set_python_exception() {
     try {
         throw;
     }
 
     catch(Exiv2::AnyError const& e) {
+        std::string msg = e.what();
+        utf8_to_wcp(&msg, false);
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), e.what());
+            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
@@ -4749,43 +4787,6 @@ SWIGINTERNINLINE PyObject*
 {
   return PyBool_FromLong(value ? 1 : 0);
 }
-
-
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-static int transcode_path(std::string *path, bool to_cp) {
-#ifdef _WIN32
-    UINT cp_in = CP_UTF8;
-    UINT cp_out = GetACP();
-    if (cp_out == cp_in)
-        return 0;
-    if (!to_cp) {
-        cp_in = cp_out;
-        cp_out = CP_UTF8;
-    }
-    // Convert utf-8 path to active code page, via widechar version
-    int size = MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                                   NULL, 0);
-    if (!size)
-        return -1;
-    std::wstring wide_str;
-    wide_str.resize(size);
-    if (!MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                             &wide_str[0], size))
-        return -1;
-    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                               NULL, 0, NULL, NULL);
-    if (!size)
-        return -1;
-    path->resize(size);
-    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                             &(*path)[0], size, NULL, NULL))
-        return -1;
-#endif
-    return 0;
-};
 
 
 /* Return string from Python obj. NOTE: obj must remain in scope in order
@@ -5734,7 +5735,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   result = ((Exiv2::BasicIo const *)arg1)->path();
   {
-    if (transcode_path(&result, false) < 0) {
+    if (utf8_to_wcp(&result, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
     resultobj = SWIG_From_std_string(result);
@@ -5766,7 +5767,7 @@ SWIGINTERN int _wrap_new_FileIo(PyObject *self, PyObject *args, PyObject *kwargs
     arg1 = ptr;
   }
   {
-    if (transcode_path(arg1, true) < 0) {
+    if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -6535,7 +6536,7 @@ SWIGINTERN PyObject *_wrap_FileIo_setPath(PyObject *self, PyObject *args) {
     arg2 = ptr;
   }
   {
-    if (transcode_path(arg2, true) < 0) {
+    if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -6701,7 +6702,7 @@ SWIGINTERN PyObject *_wrap_FileIo_path(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::FileIo * >(argp1);
   result = ((Exiv2::FileIo const *)arg1)->path();
   {
-    if (transcode_path(&result, false) < 0) {
+    if (utf8_to_wcp(&result, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
     resultobj = SWIG_From_std_string(result);
@@ -7482,7 +7483,7 @@ SWIGINTERN PyObject *_wrap_MemIo_path(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::MemIo * >(argp1);
   result = ((Exiv2::MemIo const *)arg1)->path();
   {
-    if (transcode_path(&result, false) < 0) {
+    if (utf8_to_wcp(&result, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
     resultobj = SWIG_From_std_string(result);
@@ -7518,7 +7519,7 @@ SWIGINTERN int _wrap_new_XPathIo(PyObject *self, PyObject *args, PyObject *kwarg
     arg1 = ptr;
   }
   {
-    if (transcode_path(arg1, true) < 0) {
+    if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -7632,7 +7633,7 @@ SWIGINTERN PyObject *_wrap_XPathIo_writeDataToFile(PyObject *self, PyObject *arg
     arg1 = ptr;
   }
   {
-    if (transcode_path(arg1, true) < 0) {
+    if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -8388,7 +8389,7 @@ SWIGINTERN PyObject *_wrap_RemoteIo_path(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::RemoteIo * >(argp1);
   result = ((Exiv2::RemoteIo const *)arg1)->path();
   {
-    if (transcode_path(&result, false) < 0) {
+    if (utf8_to_wcp(&result, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
     resultobj = SWIG_From_std_string(result);
@@ -8433,7 +8434,7 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_0(PyObject *self, PyObject *args, PyObject
   } 
   arg2 = static_cast< size_t >(val2);
   {
-    if (transcode_path(arg1, true) < 0) {
+    if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
@@ -8476,7 +8477,7 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_1(PyObject *self, PyObject *args, PyObject
     arg1 = ptr;
   }
   {
-    if (transcode_path(arg1, true) < 0) {
+    if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
   }
