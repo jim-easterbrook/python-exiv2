@@ -132,7 +132,7 @@ class TestTypesModule(unittest.TestCase):
             self.skipTest("locale environment ignored")
         # test localisation
         self.check_result(exiv2.exvGettext(str_en), str, str_de)
-        if not exiv2.testVersion(0, 28, 0):
+        if exiv2.testVersion(0, 28, 3) or not exiv2.testVersion(0, 28, 0):
             with self.assertLogs(level=logging.WARNING) as cm:
                 comment = exiv2.CommentValue('charset=invalid Fred')
             self.assertEqual(cm.output, [
