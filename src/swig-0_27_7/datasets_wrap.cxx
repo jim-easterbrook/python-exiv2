@@ -4305,10 +4305,10 @@ static PyObject* list_getset(
     return result;
 };
 static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
-    unsigned int len = strlen(name);
+    size_t len = strlen(name);
     PyGetSetDef* getset = obj->ob_type->tp_getset;
     while (getset->name) {
-        unsigned int cmp_len = strlen(getset->name);
+        size_t cmp_len = strlen(getset->name);
         if (getset->name[cmp_len-1] == '_')
             cmp_len--;
         if ((cmp_len == len) && (strncmp(getset->name, name, len) == 0))
@@ -4320,14 +4320,14 @@ static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
     return NULL;
 };
 static PyObject* getset_to_item(PyObject* obj, PyGetSetDef* getset) {
-    unsigned int len = strlen(getset->name);
+    size_t len = strlen(getset->name);
     if (getset->name[len-1] == '_')
         len--;
     return Py_BuildValue("(s#N)", getset->name, len,
         getset->get(obj, getset->closure));
 };
 static PyObject* getset_to_key(PyObject* obj, PyGetSetDef* getset) {
-    unsigned int len = strlen(getset->name);
+    size_t len = strlen(getset->name);
     if (getset->name[len-1] == '_')
         len--;
     return Py_BuildValue("s#", getset->name, len);

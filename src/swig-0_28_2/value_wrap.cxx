@@ -6619,7 +6619,7 @@ SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_1(std::vector< st
 SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_2(Exiv2::TypeId typeId_xmpBag){
         return new Exiv2::XmpArrayValue(typeId_xmpBag);
     }
-SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *self,Py_ssize_t i){
+SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *self,long i){
         return self->toString(i);
     }
 SWIGINTERN void Exiv2_XmpArrayValue_append(Exiv2::XmpArrayValue *self,std::string value){
@@ -6904,10 +6904,10 @@ static PyObject* list_getset(
     return result;
 };
 static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
-    unsigned int len = strlen(name);
+    size_t len = strlen(name);
     PyGetSetDef* getset = obj->ob_type->tp_getset;
     while (getset->name) {
-        unsigned int cmp_len = strlen(getset->name);
+        size_t cmp_len = strlen(getset->name);
         if (getset->name[cmp_len-1] == '_')
             cmp_len--;
         if ((cmp_len == len) && (strncmp(getset->name, name, len) == 0))
@@ -6919,14 +6919,14 @@ static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
     return NULL;
 };
 static PyObject* getset_to_item(PyObject* obj, PyGetSetDef* getset) {
-    unsigned int len = strlen(getset->name);
+    size_t len = strlen(getset->name);
     if (getset->name[len-1] == '_')
         len--;
     return Py_BuildValue("(s#N)", getset->name, len,
         getset->get(obj, getset->closure));
 };
 static PyObject* getset_to_key(PyObject* obj, PyGetSetDef* getset) {
-    unsigned int len = strlen(getset->name);
+    size_t len = strlen(getset->name);
     if (getset->name[len-1] == '_')
         len--;
     return Py_BuildValue("s#", getset->name, len);
@@ -12689,7 +12689,7 @@ fail:
 SWIGINTERN PyObject *_wrap_XmpArrayValue___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpArrayValue *arg1 = (Exiv2::XmpArrayValue *) 0 ;
-  Py_ssize_t arg2 ;
+  long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long val2 ;
@@ -12705,16 +12705,10 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue___getitem__(PyObject *self, PyObject *a
   arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
   ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpArrayValue___getitem__" "', argument " "2"" of type '" "Py_ssize_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpArrayValue___getitem__" "', argument " "2"" of type '" "long""'");
   } 
-  arg2 = static_cast< Py_ssize_t >(val2);
-  
-  if (arg2 < 0 || arg2 >= static_cast< Py_ssize_t >(arg1->count())) {
-    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
-    SWIG_fail;
-  }
-  
-  result = Exiv2_XmpArrayValue___getitem__(arg1,SWIG_STD_MOVE(arg2));
+  arg2 = static_cast< long >(val2);
+  result = Exiv2_XmpArrayValue___getitem__(arg1,arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:

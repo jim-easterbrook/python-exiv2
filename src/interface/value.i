@@ -559,7 +559,7 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     XmpArrayValue(Exiv2::TypeId typeId_xmpBag) {
         return new Exiv2::XmpArrayValue(typeId_xmpBag);
     }
-    std::string __getitem__(Py_ssize_t i) {
+    std::string __getitem__(long i) {
         return $self->toString(i);
     }
     void append(std::string value) {
