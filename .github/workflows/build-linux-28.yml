@@ -62,5 +62,5 @@ jobs:
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
-          name: manylinux-wheel
+          name: linux-28-wheels
           path: wheelhouse/*.whl

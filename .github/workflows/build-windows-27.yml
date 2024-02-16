@@ -71,5 +71,5 @@ jobs:
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
-          name: windows-wheel
+          name: windows-27-wheels
           path: wheelhouse/*.whl
