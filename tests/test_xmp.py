@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import io
 import os
 import sys
 import unittest
@@ -160,6 +161,9 @@ class TestXmpModule(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             self.assertIsInstance(
                 datum.value(exiv2.TypeId.langAlt), exiv2.LangAltValue)
+        buf = io.StringIO()
+        buf = datum.write(buf)
+        self.assertEqual(buf.getvalue(), datum.toString())
         datum.setValue('fred')
         datum.setValue(exiv2.XmpTextValue('Acme'))
         with self.assertRaises(TypeError):

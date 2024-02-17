@@ -3968,15 +3968,16 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_short swig_types[38]
 #define SWIGTYPE_p_signed_char swig_types[39]
 #define SWIGTYPE_p_size_type swig_types[40]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[41]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[42]
-#define SWIGTYPE_p_unsigned_char swig_types[43]
-#define SWIGTYPE_p_unsigned_int swig_types[44]
-#define SWIGTYPE_p_unsigned_long_long swig_types[45]
-#define SWIGTYPE_p_unsigned_short swig_types[46]
-#define SWIGTYPE_p_value_type swig_types[47]
-static swig_type_info *swig_types[49];
-static swig_module_info swig_module = {swig_types, 48, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__ostream swig_types[41]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[42]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[43]
+#define SWIGTYPE_p_unsigned_char swig_types[44]
+#define SWIGTYPE_p_unsigned_int swig_types[45]
+#define SWIGTYPE_p_unsigned_long_long swig_types[46]
+#define SWIGTYPE_p_unsigned_short swig_types[47]
+#define SWIGTYPE_p_value_type swig_types[48]
+static swig_type_info *swig_types[50];
+static swig_module_info swig_module = {swig_types, 49, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -8076,6 +8077,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Value_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Value *arg1 = (Exiv2::Value *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "Value_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_write" "', argument " "1"" of type '" "Exiv2::Value const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::Value const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Value_toString__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Value *arg1 = (Exiv2::Value *) 0 ;
@@ -8948,6 +8994,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataValue *arg1 = (Exiv2::DataValue *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "DataValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataValue_write" "', argument " "1"" of type '" "Exiv2::DataValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::DataValue const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataValue_toString(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DataValue *arg1 = (Exiv2::DataValue *) 0 ;
@@ -9751,6 +9842,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_StringValueBase_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "StringValueBase_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__StringValueBase, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase_write" "', argument " "1"" of type '" "Exiv2::StringValueBase const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::StringValueBase const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_StringValueBase___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
@@ -10210,6 +10346,51 @@ SWIGINTERN PyObject *_wrap_AsciiValue_clone(PyObject *self, PyObject *args) {
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__AsciiValue, SWIG_POINTER_OWN |  0 );
   
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AsciiValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::AsciiValue *arg1 = (Exiv2::AsciiValue *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "AsciiValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__AsciiValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AsciiValue_write" "', argument " "1"" of type '" "Exiv2::AsciiValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::AsciiValue * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::AsciiValue const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -10678,6 +10859,51 @@ fail:
     PyBuffer_Release(&_global_view);
   }
   
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CommentValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::CommentValue *arg1 = (Exiv2::CommentValue *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "CommentValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__CommentValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CommentValue_write" "', argument " "1"" of type '" "Exiv2::CommentValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::CommentValue const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -11919,6 +12145,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_XmpTextValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpTextValue *arg1 = (Exiv2::XmpTextValue *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "XmpTextValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpTextValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue_write" "', argument " "1"" of type '" "Exiv2::XmpTextValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::XmpTextValue const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN int _wrap_new_XmpTextValue__SWIG_2(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   Exiv2::Value *arg1 = 0 ;
@@ -12496,6 +12767,51 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_toRational(PyObject *self, PyObject *ar
     }
   }
   resultobj = swig::from(static_cast< std::pair< int,int > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpArrayValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpArrayValue *arg1 = (Exiv2::XmpArrayValue *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "XmpArrayValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpArrayValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpArrayValue_write" "', argument " "1"" of type '" "Exiv2::XmpArrayValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::XmpArrayValue const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -13339,6 +13655,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_LangAltValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "LangAltValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue_write" "', argument " "1"" of type '" "Exiv2::LangAltValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::LangAltValue const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN int _wrap_new_LangAltValue__SWIG_2(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   Exiv2::LangAltValue::ValueType arg1 ;
@@ -14148,6 +14509,51 @@ SWIGINTERN PyObject *_wrap_DateValue_size(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
   result = ((Exiv2::DateValue const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DateValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DateValue *arg1 = (Exiv2::DateValue *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "DateValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue_write" "', argument " "1"" of type '" "Exiv2::DateValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::DateValue const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -15520,6 +15926,51 @@ SWIGINTERN PyObject *_wrap_TimeValue_size(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
   result = ((Exiv2::TimeValue const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_TimeValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::TimeValue *arg1 = (Exiv2::TimeValue *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "TimeValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue_write" "', argument " "1"" of type '" "Exiv2::TimeValue const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::TimeValue const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -17122,6 +17573,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_UShortValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< uint16_t > *arg1 = (Exiv2::ValueType< uint16_t > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "UShortValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UShortValue_write" "', argument " "1"" of type '" "Exiv2::ValueType< uint16_t > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::ValueType< uint16_t > const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_UShortValue_toString(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< uint16_t > *arg1 = (Exiv2::ValueType< uint16_t > *) 0 ;
@@ -18220,6 +18716,51 @@ SWIGINTERN PyObject *_wrap_ULongValue_size(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
   result = ((Exiv2::ValueType< uint32_t > const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ULongValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< uint32_t > *arg1 = (Exiv2::ValueType< uint32_t > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "ULongValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ULongValue_write" "', argument " "1"" of type '" "Exiv2::ValueType< uint32_t > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::ValueType< uint32_t > const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19335,6 +19876,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_URationalValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< Exiv2::URational > *arg1 = (Exiv2::ValueType< Exiv2::URational > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "URationalValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "URationalValue_write" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::URational > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::ValueType< Exiv2::URational > const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_URationalValue_toString(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< Exiv2::URational > *arg1 = (Exiv2::ValueType< Exiv2::URational > *) 0 ;
@@ -20427,6 +21013,51 @@ SWIGINTERN PyObject *_wrap_ShortValue_size(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
   result = ((Exiv2::ValueType< int16_t > const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ShortValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< int16_t > *arg1 = (Exiv2::ValueType< int16_t > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "ShortValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ShortValue_write" "', argument " "1"" of type '" "Exiv2::ValueType< int16_t > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::ValueType< int16_t > const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -21531,6 +22162,51 @@ SWIGINTERN PyObject *_wrap_LongValue_size(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
   result = ((Exiv2::ValueType< int32_t > const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LongValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< int32_t > *arg1 = (Exiv2::ValueType< int32_t > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "LongValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LongValue_write" "', argument " "1"" of type '" "Exiv2::ValueType< int32_t > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::ValueType< int32_t > const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -22646,6 +23322,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RationalValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< Exiv2::Rational > *arg1 = (Exiv2::ValueType< Exiv2::Rational > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "RationalValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RationalValue_write" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::Rational > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_RationalValue_toString(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< Exiv2::Rational > *arg1 = (Exiv2::ValueType< Exiv2::Rational > *) 0 ;
@@ -23738,6 +24459,51 @@ SWIGINTERN PyObject *_wrap_FloatValue_size(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
   result = ((Exiv2::ValueType< float > const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FloatValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< float > *arg1 = (Exiv2::ValueType< float > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "FloatValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FloatValue_write" "', argument " "1"" of type '" "Exiv2::ValueType< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::ValueType< float > const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -24848,6 +25614,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DoubleValue_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< double > *arg1 = (Exiv2::ValueType< double > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "DoubleValue_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DoubleValue_write" "', argument " "1"" of type '" "Exiv2::ValueType< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::ValueType< double > const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DoubleValue_toString(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< double > *arg1 = (Exiv2::ValueType< double > *) 0 ;
@@ -25491,6 +26302,12 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Value_methods[] = {
 		"" },
   { "count", _wrap_Value_count, METH_VARARGS, " Return the number of components of the value" },
   { "size", _wrap_Value_size, METH_VARARGS, " Return the size of the value in bytes" },
+  { "write", _wrap_Value_write, METH_VARARGS, "\n"
+		"Write the value to an output stream. You do not usually have\n"
+		"       to use this function; it is used for the implementation of\n"
+		"       the output operator for %Value,\n"
+		"       operator<<(std::ostream &os, const Value &value).\n"
+		"" },
   { "toString", _wrap_Value_toString, METH_VARARGS, "\n"
 		"*Overload 1:*\n"
 		"\n"
@@ -25863,6 +26680,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataValue_methods[] = {
 		"" },
   { "count", _wrap_DataValue_count, METH_VARARGS, "" },
   { "size", _wrap_DataValue_size, METH_VARARGS, "" },
+  { "write", _wrap_DataValue_write, METH_VARARGS, "" },
   { "toString", _wrap_DataValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -26135,6 +26953,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__StringValueBase_methods[] = {
   { "toUint32", _wrap_StringValueBase_toUint32, METH_VARARGS, "" },
   { "toFloat", _wrap_StringValueBase_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_StringValueBase_toRational, METH_VARARGS, "" },
+  { "write", _wrap_StringValueBase_write, METH_VARARGS, "" },
   { "__getitem__", _wrap_StringValueBase___getitem__, METH_VARARGS, "" },
   { "data", _wrap_StringValueBase_data, METH_VARARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
@@ -26643,6 +27462,11 @@ SwigPyBuiltin__Exiv2__AsciiValue_richcompare(PyObject *self, PyObject *other, in
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__AsciiValue_methods[] = {
   { "read", _wrap_AsciiValue_read, METH_VARARGS, "" },
   { "clone", _wrap_AsciiValue_clone, METH_VARARGS, "" },
+  { "write", _wrap_AsciiValue_write, METH_VARARGS, "\n"
+		"Write the ASCII value up to the first '\\0' character to an\n"
+		"       output stream.  Any further characters are ignored and not\n"
+		"       written to the output stream.\n"
+		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -26915,6 +27739,10 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__CommentValue_methods[] = {
 		"" },
   { "clone", _wrap_CommentValue_clone, METH_VARARGS, "" },
   { "copy", _wrap_CommentValue_copy, METH_VARARGS, "" },
+  { "write", _wrap_CommentValue_write, METH_VARARGS, "\n"
+		"Write the comment in a format which can be read by\n"
+		"read(const std::string& comment).\n"
+		"" },
   { "comment", _wrap_CommentValue_comment, METH_VARARGS, "\n"
 		"Return the comment (without a charset=\"...\" prefix)\n"
 		"\n"
@@ -27511,6 +28339,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpTextValue_methods[] = {
 		":rtype: (int, int) tuple\n"
 		":return: The converted value.\n"
 		"" },
+  { "write", _wrap_XmpTextValue_write, METH_VARARGS, "" },
   { "__getitem__", _wrap_XmpTextValue___getitem__, METH_VARARGS, "" },
   { "data", _wrap_XmpTextValue_data, METH_VARARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
@@ -27810,6 +28639,12 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpArrayValue_methods[] = {
   { "toUint32", _wrap_XmpArrayValue_toUint32, METH_VARARGS, "" },
   { "toFloat", _wrap_XmpArrayValue_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_XmpArrayValue_toRational, METH_VARARGS, "" },
+  { "write", _wrap_XmpArrayValue_write, METH_VARARGS, "\n"
+		"Write all elements of the value to *os*, separated by commas.\n"
+		"\n"
+		"Notes: The output of this method cannot directly be used as the parameter\n"
+		"      for read().\n"
+		"" },
   { "__getitem__", _wrap_XmpArrayValue___getitem__, METH_VARARGS, "" },
   { "append", _wrap_XmpArrayValue_append, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
@@ -28117,6 +28952,12 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValue_methods[] = {
   { "toUint32", _wrap_LangAltValue_toUint32, METH_VARARGS, "" },
   { "toFloat", _wrap_LangAltValue_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_LangAltValue_toRational, METH_VARARGS, "" },
+  { "write", _wrap_LangAltValue_write, METH_VARARGS, "\n"
+		"Write all elements of the value to *os*, separated by commas.\n"
+		"\n"
+		"Notes: The output of this method cannot directly be used as the parameter\n"
+		"      for read().\n"
+		"" },
   { "keys", _wrap_LangAltValue_keys, METH_VARARGS, "Get keys (i.e. languages) of the LangAltValue components." },
   { "values", _wrap_LangAltValue_values, METH_VARARGS, "Get values (i.e. text strings) of the LangAltValue components." },
   { "items", _wrap_LangAltValue_items, METH_VARARGS, "\n"
@@ -28421,6 +29262,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue_methods[] = {
   { "getDate", _wrap_DateValue_getDate, METH_VARARGS, " Return date struct containing date information" },
   { "count", _wrap_DateValue_count, METH_VARARGS, "" },
   { "size", _wrap_DateValue_size, METH_VARARGS, "" },
+  { "write", _wrap_DateValue_write, METH_VARARGS, "" },
   { "toInt64", _wrap_DateValue_toInt64, METH_VARARGS, " Return the value as a UNIX calendar time converted to int64_t." },
   { "toUint32", _wrap_DateValue_toUint32, METH_VARARGS, " Return the value as a UNIX calendar time converted to uint32_t." },
   { "toFloat", _wrap_DateValue_toFloat, METH_VARARGS, " Return the value as a UNIX calendar time converted to float." },
@@ -28985,6 +29827,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TimeValue_methods[] = {
   { "getTime", _wrap_TimeValue_getTime, METH_VARARGS, " Return time struct containing time information" },
   { "count", _wrap_TimeValue_count, METH_VARARGS, "" },
   { "size", _wrap_TimeValue_size, METH_VARARGS, "" },
+  { "write", _wrap_TimeValue_write, METH_VARARGS, "" },
   { "toInt64", _wrap_TimeValue_toInt64, METH_VARARGS, " Returns number of seconds in the day in UTC." },
   { "toUint32", _wrap_TimeValue_toUint32, METH_VARARGS, " Returns number of seconds in the day in UTC." },
   { "toFloat", _wrap_TimeValue_toFloat, METH_VARARGS, " Returns number of seconds in the day in UTC converted to float." },
@@ -29532,6 +30375,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_methods[] = {
   { "copy", _wrap_UShortValue_copy, METH_VARARGS, "" },
   { "count", _wrap_UShortValue_count, METH_VARARGS, "" },
   { "size", _wrap_UShortValue_size, METH_VARARGS, "" },
+  { "write", _wrap_UShortValue_write, METH_VARARGS, "" },
   { "toString", _wrap_UShortValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -29819,6 +30663,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_methods[] = {
   { "copy", _wrap_ULongValue_copy, METH_VARARGS, "" },
   { "count", _wrap_ULongValue_count, METH_VARARGS, "" },
   { "size", _wrap_ULongValue_size, METH_VARARGS, "" },
+  { "write", _wrap_ULongValue_write, METH_VARARGS, "" },
   { "toString", _wrap_ULongValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -30106,6 +30951,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_metho
   { "copy", _wrap_URationalValue_copy, METH_VARARGS, "" },
   { "count", _wrap_URationalValue_count, METH_VARARGS, "" },
   { "size", _wrap_URationalValue_size, METH_VARARGS, "" },
+  { "write", _wrap_URationalValue_write, METH_VARARGS, "" },
   { "toString", _wrap_URationalValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -30393,6 +31239,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_methods[] = {
   { "copy", _wrap_ShortValue_copy, METH_VARARGS, "" },
   { "count", _wrap_ShortValue_count, METH_VARARGS, "" },
   { "size", _wrap_ShortValue_size, METH_VARARGS, "" },
+  { "write", _wrap_ShortValue_write, METH_VARARGS, "" },
   { "toString", _wrap_ShortValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -30680,6 +31527,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_methods[] = {
   { "copy", _wrap_LongValue_copy, METH_VARARGS, "" },
   { "count", _wrap_LongValue_count, METH_VARARGS, "" },
   { "size", _wrap_LongValue_size, METH_VARARGS, "" },
+  { "write", _wrap_LongValue_write, METH_VARARGS, "" },
   { "toString", _wrap_LongValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -30967,6 +31815,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_method
   { "copy", _wrap_RationalValue_copy, METH_VARARGS, "" },
   { "count", _wrap_RationalValue_count, METH_VARARGS, "" },
   { "size", _wrap_RationalValue_size, METH_VARARGS, "" },
+  { "write", _wrap_RationalValue_write, METH_VARARGS, "" },
   { "toString", _wrap_RationalValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -31254,6 +32103,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_float_t_methods[] = {
   { "copy", _wrap_FloatValue_copy, METH_VARARGS, "" },
   { "count", _wrap_FloatValue_count, METH_VARARGS, "" },
   { "size", _wrap_FloatValue_size, METH_VARARGS, "" },
+  { "write", _wrap_FloatValue_write, METH_VARARGS, "" },
   { "toString", _wrap_FloatValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -31541,6 +32391,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ValueTypeT_double_t_methods[] = {
   { "copy", _wrap_DoubleValue_copy, METH_VARARGS, "" },
   { "count", _wrap_DoubleValue_count, METH_VARARGS, "" },
   { "size", _wrap_DoubleValue_size, METH_VARARGS, "" },
+  { "write", _wrap_DoubleValue_write, METH_VARARGS, "" },
   { "toString", _wrap_DoubleValue_toString, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value as a string.\n"
 		"       The behaviour of this method may be undefined if there is no\n"
@@ -31894,6 +32745,7 @@ static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *"
 static swig_type_info _swigt__p_short = {"_p_short", "int16_t *|int_least16_t *|short *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "int8_t *|int_fast8_t *|int_least8_t *|signed char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int32_t_int32_t_t = {"_p_std__pairT_int32_t_int32_t_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_uint32_t_uint32_t_t = {"_p_std__pairT_uint32_t_uint32_t_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "Exiv2::byte *|uint8_t *|uint_fast8_t *|uint_least8_t *|unsigned char *", 0, 0, (void*)0, 0};
@@ -31944,6 +32796,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_short,
   &_swigt__p_signed_char,
   &_swigt__p_size_type,
+  &_swigt__p_std__ostream,
   &_swigt__p_std__pairT_int32_t_int32_t_t,
   &_swigt__p_std__pairT_uint32_t_uint32_t_t,
   &_swigt__p_unsigned_char,
@@ -31994,6 +32847,7 @@ static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int32_t_int32_t_t[] = {  {&_swigt__p_std__pairT_int32_t_int32_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_uint32_t_uint32_t_t[] = {  {&_swigt__p_std__pairT_uint32_t_uint32_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -32044,6 +32898,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_short,
   _swigc__p_signed_char,
   _swigc__p_size_type,
+  _swigc__p_std__ostream,
   _swigc__p_std__pairT_int32_t_int32_t_t,
   _swigc__p_std__pairT_uint32_t_uint32_t_t,
   _swigc__p_unsigned_char,

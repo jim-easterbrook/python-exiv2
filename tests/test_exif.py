@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import io
 import os
 import sys
 import tempfile
@@ -156,6 +157,9 @@ class TestExifModule(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             self.assertIsInstance(
                 datum.value(exiv2.TypeId.asciiString), exiv2.AsciiValue)
+        buf = io.StringIO()
+        buf = datum.write(buf)
+        self.assertEqual(buf.getvalue(), 'Good view of the lighthouse.')
         datum.setValue('fred')
         datum.setValue(exiv2.AsciiValue('Acme'))
         with self.assertRaises(TypeError):

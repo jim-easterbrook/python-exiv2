@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import io
 import os
 import sys
 import tempfile
@@ -127,7 +128,10 @@ class TestPropertiesModule(unittest.TestCase):
         self.check_result(key.tag(), int, 0)
         self.check_result(key.tagLabel(), str, 'Description')
         self.check_result(key.tagName(), str, self.key_name.split('.')[2])
-        
+        buf = io.StringIO()
+        buf = key.write(buf)
+        self.assertEqual(buf.getvalue(), self.key_name)
+
 
 if __name__ == '__main__':
     unittest.main()

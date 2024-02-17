@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import io
 import os
 import sys
 import unittest
@@ -155,6 +156,9 @@ class TestIptcModule(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             self.assertIsInstance(
                 datum.value(exiv2.TypeId.string), exiv2.StringValue)
+        buf = io.StringIO()
+        buf = datum.write(buf)
+        self.assertEqual(buf.getvalue(), 'Good view of the lighthouse.')
         datum.setValue('fred')
         datum.setValue(exiv2.StringValue('Acme'))
         with self.assertRaises(TypeError):

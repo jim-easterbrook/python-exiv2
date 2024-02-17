@@ -3964,15 +3964,16 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_short swig_types[37]
 #define SWIGTYPE_p_signed_char swig_types[38]
 #define SWIGTYPE_p_size_type swig_types[39]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[40]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[41]
-#define SWIGTYPE_p_unsigned_char swig_types[42]
-#define SWIGTYPE_p_unsigned_int swig_types[43]
-#define SWIGTYPE_p_unsigned_long_long swig_types[44]
-#define SWIGTYPE_p_unsigned_short swig_types[45]
-#define SWIGTYPE_p_value_type swig_types[46]
-static swig_type_info *swig_types[48];
-static swig_module_info swig_module = {swig_types, 47, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__ostream swig_types[40]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[41]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[42]
+#define SWIGTYPE_p_unsigned_char swig_types[43]
+#define SWIGTYPE_p_unsigned_int swig_types[44]
+#define SWIGTYPE_p_unsigned_long_long swig_types[45]
+#define SWIGTYPE_p_unsigned_short swig_types[46]
+#define SWIGTYPE_p_value_type swig_types[47]
+static swig_type_info *swig_types[49];
+static swig_module_info swig_module = {swig_types, 48, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5377,6 +5378,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Key_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Key *arg1 = (Exiv2::Key *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  PyObject * obj1 = 0 ;
+  std::ostream *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "Key_write", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Key, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Key_write" "', argument " "1"" of type '" "Exiv2::Key const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Key * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::Key const *)arg1)->write(*arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGPY_REPRFUNC_CLOSURE(_wrap_Key_key) /* defines _wrap_Key_key_reprfunc_closure */
 
 SWIGINTERN PyObject *_wrap_Metadatum_setValue__SWIG_0(PyObject *self, PyObject *args) {
@@ -5616,6 +5662,65 @@ fail:
     PyBuffer_Release(&_global_view);
   }
   
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Metadatum_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
+  std::ostream *arg2 = 0 ;
+  Exiv2::ExifData *arg3 = (Exiv2::ExifData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  std::ostream *result = 0 ;
+  
+  {
+    arg3 = NULL;
+  }
+  if (!PyArg_UnpackTuple(args, "Metadatum_write", 1, 2, &obj1, &obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum_write" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  if (obj2) {
+    res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Metadatum_write" "', argument " "3"" of type '" "Exiv2::ExifData const *""'"); 
+    }
+    arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::Metadatum const *)arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -6325,6 +6430,12 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Key_methods[] = {
 		"       The caller owns this copy and the auto-pointer ensures that it\n"
 		"       will be deleted.\n"
 		"" },
+  { "write", _wrap_Key_write, METH_VARARGS, "\n"
+		"Write the key to an output stream. You do not usually have\n"
+		"       to use this function; it is used for the implementation of\n"
+		"       the output operator for %Key,\n"
+		"       operator<<(std::ostream &os, const Key &key).\n"
+		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6614,6 +6725,27 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
 		":param byteOrder: Applicable byte order (little or big endian).\n"
 		":rtype: int\n"
 		":return: Number of characters written.\n"
+		"" },
+  { "write", _wrap_Metadatum_write, METH_VARARGS, "\n"
+		"Write the interpreted value to an output stream, return\n"
+		"       the stream.\n"
+		"\n"
+		"The method takes an optional pointer to a metadata container.\n"
+		"Pretty-print functions may use that to refer to other metadata as it\n"
+		"is sometimes not sufficient to know only the value of the metadatum\n"
+		"that should be interpreted. Thus, it is advisable to always call this\n"
+		"method with a pointer to the metadata container if possible.\n"
+		"\n"
+		"This functionality is currently only implemented for Exif tags.\n"
+		"The pointer is ignored when used to write IPTC datasets or XMP\n"
+		"properties.\n"
+		"\n"
+		"Without the optional metadata pointer, you do not usually have to use\n"
+		"this function; it is used for the implementation of the output\n"
+		"operator for %Metadatum,\n"
+		"operator<<(std::ostream &os, const Metadatum &md).\n"
+		"\n"
+		"See also print(), which prints the interpreted value to a string.\n"
 		"" },
   { "key", _wrap_Metadatum_key, METH_VARARGS, "\n"
 		"Return the key of the metadatum. The key is of the form\n"
@@ -7021,6 +7153,7 @@ static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *"
 static swig_type_info _swigt__p_short = {"_p_short", "int16_t *|int_least16_t *|short *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "int8_t *|int_fast8_t *|int_least8_t *|signed char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int32_t_int32_t_t = {"_p_std__pairT_int32_t_int32_t_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_uint32_t_uint32_t_t = {"_p_std__pairT_uint32_t_uint32_t_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "Exiv2::byte *|uint8_t *|uint_fast8_t *|uint_least8_t *|unsigned char *", 0, 0, (void*)0, 0};
@@ -7070,6 +7203,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_short,
   &_swigt__p_signed_char,
   &_swigt__p_size_type,
+  &_swigt__p_std__ostream,
   &_swigt__p_std__pairT_int32_t_int32_t_t,
   &_swigt__p_std__pairT_uint32_t_uint32_t_t,
   &_swigt__p_unsigned_char,
@@ -7119,6 +7253,7 @@ static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int32_t_int32_t_t[] = {  {&_swigt__p_std__pairT_int32_t_int32_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_uint32_t_uint32_t_t[] = {  {&_swigt__p_std__pairT_uint32_t_uint32_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -7168,6 +7303,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_short,
   _swigc__p_signed_char,
   _swigc__p_size_type,
+  _swigc__p_std__ostream,
   _swigc__p_std__pairT_int32_t_int32_t_t,
   _swigc__p_std__pairT_uint32_t_uint32_t_t,
   _swigc__p_unsigned_char,

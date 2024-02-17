@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import io
 import os
 import unittest
 
@@ -119,7 +120,10 @@ class TestTagsModule(unittest.TestCase):
         self.assertTrue(desc.startswith('A character string giving the title'))
         self.check_result(key.tagLabel(), str, 'Image Description')
         self.check_result(key.tagName(), str, self.key_name.split('.')[2])
-        
+        buf = io.StringIO()
+        buf = key.write(buf)
+        self.assertEqual(buf.getvalue(), self.key_name)
+
 
 if __name__ == '__main__':
     unittest.main()

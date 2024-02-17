@@ -63,6 +63,21 @@ UNIQUE_PTR(Exiv2::Value);
 // SWIG doesn't have typemaps for Py_ssize_t
 %apply long {Py_ssize_t};
 
+// Convert std::ostream inputs and outputs
+%typemap(in) std::ostream& os (PyObject* _global_io, std::ostringstream temp) {
+    $1 = &temp;
+    _global_io = $input;
+}
+%typemap(out) std::ostream& {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+        static_cast< std::ostringstream* >($1)->str().c_str());
+    if (!OK)
+        SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    $result = _global_io;
+}
+
 // for indexing multi-value values, assumes arg1 points to self
 %typemap(check) Py_ssize_t i %{
     if ($1 < 0 || $1 >= static_cast< Py_ssize_t >(arg1->count())) {
@@ -587,7 +602,6 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
 %ignore Exiv2::getValue;
 %ignore Exiv2::operator<<;
 %ignore Exiv2::Value::operator=;
-%ignore Exiv2::Value::write;
 %ignore Exiv2::CommentValue::CharsetInfo;
 %ignore Exiv2::CommentValue::CharsetTable;
 %ignore Exiv2::LangAltValueComparator;

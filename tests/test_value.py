@@ -18,6 +18,7 @@
 
 import datetime
 from fractions import Fraction
+import io
 import os
 import random
 import struct
@@ -64,6 +65,9 @@ class TestValueModule(unittest.TestCase):
                 value.typeId(), exiv2.TypeId, exiv2.TypeId.undefined)
         else:
             self.check_result(value.typeId(), exiv2.TypeId, type_id)
+        buf = io.StringIO()
+        buf = value.write(buf)
+        self.assertEqual(buf.getvalue(), string)
 
     def do_conversion_tests(self, value, text, number):
         result = value.toFloat(0)
