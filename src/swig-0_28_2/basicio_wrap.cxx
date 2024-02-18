@@ -5941,9 +5941,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
   result = (std::string *) &((Exiv2::BasicIo const *)arg1)->path();
   {
     std::string copy = *result;
+#ifdef _WIN32
     if (utf8_to_wcp(&copy, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
+#endif
     resultobj = SWIG_From_std_string(copy);
   }
   return resultobj;
@@ -5973,9 +5975,11 @@ SWIGINTERN int _wrap_new_FileIo(PyObject *self, PyObject *args, PyObject *kwargs
     arg1 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -6742,9 +6746,11 @@ SWIGINTERN PyObject *_wrap_FileIo_setPath(PyObject *self, PyObject *args) {
     arg2 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -6909,9 +6915,11 @@ SWIGINTERN PyObject *_wrap_FileIo_path(PyObject *self, PyObject *args) {
   result = (std::string *) &((Exiv2::FileIo const *)arg1)->path();
   {
     std::string copy = *result;
+#ifdef _WIN32
     if (utf8_to_wcp(&copy, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
+#endif
     resultobj = SWIG_From_std_string(copy);
   }
   return resultobj;
@@ -7691,9 +7699,11 @@ SWIGINTERN PyObject *_wrap_MemIo_path(PyObject *self, PyObject *args) {
   result = (std::string *) &((Exiv2::MemIo const *)arg1)->path();
   {
     std::string copy = *result;
+#ifdef _WIN32
     if (utf8_to_wcp(&copy, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
+#endif
     resultobj = SWIG_From_std_string(copy);
   }
   return resultobj;
@@ -7727,9 +7737,11 @@ SWIGINTERN int _wrap_new_XPathIo(PyObject *self, PyObject *args, PyObject *kwarg
     arg1 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -7841,9 +7853,11 @@ SWIGINTERN PyObject *_wrap_XPathIo_writeDataToFile(PyObject *self, PyObject *arg
     arg1 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -8620,9 +8634,11 @@ SWIGINTERN PyObject *_wrap_RemoteIo_path(PyObject *self, PyObject *args) {
   result = (std::string *) &((Exiv2::RemoteIo const *)arg1)->path();
   {
     std::string copy = *result;
+#ifdef _WIN32
     if (utf8_to_wcp(&copy, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
+#endif
     resultobj = SWIG_From_std_string(copy);
   }
   return resultobj;
@@ -8665,9 +8681,11 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_0(PyObject *self, PyObject *args, PyObject
   } 
   arg2 = static_cast< size_t >(val2);
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -8708,9 +8726,11 @@ SWIGINTERN int _wrap_new_HttpIo__SWIG_1(PyObject *self, PyObject *args, PyObject
     arg1 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {

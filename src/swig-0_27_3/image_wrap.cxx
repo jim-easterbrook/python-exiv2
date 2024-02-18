@@ -6245,9 +6245,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo(PyObject *self, PyObject *args)
     arg2 = static_cast< bool >(val2);
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -6303,9 +6305,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
     arg2 = static_cast< bool >(val2);
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -6451,9 +6455,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
     arg2 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -6568,9 +6574,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_0(PyObject *self, Py_ssize
     arg1 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg1, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {

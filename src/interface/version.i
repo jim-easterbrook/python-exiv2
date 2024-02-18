@@ -55,9 +55,6 @@ static PyObject* versionInfo() {
 #ifdef EXV_ENABLE_VIDEO
     video = true;
 #endif
-#ifdef EXV_UNICODE_PATH
-    unicode = true;
-#endif
 #ifdef EXV_ENABLE_WEBREADY
     webready = true;
 #endif

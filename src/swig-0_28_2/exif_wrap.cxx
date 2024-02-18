@@ -8837,9 +8837,11 @@ SWIGINTERN PyObject *_wrap_ExifThumbC_writeFile(PyObject *self, PyObject *args) 
     arg2 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -9045,9 +9047,11 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_0(PyObject *self, Py
   } 
   arg5 = static_cast< uint16_t >(val5);
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -9174,9 +9178,11 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_2(PyObject *self, Py
     arg2 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {

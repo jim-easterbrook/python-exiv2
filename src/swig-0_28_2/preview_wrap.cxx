@@ -6347,9 +6347,11 @@ SWIGINTERN PyObject *_wrap_PreviewImage_writeFile(PyObject *self, PyObject *args
     arg2 = ptr;
   }
   {
+#ifdef _WIN32
     if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -6405,9 +6407,11 @@ SWIGINTERN PyObject *_wrap_PreviewImage_extension(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
   result = ((Exiv2::PreviewImage const *)arg1)->extension();
   {
+#ifdef _WIN32
     if (utf8_to_wcp(&result, false) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
+#endif
     resultobj = SWIG_From_std_string(result);
   }
   return resultobj;

@@ -56,7 +56,7 @@ jobs:
             cmake -B build-msvc
             -D CMAKE_BUILD_TYPE=Release
             -D CMAKE_INSTALL_PREFIX=build-msvc/install
-            -D EXIV2_ENABLE_WIN_UNICODE=ON
+            -D EXIV2_ENABLE_WIN_UNICODE=OFF
             -D EXIV2_BUILD_SAMPLES=OFF
             -D EXIV2_BUILD_EXIV2_COMMAND=OFF
             -D EXIV2_ENABLE_BMFF=ON
