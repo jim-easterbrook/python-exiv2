@@ -39,6 +39,11 @@ EXCEPTION()
 
 // Function to report build options used
 %feature("docstring") versionInfo "Return a dict of libexiv2 build options."
+#ifndef EXV_USE_CURL
+%{
+#undef EXV_USE_CURL
+%}
+#endif
 %inline %{
 static PyObject* versionInfo() {
     bool nls = false;
@@ -46,6 +51,7 @@ static PyObject* versionInfo() {
     bool video = false;
     bool unicode = false;
     bool webready = false;
+    bool curl = false;
 #ifdef EXV_ENABLE_NLS
     nls = true;
 #endif
@@ -58,13 +64,17 @@ static PyObject* versionInfo() {
 #ifdef EXV_ENABLE_WEBREADY
     webready = true;
 #endif
-    return Py_BuildValue("{ss,sN,sN,sN,sN,sN}",
+#ifdef EXV_USE_CURL
+    curl = true;
+#endif
+    return Py_BuildValue("{ss,sN,sN,sN,sN,sN,sN}",
         "version", Exiv2::version(),
         "EXV_ENABLE_NLS", PyBool_FromLong(nls),
         "EXV_ENABLE_BMFF", PyBool_FromLong(bmff),
         "EXV_ENABLE_VIDEO", PyBool_FromLong(video),
         "EXV_UNICODE_PATH", PyBool_FromLong(unicode),
-        "EXV_ENABLE_WEBREADY", PyBool_FromLong(webready));
+        "EXV_ENABLE_WEBREADY", PyBool_FromLong(webready),
+        "EXV_USE_CURL", PyBool_FromLong(curl));
 };
 %}
 

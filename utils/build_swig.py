@@ -52,12 +52,10 @@ def main():
     if swig_version < (4, 1, 0):
         print('SWIG version 4.1.0 or later required')
         return 1
-    # get version to SWIG
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print('Usage: %s path ["minimal"]' % sys.argv[0])
+    # get source to SWIG
+    if len(sys.argv) != 2:
+        print('Usage: %s path' % sys.argv[0])
         return 1
-    # minimal build?
-    minimal = len(sys.argv) >= 3 and sys.argv[2] == 'minimal'
     # get config
     platform = sys.platform
     if platform == 'win32' and 'GCC' in sys.version:
@@ -75,21 +73,25 @@ def main():
     exiv2_version = get_version(incl_dir)
     # get exiv2 build options
     options = {
-        'EXV_UNICODE_PATH' : False,
+        'EXV_ENABLE_WEBREADY': False,
+        'EXV_USE_CURL': False,
         }
-    if not minimal:
-        with open(os.path.join(incl_dir, 'exv_conf.h')) as cnf:
-            for line in cnf.readlines():
-                words = line.split()
-                for key in options:
-                    if key not in line:
-                        continue
-                    if words[1] != key:
-                        continue
-                    if words[0] == '#define':
-                        options[key] = True
-                    elif words[0] == '#undef':
-                        options[key] = False
+    with open(os.path.join(incl_dir, 'exv_conf.h')) as cnf:
+        for line in cnf.readlines():
+            words = line.split()
+            for key in options:
+                if key not in line:
+                    continue
+                if words[1] != key:
+                    continue
+                if words[0] == '#define':
+                    options[key] = True
+                elif words[0] == '#undef':
+                    options[key] = False
+    for key in options:
+        if not options[key]:
+            print(f'WARNING: option {key} is not set.'
+                  ' Some functionality will not be available to Python.')
     # get python-exiv2 version
     with open('README.rst') as rst:
         py_exiv2_version = rst.readline().split()[-1]

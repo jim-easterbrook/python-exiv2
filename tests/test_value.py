@@ -152,7 +152,7 @@ class TestValueModule(unittest.TestCase):
     def test_CommentValue(self):
         raw_text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
         data = b'UNICODE\x00' + bytes(raw_text, 'utf-16-le')
-        if exiv2.testVersion(0, 27, 4):
+        if exiv2.testVersion(0, 27, 2):
             text = 'charset=Unicode ' + raw_text
         else:
             text = 'charset="Unicode" ' + raw_text

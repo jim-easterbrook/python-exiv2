@@ -29,6 +29,7 @@
 %include "shared/enum.i"
 %include "shared/exception.i"
 %include "shared/keep_reference.i"
+%include "shared/remoteio_derived.i"
 %include "shared/unique_ptr.i"
 %include "shared/windows_path.i"
 
@@ -94,6 +95,10 @@ static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
     else if (dynamic_cast<Exiv2::RemoteIo*>(ptr)) {
         if (dynamic_cast<Exiv2::HttpIo*>(ptr))
             return $descriptor(Exiv2::HttpIo*);
+#ifdef EXV_USE_CURL
+        else if (dynamic_cast<Exiv2::CurlIo*>(ptr))
+            return $descriptor(Exiv2::CurlIo*);
+#endif
         else
             return $descriptor(Exiv2::RemoteIo*);
     }
@@ -108,6 +113,16 @@ static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
     $result = SWIG_NewPointerObj(
         ptr, basicio_subtype(ptr), SWIG_POINTER_OWN);
 }
+
+// CurlIo destructor isn't seen by SWIG in v0.27.x
+#if EXIV2_VERSION_HEX < 0x001c0000
+#ifdef EXV_USE_CURL
+%extend Exiv2::CurlIo {
+    ~CurlIo() {};
+}
+%ignore Exiv2::CurlIo::~CurlIo;
+#endif
+#endif
 
 // readOrThrow & seekOrThrow use ErrorCode internally without Exiv2:: prefix
 // as if SWIG doesn't realise ErrorCode is in the Exiv2 namespace
@@ -198,6 +213,7 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
 %ignore Exiv2::BasicIo::~BasicIo;
 %ignore Exiv2::BasicIo::bigBlock_;
 %ignore Exiv2::BasicIo::populateFakeData;
+%ignore Exiv2::curlWriter;
 %ignore Exiv2::IoCloser;
 %ignore Exiv2::ReplaceStringInPlace;
 %ignore Exiv2::readFile;

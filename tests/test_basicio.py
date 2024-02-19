@@ -33,6 +33,29 @@ class TestBasicIoModule(unittest.TestCase):
         cls.image_path = os.path.join(test_dir, 'image_02.jpg')
         cls.data = b'The quick brown fox jumps over the lazy dog'
 
+    @unittest.skipUnless(exiv2.versionInfo()['EXV_USE_CURL'],
+                         'CurlIo not included')
+    def test_CurlIo(self):
+        https_image = ('https://raw.githubusercontent.com/jim-easterbrook'
+                       '/python-exiv2/main/tests/image_02.jpg')
+        io = exiv2.CurlIo(https_image)
+        self.assertIsInstance(io, exiv2.CurlIo)
+        self.assertEqual(io.error(), False)
+        self.assertEqual(io.path(), https_image)
+        self.assertEqual(io.size(), 0)
+        io = exiv2.ImageFactory.createIo(https_image)
+        self.assertIsInstance(io, exiv2.CurlIo)
+        self.assertEqual(io.error(), False)
+        self.assertEqual(io.path(), https_image)
+        self.assertEqual(io.size(), 0)
+        # open and close
+        self.assertEqual(io.isopen(), False)
+        self.assertEqual(io.open(), 0)
+        self.assertEqual(io.size(), 15125)
+        self.assertEqual(io.isopen(), True)
+        self.assertEqual(io.close(), 0)
+        self.assertEqual(io.isopen(), True)
+
     def test_FileIo(self):
         # most functions are tested in test_MemIo
         io = exiv2.FileIo(self.image_path)
