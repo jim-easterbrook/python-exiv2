@@ -136,6 +136,7 @@ class TestImageModule(unittest.TestCase):
             self.assertIsInstance(
                 factory.create(exiv2.ImageType.jpeg, temp_file), exiv2.Image)
         self.assertIsInstance(factory.createIo(self.image_path), exiv2.FileIo)
+        self.assertIsInstance(factory.createIo(self.image_data), exiv2.MemIo)
         self.check_result(factory.getType(self.image_path),
                           exiv2.ImageType, exiv2.ImageType.jpeg)
         self.check_result(factory.getType(self.image_data),

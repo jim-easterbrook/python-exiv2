@@ -4928,6 +4928,13 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
   return res;
 }
 
+SWIGINTERN Exiv2::BasicIo::UniquePtr Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *data,size_t B){
+
+
+
+        return std::make_unique<Exiv2::MemIo>(data, B);
+
+    }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6297,20 +6304,19 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Image) /* defines _wrap_delete_Image_destructor_closure */
 
-SWIGINTERN PyObject *_wrap_ImageFactory_createIo(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   bool arg2 ;
   int res1 = SWIG_OLDOBJ ;
   bool val2 ;
   int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
   Exiv2::BasicIo::UniquePtr result;
   
   {
     arg2 = true;
   }
-  if (!SWIG_Python_UnpackTuple(args, "ImageFactory_createIo", 1, 2, swig_obj)) SWIG_fail;
+  if ((nobjs < 1) || (nobjs > 2)) SWIG_fail;
   {
     std::string *ptr = (std::string *)0;
     res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
@@ -6922,6 +6928,91 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkType(PyObject *self, PyObject *args
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
+  size_t arg2 ;
+  PyObject *_global_view = NULL ;
+  Exiv2::BasicIo::UniquePtr result;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    _global_view = PyMemoryView_GetContiguous(swig_obj[0], PyBUF_READ, 'A');
+    if (!_global_view) {
+      PyErr_Clear();
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ImageFactory_createIo" "', argument " "1"" of type '" "bytes-like object""'")
+      ;
+    }
+    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
+    arg1 = (Exiv2::byte *) buff->buf;
+    arg2 = (size_t) buff->len;
+  }
+  {
+    try {
+      result = Exiv2_ImageFactory_createIo__SWIG_1((unsigned char const *)arg1,SWIG_STD_MOVE(arg2));
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    Exiv2::BasicIo* ptr = (&result)->release();
+    resultobj = SWIG_NewPointerObj(
+      ptr, basicio_subtype(ptr), SWIG_POINTER_OWN);
+  }
+  
+  PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+  
+  
+  Py_XDECREF(_global_view);
+  
+  return resultobj;
+fail:
+  
+  Py_XDECREF(_global_view);
+  
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ImageFactory_createIo(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  (void)self;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ImageFactory_createIo", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if ((argc >= 1) && (argc <= 2)) {
+    int _v = 0;
+    {
+      int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_1;
+    PyObject *retobj = _wrap_ImageFactory_createIo__SWIG_0(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+check_1:
+  
+  if (argc == 1) {
+    PyObject *retobj = _wrap_ImageFactory_createIo__SWIG_1(self, argc, argv);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ImageFactory_createIo'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::ImageFactory::createIo(std::string const &,bool)\n"
+    "    Exiv2::ImageFactory::Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *,size_t)\n");
+  return 0;
 }
 
 
