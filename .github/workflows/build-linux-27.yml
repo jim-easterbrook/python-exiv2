@@ -31,7 +31,7 @@ jobs:
             python3 -m unittest discover {project}/tests -v
           CIBW_BEFORE_ALL: >
             yum install -y zlib-devel expat-devel gettext-devel
-            libcurl-devel &&
+            libcurl-devel libssh-devel &&
             localedef -c -i de_DE -f UTF-8 de_DE.UTF-8 &&
             cd libexiv2 &&
             cmake -B build-linux -D CMAKE_BUILD_TYPE=Release
