@@ -47,6 +47,9 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(result, data)
         if sequence:
             self.check_result(value.count(), int, len(sequence))
+            if not isinstance(sequence, dict):
+                with self.assertRaises(IndexError):
+                    result = value[value.count()]
         else:
             self.check_result(value.count(), int, len(data))
         self.check_result(value.ok(), bool, True)

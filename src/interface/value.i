@@ -60,9 +60,6 @@ UNIQUE_PTR(Exiv2::Value);
 %noexception Exiv2::XmpValue::xmpStruct;
 
 // ---- Typemaps ----
-// SWIG doesn't have typemaps for Py_ssize_t
-%apply long {Py_ssize_t};
-
 // Convert std::ostream inputs and outputs
 %typemap(in) std::ostream& os (PyObject* _global_io, std::ostringstream temp) {
     $1 = &temp;
@@ -79,8 +76,8 @@ UNIQUE_PTR(Exiv2::Value);
 }
 
 // for indexing multi-value values, assumes arg1 points to self
-%typemap(check) Py_ssize_t i %{
-    if ($1 < 0 || $1 >= static_cast< Py_ssize_t >(arg1->count())) {
+%typemap(check) long idx %{
+    if ($1 < 0 || $1 >= static_cast< long >(arg1->count())) {
         PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
         SWIG_fail;
     }
@@ -355,14 +352,14 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         result->value_ = value;
         return result;
     }
-    item_type __getitem__(Py_ssize_t i) {
-        return $self->value_[i];
+    item_type __getitem__(long idx) {
+        return $self->value_[idx];
     }
-    void __setitem__(Py_ssize_t i, const item_type* INPUT) {
+    void __setitem__(long idx, const item_type* INPUT) {
         if (INPUT)
-            $self->value_[i] = *INPUT;
+            $self->value_[idx] = *INPUT;
         else
-            $self->value_.erase($self->value_.begin() + i);
+            $self->value_.erase($self->value_.begin() + idx);
     }
     void append(item_type value) {
         $self->value_.push_back(value);
@@ -574,8 +571,8 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     XmpArrayValue(Exiv2::TypeId typeId_xmpBag) {
         return new Exiv2::XmpArrayValue(typeId_xmpBag);
     }
-    std::string __getitem__(long i) {
-        return $self->toString(i);
+    std::string __getitem__(long idx) {
+        return $self->toString(idx);
     }
     void append(std::string value) {
         $self->read(value);
