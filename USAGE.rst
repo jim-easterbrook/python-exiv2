@@ -387,8 +387,8 @@ Doing so will invalidate the memoryview and may cause a segmentation fault:
 Buffer interface
 ----------------
 
-The ``Exiv2::DataBuf``, ``Exiv2::PreviewImage``, and ``Exiv2::MemIO`` classes are all wrappers around a potentially large block of memory.
-They each have methods to access that memory without copying, such as ``Exiv2::DataBuf::data()`` and ``Exiv2::MemIo::mmap()`` but in Python these classes also expose a `buffer interface`_. This allows them to be used almost anywhere that a `bytes-like object`_ is expected.
+The ``Exiv2::DataBuf``, ``Exiv2::PreviewImage``, and ``Exiv2::BasicIO`` classes are all wrappers around a potentially large block of memory.
+They each have methods to access that memory without copying, such as ``Exiv2::DataBuf::data()`` and ``Exiv2::BasicIo::mmap()`` but in Python these classes also expose a `buffer interface`_. This allows them to be used almost anywhere that a `bytes-like object`_ is expected.
 
 For example, you could save a photograph's thumbnail in a separate file like this:
 
@@ -406,8 +406,7 @@ In python-exiv2 the ``data`` and ``size`` parameters are replaced with a single 
 The buffered data isn't actually read until ``Image::readMetadata`` is called, so python-exiv2 stores a reference to the buffer to stop the user accidentally deleting it.
 
 When ``Image::writeMetadata`` is called exiv2 allocates a new block of memory to store the modified data.
-The ``Image::io`` method returns an `Exiv2::MemIo`_ object that provides access to this data.
-(`Exiv2::MemIo`_ is derived from `Exiv2::BasicIo`_.)
+The ``Image::io`` method returns an `Exiv2::BasicIo`_ object that provides access to this data.
 
 The ``BasicIo::mmap`` method allows access to the image file data without unnecessary copying.
 However it is rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.
@@ -453,7 +452,7 @@ Since python-exiv2 v0.15.0 this buffer can be writeable:
         data[23] = 157      # modifies data buffer
     image.readMetadata()    # reads modified buffer data
 
-The modified data is written back to the file (for ``Exiv2::FileIo``) or memory buffer (for `Exiv2::MemIo`_) when the memoryview_ is released.
+The modified data is written back to the file or memory buffer when the memoryview_ is released.
 
 .. _bytearray:
     https://docs.python.org/3/library/stdtypes.html#bytearray
@@ -483,8 +482,6 @@ The modified data is written back to the file (for ``Exiv2::FileIo``) or memory 
     https://exiv2.org/doc/classExiv2_1_1Image.html
 .. _Exiv2::ImageFactory:
     https://exiv2.org/doc/classExiv2_1_1ImageFactory.html
-.. _Exiv2::MemIo:
-    https://exiv2.org/doc/classExiv2_1_1MemIo.html
 .. _Exiv2::Metadatum:
     https://exiv2.org/doc/classExiv2_1_1Metadatum.html
 .. _Exiv2::TagInfo:

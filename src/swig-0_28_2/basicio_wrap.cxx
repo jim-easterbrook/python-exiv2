@@ -6027,7 +6027,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"You shouldn't usually need to know the type of IO as they all have\n"
 		"the same interface.\n"
 		":rtype: str\n"
-		":return: A class name such as FileIo.\n"
+		":return: A class name such as \"FileIo\".\n"
 		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };

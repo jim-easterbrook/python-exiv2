@@ -70,7 +70,7 @@ WINDOWS_PATH_OUT(path)
 You shouldn't usually need to know the type of IO as they all have
 the same interface.
 :rtype: str
-:return: A class name such as ""FileIo""."
+:return: A class name such as \"FileIo\"."
 %extend Exiv2::BasicIo {
     const char* ioType() {
         if (dynamic_cast<Exiv2::MemIo*>($self))
