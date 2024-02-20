@@ -19,7 +19,8 @@
 %nothread;
 
 #ifndef SWIGIMPORTED
-%constant char* __doc__ = "Classes to access files, memory and remote data.";
+%constant char* __doc__ =
+    "Class interface to access files, memory and remote data.";
 #endif
 
 #pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
@@ -29,7 +30,6 @@
 %include "shared/enum.i"
 %include "shared/exception.i"
 %include "shared/keep_reference.i"
-%include "shared/remoteio_derived.i"
 %include "shared/unique_ptr.i"
 %include "shared/windows_path.i"
 
@@ -48,32 +48,15 @@ UNIQUE_PTR(Exiv2::BasicIo);
 %thread Exiv2::BasicIo::mmap;
 %thread Exiv2::BasicIo::munmap;
 %thread Exiv2::BasicIo::read;
-%thread Exiv2::MemIo::read;
 %thread Exiv2::BasicIo::seek;
-%thread Exiv2::FileIo::size;
-%thread Exiv2::FileIo::tell;
 %thread Exiv2::BasicIo::transfer;
 %thread Exiv2::BasicIo::write;
-%thread Exiv2::MemIo::write;
 
 // Some calls don't raise exceptions
-%noexception Exiv2::MemIo::close;
 %noexception Exiv2::BasicIo::eof;
 %noexception Exiv2::BasicIo::error;
 %noexception Exiv2::BasicIo::isopen;
-%noexception Exiv2::MemIo::mmap;
-%noexception Exiv2::MemIo::munmap;
-%noexception Exiv2::RemoteIo::munmap;
-%noexception Exiv2::MemIo::open;
 %noexception Exiv2::BasicIo::path;
-%noexception Exiv2::MemIo::read;
-%noexception Exiv2::MemIo::seek;
-%noexception Exiv2::RemoteIo::seek;
-%noexception Exiv2::MemIo::size;
-%noexception Exiv2::RemoteIo::size;
-%noexception Exiv2::MemIo::tell;
-%noexception Exiv2::RemoteIo::tell;
-%noexception Exiv2::MemIo::write;
 
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
@@ -81,48 +64,38 @@ WINDOWS_PATH(const std::string& orgPath)
 WINDOWS_PATH(const std::string& url)
 WINDOWS_PATH_OUT(path)
 
-// Convert BasicIo return values to actual subclass
-%fragment("basicio_subtype", "header") {
-static swig_type_info* basicio_subtype(Exiv2::BasicIo* ptr) {
-    if (dynamic_cast<Exiv2::MemIo*>(ptr))
-        return $descriptor(Exiv2::MemIo*);
-    else if (dynamic_cast<Exiv2::FileIo*>(ptr)) {
-        if (dynamic_cast<Exiv2::XPathIo*>(ptr))
-            return $descriptor(Exiv2::XPathIo*);
-        else
-            return $descriptor(Exiv2::FileIo*);
-    }
-    else if (dynamic_cast<Exiv2::RemoteIo*>(ptr)) {
-        if (dynamic_cast<Exiv2::HttpIo*>(ptr))
-            return $descriptor(Exiv2::HttpIo*);
-#ifdef EXV_USE_CURL
-        else if (dynamic_cast<Exiv2::CurlIo*>(ptr))
-            return $descriptor(Exiv2::CurlIo*);
-#endif
-        else
-            return $descriptor(Exiv2::RemoteIo*);
-    }
-    return $descriptor(Exiv2::BasicIo*);
-};
-}
-%typemap(out, fragment="basicio_subtype") Exiv2::BasicIo& {
-    $result = SWIG_NewPointerObj($1, basicio_subtype($1), 0);
-}
-%typemap(out, fragment="basicio_subtype") Exiv2::BasicIo::SMART_PTR {
-    Exiv2::BasicIo* ptr = (&$1)->release();
-    $result = SWIG_NewPointerObj(
-        ptr, basicio_subtype(ptr), SWIG_POINTER_OWN);
-}
+// Add method to get the subclass type
+%feature("docstring") Exiv2::BasicIo::ioType "Return the derived class type.
 
-// CurlIo destructor isn't seen by SWIG in v0.27.x
-#if EXIV2_VERSION_HEX < 0x001c0000
-#ifdef EXV_USE_CURL
-%extend Exiv2::CurlIo {
-    ~CurlIo() {};
+You shouldn't usually need to know the type of IO as they all have
+the same interface.
+:rtype: str
+:return: A class name such as ""FileIo""."
+%extend Exiv2::BasicIo {
+    const char* ioType() {
+        if (dynamic_cast<Exiv2::MemIo*>($self))
+            return "MemIo";
+        else if (dynamic_cast<Exiv2::FileIo*>($self)) {
+            if (dynamic_cast<Exiv2::XPathIo*>($self))
+                return "XPathIo";
+            return "FileIo";
+        }
+        else if (dynamic_cast<Exiv2::RemoteIo*>($self)) {
+            if (dynamic_cast<Exiv2::HttpIo*>($self))
+                return "HttpIo";
+%#ifdef EXV_USE_CURL
+            else if (dynamic_cast<Exiv2::CurlIo*>($self))
+                return "CurlIo";
+%#endif
+%#ifdef EXV_USE_SSH
+            else if (dynamic_cast<Exiv2::SshIo*>($self))
+                return "SshIo";
+%#endif
+            return "RemoteIo";
+        }
+        return "unknown";
+    }
 }
-%ignore Exiv2::CurlIo::~CurlIo;
-#endif
-#endif
 
 // readOrThrow & seekOrThrow use ErrorCode internally without Exiv2:: prefix
 // as if SWIG doesn't realise ErrorCode is in the Exiv2 namespace
@@ -143,10 +116,6 @@ KEEP_REFERENCE(Exiv2::BasicIo&)
 INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
 INPUT_BUFFER_RO(const Exiv2::byte* data, size_t wcount)
 
-// Allow MemIo to be ceated from a buffer
-INPUT_BUFFER_RO_EX(const Exiv2::byte* data, long size)
-INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t size)
-
 // BasicIo::read can write to a Python buffer
 OUTPUT_BUFFER_RW(Exiv2::byte* buf, long rcount)
 OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
@@ -159,12 +128,12 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
             arg2 ? PyBUF_WRITE : PyBUF_READ,)
 
-%define EXTEND_BASICIO(io_type)
-// Enable len(io_type)
-%feature("python:slot", "sq_length", functype="lenfunc") io_type::size;
-// Expose io_type contents as a Python buffer
-%fragment("get_ptr_size"{io_type}, "header") {
-static bool get_ptr_size(io_type* self, bool is_writeable,
+// Enable len(Exiv2::BasicIo)
+%feature("python:slot", "sq_length", functype="lenfunc")
+    Exiv2::BasicIo::size;
+// Expose Exiv2::BasicIo contents as a Python buffer
+%fragment("get_ptr_size"{Exiv2::BasicIo}, "header") {
+static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
                          Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
         return false;
@@ -183,20 +152,15 @@ static bool get_ptr_size(io_type* self, bool is_writeable,
     return true;
 };
 }
-%fragment("release_ptr"{io_type}, "header") {
-static void release_ptr(io_type* self) {
+%fragment("release_ptr"{Exiv2::BasicIo}, "header") {
+static void release_ptr(Exiv2::BasicIo* self) {
     SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     self->munmap();
     self->close();
     SWIG_PYTHON_THREAD_END_ALLOW;
 };
 }
-EXPOSE_OBJECT_BUFFER(io_type, true, true)
-%enddef // EXTEND_BASICIO
-
-EXTEND_BASICIO(Exiv2::FileIo)
-EXTEND_BASICIO(Exiv2::MemIo)
-EXTEND_BASICIO(Exiv2::RemoteIo)
+EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo, true, true)
 
 // Make enum more Pythonic
 DEFINE_CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
@@ -210,21 +174,21 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
         "cur", Exiv2::BasicIo::cur,
         "end", Exiv2::BasicIo::end);
 
-%ignore Exiv2::BasicIo::~BasicIo;
 %ignore Exiv2::BasicIo::bigBlock_;
+%ignore Exiv2::BasicIo::operator=;
 %ignore Exiv2::BasicIo::populateFakeData;
 %ignore Exiv2::curlWriter;
 %ignore Exiv2::IoCloser;
 %ignore Exiv2::ReplaceStringInPlace;
 %ignore Exiv2::readFile;
 %ignore Exiv2::writeFile;
-%ignore Exiv2::XPathIo::GEN_FILE_EXT;
-%ignore Exiv2::XPathIo::TEMP_FILE_EXT;
-%ignore Exiv2::CurlIo::operator=;
-%ignore Exiv2::FileIo::operator=;
-%ignore Exiv2::HttpIo::operator=;
-%ignore Exiv2::MemIo::operator=;
-%ignore Exiv2::SshIo::operator=;
+%ignore Exiv2::CurlIo;
+%ignore Exiv2::FileIo;
+%ignore Exiv2::HttpIo;
+%ignore Exiv2::MemIo;
+%ignore Exiv2::RemoteIo;
+%ignore Exiv2::SshIo;
+%ignore Exiv2::XPathIo;
 %ignore EXV_XPATH_MEMIO;
 
 %include "exiv2/basicio.hpp"

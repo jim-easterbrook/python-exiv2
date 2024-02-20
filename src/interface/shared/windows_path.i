@@ -37,7 +37,7 @@
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
 %#endif
-    $result = SWIG_From_std_string($1);
+    $result = SWIG_FromCharPtrAndSize($1.data(), $1.size());
 }
 %typemap(out, fragment="utf8_to_wcp") const std::string& function {
     std::string copy = *$1;
@@ -46,6 +46,6 @@
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
 %#endif
-    $result = SWIG_From_std_string(copy);
+    $result = SWIG_FromCharPtrAndSize(copy.data(), copy.size());
 }
 %enddef // WINDOWS_PATH_OUT

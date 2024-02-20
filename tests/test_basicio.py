@@ -38,13 +38,9 @@ class TestBasicIoModule(unittest.TestCase):
     def test_CurlIo(self):
         https_image = ('https://raw.githubusercontent.com/jim-easterbrook'
                        '/python-exiv2/main/tests/image_02.jpg')
-        io = exiv2.CurlIo(https_image)
-        self.assertIsInstance(io, exiv2.CurlIo)
-        self.assertEqual(io.error(), False)
-        self.assertEqual(io.path(), https_image)
-        self.assertEqual(io.size(), 0)
         io = exiv2.ImageFactory.createIo(https_image)
-        self.assertIsInstance(io, exiv2.CurlIo)
+        self.assertIsInstance(io, exiv2.BasicIo)
+        self.assertEqual(io.ioType(), 'CurlIo')
         self.assertEqual(io.error(), False)
         self.assertEqual(io.path(), https_image)
         self.assertEqual(io.size(), 0)
@@ -58,8 +54,9 @@ class TestBasicIoModule(unittest.TestCase):
 
     def test_FileIo(self):
         # most functions are tested in test_MemIo
-        io = exiv2.FileIo(self.image_path)
-        self.assertIsInstance(io, exiv2.FileIo)
+        io = exiv2.ImageFactory.createIo(self.image_path)
+        self.assertIsInstance(io, exiv2.BasicIo)
+        self.assertEqual(io.ioType(), 'FileIo')
         self.assertEqual(io.error(), False)
         self.assertEqual(io.path(), self.image_path)
         self.assertEqual(io.size(), 15125)
@@ -72,8 +69,9 @@ class TestBasicIoModule(unittest.TestCase):
 
     def test_MemIo(self):
         # empty buffer
-        io = exiv2.MemIo()
-        self.assertIsInstance(io, exiv2.MemIo)
+        io = exiv2.ImageFactory.createIo(b'')
+        self.assertIsInstance(io, exiv2.BasicIo)
+        self.assertEqual(io.ioType(), 'MemIo')
         self.assertEqual(io.size(), 0)
         # mmap data access
         with io.mmap(False) as view:
@@ -98,8 +96,9 @@ class TestBasicIoModule(unittest.TestCase):
             with self.assertRaises(IndexError):
                 view[0] = 0
         # non-empty buffer
-        io = exiv2.MemIo(self.data)
-        self.assertIsInstance(io, exiv2.MemIo)
+        io = exiv2.ImageFactory.createIo(self.data)
+        self.assertIsInstance(io, exiv2.BasicIo)
+        self.assertEqual(io.ioType(), 'MemIo')
         self.assertEqual(io.error(), False)
         self.assertEqual(io.path(), 'MemIo')
         self.assertEqual(io.size(), len(self.data))
@@ -159,7 +158,7 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.putb(ord('+')), ord('+'))
         self.assertEqual(io.eof(), True)
         self.assertEqual(len(io), len(self.data) + 1)
-        self.assertEqual(io.write(exiv2.MemIo(b'fred')), 4)
+        self.assertEqual(io.write(exiv2.ImageFactory.createIo(b'fred')), 4)
         self.assertEqual(len(io), len(self.data) + 5)
         self.assertEqual(io.write(b'+jim'), 4)
         self.assertEqual(len(io), len(self.data) + 9)
@@ -168,7 +167,7 @@ class TestBasicIoModule(unittest.TestCase):
     def test_ref_counts(self):
         # MemIo keeps a reference to the data buffer
         self.assertEqual(sys.getrefcount(self.data), 3)
-        io = exiv2.MemIo(self.data)
+        io = exiv2.ImageFactory.createIo(self.data)
         self.assertEqual(sys.getrefcount(self.data), 4)
         del io
         self.assertEqual(sys.getrefcount(self.data), 3)
@@ -184,7 +183,7 @@ class TestBasicIoModule(unittest.TestCase):
                 with self.subTest(file_name=file_name, codes=codes):
                     tmp_path = os.path.normcase(os.path.join(tmp_dir, file_name))
                     shutil.copyfile(self.image_path, tmp_path)
-                    io = exiv2.FileIo(tmp_path)
+                    io = exiv2.ImageFactory.createIo(tmp_path)
                     if cp in codes:
                         self.assertEqual(io.path(), tmp_path)
                     else:

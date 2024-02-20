@@ -71,27 +71,6 @@ def main():
         return 3
     # get exiv2 version
     exiv2_version = get_version(incl_dir)
-    # get exiv2 build options
-    options = {
-        'EXV_ENABLE_WEBREADY': False,
-        'EXV_USE_CURL': False,
-        }
-    with open(os.path.join(incl_dir, 'exv_conf.h')) as cnf:
-        for line in cnf.readlines():
-            words = line.split()
-            for key in options:
-                if key not in line:
-                    continue
-                if words[1] != key:
-                    continue
-                if words[0] == '#define':
-                    options[key] = True
-                elif words[0] == '#undef':
-                    options[key] = False
-    for key in options:
-        if not options[key]:
-            print(f'WARNING: option {key} is not set.'
-                  ' Some functionality will not be available to Python.')
     # get python-exiv2 version
     with open('README.rst') as rst:
         py_exiv2_version = rst.readline().split()[-1]
@@ -153,9 +132,6 @@ def main():
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
                      '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
                      '-I' + copy_dir, '-outdir', output_dir]
-        for key in options:
-            if options[key]:
-                swig_opts.append('-D' + key)
         # do each swig module
         for ext_name in ext_names:
             cmd = ['swig'] + swig_opts

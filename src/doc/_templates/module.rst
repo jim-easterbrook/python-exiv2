@@ -15,11 +15,6 @@
        :top-classes: exiv2.value.Value
    {% endif %}
 
-   {% if fullname == "exiv2._basicio" %}
-   .. inheritance-diagram:: {{ classes | join(" ") }}
-       :top-classes: exiv2.basicio.BasicIo
-   {% endif %}
-
    {% if fullname in ["exiv2._datasets", "exiv2._metadatum", "exiv2._properties", "exiv2._tags"] %}
    .. inheritance-diagram:: exiv2.ExifKey exiv2.IptcKey exiv2.XmpKey
        :top-classes: exiv2.metadatum.Key

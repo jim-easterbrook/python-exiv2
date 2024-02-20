@@ -39,11 +39,6 @@ EXCEPTION()
 
 // Function to report build options used
 %feature("docstring") versionInfo "Return a dict of libexiv2 build options."
-#ifndef EXV_USE_CURL
-%{
-#undef EXV_USE_CURL
-%}
-#endif
 %inline %{
 static PyObject* versionInfo() {
     bool nls = false;

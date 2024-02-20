@@ -30,7 +30,6 @@ For Exif thumbnail images see the :py:class:`ExifThumb` class.";
 %include "shared/buffers.i"
 %include "shared/exception.i"
 %include "shared/keep_reference.i"
-%include "shared/remoteio_derived.i"
 %include "shared/struct_dict.i"
 %include "shared/windows_path.i"
 

@@ -107,7 +107,7 @@ class TestImageModule(unittest.TestCase):
         self.check_result(image.iccProfileDefined(), bool, True)
         self.check_result(image.imageType(),
                           exiv2.ImageType, exiv2.ImageType.jpeg)
-        self.assertIsInstance(image.io(), exiv2.MemIo)
+        self.assertIsInstance(image.io(), exiv2.BasicIo)
         self.check_result(image.mimeType(), str, 'image/jpeg')
         self.check_result(image.pixelHeight(), int, 200)
         self.check_result(image.pixelWidth(), int, 200)
@@ -122,7 +122,7 @@ class TestImageModule(unittest.TestCase):
         self.check_result(
             factory.checkMode(exiv2.ImageType.jpeg, exiv2.MetadataId.Exif),
             exiv2.AccessMode, exiv2.AccessMode.ReadWrite)
-        io = exiv2.MemIo(self.image_data)
+        io = factory.createIo(self.image_data)
         with self.assertWarns(DeprecationWarning):
             factory.checkType(int(exiv2.ImageType.jpeg), io, False)
         self.check_result(
@@ -135,8 +135,8 @@ class TestImageModule(unittest.TestCase):
             temp_file = os.path.join(tmp_dir, 'image.jpg')
             self.assertIsInstance(
                 factory.create(exiv2.ImageType.jpeg, temp_file), exiv2.Image)
-        self.assertIsInstance(factory.createIo(self.image_path), exiv2.FileIo)
-        self.assertIsInstance(factory.createIo(self.image_data), exiv2.MemIo)
+        self.assertIsInstance(factory.createIo(self.image_path), exiv2.BasicIo)
+        self.assertIsInstance(factory.createIo(self.image_data), exiv2.BasicIo)
         self.check_result(factory.getType(self.image_path),
                           exiv2.ImageType, exiv2.ImageType.jpeg)
         self.check_result(factory.getType(self.image_data),
