@@ -17,6 +17,7 @@
 ##  <http://www.gnu.org/licenses/>.
 
 import locale
+import logging
 import os
 import random
 import sys
@@ -131,6 +132,21 @@ class TestTypesModule(unittest.TestCase):
             self.skipTest("locale environment ignored")
         # test localisation
         self.check_result(exiv2.exvGettext(str_en), str, str_de)
+        if exiv2.testVersion(0, 28, 3) or not exiv2.testVersion(0, 28, 0):
+            with self.assertLogs(level=logging.WARNING) as cm:
+                comment = exiv2.CommentValue('charset=invalid Fred')
+            self.assertEqual(cm.output, [
+                'WARNING:exiv2:Ungültiger Zeichensatz: "invalid"'])
+            with self.assertRaises(exiv2.Exiv2Error) as cm:
+                image = exiv2.ImageFactory.open('non-existing.jpg')
+            self.assertEqual(cm.exception.message.split(':')[:2],
+                             ['non-existing.jpg',
+                              ' Die Datenquelle konnte nicht geöffnet werden'])
+        # clear locale
+        name = 'en_US.UTF-8'
+        os.environ['LC_ALL'] = name
+        os.environ['LANG'] = name
+        os.environ['LANGUAGE'] = name
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -25,7 +25,6 @@ import exiv2
 class TestEasyaccessModule(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        exiv2.XmpParser.initialize()
         test_dir = os.path.dirname(__file__)
         image = exiv2.ImageFactory.open(os.path.join(test_dir, 'image_02.jpg'))
         image.readMetadata()

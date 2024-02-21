@@ -23,6 +23,7 @@
 
 %include "shared/preamble.i"
 %include "shared/enum.i"
+%include "shared/exception.i"
 
 %include "std_except.i"
 
@@ -33,15 +34,18 @@
     exiv2_module, "Exiv2Error");
 
 // Set Python logger as Exiv2 log handler
+%fragment("utf8_to_wcp");
 %{
 static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
-    Py_ssize_t len = strlen(msg);
-    while (len > 0 && msg[len-1] == '\n')
+    std::string copy = msg;
+    utf8_to_wcp(&copy, false);
+    Py_ssize_t len = copy.size();
+    while (len > 0 && copy[len-1] == '\n')
         len--;
     PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject* res = PyObject_CallMethod(
-        logger, "log", "(is#)", (level + 1) * 10, msg, len);
+        logger, "log", "(is#)", (level + 1) * 10, copy.c_str(), len);
     Py_XDECREF(res);
     PyGILState_Release(gstate);
 };

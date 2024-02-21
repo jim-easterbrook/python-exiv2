@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -51,12 +52,10 @@ def main():
     if swig_version < (4, 1, 0):
         print('SWIG version 4.1.0 or later required')
         return 1
-    # get version to SWIG
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print('Usage: %s path ["minimal"]' % sys.argv[0])
+    # get source to SWIG
+    if len(sys.argv) != 2:
+        print('Usage: %s path' % sys.argv[0])
         return 1
-    # minimal build?
-    minimal = len(sys.argv) >= 3 and sys.argv[2] == 'minimal'
     # get config
     platform = sys.platform
     if platform == 'win32' and 'GCC' in sys.version:
@@ -72,23 +71,6 @@ def main():
         return 3
     # get exiv2 version
     exiv2_version = get_version(incl_dir)
-    # get exiv2 build options
-    options = {
-        'EXV_UNICODE_PATH' : False,
-        }
-    if not minimal:
-        with open(os.path.join(incl_dir, 'exv_conf.h')) as cnf:
-            for line in cnf.readlines():
-                words = line.split()
-                for key in options:
-                    if key not in line:
-                        continue
-                    if words[1] != key:
-                        continue
-                    if words[0] == '#define':
-                        options[key] = True
-                    elif words[0] == '#undef':
-                        options[key] = False
     # get python-exiv2 version
     with open('README.rst') as rst:
         py_exiv2_version = rst.readline().split()[-1]
@@ -150,9 +132,6 @@ def main():
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
                      '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
                      '-I' + copy_dir, '-outdir', output_dir]
-        for key in options:
-            if options[key]:
-                swig_opts.append('-D' + key)
         # do each swig module
         for ext_name in ext_names:
             cmd = ['swig'] + swig_opts
@@ -193,7 +172,7 @@ class Exiv2Error(Exception):
 #: python-exiv2 version as a string
 __version__ = "{py_exiv2_version}"
 #: python-exiv2 version as a tuple of ints
-__version_tuple__ = tuple(({', '.join(py_exiv2_version.split('.'))}))
+__version_tuple__ = tuple(({', '.join(re.split(r'[-.]', py_exiv2_version))}))
 
 __all__ = ["Exiv2Error"]
 ''')

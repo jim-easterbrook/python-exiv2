@@ -42,7 +42,7 @@ jobs:
             python3 -m unittest discover {project}/tests -v
           CIBW_BEFORE_ALL: >
             yum install -y --nogpgcheck zlib-devel expat-devel gettext-devel
-            libcurl-devel libssh-devel brotli-devel meson &&
+            libcurl-devel brotli-devel meson &&
             localedef -c -i de_DE -f UTF-8 de_DE.UTF-8 &&
             pip install ninja &&
             cd inih && mkdir build && cd build &&
@@ -62,5 +62,5 @@ jobs:
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
-          name: manylinux-wheel
+          name: linux-28-wheels
           path: wheelhouse/*.whl

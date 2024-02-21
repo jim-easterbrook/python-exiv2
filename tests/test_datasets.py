@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import io
 import os
 import sys
 import tempfile
@@ -99,7 +100,10 @@ class TestDatasetsModule(unittest.TestCase):
         self.check_result(key.tag(), int, exiv2.IptcDataSets.Caption)
         self.check_result(key.tagLabel(), str, key_name.split('.')[2])
         self.check_result(key.tagName(), str, key_name.split('.')[2])
-        
+        buf = io.StringIO()
+        buf = key.write(buf)
+        self.assertEqual(buf.getvalue(), key_name)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -4210,10 +4210,48 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
 };
 
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+static int utf8_to_wcp(std::string *str, bool to_cp) {
+#ifdef _WIN32
+    UINT cp_in = CP_UTF8;
+    UINT cp_out = GetACP();
+    if (cp_out == cp_in)
+        return 0;
+    if (!to_cp) {
+        cp_in = cp_out;
+        cp_out = CP_UTF8;
+    }
+    int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                                   NULL, 0);
+    if (!size)
+        return -1;
+    std::wstring wide_str;
+    wide_str.resize(size);
+    if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                             &wide_str[0], size))
+        return -1;
+    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                               NULL, 0, NULL, NULL);
+    if (!size)
+        return -1;
+    str->resize(size);
+    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                             &(*str)[0], size, NULL, NULL))
+        return -1;
+#endif
+    return 0;
+};
+
+
 static void _set_python_exception() {
     try {
         throw;
     }
+
+
 
 
 
@@ -4267,10 +4305,10 @@ static PyObject* list_getset(
     return result;
 };
 static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
-    unsigned int len = strlen(name);
+    size_t len = strlen(name);
     PyGetSetDef* getset = obj->ob_type->tp_getset;
     while (getset->name) {
-        unsigned int cmp_len = strlen(getset->name);
+        size_t cmp_len = strlen(getset->name);
         if (getset->name[cmp_len-1] == '_')
             cmp_len--;
         if ((cmp_len == len) && (strncmp(getset->name, name, len) == 0))
@@ -4282,14 +4320,14 @@ static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
     return NULL;
 };
 static PyObject* getset_to_item(PyObject* obj, PyGetSetDef* getset) {
-    unsigned int len = strlen(getset->name);
+    size_t len = strlen(getset->name);
     if (getset->name[len-1] == '_')
         len--;
     return Py_BuildValue("(s#N)", getset->name, len,
         getset->get(obj, getset->closure));
 };
 static PyObject* getset_to_key(PyObject* obj, PyGetSetDef* getset) {
-    unsigned int len = strlen(getset->name);
+    size_t len = strlen(getset->name);
     if (getset->name[len-1] == '_')
         len--;
     return Py_BuildValue("s#", getset->name, len);
@@ -6973,7 +7011,7 @@ static swig_const_info swig_const_table[] = {
 #ifdef __cplusplus
 }
 #endif
-static PyTypeObject *builtin_bases[2];
+static PyTypeObject *builtin_bases[3];
 
 /* -----------------------------------------------------------------------------
  * Type initialization:
@@ -7572,6 +7610,17 @@ SWIG_init(void) {
   SwigPyBuiltin_SetMetaType(builtin_pytype, metatype);
   builtin_pytype->tp_new = PyType_GenericNew;
   builtin_base_count = 0;
+  builtin_basetype = SWIG_MangledTypeQuery("_p_Exiv2__Key");
+  if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
+    builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
+  } else {
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'IptcKey' as base 'Exiv2::Key' has not been initialized.\n");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
   builtin_bases[builtin_base_count] = NULL;
   SwigPyBuiltin_InitBases(builtin_pytype, builtin_bases);
   PyDict_SetItemString(d, "this", this_descr);

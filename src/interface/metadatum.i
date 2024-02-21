@@ -42,17 +42,22 @@ EXCEPTION()
 %ignore Exiv2::Metadatum::toRational() const;
 %ignore Exiv2::Metadatum::toUint32() const;
 
-// Use default parameter in print()
+// Use default parameter in print() and write()
 %typemap(default) const Exiv2::ExifData* pMetadata {$1 = NULL;}
 %ignore Exiv2::Metadatum::print() const;
+%ignore Exiv2::Metadatum::write(std::ostream &) const;
 
 %define EXTEND_KEY(key_type)
 UNIQUE_PTR(key_type);
 %feature("python:slot", "tp_str", functype="reprfunc") key_type::key;
 %enddef // EXTEND_KEY
 
+EXTEND_KEY(Exiv2::Key);
+
 // Macro for Metadatum subclasses
 %define EXTEND_METADATUM(datum_type)
+// Ignore overloaded default parameter version
+%ignore datum_type::write(std::ostream &) const;
 // Turn off exception checking for methods that are guaranteed not to throw
 %noexception datum_type::count;
 %noexception datum_type::size;
@@ -128,11 +133,10 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     }
 }
 
-%ignore Exiv2::Key;
+%ignore Exiv2::Key::~Key;
 %ignore Exiv2::Key::operator=;
 %ignore Exiv2::Metadatum::~Metadatum;
 %ignore Exiv2::Metadatum::operator=;
-%ignore Exiv2::Metadatum::write;
 %ignore Exiv2::cmpMetadataByKey;
 %ignore Exiv2::cmpMetadataByTag;
 

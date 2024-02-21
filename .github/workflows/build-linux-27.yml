@@ -24,6 +24,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.16.5
         env:
           CIBW_ARCHS: auto64
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
           CIBW_ENVIRONMENT: EXIV2_ROOT=libexiv2/build-linux/install
           CIBW_BUILD: cp*-manylinux_x86_64
           CIBW_TEST_COMMAND: >
@@ -31,7 +32,7 @@ jobs:
             python3 -m unittest discover {project}/tests -v
           CIBW_BEFORE_ALL: >
             yum install -y zlib-devel expat-devel gettext-devel
-            libcurl-devel libssh-devel &&
+            libcurl-devel &&
             localedef -c -i de_DE -f UTF-8 de_DE.UTF-8 &&
             cd libexiv2 &&
             cmake -B build-linux -D CMAKE_BUILD_TYPE=Release
@@ -44,7 +45,7 @@ jobs:
             -D EXIV2_ENABLE_VIDEO=ON
             -D EXIV2_ENABLE_WEBREADY=ON
             -D EXIV2_ENABLE_CURL=ON
-            -D EXIV2_ENABLE_SSH=ON
+            -D EXIV2_ENABLE_SSH=OFF
             -D CMAKE_CXX_STANDARD=98 &&
             cmake --build build-linux &&
             cmake --install build-linux
@@ -52,5 +53,5 @@ jobs:
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
-          name: manylinux-wheel
+          name: linux-27-wheels
           path: wheelhouse/*.whl

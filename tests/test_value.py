@@ -18,6 +18,7 @@
 
 import datetime
 from fractions import Fraction
+import io
 import os
 import random
 import struct
@@ -46,6 +47,9 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(result, data)
         if sequence:
             self.check_result(value.count(), int, len(sequence))
+            if not isinstance(sequence, dict):
+                with self.assertRaises(IndexError):
+                    result = value[value.count()]
         else:
             self.check_result(value.count(), int, len(data))
         self.check_result(value.ok(), bool, True)
@@ -64,6 +68,9 @@ class TestValueModule(unittest.TestCase):
                 value.typeId(), exiv2.TypeId, exiv2.TypeId.undefined)
         else:
             self.check_result(value.typeId(), exiv2.TypeId, type_id)
+        buf = io.StringIO()
+        buf = value.write(buf)
+        self.assertEqual(buf.getvalue(), string)
 
     def do_conversion_tests(self, value, text, number):
         result = value.toFloat(0)
@@ -148,7 +155,7 @@ class TestValueModule(unittest.TestCase):
     def test_CommentValue(self):
         raw_text = 'The quick brown fox jumps over the lazy dog. àéīöûç'
         data = b'UNICODE\x00' + bytes(raw_text, 'utf-16-le')
-        if exiv2.testVersion(0, 27, 4):
+        if exiv2.testVersion(0, 27, 3):
             text = 'charset=Unicode ' + raw_text
         else:
             text = 'charset="Unicode" ' + raw_text

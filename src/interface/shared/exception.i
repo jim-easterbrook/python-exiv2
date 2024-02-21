@@ -16,6 +16,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 %include "shared/enum.i"
+%include "shared/windows_cp.i"
 
 %include "exception.i"
 
@@ -35,16 +36,20 @@ static PyObject* PyExc_Exiv2Error = NULL;
 }
 
 // Function that re-raises an exception to handle different types
-%fragment("_set_python_exception", "header", fragment="_import_exception",
-          fragment="py_from_enum"{Exiv2::ErrorCode}) {
+%fragment("_set_python_exception", "header",
+          fragment="_import_exception",
+          fragment="py_from_enum"{Exiv2::ErrorCode},
+          fragment="utf8_to_wcp") {
 static void _set_python_exception() {
     try {
         throw;
     }
 #if EXIV2_VERSION_HEX < 0x001c0000
     catch(Exiv2::AnyError const& e) {
+        std::string msg = e.what();
+        utf8_to_wcp(&msg, false);
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), e.what());
+            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }

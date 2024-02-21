@@ -34,7 +34,7 @@ jobs:
             python -m unittest discover {project}/tests -v
           CIBW_TEST_SKIP: cp38-*
           CIBW_BEFORE_ALL: >
-            brew install ninja libssh curl &&
+            brew install ninja curl &&
             cd libexiv2 &&
             cmake . -B build-macos -DCMAKE_BUILD_TYPE=Release
             -D CMAKE_INSTALL_PREFIX=build-macos/install
@@ -46,7 +46,7 @@ jobs:
             -D EXIV2_ENABLE_VIDEO=ON
             -D EXIV2_ENABLE_WEBREADY=ON
             -D EXIV2_ENABLE_CURL=ON
-            -D EXIV2_ENABLE_SSH=ON
+            -D EXIV2_ENABLE_SSH=OFF
             -D CMAKE_CXX_STANDARD=98
             -D CMAKE_OSX_ARCHITECTURES=arm64
             -G Ninja &&
@@ -56,5 +56,5 @@ jobs:
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
-          name: macos-wheel
+          name: macos-arm-27-wheels
           path: wheelhouse/*.whl

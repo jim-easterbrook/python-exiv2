@@ -46,5 +46,5 @@ jobs:
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
-          name: macos-wheel
+          name: macos-28-wheels
           path: wheelhouse/*.whl

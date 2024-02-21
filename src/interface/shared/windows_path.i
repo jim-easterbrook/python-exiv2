@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,76 +16,36 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-// If exiv2's wstring methods are available then use them!
-#ifdef EXV_UNICODE_PATH
-%include "std_wstring.i"
-#endif
-
-// Function to convert utf-8 string to/from current code page
-%fragment("transcode_path", "header") %{
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-static int transcode_path(std::string *path, bool to_cp) {
-#ifdef _WIN32
-    UINT cp_in = CP_UTF8;
-    UINT cp_out = GetACP();
-    if (cp_out == cp_in)
-        return 0;
-    if (!to_cp) {
-        cp_in = cp_out;
-        cp_out = CP_UTF8;
-    }
-    // Convert utf-8 path to active code page, via widechar version
-    int size = MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                                   NULL, 0);
-    if (!size)
-        return -1;
-    std::wstring wide_str;
-    wide_str.resize(size);
-    if (!MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                             &wide_str[0], size))
-        return -1;
-    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                               NULL, 0, NULL, NULL);
-    if (!size)
-        return -1;
-    path->resize(size);
-    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                             &(*path)[0], size, NULL, NULL))
-        return -1;
-#endif
-    return 0;
-};
-%}
+%include "shared/windows_cp.i"
 
 // Macro to convert Windows path inputs from utf-8 to current code page
 %define WINDOWS_PATH(signature)
-#ifndef EXV_UNICODE_PATH
-%typemap(check, fragment="transcode_path") signature {
-    if (transcode_path($1, true) < 0) {
+%typemap(check, fragment="utf8_to_wcp") signature {
+%#ifdef _WIN32
+    if (utf8_to_wcp($1, true) < 0) {
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+%#endif
 }
-#endif
 %enddef // WINDOWS_PATH
 
 // Macro to convert Windows path outputs from current code page to utf-8
 %define WINDOWS_PATH_OUT(function)
-#ifndef EXV_UNICODE_PATH
-%typemap(out, fragment="transcode_path") std::string function {
-    if (transcode_path(&$1, false) < 0) {
+%typemap(out, fragment="utf8_to_wcp") std::string function {
+%#ifdef _WIN32
+    if (utf8_to_wcp(&$1, false) < 0) {
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
-    $result = SWIG_From_std_string($1);
+%#endif
+    $result = SWIG_FromCharPtrAndSize($1.data(), $1.size());
 }
-%typemap(out, fragment="transcode_path") const std::string& function {
+%typemap(out, fragment="utf8_to_wcp") const std::string& function {
     std::string copy = *$1;
-    if (transcode_path(&copy, false) < 0) {
+%#ifdef _WIN32
+    if (utf8_to_wcp(&copy, false) < 0) {
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
-    $result = SWIG_From_std_string(copy);
+%#endif
+    $result = SWIG_FromCharPtrAndSize(copy.data(), copy.size());
 }
-#endif
 %enddef // WINDOWS_PATH_OUT

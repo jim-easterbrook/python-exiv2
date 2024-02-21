@@ -46,7 +46,8 @@ jobs:
             EXIV2_ROOT=libexiv2/build-msvc/install
             PATH="$PATH;$(pwd)\\gettext\\bin"
           CIBW_TEST_COMMAND: >
-            python -m exiv2 -v
+            python -m exiv2 -v &&
+            python -m unittest discover {project}/tests -v
           CIBW_BEFORE_ALL: >
             pip install conan==1.59.0 &&
             cd libexiv2 &&
@@ -55,7 +56,7 @@ jobs:
             cmake -B build-msvc
             -D CMAKE_BUILD_TYPE=Release
             -D CMAKE_INSTALL_PREFIX=build-msvc/install
-            -D EXIV2_ENABLE_WIN_UNICODE=ON
+            -D EXIV2_ENABLE_WIN_UNICODE=OFF
             -D EXIV2_BUILD_SAMPLES=OFF
             -D EXIV2_BUILD_EXIV2_COMMAND=OFF
             -D EXIV2_ENABLE_BMFF=ON
@@ -70,5 +71,5 @@ jobs:
       - name: Store results
         uses: actions/upload-artifact@v3
         with:
-          name: windows-wheel
+          name: windows-27-wheels
           path: wheelhouse/*.whl

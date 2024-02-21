@@ -18,12 +18,21 @@
 
 import enum
 import logging
+import os
 import unittest
 
 import exiv2
 
 
 class TestErrorModule(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # clear locale
+        name = 'en_US.UTF-8'
+        os.environ['LC_ALL'] = name
+        os.environ['LANG'] = name
+        os.environ['LANGUAGE'] = name
+
     def check_result(self, result, expected_type, expected_value):
         self.assertIsInstance(result, expected_type)
         self.assertEqual(result, expected_value)

@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import io
 import os
 import sys
 import unittest
@@ -26,7 +27,6 @@ import exiv2
 class TestIptcModule(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        exiv2.XmpParser.initialize()
         test_dir = os.path.dirname(__file__)
         # open image in memory so we don't corrupt the file
         with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
@@ -156,6 +156,9 @@ class TestIptcModule(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             self.assertIsInstance(
                 datum.value(exiv2.TypeId.string), exiv2.StringValue)
+        buf = io.StringIO()
+        buf = datum.write(buf)
+        self.assertEqual(buf.getvalue(), 'Good view of the lighthouse.')
         datum.setValue('fred')
         datum.setValue(exiv2.StringValue('Acme'))
         with self.assertRaises(TypeError):

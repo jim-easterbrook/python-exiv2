@@ -87,6 +87,51 @@ WINDOWS_PATH(const std::string& path)
 %typemap(default) bool enable {$1 = true;}
 %ignore Exiv2::enableBMFF();
 
+// Extend ImageFactory to allow creation of a MemIo from a buffer
+%feature("docstring") Exiv2::ImageFactory::createIo "
+*Overload 1:*
+
+Create the appropriate class type implemented BasicIo based on the
+protocol of the input.
+
+\"-\" path implies the data from stdin and it is handled by StdinIo.
+Http path can be handled by either HttpIo or CurlIo. Https, ftp paths
+are handled by CurlIo. Ssh, sftp paths are handled by SshIo. Others are
+handled by FileIo.
+
+:type path: str
+:param path: %Image file.
+:type useCurl: bool, optional
+:param useCurl: Indicate whether the libcurl is used or not.
+          If it's true, http is handled by CurlIo. Otherwise it is
+          handled by HttpIo.
+:rtype: :py:class:`BasicIo`
+:return: An auto-pointer that owns a BasicIo instance.
+:raises: Error If the file is not found or it is unable to connect to
+          the server to read the remote file.
+
+|
+
+*Overload 2:*
+
+Create a MemIo subclass of BasicIo using the provided memory.
+
+:type data: :py:term:`bytes-like object`
+:param data: A data buffer.
+:rtype: :py:class:`BasicIo`
+:return: A BasicIo object.
+"
+%extend Exiv2::ImageFactory {
+    static Exiv2::BasicIo::SMART_PTR createIo(
+        const Exiv2::byte* data, size_t B) {
+#if EXIV2_VERSION_HEX < 0x001c0000
+        return Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(data, B));
+#else
+        return std::make_unique<Exiv2::MemIo>(data, B);
+#endif
+    }
+}
+
 // Make enableBMFF() function available regardless of exiv2 version
 %feature("docstring") enableBMFF "Enable BMFF support.
 

@@ -3937,51 +3937,53 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__ExifThumbC swig_types[10]
 #define SWIGTYPE_p_Exiv2__Exifdatum swig_types[11]
 #define SWIGTYPE_p_Exiv2__GroupInfo swig_types[12]
-#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[13]
-#define SWIGTYPE_p_Exiv2__Metadatum swig_types[14]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[15]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[16]
-#define SWIGTYPE_p_Exiv2__TagInfo swig_types[17]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[18]
-#define SWIGTYPE_p_Exiv2__Value swig_types[19]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[20]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[21]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[22]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[23]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[24]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[25]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[26]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[27]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[28]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[29]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[30]
-#define SWIGTYPE_p_SwigPyObject swig_types[31]
-#define SWIGTYPE_p_ValueType swig_types[32]
-#define SWIGTYPE_p_allocator_type swig_types[33]
-#define SWIGTYPE_p_char swig_types[34]
-#define SWIGTYPE_p_const_iterator swig_types[35]
-#define SWIGTYPE_p_difference_type swig_types[36]
-#define SWIGTYPE_p_first_type swig_types[37]
-#define SWIGTYPE_p_int swig_types[38]
-#define SWIGTYPE_p_iterator swig_types[39]
-#define SWIGTYPE_p_key_type swig_types[40]
-#define SWIGTYPE_p_long_long swig_types[41]
-#define SWIGTYPE_p_mapped_type swig_types[42]
-#define SWIGTYPE_p_second_type swig_types[43]
-#define SWIGTYPE_p_short swig_types[44]
-#define SWIGTYPE_p_signed_char swig_types[45]
-#define SWIGTYPE_p_size_type swig_types[46]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[47]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t__iterator swig_types[48]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[49]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[50]
-#define SWIGTYPE_p_unsigned_char swig_types[51]
-#define SWIGTYPE_p_unsigned_int swig_types[52]
-#define SWIGTYPE_p_unsigned_long_long swig_types[53]
-#define SWIGTYPE_p_unsigned_short swig_types[54]
-#define SWIGTYPE_p_value_type swig_types[55]
-static swig_type_info *swig_types[57];
-static swig_module_info swig_module = {swig_types, 56, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__Key swig_types[13]
+#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[14]
+#define SWIGTYPE_p_Exiv2__Metadatum swig_types[15]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[16]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[17]
+#define SWIGTYPE_p_Exiv2__TagInfo swig_types[18]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[19]
+#define SWIGTYPE_p_Exiv2__Value swig_types[20]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[21]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[22]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[23]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[24]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[25]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[26]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[27]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[28]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[29]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[30]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[31]
+#define SWIGTYPE_p_SwigPyObject swig_types[32]
+#define SWIGTYPE_p_ValueType swig_types[33]
+#define SWIGTYPE_p_allocator_type swig_types[34]
+#define SWIGTYPE_p_char swig_types[35]
+#define SWIGTYPE_p_const_iterator swig_types[36]
+#define SWIGTYPE_p_difference_type swig_types[37]
+#define SWIGTYPE_p_first_type swig_types[38]
+#define SWIGTYPE_p_int swig_types[39]
+#define SWIGTYPE_p_iterator swig_types[40]
+#define SWIGTYPE_p_key_type swig_types[41]
+#define SWIGTYPE_p_long_long swig_types[42]
+#define SWIGTYPE_p_mapped_type swig_types[43]
+#define SWIGTYPE_p_second_type swig_types[44]
+#define SWIGTYPE_p_short swig_types[45]
+#define SWIGTYPE_p_signed_char swig_types[46]
+#define SWIGTYPE_p_size_type swig_types[47]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[48]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t__iterator swig_types[49]
+#define SWIGTYPE_p_std__ostream swig_types[50]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[51]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[52]
+#define SWIGTYPE_p_unsigned_char swig_types[53]
+#define SWIGTYPE_p_unsigned_int swig_types[54]
+#define SWIGTYPE_p_unsigned_long_long swig_types[55]
+#define SWIGTYPE_p_unsigned_short swig_types[56]
+#define SWIGTYPE_p_value_type swig_types[57]
+static swig_type_info *swig_types[59];
+static swig_module_info swig_module = {swig_types, 58, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4224,14 +4226,52 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
 };
 
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+static int utf8_to_wcp(std::string *str, bool to_cp) {
+#ifdef _WIN32
+    UINT cp_in = CP_UTF8;
+    UINT cp_out = GetACP();
+    if (cp_out == cp_in)
+        return 0;
+    if (!to_cp) {
+        cp_in = cp_out;
+        cp_out = CP_UTF8;
+    }
+    int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                                   NULL, 0);
+    if (!size)
+        return -1;
+    std::wstring wide_str;
+    wide_str.resize(size);
+    if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
+                             &wide_str[0], size))
+        return -1;
+    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                               NULL, 0, NULL, NULL);
+    if (!size)
+        return -1;
+    str->resize(size);
+    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
+                             &(*str)[0], size, NULL, NULL))
+        return -1;
+#endif
+    return 0;
+};
+
+
 static void _set_python_exception() {
     try {
         throw;
     }
 
     catch(Exiv2::AnyError const& e) {
+        std::string msg = e.what();
+        utf8_to_wcp(&msg, false);
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), e.what());
+            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
@@ -5252,43 +5292,6 @@ SWIGINTERN std::string Exiv2_Exifdatum__print(Exiv2::Exifdatum const *self,Exiv2
         return self->print(pMetadata);
     }
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-static int transcode_path(std::string *path, bool to_cp) {
-#ifdef _WIN32
-    UINT cp_in = CP_UTF8;
-    UINT cp_out = GetACP();
-    if (cp_out == cp_in)
-        return 0;
-    if (!to_cp) {
-        cp_in = cp_out;
-        cp_out = CP_UTF8;
-    }
-    // Convert utf-8 path to active code page, via widechar version
-    int size = MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                                   NULL, 0);
-    if (!size)
-        return -1;
-    std::wstring wide_str;
-    wide_str.resize(size);
-    if (!MultiByteToWideChar(cp_in, 0, &(*path)[0], (int)path->size(),
-                             &wide_str[0], size))
-        return -1;
-    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                               NULL, 0, NULL, NULL);
-    if (!size)
-        return -1;
-    path->resize(size);
-    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                             &(*path)[0], size, NULL, NULL))
-        return -1;
-#endif
-    return 0;
-};
-
-
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
 {
@@ -6222,6 +6225,65 @@ fail:
     PyBuffer_Release(&_global_view);
   }
   
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifData_iterator_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
+  std::ostream *arg2 = 0 ;
+  Exiv2::ExifData *arg3 = (Exiv2::ExifData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  std::ostream *result = 0 ;
+  
+  {
+    arg3 = NULL;
+  }
+  if (!PyArg_UnpackTuple(args, "ExifData_iterator_write", 1, 2, &obj1, &obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_write" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  if (obj2) {
+    res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExifData_iterator_write" "', argument " "3"" of type '" "Exiv2::ExifData const *""'"); 
+    }
+    arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
+  }
+  {
+    try {
+      result = (std::ostream *) &(*arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -7612,6 +7674,65 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Exifdatum_write(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
+  std::ostream *arg2 = 0 ;
+  Exiv2::ExifData *arg3 = (Exiv2::ExifData *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *_global_io ;
+  std::ostringstream temp2 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  std::ostream *result = 0 ;
+  
+  {
+    arg3 = NULL;
+  }
+  if (!PyArg_UnpackTuple(args, "Exifdatum_write", 1, 2, &obj1, &obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_write" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
+  {
+    arg2 = &temp2;
+    _global_io = obj1;
+  }
+  if (obj2) {
+    res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Exifdatum_write" "', argument " "3"" of type '" "Exiv2::ExifData const *""'"); 
+    }
+    arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
+  }
+  {
+    try {
+      result = (std::ostream *) &((Exiv2::Exifdatum const *)arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    PyObject* OK = PyObject_CallMethod(_global_io, "write", "(s)",
+      static_cast< std::ostringstream* >(result)->str().c_str());
+    if (!OK)
+    SWIG_fail;
+    Py_DECREF(OK);
+    Py_INCREF(_global_io);
+    resultobj = _global_io;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Exifdatum_typeId(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
@@ -8512,9 +8633,11 @@ SWIGINTERN PyObject *_wrap_ExifThumbC_writeFile(PyObject *self, PyObject *args) 
     arg2 = ptr;
   }
   {
-    if (transcode_path(arg2, true) < 0) {
+#ifdef _WIN32
+    if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -8720,9 +8843,11 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_0(PyObject *self, Py
   } 
   arg5 = static_cast< uint16_t >(val5);
   {
-    if (transcode_path(arg2, true) < 0) {
+#ifdef _WIN32
+    if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -8849,9 +8974,11 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_2(PyObject *self, Py
     arg2 = ptr;
   }
   {
-    if (transcode_path(arg2, true) < 0) {
+#ifdef _WIN32
+    if (utf8_to_wcp(arg2, true) < 0) {
       SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
+#endif
   }
   {
     try {
@@ -10316,6 +10443,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__ExifData_iterator_methods[] = {
 		":rtype: int\n"
 		":return: Number of characters written.\n"
 		"" },
+  { "write", _wrap_ExifData_iterator_write, METH_VARARGS, "" },
   { "typeId", _wrap_ExifData_iterator_typeId, METH_VARARGS, " Return the type id of the value" },
   { "typeName", _wrap_ExifData_iterator_typeName, METH_VARARGS, " Return the name of the type" },
   { "typeSize", _wrap_ExifData_iterator_typeSize, METH_VARARGS, " Return the size in bytes of one component of this type" },
@@ -10649,6 +10777,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Exifdatum_methods[] = {
 		":rtype: int\n"
 		":return: Number of characters written.\n"
 		"" },
+  { "write", _wrap_Exifdatum_write, METH_VARARGS, "" },
   { "typeId", _wrap_Exifdatum_typeId, METH_VARARGS, " Return the type id of the value" },
   { "typeName", _wrap_Exifdatum_typeName, METH_VARARGS, " Return the name of the type" },
   { "typeSize", _wrap_Exifdatum_typeSize, METH_VARARGS, " Return the size in bytes of one component of this type" },
@@ -11814,6 +11943,9 @@ static void *_p_ExifData_iteratorTo_p_ExifData_iterator_base(void *x, int *SWIGU
 static void *_p_Exiv2__ExifThumbTo_p_Exiv2__ExifThumbC(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::ExifThumbC *)  ((Exiv2::ExifThumb *) x));
 }
+static void *_p_Exiv2__ExifKeyTo_p_Exiv2__Key(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::Key *)  ((Exiv2::ExifKey *) x));
+}
 static void *_p_Exiv2__ExifdatumTo_p_Exiv2__Metadatum(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::Metadatum *)  ((Exiv2::Exifdatum *) x));
 }
@@ -11905,6 +12037,7 @@ static swig_type_info _swigt__p_Exiv2__ExifThumb = {"_p_Exiv2__ExifThumb", "Exiv
 static swig_type_info _swigt__p_Exiv2__ExifThumbC = {"_p_Exiv2__ExifThumbC", "Exiv2::ExifThumbC *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__ExifThumbC_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__Exifdatum = {"_p_Exiv2__Exifdatum", "Exiv2::Exifdatum *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__Exifdatum_clientdata, 0};
 static swig_type_info _swigt__p_Exiv2__GroupInfo = {"_p_Exiv2__GroupInfo", "Exiv2::GroupInfo *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exiv2__Key = {"_p_Exiv2__Key", "Exiv2::Key *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__LangAltValue = {"_p_Exiv2__LangAltValue", "Exiv2::LangAltValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Metadatum = {"_p_Exiv2__Metadatum", "Exiv2::Metadatum *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__StringValue = {"_p_Exiv2__StringValue", "Exiv2::StringValue *", 0, 0, (void*)0, 0};
@@ -11941,6 +12074,7 @@ static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "int8_t *|int_f
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__listT_Exiv2__Exifdatum_t = {"_p_std__listT_Exiv2__Exifdatum_t", "Exiv2::ExifMetadata *|std::list< Exiv2::Exifdatum > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__listT_Exiv2__Exifdatum_t__iterator = {"_p_std__listT_Exiv2__Exifdatum_t__iterator", "Exiv2::ExifData::iterator *|std::list< Exiv2::Exifdatum >::iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_int32_t_int32_t_t = {"_p_std__pairT_int32_t_int32_t_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_uint32_t_uint32_t_t = {"_p_std__pairT_uint32_t_uint32_t_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "Exiv2::byte *|uint8_t *|uint_fast8_t *|uint_least8_t *|unsigned char *", 0, 0, (void*)0, 0};
@@ -11963,6 +12097,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__ExifThumbC,
   &_swigt__p_Exiv2__Exifdatum,
   &_swigt__p_Exiv2__GroupInfo,
+  &_swigt__p_Exiv2__Key,
   &_swigt__p_Exiv2__LangAltValue,
   &_swigt__p_Exiv2__Metadatum,
   &_swigt__p_Exiv2__StringValue,
@@ -11999,6 +12134,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_size_type,
   &_swigt__p_std__listT_Exiv2__Exifdatum_t,
   &_swigt__p_std__listT_Exiv2__Exifdatum_t__iterator,
+  &_swigt__p_std__ostream,
   &_swigt__p_std__pairT_int32_t_int32_t_t,
   &_swigt__p_std__pairT_uint32_t_uint32_t_t,
   &_swigt__p_unsigned_char,
@@ -12021,6 +12157,7 @@ static swig_cast_info _swigc__p_Exiv2__ExifThumb[] = {  {&_swigt__p_Exiv2__ExifT
 static swig_cast_info _swigc__p_Exiv2__ExifThumbC[] = {  {&_swigt__p_Exiv2__ExifThumbC, 0, 0, 0},  {&_swigt__p_Exiv2__ExifThumb, _p_Exiv2__ExifThumbTo_p_Exiv2__ExifThumbC, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Exifdatum[] = {  {&_swigt__p_Exiv2__Exifdatum, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__GroupInfo[] = {  {&_swigt__p_Exiv2__GroupInfo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__Key[] = {  {&_swigt__p_Exiv2__Key, 0, 0, 0},  {&_swigt__p_Exiv2__ExifKey, _p_Exiv2__ExifKeyTo_p_Exiv2__Key, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__LangAltValue[] = {  {&_swigt__p_Exiv2__LangAltValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Metadatum[] = {  {&_swigt__p_Exiv2__Metadatum, 0, 0, 0},  {&_swigt__p_Exiv2__Exifdatum, _p_Exiv2__ExifdatumTo_p_Exiv2__Metadatum, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__StringValue[] = {  {&_swigt__p_Exiv2__StringValue, 0, 0, 0},{0, 0, 0, 0}};
@@ -12057,6 +12194,7 @@ static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__listT_Exiv2__Exifdatum_t[] = {  {&_swigt__p_std__listT_Exiv2__Exifdatum_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__listT_Exiv2__Exifdatum_t__iterator[] = {  {&_swigt__p_std__listT_Exiv2__Exifdatum_t__iterator, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_int32_t_int32_t_t[] = {  {&_swigt__p_std__pairT_int32_t_int32_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_uint32_t_uint32_t_t[] = {  {&_swigt__p_std__pairT_uint32_t_uint32_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -12079,6 +12217,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__ExifThumbC,
   _swigc__p_Exiv2__Exifdatum,
   _swigc__p_Exiv2__GroupInfo,
+  _swigc__p_Exiv2__Key,
   _swigc__p_Exiv2__LangAltValue,
   _swigc__p_Exiv2__Metadatum,
   _swigc__p_Exiv2__StringValue,
@@ -12115,6 +12254,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_size_type,
   _swigc__p_std__listT_Exiv2__Exifdatum_t,
   _swigc__p_std__listT_Exiv2__Exifdatum_t__iterator,
+  _swigc__p_std__ostream,
   _swigc__p_std__pairT_int32_t_int32_t_t,
   _swigc__p_std__pairT_uint32_t_uint32_t_t,
   _swigc__p_unsigned_char,
