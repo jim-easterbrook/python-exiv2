@@ -138,7 +138,7 @@ def main():
             # Functions with just one parameter and a default value don't
             # work with fastunpack.
             # See https://github.com/swig/swig/issues/2786
-            if swig_version < (4, 2, 1) and ext_name in (
+            if swig_version < (4, 2, 2) and ext_name in (
                     'basicio', 'exif', 'iptc', 'metadatum', 'value', 'xmp'):
                 cmd.append('-nofastunpack')
             cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
