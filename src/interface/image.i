@@ -28,6 +28,7 @@
 %include "shared/buffers.i"
 %include "shared/enum.i"
 %include "shared/exception.i"
+%include "shared/exv_options.i"
 %include "shared/keep_reference.i"
 %include "shared/windows_path.i"
 
@@ -44,6 +45,8 @@ IMPORT_ENUM(MetadataId)
 
 // Catch all C++ exceptions
 EXCEPTION()
+
+%fragment("EXV_USE_CURL");
 
 UNIQUE_PTR(Exiv2::Image);
 

@@ -4327,6 +4327,13 @@ fail:
 };
 
 
+#ifndef EXV_USE_CURL
+namespace Exiv2 {
+    class CurlIo : public RemoteIo {};
+}
+#endif // EXV_USE_CURL
+
+
 static bool enableBMFF(bool enable) {
 #ifdef EXV_ENABLE_BMFF
     return Exiv2::enableBMFF(enable);

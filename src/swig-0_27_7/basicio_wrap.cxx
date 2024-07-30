@@ -4275,6 +4275,13 @@ fail:
 };
 
 
+#ifndef EXV_USE_CURL
+namespace Exiv2 {
+    class CurlIo : public RemoteIo {};
+}
+#endif // EXV_USE_CURL
+
+
 typedef Exiv2::ErrorCode ErrorCode;
 
 

@@ -4482,6 +4482,13 @@ fail:
 };
 
 
+#ifndef EXV_USE_CURL
+namespace Exiv2 {
+    class CurlIo : public RemoteIo {};
+}
+#endif // EXV_USE_CURL
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {
