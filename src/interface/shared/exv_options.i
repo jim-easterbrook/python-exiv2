@@ -24,3 +24,12 @@ namespace Exiv2 {
 }
 #endif // EXV_USE_CURL
 %}
+
+// Fragment to define Exiv2::SshIo if EXV_USE_SSH is OFF
+%fragment("EXV_USE_SSH", "header") %{
+#ifndef EXV_USE_SSH
+namespace Exiv2 {
+    class SshIo : public RemoteIo {};
+}
+#endif // EXV_USE_SSH
+%}

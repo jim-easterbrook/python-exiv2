@@ -4282,6 +4282,13 @@ namespace Exiv2 {
 #endif // EXV_USE_CURL
 
 
+#ifndef EXV_USE_SSH
+namespace Exiv2 {
+    class SshIo : public RemoteIo {};
+}
+#endif // EXV_USE_SSH
+
+
 typedef Exiv2::ErrorCode ErrorCode;
 
 

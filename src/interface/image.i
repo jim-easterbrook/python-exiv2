@@ -47,6 +47,7 @@ IMPORT_ENUM(MetadataId)
 EXCEPTION()
 
 %fragment("EXV_USE_CURL");
+%fragment("EXV_USE_SSH");
 
 UNIQUE_PTR(Exiv2::Image);
 

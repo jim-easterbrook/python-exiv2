@@ -43,6 +43,7 @@ For Exif thumbnail images see the :py:class:`ExifThumb` class.";
 EXCEPTION()
 
 %fragment("EXV_USE_CURL");
+%fragment("EXV_USE_SSH");
 
 // Some calls don't raise exceptions
 %noexception Exiv2::PreviewImage::__len__;

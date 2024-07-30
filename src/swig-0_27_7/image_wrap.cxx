@@ -4333,6 +4333,13 @@ namespace Exiv2 {
 #endif // EXV_USE_CURL
 
 
+#ifndef EXV_USE_SSH
+namespace Exiv2 {
+    class SshIo : public RemoteIo {};
+}
+#endif // EXV_USE_SSH
+
+
 static bool enableBMFF(bool enable) {
 #ifdef EXV_ENABLE_BMFF
     return Exiv2::enableBMFF(enable);
