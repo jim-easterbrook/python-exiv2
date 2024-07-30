@@ -3934,28 +3934,30 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_Exiv2__BasicIo swig_types[0]
-#define SWIGTYPE_p_Exiv2__DataBuf swig_types[1]
-#define SWIGTYPE_p_Exiv2__FileIo swig_types[2]
-#define SWIGTYPE_p_Exiv2__HttpIo swig_types[3]
-#define SWIGTYPE_p_Exiv2__MemIo swig_types[4]
-#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[5]
-#define SWIGTYPE_p_Exiv2__XPathIo swig_types[6]
-#define SWIGTYPE_p_SwigPyObject swig_types[7]
-#define SWIGTYPE_p_char swig_types[8]
-#define SWIGTYPE_p_first_type swig_types[9]
-#define SWIGTYPE_p_int swig_types[10]
-#define SWIGTYPE_p_long_long swig_types[11]
-#define SWIGTYPE_p_second_type swig_types[12]
-#define SWIGTYPE_p_short swig_types[13]
-#define SWIGTYPE_p_signed_char swig_types[14]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[15]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[16]
-#define SWIGTYPE_p_unsigned_char swig_types[17]
-#define SWIGTYPE_p_unsigned_int swig_types[18]
-#define SWIGTYPE_p_unsigned_long_long swig_types[19]
-#define SWIGTYPE_p_unsigned_short swig_types[20]
-static swig_type_info *swig_types[22];
-static swig_module_info swig_module = {swig_types, 21, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__CurlIo swig_types[1]
+#define SWIGTYPE_p_Exiv2__DataBuf swig_types[2]
+#define SWIGTYPE_p_Exiv2__FileIo swig_types[3]
+#define SWIGTYPE_p_Exiv2__HttpIo swig_types[4]
+#define SWIGTYPE_p_Exiv2__MemIo swig_types[5]
+#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[6]
+#define SWIGTYPE_p_Exiv2__SshIo swig_types[7]
+#define SWIGTYPE_p_Exiv2__XPathIo swig_types[8]
+#define SWIGTYPE_p_SwigPyObject swig_types[9]
+#define SWIGTYPE_p_char swig_types[10]
+#define SWIGTYPE_p_first_type swig_types[11]
+#define SWIGTYPE_p_int swig_types[12]
+#define SWIGTYPE_p_long_long swig_types[13]
+#define SWIGTYPE_p_second_type swig_types[14]
+#define SWIGTYPE_p_short swig_types[15]
+#define SWIGTYPE_p_signed_char swig_types[16]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[17]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[18]
+#define SWIGTYPE_p_unsigned_char swig_types[19]
+#define SWIGTYPE_p_unsigned_int swig_types[20]
+#define SWIGTYPE_p_unsigned_long_long swig_types[21]
+#define SWIGTYPE_p_unsigned_short swig_types[22]
+static swig_type_info *swig_types[24];
+static swig_module_info swig_module = {swig_types, 23, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5969,6 +5971,9 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__BasicIo_clientdata = {0, 0, 0,
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
+static void *_p_Exiv2__CurlIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::BasicIo *) (Exiv2::RemoteIo *) ((Exiv2::CurlIo *) x));
+}
 static void *_p_Exiv2__FileIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::BasicIo *)  ((Exiv2::FileIo *) x));
 }
@@ -5981,18 +5986,29 @@ static void *_p_Exiv2__MemIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(new
 static void *_p_Exiv2__RemoteIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::BasicIo *)  ((Exiv2::RemoteIo *) x));
 }
+static void *_p_Exiv2__SshIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::BasicIo *) (Exiv2::RemoteIo *) ((Exiv2::SshIo *) x));
+}
 static void *_p_Exiv2__XPathIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::BasicIo *) (Exiv2::FileIo *) ((Exiv2::XPathIo *) x));
 }
 static void *_p_Exiv2__XPathIoTo_p_Exiv2__FileIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::FileIo *)  ((Exiv2::XPathIo *) x));
 }
+static void *_p_Exiv2__CurlIoTo_p_Exiv2__RemoteIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::RemoteIo *)  ((Exiv2::CurlIo *) x));
+}
 static void *_p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::RemoteIo *)  ((Exiv2::HttpIo *) x));
 }
+static void *_p_Exiv2__SshIoTo_p_Exiv2__RemoteIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Exiv2::RemoteIo *)  ((Exiv2::SshIo *) x));
+}
 static swig_type_info _swigt__p_Exiv2__BasicIo = {"_p_Exiv2__BasicIo", "Exiv2::BasicIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__BasicIo_clientdata, 0};
+static swig_type_info _swigt__p_Exiv2__CurlIo = {"_p_Exiv2__CurlIo", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_Exiv2__HttpIo = {"_p_Exiv2__HttpIo", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_Exiv2__MemIo = {"_p_Exiv2__MemIo", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_Exiv2__SshIo = {"_p_Exiv2__SshIo", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_Exiv2__XPathIo = {"_p_Exiv2__XPathIo", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_Exiv2__DataBuf = {"_p_Exiv2__DataBuf", "Exiv2::DataBuf *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__FileIo = {"_p_Exiv2__FileIo", "Exiv2::FileIo *", 0, 0, (void*)0, 0};
@@ -6014,11 +6030,13 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "uint16_t
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__BasicIo,
+  &_swigt__p_Exiv2__CurlIo,
   &_swigt__p_Exiv2__DataBuf,
   &_swigt__p_Exiv2__FileIo,
   &_swigt__p_Exiv2__HttpIo,
   &_swigt__p_Exiv2__MemIo,
   &_swigt__p_Exiv2__RemoteIo,
+  &_swigt__p_Exiv2__SshIo,
   &_swigt__p_Exiv2__XPathIo,
   &_swigt__p_SwigPyObject,
   &_swigt__p_char,
@@ -6036,13 +6054,15 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_unsigned_short,
 };
 
+static swig_cast_info _swigc__p_Exiv2__CurlIo[] = {{&_swigt__p_Exiv2__CurlIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__HttpIo[] = {{&_swigt__p_Exiv2__HttpIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__MemIo[] = {{&_swigt__p_Exiv2__MemIo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__SshIo[] = {{&_swigt__p_Exiv2__SshIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XPathIo[] = {{&_swigt__p_Exiv2__XPathIo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__BasicIo[] = {  {&_swigt__p_Exiv2__BasicIo, 0, 0, 0},  {&_swigt__p_Exiv2__FileIo, _p_Exiv2__FileIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__MemIo, _p_Exiv2__MemIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__RemoteIo, _p_Exiv2__RemoteIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__BasicIo, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__BasicIo[] = {  {&_swigt__p_Exiv2__BasicIo, 0, 0, 0},  {&_swigt__p_Exiv2__CurlIo, _p_Exiv2__CurlIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__FileIo, _p_Exiv2__FileIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__MemIo, _p_Exiv2__MemIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__RemoteIo, _p_Exiv2__RemoteIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__SshIo, _p_Exiv2__SshIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__BasicIo, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__DataBuf[] = {  {&_swigt__p_Exiv2__DataBuf, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__FileIo[] = {  {&_swigt__p_Exiv2__FileIo, 0, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__FileIo, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__RemoteIo[] = {  {&_swigt__p_Exiv2__RemoteIo, 0, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exiv2__RemoteIo[] = {  {&_swigt__p_Exiv2__RemoteIo, 0, 0, 0},  {&_swigt__p_Exiv2__CurlIo, _p_Exiv2__CurlIoTo_p_Exiv2__RemoteIo, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo, 0, 0},  {&_swigt__p_Exiv2__SshIo, _p_Exiv2__SshIoTo_p_Exiv2__RemoteIo, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -6060,11 +6080,13 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__BasicIo,
+  _swigc__p_Exiv2__CurlIo,
   _swigc__p_Exiv2__DataBuf,
   _swigc__p_Exiv2__FileIo,
   _swigc__p_Exiv2__HttpIo,
   _swigc__p_Exiv2__MemIo,
   _swigc__p_Exiv2__RemoteIo,
+  _swigc__p_Exiv2__SshIo,
   _swigc__p_Exiv2__XPathIo,
   _swigc__p_SwigPyObject,
   _swigc__p_char,

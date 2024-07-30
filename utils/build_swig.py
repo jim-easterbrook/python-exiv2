@@ -71,6 +71,15 @@ def main():
         return 3
     # get exiv2 version
     exiv2_version = get_version(incl_dir)
+    # get exiv2 build options
+    options = {}
+    with open(os.path.join(incl_dir, 'exv_conf.h')) as cnf:
+        for line in cnf.readlines():
+            words = line.split()
+            if len(words) < 2:
+                continue
+            if words[0] == '#define' and words[1].startswith('EXV_'):
+                options[words[1]] = ' '.join(words[2:]) or None
     # get python-exiv2 version
     with open('README.rst') as rst:
         py_exiv2_version = rst.readline().split()[-1]
@@ -130,8 +139,13 @@ def main():
         # make options list
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
-                     '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
-                     '-I' + copy_dir, '-outdir', output_dir]
+                     '-DEXIV2_VERSION_HEX=' + exiv2_version_hex]
+        for k, v in options.items():
+            if v is None:
+                swig_opts.append('-D{}'.format(k))
+            else:
+                swig_opts.append('-D{}={}'.format(k, v))
+        swig_opts += ['-I' + copy_dir, '-outdir', output_dir]
         # do each swig module
         for ext_name in ext_names:
             cmd = ['swig'] + swig_opts
