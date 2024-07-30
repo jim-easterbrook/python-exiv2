@@ -372,8 +372,8 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(str(value), py_date.isoformat())
         value.setDate(py_date.year, py_date.month, py_date.day)
         self.assertEqual(str(value), py_date.isoformat())
-        seconds = int(
-            datetime.datetime.combine(py_date, datetime.time()).timestamp())
+        seconds = int(datetime.datetime.combine(
+            py_date, datetime.time(), datetime.timezone.utc).timestamp())
         self.do_common_tests(value, exiv2.TypeId.date, py_date.isoformat(), data)
         self.do_conversion_tests(value, py_date.isoformat(), seconds)
         self.do_dataarea_tests(value)
