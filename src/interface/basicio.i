@@ -43,6 +43,7 @@ EXCEPTION()
 
 %fragment("EXV_USE_CURL");
 %fragment("EXV_USE_SSH");
+%fragment("EXV_ENABLE_FILESYSTEM");
 
 UNIQUE_PTR(Exiv2::BasicIo);
 

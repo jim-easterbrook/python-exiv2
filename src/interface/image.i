@@ -48,6 +48,9 @@ EXCEPTION()
 
 %fragment("EXV_USE_CURL");
 %fragment("EXV_USE_SSH");
+%fragment("EXV_ENABLE_FILESYSTEM");
+EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::ImageFactory::create(
+    ImageType, const std::string&))
 
 UNIQUE_PTR(Exiv2::Image);
 

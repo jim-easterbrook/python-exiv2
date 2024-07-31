@@ -4265,6 +4265,15 @@ fail:
 };
 
 
+#if !EXIV2_TEST_VERSION(0, 28, 3)
+#define EXV_ENABLE_FILESYSTEM
+#endif
+// Copy EXV_ENABLE_FILESYSTEM for use in macro
+#ifdef EXV_ENABLE_FILESYSTEM
+#define _EXV_ENABLE_FILESYSTEM
+#endif
+
+
 static PyObject* versionInfo() {
     bool nls = false;
     bool bmff = false;

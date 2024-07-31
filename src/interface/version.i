@@ -23,6 +23,7 @@
 
 %include "shared/preamble.i"
 %include "shared/exception.i"
+%include "shared/exv_options.i"
 
 %include "stdint.i"
 %include "std_string.i"
@@ -39,6 +40,7 @@ EXCEPTION()
 
 // Function to report build options used
 %feature("docstring") versionInfo "Return a dict of libexiv2 build options."
+%fragment("set_EXV_ENABLE_FILESYSTEM");
 %inline %{
 static PyObject* versionInfo() {
     bool nls = false;

@@ -33,3 +33,44 @@ namespace Exiv2 {
 }
 #endif // EXV_USE_SSH
 %}
+
+// Fragment to set EXV_ENABLE_FILESYSTEM on old libexiv2 versions
+%fragment("set_EXV_ENABLE_FILESYSTEM", "header") %{
+#if !EXIV2_TEST_VERSION(0, 28, 3)
+#define EXV_ENABLE_FILESYSTEM
+#endif
+// Copy EXV_ENABLE_FILESYSTEM for use in macro
+#ifdef EXV_ENABLE_FILESYSTEM
+#define _EXV_ENABLE_FILESYSTEM
+#endif
+%}
+
+// Fragment to define FileIo and XPathIo if EXV_ENABLE_FILESYSTEM is OFF
+%fragment("EXV_ENABLE_FILESYSTEM", "header",
+          fragment="set_EXV_ENABLE_FILESYSTEM") %{
+#ifndef EXV_ENABLE_FILESYSTEM
+namespace Exiv2 {
+    class FileIo : public BasicIo {};
+    class XPathIo : public MemIo {};
+}
+#endif // EXV_ENABLE_FILESYSTEM
+%}
+
+// Macro to not call a function if EXV_ENABLE_FILESYSTEM is OFF
+%define EXV_ENABLE_FILESYSTEM_FUNCTION(signature)
+%fragment("_set_python_exception");
+%fragment("set_EXV_ENABLE_FILESYSTEM");
+%exception signature {
+    try {
+%#ifdef _EXV_ENABLE_FILESYSTEM
+        $action
+%#else
+        throw Exiv2::Error(Exiv2::ErrorCode::kerFunctionNotSupported);
+%#endif
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        SWIG_fail;
+    }
+}
+%enddef // EXV_ENABLE_FILESYSTEM_FUNCTION

@@ -4340,6 +4340,23 @@ namespace Exiv2 {
 #endif // EXV_USE_SSH
 
 
+#if !EXIV2_TEST_VERSION(0, 28, 3)
+#define EXV_ENABLE_FILESYSTEM
+#endif
+// Copy EXV_ENABLE_FILESYSTEM for use in macro
+#ifdef EXV_ENABLE_FILESYSTEM
+#define _EXV_ENABLE_FILESYSTEM
+#endif
+
+
+#ifndef EXV_ENABLE_FILESYSTEM
+namespace Exiv2 {
+    class FileIo : public BasicIo {};
+    class XPathIo : public MemIo {};
+}
+#endif // EXV_ENABLE_FILESYSTEM
+
+
 static bool enableBMFF(bool enable) {
 #ifdef EXV_ENABLE_BMFF
     return Exiv2::enableBMFF(enable);
@@ -6536,11 +6553,15 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
   }
   {
     try {
+#ifdef _EXV_ENABLE_FILESYSTEM
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
         result = Exiv2::ImageFactory::create(arg1,(std::string const &)*arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
+#else
+      throw Exiv2::Error(Exiv2::ErrorCode::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();

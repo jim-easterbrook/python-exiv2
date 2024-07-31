@@ -4340,6 +4340,23 @@ namespace Exiv2 {
 #endif // EXV_USE_SSH
 
 
+#if !EXIV2_TEST_VERSION(0, 28, 3)
+#define EXV_ENABLE_FILESYSTEM
+#endif
+// Copy EXV_ENABLE_FILESYSTEM for use in macro
+#ifdef EXV_ENABLE_FILESYSTEM
+#define _EXV_ENABLE_FILESYSTEM
+#endif
+
+
+#ifndef EXV_ENABLE_FILESYSTEM
+namespace Exiv2 {
+    class FileIo : public BasicIo {};
+    class XPathIo : public MemIo {};
+}
+#endif // EXV_ENABLE_FILESYSTEM
+
+
 static bool enableBMFF(bool enable) {
 #ifdef EXV_ENABLE_BMFF
     return Exiv2::enableBMFF(enable);
