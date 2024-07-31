@@ -52,6 +52,8 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.close(), 0)
         self.assertEqual(io.isopen(), True)
 
+    @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM'],
+                         'EXV_ENABLE_FILESYSTEM is off')
     def test_FileIo(self):
         # most functions are tested in test_MemIo
         io = exiv2.ImageFactory.createIo(self.image_path)
@@ -172,6 +174,8 @@ class TestBasicIoModule(unittest.TestCase):
         del io
         self.assertEqual(sys.getrefcount(self.data), 3)
 
+    @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM'],
+                         'EXV_ENABLE_FILESYSTEM is off')
     def test_unicode_paths(self):
         cp = locale.getpreferredencoding()
         with tempfile.TemporaryDirectory() as tmp_dir:

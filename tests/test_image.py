@@ -131,20 +131,22 @@ class TestImageModule(unittest.TestCase):
             factory.create(int(exiv2.ImageType.jpeg))
         self.assertIsInstance(
             factory.create(exiv2.ImageType.jpeg), exiv2.Image)
+        self.assertIsInstance(factory.createIo(self.image_data), exiv2.BasicIo)
+        self.check_result(factory.getType(self.image_data),
+                          exiv2.ImageType, exiv2.ImageType.jpeg)
+        self.check_result(factory.getType(io),
+                          exiv2.ImageType, exiv2.ImageType.jpeg)
+        self.assertIsInstance(factory.open(self.image_data), exiv2.Image)
+        if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+            self.skipTest('EXV_ENABLE_FILESYSTEM is off')
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'image.jpg')
             self.assertIsInstance(
                 factory.create(exiv2.ImageType.jpeg, temp_file), exiv2.Image)
         self.assertIsInstance(factory.createIo(self.image_path), exiv2.BasicIo)
-        self.assertIsInstance(factory.createIo(self.image_data), exiv2.BasicIo)
         self.check_result(factory.getType(self.image_path),
                           exiv2.ImageType, exiv2.ImageType.jpeg)
-        self.check_result(factory.getType(self.image_data),
-                          exiv2.ImageType, exiv2.ImageType.jpeg)
-        self.check_result(factory.getType(io),
-                          exiv2.ImageType, exiv2.ImageType.jpeg)
         self.assertIsInstance(factory.open(self.image_path), exiv2.Image)
-        self.assertIsInstance(factory.open(self.image_data), exiv2.Image)
 
     def test_ref_counts(self):
         # opening from data keeps reference to buffer

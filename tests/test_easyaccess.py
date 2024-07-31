@@ -26,7 +26,8 @@ class TestEasyaccessModule(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         test_dir = os.path.dirname(__file__)
-        image = exiv2.ImageFactory.open(os.path.join(test_dir, 'image_02.jpg'))
+        with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
+            image = exiv2.ImageFactory.open(f.read())
         image.readMetadata()
         cls.exif_data = image.exifData()
 

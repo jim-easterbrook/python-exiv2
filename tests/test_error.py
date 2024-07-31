@@ -57,9 +57,9 @@ class TestErrorModule(unittest.TestCase):
         self.assertEqual(exiv2.LogMsg.handler(), exiv2.LogMsg.pythonHandler)
         # get exiv2 to raise an exception
         with self.assertRaises(exiv2.Exiv2Error) as cm:
-            image = exiv2.ImageFactory.open('non-existing.jpg')
+            image = exiv2.ImageFactory.open(bytes())
         self.assertEqual(cm.exception.code,
-                         exiv2.ErrorCode.kerDataSourceOpenFailed)
+                         exiv2.ErrorCode.kerInputDataReadFailed)
 
 
 if __name__ == '__main__':
