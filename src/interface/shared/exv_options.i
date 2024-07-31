@@ -78,7 +78,6 @@ namespace Exiv2 {
 // Macro to not call a function if libexiv2 version is <= 0.27.3
 %define EXV_ENABLE_EASYACCESS_FUNCTION(signature)
 %fragment("_set_python_exception");
-%fragment("set_EXV_ENABLE_FILESYSTEM");
 %exception signature {
     try {
 %#if EXIV2_TEST_VERSION(0, 27, 4)
