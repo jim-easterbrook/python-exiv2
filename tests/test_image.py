@@ -29,6 +29,7 @@ class TestImageModule(unittest.TestCase):
     def setUpClass(cls):
         test_dir = os.path.dirname(__file__)
         cls.image_path = os.path.join(test_dir, 'image_02.jpg')
+        cls.bmff_path = os.path.join(test_dir, 'image_02.heic')
         # read image file data into memory
         with open(cls.image_path, 'rb') as f:
             cls.image_data = f.read()
@@ -37,9 +38,27 @@ class TestImageModule(unittest.TestCase):
         self.assertIsInstance(result, expected_type)
         self.assertEqual(result, expected_value)
 
+    def test_BMFF(self):
+        self.assertEqual(exiv2.enableBMFF(True),
+                         exiv2.versionInfo()['EXV_ENABLE_BMFF'])
+        with open(self.bmff_path, 'rb') as f:
+            image_data = f.read()
+        if not exiv2.versionInfo()['EXV_ENABLE_BMFF']:
+            if (exiv2.testVersion(0, 28, 0)
+                    or not exiv2.versionInfo()['EXV_ENABLE_VIDEO']):
+                with self.assertRaises(exiv2.Exiv2Error) as cm:
+                    image = exiv2.ImageFactory.open(image_data)
+                self.assertEqual(cm.exception.code,
+                                 exiv2.ErrorCode.kerMemoryContainsUnknownImageType)
+            self.skipTest('EXV_ENABLE_BMFF is off')
+        image = exiv2.ImageFactory.open(image_data)
+        image.readMetadata()
+        self.assertEqual(len(image.exifData()), 29)
+        self.assertEqual(len(image.iptcData()), 0)
+        self.assertEqual(len(image.xmpData()), 26)
+        self.assertEqual(len(image.iccProfile()), 672)
+
     def test_Image(self):
-        if exiv2.testVersion(0, 27, 4):
-            self.assertIsInstance(exiv2.enableBMFF(True), bool)
         # open image in memory so we don't corrupt the file
         image = exiv2.ImageFactory.open(self.image_data)
         self.assertEqual(len(image.io()), 15125)
