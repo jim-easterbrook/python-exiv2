@@ -4358,8 +4358,12 @@ namespace Exiv2 {
 
 
 static bool enableBMFF(bool enable) {
+    // deprecated since 2024-08-01
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+        "BMFF is already enabled if libexiv2 was built with BMFF support",
+        1);
 #ifdef EXV_ENABLE_BMFF
-    return Exiv2::enableBMFF(enable);
+    return true;
 #else
     return false;
 #endif // EXV_ENABLE_BMFF
@@ -7073,8 +7077,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "enableBMFF", _wrap_enableBMFF, METH_VARARGS, "\n"
 		"Enable BMFF support.\n"
 		"\n"
-		"If libexiv2 has been built with BMFF support included it can be enabled\n"
-		"by calling enableBMFF(True).\n"
+		"If libexiv2 has been built with BMFF support it is already enabled\n"
+		"and this fubction does nothing.\n"
 		":type enable: bool, optional\n"
 		":param enable: Set to True to enable BMFF file access.\n"
 		":rtype: bool\n"
@@ -7088,8 +7092,8 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Image_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
 		"Enable BMFF support.\n"
 		"\n"
-		"If libexiv2 has been built with BMFF support included it can be enabled\n"
-		"by calling enableBMFF(True).\n"
+		"If libexiv2 has been built with BMFF support it is already enabled\n"
+		"and this fubction does nothing.\n"
 		":type enable: bool, optional\n"
 		":param enable: Set to True to enable BMFF file access.\n"
 		":rtype: bool\n"
@@ -8902,6 +8906,11 @@ SWIG_init(void) {
     if (!PyExc_Exiv2Error)
     return NULL;
   }
+  
+  
+#if defined EXV_ENABLE_BMFF && !EXIV2_TEST_VERSION(0, 28, 3)
+  Exiv2::enableBMFF(true);
+#endif
   
   
   {

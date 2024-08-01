@@ -39,8 +39,9 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(result, expected_value)
 
     def test_BMFF(self):
-        self.assertEqual(exiv2.enableBMFF(True),
-                         exiv2.versionInfo()['EXV_ENABLE_BMFF'])
+        with self.assertWarns(DeprecationWarning):
+            enabled = exiv2.enableBMFF(True)
+        self.assertEqual(enabled, exiv2.versionInfo()['EXV_ENABLE_BMFF'])
         with open(self.bmff_path, 'rb') as f:
             image_data = f.read()
         if not exiv2.versionInfo()['EXV_ENABLE_BMFF']:
