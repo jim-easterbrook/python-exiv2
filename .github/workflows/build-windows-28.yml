@@ -63,7 +63,7 @@ jobs:
             copy build-msvc\bin\libcurl.dll build-msvc\install\bin
 
       - name: Store results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-28-wheels
           path: wheelhouse/*.whl

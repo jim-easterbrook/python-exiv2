@@ -50,7 +50,7 @@ jobs:
             cmake --install build-base_mac --config Release
 
       - name: Store results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-arm-28-wheels
           path: wheelhouse/*.whl
