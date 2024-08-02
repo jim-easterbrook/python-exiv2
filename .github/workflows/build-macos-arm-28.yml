@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 jobs:
   build:
-    runs-on: flyci-macos-large-latest-m1
+    runs-on: macos-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -19,9 +19,6 @@ jobs:
         run: |
           tar -xzf exiv2.tar.gz
           mv exiv2-0.28.3 libexiv2
-
-      - name: Install pipx
-        run: pip install pipx
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.5

@@ -138,10 +138,9 @@ class TestTypesModule(unittest.TestCase):
             self.assertEqual(cm.output, [
                 'WARNING:exiv2:Ungültiger Zeichensatz: "invalid"'])
             with self.assertRaises(exiv2.Exiv2Error) as cm:
-                image = exiv2.ImageFactory.open('non-existing.jpg')
-            self.assertEqual(cm.exception.message.split(':')[:2],
-                             ['non-existing.jpg',
-                              ' Die Datenquelle konnte nicht geöffnet werden'])
+                image = exiv2.ImageFactory.open(bytes())
+            self.assertEqual(cm.exception.message,
+                             'Die Eingabedaten konnten nicht gelesen werden.')
         # clear locale
         name = 'en_US.UTF-8'
         os.environ['LC_ALL'] = name
