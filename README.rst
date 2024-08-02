@@ -86,8 +86,9 @@ The C++ documentation is still needed in these cases.
 Support for bmff files (e.g. CR3, HEIF, HEIC, AVIF, JPEG XL)
 ------------------------------------------------------------
 
-Python-exiv2 from version 0.8.3 onwards is built with support for BMFF files.
-In order to use BMFF files in your Python program you need to call the ``enableBMFF`` function.
+Python-exiv2 from version 0.17.0 has support for BMFF files enabled by default if libexiv2 was compiled with support for BMFF files enabled.
+In earlier versions you need to call the ``enableBMFF`` function before using BMFF files in your program.
+Use of BMFF files may infringe patents.
 Please read the Exiv2 `statement on BMFF`_ patents before doing so.
 
 Installation

@@ -28,6 +28,7 @@
 %include "shared/buffers.i"
 %include "shared/enum.i"
 %include "shared/exception.i"
+%include "shared/exv_options.i"
 %include "shared/keep_reference.i"
 %include "shared/windows_path.i"
 
@@ -44,6 +45,12 @@ IMPORT_ENUM(MetadataId)
 
 // Catch all C++ exceptions
 EXCEPTION()
+
+%fragment("EXV_USE_CURL");
+%fragment("EXV_USE_SSH");
+%fragment("EXV_ENABLE_FILESYSTEM");
+EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::ImageFactory::create(
+    ImageType, const std::string&))
 
 UNIQUE_PTR(Exiv2::Image);
 
@@ -132,19 +139,30 @@ Create a MemIo subclass of BasicIo using the provided memory.
     }
 }
 
+// Enable BMFF if libexiv2 was compiled with BMFF support
+%init %{
+#if defined EXV_ENABLE_BMFF && !EXIV2_TEST_VERSION(0, 28, 3)
+Exiv2::enableBMFF(true);
+#endif
+%}
+
 // Make enableBMFF() function available regardless of exiv2 version
 %feature("docstring") enableBMFF "Enable BMFF support.
 
-If libexiv2 has been built with BMFF support included it can be enabled
-by calling enableBMFF(True).
+If libexiv2 has been built with BMFF support it is already enabled
+and this fubction does nothing.
 :type enable: bool, optional
 :param enable: Set to True to enable BMFF file access.
 :rtype: bool
 :return: True if libexiv2 has been built with BMFF support.";
 %inline %{
 static bool enableBMFF(bool enable) {
+    // deprecated since 2024-08-01
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+        "BMFF is already enabled if libexiv2 was built with BMFF support",
+        1);
 #ifdef EXV_ENABLE_BMFF
-    return Exiv2::enableBMFF(enable);
+    return true;
 #else
     return false;
 #endif // EXV_ENABLE_BMFF

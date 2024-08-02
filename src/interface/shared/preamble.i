@@ -21,6 +21,8 @@
 
 // EXIV2API prepends every function declaration
 #define EXIV2API
+// Some have this instead
+#define EXIV2LIB_DEPRECATED_EXPORT
 // Older versions of libexiv2 define these as well
 #define EXV_DLLLOCAL
 #define EXV_DLLPUBLIC

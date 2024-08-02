@@ -4265,6 +4265,15 @@ fail:
 };
 
 
+#if !EXIV2_TEST_VERSION(0, 28, 3)
+#define EXV_ENABLE_FILESYSTEM
+#endif
+// Copy EXV_ENABLE_FILESYSTEM for use in macro
+#ifdef EXV_ENABLE_FILESYSTEM
+#define _EXV_ENABLE_FILESYSTEM
+#endif
+
+
 static PyObject* versionInfo() {
     bool nls = false;
     bool bmff = false;
@@ -4272,6 +4281,7 @@ static PyObject* versionInfo() {
     bool unicode = false;
     bool webready = false;
     bool curl = false;
+    bool filesystem = false;
 #ifdef EXV_ENABLE_NLS
     nls = true;
 #endif
@@ -4287,14 +4297,18 @@ static PyObject* versionInfo() {
 #ifdef EXV_USE_CURL
     curl = true;
 #endif
-    return Py_BuildValue("{ss,sN,sN,sN,sN,sN,sN}",
+#ifdef EXV_ENABLE_FILESYSTEM
+    filesystem = true;
+#endif
+    return Py_BuildValue("{ss,sN,sN,sN,sN,sN,sN,sN}",
         "version", Exiv2::version(),
         "EXV_ENABLE_NLS", PyBool_FromLong(nls),
         "EXV_ENABLE_BMFF", PyBool_FromLong(bmff),
         "EXV_ENABLE_VIDEO", PyBool_FromLong(video),
         "EXV_UNICODE_PATH", PyBool_FromLong(unicode),
         "EXV_ENABLE_WEBREADY", PyBool_FromLong(webready),
-        "EXV_USE_CURL", PyBool_FromLong(curl));
+        "EXV_USE_CURL", PyBool_FromLong(curl),
+        "EXV_ENABLE_FILESYSTEM", PyBool_FromLong(filesystem));
 };
 
 

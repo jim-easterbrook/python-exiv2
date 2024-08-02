@@ -59,6 +59,8 @@ class TestPreviewModule(unittest.TestCase):
         self.check_result(preview.mimeType(), str, 'image/jpeg')
         self.check_result(preview.size(), int, 2532)
         self.check_result(preview.width(), int, 160)
+        if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+            self.skipTest('EXV_ENABLE_FILESYSTEM is off')
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'image.jpg')
             self.assertEqual(preview.writeFile(temp_file), 2532)

@@ -23,9 +23,23 @@
 
 %include "shared/preamble.i"
 %include "shared/exception.i"
+%include "shared/exv_options.i"
 
 // Catch all C++ exceptions
 EXCEPTION()
+
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::apertureValue)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::brightnessValue)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::dateTimeOriginal)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::exposureBiasValue)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::exposureIndex)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::flash)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::flashEnergy)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::lightSource)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::maxApertureValue)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::sensingMethod)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::shutterSpeedValue)
+EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::subjectArea)
 
 // Store data.end() after converting input
 %typemap(check) Exiv2::ExifData& (Exiv2::ExifData::const_iterator _global_end) %{

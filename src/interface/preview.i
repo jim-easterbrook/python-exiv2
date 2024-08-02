@@ -29,6 +29,7 @@ For Exif thumbnail images see the :py:class:`ExifThumb` class.";
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/exception.i"
+%include "shared/exv_options.i"
 %include "shared/keep_reference.i"
 %include "shared/struct_dict.i"
 %include "shared/windows_path.i"
@@ -40,6 +41,11 @@ For Exif thumbnail images see the :py:class:`ExifThumb` class.";
 
 // Catch all C++ exceptions
 EXCEPTION()
+
+%fragment("EXV_USE_CURL");
+%fragment("EXV_USE_SSH");
+%fragment("EXV_ENABLE_FILESYSTEM");
+EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::PreviewImage::writeFile)
 
 // Some calls don't raise exceptions
 %noexception Exiv2::PreviewImage::__len__;

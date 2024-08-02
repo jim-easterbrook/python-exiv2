@@ -29,6 +29,7 @@ class TestImageModule(unittest.TestCase):
     def setUpClass(cls):
         test_dir = os.path.dirname(__file__)
         cls.image_path = os.path.join(test_dir, 'image_02.jpg')
+        cls.bmff_path = os.path.join(test_dir, 'image_02.heic')
         # read image file data into memory
         with open(cls.image_path, 'rb') as f:
             cls.image_data = f.read()
@@ -37,9 +38,28 @@ class TestImageModule(unittest.TestCase):
         self.assertIsInstance(result, expected_type)
         self.assertEqual(result, expected_value)
 
+    def test_BMFF(self):
+        with self.assertWarns(DeprecationWarning):
+            enabled = exiv2.enableBMFF(True)
+        self.assertEqual(enabled, exiv2.versionInfo()['EXV_ENABLE_BMFF'])
+        with open(self.bmff_path, 'rb') as f:
+            image_data = f.read()
+        if not exiv2.versionInfo()['EXV_ENABLE_BMFF']:
+            if (exiv2.testVersion(0, 28, 0)
+                    or not exiv2.versionInfo()['EXV_ENABLE_VIDEO']):
+                with self.assertRaises(exiv2.Exiv2Error) as cm:
+                    image = exiv2.ImageFactory.open(image_data)
+                self.assertEqual(cm.exception.code,
+                                 exiv2.ErrorCode.kerMemoryContainsUnknownImageType)
+            self.skipTest('EXV_ENABLE_BMFF is off')
+        image = exiv2.ImageFactory.open(image_data)
+        image.readMetadata()
+        self.assertEqual(len(image.exifData()), 29)
+        self.assertEqual(len(image.iptcData()), 0)
+        self.assertEqual(len(image.xmpData()), 26)
+        self.assertEqual(len(image.iccProfile()), 672)
+
     def test_Image(self):
-        if exiv2.testVersion(0, 27, 4):
-            self.assertIsInstance(exiv2.enableBMFF(True), bool)
         # open image in memory so we don't corrupt the file
         image = exiv2.ImageFactory.open(self.image_data)
         self.assertEqual(len(image.io()), 15125)
@@ -131,20 +151,22 @@ class TestImageModule(unittest.TestCase):
             factory.create(int(exiv2.ImageType.jpeg))
         self.assertIsInstance(
             factory.create(exiv2.ImageType.jpeg), exiv2.Image)
+        self.assertIsInstance(factory.createIo(self.image_data), exiv2.BasicIo)
+        self.check_result(factory.getType(self.image_data),
+                          exiv2.ImageType, exiv2.ImageType.jpeg)
+        self.check_result(factory.getType(io),
+                          exiv2.ImageType, exiv2.ImageType.jpeg)
+        self.assertIsInstance(factory.open(self.image_data), exiv2.Image)
+        if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+            self.skipTest('EXV_ENABLE_FILESYSTEM is off')
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'image.jpg')
             self.assertIsInstance(
                 factory.create(exiv2.ImageType.jpeg, temp_file), exiv2.Image)
         self.assertIsInstance(factory.createIo(self.image_path), exiv2.BasicIo)
-        self.assertIsInstance(factory.createIo(self.image_data), exiv2.BasicIo)
         self.check_result(factory.getType(self.image_path),
                           exiv2.ImageType, exiv2.ImageType.jpeg)
-        self.check_result(factory.getType(self.image_data),
-                          exiv2.ImageType, exiv2.ImageType.jpeg)
-        self.check_result(factory.getType(io),
-                          exiv2.ImageType, exiv2.ImageType.jpeg)
         self.assertIsInstance(factory.open(self.image_path), exiv2.Image)
-        self.assertIsInstance(factory.open(self.image_data), exiv2.Image)
 
     def test_ref_counts(self):
         # opening from data keeps reference to buffer

@@ -26,54 +26,54 @@ class TestEasyaccessModule(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         test_dir = os.path.dirname(__file__)
-        image = exiv2.ImageFactory.open(os.path.join(test_dir, 'image_02.jpg'))
+        with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
+            image = exiv2.ImageFactory.open(f.read())
         image.readMetadata()
         cls.exif_data = image.exifData()
 
+    def check_result(self, datum, expected_type=None):
+        # not all files have a value
+        if datum is not None:
+            self.assertIsInstance(datum, exiv2.Exifdatum)
+            self.assertIsInstance(datum.getValue(), expected_type)
+
     def test_easyaccess(self):
-        for func_name, value_type in (
-                ('afPoint', None),
-                ('apertureValue', exiv2.URationalValue),
-                ('brightnessValue', None),
-                ('contrast', None),
-                ('dateTimeOriginal', exiv2.AsciiValue),
-                ('exposureBiasValue', None),
-                ('exposureIndex', None),
-                ('exposureMode', None),
-                ('exposureTime', None),
-                ('fNumber', exiv2.URationalValue),
-                ('flash', None),
-                ('flashBias', None),
-                ('flashEnergy', None),
-                ('focalLength', exiv2.URationalValue),
-                ('imageQuality', None),
-                ('isoSpeed', None),
-                ('lensName', exiv2.AsciiValue),
-                ('lightSource', None),
-                ('macroMode', None),
-                ('make', None),
-                ('maxApertureValue', None),
-                ('meteringMode', None),
-                ('model', None),
-                ('orientation', exiv2.UShortValue),
-                ('saturation', None),
-                ('sceneCaptureType', None),
-                ('sceneMode', None),
-                ('sensingMethod', None),
-                ('serialNumber', None),
-                ('sharpness', None),
-                ('shutterSpeedValue', None),
-                ('subjectArea', None),
-                ('subjectDistance', None),
-                ('whiteBalance', None),
-                ):
-            # not all versions of libexiv2 have all easyaccess functions
-            if hasattr(exiv2, func_name):
-                datum = getattr(exiv2, func_name)(self.exif_data)
-                # not all files have a value
-                if datum is not None:
-                    self.assertIsInstance(datum, exiv2.Exifdatum)
-                    self.assertIsInstance(datum.getValue(), value_type)
+        self.check_result(exiv2.afPoint(self.exif_data))
+        self.check_result(exiv2.contrast(self.exif_data))
+        self.check_result(exiv2.exposureMode(self.exif_data))
+        self.check_result(exiv2.exposureTime(self.exif_data))
+        self.check_result(exiv2.fNumber(self.exif_data), exiv2.URationalValue)
+        self.check_result(exiv2.flashBias(self.exif_data))
+        self.check_result(exiv2.focalLength(self.exif_data), exiv2.URationalValue)
+        self.check_result(exiv2.imageQuality(self.exif_data))
+        self.check_result(exiv2.isoSpeed(self.exif_data))
+        self.check_result(exiv2.lensName(self.exif_data), exiv2.AsciiValue)
+        self.check_result(exiv2.macroMode(self.exif_data))
+        self.check_result(exiv2.make(self.exif_data))
+        self.check_result(exiv2.meteringMode(self.exif_data))
+        self.check_result(exiv2.model(self.exif_data))
+        self.check_result(exiv2.orientation(self.exif_data), exiv2.UShortValue)
+        self.check_result(exiv2.saturation(self.exif_data))
+        self.check_result(exiv2.sceneCaptureType(self.exif_data))
+        self.check_result(exiv2.sceneMode(self.exif_data))
+        self.check_result(exiv2.serialNumber(self.exif_data))
+        self.check_result(exiv2.sharpness(self.exif_data))
+        self.check_result(exiv2.subjectDistance(self.exif_data))
+        self.check_result(exiv2.whiteBalance(self.exif_data))
+        if not exiv2.testVersion(0, 27, 4):
+            self.skipTest('easyaccess funcs introduced in v0.27.4')
+        self.check_result(exiv2.apertureValue(self.exif_data), exiv2.URationalValue)
+        self.check_result(exiv2.brightnessValue(self.exif_data))
+        self.check_result(exiv2.dateTimeOriginal(self.exif_data), exiv2.AsciiValue)
+        self.check_result(exiv2.exposureBiasValue(self.exif_data))
+        self.check_result(exiv2.exposureIndex(self.exif_data))
+        self.check_result(exiv2.flash(self.exif_data))
+        self.check_result(exiv2.flashEnergy(self.exif_data))
+        self.check_result(exiv2.lightSource(self.exif_data))
+        self.check_result(exiv2.maxApertureValue(self.exif_data))
+        self.check_result(exiv2.sensingMethod(self.exif_data))
+        self.check_result(exiv2.shutterSpeedValue(self.exif_data))
+        self.check_result(exiv2.subjectArea(self.exif_data))
 
 
 if __name__ == '__main__':

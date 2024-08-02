@@ -4313,6 +4313,15 @@ fail:
 };
 
 
+#if !EXIV2_TEST_VERSION(0, 28, 3)
+#define EXV_ENABLE_FILESYSTEM
+#endif
+// Copy EXV_ENABLE_FILESYSTEM for use in macro
+#ifdef EXV_ENABLE_FILESYSTEM
+#define _EXV_ENABLE_FILESYSTEM
+#endif
+
+
 // Base class implements all methods except dereferencing
 class ExifData_iterator_base {
 protected:
@@ -8853,7 +8862,11 @@ SWIGINTERN PyObject *_wrap_ExifThumbC_writeFile(PyObject *self, PyObject *args) 
   }
   {
     try {
+#ifdef _EXV_ENABLE_FILESYSTEM
       result = ((Exiv2::ExifThumbC const *)arg1)->writeFile((std::string const &)*arg2);
+#else
+      throw Exiv2::Error(Exiv2::ErrorCode::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -9063,7 +9076,11 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_0(PyObject *self, Py
   }
   {
     try {
+#ifdef _EXV_ENABLE_FILESYSTEM
       (arg1)->setJpegThumbnail((std::string const &)*arg2,arg3,arg4,arg5);
+#else
+      throw Exiv2::Error(Exiv2::ErrorCode::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -9194,7 +9211,11 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_2(PyObject *self, Py
   }
   {
     try {
+#ifdef _EXV_ENABLE_FILESYSTEM
       (arg1)->setJpegThumbnail((std::string const &)*arg2);
+#else
+      throw Exiv2::Error(Exiv2::ErrorCode::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();

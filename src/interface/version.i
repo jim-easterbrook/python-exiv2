@@ -23,6 +23,7 @@
 
 %include "shared/preamble.i"
 %include "shared/exception.i"
+%include "shared/exv_options.i"
 
 %include "stdint.i"
 %include "std_string.i"
@@ -39,6 +40,7 @@ EXCEPTION()
 
 // Function to report build options used
 %feature("docstring") versionInfo "Return a dict of libexiv2 build options."
+%fragment("set_EXV_ENABLE_FILESYSTEM");
 %inline %{
 static PyObject* versionInfo() {
     bool nls = false;
@@ -47,6 +49,7 @@ static PyObject* versionInfo() {
     bool unicode = false;
     bool webready = false;
     bool curl = false;
+    bool filesystem = false;
 #ifdef EXV_ENABLE_NLS
     nls = true;
 #endif
@@ -62,14 +65,18 @@ static PyObject* versionInfo() {
 #ifdef EXV_USE_CURL
     curl = true;
 #endif
-    return Py_BuildValue("{ss,sN,sN,sN,sN,sN,sN}",
+#ifdef EXV_ENABLE_FILESYSTEM
+    filesystem = true;
+#endif
+    return Py_BuildValue("{ss,sN,sN,sN,sN,sN,sN,sN}",
         "version", Exiv2::version(),
         "EXV_ENABLE_NLS", PyBool_FromLong(nls),
         "EXV_ENABLE_BMFF", PyBool_FromLong(bmff),
         "EXV_ENABLE_VIDEO", PyBool_FromLong(video),
         "EXV_UNICODE_PATH", PyBool_FromLong(unicode),
         "EXV_ENABLE_WEBREADY", PyBool_FromLong(webready),
-        "EXV_USE_CURL", PyBool_FromLong(curl));
+        "EXV_USE_CURL", PyBool_FromLong(curl),
+        "EXV_ENABLE_FILESYSTEM", PyBool_FromLong(filesystem));
 };
 %}
 

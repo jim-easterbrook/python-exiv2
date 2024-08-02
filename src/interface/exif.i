@@ -29,6 +29,7 @@
 %include "shared/data_iterator.i"
 %include "shared/enum.i"
 %include "shared/exception.i"
+%include "shared/exv_options.i"
 %include "shared/keep_reference.i"
 %include "shared/windows_path.i"
 
@@ -42,6 +43,12 @@ IMPORT_ENUM(TypeId)
 
 // Catch all C++ exceptions
 EXCEPTION()
+
+EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::ExifThumb::setJpegThumbnail(
+    const std::string&))
+EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::ExifThumb::setJpegThumbnail(
+    const std::string&, URational, URational, uint16_t))
+EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::ExifThumbC::writeFile)
 
 // ExifThumb keeps a reference to the ExifData it uses
 KEEP_REFERENCE_EX(Exiv2::ExifThumb*, args)

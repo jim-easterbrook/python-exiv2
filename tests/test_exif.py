@@ -206,6 +206,8 @@ class TestExifModule(unittest.TestCase):
         thumb.setJpegThumbnail(
             data, exiv2.URational((160, 1)), exiv2.URational((120, 1)), 1)
         self.assertEqual(len(thumb.copy()), 2532)
+        if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+            self.skipTest('EXV_ENABLE_FILESYSTEM is off')
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'thumb')
             self.assertEqual(thumb.writeFile(temp_file), 2532)

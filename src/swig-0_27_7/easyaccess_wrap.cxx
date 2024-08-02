@@ -4367,7 +4367,11 @@ SWIGINTERN PyObject *_wrap_dateTimeOriginal(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::dateTimeOriginal((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5115,7 +5119,11 @@ SWIGINTERN PyObject *_wrap_shutterSpeedValue(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::shutterSpeedValue((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5159,7 +5167,11 @@ SWIGINTERN PyObject *_wrap_apertureValue(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::apertureValue((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5203,7 +5215,11 @@ SWIGINTERN PyObject *_wrap_brightnessValue(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::brightnessValue((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5247,7 +5263,11 @@ SWIGINTERN PyObject *_wrap_exposureBiasValue(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::exposureBiasValue((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5291,7 +5311,11 @@ SWIGINTERN PyObject *_wrap_maxApertureValue(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::maxApertureValue((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5379,7 +5403,11 @@ SWIGINTERN PyObject *_wrap_lightSource(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::lightSource((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5423,7 +5451,11 @@ SWIGINTERN PyObject *_wrap_flash(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::flash((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5555,7 +5587,11 @@ SWIGINTERN PyObject *_wrap_subjectArea(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::subjectArea((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5599,7 +5635,11 @@ SWIGINTERN PyObject *_wrap_flashEnergy(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::flashEnergy((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5643,7 +5683,11 @@ SWIGINTERN PyObject *_wrap_exposureIndex(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::exposureIndex((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5687,7 +5731,11 @@ SWIGINTERN PyObject *_wrap_sensingMethod(PyObject *self, PyObject *args) {
   
   {
     try {
+#if EXIV2_TEST_VERSION(0, 27, 4)
       result = Exiv2::sensingMethod((Exiv2::ExifData const &)*arg1);
+#else
+      throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+#endif
     }
     catch(std::exception const& e) {
       _set_python_exception();
