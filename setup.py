@@ -84,6 +84,8 @@ if 'EXIV2_ROOT' in os.environ:
     packages.append('exiv2.lib')
     if platform == 'linux':
         path = os.path.join(exiv2_root, 'lib64')
+        if not os.path.exists(path):
+            path = os.path.join(exiv2_root, 'lib')
         library_dirs = [path]
         package_dir['exiv2.lib'] = path
         package_data['exiv2.lib'] = [x for x in os.listdir(path)
