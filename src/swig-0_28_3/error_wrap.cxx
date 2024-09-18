@@ -4156,20 +4156,20 @@ static int _transcode(std::string *str, UINT cp_in, UINT cp_out) {
     int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
                                    NULL, 0);
     if (!size)
-        return -1;
+        return GetLastError();
     std::wstring wide_str;
     wide_str.resize(size);
     if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
                              &wide_str[0], size))
-        return -1;
+        return GetLastError();
     size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                                NULL, 0, NULL, NULL);
     if (!size)
-        return -1;
+        return GetLastError();
     str->resize(size);
     if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                              &(*str)[0], size, NULL, NULL))
-        return -1;
+        return GetLastError();
     return 0;
 };
 #endif
@@ -4195,7 +4195,8 @@ static int wcp_to_utf8(std::string *str) {
 static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     std::string copy = msg;
-    wcp_to_utf8(&copy);
+    if (wcp_to_utf8(&copy))
+        copy = msg;
     Py_ssize_t len = copy.size();
     while (len > 0 && copy[len-1] == '\n')
         len--;

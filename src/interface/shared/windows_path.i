@@ -22,8 +22,10 @@
 %define WINDOWS_PATH(signature)
 %typemap(check, fragment="utf8_to_wcp") signature {
 %#ifdef _WIN32
-    if (utf8_to_wcp($1) < 0) {
-        SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    int error = utf8_to_wcp($1);
+    if (error) {
+        PyErr_SetFromWindowsErr(error);
+        SWIG_fail;
     }
 %#endif
 }
@@ -33,8 +35,10 @@
 %define WINDOWS_PATH_OUT(function)
 %typemap(out, fragment="utf8_to_wcp") std::string function {
 %#ifdef _WIN32
-    if (wcp_to_utf8(&$1) < 0) {
-        SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
+    int error = wcp_to_utf8(&$1);
+    if (error) {
+        PyErr_SetFromWindowsErr(error);
+        SWIG_fail;
     }
 %#endif
     $result = SWIG_FromCharPtrAndSize($1.data(), $1.size());
@@ -42,8 +46,10 @@
 %typemap(out, fragment="utf8_to_wcp") const std::string& function {
     std::string copy = *$1;
 %#ifdef _WIN32
-    if (wcp_to_utf8(&copy) < 0) {
-        SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
+    int error = wcp_to_utf8(&copy);
+    if (error) {
+        PyErr_SetFromWindowsErr(error);
+        SWIG_fail;
     }
 %#endif
     $result = SWIG_FromCharPtrAndSize(copy.data(), copy.size());

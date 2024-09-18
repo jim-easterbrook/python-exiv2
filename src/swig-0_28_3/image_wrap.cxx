@@ -4258,20 +4258,20 @@ static int _transcode(std::string *str, UINT cp_in, UINT cp_out) {
     int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
                                    NULL, 0);
     if (!size)
-        return -1;
+        return GetLastError();
     std::wstring wide_str;
     wide_str.resize(size);
     if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
                              &wide_str[0], size))
-        return -1;
+        return GetLastError();
     size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                                NULL, 0, NULL, NULL);
     if (!size)
-        return -1;
+        return GetLastError();
     str->resize(size);
     if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                              &(*str)[0], size, NULL, NULL))
-        return -1;
+        return GetLastError();
     return 0;
 };
 #endif
@@ -4298,6 +4298,7 @@ static void _set_python_exception() {
     try {
         throw;
     }
+
 
 
 
@@ -6353,8 +6354,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_0(PyObject *self, Py_ssiz
   }
   {
 #ifdef _WIN32
-    if (utf8_to_wcp(arg1) < 0) {
-      SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    int error = utf8_to_wcp(arg1);
+    if (error) {
+      PyErr_SetFromWindowsErr(error);
+      SWIG_fail;
     }
 #endif
   }
@@ -6411,8 +6414,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_0(PyObject *self, Py_ssize_t 
   }
   {
 #ifdef _WIN32
-    if (utf8_to_wcp(arg1) < 0) {
-      SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    int error = utf8_to_wcp(arg1);
+    if (error) {
+      PyErr_SetFromWindowsErr(error);
+      SWIG_fail;
     }
 #endif
   }
@@ -6561,8 +6566,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_create__SWIG_0(PyObject *self, Py_ssize_
   }
   {
 #ifdef _WIN32
-    if (utf8_to_wcp(arg2) < 0) {
-      SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    int error = utf8_to_wcp(arg2);
+    if (error) {
+      PyErr_SetFromWindowsErr(error);
+      SWIG_fail;
     }
 #endif
   }
@@ -6684,8 +6691,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_0(PyObject *self, Py_ssize
   }
   {
 #ifdef _WIN32
-    if (utf8_to_wcp(arg1) < 0) {
-      SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    int error = utf8_to_wcp(arg1);
+    if (error) {
+      PyErr_SetFromWindowsErr(error);
+      SWIG_fail;
     }
 #endif
   }

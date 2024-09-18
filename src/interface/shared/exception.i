@@ -47,7 +47,8 @@ static void _set_python_exception() {
 #if EXIV2_VERSION_HEX < 0x001c0000
     catch(Exiv2::AnyError const& e) {
         std::string msg = e.what();
-        wcp_to_utf8(&msg);
+        if (wcp_to_utf8(&msg))
+            msg = e.what();
         PyObject* args = Py_BuildValue(
             "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);

@@ -4245,20 +4245,20 @@ static int _transcode(std::string *str, UINT cp_in, UINT cp_out) {
     int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
                                    NULL, 0);
     if (!size)
-        return -1;
+        return GetLastError();
     std::wstring wide_str;
     wide_str.resize(size);
     if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
                              &wide_str[0], size))
-        return -1;
+        return GetLastError();
     size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                                NULL, 0, NULL, NULL);
     if (!size)
-        return -1;
+        return GetLastError();
     str->resize(size);
     if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                              &(*str)[0], size, NULL, NULL))
-        return -1;
+        return GetLastError();
     return 0;
 };
 #endif
@@ -4288,7 +4288,8 @@ static void _set_python_exception() {
 
     catch(Exiv2::AnyError const& e) {
         std::string msg = e.what();
-        wcp_to_utf8(&msg);
+        if (wcp_to_utf8(&msg))
+            msg = e.what();
         PyObject* args = Py_BuildValue(
             "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
@@ -8662,8 +8663,10 @@ SWIGINTERN PyObject *_wrap_ExifThumbC_writeFile(PyObject *self, PyObject *args) 
   }
   {
 #ifdef _WIN32
-    if (utf8_to_wcp(arg2) < 0) {
-      SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    int error = utf8_to_wcp(arg2);
+    if (error) {
+      PyErr_SetFromWindowsErr(error);
+      SWIG_fail;
     }
 #endif
   }
@@ -8876,8 +8879,10 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_0(PyObject *self, Py
   arg5 = static_cast< uint16_t >(val5);
   {
 #ifdef _WIN32
-    if (utf8_to_wcp(arg2) < 0) {
-      SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    int error = utf8_to_wcp(arg2);
+    if (error) {
+      PyErr_SetFromWindowsErr(error);
+      SWIG_fail;
     }
 #endif
   }
@@ -9011,8 +9016,10 @@ SWIGINTERN PyObject *_wrap_ExifThumb_setJpegThumbnail__SWIG_2(PyObject *self, Py
   }
   {
 #ifdef _WIN32
-    if (utf8_to_wcp(arg2) < 0) {
-      SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
+    int error = utf8_to_wcp(arg2);
+    if (error) {
+      PyErr_SetFromWindowsErr(error);
+      SWIG_fail;
     }
 #endif
   }
