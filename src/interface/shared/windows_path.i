@@ -22,7 +22,7 @@
 %define WINDOWS_PATH(signature)
 %typemap(check, fragment="utf8_to_wcp") signature {
 %#ifdef _WIN32
-    if (utf8_to_wcp($1, true) < 0) {
+    if (utf8_to_wcp($1) < 0) {
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode path");
     }
 %#endif
@@ -33,7 +33,7 @@
 %define WINDOWS_PATH_OUT(function)
 %typemap(out, fragment="utf8_to_wcp") std::string function {
 %#ifdef _WIN32
-    if (utf8_to_wcp(&$1, false) < 0) {
+    if (wcp_to_utf8(&$1) < 0) {
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
 %#endif
@@ -42,7 +42,7 @@
 %typemap(out, fragment="utf8_to_wcp") const std::string& function {
     std::string copy = *$1;
 %#ifdef _WIN32
-    if (utf8_to_wcp(&copy, false) < 0) {
+    if (wcp_to_utf8(&copy) < 0) {
         SWIG_exception_fail(SWIG_ValueError, "failed to transcode result");
     }
 %#endif

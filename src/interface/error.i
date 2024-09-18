@@ -39,7 +39,7 @@
 static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     std::string copy = msg;
-    utf8_to_wcp(&copy, false);
+    wcp_to_utf8(&copy);
     Py_ssize_t len = copy.size();
     while (len > 0 && copy[len-1] == '\n')
         len--;
