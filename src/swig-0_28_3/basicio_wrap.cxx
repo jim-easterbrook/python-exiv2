@@ -4259,6 +4259,7 @@ static void _set_python_exception() {
 
 
 
+
     catch(Exiv2::Error const& e) {
         PyObject* args = Py_BuildValue(
             "Ns", py_from_enum(e.code()), e.what());
