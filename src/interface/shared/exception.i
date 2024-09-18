@@ -56,8 +56,11 @@ static void _set_python_exception() {
     }
 #else
     catch(Exiv2::Error const& e) {
+        std::string msg = e.what();
+        if (wcp_to_utf8(&msg))
+            msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum(e.code()), e.what());
+            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
