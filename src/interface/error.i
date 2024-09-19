@@ -39,13 +39,14 @@
 static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     std::string copy = msg;
-    utf8_to_wcp(&copy, false);
+    if (wcp_to_utf8(&copy))
+        copy = msg;
     Py_ssize_t len = copy.size();
     while (len > 0 && copy[len-1] == '\n')
         len--;
     PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject* res = PyObject_CallMethod(
-        logger, "log", "(is#)", (level + 1) * 10, copy.c_str(), len);
+        logger, "log", "(is#)", (level + 1) * 10, copy.data(), len);
     Py_XDECREF(res);
     PyGILState_Release(gstate);
 };

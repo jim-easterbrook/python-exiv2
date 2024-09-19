@@ -4222,36 +4222,47 @@ static PyObject* py_from_enum(Exiv2::ErrorCode value) {
 #include <windows.h>
 #endif
 
-static int utf8_to_wcp(std::string *str, bool to_cp) {
 #ifdef _WIN32
-    UINT cp_in = CP_UTF8;
-    UINT cp_out = GetACP();
+static int _transcode(std::string *str, UINT cp_in, UINT cp_out) {
     if (cp_out == cp_in)
         return 0;
-    if (!to_cp) {
-        cp_in = cp_out;
-        cp_out = CP_UTF8;
-    }
     int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
                                    NULL, 0);
     if (!size)
-        return -1;
+        return GetLastError();
     std::wstring wide_str;
     wide_str.resize(size);
     if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
                              &wide_str[0], size))
-        return -1;
+        return GetLastError();
     size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                                NULL, 0, NULL, NULL);
     if (!size)
-        return -1;
+        return GetLastError();
     str->resize(size);
     if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
                              &(*str)[0], size, NULL, NULL))
-        return -1;
-#endif
+        return GetLastError();
     return 0;
 };
+#endif
+
+static int utf8_to_wcp(std::string *str) {
+#ifdef _WIN32
+    return _transcode(str, CP_UTF8, GetACP());
+#else
+    return 0;
+#endif
+};
+
+static int wcp_to_utf8(std::string *str) {
+#ifdef _WIN32
+    return _transcode(str, GetACP(), CP_UTF8);
+#else
+    return 0;
+#endif
+};
+
 
 
 static void _set_python_exception() {
@@ -4268,9 +4279,13 @@ static void _set_python_exception() {
 
 
 
+
     catch(Exiv2::Error const& e) {
+        std::string msg = e.what();
+        if (wcp_to_utf8(&msg))
+            msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum(e.code()), e.what());
+            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }

@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.17.1:
+  1/ Fix crash when using localised exceptions on Windows.
+
 Changes in v0.17.0:
   1/ API change: derived classes of BasicIo are omitted from Python.
   2/ Binary wheels incorporate libexiv2 v0.28.3.
