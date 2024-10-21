@@ -71,7 +71,7 @@ DEFINE_ENUM(XmpCategory, "Category of an XMP property.",
         PyDict_SetItemString(dict, i->first.c_str(), value);
         Py_DECREF(value);
     }
-    $result = SWIG_Python_AppendOutput($result, dict);
+    $result = SWIG_AppendOutput($result, dict);
 }
 
 // Convert XmpProperties.propertyList() result and XmpNsInfo.xmpPropertyInfo_
