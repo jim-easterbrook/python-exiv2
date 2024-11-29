@@ -28,6 +28,7 @@ jobs:
             EXIV2_ROOT=libexiv2/build-base_mac/install
             MACOSX_DEPLOYMENT_TARGET="10.15"
           CIBW_SKIP: pp3*
+          CIBW_BUILD: cp313*
           CIBW_TEST_COMMAND: >
             python -m exiv2 -v &&
             python -m unittest discover {project}/tests -v
