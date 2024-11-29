@@ -66,7 +66,7 @@ jobs:
           copy build-msvc\bin\libcurl.dll build-msvc\install\bin
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.16.5
+        uses: pypa/cibuildwheel@v2.22.0
         env:
           CIBW_ARCHS: auto64
           CIBW_SKIP: pp3*
