@@ -26,7 +26,7 @@ jobs:
           CIBW_ARCHS: x86_64
           CIBW_ENVIRONMENT: >
             EXIV2_ROOT=libexiv2/build-base_mac/install
-            MACOSX_DEPLOYMENT_TARGET="10.15"
+            MACOSX_DEPLOYMENT_TARGET="13.0"
           CIBW_SKIP: pp3*
           CIBW_BUILD: cp313*
           CIBW_TEST_COMMAND: >
