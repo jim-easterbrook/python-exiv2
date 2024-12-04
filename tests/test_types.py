@@ -139,7 +139,7 @@ class TestTypesModule(unittest.TestCase):
                 'WARNING:exiv2:Ungültiger Zeichensatz: "invalid"'])
             with self.assertRaises(exiv2.Exiv2Error) as cm:
                 key = exiv2.ExifKey('not.a.tag')
-            self.assertEqual(cm.exception.message,
+            self.assertEqual(cm.exception.message.replace('"', "'"),
                              "Ungültiger Schlüssel 'not.a.tag'")
         # clear locale
         name = 'en_US.UTF-8'

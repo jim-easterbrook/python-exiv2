@@ -21,7 +21,7 @@ jobs:
           mv exiv2-0.28.3 libexiv2
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.16.5
+        uses: pypa/cibuildwheel@v2.22.0
         env:
           CIBW_ARCHS: x86_64
           CIBW_ENVIRONMENT: >

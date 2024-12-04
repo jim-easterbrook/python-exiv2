@@ -74,28 +74,39 @@ class TestValueModule(unittest.TestCase):
 
     def do_conversion_tests(self, value, text, number):
         result = value.toFloat(0)
-        self.assertEqual(value.ok(), True)
-        self.assertIsInstance(result, float)
-        self.assertAlmostEqual(result, float(number), places=5)
-        self.assertEqual(value.toFloat(0), value.toFloat())
-        if exiv2.testVersion(0, 28, 0):
-            self.check_result(value.toUint32(0), int, int(number))
+        if value.ok():
             self.assertEqual(value.ok(), True)
-            self.assertEqual(value.toUint32(0), value.toUint32())
-            self.check_result(value.toInt64(0), int, int(number))
-            self.assertEqual(value.toInt64(0), value.toInt64())
+            self.assertIsInstance(result, float)
+            self.assertAlmostEqual(result, float(number), places=5)
+            self.assertEqual(value.toFloat(0), value.toFloat())
+        if exiv2.testVersion(0, 28, 0):
+            result = value.toUint32(0)
+            if value.ok():
+                self.assertEqual(value.ok(), True)
+                self.check_result(result, int, int(number))
+                self.assertEqual(result, value.toUint32())
+            result = value.toInt64(0)
+            if value.ok():
+                self.assertEqual(value.ok(), True)
+                self.check_result(result, int, int(number))
+                self.assertEqual(result, value.toInt64())
         else:
-            self.check_result(value.toLong(0), int, int(number))
-            self.assertEqual(value.toLong(0), value.toLong())
-        self.assertEqual(value.ok(), True)
+            result = value.toLong(0)
+            if value.ok():
+                self.assertEqual(value.ok(), True)
+                self.check_result(result, int, int(number))
+                self.assertEqual(result, value.toLong())
         result = value.toRational(0)
-        self.assertEqual(value.ok(), True)
-        self.assertIsInstance(result, tuple)
-        self.assertAlmostEqual(
-            float(Fraction(*result)), float(number), places=5)
-        self.assertEqual(value.toRational(0), value.toRational())
-        self.check_result(value.toString(0), str, text)
-        self.assertEqual(value.ok(), True)
+        if value.ok():
+            self.assertEqual(value.ok(), True)
+            self.assertIsInstance(result, tuple)
+            self.assertAlmostEqual(
+                float(Fraction(*result)), float(number), places=5)
+            self.assertEqual(value.toRational(0), value.toRational())
+        result = value.toString(0)
+        if value.ok():
+            self.assertEqual(value.ok(), True)
+            self.check_result(result, str, text)
 
     def do_dataarea_tests(self, value, has_dataarea=False):
         data_area = value.dataArea()
@@ -346,8 +357,7 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(dict(value), {
             'year': today.year, 'month': today.month, 'day': today.day})
 
-    def test_DateValue(self):
-        py_date = datetime.date.today()
+    def do_test_DateValue(self, py_date):
         data = bytes(py_date.strftime('%Y%m%d'), 'ascii')
         exiv_date = exiv2.Date()
         exiv_date.year = py_date.year
@@ -378,6 +388,15 @@ class TestValueModule(unittest.TestCase):
         self.do_conversion_tests(value, py_date.isoformat(), seconds)
         self.do_dataarea_tests(value)
 
+    def test_DateValue(self):
+        date = datetime.date(2024, 7, 4)
+        with self.subTest(date=date):
+            self.do_test_DateValue(date)
+        if exiv2.testVersion(0, 28, 4):
+            date = datetime.date(2039, 1, 1)
+            with self.subTest(date=date):
+                self.do_test_DateValue(date)
+
     def test_Time(self):
         now = datetime.datetime.now().time()
         value = exiv2.Time()
@@ -401,10 +420,7 @@ class TestValueModule(unittest.TestCase):
             'hour': now.hour, 'minute': now.minute, 'second': now.second,
             'tzHour': 1, 'tzMinute': 30})
 
-    def test_TimeValue(self):
-        py_tz = datetime.timezone(datetime.timedelta(hours=1, minutes=30))
-        py_time = datetime.datetime.now().time()
-        py_time = py_time.replace(microsecond=0, tzinfo=py_tz)
+    def do_test_TimeValue(self, py_time):
         exiv_time = exiv2.Time()
         exiv_time.hour = py_time.hour
         exiv_time.minute = py_time.minute
@@ -441,12 +457,24 @@ class TestValueModule(unittest.TestCase):
         value.setTime(py_time.hour, py_time.minute, py_time.second, 1, 30)
         self.assertEqual(str(value), py_time.isoformat())
         seconds = (py_time.hour * 3600) + (py_time.minute * 60) + py_time.second
-        seconds -= 3600 + (30 * 60)
+        seconds -= py_time.tzinfo.utcoffset(
+            datetime.datetime.now()).total_seconds()
+        if seconds < 0:
+            seconds += 24 * 3600
         value = exiv2.TimeValue()
         value.read(py_time.isoformat())
         self.do_common_tests(value, exiv2.TypeId.time, py_time.isoformat(), data)
         self.do_conversion_tests(value, py_time.isoformat(), seconds)
         self.do_dataarea_tests(value)
+
+    def test_TimeValue(self):
+        py_tz = datetime.timezone(datetime.timedelta(hours=1, minutes=30))
+        py_time = datetime.time(12, 34, 56, tzinfo=py_tz)
+        with self.subTest(time=py_time):
+            self.do_test_TimeValue(py_time)
+        py_time = py_time.replace(hour=0)
+        with self.subTest(py_time=py_time):
+            self.do_test_TimeValue(py_time)
 
     def test_UShortValue(self):
         sequence = (4, 6, 9, 5)

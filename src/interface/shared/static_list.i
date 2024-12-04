@@ -38,6 +38,6 @@ static PyObject* pointer_to_list(item_type* ptr) {
     PyObject* list = pointer_to_list($1);
     if (!list)
         SWIG_fail;
-    $result = SWIG_Python_AppendOutput($result, list);
+    $result = SWIG_AppendOutput($result, list);
 }
 %enddef // LIST_POINTER
