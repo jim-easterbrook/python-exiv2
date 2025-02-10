@@ -1,6 +1,6 @@
 #  python-exiv2 - Python interface to libexiv2
 #  http://github.com/jim-easterbrook/python-exiv2
-#  Copyright (C) 2022-23  Jim Easterbrook  jim@jim-easterbrook.me.uk
+#  Copyright (C) 2022-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 #  This program is free software: you can redistribute it and/or modify it under
 #  the terms of the GNU General Public License as published by the Free Software
@@ -28,11 +28,13 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
         os: [ubuntu-latest]
         include:
           - python-version: '3.6'
             os: ubuntu-20.04
+          - python-version: '3.7'
+            os: ubuntu-22.04
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository code
