@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -265,43 +265,8 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 %noexception type_name::append;
 %noexception type_name::count;
 %noexception type_name::size;
-%extend type_name {
-    part_name(const Exiv2::Value& value) {
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '" #type_name ".clone()' to copy value", 1);
-        type_name* pv = dynamic_cast< type_name* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(type_name().typeId());
-            msg += "'.";
-#if EXIV2_VERSION_HEX < 0x001c0000
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-#else
-            throw Exiv2::Error(Exiv2::ErrorCode::kerErrorMessage, msg);
-#endif
-        }
-        return pv;
-    }
-}
 UNIQUE_PTR(type_name)
 %enddef // VALUE_SUBCLASS
-
-// Subscript macro for classes that can only hold one value
-%define SUBSCRIPT_SINGLE(type_name, item_type, method)
-%feature("python:slot", "sq_item", functype="ssizeargfunc")
-    type_name::__getitem__;
-%extend type_name {
-    item_type __getitem__(long single_idx) {
-        // deprecated since 2022-12-15
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'value = " #type_name "." #method "()'", 1);
-        return $self->method();
-    }
-}
-%enddef // SUBSCRIPT_SINGLE
 
 // Macro for Exiv2::ValueType classes
 %define VALUETYPE(type_name, item_type, type_id)
@@ -528,11 +493,6 @@ VALUE_SUBCLASS(Exiv2::XmpValue, XmpValue)
 VALUE_SUBCLASS(Exiv2::LangAltValue, LangAltValue)
 VALUE_SUBCLASS(Exiv2::XmpArrayValue, XmpArrayValue)
 VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
-
-SUBSCRIPT_SINGLE(Exiv2::DateValue, Exiv2::DateValue::Date, getDate)
-SUBSCRIPT_SINGLE(Exiv2::TimeValue, Exiv2::TimeValue::Time, getTime)
-SUBSCRIPT_SINGLE(Exiv2::StringValueBase, std::string, toString)
-SUBSCRIPT_SINGLE(Exiv2::XmpTextValue, std::string, toString)
 
 // Allow access to Exiv2::StringValueBase and Exiv2::XmpTextValue raw data
 %define RAW_STRING_DATA(class)

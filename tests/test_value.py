@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -119,8 +119,6 @@ class TestValueModule(unittest.TestCase):
             self.assertEqual(value.setDataArea(b'fred'), -1)
 
     def do_common_string_tests(self, value, data):
-        with self.assertWarns(DeprecationWarning):
-            char = value[0]
         with value.data() as view:
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, data)
@@ -375,8 +373,6 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.DateValue)
         self.assertEqual(str(value), py_date.isoformat())
         # other methods
-        with self.assertWarns(DeprecationWarning):
-            result = value[0]
         self.check_result(dict(value.getDate()), dict, date_dict)
         value.setDate(exiv_date)
         self.assertEqual(str(value), py_date.isoformat())
@@ -446,8 +442,6 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.TimeValue)
         self.assertEqual(str(value), py_time.isoformat())
         # other methods
-        with self.assertWarns(DeprecationWarning):
-            result = value[0]
         self.check_result(dict(value.getTime()), dict, time_dict)
         value.setTime(exiv_time)
         self.assertEqual(str(value), py_time.isoformat())

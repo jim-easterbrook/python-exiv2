@@ -6007,76 +6007,13 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN std::string Exiv2_Value___str__(Exiv2::Value *self){return self->toString();}
-SWIGINTERN Exiv2::DataValue *new_Exiv2_DataValue__SWIG_2(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::DataValue" ".clone()' to copy value", 1);
-        Exiv2::DataValue* pv = dynamic_cast< Exiv2::DataValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::DataValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
-SWIGINTERN std::string Exiv2_StringValueBase___getitem__(Exiv2::StringValueBase *self,long single_idx){
-        // deprecated since 2022-12-15
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'value = ""Exiv2::StringValueBase" ".""toString" "()'", 1);
-        return self->toString();
-    }
 SWIGINTERN char const *Exiv2_StringValueBase_data(Exiv2::StringValueBase *self){
         return self->value_.data();
-    }
-SWIGINTERN Exiv2::StringValue *new_Exiv2_StringValue__SWIG_2(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::StringValue" ".clone()' to copy value", 1);
-        Exiv2::StringValue* pv = dynamic_cast< Exiv2::StringValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::StringValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
     }
 SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_1(std::string const &buf){
         Exiv2::AsciiValue* self = new Exiv2::AsciiValue();
         self->read(buf);
         return self;
-    }
-SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_2(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::AsciiValue" ".clone()' to copy value", 1);
-        Exiv2::AsciiValue* pv = dynamic_cast< Exiv2::AsciiValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::AsciiValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
     }
 
 static PyObject* PyEnum_Exiv2_CommentValue_CharsetId = NULL;
@@ -6152,25 +6089,6 @@ static PyObject* py_from_enum_Exiv2_ByteOrder(long value) {
     return result;
 };
 
-SWIGINTERN Exiv2::CommentValue *new_Exiv2_CommentValue__SWIG_2(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::CommentValue" ".clone()' to copy value", 1);
-        Exiv2::CommentValue* pv = dynamic_cast< Exiv2::CommentValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::CommentValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 
 static PyObject* PyEnum_Exiv2_XmpValue_XmpArrayType = NULL;
 
@@ -6281,52 +6199,8 @@ static PyObject* py_from_enum_Exiv2_XmpValue_XmpStruct(long value) {
     return result;
 };
 
-SWIGINTERN Exiv2::XmpTextValue *new_Exiv2_XmpTextValue__SWIG_2(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::XmpTextValue" ".clone()' to copy value", 1);
-        Exiv2::XmpTextValue* pv = dynamic_cast< Exiv2::XmpTextValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::XmpTextValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
-SWIGINTERN std::string Exiv2_XmpTextValue___getitem__(Exiv2::XmpTextValue *self,long single_idx){
-        // deprecated since 2022-12-15
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'value = ""Exiv2::XmpTextValue" ".""toString" "()'", 1);
-        return self->toString();
-    }
 SWIGINTERN char const *Exiv2_XmpTextValue_data(Exiv2::XmpTextValue *self){
         return self->value_.data();
-    }
-SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_0(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::XmpArrayValue" ".clone()' to copy value", 1);
-        Exiv2::XmpArrayValue* pv = dynamic_cast< Exiv2::XmpArrayValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::XmpArrayValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
     }
 
 SWIGINTERN int
@@ -6502,7 +6376,7 @@ namespace swig {
 	};
       }
     
-SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_1(std::vector< std::string,std::allocator< std::string > > value,Exiv2::TypeId typeId_xmpBag){
+SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_0(std::vector< std::string,std::allocator< std::string > > value,Exiv2::TypeId typeId_xmpBag){
         Exiv2::XmpArrayValue* result =
             new Exiv2::XmpArrayValue(typeId_xmpBag);
         for (std::vector<std::string>::const_iterator i = value.begin();
@@ -6511,7 +6385,7 @@ SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_1(std::vector< st
         }
         return result;
     }
-SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_2(Exiv2::TypeId typeId_xmpBag){
+SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_1(Exiv2::TypeId typeId_xmpBag){
         return new Exiv2::XmpArrayValue(typeId_xmpBag);
     }
 SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *self,long idx){
@@ -6726,25 +6600,6 @@ SWIGINTERN PyObject *Exiv2_LangAltValue___setitem__(Exiv2::LangAltValue *self,st
 SWIGINTERN bool Exiv2_LangAltValue___contains__(Exiv2::LangAltValue *self,std::string const &key){
         return self->value_.find(key) != self->value_.end();
     }
-SWIGINTERN Exiv2::LangAltValue *new_Exiv2_LangAltValue__SWIG_3(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::LangAltValue" ".clone()' to copy value", 1);
-        Exiv2::LangAltValue* pv = dynamic_cast< Exiv2::LangAltValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::LangAltValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_2(Exiv2::DateValue::Date &src){
         Exiv2::DateValue* self = new Exiv2::DateValue;
         self->setDate(src);
@@ -6756,31 +6611,6 @@ SWIGINTERN void Exiv2_DateValue_setDate__SWIG_1(Exiv2::DateValue *self,int year,
         date.month = month;
         date.day = day;
         self->setDate(date);
-    }
-SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_3(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::DateValue" ".clone()' to copy value", 1);
-        Exiv2::DateValue* pv = dynamic_cast< Exiv2::DateValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::DateValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
-SWIGINTERN Exiv2::DateValue::Date Exiv2_DateValue___getitem__(Exiv2::DateValue *self,long single_idx){
-        // deprecated since 2022-12-15
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'value = ""Exiv2::DateValue" ".""getDate" "()'", 1);
-        return self->getDate();
     }
 
 static PyObject* list_getset(
@@ -6880,31 +6710,6 @@ SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int32_t h
         time.tzHour = tzHour;
         time.tzMinute = tzMinute;
         self->setTime(time);
-    }
-SWIGINTERN Exiv2::TimeValue *new_Exiv2_TimeValue__SWIG_3(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::TimeValue" ".clone()' to copy value", 1);
-        Exiv2::TimeValue* pv = dynamic_cast< Exiv2::TimeValue* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::TimeValue().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
-SWIGINTERN Exiv2::TimeValue::Time Exiv2_TimeValue___getitem__(Exiv2::TimeValue *self,long single_idx){
-        // deprecated since 2022-12-15
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use 'value = ""Exiv2::TimeValue" ".""getTime" "()'", 1);
-        return self->getTime();
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_items(Exiv2::TimeValue::Time *self,PyObject *py_self){
         return list_getset(py_self, getset_to_item);
@@ -7011,25 +6816,6 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
-SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_4(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::ValueType<uint16_t>" ".clone()' to copy value", 1);
-        Exiv2::ValueType<uint16_t>* pv = dynamic_cast< Exiv2::ValueType<uint16_t>* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::ValueType<uint16_t>().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 
 SWIGINTERNINLINE PyObject* 
 SWIG_From_unsigned_SS_long  (unsigned long value)
@@ -7075,7 +6861,7 @@ namespace swig {
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_5(Exiv2::ValueType< uint16_t >::ValueList value){
+SWIGINTERN Exiv2::ValueType< uint16_t > *new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_4(Exiv2::ValueType< uint16_t >::ValueList value){
         Exiv2::ValueType<uint16_t>* result = new Exiv2::ValueType<uint16_t>();
         result->value_ = value;
         return result;
@@ -7108,25 +6894,6 @@ SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
   return res;
 }
 
-SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_4(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::ValueType<uint32_t>" ".clone()' to copy value", 1);
-        Exiv2::ValueType<uint32_t>* pv = dynamic_cast< Exiv2::ValueType<uint32_t>* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::ValueType<uint32_t>().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 
 SWIGINTERNINLINE PyObject*
   SWIG_From_unsigned_SS_int  (unsigned int value)
@@ -7164,7 +6931,7 @@ namespace swig {
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_5(Exiv2::ValueType< uint32_t >::ValueList value){
+SWIGINTERN Exiv2::ValueType< uint32_t > *new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_4(Exiv2::ValueType< uint32_t >::ValueList value){
         Exiv2::ValueType<uint32_t>* result = new Exiv2::ValueType<uint32_t>();
         result->value_ = value;
         return result;
@@ -7191,25 +6958,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_uint32_t_Sg__append(Exiv2::ValueType< uint32_
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_4(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::ValueType<Exiv2::URational>" ".clone()' to copy value", 1);
-        Exiv2::ValueType<Exiv2::URational>* pv = dynamic_cast< Exiv2::ValueType<Exiv2::URational>* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::ValueType<Exiv2::URational>().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 
       namespace swig {
 	template <>  struct traits<std::vector< std::pair< unsigned int,unsigned int >, std::allocator< std::pair< unsigned int,unsigned int > > > > {
@@ -7220,7 +6968,7 @@ SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_UR
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_5(Exiv2::ValueType< Exiv2::URational >::ValueList value){
+SWIGINTERN Exiv2::ValueType< Exiv2::URational > *new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_4(Exiv2::ValueType< Exiv2::URational >::ValueList value){
         Exiv2::ValueType<Exiv2::URational>* result = new Exiv2::ValueType<Exiv2::URational>();
         result->value_ = value;
         return result;
@@ -7253,25 +7001,6 @@ SWIG_AsVal_short (PyObject * obj, short *val)
   return res;
 }
 
-SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_4(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::ValueType<int16_t>" ".clone()' to copy value", 1);
-        Exiv2::ValueType<int16_t>* pv = dynamic_cast< Exiv2::ValueType<int16_t>* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::ValueType<int16_t>().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 
 SWIGINTERNINLINE PyObject *
 SWIG_From_short  (short value)
@@ -7309,7 +7038,7 @@ namespace swig {
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_5(Exiv2::ValueType< int16_t >::ValueList value){
+SWIGINTERN Exiv2::ValueType< int16_t > *new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_4(Exiv2::ValueType< int16_t >::ValueList value){
         Exiv2::ValueType<int16_t>* result = new Exiv2::ValueType<int16_t>();
         result->value_ = value;
         return result;
@@ -7326,25 +7055,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg____setitem__(Exiv2::ValueType< int
 SWIGINTERN void Exiv2_ValueType_Sl_int16_t_Sg__append(Exiv2::ValueType< int16_t > *self,int16_t value){
         self->value_.push_back(value);
     }
-SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_4(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::ValueType<int32_t>" ".clone()' to copy value", 1);
-        Exiv2::ValueType<int32_t>* pv = dynamic_cast< Exiv2::ValueType<int32_t>* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::ValueType<int32_t>().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 
       namespace swig {
 	template <>  struct traits<std::vector< int, std::allocator< int > > > {
@@ -7355,7 +7065,7 @@ SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_5(Exiv2::ValueType< int32_t >::ValueList value){
+SWIGINTERN Exiv2::ValueType< int32_t > *new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_4(Exiv2::ValueType< int32_t >::ValueList value){
         Exiv2::ValueType<int32_t>* result = new Exiv2::ValueType<int32_t>();
         result->value_ = value;
         return result;
@@ -7372,25 +7082,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg____setitem__(Exiv2::ValueType< int
 SWIGINTERN void Exiv2_ValueType_Sl_int32_t_Sg__append(Exiv2::ValueType< int32_t > *self,int32_t value){
         self->value_.push_back(value);
     }
-SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_4(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::ValueType<Exiv2::Rational>" ".clone()' to copy value", 1);
-        Exiv2::ValueType<Exiv2::Rational>* pv = dynamic_cast< Exiv2::ValueType<Exiv2::Rational>* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::ValueType<Exiv2::Rational>().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 
       namespace swig {
 	template <>  struct traits<std::vector< std::pair< int,int >, std::allocator< std::pair< int,int > > > > {
@@ -7401,7 +7092,7 @@ SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rat
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_5(Exiv2::ValueType< Exiv2::Rational >::ValueList value){
+SWIGINTERN Exiv2::ValueType< Exiv2::Rational > *new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_4(Exiv2::ValueType< Exiv2::Rational >::ValueList value){
         Exiv2::ValueType<Exiv2::Rational>* result = new Exiv2::ValueType<Exiv2::Rational>();
         result->value_ = value;
         return result;
@@ -7474,25 +7165,6 @@ SWIG_AsVal_float (PyObject * obj, float *val)
   return res;
 }
 
-SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_4(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::ValueType<float>" ".clone()' to copy value", 1);
-        Exiv2::ValueType<float>* pv = dynamic_cast< Exiv2::ValueType<float>* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::ValueType<float>().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
-    }
 
 namespace swig {
   template <> struct traits< float > {
@@ -7523,7 +7195,7 @@ namespace swig {
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_5(Exiv2::ValueType< float >::ValueList value){
+SWIGINTERN Exiv2::ValueType< float > *new_Exiv2_ValueType_Sl_float_Sg___SWIG_4(Exiv2::ValueType< float >::ValueList value){
         Exiv2::ValueType<float>* result = new Exiv2::ValueType<float>();
         result->value_ = value;
         return result;
@@ -7539,25 +7211,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_float_Sg____setitem__(Exiv2::ValueType< float
     }
 SWIGINTERN void Exiv2_ValueType_Sl_float_Sg__append(Exiv2::ValueType< float > *self,float value){
         self->value_.push_back(value);
-    }
-SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_4(Exiv2::Value const &value){
-        // deprecated since 2022-12-28
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "Use '""Exiv2::ValueType<double>" ".clone()' to copy value", 1);
-        Exiv2::ValueType<double>* pv = dynamic_cast< Exiv2::ValueType<double>* >(value.clone().release());
-        if (pv == 0) {
-            std::string msg = "Cannot cast type '";
-            msg += Exiv2::TypeInfo::typeName(value.typeId());
-            msg += "' to type '";
-            msg += Exiv2::TypeInfo::typeName(Exiv2::ValueType<double>().typeId());
-            msg += "'.";
-
-            throw Exiv2::Error(Exiv2::kerErrorMessage, msg);
-
-
-
-        }
-        return pv;
     }
 
 namespace swig {
@@ -7589,7 +7242,7 @@ namespace swig {
 	};
       }
     
-SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_5(Exiv2::ValueType< double >::ValueList value){
+SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_4(Exiv2::ValueType< double >::ValueList value){
         Exiv2::ValueType<double>* result = new Exiv2::ValueType<double>();
         result->value_ = value;
         return result;
@@ -8604,6 +8257,49 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwargs) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DataValue")) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if ((argc >= 0) && (argc <= 1)) {
+    int _v = 0;
+    if (argc > 0) {
+      {
+        {
+          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+        }
+      }
+      if (!_v) goto check_1;
+    }
+    return _wrap_new_DataValue__SWIG_0(self, args, NULL);
+  }
+check_1:
+  
+  if ((argc >= 1) && (argc <= 3)) {
+    int retval = _wrap_new_DataValue__SWIG_1(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DataValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::DataValue::DataValue(Exiv2::TypeId)\n"
+    "    Exiv2::DataValue::DataValue(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n");
+  return -1;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_DataValue(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DataValue *arg1 = (Exiv2::DataValue *) 0 ;
@@ -9144,95 +8840,6 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_DataValue__SWIG_2(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::DataValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DataValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_DataValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DataValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_DataValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::DataValue *)new_Exiv2_DataValue__SWIG_2((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DataValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwargs) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DataValue")) SWIG_fail;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if ((argc >= 0) && (argc <= 1)) {
-    int _v = 0;
-    if (argc > 0) {
-      {
-        {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
-        }
-      }
-      if (!_v) goto check_1;
-    }
-    return _wrap_new_DataValue__SWIG_0(self, args, NULL);
-  }
-check_1:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_DataValue__SWIG_2(self, args, NULL);
-  }
-check_2:
-  
-  if ((argc >= 1) && (argc <= 3)) {
-    int retval = _wrap_new_DataValue__SWIG_1(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DataValue'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::DataValue::DataValue(Exiv2::TypeId)\n"
-    "    Exiv2::DataValue::DataValue(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
-    "    Exiv2::DataValue::DataValue(Exiv2::Value const &)\n");
-  return -1;
-}
-
-
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DataValue) /* defines _wrap_delete_DataValue_destructor_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_DataValue_count) /* defines _wrap_DataValue_count_lenfunc_closure */
@@ -9719,42 +9326,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_StringValueBase___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
-  long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "StringValueBase___getitem__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__StringValueBase, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StringValueBase___getitem__" "', argument " "1"" of type '" "Exiv2::StringValueBase *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
-  ecode2 = SWIG_AsVal_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "StringValueBase___getitem__" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  
-  if (arg2 < 0 || arg2 >= (arg1->count() ? 1 : 0)) {
-    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
-    SWIG_fail;
-  }
-  
-  result = Exiv2_StringValueBase___getitem__(arg1,arg2);
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_StringValueBase_data(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::StringValueBase *arg1 = (Exiv2::StringValueBase *) 0 ;
@@ -9779,8 +9350,6 @@ fail:
 
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_StringValueBase_count) /* defines _wrap_StringValueBase_count_lenfunc_closure */
-
-SWIGPY_SSIZEARGFUNC_CLOSURE(_wrap_StringValueBase___getitem__) /* defines _wrap_StringValueBase___getitem___ssizeargfunc_closure */
 
 SWIGINTERN int _wrap_new_StringValue__SWIG_0(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -9842,6 +9411,40 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_StringValue(PyObject *self, PyObject *args, PyObject *kwargs) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_StringValue")) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    int retval = _wrap_new_StringValue__SWIG_0(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  if (argc == 1) {
+    int retval = _wrap_new_StringValue__SWIG_1(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_StringValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::StringValue::StringValue()\n"
+    "    Exiv2::StringValue::StringValue(std::string const &)\n");
+  return -1;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_StringValue(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::StringValue *arg1 = (Exiv2::StringValue *) 0 ;
@@ -9890,86 +9493,6 @@ SWIGINTERN PyObject *_wrap_StringValue_clone(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN int _wrap_new_StringValue__SWIG_2(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::StringValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_StringValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_StringValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_StringValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_StringValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::StringValue *)new_Exiv2_StringValue__SWIG_2((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__StringValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_StringValue(PyObject *self, PyObject *args, PyObject *kwargs) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_StringValue")) SWIG_fail;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    int retval = _wrap_new_StringValue__SWIG_0(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_StringValue__SWIG_2(self, args, NULL);
-  }
-check_2:
-  
-  if (argc == 1) {
-    int retval = _wrap_new_StringValue__SWIG_1(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_StringValue'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::StringValue::StringValue()\n"
-    "    Exiv2::StringValue::StringValue(std::string const &)\n"
-    "    Exiv2::StringValue::StringValue(Exiv2::Value const &)\n");
-  return -1;
 }
 
 
@@ -10287,40 +9810,6 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_AsciiValue__SWIG_2(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::AsciiValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_AsciiValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_AsciiValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_AsciiValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_AsciiValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::AsciiValue *)new_Exiv2_AsciiValue__SWIG_2((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__AsciiValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
 SWIGINTERN int _wrap_new_AsciiValue(PyObject *self, PyObject *args, PyObject *kwargs) {
   Py_ssize_t argc;
   PyObject *argv[2] = {
@@ -10341,17 +9830,6 @@ SWIGINTERN int _wrap_new_AsciiValue(PyObject *self, PyObject *args, PyObject *kw
     SWIG_fail;
   }
   if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_AsciiValue__SWIG_2(self, args, NULL);
-  }
-check_2:
-  
-  if (argc == 1) {
     int retval = _wrap_new_AsciiValue__SWIG_1(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
@@ -10361,8 +9839,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_AsciiValue'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::AsciiValue::AsciiValue()\n"
-    "    Exiv2::AsciiValue::AsciiValue(std::string const &)\n"
-    "    Exiv2::AsciiValue::AsciiValue(Exiv2::Value const &)\n");
+    "    Exiv2::AsciiValue::AsciiValue(std::string const &)\n");
   return -1;
 }
 
@@ -10425,6 +9902,40 @@ SWIGINTERN int _wrap_new_CommentValue__SWIG_1(PyObject *self, PyObject *args, Py
   return resultobj == Py_None ? -1 : 0;
 fail:
   if (SWIG_IsNewObj(res1)) delete arg1;
+  return -1;
+}
+
+
+SWIGINTERN int _wrap_new_CommentValue(PyObject *self, PyObject *args, PyObject *kwargs) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_CommentValue")) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    int retval = _wrap_new_CommentValue__SWIG_0(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  if (argc == 1) {
+    int retval = _wrap_new_CommentValue__SWIG_1(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_CommentValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::CommentValue::CommentValue()\n"
+    "    Exiv2::CommentValue::CommentValue(std::string const &)\n");
   return -1;
 }
 
@@ -11003,86 +10514,6 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_CommentValue__SWIG_2(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::CommentValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_CommentValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_CommentValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_CommentValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_CommentValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::CommentValue *)new_Exiv2_CommentValue__SWIG_2((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__CommentValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_CommentValue(PyObject *self, PyObject *args, PyObject *kwargs) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_CommentValue")) SWIG_fail;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    int retval = _wrap_new_CommentValue__SWIG_0(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_CommentValue__SWIG_2(self, args, NULL);
-  }
-check_2:
-  
-  if (argc == 1) {
-    int retval = _wrap_new_CommentValue__SWIG_1(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_CommentValue'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::CommentValue::CommentValue()\n"
-    "    Exiv2::CommentValue::CommentValue(std::string const &)\n"
-    "    Exiv2::CommentValue::CommentValue(Exiv2::Value const &)\n");
-  return -1;
-}
-
-
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_CommentValue) /* defines _wrap_delete_CommentValue_destructor_closure */
 
 SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType(PyObject *self, PyObject *args) {
@@ -11576,6 +11007,40 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_XmpTextValue(PyObject *self, PyObject *args, PyObject *kwargs) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XmpTextValue")) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    int retval = _wrap_new_XmpTextValue__SWIG_0(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  if (argc == 1) {
+    int retval = _wrap_new_XmpTextValue__SWIG_1(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_XmpTextValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::XmpTextValue::XmpTextValue()\n"
+    "    Exiv2::XmpTextValue::XmpTextValue(std::string const &)\n");
+  return -1;
+}
+
+
 SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpTextValue *arg1 = (Exiv2::XmpTextValue *) 0 ;
@@ -11979,122 +11444,6 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_XmpTextValue__SWIG_2(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::XmpTextValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XmpTextValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_XmpTextValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_XmpTextValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_XmpTextValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::XmpTextValue *)new_Exiv2_XmpTextValue__SWIG_2((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpTextValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_XmpTextValue(PyObject *self, PyObject *args, PyObject *kwargs) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XmpTextValue")) SWIG_fail;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    int retval = _wrap_new_XmpTextValue__SWIG_0(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_XmpTextValue__SWIG_2(self, args, NULL);
-  }
-check_2:
-  
-  if (argc == 1) {
-    int retval = _wrap_new_XmpTextValue__SWIG_1(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_XmpTextValue'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::XmpTextValue::XmpTextValue()\n"
-    "    Exiv2::XmpTextValue::XmpTextValue(std::string const &)\n"
-    "    Exiv2::XmpTextValue::XmpTextValue(Exiv2::Value const &)\n");
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpTextValue___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpTextValue *arg1 = (Exiv2::XmpTextValue *) 0 ;
-  long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "XmpTextValue___getitem__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpTextValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpTextValue___getitem__" "', argument " "1"" of type '" "Exiv2::XmpTextValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
-  ecode2 = SWIG_AsVal_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpTextValue___getitem__" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  
-  if (arg2 < 0 || arg2 >= (arg1->count() ? 1 : 0)) {
-    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
-    SWIG_fail;
-  }
-  
-  result = Exiv2_XmpTextValue___getitem__(arg1,arg2);
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpTextValue_data(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpTextValue *arg1 = (Exiv2::XmpTextValue *) 0 ;
@@ -12139,8 +11488,6 @@ fail:
 
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_XmpTextValue_count) /* defines _wrap_XmpTextValue_count_lenfunc_closure */
-
-SWIGPY_SSIZEARGFUNC_CLOSURE(_wrap_XmpTextValue___getitem__) /* defines _wrap_XmpTextValue___getitem___ssizeargfunc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpTextValue) /* defines _wrap_delete_XmpTextValue_destructor_closure */
 
@@ -12566,40 +11913,6 @@ fail:
 
 SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_0(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::XmpArrayValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_XmpArrayValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_XmpArrayValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_XmpArrayValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_XmpArrayValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_0((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpArrayValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_1(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   std::vector< std::string,std::allocator< std::string > > arg1 ;
   Exiv2::TypeId arg2 ;
   PyObject * obj1 = 0 ;
@@ -12637,7 +11950,7 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_1(PyObject *self, PyObject *args, P
   }
   {
     try {
-      result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_1(SWIG_STD_MOVE(arg1),arg2);
+      result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_0(SWIG_STD_MOVE(arg1),arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -12651,7 +11964,7 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_2(PyObject *self, PyObject *args, PyObject *kwargs) {
+SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_1(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   Exiv2::TypeId arg1 ;
   PyObject * obj1 = 0 ;
@@ -12679,7 +11992,7 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_2(PyObject *self, PyObject *args, P
   }
   {
     try {
-      result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_2(arg1);
+      result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_1(arg1);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -12717,23 +12030,12 @@ SWIGINTERN int _wrap_new_XmpArrayValue(PyObject *self, PyObject *args, PyObject 
       }
       if (!_v) goto check_1;
     }
-    return _wrap_new_XmpArrayValue__SWIG_2(self, args, NULL);
+    return _wrap_new_XmpArrayValue__SWIG_1(self, args, NULL);
   }
 check_1:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_XmpArrayValue__SWIG_0(self, args, NULL);
-  }
-check_2:
-  
   if ((argc >= 1) && (argc <= 2)) {
-    int retval = _wrap_new_XmpArrayValue__SWIG_1(self, args, NULL);
+    int retval = _wrap_new_XmpArrayValue__SWIG_0(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -12741,7 +12043,6 @@ check_2:
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_XmpArrayValue'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::XmpArrayValue::XmpArrayValue(Exiv2::Value const &)\n"
     "    Exiv2::XmpArrayValue::XmpArrayValue(std::vector< std::string,std::allocator< std::string > >,Exiv2::TypeId)\n"
     "    Exiv2::XmpArrayValue::XmpArrayValue(Exiv2::TypeId)\n");
   return -1;
@@ -13442,6 +12743,52 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_LangAltValue(PyObject *self, PyObject *args, PyObject *kwargs) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_LangAltValue")) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    int retval = _wrap_new_LangAltValue__SWIG_0(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  if (argc == 1) {
+    int _v = 0;
+    {
+      int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+    }
+    if (!_v) goto check_2;
+    return _wrap_new_LangAltValue__SWIG_1(self, args, NULL);
+  }
+check_2:
+  
+  if (argc == 1) {
+    int retval = _wrap_new_LangAltValue__SWIG_2(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_LangAltValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::LangAltValue::LangAltValue()\n"
+    "    Exiv2::LangAltValue::LangAltValue(std::string const &)\n"
+    "    Exiv2::LangAltValue::LangAltValue(Exiv2::LangAltValue::ValueType)\n");
+  return -1;
+}
+
+
 SWIGINTERN PyObject *_wrap_LangAltValue_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
@@ -13649,98 +12996,6 @@ SWIGINTERN PyObject *_wrap_LangAltValue___contains__(PyObject *self, PyObject *a
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
-}
-
-
-SWIGINTERN int _wrap_new_LangAltValue__SWIG_3(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::LangAltValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_LangAltValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_LangAltValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_LangAltValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_LangAltValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::LangAltValue *)new_Exiv2_LangAltValue__SWIG_3((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__LangAltValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_LangAltValue(PyObject *self, PyObject *args, PyObject *kwargs) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_LangAltValue")) SWIG_fail;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    int retval = _wrap_new_LangAltValue__SWIG_0(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_LangAltValue__SWIG_3(self, args, NULL);
-  }
-check_2:
-  
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_LangAltValue__SWIG_1(self, args, NULL);
-  }
-check_3:
-  
-  if (argc == 1) {
-    int retval = _wrap_new_LangAltValue__SWIG_2(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_LangAltValue'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::LangAltValue::LangAltValue()\n"
-    "    Exiv2::LangAltValue::LangAltValue(std::string const &)\n"
-    "    Exiv2::LangAltValue::LangAltValue(Exiv2::LangAltValue::ValueType)\n"
-    "    Exiv2::LangAltValue::LangAltValue(Exiv2::Value const &)\n");
-  return -1;
 }
 
 
@@ -14452,6 +13707,46 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_DateValue(PyObject *self, PyObject *args, PyObject *kwargs) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DateValue")) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    int retval = _wrap_new_DateValue__SWIG_0(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  if (argc == 1) {
+    int retval = _wrap_new_DateValue__SWIG_2(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  if (argc == 3) {
+    int retval = _wrap_new_DateValue__SWIG_1(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DateValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::DateValue::DateValue()\n"
+    "    Exiv2::DateValue::DateValue(int,int,int)\n"
+    "    Exiv2::DateValue::DateValue(Exiv2::DateValue::Date &)\n");
+  return -1;
+}
+
+
 SWIGINTERN PyObject *_wrap_DateValue_setDate__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DateValue *arg1 = (Exiv2::DateValue *) 0 ;
@@ -14542,134 +13837,9 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_DateValue__SWIG_3(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::DateValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DateValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_DateValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DateValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_DateValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::DateValue *)new_Exiv2_DateValue__SWIG_3((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DateValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_DateValue(PyObject *self, PyObject *args, PyObject *kwargs) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DateValue")) SWIG_fail;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    int retval = _wrap_new_DateValue__SWIG_0(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 1) {
-    int _v = 0;
-    {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__DateValue__Date, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_DateValue__SWIG_2(self, args, NULL);
-  }
-check_2:
-  
-  if (argc == 1) {
-    int retval = _wrap_new_DateValue__SWIG_3(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    int retval = _wrap_new_DateValue__SWIG_1(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DateValue'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::DateValue::DateValue()\n"
-    "    Exiv2::DateValue::DateValue(int,int,int)\n"
-    "    Exiv2::DateValue::DateValue(Exiv2::DateValue::Date &)\n"
-    "    Exiv2::DateValue::DateValue(Exiv2::Value const &)\n");
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_DateValue___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::DateValue *arg1 = (Exiv2::DateValue *) 0 ;
-  long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::DateValue::Date result;
-  
-  if (!PyArg_UnpackTuple(args, "DateValue___getitem__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DateValue___getitem__" "', argument " "1"" of type '" "Exiv2::DateValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
-  ecode2 = SWIG_AsVal_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DateValue___getitem__" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  
-  if (arg2 < 0 || arg2 >= (arg1->count() ? 1 : 0)) {
-    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
-    SWIG_fail;
-  }
-  
-  result = Exiv2_DateValue___getitem__(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new Exiv2::DateValue::Date(result)), SWIGTYPE_p_Exiv2__DateValue__Date, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DateValue) /* defines _wrap_delete_DateValue_destructor_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_DateValue_count) /* defines _wrap_DateValue_count_lenfunc_closure */
-
-SWIGPY_SSIZEARGFUNC_CLOSURE(_wrap_DateValue___getitem__) /* defines _wrap_DateValue___getitem___ssizeargfunc_closure */
 
 SWIGINTERN int _wrap_new_Date(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -15826,6 +14996,46 @@ fail:
 }
 
 
+SWIGINTERN int _wrap_new_TimeValue(PyObject *self, PyObject *args, PyObject *kwargs) {
+  Py_ssize_t argc;
+  PyObject *argv[6] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_TimeValue")) SWIG_fail;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    int retval = _wrap_new_TimeValue__SWIG_0(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  if (argc == 1) {
+    int retval = _wrap_new_TimeValue__SWIG_2(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  if ((argc >= 2) && (argc <= 5)) {
+    int retval = _wrap_new_TimeValue__SWIG_1(self, args, NULL);
+    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_TimeValue'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::TimeValue::TimeValue()\n"
+    "    Exiv2::TimeValue::TimeValue(int,int,int,int,int)\n"
+    "    Exiv2::TimeValue::TimeValue(Exiv2::TimeValue::Time &)\n");
+  return -1;
+}
+
+
 SWIGINTERN PyObject *_wrap_TimeValue_setTime__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::TimeValue *arg1 = (Exiv2::TimeValue *) 0 ;
@@ -15949,134 +15159,9 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_TimeValue__SWIG_3(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::TimeValue *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_TimeValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_TimeValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_TimeValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_TimeValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::TimeValue *)new_Exiv2_TimeValue__SWIG_3((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__TimeValue, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_TimeValue(PyObject *self, PyObject *args, PyObject *kwargs) {
-  Py_ssize_t argc;
-  PyObject *argv[6] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_TimeValue")) SWIG_fail;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    int retval = _wrap_new_TimeValue__SWIG_0(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if (argc == 1) {
-    int _v = 0;
-    {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Exiv2__TimeValue__Time, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_2;
-    return _wrap_new_TimeValue__SWIG_2(self, args, NULL);
-  }
-check_2:
-  
-  if (argc == 1) {
-    int retval = _wrap_new_TimeValue__SWIG_3(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  if ((argc >= 2) && (argc <= 5)) {
-    int retval = _wrap_new_TimeValue__SWIG_1(self, args, NULL);
-    if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_TimeValue'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::TimeValue::TimeValue()\n"
-    "    Exiv2::TimeValue::TimeValue(int,int,int,int,int)\n"
-    "    Exiv2::TimeValue::TimeValue(Exiv2::TimeValue::Time &)\n"
-    "    Exiv2::TimeValue::TimeValue(Exiv2::Value const &)\n");
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_TimeValue___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TimeValue *arg1 = (Exiv2::TimeValue *) 0 ;
-  long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::TimeValue::Time result;
-  
-  if (!PyArg_UnpackTuple(args, "TimeValue___getitem__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TimeValue___getitem__" "', argument " "1"" of type '" "Exiv2::TimeValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
-  ecode2 = SWIG_AsVal_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "TimeValue___getitem__" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  
-  if (arg2 < 0 || arg2 >= (arg1->count() ? 1 : 0)) {
-    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
-    SWIG_fail;
-  }
-  
-  result = Exiv2_TimeValue___getitem__(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new Exiv2::TimeValue::Time(result)), SWIGTYPE_p_Exiv2__TimeValue__Time, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_TimeValue) /* defines _wrap_delete_TimeValue_destructor_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_TimeValue_count) /* defines _wrap_TimeValue_count_lenfunc_closure */
-
-SWIGPY_SSIZEARGFUNC_CLOSURE(_wrap_TimeValue___getitem__) /* defines _wrap_TimeValue___getitem___ssizeargfunc_closure */
 
 SWIGINTERN int _wrap_new_Time(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -17491,40 +16576,6 @@ fail:
 
 SWIGINTERN int _wrap_new_UShortValue__SWIG_4(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::ValueType< uint16_t > *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_UShortValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_UShortValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_UShortValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_UShortValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::ValueType< uint16_t > *)new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_4((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_UShortValue__SWIG_5(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   Exiv2::ValueType< uint16_t >::ValueList arg1 ;
   PyObject * obj1 = 0 ;
   Exiv2::ValueType< uint16_t > *result = 0 ;
@@ -17542,7 +16593,7 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_5(PyObject *self, PyObject *args, PyO
   }
   {
     try {
-      result = (Exiv2::ValueType< uint16_t > *)new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_5(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< uint16_t > *)new_Exiv2_ValueType_Sl_uint16_t_Sg___SWIG_4(SWIG_STD_MOVE(arg1));
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -17595,17 +16646,6 @@ check_1:
   }
 check_2:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_UShortValue__SWIG_4(self, args, NULL);
-  }
-check_3:
-  
   if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
@@ -17614,15 +16654,15 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
+    if (!_v) goto check_3;
     int retval = _wrap_new_UShortValue__SWIG_2(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_4:
+check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_UShortValue__SWIG_5(self, args, NULL);
+    int retval = _wrap_new_UShortValue__SWIG_4(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -17639,7 +16679,6 @@ fail:
     "    Exiv2::ValueType< uint16_t >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< uint16_t >::ValueType(unsigned short const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< uint16_t >::ValueType(Exiv2::ValueType< unsigned short > const &)\n"
-    "    Exiv2::ValueType< uint16_t >::UShortValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< uint16_t >::ValueType(Exiv2::ValueType< uint16_t >::ValueList)\n");
   return -1;
 }
@@ -18626,40 +17665,6 @@ fail:
 
 SWIGINTERN int _wrap_new_ULongValue__SWIG_4(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::ValueType< uint32_t > *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_ULongValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_ULongValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ULongValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_ULongValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::ValueType< uint32_t > *)new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_4((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_ULongValue__SWIG_5(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   Exiv2::ValueType< uint32_t >::ValueList arg1 ;
   PyObject * obj1 = 0 ;
   Exiv2::ValueType< uint32_t > *result = 0 ;
@@ -18677,7 +17682,7 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_5(PyObject *self, PyObject *args, PyOb
   }
   {
     try {
-      result = (Exiv2::ValueType< uint32_t > *)new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_5(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< uint32_t > *)new_Exiv2_ValueType_Sl_uint32_t_Sg___SWIG_4(SWIG_STD_MOVE(arg1));
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -18730,17 +17735,6 @@ check_1:
   }
 check_2:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_ULongValue__SWIG_4(self, args, NULL);
-  }
-check_3:
-  
   if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
@@ -18749,15 +17743,15 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
+    if (!_v) goto check_3;
     int retval = _wrap_new_ULongValue__SWIG_2(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_4:
+check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_ULongValue__SWIG_5(self, args, NULL);
+    int retval = _wrap_new_ULongValue__SWIG_4(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -18774,7 +17768,6 @@ fail:
     "    Exiv2::ValueType< uint32_t >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< uint32_t >::ValueType(unsigned int const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< uint32_t >::ValueType(Exiv2::ValueType< unsigned int > const &)\n"
-    "    Exiv2::ValueType< uint32_t >::ULongValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< uint32_t >::ValueType(Exiv2::ValueType< uint32_t >::ValueList)\n");
   return -1;
 }
@@ -19766,40 +18759,6 @@ fail:
 
 SWIGINTERN int _wrap_new_URationalValue__SWIG_4(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::ValueType< Exiv2::URational > *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_URationalValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_URationalValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_URationalValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_URationalValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::ValueType< Exiv2::URational > *)new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_4((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_URationalValue__SWIG_5(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   Exiv2::ValueType< Exiv2::URational >::ValueList arg1 ;
   PyObject * obj1 = 0 ;
   Exiv2::ValueType< Exiv2::URational > *result = 0 ;
@@ -19817,7 +18776,7 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_5(PyObject *self, PyObject *args, 
   }
   {
     try {
-      result = (Exiv2::ValueType< Exiv2::URational > *)new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_5(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< Exiv2::URational > *)new_Exiv2_ValueType_Sl_Exiv2_URational_Sg___SWIG_4(SWIG_STD_MOVE(arg1));
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -19870,32 +18829,21 @@ check_1:
   }
 check_2:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_URationalValue__SWIG_4(self, args, NULL);
-  }
-check_3:
-  
   if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
       int res = swig::asptr(argv[0], (std::pair< unsigned int,unsigned int >**)(0));
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_4;
+    if (!_v) goto check_3;
     int retval = _wrap_new_URationalValue__SWIG_2(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_4:
+check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_URationalValue__SWIG_5(self, args, NULL);
+    int retval = _wrap_new_URationalValue__SWIG_4(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -19912,7 +18860,6 @@ fail:
     "    Exiv2::ValueType< Exiv2::URational >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< Exiv2::URational >::ValueType(std::pair< unsigned int,unsigned int > const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< Exiv2::URational >::ValueType(Exiv2::ValueType< std::pair< unsigned int,unsigned int > > const &)\n"
-    "    Exiv2::ValueType< Exiv2::URational >::URationalValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< Exiv2::URational >::ValueType(Exiv2::ValueType< Exiv2::URational >::ValueList)\n");
   return -1;
 }
@@ -20895,40 +19842,6 @@ fail:
 
 SWIGINTERN int _wrap_new_ShortValue__SWIG_4(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::ValueType< int16_t > *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_ShortValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_ShortValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ShortValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_ShortValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::ValueType< int16_t > *)new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_4((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_ShortValue__SWIG_5(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   Exiv2::ValueType< int16_t >::ValueList arg1 ;
   PyObject * obj1 = 0 ;
   Exiv2::ValueType< int16_t > *result = 0 ;
@@ -20946,7 +19859,7 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_5(PyObject *self, PyObject *args, PyOb
   }
   {
     try {
-      result = (Exiv2::ValueType< int16_t > *)new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_5(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< int16_t > *)new_Exiv2_ValueType_Sl_int16_t_Sg___SWIG_4(SWIG_STD_MOVE(arg1));
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -20999,17 +19912,6 @@ check_1:
   }
 check_2:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_ShortValue__SWIG_4(self, args, NULL);
-  }
-check_3:
-  
   if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
@@ -21018,15 +19920,15 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
+    if (!_v) goto check_3;
     int retval = _wrap_new_ShortValue__SWIG_2(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_4:
+check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_ShortValue__SWIG_5(self, args, NULL);
+    int retval = _wrap_new_ShortValue__SWIG_4(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -21043,7 +19945,6 @@ fail:
     "    Exiv2::ValueType< int16_t >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int16_t >::ValueType(short const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int16_t >::ValueType(Exiv2::ValueType< short > const &)\n"
-    "    Exiv2::ValueType< int16_t >::ShortValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< int16_t >::ValueType(Exiv2::ValueType< int16_t >::ValueList)\n");
   return -1;
 }
@@ -22030,40 +20931,6 @@ fail:
 
 SWIGINTERN int _wrap_new_LongValue__SWIG_4(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::ValueType< int32_t > *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_LongValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_LongValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_LongValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_LongValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::ValueType< int32_t > *)new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_4((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_LongValue__SWIG_5(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   Exiv2::ValueType< int32_t >::ValueList arg1 ;
   PyObject * obj1 = 0 ;
   Exiv2::ValueType< int32_t > *result = 0 ;
@@ -22081,7 +20948,7 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_5(PyObject *self, PyObject *args, PyObj
   }
   {
     try {
-      result = (Exiv2::ValueType< int32_t > *)new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_5(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< int32_t > *)new_Exiv2_ValueType_Sl_int32_t_Sg___SWIG_4(SWIG_STD_MOVE(arg1));
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -22134,17 +21001,6 @@ check_1:
   }
 check_2:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_LongValue__SWIG_4(self, args, NULL);
-  }
-check_3:
-  
   if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
@@ -22153,15 +21009,15 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
+    if (!_v) goto check_3;
     int retval = _wrap_new_LongValue__SWIG_2(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_4:
+check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_LongValue__SWIG_5(self, args, NULL);
+    int retval = _wrap_new_LongValue__SWIG_4(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -22178,7 +21034,6 @@ fail:
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(int const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::ValueType< int > const &)\n"
-    "    Exiv2::ValueType< int32_t >::LongValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< int32_t >::ValueType(Exiv2::ValueType< int32_t >::ValueList)\n");
   return -1;
 }
@@ -23170,40 +22025,6 @@ fail:
 
 SWIGINTERN int _wrap_new_RationalValue__SWIG_4(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::ValueType< Exiv2::Rational > *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_RationalValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_RationalValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_RationalValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_RationalValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::ValueType< Exiv2::Rational > *)new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_4((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_RationalValue__SWIG_5(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   Exiv2::ValueType< Exiv2::Rational >::ValueList arg1 ;
   PyObject * obj1 = 0 ;
   Exiv2::ValueType< Exiv2::Rational > *result = 0 ;
@@ -23221,7 +22042,7 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_5(PyObject *self, PyObject *args, P
   }
   {
     try {
-      result = (Exiv2::ValueType< Exiv2::Rational > *)new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_5(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< Exiv2::Rational > *)new_Exiv2_ValueType_Sl_Exiv2_Rational_Sg___SWIG_4(SWIG_STD_MOVE(arg1));
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -23274,32 +22095,21 @@ check_1:
   }
 check_2:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_RationalValue__SWIG_4(self, args, NULL);
-  }
-check_3:
-  
   if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
       int res = swig::asptr(argv[0], (std::pair< int,int >**)(0));
       _v = SWIG_CheckState(res);
     }
-    if (!_v) goto check_4;
+    if (!_v) goto check_3;
     int retval = _wrap_new_RationalValue__SWIG_2(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_4:
+check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_RationalValue__SWIG_5(self, args, NULL);
+    int retval = _wrap_new_RationalValue__SWIG_4(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -23316,7 +22126,6 @@ fail:
     "    Exiv2::ValueType< Exiv2::Rational >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< Exiv2::Rational >::ValueType(std::pair< int,int > const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< Exiv2::Rational >::ValueType(Exiv2::ValueType< std::pair< int,int > > const &)\n"
-    "    Exiv2::ValueType< Exiv2::Rational >::RationalValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< Exiv2::Rational >::ValueType(Exiv2::ValueType< Exiv2::Rational >::ValueList)\n");
   return -1;
 }
@@ -24299,40 +23108,6 @@ fail:
 
 SWIGINTERN int _wrap_new_FloatValue__SWIG_4(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::ValueType< float > *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_FloatValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_FloatValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FloatValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_FloatValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::ValueType< float > *)new_Exiv2_ValueType_Sl_float_Sg___SWIG_4((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_FloatValue__SWIG_5(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   Exiv2::ValueType< float >::ValueList arg1 ;
   PyObject * obj1 = 0 ;
   Exiv2::ValueType< float > *result = 0 ;
@@ -24350,7 +23125,7 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_5(PyObject *self, PyObject *args, PyOb
   }
   {
     try {
-      result = (Exiv2::ValueType< float > *)new_Exiv2_ValueType_Sl_float_Sg___SWIG_5(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< float > *)new_Exiv2_ValueType_Sl_float_Sg___SWIG_4(SWIG_STD_MOVE(arg1));
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -24403,17 +23178,6 @@ check_1:
   }
 check_2:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_FloatValue__SWIG_4(self, args, NULL);
-  }
-check_3:
-  
   if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
@@ -24422,15 +23186,15 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
+    if (!_v) goto check_3;
     int retval = _wrap_new_FloatValue__SWIG_2(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_4:
+check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_FloatValue__SWIG_5(self, args, NULL);
+    int retval = _wrap_new_FloatValue__SWIG_4(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -24447,7 +23211,6 @@ fail:
     "    Exiv2::ValueType< float >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< float >::ValueType(float const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< float >::ValueType(Exiv2::ValueType< float > const &)\n"
-    "    Exiv2::ValueType< float >::FloatValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< float >::ValueType(Exiv2::ValueType< float >::ValueList)\n");
   return -1;
 }
@@ -25434,40 +24197,6 @@ fail:
 
 SWIGINTERN int _wrap_new_DoubleValue__SWIG_4(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::ValueType< double > *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DoubleValue")) SWIG_fail;
-  if (!PyArg_UnpackTuple(args, "new_DoubleValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Value,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DoubleValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "new_DoubleValue" "', argument " "1"" of type '" "Exiv2::Value const &""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = (Exiv2::ValueType< double > *)new_Exiv2_ValueType_Sl_double_Sg___SWIG_4((Exiv2::Value const &)*arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN int _wrap_new_DoubleValue__SWIG_5(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
   Exiv2::ValueType< double >::ValueList arg1 ;
   PyObject * obj1 = 0 ;
   Exiv2::ValueType< double > *result = 0 ;
@@ -25485,7 +24214,7 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_5(PyObject *self, PyObject *args, PyO
   }
   {
     try {
-      result = (Exiv2::ValueType< double > *)new_Exiv2_ValueType_Sl_double_Sg___SWIG_5(SWIG_STD_MOVE(arg1));
+      result = (Exiv2::ValueType< double > *)new_Exiv2_ValueType_Sl_double_Sg___SWIG_4(SWIG_STD_MOVE(arg1));
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -25538,17 +24267,6 @@ check_1:
   }
 check_2:
   
-  if (argc == 1) {
-    int _v = 0;
-    {
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Exiv2__Value, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_3;
-    return _wrap_new_DoubleValue__SWIG_4(self, args, NULL);
-  }
-check_3:
-  
   if ((argc >= 1) && (argc <= 2)) {
     int _v = 0;
     {
@@ -25557,15 +24275,15 @@ check_3:
         _v = SWIG_CheckState(res);
       }
     }
-    if (!_v) goto check_4;
+    if (!_v) goto check_3;
     int retval = _wrap_new_DoubleValue__SWIG_2(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
-check_4:
+check_3:
   
   if (argc == 1) {
-    int retval = _wrap_new_DoubleValue__SWIG_5(self, args, NULL);
+    int retval = _wrap_new_DoubleValue__SWIG_4(self, args, NULL);
     if (retval == 0 || !SWIG_Python_TypeErrorOccurred(NULL)) return retval;
     SWIG_fail;
   }
@@ -25582,7 +24300,6 @@ fail:
     "    Exiv2::ValueType< double >::ValueType(Exiv2::byte const *,long,Exiv2::ByteOrder,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< double >::ValueType(double const &,Exiv2::TypeId)\n"
     "    Exiv2::ValueType< double >::ValueType(Exiv2::ValueType< double > const &)\n"
-    "    Exiv2::ValueType< double >::DoubleValue(Exiv2::Value const &)\n"
     "    Exiv2::ValueType< double >::ValueType(Exiv2::ValueType< double >::ValueList)\n");
   return -1;
 }
@@ -26763,7 +25480,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__StringValueBase_methods[] = {
   { "toFloat", _wrap_StringValueBase_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_StringValueBase_toRational, METH_VARARGS, "" },
   { "write", _wrap_StringValueBase_write, METH_VARARGS, "" },
-  { "__getitem__", _wrap_StringValueBase___getitem__, METH_VARARGS, "" },
   { "data", _wrap_StringValueBase_data, METH_VARARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
@@ -26945,7 +25661,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__StringValueBase_type = {
     _wrap_StringValueBase_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    _wrap_StringValueBase___getitem___ssizeargfunc_closure, /* sq_item */
+    (ssizeargfunc) 0,                       /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -27084,7 +25800,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__StringValueBase_type_create(PyTypeObj
     { Py_sq_length,                     (void *)_wrap_StringValueBase_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)_wrap_StringValueBase___getitem___ssizeargfunc_closure },
+    { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -28811,7 +27527,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpTextValue_methods[] = {
 		":return: The converted value.\n"
 		"" },
   { "write", _wrap_XmpTextValue_write, METH_VARARGS, "" },
-  { "__getitem__", _wrap_XmpTextValue___getitem__, METH_VARARGS, "" },
   { "data", _wrap_XmpTextValue_data, METH_VARARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
@@ -28994,7 +27709,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpTextValue_type = {
     _wrap_XmpTextValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    _wrap_XmpTextValue___getitem___ssizeargfunc_closure, /* sq_item */
+    (ssizeargfunc) 0,                       /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -29134,7 +27849,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__XmpTextValue_type_create(PyTypeObject
     { Py_sq_length,                     (void *)_wrap_XmpTextValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)_wrap_XmpTextValue___getitem___ssizeargfunc_closure },
+    { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -30163,7 +28878,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue_methods[] = {
   { "toLong", _wrap_DateValue_toLong, METH_VARARGS, "Return the value as a UNIX calender time converted to long." },
   { "toFloat", _wrap_DateValue_toFloat, METH_VARARGS, "Return the value as a UNIX calender time converted to float." },
   { "toRational", _wrap_DateValue_toRational, METH_VARARGS, "Return the value as a UNIX calender time  converted to Rational." },
-  { "__getitem__", _wrap_DateValue___getitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -30338,7 +29052,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DateValue_type = {
     _wrap_DateValue_count_lenfunc_closure,  /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    _wrap_DateValue___getitem___ssizeargfunc_closure, /* sq_item */
+    (ssizeargfunc) 0,                       /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -30477,7 +29191,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__DateValue_type_create(PyTypeObject *t
     { Py_sq_length,                     (void *)_wrap_DateValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)_wrap_DateValue___getitem___ssizeargfunc_closure },
+    { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -30977,7 +29691,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TimeValue_methods[] = {
   { "toLong", _wrap_TimeValue_toLong, METH_VARARGS, "Returns number of seconds in the day in UTC." },
   { "toFloat", _wrap_TimeValue_toFloat, METH_VARARGS, "Returns number of seconds in the day in UTC converted to float." },
   { "toRational", _wrap_TimeValue_toRational, METH_VARARGS, "Returns number of seconds in the day in UTC converted to Rational." },
-  { "__getitem__", _wrap_TimeValue___getitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -31154,7 +29867,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__TimeValue_type = {
     _wrap_TimeValue_count_lenfunc_closure,  /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    _wrap_TimeValue___getitem___ssizeargfunc_closure, /* sq_item */
+    (ssizeargfunc) 0,                       /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -31295,7 +30008,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__TimeValue_type_create(PyTypeObject *t
     { Py_sq_length,                     (void *)_wrap_TimeValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)_wrap_TimeValue___getitem___ssizeargfunc_closure },
+    { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },

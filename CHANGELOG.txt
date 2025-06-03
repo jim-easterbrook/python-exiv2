@@ -16,6 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.18.0:
+  1/ Removed features deprecated in v0.13.0:
+     Value (and derived types) copy constructors
+     Single value (such as DateValue) index methods
+
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.
 
