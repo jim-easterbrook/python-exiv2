@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2024  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2024-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -198,7 +198,7 @@ def process_docstring(app, what, name, obj, options, lines):
                 header = ['"{}"'.format(x.strip('*')) for x in parts[1:-1]]
                 lines[idx:idx+1] = [
                     parts[0] + '.. csv-table::', parts[0] + '    :delim: |',
-                    parts[0] + '    :header: ' + ', '.join(header), '']
+                    parts[0] + '    :header: ' + '|'.join(header), '']
                 idx += 3
                 while lines[idx+1]:
                     idx += 1
