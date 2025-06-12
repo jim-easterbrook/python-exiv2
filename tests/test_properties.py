@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -30,14 +30,6 @@ class TestPropertiesModule(unittest.TestCase):
     namespace = 'http://purl.org/dc/elements/1.1/'
     prefix_name = 'dc'
     property_name = 'description'
-
-    @classmethod
-    def setUpClass(cls):
-        exiv2.XmpParser.initialize()
-
-    @classmethod
-    def tearDownClass(cls):
-        exiv2.XmpParser.terminate()
 
     def check_result(self, result, expected_type, expected_value):
         self.assertIsInstance(result, expected_type)
