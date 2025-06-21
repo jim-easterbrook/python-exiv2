@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2022-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2022-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -105,7 +105,7 @@ class TestPreviewModule(unittest.TestCase):
                 del properties[k]
         with self.assertRaises(KeyError):
             a = properties['fred']
-        with self.assertRaises(KeyError):
+        with self.assertRaises(TypeError):
             properties['fred'] = 123
 
     def test_ref_counts(self):

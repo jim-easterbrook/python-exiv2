@@ -334,8 +334,8 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %enddef // VALUETYPE
 
 // Give Date and Time structs some dict-like behaviour
-STRUCT_DICT(Exiv2::DateValue::Date)
-STRUCT_DICT(Exiv2::TimeValue::Time)
+STRUCT_DICT(Exiv2::DateValue::Date, true)
+STRUCT_DICT(Exiv2::TimeValue::Time, true)
 
 %extend Exiv2::DateValue {
     // Allow DateValue to be constructed from a Date

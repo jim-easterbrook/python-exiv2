@@ -4645,21 +4645,6 @@ SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___getitem__(Exiv2::XmpPropertyInfo *s
             return NULL;
         return getset->get(py_self, getset->closure);
     }
-SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___setitem__(Exiv2::XmpPropertyInfo *self,PyObject *py_self,std::string const &key,PyObject *value){
-        PyGetSetDef* getset = find_getset(py_self, key.c_str());
-        if (!getset)
-            return NULL;
-        if (!value)
-            return PyErr_Format(PyExc_TypeError,
-                "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
-                key.c_str());
-        if (!getset->set)
-            return PyErr_Format(PyExc_TypeError, "%s['%s'] is read-only",
-                                py_self->ob_type->tp_name, key.c_str());
-        if (getset->set(py_self, value, getset->closure) != 0)
-            return NULL;
-        return SWIG_Py_Void();
-    }
 
 static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
     PyObject* list = PyList_New(0);
@@ -4697,21 +4682,6 @@ SWIGINTERN PyObject *Exiv2_XmpNsInfo___getitem__(Exiv2::XmpNsInfo *self,PyObject
         if (!getset)
             return NULL;
         return getset->get(py_self, getset->closure);
-    }
-SWIGINTERN PyObject *Exiv2_XmpNsInfo___setitem__(Exiv2::XmpNsInfo *self,PyObject *py_self,std::string const &key,PyObject *value){
-        PyGetSetDef* getset = find_getset(py_self, key.c_str());
-        if (!getset)
-            return NULL;
-        if (!value)
-            return PyErr_Format(PyExc_TypeError,
-                "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
-                key.c_str());
-        if (!getset->set)
-            return PyErr_Format(PyExc_TypeError, "%s['%s'] is read-only",
-                                py_self->ob_type->tp_name, key.c_str());
-        if (getset->set(py_self, value, getset->closure) != 0)
-            return NULL;
-        return SWIG_Py_Void();
     }
 
 SWIGINTERNINLINE PyObject *
@@ -5057,65 +5027,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpPropertyInfo___setitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpPropertyInfo *arg1 = (Exiv2::XmpPropertyInfo *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  std::string *arg3 = 0 ;
-  PyObject *arg4 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[3] ;
-  PyObject *result = 0 ;
-  
-  {
-    arg4 = NULL;
-  }
-  {
-    arg2 = self;
-  }
-  if (!SWIG_Python_UnpackTuple(args, "XmpPropertyInfo___setitem__", 1, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpPropertyInfo___setitem__" "', argument " "1"" of type '" "Exiv2::XmpPropertyInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpPropertyInfo___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpPropertyInfo___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  if (swig_obj[1]) {
-    arg4 = swig_obj[1];
-  }
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpPropertyInfo___setitem__(arg1,arg2,(std::string const &)*arg3,arg4);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpPropertyInfo___iter__) /* defines _wrap_XmpPropertyInfo___iter___getiterfunc_closure */
-
-SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_XmpPropertyInfo___setitem__) /* defines _wrap_XmpPropertyInfo___setitem___objobjargproc_closure */
 
 SWIGINTERN PyObject *_wrap_XmpNsInfo_ns__get(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -5388,65 +5300,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpNsInfo___setitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpNsInfo *arg1 = (Exiv2::XmpNsInfo *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  std::string *arg3 = 0 ;
-  PyObject *arg4 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[3] ;
-  PyObject *result = 0 ;
-  
-  {
-    arg4 = NULL;
-  }
-  {
-    arg2 = self;
-  }
-  if (!SWIG_Python_UnpackTuple(args, "XmpNsInfo___setitem__", 1, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpNsInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpNsInfo___setitem__" "', argument " "1"" of type '" "Exiv2::XmpNsInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpNsInfo___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpNsInfo___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  if (swig_obj[1]) {
-    arg4 = swig_obj[1];
-  }
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpNsInfo___setitem__(arg1,arg2,(std::string const &)*arg3,arg4);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpNsInfo___iter__) /* defines _wrap_XmpNsInfo___iter___getiterfunc_closure */
-
-SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_XmpNsInfo___setitem__) /* defines _wrap_XmpNsInfo___setitem___objobjargproc_closure */
 
 SWIGINTERN PyObject *_wrap_XmpProperties_propertyTitle(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -6370,7 +6224,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpPropertyInfo_methods[] = {
 		"" },
   { "__iter__", _wrap_XmpPropertyInfo___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_XmpPropertyInfo___getitem__, METH_O, "" },
-  { "__setitem__", _wrap_XmpPropertyInfo___setitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6534,7 +6387,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpPropertyInfo_type = {
   {
     (lenfunc) 0,                            /* mp_length */
     _wrap_XmpPropertyInfo___getitem__,      /* mp_subscript */
-    _wrap_XmpPropertyInfo___setitem___objobjargproc_closure, /* mp_ass_subscript */
+    (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
     (lenfunc) 0,                            /* sq_length */
@@ -6635,7 +6488,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__XmpPropertyInfo_type_create(PyTypeObj
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)(lenfunc) 0 },
     { Py_mp_subscript,                  (void *)_wrap_XmpPropertyInfo___getitem__ },
-    { Py_mp_ass_subscript,              (void *)_wrap_XmpPropertyInfo___setitem___objobjargproc_closure },
+    { Py_mp_ass_subscript,              (void *)(objobjargproc) 0 },
     { Py_tp_iter,                       (void *)_wrap_XmpPropertyInfo___iter___getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
     { Py_nb_add,                        (void *)(binaryfunc) 0 },
@@ -6748,7 +6601,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpNsInfo_methods[] = {
 		"" },
   { "__iter__", _wrap_XmpNsInfo___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_XmpNsInfo___getitem__, METH_O, "" },
-  { "__setitem__", _wrap_XmpNsInfo___setitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6912,7 +6764,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpNsInfo_type = {
   {
     (lenfunc) 0,                            /* mp_length */
     _wrap_XmpNsInfo___getitem__,            /* mp_subscript */
-    _wrap_XmpNsInfo___setitem___objobjargproc_closure, /* mp_ass_subscript */
+    (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
     (lenfunc) 0,                            /* sq_length */
@@ -7013,7 +6865,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__XmpNsInfo_type_create(PyTypeObject *t
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)(lenfunc) 0 },
     { Py_mp_subscript,                  (void *)_wrap_XmpNsInfo___getitem__ },
-    { Py_mp_ass_subscript,              (void *)_wrap_XmpNsInfo___setitem___objobjargproc_closure },
+    { Py_mp_ass_subscript,              (void *)(objobjargproc) 0 },
     { Py_tp_iter,                       (void *)_wrap_XmpNsInfo___iter___getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
     { Py_nb_add,                        (void *)(binaryfunc) 0 },

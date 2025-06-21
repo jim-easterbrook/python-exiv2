@@ -5661,21 +5661,6 @@ SWIGINTERN PyObject *Exiv2_PreviewProperties___getitem__(Exiv2::PreviewPropertie
             return NULL;
         return getset->get(py_self, getset->closure);
     }
-SWIGINTERN PyObject *Exiv2_PreviewProperties___setitem__(Exiv2::PreviewProperties *self,PyObject *py_self,std::string const &key,PyObject *value){
-        PyGetSetDef* getset = find_getset(py_self, key.c_str());
-        if (!getset)
-            return NULL;
-        if (!value)
-            return PyErr_Format(PyExc_TypeError,
-                "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
-                key.c_str());
-        if (!getset->set)
-            return PyErr_Format(PyExc_TypeError, "%s['%s'] is read-only",
-                                py_self->ob_type->tp_name, key.c_str());
-        if (getset->set(py_self, value, getset->closure) != 0)
-            return NULL;
-        return SWIG_Py_Void();
-    }
 
   #define SWIG_From_long   PyInt_FromLong 
 
@@ -6186,62 +6171,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_PreviewProperties___setitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  std::string *arg3 = 0 ;
-  PyObject *arg4 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[3] ;
-  PyObject *result = 0 ;
-  
-  {
-    arg4 = NULL;
-  }
-  {
-    arg2 = self;
-  }
-  if (!SWIG_Python_UnpackTuple(args, "PreviewProperties___setitem__", 1, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties___setitem__" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "PreviewProperties___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "PreviewProperties___setitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  if (swig_obj[1]) {
-    arg4 = swig_obj[1];
-  }
-  {
-    try {
-      result = (PyObject *)Exiv2_PreviewProperties___setitem__(arg1,arg2,(std::string const &)*arg3,arg4);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_PreviewProperties(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
@@ -6271,8 +6200,6 @@ fail:
 
 
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_PreviewProperties___iter__) /* defines _wrap_PreviewProperties___iter___getiterfunc_closure */
-
-SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_PreviewProperties___setitem__) /* defines _wrap_PreviewProperties___setitem___objobjargproc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_PreviewProperties) /* defines _wrap_delete_PreviewProperties_destructor_closure */
 
@@ -6809,7 +6736,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewProperties_methods[] = {
 		"" },
   { "__iter__", _wrap_PreviewProperties___iter__, METH_NOARGS, "" },
   { "__getitem__", _wrap_PreviewProperties___getitem__, METH_O, "" },
-  { "__setitem__", _wrap_PreviewProperties___setitem__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6973,7 +6899,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__PreviewProperties_type = {
   {
     (lenfunc) 0,                            /* mp_length */
     _wrap_PreviewProperties___getitem__,    /* mp_subscript */
-    _wrap_PreviewProperties___setitem___objobjargproc_closure, /* mp_ass_subscript */
+    (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
     (lenfunc) 0,                            /* sq_length */
@@ -7074,7 +7000,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__PreviewProperties_type_create(PyTypeO
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)(lenfunc) 0 },
     { Py_mp_subscript,                  (void *)_wrap_PreviewProperties___getitem__ },
-    { Py_mp_ass_subscript,              (void *)_wrap_PreviewProperties___setitem___objobjargproc_closure },
+    { Py_mp_ass_subscript,              (void *)(objobjargproc) 0 },
     { Py_tp_iter,                       (void *)_wrap_PreviewProperties___iter___getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
     { Py_nb_add,                        (void *)(binaryfunc) 0 },

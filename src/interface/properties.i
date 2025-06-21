@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -83,10 +83,10 @@ LIST_POINTER(const Exiv2::XmpPropertyInfo* xmpPropertyInfo_,
              Exiv2::XmpPropertyInfo, name_)
 
 // Give Exiv2::XmpPropertyInfo dict-like behaviour
-STRUCT_DICT(Exiv2::XmpPropertyInfo)
+STRUCT_DICT(Exiv2::XmpPropertyInfo, false)
 
 // Give Exiv2::XmpNsInfo dict-like behaviour
-STRUCT_DICT(Exiv2::XmpNsInfo)
+STRUCT_DICT(Exiv2::XmpNsInfo, false)
 
 // Structs are all static data
 %ignore Exiv2::XmpPropertyInfo::XmpPropertyInfo;

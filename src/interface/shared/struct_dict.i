@@ -69,14 +69,12 @@ static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
 }
 
 // Macro definition
-%define STRUCT_DICT(struct_type)
+%define STRUCT_DICT(struct_type, mutable)
 // Type slots
 %feature("python:slot", "tp_iter", functype="getiterfunc")
     struct_type::__iter__;
 %feature("python:slot", "mp_subscript", functype="binaryfunc")
     struct_type::__getitem__;
-%feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
-    struct_type::__setitem__;
 // Typemaps for slot functions
 %typemap(in, numinputs=0) PyObject* py_self {$1 = self;}
 %typemap(default) PyObject* value {$1 = NULL;}
@@ -117,6 +115,11 @@ static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
             return NULL;
         return getset->get(py_self, getset->closure);
     }
+}
+#if #mutable == "true"
+%feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
+    struct_type::__setitem__;
+%extend struct_type {
     PyObject* __setitem__(PyObject* py_self, const std::string& key,
                           PyObject* value) {
         PyGetSetDef* getset = find_getset(py_self, key.c_str());
@@ -134,4 +137,5 @@ static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
         return SWIG_Py_Void();
     }
 }
+#endif // mutable
 %enddef // STRUCT_DICT

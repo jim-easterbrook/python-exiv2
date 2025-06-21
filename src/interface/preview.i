@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -93,7 +93,7 @@ RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
             Exiv2::PreviewImage::pData)
 
 // Give Exiv2::PreviewProperties dict-like behaviour
-STRUCT_DICT(Exiv2::PreviewProperties)
+STRUCT_DICT(Exiv2::PreviewProperties, false)
 
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;
