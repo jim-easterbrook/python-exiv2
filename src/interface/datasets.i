@@ -46,7 +46,7 @@ EXTEND_KEY(Exiv2::IptcKey);
 LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 
 // Give Exiv2::DataSet dict-like behaviour
-STRUCT_DICT(Exiv2::DataSet, false)
+STRUCT_DICT(Exiv2::DataSet, false, true)
 
 // Structs are all static data
 %ignore Exiv2::IptcDataSets::IptcDataSets;

@@ -103,7 +103,7 @@ class TestPreviewModule(unittest.TestCase):
                 properties[k] = 123
             with self.assertRaises(TypeError):
                 del properties[k]
-        with self.assertRaises(KeyError):
+        with self.assertRaises(AttributeError):
             a = properties['fred']
         with self.assertRaises(TypeError):
             properties['fred'] = 123

@@ -93,7 +93,7 @@ RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
             Exiv2::PreviewImage::pData)
 
 // Give Exiv2::PreviewProperties dict-like behaviour
-STRUCT_DICT(Exiv2::PreviewProperties, false)
+STRUCT_DICT(Exiv2::PreviewProperties, false, true)
 
 %immutable Exiv2::PreviewProperties::mimeType_;
 %immutable Exiv2::PreviewProperties::extension_;

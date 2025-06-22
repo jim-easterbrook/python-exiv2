@@ -6628,43 +6628,24 @@ static PyObject* list_getset(
     }
     return result;
 };
-static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
-    size_t len = strlen(name);
-    PyGetSetDef* getset = obj->ob_type->tp_getset;
-    while (getset->name) {
-        size_t cmp_len = strlen(getset->name);
-        if (getset->name[cmp_len-1] == '_')
-            cmp_len--;
-        if ((cmp_len == len) && (strncmp(getset->name, name, len) == 0))
-            return getset;
-        getset++;
-    }
-    PyErr_Format(
-        PyExc_KeyError, "'%s' not in '%s'", name, obj->ob_type->tp_name);
-    return NULL;
-};
-static PyObject* getset_to_item(PyObject* obj, PyGetSetDef* getset) {
-    size_t len = strlen(getset->name);
-    if (getset->name[len-1] == '_')
-        len--;
-    return Py_BuildValue("(s#N)", getset->name, len,
-        getset->get(obj, getset->closure));
-};
-static PyObject* getset_to_key(PyObject* obj, PyGetSetDef* getset) {
-    size_t len = strlen(getset->name);
-    if (getset->name[len-1] == '_')
-        len--;
-    return Py_BuildValue("s#", getset->name, len);
-};
 static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("N", getset->get(obj, getset->closure));
 };
 
+
+static PyObject* getset_to_item_nostrip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("(sN)", getset->name,
+        getset->get(obj, getset->closure));
+};
+static PyObject* getset_to_key_nostrip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("s", getset->name);
+};
+
 SWIGINTERN PyObject *Exiv2_DateValue_Date_items(Exiv2::DateValue::Date *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_item);
+        return list_getset(py_self, getset_to_item_nostrip);
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date_keys(Exiv2::DateValue::Date *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_key);
+        return list_getset(py_self, getset_to_key_nostrip);
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date_values(Exiv2::DateValue::Date *self,PyObject *py_self){
         return list_getset(py_self, getset_to_value);
@@ -6677,23 +6658,24 @@ SWIGINTERN PyObject *Exiv2_DateValue_Date___iter__(Exiv2::DateValue::Date *self,
         return result;
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date___getitem__(Exiv2::DateValue::Date *self,PyObject *py_self,std::string const &key){
-        PyGetSetDef* getset = find_getset(py_self, key.c_str());
-        if (!getset)
-            return NULL;
-        return getset->get(py_self, getset->closure);
+
+
+
+        return PyObject_GetAttrString(py_self, key.c_str());
+
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date___setitem__(Exiv2::DateValue::Date *self,PyObject *py_self,std::string const &key,PyObject *value){
-        PyGetSetDef* getset = find_getset(py_self, key.c_str());
-        if (!getset)
-            return NULL;
         if (!value)
             return PyErr_Format(PyExc_TypeError,
                 "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
                 key.c_str());
-        if (!getset->set)
-            return PyErr_Format(PyExc_TypeError, "%s['%s'] is read-only",
-                                py_self->ob_type->tp_name, key.c_str());
-        if (getset->set(py_self, value, getset->closure) != 0)
+
+
+
+
+        int error = PyObject_SetAttrString(py_self, key.c_str(), value);
+
+        if (error)
             return NULL;
         return SWIG_Py_Void();
     }
@@ -6712,10 +6694,10 @@ SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int32_t h
         self->setTime(time);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_items(Exiv2::TimeValue::Time *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_item);
+        return list_getset(py_self, getset_to_item_nostrip);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_keys(Exiv2::TimeValue::Time *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_key);
+        return list_getset(py_self, getset_to_key_nostrip);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_values(Exiv2::TimeValue::Time *self,PyObject *py_self){
         return list_getset(py_self, getset_to_value);
@@ -6728,23 +6710,24 @@ SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(Exiv2::TimeValue::Time *self,
         return result;
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time___getitem__(Exiv2::TimeValue::Time *self,PyObject *py_self,std::string const &key){
-        PyGetSetDef* getset = find_getset(py_self, key.c_str());
-        if (!getset)
-            return NULL;
-        return getset->get(py_self, getset->closure);
+
+
+
+        return PyObject_GetAttrString(py_self, key.c_str());
+
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time___setitem__(Exiv2::TimeValue::Time *self,PyObject *py_self,std::string const &key,PyObject *value){
-        PyGetSetDef* getset = find_getset(py_self, key.c_str());
-        if (!getset)
-            return NULL;
         if (!value)
             return PyErr_Format(PyExc_TypeError,
                 "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
                 key.c_str());
-        if (!getset->set)
-            return PyErr_Format(PyExc_TypeError, "%s['%s'] is read-only",
-                                py_self->ob_type->tp_name, key.c_str());
-        if (getset->set(py_self, value, getset->closure) != 0)
+
+
+
+
+        int error = PyObject_SetAttrString(py_self, key.c_str(), value);
+
+        if (error)
             return NULL;
         return SWIG_Py_Void();
     }

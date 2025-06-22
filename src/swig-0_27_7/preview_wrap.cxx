@@ -5472,36 +5472,17 @@ static PyObject* list_getset(
     }
     return result;
 };
-static PyGetSetDef* find_getset(PyObject* obj, const char* name) {
-    size_t len = strlen(name);
-    PyGetSetDef* getset = obj->ob_type->tp_getset;
-    while (getset->name) {
-        size_t cmp_len = strlen(getset->name);
-        if (getset->name[cmp_len-1] == '_')
-            cmp_len--;
-        if ((cmp_len == len) && (strncmp(getset->name, name, len) == 0))
-            return getset;
-        getset++;
-    }
-    PyErr_Format(
-        PyExc_KeyError, "'%s' not in '%s'", name, obj->ob_type->tp_name);
-    return NULL;
-};
-static PyObject* getset_to_item(PyObject* obj, PyGetSetDef* getset) {
-    size_t len = strlen(getset->name);
-    if (getset->name[len-1] == '_')
-        len--;
-    return Py_BuildValue("(s#N)", getset->name, len,
-        getset->get(obj, getset->closure));
-};
-static PyObject* getset_to_key(PyObject* obj, PyGetSetDef* getset) {
-    size_t len = strlen(getset->name);
-    if (getset->name[len-1] == '_')
-        len--;
-    return Py_BuildValue("s#", getset->name, len);
-};
 static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("N", getset->get(obj, getset->closure));
+};
+
+
+static PyObject* getset_to_item_strip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("(s#N)", getset->name, strlen(getset->name) - 1,
+        getset->get(obj, getset->closure));
+};
+static PyObject* getset_to_key_strip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("s#", getset->name, strlen(getset->name) - 1);
 };
 
 
@@ -5526,10 +5507,10 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN PyObject *Exiv2_PreviewProperties_items(Exiv2::PreviewProperties *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_item);
+        return list_getset(py_self, getset_to_item_strip);
     }
 SWIGINTERN PyObject *Exiv2_PreviewProperties_keys(Exiv2::PreviewProperties *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_key);
+        return list_getset(py_self, getset_to_key_strip);
     }
 SWIGINTERN PyObject *Exiv2_PreviewProperties_values(Exiv2::PreviewProperties *self,PyObject *py_self){
         return list_getset(py_self, getset_to_value);
@@ -5656,10 +5637,11 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 }
 
 SWIGINTERN PyObject *Exiv2_PreviewProperties___getitem__(Exiv2::PreviewProperties *self,PyObject *py_self,std::string const &key){
-        PyGetSetDef* getset = find_getset(py_self, key.c_str());
-        if (!getset)
-            return NULL;
-        return getset->get(py_self, getset->closure);
+
+        return PyObject_GetAttrString(py_self, (key + '_').c_str());
+
+
+
     }
 
   #define SWIG_From_long   PyInt_FromLong 

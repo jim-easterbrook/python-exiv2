@@ -98,10 +98,10 @@ LIST_POINTER(const Exiv2::GroupInfo*, Exiv2::GroupInfo, tagList_)
 LIST_POINTER(const Exiv2::TagInfo*, Exiv2::TagInfo, tag_ != 0xFFFF)
 
 // Give Exiv2::GroupInfo dict-like behaviour
-STRUCT_DICT(Exiv2::GroupInfo, false)
+STRUCT_DICT(Exiv2::GroupInfo, false, true)
 
 // Give Exiv2::TagInfo dict-like behaviour
-STRUCT_DICT(Exiv2::TagInfo, false)
+STRUCT_DICT(Exiv2::TagInfo, false, true)
 
 // Wrapper class for TagListFct function pointer
 #ifndef SWIGIMPORTED
