@@ -63,7 +63,7 @@ static PyObject* getset_to_key_nostrip(PyObject* obj, PyGetSetDef* getset) {
 static int set_attr_no_delete(
         PyObject* obj, PyObject* name, PyObject* value) {
     if ((!value) && PyUnicode_Check(name)) {
-        char* c_name = PyUnicode_AsUTF8(name);
+        const char* c_name = PyUnicode_AsUTF8(name);
         PyGetSetDef* getset = obj->ob_type->tp_getset;
         while (getset->name) {
             if (strcmp(getset->name, c_name) == 0) {
