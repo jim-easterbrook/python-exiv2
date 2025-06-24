@@ -354,6 +354,11 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.day, today.day)
         self.assertEqual(dict(value), {
             'year': today.year, 'month': today.month, 'day': today.day})
+        value['day'] = 1
+        with self.assertRaises(TypeError):
+            del value['day']
+        with self.assertRaises(TypeError):
+            del value.day
 
     def do_test_DateValue(self, py_date):
         data = bytes(py_date.strftime('%Y%m%d'), 'ascii')
@@ -415,6 +420,11 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(dict(value), {
             'hour': now.hour, 'minute': now.minute, 'second': now.second,
             'tzHour': 1, 'tzMinute': 30})
+        value['second'] = 1
+        with self.assertRaises(TypeError):
+            del value['second']
+        with self.assertRaises(TypeError):
+            del value.second
 
     def do_test_TimeValue(self, py_time):
         exiv_time = exiv2.Time()

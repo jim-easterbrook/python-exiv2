@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -69,6 +69,12 @@ class TestTagsModule(unittest.TestCase):
         self.assertIsInstance(tag_list, list)
         self.assertGreater(len(tag_list), 0)
         self.assertIsInstance(tag_list[0], exiv2.TagInfo)
+        self.check_result(info.groupName_, str, info['groupName'])
+        self.check_result(info.ifdName_, str, info['ifdName'])
+        with self.assertRaises(TypeError):
+            del info['groupName']
+        with self.assertRaises(AttributeError):
+            del info.ifdName_
 
     def test_TagInfo(self):
         info = exiv2.ExifTags.tagList(self.group_name)[0]
@@ -90,6 +96,12 @@ class TestTagsModule(unittest.TestCase):
         self.check_result(info['title'], str, 'Processing Software')
         self.check_result(
             info['typeId'], exiv2.TypeId, exiv2.TypeId.asciiString)
+        self.check_result(info.name_, str, info['name'])
+        self.check_result(info.title_, str, info['title'])
+        with self.assertRaises(TypeError):
+            del info['name']
+        with self.assertRaises(AttributeError):
+            del info.title_
 
     def test_ExifKey(self):
         # constructors
