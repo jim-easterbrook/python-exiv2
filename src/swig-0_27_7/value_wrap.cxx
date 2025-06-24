@@ -4563,6 +4563,25 @@ PyObject* _enum_list_XmpStruct() {
 };
 
 
+static int set_attr_no_delete(
+        PyObject* obj, PyObject* name, PyObject* value) {
+    if ((!value) && PyUnicode_Check(name)) {
+        char* c_name = PyUnicode_AsUTF8(name);
+        PyGetSetDef* getset = obj->ob_type->tp_getset;
+        while (getset->name) {
+            if (strcmp(getset->name, c_name) == 0) {
+                PyErr_Format(PyExc_TypeError,
+                    "%s.%s can not be deleted",
+                    obj->ob_type->tp_name, c_name);
+                return -1;
+            }
+            getset++;
+        }
+    }
+    return PyObject_GenericSetAttr(obj, name, value);
+};
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {
@@ -29288,7 +29307,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DateValue__Date_type = {
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
-    (setattrofunc) 0,                       /* tp_setattro */
+    set_attr_no_delete,                     /* tp_setattro */
     &SwigPyBuiltin__Exiv2__DateValue__Date_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE, /* tp_flags */
@@ -29511,7 +29530,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__DateValue__Date_type_create(PyTypeObj
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
     { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
-    { Py_tp_setattro,                   (void *)(setattrofunc) 0 },
+    { Py_tp_setattro,                   (void *)set_attr_no_delete },
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)(lenfunc) 0 },
@@ -30109,7 +30128,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__TimeValue__Time_type = {
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
-    (setattrofunc) 0,                       /* tp_setattro */
+    set_attr_no_delete,                     /* tp_setattro */
     &SwigPyBuiltin__Exiv2__TimeValue__Time_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE, /* tp_flags */
@@ -30332,7 +30351,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__TimeValue__Time_type_create(PyTypeObj
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
     { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
-    { Py_tp_setattro,                   (void *)(setattrofunc) 0 },
+    { Py_tp_setattro,                   (void *)set_attr_no_delete },
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)(lenfunc) 0 },

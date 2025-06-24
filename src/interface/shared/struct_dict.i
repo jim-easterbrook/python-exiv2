@@ -59,6 +59,25 @@ static PyObject* getset_to_key_nostrip(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("s", getset->name);
 };
 }
+%fragment("set_attr_no_delete", "header") {
+static int set_attr_no_delete(
+        PyObject* obj, PyObject* name, PyObject* value) {
+    if ((!value) && PyUnicode_Check(name)) {
+        char* c_name = PyUnicode_AsUTF8(name);
+        PyGetSetDef* getset = obj->ob_type->tp_getset;
+        while (getset->name) {
+            if (strcmp(getset->name, c_name) == 0) {
+                PyErr_Format(PyExc_TypeError,
+                    "%s.%s can not be deleted",
+                    obj->ob_type->tp_name, c_name);
+                return -1;
+            }
+            getset++;
+        }
+    }
+    return PyObject_GenericSetAttr(obj, name, value);
+};
+}
 
 // Macro definition
 %define STRUCT_DICT(struct_type, mutable, strip_underscore)
@@ -120,6 +139,8 @@ static PyObject* getset_to_key_nostrip(PyObject* obj, PyGetSetDef* getset) {
     }
 }
 #if #mutable == "true"
+%fragment("set_attr_no_delete");
+%feature("python:tp_setattro") struct_type "set_attr_no_delete";
 %feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
     struct_type::__setitem__;
 %extend struct_type {
