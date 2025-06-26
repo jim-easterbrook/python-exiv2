@@ -4567,12 +4567,12 @@ static int set_attr_no_delete(
         PyObject* obj, PyObject* name, PyObject* value) {
     if ((!value) && PyUnicode_Check(name)) {
         const char* c_name = PyUnicode_AsUTF8(name);
-        PyGetSetDef* getset = obj->ob_type->tp_getset;
+        PyGetSetDef* getset = Py_TYPE(obj)->tp_getset;
         while (getset->name) {
             if (strcmp(getset->name, c_name) == 0) {
                 PyErr_Format(PyExc_TypeError,
                     "%s.%s can not be deleted",
-                    obj->ob_type->tp_name, c_name);
+                    Py_TYPE(obj)->tp_name, c_name);
                 return -1;
             }
             getset++;
@@ -6634,7 +6634,7 @@ SWIGINTERN void Exiv2_DateValue_setDate__SWIG_1(Exiv2::DateValue *self,int year,
 
 static PyObject* list_getset(
         PyObject* obj, PyObject* (*conv)(PyObject*, PyGetSetDef*)) {
-    PyGetSetDef* getset = obj->ob_type->tp_getset;
+    PyGetSetDef* getset = Py_TYPE(obj)->tp_getset;
     PyObject* result = PyList_New(0);
     PyObject* item = NULL;
     while (getset->name) {
@@ -6686,7 +6686,7 @@ SWIGINTERN PyObject *Exiv2_DateValue_Date___getitem__(Exiv2::DateValue::Date *se
 SWIGINTERN PyObject *Exiv2_DateValue_Date___setitem__(Exiv2::DateValue::Date *self,PyObject *py_self,std::string const &key,PyObject *value){
         if (!value)
             return PyErr_Format(PyExc_TypeError,
-                "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
+                "%s['%s'] can not be deleted", Py_TYPE(py_self)->tp_name,
                 key.c_str());
 
 
@@ -6738,7 +6738,7 @@ SWIGINTERN PyObject *Exiv2_TimeValue_Time___getitem__(Exiv2::TimeValue::Time *se
 SWIGINTERN PyObject *Exiv2_TimeValue_Time___setitem__(Exiv2::TimeValue::Time *self,PyObject *py_self,std::string const &key,PyObject *value){
         if (!value)
             return PyErr_Format(PyExc_TypeError,
-                "%s['%s'] can not be deleted", py_self->ob_type->tp_name,
+                "%s['%s'] can not be deleted", Py_TYPE(py_self)->tp_name,
                 key.c_str());
 
 

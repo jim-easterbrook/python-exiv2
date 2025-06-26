@@ -4413,7 +4413,7 @@ static PyObject* _get_enum_list(int dummy, ...) {
 
 static PyObject* list_getset(
         PyObject* obj, PyObject* (*conv)(PyObject*, PyGetSetDef*)) {
-    PyGetSetDef* getset = obj->ob_type->tp_getset;
+    PyGetSetDef* getset = Py_TYPE(obj)->tp_getset;
     PyObject* result = PyList_New(0);
     PyObject* item = NULL;
     while (getset->name) {
