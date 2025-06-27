@@ -21,6 +21,8 @@ Changes in v0.18.0:
      Value (and derived types) copy constructors
      Single value (such as DateValue) index methods
   2/ Added binary wheels for Linux on arm64.
+  3/ Exiv2 struct member names with a trailing underscore have more Pythonic
+     aliases without the underscore.
 
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.

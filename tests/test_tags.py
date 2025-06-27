@@ -71,10 +71,13 @@ class TestTagsModule(unittest.TestCase):
         self.assertIsInstance(tag_list[0], exiv2.TagInfo)
         self.check_result(info.groupName_, str, info['groupName'])
         self.check_result(info.ifdName_, str, info['ifdName'])
+        self.check_result(info.ifdName, str, info['ifdName'])
         with self.assertRaises(TypeError):
             del info['groupName']
         with self.assertRaises(AttributeError):
             del info.ifdName_
+        with self.assertRaises(AttributeError):
+            del info.ifdName
 
     def test_TagInfo(self):
         info = exiv2.ExifTags.tagList(self.group_name)[0]

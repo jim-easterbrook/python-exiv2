@@ -4368,6 +4368,7 @@ static PyObject* list_getset(
     PyObject* result = PyList_New(0);
     PyObject* item = NULL;
     while (getset->name) {
+        // __dict__ is also in the getset list
         if (getset->name[0] != '_') {
             item = (*conv)(obj, getset);
             PyList_Append(result, item);
@@ -4377,17 +4378,76 @@ static PyObject* list_getset(
     }
     return result;
 };
+static PyGetSetDef* find_getset(PyObject* obj, PyObject* name,
+                                bool strip, bool required) {
+    if (!PyUnicode_Check(name))
+        return NULL;
+    Py_ssize_t size = 0;
+    const char* c_name = PyUnicode_AsUTF8AndSize(name, &size);
+    bool truncate = strip && size > 0 && c_name[size - 1] != '_';
+    PyGetSetDef* getset = Py_TYPE(obj)->tp_getset;
+    size_t len = 0;
+    while (getset->name) {
+        len = strlen(getset->name);
+        if (truncate && getset->name[len - 1] == '_')
+            len--;
+        if (len == (size_t) size && strncmp(getset->name, c_name, len) == 0)
+            return getset;
+        getset++;
+    }
+    if (required)
+        PyErr_Format(PyExc_AttributeError,
+            "'%s' object has no attribute '%U'",
+            Py_TYPE(obj)->tp_name, name);
+    return NULL;
+};
+static int getset_set(PyObject* obj, PyObject* name, PyObject* value,
+                      bool strip, bool required) {
+    PyGetSetDef* getset = find_getset(obj, name, strip, required);
+    if (getset) {
+
+        if (!value) {
+            PyErr_Format(PyExc_TypeError,
+                "%s.%s can not be deleted", Py_TYPE(obj)->tp_name, getset->name);
+            return -1;
+        }
+
+        return getset->set(obj, value, getset->closure);
+    }
+    if (required)
+        return -1;
+    return PyObject_GenericSetAttr(obj, name, value);
+};
 static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("N", getset->get(obj, getset->closure));
 };
-
-
 static PyObject* getset_to_item_strip(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("(s#N)", getset->name, strlen(getset->name) - 1,
         getset->get(obj, getset->closure));
 };
+static PyObject* getset_to_item_nostrip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("(sN)", getset->name,
+        getset->get(obj, getset->closure));
+};
 static PyObject* getset_to_key_strip(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("s#", getset->name, strlen(getset->name) - 1);
+};
+static PyObject* getset_to_key_nostrip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("s", getset->name);
+};
+static int set_attr_strip(PyObject* obj, PyObject* name, PyObject* value) {
+   return getset_set(obj, name, value, true, false);
+};
+
+static int set_attr_nostrip(PyObject* obj, PyObject* name, PyObject* value) {
+    return getset_set(obj, name, value, false, false);
+};
+
+static PyObject* get_attr_strip(PyObject* obj, PyObject* name) {
+    PyGetSetDef* getset = find_getset(obj, name, true, false);
+    if (getset)
+        return getset_to_value(obj, getset);
+    return PyObject_GenericGetAttr(obj, name);
 };
 
 
@@ -4465,126 +4525,12 @@ SWIGINTERN PyObject *Exiv2_DataSet___iter__(Exiv2::DataSet *self,PyObject *py_se
         Py_DECREF(seq);
         return result;
     }
-
-/* Return string from Python obj. NOTE: obj must remain in scope in order
-   to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
-SWIGINTERN int
-SWIG_AsCharPtrAndSize(PyObject *obj, char **cptr, size_t *psize, int *alloc)
-{
-#if PY_VERSION_HEX>=0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-  if (PyBytes_Check(obj))
-#else
-  if (PyUnicode_Check(obj))
-#endif
-#else  
-  if (PyString_Check(obj))
-#endif
-  {
-    char *cstr; Py_ssize_t len;
-    PyObject *bytes = NULL;
-    int ret = SWIG_OK;
-    if (alloc)
-      *alloc = SWIG_OLDOBJ;
-#if PY_VERSION_HEX>=0x03000000 && defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-    if (PyBytes_AsStringAndSize(obj, &cstr, &len) == -1)
-      return SWIG_TypeError;
-#else
-    cstr = (char *)SWIG_PyUnicode_AsUTF8AndSize(obj, &len, &bytes);
-    if (!cstr)
-      return SWIG_TypeError;
-    /* The returned string is only duplicated if the char * returned is not owned and memory managed by obj */
-    if (bytes && cptr) {
-      if (alloc) {
-        cstr = reinterpret_cast< char* >(memcpy(new char[len + 1], cstr, sizeof(char)*(len + 1)));
-        *alloc = SWIG_NEWOBJ;
-      } else {
-        /* alloc must be set in order to clean up allocated memory */
-        return SWIG_RuntimeError;
-      }
-    }
-#endif
-    if (cptr) *cptr = cstr;
-    if (psize) *psize = len + 1;
-    SWIG_Py_XDECREF(bytes);
-    return ret;
-  } else {
-#if defined(SWIG_PYTHON_2_UNICODE)
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-#error "Cannot use both SWIG_PYTHON_2_UNICODE and SWIG_PYTHON_STRICT_BYTE_CHAR at once"
-#endif
-#if PY_VERSION_HEX<0x03000000
-    if (PyUnicode_Check(obj)) {
-      char *cstr; Py_ssize_t len;
-      if (!alloc && cptr) {
-        return SWIG_RuntimeError;
-      }
-      obj = PyUnicode_AsUTF8String(obj);
-      if (!obj)
-        return SWIG_TypeError;
-      if (PyString_AsStringAndSize(obj, &cstr, &len) != -1) {
-        if (cptr) {
-          if (alloc) *alloc = SWIG_NEWOBJ;
-          *cptr = reinterpret_cast< char* >(memcpy(new char[len + 1], cstr, sizeof(char)*(len + 1)));
-        }
-        if (psize) *psize = len + 1;
-
-        SWIG_Py_XDECREF(obj);
-        return SWIG_OK;
-      } else {
-        SWIG_Py_XDECREF(obj);
-      }
-    }
-#endif
-#endif
-
-    swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-    if (pchar_descriptor) {
-      void* vptr = 0;
-      if (SWIG_ConvertPtr(obj, &vptr, pchar_descriptor, 0) == SWIG_OK) {
-	if (cptr) *cptr = (char *) vptr;
-	if (psize) *psize = vptr ? (strlen((char *)vptr) + 1) : 0;
-	if (alloc) *alloc = SWIG_OLDOBJ;
-	return SWIG_OK;
-      }
-    }
-  }
-  return SWIG_TypeError;
-}
-
-
-SWIGINTERN int
-SWIG_AsPtr_std_string (PyObject * obj, std::string **val) 
-{
-  char* buf = 0 ; size_t size = 0; int alloc = SWIG_OLDOBJ;
-  if (SWIG_IsOK((SWIG_AsCharPtrAndSize(obj, &buf, &size, &alloc)))) {
-    if (buf) {
-      if (val) *val = new std::string(buf, size - 1);
-      if (alloc == SWIG_NEWOBJ) delete[] buf;
-      return SWIG_NEWOBJ;
-    } else {
-      if (val) *val = 0;
-      return SWIG_OLDOBJ;
-    }
-  } else {
-    PyErr_Clear();
-    static swig_type_info *descriptor = SWIG_TypeQuery("std::string" " *");
-    if (descriptor) {
-      std::string *vptr;
-      int res = SWIG_ConvertPtr(obj, (void**)&vptr, descriptor, 0);
-      if (SWIG_IsOK(res) && val) *val = vptr;
-      return res;
-    }
-  }
-  return SWIG_ERROR;
-}
-
-SWIGINTERN PyObject *Exiv2_DataSet___getitem__(Exiv2::DataSet *self,PyObject *py_self,std::string const &key){
-
-        return PyObject_GetAttrString(py_self, (key + '_').c_str());
-
-
-
+SWIGINTERN PyObject *Exiv2_DataSet___getitem__(Exiv2::DataSet *self,PyObject *py_self,PyObject *key){
+        PyGetSetDef* getset = find_getset(
+            py_self, key, true, true);
+        if (!getset)
+            return NULL;
+        return getset_to_value(py_self, getset);
     }
 
 #include <limits.h>
@@ -4753,6 +4699,120 @@ SWIGINTERNINLINE PyObject *
 SWIG_From_std_string  (const std::string& s)
 {
   return SWIG_FromCharPtrAndSize(s.data(), s.size());
+}
+
+
+/* Return string from Python obj. NOTE: obj must remain in scope in order
+   to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
+SWIGINTERN int
+SWIG_AsCharPtrAndSize(PyObject *obj, char **cptr, size_t *psize, int *alloc)
+{
+#if PY_VERSION_HEX>=0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+  if (PyBytes_Check(obj))
+#else
+  if (PyUnicode_Check(obj))
+#endif
+#else  
+  if (PyString_Check(obj))
+#endif
+  {
+    char *cstr; Py_ssize_t len;
+    PyObject *bytes = NULL;
+    int ret = SWIG_OK;
+    if (alloc)
+      *alloc = SWIG_OLDOBJ;
+#if PY_VERSION_HEX>=0x03000000 && defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+    if (PyBytes_AsStringAndSize(obj, &cstr, &len) == -1)
+      return SWIG_TypeError;
+#else
+    cstr = (char *)SWIG_PyUnicode_AsUTF8AndSize(obj, &len, &bytes);
+    if (!cstr)
+      return SWIG_TypeError;
+    /* The returned string is only duplicated if the char * returned is not owned and memory managed by obj */
+    if (bytes && cptr) {
+      if (alloc) {
+        cstr = reinterpret_cast< char* >(memcpy(new char[len + 1], cstr, sizeof(char)*(len + 1)));
+        *alloc = SWIG_NEWOBJ;
+      } else {
+        /* alloc must be set in order to clean up allocated memory */
+        return SWIG_RuntimeError;
+      }
+    }
+#endif
+    if (cptr) *cptr = cstr;
+    if (psize) *psize = len + 1;
+    SWIG_Py_XDECREF(bytes);
+    return ret;
+  } else {
+#if defined(SWIG_PYTHON_2_UNICODE)
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+#error "Cannot use both SWIG_PYTHON_2_UNICODE and SWIG_PYTHON_STRICT_BYTE_CHAR at once"
+#endif
+#if PY_VERSION_HEX<0x03000000
+    if (PyUnicode_Check(obj)) {
+      char *cstr; Py_ssize_t len;
+      if (!alloc && cptr) {
+        return SWIG_RuntimeError;
+      }
+      obj = PyUnicode_AsUTF8String(obj);
+      if (!obj)
+        return SWIG_TypeError;
+      if (PyString_AsStringAndSize(obj, &cstr, &len) != -1) {
+        if (cptr) {
+          if (alloc) *alloc = SWIG_NEWOBJ;
+          *cptr = reinterpret_cast< char* >(memcpy(new char[len + 1], cstr, sizeof(char)*(len + 1)));
+        }
+        if (psize) *psize = len + 1;
+
+        SWIG_Py_XDECREF(obj);
+        return SWIG_OK;
+      } else {
+        SWIG_Py_XDECREF(obj);
+      }
+    }
+#endif
+#endif
+
+    swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+    if (pchar_descriptor) {
+      void* vptr = 0;
+      if (SWIG_ConvertPtr(obj, &vptr, pchar_descriptor, 0) == SWIG_OK) {
+	if (cptr) *cptr = (char *) vptr;
+	if (psize) *psize = vptr ? (strlen((char *)vptr) + 1) : 0;
+	if (alloc) *alloc = SWIG_OLDOBJ;
+	return SWIG_OK;
+      }
+    }
+  }
+  return SWIG_TypeError;
+}
+
+
+SWIGINTERN int
+SWIG_AsPtr_std_string (PyObject * obj, std::string **val) 
+{
+  char* buf = 0 ; size_t size = 0; int alloc = SWIG_OLDOBJ;
+  if (SWIG_IsOK((SWIG_AsCharPtrAndSize(obj, &buf, &size, &alloc)))) {
+    if (buf) {
+      if (val) *val = new std::string(buf, size - 1);
+      if (alloc == SWIG_NEWOBJ) delete[] buf;
+      return SWIG_NEWOBJ;
+    } else {
+      if (val) *val = 0;
+      return SWIG_OLDOBJ;
+    }
+  } else {
+    PyErr_Clear();
+    static swig_type_info *descriptor = SWIG_TypeQuery("std::string" " *");
+    if (descriptor) {
+      std::string *vptr;
+      int res = SWIG_ConvertPtr(obj, (void**)&vptr, descriptor, 0);
+      if (SWIG_IsOK(res) && val) *val = vptr;
+      return res;
+    }
+  }
+  return SWIG_ERROR;
 }
 
 
@@ -5113,10 +5173,9 @@ SWIGINTERN PyObject *_wrap_DataSet___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DataSet *arg1 = (Exiv2::DataSet *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
-  std::string *arg3 = 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
   PyObject *result = 0 ;
   
@@ -5130,23 +5189,11 @@ SWIGINTERN PyObject *_wrap_DataSet___getitem__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataSet___getitem__" "', argument " "1"" of type '" "Exiv2::DataSet *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::DataSet * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "DataSet___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "DataSet___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  result = (PyObject *)Exiv2_DataSet___getitem__(arg1,arg2,(std::string const &)*arg3);
+  arg3 = swig_obj[0];
+  result = (PyObject *)Exiv2_DataSet___getitem__(arg1,arg2,arg3);
   resultobj = result;
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
 fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return NULL;
 }
 
@@ -5929,7 +5976,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataSet_type = {
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
-    (getattrofunc) 0,                       /* tp_getattro */
+    get_attr_strip,                         /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Exiv2__DataSet_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
@@ -6152,7 +6199,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__DataSet_type_create(PyTypeObject *typ
     { Py_tp_getset,                     (void *)SwigPyBuiltin__Exiv2__DataSet_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
-    { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
+    { Py_tp_getattro,                   (void *)get_attr_strip },
     { Py_tp_setattro,                   (void *)(setattrofunc) 0 },
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },

@@ -4364,6 +4364,95 @@ fail:
 };
 
 
+static PyObject* list_getset(
+        PyObject* obj, PyObject* (*conv)(PyObject*, PyGetSetDef*)) {
+    PyGetSetDef* getset = Py_TYPE(obj)->tp_getset;
+    PyObject* result = PyList_New(0);
+    PyObject* item = NULL;
+    while (getset->name) {
+        // __dict__ is also in the getset list
+        if (getset->name[0] != '_') {
+            item = (*conv)(obj, getset);
+            PyList_Append(result, item);
+            Py_DECREF(item);
+        }
+        getset++;
+    }
+    return result;
+};
+static PyGetSetDef* find_getset(PyObject* obj, PyObject* name,
+                                bool strip, bool required) {
+    if (!PyUnicode_Check(name))
+        return NULL;
+    Py_ssize_t size = 0;
+    const char* c_name = PyUnicode_AsUTF8AndSize(name, &size);
+    bool truncate = strip && size > 0 && c_name[size - 1] != '_';
+    PyGetSetDef* getset = Py_TYPE(obj)->tp_getset;
+    size_t len = 0;
+    while (getset->name) {
+        len = strlen(getset->name);
+        if (truncate && getset->name[len - 1] == '_')
+            len--;
+        if (len == (size_t) size && strncmp(getset->name, c_name, len) == 0)
+            return getset;
+        getset++;
+    }
+    if (required)
+        PyErr_Format(PyExc_AttributeError,
+            "'%s' object has no attribute '%U'",
+            Py_TYPE(obj)->tp_name, name);
+    return NULL;
+};
+static int getset_set(PyObject* obj, PyObject* name, PyObject* value,
+                      bool strip, bool required) {
+    PyGetSetDef* getset = find_getset(obj, name, strip, required);
+    if (getset) {
+
+        if (!value) {
+            PyErr_Format(PyExc_TypeError,
+                "%s.%s can not be deleted", Py_TYPE(obj)->tp_name, getset->name);
+            return -1;
+        }
+
+        return getset->set(obj, value, getset->closure);
+    }
+    if (required)
+        return -1;
+    return PyObject_GenericSetAttr(obj, name, value);
+};
+static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("N", getset->get(obj, getset->closure));
+};
+static PyObject* getset_to_item_strip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("(s#N)", getset->name, strlen(getset->name) - 1,
+        getset->get(obj, getset->closure));
+};
+static PyObject* getset_to_item_nostrip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("(sN)", getset->name,
+        getset->get(obj, getset->closure));
+};
+static PyObject* getset_to_key_strip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("s#", getset->name, strlen(getset->name) - 1);
+};
+static PyObject* getset_to_key_nostrip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("s", getset->name);
+};
+static int set_attr_strip(PyObject* obj, PyObject* name, PyObject* value) {
+   return getset_set(obj, name, value, true, false);
+};
+
+static int set_attr_nostrip(PyObject* obj, PyObject* name, PyObject* value) {
+    return getset_set(obj, name, value, false, false);
+};
+
+static PyObject* get_attr_strip(PyObject* obj, PyObject* name) {
+    PyGetSetDef* getset = find_getset(obj, name, true, false);
+    if (getset)
+        return getset_to_value(obj, getset);
+    return PyObject_GenericGetAttr(obj, name);
+};
+
+
 class _TagListFct {
 private:
     Exiv2::TagListFct func;
@@ -4388,35 +4477,6 @@ static PyObject* pointer_to_list(Exiv2::TagInfo* ptr) {
         ++ptr;
     }
     return list;
-};
-
-
-static PyObject* list_getset(
-        PyObject* obj, PyObject* (*conv)(PyObject*, PyGetSetDef*)) {
-    PyGetSetDef* getset = Py_TYPE(obj)->tp_getset;
-    PyObject* result = PyList_New(0);
-    PyObject* item = NULL;
-    while (getset->name) {
-        if (getset->name[0] != '_') {
-            item = (*conv)(obj, getset);
-            PyList_Append(result, item);
-            Py_DECREF(item);
-        }
-        getset++;
-    }
-    return result;
-};
-static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
-    return Py_BuildValue("N", getset->get(obj, getset->closure));
-};
-
-
-static PyObject* getset_to_item_strip(PyObject* obj, PyGetSetDef* getset) {
-    return Py_BuildValue("(s#N)", getset->name, strlen(getset->name) - 1,
-        getset->get(obj, getset->closure));
-};
-static PyObject* getset_to_key_strip(PyObject* obj, PyGetSetDef* getset) {
-    return Py_BuildValue("s#", getset->name, strlen(getset->name) - 1);
 };
 
 
@@ -4448,6 +4508,104 @@ SWIGINTERN PyObject *Exiv2_GroupInfo___iter__(Exiv2::GroupInfo *self,PyObject *p
         Py_DECREF(seq);
         return result;
     }
+SWIGINTERN PyObject *Exiv2_GroupInfo___getitem__(Exiv2::GroupInfo *self,PyObject *py_self,PyObject *key){
+        PyGetSetDef* getset = find_getset(
+            py_self, key, true, true);
+        if (!getset)
+            return NULL;
+        return getset_to_value(py_self, getset);
+    }
+
+  #define SWIG_From_long   PyInt_FromLong 
+
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_unsigned_SS_short  (unsigned short value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
+
+
+static PyObject* PyEnum_Exiv2_TypeId = NULL;
+
+
+static PyObject* get_enum_typeobject_Exiv2_TypeId() {
+    if (!PyEnum_Exiv2_TypeId)
+        PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
+            exiv2_module, "TypeId");
+    return PyEnum_Exiv2_TypeId;
+};
+
+
+static PyObject* py_from_enum_Exiv2_TypeId(long value) {
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
+};
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_short  (short value)
+{    
+  return SWIG_From_long  (value);
+}
+
+SWIGINTERN PyObject *Exiv2_TagInfo_items(Exiv2::TagInfo *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_item_strip);
+    }
+SWIGINTERN PyObject *Exiv2_TagInfo_keys(Exiv2::TagInfo *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_key_strip);
+    }
+SWIGINTERN PyObject *Exiv2_TagInfo_values(Exiv2::TagInfo *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_value);
+    }
+SWIGINTERN PyObject *Exiv2_TagInfo___iter__(Exiv2::TagInfo *self,PyObject *py_self){
+        PyObject* seq =
+            Exiv2_TagInfo_keys(self, py_self);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
+    }
+SWIGINTERN PyObject *Exiv2_TagInfo___getitem__(Exiv2::TagInfo *self,PyObject *py_self,PyObject *key){
+        PyGetSetDef* getset = find_getset(
+            py_self, key, true, true);
+        if (!getset)
+            return NULL;
+        return getset_to_value(py_self, getset);
+    }
+
+static PyObject* pointer_to_list(Exiv2::GroupInfo* ptr) {
+    PyObject* list = PyList_New(0);
+    if (!ptr)
+        return list;
+    PyObject* py_tmp = NULL;
+    while (ptr->tagList_) {
+        py_tmp = SWIG_Python_NewPointerObj(
+            NULL, ptr, SWIGTYPE_p_Exiv2__GroupInfo, 0);
+        PyList_Append(list, py_tmp);
+        Py_DECREF(py_tmp);
+        ++ptr;
+    }
+    return list;
+};
+
 
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
@@ -4561,104 +4719,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   }
   return SWIG_ERROR;
 }
-
-SWIGINTERN PyObject *Exiv2_GroupInfo___getitem__(Exiv2::GroupInfo *self,PyObject *py_self,std::string const &key){
-
-        return PyObject_GetAttrString(py_self, (key + '_').c_str());
-
-
-
-    }
-
-  #define SWIG_From_long   PyInt_FromLong 
-
-
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_unsigned_SS_short  (unsigned short value)
-{    
-  return SWIG_From_unsigned_SS_long  (value);
-}
-
-
-static PyObject* PyEnum_Exiv2_TypeId = NULL;
-
-
-static PyObject* get_enum_typeobject_Exiv2_TypeId() {
-    if (!PyEnum_Exiv2_TypeId)
-        PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
-            exiv2_module, "TypeId");
-    return PyEnum_Exiv2_TypeId;
-};
-
-
-static PyObject* py_from_enum_Exiv2_TypeId(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
-};
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_short  (short value)
-{    
-  return SWIG_From_long  (value);
-}
-
-SWIGINTERN PyObject *Exiv2_TagInfo_items(Exiv2::TagInfo *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_item_strip);
-    }
-SWIGINTERN PyObject *Exiv2_TagInfo_keys(Exiv2::TagInfo *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_key_strip);
-    }
-SWIGINTERN PyObject *Exiv2_TagInfo_values(Exiv2::TagInfo *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_value);
-    }
-SWIGINTERN PyObject *Exiv2_TagInfo___iter__(Exiv2::TagInfo *self,PyObject *py_self){
-        PyObject* seq =
-            Exiv2_TagInfo_keys(self, py_self);
-        PyObject* result = PySeqIter_New(seq);
-        Py_DECREF(seq);
-        return result;
-    }
-SWIGINTERN PyObject *Exiv2_TagInfo___getitem__(Exiv2::TagInfo *self,PyObject *py_self,std::string const &key){
-
-        return PyObject_GetAttrString(py_self, (key + '_').c_str());
-
-
-
-    }
-
-static PyObject* pointer_to_list(Exiv2::GroupInfo* ptr) {
-    PyObject* list = PyList_New(0);
-    if (!ptr)
-        return list;
-    PyObject* py_tmp = NULL;
-    while (ptr->tagList_) {
-        py_tmp = SWIG_Python_NewPointerObj(
-            NULL, ptr, SWIGTYPE_p_Exiv2__GroupInfo, 0);
-        PyList_Append(list, py_tmp);
-        Py_DECREF(py_tmp);
-        ++ptr;
-    }
-    return list;
-};
 
 
 SWIGINTERNINLINE PyObject*
@@ -5143,10 +5203,9 @@ SWIGINTERN PyObject *_wrap_GroupInfo___getitem__(PyObject *self, PyObject *args)
   PyObject *resultobj = 0;
   Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
-  std::string *arg3 = 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
   PyObject *result = 0 ;
   
@@ -5160,23 +5219,11 @@ SWIGINTERN PyObject *_wrap_GroupInfo___getitem__(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo___getitem__" "', argument " "1"" of type '" "Exiv2::GroupInfo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "GroupInfo___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "GroupInfo___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  result = (PyObject *)Exiv2_GroupInfo___getitem__(arg1,arg2,(std::string const &)*arg3);
+  arg3 = swig_obj[0];
+  result = (PyObject *)Exiv2_GroupInfo___getitem__(arg1,arg2,arg3);
   resultobj = result;
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
 fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return NULL;
 }
 
@@ -5459,10 +5506,9 @@ SWIGINTERN PyObject *_wrap_TagInfo___getitem__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
-  std::string *arg3 = 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
   PyObject *result = 0 ;
   
@@ -5476,23 +5522,11 @@ SWIGINTERN PyObject *_wrap_TagInfo___getitem__(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo___getitem__" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "TagInfo___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "TagInfo___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  result = (PyObject *)Exiv2_TagInfo___getitem__(arg1,arg2,(std::string const &)*arg3);
+  arg3 = swig_obj[0];
+  result = (PyObject *)Exiv2_TagInfo___getitem__(arg1,arg2,arg3);
   resultobj = result;
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
 fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return NULL;
 }
 
@@ -6564,7 +6598,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__GroupInfo_type = {
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
-    (getattrofunc) 0,                       /* tp_getattro */
+    get_attr_strip,                         /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Exiv2__GroupInfo_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
@@ -6787,7 +6821,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__GroupInfo_type_create(PyTypeObject *t
     { Py_tp_getset,                     (void *)SwigPyBuiltin__Exiv2__GroupInfo_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
-    { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
+    { Py_tp_getattro,                   (void *)get_attr_strip },
     { Py_tp_setattro,                   (void *)(setattrofunc) 0 },
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
@@ -6949,7 +6983,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__TagInfo_type = {
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
-    (getattrofunc) 0,                       /* tp_getattro */
+    get_attr_strip,                         /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Exiv2__TagInfo_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
@@ -7172,7 +7206,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__TagInfo_type_create(PyTypeObject *typ
     { Py_tp_getset,                     (void *)SwigPyBuiltin__Exiv2__TagInfo_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
-    { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
+    { Py_tp_getattro,                   (void *)get_attr_strip },
     { Py_tp_setattro,                   (void *)(setattrofunc) 0 },
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },

@@ -4417,6 +4417,7 @@ static PyObject* list_getset(
     PyObject* result = PyList_New(0);
     PyObject* item = NULL;
     while (getset->name) {
+        // __dict__ is also in the getset list
         if (getset->name[0] != '_') {
             item = (*conv)(obj, getset);
             PyList_Append(result, item);
@@ -4426,17 +4427,76 @@ static PyObject* list_getset(
     }
     return result;
 };
+static PyGetSetDef* find_getset(PyObject* obj, PyObject* name,
+                                bool strip, bool required) {
+    if (!PyUnicode_Check(name))
+        return NULL;
+    Py_ssize_t size = 0;
+    const char* c_name = PyUnicode_AsUTF8AndSize(name, &size);
+    bool truncate = strip && size > 0 && c_name[size - 1] != '_';
+    PyGetSetDef* getset = Py_TYPE(obj)->tp_getset;
+    size_t len = 0;
+    while (getset->name) {
+        len = strlen(getset->name);
+        if (truncate && getset->name[len - 1] == '_')
+            len--;
+        if (len == (size_t) size && strncmp(getset->name, c_name, len) == 0)
+            return getset;
+        getset++;
+    }
+    if (required)
+        PyErr_Format(PyExc_AttributeError,
+            "'%s' object has no attribute '%U'",
+            Py_TYPE(obj)->tp_name, name);
+    return NULL;
+};
+static int getset_set(PyObject* obj, PyObject* name, PyObject* value,
+                      bool strip, bool required) {
+    PyGetSetDef* getset = find_getset(obj, name, strip, required);
+    if (getset) {
+
+        if (!value) {
+            PyErr_Format(PyExc_TypeError,
+                "%s.%s can not be deleted", Py_TYPE(obj)->tp_name, getset->name);
+            return -1;
+        }
+
+        return getset->set(obj, value, getset->closure);
+    }
+    if (required)
+        return -1;
+    return PyObject_GenericSetAttr(obj, name, value);
+};
 static PyObject* getset_to_value(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("N", getset->get(obj, getset->closure));
 };
-
-
 static PyObject* getset_to_item_strip(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("(s#N)", getset->name, strlen(getset->name) - 1,
         getset->get(obj, getset->closure));
 };
+static PyObject* getset_to_item_nostrip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("(sN)", getset->name,
+        getset->get(obj, getset->closure));
+};
 static PyObject* getset_to_key_strip(PyObject* obj, PyGetSetDef* getset) {
     return Py_BuildValue("s#", getset->name, strlen(getset->name) - 1);
+};
+static PyObject* getset_to_key_nostrip(PyObject* obj, PyGetSetDef* getset) {
+    return Py_BuildValue("s", getset->name);
+};
+static int set_attr_strip(PyObject* obj, PyObject* name, PyObject* value) {
+   return getset_set(obj, name, value, true, false);
+};
+
+static int set_attr_nostrip(PyObject* obj, PyObject* name, PyObject* value) {
+    return getset_set(obj, name, value, false, false);
+};
+
+static PyObject* get_attr_strip(PyObject* obj, PyObject* name) {
+    PyGetSetDef* getset = find_getset(obj, name, true, false);
+    if (getset)
+        return getset_to_value(obj, getset);
+    return PyObject_GenericGetAttr(obj, name);
 };
 
 
@@ -4505,6 +4565,52 @@ SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___iter__(Exiv2::XmpPropertyInfo *self
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
         return result;
+    }
+SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___getitem__(Exiv2::XmpPropertyInfo *self,PyObject *py_self,PyObject *key){
+        PyGetSetDef* getset = find_getset(
+            py_self, key, true, true);
+        if (!getset)
+            return NULL;
+        return getset_to_value(py_self, getset);
+    }
+
+static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
+    PyObject* list = PyList_New(0);
+    if (!ptr)
+        return list;
+    PyObject* py_tmp = NULL;
+    while (ptr->name_) {
+        py_tmp = SWIG_Python_NewPointerObj(
+            NULL, ptr, SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0);
+        PyList_Append(list, py_tmp);
+        Py_DECREF(py_tmp);
+        ++ptr;
+    }
+    return list;
+};
+
+SWIGINTERN PyObject *Exiv2_XmpNsInfo_items(Exiv2::XmpNsInfo *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_item_strip);
+    }
+SWIGINTERN PyObject *Exiv2_XmpNsInfo_keys(Exiv2::XmpNsInfo *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_key_strip);
+    }
+SWIGINTERN PyObject *Exiv2_XmpNsInfo_values(Exiv2::XmpNsInfo *self,PyObject *py_self){
+        return list_getset(py_self, getset_to_value);
+    }
+SWIGINTERN PyObject *Exiv2_XmpNsInfo___iter__(Exiv2::XmpNsInfo *self,PyObject *py_self){
+        PyObject* seq =
+            Exiv2_XmpNsInfo_keys(self, py_self);
+        PyObject* result = PySeqIter_New(seq);
+        Py_DECREF(seq);
+        return result;
+    }
+SWIGINTERN PyObject *Exiv2_XmpNsInfo___getitem__(Exiv2::XmpNsInfo *self,PyObject *py_self,PyObject *key){
+        PyGetSetDef* getset = find_getset(
+            py_self, key, true, true);
+        if (!getset)
+            return NULL;
+        return getset_to_value(py_self, getset);
     }
 
 /* Return string from Python obj. NOTE: obj must remain in scope in order
@@ -4620,52 +4726,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   return SWIG_ERROR;
 }
 
-SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___getitem__(Exiv2::XmpPropertyInfo *self,PyObject *py_self,std::string const &key){
-
-        return PyObject_GetAttrString(py_self, (key + '_').c_str());
-
-
-
-    }
-
-static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
-    PyObject* list = PyList_New(0);
-    if (!ptr)
-        return list;
-    PyObject* py_tmp = NULL;
-    while (ptr->name_) {
-        py_tmp = SWIG_Python_NewPointerObj(
-            NULL, ptr, SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0);
-        PyList_Append(list, py_tmp);
-        Py_DECREF(py_tmp);
-        ++ptr;
-    }
-    return list;
-};
-
-SWIGINTERN PyObject *Exiv2_XmpNsInfo_items(Exiv2::XmpNsInfo *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_item_strip);
-    }
-SWIGINTERN PyObject *Exiv2_XmpNsInfo_keys(Exiv2::XmpNsInfo *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_key_strip);
-    }
-SWIGINTERN PyObject *Exiv2_XmpNsInfo_values(Exiv2::XmpNsInfo *self,PyObject *py_self){
-        return list_getset(py_self, getset_to_value);
-    }
-SWIGINTERN PyObject *Exiv2_XmpNsInfo___iter__(Exiv2::XmpNsInfo *self,PyObject *py_self){
-        PyObject* seq =
-            Exiv2_XmpNsInfo_keys(self, py_self);
-        PyObject* result = PySeqIter_New(seq);
-        Py_DECREF(seq);
-        return result;
-    }
-SWIGINTERN PyObject *Exiv2_XmpNsInfo___getitem__(Exiv2::XmpNsInfo *self,PyObject *py_self,std::string const &key){
-
-        return PyObject_GetAttrString(py_self, (key + '_').c_str());
-
-
-
-    }
 
 SWIGINTERNINLINE PyObject *
 SWIG_From_std_string  (const std::string& s)
@@ -4964,10 +5024,9 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo___getitem__(PyObject *self, PyObject 
   PyObject *resultobj = 0;
   Exiv2::XmpPropertyInfo *arg1 = (Exiv2::XmpPropertyInfo *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
-  std::string *arg3 = 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
   PyObject *result = 0 ;
   
@@ -4981,20 +5040,10 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo___getitem__(PyObject *self, PyObject 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpPropertyInfo___getitem__" "', argument " "1"" of type '" "Exiv2::XmpPropertyInfo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpPropertyInfo___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpPropertyInfo___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
+  arg3 = swig_obj[0];
   {
     try {
-      result = (PyObject *)Exiv2_XmpPropertyInfo___getitem__(arg1,arg2,(std::string const &)*arg3);
+      result = (PyObject *)Exiv2_XmpPropertyInfo___getitem__(arg1,arg2,arg3);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5002,10 +5051,8 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo___getitem__(PyObject *self, PyObject 
     }
   }
   resultobj = result;
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
 fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return NULL;
 }
 
@@ -5237,10 +5284,9 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo___getitem__(PyObject *self, PyObject *args)
   PyObject *resultobj = 0;
   Exiv2::XmpNsInfo *arg1 = (Exiv2::XmpNsInfo *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
-  std::string *arg3 = 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
   PyObject *result = 0 ;
   
@@ -5254,20 +5300,10 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo___getitem__(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpNsInfo___getitem__" "', argument " "1"" of type '" "Exiv2::XmpNsInfo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "XmpNsInfo___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpNsInfo___getitem__" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
+  arg3 = swig_obj[0];
   {
     try {
-      result = (PyObject *)Exiv2_XmpNsInfo___getitem__(arg1,arg2,(std::string const &)*arg3);
+      result = (PyObject *)Exiv2_XmpNsInfo___getitem__(arg1,arg2,arg3);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5275,10 +5311,8 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo___getitem__(PyObject *self, PyObject *args)
     }
   }
   resultobj = result;
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
 fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
   return NULL;
 }
 
@@ -6242,7 +6276,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpPropertyInfo_type = {
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
-    (getattrofunc) 0,                       /* tp_getattro */
+    get_attr_strip,                         /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Exiv2__XmpPropertyInfo_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
@@ -6465,7 +6499,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__XmpPropertyInfo_type_create(PyTypeObj
     { Py_tp_getset,                     (void *)SwigPyBuiltin__Exiv2__XmpPropertyInfo_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
-    { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
+    { Py_tp_getattro,                   (void *)get_attr_strip },
     { Py_tp_setattro,                   (void *)(setattrofunc) 0 },
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
@@ -6619,7 +6653,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpNsInfo_type = {
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
-    (getattrofunc) 0,                       /* tp_getattro */
+    get_attr_strip,                         /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Exiv2__XmpNsInfo_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
@@ -6842,7 +6876,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__XmpNsInfo_type_create(PyTypeObject *t
     { Py_tp_getset,                     (void *)SwigPyBuiltin__Exiv2__XmpNsInfo_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
-    { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
+    { Py_tp_getattro,                   (void *)get_attr_strip },
     { Py_tp_setattro,                   (void *)(setattrofunc) 0 },
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
