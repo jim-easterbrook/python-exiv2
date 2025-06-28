@@ -182,7 +182,10 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %extend Exiv2::AsciiValue {
     AsciiValue(const std::string &buf) {
         Exiv2::AsciiValue* self = new Exiv2::AsciiValue();
-        self->read(buf);
+        if (self->read(buf)) {
+            delete self;
+            return NULL;
+        }
         return self;
     }
 }
@@ -523,7 +526,10 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
             new Exiv2::XmpArrayValue(typeId_xmpBag);
         for (std::vector<std::string>::const_iterator i = value.begin();
              i != value.end(); ++i) {
-            result->read(*i);
+            if (result->read(*i)) {
+                delete result;
+                return NULL;
+            }
         }
         return result;
     }
@@ -534,8 +540,12 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     std::string __getitem__(long idx) {
         return $self->toString(idx);
     }
-    void append(std::string value) {
-        $self->read(value);
+    PyObject* append(std::string value) {
+        int error = $self->read(value);
+        if (error)
+            return PyErr_Format(PyExc_RuntimeError,
+                                "XmpArrayValue.read returned %d", error);
+        return SWIG_Py_Void();
     }
 }
 %ignore Exiv2::XmpArrayValue::XmpArrayValue();

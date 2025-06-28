@@ -6101,7 +6101,10 @@ SWIGINTERN char const *Exiv2_StringValueBase_data(Exiv2::StringValueBase *self){
     }
 SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_1(std::string const &buf){
         Exiv2::AsciiValue* self = new Exiv2::AsciiValue();
-        self->read(buf);
+        if (self->read(buf)) {
+            delete self;
+            return NULL;
+        }
         return self;
     }
 
@@ -6470,7 +6473,10 @@ SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_0(std::vector< st
             new Exiv2::XmpArrayValue(typeId_xmpBag);
         for (std::vector<std::string>::const_iterator i = value.begin();
              i != value.end(); ++i) {
-            result->read(*i);
+            if (result->read(*i)) {
+                delete result;
+                return NULL;
+            }
         }
         return result;
     }
@@ -6480,8 +6486,12 @@ SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_1(Exiv2::TypeId t
 SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *self,long idx){
         return self->toString(idx);
     }
-SWIGINTERN void Exiv2_XmpArrayValue_append(Exiv2::XmpArrayValue *self,std::string value){
-        self->read(value);
+SWIGINTERN PyObject *Exiv2_XmpArrayValue_append(Exiv2::XmpArrayValue *self,std::string value){
+        int error = self->read(value);
+        if (error)
+            return PyErr_Format(PyExc_RuntimeError,
+                                "XmpArrayValue.read returned %d", error);
+        return SWIG_Py_Void();
     }
 
       namespace swig {
@@ -12115,6 +12125,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_append(PyObject *self, PyObject *args) 
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "XmpArrayValue_append", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpArrayValue, 0 |  0 );
@@ -12131,8 +12142,8 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_append(PyObject *self, PyObject *args) 
     arg2 = *ptr;
     if (SWIG_IsNewObj(res)) delete ptr;
   }
-  Exiv2_XmpArrayValue_append(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)Exiv2_XmpArrayValue_append(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;

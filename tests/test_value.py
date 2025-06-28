@@ -466,7 +466,7 @@ class TestValueModule(unittest.TestCase):
         if seconds < 0:
             seconds += 24 * 3600
         value = exiv2.TimeValue()
-        value.read(py_time.isoformat())
+        self.assertEqual(value.read(py_time.isoformat()), 0)
         self.do_common_tests(value, exiv2.TypeId.time, py_time.isoformat(), data)
         self.do_conversion_tests(value, py_time.isoformat(), seconds)
         self.do_dataarea_tests(value)
