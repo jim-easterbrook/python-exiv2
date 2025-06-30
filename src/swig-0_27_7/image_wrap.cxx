@@ -4350,25 +4350,18 @@ static void _set_python_exception() {
     }
 
     catch(Exiv2::AnyError const& e) {
+
+
+
         std::string msg = e.what();
         if (wcp_to_utf8(&msg))
             msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum((Exiv2::ErrorCode)e.code()), msg.c_str());
+            "Ns", py_from_enum_Exiv2_ErrorCode
+            (static_cast<long>(e.code())), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
-
-
-
-
-
-
-
-
-
-
-
     /*@SWIG:/usr/local/share/swig/4.3.1/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
   catch (std::invalid_argument& e) {
     SWIG_exception_fail(SWIG_ValueError, e.what() );
