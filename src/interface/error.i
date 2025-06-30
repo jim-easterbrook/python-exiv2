@@ -174,8 +174,7 @@ DEFINE_ENUM(ErrorCode, "Complete list of all Exiv2 error codes.",
     "kerCorruptedMetadata",      Exiv2::ErrorCode::kerCorruptedMetadata,
     "kerArithmeticOverflow",     Exiv2::ErrorCode::kerArithmeticOverflow,
     "kerMallocFailed",           Exiv2::ErrorCode::kerMallocFailed,
-    "kerInvalidIconvEncoding",   Exiv2::ErrorCode::kerInvalidIconvEncoding,
-    "kerErrorCount",             Exiv2::ErrorCode::kerErrorCount)
+    "kerInvalidIconvEncoding",   Exiv2::ErrorCode::kerInvalidIconvEncoding)
 #else
 DEFINE_ENUM(ErrorCode, "Complete list of all Exiv2 error codes.",
     "kerGeneralError",                Exiv2::kerGeneralError,
