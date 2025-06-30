@@ -1,4 +1,4 @@
-// python-exiv2 - Python interface to libexiv2
+// // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
 // Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
@@ -83,7 +83,7 @@ static PyObject* _create_enum_%mangle(pattern)(
     $1 = static_cast< $1_type >(PyLong_AsLong($input));
 }
 
-%fragment("py_from_enum_ex"{pattern}, "header",
+%fragment("py_from_enum"{pattern}, "header",
           fragment="get_enum_typeobject"{pattern}) {
 static PyObject* py_from_enum_%mangle(pattern)(long value) {
     PyObject* py_int = PyLong_FromLong(value);
@@ -100,13 +100,7 @@ static PyObject* py_from_enum_%mangle(pattern)(long value) {
     return result;
 };
 }
-%fragment("py_from_enum"{pattern}, "header",
-          fragment="py_from_enum_ex"{pattern}) {
-static PyObject* py_from_enum(pattern value) {
-    return py_from_enum_%mangle(pattern)(static_cast<long>(value));
-};
-}
-%typemap(out, fragment="py_from_enum_ex"{pattern}) pattern {
+%typemap(out, fragment="py_from_enum"{pattern}) pattern {
     $result = py_from_enum_%mangle(pattern)(static_cast<long>($1));
     if (!$result)
         SWIG_fail;

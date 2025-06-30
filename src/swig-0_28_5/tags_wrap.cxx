@@ -4265,11 +4265,6 @@ static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
 };
 
 
-static PyObject* py_from_enum(Exiv2::ErrorCode value) {
-    return py_from_enum_Exiv2_ErrorCode(static_cast<long>(value));
-};
-
-
 #ifdef _WIN32
 #include <windows.h>
 #endif
