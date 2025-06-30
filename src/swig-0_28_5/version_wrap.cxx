@@ -5255,8 +5255,11 @@ SWIG_init(void) {
   
   {
     PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error)
-    return NULL;
+    if (!PyExc_Exiv2Error) {
+      PyErr_SetString(PyExc_RuntimeError,
+        "Import error: exiv2.Exiv2Error not found.");
+      return NULL;
+    }
   }
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__version__",PyObject_GetAttrString(

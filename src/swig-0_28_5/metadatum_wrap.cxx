@@ -8363,8 +8363,11 @@ SWIG_init(void) {
   
   {
     PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error)
-    return NULL;
+    if (!PyExc_Exiv2Error) {
+      PyErr_SetString(PyExc_RuntimeError,
+        "Import error: exiv2.Exiv2Error not found.");
+      return NULL;
+    }
   }
   
   
@@ -8397,8 +8400,10 @@ SWIG_init(void) {
     return NULL;
     Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
     Py_DECREF(module);
-    if (!Py_IntEnum)
-    return NULL;
+    if (!Py_IntEnum) {
+      PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
+      return NULL;
+    }
   }
   
   builtin_base_count = 0;

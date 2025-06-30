@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2024  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2024-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,8 +30,11 @@ static PyObject* PyExc_Exiv2Error = NULL;
           fragment="import_exiv2") {
 {
     PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error)
+    if (!PyExc_Exiv2Error) {
+        PyErr_SetString(PyExc_RuntimeError,
+                        "Import error: exiv2.Exiv2Error not found.");
         return NULL;
+    }
 }
 }
 

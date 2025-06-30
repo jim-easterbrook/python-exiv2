@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -58,8 +58,10 @@ static void log_to_python(int level, const char* msg) {
         return NULL;
     logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
     Py_DECREF(module);
-    if (!logger)
+    if (!logger) {
+        PyErr_SetString(PyExc_RuntimeError, "logging.getLogger failed.");
         return NULL;
+    }
     Exiv2::LogMsg::setHandler(&log_to_python);
 }
 %}

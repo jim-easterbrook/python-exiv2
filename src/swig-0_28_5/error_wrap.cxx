@@ -5386,8 +5386,10 @@ SWIG_init(void) {
     return NULL;
     logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
     Py_DECREF(module);
-    if (!logger)
-    return NULL;
+    if (!logger) {
+      PyErr_SetString(PyExc_RuntimeError, "logging.getLogger failed.");
+      return NULL;
+    }
     Exiv2::LogMsg::setHandler(&log_to_python);
   }
   
@@ -5398,8 +5400,10 @@ SWIG_init(void) {
     return NULL;
     Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
     Py_DECREF(module);
-    if (!Py_IntEnum)
-    return NULL;
+    if (!Py_IntEnum) {
+      PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
+      return NULL;
+    }
   }
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ErrorCode",_create_enum_Exiv2_ErrorCode(

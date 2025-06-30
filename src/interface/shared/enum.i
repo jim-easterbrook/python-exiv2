@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -145,8 +145,10 @@ static PyObject* Py_IntEnum = NULL;
         return NULL;
     Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
     Py_DECREF(module);
-    if (!Py_IntEnum)
+    if (!Py_IntEnum) {
+        PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
         return NULL;
+    }
 }
 }
 
