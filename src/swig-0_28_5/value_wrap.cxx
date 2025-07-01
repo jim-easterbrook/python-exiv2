@@ -6646,9 +6646,6 @@ SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_0(std::vector< st
 SWIGINTERN Exiv2::XmpArrayValue *new_Exiv2_XmpArrayValue__SWIG_1(Exiv2::TypeId typeId_xmpBag){
         return new Exiv2::XmpArrayValue(typeId_xmpBag);
     }
-SWIGINTERN std::string Exiv2_XmpArrayValue___getitem__(Exiv2::XmpArrayValue *self,long idx){
-        return self->toString(idx);
-    }
 SWIGINTERN PyObject *Exiv2_XmpArrayValue_append(Exiv2::XmpArrayValue *self,std::string value){
         int error = self->read(value);
         if (error)
@@ -12393,42 +12390,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpArrayValue___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpArrayValue *arg1 = (Exiv2::XmpArrayValue *) 0 ;
-  long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "XmpArrayValue___getitem__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpArrayValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpArrayValue___getitem__" "', argument " "1"" of type '" "Exiv2::XmpArrayValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
-  ecode2 = SWIG_AsVal_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpArrayValue___getitem__" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  
-  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
-    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
-    SWIG_fail;
-  }
-  
-  result = Exiv2_XmpArrayValue___getitem__(arg1,arg2);
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_XmpArrayValue_append(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpArrayValue *arg1 = (Exiv2::XmpArrayValue *) 0 ;
@@ -12483,7 +12444,7 @@ fail:
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_XmpArrayValue_count) /* defines _wrap_XmpArrayValue_count_lenfunc_closure */
 
-SWIGPY_SSIZEARGFUNC_CLOSURE(_wrap_XmpArrayValue___getitem__) /* defines _wrap_XmpArrayValue___getitem___ssizeargfunc_closure */
+SWIGPY_SSIZEARGFUNC_CLOSURE(_wrap_XmpArrayValue_toString) /* defines _wrap_XmpArrayValue_toString_ssizeargfunc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpArrayValue) /* defines _wrap_delete_XmpArrayValue_destructor_closure */
 
@@ -28369,7 +28330,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpArrayValue_methods[] = {
 		"Notes: The output of this method cannot directly be used as the parameter\n"
 		"      for read().\n"
 		"" },
-  { "__getitem__", _wrap_XmpArrayValue___getitem__, METH_VARARGS, "" },
   { "append", _wrap_XmpArrayValue_append, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
@@ -28548,7 +28508,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpArrayValue_type = {
     _wrap_XmpArrayValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    _wrap_XmpArrayValue___getitem___ssizeargfunc_closure, /* sq_item */
+    _wrap_XmpArrayValue_toString_ssizeargfunc_closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -28690,7 +28650,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__XmpArrayValue_type_create(PyTypeObjec
     { Py_sq_length,                     (void *)_wrap_XmpArrayValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)_wrap_XmpArrayValue___getitem___ssizeargfunc_closure },
+    { Py_sq_item,                       (void *)_wrap_XmpArrayValue_toString_ssizeargfunc_closure },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },

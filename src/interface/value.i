@@ -515,7 +515,7 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
 %feature("python:slot", "sq_length", functype="lenfunc")
     Exiv2::XmpArrayValue::count;
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
-    Exiv2::XmpArrayValue::__getitem__;
+    Exiv2::XmpArrayValue::toString;
 %typemap(default) Exiv2::TypeId typeId_xmpBag {$1 = Exiv2::xmpBag;}
 %template() std::vector<std::string>;
 %extend Exiv2::XmpArrayValue {
@@ -536,9 +536,6 @@ RAW_STRING_DATA(Exiv2::XmpTextValue)
     // Replacement default constructor
     XmpArrayValue(Exiv2::TypeId typeId_xmpBag) {
         return new Exiv2::XmpArrayValue(typeId_xmpBag);
-    }
-    std::string __getitem__(long idx) {
-        return $self->toString(idx);
     }
     PyObject* append(std::string value) {
         int error = $self->read(value);
