@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,24 +25,12 @@
 %typemap(doctype) pointed_type##::AutoPtr #pointed_type
 %auto_ptr(pointed_type)
 %enddef // UNIQUE_PTR
-#else
+#else // EXIV2_VERSION_HEX
 #define SMART_PTR UniquePtr
 %ignore UniquePtr;
-#if SWIG_VERSION >= 0x040100
 %define UNIQUE_PTR(pointed_type)
 %include "std_unique_ptr.i"
 %typemap(doctype) pointed_type##::UniquePtr #pointed_type
 %unique_ptr(pointed_type)
 %enddef // UNIQUE_PTR
-#else
-template <typename T>
-struct std::unique_ptr {};
-%define UNIQUE_PTR(pointed_type)
-%typemap(out) std::unique_ptr<pointed_type> %{
-    $result = SWIG_NewPointerObj(
-        $1.release(), $descriptor(pointed_type *), SWIG_POINTER_OWN);
-%}
-%template() std::unique_ptr<pointed_type>;
-%enddef // UNIQUE_PTR
-#endif
-#endif
+#endif // EXIV2_VERSION_HEX
