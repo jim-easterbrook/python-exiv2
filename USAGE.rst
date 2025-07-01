@@ -13,7 +13,7 @@ libexiv2 library version
 ------------------------
 
 Python-exiv2 can be used with any version of libexiv2 from 0.27.0 onwards.
-The "binary wheels" available from PyPI_ currently include a copy of libexiv2 v0.27.7, but if you install from source then python-exiv2 will use whichever version of libexiv2 is installed on your computer.
+The "binary wheels" available from PyPI_ currently include a copy of libexiv2 v0.28.5, but if you install from source then python-exiv2 will use whichever version of libexiv2 is installed on your computer.
 
 There are some differences in the API of libexiv2 v0.28.x and v0.27.y.
 Some of these have been "backported" in the Python interface so you can start using the v0.28 methods, e.g. the ``exiv2.DataBuf.data()`` function replaces the ``exiv2.DataBuf.pData_`` attribute.
@@ -72,6 +72,8 @@ In python-exiv2 (since v0.16.2) these structs have dict_ like behaviour, so the 
 
     >>> import exiv2
     >>> info = exiv2.ExifTags.tagList('Image')[0]
+    >>> print(info.title)
+    Processing Software
     >>> print(info.title_)
     Processing Software
     >>> print(info['title'])
@@ -90,7 +92,11 @@ In python-exiv2 (since v0.16.2) these structs have dict_ like behaviour, so the 
      'title': 'Processing Software',
      'typeId': <TypeId.asciiString: 2>}
 
-Note that struct member names ending with an underscore have the underscore removed in the dict_ like interface.
+In general it's more efficient to use attribute access (``info.title``) than dict_ access (``info['title']``).
+It is sometimes useful to be able to iterate over the members though, as shown above.
+
+Note that in the C++ API the struct member names end with an underscore.
+In the Python interface the underscore is optional for attribute names, and removed in the dict_ like interface.
 
 Reading data values
 -------------------
@@ -107,7 +113,7 @@ The Python interface uses the value's ``typeId()`` method to determine its type 
 Recasting data values
 ^^^^^^^^^^^^^^^^^^^^^
 
-In earlier versions of python-gphoto2 you could set the type of value returned by ``value()`` or ``getValue()`` by passing an ``exiv2.TypeId`` parameter:
+In old versions of python-gphoto2 you could set the type of value returned by ``value()`` or ``getValue()`` by passing an ``exiv2.TypeId`` parameter:
 
 .. code:: python
 
