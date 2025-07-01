@@ -107,8 +107,17 @@ static PyObject* py_from_enum_%mangle(pattern)(long value) {
 }
 %enddef // _ENUM_COMMON
 
+// Function to append a name, value pair to a list of enum members
+%fragment("extend_enum_list", "header") {
+static void extend_enum_list(PyObject* list, const char* label, int value) {
+    PyObject* py_obj = Py_BuildValue("(si)", label, value);
+    PyList_Append(list, py_obj);
+    Py_DECREF(py_obj);
+};
+}
+
 // Function to return enum members as Python list
-%fragment("get_enum_list", "header") {
+%fragment("get_enum_list", "header", fragment="extend_enum_list") {
 #include <cstdarg>
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -118,9 +127,7 @@ static PyObject* _get_enum_list(int dummy, ...) {
     PyObject* result = PyList_New(0);
     label = va_arg(args, char*);
     while (label) {
-        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
-        PyList_Append(result, py_obj);
-        Py_DECREF(py_obj);
+        extend_enum_list(result, label, va_arg(args, int));
         label = va_arg(args, char*);
     }
     va_end(args);
@@ -161,6 +168,16 @@ static PyObject* get_enum_typeobject_%mangle(Exiv2::name)() {
 };
 }
 %enddef // IMPORT_ENUM
+
+%define DEFINE_ENUM_FROM_FUNC(name, doc, func)
+IMPORT_ENUM(name)
+// Add enum to module during init
+%fragment("_create_enum_object"{Exiv2::name});
+%fragment("get_enum_list");
+%constant PyObject* name = _create_enum_%mangle(Exiv2::name)(
+    "name", doc, func());
+%ignore Exiv2::name;
+%enddef // DEFINE_ENUM_FROM_FUNC
 
 %define DEFINE_ENUM(name, doc, contents...)
 IMPORT_ENUM(name)

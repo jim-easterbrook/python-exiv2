@@ -4380,6 +4380,13 @@ static PyObject* _create_enum_Exiv2_XmpCategory(
 };
 
 
+static void extend_enum_list(PyObject* list, const char* label, int value) {
+    PyObject* py_obj = Py_BuildValue("(si)", label, value);
+    PyList_Append(list, py_obj);
+    Py_DECREF(py_obj);
+};
+
+
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
@@ -4389,9 +4396,7 @@ static PyObject* _get_enum_list(int dummy, ...) {
     PyObject* result = PyList_New(0);
     label = va_arg(args, char*);
     while (label) {
-        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
-        PyList_Append(result, py_obj);
-        Py_DECREF(py_obj);
+        extend_enum_list(result, label, va_arg(args, int));
         label = va_arg(args, char*);
     }
     va_end(args);

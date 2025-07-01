@@ -4258,6 +4258,203 @@ static void log_to_python(int level, const char* msg) {
 };
 
 
+static void extend_enum_list(PyObject* list, const char* label, int value) {
+    PyObject* py_obj = Py_BuildValue("(si)", label, value);
+    PyList_Append(list, py_obj);
+    Py_DECREF(py_obj);
+};
+
+
+
+static PyObject* _get_enum_list(int dummy, ...) {
+    va_list args;
+    va_start(args, dummy);
+    char* label;
+    PyObject* py_obj = NULL;
+    PyObject* result = PyList_New(0);
+    label = va_arg(args, char*);
+    while (label) {
+        extend_enum_list(result, label, va_arg(args, int));
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    return result;
+};
+
+
+static PyObject* error_code_list() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    PyObject* result = _get_enum_list(
+        0,
+        "kerGeneralError",                Exiv2::kerGeneralError,
+        "kerSuccess",                     Exiv2::kerSuccess,
+        "kerErrorMessage",                Exiv2::kerErrorMessage,
+        "kerCallFailed",                  Exiv2::kerCallFailed,
+        "kerNotAnImage",                  Exiv2::kerNotAnImage,
+        "kerInvalidDataset",              Exiv2::kerInvalidDataset,
+        "kerInvalidRecord",               Exiv2::kerInvalidRecord,
+        "kerInvalidKey",                  Exiv2::kerInvalidKey,
+        "kerInvalidTag",                  Exiv2::kerInvalidTag,
+        "kerValueNotSet",                 Exiv2::kerValueNotSet,
+        "kerDataSourceOpenFailed",        Exiv2::kerDataSourceOpenFailed,
+        "kerFileOpenFailed",              Exiv2::kerFileOpenFailed,
+        "kerFileContainsUnknownImageType",
+            Exiv2::kerFileContainsUnknownImageType,
+        "kerMemoryContainsUnknownImageType",
+            Exiv2::kerMemoryContainsUnknownImageType,
+        "kerUnsupportedImageType",        Exiv2::kerUnsupportedImageType,
+        "kerFailedToReadImageData",       Exiv2::kerFailedToReadImageData,
+        "kerNotAJpeg",                    Exiv2::kerNotAJpeg,
+        "kerFailedToMapFileForReadWrite",
+            Exiv2::kerFailedToMapFileForReadWrite,
+        "kerFileRenameFailed",            Exiv2::kerFileRenameFailed,
+        "kerTransferFailed",              Exiv2::kerTransferFailed,
+        "kerMemoryTransferFailed",        Exiv2::kerMemoryTransferFailed,
+        "kerInputDataReadFailed",         Exiv2::kerInputDataReadFailed,
+        "kerImageWriteFailed",            Exiv2::kerImageWriteFailed,
+        "kerNoImageInInputData",          Exiv2::kerNoImageInInputData,
+        "kerInvalidIfdId",                Exiv2::kerInvalidIfdId,
+        "kerValueTooLarge",               Exiv2::kerValueTooLarge,
+        "kerDataAreaValueTooLarge",       Exiv2::kerDataAreaValueTooLarge,
+        "kerOffsetOutOfRange",            Exiv2::kerOffsetOutOfRange,
+        "kerUnsupportedDataAreaOffsetType",
+            Exiv2::kerUnsupportedDataAreaOffsetType,
+        "kerInvalidCharset",              Exiv2::kerInvalidCharset,
+        "kerUnsupportedDateFormat",       Exiv2::kerUnsupportedDateFormat,
+        "kerUnsupportedTimeFormat",       Exiv2::kerUnsupportedTimeFormat,
+        "kerWritingImageFormatUnsupported",
+            Exiv2::kerWritingImageFormatUnsupported,
+        "kerInvalidSettingForImage",      Exiv2::kerInvalidSettingForImage,
+        "kerNotACrwImage",                Exiv2::kerNotACrwImage,
+        "kerFunctionNotSupported",        Exiv2::kerFunctionNotSupported,
+        "kerNoNamespaceInfoForXmpPrefix",
+            Exiv2::kerNoNamespaceInfoForXmpPrefix,
+        "kerNoPrefixForNamespace",        Exiv2::kerNoPrefixForNamespace,
+        "kerTooLargeJpegSegment",         Exiv2::kerTooLargeJpegSegment,
+        "kerUnhandledXmpdatum",           Exiv2::kerUnhandledXmpdatum,
+        "kerUnhandledXmpNode",            Exiv2::kerUnhandledXmpNode,
+        "kerXMPToolkitError",             Exiv2::kerXMPToolkitError,
+        "kerDecodeLangAltPropertyFailed",
+            Exiv2::kerDecodeLangAltPropertyFailed,
+        "kerDecodeLangAltQualifierFailed",
+            Exiv2::kerDecodeLangAltQualifierFailed,
+        "kerEncodeLangAltPropertyFailed",
+            Exiv2::kerEncodeLangAltPropertyFailed,
+        "kerPropertyNameIdentificationFailed",
+            Exiv2::kerPropertyNameIdentificationFailed,
+        "kerSchemaNamespaceNotRegistered",
+            Exiv2::kerSchemaNamespaceNotRegistered,
+        "kerNoNamespaceForPrefix",        Exiv2::kerNoNamespaceForPrefix,
+        "kerAliasesNotSupported",         Exiv2::kerAliasesNotSupported,
+        "kerInvalidXmpText",              Exiv2::kerInvalidXmpText,
+        "kerTooManyTiffDirectoryEntries",
+            Exiv2::kerTooManyTiffDirectoryEntries,
+        "kerMultipleTiffArrayElementTagsInDirectory",
+            Exiv2::kerMultipleTiffArrayElementTagsInDirectory,
+        "kerWrongTiffArrayElementTagType",
+            Exiv2::kerWrongTiffArrayElementTagType,
+        "kerInvalidKeyXmpValue",          Exiv2::kerInvalidKeyXmpValue,
+        "kerInvalidIccProfile",           Exiv2::kerInvalidIccProfile,
+        "kerInvalidXMP",                  Exiv2::kerInvalidXMP,
+        "kerTiffDirectoryTooLarge",       Exiv2::kerTiffDirectoryTooLarge,
+        "kerInvalidTypeValue",            Exiv2::kerInvalidTypeValue,
+        "kerInvalidMalloc",               Exiv2::kerInvalidMalloc,
+        "kerCorruptedMetadata",           Exiv2::kerCorruptedMetadata,
+        "kerArithmeticOverflow",          Exiv2::kerArithmeticOverflow,
+        "kerMallocFailed",                Exiv2::kerMallocFailed,
+        NULL);
+
+    return result;
+}
+
+
 static PyObject* Py_IntEnum = NULL;
 
 
@@ -4283,25 +4480,6 @@ static PyObject* _create_enum_Exiv2_ErrorCode(
     // SWIG_Python_SetConstant will decref PyEnum object
     Py_INCREF(PyEnum_Exiv2_ErrorCode);
     return PyEnum_Exiv2_ErrorCode;
-};
-
-
-
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
-    PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
-    while (label) {
-        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
-        PyList_Append(result, py_obj);
-        Py_DECREF(py_obj);
-        label = va_arg(args, char*);
-    }
-    va_end(args);
-    return result;
 };
 
 
@@ -5407,7 +5585,7 @@ SWIG_init(void) {
   }
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ErrorCode",_create_enum_Exiv2_ErrorCode(
-      "ErrorCode", "Complete list of all Exiv2 error codes.", _get_enum_list(0, "kerGeneralError",Exiv2::kerGeneralError,"kerSuccess",Exiv2::kerSuccess,"kerErrorMessage",Exiv2::kerErrorMessage,"kerCallFailed",Exiv2::kerCallFailed,"kerNotAnImage",Exiv2::kerNotAnImage,"kerInvalidDataset",Exiv2::kerInvalidDataset,"kerInvalidRecord",Exiv2::kerInvalidRecord,"kerInvalidKey",Exiv2::kerInvalidKey,"kerInvalidTag",Exiv2::kerInvalidTag,"kerValueNotSet",Exiv2::kerValueNotSet,"kerDataSourceOpenFailed",Exiv2::kerDataSourceOpenFailed,"kerFileOpenFailed",Exiv2::kerFileOpenFailed,"kerFileContainsUnknownImageType",Exiv2::kerFileContainsUnknownImageType,"kerMemoryContainsUnknownImageType",Exiv2::kerMemoryContainsUnknownImageType,"kerUnsupportedImageType",Exiv2::kerUnsupportedImageType,"kerFailedToReadImageData",Exiv2::kerFailedToReadImageData,"kerNotAJpeg",Exiv2::kerNotAJpeg,"kerFailedToMapFileForReadWrite",Exiv2::kerFailedToMapFileForReadWrite,"kerFileRenameFailed",Exiv2::kerFileRenameFailed,"kerTransferFailed",Exiv2::kerTransferFailed,"kerMemoryTransferFailed",Exiv2::kerMemoryTransferFailed,"kerInputDataReadFailed",Exiv2::kerInputDataReadFailed,"kerImageWriteFailed",Exiv2::kerImageWriteFailed,"kerNoImageInInputData",Exiv2::kerNoImageInInputData,"kerInvalidIfdId",Exiv2::kerInvalidIfdId,"kerValueTooLarge",Exiv2::kerValueTooLarge,"kerDataAreaValueTooLarge",Exiv2::kerDataAreaValueTooLarge,"kerOffsetOutOfRange",Exiv2::kerOffsetOutOfRange,"kerUnsupportedDataAreaOffsetType",Exiv2::kerUnsupportedDataAreaOffsetType,"kerInvalidCharset",Exiv2::kerInvalidCharset,"kerUnsupportedDateFormat",Exiv2::kerUnsupportedDateFormat,"kerUnsupportedTimeFormat",Exiv2::kerUnsupportedTimeFormat,"kerWritingImageFormatUnsupported",Exiv2::kerWritingImageFormatUnsupported,"kerInvalidSettingForImage",Exiv2::kerInvalidSettingForImage,"kerNotACrwImage",Exiv2::kerNotACrwImage,"kerFunctionNotSupported",Exiv2::kerFunctionNotSupported,"kerNoNamespaceInfoForXmpPrefix",Exiv2::kerNoNamespaceInfoForXmpPrefix,"kerNoPrefixForNamespace",Exiv2::kerNoPrefixForNamespace,"kerTooLargeJpegSegment",Exiv2::kerTooLargeJpegSegment,"kerUnhandledXmpdatum",Exiv2::kerUnhandledXmpdatum,"kerUnhandledXmpNode",Exiv2::kerUnhandledXmpNode,"kerXMPToolkitError",Exiv2::kerXMPToolkitError,"kerDecodeLangAltPropertyFailed",Exiv2::kerDecodeLangAltPropertyFailed,"kerDecodeLangAltQualifierFailed",Exiv2::kerDecodeLangAltQualifierFailed,"kerEncodeLangAltPropertyFailed",Exiv2::kerEncodeLangAltPropertyFailed,"kerPropertyNameIdentificationFailed",Exiv2::kerPropertyNameIdentificationFailed,"kerSchemaNamespaceNotRegistered",Exiv2::kerSchemaNamespaceNotRegistered,"kerNoNamespaceForPrefix",Exiv2::kerNoNamespaceForPrefix,"kerAliasesNotSupported",Exiv2::kerAliasesNotSupported,"kerInvalidXmpText",Exiv2::kerInvalidXmpText,"kerTooManyTiffDirectoryEntries",Exiv2::kerTooManyTiffDirectoryEntries,"kerMultipleTiffArrayElementTagsInDirectory",Exiv2::kerMultipleTiffArrayElementTagsInDirectory,"kerWrongTiffArrayElementTagType",Exiv2::kerWrongTiffArrayElementTagType,"kerInvalidKeyXmpValue",Exiv2::kerInvalidKeyXmpValue,"kerInvalidIccProfile",Exiv2::kerInvalidIccProfile,"kerInvalidXMP",Exiv2::kerInvalidXMP,"kerTiffDirectoryTooLarge",Exiv2::kerTiffDirectoryTooLarge,"kerInvalidTypeValue",Exiv2::kerInvalidTypeValue,"kerInvalidMalloc",Exiv2::kerInvalidMalloc,"kerCorruptedMetadata",Exiv2::kerCorruptedMetadata,"kerArithmeticOverflow",Exiv2::kerArithmeticOverflow,"kerMallocFailed",Exiv2::kerMallocFailed, NULL)));
+      "ErrorCode", "Complete list of all Exiv2 error codes.", error_code_list()));
   
   /* type 'Exiv2::LogMsg' */
   d = PyDict_New();
