@@ -4192,6 +4192,9 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+#define INIT_ERROR_RETURN NULL
+
+
 #include <stdint.h>		// Use the C99 official header
 
 
@@ -5237,7 +5240,7 @@ SWIG_init(void) {
   {
     exiv2_module = PyImport_ImportModule("exiv2");
     if (!exiv2_module)
-    return NULL;
+    return INIT_ERROR_RETURN;
   }
   
   
@@ -5246,7 +5249,7 @@ SWIG_init(void) {
     if (!PyExc_Exiv2Error) {
       PyErr_SetString(PyExc_RuntimeError,
         "Import error: exiv2.Exiv2Error not found.");
-      return NULL;
+      return INIT_ERROR_RETURN;
     }
   }
   

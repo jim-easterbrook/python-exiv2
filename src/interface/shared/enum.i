@@ -26,7 +26,7 @@ static PyObject* exiv2_module = NULL;
 {
     exiv2_module = PyImport_ImportModule("exiv2");
     if (!exiv2_module)
-        return NULL;
+        return INIT_ERROR_RETURN;
 }
 }
 
@@ -143,12 +143,12 @@ static PyObject* Py_IntEnum = NULL;
 {
     PyObject* module = PyImport_ImportModule("enum");
     if (!module)
-        return NULL;
+        return INIT_ERROR_RETURN;
     Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
     Py_DECREF(module);
     if (!Py_IntEnum) {
         PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-        return NULL;
+        return INIT_ERROR_RETURN;
     }
 }
 }

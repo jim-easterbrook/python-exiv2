@@ -33,7 +33,7 @@ static PyObject* PyExc_Exiv2Error = NULL;
     if (!PyExc_Exiv2Error) {
         PyErr_SetString(PyExc_RuntimeError,
                         "Import error: exiv2.Exiv2Error not found.");
-        return NULL;
+        return INIT_ERROR_RETURN;
     }
 }
 }

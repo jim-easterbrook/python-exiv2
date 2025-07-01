@@ -55,12 +55,12 @@ static void log_to_python(int level, const char* msg) {
 {
     PyObject *module = PyImport_ImportModule("logging");
     if (!module)
-        return NULL;
+        return INIT_ERROR_RETURN;
     logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
     Py_DECREF(module);
     if (!logger) {
         PyErr_SetString(PyExc_RuntimeError, "logging.getLogger failed.");
-        return NULL;
+        return INIT_ERROR_RETURN;
     }
     Exiv2::LogMsg::setHandler(&log_to_python);
 }

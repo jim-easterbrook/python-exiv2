@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,16 @@
 %{
 #include "exiv2/exiv2.hpp"
 %}
+
+#if SWIG_VERSION < 0x040400
+%{
+#define INIT_ERROR_RETURN NULL
+%}
+#else
+%{
+#define INIT_ERROR_RETURN -1
+%}
+#endif
 
 // EXIV2API prepends every function declaration
 #define EXIV2API

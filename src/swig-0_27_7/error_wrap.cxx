@@ -4188,6 +4188,9 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+#define INIT_ERROR_RETURN NULL
+
+
 #include <typeinfo>
 #include <stdexcept>
 
@@ -5552,7 +5555,7 @@ SWIG_init(void) {
   {
     exiv2_module = PyImport_ImportModule("exiv2");
     if (!exiv2_module)
-    return NULL;
+    return INIT_ERROR_RETURN;
   }
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Exiv2Error",PyObject_GetAttrString(
@@ -5561,12 +5564,12 @@ SWIG_init(void) {
   {
     PyObject *module = PyImport_ImportModule("logging");
     if (!module)
-    return NULL;
+    return INIT_ERROR_RETURN;
     logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
     Py_DECREF(module);
     if (!logger) {
       PyErr_SetString(PyExc_RuntimeError, "logging.getLogger failed.");
-      return NULL;
+      return INIT_ERROR_RETURN;
     }
     Exiv2::LogMsg::setHandler(&log_to_python);
   }
@@ -5575,12 +5578,12 @@ SWIG_init(void) {
   {
     PyObject* module = PyImport_ImportModule("enum");
     if (!module)
-    return NULL;
+    return INIT_ERROR_RETURN;
     Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
     Py_DECREF(module);
     if (!Py_IntEnum) {
       PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return NULL;
+      return INIT_ERROR_RETURN;
     }
   }
   

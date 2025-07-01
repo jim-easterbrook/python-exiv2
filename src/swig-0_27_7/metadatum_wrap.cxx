@@ -4230,6 +4230,9 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+#define INIT_ERROR_RETURN NULL
+
+
 static PyObject* PyExc_Exiv2Error = NULL;
 
 
@@ -8079,7 +8082,7 @@ SWIG_init(void) {
   {
     exiv2_module = PyImport_ImportModule("exiv2");
     if (!exiv2_module)
-    return NULL;
+    return INIT_ERROR_RETURN;
   }
   
   
@@ -8088,7 +8091,7 @@ SWIG_init(void) {
     if (!PyExc_Exiv2Error) {
       PyErr_SetString(PyExc_RuntimeError,
         "Import error: exiv2.Exiv2Error not found.");
-      return NULL;
+      return INIT_ERROR_RETURN;
     }
   }
   
@@ -8119,12 +8122,12 @@ SWIG_init(void) {
   {
     PyObject* module = PyImport_ImportModule("enum");
     if (!module)
-    return NULL;
+    return INIT_ERROR_RETURN;
     Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
     Py_DECREF(module);
     if (!Py_IntEnum) {
       PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return NULL;
+      return INIT_ERROR_RETURN;
     }
   }
   
