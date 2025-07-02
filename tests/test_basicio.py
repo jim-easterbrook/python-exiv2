@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -97,6 +97,20 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(view.readonly, False)
             with self.assertRaises(IndexError):
                 view[0] = 0
+        # data() context manager
+        with io.data() as view:
+            print(type(view))
+            self.assertIsInstance(view, memoryview)
+            self.assertEqual(view, b'')
+            self.assertEqual(view.readonly, True)
+            with self.assertRaises(TypeError):
+                view[0] = 0
+        with io.data(True) as view:
+            self.assertIsInstance(view, memoryview)
+            self.assertEqual(view, b'')
+            self.assertEqual(view.readonly, False)
+            with self.assertRaises(IndexError):
+                view[0] = 0
         # non-empty buffer
         io = exiv2.ImageFactory.createIo(self.data)
         self.assertIsInstance(io, exiv2.BasicIo)
@@ -120,6 +134,10 @@ class TestBasicIoModule(unittest.TestCase):
         with memoryview(io) as view:
             self.assertEqual(view, self.data)
             self.assertEqual(view.readonly, False)
+        # data() context manager
+        with io.data() as view:
+            self.assertIsInstance(view, memoryview)
+            self.assertEqual(view, self.data)
         # seek & tell
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(io.seek(0, exiv2.Position.beg), 0)

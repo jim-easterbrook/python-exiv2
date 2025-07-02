@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2022-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2022-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -166,6 +166,75 @@ static void release_ptr(Exiv2::BasicIo* self) {
 };
 }
 EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo, true, true)
+
+// Wrapper class to provide a context manager for Exiv2::BasicIo::mmap
+%feature("docstring") DataContext "Data context manager.
+
+A simple context manager for *mmap* / *munmap* data access. The
+*__enter__* method returns a :py:class:`memoryview` of the data."
+%ignore DataContext::DataContext;
+%inline %{
+class DataContext {
+private:
+    Exiv2::BasicIo* parent;
+    bool isWriteable;
+    bool mapped;
+public:
+    DataContext(Exiv2::BasicIo* parent, bool isWriteable) :
+        parent(parent), isWriteable(isWriteable), mapped(false) {};
+    ~DataContext() {
+        if (mapped) {
+            SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+            parent->munmap();
+            SWIG_PYTHON_THREAD_END_ALLOW;
+            parent->close();
+        }
+    };
+    PyObject* __enter__() {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        int error = parent->open();
+        if (error) {
+            SWIG_PYTHON_THREAD_END_ALLOW;
+            return PyErr_Format(
+                PyExc_RuntimeError, "open() returned %d", error);
+        }
+        char* ptr = (char*)parent->mmap(isWriteable);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+        mapped = true;
+        return PyMemoryView_FromMemory(
+            ptr, ptr ? parent->size() : 0,
+            isWriteable ? PyBUF_WRITE : PyBUF_READ);
+    };
+    bool __exit__(PyObject* exc_type, PyObject* exc_val, PyObject* exc_tb) {
+        if (mapped) {
+            SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+            parent->munmap();
+            mapped = false;
+            parent->close();
+            SWIG_PYTHON_THREAD_END_ALLOW;
+        }
+        return false;
+    };
+};
+%}
+
+// Add Exiv2::BasicIo::data() method to return a context manager
+%feature("docstring") Exiv2::BasicIo::data "Return a data context manager.
+
+This allows easy access to the data using a ``with`` statement.
+The context manager calls *mmap* when the context is entered and
+*munmap* when the context is exited.
+:type isWriteable: bool, optional
+:param isWriteable: Set to true if the data should be writeable
+    (default is false).
+:rtype: object
+:return: A context manager"
+%newobject Exiv2::BasicIo::data;
+%extend Exiv2::BasicIo {
+    DataContext* data(bool isWriteable) {
+        return new DataContext($self, isWriteable);
+    }
+}
 
 // Make enum more Pythonic
 DEFINE_CLASS_ENUM(BasicIo, Position, "Seek starting positions.",

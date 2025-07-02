@@ -390,6 +390,14 @@ Doing so will invalidate the memoryview and may cause a segmentation fault:
     buf.alloc(128)
     print(bytes(data))              # Prints random values, may segfault
 
+A good way to ensure the memoryview_ object is ephemeral is to use it in a ``with`` statement:
+
+.. code:: python
+
+    buf = exiv2.DataBuf(b'fred')
+    with buf.data() as data:
+        print(bytes(data))              # Prints b'fred'
+
 Buffer interface
 ----------------
 
@@ -439,7 +447,17 @@ A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap
     with get_file_data(image) as data:
         rsp = requests.post(url, files={'file': io.BytesIO(data)})
 
-The ``exiv2.BasicIo`` Python type exposes a `buffer interface`_ which is a lot easier to use.
+Since python-exiv2 v0.18.0 the ``exiv2.BasicIo.data()`` method provides a context manager that calls ``open``, ``mmap``, ``munmap``, and ``close`` for you:
+
+.. code:: python
+
+    # after setting some metadata
+    image.writeMetadata()
+    exiv_io = image.io()
+    with exiv_io.data() as data:
+        rsp = requests.post(url, files={'file': io.BytesIO(data)})
+
+The ``exiv2.BasicIo`` Python type also exposes a `buffer interface`_.
 It allows the ``exiv2.BasicIo`` object to be used anywhere that a `bytes-like object`_ is expected:
 
 .. code:: python
