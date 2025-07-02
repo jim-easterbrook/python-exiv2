@@ -92,6 +92,25 @@ EXPOSE_OBJECT_BUFFER(Exiv2::PreviewImage, false, false)
 RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
             Exiv2::PreviewImage::pData)
 
+// Add data() alias of pData()
+RETURN_VIEW(Exiv2::byte* data, arg1->size(), PyBUF_READ,
+            Exiv2::PreviewImage::data)
+%extend Exiv2::PreviewImage {
+const Exiv2::byte* data() {
+    return $self->pData();
+};
+}
+
+// Deprecate pData() in favour of data() since 2025-07-02
+%extend Exiv2::PreviewImage {
+const Exiv2::byte* pData() {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+                 "Please use data() instead of pData().", 1);
+    return $self->pData();
+};
+}
+%ignore Exiv2::PreviewImage::pData;
+
 // Give Exiv2::PreviewProperties dict-like behaviour
 STRUCT_DICT(Exiv2::PreviewProperties, false, true)
 

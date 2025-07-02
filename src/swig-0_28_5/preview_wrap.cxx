@@ -5749,6 +5749,14 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 SWIGINTERN size_t Exiv2_PreviewImage___len__(Exiv2::PreviewImage *self){
         return self->size();
     }
+SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_data(Exiv2::PreviewImage *self){
+    return self->pData();
+}
+SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_pData(Exiv2::PreviewImage *self){
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+                 "Please use data() instead of pData().", 1);
+    return self->pData();
+}
 
   namespace swig {
     template <>  struct traits< Exiv2::PreviewProperties > {
@@ -6317,29 +6325,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Exiv2::byte *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "PreviewImage_pData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewImage, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_pData" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  result = (Exiv2::byte *)((Exiv2::PreviewImage const *)arg1)->pData();
-  
-  resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_PreviewImage_size(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
@@ -6549,6 +6534,60 @@ SWIGINTERN PyObject *_wrap_PreviewImage___len__(PyObject *self, PyObject *args) 
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
   result = Exiv2_PreviewImage___len__(arg1);
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PreviewImage_data(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::byte *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "PreviewImage_data", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewImage, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_data" "', argument " "1"" of type '" "Exiv2::PreviewImage *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
+  {
+    try {
+      result = (Exiv2::byte *)Exiv2_PreviewImage_data(arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::byte *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "PreviewImage_pData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewImage, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_pData" "', argument " "1"" of type '" "Exiv2::PreviewImage *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
+  result = (Exiv2::byte *)Exiv2_PreviewImage_pData(arg1);
+  
+  resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
+  
   return resultobj;
 fail:
   return NULL;
@@ -7110,13 +7149,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
 		"Return a copy of the preview image data. The caller owns\n"
 		"       this copy and %DataBuf ensures that it will be deleted.\n"
 		"" },
-  { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "\n"
-		"Returns a temporary Python memoryview of the object's data.\n"
-		"\n"
-		"WARNING: do not resize or delete the object while using the view.\n"
-		"\n"
-		":rtype: memoryview\n"
-		"" },
   { "size", _wrap_PreviewImage_size, METH_NOARGS, "Return the size of the preview image in bytes." },
   { "writeFile", _wrap_PreviewImage_writeFile, METH_O, "\n"
 		"Write the thumbnail image to a file.\n"
@@ -7142,6 +7174,20 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
   { "height", _wrap_PreviewImage_height, METH_NOARGS, "Return the height of the preview image in pixels." },
   { "id", _wrap_PreviewImage_id, METH_NOARGS, "Return the preview image type identifier." },
   { "__len__", _wrap_PreviewImage___len__, METH_NOARGS, "" },
+  { "data", _wrap_PreviewImage_data, METH_NOARGS, "\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
+		"\n"
+		"WARNING: do not resize or delete the object while using the view.\n"
+		"\n"
+		":rtype: memoryview\n"
+		"" },
+  { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
+		"\n"
+		"WARNING: do not resize or delete the object while using the view.\n"
+		"\n"
+		":rtype: memoryview\n"
+		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

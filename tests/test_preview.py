@@ -49,7 +49,11 @@ class TestPreviewModule(unittest.TestCase):
         self.assertEqual(len(preview), preview.size())
         copy = preview.copy()
         self.assertIsInstance(copy, exiv2.DataBuf)
-        with preview.pData() as data:
+        with self.assertWarns(DeprecationWarning):
+            with preview.pData() as data:
+                self.check_result(data, memoryview, copy)
+                self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
+        with preview.data() as data:
             self.check_result(data, memoryview, copy)
             self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
         self.assertEqual(memoryview(preview), copy)

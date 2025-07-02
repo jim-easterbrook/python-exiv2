@@ -23,6 +23,7 @@ Changes in v0.18.0:
   2/ Added binary wheels for Linux on arm64.
   3/ Exiv2 struct member names with a trailing underscore have more Pythonic
      aliases without the underscore.
+  4/ Add data() method to exiv2.PreviewImage, deprecate pData() method.
 
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.
