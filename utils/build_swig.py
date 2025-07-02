@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -152,7 +152,7 @@ def main():
             # Functions with just one parameter and a default value don't
             # work with fastunpack.
             # See https://github.com/swig/swig/issues/2786
-            if swig_version < (4, 4, 0) and ext_name in (
+            if swig_version < (4, 5, 0) and ext_name in (
                     'basicio', 'exif', 'iptc', 'metadatum', 'value', 'xmp'):
                 cmd.append('-nofastunpack')
             cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]

@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -153,6 +153,8 @@ ext_modules = []
 extra_compile_args = []
 define_macros = [('PY_SSIZE_T_CLEAN', None),
                  ('SWIG_TYPE_TABLE', 'exiv2')]
+if sys.version_info < (3, 9):
+    define_macros.append(('SWIG_NO_HEAPTYPES', None))
 if platform in ('linux', 'darwin', 'mingw'):
     extra_compile_args = [
         '-O3', '-Wno-unused-variable', '-Wno-unused-function',
