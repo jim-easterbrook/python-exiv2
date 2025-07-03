@@ -6553,15 +6553,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_data(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_data" "', argument " "1"" of type '" "Exiv2::PreviewImage *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  {
-    try {
-      result = (Exiv2::byte *)Exiv2_PreviewImage_data(arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  result = (Exiv2::byte *)Exiv2_PreviewImage_data(arg1);
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
   

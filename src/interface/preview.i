@@ -49,6 +49,7 @@ EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::PreviewImage::writeFile)
 
 // Some calls don't raise exceptions
 %noexception Exiv2::PreviewImage::__len__;
+%noexception Exiv2::PreviewImage::data;
 %noexception Exiv2::PreviewImage::extension;
 %noexception Exiv2::PreviewImage::height;
 %noexception Exiv2::PreviewImage::id;
