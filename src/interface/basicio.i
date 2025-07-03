@@ -49,6 +49,7 @@ UNIQUE_PTR(Exiv2::BasicIo);
 
 // Potentially blocking calls allow Python threads
 %thread Exiv2::BasicIo::close;
+%thread Exiv2::BasicIo::data;
 %thread Exiv2::BasicIo::open;
 %thread Exiv2::BasicIo::mmap;
 %thread Exiv2::BasicIo::munmap;
@@ -175,43 +176,33 @@ A simple context manager for *mmap* / *munmap* data access. The
 *__enter__* method returns a :py:class:`memoryview` of the data."
 %ignore DataContext::DataContext;
 %thread DataContext::~DataContext;
-%thread DataContext::__exit__;
 %inline %{
 class DataContext {
 private:
     Exiv2::BasicIo* parent;
     bool isWriteable;
-    bool mapped;
+    char* ptr;
 public:
-    DataContext(Exiv2::BasicIo* parent, bool isWriteable) :
-        parent(parent), isWriteable(isWriteable), mapped(false) {};
+    DataContext(Exiv2::BasicIo* parent, bool isWriteable) {
+        ptr = NULL;
+        this->parent = parent;
+        this->isWriteable = isWriteable;
+        if (parent->open())
+            throw std::runtime_error("BasicIo.open() failed");
+        ptr = (char*)parent->mmap(isWriteable);
+    };
     ~DataContext() {
-        if (mapped) {
+        if (ptr) {
             parent->munmap();
             parent->close();
         }
     };
     PyObject* __enter__() {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        int error = parent->open();
-        if (error) {
-            SWIG_PYTHON_THREAD_END_ALLOW;
-            return PyErr_Format(
-                PyExc_RuntimeError, "open() returned %d", error);
-        }
-        char* ptr = (char*)parent->mmap(isWriteable);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-        mapped = true;
         return PyMemoryView_FromMemory(
             ptr, ptr ? parent->size() : 0,
             isWriteable ? PyBUF_WRITE : PyBUF_READ);
     };
     bool __exit__(PyObject* exc_type, PyObject* exc_val, PyObject* exc_tb) {
-        if (mapped) {
-            parent->munmap();
-            mapped = false;
-            parent->close();
-        }
         return false;
     };
 };
