@@ -4434,9 +4434,7 @@ public:
         parent(parent), isWriteable(isWriteable), mapped(false) {};
     ~DataContext() {
         if (mapped) {
-            SWIG_PYTHON_THREAD_BEGIN_ALLOW;
             parent->munmap();
-            SWIG_PYTHON_THREAD_END_ALLOW;
             parent->close();
         }
     };
@@ -4457,11 +4455,9 @@ public:
     };
     bool __exit__(PyObject* exc_type, PyObject* exc_val, PyObject* exc_tb) {
         if (mapped) {
-            SWIG_PYTHON_THREAD_BEGIN_ALLOW;
             parent->munmap();
             mapped = false;
             parent->close();
-            SWIG_PYTHON_THREAD_END_ALLOW;
         }
         return false;
     };
@@ -4861,7 +4857,11 @@ SWIGINTERN PyObject *_wrap_delete_DataContext(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< DataContext * >(argp1);
   {
     try {
-      delete arg1;
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        delete arg1;
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -4928,7 +4928,11 @@ SWIGINTERN PyObject *_wrap_DataContext___exit__(PyObject *self, PyObject *args) 
   arg4 = obj3;
   {
     try {
-      result = (bool)(arg1)->__exit__(arg2,arg3,arg4);
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        result = (bool)(arg1)->__exit__(arg2,arg3,arg4);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5757,15 +5761,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_ioType(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_ioType" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      result = (char *)Exiv2_BasicIo_ioType(arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  result = (char *)Exiv2_BasicIo_ioType(arg1);
   resultobj = SWIG_FromCharPtr((const char *)result);
   return resultobj;
 fail:

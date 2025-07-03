@@ -60,6 +60,7 @@ UNIQUE_PTR(Exiv2::BasicIo);
 // Some calls don't raise exceptions
 %noexception Exiv2::BasicIo::eof;
 %noexception Exiv2::BasicIo::error;
+%noexception Exiv2::BasicIo::ioType;
 %noexception Exiv2::BasicIo::isopen;
 %noexception Exiv2::BasicIo::path;
 
@@ -173,6 +174,8 @@ EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo, true, true)
 A simple context manager for *mmap* / *munmap* data access. The
 *__enter__* method returns a :py:class:`memoryview` of the data."
 %ignore DataContext::DataContext;
+%thread DataContext::~DataContext;
+%thread DataContext::__exit__;
 %inline %{
 class DataContext {
 private:
@@ -184,9 +187,7 @@ public:
         parent(parent), isWriteable(isWriteable), mapped(false) {};
     ~DataContext() {
         if (mapped) {
-            SWIG_PYTHON_THREAD_BEGIN_ALLOW;
             parent->munmap();
-            SWIG_PYTHON_THREAD_END_ALLOW;
             parent->close();
         }
     };
@@ -207,11 +208,9 @@ public:
     };
     bool __exit__(PyObject* exc_type, PyObject* exc_val, PyObject* exc_tb) {
         if (mapped) {
-            SWIG_PYTHON_THREAD_BEGIN_ALLOW;
             parent->munmap();
             mapped = false;
             parent->close();
-            SWIG_PYTHON_THREAD_END_ALLOW;
         }
         return false;
     };
