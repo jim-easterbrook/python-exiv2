@@ -6065,6 +6065,12 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DataContext, SWIG_POINTER_OWN |  0 );
+  
+  if (resultobj != Py_None)
+  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;

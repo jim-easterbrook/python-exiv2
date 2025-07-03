@@ -207,6 +207,7 @@ public:
     };
 };
 %}
+KEEP_REFERENCE(DataContext*);
 
 // Add Exiv2::BasicIo::data() method to return a context manager
 %feature("docstring") Exiv2::BasicIo::data "Return a data context manager.
