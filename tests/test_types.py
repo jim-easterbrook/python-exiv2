@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -49,6 +49,12 @@ class TestTypesModule(unittest.TestCase):
             self.check_result(view[23], int, data[23])
             view[49] = 99
             self.check_result(view[49], int, 99)
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], data[0])
+        view1 = buf.data()
+        view2 = buf.data()
+        with self.assertRaises(ValueError):
+            self.assertEqual(view1[0], data[0])
         buf = exiv2.DataBuf(data)
         self.assertEqual(buf, data)
         self.assertEqual(data, buf)

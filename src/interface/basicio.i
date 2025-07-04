@@ -135,6 +135,12 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
             arg2 ? PyBUF_WRITE : PyBUF_READ,)
 
+// Release memoryview when some functions are called
+%typemap(ret, fragment="release_view")
+        (int close), (int munmap), (long write), (size_t write) %{
+    release_view(self);
+%}
+
 // Enable len(Exiv2::BasicIo)
 %feature("python:slot", "sq_length", functype="lenfunc")
     Exiv2::BasicIo::size;

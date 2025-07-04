@@ -4918,6 +4918,63 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
 }
 
 
+static PyObject* _get_store(PyObject* py_self, bool create) {
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        if (!create)
+            return NULL;
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int store_private(PyObject* py_self, const char* name,
+                         PyObject* val, bool take_ownership=false) {
+    int result = 0;
+    PyObject* dict = _get_store(py_self, true);
+    if (dict) {
+        if (val)
+            result = PyDict_SetItemString(dict, name, val);
+        else if (PyDict_GetItemString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_DECREF(dict);
+    }
+    else
+        result = -1;
+    if (take_ownership && val)
+        Py_DECREF(val);
+    return result;
+};
+static PyObject* fetch_private(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return NULL;
+    PyObject* result = PyDict_GetItemString(dict, name);
+    if (result) {
+        Py_INCREF(result);
+        PyDict_DelItemString(dict, name);
+    }
+    Py_DECREF(dict);
+    return result;
+};
+
+
+static int release_view(PyObject* py_self) {
+    PyObject* ref = fetch_private(py_self, "view");
+    if (!ref)
+        return 0;
+    PyObject* view = PyWeakref_GetObject(ref);
+    if (PyMemoryView_Check(view))
+        Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+    Py_DECREF(ref);
+    return 0;
+};
+
+
 SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
@@ -5894,6 +5951,9 @@ SWIGINTERN PyObject *_wrap_DataBuf_alloc(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_Py_Void();
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   return NULL;
@@ -5932,6 +5992,9 @@ SWIGINTERN PyObject *_wrap_DataBuf_resize(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_Py_Void();
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   return NULL;
@@ -5952,6 +6015,9 @@ SWIGINTERN PyObject *_wrap_DataBuf_reset(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
   (arg1)->reset();
   resultobj = SWIG_Py_Void();
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   return NULL;
@@ -6053,6 +6119,13 @@ SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
   result = (Exiv2::byte *)(arg1)->data();
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
+  if (!resultobj)
+  SWIG_fail;
+  // Release any existing memoryview
+  release_view(self);
+  // Store a weak ref to the new memoryview
+  if (store_private(self, "view", PyWeakref_NewRef(resultobj, NULL), true))
+  SWIG_fail;
   
   return resultobj;
 fail:

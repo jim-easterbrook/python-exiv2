@@ -5752,14 +5752,11 @@ SWIGINTERN size_t Exiv2_PreviewImage___len__(Exiv2::PreviewImage *self){
 SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_data(Exiv2::PreviewImage *self){
     return self->pData();
 }
-SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_pData(Exiv2::PreviewImage *self){
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-                 "Please use data() instead of pData().", 1);
-    return self->pData();
-}
 
-static PyObject* _get_store(PyObject* py_self) {
+static PyObject* _get_store(PyObject* py_self, bool create) {
     if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        if (!create)
+            return NULL;
         PyObject* dict = PyDict_New();
         if (!dict)
             return NULL;
@@ -5771,19 +5768,52 @@ static PyObject* _get_store(PyObject* py_self) {
     return PyObject_GetAttrString(py_self, "_private_data_");
 };
 static int store_private(PyObject* py_self, const char* name,
-                         PyObject* val) {
-    PyObject* dict = _get_store(py_self);
-    if (!dict)
-        return -1;
+                         PyObject* val, bool take_ownership=false) {
     int result = 0;
-    if (val)
-        result = PyDict_SetItemString(dict, name, val);
-    else if (PyDict_GetItemString(dict, name))
-        result = PyDict_DelItemString(dict, name);
+    PyObject* dict = _get_store(py_self, true);
+    if (dict) {
+        if (val)
+            result = PyDict_SetItemString(dict, name, val);
+        else if (PyDict_GetItemString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_DECREF(dict);
+    }
+    else
+        result = -1;
+    if (take_ownership && val)
+        Py_DECREF(val);
+    return result;
+};
+static PyObject* fetch_private(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return NULL;
+    PyObject* result = PyDict_GetItemString(dict, name);
+    if (result) {
+        Py_INCREF(result);
+        PyDict_DelItemString(dict, name);
+    }
     Py_DECREF(dict);
     return result;
 };
 
+
+static int release_view(PyObject* py_self) {
+    PyObject* ref = fetch_private(py_self, "view");
+    if (!ref)
+        return 0;
+    PyObject* view = PyWeakref_GetObject(ref);
+    if (PyMemoryView_Check(view))
+        Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+    Py_DECREF(ref);
+    return 0;
+};
+
+SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_pData(Exiv2::PreviewImage *self){
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+                 "Please use data() instead of pData().", 1);
+    return self->pData();
+}
 
   namespace swig {
     template <>  struct traits< Exiv2::PreviewProperties > {
@@ -6583,6 +6613,13 @@ SWIGINTERN PyObject *_wrap_PreviewImage_data(PyObject *self, PyObject *args) {
   result = (Exiv2::byte *)Exiv2_PreviewImage_data(arg1);
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
+  if (!resultobj)
+  SWIG_fail;
+  // Release any existing memoryview
+  release_view(self);
+  // Store a weak ref to the new memoryview
+  if (store_private(self, "view", PyWeakref_NewRef(resultobj, NULL), true))
+  SWIG_fail;
   
   return resultobj;
 fail:
@@ -6606,6 +6643,13 @@ SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
   result = (Exiv2::byte *)Exiv2_PreviewImage_pData(arg1);
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
+  if (!resultobj)
+  SWIG_fail;
+  // Release any existing memoryview
+  release_view(self);
+  // Store a weak ref to the new memoryview
+  if (store_private(self, "view", PyWeakref_NewRef(resultobj, NULL), true))
+  SWIG_fail;
   
   return resultobj;
 fail:

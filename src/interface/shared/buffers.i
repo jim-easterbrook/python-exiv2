@@ -16,6 +16,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+%include "shared/keep_reference.i"
+
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)
 %typemap(doctype) buf_type ":py:term:`bytes-like object`";
@@ -77,12 +79,34 @@ INPUT_BUFFER_RO(buf_type, len_type)
 %}
 %enddef // OUTPUT_BUFFER_RW
 
+// Function to release any memoryview held in a weak ref
+%fragment("release_view", "header", fragment="private_data") {
+static int release_view(PyObject* py_self) {
+    PyObject* ref = fetch_private(py_self, "view");
+    if (!ref)
+        return 0;
+    PyObject* view = PyWeakref_GetObject(ref);
+    if (PyMemoryView_Check(view))
+        Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+    Py_DECREF(ref);
+    return 0;
+};
+}
+
 // Macro to convert byte* return value to memoryview
 // WARNING: return value does not keep a reference to the data it points to
 %define RETURN_VIEW(signature, size_func, flags, doc_method)
 %typemap(doctype) signature "memoryview";
-%typemap(out) (signature) %{
+%typemap(out, fragment="private_data",
+         fragment="release_view") (signature) %{
     $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
+    if (!$result)
+        SWIG_fail;
+    // Release any existing memoryview
+    release_view(self);
+    // Store a weak ref to the new memoryview
+    if (store_private(self, "view", PyWeakref_NewRef($result, NULL), true))
+        SWIG_fail;
 %}
 #if #doc_method != ""
 %feature("docstring") doc_method

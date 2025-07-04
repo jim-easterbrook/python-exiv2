@@ -18,8 +18,10 @@
 
 // Functions to store and retrieve "private" data attached to Pyhon object
 %fragment("private_data", "header") {
-static PyObject* _get_store(PyObject* py_self) {
+static PyObject* _get_store(PyObject* py_self, bool create) {
     if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        if (!create)
+            return NULL;
         PyObject* dict = PyDict_New();
         if (!dict)
             return NULL;
@@ -31,15 +33,31 @@ static PyObject* _get_store(PyObject* py_self) {
     return PyObject_GetAttrString(py_self, "_private_data_");
 };
 static int store_private(PyObject* py_self, const char* name,
-                         PyObject* val) {
-    PyObject* dict = _get_store(py_self);
-    if (!dict)
-        return -1;
+                         PyObject* val, bool take_ownership=false) {
     int result = 0;
-    if (val)
-        result = PyDict_SetItemString(dict, name, val);
-    else if (PyDict_GetItemString(dict, name))
-        result = PyDict_DelItemString(dict, name);
+    PyObject* dict = _get_store(py_self, true);
+    if (dict) {
+        if (val)
+            result = PyDict_SetItemString(dict, name, val);
+        else if (PyDict_GetItemString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_DECREF(dict);
+    }
+    else
+        result = -1;
+    if (take_ownership && val)
+        Py_DECREF(val);
+    return result;
+};
+static PyObject* fetch_private(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return NULL;
+    PyObject* result = PyDict_GetItemString(dict, name);
+    if (result) {
+        Py_INCREF(result);
+        PyDict_DelItemString(dict, name);
+    }
     Py_DECREF(dict);
     return result;
 };

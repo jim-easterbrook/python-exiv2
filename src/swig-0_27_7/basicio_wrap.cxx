@@ -4526,6 +4526,63 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* _get_store(PyObject* py_self, bool create) {
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        if (!create)
+            return NULL;
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int store_private(PyObject* py_self, const char* name,
+                         PyObject* val, bool take_ownership=false) {
+    int result = 0;
+    PyObject* dict = _get_store(py_self, true);
+    if (dict) {
+        if (val)
+            result = PyDict_SetItemString(dict, name, val);
+        else if (PyDict_GetItemString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_DECREF(dict);
+    }
+    else
+        result = -1;
+    if (take_ownership && val)
+        Py_DECREF(val);
+    return result;
+};
+static PyObject* fetch_private(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return NULL;
+    PyObject* result = PyDict_GetItemString(dict, name);
+    if (result) {
+        Py_INCREF(result);
+        PyDict_DelItemString(dict, name);
+    }
+    Py_DECREF(dict);
+    return result;
+};
+
+
+static int release_view(PyObject* py_self) {
+    PyObject* ref = fetch_private(py_self, "view");
+    if (!ref)
+        return 0;
+    PyObject* view = PyWeakref_GetObject(ref);
+    if (PyMemoryView_Check(view))
+        Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+    Py_DECREF(ref);
+    return 0;
+};
+
+
 SWIGINTERN int
 SWIG_AsVal_double (PyObject *obj, double *val)
 {
@@ -4831,33 +4888,6 @@ SWIGINTERN char const *Exiv2_BasicIo_ioType(Exiv2::BasicIo *self){
 SWIGINTERN DataContext *Exiv2_BasicIo_data(Exiv2::BasicIo *self,bool isWriteable){
         return new DataContext(self, isWriteable);
     }
-
-static PyObject* _get_store(PyObject* py_self) {
-    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
-        PyObject* dict = PyDict_New();
-        if (!dict)
-            return NULL;
-        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
-        Py_DECREF(dict);
-        if (error)
-            return NULL;
-    }
-    return PyObject_GetAttrString(py_self, "_private_data_");
-};
-static int store_private(PyObject* py_self, const char* name,
-                         PyObject* val) {
-    PyObject* dict = _get_store(py_self);
-    if (!dict)
-        return -1;
-    int result = 0;
-    if (val)
-        result = PyDict_SetItemString(dict, name, val);
-    else if (PyDict_GetItemString(dict, name))
-        result = PyDict_DelItemString(dict, name);
-    Py_DECREF(dict);
-    return result;
-};
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -5063,6 +5093,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_close(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   return NULL;
@@ -5114,6 +5147,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, PyObject *args)
   
   Py_XDECREF(_global_view);
   
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   
@@ -5162,6 +5198,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, PyObject *args)
     }
   }
   resultobj = SWIG_From_long(static_cast< long >(result));
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   return NULL;
@@ -5571,6 +5610,13 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
   }
   
   resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
+  if (!resultobj)
+  SWIG_fail;
+  // Release any existing memoryview
+  release_view(self);
+  // Store a weak ref to the new memoryview
+  if (store_private(self, "view", PyWeakref_NewRef(resultobj, NULL), true))
+  SWIG_fail;
   
   return resultobj;
 fail:
@@ -5605,6 +5651,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_munmap(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   return NULL;

@@ -6092,6 +6092,63 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN std::string Exiv2_Value___str__(Exiv2::Value *self){return self->toString();}
+
+static PyObject* _get_store(PyObject* py_self, bool create) {
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        if (!create)
+            return NULL;
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int store_private(PyObject* py_self, const char* name,
+                         PyObject* val, bool take_ownership=false) {
+    int result = 0;
+    PyObject* dict = _get_store(py_self, true);
+    if (dict) {
+        if (val)
+            result = PyDict_SetItemString(dict, name, val);
+        else if (PyDict_GetItemString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_DECREF(dict);
+    }
+    else
+        result = -1;
+    if (take_ownership && val)
+        Py_DECREF(val);
+    return result;
+};
+static PyObject* fetch_private(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return NULL;
+    PyObject* result = PyDict_GetItemString(dict, name);
+    if (result) {
+        Py_INCREF(result);
+        PyDict_DelItemString(dict, name);
+    }
+    Py_DECREF(dict);
+    return result;
+};
+
+
+static int release_view(PyObject* py_self) {
+    PyObject* ref = fetch_private(py_self, "view");
+    if (!ref)
+        return 0;
+    PyObject* view = PyWeakref_GetObject(ref);
+    if (PyMemoryView_Check(view))
+        Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+    Py_DECREF(ref);
+    return 0;
+};
+
 SWIGINTERN char const *Exiv2_StringValueBase_data(Exiv2::StringValueBase *self){
         return self->value_.data();
     }
@@ -8908,6 +8965,9 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_0(PyObject *self, PyObject
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
   if (SWIG_IsNewObj(res2)) delete arg2;
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
@@ -8975,6 +9035,9 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_1(PyObject *self, PyObject
   resultobj = SWIG_From_int(static_cast< int >(result));
   
   Py_XDECREF(_global_view);
+  
+  
+  release_view(self);
   
   return resultobj;
 fail:
@@ -9368,6 +9431,13 @@ SWIGINTERN PyObject *_wrap_StringValueBase_data(PyObject *self, PyObject *args) 
   result = (char *)Exiv2_StringValueBase_data(arg1);
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->value_.size(), PyBUF_READ);
+  if (!resultobj)
+  SWIG_fail;
+  // Release any existing memoryview
+  release_view(self);
+  // Store a weak ref to the new memoryview
+  if (store_private(self, "view", PyWeakref_NewRef(resultobj, NULL), true))
+  SWIG_fail;
   
   return resultobj;
 fail:
@@ -11128,6 +11198,9 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0(PyObject *self, PyObject *a
   
   Py_XDECREF(_global_view);
   
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   
@@ -11175,6 +11248,9 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_1(PyObject *self, PyObject *a
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
   if (SWIG_IsNewObj(res2)) delete arg2;
+  
+  release_view(self);
+  
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
@@ -11486,6 +11562,13 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_data(PyObject *self, PyObject *args) {
   result = (char *)Exiv2_XmpTextValue_data(arg1);
   
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->value_.size(), PyBUF_READ);
+  if (!resultobj)
+  SWIG_fail;
+  // Release any existing memoryview
+  release_view(self);
+  // Store a weak ref to the new memoryview
+  if (store_private(self, "view", PyWeakref_NewRef(resultobj, NULL), true))
+  SWIG_fail;
   
   return resultobj;
 fail:

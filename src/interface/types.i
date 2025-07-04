@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -35,10 +35,12 @@ EXCEPTION()
 
 // Some calls don't raise exceptions
 %noexception Exiv2::DataBuf::data;
-%noexception Exiv2::DataBuf::free;
 %noexception Exiv2::DataBuf::reset;
 %noexception Exiv2::DataBuf::size;
 %noexception Exiv2::DataBuf::__len__;
+#if EXIV2_VERSION_HEX < 0x001c0000
+%noexception Exiv2::DataBuf::free;
+#endif
 
 // Function to set location of localisation files
 // (types.hpp includes exiv2's localisation stuff)
@@ -242,6 +244,18 @@ RETURN_VIEW(Exiv2::byte* pData_, arg1->DATABUF_SIZE, PyBUF_WRITE,
             Exiv2::DataBuf::pData_)
 RETURN_VIEW(Exiv2::byte* data, arg1->DATABUF_SIZE, PyBUF_WRITE,
             Exiv2::DataBuf::data)
+
+// Release memoryview when other functions are called
+%typemap(ret, fragment="release_view")
+        (void alloc), (void reset), (void resize) %{
+    release_view(self);
+%}
+#if EXIV2_VERSION_HEX < 0x001c0000
+%typemap(ret, fragment="release_view")
+        (void free) %{
+    release_view(self);
+%}
+#endif
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Backport Exiv2 v0.28.0 methods

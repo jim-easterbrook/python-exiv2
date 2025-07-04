@@ -82,6 +82,8 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(view.readonly, True)
             with self.assertRaises(TypeError):
                 view[0] = 0
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], 0)
         self.assertEqual(io.munmap(), 0)
         with io.mmap(True) as view:
             self.assertIsInstance(view, memoryview)
@@ -89,6 +91,8 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(view.readonly, False)
             with self.assertRaises(IndexError):
                 view[0] = 0
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], 0)
         self.assertEqual(io.munmap(), 0)
         # Python buffer interface
         with memoryview(io) as view:
@@ -99,7 +103,6 @@ class TestBasicIoModule(unittest.TestCase):
                 view[0] = 0
         # data() context manager
         with io.data() as view:
-            print(type(view))
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, b'')
             self.assertEqual(view.readonly, True)
@@ -130,6 +133,11 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, self.data)
         self.assertEqual(io.munmap(), 0)
+        view = io.mmap()
+        self.assertEqual(view[0], self.data[0])
+        self.assertEqual(io.munmap(), 0)
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], self.data[0])
         # Python buffer interface
         with memoryview(io) as view:
             self.assertEqual(view, self.data)
