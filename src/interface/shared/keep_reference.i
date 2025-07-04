@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,11 +16,40 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+// Functions to store and retrieve "private" data attached to Pyhon object
+%fragment("private_data", "header") {
+static PyObject* _get_store(PyObject* py_self) {
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int store_private(PyObject* py_self, const char* name,
+                         PyObject* val) {
+    PyObject* dict = _get_store(py_self);
+    if (!dict)
+        return -1;
+    int result = 0;
+    if (val)
+        result = PyDict_SetItemString(dict, name, val);
+    else if (PyDict_GetItemString(dict, name))
+        result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+}
+
 // Macro to keep a reference to any object when returning a particular type.
 %define KEEP_REFERENCE_EX(return_type, target)
-%typemap(ret) return_type %{
+%typemap(ret, fragment="private_data") return_type %{
     if ($result != Py_None)
-        if (PyObject_SetAttrString($result, "_refers_to", target)) {
+        if (store_private($result, "_refers_to", target)) {
             SWIG_fail;
         }
 %}

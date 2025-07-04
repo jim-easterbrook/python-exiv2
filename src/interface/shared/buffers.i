@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -42,8 +42,8 @@
 // Macro for input read only byte buffer, result keeps reference to input
 %define INPUT_BUFFER_RO_EX(buf_type, len_type)
 INPUT_BUFFER_RO(buf_type, len_type)
-%typemap(argout) (buf_type, len_type) %{
-    PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+%typemap(argout, fragment="private_data") (buf_type, len_type) %{
+    store_private(resultobj, "_refers_to", _global_view);
 %}
 %enddef // INPUT_BUFFER_RO_EX
 

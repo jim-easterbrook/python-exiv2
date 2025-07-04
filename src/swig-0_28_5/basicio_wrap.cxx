@@ -4936,6 +4936,33 @@ SWIGINTERN char const *Exiv2_BasicIo_ioType(Exiv2::BasicIo *self){
 SWIGINTERN DataContext *Exiv2_BasicIo_data(Exiv2::BasicIo *self,bool isWriteable){
         return new DataContext(self, isWriteable);
     }
+
+static PyObject* _get_store(PyObject* py_self) {
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int store_private(PyObject* py_self, const char* name,
+                         PyObject* val) {
+    PyObject* dict = _get_store(py_self);
+    if (!dict)
+        return -1;
+    int result = 0;
+    if (val)
+        result = PyDict_SetItemString(dict, name, val);
+    else if (PyDict_GetItemString(dict, name))
+        result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6067,7 +6094,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DataContext, SWIG_POINTER_OWN |  0 );
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   

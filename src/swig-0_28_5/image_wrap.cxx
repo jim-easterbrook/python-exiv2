@@ -4631,6 +4631,33 @@ static PyObject* _get_enum_list(int dummy, ...) {
 };
 
 
+static PyObject* _get_store(PyObject* py_self) {
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int store_private(PyObject* py_self, const char* name,
+                         PyObject* val) {
+    PyObject* dict = _get_store(py_self);
+    if (!dict)
+        return -1;
+    int result = 0;
+    if (val)
+        result = PyDict_SetItemString(dict, name, val);
+    else if (PyDict_GetItemString(dict, name))
+        result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+
+
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
 SWIGINTERN int
@@ -5124,9 +5151,7 @@ SWIGINTERN PyObject *_wrap_Image_writeMetadata(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_Py_Void();
   
-  if (PyObject_HasAttrString(self, "_refers_to")) {
-    PyObject_DelAttrString(self, "_refers_to");
-  }
+  store_private(self, "_refers_to", NULL);
   
   return resultobj;
 fail:
@@ -5622,7 +5647,7 @@ SWIGINTERN PyObject *_wrap_Image_iccProfile(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -5726,7 +5751,7 @@ SWIGINTERN PyObject *_wrap_Image_exifData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -5761,7 +5786,7 @@ SWIGINTERN PyObject *_wrap_Image_iptcData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -5796,7 +5821,7 @@ SWIGINTERN PyObject *_wrap_Image_xmpData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -6118,7 +6143,7 @@ SWIGINTERN PyObject *_wrap_Image_io(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -6526,7 +6551,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   
-  PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+  store_private(resultobj, "_refers_to", _global_view);
   
   
   Py_XDECREF(_global_view);
@@ -7035,7 +7060,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN |  0 );
   
   
-  PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+  store_private(resultobj, "_refers_to", _global_view);
   
   
   Py_XDECREF(_global_view);

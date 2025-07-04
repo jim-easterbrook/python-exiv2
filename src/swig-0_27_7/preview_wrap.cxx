@@ -5758,6 +5758,33 @@ SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_pData(Exiv2::PreviewImage *self
     return self->pData();
 }
 
+static PyObject* _get_store(PyObject* py_self) {
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int store_private(PyObject* py_self, const char* name,
+                         PyObject* val) {
+    PyObject* dict = _get_store(py_self);
+    if (!dict)
+        return -1;
+    int result = 0;
+    if (val)
+        result = PyDict_SetItemString(dict, name, val);
+    else if (PyDict_GetItemString(dict, name))
+        result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+
+
   namespace swig {
     template <>  struct traits< Exiv2::PreviewProperties > {
       typedef pointer_category category;
@@ -6620,7 +6647,7 @@ SWIGINTERN int _wrap_new_PreviewManager(PyObject *self, PyObject *args, PyObject
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__PreviewManager, SWIG_BUILTIN_INIT |  0 );
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", args)) {
+  if (store_private(resultobj, "_refers_to", args)) {
     SWIG_fail;
   }
   

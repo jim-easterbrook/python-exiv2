@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -71,10 +71,8 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, long A)
 INPUT_BUFFER_RO(const Exiv2::byte* data, size_t A)
 
 // Release memory buffer after writeMetadata, as it creates its own copy
-%typemap(ret) void writeMetadata %{
-    if (PyObject_HasAttrString(self, "_refers_to")) {
-        PyObject_DelAttrString(self, "_refers_to");
-    }
+%typemap(ret, fragment="private_data") void writeMetadata %{
+    store_private(self, "_refers_to", NULL);
 %}
 
 // Convert path encoding on Windows

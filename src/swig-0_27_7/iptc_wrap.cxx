@@ -4418,6 +4418,33 @@ public:
 };
 
 
+static PyObject* _get_store(PyObject* py_self) {
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int store_private(PyObject* py_self, const char* name,
+                         PyObject* val) {
+    PyObject* dict = _get_store(py_self);
+    if (!dict)
+        return -1;
+    int result = 0;
+    if (val)
+        result = PyDict_SetItemString(dict, name, val);
+    else if (PyDict_GetItemString(dict, name))
+        result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+
+
 SWIGINTERNINLINE PyObject*
   SWIG_From_bool  (bool value)
 {
@@ -5475,7 +5502,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_base___iter__(PyObject *self, PyObj
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -6760,7 +6787,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_0(PyObject *self, PyObj
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -6812,7 +6839,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, PyObj
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8006,7 +8033,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_0(PyObject *self, PyObject *arg
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8146,7 +8173,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, PyObject *arg
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8494,7 +8521,7 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8603,7 +8630,7 @@ SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8636,7 +8663,7 @@ SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8689,7 +8716,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8748,7 +8775,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, PyObject *arg
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8798,7 +8825,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, PyObject *arg
   }
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8983,7 +9010,7 @@ SWIGINTERN PyObject *_wrap_IptcData___getitem__(PyObject *self, PyObject *args) 
   if (SWIG_IsNewObj(res2)) delete arg2;
   
   if (resultobj != Py_None)
-  if (PyObject_SetAttrString(resultobj, "_refers_to", self)) {
+  if (store_private(resultobj, "_refers_to", self)) {
     SWIG_fail;
   }
   
