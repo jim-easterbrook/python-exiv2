@@ -384,19 +384,29 @@ Doing so will invalidate the memoryview and may cause a segmentation fault:
 
 .. code:: python
 
-    buf = exiv2.DataBuf(b'fred')
-    data = buf.data()
-    print(bytes(data))              # Prints b'fred'
-    buf.alloc(128)
-    print(bytes(data))              # Prints random values, may segfault
+    >>> buf = exiv2.DataBuf(b'fred')
+    >>> data = buf.data()
+    >>> print(bytes(data))
+    b'fred'
+    >>> del buf
+    >>> print(bytes(data))
+    b'en_G'
 
-A good way to ensure the memoryview_ object is ephemeral is to use it in a ``with`` statement:
+Since version 0.18.0 python-exiv2 releases the memoryview (when the memory block is resized) to prevent problems:
 
 .. code:: python
 
-    buf = exiv2.DataBuf(b'fred')
-    with buf.data() as data:
-        print(bytes(data))              # Prints b'fred'
+    >>> buf = exiv2.DataBuf(b'fred')
+    >>> data = buf.data()
+    >>> print(bytes(data))
+    b'fred'
+    >>> buf.alloc(128)
+    >>> print(bytes(data))
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    ValueError: operation forbidden on released memoryview object
+
+Unfortunately I haven't been able to make this work for memory block deletion.
 
 Buffer interface
 ----------------
@@ -425,7 +435,7 @@ The ``Image::io`` method returns an `Exiv2::BasicIo`_ object that provides acces
 The ``BasicIo::mmap`` method allows access to the image file data without unnecessary copying.
 However it is rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.
 
-The ``Exiv2::BasicIo`` object must be opened before calling ``mmap()``.
+The ``Exiv2::BasicIo`` object must be open when ``mmap()`` is called.
 A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap()`` calls are paired with ``munmap()`` and ``close()`` calls:
 
 .. code:: python
@@ -447,15 +457,14 @@ A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap
     with get_file_data(image) as data:
         rsp = requests.post(url, files={'file': io.BytesIO(data)})
 
-Since python-exiv2 v0.18.0 the ``exiv2.BasicIo.data()`` method provides a context manager that calls ``open``, ``mmap``, ``munmap``, and ``close`` for you:
+Since v0.18.0 python-exiv2 has a ``exiv2.BasicIo.data()`` method that is easier to use:
 
 .. code:: python
 
     # after setting some metadata
     image.writeMetadata()
     exiv_io = image.io()
-    with exiv_io.data() as data:
-        rsp = requests.post(url, files={'file': io.BytesIO(data)})
+    rsp = requests.post(url, files={'file': io.BytesIO(exiv_io.data())})
 
 The ``exiv2.BasicIo`` Python type also exposes a `buffer interface`_.
 It allows the ``exiv2.BasicIo`` object to be used anywhere that a `bytes-like object`_ is expected:

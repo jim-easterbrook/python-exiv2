@@ -146,7 +146,7 @@ RETURN_VIEW_CB(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
     };
 }
 
-// Release memoryviews when mmap is called
+// Release memoryviews when mmap or data is called
 %typemap(check, fragment="memoryview_funcs") bool isWriteable {
     release_views(self);
 }
@@ -156,6 +156,18 @@ RETURN_VIEW_CB(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
         (int close), (int munmap), (long write), (size_t write) %{
     release_views(self);
 %}
+
+// Add data() method for easy access
+RETURN_VIEW_CB(Exiv2::byte* data, $1 ? arg1->size() : 0,
+               arg2 ? PyBUF_WRITE : PyBUF_READ, self,)
+%extend Exiv2::BasicIo {
+    Exiv2::byte* data(bool isWriteable) {
+        if (!self->isopen())
+            self->open();
+        self->munmap();
+        return self->mmap(isWriteable);
+    };
+}
 
 // Enable len(Exiv2::BasicIo)
 %feature("python:slot", "sq_length", functype="lenfunc")
@@ -190,64 +202,6 @@ static void release_ptr(Exiv2::BasicIo* self) {
 };
 }
 EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo, true, true)
-
-// Wrapper class to provide a context manager for Exiv2::BasicIo::mmap
-%feature("docstring") DataContext "Data context manager.
-
-A simple context manager for *mmap* / *munmap* data access. The
-*__enter__* method returns a :py:class:`memoryview` of the data."
-%ignore DataContext::DataContext;
-%thread DataContext::~DataContext;
-%inline %{
-class DataContext {
-private:
-    Exiv2::BasicIo* parent;
-    bool isWriteable;
-    char* ptr;
-public:
-    DataContext(Exiv2::BasicIo* parent, bool isWriteable) {
-        ptr = NULL;
-        this->parent = parent;
-        this->isWriteable = isWriteable;
-        if (parent->open())
-            throw std::runtime_error("BasicIo.open() failed");
-        ptr = (char*)parent->mmap(isWriteable);
-    };
-    ~DataContext() {
-        if (ptr) {
-            parent->munmap();
-            parent->close();
-        }
-    };
-    PyObject* __enter__() {
-        return PyMemoryView_FromMemory(
-            ptr, ptr ? parent->size() : 0,
-            isWriteable ? PyBUF_WRITE : PyBUF_READ);
-    };
-    bool __exit__(PyObject* exc_type, PyObject* exc_val, PyObject* exc_tb) {
-        return false;
-    };
-};
-%}
-KEEP_REFERENCE(DataContext*);
-
-// Add Exiv2::BasicIo::data() method to return a context manager
-%feature("docstring") Exiv2::BasicIo::data "Return a data context manager.
-
-This allows easy access to the data using a ``with`` statement.
-The context manager calls *mmap* when the context is entered and
-*munmap* when the context is exited.
-:type isWriteable: bool, optional
-:param isWriteable: Set to true if the data should be writeable
-    (default is false).
-:rtype: object
-:return: A context manager"
-%newobject Exiv2::BasicIo::data;
-%extend Exiv2::BasicIo {
-    DataContext* data(bool isWriteable) {
-        return new DataContext($self, isWriteable);
-    }
-}
 
 // Make enum more Pythonic
 DEFINE_CLASS_ENUM(BasicIo, Position, "Seek starting positions.",

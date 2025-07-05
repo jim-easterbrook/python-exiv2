@@ -101,8 +101,8 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(view.readonly, False)
             with self.assertRaises(IndexError):
                 view[0] = 0
-        # data() context manager
-        with io.data() as view:
+        # data() easy access
+        with io.data(False) as view:
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, b'')
             self.assertEqual(view.readonly, True)
