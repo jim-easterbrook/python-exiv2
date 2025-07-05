@@ -246,14 +246,14 @@ RETURN_VIEW(Exiv2::byte* data, arg1->DATABUF_SIZE, PyBUF_WRITE,
             Exiv2::DataBuf::data)
 
 // Release memoryview when other functions are called
-%typemap(ret, fragment="release_view")
+%typemap(ret, fragment="memoryview_funcs")
         (void alloc), (void reset), (void resize) %{
-    release_view(self);
+    release_views(self);
 %}
 #if EXIV2_VERSION_HEX < 0x001c0000
-%typemap(ret, fragment="release_view")
+%typemap(ret, fragment="memoryview_funcs")
         (void free) %{
-    release_view(self);
+    release_views(self);
 %}
 #endif
 

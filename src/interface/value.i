@@ -507,9 +507,9 @@ RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ,
         return $self->value_.data();
     }
 }
-// Release memoryview when new data is read
-%typemap(ret, fragment="release_view") (int class::read) %{
-    release_view(self);
+// Release memoryviews when new data is read
+%typemap(ret, fragment="memoryview_funcs") (int class::read) %{
+    release_views(self);
 %}
 %enddef // RAW_STRING_DATA
 RAW_STRING_DATA(Exiv2::StringValueBase)

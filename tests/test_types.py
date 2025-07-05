@@ -51,10 +51,6 @@ class TestTypesModule(unittest.TestCase):
             self.check_result(view[49], int, 99)
         with self.assertRaises(ValueError):
             self.assertEqual(view[0], data[0])
-        view1 = buf.data()
-        view2 = buf.data()
-        with self.assertRaises(ValueError):
-            self.assertEqual(view1[0], data[0])
         buf = exiv2.DataBuf(data)
         self.assertEqual(buf, data)
         self.assertEqual(data, buf)

@@ -72,7 +72,7 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, size_t A)
 
 // Release memory buffer after writeMetadata, as it creates its own copy
 %typemap(ret, fragment="private_data") void writeMetadata %{
-    store_private(self, "_refers_to", NULL);
+    private_store_del(self, "refers_to");
 %}
 
 // Convert path encoding on Windows

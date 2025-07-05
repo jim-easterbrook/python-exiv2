@@ -194,11 +194,11 @@ class TestBasicIoModule(unittest.TestCase):
 
     def test_ref_counts(self):
         # MemIo keeps a reference to the data buffer
-        self.assertEqual(sys.getrefcount(self.data), 3)
+        count = sys.getrefcount(self.data)
         io = exiv2.ImageFactory.createIo(self.data)
-        self.assertEqual(sys.getrefcount(self.data), 4)
+        self.assertEqual(sys.getrefcount(self.data), count + 1)
         del io
-        self.assertEqual(sys.getrefcount(self.data), 3)
+        self.assertEqual(sys.getrefcount(self.data), count)
 
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM'],
                          'EXV_ENABLE_FILESYSTEM is off')

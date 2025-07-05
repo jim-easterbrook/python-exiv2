@@ -4632,6 +4632,7 @@ static PyObject* _get_enum_list(int dummy, ...) {
 
 
 static PyObject* _get_store(PyObject* py_self, bool create) {
+    // Return a new reference
     if (!PyObject_HasAttrString(py_self, "_private_data_")) {
         if (!create)
             return NULL;
@@ -4645,34 +4646,31 @@ static PyObject* _get_store(PyObject* py_self, bool create) {
     }
     return PyObject_GetAttrString(py_self, "_private_data_");
 };
-static int store_private(PyObject* py_self, const char* name,
-                         PyObject* val, bool take_ownership=false) {
-    int result = 0;
+static int private_store_set(PyObject* py_self, const char* name,
+                             PyObject* val) {
     PyObject* dict = _get_store(py_self, true);
-    if (dict) {
-        if (val)
-            result = PyDict_SetItemString(dict, name, val);
-        else if (PyDict_GetItemString(dict, name))
-            result = PyDict_DelItemString(dict, name);
-        Py_DECREF(dict);
-    }
-    else
-        result = -1;
-    if (take_ownership && val)
-        Py_DECREF(val);
+    if (!dict)
+        return -1;
+    int result = PyDict_SetItemString(dict, name, val);
+    Py_DECREF(dict);
     return result;
 };
-static PyObject* fetch_private(PyObject* py_self, const char* name) {
+static PyObject* private_store_get(PyObject* py_self, const char* name) {
+    // Return a borrowed reference
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
         return NULL;
     PyObject* result = PyDict_GetItemString(dict, name);
-    if (result) {
-        Py_INCREF(result);
-        PyDict_DelItemString(dict, name);
-    }
     Py_DECREF(dict);
     return result;
+};
+static int private_store_del(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return 0;
+    if (PyDict_DelItemString(dict, name))
+        PyErr_Clear();
+    return 0;
 };
 
 
@@ -5169,7 +5167,7 @@ SWIGINTERN PyObject *_wrap_Image_writeMetadata(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_Py_Void();
   
-  store_private(self, "_refers_to", NULL);
+  private_store_del(self, "refers_to");
   
   return resultobj;
 fail:
@@ -5665,7 +5663,7 @@ SWIGINTERN PyObject *_wrap_Image_iccProfile(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -5769,7 +5767,7 @@ SWIGINTERN PyObject *_wrap_Image_exifData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -5804,7 +5802,7 @@ SWIGINTERN PyObject *_wrap_Image_iptcData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -5839,7 +5837,7 @@ SWIGINTERN PyObject *_wrap_Image_xmpData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -6161,7 +6159,7 @@ SWIGINTERN PyObject *_wrap_Image_io(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -6569,7 +6567,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   
-  store_private(resultobj, "_refers_to", _global_view);
+  private_store_set(resultobj, "refers_to", _global_view);
   
   
   Py_XDECREF(_global_view);
@@ -7078,7 +7076,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN |  0 );
   
   
-  store_private(resultobj, "_refers_to", _global_view);
+  private_store_set(resultobj, "refers_to", _global_view);
   
   
   Py_XDECREF(_global_view);

@@ -19,6 +19,7 @@
 // Functions to store and retrieve "private" data attached to Pyhon object
 %fragment("private_data", "header") {
 static PyObject* _get_store(PyObject* py_self, bool create) {
+    // Return a new reference
     if (!PyObject_HasAttrString(py_self, "_private_data_")) {
         if (!create)
             return NULL;
@@ -32,34 +33,31 @@ static PyObject* _get_store(PyObject* py_self, bool create) {
     }
     return PyObject_GetAttrString(py_self, "_private_data_");
 };
-static int store_private(PyObject* py_self, const char* name,
-                         PyObject* val, bool take_ownership=false) {
-    int result = 0;
+static int private_store_set(PyObject* py_self, const char* name,
+                             PyObject* val) {
     PyObject* dict = _get_store(py_self, true);
-    if (dict) {
-        if (val)
-            result = PyDict_SetItemString(dict, name, val);
-        else if (PyDict_GetItemString(dict, name))
-            result = PyDict_DelItemString(dict, name);
-        Py_DECREF(dict);
-    }
-    else
-        result = -1;
-    if (take_ownership && val)
-        Py_DECREF(val);
+    if (!dict)
+        return -1;
+    int result = PyDict_SetItemString(dict, name, val);
+    Py_DECREF(dict);
     return result;
 };
-static PyObject* fetch_private(PyObject* py_self, const char* name) {
+static PyObject* private_store_get(PyObject* py_self, const char* name) {
+    // Return a borrowed reference
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
         return NULL;
     PyObject* result = PyDict_GetItemString(dict, name);
-    if (result) {
-        Py_INCREF(result);
-        PyDict_DelItemString(dict, name);
-    }
     Py_DECREF(dict);
     return result;
+};
+static int private_store_del(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return 0;
+    if (PyDict_DelItemString(dict, name))
+        PyErr_Clear();
+    return 0;
 };
 }
 
@@ -67,7 +65,7 @@ static PyObject* fetch_private(PyObject* py_self, const char* name) {
 %define KEEP_REFERENCE_EX(return_type, target)
 %typemap(ret, fragment="private_data") return_type %{
     if ($result != Py_None)
-        if (store_private($result, "_refers_to", target)) {
+        if (private_store_set($result, "refers_to", target)) {
             SWIG_fail;
         }
 %}

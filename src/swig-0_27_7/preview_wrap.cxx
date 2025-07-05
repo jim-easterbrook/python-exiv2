@@ -5754,6 +5754,7 @@ SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_data(Exiv2::PreviewImage *self)
 }
 
 static PyObject* _get_store(PyObject* py_self, bool create) {
+    // Return a new reference
     if (!PyObject_HasAttrString(py_self, "_private_data_")) {
         if (!create)
             return NULL;
@@ -5767,45 +5768,60 @@ static PyObject* _get_store(PyObject* py_self, bool create) {
     }
     return PyObject_GetAttrString(py_self, "_private_data_");
 };
-static int store_private(PyObject* py_self, const char* name,
-                         PyObject* val, bool take_ownership=false) {
-    int result = 0;
+static int private_store_set(PyObject* py_self, const char* name,
+                             PyObject* val) {
     PyObject* dict = _get_store(py_self, true);
-    if (dict) {
-        if (val)
-            result = PyDict_SetItemString(dict, name, val);
-        else if (PyDict_GetItemString(dict, name))
-            result = PyDict_DelItemString(dict, name);
-        Py_DECREF(dict);
-    }
-    else
-        result = -1;
-    if (take_ownership && val)
-        Py_DECREF(val);
+    if (!dict)
+        return -1;
+    int result = PyDict_SetItemString(dict, name, val);
+    Py_DECREF(dict);
     return result;
 };
-static PyObject* fetch_private(PyObject* py_self, const char* name) {
+static PyObject* private_store_get(PyObject* py_self, const char* name) {
+    // Return a borrowed reference
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
         return NULL;
     PyObject* result = PyDict_GetItemString(dict, name);
-    if (result) {
-        Py_INCREF(result);
-        PyDict_DelItemString(dict, name);
-    }
     Py_DECREF(dict);
     return result;
 };
-
-
-static int release_view(PyObject* py_self) {
-    PyObject* ref = fetch_private(py_self, "view");
-    if (!ref)
+static int private_store_del(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
         return 0;
-    PyObject* view = PyWeakref_GetObject(ref);
-    if (PyMemoryView_Check(view))
-        Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+    if (PyDict_DelItemString(dict, name))
+        PyErr_Clear();
+    return 0;
+};
+
+
+static int store_view(PyObject* py_self, PyObject* view,
+                      PyObject* callback=NULL) {
+    PyObject* views = private_store_get(py_self, "views");
+    if (!views) {
+        views = PyList_New(0);
+        private_store_set(py_self, "views", views);
+        Py_DECREF(views);
+    }
+    PyObject* ref = PyWeakref_NewRef(view, callback);
+    if (!ref)
+        return -1;
+    int result = PyList_Append(views, ref);
     Py_DECREF(ref);
+    return result;
+};
+static int release_views(PyObject* py_self) {
+    PyObject* views = private_store_get(py_self, "views");
+    if (!views)
+        return 0;
+    PyObject* view = NULL;
+    for (Py_ssize_t idx = PyList_Size(views); idx > 0; idx--) {
+        view = PyWeakref_GetObject(PyList_GetItem(views, idx - 1));
+        if (PyMemoryView_Check(view))
+            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+    }
+    private_store_del(py_self, "views");
     return 0;
 };
 
@@ -6615,10 +6631,8 @@ SWIGINTERN PyObject *_wrap_PreviewImage_data(PyObject *self, PyObject *args) {
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
   if (!resultobj)
   SWIG_fail;
-  // Release any existing memoryview
-  release_view(self);
   // Store a weak ref to the new memoryview
-  if (store_private(self, "view", PyWeakref_NewRef(resultobj, NULL), true))
+  if (store_view(self, resultobj))
   SWIG_fail;
   
   return resultobj;
@@ -6645,10 +6659,8 @@ SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
   resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
   if (!resultobj)
   SWIG_fail;
-  // Release any existing memoryview
-  release_view(self);
   // Store a weak ref to the new memoryview
-  if (store_private(self, "view", PyWeakref_NewRef(resultobj, NULL), true))
+  if (store_view(self, resultobj))
   SWIG_fail;
   
   return resultobj;
@@ -6691,7 +6703,7 @@ SWIGINTERN int _wrap_new_PreviewManager(PyObject *self, PyObject *args, PyObject
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__PreviewManager, SWIG_BUILTIN_INIT |  0 );
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", args)) {
+  if (private_store_set(resultobj, "refers_to", args)) {
     SWIG_fail;
   }
   

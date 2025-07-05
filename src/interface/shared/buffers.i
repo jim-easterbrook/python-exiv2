@@ -45,7 +45,7 @@
 %define INPUT_BUFFER_RO_EX(buf_type, len_type)
 INPUT_BUFFER_RO(buf_type, len_type)
 %typemap(argout, fragment="private_data") (buf_type, len_type) %{
-    store_private(resultobj, "_refers_to", _global_view);
+    private_store_set(resultobj, "refers_to", _global_view);
 %}
 %enddef // INPUT_BUFFER_RO_EX
 
@@ -79,16 +79,34 @@ INPUT_BUFFER_RO(buf_type, len_type)
 %}
 %enddef // OUTPUT_BUFFER_RW
 
-// Function to release any memoryview held in a weak ref
-%fragment("release_view", "header", fragment="private_data") {
-static int release_view(PyObject* py_self) {
-    PyObject* ref = fetch_private(py_self, "view");
+// Functions to store references to memoryview objects and release them
+%fragment("memoryview_funcs", "header", fragment="private_data") {
+static int store_view(PyObject* py_self, PyObject* view,
+                      PyObject* callback=NULL) {
+    PyObject* views = private_store_get(py_self, "views");
+    if (!views) {
+        views = PyList_New(0);
+        private_store_set(py_self, "views", views);
+        Py_DECREF(views);
+    }
+    PyObject* ref = PyWeakref_NewRef(view, callback);
     if (!ref)
-        return 0;
-    PyObject* view = PyWeakref_GetObject(ref);
-    if (PyMemoryView_Check(view))
-        Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+        return -1;
+    int result = PyList_Append(views, ref);
     Py_DECREF(ref);
+    return result;
+};
+static int release_views(PyObject* py_self) {
+    PyObject* views = private_store_get(py_self, "views");
+    if (!views)
+        return 0;
+    PyObject* view = NULL;
+    for (Py_ssize_t idx = PyList_Size(views); idx > 0; idx--) {
+        view = PyWeakref_GetObject(PyList_GetItem(views, idx - 1));
+        if (PyMemoryView_Check(view))
+            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+    }
+    private_store_del(py_self, "views");
     return 0;
 };
 }
@@ -97,15 +115,12 @@ static int release_view(PyObject* py_self) {
 // WARNING: return value does not keep a reference to the data it points to
 %define RETURN_VIEW(signature, size_func, flags, doc_method)
 %typemap(doctype) signature "memoryview";
-%typemap(out, fragment="private_data",
-         fragment="release_view") (signature) %{
+%typemap(out, fragment="memoryview_funcs") (signature) %{
     $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
     if (!$result)
         SWIG_fail;
-    // Release any existing memoryview
-    release_view(self);
     // Store a weak ref to the new memoryview
-    if (store_private(self, "view", PyWeakref_NewRef($result, NULL), true))
+    if (store_view(self, $result))
         SWIG_fail;
 %}
 #if #doc_method != ""

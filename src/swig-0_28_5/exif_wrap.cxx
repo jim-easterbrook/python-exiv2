@@ -4430,6 +4430,7 @@ public:
 
 
 static PyObject* _get_store(PyObject* py_self, bool create) {
+    // Return a new reference
     if (!PyObject_HasAttrString(py_self, "_private_data_")) {
         if (!create)
             return NULL;
@@ -4443,34 +4444,31 @@ static PyObject* _get_store(PyObject* py_self, bool create) {
     }
     return PyObject_GetAttrString(py_self, "_private_data_");
 };
-static int store_private(PyObject* py_self, const char* name,
-                         PyObject* val, bool take_ownership=false) {
-    int result = 0;
+static int private_store_set(PyObject* py_self, const char* name,
+                             PyObject* val) {
     PyObject* dict = _get_store(py_self, true);
-    if (dict) {
-        if (val)
-            result = PyDict_SetItemString(dict, name, val);
-        else if (PyDict_GetItemString(dict, name))
-            result = PyDict_DelItemString(dict, name);
-        Py_DECREF(dict);
-    }
-    else
-        result = -1;
-    if (take_ownership && val)
-        Py_DECREF(val);
+    if (!dict)
+        return -1;
+    int result = PyDict_SetItemString(dict, name, val);
+    Py_DECREF(dict);
     return result;
 };
-static PyObject* fetch_private(PyObject* py_self, const char* name) {
+static PyObject* private_store_get(PyObject* py_self, const char* name) {
+    // Return a borrowed reference
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
         return NULL;
     PyObject* result = PyDict_GetItemString(dict, name);
-    if (result) {
-        Py_INCREF(result);
-        PyDict_DelItemString(dict, name);
-    }
     Py_DECREF(dict);
     return result;
+};
+static int private_store_del(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return 0;
+    if (PyDict_DelItemString(dict, name))
+        PyErr_Clear();
+    return 0;
 };
 
 
@@ -5687,7 +5685,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_base___iter__(PyObject *self, PyObj
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -7051,7 +7049,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value__SWIG_0(PyObject *self, PyObj
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -7103,7 +7101,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_value__SWIG_1(PyObject *self, PyObj
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8480,7 +8478,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_value__SWIG_0(PyObject *self, PyObject *arg
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -8681,7 +8679,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_value__SWIG_1(PyObject *self, PyObject *arg
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -9099,7 +9097,7 @@ SWIGINTERN int _wrap_new_ExifThumb(PyObject *self, PyObject *args, PyObject *kwa
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ExifThumb, SWIG_BUILTIN_INIT |  0 );
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", args)) {
+  if (private_store_set(resultobj, "refers_to", args)) {
     SWIG_fail;
   }
   
@@ -9672,7 +9670,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, PyObject *args
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -9743,7 +9741,7 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, PyObject *args
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -9887,7 +9885,7 @@ SWIGINTERN PyObject *_wrap_ExifData_begin(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -9920,7 +9918,7 @@ SWIGINTERN PyObject *_wrap_ExifData_end(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -9973,7 +9971,7 @@ SWIGINTERN PyObject *_wrap_ExifData_findKey(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
@@ -10065,7 +10063,7 @@ SWIGINTERN PyObject *_wrap_ExifData___getitem__(PyObject *self, PyObject *args) 
   if (SWIG_IsNewObj(res2)) delete arg2;
   
   if (resultobj != Py_None)
-  if (store_private(resultobj, "_refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self)) {
     SWIG_fail;
   }
   
