@@ -6138,7 +6138,7 @@ SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
   if (!resultobj)
   SWIG_fail;
   // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj))
+  if (store_view(self, resultobj, NULL))
   SWIG_fail;
   
   return resultobj;

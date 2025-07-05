@@ -6632,7 +6632,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_data(PyObject *self, PyObject *args) {
   if (!resultobj)
   SWIG_fail;
   // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj))
+  if (store_view(self, resultobj, NULL))
   SWIG_fail;
   
   return resultobj;
@@ -6660,7 +6660,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
   if (!resultobj)
   SWIG_fail;
   // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj))
+  if (store_view(self, resultobj, NULL))
   SWIG_fail;
   
   return resultobj;

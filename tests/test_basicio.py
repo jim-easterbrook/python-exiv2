@@ -138,6 +138,10 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.munmap(), 0)
         with self.assertRaises(ValueError):
             self.assertEqual(view[0], self.data[0])
+        view1 = io.mmap()
+        view2 = io.mmap()
+        with self.assertRaises(ValueError):
+            self.assertEqual(view1[0], self.data[0])
         # Python buffer interface
         with memoryview(io) as view:
             self.assertEqual(view, self.data)

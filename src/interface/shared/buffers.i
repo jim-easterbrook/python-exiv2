@@ -113,14 +113,14 @@ static int release_views(PyObject* py_self) {
 
 // Macro to convert byte* return value to memoryview
 // WARNING: return value does not keep a reference to the data it points to
-%define RETURN_VIEW(signature, size_func, flags, doc_method)
+%define RETURN_VIEW_CB(signature, size_func, flags, callback, doc_method)
 %typemap(doctype) signature "memoryview";
 %typemap(out, fragment="memoryview_funcs") (signature) %{
     $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
     if (!$result)
         SWIG_fail;
     // Store a weak ref to the new memoryview
-    if (store_view(self, $result))
+    if (store_view(self, $result, callback))
         SWIG_fail;
 %}
 #if #doc_method != ""
@@ -131,6 +131,9 @@ WARNING: do not resize or delete the object while using the view.
 
 :rtype: memoryview"
 #endif
+%enddef // RETURN_VIEW_CB
+%define RETURN_VIEW(signature, size_func, flags, doc_method)
+RETURN_VIEW_CB(signature, size_func, flags, NULL, doc_method)
 %enddef // RETURN_VIEW
 
 
