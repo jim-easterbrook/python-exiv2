@@ -135,13 +135,12 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 // Convert mmap() result to a Python memoryview, assumes arg2 = isWriteable
 // The callback is used to call munmap when the memoryview is deleted
 RETURN_VIEW_CB(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
-               arg2 ? PyBUF_WRITE : PyBUF_READ, self,)
+               arg2 ? PyBUF_WRITE : PyBUF_READ,
+               PyObject_GetAttrString(self, "_release"),)
 
-// Make Exiv2::BasicIo callable (for callback)
-%feature("python:slot", "tp_call", functype="ternaryfunc")
-    Exiv2::BasicIo::_release;
+// Define callback function
 %extend Exiv2::BasicIo {
-    void _release(PyObject* args, PyObject* kw) {
+    void _release(PyObject* ref) {
         self->munmap();
     };
 }
@@ -159,7 +158,8 @@ RETURN_VIEW_CB(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
 
 // Add data() method for easy access
 RETURN_VIEW_CB(Exiv2::byte* data, $1 ? arg1->size() : 0,
-               arg2 ? PyBUF_WRITE : PyBUF_READ, self,)
+               arg2 ? PyBUF_WRITE : PyBUF_READ,
+               PyObject_GetAttrString(self, "_release"),)
 %extend Exiv2::BasicIo {
     Exiv2::byte* data(bool isWriteable) {
         if (!self->isopen())

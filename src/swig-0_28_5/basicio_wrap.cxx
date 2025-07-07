@@ -4974,7 +4974,7 @@ SWIGINTERN char const *Exiv2_BasicIo_ioType(Exiv2::BasicIo *self){
         }
         return "unknown";
     }
-SWIGINTERN void Exiv2_BasicIo__release(Exiv2::BasicIo *self,PyObject *args,PyObject *kw){
+SWIGINTERN void Exiv2_BasicIo__release(Exiv2::BasicIo *self,PyObject *ref){
         self->munmap();
     }
 SWIGINTERN Exiv2::byte *Exiv2_BasicIo_data(Exiv2::BasicIo *self,bool isWriteable){
@@ -5772,7 +5772,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
   if (!resultobj)
   SWIG_fail;
   // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj, self))
+  if (store_view(self, resultobj, PyObject_GetAttrString(self, "_release")))
   SWIG_fail;
   
   return resultobj;
@@ -5994,25 +5994,22 @@ SWIGINTERN PyObject *_wrap_BasicIo__release(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
-  PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_UnpackTuple(args, "BasicIo__release", 2, 2, &obj1, &obj2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo__release", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo__release" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   arg2 = obj1;
-  arg3 = obj2;
   {
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        Exiv2_BasicIo__release(arg1,arg2,arg3);
+        Exiv2_BasicIo__release(arg1,arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
     }
@@ -6076,7 +6073,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
   if (!resultobj)
   SWIG_fail;
   // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj, self))
+  if (store_view(self, resultobj, PyObject_GetAttrString(self, "_release")))
   SWIG_fail;
   
   return resultobj;
@@ -6088,8 +6085,6 @@ fail:
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_BasicIo) /* defines _wrap_delete_BasicIo_destructor_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_BasicIo_size) /* defines _wrap_BasicIo_size_lenfunc_closure */
-
-SWIGPY_TERNARYFUNC_CLOSURE(_wrap_BasicIo__release) /* defines _wrap_BasicIo__release_ternaryfunc_closure */
 
 static PyMethodDef SwigMethods[] = {
 	 { "_enum_list_Position", _wrap__enum_list_Position, METH_VARARGS, NULL},
@@ -6358,7 +6353,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     &SwigPyBuiltin__Exiv2__BasicIo_type.as_sequence, /* tp_as_sequence */
     &SwigPyBuiltin__Exiv2__BasicIo_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
-    _wrap_BasicIo__release_ternaryfunc_closure, /* tp_call */
+    (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
@@ -6594,7 +6589,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *typ
     { Py_tp_methods,                    (void *)SwigPyBuiltin__Exiv2__BasicIo_methods },
     { Py_tp_getset,                     (void *)SwigPyBuiltin__Exiv2__BasicIo_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
-    { Py_tp_call,                       (void *)_wrap_BasicIo__release_ternaryfunc_closure },
+    { Py_tp_call,                       (void *)(ternaryfunc) 0 },
     { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
     { Py_tp_setattro,                   (void *)(setattrofunc) 0 },
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
