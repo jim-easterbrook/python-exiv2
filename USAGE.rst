@@ -372,15 +372,7 @@ In some cases this includes writing to the data.
     buf = thumb.copy()
     thumb_im = PIL.Image.open(io.BytesIO(buf.data()))
 
-In python-exiv2 before v0.15.0 the memory block is converted to an object with a buffer interface.
-A Python memoryview_ can be used to access the data without copying.
-(Converting to bytes_ would make a copy of the data, which we don't usually want.)
-
-Warning: segmentation faults
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Note that the memory block must not be deleted or resized while the memoryview exists.
-Doing so will invalidate the memoryview and may cause a segmentation fault:
+Since version 0.18.0 python-exiv2 releases the memoryview (when the memory block is resized or deleted) to prevent problems such as segmentation faults:
 
 .. code:: python
 
@@ -390,23 +382,9 @@ Doing so will invalidate the memoryview and may cause a segmentation fault:
     b'fred'
     >>> del buf
     >>> print(bytes(data))
-    b'en_G'
-
-Since version 0.18.0 python-exiv2 releases the memoryview (when the memory block is resized) to prevent problems:
-
-.. code:: python
-
-    >>> buf = exiv2.DataBuf(b'fred')
-    >>> data = buf.data()
-    >>> print(bytes(data))
-    b'fred'
-    >>> buf.alloc(128)
-    >>> print(bytes(data))
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
     ValueError: operation forbidden on released memoryview object
-
-Unfortunately I haven't been able to make this work for memory block deletion.
 
 Buffer interface
 ----------------

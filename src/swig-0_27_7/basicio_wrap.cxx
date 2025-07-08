@@ -4874,14 +4874,13 @@ SWIGINTERN char const *Exiv2_BasicIo_ioType(Exiv2::BasicIo *self){
         }
         return "unknown";
     }
+SWIGINTERN Exiv2::byte *Exiv2_BasicIo_data(Exiv2::BasicIo *self,bool isWriteable){
+        self->open();
+        return self->mmap(isWriteable);
+    }
 SWIGINTERN void Exiv2_BasicIo__release(Exiv2::BasicIo *self,PyObject *ref){
         self->munmap();
-    }
-SWIGINTERN Exiv2::byte *Exiv2_BasicIo_data(Exiv2::BasicIo *self,bool isWriteable){
-        if (!self->isopen())
-            self->open();
-        self->munmap();
-        return self->mmap(isWriteable);
+        self->close();
     }
 #ifdef __cplusplus
 extern "C" {
@@ -5510,7 +5509,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
   if (!resultobj)
   SWIG_fail;
   // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj, PyObject_GetAttrString(self, "_release")))
+  if (store_view(self, resultobj, NULL))
   SWIG_fail;
   
   return resultobj;
@@ -5727,41 +5726,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo__release(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_UnpackTuple(args, "BasicIo__release", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo__release" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  arg2 = obj1;
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        Exiv2_BasicIo__release(arg1,arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
@@ -5812,6 +5776,44 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
   // Store a weak ref to the new memoryview
   if (store_view(self, resultobj, PyObject_GetAttrString(self, "_release")))
   SWIG_fail;
+  
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_BasicIo__release(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "BasicIo__release", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo__release" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  arg2 = obj1;
+  {
+    try {
+      {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        Exiv2_BasicIo__release(arg1,arg2);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+      }
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  
+  release_views(self);
   
   return resultobj;
 fail:
@@ -6033,8 +6035,8 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		":rtype: str\n"
 		":return: A class name such as \"FileIo\".\n"
 		"" },
-  { "_release", _wrap_BasicIo__release, METH_VARARGS, "" },
   { "data", _wrap_BasicIo_data, METH_VARARGS, "" },
+  { "_release", _wrap_BasicIo__release, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

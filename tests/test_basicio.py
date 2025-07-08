@@ -146,7 +146,7 @@ class TestBasicIoModule(unittest.TestCase):
         with memoryview(io) as view:
             self.assertEqual(view, self.data)
             self.assertEqual(view.readonly, False)
-        # data() context manager
+        # data() easy access
         with io.data() as view:
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, self.data)
