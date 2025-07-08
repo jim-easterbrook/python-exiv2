@@ -55,9 +55,11 @@ static int private_store_del(PyObject* py_self, const char* name) {
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
         return 0;
-    if (PyDict_DelItemString(dict, name))
-        PyErr_Clear();
-    return 0;
+    if (!PyDict_GetItemString(dict, name))
+        return 0;
+    int result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
 };
 }
 

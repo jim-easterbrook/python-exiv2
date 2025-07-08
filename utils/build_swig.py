@@ -191,6 +191,8 @@ __version_tuple__ = tuple(({', '.join(re.split(r'[-.]', py_exiv2_version))}))
 __all__ = ["Exiv2Error"]
 ''')
         for name in ext_names:
+            if name == 'utilities':
+                continue
             im.write(f'from exiv2.{name} import *\n')
             im.write(f'__all__ += exiv2._{name}.__all__\n')
         im.write("""

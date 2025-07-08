@@ -80,6 +80,15 @@ class TestTypesModule(unittest.TestCase):
         buf = exiv2.DataBuf()
         buf.alloc(6)
         self.assertEqual(len(buf), 6)
+        # memoryview invalidation
+        view = buf.data()
+        buf.alloc(8)
+        with self.assertRaises(ValueError):
+            view[0]
+        view = buf.data()
+        del buf
+        with self.assertRaises(ValueError):
+            view[0]
 
     def test_Rational(self):
         for type_ in (exiv2.Rational, exiv2.URational):

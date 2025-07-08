@@ -4524,38 +4524,43 @@ static int private_store_del(PyObject* py_self, const char* name) {
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
         return 0;
-    if (PyDict_DelItemString(dict, name))
-        PyErr_Clear();
-    return 0;
+    if (!PyDict_GetItemString(dict, name))
+        return 0;
+    int result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
 };
+
+
+static PyObject* view_manager = NULL;
 
 
 static int store_view(PyObject* py_self, PyObject* view,
                       PyObject* callback=NULL) {
-    PyObject* views = private_store_get(py_self, "views");
-    if (!views) {
-        views = PyList_New(0);
-        private_store_set(py_self, "views", views);
-        Py_DECREF(views);
-    }
-    PyObject* ref = PyWeakref_NewRef(view, callback);
-    if (!ref)
+    PyObject* view_ref = PyWeakref_NewRef(view, callback);
+    if (!view_ref)
         return -1;
-    int result = PyList_Append(views, ref);
-    Py_DECREF(ref);
-    return result;
+    PyObject* marker = private_store_get(py_self, "marker");
+    if (!marker) {
+        // Marker is any weakrefable object.
+        marker = PySet_New(NULL);
+        if (!marker)
+            return -1;
+        int error = private_store_set(py_self, "marker", marker);
+        Py_DECREF(marker);
+        if (error)
+            return -1;
+    }
+    PyObject* OK = PyObject_CallMethod(
+        view_manager, "store_view", "(OO)", marker, view_ref);
+    Py_DECREF(view_ref);
+    if (!OK)
+        return -1;
+    Py_DECREF(OK);
+    return 0;
 };
 static int release_views(PyObject* py_self) {
-    PyObject* views = private_store_get(py_self, "views");
-    if (!views)
-        return 0;
-    PyObject* view = NULL;
-    for (Py_ssize_t idx = PyList_Size(views); idx > 0; idx--) {
-        view = PyWeakref_GetObject(PyList_GetItem(views, idx - 1));
-        if (PyMemoryView_Check(view))
-            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
-    }
-    private_store_del(py_self, "views");
+    private_store_del(py_self, "marker");
     return 0;
 };
 
@@ -6993,6 +6998,20 @@ SWIG_init(void) {
     Py_DECREF(module);
     if (!Py_IntEnum) {
       PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
+      return INIT_ERROR_RETURN;
+    }
+  }
+  
+  
+  {
+    PyObject* mod = PyImport_ImportModule("exiv2.utilities");
+    if (!mod)
+    return INIT_ERROR_RETURN;
+    view_manager = PyObject_GetAttrString(mod, "view_manager");
+    if (!view_manager) {
+      PyErr_SetString(
+        PyExc_RuntimeError,
+        "Import error: exiv2.utilities.view_manager not found.");
       return INIT_ERROR_RETURN;
     }
   }

@@ -9,12 +9,11 @@
 
 #define SWIG_VERSION 0x040301
 #define SWIGPYTHON
-#define SWIG_PYTHON_THREADS
 #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
 #define SWIGPYTHON_BUILTIN
 #define SWIGPYTHON_FASTPROXY
 
-#define SWIG_name    "_basicio"
+#define SWIG_name    "_utilities"
 /* -----------------------------------------------------------------------------
  *  This section contains generic SWIG labels for method/variable
  *  declarations/attributes, and other compiler dependent labels.
@@ -3986,31 +3985,11 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_ErrorCode swig_types[0]
-#define SWIGTYPE_p_Exiv2__BasicIo swig_types[1]
-#define SWIGTYPE_p_Exiv2__CurlIo swig_types[2]
-#define SWIGTYPE_p_Exiv2__DataBuf swig_types[3]
-#define SWIGTYPE_p_Exiv2__FileIo swig_types[4]
-#define SWIGTYPE_p_Exiv2__HttpIo swig_types[5]
-#define SWIGTYPE_p_Exiv2__MemIo swig_types[6]
-#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[7]
-#define SWIGTYPE_p_Exiv2__XPathIo swig_types[8]
-#define SWIGTYPE_p_SwigPyObject swig_types[9]
-#define SWIGTYPE_p_char swig_types[10]
-#define SWIGTYPE_p_first_type swig_types[11]
-#define SWIGTYPE_p_int swig_types[12]
-#define SWIGTYPE_p_long_long swig_types[13]
-#define SWIGTYPE_p_second_type swig_types[14]
-#define SWIGTYPE_p_short swig_types[15]
-#define SWIGTYPE_p_signed_char swig_types[16]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[17]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[18]
-#define SWIGTYPE_p_unsigned_char swig_types[19]
-#define SWIGTYPE_p_unsigned_int swig_types[20]
-#define SWIGTYPE_p_unsigned_long_long swig_types[21]
-#define SWIGTYPE_p_unsigned_short swig_types[22]
-static swig_type_info *swig_types[24];
-static swig_module_info swig_module = {swig_types, 23, 0, 0, 0, 0};
+#define SWIGTYPE_p_SwigPyObject swig_types[0]
+#define SWIGTYPE_p_ViewManager swig_types[1]
+#define SWIGTYPE_p_char swig_types[2]
+static swig_type_info *swig_types[4];
+static swig_module_info swig_module = {swig_types, 3, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4022,13 +4001,13 @@ static swig_module_info swig_module = {swig_types, 23, 0, 0, 0, 0};
 #define SWIG_TypeQuery SWIG_Python_TypeQuery
 
 /*-----------------------------------------------
-              @(target):= _basicio.so
+              @(target):= _utilities.so
   ------------------------------------------------*/
 #if PY_VERSION_HEX >= 0x03000000
-#  define SWIG_init    PyInit__basicio
+#  define SWIG_init    PyInit__utilities
 
 #else
-#  define SWIG_init    init_basicio
+#  define SWIG_init    init_utilities
 
 #endif
 
@@ -4160,843 +4139,100 @@ namespace swig {
 #include <stddef.h>
 
 
-SWIGINTERN swig_type_info*
-SWIG_pchar_descriptor(void)
-{
-  static swig_type_info* info = 0;
-  if (!info) {
-    info = SWIG_TypeQuery("_p_char");
-  }
-  return info;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
-}
-
-
-SWIGINTERNINLINE PyObject * 
-SWIG_FromCharPtr(const char *cptr)
-{ 
-  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
-}
-
-
 #include "exiv2/exiv2.hpp"
 
 
 #define INIT_ERROR_RETURN NULL
 
 
-#include <string>
-
-
-static PyObject* PyExc_Exiv2Error = NULL;
-
-
-static PyObject* exiv2_module = NULL;
-
-
-static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
-
-
-static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
-    if (!PyEnum_Exiv2_ErrorCode)
-        PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
-            exiv2_module, "ErrorCode");
-    return PyEnum_Exiv2_ErrorCode;
-};
-
-
-static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_ErrorCode(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
-};
-
-
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#ifdef _WIN32
-static int _transcode(std::string *str, UINT cp_in, UINT cp_out) {
-    if (cp_out == cp_in)
-        return 0;
-    int size = MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
-                                   NULL, 0);
-    if (!size)
-        return GetLastError();
-    std::wstring wide_str;
-    wide_str.resize(size);
-    if (!MultiByteToWideChar(cp_in, 0, &(*str)[0], (int)str->size(),
-                             &wide_str[0], size))
-        return GetLastError();
-    size = WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                               NULL, 0, NULL, NULL);
-    if (!size)
-        return GetLastError();
-    str->resize(size);
-    if (!WideCharToMultiByte(cp_out, 0, &wide_str[0], (int)wide_str.size(),
-                             &(*str)[0], size, NULL, NULL))
-        return GetLastError();
-    return 0;
-};
-#endif
-
-static int utf8_to_wcp(std::string *str) {
-#ifdef _WIN32
-    return _transcode(str, CP_UTF8, GetACP());
-#else
-    return 0;
-#endif
-};
-
-static int wcp_to_utf8(std::string *str) {
-#ifdef _WIN32
-    return _transcode(str, GetACP(), CP_UTF8);
-#else
-    return 0;
-#endif
-};
-
-
-
-static void _set_python_exception() {
-    try {
-        throw;
-    }
-
-
-
-    catch(Exiv2::Error const& e) {
-
-        std::string msg = e.what();
-        if (wcp_to_utf8(&msg))
-            msg = e.what();
-        PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum_Exiv2_ErrorCode
-            (static_cast<long>(e.code())), msg.c_str());
-        PyErr_SetObject(PyExc_Exiv2Error, args);
-        Py_DECREF(args);
-    }
-    /*@SWIG:/usr/local/share/swig/4.3.1/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
-  catch (std::invalid_argument& e) {
-    SWIG_exception_fail(SWIG_ValueError, e.what() );
-  } catch (std::domain_error& e) {
-    SWIG_exception_fail(SWIG_ValueError, e.what() );
-  } catch (std::overflow_error& e) {
-    SWIG_exception_fail(SWIG_OverflowError, e.what() );
-  } catch (std::out_of_range& e) {
-    SWIG_exception_fail(SWIG_IndexError, e.what() );
-  } catch (std::length_error& e) {
-    SWIG_exception_fail(SWIG_IndexError, e.what() );
-  } catch (std::runtime_error& e) {
-    SWIG_exception_fail(SWIG_RuntimeError, e.what() );
-  } catch (std::exception& e) {
-    SWIG_exception_fail(SWIG_SystemError, e.what() );
-  }
-/*@SWIG@*/
-fail:
-    return;
-};
-
-
-#ifndef EXV_USE_CURL
-namespace Exiv2 {
-    class CurlIo : public RemoteIo {};
-}
-#endif // EXV_USE_CURL
-
-
-#ifndef EXV_USE_SSH
-namespace Exiv2 {
-    class SshIo : public RemoteIo {};
-}
-#endif // EXV_USE_SSH
-
-
-#if !EXIV2_TEST_VERSION(0, 28, 3)
-#define EXV_ENABLE_FILESYSTEM
-#endif
-// Copy EXV_ENABLE_FILESYSTEM for use in macro
-#ifdef EXV_ENABLE_FILESYSTEM
-#define _EXV_ENABLE_FILESYSTEM
-#endif
-
-
-#ifndef EXV_ENABLE_FILESYSTEM
-namespace Exiv2 {
-    class FileIo : public BasicIo {};
-    class XPathIo : public MemIo {};
-}
-#endif // EXV_ENABLE_FILESYSTEM
-
-
-typedef Exiv2::ErrorCode ErrorCode;
-
-
-static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
-                         Exiv2::byte*& ptr, Py_ssize_t& size) {
-    if (self->open())
-        return false;
-    try {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        ptr = self->mmap(is_writeable);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-
-
-
-    } catch(Exiv2::Error const& e) {
-
-        return false;
-    }
-    size = self->size();
-    return true;
-};
-
-
-static int getbuffer_Exiv2_BasicIo(
-        PyObject* exporter, Py_buffer* view, int flags) {
-    Exiv2::BasicIo* self = 0;
-    Exiv2::byte* ptr = 0;
-    Py_ssize_t size = 0;
-    bool is_writeable = true && (flags && PyBUF_WRITABLE);
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0)))
-        goto fail;
-    if (!get_ptr_size(self, is_writeable, ptr, size))
-        goto fail;
-    return PyBuffer_FillInfo(view, exporter, ptr,
-        ptr ? size : 0, is_writeable ? 0 : 1, flags);
-fail:
-    PyErr_SetNone(PyExc_BufferError);
-    view->obj = NULL;
-    return -1;
-};
-
-
-static void release_ptr(Exiv2::BasicIo* self) {
-    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-    self->munmap();
-    self->close();
-    SWIG_PYTHON_THREAD_END_ALLOW;
-};
-
-
-static void releasebuffer_Exiv2_BasicIo(
-        PyObject* exporter, Py_buffer* view) {
-    Exiv2::BasicIo* self = 0;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0)))
-        return;
-    release_ptr(self);
-};
-
-
-static void extend_enum_list(PyObject* list, const char* label, int value) {
-    PyObject* py_obj = Py_BuildValue("(si)", label, value);
-    PyList_Append(list, py_obj);
-    Py_DECREF(py_obj);
-};
-
-
-
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
-    PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
-    while (label) {
-        extend_enum_list(result, label, va_arg(args, int));
-        label = va_arg(args, char*);
-    }
-    va_end(args);
-    return result;
-};
-
-
-PyObject* _enum_list_Position() {
-    return _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL);
-};
-
-
-static PyObject* Py_IntEnum = NULL;
-
-
-static PyObject* PyEnum_Exiv2_BasicIo_Position = NULL;
-
-
-static PyObject* _create_enum_Exiv2_BasicIo_Position(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_BasicIo_Position = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_BasicIo_Position)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_BasicIo_Position, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_BasicIo_Position, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
-    return PyEnum_Exiv2_BasicIo_Position;
-};
-
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
-
-
-static PyObject* _get_store(PyObject* py_self, bool create) {
-    // Return a new reference
-    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
-        if (!create)
+class ViewManager {
+private:
+    PyObject* view_list;
+public:
+    ViewManager() {
+        view_list = PyList_New(0);
+    };
+    PyObject* store_view(PyObject* py_self, PyObject* marker,
+                         PyObject* view_ref) {
+        release_views(NULL);
+        int error = 0;
+        PyObject* callback = PyObject_GetAttrString(
+            py_self, "release_views");
+        if (!callback)
             return NULL;
-        PyObject* dict = PyDict_New();
-        if (!dict)
+        PyObject* marker_ref = PyWeakref_NewRef(marker, callback);
+        Py_DECREF(callback);
+        PyObject* details = PyTuple_Pack(2, marker_ref, view_ref);
+        Py_XDECREF(marker_ref);
+        if (!details)
             return NULL;
-        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
-        Py_DECREF(dict);
+        error = PyList_Append(view_list, details);
+        Py_DECREF(details);
         if (error)
             return NULL;
-    }
-    return PyObject_GetAttrString(py_self, "_private_data_");
-};
-static int private_store_set(PyObject* py_self, const char* name,
-                             PyObject* val) {
-    PyObject* dict = _get_store(py_self, true);
-    if (!dict)
-        return -1;
-    int result = PyDict_SetItemString(dict, name, val);
-    Py_DECREF(dict);
-    return result;
-};
-static PyObject* private_store_get(PyObject* py_self, const char* name) {
-    // Return a borrowed reference
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return NULL;
-    PyObject* result = PyDict_GetItemString(dict, name);
-    Py_DECREF(dict);
-    return result;
-};
-static int private_store_del(PyObject* py_self, const char* name) {
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return 0;
-    if (!PyDict_GetItemString(dict, name))
-        return 0;
-    int result = PyDict_DelItemString(dict, name);
-    Py_DECREF(dict);
-    return result;
-};
-
-
-static PyObject* view_manager = NULL;
-
-
-static int store_view(PyObject* py_self, PyObject* view,
-                      PyObject* callback=NULL) {
-    PyObject* view_ref = PyWeakref_NewRef(view, callback);
-    if (!view_ref)
-        return -1;
-    PyObject* marker = private_store_get(py_self, "marker");
-    if (!marker) {
-        // Marker is any weakrefable object.
-        marker = PySet_New(NULL);
-        if (!marker)
-            return -1;
-        int error = private_store_set(py_self, "marker", marker);
-        Py_DECREF(marker);
-        if (error)
-            return -1;
-    }
-    PyObject* OK = PyObject_CallMethod(
-        view_manager, "store_view", "(OO)", marker, view_ref);
-    Py_DECREF(view_ref);
-    if (!OK)
-        return -1;
-    Py_DECREF(OK);
-    return 0;
-};
-static int release_views(PyObject* py_self) {
-    private_store_del(py_self, "marker");
-    return 0;
-};
-
-
-SWIGINTERN int
-SWIG_AsVal_double (PyObject *obj, double *val)
-{
-  int res = SWIG_TypeError;
-  if (PyFloat_Check(obj)) {
-    if (val) *val = PyFloat_AsDouble(obj);
-    return SWIG_OK;
-#if PY_VERSION_HEX < 0x03000000
-  } else if (PyInt_Check(obj)) {
-    if (val) *val = (double) PyInt_AsLong(obj);
-    return SWIG_OK;
-#endif
-  } else if (PyLong_Check(obj)) {
-    double v = PyLong_AsDouble(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    double d = PyFloat_AsDouble(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = d;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      long v = PyLong_AsLong(obj);
-      if (!PyErr_Occurred()) {
-	if (val) *val = v;
-	return SWIG_AddCast(SWIG_AddCast(SWIG_OK));
-      } else {
-	PyErr_Clear();
-      }
-    }
-  }
-#endif
-  return res;
-}
-
-
-#include <float.h>
-
-
-#include <math.h>
-
-
-SWIGINTERNINLINE int
-SWIG_CanCastAsInteger(double *d, double min, double max) {
-  double x = *d;
-  if ((min <= x && x <= max)) {
-   double fx, cx, rd;
-   errno = 0;
-   fx = floor(x);
-   cx = ceil(x);
-   rd =  ((x - fx) < 0.5) ? fx : cx; /* simple rint */
-   if ((errno == EDOM) || (errno == ERANGE)) {
-     errno = 0;
-   } else {
-     double summ, reps, diff;
-     if (rd < x) {
-       diff = x - rd;
-     } else if (rd > x) {
-       diff = rd - x;
-     } else {
-       return 1;
-     }
-     summ = rd + x;
-     reps = diff/summ;
-     if (reps < 8*DBL_EPSILON) {
-       *d = rd;
-       return 1;
-     }
-   }
-  }
-  return 0;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    long v = PyInt_AsLong(obj);
-    if (v >= 0) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      return SWIG_OverflowError;
-    }
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    unsigned long v = PyLong_AsUnsignedLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    unsigned long v = PyLong_AsUnsignedLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      // Largest double not larger than ULONG_MAX (not portably calculated easily)
-      // Note that double(ULONG_MAX) is stored in a double rounded up by one (for 64-bit unsigned long)
-      // 0xfffffffffffff800ULL == (uint64_t)std::nextafter(double(__uint128_t(ULONG_MAX)+1), double(0))
-      const double ulong_max = sizeof(unsigned long) == 8 ? 0xfffffffffffff800ULL : ULONG_MAX;
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, ulong_max)) {
-	if (val) *val = (unsigned long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
-
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long_SS_long (PyObject *obj, unsigned long long *val)
-{
-  int res = SWIG_TypeError;
-  if (PyLong_Check(obj)) {
-    unsigned long long v = PyLong_AsUnsignedLongLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      res = SWIG_OverflowError;
-    }
-  } else {
-    unsigned long v;
-    res = SWIG_AsVal_unsigned_SS_long (obj,&v);
-    if (SWIG_IsOK(res)) {
-      if (val) *val = v;
-      return res;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    const double mant_max = 1LL << DBL_MANT_DIG;
-    double d;
-    res = SWIG_AsVal_double (obj,&d);
-    if (SWIG_IsOK(res) && !SWIG_CanCastAsInteger(&d, 0, mant_max))
-      return SWIG_OverflowError;
-    if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, mant_max)) {
-      if (val) *val = (unsigned long long)(d);
-      return SWIG_AddCast(res);
-    }
-    res = SWIG_TypeError;
-  }
-#endif
-  return res;
-}
-#endif
-
-
-SWIGINTERNINLINE int
-SWIG_AsVal_size_t (PyObject * obj, size_t *val)
-{
-  int res = SWIG_TypeError;
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  if (sizeof(size_t) <= sizeof(unsigned long)) {
-#endif
-    unsigned long v;
-    res = SWIG_AsVal_unsigned_SS_long (obj, val ? &v : 0);
-    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  } else if (sizeof(size_t) <= sizeof(unsigned long long)) {
-    unsigned long long v;
-    res = SWIG_AsVal_unsigned_SS_long_SS_long (obj, val ? &v : 0);
-    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
-  }
-#endif
-  return res;
-}
-
-
-  #define SWIG_From_long   PyInt_FromLong 
-
-
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-#endif
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_size_t  (size_t value)
-{    
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  if (sizeof(size_t) <= sizeof(unsigned long)) {
-#endif
-    return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  } else {
-    /* assume sizeof(size_t) <= sizeof(unsigned long long) */
-    return SWIG_From_unsigned_SS_long_SS_long  (static_cast< unsigned long long >(value));
-  }
-#endif
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val)
-{
-  unsigned long v;
-  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v > UCHAR_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< unsigned char >(v);
-    }
-  }  
-  return res;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_long (PyObject *obj, long* val)
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    if (val) *val = PyInt_AsLong(obj);
-    return SWIG_OK;
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    long v = PyLong_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    long v = PyInt_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      // Largest double not larger than LONG_MAX (not portably calculated easily)
-      // Note that double(LONG_MAX) is stored in a double rounded up by one (for 64-bit long)
-      // 0x7ffffffffffffc00LL == (int64_t)std::nextafter(double(__uint128_t(LONG_MAX)+1), double(0))
-      const double long_max = sizeof(long) == 8 ? 0x7ffffffffffffc00LL : LONG_MAX;
-      // No equivalent needed for 64-bit double(LONG_MIN) is exactly LONG_MIN
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, long_max)) {
-	if (val) *val = (long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERN int
-SWIG_AsVal_long_SS_long (PyObject *obj, long long *val)
-{
-  int res = SWIG_TypeError;
-  if (PyLong_Check(obj)) {
-    long long v = PyLong_AsLongLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      res = SWIG_OverflowError;
-    }
-  } else {
-    long v;
-    res = SWIG_AsVal_long (obj,&v);
-    if (SWIG_IsOK(res)) {
-      if (val) *val = v;
-      return res;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    const double mant_max = 1LL << DBL_MANT_DIG;
-    const double mant_min = -mant_max;
-    double d;
-    res = SWIG_AsVal_double (obj,&d);
-    if (SWIG_IsOK(res) && !SWIG_CanCastAsInteger(&d, mant_min, mant_max))
-      return SWIG_OverflowError;
-    if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, mant_min, mant_max)) {
-      if (val) *val = (long long)(d);
-      return SWIG_AddCast(res);
-    }
-    res = SWIG_TypeError;
-  }
-#endif
-  return res;
-}
-#endif
-
-
-static PyObject* get_enum_typeobject_Exiv2_BasicIo_Position() {
-    if (!PyEnum_Exiv2_BasicIo_Position) {
-        PyObject* parent_class = PyObject_GetAttrString(
-            exiv2_module, "BasicIo");
-        if (parent_class) {
-            PyEnum_Exiv2_BasicIo_Position = PyObject_GetAttrString(
-                parent_class, "Position");
-            Py_DECREF(parent_class);
+        return SWIG_Py_Void();
+    };
+    void release_views(PyObject* marker) {
+        // Release any views of object that owned marker
+        PyObject* details = NULL;
+        PyObject* view_ref = NULL;
+        PyObject* marker_ref = NULL;
+        PyObject* view = NULL;
+        for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
+            details = PyList_GetItem(view_list, idx - 1);
+            marker_ref = PyTuple_GET_ITEM(details, 0);
+            view_ref = PyTuple_GET_ITEM(details, 1);
+            view = PyWeakref_GetObject(view_ref);
+            if (view != Py_None) {
+                if (PyWeakref_GetObject(marker_ref) != Py_None)
+                    continue;
+                Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+            }
+            PyList_SetSlice(view_list, idx - 1, idx, NULL);
         }
-    }
-    return PyEnum_Exiv2_BasicIo_Position;
+    };
 };
 
-
-SWIGINTERN int
-SWIG_AsVal_bool (PyObject *obj, bool *val)
-{
-  int r;
-  if (!PyBool_Check(obj))
-    return SWIG_ERROR;
-  r = PyObject_IsTrue(obj);
-  if (r == -1)
-    return SWIG_ERROR;
-  if (val) *val = r ? true : false;
-  return SWIG_OK;
-}
-
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
-{
-  return PyBool_FromLong(value ? 1 : 0);
-}
-
-SWIGINTERN char const *Exiv2_BasicIo_ioType(Exiv2::BasicIo *self){
-        if (dynamic_cast<Exiv2::MemIo*>(self))
-            return "MemIo";
-        else if (dynamic_cast<Exiv2::FileIo*>(self)) {
-            if (dynamic_cast<Exiv2::XPathIo*>(self))
-                return "XPathIo";
-            return "FileIo";
-        }
-        else if (dynamic_cast<Exiv2::RemoteIo*>(self)) {
-            if (dynamic_cast<Exiv2::HttpIo*>(self))
-                return "HttpIo";
-#ifdef EXV_USE_CURL
-            else if (dynamic_cast<Exiv2::CurlIo*>(self))
-                return "CurlIo";
-#endif
-#ifdef EXV_USE_SSH
-            else if (dynamic_cast<Exiv2::SshIo*>(self))
-                return "SshIo";
-#endif
-            return "RemoteIo";
-        }
-        return "unknown";
-    }
-SWIGINTERN void Exiv2_BasicIo__release(Exiv2::BasicIo *self,PyObject *ref){
-        self->munmap();
-    }
-SWIGINTERN Exiv2::byte *Exiv2_BasicIo_data(Exiv2::BasicIo *self,bool isWriteable){
-        if (!self->isopen())
-            self->open();
-        self->munmap();
-        return self->mmap(isWriteable);
-    }
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap__enum_list_Position(PyObject *self, PyObject *args) {
+SWIGINTERN int _wrap_new_ViewManager(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
+  ViewManager *result = 0 ;
+  
+  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_ViewManager")) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "new_ViewManager", 0, 0, 0)) SWIG_fail;
+  result = (ViewManager *)new ViewManager();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ViewManager, SWIG_BUILTIN_INIT |  0 );
+  return resultobj == Py_None ? -1 : 0;
+fail:
+  return -1;
+}
+
+
+SWIGINTERN PyObject *_wrap_ViewManager_store_view(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ViewManager *arg1 = (ViewManager *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
+  PyObject *arg4 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[3] ;
   PyObject *result = 0 ;
   
-  if (!PyArg_UnpackTuple(args, "_enum_list_Position", 0, 0)) SWIG_fail;
-  result = (PyObject *)_enum_list_Position();
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "ViewManager_store_view", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ViewManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ViewManager_store_view" "', argument " "1"" of type '" "ViewManager *""'"); 
+  }
+  arg1 = reinterpret_cast< ViewManager * >(argp1);
+  arg3 = swig_obj[0];
+  arg4 = swig_obj[1];
+  result = (PyObject *)(arg1)->store_view(arg2,arg3,arg4);
   resultobj = result;
   return resultobj;
 fail:
@@ -5004,1025 +4240,23 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_BasicIo(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_ViewManager_release_views(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_BasicIo takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_BasicIo" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_open(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_open takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_open" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->open();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_close(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_close takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_close" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->close();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  
-  release_views(self);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
-  size_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *_global_view = NULL ;
-  PyObject * obj1 = 0 ;
-  size_t result;
-  
-  if (!PyArg_UnpackTuple(args, "BasicIo_write", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_write" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_write" "', argument " "2"" of type '" "bytes-like object""'")
-      ;
-    }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
-    arg2 = (Exiv2::byte *) buff->buf;
-    arg3 = (size_t) buff->len;
-  }
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (arg1)->write((Exiv2::byte const *)arg2,SWIG_STD_MOVE(arg3));
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  
-  Py_XDECREF(_global_view);
-  
-  
-  release_views(self);
-  
-  return resultobj;
-fail:
-  
-  Py_XDECREF(_global_view);
-  
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  Exiv2::BasicIo *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj1 = 0 ;
-  size_t result;
-  
-  if (!PyArg_UnpackTuple(args, "BasicIo_write", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_write" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "BasicIo_write" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "BasicIo_write" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (arg1)->write(*arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  
-  release_views(self);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_write(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 2) {
-    int _v = 0;
-    {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (!_v) goto check_1;
-    return _wrap_BasicIo_write__SWIG_1(self, args);
-  }
-check_1:
-  
-  if (argc == 2) {
-    PyObject *retobj = _wrap_BasicIo_write__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'BasicIo_write'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::BasicIo::write(Exiv2::byte const *,size_t)\n"
-    "    Exiv2::BasicIo::write(Exiv2::BasicIo &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_putb(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  Exiv2::byte arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  unsigned char val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  int result;
-  
-  if (!PyArg_UnpackTuple(args, "BasicIo_putb", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_putb" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_char(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_putb" "', argument " "2"" of type '" "Exiv2::byte""'");
-  } 
-  arg2 = static_cast< Exiv2::byte >(val2);
-  {
-    try {
-      result = (int)(arg1)->putb(arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::DataBuf result;
-  
-  if (!PyArg_UnpackTuple(args, "BasicIo_read", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_read" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_read" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (arg1)->read(SWIG_STD_MOVE(arg2));
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = SWIG_NewPointerObj(
-    new Exiv2::DataBuf(result), SWIGTYPE_p_Exiv2__DataBuf, SWIG_POINTER_OWN);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
-  size_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Py_buffer _global_view ;
-  size_t val3 ;
-  int ecode3 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  size_t result;
-  
-  if (!PyArg_UnpackTuple(args, "BasicIo_read", 2, 2, &obj1, &obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_read" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(
-        obj1, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
-      PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "writable bytes-like object""'")
-      ;
-    }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-  }
-  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_read" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
-  {
-    if (arg3 > (size_t) _global_view.len) {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "buffer too small""'")
-      ;
-    }
-  }
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (arg1)->read(arg2,SWIG_STD_MOVE(arg3));
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
-  
-  return resultobj;
-fail:
-  
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
-  
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 2) {
-    PyObject *retobj = _wrap_BasicIo_read__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 3) {
-    PyObject *retobj = _wrap_BasicIo_read__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'BasicIo_read'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::BasicIo::read(size_t)\n"
-    "    Exiv2::BasicIo::read(Exiv2::byte *,size_t)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_readOrThrow(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
-  size_t arg3 ;
-  ErrorCode arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Py_buffer _global_view ;
-  size_t val3 ;
-  int ecode3 = 0 ;
-  void *argp4 ;
-  int res4 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
-  
-  {
-    arg4 = Exiv2::ErrorCode::kerCorruptedMetadata;
-  }
-  if (!PyArg_UnpackTuple(args, "BasicIo_readOrThrow", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_readOrThrow" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    _global_view.obj = NULL;
-    if (PyObject_GetBuffer(
-        obj1, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
-      PyErr_Clear();
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_readOrThrow" "', argument " "2"" of type '" "writable bytes-like object""'")
-      ;
-    }
-    arg2 = (Exiv2::byte *) _global_view.buf;
-  }
-  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_readOrThrow" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
-  if (obj3) {
-    {
-      res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_ErrorCode,  0  | 0);
-      if (!SWIG_IsOK(res4)) {
-        SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "BasicIo_readOrThrow" "', argument " "4"" of type '" "ErrorCode""'"); 
-      }  
-      if (!argp4) {
-        SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "BasicIo_readOrThrow" "', argument " "4"" of type '" "ErrorCode""'");
-      } else {
-        ErrorCode * temp = reinterpret_cast< ErrorCode * >(argp4);
-        arg4 = *temp;
-        if (SWIG_IsNewObj(res4)) delete temp;
-      }
-    }
-  }
-  {
-    if (arg3 > (size_t) _global_view.len) {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "BasicIo_readOrThrow" "', argument " "2"" of type '" "buffer too small""'")
-      ;
-    }
-  }
-  {
-    try {
-      (arg1)->readOrThrow(arg2,SWIG_STD_MOVE(arg3),SWIG_STD_MOVE(arg4));
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
-  
-  return resultobj;
-fail:
-  
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
-  }
-  
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_getb(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_getb takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_getb" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      result = (int)(arg1)->getb();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_transfer(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  Exiv2::BasicIo *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_UnpackTuple(args, "BasicIo_transfer", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_transfer" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Exiv2__BasicIo,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "BasicIo_transfer" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "BasicIo_transfer" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
-  }
-  arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        (arg1)->transfer(*arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  int64_t arg2 ;
-  Exiv2::BasicIo::Position arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  int result;
-  
-  if (!PyArg_UnpackTuple(args, "BasicIo_seek", 2, 2, &obj1, &obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_seek" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_long_SS_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_seek" "', argument " "2"" of type '" "int64_t""'");
-  } 
-  arg2 = static_cast< int64_t >(val2);
-  {
-    if (!PyObject_IsInstance(obj2,
-        get_enum_typeobject_Exiv2_BasicIo_Position())) {
-      // deprecated since 2024-01-09
-      PyErr_WarnEx(PyExc_DeprecationWarning,
-        "BasicIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
-    }
-    if (!PyLong_Check(obj2)) {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_seek" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
-      ;
-    }
-    arg3 = static_cast< Exiv2::BasicIo::Position >(PyLong_AsLong(obj2));
-  }
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->seek(arg2,arg3);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_seekOrThrow(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  int64_t arg2 ;
-  Exiv2::BasicIo::Position arg3 ;
-  ErrorCode arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long long val2 ;
-  int ecode2 = 0 ;
-  void *argp4 ;
-  int res4 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
-  
-  {
-    arg4 = Exiv2::ErrorCode::kerCorruptedMetadata;
-  }
-  if (!PyArg_UnpackTuple(args, "BasicIo_seekOrThrow", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_seekOrThrow" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  ecode2 = SWIG_AsVal_long_SS_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_seekOrThrow" "', argument " "2"" of type '" "int64_t""'");
-  } 
-  arg2 = static_cast< int64_t >(val2);
-  {
-    if (!PyObject_IsInstance(obj2,
-        get_enum_typeobject_Exiv2_BasicIo_Position())) {
-      // deprecated since 2024-01-09
-      PyErr_WarnEx(PyExc_DeprecationWarning,
-        "BasicIo_seekOrThrow argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
-    }
-    if (!PyLong_Check(obj2)) {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_seekOrThrow" "', argument " "3"" of type '" "Exiv2::BasicIo::Position""'")
-      ;
-    }
-    arg3 = static_cast< Exiv2::BasicIo::Position >(PyLong_AsLong(obj2));
-  }
-  if (obj3) {
-    {
-      res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_ErrorCode,  0  | 0);
-      if (!SWIG_IsOK(res4)) {
-        SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "BasicIo_seekOrThrow" "', argument " "4"" of type '" "ErrorCode""'"); 
-      }  
-      if (!argp4) {
-        SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "BasicIo_seekOrThrow" "', argument " "4"" of type '" "ErrorCode""'");
-      } else {
-        ErrorCode * temp = reinterpret_cast< ErrorCode * >(argp4);
-        arg4 = *temp;
-        if (SWIG_IsNewObj(res4)) delete temp;
-      }
-    }
-  }
-  {
-    try {
-      (arg1)->seekOrThrow(arg2,arg3,SWIG_STD_MOVE(arg4));
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  bool arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::byte *result = 0 ;
-  
-  {
-    arg2 = false;
-  }
-  if (!PyArg_UnpackTuple(args, "BasicIo_mmap", 0, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_mmap" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  if (obj1) {
-    ecode2 = SWIG_AsVal_bool(obj1, &val2);
-    if (!SWIG_IsOK(ecode2)) {
-      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_mmap" "', argument " "2"" of type '" "bool""'");
-    } 
-    arg2 = static_cast< bool >(val2);
-  }
-  {
-    release_views(self);
-  }
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (Exiv2::byte *)(arg1)->mmap(arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  if (!resultobj)
-  SWIG_fail;
-  // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj, PyObject_GetAttrString(self, "_release")))
-  SWIG_fail;
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_munmap(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_munmap takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_munmap" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (int)(arg1)->munmap();
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  
-  release_views(self);
-  
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_tell(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_tell takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_tell" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      result = ((Exiv2::BasicIo const *)arg1)->tell();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_size(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_size takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_size" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  {
-    try {
-      result = ((Exiv2::BasicIo const *)arg1)->size();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_isopen(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_isopen takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_isopen" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  result = (bool)((Exiv2::BasicIo const *)arg1)->isopen();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_error(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_error takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_error" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  result = (int)((Exiv2::BasicIo const *)arg1)->error();
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_eof(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_eof takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_eof" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  result = (bool)((Exiv2::BasicIo const *)arg1)->eof();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string *result = 0 ;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_path takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_path" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  result = (std::string *) &((Exiv2::BasicIo const *)arg1)->path();
-  {
-    std::string copy = *result;
-#ifdef _WIN32
-    int error = wcp_to_utf8(&copy);
-    if (error) {
-      PyErr_SetFromWindowsErr(error);
-      SWIG_fail;
-    }
-#endif
-    resultobj = SWIG_FromCharPtrAndSize(copy.data(), copy.size());
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo_ioType(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  char *result = 0 ;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "BasicIo_ioType takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_ioType" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  result = (char *)Exiv2_BasicIo_ioType(arg1);
-  resultobj = SWIG_FromCharPtr((const char *)result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_BasicIo__release(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
+  ViewManager *arg1 = (ViewManager *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  PyObject * obj1 = 0 ;
+  PyObject *swig_obj[2] ;
   
-  if (!PyArg_UnpackTuple(args, "BasicIo__release", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ViewManager, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo__release" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ViewManager_release_views" "', argument " "1"" of type '" "ViewManager *""'"); 
   }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  arg2 = obj1;
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        Exiv2_BasicIo__release(arg1,arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  arg1 = reinterpret_cast< ViewManager * >(argp1);
+  arg2 = swig_obj[0];
+  (arg1)->release_views(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -6030,85 +4264,41 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_ViewManager(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
-  bool arg2 ;
+  ViewManager *arg1 = (ViewManager *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  bool val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  Exiv2::byte *result = 0 ;
   
-  {
-    arg2 = false;
-  }
-  if (!PyArg_UnpackTuple(args, "BasicIo_data", 0, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "delete_ViewManager", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ViewManager, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_data" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ViewManager" "', argument " "1"" of type '" "ViewManager *""'"); 
   }
-  arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  if (obj1) {
-    ecode2 = SWIG_AsVal_bool(obj1, &val2);
-    if (!SWIG_IsOK(ecode2)) {
-      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_data" "', argument " "2"" of type '" "bool""'");
-    } 
-    arg2 = static_cast< bool >(val2);
-  }
-  {
-    release_views(self);
-  }
-  {
-    try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        result = (Exiv2::byte *)Exiv2_BasicIo_data(arg1,arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  
-  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
-  if (!resultobj)
-  SWIG_fail;
-  // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj, PyObject_GetAttrString(self, "_release")))
-  SWIG_fail;
-  
+  arg1 = reinterpret_cast< ViewManager * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_BasicIo) /* defines _wrap_delete_BasicIo_destructor_closure */
-
-SWIGPY_LENFUNC_CLOSURE(_wrap_BasicIo_size) /* defines _wrap_BasicIo_size_lenfunc_closure */
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ViewManager) /* defines _wrap_delete_ViewManager_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
-	 { "_enum_list_Position", _wrap__enum_list_Position, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
-static SwigPyGetSet BasicIo___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__BasicIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &BasicIo___dict___getset },
+static SwigPyGetSet ViewManager___dict___getset = { SwigPyObject_get___dict__, 0 };
+SWIGINTERN PyGetSetDef SwigPyBuiltin__ViewManager_getset[] = {
+    { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"", &ViewManager___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
-SwigPyBuiltin__Exiv2__BasicIo_richcompare(PyObject *self, PyObject *other, int op) {
+SwigPyBuiltin__ViewManager_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
-  PyObject *tuple = PyTuple_New(1);
-  assert(tuple);
-  PyTuple_SET_ITEM(tuple, 0, other);
-  SWIG_Py_XINCREF(other);
   if (!result && !PyErr_Occurred()) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -6117,219 +4307,17 @@ SwigPyBuiltin__Exiv2__BasicIo_richcompare(PyObject *self, PyObject *other, int o
       SWIG_Py_INCREF(result);
     }
   }
-  SWIG_Py_DECREF(tuple);
   return result;
 }
 
-SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
-  { "open", _wrap_BasicIo_open, METH_VARARGS, "\n"
-		"Open the IO source using the default access mode. The\n"
-		"    default mode should allow for reading and writing.\n"
-		"\n"
-		"This method can also be used to \"reopen\" an IO source which will\n"
-		"flush any unwritten data and reset the IO position to the start.\n"
-		"Subclasses may provide custom methods to allow for\n"
-		"opening IO sources differently.\n"
-		"\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"        Nonzero if failure.\n"
-		"" },
-  { "close", _wrap_BasicIo_close, METH_VARARGS, "\n"
-		"Close the IO source. After closing a BasicIo instance can not\n"
-		"    be read or written. Closing flushes any unwritten data. It is\n"
-		"    safe to call close on a closed instance.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"        Nonzero if failure.\n"
-		"" },
-  { "write", _wrap_BasicIo_write, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Write data to the IO source. Current IO position is advanced\n"
-		"    by the number of bytes written.\n"
-		":type data: :py:term:`bytes-like object`\n"
-		":param data: Pointer to data. Data must be at least *wcount*\n"
-		"        bytes long\n"
-		":type wcount: int\n"
-		":param wcount: Number of bytes to be written.\n"
-		":rtype: int\n"
-		":return: Number of bytes written to IO source successfully;\n"
-		"\n"
-		"        0 if failure;\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Write data that is read from another BasicIo instance to\n"
-		"    the IO source. Current IO position is advanced by the number\n"
-		"    of bytes written.\n"
-		":type src: :py:class:`BasicIo`\n"
-		":param src: Reference to another BasicIo instance. Reading start\n"
-		"        at the source's current IO position\n"
-		":rtype: int\n"
-		":return: Number of bytes written to IO source successfully;\n"
-		"\n"
-		"        0 if failure;\n"
-		"" },
-  { "putb", _wrap_BasicIo_putb, METH_VARARGS, "\n"
-		"Write one byte to the IO source. Current IO position is\n"
-		"    advanced by one byte.\n"
-		":type data: int\n"
-		":param data: The single byte to be written.\n"
-		":rtype: int\n"
-		":return: The value of the byte written if successful;\n"
-		"\n"
-		"        EOF if failure;\n"
-		"" },
-  { "read", _wrap_BasicIo_read, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Read data from the IO source. Reading starts at the current\n"
-		"    IO position and the position is advanced by the number of bytes\n"
-		"    read.\n"
-		":type rcount: int\n"
-		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
-		"        read if *rcount* bytes are not available.\n"
-		":rtype: :py:class:`DataBuf`\n"
-		":return: DataBuf instance containing the bytes read. Use the\n"
-		"        DataBuf::size_ member to find the number of bytes read.\n"
-		"        DataBuf::size_ will be 0 on failure.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Read data from the IO source. Reading starts at the current\n"
-		"    IO position and the position is advanced by the number of bytes\n"
-		"    read.\n"
-		":type buf: writeable :py:term:`bytes-like object`\n"
-		":param buf: Pointer to a block of memory into which the read data\n"
-		"        is stored. The memory block must be at least *rcount* bytes\n"
-		"        long.\n"
-		":type rcount: int\n"
-		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
-		"        read if *rcount* bytes are not available.\n"
-		":rtype: int\n"
-		":return: Number of bytes read from IO source successfully;\n"
-		"\n"
-		"        0 if failure;\n"
-		"" },
-  { "readOrThrow", _wrap_BasicIo_readOrThrow, METH_VARARGS, "\n"
-		"Safe version of `read()` that checks for errors and throws\n"
-		"    an exception if the read was unsuccessful.\n"
-		":type buf: writeable :py:term:`bytes-like object`\n"
-		":param buf: Pointer to a block of memory into which the read data\n"
-		"        is stored. The memory block must be at least *rcount* bytes\n"
-		"        long.\n"
-		":type rcount: int\n"
-		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
-		"        read if *rcount* bytes are not available.\n"
-		":type err: ErrorCode, optional\n"
-		":param err: Error code to use if an exception is thrown.\n"
-		"" },
-  { "getb", _wrap_BasicIo_getb, METH_VARARGS, "\n"
-		"Read one byte from the IO source. Current IO position is\n"
-		"    advanced by one byte.\n"
-		":rtype: int\n"
-		":return: The byte read from the IO source if successful;\n"
-		"\n"
-		"        EOF if failure;\n"
-		"" },
-  { "transfer", _wrap_BasicIo_transfer, METH_VARARGS, "\n"
-		"Remove all data from this object's IO source and then transfer\n"
-		"    data from the *src* BasicIo object into this object.\n"
-		"\n"
-		"The source object is invalidated by this operation and should not be\n"
-		"used after this method returns. This method exists primarily to\n"
-		"be used with the BasicIo::temporary() method.\n"
-		"\n"
-		":type src: :py:class:`BasicIo`\n"
-		":param src: Reference to another BasicIo instance. The entire contents\n"
-		"        of src are transferred to this object. The *src* object is\n"
-		"        invalidated by the method.\n"
-		":raises: Error In case of failure\n"
-		"" },
-  { "seek", _wrap_BasicIo_seek, METH_VARARGS, "\n"
-		"Move the current IO position.\n"
-		":type offset: int\n"
-		":param offset: Number of bytes to move the position relative\n"
-		"        to the starting position specified by *pos*\n"
-		":type pos: :py:class:`BasicIo.Position`\n"
-		":param pos: Position from which the seek should start\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"        Nonzero if failure;\n"
-		"" },
-  { "seekOrThrow", _wrap_BasicIo_seekOrThrow, METH_VARARGS, "\n"
-		"Safe version of `seek()` that checks for errors and throws\n"
-		"    an exception if the seek was unsuccessful.\n"
-		":type offset: int\n"
-		":param offset: Number of bytes to move the position relative\n"
-		"        to the starting position specified by *pos*\n"
-		":type pos: :py:class:`BasicIo.Position`\n"
-		":param pos: Position from which the seek should start\n"
-		":type err: ErrorCode\n"
-		":param err: Error code to use if an exception is thrown.\n"
-		"" },
-  { "mmap", _wrap_BasicIo_mmap, METH_VARARGS, "\n"
-		"Direct access to the IO data. For files, this is done by\n"
-		"       mapping the file into the process's address space; for memory\n"
-		"       blocks, this allows direct access to the memory block.\n"
-		":type isWriteable: bool, optional\n"
-		":param isWriteable: Set to true if the mapped area should be writeable\n"
-		"           (default is false).\n"
-		":rtype: memoryview\n"
-		":return: A pointer to the mapped area.\n"
-		":raises: Error In case of failure.\n"
-		"" },
-  { "munmap", _wrap_BasicIo_munmap, METH_VARARGS, "\n"
-		"Remove a mapping established with mmap(). If the mapped area\n"
-		"       is writeable, this ensures that changes are written back.\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"            Nonzero if failure;\n"
-		"" },
-  { "tell", _wrap_BasicIo_tell, METH_VARARGS, "\n"
-		"Get the current IO position.\n"
-		":rtype: int\n"
-		":return: Offset from the start of IO\n"
-		"" },
-  { "size", _wrap_BasicIo_size, METH_VARARGS, "\n"
-		"Get the current size of the IO source in bytes.\n"
-		":rtype: int\n"
-		":return: Size of the IO source in bytes;\n"
-		"\n"
-		"           -1 if failure;\n"
-		"" },
-  { "isopen", _wrap_BasicIo_isopen, METH_VARARGS, "Returns true if the IO source is open, otherwise false." },
-  { "error", _wrap_BasicIo_error, METH_VARARGS, "Returns 0 if the IO source is in a valid state, otherwise nonzero." },
-  { "eof", _wrap_BasicIo_eof, METH_VARARGS, "Returns true if the IO position has reached the end, otherwise false." },
-  { "path", _wrap_BasicIo_path, METH_VARARGS, "\n"
-		"Return the path to the IO resource. Often used to form\n"
-		"    comprehensive error messages where only a BasicIo instance is\n"
-		"    available.\n"
-		"" },
-  { "ioType", _wrap_BasicIo_ioType, METH_VARARGS, "\n"
-		"Return the derived class type.\n"
-		"\n"
-		"You shouldn't usually need to know the type of IO as they all have\n"
-		"the same interface.\n"
-		":rtype: str\n"
-		":return: A class name such as \"FileIo\".\n"
-		"" },
-  { "_release", _wrap_BasicIo__release, METH_VARARGS, "" },
-  { "data", _wrap_BasicIo_data, METH_VARARGS, "" },
+SWIGINTERN PyMethodDef SwigPyBuiltin__ViewManager_methods[] = {
+  { "store_view", _wrap_ViewManager_store_view, METH_VARARGS, "" },
+  { "release_views", _wrap_ViewManager_release_views, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
 #ifndef SWIG_HEAPTYPES
-static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
+static PyHeapTypeObject SwigPyBuiltin__ViewManager_type = {
   {
 #if PY_VERSION_HEX >= 0x03000000
     PyVarObject_HEAD_INIT(NULL, 0)
@@ -6337,10 +4325,10 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     PyObject_HEAD_INIT(NULL)
     0,                                      /* ob_size */
 #endif
-    "exiv2.basicio.BasicIo",                /* tp_name */
+    "exiv2.utilities.ViewManager",          /* tp_name */
     sizeof(SwigPyObject),                   /* tp_basicsize */
     0,                                      /* tp_itemsize */
-    _wrap_delete_BasicIo_destructor_closure, /* tp_dealloc */
+    _wrap_delete_ViewManager_destructor_closure, /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                          /* tp_print */
 #else
@@ -6354,42 +4342,36 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     (cmpfunc) 0,                            /* tp_compare */
 #endif
     (reprfunc) 0,                           /* tp_repr */
-    &SwigPyBuiltin__Exiv2__BasicIo_type.as_number, /* tp_as_number */
-    &SwigPyBuiltin__Exiv2__BasicIo_type.as_sequence, /* tp_as_sequence */
-    &SwigPyBuiltin__Exiv2__BasicIo_type.as_mapping, /* tp_as_mapping */
+    &SwigPyBuiltin__ViewManager_type.as_number, /* tp_as_number */
+    &SwigPyBuiltin__ViewManager_type.as_sequence, /* tp_as_sequence */
+    &SwigPyBuiltin__ViewManager_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
-    &SwigPyBuiltin__Exiv2__BasicIo_type.as_buffer, /* tp_as_buffer */
+    &SwigPyBuiltin__ViewManager_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE, /* tp_flags */
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"An interface for simple binary IO.\n"
-		"\n"
-		"Designed to have semantics and names similar to those of C style FILE*\n"
-		"operations. Subclasses should all behave the same so that they can be\n"
-		"interchanged.\n"
-		"", /* tp_doc */
+    "::ViewManager",                        /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
-    SwigPyBuiltin__Exiv2__BasicIo_richcompare, /* tp_richcompare */
+    SwigPyBuiltin__ViewManager_richcompare, /* tp_richcompare */
     0,                                      /* tp_weaklistoffset */
     (getiterfunc) 0,                        /* tp_iter */
     (iternextfunc) 0,                       /* tp_iternext */
-    SwigPyBuiltin__Exiv2__BasicIo_methods,  /* tp_methods */
+    SwigPyBuiltin__ViewManager_methods,     /* tp_methods */
     0,                                      /* tp_members */
-    SwigPyBuiltin__Exiv2__BasicIo_getset,   /* tp_getset */
+    SwigPyBuiltin__ViewManager_getset,      /* tp_getset */
     0,                                      /* tp_base */
     0,                                      /* tp_dict */
     (descrgetfunc) 0,                       /* tp_descr_get */
     (descrsetfunc) 0,                       /* tp_descr_set */
     offsetof(SwigPyObject, dict),           /* tp_dictoffset */
-    SwigPyBuiltin_BadInit,                  /* tp_init */
+    _wrap_new_ViewManager,                  /* tp_init */
     (allocfunc) 0,                          /* tp_alloc */
     (newfunc) 0,                            /* tp_new */
     (freefunc) 0,                           /* tp_free */
@@ -6497,7 +4479,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
-    _wrap_BasicIo_size_lenfunc_closure,     /* sq_length */
+    (lenfunc) 0,                            /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
     (ssizeargfunc) 0,                       /* sq_item */
@@ -6523,8 +4505,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     (segcountproc) 0,                       /* bf_getsegcount */
     (charbufferproc) 0,                     /* bf_getcharbuffer */
 #endif
-    getbuffer_Exiv2_BasicIo,                /* bf_getbuffer */
-    releasebuffer_Exiv2_BasicIo,            /* bf_releasebuffer */
+    (getbufferproc) 0,                      /* bf_getbuffer */
+    (releasebufferproc) 0,                  /* bf_releasebuffer */
   },
     (PyObject *) 0,                         /* ht_name */
     (PyObject *) 0,                         /* ht_slots */
@@ -6549,9 +4531,9 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
 #endif
 };
 
-static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
+static PyTypeObject *SwigPyBuiltin__ViewManager_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
   PyObject *tuple_bases;
-  PyTypeObject *pytype = (PyTypeObject *)&SwigPyBuiltin__Exiv2__BasicIo_type;
+  PyTypeObject *pytype = (PyTypeObject *)&SwigPyBuiltin__ViewManager_type;
   pytype->tp_dict = dict;
   SwigPyBuiltin_SetMetaType(pytype, type);
   pytype->tp_new = PyType_GenericNew;
@@ -6560,39 +4542,33 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *typ
   SWIG_Py_INCREF(pytype->tp_base);
   pytype->tp_bases = tuple_bases;
   if (PyType_Ready(pytype) < 0) {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'BasicIo'.");
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'ViewManager'.");
     return NULL;
   }
   return pytype;
 }
 
 #else
-static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
+static PyTypeObject *SwigPyBuiltin__ViewManager_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
   PyMemberDef members[] = {
     { (char *)"__dictoffset__", Py_T_PYSSIZET, offsetof(SwigPyObject, dict), Py_READONLY, NULL },
     { NULL, 0, 0, 0, NULL }
   };
   PyType_Slot slots[] = {
-    { Py_tp_init,                       (void *)SwigPyBuiltin_BadInit },
-    { Py_tp_dealloc,                    (void *)_wrap_delete_BasicIo_destructor_closure },
+    { Py_tp_init,                       (void *)_wrap_new_ViewManager },
+    { Py_tp_dealloc,                    (void *)_wrap_delete_ViewManager_destructor_closure },
     { Py_tp_alloc,                      (void *)(allocfunc) 0 },
     { Py_tp_free,                       (void *)(freefunc) 0 },
     { Py_tp_is_gc,                      (void *)(inquiry) 0 },
     { Py_tp_del,                        (void *)(destructor) 0 },
-    { Py_tp_doc,                        (void *)"\n"
-		"An interface for simple binary IO.\n"
-		"\n"
-		"Designed to have semantics and names similar to those of C style FILE*\n"
-		"operations. Subclasses should all behave the same so that they can be\n"
-		"interchanged.\n"
-		"" },
+    { Py_tp_doc,                        (void *)"::ViewManager" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
     { Py_tp_clear,                      (void *)(inquiry) 0 },
-    { Py_tp_richcompare,                (void *)SwigPyBuiltin__Exiv2__BasicIo_richcompare },
-    { Py_tp_methods,                    (void *)SwigPyBuiltin__Exiv2__BasicIo_methods },
-    { Py_tp_getset,                     (void *)SwigPyBuiltin__Exiv2__BasicIo_getset },
+    { Py_tp_richcompare,                (void *)SwigPyBuiltin__ViewManager_richcompare },
+    { Py_tp_methods,                    (void *)SwigPyBuiltin__ViewManager_methods },
+    { Py_tp_getset,                     (void *)SwigPyBuiltin__ViewManager_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
     { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
@@ -6637,7 +4613,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *typ
     { Py_nb_inplace_floor_divide,       (void *)(binaryfunc) 0 },
     { Py_nb_inplace_true_divide,        (void *)(binaryfunc) 0 },
     { Py_nb_index,                      (void *)(unaryfunc) 0 },
-    { Py_sq_length,                     (void *)_wrap_BasicIo_size_lenfunc_closure },
+    { Py_sq_length,                     (void *)(lenfunc) 0 },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
@@ -6649,7 +4625,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *typ
     { 0, NULL }
   };
   PyType_Spec spec = {
-    "exiv2.basicio.BasicIo",
+    "exiv2.utilities.ViewManager",
     sizeof(SwigPyObject),
     0,
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,
@@ -6664,136 +4640,29 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *typ
   return pytype;
 }
 #endif
-SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__BasicIo_clientdata = {0, 0, 0, 0, 0, 0, 0};
+SWIGINTERN SwigPyClientData SwigPyBuiltin__ViewManager_clientdata = {0, 0, 0, 0, 0, 0, 0};
 
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static void *_p_Exiv2__CurlIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::BasicIo *) (Exiv2::RemoteIo *) ((Exiv2::CurlIo *) x));
-}
-static void *_p_Exiv2__FileIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::BasicIo *)  ((Exiv2::FileIo *) x));
-}
-static void *_p_Exiv2__HttpIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::BasicIo *) (Exiv2::RemoteIo *) ((Exiv2::HttpIo *) x));
-}
-static void *_p_Exiv2__MemIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::BasicIo *)  ((Exiv2::MemIo *) x));
-}
-static void *_p_Exiv2__RemoteIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::BasicIo *)  ((Exiv2::RemoteIo *) x));
-}
-static void *_p_Exiv2__XPathIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::BasicIo *) (Exiv2::FileIo *) ((Exiv2::XPathIo *) x));
-}
-static void *_p_Exiv2__XPathIoTo_p_Exiv2__FileIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::FileIo *)  ((Exiv2::XPathIo *) x));
-}
-static void *_p_Exiv2__CurlIoTo_p_Exiv2__RemoteIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::RemoteIo *)  ((Exiv2::CurlIo *) x));
-}
-static void *_p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exiv2::RemoteIo *)  ((Exiv2::HttpIo *) x));
-}
-static swig_type_info _swigt__p_ErrorCode = {"_p_ErrorCode", "ErrorCode *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__BasicIo = {"_p_Exiv2__BasicIo", "Exiv2::BasicIo *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__BasicIo_clientdata, 0};
-static swig_type_info _swigt__p_Exiv2__CurlIo = {"_p_Exiv2__CurlIo", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_Exiv2__HttpIo = {"_p_Exiv2__HttpIo", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_Exiv2__MemIo = {"_p_Exiv2__MemIo", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_Exiv2__XPathIo = {"_p_Exiv2__XPathIo", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_Exiv2__DataBuf = {"_p_Exiv2__DataBuf", "Exiv2::DataBuf *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__FileIo = {"_p_Exiv2__FileIo", "Exiv2::FileIo *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exiv2__RemoteIo = {"_p_Exiv2__RemoteIo", "Exiv2::RemoteIo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ViewManager = {"_p_ViewManager", "ViewManager *", 0, 0, (void*)&SwigPyBuiltin__ViewManager_clientdata, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_int = {"_p_int", "int32_t *|int_fast16_t *|int_fast32_t *|int_least32_t *|intptr_t *|int *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_long_long = {"_p_long_long", "int64_t *|int_fast64_t *|int_least64_t *|intmax_t *|long long *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_short = {"_p_short", "int16_t *|int_least16_t *|short *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "int8_t *|int_fast8_t *|int_least8_t *|signed char *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__pairT_int32_t_int32_t_t = {"_p_std__pairT_int32_t_int32_t_t", "Exiv2::Rational *|std::pair< int,int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__pairT_uint32_t_uint32_t_t = {"_p_std__pairT_uint32_t_uint32_t_t", "Exiv2::URational *|std::pair< unsigned int,unsigned int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "Exiv2::byte *|uint8_t *|uint_fast8_t *|uint_least8_t *|unsigned char *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "uint32_t *|uint_fast16_t *|uint_fast32_t *|uint_least32_t *|uintptr_t *|unsigned int *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_unsigned_long_long = {"_p_unsigned_long_long", "uint64_t *|uint_fast64_t *|uint_least64_t *|uintmax_t *|unsigned long long *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "uint16_t *|uint_least16_t *|unsigned short *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_ErrorCode,
-  &_swigt__p_Exiv2__BasicIo,
-  &_swigt__p_Exiv2__CurlIo,
-  &_swigt__p_Exiv2__DataBuf,
-  &_swigt__p_Exiv2__FileIo,
-  &_swigt__p_Exiv2__HttpIo,
-  &_swigt__p_Exiv2__MemIo,
-  &_swigt__p_Exiv2__RemoteIo,
-  &_swigt__p_Exiv2__XPathIo,
   &_swigt__p_SwigPyObject,
+  &_swigt__p_ViewManager,
   &_swigt__p_char,
-  &_swigt__p_first_type,
-  &_swigt__p_int,
-  &_swigt__p_long_long,
-  &_swigt__p_second_type,
-  &_swigt__p_short,
-  &_swigt__p_signed_char,
-  &_swigt__p_std__pairT_int32_t_int32_t_t,
-  &_swigt__p_std__pairT_uint32_t_uint32_t_t,
-  &_swigt__p_unsigned_char,
-  &_swigt__p_unsigned_int,
-  &_swigt__p_unsigned_long_long,
-  &_swigt__p_unsigned_short,
 };
 
-static swig_cast_info _swigc__p_ErrorCode[] = {  {&_swigt__p_ErrorCode, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__CurlIo[] = {{&_swigt__p_Exiv2__CurlIo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__HttpIo[] = {{&_swigt__p_Exiv2__HttpIo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__MemIo[] = {{&_swigt__p_Exiv2__MemIo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__XPathIo[] = {{&_swigt__p_Exiv2__XPathIo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__BasicIo[] = {  {&_swigt__p_Exiv2__BasicIo, 0, 0, 0},  {&_swigt__p_Exiv2__CurlIo, _p_Exiv2__CurlIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__FileIo, _p_Exiv2__FileIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__MemIo, _p_Exiv2__MemIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__RemoteIo, _p_Exiv2__RemoteIoTo_p_Exiv2__BasicIo, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__BasicIo, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__DataBuf[] = {  {&_swigt__p_Exiv2__DataBuf, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__FileIo[] = {  {&_swigt__p_Exiv2__FileIo, 0, 0, 0},  {&_swigt__p_Exiv2__XPathIo, _p_Exiv2__XPathIoTo_p_Exiv2__FileIo, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exiv2__RemoteIo[] = {  {&_swigt__p_Exiv2__RemoteIo, 0, 0, 0},  {&_swigt__p_Exiv2__CurlIo, _p_Exiv2__CurlIoTo_p_Exiv2__RemoteIo, 0, 0},  {&_swigt__p_Exiv2__HttpIo, _p_Exiv2__HttpIoTo_p_Exiv2__RemoteIo, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ViewManager[] = {  {&_swigt__p_ViewManager, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__pairT_int32_t_int32_t_t[] = {  {&_swigt__p_std__pairT_int32_t_int32_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__pairT_uint32_t_uint32_t_t[] = {  {&_swigt__p_std__pairT_uint32_t_uint32_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_unsigned_long_long[] = {  {&_swigt__p_unsigned_long_long, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_ErrorCode,
-  _swigc__p_Exiv2__BasicIo,
-  _swigc__p_Exiv2__CurlIo,
-  _swigc__p_Exiv2__DataBuf,
-  _swigc__p_Exiv2__FileIo,
-  _swigc__p_Exiv2__HttpIo,
-  _swigc__p_Exiv2__MemIo,
-  _swigc__p_Exiv2__RemoteIo,
-  _swigc__p_Exiv2__XPathIo,
   _swigc__p_SwigPyObject,
+  _swigc__p_ViewManager,
   _swigc__p_char,
-  _swigc__p_first_type,
-  _swigc__p_int,
-  _swigc__p_long_long,
-  _swigc__p_second_type,
-  _swigc__p_short,
-  _swigc__p_signed_char,
-  _swigc__p_std__pairT_int32_t_int32_t_t,
-  _swigc__p_std__pairT_uint32_t_uint32_t_t,
-  _swigc__p_unsigned_char,
-  _swigc__p_unsigned_int,
-  _swigc__p_unsigned_long_long,
-  _swigc__p_unsigned_short,
 };
 
 
@@ -7262,61 +5131,14 @@ SWIG_init(void) {
   
   SWIG_InstallConstants(d,swig_const_table);
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Class interface to access files, memory and remote data."));
   
-  {
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-    return INIT_ERROR_RETURN;
-  }
-  
-  
-  {
-    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error) {
-      PyErr_SetString(PyExc_RuntimeError,
-        "Import error: exiv2.Exiv2Error not found.");
-      return INIT_ERROR_RETURN;
-    }
-  }
-  
-  
-  /* type 'Exiv2::BasicIo' */
+  /* type '::ViewManager' */
   d = PyDict_New();
-  
-  {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-    return INIT_ERROR_RETURN;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum) {
-      PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return INIT_ERROR_RETURN;
-    }
-  }
-  
-  
-  {
-    PyObject* mod = PyImport_ImportModule("exiv2.utilities");
-    if (!mod)
-    return INIT_ERROR_RETURN;
-    view_manager = PyObject_GetAttrString(mod, "view_manager");
-    if (!view_manager) {
-      PyErr_SetString(
-        PyExc_RuntimeError,
-        "Import error: exiv2.utilities.view_manager not found.");
-      return INIT_ERROR_RETURN;
-    }
-  }
-  
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",_create_enum_Exiv2_BasicIo_Position(
-      "Position", "Seek starting positions.", _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL)));
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
-  builtin_pytype = SwigPyBuiltin__Exiv2__BasicIo_type_create(metatype, builtin_bases, d);
+  builtin_pytype = SwigPyBuiltin__ViewManager_type_create(metatype, builtin_bases, d);
   if(!builtin_pytype) {
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
@@ -7324,14 +5146,13 @@ SWIG_init(void) {
     return;
 #endif
   }
-  SwigPyBuiltin__Exiv2__BasicIo_clientdata.pytype = builtin_pytype;
+  SwigPyBuiltin__ViewManager_clientdata.pytype = builtin_pytype;
   SWIG_Py_INCREF((PyObject *)builtin_pytype);
-  PyModule_AddObject(m, "BasicIo", (PyObject *)builtin_pytype);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "BasicIo");
+  PyModule_AddObject(m, "ViewManager", (PyObject *)builtin_pytype);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "ViewManager");
   d = md;
-  
-  /* Initialize threading */
-  SWIG_PYTHON_INITIALIZE_THREADS;
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "view_manager",PyObject_CallMethod(
+      m, "ViewManager", NULL));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

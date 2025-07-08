@@ -56,6 +56,11 @@ class TestPreviewModule(unittest.TestCase):
         with preview.data() as data:
             self.check_result(data, memoryview, copy)
             self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
+        data = preview2.data()
+        self.assertEqual(data[0], 255)
+        del preview2
+        with self.assertRaises(ValueError):
+            self.assertEqual(data[0], 255)
         self.assertEqual(memoryview(preview), copy)
         self.check_result(preview.extension(), str, '.jpg')
         self.check_result(preview.height(), int, 120)
