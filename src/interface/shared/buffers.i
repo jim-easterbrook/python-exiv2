@@ -164,6 +164,9 @@ RETURN_VIEW_CB(signature, size_func, flags, NULL, doc_method)
           fragment="get_ptr_size"{object_type}) {
 static int getbuffer_%mangle(object_type)(
         PyObject* exporter, Py_buffer* view, int flags) {
+    // Deprecated since 2025-07-09
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Please use 'data()' to get a"
+                 " memoryview of object_type", 1);
     object_type* self = 0;
     Exiv2::byte* ptr = 0;
     Py_ssize_t size = 0;

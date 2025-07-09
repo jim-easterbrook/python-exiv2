@@ -5430,6 +5430,9 @@ static bool get_ptr_size(Exiv2::PreviewImage* self, bool is_writeable,
 
 static int getbuffer_Exiv2_PreviewImage(
         PyObject* exporter, Py_buffer* view, int flags) {
+    // Deprecated since 2025-07-09
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Please use 'data()' to get a"
+                 " memoryview of Exiv2::PreviewImage", 1);
     Exiv2::PreviewImage* self = 0;
     Exiv2::byte* ptr = 0;
     Py_ssize_t size = 0;

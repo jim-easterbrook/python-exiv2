@@ -51,17 +51,18 @@ class TestPreviewModule(unittest.TestCase):
         self.assertIsInstance(copy, exiv2.DataBuf)
         with self.assertWarns(DeprecationWarning):
             with preview.pData() as data:
-                self.check_result(data, memoryview, copy)
+                self.check_result(data, memoryview, copy.data())
                 self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
         with preview.data() as data:
-            self.check_result(data, memoryview, copy)
+            self.check_result(data, memoryview, copy.data())
             self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
         data = preview2.data()
         self.assertEqual(data[0], 255)
         del preview2
         with self.assertRaises(ValueError):
             self.assertEqual(data[0], 255)
-        self.assertEqual(memoryview(preview), copy)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(memoryview(preview), copy.data())
         self.check_result(preview.extension(), str, '.jpg')
         self.check_result(preview.height(), int, 120)
         self.check_result(preview.id(), int, 4)

@@ -199,12 +199,14 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(len(thumb.copy()), 0)
         exif_data = exiv2.ExifData()
         thumb = exiv2.ExifThumb(exif_data)
-        thumb.setJpegThumbnail(data)
+        with self.assertWarns(DeprecationWarning):
+            thumb.setJpegThumbnail(data)
         self.assertEqual(len(thumb.copy()), 2532)
         thumb.erase()
         self.assertEqual(len(thumb.copy()), 0)
-        thumb.setJpegThumbnail(
-            data, exiv2.URational((160, 1)), exiv2.URational((120, 1)), 1)
+        with self.assertWarns(DeprecationWarning):
+            thumb.setJpegThumbnail(
+                data, exiv2.URational((160, 1)), exiv2.URational((120, 1)), 1)
         self.assertEqual(len(thumb.copy()), 2532)
         if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
             self.skipTest('EXV_ENABLE_FILESYSTEM is off')

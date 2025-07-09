@@ -95,12 +95,13 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(view[0], 0)
         self.assertEqual(io.munmap(), 0)
         # Python buffer interface
-        with memoryview(io) as view:
-            self.assertIsInstance(view, memoryview)
-            self.assertEqual(view, b'')
-            self.assertEqual(view.readonly, False)
-            with self.assertRaises(IndexError):
-                view[0] = 0
+        with self.assertWarns(DeprecationWarning):
+            with memoryview(io) as view:
+                self.assertIsInstance(view, memoryview)
+                self.assertEqual(view, b'')
+                self.assertEqual(view.readonly, False)
+                with self.assertRaises(IndexError):
+                    view[0] = 0
         # data() easy access
         with io.data(False) as view:
             self.assertIsInstance(view, memoryview)
@@ -143,9 +144,10 @@ class TestBasicIoModule(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.assertEqual(view1[0], self.data[0])
         # Python buffer interface
-        with memoryview(io) as view:
-            self.assertEqual(view, self.data)
-            self.assertEqual(view.readonly, False)
+        with self.assertWarns(DeprecationWarning):
+            with memoryview(io) as view:
+                self.assertEqual(view, self.data)
+                self.assertEqual(view.readonly, False)
         # data() easy access
         with io.data() as view:
             self.assertIsInstance(view, memoryview)
@@ -214,7 +216,8 @@ class TestBasicIoModule(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(io.write(b'+jim'), 4)
         self.assertEqual(len(io), len(self.data) + 9)
-        self.assertEqual(memoryview(io), self.data + b'+fred+jim')
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(memoryview(io), self.data + b'+fred+jim')
 
     def test_ref_counts(self):
         # MemIo keeps a reference to the data buffer
