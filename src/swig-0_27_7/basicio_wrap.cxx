@@ -5024,6 +5024,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, PyObject *args)
     arg3 = (long) buff->len;
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::write", 1);
+    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5078,6 +5081,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, PyObject *args)
   }
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::write", 1);
+    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5165,6 +5171,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_putb(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< Exiv2::byte >(val2);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::putb", 1);
+    
     try {
       result = (int)(arg1)->putb(arg2);
     }
@@ -5203,6 +5212,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, PyObject *args) 
   } 
   arg2 = static_cast< long >(val2);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::read", 1);
+    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5267,6 +5279,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
     }
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::read", 1);
+    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5345,6 +5360,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_getb(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::getb", 1);
+    
     try {
       result = (int)(arg1)->getb();
     }
@@ -5385,6 +5403,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_transfer(PyObject *self, PyObject *args) {
   }
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::transfer", 1);
+    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5442,6 +5463,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::BasicIo::Position >(PyLong_AsLong(obj2));
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::seek", 1);
+    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5570,6 +5594,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_tell(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::tell", 1);
+    
     try {
       result = (long)((Exiv2::BasicIo const *)arg1)->tell();
     }
@@ -5669,7 +5696,18 @@ SWIGINTERN PyObject *_wrap_BasicIo_eof(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_eof" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
-  result = (bool)((Exiv2::BasicIo const *)arg1)->eof();
+  {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::BasicIo::eof", 1);
+    
+    try {
+      result = (bool)((Exiv2::BasicIo const *)arg1)->eof();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -5883,113 +5921,12 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"        Nonzero if failure.\n"
 		"" },
-  { "write", _wrap_BasicIo_write, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Write data to the IO source. Current IO position is advanced\n"
-		"    by the number of bytes written.\n"
-		":type data: :py:term:`bytes-like object`\n"
-		":param data: Pointer to data. Data must be at least *wcount*\n"
-		"        bytes long\n"
-		":type wcount: int\n"
-		":param wcount: Number of bytes to be written.\n"
-		":rtype: int\n"
-		":return: Number of bytes written to IO source successfully;\n"
-		"\n"
-		"        0 if failure;\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Write data that is read from another BasicIo instance to\n"
-		"    the IO source. Current IO position is advanced by the number\n"
-		"    of bytes written.\n"
-		":type src: :py:class:`BasicIo`\n"
-		":param src: Reference to another BasicIo instance. Reading start\n"
-		"        at the source's current IO position\n"
-		":rtype: int\n"
-		":return: Number of bytes written to IO source successfully;\n"
-		"\n"
-		"        0 if failure;\n"
-		"" },
-  { "putb", _wrap_BasicIo_putb, METH_VARARGS, "\n"
-		"Write one byte to the IO source. Current IO position is\n"
-		"    advanced by one byte.\n"
-		":type data: int\n"
-		":param data: The single byte to be written.\n"
-		":rtype: int\n"
-		":return: The value of the byte written if successful;\n"
-		"\n"
-		"        EOF if failure;\n"
-		"" },
-  { "read", _wrap_BasicIo_read, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"\n"
-		"Read data from the IO source. Reading starts at the current\n"
-		"    IO position and the position is advanced by the number of bytes\n"
-		"    read.\n"
-		":type rcount: int\n"
-		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
-		"        read if *rcount* bytes are not available.\n"
-		":rtype: :py:class:`DataBuf`\n"
-		":return: DataBuf instance containing the bytes read. Use the\n"
-		"        DataBuf::size_ member to find the number of bytes read.\n"
-		"        DataBuf::size_ will be 0 on failure.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"Read data from the IO source. Reading starts at the current\n"
-		"    IO position and the position is advanced by the number of bytes\n"
-		"    read.\n"
-		":type buf: writeable :py:term:`bytes-like object`\n"
-		":param buf: Pointer to a block of memory into which the read data\n"
-		"        is stored. The memory block must be at least *rcount* bytes\n"
-		"        long.\n"
-		":type rcount: int\n"
-		":param rcount: Maximum number of bytes to read. Fewer bytes may be\n"
-		"        read if *rcount* bytes are not available.\n"
-		":rtype: int\n"
-		":return: Number of bytes read from IO source successfully;\n"
-		"\n"
-		"        0 if failure;\n"
-		"" },
-  { "getb", _wrap_BasicIo_getb, METH_VARARGS, "\n"
-		"Read one byte from the IO source. Current IO position is\n"
-		"    advanced by one byte.\n"
-		":rtype: int\n"
-		":return: The byte read from the IO source if successful;\n"
-		"\n"
-		"        EOF if failure;\n"
-		"" },
-  { "transfer", _wrap_BasicIo_transfer, METH_VARARGS, "\n"
-		"Remove all data from this object's IO source and then transfer\n"
-		"    data from the *src* BasicIo object into this object.\n"
-		"\n"
-		"The source object is invalidated by this operation and should not be\n"
-		"used after this method returns. This method exists primarily to\n"
-		"be used with the BasicIo::temporary() method.\n"
-		"\n"
-		":type src: :py:class:`BasicIo`\n"
-		":param src: Reference to another BasicIo instance. The entire contents\n"
-		"        of src are transferred to this object. The *src* object is\n"
-		"        invalidated by the method.\n"
-		":raises: Error In case of failure\n"
-		"" },
-  { "seek", _wrap_BasicIo_seek, METH_VARARGS, "\n"
-		"Move the current IO position.\n"
-		":type offset: int\n"
-		":param offset: Number of bytes to move the position relative\n"
-		"        to the starting position specified by *pos*\n"
-		":type pos: :py:class:`BasicIo.Position`\n"
-		":param pos: Position from which the seek should start\n"
-		":rtype: int\n"
-		":return: 0 if successful;\n"
-		"\n"
-		"        Nonzero if failure;\n"
-		"" },
+  { "write", _wrap_BasicIo_write, METH_VARARGS, "Deprecated." },
+  { "putb", _wrap_BasicIo_putb, METH_VARARGS, "Deprecated." },
+  { "read", _wrap_BasicIo_read, METH_VARARGS, "Deprecated." },
+  { "getb", _wrap_BasicIo_getb, METH_VARARGS, "Deprecated." },
+  { "transfer", _wrap_BasicIo_transfer, METH_VARARGS, "Deprecated." },
+  { "seek", _wrap_BasicIo_seek, METH_VARARGS, "Deprecated." },
   { "mmap", _wrap_BasicIo_mmap, METH_VARARGS, "\n"
 		"Direct access to the IO data. For files, this is done by\n"
 		"       mapping the file into the process's address space; for memory\n"
@@ -6009,13 +5946,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"\n"
 		"            Nonzero if failure;\n"
 		"" },
-  { "tell", _wrap_BasicIo_tell, METH_VARARGS, "\n"
-		"Get the current IO position.\n"
-		":rtype: int\n"
-		":return: Offset from the start of IO if successful;\n"
-		"\n"
-		"           -1 if failure;\n"
-		"" },
+  { "tell", _wrap_BasicIo_tell, METH_VARARGS, "Deprecated." },
   { "size", _wrap_BasicIo_size, METH_VARARGS, "\n"
 		"Get the current size of the IO source in bytes.\n"
 		":rtype: int\n"
@@ -6025,7 +5956,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"" },
   { "isopen", _wrap_BasicIo_isopen, METH_VARARGS, "Returns true if the IO source is open, otherwise false." },
   { "error", _wrap_BasicIo_error, METH_VARARGS, "Returns 0 if the IO source is in a valid state, otherwise nonzero." },
-  { "eof", _wrap_BasicIo_eof, METH_VARARGS, "Returns true if the IO position has reached the end, otherwise false." },
+  { "eof", _wrap_BasicIo_eof, METH_VARARGS, "Deprecated." },
   { "path", _wrap_BasicIo_path, METH_VARARGS, "\n"
 		"Return the path to the IO resource. Often used to form\n"
 		"    comprehensive error messages where only a BasicIo instance is\n"
@@ -6039,7 +5970,17 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		":rtype: str\n"
 		":return: A class name such as \"FileIo\".\n"
 		"" },
-  { "data", _wrap_BasicIo_data, METH_VARARGS, "" },
+  { "data", _wrap_BasicIo_data, METH_VARARGS, "\n"
+		"Easy access to the IO data.\n"
+		"\n"
+		"Calls open() and mmap() and returns a Python memoryview of the data.\n"
+		"munmap() and close() are called when the memoryview object is deleted.\n"
+		"\n"
+		":type isWriteable: bool, optional\n"
+		":param isWriteable: Set to true if the mapped area should be writeable\n"
+		"    (default is false).\n"
+		":rtype: memoryview\n"
+		"" },
   { "_release", _wrap_BasicIo__release, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };

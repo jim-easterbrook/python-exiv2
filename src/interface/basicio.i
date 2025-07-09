@@ -72,6 +72,19 @@ WINDOWS_PATH(const std::string& orgPath)
 WINDOWS_PATH(const std::string& url)
 WINDOWS_PATH_OUT(path)
 
+// Deprecate methods that Python should not be calling
+// Deprecated since 2025-07-09
+DEPRECATE_FUNCTION(Exiv2::BasicIo::eof,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::getb,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::putb,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::read,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::readOrThrow,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::seek,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::seekOrThrow,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::tell,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::transfer,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::write,)
+
 // Add method to get the subclass type
 %feature("docstring") Exiv2::BasicIo::ioType "Return the derived class type.
 
@@ -155,6 +168,16 @@ RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
 RETURN_VIEW_CB(Exiv2::byte* data, $1 ? arg1->size() : 0,
                _global_writeable ? PyBUF_WRITE : PyBUF_READ,
                PyObject_GetAttrString(self, "_release"),)
+%feature("docstring") Exiv2::BasicIo::data
+"Easy access to the IO data.
+
+Calls open() and mmap() and returns a Python memoryview of the data.
+munmap() and close() are called when the memoryview object is deleted.
+
+:type isWriteable: bool, optional
+:param isWriteable: Set to true if the mapped area should be writeable
+    (default is false).
+:rtype: memoryview"
 %extend Exiv2::BasicIo {
     Exiv2::byte* data(bool isWriteable) {
         self->open();

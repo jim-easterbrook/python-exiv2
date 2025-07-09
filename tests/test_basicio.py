@@ -153,46 +153,66 @@ class TestBasicIoModule(unittest.TestCase):
         # seek & tell
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(io.seek(0, exiv2.Position.beg), 0)
-        self.assertEqual(io.tell(), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), 0)
         if exiv2.testVersion(0, 28, 0):
-            self.assertEqual(
-                io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
-                exiv2.ErrorCode.kerGeneralError)
-            with self.assertRaises(exiv2.Exiv2Error) as cm:
-                io.seekOrThrow(len(self.data) + 10, exiv2.BasicIo.Position.beg)
+            with self.assertWarns(DeprecationWarning):
+                self.assertEqual(
+                    io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
+                    exiv2.ErrorCode.kerGeneralError)
+            with self.assertWarns(DeprecationWarning):
+                with self.assertRaises(exiv2.Exiv2Error) as cm:
+                    io.seekOrThrow(len(self.data) + 10, exiv2.BasicIo.Position.beg)
             self.assertEqual(cm.exception.code,
                              exiv2.ErrorCode.kerCorruptedMetadata)
         else:
             self.assertEqual(
                 io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
                 exiv2.ErrorCode.kerErrorMessage)
-        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.end), 0)
-        self.assertEqual(io.tell(), len(self.data))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.seek(0, exiv2.BasicIo.Position.end), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), len(self.data))
         # reading data
-        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
-        self.assertEqual(io.getb(), self.data[0])
-        self.assertEqual(io.tell(), 1)
-        self.assertEqual(memoryview(io.read(10000)), self.data[1:])
-        self.assertEqual(io.tell(), len(self.data))
-        self.assertEqual(io.eof(), True)
-        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.getb(), self.data[0])
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), 1)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(memoryview(io.read(10000)), self.data[1:])
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), len(self.data))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.eof(), True)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
         buf = bytearray(len(self.data))
-        self.assertEqual(io.read(buf, len(self.data)), len(self.data))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.read(buf, len(self.data)), len(self.data))
         self.assertEqual(buf, self.data)
         if exiv2.testVersion(0, 28, 0):
-            with self.assertRaises(exiv2.Exiv2Error) as cm:
-                io.readOrThrow(buf, len(self.data))
-            self.assertEqual(cm.exception.code,
-                             exiv2.ErrorCode.kerCorruptedMetadata)
-        self.assertEqual(io.tell(), len(self.data))
-        self.assertEqual(io.getb(), -1)
+            with self.assertWarns(DeprecationWarning):
+                with self.assertRaises(exiv2.Exiv2Error) as cm:
+                    io.readOrThrow(buf, len(self.data))
+                self.assertEqual(cm.exception.code,
+                                 exiv2.ErrorCode.kerCorruptedMetadata)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), len(self.data))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.getb(), -1)
         # writing data
-        self.assertEqual(io.putb(ord('+')), ord('+'))
-        self.assertEqual(io.eof(), True)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.putb(ord('+')), ord('+'))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.eof(), True)
         self.assertEqual(len(io), len(self.data) + 1)
-        self.assertEqual(io.write(exiv2.ImageFactory.createIo(b'fred')), 4)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.write(exiv2.ImageFactory.createIo(b'fred')), 4)
         self.assertEqual(len(io), len(self.data) + 5)
-        self.assertEqual(io.write(b'+jim'), 4)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.write(b'+jim'), 4)
         self.assertEqual(len(io), len(self.data) + 9)
         self.assertEqual(memoryview(io), self.data + b'+fred+jim')
 

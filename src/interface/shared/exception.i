@@ -80,3 +80,24 @@ fail:
     }
 }
 %enddef // EXCEPTION
+
+// Macro to deprecate a function
+%define DEPRECATE_FUNCTION(method, message)
+%fragment("_set_python_exception");
+%feature("docstring") method "Deprecated."
+%exception method {
+#if #message != ""
+    PyErr_WarnEx(PyExc_DeprecationWarning, message, 1);
+#else
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+                 "Python scripts should not need to call " #method, 1);
+#endif
+    try {
+        $action
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        SWIG_fail;
+    }
+}
+%enddef // DEPRECATE_FUNCTION
