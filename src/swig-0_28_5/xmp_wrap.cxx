@@ -5822,6 +5822,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator___deref__(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator___deref__", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator___deref__"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (Exiv2::Xmpdatum *)((XmpData_iterator const *)arg1)->operator ->();
     }
@@ -5849,6 +5855,12 @@ SWIGINTERN PyObject *_wrap_delete_XmpData_iterator(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpData_iterator" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("delete_XmpData_iterator", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "delete_XmpData_iterator"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       delete arg1;
@@ -5886,6 +5898,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_setValue__SWIG_0(PyObject *self, PyO
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData_iterator_setValue" "', argument " "2"" of type '" "Exiv2::Value const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::Value * >(argp2);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_setValue", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_setValue"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       (*arg1)->setValue((Exiv2::Value const *)arg2);
@@ -5930,6 +5948,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_setValue__SWIG_1(PyObject *self, PyO
     arg2 = ptr;
   }
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_setValue", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_setValue"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (int)(*arg1)->setValue((std::string const &)*arg2);
     }
@@ -5963,6 +5987,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_setValue__SWIG_2(PyObject *self, PyO
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   arg2 = obj1;
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_setValue", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_setValue"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       result = (PyObject *)Exiv2_Xmpdatum_setValue__SWIG_2((Exiv2::Xmpdatum*)(arg1)->operator ->(),arg2);
@@ -6075,6 +6105,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_copy(PyObject *self, PyObject *args)
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_copy", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_copy"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     // check buffer is large enough, assumes arg1 points to self
     if ((Py_ssize_t) arg1->size() > _global_view.len) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "XmpData_iterator_copy" "', argument " "2"" of type '" "buffer too small""'")
@@ -6143,6 +6179,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_write(PyObject *self, PyObject *args
     arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   }
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_write", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_write"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
     }
@@ -6180,6 +6222,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_key(PyObject *self, PyObject *args) 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_key", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_key"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (*arg1)->key();
     }
@@ -6208,6 +6256,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_familyName(PyObject *self, PyObject 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_familyName" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_familyName", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_familyName"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       result = (char *)(*arg1)->familyName();
@@ -6238,6 +6292,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_groupName(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_groupName", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_groupName"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (*arg1)->groupName();
     }
@@ -6266,6 +6326,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_tagName(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_tagName" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_tagName", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_tagName"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       result = (*arg1)->tagName();
@@ -6296,6 +6362,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_tagLabel(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_tagLabel", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_tagLabel"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (*arg1)->tagLabel();
     }
@@ -6324,6 +6396,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_tagDesc(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_tagDesc" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_tagDesc", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_tagDesc"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       result = (*arg1)->tagDesc();
@@ -6354,6 +6432,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_tag(PyObject *self, PyObject *args) 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_tag", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_tag"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (uint16_t)(*arg1)->tag();
     }
@@ -6382,6 +6466,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_typeId(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_typeId" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_typeId", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_typeId"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       result = (Exiv2::TypeId)(*arg1)->typeId();
@@ -6416,6 +6506,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_typeName(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_typeName", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_typeName"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (char *)(*arg1)->typeName();
     }
@@ -6445,6 +6541,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_typeSize(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_typeSize", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_typeSize"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (*arg1)->typeSize();
     }
@@ -6473,6 +6575,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_count(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_count" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_count", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_count"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   result = (*arg1)->count();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
@@ -6494,6 +6602,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_size(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_size" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_size", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_size"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   result = (*arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
@@ -6515,6 +6629,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_toString__SWIG_0(PyObject *self, PyO
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_toString" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_toString", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_toString"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       result = (*arg1)->toString();
@@ -6553,6 +6673,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_toString__SWIG_1(PyObject *self, PyO
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_iterator_toString" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_toString", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_toString"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       result = (*arg1)->toString(SWIG_STD_MOVE(arg2));
@@ -6632,6 +6758,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_toInt64(PyObject *self, PyObject *ar
     arg2 = static_cast< size_t >(val2);
   }
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_toInt64", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_toInt64"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (int64_t)(*arg1)->toInt64(SWIG_STD_MOVE(arg2));
     }
@@ -6673,6 +6805,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_toFloat(PyObject *self, PyObject *ar
       SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_iterator_toFloat" "', argument " "2"" of type '" "size_t""'");
     } 
     arg2 = static_cast< size_t >(val2);
+  }
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_toFloat", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_toFloat"
+        "', invalid iterator cannot be dereferenced");
+    }
   }
   {
     try {
@@ -6718,6 +6856,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_toRational(PyObject *self, PyObject 
     arg2 = static_cast< size_t >(val2);
   }
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_toRational", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_toRational"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (*arg1)->toRational(SWIG_STD_MOVE(arg2));
     }
@@ -6746,6 +6890,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_0(PyObject *self, PyO
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_getValue" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_getValue", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_getValue"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
   {
     try {
       result = (*arg1)->getValue();
@@ -6798,6 +6948,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_getValue__SWIG_1(PyObject *self, PyO
       ;
     }
     arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(obj1));
+  }
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_getValue", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_getValue"
+        "', invalid iterator cannot be dereferenced");
+    }
   }
   {
     try {
@@ -6873,6 +7029,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_0(PyObject *self, PyObje
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_value", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_value"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (Exiv2::Value *) &(*arg1)->value();
     }
@@ -6923,6 +7085,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_value__SWIG_1(PyObject *self, PyObje
       ;
     }
     arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(obj1));
+  }
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_value", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_value"
+        "', invalid iterator cannot be dereferenced");
+    }
   }
   {
     try {
@@ -7011,6 +7179,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator__print(PyObject *self, PyObject *arg
     arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   }
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator__print", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator__print"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = Exiv2_Xmpdatum__print((Exiv2::Xmpdatum*)(arg1)->operator ->(),(Exiv2::ExifData const *)arg2);
     }
@@ -7054,6 +7228,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_print(PyObject *self, PyObject *args
     arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   }
   {
+    if (!arg1->valid() && strncmp("XmpData_iterator_print", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_print"
+        "', invalid iterator cannot be dereferenced");
+    }
+  }
+  {
     try {
       result = (*arg1)->print((Exiv2::ExifData const *)arg2);
     }
@@ -7095,6 +7275,12 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_toUint32(PyObject *self, PyObject *a
       SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_iterator_toUint32" "', argument " "2"" of type '" "size_t""'");
     } 
     arg2 = static_cast< size_t >(val2);
+  }
+  {
+    if (!arg1->valid() && strncmp("XmpData_iterator_toUint32", "delete_", 7)) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "XmpData_iterator_toUint32"
+        "', invalid iterator cannot be dereferenced");
+    }
   }
   {
     try {

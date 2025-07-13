@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -44,6 +44,13 @@ the 'end' value and can not be dereferenced."
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(container_type##_iterator*)
 KEEP_REFERENCE(container_type##_iterator_base*)
+// Check validity of pointer before dereferencing
+%typemap(check) container_type##_iterator* self {
+    if (!$1->valid() && strncmp("$symname", "delete_", 7)) {
+        SWIG_exception_fail(SWIG_ValueError, "in method '" "$symname"
+            "', invalid iterator cannot be dereferenced");
+    }
+}
 // Detect end of iteration
 %exception container_type##_iterator_base::__next__ %{
     $action
