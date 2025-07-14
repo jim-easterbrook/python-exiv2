@@ -30,6 +30,7 @@
 %noexception container_type##_iterator_base::__iter__;
 %noexception container_type##_iterator_base::operator==;
 %noexception container_type##_iterator_base::operator!=;
+%ignore container_type##_iterator_base::invalidate;
 %ignore container_type##_iterator_base::size;
 %ignore container_type##_iterator_base::##container_type##_iterator_base;
 %ignore container_type##_iterator_base::operator*;
@@ -44,13 +45,6 @@ the 'end' value and can not be dereferenced."
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(container_type##_iterator*)
 KEEP_REFERENCE(container_type##_iterator_base*)
-// Check validity of pointer before dereferencing
-%typemap(check) container_type##_iterator* self {
-    if (!$1->valid() && strncmp("$symname", "delete_", 7)) {
-        SWIG_exception_fail(SWIG_ValueError, "in method '" "$symname"
-            "', invalid iterator cannot be dereferenced");
-    }
-}
 // Detect end of iteration
 %exception container_type##_iterator_base::__next__ %{
     $action
@@ -96,6 +90,8 @@ public:
         return "iterator<end>";
     }
     bool valid() { return ptr != end; }
+    // Provide C++ method to invalidate iterator
+    void invalidate() { ptr = end; }
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
@@ -114,34 +110,47 @@ public:
 
 // Declare typemaps for data iterators.
 %define DATA_ITERATOR_TYPEMAPS(container_type)
-%typemap(in) Exiv2::container_type::iterator {
-    container_type##_iterator_base *argp = NULL;
-    int res = SWIG_ConvertPtr($input, (void**)&argp,
-            $descriptor(container_type##_iterator_base*), 0);
-    if (!SWIG_IsOK(res)) {
-        %argument_fail(res,
-            container_type##_iterator_base, $symname, $argnum);
-    }
-    if (!argp) {
-        %argument_nullref(container_type##_iterator_base, $symname, $argnum);
+%typemap(in) Exiv2::container_type::iterator
+        (container_type##_iterator_base *argp=NULL) %{
+    {
+        container_type##_iterator_base* arg$argnum = NULL;
+        $typemap(in, container_type##_iterator_base*)
+        argp = arg$argnum;
     }
     $1 = **argp;
+%}
+// erase() invalidates the iterator
+%typemap(in) (Exiv2::container_type::iterator pos)
+        (container_type##_iterator_base *argp=NULL),
+             (Exiv2::container_type::iterator beg)
+        (container_type##_iterator_base *argp=NULL) {
+    {
+        container_type##_iterator_base* arg$argnum = NULL;
+        $typemap(in, container_type##_iterator_base*)
+        argp = arg$argnum;
+    }
+    $1 = **argp;
+    argp->invalidate();
 }
 // XmpData::eraseFamily takes an iterator reference (and invalidates it)
 %typemap(in) Exiv2::container_type::iterator&
-        (Exiv2::container_type::iterator it) {
-    container_type##_iterator_base* argp = NULL;
-    int res = SWIG_ConvertPtr($input, (void**)&argp,
-            $descriptor(container_type##_iterator_base*), 0);
-    if (!SWIG_IsOK(res)) {
-        %argument_fail(res,
-            container_type##_iterator_base, $symname, $argnum);
-    }
-    if (!argp) {
-        %argument_nullref(container_type##_iterator_base, $symname, $argnum);
+        (Exiv2::container_type::iterator it,
+         container_type##_iterator_base* argp = NULL) {
+    {
+        container_type##_iterator_base* arg$argnum = NULL;
+        $typemap(in, container_type##_iterator_base*)
+        argp = arg$argnum;
     }
     it = **argp;
     $1 = &it;
+    argp->invalidate();
+}
+// Check validity of pointer before dereferencing
+%typemap(check) container_type##_iterator* self {
+    if (!$1->valid() && strncmp("$symname", "delete_", 7)) {
+        SWIG_exception_fail(SWIG_ValueError, "in method '" "$symname"
+            "', invalid iterator cannot be dereferenced");
+    }
 }
 // Return types depend on validity of iterator
 %typemap(out) container_type##_iterator_base* {

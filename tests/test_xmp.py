@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -67,12 +67,16 @@ class TestXmpModule(unittest.TestCase):
         k = data.findKey(exiv2.XmpKey('Xmp.xmp.CreateDate'))
         self.assertIsInstance(k, exiv2.XmpData_iterator)
         self.assertEqual(k.key(), 'Xmp.xmp.CreateDate')
-        k = data.erase(k)
-        self.assertIsInstance(k, exiv2.XmpData_iterator)
-        self.assertEqual(k.key(), 'Xmp.xmp.ModifyDate')
+        k1 = data.erase(k)
+        with self.assertRaises(ValueError):
+            k.key()
+        self.assertIsInstance(k1, exiv2.XmpData_iterator)
+        self.assertEqual(k1.key(), 'Xmp.xmp.ModifyDate')
         self.assertEqual(len(data), 27)
         k = data.findKey(exiv2.XmpKey('Xmp.iptcExt.LocationCreated'))
         data.eraseFamily(k)
+        with self.assertRaises(ValueError):
+            k.key()
         self.assertEqual(len(data), 21)
         # access by key
         self.image.readMetadata()
@@ -207,6 +211,8 @@ class TestXmpModule(unittest.TestCase):
         k = data.findKey(exiv2.XmpKey('Xmp.xmp.Rating'))
         self.assertEqual(sys.getrefcount(data), 6)
         k2 = data.erase(k)
+        with self.assertRaises(ValueError):
+            k.key()
         self.assertEqual(sys.getrefcount(data), 7)
         del b, e, i, k, k2
         self.assertEqual(sys.getrefcount(data), 2)

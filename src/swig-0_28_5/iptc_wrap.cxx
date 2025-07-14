@@ -4403,6 +4403,8 @@ public:
         return "iterator<end>";
     }
     bool valid() { return ptr != end; }
+    // Provide C++ method to invalidate iterator
+    void invalidate() { ptr = end; }
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
@@ -8908,6 +8910,9 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  IptcData_iterator_base *argp2 = NULL ;
+  void *argp10 = 0 ;
+  int res10 = 0 ;
   PyObject * obj1 = 0 ;
   SwigValueWrapper< std::vector< Exiv2::Iptcdatum,std::allocator< Exiv2::Iptcdatum > >::iterator > result;
   
@@ -8918,17 +8923,17 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
   {
-    IptcData_iterator_base *argp = NULL;
-    int res = SWIG_ConvertPtr(obj1, (void**)&argp,
-      SWIGTYPE_p_IptcData_iterator_base, 0);
-    if (!SWIG_IsOK(res)) {
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcData_iterator_base""'")
-      ;
+    {
+      IptcData_iterator_base* arg2 = NULL;
+      res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_IptcData_iterator_base, 0 |  0 );
+      if (!SWIG_IsOK(res10)) {
+        SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "IptcData_erase" "', argument " "1"" of type '" "IptcData_iterator_base *""'"); 
+      }
+      arg2 = reinterpret_cast< IptcData_iterator_base * >(argp10);
+      argp2 = arg2;
     }
-    if (!argp) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "IptcData_erase" "', argument " "2"" of type '" "IptcData_iterator_base""'");
-    }
-    arg2 = **argp;
+    arg2 = **argp2;
+    argp2->invalidate();
   }
   {
     try {

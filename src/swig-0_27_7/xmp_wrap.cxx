@@ -4405,6 +4405,8 @@ public:
         return "iterator<end>";
     }
     bool valid() { return ptr != end; }
+    // Provide C++ method to invalidate iterator
+    void invalidate() { ptr = end; }
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
@@ -8527,6 +8529,9 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   SwigValueWrapper< std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  XmpData_iterator_base *argp2 = NULL ;
+  void *argp10 = 0 ;
+  int res10 = 0 ;
   PyObject * obj1 = 0 ;
   SwigValueWrapper< std::vector< Exiv2::Xmpdatum,std::allocator< Exiv2::Xmpdatum > >::iterator > result;
   
@@ -8537,17 +8542,17 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
   {
-    XmpData_iterator_base *argp = NULL;
-    int res = SWIG_ConvertPtr(obj1, (void**)&argp,
-      SWIGTYPE_p_XmpData_iterator_base, 0);
-    if (!SWIG_IsOK(res)) {
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpData_iterator_base""'")
-      ;
+    {
+      XmpData_iterator_base* arg2 = NULL;
+      res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_XmpData_iterator_base, 0 |  0 );
+      if (!SWIG_IsOK(res10)) {
+        SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "XmpData_erase" "', argument " "1"" of type '" "XmpData_iterator_base *""'"); 
+      }
+      arg2 = reinterpret_cast< XmpData_iterator_base * >(argp10);
+      argp2 = arg2;
     }
-    if (!argp) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpData_erase" "', argument " "2"" of type '" "XmpData_iterator_base""'");
-    }
-    arg2 = **argp;
+    arg2 = **argp2;
+    argp2->invalidate();
   }
   {
     try {
@@ -8584,6 +8589,9 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::XmpData::iterator it2 ;
+  XmpData_iterator_base *argp2 = NULL ;
+  void *argp10 = 0 ;
+  int res10 = 0 ;
   PyObject * obj1 = 0 ;
   
   if (!PyArg_UnpackTuple(args, "XmpData_eraseFamily", 1, 1, &obj1)) SWIG_fail;
@@ -8593,18 +8601,18 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
   {
-    XmpData_iterator_base* argp = NULL;
-    int res = SWIG_ConvertPtr(obj1, (void**)&argp,
-      SWIGTYPE_p_XmpData_iterator_base, 0);
-    if (!SWIG_IsOK(res)) {
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpData_eraseFamily" "', argument " "2"" of type '" "XmpData_iterator_base""'")
-      ;
+    {
+      XmpData_iterator_base* arg2 = NULL;
+      res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_XmpData_iterator_base, 0 |  0 );
+      if (!SWIG_IsOK(res10)) {
+        SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "XmpData_eraseFamily" "', argument " "1"" of type '" "XmpData_iterator_base *""'"); 
+      }
+      arg2 = reinterpret_cast< XmpData_iterator_base * >(argp10);
+      argp2 = arg2;
     }
-    if (!argp) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpData_eraseFamily" "', argument " "2"" of type '" "XmpData_iterator_base""'");
-    }
-    it2 = **argp;
+    it2 = **argp2;
     arg2 = &it2;
+    argp2->invalidate();
   }
   {
     try {

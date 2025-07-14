@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -68,10 +68,12 @@ class TestExifModule(unittest.TestCase):
         k = data.findKey(exiv2.ExifKey('Exif.Photo.FocalLength'))
         self.assertIsInstance(k, exiv2.ExifData_iterator)
         self.assertEqual(k.key(), 'Exif.Photo.FocalLength')
-        k = data.erase(k)
-        self.assertIsInstance(k, exiv2.ExifData_iterator)
-        self.assertEqual(k.key(), 'Exif.Photo.SubSecTime')
-        k = data.erase(k, e)
+        k1 = data.erase(k)
+        with self.assertRaises(ValueError):
+            k.key()
+        self.assertIsInstance(k1, exiv2.ExifData_iterator)
+        self.assertEqual(k1.key(), 'Exif.Photo.SubSecTime')
+        k = data.erase(k1, e)
         self.assertIsInstance(k, exiv2.ExifData_iterator_base)
         b = data.begin()
         e = data.end()
@@ -88,6 +90,17 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(count, 11)
         count = len(list(data))
         self.assertEqual(count, 11)
+        k1 = data.begin()
+        self.assertEqual(k1.key(), 'Exif.Image.ProcessingSoftware')
+        k2 = data.begin()
+        next(k2)
+        self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
+        k3 = data.erase(k1, k2)
+        with self.assertRaises(ValueError):
+            k1.key()
+        self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
+        self.assertEqual(k3.key(), 'Exif.Image.ImageDescription')
+        self.assertEqual(len(data), 10)
         # access by key
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'], exiv2.Exifdatum)
@@ -106,9 +119,9 @@ class TestExifModule(unittest.TestCase):
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Exif.Image.Artist')
         data.sortByTag()
-        self.assertEqual(data.begin().key(), 'Exif.Image.ProcessingSoftware')
+        self.assertEqual(data.begin().key(), 'Exif.Image.ImageDescription')
         # other methods
-        self.assertEqual(data.count(), 11)
+        self.assertEqual(data.count(), 10)
         self.assertEqual(data.empty(), False)
         data.clear()
         self.assertEqual(len(data), 0)
@@ -247,6 +260,8 @@ class TestExifModule(unittest.TestCase):
         k = data.findKey(exiv2.ExifKey('Exif.Photo.FocalLength'))
         self.assertEqual(sys.getrefcount(data), 6)
         k2 = data.erase(k)
+        with self.assertRaises(ValueError):
+            k.key()
         self.assertEqual(sys.getrefcount(data), 7)
         del b, e, i, k, k2
         self.assertEqual(sys.getrefcount(data), 2)
