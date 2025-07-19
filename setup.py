@@ -153,8 +153,6 @@ ext_modules = []
 extra_compile_args = []
 define_macros = [('PY_SSIZE_T_CLEAN', None),
                  ('SWIG_TYPE_TABLE', 'exiv2')]
-if sys.version_info < (3, 9):
-    define_macros.append(('SWIG_NO_HEAPTYPES', None))
 if platform in ('linux', 'darwin', 'mingw'):
     extra_compile_args = [
         '-O3', '-Wno-unused-variable', '-Wno-unused-function',
