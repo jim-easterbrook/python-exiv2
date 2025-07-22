@@ -139,7 +139,8 @@ def main():
         # make options list
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
-                     '-DEXIV2_VERSION_HEX=' + exiv2_version_hex]
+                     '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
+                     '-Isrc/interface', '-I-']
         for k, v in options.items():
             if v is None:
                 swig_opts.append('-D{}'.format(k))
