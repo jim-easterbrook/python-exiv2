@@ -98,7 +98,12 @@ class TestExifModule(unittest.TestCase):
         k3 = data.erase(k1, k2)
         with self.assertRaises(ValueError):
             k1.key()
-        self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
+        if 'iterators' in data._private_data_:
+            # swig >= 4.4
+            with self.assertRaises(ValueError):
+                k2.key()
+        else:
+            self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
         self.assertEqual(k3.key(), 'Exif.Image.ImageDescription')
         self.assertEqual(len(data), 10)
         # access by key
@@ -123,7 +128,12 @@ class TestExifModule(unittest.TestCase):
         # other methods
         self.assertEqual(data.count(), 10)
         self.assertEqual(data.empty(), False)
+        b = data.begin()
         data.clear()
+        if 'iterators' in data._private_data_:
+            # swig >= 4.4
+            with self.assertRaises(ValueError):
+                b.key()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)
 

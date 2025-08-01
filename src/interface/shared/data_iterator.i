@@ -30,7 +30,6 @@
 %noexception container_type##_iterator_base::__iter__;
 %noexception container_type##_iterator_base::operator==;
 %noexception container_type##_iterator_base::operator!=;
-%ignore container_type##_iterator_base::invalidate;
 %ignore container_type##_iterator_base::size;
 %ignore container_type##_iterator_base::##container_type##_iterator_base;
 %ignore container_type##_iterator_base::operator*;
@@ -90,8 +89,8 @@ public:
         return "iterator<end>";
     }
     bool valid() { return ptr != end; }
-    // Provide C++ method to invalidate iterator
-    void invalidate() { ptr = end; }
+    // Provide method to invalidate iterator
+    void _invalidate() { ptr = end; }
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
@@ -119,6 +118,7 @@ public:
     }
     $1 = **argp;
 %}
+#if SWIG_VERSION < 0x040400
 // erase() invalidates the iterator
 %typemap(in) (Exiv2::container_type::iterator pos)
         (container_type##_iterator_base *argp=NULL),
@@ -130,8 +130,9 @@ public:
         argp = arg$argnum;
     }
     $1 = **argp;
-    argp->invalidate();
+    argp->_invalidate();
 }
+#endif
 // XmpData::eraseFamily takes an iterator reference (and invalidates it)
 %typemap(in) Exiv2::container_type::iterator&
         (Exiv2::container_type::iterator it,
@@ -143,7 +144,9 @@ public:
     }
     it = **argp;
     $1 = &it;
-    argp->invalidate();
+#if SWIG_VERSION < 0x040400
+    argp->_invalidate();
+#endif
 }
 // Check validity of pointer before dereferencing
 %typemap(check) container_type##_iterator* self {
@@ -152,6 +155,64 @@ public:
             "', invalid iterator cannot be dereferenced");
     }
 }
+
+// Functions to store weak references to iterators (swig >= v4.4)
+%fragment("iterator_weakref_funcs", "header", fragment="private_data") {
+static void _process_list(PyObject* list, bool invalidate) {
+    PyObject* ref = NULL;
+    PyObject* iterator = NULL;
+    for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
+        ref = PyList_GetItem(list, idx - 1);
+        iterator = PyWeakref_GetObject(ref);
+        if (iterator == Py_None)
+            PyList_SetSlice(list, idx - 1, idx, NULL);
+        else if (invalidate)
+            Py_XDECREF(PyObject_CallMethod(iterator, "_invalidate", NULL));
+    }
+};
+static void purge_iterators(PyObject* list) {
+    _process_list(list, false);
+};
+static void invalidate_iterators(PyObject* py_self) {
+    PyObject* list = private_store_get(py_self, "iterators");
+    if (list)
+        _process_list(list, true);
+};
+static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
+    PyObject* list = private_store_get(py_self, "iterators");
+    if (list)
+        purge_iterators(list);
+    else {
+        list = PyList_New(0);
+        if (!list)
+            return -1;
+        int error = private_store_set(py_self, "iterators", list);
+        Py_DECREF(list);
+        if (error)
+            return -1;
+    }
+    PyObject* ref = PyWeakref_NewRef(iterator, NULL);
+    if (!ref)
+        return -1;
+    int result = PyList_Append(list, ref);
+    Py_DECREF(ref);
+    return result;
+};
+}
+
+#if SWIG_VERSION >= 0x040400
+// clear() invalidates all iterators
+%typemap(ret, typemap="iterator_weakref_funcs") void clear {
+    invalidate_iterators(self);
+}
+// erase() and eraseFamily() may invalidate iterators
+%typemap(check) (Exiv2::container_type::iterator pos),
+                (Exiv2::container_type::iterator beg),
+                (Exiv2::container_type::iterator&) {
+    invalidate_iterators(self);
+}
+#endif // SWIG_VERSION
+
 // Return types depend on validity of iterator
 %typemap(out) container_type##_iterator_base* {
     $result = SWIG_NewPointerObj((void*)$1,
@@ -159,12 +220,24 @@ public:
                       $descriptor(container_type##_iterator_base*), 0);
 }
 // Assumes arg1 is the base class parent
+#if SWIG_VERSION >= 0x040400
+%typemap(out, fragment="iterator_weakref_funcs") Exiv2::container_type::iterator {
+#else
 %typemap(out) Exiv2::container_type::iterator {
+#endif
     container_type##_iterator_base* tmp = new container_type##_iterator_base($1, arg1->end());
     $result = SWIG_NewPointerObj((void*)tmp,
         tmp->valid() ? $descriptor(container_type##_iterator*) :
                        $descriptor(container_type##_iterator_base*),
         SWIG_POINTER_OWN);
+#if SWIG_VERSION >= 0x040400
+    if (tmp->valid()) {
+        // Keep weak reference to the Python iterator
+        if (store_iterator_weakref(self, $result)) {
+            SWIG_fail;
+        }
+    }
+#endif // SWIG_VERSION
 }
 // Keep a reference to the data being iterated
 KEEP_REFERENCE(Exiv2::container_type::iterator)

@@ -4408,8 +4408,8 @@ public:
         return "iterator<end>";
     }
     bool valid() { return ptr != end; }
-    // Provide C++ method to invalidate iterator
-    void invalidate() { ptr = end; }
+    // Provide method to invalidate iterator
+    void _invalidate() { ptr = end; }
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
@@ -5609,6 +5609,34 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_base___str__(PyObject *self, PyObjec
     }
   }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_XmpData_iterator_base__invalidate(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  XmpData_iterator_base *arg1 = (XmpData_iterator_base *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "XmpData_iterator_base__invalidate takes no arguments");
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator_base, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_base__invalidate" "', argument " "1"" of type '" "XmpData_iterator_base *""'"); 
+  }
+  arg1 = reinterpret_cast< XmpData_iterator_base * >(argp1);
+  {
+    try {
+      (arg1)->_invalidate();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -8555,7 +8583,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
       argp2 = arg2;
     }
     arg2 = **argp2;
-    argp2->invalidate();
+    argp2->_invalidate();
   }
   {
     try {
@@ -8572,6 +8600,14 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
       tmp->valid() ? SWIGTYPE_p_XmpData_iterator :
       SWIGTYPE_p_XmpData_iterator_base,
       SWIG_POINTER_OWN);
+    
+    
+    
+    
+    
+    
+    
+    
   }
   
   if (resultobj != Py_None)
@@ -8615,7 +8651,9 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
     }
     it2 = **argp2;
     arg2 = &it2;
-    argp2->invalidate();
+    
+    argp2->_invalidate();
+    
   }
   {
     try {
@@ -8701,6 +8739,14 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
       tmp->valid() ? SWIGTYPE_p_XmpData_iterator :
       SWIGTYPE_p_XmpData_iterator_base,
       SWIG_POINTER_OWN);
+    
+    
+    
+    
+    
+    
+    
+    
   }
   
   if (resultobj != Py_None)
@@ -8734,6 +8780,14 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
       tmp->valid() ? SWIGTYPE_p_XmpData_iterator :
       SWIGTYPE_p_XmpData_iterator_base,
       SWIG_POINTER_OWN);
+    
+    
+    
+    
+    
+    
+    
+    
   }
   
   if (resultobj != Py_None)
@@ -8787,6 +8841,14 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
       tmp->valid() ? SWIGTYPE_p_XmpData_iterator :
       SWIGTYPE_p_XmpData_iterator_base,
       SWIG_POINTER_OWN);
+    
+    
+    
+    
+    
+    
+    
+    
   }
   
   if (resultobj != Py_None)
@@ -9658,6 +9720,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__XmpData_iterator_base_methods[] = {
   { "__eq__", _wrap_XmpData_iterator_base___eq__, METH_VARARGS, "" },
   { "__ne__", _wrap_XmpData_iterator_base___ne__, METH_VARARGS, "" },
   { "__str__", _wrap_XmpData_iterator_base___str__, METH_VARARGS, "" },
+  { "_invalidate", _wrap_XmpData_iterator_base__invalidate, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
