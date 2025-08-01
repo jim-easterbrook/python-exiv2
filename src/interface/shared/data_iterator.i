@@ -215,21 +215,23 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
 }
 #endif // SWIG_VERSION
 
-%typemap(out) container_type##_iterator* {
-    $result = SWIG_NewPointerObj((void*)$1,
-        $descriptor(container_type##_iterator*), 0);
-}
+%newobject Exiv2::container_type::begin;
+%newobject Exiv2::container_type::end;
+%newobject Exiv2::container_type::erase;
+%newobject Exiv2::container_type::findId;
+%newobject Exiv2::container_type::findKey;
 // Assumes arg1 is the base class parent
 #if SWIG_VERSION >= 0x040400
 %typemap(out, fragment="iterator_weakref_funcs") Exiv2::container_type::iterator {
 #else
 %typemap(out) Exiv2::container_type::iterator {
 #endif
-    container_type##_iterator* tmp = new container_type##_iterator($1, arg1->end());
-    $result = SWIG_NewPointerObj((void*)tmp,
-        $descriptor(container_type##_iterator*), SWIG_POINTER_OWN);
+    Exiv2::container_type::iterator tmp = $1;
+    container_type##_iterator* $1 = new container_type##_iterator(
+        tmp, arg1->end());
+    $typemap(out, container_type##_iterator*);
 #if SWIG_VERSION >= 0x040400
-    if (tmp->valid()) {
+    if ($1->valid()) {
         // Keep weak reference to the Python iterator
         if (store_iterator_weakref(self, $result)) {
             SWIG_fail;

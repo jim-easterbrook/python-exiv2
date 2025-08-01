@@ -5593,10 +5593,7 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator___iter__(PyObject *self, PyObject *
 #endif
   }
   result = (ExifData_iterator *)(arg1)->__iter__();
-  {
-    resultobj = SWIG_NewPointerObj((void*)result,
-      SWIGTYPE_p_ExifData_iterator, 0);
-  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifData_iterator, 0 |  0 );
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
@@ -9788,9 +9785,10 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, PyObject *args
     }
   }
   {
-    ExifData_iterator* tmp = new ExifData_iterator(result, arg1->end());
-    resultobj = SWIG_NewPointerObj((void*)tmp,
-      SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
+    Exiv2::ExifData::iterator tmp = result;
+    ExifData_iterator* result = new ExifData_iterator(
+      tmp, arg1->end());
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN |  0 );;
     
     
     
@@ -9870,9 +9868,10 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, PyObject *args
     }
   }
   {
-    ExifData_iterator* tmp = new ExifData_iterator(result, arg1->end());
-    resultobj = SWIG_NewPointerObj((void*)tmp,
-      SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
+    Exiv2::ExifData::iterator tmp = result;
+    ExifData_iterator* result = new ExifData_iterator(
+      tmp, arg1->end());
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN |  0 );;
     
     
     
@@ -10020,9 +10019,10 @@ SWIGINTERN PyObject *_wrap_ExifData_begin(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
   result = (arg1)->begin();
   {
-    ExifData_iterator* tmp = new ExifData_iterator(result, arg1->end());
-    resultobj = SWIG_NewPointerObj((void*)tmp,
-      SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
+    Exiv2::ExifData::iterator tmp = result;
+    ExifData_iterator* result = new ExifData_iterator(
+      tmp, arg1->end());
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN |  0 );;
     
     
     
@@ -10059,9 +10059,10 @@ SWIGINTERN PyObject *_wrap_ExifData_end(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
   result = (arg1)->end();
   {
-    ExifData_iterator* tmp = new ExifData_iterator(result, arg1->end());
-    resultobj = SWIG_NewPointerObj((void*)tmp,
-      SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
+    Exiv2::ExifData::iterator tmp = result;
+    ExifData_iterator* result = new ExifData_iterator(
+      tmp, arg1->end());
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN |  0 );;
     
     
     
@@ -10118,9 +10119,10 @@ SWIGINTERN PyObject *_wrap_ExifData_findKey(PyObject *self, PyObject *args) {
     }
   }
   {
-    ExifData_iterator* tmp = new ExifData_iterator(result, arg1->end());
-    resultobj = SWIG_NewPointerObj((void*)tmp,
-      SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN);
+    Exiv2::ExifData::iterator tmp = result;
+    ExifData_iterator* result = new ExifData_iterator(
+      tmp, arg1->end());
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ExifData_iterator, SWIG_POINTER_OWN |  0 );;
     
     
     
