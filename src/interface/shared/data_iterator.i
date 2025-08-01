@@ -22,30 +22,26 @@
 // Macros to wrap data iterators
 %define DATA_ITERATOR_CLASSES(container_type, datum_type)
 %feature("python:slot", "tp_str", functype="reprfunc")
-    container_type##_iterator_base::__str__;
+    container_type##_iterator::__str__;
 %feature("python:slot", "tp_iter", functype="getiterfunc")
-    container_type##_iterator_base::__iter__;
+    container_type##_iterator::__iter__;
 %feature("python:slot", "tp_iternext", functype="iternextfunc")
-    container_type##_iterator_base::__next__;
-%noexception container_type##_iterator_base::__iter__;
-%noexception container_type##_iterator_base::operator==;
-%noexception container_type##_iterator_base::operator!=;
-%ignore container_type##_iterator_base::size;
-%ignore container_type##_iterator_base::##container_type##_iterator_base;
-%ignore container_type##_iterator_base::operator*;
-%ignore container_type##_iterator_base::valid;
+    container_type##_iterator::__next__;
+%noexception container_type##_iterator::__iter__;
+%noexception container_type##_iterator::operator==;
+%noexception container_type##_iterator::operator!=;
+%ignore container_type##_iterator::size;
+%ignore container_type##_iterator::##container_type##_iterator;
+%ignore container_type##_iterator::operator*;
+%ignore container_type##_iterator::valid;
 %feature("docstring") container_type##_iterator "
 Python wrapper for an :class:`" #container_type "` iterator. It has most of
 the methods of :class:`" #datum_type "` allowing easy access to the
 data it points to."
-%feature("docstring") container_type##_iterator_base "
-Python wrapper for an :class:`" #container_type "` iterator that points to
-the 'end' value and can not be dereferenced."
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(container_type##_iterator*)
-KEEP_REFERENCE(container_type##_iterator_base*)
 // Detect end of iteration
-%exception container_type##_iterator_base::__next__ %{
+%exception container_type##_iterator::__next__ %{
     $action
     if (!result) {
         PyErr_SetNone(PyExc_StopIteration);
@@ -54,19 +50,19 @@ KEEP_REFERENCE(container_type##_iterator_base*)
 %}
 %inline %{
 // Base class implements all methods except dereferencing
-class container_type##_iterator_base {
+class container_type##_iterator {
 protected:
     Exiv2::container_type::iterator ptr;
     Exiv2::container_type::iterator end;
     Exiv2::container_type::iterator safe_ptr;
 public:
-    container_type##_iterator_base(Exiv2::container_type::iterator ptr,
-                                   Exiv2::container_type::iterator end) {
+    container_type##_iterator(Exiv2::container_type::iterator ptr,
+                              Exiv2::container_type::iterator end) {
         this->ptr = ptr;
         this->end = end;
         safe_ptr = ptr;
     }
-    container_type##_iterator_base* __iter__() { return this; }
+    container_type##_iterator* __iter__() { return this; }
     Exiv2::datum_type* __next__() {
         if (!valid())
             return NULL;
@@ -77,10 +73,10 @@ public:
         return result;
     }
     Exiv2::container_type::iterator operator*() const { return ptr; }
-    bool operator==(const container_type##_iterator_base &other) const {
+    bool operator==(const container_type##_iterator &other) const {
         return *other == ptr;
     }
-    bool operator!=(const container_type##_iterator_base &other) const {
+    bool operator!=(const container_type##_iterator &other) const {
         return *other != ptr;
     }
     std::string __str__() {
@@ -97,23 +93,27 @@ public:
             return safe_ptr->size();
         return 0;
     }
-};
-// Derived class can be dereferenced, giving Python access to all datum
-// methods.
-class container_type##_iterator : public container_type##_iterator_base {
-public:
+    // Dereference operator gives access to all datum methods
     Exiv2::datum_type* operator->() const { return &(*safe_ptr); }
 };
+// Bypass validity check for some methods
+#define NOCHECK_delete_##container_type##_iterator
+#define NOCHECK_##container_type##_iterator___iter__
+#define NOCHECK_##container_type##_iterator___next__
+#define NOCHECK_##container_type##_iterator___eq__
+#define NOCHECK_##container_type##_iterator___ne__
+#define NOCHECK_##container_type##_iterator___str__
+#define NOCHECK_##container_type##_iterator__invalidate
 %}
 %enddef // DATA_ITERATOR_CLASSES
 
 // Declare typemaps for data iterators.
 %define DATA_ITERATOR_TYPEMAPS(container_type)
 %typemap(in) Exiv2::container_type::iterator
-        (container_type##_iterator_base *argp=NULL) %{
+        (container_type##_iterator *argp=NULL) %{
     {
-        container_type##_iterator_base* arg$argnum = NULL;
-        $typemap(in, container_type##_iterator_base*)
+        container_type##_iterator* arg$argnum = NULL;
+        $typemap(in, container_type##_iterator*)
         argp = arg$argnum;
     }
     $1 = **argp;
@@ -121,12 +121,12 @@ public:
 #if SWIG_VERSION < 0x040400
 // erase() invalidates the iterator
 %typemap(in) (Exiv2::container_type::iterator pos)
-        (container_type##_iterator_base *argp=NULL),
+        (container_type##_iterator *argp=NULL),
              (Exiv2::container_type::iterator beg)
-        (container_type##_iterator_base *argp=NULL) {
+        (container_type##_iterator *argp=NULL) {
     {
-        container_type##_iterator_base* arg$argnum = NULL;
-        $typemap(in, container_type##_iterator_base*)
+        container_type##_iterator* arg$argnum = NULL;
+        $typemap(in, container_type##_iterator*)
         argp = arg$argnum;
     }
     $1 = **argp;
@@ -136,10 +136,10 @@ public:
 // XmpData::eraseFamily takes an iterator reference (and invalidates it)
 %typemap(in) Exiv2::container_type::iterator&
         (Exiv2::container_type::iterator it,
-         container_type##_iterator_base* argp = NULL) {
+         container_type##_iterator* argp = NULL) {
     {
-        container_type##_iterator_base* arg$argnum = NULL;
-        $typemap(in, container_type##_iterator_base*)
+        container_type##_iterator* arg$argnum = NULL;
+        $typemap(in, container_type##_iterator*)
         argp = arg$argnum;
     }
     it = **argp;
@@ -148,12 +148,14 @@ public:
     argp->_invalidate();
 #endif
 }
-// Check validity of pointer before dereferencing
+// Check validity of iterator before dereferencing
 %typemap(check) container_type##_iterator* self {
-    if (!$1->valid() && strncmp("$symname", "delete_", 7)) {
+%#ifndef NOCHECK_##$symname
+    if (!$1->valid()) {
         SWIG_exception_fail(SWIG_ValueError, "in method '" "$symname"
             "', invalid iterator cannot be dereferenced");
     }
+%#endif
 }
 
 // Functions to store weak references to iterators (swig >= v4.4)
@@ -213,11 +215,9 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
 }
 #endif // SWIG_VERSION
 
-// Return types depend on validity of iterator
-%typemap(out) container_type##_iterator_base* {
+%typemap(out) container_type##_iterator* {
     $result = SWIG_NewPointerObj((void*)$1,
-        $1->valid() ? $descriptor(container_type##_iterator*) :
-                      $descriptor(container_type##_iterator_base*), 0);
+        $descriptor(container_type##_iterator*), 0);
 }
 // Assumes arg1 is the base class parent
 #if SWIG_VERSION >= 0x040400
@@ -225,11 +225,9 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
 #else
 %typemap(out) Exiv2::container_type::iterator {
 #endif
-    container_type##_iterator_base* tmp = new container_type##_iterator_base($1, arg1->end());
+    container_type##_iterator* tmp = new container_type##_iterator($1, arg1->end());
     $result = SWIG_NewPointerObj((void*)tmp,
-        tmp->valid() ? $descriptor(container_type##_iterator*) :
-                       $descriptor(container_type##_iterator_base*),
-        SWIG_POINTER_OWN);
+        $descriptor(container_type##_iterator*), SWIG_POINTER_OWN);
 #if SWIG_VERSION >= 0x040400
     if (tmp->valid()) {
         // Keep weak reference to the Python iterator
