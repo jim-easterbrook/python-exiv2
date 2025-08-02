@@ -4410,6 +4410,10 @@ namespace Exiv2 {
 #endif // EXV_ENABLE_FILESYSTEM
 
 
+#define KEEPREF_VIEW_ImageFactory_open
+#define KEEPREF_VIEW_ImageFactory_createIo
+
+
 static bool enableBMFF(bool enable) {
     // deprecated since 2024-08-01
     PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -5034,9 +5038,9 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
   return res;
 }
 
-SWIGINTERN Exiv2::BasicIo::AutoPtr Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *data,size_t B){
+SWIGINTERN Exiv2::BasicIo::AutoPtr Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *data,size_t size){
 
-        return Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(data, B));
+        return Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(data, size));
 
 
 
@@ -6566,7 +6570,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   
+#ifdef KEEPREF_VIEW_ImageFactory_open
   private_store_set(resultobj, "using_view", _global_view);
+#endif
   
   
   Py_XDECREF(_global_view);
@@ -6835,6 +6841,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
     SWIG_fail;
   }
   
+#ifdef KEEPREF_VIEW_ImageFactory_getType
+  private_store_set(resultobj, "using_view", _global_view);
+#endif
+  
+  
   Py_XDECREF(_global_view);
   
   return resultobj;
@@ -7071,7 +7082,9 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN |  0 );
   
   
+#ifdef KEEPREF_VIEW_ImageFactory_createIo
   private_store_set(resultobj, "using_view", _global_view);
+#endif
   
   
   Py_XDECREF(_global_view);
@@ -7915,6 +7928,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		":type data: :py:term:`bytes-like object`\n"
 		":param data: Pointer to a data buffer containing an image. The contents\n"
 		"        of the memory are tested to determine the image type.\n"
+		":type size: int\n"
 		":param size: Number of bytes pointed to by *data*.\n"
 		":rtype: :py:class:`Image`\n"
 		":return: An auto-pointer that owns an Image instance whose type\n"
@@ -7966,6 +7980,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ImageFactory_methods[] = {
 		":type data: :py:term:`bytes-like object`\n"
 		":param data: Pointer to a data buffer containing an image. The contents\n"
 		"        of the memory are tested to determine the image type.\n"
+		":type size: int\n"
 		":param size: Number of bytes pointed to by *data*.\n"
 		":rtype: :py:class:`ImageType`\n"
 		":return: %Image type or Image::none if the type is not recognized.\n"

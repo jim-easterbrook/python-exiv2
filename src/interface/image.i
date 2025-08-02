@@ -60,26 +60,26 @@ UNIQUE_PTR(Exiv2::Image);
 %thread Exiv2::ImageFactory::create;
 %thread Exiv2::ImageFactory::open;
 
-// ImageFactory can open image from a buffer
-// (Signature changed in build_swig.py pre-processing.)
-INPUT_BUFFER_RO(const Exiv2::byte* data, long B)
-INPUT_BUFFER_RO(const Exiv2::byte* data, size_t B)
+// ImageFactory can open image or get type from a buffer
+INPUT_BUFFER_RO(const Exiv2::byte* data, long size)
+INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size)
 // Keep reference to memoryview of buffer until it can be released
+%{
+#define KEEPREF_VIEW_ImageFactory_open
+#define KEEPREF_VIEW_ImageFactory_createIo
+%}
 %typemap(argout, fragment="private_data")
-        (const Exiv2::byte* data, long B),
-        (const Exiv2::byte* data, size_t B) %{
+        (const Exiv2::byte* data, long size),
+        (const Exiv2::byte* data, size_t size) %{
+#ifdef KEEPREF_VIEW_$symname
     private_store_set(resultobj, "using_view", _global_view);
+#endif
 %}
 
 // Release memory buffer after writeMetadata, as it creates its own copy
 %typemap(ret, fragment="private_data") void writeMetadata %{
     private_store_del(self, "using_view");
 %}
-
-// ImageFactory can get type from a buffer
-// (Signature changed in build_swig.py pre-processing.)
-INPUT_BUFFER_RO(const Exiv2::byte* data, long A)
-INPUT_BUFFER_RO(const Exiv2::byte* data, size_t A)
 
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
@@ -134,11 +134,11 @@ Create a MemIo subclass of BasicIo using the provided memory.
 "
 %extend Exiv2::ImageFactory {
     static Exiv2::BasicIo::SMART_PTR createIo(
-        const Exiv2::byte* data, size_t B) {
+        const Exiv2::byte* data, size_t size) {
 #if EXIV2_VERSION_HEX < 0x001c0000
-        return Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(data, B));
+        return Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(data, size));
 #else
-        return std::make_unique<Exiv2::MemIo>(data, B);
+        return std::make_unique<Exiv2::MemIo>(data, size);
 #endif
     }
 }

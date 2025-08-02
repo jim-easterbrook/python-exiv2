@@ -102,15 +102,7 @@ def main():
                      os.path.join(output_dir, mod_name))
     # pre-process include files to a temporary directory
     subst = {
-        'image.hpp': [('getType(const byte* data, size_t size',
-                       'getType(const byte* data, size_t A'),
-                      ('getType(const byte* data, long size',
-                       'getType(const byte* data, long A'),
-                      ('open(const byte* data, size_t size',
-                       'open(const byte* data, size_t B'),
-                      ('open(const byte* data, long size',
-                       'open(const byte* data, long B'),
-                      ('/*! @brief', '/*!\n    @brief')],
+        'image.hpp': [('/*! @brief', '/*!\n    @brief')],
         'metadatum.hpp': [('toString(size_t n)', 'toString(size_t i)'),
                           ('toString(long n)', 'toString(long i)')],
         'preview.hpp': [('_{};', '_;')],
