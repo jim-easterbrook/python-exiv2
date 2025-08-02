@@ -102,7 +102,6 @@ def main():
                      os.path.join(output_dir, mod_name))
     # pre-process include files to a temporary directory
     subst = {
-        'basicio.hpp': [('/*isWriteable*/', 'isWriteable')],
         'image.hpp': [('getType(const byte* data, size_t size',
                        'getType(const byte* data, size_t A'),
                       ('getType(const byte* data, long size',
@@ -120,8 +119,7 @@ def main():
                 'xmp.hpp', 'xmp_exiv2.hpp'):
         subst[key] = subst['metadatum.hpp']
     if swig_version < (4, 2, 0):
-        subst['basicio.hpp'].append(('static constexpr auto',
-                                     'static const char*'))
+        subst['basicio.hpp'] = [('static constexpr auto', 'static const char*')]
     with tempfile.TemporaryDirectory() as copy_dir:
         dest = os.path.join(copy_dir, 'exiv2')
         os.makedirs(dest)
