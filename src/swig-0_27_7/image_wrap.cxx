@@ -5166,7 +5166,7 @@ SWIGINTERN PyObject *_wrap_Image_writeMetadata(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_Py_Void();
   
-  private_store_del(self, "refers_to");
+  private_store_del(self, "using_view");
   
   return resultobj;
 fail:
@@ -6566,7 +6566,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
   
-  private_store_set(resultobj, "refers_to", _global_view);
+  private_store_set(resultobj, "using_view", _global_view);
   
   
   Py_XDECREF(_global_view);
@@ -7071,7 +7071,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN |  0 );
   
   
-  private_store_set(resultobj, "refers_to", _global_view);
+  private_store_set(resultobj, "using_view", _global_view);
   
   
   Py_XDECREF(_global_view);

@@ -41,15 +41,6 @@
 %enddef // INPUT_BUFFER_RO
 
 
-// Macro for input read only byte buffer, result keeps reference to input
-%define INPUT_BUFFER_RO_EX(buf_type, len_type)
-INPUT_BUFFER_RO(buf_type, len_type)
-%typemap(argout, fragment="private_data") (buf_type, len_type) %{
-    private_store_set(resultobj, "refers_to", _global_view);
-%}
-%enddef // INPUT_BUFFER_RO_EX
-
-
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)
 %typemap(doctype) buf_type "writeable :py:term:`bytes-like object`";

@@ -62,18 +62,24 @@ UNIQUE_PTR(Exiv2::Image);
 
 // ImageFactory can open image from a buffer
 // (Signature changed in build_swig.py pre-processing.)
-INPUT_BUFFER_RO_EX(const Exiv2::byte* data, long B)
-INPUT_BUFFER_RO_EX(const Exiv2::byte* data, size_t B)
+INPUT_BUFFER_RO(const Exiv2::byte* data, long B)
+INPUT_BUFFER_RO(const Exiv2::byte* data, size_t B)
+// Keep reference to memoryview of buffer until it can be released
+%typemap(argout, fragment="private_data")
+        (const Exiv2::byte* data, long B),
+        (const Exiv2::byte* data, size_t B) %{
+    private_store_set(resultobj, "using_view", _global_view);
+%}
+
+// Release memory buffer after writeMetadata, as it creates its own copy
+%typemap(ret, fragment="private_data") void writeMetadata %{
+    private_store_del(self, "using_view");
+%}
 
 // ImageFactory can get type from a buffer
 // (Signature changed in build_swig.py pre-processing.)
 INPUT_BUFFER_RO(const Exiv2::byte* data, long A)
 INPUT_BUFFER_RO(const Exiv2::byte* data, size_t A)
-
-// Release memory buffer after writeMetadata, as it creates its own copy
-%typemap(ret, fragment="private_data") void writeMetadata %{
-    private_store_del(self, "refers_to");
-%}
 
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
