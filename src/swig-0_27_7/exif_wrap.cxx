@@ -5357,6 +5357,125 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
+{
+#if PY_VERSION_HEX < 0x03000000
+  if (PyInt_Check(obj)) {
+    long v = PyInt_AsLong(obj);
+    if (v >= 0) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      return SWIG_OverflowError;
+    }
+  } else
+#endif
+  if (PyLong_Check(obj)) {
+    unsigned long v = PyLong_AsUnsignedLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      PyErr_Clear();
+      return SWIG_OverflowError;
+    }
+  }
+#ifdef SWIG_PYTHON_CAST_MODE
+  {
+    int dispatch = 0;
+    unsigned long v = PyLong_AsUnsignedLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_AddCast(SWIG_OK);
+    } else {
+      PyErr_Clear();
+    }
+    if (!dispatch) {
+      double d;
+      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
+      // Largest double not larger than ULONG_MAX (not portably calculated easily)
+      // Note that double(ULONG_MAX) is stored in a double rounded up by one (for 64-bit unsigned long)
+      // 0xfffffffffffff800ULL == (uint64_t)std::nextafter(double(__uint128_t(ULONG_MAX)+1), double(0))
+      const double ulong_max = sizeof(unsigned long) == 8 ? 0xfffffffffffff800ULL : ULONG_MAX;
+      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, ulong_max)) {
+	if (val) *val = (unsigned long)(d);
+	return res;
+      }
+    }
+  }
+#endif
+  return SWIG_TypeError;
+}
+
+
+#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
+#  define SWIG_LONG_LONG_AVAILABLE
+#endif
+
+
+#ifdef SWIG_LONG_LONG_AVAILABLE
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_long_SS_long (PyObject *obj, unsigned long long *val)
+{
+  int res = SWIG_TypeError;
+  if (PyLong_Check(obj)) {
+    unsigned long long v = PyLong_AsUnsignedLongLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      PyErr_Clear();
+      res = SWIG_OverflowError;
+    }
+  } else {
+    unsigned long v;
+    res = SWIG_AsVal_unsigned_SS_long (obj,&v);
+    if (SWIG_IsOK(res)) {
+      if (val) *val = v;
+      return res;
+    }
+  }
+#ifdef SWIG_PYTHON_CAST_MODE
+  {
+    const double mant_max = 1LL << DBL_MANT_DIG;
+    double d;
+    res = SWIG_AsVal_double (obj,&d);
+    if (SWIG_IsOK(res) && !SWIG_CanCastAsInteger(&d, 0, mant_max))
+      return SWIG_OverflowError;
+    if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, mant_max)) {
+      if (val) *val = (unsigned long long)(d);
+      return SWIG_AddCast(res);
+    }
+    res = SWIG_TypeError;
+  }
+#endif
+  return res;
+}
+#endif
+
+
+SWIGINTERNINLINE int
+SWIG_AsVal_size_t (PyObject * obj, size_t *val)
+{
+  int res = SWIG_TypeError;
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  if (sizeof(size_t) <= sizeof(unsigned long)) {
+#endif
+    unsigned long v;
+    res = SWIG_AsVal_unsigned_SS_long (obj, val ? &v : 0);
+    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  } else if (sizeof(size_t) <= sizeof(unsigned long long)) {
+    unsigned long long v;
+    res = SWIG_AsVal_unsigned_SS_long_SS_long (obj, val ? &v : 0);
+    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
+  }
+#endif
+  return res;
+}
+
+
 static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
     Exiv2::TypeId type_id = datum->typeId();
     if (type_id != Exiv2::invalidTypeId)
@@ -5409,58 +5528,8 @@ SWIGINTERN std::string Exiv2_Exifdatum__print(Exiv2::Exifdatum const *self,Exiv2
                      "'_print' has been replaced by 'print'", 1);
         return self->print(pMetadata);
     }
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    long v = PyInt_AsLong(obj);
-    if (v >= 0) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      return SWIG_OverflowError;
-    }
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    unsigned long v = PyLong_AsUnsignedLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    unsigned long v = PyLong_AsUnsignedLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      // Largest double not larger than ULONG_MAX (not portably calculated easily)
-      // Note that double(ULONG_MAX) is stored in a double rounded up by one (for 64-bit unsigned long)
-      // 0xfffffffffffff800ULL == (uint64_t)std::nextafter(double(__uint128_t(ULONG_MAX)+1), double(0))
-      const double ulong_max = sizeof(unsigned long) == 8 ? 0xfffffffffffff800ULL : ULONG_MAX;
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, ulong_max)) {
-	if (val) *val = (unsigned long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
+SWIGINTERN std::string Exiv2_Exifdatum_toString__SWIG_0(Exiv2::Exifdatum const *self){ return self->toString(); }
+SWIGINTERN std::string Exiv2_Exifdatum_toString__SWIG_1(Exiv2::Exifdatum const *self,size_t i){ return self->toString(i); }
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
@@ -6743,124 +6812,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ExifData_iterator_toString__SWIG_0(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "ExifData_iterator_toString takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_toString" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_ExifData_iterator_toString
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "ExifData_iterator_toString"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
-    try {
-      result = (*arg1)->toString();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifData_iterator_toString__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
-  long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "ExifData_iterator_toString", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_toString" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  ecode2 = SWIG_AsVal_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifData_iterator_toString" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  {
-#ifndef NOCHECK_ExifData_iterator_toString
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "ExifData_iterator_toString"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
-    try {
-      result = (*arg1)->toString(arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ExifData_iterator_toString(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_ExifData_iterator_toString__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_ExifData_iterator_toString__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifData_iterator_toString'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Exifdatum::toString() const\n"
-    "    Exiv2::Exifdatum::toString(long) const\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_ExifData_iterator_toLong(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
@@ -7421,6 +7372,124 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator__print(PyObject *self, PyObject *ar
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifData_iterator_toString__SWIG_0(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "ExifData_iterator_toString takes no arguments");
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_toString" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
+  {
+#ifndef NOCHECK_ExifData_iterator_toString
+    if (!arg1->valid()) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "ExifData_iterator_toString"
+        "', invalid iterator cannot be dereferenced");
+    }
+#endif
+  }
+  {
+    try {
+      result = Exiv2_Exifdatum_toString__SWIG_0((Exiv2::Exifdatum*)(arg1)->operator ->());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifData_iterator_toString__SWIG_1(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
+  std::string result;
+  
+  if (!PyArg_UnpackTuple(args, "ExifData_iterator_toString", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_toString" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifData_iterator_toString" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  {
+#ifndef NOCHECK_ExifData_iterator_toString
+    if (!arg1->valid()) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "ExifData_iterator_toString"
+        "', invalid iterator cannot be dereferenced");
+    }
+#endif
+  }
+  {
+    try {
+      result = Exiv2_Exifdatum_toString__SWIG_1((Exiv2::Exifdatum*)(arg1)->operator ->(),arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExifData_iterator_toString(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_ExifData_iterator_toString__SWIG_0(self, args);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_ExifData_iterator_toString__SWIG_1(self, args);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifData_iterator_toString'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Exifdatum::toString() const\n"
+    "    Exiv2::Exifdatum::toString(size_t) const\n");
+  return 0;
 }
 
 
@@ -8298,108 +8367,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Exifdatum_toString__SWIG_0(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Exifdatum_toString takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_toString" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
-  {
-    try {
-      result = ((Exiv2::Exifdatum const *)arg1)->toString();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Exifdatum_toString__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
-  long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "Exifdatum_toString", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_toString" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
-  ecode2 = SWIG_AsVal_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Exifdatum_toString" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  {
-    try {
-      result = ((Exiv2::Exifdatum const *)arg1)->toString(arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Exifdatum_toString(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_Exifdatum_toString__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_Exifdatum_toString__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Exifdatum_toString'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Exifdatum::toString() const\n"
-    "    Exiv2::Exifdatum::toString(long) const\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_Exifdatum_toLong(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
@@ -8966,6 +8933,108 @@ SWIGINTERN PyObject *_wrap_Exifdatum__print(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Exifdatum_toString__SWIG_0(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Exifdatum_toString takes no arguments");
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_toString" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
+  {
+    try {
+      result = Exiv2_Exifdatum_toString__SWIG_0((Exiv2::Exifdatum const *)arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Exifdatum_toString__SWIG_1(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
+  std::string result;
+  
+  if (!PyArg_UnpackTuple(args, "Exifdatum_toString", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Exifdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_toString" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Exifdatum_toString" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  {
+    try {
+      result = Exiv2_Exifdatum_toString__SWIG_1((Exiv2::Exifdatum const *)arg1,SWIG_STD_MOVE(arg2));
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Exifdatum_toString(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_Exifdatum_toString__SWIG_0(self, args);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_Exifdatum_toString__SWIG_1(self, args);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Exifdatum_toString'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Exifdatum::toString() const\n"
+    "    Exiv2::Exifdatum::toString(size_t) const\n");
+  return 0;
 }
 
 
@@ -10695,7 +10764,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__ExifData_iterator_methods[] = {
   { "typeSize", _wrap_ExifData_iterator_typeSize, METH_VARARGS, "Return the size in bytes of one component of this type" },
   { "count", _wrap_ExifData_iterator_count, METH_VARARGS, "Return the number of components in the value" },
   { "size", _wrap_ExifData_iterator_size, METH_VARARGS, "Return the size of the value in bytes" },
-  { "toString", _wrap_ExifData_iterator_toString, METH_VARARGS, "Return the value as a string." },
   { "toLong", _wrap_ExifData_iterator_toLong, METH_VARARGS, "" },
   { "toFloat", _wrap_ExifData_iterator_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_ExifData_iterator_toRational, METH_VARARGS, "" },
@@ -10716,6 +10784,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__ExifData_iterator_methods[] = {
 		"            value is not set.\n"
 		"" },
   { "_print", _wrap_ExifData_iterator__print, METH_VARARGS, "" },
+  { "toString", _wrap_ExifData_iterator_toString, METH_VARARGS, "" },
   { "print", _wrap_ExifData_iterator_print, METH_VARARGS, "\n"
 		"Write the interpreted value to a string.\n"
 		"\n"
@@ -11150,7 +11219,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Exifdatum_methods[] = {
   { "typeSize", _wrap_Exifdatum_typeSize, METH_VARARGS, "Return the size in bytes of one component of this type" },
   { "count", _wrap_Exifdatum_count, METH_VARARGS, "Return the number of components in the value" },
   { "size", _wrap_Exifdatum_size, METH_VARARGS, "Return the size of the value in bytes" },
-  { "toString", _wrap_Exifdatum_toString, METH_VARARGS, "Return the value as a string." },
   { "toLong", _wrap_Exifdatum_toLong, METH_VARARGS, "" },
   { "toFloat", _wrap_Exifdatum_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_Exifdatum_toRational, METH_VARARGS, "" },
@@ -11171,6 +11239,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Exifdatum_methods[] = {
 		"            value is not set.\n"
 		"" },
   { "_print", _wrap_Exifdatum__print, METH_VARARGS, "" },
+  { "toString", _wrap_Exifdatum_toString, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

@@ -212,6 +212,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %ignore Exiv2::Value::toFloat() const;
 %ignore Exiv2::Value::toInt64() const;
 %ignore Exiv2::Value::toLong() const;
+%ignore Exiv2::Value::toString() const;
 %ignore Exiv2::Value::toRational() const;
 %ignore Exiv2::Value::toUint32() const;
 

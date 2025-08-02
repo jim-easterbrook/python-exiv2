@@ -5560,6 +5560,8 @@ SWIGINTERN std::string Exiv2_Iptcdatum__print(Exiv2::Iptcdatum const *self,Exiv2
                      "'_print' has been replaced by 'print'", 1);
         return self->print(pMetadata);
     }
+SWIGINTERN std::string Exiv2_Iptcdatum_toString__SWIG_0(Exiv2::Iptcdatum const *self){ return self->toString(); }
+SWIGINTERN std::string Exiv2_Iptcdatum_toString__SWIG_1(Exiv2::Iptcdatum const *self,size_t i){ return self->toString(i); }
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
@@ -6768,124 +6770,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcData_iterator_toString__SWIG_0(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "IptcData_iterator_toString takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toString" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_toString
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toString"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
-    try {
-      result = (*arg1)->toString();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_iterator_toString__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "IptcData_iterator_toString", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toString" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
-  }
-  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_toString" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  {
-#ifndef NOCHECK_IptcData_iterator_toString
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toString"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
-    try {
-      result = (*arg1)->toString(SWIG_STD_MOVE(arg2));
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IptcData_iterator_toString(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_IptcData_iterator_toString__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_IptcData_iterator_toString__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator_toString'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Iptcdatum::toString() const\n"
-    "    Exiv2::Iptcdatum::toString(size_t) const\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_IptcData_iterator_toInt64(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
@@ -7369,6 +7253,124 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator__print(PyObject *self, PyObject *ar
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toString__SWIG_0(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "IptcData_iterator_toString takes no arguments");
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toString" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
+  {
+#ifndef NOCHECK_IptcData_iterator_toString
+    if (!arg1->valid()) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toString"
+        "', invalid iterator cannot be dereferenced");
+    }
+#endif
+  }
+  {
+    try {
+      result = Exiv2_Iptcdatum_toString__SWIG_0((Exiv2::Iptcdatum*)(arg1)->operator ->());
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toString__SWIG_1(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  IptcData_iterator *arg1 = (IptcData_iterator *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
+  std::string result;
+  
+  if (!PyArg_UnpackTuple(args, "IptcData_iterator_toString", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_IptcData_iterator, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toString" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
+  }
+  arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_toString" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  {
+#ifndef NOCHECK_IptcData_iterator_toString
+    if (!arg1->valid()) {
+      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toString"
+        "', invalid iterator cannot be dereferenced");
+    }
+#endif
+  }
+  {
+    try {
+      result = Exiv2_Iptcdatum_toString__SWIG_1((Exiv2::Iptcdatum*)(arg1)->operator ->(),arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IptcData_iterator_toString(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_IptcData_iterator_toString__SWIG_0(self, args);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_IptcData_iterator_toString__SWIG_1(self, args);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IptcData_iterator_toString'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Iptcdatum::toString() const\n"
+    "    Exiv2::Iptcdatum::toString(size_t) const\n");
+  return 0;
 }
 
 
@@ -8276,108 +8278,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Iptcdatum_toString__SWIG_0(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Iptcdatum_toString takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_toString" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
-  {
-    try {
-      result = ((Exiv2::Iptcdatum const *)arg1)->toString();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Iptcdatum_toString__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "Iptcdatum_toString", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_toString" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Iptcdatum_toString" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  {
-    try {
-      result = ((Exiv2::Iptcdatum const *)arg1)->toString(SWIG_STD_MOVE(arg2));
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Iptcdatum_toString(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_Iptcdatum_toString__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_Iptcdatum_toString__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Iptcdatum_toString'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Iptcdatum::toString() const\n"
-    "    Exiv2::Iptcdatum::toString(size_t) const\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_Iptcdatum_toInt64(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
@@ -8883,6 +8783,108 @@ SWIGINTERN PyObject *_wrap_Iptcdatum__print(PyObject *self, PyObject *args) {
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Iptcdatum_toString__SWIG_0(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Iptcdatum_toString takes no arguments");
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_toString" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
+  {
+    try {
+      result = Exiv2_Iptcdatum_toString__SWIG_0((Exiv2::Iptcdatum const *)arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Iptcdatum_toString__SWIG_1(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Iptcdatum *arg1 = (Exiv2::Iptcdatum *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj1 = 0 ;
+  std::string result;
+  
+  if (!PyArg_UnpackTuple(args, "Iptcdatum_toString", 1, 1, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Iptcdatum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_toString" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Iptcdatum_toString" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  {
+    try {
+      result = Exiv2_Iptcdatum_toString__SWIG_1((Exiv2::Iptcdatum const *)arg1,SWIG_STD_MOVE(arg2));
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Iptcdatum_toString(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  (void)self;
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  argv[0] = self;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
+  }
+  argc++;
+  if (argc == 1) {
+    PyObject *retobj = _wrap_Iptcdatum_toString__SWIG_0(self, args);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  if (argc == 2) {
+    PyObject *retobj = _wrap_Iptcdatum_toString__SWIG_1(self, args);
+    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
+    SWIG_fail;
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Iptcdatum_toString'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Exiv2::Iptcdatum::toString() const\n"
+    "    Exiv2::Iptcdatum::toString(size_t) const\n");
+  return 0;
 }
 
 
@@ -10056,13 +10058,13 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__IptcData_iterator_methods[] = {
   { "typeSize", _wrap_IptcData_iterator_typeSize, METH_VARARGS, "" },
   { "count", _wrap_IptcData_iterator_count, METH_VARARGS, "" },
   { "size", _wrap_IptcData_iterator_size, METH_VARARGS, "" },
-  { "toString", _wrap_IptcData_iterator_toString, METH_VARARGS, "" },
   { "toInt64", _wrap_IptcData_iterator_toInt64, METH_VARARGS, "" },
   { "toFloat", _wrap_IptcData_iterator_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_IptcData_iterator_toRational, METH_VARARGS, "" },
   { "getValue", _wrap_IptcData_iterator_getValue, METH_VARARGS, "" },
   { "value", _wrap_IptcData_iterator_value, METH_VARARGS, "" },
   { "_print", _wrap_IptcData_iterator__print, METH_VARARGS, "" },
+  { "toString", _wrap_IptcData_iterator_toString, METH_VARARGS, "" },
   { "print", _wrap_IptcData_iterator_print, METH_VARARGS, "\n"
 		"Write the interpreted value to a string.\n"
 		"\n"
@@ -10488,13 +10490,13 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Iptcdatum_methods[] = {
   { "typeSize", _wrap_Iptcdatum_typeSize, METH_VARARGS, "" },
   { "count", _wrap_Iptcdatum_count, METH_VARARGS, "" },
   { "size", _wrap_Iptcdatum_size, METH_VARARGS, "" },
-  { "toString", _wrap_Iptcdatum_toString, METH_VARARGS, "" },
   { "toInt64", _wrap_Iptcdatum_toInt64, METH_VARARGS, "" },
   { "toFloat", _wrap_Iptcdatum_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_Iptcdatum_toRational, METH_VARARGS, "" },
   { "getValue", _wrap_Iptcdatum_getValue, METH_VARARGS, "" },
   { "value", _wrap_Iptcdatum_value, METH_VARARGS, "" },
   { "_print", _wrap_Iptcdatum__print, METH_VARARGS, "" },
+  { "toString", _wrap_Iptcdatum_toString, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

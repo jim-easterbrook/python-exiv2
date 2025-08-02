@@ -40,6 +40,9 @@ EXCEPTION()
 %ignore Exiv2::Metadatum::toInt64() const;
 %ignore Exiv2::Metadatum::toLong() const;
 %ignore Exiv2::Metadatum::toRational() const;
+%ignore Exiv2::Metadatum::toString() const;
+%ignore Exiv2::Metadatum::toString(long) const;
+%ignore Exiv2::Metadatum::toString(size_t) const;
 %ignore Exiv2::Metadatum::toUint32() const;
 
 // Use default parameter in print() and write()
@@ -121,6 +124,9 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
                      "'_print' has been replaced by 'print'", 1);
         return $self->print(pMetadata);
     }
+    // toString parameter does not default to 0, so bypass default typemap
+    std::string toString() const { return self->toString(); }
+    std::string toString(size_t i) const { return self->toString(i); }
 }
 %enddef // EXTEND_METADATUM
 

@@ -6111,108 +6111,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Metadatum_toString__SWIG_0(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Metadatum_toString takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum_toString" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
-  {
-    try {
-      result = ((Exiv2::Metadatum const *)arg1)->toString();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Metadatum_toString__SWIG_1(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
-  long arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  long val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj1 = 0 ;
-  std::string result;
-  
-  if (!PyArg_UnpackTuple(args, "Metadatum_toString", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Metadatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Metadatum_toString" "', argument " "1"" of type '" "Exiv2::Metadatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Metadatum * >(argp1);
-  ecode2 = SWIG_AsVal_long(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Metadatum_toString" "', argument " "2"" of type '" "long""'");
-  } 
-  arg2 = static_cast< long >(val2);
-  {
-    try {
-      result = ((Exiv2::Metadatum const *)arg1)->toString(arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Metadatum_toString(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  (void)self;
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = PyObject_Length(args);
-  argv[0] = self;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
-  }
-  argc++;
-  if (argc == 1) {
-    PyObject *retobj = _wrap_Metadatum_toString__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_Metadatum_toString__SWIG_1(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Metadatum_toString'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::Metadatum::toString() const\n"
-    "    Exiv2::Metadatum::toString(long) const\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_Metadatum_toLong(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Metadatum *arg1 = (Exiv2::Metadatum *) 0 ;
@@ -6945,18 +6843,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Metadatum_methods[] = {
   { "typeSize", _wrap_Metadatum_typeSize, METH_VARARGS, "Return the size in bytes of one component of this type" },
   { "count", _wrap_Metadatum_count, METH_VARARGS, "Return the number of components in the value" },
   { "size", _wrap_Metadatum_size, METH_VARARGS, "Return the size of the value in bytes" },
-  { "toString", _wrap_Metadatum_toString, METH_VARARGS, "\n"
-		"*Overload 1:*\n"
-		"Return the value as a string.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"\n"
-		"         Return the **n**-th component of the value converted to\n"
-		"                a string. The behaviour of the method is undefined if there\n"
-		"                is no **n**-th component.\n"
-		"" },
   { "toLong", _wrap_Metadatum_toLong, METH_VARARGS, "\n"
 		"Return the **n**-th component of the value converted to long.\n"
 		"       The return value is -1 if the value is not set and the behaviour\n"

@@ -100,16 +100,11 @@ def main():
     for mod_name in mod_names:
         shutil.copy2(os.path.join('src', 'interface', mod_name),
                      os.path.join(output_dir, mod_name))
-    # pre-process include files to a temporary directory
+    # pre-process some include files to a temporary directory
     subst = {
         'image.hpp': [('/*! @brief', '/*!\n    @brief')],
-        'metadatum.hpp': [('toString(size_t n)', 'toString(size_t i)'),
-                          ('toString(long n)', 'toString(long i)')],
         'preview.hpp': [('_{};', '_;')],
         }
-    for key in ('exif.hpp', 'iptc.hpp', 'value.hpp',
-                'xmp.hpp', 'xmp_exiv2.hpp'):
-        subst[key] = subst['metadatum.hpp']
     if swig_version < (4, 2, 0):
         subst['basicio.hpp'] = [('static constexpr auto', 'static const char*')]
     with tempfile.TemporaryDirectory() as copy_dir:
