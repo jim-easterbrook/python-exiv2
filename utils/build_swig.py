@@ -118,9 +118,6 @@ def main():
                             for from_to in subst[file]:
                                 line = line.replace(*from_to)
                             out_file.write(line)
-            else:
-                shutil.copy(os.path.join(incl_dir, file),
-                            os.path.join(dest, file))
         # make options list
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
@@ -131,7 +128,8 @@ def main():
                 swig_opts.append('-D{}'.format(k))
             else:
                 swig_opts.append('-D{}={}'.format(k, v))
-        swig_opts += ['-I' + copy_dir, '-outdir', output_dir]
+        swig_opts += ['-I' + copy_dir, '-I' + os.path.dirname(incl_dir),
+                      '-outdir', output_dir]
         # do each swig module
         for ext_name in ext_names:
             cmd = ['swig'] + swig_opts
