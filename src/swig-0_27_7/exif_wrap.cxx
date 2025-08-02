@@ -4385,22 +4385,18 @@ class ExifData_iterator {
 protected:
     Exiv2::ExifData::iterator ptr;
     Exiv2::ExifData::iterator end;
-    Exiv2::ExifData::iterator safe_ptr;
 public:
     ExifData_iterator(Exiv2::ExifData::iterator ptr,
                               Exiv2::ExifData::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        safe_ptr = ptr;
     }
     ExifData_iterator* __iter__() { return this; }
     Exiv2::Exifdatum* __next__() {
         if (!valid())
             return NULL;
-        Exiv2::Exifdatum* result = &(*safe_ptr);
+        Exiv2::Exifdatum* result = &(*ptr);
         ptr++;
-        if (valid())
-            safe_ptr = ptr;
         return result;
     }
     Exiv2::ExifData::iterator operator*() const { return ptr; }
@@ -4421,11 +4417,11 @@ public:
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
-            return safe_ptr->size();
+            return ptr->size();
         return 0;
     }
     // Dereference operator gives access to all datum methods
-    Exiv2::Exifdatum* operator->() const { return &(*safe_ptr); }
+    Exiv2::Exifdatum* operator->() const { return &(*ptr); }
 };
 // Bypass validity check for some methods
 #define NOCHECK_delete_ExifData_iterator

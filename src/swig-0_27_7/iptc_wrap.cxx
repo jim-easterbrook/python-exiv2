@@ -4374,22 +4374,18 @@ class IptcData_iterator {
 protected:
     Exiv2::IptcData::iterator ptr;
     Exiv2::IptcData::iterator end;
-    Exiv2::IptcData::iterator safe_ptr;
 public:
     IptcData_iterator(Exiv2::IptcData::iterator ptr,
                               Exiv2::IptcData::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        safe_ptr = ptr;
     }
     IptcData_iterator* __iter__() { return this; }
     Exiv2::Iptcdatum* __next__() {
         if (!valid())
             return NULL;
-        Exiv2::Iptcdatum* result = &(*safe_ptr);
+        Exiv2::Iptcdatum* result = &(*ptr);
         ptr++;
-        if (valid())
-            safe_ptr = ptr;
         return result;
     }
     Exiv2::IptcData::iterator operator*() const { return ptr; }
@@ -4410,11 +4406,11 @@ public:
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
-            return safe_ptr->size();
+            return ptr->size();
         return 0;
     }
     // Dereference operator gives access to all datum methods
-    Exiv2::Iptcdatum* operator->() const { return &(*safe_ptr); }
+    Exiv2::Iptcdatum* operator->() const { return &(*ptr); }
 };
 // Bypass validity check for some methods
 #define NOCHECK_delete_IptcData_iterator

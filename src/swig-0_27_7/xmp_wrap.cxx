@@ -4376,22 +4376,18 @@ class XmpData_iterator {
 protected:
     Exiv2::XmpData::iterator ptr;
     Exiv2::XmpData::iterator end;
-    Exiv2::XmpData::iterator safe_ptr;
 public:
     XmpData_iterator(Exiv2::XmpData::iterator ptr,
                               Exiv2::XmpData::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        safe_ptr = ptr;
     }
     XmpData_iterator* __iter__() { return this; }
     Exiv2::Xmpdatum* __next__() {
         if (!valid())
             return NULL;
-        Exiv2::Xmpdatum* result = &(*safe_ptr);
+        Exiv2::Xmpdatum* result = &(*ptr);
         ptr++;
-        if (valid())
-            safe_ptr = ptr;
         return result;
     }
     Exiv2::XmpData::iterator operator*() const { return ptr; }
@@ -4412,11 +4408,11 @@ public:
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
-            return safe_ptr->size();
+            return ptr->size();
         return 0;
     }
     // Dereference operator gives access to all datum methods
-    Exiv2::Xmpdatum* operator->() const { return &(*safe_ptr); }
+    Exiv2::Xmpdatum* operator->() const { return &(*ptr); }
 };
 // Bypass validity check for some methods
 #define NOCHECK_delete_XmpData_iterator

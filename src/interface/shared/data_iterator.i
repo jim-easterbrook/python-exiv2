@@ -54,22 +54,18 @@ class container_type##_iterator {
 protected:
     Exiv2::container_type::iterator ptr;
     Exiv2::container_type::iterator end;
-    Exiv2::container_type::iterator safe_ptr;
 public:
     container_type##_iterator(Exiv2::container_type::iterator ptr,
                               Exiv2::container_type::iterator end) {
         this->ptr = ptr;
         this->end = end;
-        safe_ptr = ptr;
     }
     container_type##_iterator* __iter__() { return this; }
     Exiv2::datum_type* __next__() {
         if (!valid())
             return NULL;
-        Exiv2::datum_type* result = &(*safe_ptr);
+        Exiv2::datum_type* result = &(*ptr);
         ptr++;
-        if (valid())
-            safe_ptr = ptr;
         return result;
     }
     Exiv2::container_type::iterator operator*() const { return ptr; }
@@ -90,11 +86,11 @@ public:
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (valid())
-            return safe_ptr->size();
+            return ptr->size();
         return 0;
     }
     // Dereference operator gives access to all datum methods
-    Exiv2::datum_type* operator->() const { return &(*safe_ptr); }
+    Exiv2::datum_type* operator->() const { return &(*ptr); }
 };
 // Bypass validity check for some methods
 #define NOCHECK_delete_##container_type##_iterator
