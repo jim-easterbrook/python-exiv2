@@ -121,15 +121,14 @@ def main():
         # make options list
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
-                     '-DEXIV2_VERSION_HEX=' + exiv2_version_hex,
-                     '-Isrc/interface', '-I-']
+                     '-Isrc/interface', '-I-', '-I' + copy_dir,
+                     '-I' + os.path.dirname(incl_dir), '-outdir', output_dir,
+                     '-DEXIV2_VERSION_HEX=' + exiv2_version_hex]
         for k, v in options.items():
             if v is None:
                 swig_opts.append('-D{}'.format(k))
             else:
                 swig_opts.append('-D{}={}'.format(k, v))
-        swig_opts += ['-I' + copy_dir, '-I' + os.path.dirname(incl_dir),
-                      '-outdir', output_dir]
         # do each swig module
         for ext_name in ext_names:
             cmd = ['swig'] + swig_opts
