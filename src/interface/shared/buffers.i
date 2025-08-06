@@ -70,71 +70,69 @@
 %}
 %enddef // OUTPUT_BUFFER_RW
 
-// Import exiv2.utilities.view_manager
-%fragment("_import_view_manager_decl", "header") {
-static PyObject* view_manager = NULL;
-}
-%fragment("_import_view_manager", "init",
-          fragment="_import_view_manager_decl") {
-{
-    PyObject* mod = PyImport_ImportModule("exiv2.utilities");
-    if (!mod)
-        return INIT_ERROR_RETURN;
-    view_manager = PyObject_GetAttrString(mod, "view_manager");
-    if (!view_manager) {
-        PyErr_SetString(
-            PyExc_RuntimeError,
-            "Import error: exiv2.utilities.view_manager not found.");
-        return INIT_ERROR_RETURN;
-    }
-}
-}
 
 // Functions to store references to memoryview objects and release them
-%fragment("memoryview_funcs", "header", fragment="private_data",
-          fragment="_import_view_manager") {
-static int store_view(PyObject* py_self, PyObject* view,
-                      PyObject* callback=NULL) {
-    PyObject* view_ref = PyWeakref_NewRef(view, callback);
-    if (!view_ref)
-        return -1;
-    PyObject* marker = private_store_get(py_self, "marker");
-    if (!marker) {
-        // Marker is any weakrefable object.
-        marker = PySet_New(NULL);
-        if (!marker)
+%fragment("memoryview_funcs", "header", fragment="private_data") {
+static int store_view(PyObject* py_self, PyObject* view) {
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list) {
+        view_list = PyList_New(0);
+        if (!view_list)
             return -1;
-        int error = private_store_set(py_self, "marker", marker);
-        Py_DECREF(marker);
+        int error = private_store_set(py_self, "view_list", view_list);
+        Py_DECREF(view_list);
         if (error)
             return -1;
     }
-    PyObject* OK = PyObject_CallMethod(
-        view_manager, "store_view", "(OO)", marker, view_ref);
-    Py_DECREF(view_ref);
-    if (!OK)
+    PyObject* callback = PyObject_GetAttrString(py_self, "_view_deleted_cb");
+    if (!callback)
         return -1;
-    Py_DECREF(OK);
-    return 0;
+    PyObject* view_ref = PyWeakref_NewRef(view, callback);
+    Py_DECREF(callback);
+    if (!view_ref)
+        return -1;
+    int result = PyList_Append(view_list, view_ref);
+    Py_DECREF(view_ref);
+    return result;
 };
 static int release_views(PyObject* py_self) {
-    private_store_del(py_self, "marker");
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list)
+        return 0;
+    PyObject* view_ref = NULL;
+    PyObject* view = NULL;
+    for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
+        view_ref = PyList_GetItem(view_list, idx - 1);
+        view = PyWeakref_GetObject(view_ref);
+        if (view != Py_None)
+            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+        PyList_SetSlice(view_list, idx - 1, idx, NULL);
+    }
     return 0;
 };
 }
 
-// Macro to convert byte* return value to memoryview
-// WARNING: return value does not keep a reference to the data it points to
-%define RETURN_VIEW_CB(signature, size_func, flags, callback, doc_method)
+/* Macro to convert byte* (or similar) return value to memoryview
+ *
+ * We can't store a reference to the data owner in the memoryview result
+ * so we store a weak reference to the memoryview in the data owner. To
+ * prevent the data owner being deleted while the memoryview exists we
+ * use a method of the Python data owner as the weakref callback. This
+ * increments the data owner's ref count, preventing it from being deleted,
+ * then decrements it when the memoryview is deleted (and the callback is
+ * called). The callback doesn't have to do anything, but it can be used
+ * for cleanup (e.g. calling BasicIo::munmap).
+ */
+%define RETURN_VIEW(signature, size_func, flags, doc_method)
 %typemap(doctype) signature "memoryview";
-%typemap(out, fragment="memoryview_funcs") (signature) %{
+%typemap(out, fragment="memoryview_funcs") (signature) {
     $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
     if (!$result)
         SWIG_fail;
     // Store a weak ref to the new memoryview
-    if (store_view(self, $result, callback))
+    if (store_view(self, $result))
         SWIG_fail;
-%}
+}
 #if #doc_method != ""
 %feature("docstring") doc_method
 "Returns a temporary Python memoryview of the object's data.
@@ -143,9 +141,6 @@ WARNING: do not resize or delete the object while using the view.
 
 :rtype: memoryview"
 #endif
-%enddef // RETURN_VIEW_CB
-%define RETURN_VIEW(signature, size_func, flags, doc_method)
-RETURN_VIEW_CB(signature, size_func, flags, NULL, doc_method)
 %enddef // RETURN_VIEW
 
 

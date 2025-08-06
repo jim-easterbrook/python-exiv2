@@ -128,9 +128,9 @@ class TestValueModule(unittest.TestCase):
         view = copy.data()
         self.assertIsInstance(view, memoryview)
         self.assertEqual(view[0], data[0])
-        del copy
-        with self.assertRaises(ValueError):
-            self.assertEqual(view[0], data[0])
+        self.assertEqual(sys.getrefcount(copy), 3)
+        del view
+        self.assertEqual(sys.getrefcount(copy), 2)
 
     def do_common_xmp_tests(self, value):
         with self.assertWarns(DeprecationWarning):

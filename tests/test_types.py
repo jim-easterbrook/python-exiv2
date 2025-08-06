@@ -86,9 +86,9 @@ class TestTypesModule(unittest.TestCase):
         with self.assertRaises(ValueError):
             view[0]
         view = buf.data()
-        del buf
-        with self.assertRaises(ValueError):
-            view[0]
+        self.assertEqual(sys.getrefcount(buf), 3)
+        del view
+        self.assertEqual(sys.getrefcount(buf), 2)
 
     def test_Rational(self):
         for type_ in (exiv2.Rational, exiv2.URational):

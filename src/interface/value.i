@@ -500,13 +500,14 @@ VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
 
 // Allow access to Exiv2::StringValueBase and Exiv2::XmpTextValue raw data
 %define RAW_STRING_DATA(class)
-RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ,
-            class##::data)
+RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ, class##::data)
 %noexception class::data;
+%noexception class::_view_deleted_cb;
 %extend class {
     const char* data() {
         return $self->value_.data();
-    }
+    };
+    void _view_deleted_cb(PyObject* ref) {};
 }
 // Release memoryviews when new data is read
 %typemap(ret, fragment="memoryview_funcs") (int class::read) %{

@@ -372,7 +372,7 @@ In some cases this includes writing to the data.
     buf = thumb.copy()
     thumb_im = PIL.Image.open(io.BytesIO(buf.data()))
 
-Since version 0.18.0 python-exiv2 releases the memoryview (when the memory block is resized or deleted) to prevent problems such as segmentation faults:
+Since version 0.18.0 python-exiv2 releases the memoryview_ if the memory is invalidated (e.g. if the memory block is resized) to prevent problems such as segmentation faults:
 
 .. code:: python
 
@@ -380,11 +380,28 @@ Since version 0.18.0 python-exiv2 releases the memoryview (when the memory block
     >>> data = buf.data()
     >>> print(bytes(data))
     b'fred'
-    >>> del buf
+    >>> buf.resize(128)
     >>> print(bytes(data))
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
     ValueError: operation forbidden on released memoryview object
+    >>>
+
+Although memoryview_ objects can be used in a with_ statement this has no benefit with python-exiv2.
+The memory view's ``release`` method does nothing.
+Releasing any associated resources only happens when the memory view is deleted:
+
+.. code:: python
+
+    with buf.data() as data:
+        file.write(data)
+    del data
+
+is equivalent to
+
+.. code:: python
+
+    file.write(buf.data())
 
 Buffer interface
 ----------------
@@ -400,6 +417,8 @@ For example, you could save a photograph's thumbnail in a separate file like thi
     with open('thumbnail.jpg', 'wb') as out_file:
         out_file.write(thumb.copy())
 
+Use of this buffer interface is deprecated (since python-exiv2 v0.18.0) and the ``data()`` methods described above should be used instead.
+
 Image data in memory
 --------------------
 
@@ -410,32 +429,9 @@ The buffered data isn't actually read until ``Image::readMetadata`` is called, s
 When ``Image::writeMetadata`` is called exiv2 allocates a new block of memory to store the modified data.
 The ``Image::io`` method returns an `Exiv2::BasicIo`_ object that provides access to this data.
 
-The ``BasicIo::mmap`` method allows access to the image file data without unnecessary copying.
-However it is rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.
-
-The ``Exiv2::BasicIo`` object must be open when ``mmap()`` is called.
-A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap()`` calls are paired with ``munmap()`` and ``close()`` calls:
-
-.. code:: python
-
-    from contextlib import contextmanager
-
-    @contextmanager
-    def get_file_data(image):
-        exiv_io = image.io()
-        exiv_io.open()
-        try:
-            yield exiv_io.mmap()
-        finally:
-            exiv_io.munmap()
-            exiv_io.close()
-
-    # after setting some metadata
-    image.writeMetadata()
-    with get_file_data(image) as data:
-        rsp = requests.post(url, files={'file': io.BytesIO(data)})
-
-Since v0.18.0 python-exiv2 has a ``exiv2.BasicIo.data()`` method that is easier to use:
+The ``BasicIo::mmap`` and ``BasicIo::munmap`` methods allows access to the image file data without unnecessary copying.
+However they are rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.
+Since python-exiv2 v0.18.0 it is much easier to use the ``data()`` method:
 
 .. code:: python
 
@@ -444,26 +440,17 @@ Since v0.18.0 python-exiv2 has a ``exiv2.BasicIo.data()`` method that is easier 
     exiv_io = image.io()
     rsp = requests.post(url, files={'file': io.BytesIO(exiv_io.data())})
 
-The ``exiv2.BasicIo`` Python type also exposes a `buffer interface`_.
-It allows the ``exiv2.BasicIo`` object to be used anywhere that a `bytes-like object`_ is expected:
-
-.. code:: python
-
-    # after setting some metadata
-    image.writeMetadata()
-    exiv_io = image.io()
-    rsp = requests.post(url, files={'file': io.BytesIO(exiv_io)})
-
-Since python-exiv2 v0.15.0 this buffer can be writeable:
+The ``data()`` method can also return a writeable memoryview_:
 
 .. code:: python
 
     exiv_io = image.io()
-    with memoryview(exiv_io) as data:
-        data[23] = 157      # modifies data buffer
+    data = exiv_io.data(True)
+    data[23] = 157          # modifies data buffer
+    del data                # writes modified data to the buffer
     image.readMetadata()    # reads modified buffer data
 
-The modified data is written back to the file or memory buffer when the memoryview_ is released.
+The modified data is written back to the file or memory buffer when the memoryview_ is deleted.
 
 .. _bytearray:
     https://docs.python.org/3/library/stdtypes.html#bytearray
@@ -513,3 +500,5 @@ The modified data is written back to the file or memory buffer when the memoryvi
     https://docs.python.org/3/library/stdtypes.html#memoryview
 .. _PyPI:
     https://pypi.org/project/exiv2/
+.. _with:
+    https://docs.python.org/3/reference/compound_stmts.html#with

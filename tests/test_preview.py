@@ -44,8 +44,6 @@ class TestPreviewModule(unittest.TestCase):
         props = manager.getPreviewProperties()
         preview = manager.getPreviewImage(props[0])
         self.assertIsInstance(preview, exiv2.PreviewImage)
-        preview2 = exiv2.PreviewImage(preview)
-        self.assertIsInstance(preview2, exiv2.PreviewImage)
         self.assertEqual(len(preview), preview.size())
         copy = preview.copy()
         self.assertIsInstance(copy, exiv2.DataBuf)
@@ -56,11 +54,9 @@ class TestPreviewModule(unittest.TestCase):
         with preview.data() as data:
             self.check_result(data, memoryview, copy.data())
             self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
-        data = preview2.data()
-        self.assertEqual(data[0], 255)
-        del preview2
-        with self.assertRaises(ValueError):
-            self.assertEqual(data[0], 255)
+        self.assertEqual(sys.getrefcount(preview), 3)
+        del data
+        self.assertEqual(sys.getrefcount(preview), 2)
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(memoryview(preview), copy.data())
         self.check_result(preview.extension(), str, '.jpg')

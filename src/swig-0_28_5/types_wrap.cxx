@@ -4969,35 +4969,41 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 
-static PyObject* view_manager = NULL;
-
-
-static int store_view(PyObject* py_self, PyObject* view,
-                      PyObject* callback=NULL) {
-    PyObject* view_ref = PyWeakref_NewRef(view, callback);
-    if (!view_ref)
-        return -1;
-    PyObject* marker = private_store_get(py_self, "marker");
-    if (!marker) {
-        // Marker is any weakrefable object.
-        marker = PySet_New(NULL);
-        if (!marker)
+static int store_view(PyObject* py_self, PyObject* view) {
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list) {
+        view_list = PyList_New(0);
+        if (!view_list)
             return -1;
-        int error = private_store_set(py_self, "marker", marker);
-        Py_DECREF(marker);
+        int error = private_store_set(py_self, "view_list", view_list);
+        Py_DECREF(view_list);
         if (error)
             return -1;
     }
-    PyObject* OK = PyObject_CallMethod(
-        view_manager, "store_view", "(OO)", marker, view_ref);
-    Py_DECREF(view_ref);
-    if (!OK)
+    PyObject* callback = PyObject_GetAttrString(py_self, "_view_deleted_cb");
+    if (!callback)
         return -1;
-    Py_DECREF(OK);
-    return 0;
+    PyObject* view_ref = PyWeakref_NewRef(view, callback);
+    Py_DECREF(callback);
+    if (!view_ref)
+        return -1;
+    int result = PyList_Append(view_list, view_ref);
+    Py_DECREF(view_ref);
+    return result;
 };
 static int release_views(PyObject* py_self) {
-    private_store_del(py_self, "marker");
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list)
+        return 0;
+    PyObject* view_ref = NULL;
+    PyObject* view = NULL;
+    for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
+        view_ref = PyList_GetItem(view_list, idx - 1);
+        view = PyWeakref_GetObject(view_ref);
+        if (view != Py_None)
+            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+        PyList_SetSlice(view_list, idx - 1, idx, NULL);
+    }
     return 0;
 };
 
@@ -5028,6 +5034,7 @@ SWIGINTERN bool Exiv2_DataBuf___ne__(Exiv2::DataBuf *self,Exiv2::byte const *pDa
             return true;
         return self->cmpBytes(0, pData, size) != 0;
     }
+SWIGINTERN void Exiv2_DataBuf__view_deleted_cb(Exiv2::DataBuf *self,PyObject *ref){}
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
@@ -6144,14 +6151,14 @@ SWIGINTERN PyObject *_wrap_DataBuf_data(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
   result = (Exiv2::byte *)(arg1)->data();
-  
-  resultobj = PyMemoryView_FromMemory((char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
-  if (!resultobj)
-  SWIG_fail;
-  // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj, NULL))
-  SWIG_fail;
-  
+  {
+    resultobj = PyMemoryView_FromMemory((char*)result, arg1->DATABUF_SIZE, PyBUF_WRITE);
+    if (!resultobj)
+    SWIG_fail;
+    // Store a weak ref to the new memoryview
+    if (store_view(self, resultobj))
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -6317,6 +6324,30 @@ fail:
   PyErr_Clear();
   SWIG_Py_INCREF(Py_NotImplemented);
   return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataBuf__view_deleted_cb(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf__view_deleted_cb" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
+  arg2 = swig_obj[0];
+  Exiv2_DataBuf__view_deleted_cb(arg1,arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -7331,6 +7362,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
   { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },
   { "__eq__", _wrap_DataBuf___eq__, METH_O, "" },
   { "__ne__", _wrap_DataBuf___ne__, METH_O, "" },
+  { "_view_deleted_cb", _wrap_DataBuf__view_deleted_cb, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -8986,20 +9018,6 @@ SWIG_init(void) {
   
   /* type 'Exiv2::DataBuf' */
   d = PyDict_New();
-  
-  {
-    PyObject* mod = PyImport_ImportModule("exiv2.utilities");
-    if (!mod)
-    return INIT_ERROR_RETURN;
-    view_manager = PyObject_GetAttrString(mod, "view_manager");
-    if (!view_manager) {
-      PyErr_SetString(
-        PyExc_RuntimeError,
-        "Import error: exiv2.utilities.view_manager not found.");
-      return INIT_ERROR_RETURN;
-    }
-  }
-  
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);

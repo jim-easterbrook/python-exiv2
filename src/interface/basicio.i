@@ -57,7 +57,7 @@ UNIQUE_PTR(Exiv2::BasicIo);
 %thread Exiv2::BasicIo::seek;
 %thread Exiv2::BasicIo::transfer;
 %thread Exiv2::BasicIo::write;
-%thread Exiv2::BasicIo::_release;
+%thread Exiv2::BasicIo::_view_deleted_cb;
 
 // Some calls don't raise exceptions
 %noexception Exiv2::BasicIo::eof;
@@ -158,16 +158,14 @@ RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
 
 // Release memoryviews when some other functions are called
 %typemap(ret, fragment="memoryview_funcs")
-        (int close), (int munmap), (long write), (size_t write),
-        (void _release) %{
+        (int close), (int munmap), (long write), (size_t write) %{
     release_views(self);
 %}
 
 // Add data() method for easy access
 // The callback is used to call munmap when the memoryview is deleted
-RETURN_VIEW_CB(Exiv2::byte* data, $1 ? arg1->size() : 0,
-               _global_writeable ? PyBUF_WRITE : PyBUF_READ,
-               PyObject_GetAttrString(self, "_release"),)
+RETURN_VIEW(Exiv2::byte* data, $1 ? arg1->size() : 0,
+            _global_writeable ? PyBUF_WRITE : PyBUF_READ,)
 %feature("docstring") Exiv2::BasicIo::data
 "Easy access to the IO data.
 
@@ -183,7 +181,7 @@ munmap() and close() are called when the memoryview object is deleted.
         self->open();
         return self->mmap(isWriteable);
     };
-    void _release(PyObject* ref) {
+    void _view_deleted_cb(PyObject* ref) {
         self->munmap();
         self->close();
     };

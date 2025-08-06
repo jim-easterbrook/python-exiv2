@@ -96,10 +96,12 @@ RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,
 // Add data() alias of pData()
 RETURN_VIEW(Exiv2::byte* data, arg1->size(), PyBUF_READ,
             Exiv2::PreviewImage::data)
+%noexception Exiv2::PreviewImage::_view_deleted_cb;
 %extend Exiv2::PreviewImage {
-const Exiv2::byte* data() {
-    return $self->pData();
-};
+    const Exiv2::byte* data() {
+        return $self->pData();
+    };
+    void _view_deleted_cb(PyObject* ref) {};
 }
 
 // Deprecate pData() in favour of data() since 2025-07-02

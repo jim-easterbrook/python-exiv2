@@ -4538,35 +4538,41 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 
-static PyObject* view_manager = NULL;
-
-
-static int store_view(PyObject* py_self, PyObject* view,
-                      PyObject* callback=NULL) {
-    PyObject* view_ref = PyWeakref_NewRef(view, callback);
-    if (!view_ref)
-        return -1;
-    PyObject* marker = private_store_get(py_self, "marker");
-    if (!marker) {
-        // Marker is any weakrefable object.
-        marker = PySet_New(NULL);
-        if (!marker)
+static int store_view(PyObject* py_self, PyObject* view) {
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list) {
+        view_list = PyList_New(0);
+        if (!view_list)
             return -1;
-        int error = private_store_set(py_self, "marker", marker);
-        Py_DECREF(marker);
+        int error = private_store_set(py_self, "view_list", view_list);
+        Py_DECREF(view_list);
         if (error)
             return -1;
     }
-    PyObject* OK = PyObject_CallMethod(
-        view_manager, "store_view", "(OO)", marker, view_ref);
-    Py_DECREF(view_ref);
-    if (!OK)
+    PyObject* callback = PyObject_GetAttrString(py_self, "_view_deleted_cb");
+    if (!callback)
         return -1;
-    Py_DECREF(OK);
-    return 0;
+    PyObject* view_ref = PyWeakref_NewRef(view, callback);
+    Py_DECREF(callback);
+    if (!view_ref)
+        return -1;
+    int result = PyList_Append(view_list, view_ref);
+    Py_DECREF(view_ref);
+    return result;
 };
 static int release_views(PyObject* py_self) {
-    private_store_del(py_self, "marker");
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list)
+        return 0;
+    PyObject* view_ref = NULL;
+    PyObject* view = NULL;
+    for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
+        view_ref = PyList_GetItem(view_list, idx - 1);
+        view = PyWeakref_GetObject(view_ref);
+        if (view != Py_None)
+            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+        PyList_SetSlice(view_list, idx - 1, idx, NULL);
+    }
     return 0;
 };
 
@@ -4884,7 +4890,7 @@ SWIGINTERN Exiv2::byte *Exiv2_BasicIo_data(Exiv2::BasicIo *self,bool isWriteable
         self->open();
         return self->mmap(isWriteable);
     }
-SWIGINTERN void Exiv2_BasicIo__release(Exiv2::BasicIo *self,PyObject *ref){
+SWIGINTERN void Exiv2_BasicIo__view_deleted_cb(Exiv2::BasicIo *self,PyObject *ref){
         self->munmap();
         self->close();
     }
@@ -5536,14 +5542,14 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
-  if (!resultobj)
-  SWIG_fail;
-  // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj, NULL))
-  SWIG_fail;
-  
+  {
+    resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+    if (!resultobj)
+    SWIG_fail;
+    // Store a weak ref to the new memoryview
+    if (store_view(self, resultobj))
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
@@ -5817,21 +5823,21 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
       SWIG_fail;
     }
   }
-  
-  resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
-  if (!resultobj)
-  SWIG_fail;
-  // Store a weak ref to the new memoryview
-  if (store_view(self, resultobj, PyObject_GetAttrString(self, "_release")))
-  SWIG_fail;
-  
+  {
+    resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+    if (!resultobj)
+    SWIG_fail;
+    // Store a weak ref to the new memoryview
+    if (store_view(self, resultobj))
+    SWIG_fail;
+  }
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_BasicIo__release(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_BasicIo__view_deleted_cb(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
@@ -5839,10 +5845,10 @@ SWIGINTERN PyObject *_wrap_BasicIo__release(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_UnpackTuple(args, "BasicIo__release", 1, 1, &obj1)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo__view_deleted_cb", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo__release" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo__view_deleted_cb" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   arg2 = obj1;
@@ -5850,7 +5856,7 @@ SWIGINTERN PyObject *_wrap_BasicIo__release(PyObject *self, PyObject *args) {
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        Exiv2_BasicIo__release(arg1,arg2);
+        Exiv2_BasicIo__view_deleted_cb(arg1,arg2);
         SWIG_PYTHON_THREAD_END_ALLOW;
       }
     }
@@ -5860,9 +5866,6 @@ SWIGINTERN PyObject *_wrap_BasicIo__release(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_Py_Void();
-  
-  release_views(self);
-  
   return resultobj;
 fail:
   return NULL;
@@ -5987,7 +5990,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__BasicIo_methods[] = {
 		"    (default is false).\n"
 		":rtype: memoryview\n"
 		"" },
-  { "_release", _wrap_BasicIo__release, METH_VARARGS, "" },
+  { "_view_deleted_cb", _wrap_BasicIo__view_deleted_cb, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -6951,20 +6954,6 @@ SWIG_init(void) {
     Py_DECREF(module);
     if (!Py_IntEnum) {
       PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return INIT_ERROR_RETURN;
-    }
-  }
-  
-  
-  {
-    PyObject* mod = PyImport_ImportModule("exiv2.utilities");
-    if (!mod)
-    return INIT_ERROR_RETURN;
-    view_manager = PyObject_GetAttrString(mod, "view_manager");
-    if (!view_manager) {
-      PyErr_SetString(
-        PyExc_RuntimeError,
-        "Import error: exiv2.utilities.view_manager not found.");
       return INIT_ERROR_RETURN;
     }
   }
