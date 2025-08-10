@@ -4368,6 +4368,16 @@ namespace Exiv2 {
 typedef Exiv2::ErrorCode ErrorCode;
 
 
+#define NO_RELEASE_delete_BasicIo
+#define NO_RELEASE_BasicIo_eof
+#define NO_RELEASE_BasicIo_error
+#define NO_RELEASE_BasicIo_ioType
+#define NO_RELEASE_BasicIo_isopen
+#define NO_RELEASE_BasicIo_path
+#define NO_RELEASE_BasicIo_size
+#define NO_RELEASE_BasicIo__view_deleted_cb
+
+
 static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
                          Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
@@ -4486,13 +4496,6 @@ static PyObject* _create_enum_Exiv2_BasicIo_Position(
 };
 
 
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
-
-
 static PyObject* _get_store(PyObject* py_self, bool create) {
     // Return a new reference
     if (!PyObject_HasAttrString(py_self, "_private_data_")) {
@@ -4575,6 +4578,13 @@ static int release_views(PyObject* py_self) {
     }
     return 0;
 };
+
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_int  (int value)
+{
+  return PyInt_FromLong((long) value);
+}
 
 
 SWIGINTERN int
@@ -4923,6 +4933,11 @@ SWIGINTERN PyObject *_wrap_delete_BasicIo(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
+#ifndef NO_RELEASE_delete_BasicIo
+    release_views(self);
+#endif
+  }
+  {
     try {
       delete arg1;
     }
@@ -4951,6 +4966,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_open(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_open" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+#ifndef NO_RELEASE_BasicIo_open
+    release_views(self);
+#endif
+  }
   {
     try {
       {
@@ -4985,6 +5005,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_close(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
+#ifndef NO_RELEASE_BasicIo_close
+    release_views(self);
+#endif
+  }
+  {
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -4998,9 +5023,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_close(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
-  
-  release_views(self);
-  
   return resultobj;
 fail:
   return NULL;
@@ -5036,6 +5058,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, PyObject *args)
     arg3 = (long) buff->len;
   }
   {
+#ifndef NO_RELEASE_BasicIo_write
+    release_views(self);
+#endif
+  }
+  {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::write", 1);
     
@@ -5054,9 +5081,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, PyObject *args)
   resultobj = SWIG_From_long(static_cast< long >(result));
   
   Py_XDECREF(_global_view);
-  
-  
-  release_views(self);
   
   return resultobj;
 fail:
@@ -5093,6 +5117,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, PyObject *args)
   }
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
+#ifndef NO_RELEASE_BasicIo_write
+    release_views(self);
+#endif
+  }
+  {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::write", 1);
     
@@ -5109,9 +5138,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, PyObject *args)
     }
   }
   resultobj = SWIG_From_long(static_cast< long >(result));
-  
-  release_views(self);
-  
   return resultobj;
 fail:
   return NULL;
@@ -5183,6 +5209,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_putb(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< Exiv2::byte >(val2);
   {
+#ifndef NO_RELEASE_BasicIo_putb
+    release_views(self);
+#endif
+  }
+  {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::putb", 1);
     
@@ -5223,6 +5254,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "BasicIo_read" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
+  {
+#ifndef NO_RELEASE_BasicIo_read
+    release_views(self);
+#endif
+  }
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::read", 1);
@@ -5284,6 +5320,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_read" "', argument " "3"" of type '" "long""'");
   } 
   arg3 = static_cast< long >(val3);
+  {
+#ifndef NO_RELEASE_BasicIo_read
+    release_views(self);
+#endif
+  }
   {
     if (arg3 > (long) _global_view.len) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "buffer too small""'")
@@ -5372,6 +5413,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_getb(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
+#ifndef NO_RELEASE_BasicIo_getb
+    release_views(self);
+#endif
+  }
+  {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::getb", 1);
     
@@ -5414,6 +5460,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_transfer(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "BasicIo_transfer" "', argument " "2"" of type '" "Exiv2::BasicIo &""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
+  {
+#ifndef NO_RELEASE_BasicIo_transfer
+    release_views(self);
+#endif
+  }
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::transfer", 1);
@@ -5475,6 +5526,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::BasicIo::Position >(PyLong_AsLong(obj2));
   }
   {
+#ifndef NO_RELEASE_BasicIo_seek
+    release_views(self);
+#endif
+  }
+  {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::seek", 1);
     
@@ -5505,6 +5561,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   bool val2 ;
   int ecode2 = 0 ;
+  Exiv2::BasicIo *_global_self ;
   bool _global_writeable ;
   PyObject * obj1 = 0 ;
   Exiv2::byte *result = 0 ;
@@ -5526,6 +5583,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
     arg2 = static_cast< bool >(val2);
   }
   {
+    _global_self = arg1;
     _global_writeable = arg2;
     release_views(self);
   }
@@ -5543,7 +5601,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+    resultobj = PyMemoryView_FromMemory((char*)result, result ? _global_self->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
     if (!resultobj)
     SWIG_fail;
     // Store a weak ref to the new memoryview
@@ -5570,6 +5628,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_munmap(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
+#ifndef NO_RELEASE_BasicIo_munmap
+    release_views(self);
+#endif
+  }
+  {
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5583,9 +5646,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_munmap(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
-  
-  release_views(self);
-  
   return resultobj;
 fail:
   return NULL;
@@ -5605,6 +5665,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_tell(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_tell" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+#ifndef NO_RELEASE_BasicIo_tell
+    release_views(self);
+#endif
+  }
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::tell", 1);
@@ -5638,6 +5703,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_size(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
+#ifndef NO_RELEASE_BasicIo_size
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = ((Exiv2::BasicIo const *)arg1)->size();
     }
@@ -5666,6 +5736,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_isopen(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_isopen" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+#ifndef NO_RELEASE_BasicIo_isopen
+    release_views(self);
+#endif
+  }
   result = (bool)((Exiv2::BasicIo const *)arg1)->isopen();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
@@ -5687,6 +5762,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_error(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_error" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+#ifndef NO_RELEASE_BasicIo_error
+    release_views(self);
+#endif
+  }
   result = (int)((Exiv2::BasicIo const *)arg1)->error();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
@@ -5708,6 +5788,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_eof(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_eof" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+#ifndef NO_RELEASE_BasicIo_eof
+    release_views(self);
+#endif
+  }
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::eof", 1);
@@ -5740,6 +5825,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_path" "', argument " "1"" of type '" "Exiv2::BasicIo const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+#ifndef NO_RELEASE_BasicIo_path
+    release_views(self);
+#endif
+  }
   result = ((Exiv2::BasicIo const *)arg1)->path();
   {
 #ifdef _WIN32
@@ -5770,6 +5860,11 @@ SWIGINTERN PyObject *_wrap_BasicIo_ioType(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_ioType" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
+  {
+#ifndef NO_RELEASE_BasicIo_ioType
+    release_views(self);
+#endif
+  }
   result = (char *)Exiv2_BasicIo_ioType(arg1);
   resultobj = SWIG_FromCharPtr((const char *)result);
   return resultobj;
@@ -5786,6 +5881,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   bool val2 ;
   int ecode2 = 0 ;
+  Exiv2::BasicIo *_global_self ;
   bool _global_writeable ;
   PyObject * obj1 = 0 ;
   Exiv2::byte *result = 0 ;
@@ -5807,6 +5903,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
     arg2 = static_cast< bool >(val2);
   }
   {
+    _global_self = arg1;
     _global_writeable = arg2;
     release_views(self);
   }
@@ -5824,7 +5921,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+    resultobj = PyMemoryView_FromMemory((char*)result, result ? _global_self->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
     if (!resultobj)
     SWIG_fail;
     // Store a weak ref to the new memoryview
@@ -5852,6 +5949,11 @@ SWIGINTERN PyObject *_wrap_BasicIo__view_deleted_cb(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   arg2 = obj1;
+  {
+#ifndef NO_RELEASE_BasicIo__view_deleted_cb
+    release_views(self);
+#endif
+  }
   {
     try {
       {

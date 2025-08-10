@@ -146,25 +146,39 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
 %ignore Exiv2::BasicIo::mmap();
 
 // Convert mmap() result to a Python memoryview
-RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
+RETURN_VIEW(Exiv2::byte* mmap, $1 ? _global_self->size() : 0,
             _global_writeable ? PyBUF_WRITE : PyBUF_READ,)
 
-// Release memoryviews (and save isWriteable) when mmap or data is called
-%typemap(check, fragment="memoryview_funcs") bool isWriteable
-        (bool _global_writeable) {
-    _global_writeable = $1;
+// Save self and isWriteable (and release memoryviews) when mmap or data
+// is called
+%typemap(check, fragment="memoryview_funcs")
+        (Exiv2::BasicIo* self, bool isWriteable)
+        (Exiv2::BasicIo* _global_self, bool _global_writeable) {
+    _global_self = $1;
+    _global_writeable = $2;
     release_views(self);
 }
 
-// Release memoryviews when some other functions are called
-%typemap(ret, fragment="memoryview_funcs")
-        (int close), (int munmap), (long write), (size_t write) %{
-    release_views(self);
+// Most methods of BasicIo release any existing memoryview
+%{
+#define NO_RELEASE_delete_BasicIo
+#define NO_RELEASE_BasicIo_eof
+#define NO_RELEASE_BasicIo_error
+#define NO_RELEASE_BasicIo_ioType
+#define NO_RELEASE_BasicIo_isopen
+#define NO_RELEASE_BasicIo_path
+#define NO_RELEASE_BasicIo_size
+#define NO_RELEASE_BasicIo__view_deleted_cb
 %}
+%typemap(check, fragment="memoryview_funcs") Exiv2::BasicIo* self {
+%#ifndef NO_RELEASE_$symname
+    release_views(self);
+%#endif
+}
 
 // Add data() method for easy access
 // The callback is used to call munmap when the memoryview is deleted
-RETURN_VIEW(Exiv2::byte* data, $1 ? arg1->size() : 0,
+RETURN_VIEW(Exiv2::byte* data, $1 ? _global_self->size() : 0,
             _global_writeable ? PyBUF_WRITE : PyBUF_READ,)
 %feature("docstring") Exiv2::BasicIo::data
 "Easy access to the IO data.
