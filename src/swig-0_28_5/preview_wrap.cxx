@@ -7285,15 +7285,11 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
   { "data", _wrap_PreviewImage_data, METH_NOARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
-		"WARNING: do not resize or delete the object while using the view.\n"
-		"\n"
 		":rtype: memoryview\n"
 		"" },
   { "_view_deleted_cb", _wrap_PreviewImage__view_deleted_cb, METH_O, "" },
   { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
-		"\n"
-		"WARNING: do not resize or delete the object while using the view.\n"
 		"\n"
 		":rtype: memoryview\n"
 		"" },

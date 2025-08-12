@@ -26065,8 +26065,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__StringValueBase_methods[] = {
   { "data", _wrap_StringValueBase_data, METH_VARARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
-		"WARNING: do not resize or delete the object while using the view.\n"
-		"\n"
 		":rtype: memoryview\n"
 		"" },
   { "_view_deleted_cb", _wrap_StringValueBase__view_deleted_cb, METH_VARARGS, "" },
@@ -28053,8 +28051,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpTextValue_methods[] = {
   { "write", _wrap_XmpTextValue_write, METH_VARARGS, "" },
   { "data", _wrap_XmpTextValue_data, METH_VARARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
-		"\n"
-		"WARNING: do not resize or delete the object while using the view.\n"
 		"\n"
 		":rtype: memoryview\n"
 		"" },

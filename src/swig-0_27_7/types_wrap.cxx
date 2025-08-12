@@ -7290,8 +7290,6 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__DataBuf_getset[] = {
     { (char *)"pData_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
-		"WARNING: do not resize or delete the object while using the view.\n"
-		"\n"
 		":rtype: memoryview\n"
 		"", &DataBuf_pData__getset },
     { (char *)"size_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"The current size of the buffer", &DataBuf_size__getset },
@@ -7354,8 +7352,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
   { "_view_deleted_cb", _wrap_DataBuf__view_deleted_cb, METH_O, "" },
   { "data", _wrap_DataBuf_data, METH_NOARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
-		"\n"
-		"WARNING: do not resize or delete the object while using the view.\n"
 		"\n"
 		":rtype: memoryview\n"
 		"" },

@@ -137,8 +137,6 @@ static int release_views(PyObject* py_self) {
 %feature("docstring") doc_method
 "Returns a temporary Python memoryview of the object's data.
 
-WARNING: do not resize or delete the object while using the view.
-
 :rtype: memoryview"
 #endif
 %enddef // RETURN_VIEW
