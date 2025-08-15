@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -61,9 +61,6 @@ EXTEND_KEY(Exiv2::Key);
 %define EXTEND_METADATUM(datum_type)
 // Ignore overloaded default parameter version
 %ignore datum_type::write(std::ostream &) const;
-// Turn off exception checking for methods that are guaranteed not to throw
-%noexception datum_type::count;
-%noexception datum_type::size;
 // Keep a reference to Metadatum when calling value()
 KEEP_REFERENCE(const Exiv2::Value&)
 // Keep a reference to any object that returns a reference to a datum.

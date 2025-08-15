@@ -6528,7 +6528,15 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_count(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_count" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  result = (*arg1)->count();
+  {
+    try {
+      result = (*arg1)->count();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -6549,7 +6557,15 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_size(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_size" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  result = (*arg1)->size();
+  {
+    try {
+      result = (*arg1)->size();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -7940,7 +7956,15 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_count" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
-  result = ((Exiv2::Iptcdatum const *)arg1)->count();
+  {
+    try {
+      result = ((Exiv2::Iptcdatum const *)arg1)->count();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -7961,7 +7985,15 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Iptcdatum_size" "', argument " "1"" of type '" "Exiv2::Iptcdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
-  result = ((Exiv2::Iptcdatum const *)arg1)->size();
+  {
+    try {
+      result = ((Exiv2::Iptcdatum const *)arg1)->size();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:

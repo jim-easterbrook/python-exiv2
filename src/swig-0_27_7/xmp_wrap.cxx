@@ -6398,7 +6398,15 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_count(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_count" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
-  result = (long)(*arg1)->count();
+  {
+    try {
+      result = (long)(*arg1)->count();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -6419,7 +6427,15 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_size(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_size" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
-  result = (long)(*arg1)->size();
+  {
+    try {
+      result = (long)(*arg1)->size();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -7680,7 +7696,15 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_count" "', argument " "1"" of type '" "Exiv2::Xmpdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
-  result = (long)((Exiv2::Xmpdatum const *)arg1)->count();
+  {
+    try {
+      result = (long)((Exiv2::Xmpdatum const *)arg1)->count();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:
@@ -7701,7 +7725,15 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_size" "', argument " "1"" of type '" "Exiv2::Xmpdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
-  result = (long)((Exiv2::Xmpdatum const *)arg1)->size();
+  {
+    try {
+      result = (long)((Exiv2::Xmpdatum const *)arg1)->size();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
 fail:

@@ -6635,7 +6635,15 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_count(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_count" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  result = (*arg1)->count();
+  {
+    try {
+      result = (*arg1)->count();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -6656,7 +6664,15 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_size(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_size" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  result = (*arg1)->size();
+  {
+    try {
+      result = (*arg1)->size();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -8158,7 +8174,15 @@ SWIGINTERN PyObject *_wrap_Exifdatum_count(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_count" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
-  result = ((Exiv2::Exifdatum const *)arg1)->count();
+  {
+    try {
+      result = ((Exiv2::Exifdatum const *)arg1)->count();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -8179,7 +8203,15 @@ SWIGINTERN PyObject *_wrap_Exifdatum_size(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_size" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
-  result = ((Exiv2::Exifdatum const *)arg1)->size();
+  {
+    try {
+      result = ((Exiv2::Exifdatum const *)arg1)->size();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
