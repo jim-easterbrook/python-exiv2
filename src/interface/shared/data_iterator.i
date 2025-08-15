@@ -40,13 +40,13 @@ data it points to."
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(container_type##_iterator*)
 // Detect end of iteration
-%exception container_type##_iterator::__next__ %{
-    $action
-    if (!result) {
+%typemap(out) Exiv2::datum_type* __next__ {
+    if (!$1) {
         PyErr_SetNone(PyExc_StopIteration);
         SWIG_fail;
     }
-%}
+    $typemap(out, Exiv2::datum_type*)
+}
 %inline %{
 // Base class implements all methods except dereferencing
 class container_type##_iterator {
@@ -63,6 +63,9 @@ public:
     }
     container_type##_iterator* __iter__() { return this; }
     Exiv2::datum_type* __next__() {
+        if (invalidated)
+            throw std::runtime_error(
+                "container_type changed size during iteration");
         if (ptr == end)
             return NULL;
         Exiv2::datum_type* result = &(*ptr);

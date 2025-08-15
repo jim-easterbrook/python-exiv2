@@ -4386,6 +4386,9 @@ public:
     }
     XmpData_iterator* __iter__() { return this; }
     Exiv2::Xmpdatum* __next__() {
+        if (invalidated)
+            throw std::runtime_error(
+                "XmpData changed size during iteration");
         if (ptr == end)
             return NULL;
         Exiv2::Xmpdatum* result = &(*ptr);
@@ -5615,14 +5618,22 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator___next__(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator___next__" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
-  
-  result = (Exiv2::Xmpdatum *)(arg1)->__next__();
-  if (!result) {
-    PyErr_SetNone(PyExc_StopIteration);
-    SWIG_fail;
+  {
+    try {
+      result = (Exiv2::Xmpdatum *)(arg1)->__next__();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
   }
-  
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
+  {
+    if (!result) {
+      PyErr_SetNone(PyExc_StopIteration);
+      SWIG_fail;
+    }
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__Xmpdatum, 0 |  0 );
+  }
   return resultobj;
 fail:
   return NULL;
