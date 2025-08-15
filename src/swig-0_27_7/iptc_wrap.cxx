@@ -4371,18 +4371,20 @@ fail:
 
 // Base class implements all methods except dereferencing
 class IptcData_iterator {
-protected:
+private:
     Exiv2::IptcData::iterator ptr;
     Exiv2::IptcData::iterator end;
+    bool invalidated;
 public:
     IptcData_iterator(Exiv2::IptcData::iterator ptr,
                               Exiv2::IptcData::iterator end) {
         this->ptr = ptr;
         this->end = end;
+        invalidated = false;
     }
     IptcData_iterator* __iter__() { return this; }
     Exiv2::Iptcdatum* __next__() {
-        if (!valid())
+        if (ptr == end)
             return NULL;
         Exiv2::Iptcdatum* result = &(*ptr);
         ptr++;
@@ -4396,30 +4398,31 @@ public:
         return *other != ptr;
     }
     std::string __str__() {
-        if (valid())
-            return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
-        return "iterator<end>";
+        if (invalidated)
+            return "invalid iterator";
+        if (ptr == end)
+            return "iterator<end>";
+        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
-    bool valid() { return ptr != end; }
     // Provide method to invalidate iterator
-    void _invalidate() { ptr = end; }
+    void _invalidate() { invalidated = true; }
     // Provide size() C++ method for buffer size check
     size_t size() {
-        if (valid())
-            return ptr->size();
-        return 0;
+        if (invalidated || ptr == end)
+            return 0;
+        return ptr->size();
     }
     // Dereference operator gives access to all datum methods
-    Exiv2::Iptcdatum* operator->() const { return &(*ptr); }
+    Exiv2::Iptcdatum* operator->() const {
+        if (invalidated)
+            throw std::runtime_error(
+                "IptcData changed size during iteration");
+        if (ptr == end)
+            throw std::runtime_error(
+                "IptcData iterator is at end of data");
+        return &(*ptr);
+    }
 };
-// Bypass validity check for some methods
-#define NOCHECK_delete_IptcData_iterator
-#define NOCHECK_IptcData_iterator___iter__
-#define NOCHECK_IptcData_iterator___next__
-#define NOCHECK_IptcData_iterator___eq__
-#define NOCHECK_IptcData_iterator___ne__
-#define NOCHECK_IptcData_iterator___str__
-#define NOCHECK_IptcData_iterator__invalidate
 
 
 static PyObject* _get_store(PyObject* py_self, bool create) {
@@ -5585,14 +5588,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___iter__(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator___iter__" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator___iter__
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator___iter__"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   result = (IptcData_iterator *)(arg1)->__iter__();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcData_iterator, 0 |  0 );
   
@@ -5620,14 +5615,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___next__(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator___next__" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator___next__
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator___next__"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   
   result = (Exiv2::Iptcdatum *)(arg1)->__next__();
   if (!result) {
@@ -5667,14 +5654,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___eq__(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "IptcData_iterator___eq__" "', argument " "2"" of type '" "IptcData_iterator const &""'"); 
   }
   arg2 = reinterpret_cast< IptcData_iterator * >(argp2);
-  {
-#ifndef NOCHECK_IptcData_iterator___eq__
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator___eq__"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   result = (bool)((IptcData_iterator const *)arg1)->operator ==((IptcData_iterator const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
@@ -5713,14 +5692,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___ne__(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "IptcData_iterator___ne__" "', argument " "2"" of type '" "IptcData_iterator const &""'"); 
   }
   arg2 = reinterpret_cast< IptcData_iterator * >(argp2);
-  {
-#ifndef NOCHECK_IptcData_iterator___ne__
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator___ne__"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   result = (bool)((IptcData_iterator const *)arg1)->operator !=((IptcData_iterator const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
@@ -5747,14 +5718,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___str__(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator___str__" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator___str__
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator___str__"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = (arg1)->__str__();
@@ -5783,14 +5746,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator__invalidate(PyObject *self, PyObjec
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator__invalidate" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator__invalidate
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator__invalidate"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       (arg1)->_invalidate();
@@ -5821,14 +5776,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___deref__(PyObject *self, PyObject 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator___deref__
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator___deref__"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (Exiv2::Iptcdatum *)((IptcData_iterator const *)arg1)->operator ->();
     }
@@ -5856,14 +5803,6 @@ SWIGINTERN PyObject *_wrap_delete_IptcData_iterator(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IptcData_iterator" "', argument " "1"" of type '" "IptcData_iterator *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_delete_IptcData_iterator
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "delete_IptcData_iterator"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       delete arg1;
@@ -5901,14 +5840,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue__SWIG_0(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_iterator_setValue" "', argument " "2"" of type '" "Exiv2::Value const *""'"); 
   }
   arg2 = reinterpret_cast< Exiv2::Value * >(argp2);
-  {
-#ifndef NOCHECK_IptcData_iterator_setValue
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_setValue"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       (*arg1)->setValue((Exiv2::Value const *)arg2);
@@ -5953,14 +5884,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue__SWIG_1(PyObject *self, Py
     arg2 = ptr;
   }
   {
-#ifndef NOCHECK_IptcData_iterator_setValue
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_setValue"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (int)(*arg1)->setValue((std::string const &)*arg2);
     }
@@ -5994,14 +5917,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_setValue__SWIG_2(PyObject *self, Py
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   arg2 = obj1;
-  {
-#ifndef NOCHECK_IptcData_iterator_setValue
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_setValue"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = (PyObject *)Exiv2_Iptcdatum_setValue__SWIG_2((Exiv2::Iptcdatum*)(arg1)->operator ->(),arg2);
@@ -6114,14 +6029,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_copy(PyObject *self, PyObject *args
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-#ifndef NOCHECK_IptcData_iterator_copy
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_copy"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     // check buffer is large enough, assumes arg1 points to self
     if ((Py_ssize_t) arg1->size() > _global_view.len) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "IptcData_iterator_copy" "', argument " "2"" of type '" "buffer too small""'")
@@ -6190,14 +6097,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_write(PyObject *self, PyObject *arg
     arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   }
   {
-#ifndef NOCHECK_IptcData_iterator_write
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_write"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
     }
@@ -6235,14 +6134,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_key(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator_key
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_key"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (*arg1)->key();
     }
@@ -6271,14 +6162,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_recordName(PyObject *self, PyObject
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_recordName" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_recordName
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_recordName"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = (*arg1)->recordName();
@@ -6309,14 +6192,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_record(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator_record
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_record"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (uint16_t)(*arg1)->record();
     }
@@ -6345,14 +6220,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_familyName(PyObject *self, PyObject
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_familyName" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_familyName
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_familyName"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = (char *)(*arg1)->familyName();
@@ -6383,14 +6250,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_groupName(PyObject *self, PyObject 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator_groupName
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_groupName"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (*arg1)->groupName();
     }
@@ -6419,14 +6278,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_tagName(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_tagName" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_tagName
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_tagName"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = (*arg1)->tagName();
@@ -6457,14 +6308,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_tagLabel(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator_tagLabel
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_tagLabel"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (*arg1)->tagLabel();
     }
@@ -6494,14 +6337,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_tag(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator_tag
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_tag"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (uint16_t)(*arg1)->tag();
     }
@@ -6530,14 +6365,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_typeId(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_typeId" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_typeId
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_typeId"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = (Exiv2::TypeId)(*arg1)->typeId();
@@ -6572,14 +6399,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_typeName(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator_typeName
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_typeName"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (char *)(*arg1)->typeName();
     }
@@ -6609,14 +6428,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_typeSize(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator_typeSize
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_typeSize"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (long)(*arg1)->typeSize();
     }
@@ -6645,14 +6456,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_count(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_count" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_count
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_count"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   result = (long)(*arg1)->count();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
@@ -6674,14 +6477,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_size(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_size" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_size
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_size"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   result = (long)(*arg1)->size();
   resultobj = SWIG_From_long(static_cast< long >(result));
   return resultobj;
@@ -6716,14 +6511,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_toLong(PyObject *self, PyObject *ar
       SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_toLong" "', argument " "2"" of type '" "long""'");
     } 
     arg2 = static_cast< long >(val2);
-  }
-  {
-#ifndef NOCHECK_IptcData_iterator_toLong
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toLong"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
   }
   {
     try {
@@ -6769,14 +6556,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_toFloat(PyObject *self, PyObject *a
     arg2 = static_cast< long >(val2);
   }
   {
-#ifndef NOCHECK_IptcData_iterator_toFloat
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toFloat"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (float)(*arg1)->toFloat(arg2);
     }
@@ -6820,14 +6599,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_toRational(PyObject *self, PyObject
     arg2 = static_cast< long >(val2);
   }
   {
-#ifndef NOCHECK_IptcData_iterator_toRational
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toRational"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (*arg1)->toRational(arg2);
     }
@@ -6856,14 +6627,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_0(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_getValue" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_getValue
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_getValue"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = (*arg1)->getValue();
@@ -6916,14 +6679,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_getValue__SWIG_1(PyObject *self, Py
       ;
     }
     arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(obj1));
-  }
-  {
-#ifndef NOCHECK_IptcData_iterator_getValue
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_getValue"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
   }
   {
     try {
@@ -6999,14 +6754,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_0(PyObject *self, PyObj
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
   {
-#ifndef NOCHECK_IptcData_iterator_value
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_value"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = (Exiv2::Value *) &(*arg1)->value();
     }
@@ -7057,14 +6804,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_value__SWIG_1(PyObject *self, PyObj
       ;
     }
     arg2 = static_cast< Exiv2::TypeId >(PyLong_AsLong(obj1));
-  }
-  {
-#ifndef NOCHECK_IptcData_iterator_value
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_value"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
   }
   {
     try {
@@ -7153,14 +6892,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator__print(PyObject *self, PyObject *ar
     arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   }
   {
-#ifndef NOCHECK_IptcData_iterator__print
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator__print"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
-  {
     try {
       result = Exiv2_Iptcdatum__print((Exiv2::Iptcdatum*)(arg1)->operator ->(),(Exiv2::ExifData const *)arg2);
     }
@@ -7189,14 +6920,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_toString__SWIG_0(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData_iterator_toString" "', argument " "1"" of type '" "IptcData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< IptcData_iterator * >(argp1);
-  {
-#ifndef NOCHECK_IptcData_iterator_toString
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toString"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = Exiv2_Iptcdatum_toString__SWIG_0((Exiv2::Iptcdatum*)(arg1)->operator ->());
@@ -7235,14 +6958,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_toString__SWIG_1(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IptcData_iterator_toString" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  {
-#ifndef NOCHECK_IptcData_iterator_toString
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_toString"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
-  }
   {
     try {
       result = Exiv2_Iptcdatum_toString__SWIG_1((Exiv2::Iptcdatum*)(arg1)->operator ->(),arg2);
@@ -7320,14 +7035,6 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator_print(PyObject *self, PyObject *arg
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData_iterator_print" "', argument " "2"" of type '" "Exiv2::ExifData const *""'"); 
     }
     arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
-  }
-  {
-#ifndef NOCHECK_IptcData_iterator_print
-    if (!arg1->valid()) {
-      SWIG_exception_fail(SWIG_ValueError, "in method '" "IptcData_iterator_print"
-        "', invalid iterator cannot be dereferenced");
-    }
-#endif
   }
   {
     try {
@@ -8907,8 +8614,6 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
     
     
     
-    
-    
   }
   
   if (resultobj != Py_None)
@@ -9023,8 +8728,6 @@ SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
     
     
     
-    
-    
   }
   
   if (resultobj != Py_None)
@@ -9057,8 +8760,6 @@ SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
     IptcData_iterator* result = new IptcData_iterator(
       tmp, arg1->end());
     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN |  0 );;
-    
-    
     
     
     
@@ -9117,8 +8818,6 @@ SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
     IptcData_iterator* result = new IptcData_iterator(
       tmp, arg1->end());
     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN |  0 );;
-    
-    
     
     
     
@@ -9189,8 +8888,6 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, PyObject *arg
     
     
     
-    
-    
   }
   
   if (resultobj != Py_None)
@@ -9240,8 +8937,6 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, PyObject *arg
     IptcData_iterator* result = new IptcData_iterator(
       tmp, arg1->end());
     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IptcData_iterator, SWIG_POINTER_OWN |  0 );;
-    
-    
     
     
     

@@ -69,7 +69,7 @@ class TestExifModule(unittest.TestCase):
         self.assertIsInstance(k, exiv2.ExifData_iterator)
         self.assertEqual(k.key(), 'Exif.Photo.FocalLength')
         k1 = data.erase(k)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RuntimeError):
             k.key()
         self.assertIsInstance(k1, exiv2.ExifData_iterator)
         self.assertEqual(k1.key(), 'Exif.Photo.SubSecTime')
@@ -96,11 +96,11 @@ class TestExifModule(unittest.TestCase):
         next(k2)
         self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
         k3 = data.erase(k1, k2)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RuntimeError):
             k1.key()
         if 'iterators' in data._private_data_:
             # swig >= 4.4
-            with self.assertRaises(ValueError):
+            with self.assertRaises(RuntimeError):
                 k2.key()
         else:
             self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
@@ -132,7 +132,7 @@ class TestExifModule(unittest.TestCase):
         data.clear()
         if 'iterators' in data._private_data_:
             # swig >= 4.4
-            with self.assertRaises(ValueError):
+            with self.assertRaises(RuntimeError):
                 b.key()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)
@@ -270,7 +270,7 @@ class TestExifModule(unittest.TestCase):
         k = data.findKey(exiv2.ExifKey('Exif.Photo.FocalLength'))
         self.assertEqual(sys.getrefcount(data), 6)
         k2 = data.erase(k)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RuntimeError):
             k.key()
         self.assertEqual(sys.getrefcount(data), 7)
         del b, e, i, k, k2

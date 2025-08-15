@@ -68,14 +68,14 @@ class TestXmpModule(unittest.TestCase):
         self.assertIsInstance(k, exiv2.XmpData_iterator)
         self.assertEqual(k.key(), 'Xmp.xmp.CreateDate')
         k1 = data.erase(k)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RuntimeError):
             k.key()
         self.assertIsInstance(k1, exiv2.XmpData_iterator)
         self.assertEqual(k1.key(), 'Xmp.xmp.ModifyDate')
         self.assertEqual(len(data), 27)
         k = data.findKey(exiv2.XmpKey('Xmp.iptcExt.LocationCreated'))
         data.eraseFamily(k)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RuntimeError):
             k.key()
         self.assertEqual(len(data), 21)
         # access by key
@@ -211,7 +211,7 @@ class TestXmpModule(unittest.TestCase):
         k = data.findKey(exiv2.XmpKey('Xmp.xmp.Rating'))
         self.assertEqual(sys.getrefcount(data), 6)
         k2 = data.erase(k)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RuntimeError):
             k.key()
         self.assertEqual(sys.getrefcount(data), 7)
         del b, e, i, k, k2

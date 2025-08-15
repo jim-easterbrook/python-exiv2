@@ -33,7 +33,6 @@
 %ignore container_type##_iterator::size;
 %ignore container_type##_iterator::##container_type##_iterator;
 %ignore container_type##_iterator::operator*;
-%ignore container_type##_iterator::valid;
 %feature("docstring") container_type##_iterator "
 Python wrapper for an :class:`" #container_type "` iterator. It has most of
 the methods of :class:`" #datum_type "` allowing easy access to the
@@ -51,18 +50,20 @@ KEEP_REFERENCE(container_type##_iterator*)
 %inline %{
 // Base class implements all methods except dereferencing
 class container_type##_iterator {
-protected:
+private:
     Exiv2::container_type::iterator ptr;
     Exiv2::container_type::iterator end;
+    bool invalidated;
 public:
     container_type##_iterator(Exiv2::container_type::iterator ptr,
                               Exiv2::container_type::iterator end) {
         this->ptr = ptr;
         this->end = end;
+        invalidated = false;
     }
     container_type##_iterator* __iter__() { return this; }
     Exiv2::datum_type* __next__() {
-        if (!valid())
+        if (ptr == end)
             return NULL;
         Exiv2::datum_type* result = &(*ptr);
         ptr++;
@@ -76,30 +77,31 @@ public:
         return *other != ptr;
     }
     std::string __str__() {
-        if (valid())
-            return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
-        return "iterator<end>";
+        if (invalidated)
+            return "invalid iterator";
+        if (ptr == end)
+            return "iterator<end>";
+        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
-    bool valid() { return ptr != end; }
     // Provide method to invalidate iterator
-    void _invalidate() { ptr = end; }
+    void _invalidate() { invalidated = true; }
     // Provide size() C++ method for buffer size check
     size_t size() {
-        if (valid())
-            return ptr->size();
-        return 0;
+        if (invalidated || ptr == end)
+            return 0;
+        return ptr->size();
     }
     // Dereference operator gives access to all datum methods
-    Exiv2::datum_type* operator->() const { return &(*ptr); }
+    Exiv2::datum_type* operator->() const {
+        if (invalidated)
+            throw std::runtime_error(
+                "container_type changed size during iteration");
+        if (ptr == end)
+            throw std::runtime_error(
+                "container_type iterator is at end of data");
+        return &(*ptr);
+    }
 };
-// Bypass validity check for some methods
-#define NOCHECK_delete_##container_type##_iterator
-#define NOCHECK_##container_type##_iterator___iter__
-#define NOCHECK_##container_type##_iterator___next__
-#define NOCHECK_##container_type##_iterator___eq__
-#define NOCHECK_##container_type##_iterator___ne__
-#define NOCHECK_##container_type##_iterator___str__
-#define NOCHECK_##container_type##_iterator__invalidate
 %}
 %enddef // DATA_ITERATOR_CLASSES
 
@@ -143,15 +145,6 @@ public:
 #if SWIG_VERSION < 0x040400
     argp->_invalidate();
 #endif
-}
-// Check validity of iterator before dereferencing
-%typemap(check) container_type##_iterator* self {
-%#ifndef NOCHECK_##$symname
-    if (!$1->valid()) {
-        SWIG_exception_fail(SWIG_ValueError, "in method '" "$symname"
-            "', invalid iterator cannot be dereferenced");
-    }
-%#endif
 }
 
 // Functions to store weak references to iterators (swig >= v4.4)
@@ -227,11 +220,9 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
         tmp, arg1->end());
     $typemap(out, container_type##_iterator*);
 #if SWIG_VERSION >= 0x040400
-    if ($1->valid()) {
-        // Keep weak reference to the Python iterator
-        if (store_iterator_weakref(self, $result)) {
-            SWIG_fail;
-        }
+    // Keep weak reference to the Python iterator
+    if (store_iterator_weakref(self, $result)) {
+        SWIG_fail;
     }
 #endif // SWIG_VERSION
 }

@@ -74,7 +74,7 @@ class TestIptcModule(unittest.TestCase):
         self.assertIsInstance(k, exiv2.IptcData_iterator)
         self.assertEqual(k.key(), 'Iptc.Application2.SpecialInstructions')
         k1 = data.erase(k)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RuntimeError):
             k.key()
         self.assertIsInstance(k1, exiv2.IptcData_iterator)
         self.assertEqual(k1.key(), 'Iptc.Application2.Keywords')
@@ -205,7 +205,7 @@ class TestIptcModule(unittest.TestCase):
         k = data.findKey(exiv2.IptcKey('Iptc.Application2.Caption'))
         self.assertEqual(sys.getrefcount(data), 6)
         k2 = data.erase(k)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RuntimeError):
             k.key()
         self.assertEqual(sys.getrefcount(data), 7)
         del b, e, i, k, k2
