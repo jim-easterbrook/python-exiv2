@@ -74,16 +74,13 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     swig_type_info* ty_info = get_type_object(get_type_id(datum));
     SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
     // Call type object to invoke constructor
-    PyObject* args = PyTuple_Pack(1, py_value);
-    PyObject* swig_obj = PyObject_CallObject(
-        (PyObject*)cl_data->pytype, args);
-    Py_DECREF(args);
+    PyObject* swig_obj = PyObject_CallFunctionObjArgs(
+        (PyObject*)cl_data->pytype, py_value, NULL);
     if (!swig_obj)
         return NULL;
     // Convert constructed object to Exiv2::Value
     Exiv2::Value* value = 0;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(
-            swig_obj, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
+    if (!SWIG_IsOK(SWIG_ConvertPtr(swig_obj, (void**)&value, ty_info, 0))) {
         PyErr_SetString(
             PyExc_RuntimeError, "set_value_from_py: invalid conversion");
         Py_DECREF(swig_obj);
