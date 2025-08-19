@@ -41,8 +41,6 @@
 // Catch all C++ exceptions
 EXCEPTION()
 
-%fragment("EXV_USE_CURL");
-%fragment("EXV_USE_SSH");
 %fragment("EXV_ENABLE_FILESYSTEM");
 
 UNIQUE_PTR(Exiv2::BasicIo);
@@ -96,11 +94,13 @@ the same interface.
     const char* ioType() {
         if (dynamic_cast<Exiv2::MemIo*>($self))
             return "MemIo";
+%#ifdef EXV_ENABLE_FILESYSTEM
         else if (dynamic_cast<Exiv2::FileIo*>($self)) {
             if (dynamic_cast<Exiv2::XPathIo*>($self))
                 return "XPathIo";
             return "FileIo";
         }
+%#endif
         else if (dynamic_cast<Exiv2::RemoteIo*>($self)) {
             if (dynamic_cast<Exiv2::HttpIo*>($self))
                 return "HttpIo";
@@ -264,4 +264,6 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
 %ignore Exiv2::XPathIo;
 %ignore EXV_XPATH_MEMIO;
 
+#undef EXV_USE_CURL
+#undef EXV_USE_SSH
 %include "exiv2/basicio.hpp"

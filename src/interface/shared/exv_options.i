@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2024  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2025  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This file is part of python-exiv2. python-exiv2 is free software: you can
 // redistribute it and/or modify it under the terms of the GNU General Public
@@ -15,24 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with python-exiv2.  If not, see <http://www.gnu.org/licenses/>.
 
-
-// Fragment to define Exiv2::CurlIo if EXV_USE_CURL is OFF
-%fragment("EXV_USE_CURL", "header") %{
-#ifndef EXV_USE_CURL
-namespace Exiv2 {
-    class CurlIo : public RemoteIo {};
-}
-#endif // EXV_USE_CURL
-%}
-
-// Fragment to define Exiv2::SshIo if EXV_USE_SSH is OFF
-%fragment("EXV_USE_SSH", "header") %{
-#ifndef EXV_USE_SSH
-namespace Exiv2 {
-    class SshIo : public RemoteIo {};
-}
-#endif // EXV_USE_SSH
-%}
 
 // Fragment to set EXV_ENABLE_FILESYSTEM on old libexiv2 versions
 %fragment("set_EXV_ENABLE_FILESYSTEM", "header") %{
