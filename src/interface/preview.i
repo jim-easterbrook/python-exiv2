@@ -42,7 +42,6 @@ For Exif thumbnail images see the :py:class:`ExifThumb` class.";
 // Catch all C++ exceptions
 EXCEPTION()
 
-%fragment("EXV_ENABLE_FILESYSTEM");
 EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::PreviewImage::writeFile)
 
 // Some calls don't raise exceptions
@@ -126,4 +125,6 @@ STRUCT_DICT(Exiv2::PreviewProperties, false, true)
 %ignore Exiv2::PreviewImage::operator=;
 %ignore Exiv2::PreviewProperties::PreviewProperties;
 
+#define EXV_ENABLE_FILESYSTEM
 %include "exiv2/preview.hpp"
+#undef EXV_ENABLE_FILESYSTEM

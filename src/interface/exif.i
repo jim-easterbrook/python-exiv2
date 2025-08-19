@@ -88,4 +88,6 @@ WINDOWS_PATH(const std::string& path)
 // Exifdatum::ifdId is documented as internal use only
 %ignore Exiv2::Exifdatum::ifdId;
 
+#define EXV_ENABLE_FILESYSTEM
 %include "exiv2/exif.hpp"
+#undef EXV_ENABLE_FILESYSTEM

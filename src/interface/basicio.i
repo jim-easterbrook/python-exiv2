@@ -41,8 +41,6 @@
 // Catch all C++ exceptions
 EXCEPTION()
 
-%fragment("EXV_ENABLE_FILESYSTEM");
-
 UNIQUE_PTR(Exiv2::BasicIo);
 
 // Potentially blocking calls allow Python threads
@@ -90,6 +88,7 @@ You shouldn't usually need to know the type of IO as they all have
 the same interface.
 :rtype: str
 :return: A class name such as \"FileIo\"."
+%fragment("set_EXV_ENABLE_FILESYSTEM");
 %extend Exiv2::BasicIo {
     const char* ioType() {
         if (dynamic_cast<Exiv2::MemIo*>($self))

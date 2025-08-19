@@ -125,6 +125,8 @@ def main():
                      '-I' + os.path.dirname(incl_dir), '-outdir', output_dir,
                      '-DEXIV2_VERSION_HEX=' + exiv2_version_hex]
         for k, v in options.items():
+            if k == 'EXV_ENABLE_FILESYSTEM':
+                continue
             if v is None:
                 swig_opts.append('-D{}'.format(k))
             else:

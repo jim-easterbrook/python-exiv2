@@ -21,21 +21,6 @@
 #if !EXIV2_TEST_VERSION(0, 28, 3)
 #define EXV_ENABLE_FILESYSTEM
 #endif
-// Copy EXV_ENABLE_FILESYSTEM for use in macro
-#ifdef EXV_ENABLE_FILESYSTEM
-#define _EXV_ENABLE_FILESYSTEM
-#endif
-%}
-
-// Fragment to define FileIo and XPathIo if EXV_ENABLE_FILESYSTEM is OFF
-%fragment("EXV_ENABLE_FILESYSTEM", "header",
-          fragment="set_EXV_ENABLE_FILESYSTEM") %{
-#ifndef EXV_ENABLE_FILESYSTEM
-namespace Exiv2 {
-    class FileIo : public BasicIo {};
-    class XPathIo : public MemIo {};
-}
-#endif // EXV_ENABLE_FILESYSTEM
 %}
 
 // Macro to not call a function if EXV_ENABLE_FILESYSTEM is OFF
@@ -44,7 +29,7 @@ namespace Exiv2 {
 %fragment("set_EXV_ENABLE_FILESYSTEM");
 %exception signature {
     try {
-%#ifdef _EXV_ENABLE_FILESYSTEM
+%#ifdef EXV_ENABLE_FILESYSTEM
         $action
 %#else
         throw Exiv2::Error(Exiv2::ErrorCode::kerFunctionNotSupported);

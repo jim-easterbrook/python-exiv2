@@ -4528,18 +4528,6 @@ fail:
 #if !EXIV2_TEST_VERSION(0, 28, 3)
 #define EXV_ENABLE_FILESYSTEM
 #endif
-// Copy EXV_ENABLE_FILESYSTEM for use in macro
-#ifdef EXV_ENABLE_FILESYSTEM
-#define _EXV_ENABLE_FILESYSTEM
-#endif
-
-
-#ifndef EXV_ENABLE_FILESYSTEM
-namespace Exiv2 {
-    class FileIo : public BasicIo {};
-    class XPathIo : public MemIo {};
-}
-#endif // EXV_ENABLE_FILESYSTEM
 
 
 namespace swig {
@@ -6452,7 +6440,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_writeFile(PyObject *self, PyObject *args
   }
   {
     try {
-#ifdef _EXV_ENABLE_FILESYSTEM
+#ifdef EXV_ENABLE_FILESYSTEM
       result = (long)((Exiv2::PreviewImage const *)arg1)->writeFile((std::string const &)*arg2);
 #else
       throw Exiv2::Error(Exiv2::ErrorCode::kerFunctionNotSupported);
