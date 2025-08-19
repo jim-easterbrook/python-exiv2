@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -42,10 +42,7 @@ EXCEPTION()
 
 EXTEND_METADATUM(Exiv2::Iptcdatum)
 
-DATA_ITERATOR_TYPEMAPS(IptcData)
-#ifndef SWIGIMPORTED
-DATA_ITERATOR_CLASSES(IptcData, Iptcdatum)
-#endif
+DATA_ITERATOR(IptcData, Iptcdatum)
 
 // Get the current (or default if not set) type id of a datum
 %fragment("get_type_id"{Exiv2::Iptcdatum}, "header") {

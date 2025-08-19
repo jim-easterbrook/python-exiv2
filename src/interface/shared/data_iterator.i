@@ -19,8 +19,8 @@
 %include "shared/keep_reference.i"
 
 
-// Macros to wrap data iterators
-%define DATA_ITERATOR_CLASSES(container_type, datum_type)
+// Macro to wrap data iterators
+%define DATA_ITERATOR(container_type, datum_type)
 %feature("python:slot", "tp_str", functype="reprfunc")
     container_type##_iterator::__str__;
 %feature("python:slot", "tp_iter", functype="getiterfunc")
@@ -48,7 +48,6 @@ KEEP_REFERENCE(container_type##_iterator*)
     $typemap(out, Exiv2::datum_type*)
 }
 %inline %{
-// Base class implements all methods except dereferencing
 class container_type##_iterator {
 private:
     Exiv2::container_type::iterator ptr;
@@ -68,9 +67,7 @@ public:
                 "container_type changed size during iteration");
         if (ptr == end)
             return NULL;
-        Exiv2::datum_type* result = &(*ptr);
-        ptr++;
-        return result;
+        return &(*ptr++);
     }
     Exiv2::container_type::iterator operator*() const { return ptr; }
     bool operator==(const container_type##_iterator &other) const {
@@ -106,10 +103,7 @@ public:
     }
 };
 %}
-%enddef // DATA_ITERATOR_CLASSES
 
-// Declare typemaps for data iterators.
-%define DATA_ITERATOR_TYPEMAPS(container_type)
 %typemap(in) Exiv2::container_type::iterator
         (container_type##_iterator *argp=NULL) %{
     {
@@ -153,13 +147,11 @@ public:
 // Functions to store weak references to iterators (swig >= v4.4)
 %fragment("iterator_weakref_funcs", "header", fragment="private_data") {
 static void _process_list(PyObject* list, bool invalidate) {
-    PyObject* ref = NULL;
     PyObject* iterator = NULL;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        ref = PyList_GetItem(list, idx - 1);
-        iterator = PyWeakref_GetObject(ref);
+        iterator = PyWeakref_GetObject(PyList_GetItem(list, idx-1));
         if (iterator == Py_None)
-            PyList_SetSlice(list, idx - 1, idx, NULL);
+            PyList_SetSlice(list, idx-1, idx, NULL);
         else if (invalidate)
             Py_XDECREF(PyObject_CallMethod(iterator, "_invalidate", NULL));
     }
@@ -214,7 +206,8 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
 %newobject Exiv2::container_type::findKey;
 // Assumes arg1 is the base class parent
 #if SWIG_VERSION >= 0x040400
-%typemap(out, fragment="iterator_weakref_funcs") Exiv2::container_type::iterator {
+%typemap(out, fragment="iterator_weakref_funcs")
+    Exiv2::container_type::iterator {
 #else
 %typemap(out) Exiv2::container_type::iterator {
 #endif
@@ -231,4 +224,4 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
 }
 // Keep a reference to the data being iterated
 KEEP_REFERENCE(Exiv2::container_type::iterator)
-%enddef // DATA_ITERATOR_TYPEMAPS
+%enddef // DATA_ITERATOR

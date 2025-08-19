@@ -4371,7 +4371,6 @@ fail:
 };
 
 
-// Base class implements all methods except dereferencing
 class XmpData_iterator {
 private:
     Exiv2::XmpData::iterator ptr;
@@ -4391,9 +4390,7 @@ public:
                 "XmpData changed size during iteration");
         if (ptr == end)
             return NULL;
-        Exiv2::Xmpdatum* result = &(*ptr);
-        ptr++;
-        return result;
+        return &(*ptr++);
     }
     Exiv2::XmpData::iterator operator*() const { return ptr; }
     bool operator==(const XmpData_iterator &other) const {

@@ -4369,7 +4369,6 @@ fail:
 };
 
 
-// Base class implements all methods except dereferencing
 class IptcData_iterator {
 private:
     Exiv2::IptcData::iterator ptr;
@@ -4389,9 +4388,7 @@ public:
                 "IptcData changed size during iteration");
         if (ptr == end)
             return NULL;
-        Exiv2::Iptcdatum* result = &(*ptr);
-        ptr++;
-        return result;
+        return &(*ptr++);
     }
     Exiv2::IptcData::iterator operator*() const { return ptr; }
     bool operator==(const IptcData_iterator &other) const {

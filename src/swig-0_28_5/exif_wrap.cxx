@@ -4380,7 +4380,6 @@ fail:
 #endif
 
 
-// Base class implements all methods except dereferencing
 class ExifData_iterator {
 private:
     Exiv2::ExifData::iterator ptr;
@@ -4400,9 +4399,7 @@ public:
                 "ExifData changed size during iteration");
         if (ptr == end)
             return NULL;
-        Exiv2::Exifdatum* result = &(*ptr);
-        ptr++;
-        return result;
+        return &(*ptr++);
     }
     Exiv2::ExifData::iterator operator*() const { return ptr; }
     bool operator==(const ExifData_iterator &other) const {
