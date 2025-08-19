@@ -231,21 +231,27 @@ class TestExifModule(unittest.TestCase):
             thumb.setJpegThumbnail(
                 data, exiv2.URational((160, 1)), exiv2.URational((120, 1)), 1)
         self.assertEqual(len(thumb.copy()), 2532)
-        if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
-            self.skipTest('EXV_ENABLE_FILESYSTEM is off')
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'thumb')
-            self.assertEqual(thumb.writeFile(temp_file), 2532)
+            if exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+                self.assertEqual(thumb.writeFile(temp_file), 2532)
+            else:
+                with self.assertRaises(exiv2.Exiv2Error):
+                    thumb.writeFile(temp_file)
             temp_file += thumb.extension()
             thumb.erase()
             self.assertEqual(len(thumb.copy()), 0)
-            thumb.setJpegThumbnail(temp_file)
-            self.assertEqual(len(thumb.copy()), 2532)
-            thumb.erase()
-            self.assertEqual(len(thumb.copy()), 0)
-            thumb.setJpegThumbnail(temp_file, exiv2.URational((160, 1)),
-                                   exiv2.URational((120, 1)), 1)
-            self.assertEqual(len(thumb.copy()), 2532)
+            if exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+                thumb.setJpegThumbnail(temp_file)
+                self.assertEqual(len(thumb.copy()), 2532)
+                thumb.erase()
+                self.assertEqual(len(thumb.copy()), 0)
+                thumb.setJpegThumbnail(temp_file, exiv2.URational((160, 1)),
+                                       exiv2.URational((120, 1)), 1)
+                self.assertEqual(len(thumb.copy()), 2532)
+            else:
+                with self.assertRaises(exiv2.Exiv2Error):
+                    thumb.setJpegThumbnail(temp_file)
 
     def test_ref_counts(self):
         self.image.readMetadata()
