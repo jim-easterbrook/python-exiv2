@@ -263,6 +263,4 @@ DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
 %ignore Exiv2::XPathIo;
 %ignore EXV_XPATH_MEMIO;
 
-#undef EXV_USE_CURL
-#undef EXV_USE_SSH
 %include "exiv2/basicio.hpp"

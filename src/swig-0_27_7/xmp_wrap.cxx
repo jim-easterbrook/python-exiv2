@@ -5482,10 +5482,8 @@ static PyObject* set_value_from_py(Exiv2::Xmpdatum* datum, PyObject* py_value) {
     swig_type_info* ty_info = get_type_object(get_type_id(datum));
     SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
     // Call type object to invoke constructor
-    // PyObject* args = PyTuple_Pack(1, py_value);
     PyObject* swig_obj = PyObject_CallFunctionObjArgs(
         (PyObject*)cl_data->pytype, py_value, NULL);
-    // Py_DECREF(args);
     if (!swig_obj)
         return NULL;
     // Convert constructed object to Exiv2::Value
