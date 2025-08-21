@@ -16,7 +16,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 %include "shared/enum.i"
-%include "shared/windows_cp.i"
+%include "shared/windows.i"
 
 %include "exception.i"
 

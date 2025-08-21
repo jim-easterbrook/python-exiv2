@@ -32,7 +32,7 @@ For Exif thumbnail images see the :py:class:`ExifThumb` class.";
 %include "shared/exv_options.i"
 %include "shared/keep_reference.i"
 %include "shared/struct_dict.i"
-%include "shared/windows_path.i"
+%include "shared/windows.i"
 
 %include "std_string.i"
 %include "std_vector.i"

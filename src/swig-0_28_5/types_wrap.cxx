@@ -4259,9 +4259,7 @@ static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
 
 #ifdef _WIN32
 #include <windows.h>
-#endif
 
-#ifdef _WIN32
 static int _transcode(std::string *str, UINT cp_in, UINT cp_out) {
     if (cp_out == cp_in)
         return 0;
@@ -4301,7 +4299,6 @@ static int wcp_to_utf8(std::string *str) {
     return 0;
 #endif
 };
-
 
 
 static void _set_python_exception() {

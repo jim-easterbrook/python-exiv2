@@ -32,7 +32,7 @@
 %include "shared/exv_options.i"
 %include "shared/keep_reference.i"
 %include "shared/unique_ptr.i"
-%include "shared/windows_path.i"
+%include "shared/windows.i"
 
 %include "std_string.i"
 

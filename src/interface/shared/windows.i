@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2024  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2024-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,9 +20,7 @@
 %fragment("utf8_to_wcp", "header") %{
 #ifdef _WIN32
 #include <windows.h>
-#endif
 
-#ifdef _WIN32
 static int _transcode(std::string *str, UINT cp_in, UINT cp_out) {
     if (cp_out == cp_in)
         return 0;
@@ -62,5 +60,42 @@ static int wcp_to_utf8(std::string *str) {
     return 0;
 #endif
 };
-
 %}
+
+// Macro to convert Windows path inputs from utf-8 to current code page
+%define WINDOWS_PATH(signature)
+%typemap(check, fragment="utf8_to_wcp") signature {
+%#ifdef _WIN32
+    int error = utf8_to_wcp($1);
+    if (error) {
+        PyErr_SetFromWindowsErr(error);
+        SWIG_fail;
+    }
+%#endif
+}
+%enddef // WINDOWS_PATH
+
+// Macro to convert Windows path outputs from current code page to utf-8
+%define WINDOWS_PATH_OUT(function)
+%typemap(out, fragment="utf8_to_wcp") std::string function {
+%#ifdef _WIN32
+    int error = wcp_to_utf8(&$1);
+    if (error) {
+        PyErr_SetFromWindowsErr(error);
+        SWIG_fail;
+    }
+%#endif
+    $result = SWIG_FromCharPtrAndSize($1.data(), $1.size());
+}
+%typemap(out, fragment="utf8_to_wcp") const std::string& function {
+    std::string copy = *$1;
+%#ifdef _WIN32
+    int error = wcp_to_utf8(&copy);
+    if (error) {
+        PyErr_SetFromWindowsErr(error);
+        SWIG_fail;
+    }
+%#endif
+    $result = SWIG_FromCharPtrAndSize(copy.data(), copy.size());
+}
+%enddef // WINDOWS_PATH_OUT
