@@ -4490,13 +4490,13 @@ static PyObject* _create_enum_Exiv2_AccessMode(
 };
 
 
+// Function to append a name, value pair to a list of enum members
 static void extend_enum_list(PyObject* list, const char* label, int value) {
     PyObject* py_obj = Py_BuildValue("(si)", label, value);
     PyList_Append(list, py_obj);
     Py_DECREF(py_obj);
 };
-
-
+// Function to return enum members as Python list
 
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;

@@ -107,17 +107,14 @@ static PyObject* py_from_enum_%mangle(pattern)(long value) {
 }
 %enddef // _ENUM_COMMON
 
+%fragment("get_enum_list", "header") {
 // Function to append a name, value pair to a list of enum members
-%fragment("extend_enum_list", "header") {
 static void extend_enum_list(PyObject* list, const char* label, int value) {
     PyObject* py_obj = Py_BuildValue("(si)", label, value);
     PyList_Append(list, py_obj);
     Py_DECREF(py_obj);
 };
-}
-
 // Function to return enum members as Python list
-%fragment("get_enum_list", "header", fragment="extend_enum_list") {
 #include <cstdarg>
 static PyObject* _get_enum_list(int dummy, ...) {
     va_list args;
