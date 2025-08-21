@@ -6500,7 +6500,7 @@ SWIGINTERN PyObject *_wrap_PreviewImage_extension(PyObject *self, PyObject *args
       SWIG_fail;
     }
 #endif
-    resultobj = SWIG_FromCharPtrAndSize((&result)->data(), (&result)->size());
+    resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   }
   return resultobj;
 fail:

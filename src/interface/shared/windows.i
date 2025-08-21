@@ -85,17 +85,18 @@ static int wcp_to_utf8(std::string *str) {
         SWIG_fail;
     }
 %#endif
-    $result = SWIG_FromCharPtrAndSize($1.data(), $1.size());
+    $typemap(out, std::string)
 }
 %typemap(out, fragment="utf8_to_wcp") const std::string& function {
-    std::string copy = *$1;
 %#ifdef _WIN32
+    std::string copy = *$1;
     int error = wcp_to_utf8(&copy);
     if (error) {
         PyErr_SetFromWindowsErr(error);
         SWIG_fail;
     }
+    $1 = &copy;
 %#endif
-    $result = SWIG_FromCharPtrAndSize(copy.data(), copy.size());
+    $typemap(out, const std::string&)
 }
 %enddef // WINDOWS_PATH_OUT

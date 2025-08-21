@@ -4946,6 +4946,13 @@ SWIGINTERNINLINE PyObject*
   return PyBool_FromLong(value ? 1 : 0);
 }
 
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_std_string  (const std::string& s)
+{
+  return SWIG_FromCharPtrAndSize(s.data(), s.size());
+}
+
 SWIGINTERN char const *Exiv2_BasicIo_ioType(Exiv2::BasicIo *self){
         if (dynamic_cast<Exiv2::MemIo*>(self))
             return "MemIo";
@@ -6085,15 +6092,16 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
   }
   result = (std::string *) &((Exiv2::BasicIo const *)arg1)->path();
   {
-    std::string copy = *result;
 #ifdef _WIN32
+    std::string copy = *result;
     int error = wcp_to_utf8(&copy);
     if (error) {
       PyErr_SetFromWindowsErr(error);
       SWIG_fail;
     }
+    result = &copy;
 #endif
-    resultobj = SWIG_FromCharPtrAndSize(copy.data(), copy.size());
+    resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   }
   return resultobj;
 fail:
