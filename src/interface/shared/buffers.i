@@ -16,7 +16,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-%include "shared/keep_reference.i"
+%include "shared/private_data.i"
 
 // Macro for input read only byte buffer
 %define INPUT_BUFFER_RO(buf_type, len_type)

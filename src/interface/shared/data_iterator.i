@@ -17,6 +17,7 @@
 
 
 %include "shared/keep_reference.i"
+%include "shared/private_data.i"
 
 
 // Macro to wrap data iterators
