@@ -103,3 +103,32 @@ static int release_views(PyObject* py_self) {
     return 0;
 };
 }
+
+/* Macro to convert byte* (or similar) return value to memoryview
+ *
+ * We can't store a reference to the data owner in the memoryview result
+ * so we store a weak reference to the memoryview in the data owner. To
+ * prevent the data owner being deleted while the memoryview exists we
+ * use a method of the Python data owner as the weakref callback. This
+ * increments the data owner's ref count, preventing it from being deleted,
+ * then decrements it when the memoryview is deleted (and the callback is
+ * called). The callback doesn't have to do anything, but it can be used
+ * for cleanup (e.g. calling BasicIo::munmap).
+ */
+%define RETURN_VIEW(signature, size_func, flags, doc_method)
+%typemap(doctype) signature "memoryview";
+%typemap(out, fragment="memoryview_funcs") (signature) {
+    $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
+    if (!$result)
+        SWIG_fail;
+    // Store a weak ref to the new memoryview
+    if (store_view(self, $result))
+        SWIG_fail;
+}
+#if #doc_method != ""
+%feature("docstring") doc_method
+"Returns a temporary Python memoryview of the object's data.
+
+:rtype: memoryview"
+#endif
+%enddef // RETURN_VIEW
