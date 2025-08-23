@@ -21,7 +21,6 @@
 
 %include "shared/enum.i"
 %include "shared/exception.i"
-%include "shared/unique_ptr.i"
 
 #if SWIG_VERSION < 0x040400
 %{
@@ -40,6 +39,27 @@
 // Older versions of libexiv2 define these as well
 #define EXV_DLLLOCAL
 #define EXV_DLLPUBLIC
+
+// Stuff to handle auto_ptr or unique_ptr
+#if EXIV2_VERSION_HEX < 0x001c0000
+    #define SMART_PTR AutoPtr
+    %ignore AutoPtr;
+
+    %define UNIQUE_PTR(pointed_type)
+    %include "std_auto_ptr.i"
+    %typemap(doctype) pointed_type##::AutoPtr #pointed_type
+    %auto_ptr(pointed_type)
+    %enddef // UNIQUE_PTR
+#else // EXIV2_VERSION_HEX
+    #define SMART_PTR UniquePtr
+    %ignore UniquePtr;
+
+    %define UNIQUE_PTR(pointed_type)
+    %include "std_unique_ptr.i"
+    %typemap(doctype) pointed_type##::UniquePtr #pointed_type
+    %unique_ptr(pointed_type)
+    %enddef // UNIQUE_PTR
+#endif // EXIV2_VERSION_HEX
 
 // Fragment to set EXV_ENABLE_FILESYSTEM on old libexiv2 versions
 %fragment("set_EXV_ENABLE_FILESYSTEM", "header") %{
