@@ -27,6 +27,7 @@
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
+%include "shared/private_data.i"
 %include "shared/struct_dict.i"
 
 %include "stdint.i"

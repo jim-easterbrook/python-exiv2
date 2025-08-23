@@ -23,6 +23,7 @@
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
+%include "shared/private_data.i"
 
 %include "stdint.i"
 %include "std_pair.i"

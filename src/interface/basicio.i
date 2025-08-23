@@ -28,6 +28,7 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/keep_reference.i"
+%include "shared/private_data.i"
 %include "shared/windows.i"
 
 %include "std_string.i"

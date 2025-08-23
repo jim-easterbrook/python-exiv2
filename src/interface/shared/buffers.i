@@ -71,47 +71,6 @@
 %enddef // OUTPUT_BUFFER_RW
 
 
-// Functions to store references to memoryview objects and release them
-%fragment("memoryview_funcs", "header", fragment="private_data") {
-static int store_view(PyObject* py_self, PyObject* view) {
-    PyObject* view_list = private_store_get(py_self, "view_list");
-    if (!view_list) {
-        view_list = PyList_New(0);
-        if (!view_list)
-            return -1;
-        int error = private_store_set(py_self, "view_list", view_list);
-        Py_DECREF(view_list);
-        if (error)
-            return -1;
-    }
-    PyObject* callback = PyObject_GetAttrString(py_self, "_view_deleted_cb");
-    if (!callback)
-        return -1;
-    PyObject* view_ref = PyWeakref_NewRef(view, callback);
-    Py_DECREF(callback);
-    if (!view_ref)
-        return -1;
-    int result = PyList_Append(view_list, view_ref);
-    Py_DECREF(view_ref);
-    return result;
-};
-static int release_views(PyObject* py_self) {
-    PyObject* view_list = private_store_get(py_self, "view_list");
-    if (!view_list)
-        return 0;
-    PyObject* view_ref = NULL;
-    PyObject* view = NULL;
-    for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
-        view_ref = PyList_GetItem(view_list, idx - 1);
-        view = PyWeakref_GetObject(view_ref);
-        if (view != Py_None)
-            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
-        PyList_SetSlice(view_list, idx - 1, idx, NULL);
-    }
-    return 0;
-};
-}
-
 /* Macro to convert byte* (or similar) return value to memoryview
  *
  * We can't store a reference to the data owner in the memoryview result
