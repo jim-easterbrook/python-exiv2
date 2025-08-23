@@ -22,11 +22,8 @@
 #endif
 
 %include "shared/preamble.i"
-%include "shared/exception.i"
-%include "shared/enum.i"
 %include "shared/static_list.i"
 %include "shared/struct_dict.i"
-%include "shared/unique_ptr.i"
 
 %import "metadatum.i"
 

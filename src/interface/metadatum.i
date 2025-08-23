@@ -25,9 +25,7 @@
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
-%include "shared/exception.i"
 %include "shared/keep_reference.i"
-%include "shared/unique_ptr.i"
 
 %import "value.i"
 

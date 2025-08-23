@@ -27,10 +27,7 @@
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
 %include "shared/struct_dict.i"
-%include "shared/unique_ptr.i"
 
 %include "stdint.i"
 %include "std_map.i"

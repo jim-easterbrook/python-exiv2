@@ -23,8 +23,6 @@
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
 
 %include "stdint.i"
 %include "std_pair.i"

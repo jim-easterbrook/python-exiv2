@@ -22,8 +22,6 @@
 #endif
 
 %include "shared/preamble.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
 
 %include "std_except.i"
 

@@ -19,6 +19,11 @@
 #include "exiv2/exiv2.hpp"
 %}
 
+%include "shared/enum.i"
+%include "shared/exception.i"
+%include "shared/exv_options.i"
+%include "shared/unique_ptr.i"
+
 #if SWIG_VERSION < 0x040400
 %{
 #define INIT_ERROR_RETURN NULL

@@ -26,8 +26,6 @@
 %include "shared/preamble.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
 
 %include "stdint.i"
 %include "std_string.i"

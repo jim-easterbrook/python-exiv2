@@ -26,9 +26,6 @@
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
-%include "shared/exv_options.i"
 %include "shared/keep_reference.i"
 %include "shared/windows.i"
 
