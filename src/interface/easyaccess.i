@@ -26,6 +26,24 @@
 // Catch all C++ exceptions
 EXCEPTION()
 
+// Macro to not call a function if libexiv2 version is <= 0.27.3
+%define EXV_ENABLE_EASYACCESS_FUNCTION(signature)
+%fragment("_set_python_exception");
+%exception signature {
+    try {
+%#if EXIV2_TEST_VERSION(0, 27, 4)
+        $action
+%#else
+        throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+%#endif
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        SWIG_fail;
+    }
+}
+%enddef // EXV_ENABLE_EASYACCESS_FUNCTION
+
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::apertureValue)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::brightnessValue)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::dateTimeOriginal)
@@ -39,8 +57,9 @@ EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::sensingMethod)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::shutterSpeedValue)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::subjectArea)
 
-// Store data.end() after converting input
-%typemap(check) Exiv2::ExifData& (Exiv2::ExifData::const_iterator _global_end) %{
+// Store data->end() after converting input
+%typemap(check) Exiv2::ExifData&
+        (Exiv2::ExifData::const_iterator _global_end) %{
     _global_end = $1->end();
 %}
 
