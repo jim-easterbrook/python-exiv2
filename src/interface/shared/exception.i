@@ -101,3 +101,22 @@ fail:
     }
 }
 %enddef // DEPRECATE_FUNCTION
+
+// Macro to not call a function if EXV_ENABLE_FILESYSTEM is OFF
+%define EXV_ENABLE_FILESYSTEM_FUNCTION(signature)
+%fragment("_set_python_exception");
+%fragment("set_EXV_ENABLE_FILESYSTEM");
+%exception signature {
+    try {
+%#ifdef EXV_ENABLE_FILESYSTEM
+        $action
+%#else
+        throw Exiv2::Error(Exiv2::ErrorCode::kerFunctionNotSupported);
+%#endif
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        SWIG_fail;
+    }
+}
+%enddef // EXV_ENABLE_FILESYSTEM_FUNCTION

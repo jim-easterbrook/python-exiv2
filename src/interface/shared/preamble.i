@@ -21,7 +21,6 @@
 
 %include "shared/enum.i"
 %include "shared/exception.i"
-%include "shared/exv_options.i"
 %include "shared/unique_ptr.i"
 
 #if SWIG_VERSION < 0x040400
@@ -42,6 +41,14 @@
 #define EXV_DLLLOCAL
 #define EXV_DLLPUBLIC
 
+// Fragment to set EXV_ENABLE_FILESYSTEM on old libexiv2 versions
+%fragment("set_EXV_ENABLE_FILESYSTEM", "header") %{
+#if !EXIV2_TEST_VERSION(0, 28, 3)
+#define EXV_ENABLE_FILESYSTEM
+#endif
+%}
+
+// Improve docstrings for some exiv2 types
 %typemap(doctype) bool "bool"
 %typemap(doctype) Exiv2::byte "int"
 %typemap(doctype) std::string "str"
