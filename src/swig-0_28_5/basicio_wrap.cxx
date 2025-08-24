@@ -5374,7 +5374,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
   size_t arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  Py_buffer _global_buff ;
   size_t val3 ;
   int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
@@ -5388,14 +5388,14 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
-    _global_view.obj = NULL;
+    _global_buff.obj = NULL;
     if (PyObject_GetBuffer(
-        obj1, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        obj1, &_global_buff, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "writable bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg2 = (Exiv2::byte *) _global_buff.buf;
   }
   ecode3 = SWIG_AsVal_size_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
@@ -5408,7 +5408,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
 #endif
   }
   {
-    if (arg3 > (size_t) _global_view.len) {
+    if (arg3 > (size_t) _global_buff.len) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "buffer too small""'")
       ;
     }
@@ -5431,15 +5431,15 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
   }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
+  if (_global_buff.obj) {
+    PyBuffer_Release(&_global_buff);
   }
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
+  if (_global_buff.obj) {
+    PyBuffer_Release(&_global_buff);
   }
   
   return NULL;
@@ -5489,7 +5489,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_readOrThrow(PyObject *self, PyObject *args) {
   ErrorCode arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Py_buffer _global_view ;
+  Py_buffer _global_buff ;
   size_t val3 ;
   int ecode3 = 0 ;
   void *argp4 ;
@@ -5508,14 +5508,14 @@ SWIGINTERN PyObject *_wrap_BasicIo_readOrThrow(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
-    _global_view.obj = NULL;
+    _global_buff.obj = NULL;
     if (PyObject_GetBuffer(
-        obj1, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        obj1, &_global_buff, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
       PyErr_Clear();
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "BasicIo_readOrThrow" "', argument " "2"" of type '" "writable bytes-like object""'")
       ;
     }
-    arg2 = (Exiv2::byte *) _global_view.buf;
+    arg2 = (Exiv2::byte *) _global_buff.buf;
   }
   ecode3 = SWIG_AsVal_size_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
@@ -5543,7 +5543,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_readOrThrow(PyObject *self, PyObject *args) {
 #endif
   }
   {
-    if (arg3 > (size_t) _global_view.len) {
+    if (arg3 > (size_t) _global_buff.len) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "BasicIo_readOrThrow" "', argument " "2"" of type '" "buffer too small""'")
       ;
     }
@@ -5562,15 +5562,15 @@ SWIGINTERN PyObject *_wrap_BasicIo_readOrThrow(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_Py_Void();
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
+  if (_global_buff.obj) {
+    PyBuffer_Release(&_global_buff);
   }
   
   return resultobj;
 fail:
   
-  if (_global_view.obj) {
-    PyBuffer_Release(&_global_view);
+  if (_global_buff.obj) {
+    PyBuffer_Release(&_global_buff);
   }
   
   return NULL;

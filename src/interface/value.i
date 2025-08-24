@@ -98,7 +98,7 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf, Exiv2::ByteOrder byteOrder)
 // redefine check typemap
 %typemap(check) (Exiv2::byte* buf, Exiv2::ByteOrder byteOrder) {
     // check buffer is large enough, assumes arg1 points to self
-    if ((Py_ssize_t) arg1->size() > _global_view.len) {
+    if ((Py_ssize_t) arg1->size() > _global_buff.len) {
         %argument_fail(SWIG_ValueError, "buffer too small",
                        $symname, $argnum);
     }

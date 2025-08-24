@@ -42,25 +42,25 @@
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)
 %typemap(doctype) buf_type "writeable :py:term:`bytes-like object`";
-%typemap(in) (buf_type) (Py_buffer _global_view) {
-    _global_view.obj = NULL;
+%typemap(in) (buf_type) (Py_buffer _global_buff) {
+    _global_buff.obj = NULL;
     if (PyObject_GetBuffer(
-            $input, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+            $input, &_global_buff, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
         PyErr_Clear();
         %argument_fail(SWIG_TypeError, "writable bytes-like object",
                        $symname, $argnum);
     }
-    $1 = ($1_ltype) _global_view.buf;
+    $1 = ($1_ltype) _global_buff.buf;
 }
 %typemap(check) (buf_type, count_type) {
-    if ($2 > ($2_ltype) _global_view.len) {
+    if ($2 > ($2_ltype) _global_buff.len) {
         %argument_fail(SWIG_ValueError, "buffer too small",
                        $symname, $argnum);
     }
 }
 %typemap(freearg) (buf_type) %{
-    if (_global_view.obj) {
-        PyBuffer_Release(&_global_view);
+    if (_global_buff.obj) {
+        PyBuffer_Release(&_global_buff);
     }
 %}
 %typemap(typecheck, precedence=SWIG_TYPECHECK_CHAR_PTR) buf_type %{
