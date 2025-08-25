@@ -7433,13 +7433,17 @@ SWIGINTERN PyObject *_wrap_Value_read__SWIG_0(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -7584,13 +7588,17 @@ SWIGINTERN PyObject *_wrap_Value_setDataArea(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "Value_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -8245,13 +8253,17 @@ SWIGINTERN int _wrap_new_DataValue__SWIG_1(PyObject *self, PyObject *args, PyObj
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DataValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_DataValue", 1, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DataValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -8393,13 +8405,17 @@ SWIGINTERN PyObject *_wrap_DataValue_read__SWIG_0(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DataValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -8970,13 +8986,17 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_1(PyObject *self, PyObject
   }
   arg1 = reinterpret_cast< Exiv2::StringValueBase * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "StringValueBase_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -9652,13 +9672,17 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read__SWIG_0(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< Exiv2::AsciiValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "AsciiValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -10117,13 +10141,17 @@ SWIGINTERN PyObject *_wrap_CommentValue_read__SWIG_1(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "CommentValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -10903,13 +10931,17 @@ SWIGINTERN PyObject *_wrap_XmpValue_read__SWIG_0(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -11153,13 +11185,17 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< Exiv2::XmpTextValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpTextValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -11637,13 +11673,17 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read__SWIG_0(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< Exiv2::XmpArrayValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "XmpArrayValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -12318,13 +12358,17 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read__SWIG_0(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LangAltValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -13245,13 +13289,17 @@ SWIGINTERN PyObject *_wrap_DateValue_read__SWIG_0(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::DateValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DateValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -14508,13 +14556,17 @@ SWIGINTERN PyObject *_wrap_TimeValue_read__SWIG_0(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::TimeValue * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "TimeValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -15832,13 +15884,17 @@ SWIGINTERN int _wrap_new_UShortValue__SWIG_1(PyObject *self, PyObject *args, PyO
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_UShortValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_UShortValue", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_UShortValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -16027,13 +16083,17 @@ SWIGINTERN PyObject *_wrap_UShortValue_read__SWIG_0(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -16170,13 +16230,17 @@ SWIGINTERN PyObject *_wrap_UShortValue_setDataArea(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "UShortValue_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -16926,13 +16990,17 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_1(PyObject *self, PyObject *args, PyOb
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_ULongValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_ULongValue", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ULongValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -17121,13 +17189,17 @@ SWIGINTERN PyObject *_wrap_ULongValue_read__SWIG_0(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -17264,13 +17336,17 @@ SWIGINTERN PyObject *_wrap_ULongValue_setDataArea(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ULongValue_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -18020,13 +18096,17 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_1(PyObject *self, PyObject *args, 
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_URationalValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_URationalValue", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_URationalValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -18220,13 +18300,17 @@ SWIGINTERN PyObject *_wrap_URationalValue_read__SWIG_0(PyObject *self, PyObject 
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -18363,13 +18447,17 @@ SWIGINTERN PyObject *_wrap_URationalValue_setDataArea(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "URationalValue_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -19113,13 +19201,17 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_1(PyObject *self, PyObject *args, PyOb
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_ShortValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_ShortValue", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_ShortValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -19308,13 +19400,17 @@ SWIGINTERN PyObject *_wrap_ShortValue_read__SWIG_0(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -19451,13 +19547,17 @@ SWIGINTERN PyObject *_wrap_ShortValue_setDataArea(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ShortValue_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -20207,13 +20307,17 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_1(PyObject *self, PyObject *args, PyObj
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_LongValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_LongValue", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_LongValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -20402,13 +20506,17 @@ SWIGINTERN PyObject *_wrap_LongValue_read__SWIG_0(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -20545,13 +20653,17 @@ SWIGINTERN PyObject *_wrap_LongValue_setDataArea(PyObject *self, PyObject *args)
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "LongValue_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -21301,13 +21413,17 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_1(PyObject *self, PyObject *args, P
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_RationalValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_RationalValue", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_RationalValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -21501,13 +21617,17 @@ SWIGINTERN PyObject *_wrap_RationalValue_read__SWIG_0(PyObject *self, PyObject *
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -21644,13 +21764,17 @@ SWIGINTERN PyObject *_wrap_RationalValue_setDataArea(PyObject *self, PyObject *a
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "RationalValue_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -22394,13 +22518,17 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_1(PyObject *self, PyObject *args, PyOb
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_FloatValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_FloatValue", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_FloatValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -22589,13 +22717,17 @@ SWIGINTERN PyObject *_wrap_FloatValue_read__SWIG_0(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -22732,13 +22864,17 @@ SWIGINTERN PyObject *_wrap_FloatValue_setDataArea(PyObject *self, PyObject *args
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "FloatValue_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -23488,13 +23624,17 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_1(PyObject *self, PyObject *args, PyO
   if (!SWIG_Python_CheckNoKeywords(kwargs, "new_DoubleValue")) SWIG_fail;
   if (!PyArg_UnpackTuple(args, "new_DoubleValue", 2, 3, &obj1, &obj2, &obj3)) SWIG_fail;
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "new_DoubleValue" "', argument " "1"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg1 = (Exiv2::byte *) buff->buf;
     arg2 = (long) buff->len;
   }
@@ -23683,13 +23823,17 @@ SWIGINTERN PyObject *_wrap_DoubleValue_read__SWIG_0(PyObject *self, PyObject *ar
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_read" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }
@@ -23826,13 +23970,17 @@ SWIGINTERN PyObject *_wrap_DoubleValue_setDataArea(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
   {
-    _global_view = PyMemoryView_GetContiguous(obj1, PyBUF_READ, 'A');
-    if (!_global_view) {
-      PyErr_Clear();
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject(obj1);
+    if (_global_view)
+    buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
+    PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+      || (buff->shape && buff->itemsize != 1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "DoubleValue_setDataArea" "', argument " "2"" of type '" "bytes-like object""'")
       ;
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     arg2 = (Exiv2::byte *) buff->buf;
     arg3 = (long) buff->len;
   }

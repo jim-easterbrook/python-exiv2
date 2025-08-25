@@ -30,13 +30,17 @@ _HOLD_BUFFER(remainder)
 %define INPUT_BUFFER_RO(buf_type, len_type, hold_funcs...)
 %typemap(doctype) buf_type ":py:term:`bytes-like object`";
 %typemap(in) (buf_type, len_type) (PyObject* _global_view = NULL) {
-    _global_view = PyMemoryView_GetContiguous($input, PyBUF_READ, 'A');
-    if (!_global_view) {
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject($input);
+    if (_global_view)
+        buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
         PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+        || (buff->shape && buff->itemsize != 1)) {
         %argument_fail(
             SWIG_TypeError, "bytes-like object", $symname, $argnum);
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     $1 = ($1_ltype) buff->buf;
     $2 = ($2_ltype) buff->len;
 }
