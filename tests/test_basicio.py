@@ -168,9 +168,10 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(cm.exception.code,
                              exiv2.ErrorCode.kerCorruptedMetadata)
         else:
-            self.assertEqual(
-                io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
-                exiv2.ErrorCode.kerErrorMessage)
+            with self.assertWarns(DeprecationWarning):
+                self.assertEqual(
+                    io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
+                    exiv2.ErrorCode.kerErrorMessage)
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(io.seek(0, exiv2.BasicIo.Position.end), 0)
         with self.assertWarns(DeprecationWarning):

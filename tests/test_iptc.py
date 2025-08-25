@@ -123,8 +123,9 @@ class TestIptcModule(unittest.TestCase):
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
         buf = bytearray(datum.count())
-        self.assertEqual(
-            datum.copy(buf, exiv2.ByteOrder.littleEndian), len(buf))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(
+                datum.copy(buf, exiv2.ByteOrder.littleEndian), len(buf))
         self.assertEqual(buf, bytes(datum.toString(), 'ascii'))
         self.assertEqual(datum.count(), 28)
         self.assertEqual(datum.familyName(), 'Iptc')
@@ -159,7 +160,8 @@ class TestIptcModule(unittest.TestCase):
             self.assertIsInstance(
                 datum.value(exiv2.TypeId.string), exiv2.StringValue)
         buf = io.StringIO()
-        buf = datum.write(buf)
+        with self.assertWarns(DeprecationWarning):
+            buf = datum.write(buf)
         self.assertEqual(buf.getvalue(), 'Good view of the lighthouse.')
         datum.setValue('fred')
         datum.setValue(exiv2.StringValue('Acme'))

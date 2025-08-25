@@ -5890,6 +5890,8 @@ SWIGINTERN PyObject *_wrap_Metadatum_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::Metadatum::copy", 1);
     try {
       result = ((Exiv2::Metadatum const *)arg1)->copy(arg2,arg3);
     }
@@ -5951,6 +5953,8 @@ SWIGINTERN PyObject *_wrap_Metadatum_write(PyObject *self, PyObject *args) {
     arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning,
+      "Python scripts should not need to call ""Exiv2::Metadatum::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::Metadatum const *)arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
     }

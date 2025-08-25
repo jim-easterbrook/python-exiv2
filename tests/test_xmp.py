@@ -127,7 +127,8 @@ class TestXmpModule(unittest.TestCase):
         self.assertIsInstance(str(datum), str)
         buf = bytearray(datum.size())
         with self.assertRaises(exiv2.Exiv2Error) as cm:
-            datum.copy(buf, exiv2.ByteOrder.littleEndian)
+            with self.assertWarns(DeprecationWarning):
+                datum.copy(buf, exiv2.ByteOrder.littleEndian)
         self.assertEqual(cm.exception.code,
                          exiv2.ErrorCode.kerFunctionNotSupported)
         self.assertEqual(datum.count(), 3)
@@ -166,7 +167,8 @@ class TestXmpModule(unittest.TestCase):
             self.assertIsInstance(
                 datum.value(exiv2.TypeId.langAlt), exiv2.LangAltValue)
         buf = io.StringIO()
-        buf = datum.write(buf)
+        with self.assertWarns(DeprecationWarning):
+            buf = datum.write(buf)
         self.assertEqual(buf.getvalue(), datum.toString())
         datum.setValue('fred')
         datum.setValue(exiv2.XmpTextValue('Acme'))

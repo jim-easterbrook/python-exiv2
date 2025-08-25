@@ -119,7 +119,14 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     std::string toString() const { return self->toString(); }
     std::string toString(BUFLEN_T i) const { return self->toString(i); }
 }
+// Deprecate some methods since 2025-08-25
+DEPRECATE_FUNCTION(datum_type::copy, true)
+DEPRECATE_FUNCTION(datum_type::write, true)
 %enddef // EXTEND_METADATUM
+
+// Deprecate some base class methods since 2025-08-25
+DEPRECATE_FUNCTION(Exiv2::Metadatum::copy, true)
+DEPRECATE_FUNCTION(Exiv2::Metadatum::write, true)
 
 // Extend base type
 %feature("python:slot", "tp_str", functype="reprfunc")
