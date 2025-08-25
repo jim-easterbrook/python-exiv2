@@ -130,12 +130,10 @@ typedef Exiv2::ErrorCode ErrorCode;
 KEEP_REFERENCE(Exiv2::BasicIo&)
 
 // Allow BasicIo::write to take any Python buffer
-INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
-INPUT_BUFFER_RO(const Exiv2::byte* data, size_t wcount)
+INPUT_BUFFER_RO(const Exiv2::byte* data, BUFLEN_T wcount)
 
 // BasicIo::read can write to a Python buffer
-OUTPUT_BUFFER_RW(Exiv2::byte* buf, long rcount)
-OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
+OUTPUT_BUFFER_RW(Exiv2::byte* buf, BUFLEN_T rcount)
 
 // Use default typemap for isWriteable parameter.
 %typemap(default) bool isWriteable {$1 = false;}

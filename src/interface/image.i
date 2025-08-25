@@ -56,9 +56,7 @@ UNIQUE_PTR(Exiv2::Image);
 %thread Exiv2::ImageFactory::open;
 
 // ImageFactory can open image or get type from a buffer
-INPUT_BUFFER_RO(const Exiv2::byte* data, long size,
-                ImageFactory_open, ImageFactory_createIo)
-INPUT_BUFFER_RO(const Exiv2::byte* data, size_t size,
+INPUT_BUFFER_RO(const Exiv2::byte* data, BUFLEN_T size,
                 ImageFactory_open, ImageFactory_createIo)
 
 // Release memory buffer after writeMetadata, as it creates its own copy
@@ -117,7 +115,7 @@ Create a MemIo subclass of BasicIo using the provided memory.
 "
 %extend Exiv2::ImageFactory {
     static Exiv2::BasicIo::SMART_PTR createIo(
-        const Exiv2::byte* data, size_t size) {
+        const Exiv2::byte* data, BUFLEN_T size) {
 #if EXIV2_VERSION_HEX < 0x001c0000
         return Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(data, size));
 #else

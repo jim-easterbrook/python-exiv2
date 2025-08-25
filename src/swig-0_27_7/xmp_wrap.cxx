@@ -5348,125 +5348,6 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    long v = PyInt_AsLong(obj);
-    if (v >= 0) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      return SWIG_OverflowError;
-    }
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    unsigned long v = PyLong_AsUnsignedLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    unsigned long v = PyLong_AsUnsignedLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      // Largest double not larger than ULONG_MAX (not portably calculated easily)
-      // Note that double(ULONG_MAX) is stored in a double rounded up by one (for 64-bit unsigned long)
-      // 0xfffffffffffff800ULL == (uint64_t)std::nextafter(double(__uint128_t(ULONG_MAX)+1), double(0))
-      const double ulong_max = sizeof(unsigned long) == 8 ? 0xfffffffffffff800ULL : ULONG_MAX;
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, ulong_max)) {
-	if (val) *val = (unsigned long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long_SS_long (PyObject *obj, unsigned long long *val)
-{
-  int res = SWIG_TypeError;
-  if (PyLong_Check(obj)) {
-    unsigned long long v = PyLong_AsUnsignedLongLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      res = SWIG_OverflowError;
-    }
-  } else {
-    unsigned long v;
-    res = SWIG_AsVal_unsigned_SS_long (obj,&v);
-    if (SWIG_IsOK(res)) {
-      if (val) *val = v;
-      return res;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    const double mant_max = 1LL << DBL_MANT_DIG;
-    double d;
-    res = SWIG_AsVal_double (obj,&d);
-    if (SWIG_IsOK(res) && !SWIG_CanCastAsInteger(&d, 0, mant_max))
-      return SWIG_OverflowError;
-    if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, mant_max)) {
-      if (val) *val = (unsigned long long)(d);
-      return SWIG_AddCast(res);
-    }
-    res = SWIG_TypeError;
-  }
-#endif
-  return res;
-}
-#endif
-
-
-SWIGINTERNINLINE int
-SWIG_AsVal_size_t (PyObject * obj, size_t *val)
-{
-  int res = SWIG_TypeError;
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  if (sizeof(size_t) <= sizeof(unsigned long)) {
-#endif
-    unsigned long v;
-    res = SWIG_AsVal_unsigned_SS_long (obj, val ? &v : 0);
-    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  } else if (sizeof(size_t) <= sizeof(unsigned long long)) {
-    unsigned long long v;
-    res = SWIG_AsVal_unsigned_SS_long_SS_long (obj, val ? &v : 0);
-    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
-  }
-#endif
-  return res;
-}
-
-
 static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
     Exiv2::TypeId type_id = datum->typeId();
     if (type_id != Exiv2::invalidTypeId)
@@ -5517,7 +5398,7 @@ SWIGINTERN std::string Exiv2_Xmpdatum__print(Exiv2::Xmpdatum const *self,Exiv2::
         return self->print(pMetadata);
     }
 SWIGINTERN std::string Exiv2_Xmpdatum_toString__SWIG_0(Exiv2::Xmpdatum const *self){ return self->toString(); }
-SWIGINTERN std::string Exiv2_Xmpdatum_toString__SWIG_1(Exiv2::Xmpdatum const *self,size_t i){ return self->toString(i); }
+SWIGINTERN std::string Exiv2_Xmpdatum_toString__SWIG_1(Exiv2::Xmpdatum const *self,long i){ return self->toString(i); }
 
 SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
@@ -6897,10 +6778,10 @@ fail:
 SWIGINTERN PyObject *_wrap_XmpData_iterator_toString__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
-  size_t arg2 ;
+  long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  size_t val2 ;
+  long val2 ;
   int ecode2 = 0 ;
   PyObject * obj1 = 0 ;
   std::string result;
@@ -6911,11 +6792,11 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator_toString__SWIG_1(PyObject *self, PyO
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator_toString" "', argument " "1"" of type '" "XmpData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_iterator_toString" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "XmpData_iterator_toString" "', argument " "2"" of type '" "long""'");
   } 
-  arg2 = static_cast< size_t >(val2);
+  arg2 = static_cast< long >(val2);
   {
     try {
       result = Exiv2_Xmpdatum_toString__SWIG_1((Exiv2::Xmpdatum*)(arg1)->operator ->(),arg2);
@@ -6962,7 +6843,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpData_iterator_toString'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Xmpdatum::toString() const\n"
-    "    Exiv2::Xmpdatum::toString(size_t) const\n");
+    "    Exiv2::Xmpdatum::toString(long) const\n");
   return 0;
 }
 
@@ -8279,10 +8160,10 @@ fail:
 SWIGINTERN PyObject *_wrap_Xmpdatum_toString__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Xmpdatum *arg1 = (Exiv2::Xmpdatum *) 0 ;
-  size_t arg2 ;
+  long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  size_t val2 ;
+  long val2 ;
   int ecode2 = 0 ;
   PyObject * obj1 = 0 ;
   std::string result;
@@ -8293,14 +8174,14 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toString__SWIG_1(PyObject *self, PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_toString" "', argument " "1"" of type '" "Exiv2::Xmpdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Xmpdatum * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Xmpdatum_toString" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Xmpdatum_toString" "', argument " "2"" of type '" "long""'");
   } 
-  arg2 = static_cast< size_t >(val2);
+  arg2 = static_cast< long >(val2);
   {
     try {
-      result = Exiv2_Xmpdatum_toString__SWIG_1((Exiv2::Xmpdatum const *)arg1,SWIG_STD_MOVE(arg2));
+      result = Exiv2_Xmpdatum_toString__SWIG_1((Exiv2::Xmpdatum const *)arg1,arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -8344,7 +8225,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Xmpdatum_toString'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Xmpdatum::toString() const\n"
-    "    Exiv2::Xmpdatum::toString(size_t) const\n");
+    "    Exiv2::Xmpdatum::toString(long) const\n");
   return 0;
 }
 

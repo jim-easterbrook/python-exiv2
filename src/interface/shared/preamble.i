@@ -40,6 +40,13 @@
 #define EXV_DLLLOCAL
 #define EXV_DLLPUBLIC
 
+// Data sizes have different types in exiv2 0.27 and 0.28
+#if EXIV2_VERSION_HEX < 0x001c0000
+#define BUFLEN_T long
+#else
+#define BUFLEN_T size_t
+#endif
+
 // Stuff to handle auto_ptr or unique_ptr
 #if EXIV2_VERSION_HEX < 0x001c0000
     #define SMART_PTR AutoPtr

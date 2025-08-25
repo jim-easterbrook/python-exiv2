@@ -5353,6 +5353,58 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 
+static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
+    Exiv2::TypeId type_id = datum->typeId();
+    if (type_id != Exiv2::invalidTypeId)
+        return type_id;
+    return Exiv2::ExifKey(datum->key()).defaultTypeId();
+};
+
+
+static PyObject* set_value_from_py(Exiv2::Exifdatum* datum, PyObject* py_value) {
+    swig_type_info* ty_info = get_type_object(get_type_id(datum));
+    SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+    // Call type object to invoke constructor
+    PyObject* swig_obj = PyObject_CallFunctionObjArgs(
+        (PyObject*)cl_data->pytype, py_value, NULL);
+    if (!swig_obj)
+        return NULL;
+    // Convert constructed object to Exiv2::Value
+    Exiv2::Value* value = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(swig_obj, (void**)&value, ty_info, 0))) {
+        PyErr_SetString(
+            PyExc_RuntimeError, "set_value_from_py: invalid conversion");
+        Py_DECREF(swig_obj);
+        return NULL;
+    }
+    // Set value
+    datum->setValue(value);
+    Py_DECREF(swig_obj);
+    return SWIG_Py_Void();
+};
+
+SWIGINTERN Exiv2::Value::AutoPtr Exiv2_Exifdatum_getValue__SWIG_1(Exiv2::Exifdatum *self,Exiv2::TypeId as_type){
+        // deprecated since 2023-12-07
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return self->getValue();
+    }
+SWIGINTERN Exiv2::Value const &Exiv2_Exifdatum_value__SWIG_1(Exiv2::Exifdatum *self,Exiv2::TypeId as_type){
+        // deprecated since 2023-12-07
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return self->value();
+    }
+SWIGINTERN PyObject *Exiv2_Exifdatum_setValue__SWIG_2(Exiv2::Exifdatum *self,PyObject *py_value){
+        return set_value_from_py(self, py_value);
+    }
+SWIGINTERN std::string Exiv2_Exifdatum__print(Exiv2::Exifdatum const *self,Exiv2::ExifData const *pMetadata){
+        // deprecated since 2024-01-29
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+                     "'_print' has been replaced by 'print'", 1);
+        return self->print(pMetadata);
+    }
+SWIGINTERN std::string Exiv2_Exifdatum_toString__SWIG_0(Exiv2::Exifdatum const *self){ return self->toString(); }
+SWIGINTERN std::string Exiv2_Exifdatum_toString__SWIG_1(Exiv2::Exifdatum const *self,long i){ return self->toString(i); }
+
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
 {
@@ -5404,125 +5456,6 @@ SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val)
   return SWIG_TypeError;
 }
 
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long_SS_long (PyObject *obj, unsigned long long *val)
-{
-  int res = SWIG_TypeError;
-  if (PyLong_Check(obj)) {
-    unsigned long long v = PyLong_AsUnsignedLongLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      res = SWIG_OverflowError;
-    }
-  } else {
-    unsigned long v;
-    res = SWIG_AsVal_unsigned_SS_long (obj,&v);
-    if (SWIG_IsOK(res)) {
-      if (val) *val = v;
-      return res;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    const double mant_max = 1LL << DBL_MANT_DIG;
-    double d;
-    res = SWIG_AsVal_double (obj,&d);
-    if (SWIG_IsOK(res) && !SWIG_CanCastAsInteger(&d, 0, mant_max))
-      return SWIG_OverflowError;
-    if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, mant_max)) {
-      if (val) *val = (unsigned long long)(d);
-      return SWIG_AddCast(res);
-    }
-    res = SWIG_TypeError;
-  }
-#endif
-  return res;
-}
-#endif
-
-
-SWIGINTERNINLINE int
-SWIG_AsVal_size_t (PyObject * obj, size_t *val)
-{
-  int res = SWIG_TypeError;
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  if (sizeof(size_t) <= sizeof(unsigned long)) {
-#endif
-    unsigned long v;
-    res = SWIG_AsVal_unsigned_SS_long (obj, val ? &v : 0);
-    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  } else if (sizeof(size_t) <= sizeof(unsigned long long)) {
-    unsigned long long v;
-    res = SWIG_AsVal_unsigned_SS_long_SS_long (obj, val ? &v : 0);
-    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
-  }
-#endif
-  return res;
-}
-
-
-static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::ExifKey(datum->key()).defaultTypeId();
-};
-
-
-static PyObject* set_value_from_py(Exiv2::Exifdatum* datum, PyObject* py_value) {
-    swig_type_info* ty_info = get_type_object(get_type_id(datum));
-    SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
-    // Call type object to invoke constructor
-    PyObject* swig_obj = PyObject_CallFunctionObjArgs(
-        (PyObject*)cl_data->pytype, py_value, NULL);
-    if (!swig_obj)
-        return NULL;
-    // Convert constructed object to Exiv2::Value
-    Exiv2::Value* value = 0;
-    if (!SWIG_IsOK(SWIG_ConvertPtr(swig_obj, (void**)&value, ty_info, 0))) {
-        PyErr_SetString(
-            PyExc_RuntimeError, "set_value_from_py: invalid conversion");
-        Py_DECREF(swig_obj);
-        return NULL;
-    }
-    // Set value
-    datum->setValue(value);
-    Py_DECREF(swig_obj);
-    return SWIG_Py_Void();
-};
-
-SWIGINTERN Exiv2::Value::AutoPtr Exiv2_Exifdatum_getValue__SWIG_1(Exiv2::Exifdatum *self,Exiv2::TypeId as_type){
-        // deprecated since 2023-12-07
-        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
-        return self->getValue();
-    }
-SWIGINTERN Exiv2::Value const &Exiv2_Exifdatum_value__SWIG_1(Exiv2::Exifdatum *self,Exiv2::TypeId as_type){
-        // deprecated since 2023-12-07
-        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
-        return self->value();
-    }
-SWIGINTERN PyObject *Exiv2_Exifdatum_setValue__SWIG_2(Exiv2::Exifdatum *self,PyObject *py_value){
-        return set_value_from_py(self, py_value);
-    }
-SWIGINTERN std::string Exiv2_Exifdatum__print(Exiv2::Exifdatum const *self,Exiv2::ExifData const *pMetadata){
-        // deprecated since 2024-01-29
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-                     "'_print' has been replaced by 'print'", 1);
-        return self->print(pMetadata);
-    }
-SWIGINTERN std::string Exiv2_Exifdatum_toString__SWIG_0(Exiv2::Exifdatum const *self){ return self->toString(); }
-SWIGINTERN std::string Exiv2_Exifdatum_toString__SWIG_1(Exiv2::Exifdatum const *self,size_t i){ return self->toString(i); }
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
@@ -7130,10 +7063,10 @@ fail:
 SWIGINTERN PyObject *_wrap_ExifData_iterator_toString__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   ExifData_iterator *arg1 = (ExifData_iterator *) 0 ;
-  size_t arg2 ;
+  long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  size_t val2 ;
+  long val2 ;
   int ecode2 = 0 ;
   PyObject * obj1 = 0 ;
   std::string result;
@@ -7144,11 +7077,11 @@ SWIGINTERN PyObject *_wrap_ExifData_iterator_toString__SWIG_1(PyObject *self, Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_iterator_toString" "', argument " "1"" of type '" "ExifData_iterator const *""'"); 
   }
   arg1 = reinterpret_cast< ExifData_iterator * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifData_iterator_toString" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExifData_iterator_toString" "', argument " "2"" of type '" "long""'");
   } 
-  arg2 = static_cast< size_t >(val2);
+  arg2 = static_cast< long >(val2);
   {
     try {
       result = Exiv2_Exifdatum_toString__SWIG_1((Exiv2::Exifdatum*)(arg1)->operator ->(),arg2);
@@ -7195,7 +7128,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ExifData_iterator_toString'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Exifdatum::toString() const\n"
-    "    Exiv2::Exifdatum::toString(size_t) const\n");
+    "    Exiv2::Exifdatum::toString(long) const\n");
   return 0;
 }
 
@@ -8685,10 +8618,10 @@ fail:
 SWIGINTERN PyObject *_wrap_Exifdatum_toString__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Exifdatum *arg1 = (Exiv2::Exifdatum *) 0 ;
-  size_t arg2 ;
+  long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  size_t val2 ;
+  long val2 ;
   int ecode2 = 0 ;
   PyObject * obj1 = 0 ;
   std::string result;
@@ -8699,14 +8632,14 @@ SWIGINTERN PyObject *_wrap_Exifdatum_toString__SWIG_1(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Exifdatum_toString" "', argument " "1"" of type '" "Exiv2::Exifdatum const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Exifdatum * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Exifdatum_toString" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Exifdatum_toString" "', argument " "2"" of type '" "long""'");
   } 
-  arg2 = static_cast< size_t >(val2);
+  arg2 = static_cast< long >(val2);
   {
     try {
-      result = Exiv2_Exifdatum_toString__SWIG_1((Exiv2::Exifdatum const *)arg1,SWIG_STD_MOVE(arg2));
+      result = Exiv2_Exifdatum_toString__SWIG_1((Exiv2::Exifdatum const *)arg1,arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -8750,7 +8683,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Exifdatum_toString'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::Exifdatum::toString() const\n"
-    "    Exiv2::Exifdatum::toString(size_t) const\n");
+    "    Exiv2::Exifdatum::toString(long) const\n");
   return 0;
 }
 

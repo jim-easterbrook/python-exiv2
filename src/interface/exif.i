@@ -50,11 +50,7 @@ EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::ExifThumbC::writeFile)
 // ExifThumb keeps a reference to the ExifData it uses
 KEEP_REFERENCE_EX(Exiv2::ExifThumb*, args)
 
-#if EXIV2_VERSION_HEX < 0x001c0000
-INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)
-#else
-INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t size)
-#endif
+INPUT_BUFFER_RO(const Exiv2::byte* buf, BUFLEN_T size)
 
 EXTEND_METADATUM(Exiv2::Exifdatum)
 

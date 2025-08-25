@@ -4379,8 +4379,6 @@ fail:
 
 #define KEEPREF_VIEW_ImageFactory_open
 #define KEEPREF_VIEW_ImageFactory_createIo
-#define KEEPREF_VIEW_ImageFactory_open
-#define KEEPREF_VIEW_ImageFactory_createIo
 
 static bool enableBMFF(bool enable) {
     // deprecated since 2024-08-01

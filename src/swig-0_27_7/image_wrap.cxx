@@ -4381,8 +4381,6 @@ fail:
 
 #define KEEPREF_VIEW_ImageFactory_open
 #define KEEPREF_VIEW_ImageFactory_createIo
-#define KEEPREF_VIEW_ImageFactory_open
-#define KEEPREF_VIEW_ImageFactory_createIo
 
 static bool enableBMFF(bool enable) {
     // deprecated since 2024-08-01
@@ -4941,74 +4939,7 @@ static PyObject* py_from_enum_Exiv2_ImageType(long value) {
     return result;
 };
 
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long_SS_long (PyObject *obj, unsigned long long *val)
-{
-  int res = SWIG_TypeError;
-  if (PyLong_Check(obj)) {
-    unsigned long long v = PyLong_AsUnsignedLongLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      res = SWIG_OverflowError;
-    }
-  } else {
-    unsigned long v;
-    res = SWIG_AsVal_unsigned_SS_long (obj,&v);
-    if (SWIG_IsOK(res)) {
-      if (val) *val = v;
-      return res;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    const double mant_max = 1LL << DBL_MANT_DIG;
-    double d;
-    res = SWIG_AsVal_double (obj,&d);
-    if (SWIG_IsOK(res) && !SWIG_CanCastAsInteger(&d, 0, mant_max))
-      return SWIG_OverflowError;
-    if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, mant_max)) {
-      if (val) *val = (unsigned long long)(d);
-      return SWIG_AddCast(res);
-    }
-    res = SWIG_TypeError;
-  }
-#endif
-  return res;
-}
-#endif
-
-
-SWIGINTERNINLINE int
-SWIG_AsVal_size_t (PyObject * obj, size_t *val)
-{
-  int res = SWIG_TypeError;
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  if (sizeof(size_t) <= sizeof(unsigned long)) {
-#endif
-    unsigned long v;
-    res = SWIG_AsVal_unsigned_SS_long (obj, val ? &v : 0);
-    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  } else if (sizeof(size_t) <= sizeof(unsigned long long)) {
-    unsigned long long v;
-    res = SWIG_AsVal_unsigned_SS_long_SS_long (obj, val ? &v : 0);
-    if (SWIG_IsOK(res) && val) *val = static_cast< size_t >(v);
-  }
-#endif
-  return res;
-}
-
-SWIGINTERN Exiv2::BasicIo::AutoPtr Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *data,size_t size){
+SWIGINTERN Exiv2::BasicIo::AutoPtr Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *data,long size){
 
         return Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(data, size));
 
@@ -7031,7 +6962,7 @@ fail:
 SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::byte *arg1 = (Exiv2::byte *) 0 ;
-  size_t arg2 ;
+  long arg2 ;
   PyObject *_global_view = NULL ;
   Exiv2::BasicIo::AutoPtr result;
   
@@ -7049,11 +6980,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
       ;
     }
     arg1 = (Exiv2::byte *) buff->buf;
-    arg2 = (size_t) buff->len;
+    arg2 = (long) buff->len;
   }
   {
     try {
-      result = Exiv2_ImageFactory_createIo__SWIG_1((unsigned char const *)arg1,SWIG_STD_MOVE(arg2));
+      result = Exiv2_ImageFactory_createIo__SWIG_1((unsigned char const *)arg1,arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -7112,7 +7043,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ImageFactory_createIo'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Exiv2::ImageFactory::createIo(std::string const &,bool)\n"
-    "    Exiv2::ImageFactory::Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *,size_t)\n");
+    "    Exiv2::ImageFactory::Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *,long)\n");
   return 0;
 }
 

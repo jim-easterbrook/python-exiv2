@@ -88,11 +88,8 @@ UNIQUE_PTR(Exiv2::Value);
     }
 %}
 // DataValue constructor and DataValue::read can take a Python buffer
-#if EXIV2_VERSION_HEX < 0x001c0000
-INPUT_BUFFER_RO(const Exiv2::byte* buf, long len)
-#else
-INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
-#endif
+INPUT_BUFFER_RO(const Exiv2::byte* buf, BUFLEN_T len)
+
 // Value::copy can write to a Python buffer
 OUTPUT_BUFFER_RW(Exiv2::byte* buf,)
 
@@ -196,10 +193,8 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 // Ignore now redundant overloaded methods
 %ignore Exiv2::DataValue::DataValue();
-%ignore Exiv2::DataValue::DataValue(byte const *, long);
-%ignore Exiv2::DataValue::DataValue(byte const *, long, ByteOrder);
-%ignore Exiv2::DataValue::DataValue(byte const *, size_t);
-%ignore Exiv2::DataValue::DataValue(byte const *, size_t, ByteOrder);
+%ignore Exiv2::DataValue::DataValue(byte const *, BUFLEN_T);
+%ignore Exiv2::DataValue::DataValue(byte const *, BUFLEN_T, ByteOrder);
 %ignore Exiv2::Value::toFloat() const;
 %ignore Exiv2::Value::toInt64() const;
 %ignore Exiv2::Value::toLong() const;
@@ -252,8 +247,7 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 %ignore type_name::value_;
 // Ignore overloaded methods replaced by default typemaps
 %ignore type_name::copy(byte *) const;
-%ignore type_name::read(byte const *, long);
-%ignore type_name::read(byte const *, size_t);
+%ignore type_name::read(byte const *, BUFLEN_T);
 %noexception type_name::~part_name;
 %noexception type_name::__getitem__;
 %noexception type_name::__setitem__;
@@ -271,13 +265,10 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 // Ignore now overloaded constructors
 %ignore Exiv2::ValueType<item_type>::ValueType(item_type const &);
 #if EXIV2_VERSION_HEX < 0x001c0000
-%ignore Exiv2::ValueType<item_type>::ValueType(
-    byte const *, long, ByteOrder);
 %ignore Exiv2::ValueType<item_type>::ValueType();
-#else
-%ignore Exiv2::ValueType<item_type>::ValueType(
-    byte const *, size_t, ByteOrder);
 #endif
+%ignore Exiv2::ValueType<item_type>::ValueType(
+    byte const *, BUFLEN_T, ByteOrder);
 // Also need to ignore equivalent primitive type definitions
 %ignore Exiv2::ValueType<item_type>::ValueType(short const &);
 %ignore Exiv2::ValueType<item_type>::ValueType(unsigned short const &);
