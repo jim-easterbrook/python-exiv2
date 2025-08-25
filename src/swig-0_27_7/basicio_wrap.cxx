@@ -5276,13 +5276,10 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
   void *argp1 = 0 ;
   int res1 = 0 ;
   Py_buffer _global_buff ;
-  long val3 ;
-  int ecode3 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   long result;
   
-  if (!PyArg_UnpackTuple(args, "BasicIo_read", 2, 2, &obj1, &obj2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "BasicIo_read", 1, 1, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "BasicIo_read" "', argument " "1"" of type '" "Exiv2::BasicIo *""'"); 
@@ -5297,22 +5294,12 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
       ;
     }
     arg2 = (Exiv2::byte *) _global_buff.buf;
+    arg3 = (long) _global_buff.len;
   }
-  ecode3 = SWIG_AsVal_long(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "BasicIo_read" "', argument " "3"" of type '" "long""'");
-  } 
-  arg3 = static_cast< long >(val3);
   {
 #ifndef NO_RELEASE_BasicIo_read
     release_views(self);
 #endif
-  }
-  {
-    if (arg3 > (long) _global_buff.len) {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_ValueError), "in method '" "BasicIo_read" "', argument " "2"" of type '" "buffer too small""'")
-      ;
-    }
   }
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -5349,7 +5336,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[4] = {
+  PyObject *argv[3] = {
     0
   };
   Py_ssize_t ii;
@@ -5358,16 +5345,24 @@ SWIGINTERN PyObject *_wrap_BasicIo_read(PyObject *self, PyObject *args) {
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = PyObject_Length(args);
   argv[0] = self;
-  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
     argv[ii + 1] = PyTuple_GET_ITEM(args,ii);
   }
   argc++;
   if (argc == 2) {
-    PyObject *retobj = _wrap_BasicIo_read__SWIG_0(self, args);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
+    int _v = 0;
+    {
+      {
+        int res = SWIG_AsVal_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+    }
+    if (!_v) goto check_1;
+    return _wrap_BasicIo_read__SWIG_0(self, args);
   }
-  if (argc == 3) {
+check_1:
+  
+  if (argc == 2) {
     PyObject *retobj = _wrap_BasicIo_read__SWIG_1(self, args);
     if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
     SWIG_fail;

@@ -192,12 +192,12 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
         buf = bytearray(len(self.data))
         with self.assertWarns(DeprecationWarning):
-            self.assertEqual(io.read(buf, len(self.data)), len(self.data))
+            self.assertEqual(io.read(buf), len(self.data))
         self.assertEqual(buf, self.data)
         if exiv2.testVersion(0, 28, 0):
             with self.assertWarns(DeprecationWarning):
                 with self.assertRaises(exiv2.Exiv2Error) as cm:
-                    io.readOrThrow(buf, len(self.data))
+                    io.readOrThrow(buf)
                 self.assertEqual(cm.exception.code,
                                  exiv2.ErrorCode.kerCorruptedMetadata)
         with self.assertWarns(DeprecationWarning):

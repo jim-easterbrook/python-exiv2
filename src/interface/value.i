@@ -94,15 +94,8 @@ INPUT_BUFFER_RO(const Exiv2::byte* buf, long len)
 INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t len)
 #endif
 // Value::copy can write to a Python buffer
-OUTPUT_BUFFER_RW(Exiv2::byte* buf, Exiv2::ByteOrder byteOrder)
-// redefine check typemap
-%typemap(check) (Exiv2::byte* buf, Exiv2::ByteOrder byteOrder) {
-    // check buffer is large enough, assumes arg1 points to self
-    if ((Py_ssize_t) arg1->size() > _global_buff.len) {
-        %argument_fail(SWIG_ValueError, "buffer too small",
-                       $symname, $argnum);
-    }
-}
+OUTPUT_BUFFER_RW(Exiv2::byte* buf,)
+
 // Downcast base class pointers to derived class
 // Convert exiv2 type id to the appropriate value class type info
 %fragment("get_type_object", "header") {

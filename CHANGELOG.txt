@@ -26,9 +26,10 @@ Changes in v0.18.0:
   4/ Add data() method to exiv2.PreviewImage, deprecate pData() method.
   5/ Deprecated many BasicIo methods (read, write, seek, etc.) that should not
      be needed in Python scripts. Please let me know if this is a problem.
-  6/ Deprecated 'buffer interface' to BasicIo, DataBuf, and PreviewImage. They
+  6/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
+  7/ Deprecated 'buffer interface' to BasicIo, DataBuf, and PreviewImage. They
      all have 'data()' to get their contents.
-  7/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
+  8/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
 
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.

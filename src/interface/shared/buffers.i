@@ -71,7 +71,8 @@ _HOLD_BUFFER(hold_funcs)
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)
 %typemap(doctype) buf_type "writeable :py:term:`bytes-like object`";
-%typemap(in) (buf_type) (Py_buffer _global_buff) {
+#if #count_type != ""
+%typemap(in) (buf_type, count_type) (Py_buffer _global_buff) {
     _global_buff.obj = NULL;
     if (PyObject_GetBuffer(
             $input, &_global_buff, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
@@ -80,18 +81,35 @@ _HOLD_BUFFER(hold_funcs)
                        $symname, $argnum);
     }
     $1 = ($1_ltype) _global_buff.buf;
+    $2 = ($2_ltype) _global_buff.len;
 }
-%typemap(check) (buf_type, count_type) {
-    if ($2 > ($2_ltype) _global_buff.len) {
+%typemap(freearg) (buf_type, count_type) %{
+    if (_global_buff.obj) {
+        PyBuffer_Release(&_global_buff);
+    }
+%}
+#else
+%typemap(in) (buf_type) (Py_buffer _global_buff) {
+    _global_buff.obj = NULL;
+    if (PyObject_GetBuffer(
+            $input, &_global_buff, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        PyErr_Clear();
+        %argument_fail(SWIG_TypeError, "writable bytes-like object",
+                       $symname, $argnum);
+    }
+    // check buffer is large enough, assumes arg1 points to self
+    if ((Py_ssize_t) arg1->size() > _global_buff.len) {
         %argument_fail(SWIG_ValueError, "buffer too small",
                        $symname, $argnum);
     }
+    $1 = ($1_ltype) _global_buff.buf;
 }
 %typemap(freearg) (buf_type) %{
     if (_global_buff.obj) {
         PyBuffer_Release(&_global_buff);
     }
 %}
+#endif
 %typemap(typecheck, precedence=SWIG_TYPECHECK_CHAR_PTR) buf_type %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}
