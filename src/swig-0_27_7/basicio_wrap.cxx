@@ -5048,7 +5048,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, PyObject *args)
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::write", 1);
-    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5107,7 +5106,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, PyObject *args)
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::write", 1);
-    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5199,7 +5197,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_putb(PyObject *self, PyObject *args) {
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::putb", 1);
-    
     try {
       result = (int)(arg1)->putb(arg2);
     }
@@ -5245,7 +5242,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, PyObject *args) 
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::read", 1);
-    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5304,7 +5300,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, PyObject *args) 
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::read", 1);
-    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5398,7 +5393,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_getb(PyObject *self, PyObject *args) {
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::getb", 1);
-    
     try {
       result = (int)(arg1)->getb();
     }
@@ -5446,7 +5440,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_transfer(PyObject *self, PyObject *args) {
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::transfer", 1);
-    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5511,7 +5504,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::seek", 1);
-    
     try {
       {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -5651,7 +5643,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_tell(PyObject *self, PyObject *args) {
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::tell", 1);
-    
     try {
       result = (long)((Exiv2::BasicIo const *)arg1)->tell();
     }
@@ -5774,7 +5765,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_eof(PyObject *self, PyObject *args) {
   {
     PyErr_WarnEx(PyExc_DeprecationWarning,
       "Python scripts should not need to call ""Exiv2::BasicIo::eof", 1);
-    
     try {
       result = (bool)((Exiv2::BasicIo const *)arg1)->eof();
     }
