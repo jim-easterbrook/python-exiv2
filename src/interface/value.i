@@ -255,7 +255,18 @@ DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
 %noexception type_name::count;
 %noexception type_name::size;
 UNIQUE_PTR(type_name)
+// Deprecate some methods since 2025-08-25
+DEPRECATE_FUNCTION(type_name::copy, true)
+DEPRECATE_FUNCTION(type_name::read(const byte*, long, ByteOrder), true)
+DEPRECATE_FUNCTION(type_name::read(const byte*, size_t, ByteOrder), true)
+DEPRECATE_FUNCTION(type_name::write, true)
 %enddef // VALUE_SUBCLASS
+
+// Deprecate some base class methods since 2025-08-25
+DEPRECATE_FUNCTION(Exiv2::Value::copy, true)
+DEPRECATE_FUNCTION(Exiv2::Value::read(const byte*, long, ByteOrder), true)
+DEPRECATE_FUNCTION(Exiv2::Value::read(const byte*, size_t, ByteOrder), true)
+DEPRECATE_FUNCTION(Exiv2::Value::write, true)
 
 // Macro for Exiv2::ValueType classes
 %define VALUETYPE(type_name, item_type, type_id)

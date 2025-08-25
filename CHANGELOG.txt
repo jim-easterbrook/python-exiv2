@@ -20,16 +20,19 @@ Changes in v0.18.0:
   1/ Removed features deprecated in v0.13.0:
      Value (and derived types) copy constructors
      Single value (such as DateValue) index methods
-  2/ Added binary wheels for Linux on arm64.
-  3/ Exiv2 struct member names with a trailing underscore have more Pythonic
-     aliases without the underscore.
-  4/ Add data() method to exiv2.PreviewImage, deprecate pData() method.
-  5/ Deprecated many BasicIo methods (read, write, seek, etc.) that should not
+  2/ Deprecated many BasicIo methods (read, write, seek, etc.) that should not
      be needed in Python scripts. Please let me know if this is a problem.
-  6/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
-  7/ Deprecated 'buffer interface' to BasicIo, DataBuf, and PreviewImage. They
+  3/ Deprecated copy, write, and read(buffer) methods of Value (and
+     subclasses) that should not be needed in Python scripts. Please let me
+     know if this is a problem.
+  4/ Deprecated 'buffer interface' to BasicIo, DataBuf, and PreviewImage. They
      all have 'data()' to get their contents.
-  8/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
+  5/ Added binary wheels for Linux on arm64.
+  6/ Exiv2 struct member names with a trailing underscore have more Pythonic
+     aliases without the underscore.
+  7/ Add data() method to exiv2.PreviewImage, deprecate pData() method.
+  8/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
+  9/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
 
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.

@@ -42,8 +42,9 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(result, type(value))
         self.assertEqual(str(result), str(value))
         result = bytearray(len(data))
-        self.assertEqual(
-            value.copy(result, exiv2.ByteOrder.littleEndian), len(result))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(
+                value.copy(result, exiv2.ByteOrder.littleEndian), len(result))
         self.assertEqual(result, data)
         if sequence:
             self.check_result(value.count(), int, len(sequence))
@@ -59,7 +60,8 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(result.read(string), 0)
         self.assertEqual(str(result), string)
         result = exiv2.Value.create(type_id)
-        self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
         self.assertEqual(str(result), string)
         self.check_result(value.size(), int, len(data))
         # Exiv2::CommentValue::typeId returns undefined
@@ -69,7 +71,8 @@ class TestValueModule(unittest.TestCase):
         else:
             self.check_result(value.typeId(), exiv2.TypeId, type_id)
         buf = io.StringIO()
-        buf = value.write(buf)
+        with self.assertWarns(DeprecationWarning):
+            buf = value.write(buf)
         self.assertEqual(buf.getvalue(), string)
 
     def do_conversion_tests(self, value, text, number):
@@ -282,7 +285,8 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value[2], str)
         value = exiv2.XmpArrayValue(text)
         # read() appends to value
-        self.assertEqual(value.read(b'dave'), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(value.read(b'dave'), 0)
         self.assertEqual(len(value), 3)
         self.assertEqual(value[2], 'dave')
         value = exiv2.XmpArrayValue(text)
@@ -318,7 +322,8 @@ class TestValueModule(unittest.TestCase):
     def test_DataValue(self):
         def check_data(value, data):
             copy = bytearray(len(data))
-            self.assertEqual(value.copy(copy), len(data))
+            with self.assertWarns(DeprecationWarning):
+                self.assertEqual(value.copy(copy), len(data))
             self.assertEqual(copy, data)
 
         data = bytes(random.choices(range(256), k=128))
