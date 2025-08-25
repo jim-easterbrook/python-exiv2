@@ -16,8 +16,18 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+// Recursive macro to output #define statements for list of functions
+%define _HOLD_BUFFER(hold_func, remainder...)
+%{#define KEEPREF_VIEW_##hold_func%}
+#if #remainder != ""
+_HOLD_BUFFER(remainder)
+#endif
+%enddef
+
 // Macro for input read only byte buffer
-%define INPUT_BUFFER_RO(buf_type, len_type)
+// hold_funcs is a list of functions that don't read the input data
+// immediately, so keep a reference to the Python object
+%define INPUT_BUFFER_RO(buf_type, len_type, hold_funcs...)
 %typemap(doctype) buf_type ":py:term:`bytes-like object`";
 %typemap(in) (buf_type, len_type) (PyObject* _global_view = NULL) {
     _global_view = PyMemoryView_GetContiguous($input, PyBUF_READ, 'A');
@@ -36,8 +46,23 @@
 %typemap(typecheck, precedence=SWIG_TYPECHECK_CHAR_PTR) buf_type %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}
+
+#if #hold_funcs != ""
+_HOLD_BUFFER(hold_funcs)
+%typemap(argout, fragment="private_data") (buf_type, len_type) {
+%#ifdef KEEPREF_VIEW_$symname
+    private_store_set(resultobj, "using_view", _global_view);
+%#endif
+}
+#endif
 %enddef // INPUT_BUFFER_RO
 
+// Macro for functions to release the held reference
+%define RELEASE_BUFFER(signature)
+%typemap(ret, fragment="private_data") signature %{
+    private_store_del(self, "using_view");
+%}
+%enddef
 
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)

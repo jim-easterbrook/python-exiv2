@@ -4377,10 +4377,10 @@ fail:
 #define EXV_ENABLE_FILESYSTEM
 #endif
 
-
 #define KEEPREF_VIEW_ImageFactory_open
 #define KEEPREF_VIEW_ImageFactory_createIo
-
+#define KEEPREF_VIEW_ImageFactory_open
+#define KEEPREF_VIEW_ImageFactory_createIo
 
 static bool enableBMFF(bool enable) {
     // deprecated since 2024-08-01
@@ -6537,11 +6537,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__Image, SWIG_POINTER_OWN |  0 );
   
-  
+  {
 #ifdef KEEPREF_VIEW_ImageFactory_open
-  private_store_set(resultobj, "using_view", _global_view);
+    private_store_set(resultobj, "using_view", _global_view);
 #endif
-  
+  }
   
   Py_XDECREF(_global_view);
   
@@ -6812,11 +6812,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
     if (!resultobj)
     SWIG_fail;
   }
-  
+  {
 #ifdef KEEPREF_VIEW_ImageFactory_getType
-  private_store_set(resultobj, "using_view", _global_view);
+    private_store_set(resultobj, "using_view", _global_view);
 #endif
-  
+  }
   
   Py_XDECREF(_global_view);
   
@@ -7053,11 +7053,11 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
   
   resultobj = SWIG_NewPointerObj((&result)->release(), SWIGTYPE_p_Exiv2__BasicIo, SWIG_POINTER_OWN |  0 );
   
-  
+  {
 #ifdef KEEPREF_VIEW_ImageFactory_createIo
-  private_store_set(resultobj, "using_view", _global_view);
+    private_store_set(resultobj, "using_view", _global_view);
 #endif
-  
+  }
   
   Py_XDECREF(_global_view);
   
