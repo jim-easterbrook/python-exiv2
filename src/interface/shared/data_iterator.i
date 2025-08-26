@@ -165,7 +165,7 @@ public:
 
 #if SWIG_VERSION >= 0x040400
 // Functions to store weak references to iterators (swig >= v4.4)
-%fragment("iterator_weakref_funcs", "header", fragment="private_data") {
+%fragment("iterator_store", "header", fragment="private_data") {
 static void _process_list(PyObject* list,
                           Exiv2::container_type::iterator* beg,
                           Exiv2::container_type::iterator* end) {
@@ -193,7 +193,7 @@ static void invalidate_iterators(PyObject* py_self,
     if (list)
         _process_list(list, &beg, &end);
 };
-static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
+static int store_iterator(PyObject* py_self, PyObject* iterator) {
     PyObject* list = private_store_get(py_self, "iterators");
     if (list)
         purge_iterators(list);
@@ -218,18 +218,21 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
 
 #if SWIG_VERSION >= 0x040400
 // clear() invalidates all iterators
-%typemap(ret, typemap="iterator_weakref_funcs") void clear {
+%typemap(ret, fragment="iterator_store") void clear {
     invalidate_iterators(self, arg1->begin(), arg1->end());
 }
-// erase() and eraseFamily() may invalidate iterators
-%typemap(check) Exiv2::container_type::iterator pos {
+// erase() and eraseFamily() invalidate some iterators
+%typemap(check, fragment="iterator_store")
+        Exiv2::container_type::iterator pos {
     invalidate_iterators(self, $1, $1);
 }
-%typemap(check) (Exiv2::container_type::iterator beg,
-                 Exiv2::container_type::iterator end) {
+%typemap(check, fragment="iterator_store")
+        (Exiv2::container_type::iterator beg,
+         Exiv2::container_type::iterator end) {
     invalidate_iterators(self, $1, $2);
 }
-%typemap(check) Exiv2::container_type::iterator& pos {
+%typemap(check, fragment="iterator_store")
+        Exiv2::container_type::iterator& pos {
     invalidate_iterators(self, *$1, arg1->end());
 }
 #endif // SWIG_VERSION
@@ -241,7 +244,7 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
 %newobject Exiv2::container_type::findKey;
 // Assumes arg1 is the base class parent
 #if SWIG_VERSION >= 0x040400
-%typemap(out, fragment="iterator_weakref_funcs")
+%typemap(out, fragment="iterator_store")
     Exiv2::container_type::iterator {
 #else
 %typemap(out) Exiv2::container_type::iterator {
@@ -252,7 +255,7 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
     $typemap(out, container_type##_iterator*);
 #if SWIG_VERSION >= 0x040400
     // Keep weak reference to the Python iterator
-    if (store_iterator_weakref(self, $result)) {
+    if (store_iterator(self, $result)) {
         SWIG_fail;
     }
 #endif // SWIG_VERSION
