@@ -34,6 +34,7 @@
 %ignore container_type##_iterator::size;
 %ignore container_type##_iterator::##container_type##_iterator;
 %ignore container_type##_iterator::operator*;
+%ignore container_type##_iterator::_invalidate;
 %feature("docstring") container_type##_iterator "
 Python wrapper for an :class:`" #container_type "` iterator. It has most of
 the methods of :class:`" #datum_type "` allowing easy access to the
@@ -84,8 +85,25 @@ public:
             return "iterator<end>";
         return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
-    // Provide method to invalidate iterator
+    // Provide method to invalidate iterator unilaterally
     void _invalidate() { invalidated = true; }
+    // Provide method to invalidate iterator if in deleted range
+    void _invalidate(Exiv2::container_type::iterator b,
+                     Exiv2::container_type::iterator e) {
+        if (b == e) {
+            // begin() == end() after clear()
+            if (b == ptr || b == end)
+                invalidated = true;
+            return;
+        }
+        while (b != e) {
+            if (b == ptr) {
+                invalidated = true;
+                return;
+            }
+            b++;
+        }
+    }
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (invalidated || ptr == end)
@@ -145,25 +163,35 @@ public:
 #endif
 }
 
+#if SWIG_VERSION >= 0x040400
 // Functions to store weak references to iterators (swig >= v4.4)
 %fragment("iterator_weakref_funcs", "header", fragment="private_data") {
-static void _process_list(PyObject* list, bool invalidate) {
-    PyObject* iterator = NULL;
+static void _process_list(PyObject* list,
+                          Exiv2::container_type::iterator* beg,
+                          Exiv2::container_type::iterator* end) {
+    PyObject* py_it = NULL;
+    container_type##_iterator* cpp_it = NULL;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        iterator = PyWeakref_GetObject(PyList_GetItem(list, idx-1));
-        if (iterator == Py_None)
+        py_it = PyWeakref_GetObject(PyList_GetItem(list, idx-1));
+        if (py_it == Py_None)
             PyList_SetSlice(list, idx-1, idx, NULL);
-        else if (invalidate)
-            Py_XDECREF(PyObject_CallMethod(iterator, "_invalidate", NULL));
+        else if (beg) {
+            if (SWIG_IsOK(SWIG_ConvertPtr(
+                    py_it, (void**)&cpp_it,
+                    $descriptor(container_type##_iterator*), 0)))
+                cpp_it->_invalidate(*beg, *end);
+        }
     }
 };
 static void purge_iterators(PyObject* list) {
-    _process_list(list, false);
+    _process_list(list, NULL, NULL);
 };
-static void invalidate_iterators(PyObject* py_self) {
+static void invalidate_iterators(PyObject* py_self,
+                                 Exiv2::container_type::iterator beg,
+                                 Exiv2::container_type::iterator end) {
     PyObject* list = private_store_get(py_self, "iterators");
     if (list)
-        _process_list(list, true);
+        _process_list(list, &beg, &end);
 };
 static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
     PyObject* list = private_store_get(py_self, "iterators");
@@ -186,17 +214,23 @@ static int store_iterator_weakref(PyObject* py_self, PyObject* iterator) {
     return result;
 };
 }
+#endif
 
 #if SWIG_VERSION >= 0x040400
 // clear() invalidates all iterators
 %typemap(ret, typemap="iterator_weakref_funcs") void clear {
-    invalidate_iterators(self);
+    invalidate_iterators(self, arg1->begin(), arg1->end());
 }
 // erase() and eraseFamily() may invalidate iterators
-%typemap(check) (Exiv2::container_type::iterator pos),
-                (Exiv2::container_type::iterator beg),
-                (Exiv2::container_type::iterator&) {
-    invalidate_iterators(self);
+%typemap(check) Exiv2::container_type::iterator pos {
+    invalidate_iterators(self, $1, $1);
+}
+%typemap(check) (Exiv2::container_type::iterator beg,
+                 Exiv2::container_type::iterator end) {
+    invalidate_iterators(self, $1, $2);
+}
+%typemap(check) Exiv2::container_type::iterator& pos {
+    invalidate_iterators(self, *$1, arg1->end());
 }
 #endif // SWIG_VERSION
 

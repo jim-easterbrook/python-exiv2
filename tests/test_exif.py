@@ -98,12 +98,7 @@ class TestExifModule(unittest.TestCase):
         k3 = data.erase(k1, k2)
         with self.assertRaises(RuntimeError):
             k1.key()
-        if 'iterators' in data._private_data_:
-            # swig >= 4.4
-            with self.assertRaises(RuntimeError):
-                k2.key()
-        else:
-            self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
+        self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
         self.assertEqual(k3.key(), 'Exif.Image.ImageDescription')
         self.assertEqual(len(data), 10)
         # access by key

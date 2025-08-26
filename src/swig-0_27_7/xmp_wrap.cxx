@@ -4403,8 +4403,25 @@ public:
             return "iterator<end>";
         return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
-    // Provide method to invalidate iterator
+    // Provide method to invalidate iterator unilaterally
     void _invalidate() { invalidated = true; }
+    // Provide method to invalidate iterator if in deleted range
+    void _invalidate(Exiv2::XmpData::iterator b,
+                     Exiv2::XmpData::iterator e) {
+        if (b == e) {
+            // begin() == end() after clear()
+            if (b == ptr || b == end)
+                invalidated = true;
+            return;
+        }
+        while (b != e) {
+            if (b == ptr) {
+                invalidated = true;
+                return;
+            }
+            b++;
+        }
+    }
     // Provide size() C++ method for buffer size check
     size_t size() {
         if (invalidated || ptr == end)
@@ -5611,34 +5628,6 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator___str__(PyObject *self, PyObject *ar
     }
   }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpData_iterator__invalidate(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "XmpData_iterator__invalidate takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator__invalidate" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
-  }
-  arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
-  {
-    try {
-      (arg1)->_invalidate();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -9542,7 +9531,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__XmpData_iterator_methods[] = {
   { "__eq__", _wrap_XmpData_iterator___eq__, METH_VARARGS, "" },
   { "__ne__", _wrap_XmpData_iterator___ne__, METH_VARARGS, "" },
   { "__str__", _wrap_XmpData_iterator___str__, METH_VARARGS, "" },
-  { "_invalidate", _wrap_XmpData_iterator__invalidate, METH_VARARGS, "" },
   { "__deref__", _wrap_XmpData_iterator___deref__, METH_VARARGS, "" },
   { "setValue", _wrap_XmpData_iterator_setValue, METH_VARARGS, "" },
   { "copy", _wrap_XmpData_iterator_copy, METH_VARARGS, "Not implemented. Calling this method will raise an exception." },
