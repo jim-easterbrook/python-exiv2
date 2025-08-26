@@ -51,22 +51,13 @@ Some parts of the interface are deprecated and will eventually be removed.
 Please use Python's ``-Wd`` flag when testing your software to ensure it isn't using deprecated features.
 (Do let me know if I've deprecated a feature you need and can't replace with an alternative.)
 
-Enums
------
-
-The C++ libexiv2 library often uses ``enum`` classes to list related data, such as the value type identifiers stored in `Exiv2::TypeId`_.
-SWIG's default processing of such enums is to add all the values as named constants to the top level of the module, e.g. ``exiv2.asciiString``.
-In python-exiv2 most of the C++ enums are represented by Python enum_ classes, e.g. ``exiv2.TypeId.asciiString`` is a member of ``exiv2.TypeId``.
-
-Unfortunately there is no easy way to deprecate the SWIG generated top level constants, but they will eventually be removed from python-exiv2.
-Please ensure you only use the enum classes in your use of python-exiv2.
-
 Data structures
 ---------------
 
 Some parts of the Exiv2 API use structures to hold several related data items.
 For example, the `Exiv2::ExifTags`_ class has a ``tagList()`` method that returns a list of `Exiv2::TagInfo`_ structs.
-In python-exiv2 (since v0.16.2) these structs have dict_ like behaviour, so the members can be accessed more easily:
+Since python-exiv2 v0.18.0 struct member names ending with an underscore ``_`` have aliases without the underscore.
+Since v0.16.2 these structs also have dict_ like behaviour, so the members can be accessed more easily:
 
 .. code:: python
 
@@ -94,9 +85,6 @@ In python-exiv2 (since v0.16.2) these structs have dict_ like behaviour, so the 
 
 In general it's more efficient to use attribute access (``info.title``) than dict_ access (``info['title']``).
 It is sometimes useful to be able to iterate over the members though, as shown above.
-
-Note that in the C++ API the struct member names end with an underscore.
-In the Python interface the underscore is optional for attribute names, and removed in the dict_ like interface.
 
 Reading data values
 -------------------
@@ -319,6 +307,8 @@ Warning: segmentation faults
 
 If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
 Just as in C++, there is no way to detect that an iterator has become invalid.
+
+Since v0.18.0 python-exiv2 can invalidate iterators if the data container is resized, but you should not expect this to work in all circumstances.
 
 Segmentation faults
 -------------------

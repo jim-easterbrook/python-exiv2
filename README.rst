@@ -52,7 +52,7 @@ If your software is currently incompatible with libexiv2 v0.28.x you can use an 
 
     $ pip install --user exiv2==0.16.2 --only-binary :all:
 
-Alternatively, if you have libexiv2 v0.27.x and its "development headers" installed, you can install python-exiv2 from source using your system libexiv2::
+Alternatively, if you have libexiv2 v0.27.x and its "development headers" installed on your computer, you can install python-exiv2 from source using your system libexiv2::
 
     $ pip install --user exiv2 --no-binary :all:
 
