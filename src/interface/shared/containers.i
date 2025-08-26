@@ -35,6 +35,7 @@
     base_class::__setitem__;
 %feature("python:slot", "sq_contains", functype="objobjproc")
     base_class::__contains__;
+%typemap(in, numinputs=0) PyObject* py_self {$1 = self;}
 %extend base_class {
     %fragment("get_type_id"{datum_type});
     %fragment("set_value_from_py"{datum_type});
@@ -60,12 +61,19 @@
         datum_type* datum = &(*$self)[key];
         return set_value_from_py(datum, py_value);
     }
+#if SWIG_VERSION >= 0x040400
+    PyObject* __setitem__(PyObject* py_self, const std::string& key) {
+#else
     PyObject* __setitem__(const std::string& key) {
+#endif
         base_class::iterator pos = $self->findKey(key_type(key));
         if (pos == $self->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
         }
+#if SWIG_VERSION >= 0x040400
+        invalidate_iterators(py_self, pos, pos);
+#endif
         $self->erase(pos);
         return SWIG_Py_Void();
     }

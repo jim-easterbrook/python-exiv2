@@ -104,8 +104,13 @@ class TestExifModule(unittest.TestCase):
         # access by key
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'], exiv2.Exifdatum)
+        k = data.findKey(exiv2.ExifKey('Exif.Image.Artist'))
         del data['Exif.Image.Artist']
         self.assertEqual('Exif.Image.Artist' in data, False)
+        if 'iterators' in data._private_data_:
+            # swig >= 4.4
+            with self.assertRaises(RuntimeError):
+                k.key()
         data['Exif.Image.Artist'] = 'Fred'
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'], exiv2.Exifdatum)

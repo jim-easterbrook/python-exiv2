@@ -5565,11 +5565,15 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_2(Exiv2::ExifData *self,st
         return set_value_from_py(datum, py_value);
     }
 SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_3(Exiv2::ExifData *self,std::string const &key){
+
         Exiv2::ExifData::iterator pos = self->findKey(Exiv2::ExifKey(key));
         if (pos == self->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
         }
+
+
+
         self->erase(pos);
         return SWIG_Py_Void();
     }
