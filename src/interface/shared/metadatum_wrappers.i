@@ -166,22 +166,10 @@ public:
     it = argp->_ptr();
     $1 = &it;
 }
-%newobject Exiv2::container_type::begin;
-%newobject Exiv2::container_type::end;
-%newobject Exiv2::container_type::erase;
-%newobject Exiv2::container_type::findId;
-%newobject Exiv2::container_type::findKey;
-// Assumes arg1 is the base class parent
-#if SWIG_VERSION >= 0x040400
-%typemap(out, fragment="iterator_store")
-    Exiv2::container_type::iterator {
-#else
 %typemap(out) Exiv2::container_type::iterator {
-#endif
-    Exiv2::container_type::iterator tmp = $1;
-    container_type##_iterator* $1 = new container_type##_iterator(
-        tmp, arg1->end());
-    $typemap(out, container_type##_iterator*);
+    $result = SWIG_NewPointerObj(
+        SWIG_as_voidptr(new container_type##_iterator($1, arg1->end())),
+        $descriptor(container_type##_iterator*), SWIG_POINTER_OWN);
 #if SWIG_VERSION >= 0x040400
     // Keep weak reference to the Python iterator
     if (store_iterator(self, $result)) {
