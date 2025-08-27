@@ -118,7 +118,6 @@ static PyObject* get_attr_strip(PyObject* obj, PyObject* name) {
 %feature("python:slot", "mp_subscript", functype="binaryfunc")
     struct_type::__getitem__;
 // Typemaps for slot functions
-%typemap(in, numinputs=0) PyObject* py_self {$1 = self;}
 %typemap(default) PyObject* value {$1 = NULL;}
 // Document functions
 %feature("docstring") struct_type::items "Get structure members.

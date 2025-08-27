@@ -75,6 +75,9 @@
 #endif
 %}
 
+// Class extensions often need access to their Python object
+%typemap(in, numinputs=0) PyObject* py_self {$1 = self;}
+
 // Improve docstrings for some exiv2 types
 %typemap(doctype) bool "bool"
 %typemap(doctype) Exiv2::byte "int"

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -35,7 +35,6 @@
     base_class::__setitem__;
 %feature("python:slot", "sq_contains", functype="objobjproc")
     base_class::__contains__;
-%typemap(in, numinputs=0) PyObject* py_self {$1 = self;}
 %extend base_class {
     %fragment("get_type_id"{datum_type});
     %fragment("set_value_from_py"{datum_type});
