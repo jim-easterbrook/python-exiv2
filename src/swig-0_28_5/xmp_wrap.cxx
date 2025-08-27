@@ -4403,24 +4403,13 @@ public:
             return "iterator<end>";
         return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
     }
-    // Provide method to invalidate iterator unilaterally
+    // Invalidate iterator unilaterally
     void _invalidate() { invalidated = true; }
-    // Provide method to invalidate iterator if in deleted range
-    void _invalidate(Exiv2::XmpData::iterator b,
-                     Exiv2::XmpData::iterator e) {
-        if (b == e) {
-            // begin() == end() after clear()
-            if (b == ptr || b == end)
-                invalidated = true;
-            return;
-        }
-        while (b != e) {
-            if (b == ptr) {
-                invalidated = true;
-                return;
-            }
-            b++;
-        }
+    // Invalidate iterator if what it points to has been deleted
+    bool _invalidate(Exiv2::XmpData::iterator deleted) {
+        if (deleted == ptr)
+            invalidated = true;
+        return invalidated;
     }
     // Provide size() C++ method for buffer size check
     size_t size() {
