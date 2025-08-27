@@ -27,6 +27,7 @@
 %include "shared/buffers.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
+%include "shared/metadatum_reference.i"
 %include "shared/keep_reference.i"
 %include "shared/windows.i"
 
@@ -52,9 +53,11 @@ KEEP_REFERENCE_EX(Exiv2::ExifThumb*, args)
 
 INPUT_BUFFER_RO(const Exiv2::byte* buf, BUFLEN_T size)
 
-EXTEND_METADATUM(Exiv2::Exifdatum)
+EXTEND_METADATUM(Exifdatum)
 
 DATA_ITERATOR(ExifData, Exifdatum)
+
+METADATUM_REFERENCE(Exifdatum)
 
 // Get the current (or default if not set) type id of a datum
 %fragment("get_type_id"{Exiv2::Exifdatum}, "header") {

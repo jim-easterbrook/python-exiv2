@@ -49,10 +49,11 @@ class TestXmpModule(unittest.TestCase):
         data.add(exiv2.Xmpdatum(
             exiv2.XmpKey('Xmp.xmp.CreatorTool'), exiv2.AsciiValue('Acme')))
         self.assertEqual('Xmp.xmp.CreatorTool' in data, True)
-        self.assertIsInstance(data['Xmp.xmp.CreatorTool'], exiv2.Xmpdatum)
+        self.assertIsInstance(data['Xmp.xmp.CreatorTool'],
+                              exiv2.Xmpdatum_pointer)
         data.add(exiv2.XmpKey('Xmp.xmp.Nickname'), exiv2.AsciiValue('Pic'))
         self.assertEqual('Xmp.xmp.Nickname' in data, True)
-        self.assertIsInstance(data['Xmp.xmp.Nickname'], exiv2.Xmpdatum)
+        self.assertIsInstance(data['Xmp.xmp.Nickname'], exiv2.Xmpdatum_pointer)
         # iterators
         b = iter(data)
         self.assertIsInstance(b, exiv2.XmpData_iterator)
@@ -81,12 +82,12 @@ class TestXmpModule(unittest.TestCase):
         # access by key
         self.image.readMetadata()
         self.assertEqual('Xmp.dc.creator' in data, True)
-        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum)
+        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_pointer)
         del data['Xmp.dc.creator']
         self.assertEqual('Xmp.dc.creator' in data, False)
         data['Xmp.dc.creator'] = 'Fred'
         self.assertEqual('Xmp.dc.creator' in data, True)
-        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum)
+        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_pointer)
         with self.assertRaises(TypeError):
             data['Xmp.tiff.Orientation'] = 4
         data['Xmp.tiff.Orientation'] = exiv2.UShortValue(4)
@@ -193,7 +194,12 @@ class TestXmpModule(unittest.TestCase):
         self.image.readMetadata()
         data = self.image.xmpData()
         datum = data['Xmp.dc.description']
-        self.assertIsInstance(datum, exiv2.Xmpdatum)
+        self.assertIsInstance(datum, exiv2.Xmpdatum_pointer)
+        self.assertEqual(datum.__deref__(), datum)
+        self.assertEqual(datum, datum.__deref__())
+        datum2 = exiv2.Xmpdatum(datum)
+        self.assertIsInstance(datum2, exiv2.Xmpdatum)
+        del datum2
         self._test_datum(datum)
 
     def test_ref_counts(self):

@@ -57,17 +57,19 @@ EXTEND_KEY(Exiv2::Key);
 // Macro for Metadatum subclasses
 %define EXTEND_METADATUM(datum_type)
 // Ignore overloaded default parameter version
-%ignore datum_type::write(std::ostream &) const;
+%ignore Exiv2::datum_type::write(std::ostream &) const;
 // Keep a reference to Metadatum when calling value()
 KEEP_REFERENCE(const Exiv2::Value&)
 // Keep a reference to any object that returns a reference to a datum.
-KEEP_REFERENCE(datum_type&)
+KEEP_REFERENCE(Exiv2::datum_type&)
 // Set the datum's value from a Python object. The datum's current or default
 // type is used to create an Exiv2::Value object (via Python) from the Python
 // object.
-%fragment("set_value_from_py"{datum_type}, "header",
-          fragment="get_type_object", fragment="get_type_id"{datum_type}) {
-static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
+%fragment("set_value_from_py"{Exiv2::datum_type}, "header",
+          fragment="get_type_object",
+          fragment="get_type_id"{Exiv2::datum_type}) {
+static PyObject* set_value_from_py(Exiv2::datum_type* datum,
+                                   PyObject* py_value) {
     swig_type_info* ty_info = get_type_object(get_type_id(datum));
     SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
     // Call type object to invoke constructor
@@ -89,7 +91,7 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     return SWIG_Py_Void();
 };
 }
-%extend datum_type {
+%extend Exiv2::datum_type {
     // Extend Metadatum to allow getting value as a specific type.
     Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
         // deprecated since 2023-12-07
@@ -104,7 +106,7 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     // Set the value from a Python object. The datum's current or default
     // type is used to create an Exiv2::Value object (via Python) from the
     // Python object.
-    %fragment("set_value_from_py"{datum_type});
+    %fragment("set_value_from_py"{Exiv2::datum_type});
     PyObject* setValue(PyObject* py_value) {
         return set_value_from_py($self, py_value);
     }
@@ -120,8 +122,8 @@ static PyObject* set_value_from_py(datum_type* datum, PyObject* py_value) {
     std::string toString(BUFLEN_T i) const { return self->toString(i); }
 }
 // Deprecate some methods since 2025-08-25
-DEPRECATE_FUNCTION(datum_type::copy, true)
-DEPRECATE_FUNCTION(datum_type::write, true)
+DEPRECATE_FUNCTION(Exiv2::datum_type::copy, true)
+DEPRECATE_FUNCTION(Exiv2::datum_type::write, true)
 %enddef // EXTEND_METADATUM
 
 // Deprecate some base class methods since 2025-08-25
