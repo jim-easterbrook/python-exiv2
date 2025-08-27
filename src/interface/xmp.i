@@ -25,7 +25,6 @@
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
-%include "shared/data_iterator.i"
 %include "shared/metadatum_wrappers.i"
 
 %include "stdint.i"
@@ -40,8 +39,6 @@ IMPORT_ENUM(TypeId)
 EXCEPTION()
 
 EXTEND_METADATUM(Xmpdatum)
-
-DATA_ITERATOR(XmpData, Xmpdatum)
 
 METADATUM_WRAPPERS(XmpData, Xmpdatum)
 

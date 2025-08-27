@@ -106,12 +106,15 @@ class TestExifModule(unittest.TestCase):
         self.assertIsInstance(data['Exif.Image.Artist'],
                               exiv2.Exifdatum_pointer)
         k = data.findKey(exiv2.ExifKey('Exif.Image.Artist'))
+        d = data['Exif.Image.Artist']
         del data['Exif.Image.Artist']
         self.assertEqual('Exif.Image.Artist' in data, False)
-        if 'iterators' in data._private_data_:
+        if 'pointers' in data._private_data_:
             # swig >= 4.4
             with self.assertRaises(RuntimeError):
                 k.key()
+            with self.assertRaises(RuntimeError):
+                d.key()
         data['Exif.Image.Artist'] = 'Fred'
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'],
@@ -132,11 +135,14 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(data.count(), 10)
         self.assertEqual(data.empty(), False)
         b = data.begin()
+        d = data[b.key()]
         data.clear()
-        if 'iterators' in data._private_data_:
+        if 'pointers' in data._private_data_:
             # swig >= 4.4
             with self.assertRaises(RuntimeError):
                 b.key()
+            with self.assertRaises(RuntimeError):
+                d.key()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)
 

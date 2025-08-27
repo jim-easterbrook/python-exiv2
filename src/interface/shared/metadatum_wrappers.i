@@ -20,10 +20,24 @@
 
 
 %include "shared/keep_reference.i"
+%include "shared/pointer_store.i"
+
+
+// Macro to declare metadatum iterators and pointer wrappers
+%define DECLARE_METADATUM_WRAPPERS(container_type, datum_type)
+%{
+class datum_type##_pointer;
+class container_type##_iterator;
+class datum_type##_reference;
+%}
+%enddef // DECLARE_METADATUM_WRAPPERS
 
 
 // Macro to wrap metadatum iterators and pointers
 %define METADATUM_WRAPPERS(container_type, datum_type)
+
+// Invalidate pointers when data is deleted
+POINTER_STORE(container_type, datum_type)
 
 // Base class of pointer wrappers
 %feature("python:slot", "tp_str", functype="reprfunc")
@@ -50,10 +64,10 @@ public:
     }
     std::string __str__() {
         if (invalidated)
-            return "invalid " + name;
+            return name + "<deleted data>";
         Exiv2::datum_type* ptr = **this;
         if (!ptr)
-            return name + "<end>";
+            return name + "<data end>";
         return name + "<" + ptr->key() + ": " + ptr->print() + ">";
     }
     // Provide size() C++ method for buffer size check
@@ -67,6 +81,12 @@ public:
     }
     // Invalidate iterator unilaterally
     void _invalidate() { invalidated = true; }
+    // Invalidate iterator if what it points to has been deleted
+    bool _invalidate(Exiv2::datum_type& deleted) {
+        if (&deleted == **this)
+            invalidated = true;
+        return invalidated;
+    }
     // Dereference operator gives access to all datum methods
     Exiv2::datum_type* operator->() const {
         Exiv2::datum_type* ptr = **this;
@@ -87,7 +107,6 @@ public:
 %ignore container_type##_iterator::##container_type##_iterator;
 %ignore container_type##_iterator::operator*;
 %ignore container_type##_iterator::_ptr;
-%ignore container_type##_iterator::_invalidate;
 %feature("docstring") container_type##_iterator "
 Python wrapper for an :class:`" #container_type "` iterator. It has most of
 the methods of :class:`" #datum_type "` allowing easy access to the
@@ -131,13 +150,6 @@ public:
             return NULL;
         return &(*ptr);
     }
-    using datum_type##_pointer::_invalidate;
-    // Invalidate iterator if what it points to has been deleted
-    bool _invalidate(Exiv2::container_type::iterator deleted) {
-        if (deleted == ptr)
-            invalidated = true;
-        return invalidated;
-    }
     // Access to ptr, for use in other methods
     Exiv2::container_type::iterator _ptr() const {
         if (invalidated)
@@ -172,7 +184,7 @@ public:
         $descriptor(container_type##_iterator*), SWIG_POINTER_OWN);
 #if SWIG_VERSION >= 0x040400
     // Keep weak reference to the Python iterator
-    if (store_iterator(self, $result)) {
+    if (store_pointer(self, $result)) {
         SWIG_fail;
     }
 #endif // SWIG_VERSION
@@ -181,7 +193,6 @@ public:
 // Metadata reference wrapper
 %ignore datum_type##_reference::##datum_type##_reference;
 %ignore datum_type##_reference::operator*;
-%ignore datum_type##_reference::_invalidate;
 %feature("docstring") datum_type##_reference "
 Python wrapper for an :class:`" #datum_type "` reference. It has most of
 the methods of :class:`" #datum_type "` allowing easy access to the
@@ -201,13 +212,6 @@ public:
             throw std::runtime_error("datum_type reference is invalid");
         return ptr;
     }
-    using datum_type##_pointer::_invalidate;
-    // Invalidate pointer if what it points to has been deleted
-    bool _invalidate(Exiv2::datum_type* deleted) {
-        if (deleted == ptr)
-            invalidated = true;
-        return invalidated;
-    }
 };
 %}
 %typemap(in) const Exiv2::datum_type& {
@@ -223,6 +227,12 @@ public:
     $result = SWIG_NewPointerObj(
         SWIG_as_voidptr(new datum_type##_reference($1)),
         $descriptor(datum_type##_reference*), SWIG_POINTER_OWN);
+#if SWIG_VERSION >= 0x040400
+    // Keep weak reference to the Python result
+    if (store_pointer(self, $result)) {
+        SWIG_fail;
+    }
+#endif // SWIG_VERSION
 }
 
 %enddef // METADATUM_WRAPPERS

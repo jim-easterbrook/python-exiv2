@@ -59,6 +59,9 @@ EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::PreviewImage::writeFile)
 WINDOWS_PATH(const std::string& path)
 WINDOWS_PATH_OUT(extension)
 
+// Declare metadatum wrapper classes
+DECLARE_METADATUM_WRAPPERS(ExifData, Exifdatum)
+
 // Convert getPreviewProperties result to a Python tuple
 %template() std::vector<Exiv2::PreviewProperties>;
 

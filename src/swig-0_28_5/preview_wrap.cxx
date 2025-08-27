@@ -4531,6 +4531,11 @@ fail:
 #endif
 
 
+class Exifdatum_pointer;
+class ExifData_iterator;
+class Exifdatum_reference;
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {

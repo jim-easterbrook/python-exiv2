@@ -4386,6 +4386,11 @@ fail:
 #define KEEPREF_VIEW_ImageFactory_open
 #define KEEPREF_VIEW_ImageFactory_createIo
 
+class Exifdatum_pointer;
+class ExifData_iterator;
+class Exifdatum_reference;
+
+
 static bool enableBMFF(bool enable) {
     // deprecated since 2024-08-01
     PyErr_WarnEx(PyExc_DeprecationWarning,

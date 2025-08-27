@@ -65,6 +65,9 @@ RELEASE_BUFFER(void writeMetadata)
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
 
+// Declare metadatum wrapper classes
+DECLARE_METADATUM_WRAPPERS(ExifData, Exifdatum)
+
 // Simplify handling of default parameters
 %typemap(default) bool useCurl {$1 = true;}
 %ignore Exiv2::ImageFactory::createIo(std::string const &);

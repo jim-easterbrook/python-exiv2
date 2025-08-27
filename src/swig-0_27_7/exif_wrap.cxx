@@ -4391,10 +4391,10 @@ public:
     }
     std::string __str__() {
         if (invalidated)
-            return "invalid " + name;
+            return name + "<deleted data>";
         Exiv2::Exifdatum* ptr = **this;
         if (!ptr)
-            return name + "<end>";
+            return name + "<data end>";
         return name + "<" + ptr->key() + ": " + ptr->print() + ">";
     }
     // Provide size() C++ method for buffer size check
@@ -4408,6 +4408,12 @@ public:
     }
     // Invalidate iterator unilaterally
     void _invalidate() { invalidated = true; }
+    // Invalidate iterator if what it points to has been deleted
+    bool _invalidate(Exiv2::Exifdatum& deleted) {
+        if (&deleted == **this)
+            invalidated = true;
+        return invalidated;
+    }
     // Dereference operator gives access to all datum methods
     Exiv2::Exifdatum* operator->() const {
         Exiv2::Exifdatum* ptr = **this;
@@ -5369,13 +5375,6 @@ public:
             return NULL;
         return &(*ptr);
     }
-    using Exifdatum_pointer::_invalidate;
-    // Invalidate iterator if what it points to has been deleted
-    bool _invalidate(Exiv2::ExifData::iterator deleted) {
-        if (deleted == ptr)
-            invalidated = true;
-        return invalidated;
-    }
     // Access to ptr, for use in other methods
     Exiv2::ExifData::iterator _ptr() const {
         if (invalidated)
@@ -5396,13 +5395,6 @@ public:
         if (invalidated)
             throw std::runtime_error("Exifdatum reference is invalid");
         return ptr;
-    }
-    using Exifdatum_pointer::_invalidate;
-    // Invalidate pointer if what it points to has been deleted
-    bool _invalidate(Exiv2::Exifdatum* deleted) {
-        if (deleted == ptr)
-            invalidated = true;
-        return invalidated;
     }
 };
 
@@ -10153,6 +10145,12 @@ SWIGINTERN PyObject *_wrap_ExifData___getitem__(PyObject *self, PyObject *args) 
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new Exifdatum_reference(result)),
       SWIGTYPE_p_Exifdatum_reference, SWIG_POINTER_OWN);
+    
+    
+    
+    
+    
+    
   }
   if (SWIG_IsNewObj(res2)) delete arg2;
   

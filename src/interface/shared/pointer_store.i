@@ -16,36 +16,35 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-%include "shared/keep_reference.i"
 %include "shared/private_data.i"
 
 
-// Macro to wrap data iterators
-%define DATA_ITERATOR(container_type, datum_type)
+// Macro to store weak references to pointers and invalidate the
+// pointers when data is deleted
+%define POINTER_STORE(container_type, datum_type)
 
 #if SWIG_VERSION >= 0x040400
-// Functions to store weak references to iterators (swig >= v4.4)
-%fragment("iterator_store", "header", fragment="private_data") {
+// Functions to store weak references to pointers (swig >= v4.4)
+%fragment("pointer_store", "header", fragment="private_data") {
 static void _process_list(PyObject* list, bool invalidate_all,
                           Exiv2::container_type::iterator* beg,
                           Exiv2::container_type::iterator* end) {
-    PyObject* py_it = NULL;
-    container_type##_iterator* cpp_it = NULL;
+    PyObject* py_ptr = NULL;
+    datum_type##_pointer* cpp_ptr = NULL;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        py_it = PyWeakref_GetObject(PyList_GetItem(list, idx-1));
-        if (py_it == Py_None)
+        py_ptr = PyWeakref_GetObject(PyList_GetItem(list, idx-1));
+        if (py_ptr == Py_None)
             goto forget;
         if (!(invalidate_all || beg))
             continue;
-        if (SWIG_IsOK(SWIG_ConvertPtr(
-                py_it, (void**)&cpp_it,
-                $descriptor(container_type##_iterator*), 0))) {
+        if (SWIG_IsOK(SWIG_ConvertPtr(py_ptr, (void**)&cpp_ptr,
+                $descriptor(datum_type##_pointer*), 0))) {
             if (invalidate_all) {
-                cpp_it->_invalidate();
+                cpp_ptr->_invalidate();
                 goto forget;
             }
             for (Exiv2::container_type::iterator it=*beg; it!=*end; it++)
-                if (cpp_it->_invalidate(it))
+                if (cpp_ptr->_invalidate(*it))
                     goto forget;
         }
         continue;
@@ -54,44 +53,44 @@ forget:
         continue;
     }
 };
-static void purge_iterators(PyObject* list) {
+static void purge_pointers(PyObject* list) {
     _process_list(list, false, NULL, NULL);
 };
-static void invalidate_iterators(PyObject* py_self) {
-    PyObject* list = private_store_get(py_self, "iterators");
+static void invalidate_pointers(PyObject* py_self) {
+    PyObject* list = private_store_get(py_self, "pointers");
     if (list)
         _process_list(list, true, NULL, NULL);
 };
-static void invalidate_iterators(PyObject* py_self,
-                                 Exiv2::container_type::iterator pos) {
-    PyObject* list = private_store_get(py_self, "iterators");
+static void invalidate_pointers(PyObject* py_self,
+                                Exiv2::container_type::iterator pos) {
+    PyObject* list = private_store_get(py_self, "pointers");
     if (list) {
         Exiv2::container_type::iterator end = pos;
         end++;
         _process_list(list, false, &pos, &end);
     }
 };
-static void invalidate_iterators(PyObject* py_self,
-                                 Exiv2::container_type::iterator beg,
-                                 Exiv2::container_type::iterator end) {
-    PyObject* list = private_store_get(py_self, "iterators");
+static void invalidate_pointers(PyObject* py_self,
+                                Exiv2::container_type::iterator beg,
+                                Exiv2::container_type::iterator end) {
+    PyObject* list = private_store_get(py_self, "pointers");
     if (list)
         _process_list(list, false, &beg, &end);
 };
-static int store_iterator(PyObject* py_self, PyObject* iterator) {
-    PyObject* list = private_store_get(py_self, "iterators");
+static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
+    PyObject* list = private_store_get(py_self, "pointers");
     if (list)
-        purge_iterators(list);
+        purge_pointers(list);
     else {
         list = PyList_New(0);
         if (!list)
             return -1;
-        int error = private_store_set(py_self, "iterators", list);
+        int error = private_store_set(py_self, "pointers", list);
         Py_DECREF(list);
         if (error)
             return -1;
     }
-    PyObject* ref = PyWeakref_NewRef(iterator, NULL);
+    PyObject* ref = PyWeakref_NewRef(py_ptr, NULL);
     if (!ref)
         return -1;
     int result = PyList_Append(list, ref);
@@ -113,24 +112,24 @@ static int store_iterator(PyObject* py_self, PyObject* iterator) {
 #endif
 
 #if SWIG_VERSION >= 0x040400
-// clear() invalidates all iterators
-%typemap(ret, fragment="iterator_store") void clear {
-    invalidate_iterators(self);
+// clear() invalidates all pointers
+%typemap(ret, fragment="pointer_store") void clear {
+    invalidate_pointers(self);
 }
-// erase() and eraseFamily() invalidate some iterators
-%typemap(check, fragment="iterator_store")
+// erase() and eraseFamily() invalidate some pointers
+%typemap(check, fragment="pointer_store")
         Exiv2::container_type::iterator pos {
-    invalidate_iterators(self, $1);
+    invalidate_pointers(self, $1);
 }
-%typemap(check, fragment="iterator_store")
+%typemap(check, fragment="pointer_store")
         (Exiv2::container_type::iterator beg,
          Exiv2::container_type::iterator end) {
-    invalidate_iterators(self, $1, $2);
+    invalidate_pointers(self, $1, $2);
 }
-%typemap(check, fragment="iterator_store")
+%typemap(check, fragment="pointer_store")
         Exiv2::container_type::iterator& pos {
-    invalidate_iterators(self, *$1, arg1->end());
+    invalidate_pointers(self, *$1, arg1->end());
 }
 #endif // SWIG_VERSION
 
-%enddef // DATA_ITERATOR
+%enddef // POINTER_STORE

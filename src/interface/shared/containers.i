@@ -71,7 +71,7 @@
             return NULL;
         }
 #if SWIG_VERSION >= 0x040400
-        invalidate_iterators(py_self, pos);
+        invalidate_pointers(py_self, pos);
 #endif
         $self->erase(pos);
         return SWIG_Py_Void();
