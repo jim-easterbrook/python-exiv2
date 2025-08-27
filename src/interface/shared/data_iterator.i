@@ -22,39 +22,6 @@
 
 // Macro to wrap data iterators
 %define DATA_ITERATOR(container_type, datum_type)
-// Creating a new iterator keeps a reference to the current one
-KEEP_REFERENCE(container_type##_iterator*)
-
-#if SWIG_VERSION < 0x040400
-// erase() invalidates the iterator
-%typemap(in) (Exiv2::container_type::iterator pos)
-        (container_type##_iterator *argp=NULL),
-             (Exiv2::container_type::iterator beg)
-        (container_type##_iterator *argp=NULL) {
-    {
-        container_type##_iterator* arg$argnum = NULL;
-        $typemap(in, container_type##_iterator*)
-        argp = arg$argnum;
-    }
-    $1 = argp->_ptr();
-    argp->_invalidate();
-}
-#endif
-// XmpData::eraseFamily takes an iterator reference (and invalidates it)
-%typemap(in) Exiv2::container_type::iterator&
-        (Exiv2::container_type::iterator it,
-         container_type##_iterator* argp = NULL) {
-    {
-        container_type##_iterator* arg$argnum = NULL;
-        $typemap(in, container_type##_iterator*)
-        argp = arg$argnum;
-    }
-    it = argp->_ptr();
-    $1 = &it;
-#if SWIG_VERSION < 0x040400
-    argp->_invalidate();
-#endif
-}
 
 #if SWIG_VERSION >= 0x040400
 // Functions to store weak references to iterators (swig >= v4.4)
@@ -134,6 +101,17 @@ static int store_iterator(PyObject* py_self, PyObject* iterator) {
 }
 #endif
 
+#if SWIG_VERSION < 0x040400
+// erase() and eraseFamily() invalidate the iterator passed to them
+%typemap(check) (Exiv2::container_type::iterator pos),
+                (Exiv2::container_type::iterator beg) {
+    argp$argnum->_invalidate();
+}
+%typemap(check) Exiv2::container_type::iterator& {
+    argp$argnum->_invalidate();
+}
+#endif
+
 #if SWIG_VERSION >= 0x040400
 // clear() invalidates all iterators
 %typemap(ret, fragment="iterator_store") void clear {
@@ -154,8 +132,5 @@ static int store_iterator(PyObject* py_self, PyObject* iterator) {
     invalidate_iterators(self, *$1, arg1->end());
 }
 #endif // SWIG_VERSION
-
-// Keep a reference to the data being iterated
-KEEP_REFERENCE(Exiv2::container_type::iterator)
 
 %enddef // DATA_ITERATOR

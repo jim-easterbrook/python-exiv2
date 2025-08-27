@@ -19,6 +19,9 @@
  */
 
 
+%include "shared/keep_reference.i"
+
+
 // Macro to wrap metadatum iterators and pointers
 %define METADATUM_WRAPPERS(container_type, datum_type)
 
@@ -97,6 +100,10 @@ data it points to."
     }
     $typemap(out, Exiv2::datum_type*)
 }
+// Keep a reference to the data being iterated
+KEEP_REFERENCE(Exiv2::container_type::iterator)
+// Creating a new iterator keeps a reference to the current one
+KEEP_REFERENCE(container_type##_iterator*)
 %inline %{
 class container_type##_iterator: public datum_type##_pointer {
 private:
@@ -148,6 +155,17 @@ public:
     }
     $1 = argp->_ptr();
 %}
+%typemap(in) Exiv2::container_type::iterator&
+        (Exiv2::container_type::iterator it,
+         container_type##_iterator* argp = NULL) {
+    {
+        container_type##_iterator* arg$argnum = NULL;
+        $typemap(in, container_type##_iterator*)
+        argp = arg$argnum;
+    }
+    it = argp->_ptr();
+    $1 = &it;
+}
 %newobject Exiv2::container_type::begin;
 %newobject Exiv2::container_type::end;
 %newobject Exiv2::container_type::erase;
@@ -180,6 +198,8 @@ public:
 Python wrapper for an :class:`" #datum_type "` reference. It has most of
 the methods of :class:`" #datum_type "` allowing easy access to the
 data it points to."
+// Keep a reference to the data being referred to
+KEEP_REFERENCE(Exiv2::datum_type&)
 %inline %{
 class datum_type##_reference: public datum_type##_pointer {
 private:
@@ -216,4 +236,5 @@ public:
         SWIG_as_voidptr(new datum_type##_reference($1)),
         $descriptor(datum_type##_reference*), SWIG_POINTER_OWN);
 }
+
 %enddef // METADATUM_WRAPPERS

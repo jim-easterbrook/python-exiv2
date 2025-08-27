@@ -9700,17 +9700,19 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_erase" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
+  
   {
-    {
-      ExifData_iterator* arg2 = NULL;
-      res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
-      if (!SWIG_IsOK(res10)) {
-        SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "ExifData_erase" "', argument " "1"" of type '" "ExifData_iterator *""'"); 
-      }
-      arg2 = reinterpret_cast< ExifData_iterator * >(argp10);
-      argp2 = arg2;
+    ExifData_iterator* arg2 = NULL;
+    res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
+    if (!SWIG_IsOK(res10)) {
+      SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "ExifData_erase" "', argument " "1"" of type '" "ExifData_iterator *""'"); 
     }
-    arg2 = argp2->_ptr();
+    arg2 = reinterpret_cast< ExifData_iterator * >(argp10);
+    argp2 = arg2;
+  }
+  arg2 = argp2->_ptr();
+  
+  {
     argp2->_invalidate();
   }
   {
@@ -9769,19 +9771,18 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData_erase" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
+  
   {
-    {
-      ExifData_iterator* arg2 = NULL;
-      res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
-      if (!SWIG_IsOK(res10)) {
-        SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "ExifData_erase" "', argument " "1"" of type '" "ExifData_iterator *""'"); 
-      }
-      arg2 = reinterpret_cast< ExifData_iterator * >(argp10);
-      argp2 = arg2;
+    ExifData_iterator* arg2 = NULL;
+    res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_ExifData_iterator, 0 |  0 );
+    if (!SWIG_IsOK(res10)) {
+      SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "ExifData_erase" "', argument " "1"" of type '" "ExifData_iterator *""'"); 
     }
-    arg2 = argp2->_ptr();
-    argp2->_invalidate();
+    arg2 = reinterpret_cast< ExifData_iterator * >(argp10);
+    argp2 = arg2;
   }
+  arg2 = argp2->_ptr();
+  
   
   {
     ExifData_iterator* arg3 = NULL;
@@ -9794,6 +9795,9 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, PyObject *args
   }
   arg3 = argp3->_ptr();
   
+  {
+    argp2->_invalidate();
+  }
   {
     try {
       result = (arg1)->erase(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));

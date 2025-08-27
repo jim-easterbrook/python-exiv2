@@ -8613,17 +8613,19 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_erase" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  
   {
-    {
-      XmpData_iterator* arg2 = NULL;
-      res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
-      if (!SWIG_IsOK(res10)) {
-        SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "XmpData_erase" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
-      }
-      arg2 = reinterpret_cast< XmpData_iterator * >(argp10);
-      argp2 = arg2;
+    XmpData_iterator* arg2 = NULL;
+    res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
+    if (!SWIG_IsOK(res10)) {
+      SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "XmpData_erase" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
     }
-    arg2 = argp2->_ptr();
+    arg2 = reinterpret_cast< XmpData_iterator * >(argp10);
+    argp2 = arg2;
+  }
+  arg2 = argp2->_ptr();
+  
+  {
     argp2->_invalidate();
   }
   {
@@ -8689,9 +8691,9 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
     }
     it2 = argp2->_ptr();
     arg2 = &it2;
-    
+  }
+  {
     argp2->_invalidate();
-    
   }
   {
     try {
