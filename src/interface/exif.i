@@ -27,7 +27,7 @@
 %include "shared/buffers.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
-%include "shared/metadatum_reference.i"
+%include "shared/metadatum_wrappers.i"
 %include "shared/keep_reference.i"
 %include "shared/windows.i"
 
@@ -57,7 +57,7 @@ EXTEND_METADATUM(Exifdatum)
 
 DATA_ITERATOR(ExifData, Exifdatum)
 
-METADATUM_REFERENCE(Exifdatum)
+METADATUM_WRAPPERS(ExifData, Exifdatum)
 
 // Get the current (or default if not set) type id of a datum
 %fragment("get_type_id"{Exiv2::Exifdatum}, "header") {

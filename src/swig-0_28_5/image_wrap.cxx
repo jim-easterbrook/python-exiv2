@@ -3989,7 +3989,7 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_Exifdatum_pointer swig_types[0]
+#define SWIGTYPE_p_Exifdatum_reference swig_types[0]
 #define SWIGTYPE_p_Exiv2__AsciiValue swig_types[1]
 #define SWIGTYPE_p_Exiv2__BasicIo swig_types[2]
 #define SWIGTYPE_p_Exiv2__CommentValue swig_types[3]
@@ -4028,10 +4028,10 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__XmpPropertyInfo swig_types[36]
 #define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[37]
 #define SWIGTYPE_p_Exiv2__XmpValue swig_types[38]
-#define SWIGTYPE_p_Iptcdatum_pointer swig_types[39]
+#define SWIGTYPE_p_Iptcdatum_reference swig_types[39]
 #define SWIGTYPE_p_SwigPyObject swig_types[40]
 #define SWIGTYPE_p_ValueType swig_types[41]
-#define SWIGTYPE_p_Xmpdatum_pointer swig_types[42]
+#define SWIGTYPE_p_Xmpdatum_reference swig_types[42]
 #define SWIGTYPE_p_allocator_type swig_types[43]
 #define SWIGTYPE_p_char swig_types[44]
 #define SWIGTYPE_p_const_iterator swig_types[45]
@@ -8464,7 +8464,7 @@ static void *_p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSE
 static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
 }
-static swig_type_info _swigt__p_Exifdatum_pointer = {"_p_Exifdatum_pointer", "Exifdatum_pointer *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Exifdatum_reference = {"_p_Exifdatum_reference", "Exifdatum_reference *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__BasicIo = {"_p_Exiv2__BasicIo", "Exiv2::BasicIo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__HttpIo = {"_p_Exiv2__HttpIo", 0, 0, 0, 0, 0};
@@ -8503,10 +8503,10 @@ static swig_type_info _swigt__p_Exiv2__XmpKey = {"_p_Exiv2__XmpKey", "Exiv2::Xmp
 static swig_type_info _swigt__p_Exiv2__XmpPropertyInfo = {"_p_Exiv2__XmpPropertyInfo", "Exiv2::XmpPropertyInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Iptcdatum_pointer = {"_p_Iptcdatum_pointer", "Iptcdatum_pointer *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Iptcdatum_reference = {"_p_Iptcdatum_reference", "Iptcdatum_reference *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Xmpdatum_pointer = {"_p_Xmpdatum_pointer", "Xmpdatum_pointer *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Xmpdatum_reference = {"_p_Xmpdatum_reference", "Xmpdatum_reference *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -8533,7 +8533,7 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "uint16_t
 static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_Exifdatum_pointer,
+  &_swigt__p_Exifdatum_reference,
   &_swigt__p_Exiv2__AsciiValue,
   &_swigt__p_Exiv2__BasicIo,
   &_swigt__p_Exiv2__CommentValue,
@@ -8572,10 +8572,10 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpPropertyInfo,
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
-  &_swigt__p_Iptcdatum_pointer,
+  &_swigt__p_Iptcdatum_reference,
   &_swigt__p_SwigPyObject,
   &_swigt__p_ValueType,
-  &_swigt__p_Xmpdatum_pointer,
+  &_swigt__p_Xmpdatum_reference,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
@@ -8602,7 +8602,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_value_type,
 };
 
-static swig_cast_info _swigc__p_Exifdatum_pointer[] = {  {&_swigt__p_Exifdatum_pointer, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Exifdatum_reference[] = {  {&_swigt__p_Exifdatum_reference, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__HttpIo[] = {{&_swigt__p_Exiv2__HttpIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__MemIo[] = {{&_swigt__p_Exiv2__MemIo, 0, 0, 0},{0, 0, 0, 0}};
@@ -8641,10 +8641,10 @@ static swig_cast_info _swigc__p_Exiv2__XmpKey[] = {  {&_swigt__p_Exiv2__XmpKey, 
 static swig_cast_info _swigc__p_Exiv2__XmpPropertyInfo[] = {  {&_swigt__p_Exiv2__XmpPropertyInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Iptcdatum_pointer[] = {  {&_swigt__p_Iptcdatum_pointer, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Iptcdatum_reference[] = {  {&_swigt__p_Iptcdatum_reference, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Xmpdatum_pointer[] = {  {&_swigt__p_Xmpdatum_pointer, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Xmpdatum_reference[] = {  {&_swigt__p_Xmpdatum_reference, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -8671,7 +8671,7 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_Exifdatum_pointer,
+  _swigc__p_Exifdatum_reference,
   _swigc__p_Exiv2__AsciiValue,
   _swigc__p_Exiv2__BasicIo,
   _swigc__p_Exiv2__CommentValue,
@@ -8710,10 +8710,10 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpPropertyInfo,
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
-  _swigc__p_Iptcdatum_pointer,
+  _swigc__p_Iptcdatum_reference,
   _swigc__p_SwigPyObject,
   _swigc__p_ValueType,
-  _swigc__p_Xmpdatum_pointer,
+  _swigc__p_Xmpdatum_reference,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,

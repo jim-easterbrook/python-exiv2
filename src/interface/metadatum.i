@@ -92,6 +92,12 @@ static PyObject* set_value_from_py(Exiv2::datum_type* datum,
 };
 }
 %extend Exiv2::datum_type {
+    bool operator==(const Exiv2::datum_type &other) const {
+        return &other == self;
+    }
+    bool operator!=(const Exiv2::datum_type &other) const {
+        return &other != self;
+    }
     // Extend Metadatum to allow getting value as a specific type.
     Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
         // deprecated since 2023-12-07

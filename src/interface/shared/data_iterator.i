@@ -22,105 +22,9 @@
 
 // Macro to wrap data iterators
 %define DATA_ITERATOR(container_type, datum_type)
-%feature("python:slot", "tp_str", functype="reprfunc")
-    container_type##_iterator::__str__;
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    container_type##_iterator::__iter__;
-%feature("python:slot", "tp_iternext", functype="iternextfunc")
-    container_type##_iterator::__next__;
-%noexception container_type##_iterator::__iter__;
-%noexception container_type##_iterator::operator==;
-%noexception container_type##_iterator::operator!=;
-%ignore container_type##_iterator::size;
-%ignore container_type##_iterator::##container_type##_iterator;
-%ignore container_type##_iterator::operator*;
-%ignore container_type##_iterator::_invalidate;
-%feature("docstring") container_type##_iterator "
-Python wrapper for an :class:`" #container_type "` iterator. It has most of
-the methods of :class:`" #datum_type "` allowing easy access to the
-data it points to."
 // Creating a new iterator keeps a reference to the current one
 KEEP_REFERENCE(container_type##_iterator*)
-// Detect end of iteration
-%typemap(out) Exiv2::datum_type* __next__ {
-    if (!$1) {
-        PyErr_SetNone(PyExc_StopIteration);
-        SWIG_fail;
-    }
-    $typemap(out, Exiv2::datum_type*)
-}
-%inline %{
-class container_type##_iterator {
-private:
-    Exiv2::container_type::iterator ptr;
-    Exiv2::container_type::iterator end;
-    bool invalidated;
-public:
-    container_type##_iterator(Exiv2::container_type::iterator ptr,
-                              Exiv2::container_type::iterator end) {
-        this->ptr = ptr;
-        this->end = end;
-        invalidated = false;
-    }
-    container_type##_iterator* __iter__() { return this; }
-    Exiv2::datum_type* __next__() {
-        if (invalidated)
-            throw std::runtime_error(
-                "container_type changed size during iteration");
-        if (ptr == end)
-            return NULL;
-        return &(*ptr++);
-    }
-    Exiv2::container_type::iterator operator*() const { return ptr; }
-    bool operator==(const container_type##_iterator &other) const {
-        return *other == ptr;
-    }
-    bool operator!=(const container_type##_iterator &other) const {
-        return *other != ptr;
-    }
-    std::string __str__() {
-        if (invalidated)
-            return "invalid iterator";
-        if (ptr == end)
-            return "iterator<end>";
-        return "iterator<" + ptr->key() + ": " + ptr->print() + ">";
-    }
-    // Invalidate iterator unilaterally
-    void _invalidate() { invalidated = true; }
-    // Invalidate iterator if what it points to has been deleted
-    bool _invalidate(Exiv2::container_type::iterator deleted) {
-        if (deleted == ptr)
-            invalidated = true;
-        return invalidated;
-    }
-    // Provide size() C++ method for buffer size check
-    size_t size() {
-        if (invalidated || ptr == end)
-            return 0;
-        return ptr->size();
-    }
-    // Dereference operator gives access to all datum methods
-    Exiv2::datum_type* operator->() const {
-        if (invalidated)
-            throw std::runtime_error(
-                "container_type changed size during iteration");
-        if (ptr == end)
-            throw std::runtime_error(
-                "container_type iterator is at end of data");
-        return &(*ptr);
-    }
-};
-%}
 
-%typemap(in) Exiv2::container_type::iterator
-        (container_type##_iterator *argp=NULL) %{
-    {
-        container_type##_iterator* arg$argnum = NULL;
-        $typemap(in, container_type##_iterator*)
-        argp = arg$argnum;
-    }
-    $1 = **argp;
-%}
 #if SWIG_VERSION < 0x040400
 // erase() invalidates the iterator
 %typemap(in) (Exiv2::container_type::iterator pos)
@@ -132,7 +36,7 @@ public:
         $typemap(in, container_type##_iterator*)
         argp = arg$argnum;
     }
-    $1 = **argp;
+    $1 = argp->_ptr();
     argp->_invalidate();
 }
 #endif
@@ -145,7 +49,7 @@ public:
         $typemap(in, container_type##_iterator*)
         argp = arg$argnum;
     }
-    it = **argp;
+    it = argp->_ptr();
     $1 = &it;
 #if SWIG_VERSION < 0x040400
     argp->_invalidate();
@@ -251,29 +155,7 @@ static int store_iterator(PyObject* py_self, PyObject* iterator) {
 }
 #endif // SWIG_VERSION
 
-%newobject Exiv2::container_type::begin;
-%newobject Exiv2::container_type::end;
-%newobject Exiv2::container_type::erase;
-%newobject Exiv2::container_type::findId;
-%newobject Exiv2::container_type::findKey;
-// Assumes arg1 is the base class parent
-#if SWIG_VERSION >= 0x040400
-%typemap(out, fragment="iterator_store")
-    Exiv2::container_type::iterator {
-#else
-%typemap(out) Exiv2::container_type::iterator {
-#endif
-    Exiv2::container_type::iterator tmp = $1;
-    container_type##_iterator* $1 = new container_type##_iterator(
-        tmp, arg1->end());
-    $typemap(out, container_type##_iterator*);
-#if SWIG_VERSION >= 0x040400
-    // Keep weak reference to the Python iterator
-    if (store_iterator(self, $result)) {
-        SWIG_fail;
-    }
-#endif // SWIG_VERSION
-}
 // Keep a reference to the data being iterated
 KEEP_REFERENCE(Exiv2::container_type::iterator)
+
 %enddef // DATA_ITERATOR

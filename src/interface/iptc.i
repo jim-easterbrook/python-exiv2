@@ -26,7 +26,7 @@
 %include "shared/preamble.i"
 %include "shared/containers.i"
 %include "shared/data_iterator.i"
-%include "shared/metadatum_reference.i"
+%include "shared/metadatum_wrappers.i"
 
 %include "stdint.i"
 %include "std_string.i"
@@ -43,7 +43,7 @@ EXTEND_METADATUM(Iptcdatum)
 
 DATA_ITERATOR(IptcData, Iptcdatum)
 
-METADATUM_REFERENCE(Iptcdatum)
+METADATUM_WRAPPERS(IptcData, Iptcdatum)
 
 // Get the current (or default if not set) type id of a datum
 %fragment("get_type_id"{Exiv2::Iptcdatum}, "header") {
