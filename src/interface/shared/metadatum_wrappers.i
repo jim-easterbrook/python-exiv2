@@ -109,6 +109,7 @@ public:
 %noexception container_type##_iterator::__iter__;
 %ignore container_type##_iterator::##container_type##_iterator;
 %ignore container_type##_iterator::operator*;
+%ignore container_type##_iterator::_invalidated;
 %ignore container_type##_iterator::_ptr;
 %feature("docstring") container_type##_iterator "
 Python wrapper for an :class:`" #container_type "` iterator. It has most of
@@ -153,12 +154,9 @@ public:
             return NULL;
         return &(*ptr);
     }
-    // Access to ptr, for use in other methods
-    Exiv2::container_type::iterator _ptr() const {
-        if (invalidated)
-            throw std::runtime_error("datum_type reference is invalid");
-        return ptr;
-    }
+    // Direct access to ptr and invalidated, for use in input typemaps
+    bool _invalidated() const { return invalidated; }
+    Exiv2::container_type::iterator _ptr() const { return ptr; }
 };
 %}
 
@@ -193,6 +191,10 @@ public:
         $typemap(in, container_type##_iterator*)
         argp = arg$argnum;
     }
+    if (argp->_invalidated()) {
+        SWIG_exception_fail(SWIG_ValueError,
+            "in method '$symname', argument $argnum points to deleted data");
+    }
     $1 = argp->_ptr();
 %}
 %typemap(in) Exiv2::container_type::iterator&
@@ -202,6 +204,10 @@ public:
         container_type##_iterator* arg$argnum = NULL;
         $typemap(in, container_type##_iterator*)
         argp = arg$argnum;
+    }
+    if (argp->_invalidated()) {
+        SWIG_exception_fail(SWIG_ValueError,
+            "in method '$symname', argument $argnum points to deleted data");
     }
     it = argp->_ptr();
     $1 = &it;

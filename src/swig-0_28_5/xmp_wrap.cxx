@@ -5537,12 +5537,9 @@ public:
             return NULL;
         return &(*ptr);
     }
-    // Access to ptr, for use in other methods
-    Exiv2::XmpData::iterator _ptr() const {
-        if (invalidated)
-            throw std::runtime_error("Xmpdatum reference is invalid");
-        return ptr;
-    }
+    // Direct access to ptr and invalidated, for use in input typemaps
+    bool _invalidated() const { return invalidated; }
+    Exiv2::XmpData::iterator _ptr() const { return ptr; }
 };
 
 
@@ -8883,6 +8880,10 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
     arg2 = reinterpret_cast< XmpData_iterator * >(argp10);
     argp2 = arg2;
   }
+  if (argp2->_invalidated()) {
+    SWIG_exception_fail(SWIG_ValueError,
+      "in method 'XmpData_erase', argument 2 points to deleted data");
+  }
   arg2 = argp2->_ptr();
   
   {
@@ -8947,6 +8948,10 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
       }
       arg2 = reinterpret_cast< XmpData_iterator * >(argp10);
       argp2 = arg2;
+    }
+    if (argp2->_invalidated()) {
+      SWIG_exception_fail(SWIG_ValueError,
+        "in method 'XmpData_eraseFamily', argument 2 points to deleted data");
     }
     it2 = argp2->_ptr();
     arg2 = &it2;

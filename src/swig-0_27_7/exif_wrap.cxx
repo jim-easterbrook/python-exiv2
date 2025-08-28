@@ -5380,12 +5380,9 @@ public:
             return NULL;
         return &(*ptr);
     }
-    // Access to ptr, for use in other methods
-    Exiv2::ExifData::iterator _ptr() const {
-        if (invalidated)
-            throw std::runtime_error("Exifdatum reference is invalid");
-        return ptr;
-    }
+    // Direct access to ptr and invalidated, for use in input typemaps
+    bool _invalidated() const { return invalidated; }
+    Exiv2::ExifData::iterator _ptr() const { return ptr; }
 };
 
 
@@ -9707,6 +9704,10 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_0(PyObject *self, PyObject *args
     arg2 = reinterpret_cast< ExifData_iterator * >(argp10);
     argp2 = arg2;
   }
+  if (argp2->_invalidated()) {
+    SWIG_exception_fail(SWIG_ValueError,
+      "in method 'ExifData_erase', argument 2 points to deleted data");
+  }
   arg2 = argp2->_ptr();
   
   {
@@ -9777,6 +9778,10 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, PyObject *args
     arg2 = reinterpret_cast< ExifData_iterator * >(argp10);
     argp2 = arg2;
   }
+  if (argp2->_invalidated()) {
+    SWIG_exception_fail(SWIG_ValueError,
+      "in method 'ExifData_erase', argument 2 points to deleted data");
+  }
   arg2 = argp2->_ptr();
   
   
@@ -9788,6 +9793,10 @@ SWIGINTERN PyObject *_wrap_ExifData_erase__SWIG_1(PyObject *self, PyObject *args
     }
     arg3 = reinterpret_cast< ExifData_iterator * >(argp11);
     argp3 = arg3;
+  }
+  if (argp3->_invalidated()) {
+    SWIG_exception_fail(SWIG_ValueError,
+      "in method 'ExifData_erase', argument 3 points to deleted data");
   }
   arg3 = argp3->_ptr();
   

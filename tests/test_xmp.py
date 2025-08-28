@@ -202,6 +202,42 @@ class TestXmpModule(unittest.TestCase):
         del datum2
         self._test_datum(datum)
 
+    def test_pointers(self):
+        data = exiv2.XmpData()
+        data.add(exiv2.Xmpdatum(
+            exiv2.XmpKey('Xmp.xmp.CreatorTool'), exiv2.AsciiValue('Acme')))
+        # output typemaps
+        datum_iter = data.begin()
+        self.assertIsInstance(datum_iter, exiv2.XmpData_iterator)
+        datum_pointer = data[datum_iter.key()]
+        self.assertIsInstance(datum_pointer, exiv2.Xmpdatum_pointer)
+        # __deref__ operator
+        datum = datum_iter.__deref__()
+        self.assertIsInstance(datum, exiv2.Xmpdatum)
+        datum = datum_pointer.__deref__()
+        self.assertIsInstance(datum, exiv2.Xmpdatum)
+        # input typemaps
+        datum2 = exiv2.Xmpdatum(datum)
+        datum2 = exiv2.Xmpdatum(datum_iter)
+        datum2 = exiv2.Xmpdatum(datum_pointer)
+        data2 = exiv2.XmpData()
+        data2.add(datum)
+        data2.add(datum_iter)
+        data2.add(datum_pointer)
+        datum_iter2 = data2.begin()
+        data2.erase(datum_iter2)
+        with self.assertRaises(ValueError):
+            data2.erase(datum_iter2)
+        with self.assertRaises(ValueError):
+            data2.eraseFamily(datum_iter2)
+        # __eq__ operator
+        self.assertEqual(datum, datum_iter)
+        self.assertEqual(datum, datum_pointer)
+        self.assertEqual(datum_iter, datum)
+        self.assertEqual(datum_iter, datum_pointer)
+        self.assertEqual(datum_pointer, datum)
+        self.assertEqual(datum_pointer, datum_iter)
+
     def test_ref_counts(self):
         self.image.readMetadata()
         # xmpData keeps a reference to image

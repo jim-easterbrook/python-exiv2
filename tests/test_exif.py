@@ -291,6 +291,10 @@ class TestExifModule(unittest.TestCase):
         data2.add(datum)
         data2.add(datum_iter)
         data2.add(datum_pointer)
+        datum_iter2 = data2.begin()
+        data2.erase(datum_iter2)
+        with self.assertRaises(ValueError):
+            data2.erase(datum_iter2)
         # __eq__ operator
         self.assertEqual(datum, datum_iter)
         self.assertEqual(datum, datum_pointer)
