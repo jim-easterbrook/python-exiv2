@@ -64,7 +64,7 @@ static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
 };
 }
 
-DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
+DATA_CONTAINER(ExifData, Exifdatum, ExifKey)
 
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)

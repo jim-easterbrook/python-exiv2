@@ -5540,7 +5540,8 @@ SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_1(Exiv2::IptcData *self,st
     }
 SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_2(Exiv2::IptcData *self,std::string const &key){
 
-        Exiv2::IptcData::iterator pos = self->findKey(Exiv2::IptcKey(key));
+        Exiv2::IptcData::iterator pos = self->findKey(
+            Exiv2::IptcKey(key));
         if (pos == self->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;

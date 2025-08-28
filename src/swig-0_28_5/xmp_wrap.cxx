@@ -5650,7 +5650,8 @@ SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_1(Exiv2::XmpData *self,std:
     }
 SWIGINTERN PyObject *Exiv2_XmpData___setitem____SWIG_2(Exiv2::XmpData *self,std::string const &key){
 
-        Exiv2::XmpData::iterator pos = self->findKey(Exiv2::XmpKey(key));
+        Exiv2::XmpData::iterator pos = self->findKey(
+            Exiv2::XmpKey(key));
         if (pos == self->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;

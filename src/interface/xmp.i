@@ -50,7 +50,7 @@ static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
 };
 }
 
-DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
+DATA_CONTAINER(XmpData, Xmpdatum, XmpKey)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::XmpData::operator[];

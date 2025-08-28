@@ -50,7 +50,7 @@ static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
 };
 }
 
-DATA_CONTAINER(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey)
+DATA_CONTAINER(IptcData, Iptcdatum, IptcKey)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::IptcData::operator[];

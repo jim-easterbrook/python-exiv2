@@ -5703,7 +5703,8 @@ SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_1(Exiv2::ExifData *self,st
     }
 SWIGINTERN PyObject *Exiv2_ExifData___setitem____SWIG_2(Exiv2::ExifData *self,std::string const &key){
 
-        Exiv2::ExifData::iterator pos = self->findKey(Exiv2::ExifKey(key));
+        Exiv2::ExifData::iterator pos = self->findKey(
+            Exiv2::ExifKey(key));
         if (pos == self->end()) {
             PyErr_SetString(PyExc_KeyError, key.c_str());
             return NULL;
