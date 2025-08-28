@@ -26,7 +26,6 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/containers.i"
-%include "shared/metadatum_wrappers.i"
 %include "shared/keep_reference.i"
 %include "shared/windows.i"
 
@@ -51,8 +50,6 @@ EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::ExifThumbC::writeFile)
 KEEP_REFERENCE_EX(Exiv2::ExifThumb*, args)
 
 INPUT_BUFFER_RO(const Exiv2::byte* buf, BUFLEN_T size)
-
-METADATUM_WRAPPERS(ExifData, Exifdatum)
 
 // Get the current (or default if not set) type id of a datum
 %fragment("get_type_id"{Exiv2::Exifdatum}, "header") {

@@ -16,8 +16,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+%include "shared/metadatum_wrappers.i"
+
+
 // Macro to wrap data containers.
 %define DATA_CONTAINER(base_class, datum_type, key_type)
+
+METADATUM_WRAPPERS(base_class, datum_type)
+
 // Turn off exception checking for methods that are guaranteed not to throw
 %noexception Exiv2::base_class::begin;
 %noexception Exiv2::base_class::end;

@@ -25,7 +25,6 @@
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
-%include "shared/metadatum_wrappers.i"
 
 %include "stdint.i"
 %include "std_string.i"
@@ -37,8 +36,6 @@ IMPORT_ENUM(TypeId)
 
 // Catch all C++ exceptions
 EXCEPTION()
-
-METADATUM_WRAPPERS(IptcData, Iptcdatum)
 
 // Get the current (or default if not set) type id of a datum
 %fragment("get_type_id"{Exiv2::Iptcdatum}, "header") {
