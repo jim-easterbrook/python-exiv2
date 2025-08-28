@@ -10016,7 +10016,10 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Xmpdatum_pointer_methods[] = {
   { "__eq__", _wrap_Xmpdatum_pointer___eq__, METH_VARARGS, "" },
   { "__ne__", _wrap_Xmpdatum_pointer___ne__, METH_VARARGS, "" },
   { "__str__", _wrap_Xmpdatum_pointer___str__, METH_VARARGS, "" },
-  { "__deref__", _wrap_Xmpdatum_pointer___deref__, METH_VARARGS, "" },
+  { "__deref__", _wrap_Xmpdatum_pointer___deref__, METH_VARARGS, "\n"
+		"\n"
+		"Return the :class:`Xmpdatum` object being pointed to.\n"
+		"" },
   { "setValue", _wrap_Xmpdatum_pointer_setValue, METH_VARARGS, "" },
   { "copy", _wrap_Xmpdatum_pointer_copy, METH_VARARGS, "Not implemented. Calling this method will raise an exception." },
   { "write", _wrap_Xmpdatum_pointer_write, METH_VARARGS, "" },
@@ -10093,7 +10096,16 @@ static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_pointer_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::Xmpdatum_pointer",                   /* tp_doc */
+    "\n"
+		"\n"
+		"Base class for pointers to :class:`Xmpdatum` objects.\n"
+		"\n"
+		":class:`XmpData_iterator` objects and :class:`Xmpdatum_reference`\n"
+		"objects both store references to an :class:`Xmpdatum`. This base class\n"
+		"gives them access to most of the ``Xmpdatum`` methods.\n"
+		"``Xmpdatum_pointer`` objects can be used anywhere an ``Xmpdatum`` object\n"
+		"is expected.\n"
+		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
     SwigPyBuiltin__Xmpdatum_pointer_richcompare, /* tp_richcompare */
@@ -10298,7 +10310,16 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_pointer_type_create(PyTypeObject *t
     { Py_tp_free,                       (void *)(freefunc) 0 },
     { Py_tp_is_gc,                      (void *)(inquiry) 0 },
     { Py_tp_del,                        (void *)(destructor) 0 },
-    { Py_tp_doc,                        (void *)"::Xmpdatum_pointer" },
+    { Py_tp_doc,                        (void *)"\n"
+		"\n"
+		"Base class for pointers to :class:`Xmpdatum` objects.\n"
+		"\n"
+		":class:`XmpData_iterator` objects and :class:`Xmpdatum_reference`\n"
+		"objects both store references to an :class:`Xmpdatum`. This base class\n"
+		"gives them access to most of the ``Xmpdatum`` methods.\n"
+		"``Xmpdatum_pointer`` objects can be used anywhere an ``Xmpdatum`` object\n"
+		"is expected.\n"
+		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)_wrap_Xmpdatum_pointer___str___reprfunc_closure },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
@@ -10457,9 +10478,7 @@ static PyHeapTypeObject SwigPyBuiltin__XmpData_iterator_type = {
 #endif
     "\n"
 		"\n"
-		"Python wrapper for an :class:`XmpData` iterator. It has most of\n"
-		"the methods of :class:`Xmpdatum` allowing easy access to the\n"
-		"data it points to.\n"
+		"Python wrapper for an :class:`XmpData` iterator.\n"
 		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
@@ -10667,9 +10686,7 @@ static PyTypeObject *SwigPyBuiltin__XmpData_iterator_type_create(PyTypeObject *t
     { Py_tp_del,                        (void *)(destructor) 0 },
     { Py_tp_doc,                        (void *)"\n"
 		"\n"
-		"Python wrapper for an :class:`XmpData` iterator. It has most of\n"
-		"the methods of :class:`Xmpdatum` allowing easy access to the\n"
-		"data it points to.\n"
+		"Python wrapper for an :class:`XmpData` iterator.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },
@@ -10827,9 +10844,7 @@ static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_reference_type = {
 #endif
     "\n"
 		"\n"
-		"Python wrapper for an :class:`Xmpdatum` reference. It has most of\n"
-		"the methods of :class:`Xmpdatum` allowing easy access to the\n"
-		"data it points to.\n"
+		"Python wrapper for an :class:`Xmpdatum` reference.\n"
 		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
@@ -11037,9 +11052,7 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_reference_type_create(PyTypeObject 
     { Py_tp_del,                        (void *)(destructor) 0 },
     { Py_tp_doc,                        (void *)"\n"
 		"\n"
-		"Python wrapper for an :class:`Xmpdatum` reference. It has most of\n"
-		"the methods of :class:`Xmpdatum` allowing easy access to the\n"
-		"data it points to.\n"
+		"Python wrapper for an :class:`Xmpdatum` reference.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },

@@ -10594,7 +10594,10 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exifdatum_pointer_methods[] = {
   { "__eq__", _wrap_Exifdatum_pointer___eq__, METH_VARARGS, "" },
   { "__ne__", _wrap_Exifdatum_pointer___ne__, METH_VARARGS, "" },
   { "__str__", _wrap_Exifdatum_pointer___str__, METH_VARARGS, "" },
-  { "__deref__", _wrap_Exifdatum_pointer___deref__, METH_VARARGS, "" },
+  { "__deref__", _wrap_Exifdatum_pointer___deref__, METH_VARARGS, "\n"
+		"\n"
+		"Return the :class:`Exifdatum` object being pointed to.\n"
+		"" },
   { "setValue", _wrap_Exifdatum_pointer_setValue, METH_VARARGS, "" },
   { "setDataArea", _wrap_Exifdatum_pointer_setDataArea, METH_VARARGS, "\n"
 		"Set the data area by copying (cloning) the buffer pointed to\n"
@@ -10709,7 +10712,16 @@ static PyHeapTypeObject SwigPyBuiltin__Exifdatum_pointer_type = {
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "::Exifdatum_pointer",                  /* tp_doc */
+    "\n"
+		"\n"
+		"Base class for pointers to :class:`Exifdatum` objects.\n"
+		"\n"
+		":class:`ExifData_iterator` objects and :class:`Exifdatum_reference`\n"
+		"objects both store references to an :class:`Exifdatum`. This base class\n"
+		"gives them access to most of the ``Exifdatum`` methods.\n"
+		"``Exifdatum_pointer`` objects can be used anywhere an ``Exifdatum`` object\n"
+		"is expected.\n"
+		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
     SwigPyBuiltin__Exifdatum_pointer_richcompare, /* tp_richcompare */
@@ -10914,7 +10926,16 @@ static PyTypeObject *SwigPyBuiltin__Exifdatum_pointer_type_create(PyTypeObject *
     { Py_tp_free,                       (void *)(freefunc) 0 },
     { Py_tp_is_gc,                      (void *)(inquiry) 0 },
     { Py_tp_del,                        (void *)(destructor) 0 },
-    { Py_tp_doc,                        (void *)"::Exifdatum_pointer" },
+    { Py_tp_doc,                        (void *)"\n"
+		"\n"
+		"Base class for pointers to :class:`Exifdatum` objects.\n"
+		"\n"
+		":class:`ExifData_iterator` objects and :class:`Exifdatum_reference`\n"
+		"objects both store references to an :class:`Exifdatum`. This base class\n"
+		"gives them access to most of the ``Exifdatum`` methods.\n"
+		"``Exifdatum_pointer`` objects can be used anywhere an ``Exifdatum`` object\n"
+		"is expected.\n"
+		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)_wrap_Exifdatum_pointer___str___reprfunc_closure },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
@@ -11073,9 +11094,7 @@ static PyHeapTypeObject SwigPyBuiltin__ExifData_iterator_type = {
 #endif
     "\n"
 		"\n"
-		"Python wrapper for an :class:`ExifData` iterator. It has most of\n"
-		"the methods of :class:`Exifdatum` allowing easy access to the\n"
-		"data it points to.\n"
+		"Python wrapper for an :class:`ExifData` iterator.\n"
 		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
@@ -11283,9 +11302,7 @@ static PyTypeObject *SwigPyBuiltin__ExifData_iterator_type_create(PyTypeObject *
     { Py_tp_del,                        (void *)(destructor) 0 },
     { Py_tp_doc,                        (void *)"\n"
 		"\n"
-		"Python wrapper for an :class:`ExifData` iterator. It has most of\n"
-		"the methods of :class:`Exifdatum` allowing easy access to the\n"
-		"data it points to.\n"
+		"Python wrapper for an :class:`ExifData` iterator.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },
@@ -11443,9 +11460,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exifdatum_reference_type = {
 #endif
     "\n"
 		"\n"
-		"Python wrapper for an :class:`Exifdatum` reference. It has most of\n"
-		"the methods of :class:`Exifdatum` allowing easy access to the\n"
-		"data it points to.\n"
+		"Python wrapper for an :class:`Exifdatum` reference.\n"
 		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
@@ -11653,9 +11668,7 @@ static PyTypeObject *SwigPyBuiltin__Exifdatum_reference_type_create(PyTypeObject
     { Py_tp_del,                        (void *)(destructor) 0 },
     { Py_tp_doc,                        (void *)"\n"
 		"\n"
-		"Python wrapper for an :class:`Exifdatum` reference. It has most of\n"
-		"the methods of :class:`Exifdatum` allowing easy access to the\n"
-		"data it points to.\n"
+		"Python wrapper for an :class:`Exifdatum` reference.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },

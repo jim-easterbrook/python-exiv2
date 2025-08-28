@@ -49,6 +49,16 @@ POINTER_STORE(container_type, datum_type)
 %ignore datum_type##_pointer::operator*;
 %ignore datum_type##_pointer::size;
 %ignore datum_type##_pointer::_invalidate;
+%feature("docstring") datum_type##_pointer "
+Base class for pointers to :class:`"#datum_type"` objects.
+
+:class:`"#container_type"_iterator` objects and :class:`"#datum_type"_reference`
+objects both store references to an :class:`"#datum_type"`. This base class
+gives them access to most of the ``"#datum_type"`` methods.
+``"#datum_type"_pointer`` objects can be used anywhere an ``"#datum_type"`` object
+is expected."
+%feature("docstring") datum_type##_pointer::operator-> "
+Return the :class:`"#datum_type"` object being pointed to."
 %fragment("metadatum_str");
 %inline %{
 class datum_type##_pointer {
@@ -112,9 +122,7 @@ public:
 %ignore container_type##_iterator::_invalidated;
 %ignore container_type##_iterator::_ptr;
 %feature("docstring") container_type##_iterator "
-Python wrapper for an :class:`" #container_type "` iterator. It has most of
-the methods of :class:`" #datum_type "` allowing easy access to the
-data it points to."
+Python wrapper for an :class:`" #container_type "` iterator."
 // Detect end of iteration
 %typemap(out) Exiv2::datum_type* __next__ {
     if (!$1) {
@@ -164,9 +172,7 @@ public:
 %ignore datum_type##_reference::##datum_type##_reference;
 %ignore datum_type##_reference::operator*;
 %feature("docstring") datum_type##_reference "
-Python wrapper for an :class:`" #datum_type "` reference. It has most of
-the methods of :class:`" #datum_type "` allowing easy access to the
-data it points to."
+Python wrapper for an :class:`" #datum_type "` reference."
 %inline %{
 class datum_type##_reference: public datum_type##_pointer {
 private:

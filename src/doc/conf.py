@@ -61,7 +61,12 @@ autodoc_docstring_signature = False
 autodoc_default_options = {
     'members': True,
     'undoc-members': True,
-    'exclude-members': 'this, thisown, __init__, __new__',
+    'special-members': True,
+    'exclude-members': ','.join((
+        'this', 'thisown', '__dict__', '__eq__', '__format__',
+        '__getattribute__', '__ge__', '__gt__', '__hash__', '__init__',
+        '__le__', '__lt__', '__module__ ', '__new__', '__ne__', '__repr__',
+        '__str__')),
     'show-inheritance': True,
     }
 
