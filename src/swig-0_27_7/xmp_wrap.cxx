@@ -4370,6 +4370,11 @@ fail:
 };
 
 
+static std::string metadatum_str(Exiv2::Metadatum* datum) {
+    return datum->key() + ": " + datum->print();
+};
+
+
 class Xmpdatum_pointer {
 protected:
     bool invalidated;
@@ -4390,7 +4395,7 @@ public:
         Exiv2::Xmpdatum* ptr = **this;
         if (!ptr)
             return name + "<data end>";
-        return name + "<" + ptr->key() + ": " + ptr->print() + ">";
+        return name + "<" + metadatum_str(ptr) + ">";
     }
     // Provide size() C++ method for buffer size check
     size_t size() {

@@ -57,12 +57,19 @@ EXTEND_KEY(Exiv2::Key);
 DEPRECATE_FUNCTION(Exiv2::Metadatum::copy, true)
 DEPRECATE_FUNCTION(Exiv2::Metadatum::write, true)
 
+%fragment("metadatum_str", "header") {
+static std::string metadatum_str(Exiv2::Metadatum* datum) {
+    return datum->key() + ": " + datum->print();
+};
+}
+
 // Extend base type
 %feature("python:slot", "tp_str", functype="reprfunc")
     Exiv2::Metadatum::__str__;
 %extend Exiv2::Metadatum {
+    %fragment("metadatum_str");
     std::string __str__() {
-        return $self->key() + ": " + $self->print();
+        return metadatum_str(self);
     }
 }
 

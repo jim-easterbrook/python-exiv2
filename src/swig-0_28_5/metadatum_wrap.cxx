@@ -4378,6 +4378,11 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
 }
 
 
+static std::string metadatum_str(Exiv2::Metadatum* datum) {
+    return datum->key() + ": " + datum->print();
+};
+
+
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
 SWIGINTERN int
@@ -5435,7 +5440,7 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 SWIGINTERN std::string Exiv2_Metadatum___str__(Exiv2::Metadatum *self){
-        return self->key() + ": " + self->print();
+        return metadatum_str(self);
     }
 #ifdef __cplusplus
 extern "C" {

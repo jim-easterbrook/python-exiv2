@@ -32,7 +32,6 @@ class datum_type##_reference;
 %}
 %enddef // DECLARE_METADATUM_WRAPPERS
 
-
 // Macro to wrap metadatum iterators and pointers
 %define METADATUM_WRAPPERS(container_type, datum_type)
 
@@ -50,6 +49,7 @@ POINTER_STORE(container_type, datum_type)
 %ignore datum_type##_pointer::operator*;
 %ignore datum_type##_pointer::size;
 %ignore datum_type##_pointer::_invalidate;
+%fragment("metadatum_str");
 %inline %{
 class datum_type##_pointer {
 protected:
@@ -71,7 +71,7 @@ public:
         Exiv2::datum_type* ptr = **this;
         if (!ptr)
             return name + "<data end>";
-        return name + "<" + ptr->key() + ": " + ptr->print() + ">";
+        return name + "<" + metadatum_str(ptr) + ">";
     }
     // Provide size() C++ method for buffer size check
     size_t size() {
