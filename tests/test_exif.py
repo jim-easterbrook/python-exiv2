@@ -269,6 +269,36 @@ class TestExifModule(unittest.TestCase):
                 with self.assertRaises(exiv2.Exiv2Error):
                     thumb.setJpegThumbnail(temp_file)
 
+    def test_pointers(self):
+        data = exiv2.ExifData()
+        data.add(exiv2.Exifdatum(
+            exiv2.ExifKey('Exif.Image.Make'), exiv2.AsciiValue('Acme')))
+        # output typemaps
+        datum_iter = data.begin()
+        self.assertIsInstance(datum_iter, exiv2.ExifData_iterator)
+        datum_pointer = data[datum_iter.key()]
+        self.assertIsInstance(datum_pointer, exiv2.Exifdatum_pointer)
+        # __deref__ operator
+        datum = datum_iter.__deref__()
+        self.assertIsInstance(datum, exiv2.Exifdatum)
+        datum = datum_pointer.__deref__()
+        self.assertIsInstance(datum, exiv2.Exifdatum)
+        # input typemaps
+        datum2 = exiv2.Exifdatum(datum)
+        datum2 = exiv2.Exifdatum(datum_iter)
+        datum2 = exiv2.Exifdatum(datum_pointer)
+        data2 = exiv2.ExifData()
+        data2.add(datum)
+        data2.add(datum_iter)
+        data2.add(datum_pointer)
+        # __eq__ operator
+        self.assertEqual(datum, datum_iter)
+        self.assertEqual(datum, datum_pointer)
+        self.assertEqual(datum_iter, datum)
+        self.assertEqual(datum_iter, datum_pointer)
+        self.assertEqual(datum_pointer, datum)
+        self.assertEqual(datum_pointer, datum_iter)
+
     def test_ref_counts(self):
         self.image.readMetadata()
         # exifData keeps a reference to image

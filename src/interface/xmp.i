@@ -38,8 +38,6 @@ IMPORT_ENUM(TypeId)
 // Catch all C++ exceptions
 EXCEPTION()
 
-EXTEND_METADATUM(Xmpdatum)
-
 METADATUM_WRAPPERS(XmpData, Xmpdatum)
 
 // Get the current (or default if not set) type id of a datum

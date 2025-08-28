@@ -37,7 +37,6 @@
     base_class::__contains__;
 %extend base_class {
     %fragment("get_type_id"{datum_type});
-    %fragment("set_value_from_py"{datum_type});
     datum_type& __getitem__(const std::string& key) {
         return (*$self)[key];
     }
@@ -55,10 +54,6 @@
                 datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
                 value.c_str());
         return SWIG_Py_Void();
-    }
-    PyObject* __setitem__(const std::string& key, PyObject* py_value) {
-        datum_type* datum = &(*$self)[key];
-        return set_value_from_py(datum, py_value);
     }
 #if SWIG_VERSION >= 0x040400
     PyObject* __setitem__(PyObject* py_self, const std::string& key) {
@@ -78,6 +73,49 @@
     }
     bool __contains__(const std::string& key) {
         return $self->findKey(key_type(key)) != $self->end();
+    }
+}
+
+// Set the datum's value from a Python object. The datum's current or default
+// type is used to create an Exiv2::Value object (via Python) from the Python
+// object.
+%fragment("set_value_from_py"{datum_type}, "header",
+          fragment="get_type_object",
+          fragment="get_type_id"{datum_type}) {
+static PyObject* set_value_from_py(datum_type* datum,
+                                   PyObject* py_value) {
+    swig_type_info* ty_info = get_type_object(get_type_id(datum));
+    SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
+    // Call type object to invoke constructor
+    PyObject* swig_obj = PyObject_CallFunctionObjArgs(
+        (PyObject*)cl_data->pytype, py_value, NULL);
+    if (!swig_obj)
+        return NULL;
+    // Convert constructed object to Exiv2::Value
+    Exiv2::Value* value = 0;
+    if (!SWIG_IsOK(SWIG_ConvertPtr(swig_obj, (void**)&value, ty_info, 0))) {
+        PyErr_SetString(
+            PyExc_RuntimeError, "set_value_from_py: invalid conversion");
+        Py_DECREF(swig_obj);
+        return NULL;
+    }
+    // Set value
+    datum->setValue(value);
+    Py_DECREF(swig_obj);
+    return SWIG_Py_Void();
+};
+}
+%extend datum_type {
+    %fragment("set_value_from_py"{datum_type});
+    PyObject* setValue(PyObject* py_value) {
+        return set_value_from_py($self, py_value);
+    }
+}
+%extend base_class {
+    %fragment("set_value_from_py"{datum_type});
+    PyObject* __setitem__(const std::string& key, PyObject* py_value) {
+        datum_type* datum = &(*$self)[key];
+        return set_value_from_py(datum, py_value);
     }
 }
 %enddef // DATA_CONTAINER

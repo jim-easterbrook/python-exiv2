@@ -27,6 +27,7 @@
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
+%include "shared/keep_reference.i"
 %include "shared/private_data.i"
 %include "shared/struct_dict.i"
 
@@ -45,6 +46,9 @@ IMPORT_ENUM(TypeId)
 EXCEPTION()
 
 UNIQUE_PTR(Exiv2::Value);
+
+// Keep a reference to any object that returns a reference to a value.
+KEEP_REFERENCE(const Exiv2::Value&)
 
 // Remove exception handler for some methods known to be safe
 %noexception Exiv2::Value::~Value;

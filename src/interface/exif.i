@@ -52,8 +52,6 @@ KEEP_REFERENCE_EX(Exiv2::ExifThumb*, args)
 
 INPUT_BUFFER_RO(const Exiv2::byte* buf, BUFLEN_T size)
 
-EXTEND_METADATUM(Exifdatum)
-
 METADATUM_WRAPPERS(ExifData, Exifdatum)
 
 // Get the current (or default if not set) type id of a datum

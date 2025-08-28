@@ -36,6 +36,9 @@ class datum_type##_reference;
 // Macro to wrap metadatum iterators and pointers
 %define METADATUM_WRAPPERS(container_type, datum_type)
 
+// Keep a reference to any object that returns a reference to a datum.
+KEEP_REFERENCE(Exiv2::datum_type&)
+
 // Invalidate pointers when data is deleted
 POINTER_STORE(container_type, datum_type)
 
@@ -158,6 +161,31 @@ public:
     }
 };
 %}
+
+// Metadata reference wrapper
+%ignore datum_type##_reference::##datum_type##_reference;
+%ignore datum_type##_reference::operator*;
+%feature("docstring") datum_type##_reference "
+Python wrapper for an :class:`" #datum_type "` reference. It has most of
+the methods of :class:`" #datum_type "` allowing easy access to the
+data it points to."
+%inline %{
+class datum_type##_reference: public datum_type##_pointer {
+private:
+    Exiv2::datum_type* ptr;
+public:
+    datum_type##_reference(Exiv2::datum_type* ptr): ptr(ptr) {
+        name = "pointer";
+    }
+    Exiv2::datum_type* operator*() const {
+        if (invalidated)
+            throw std::runtime_error("datum_type reference is invalid");
+        return ptr;
+    }
+};
+%}
+
+// typemaps
 %typemap(in) Exiv2::container_type::iterator
         (container_type##_iterator *argp=NULL) %{
     {
@@ -178,6 +206,15 @@ public:
     it = argp->_ptr();
     $1 = &it;
 }
+%typemap(in) const Exiv2::datum_type& {
+    datum_type##_pointer* tmp = NULL;
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+            $input, (void**)&tmp, $descriptor(datum_type##_pointer*), 0)))
+        $1 = **tmp;
+    else {
+        $typemap(in, Exiv2::datum_type&)
+    }
+}
 %typemap(out) Exiv2::container_type::iterator {
     $result = SWIG_NewPointerObj(
         SWIG_as_voidptr(new container_type##_iterator($1, arg1->end())),
@@ -189,40 +226,6 @@ public:
     }
 #endif // SWIG_VERSION
 }
-
-// Metadata reference wrapper
-%ignore datum_type##_reference::##datum_type##_reference;
-%ignore datum_type##_reference::operator*;
-%feature("docstring") datum_type##_reference "
-Python wrapper for an :class:`" #datum_type "` reference. It has most of
-the methods of :class:`" #datum_type "` allowing easy access to the
-data it points to."
-// Keep a reference to the data being referred to
-KEEP_REFERENCE(Exiv2::datum_type&)
-%inline %{
-class datum_type##_reference: public datum_type##_pointer {
-private:
-    Exiv2::datum_type* ptr;
-public:
-    datum_type##_reference(Exiv2::datum_type* ptr): ptr(ptr) {
-        name = "pointer";
-    }
-    Exiv2::datum_type* operator*() const {
-        if (invalidated)
-            throw std::runtime_error("datum_type reference is invalid");
-        return ptr;
-    }
-};
-%}
-%typemap(in) const Exiv2::datum_type& {
-    datum_type##_reference* tmp = NULL;
-    if (SWIG_IsOK(SWIG_ConvertPtr(
-            $input, (void**)&tmp, $descriptor(datum_type##_reference*), 0)))
-        $1 = **tmp;
-    else {
-        $typemap(in, Exiv2::datum_type&)
-    }
-}
 %typemap(out) Exiv2::datum_type& {
     $result = SWIG_NewPointerObj(
         SWIG_as_voidptr(new datum_type##_reference($1)),
@@ -233,6 +236,43 @@ public:
         SWIG_fail;
     }
 #endif // SWIG_VERSION
+}
+
+// Deprecate some methods since 2025-08-25
+DEPRECATE_FUNCTION(Exiv2::datum_type::copy, true)
+DEPRECATE_FUNCTION(Exiv2::datum_type::write, true)
+// Ignore overloaded default parameter version
+%ignore Exiv2::datum_type::write(std::ostream &) const;
+
+// Extend datum type
+%extend Exiv2::datum_type {
+    bool operator==(const Exiv2::datum_type &other) const {
+        return &other == self;
+    }
+    bool operator!=(const Exiv2::datum_type &other) const {
+        return &other != self;
+    }
+    // Extend Metadatum to allow getting value as a specific type.
+    Exiv2::Value::SMART_PTR getValue(Exiv2::TypeId as_type) {
+        // deprecated since 2023-12-07
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return $self->getValue();
+    }
+    const Exiv2::Value& value(Exiv2::TypeId as_type) {
+        // deprecated since 2023-12-07
+        PyErr_WarnEx(PyExc_DeprecationWarning, "Requested type ignored.", 1);
+        return $self->value();
+    }
+    // Old _print method for compatibility
+    std::string _print(const Exiv2::ExifData* pMetadata) const {
+        // deprecated since 2024-01-29
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+                     "'_print' has been replaced by 'print'", 1);
+        return $self->print(pMetadata);
+    }
+    // toString parameter does not default to 0, so bypass default typemap
+    std::string toString() const { return self->toString(); }
+    std::string toString(BUFLEN_T i) const { return self->toString(i); }
 }
 
 %enddef // METADATUM_WRAPPERS

@@ -5389,6 +5389,51 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 };
 
 
+
+static PyObject* _get_store(PyObject* py_self, bool create) {
+    // Return a new reference
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        if (!create)
+            return NULL;
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int private_store_set(PyObject* py_self, const char* name,
+                             PyObject* val) {
+    PyObject* dict = _get_store(py_self, true);
+    if (!dict)
+        return -1;
+    int result = PyDict_SetItemString(dict, name, val);
+    Py_DECREF(dict);
+    return result;
+};
+static PyObject* private_store_get(PyObject* py_self, const char* name) {
+    // Return a borrowed reference
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return NULL;
+    PyObject* result = PyDict_GetItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+static int private_store_del(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return 0;
+    int result = 0;
+    if (PyDict_GetItemString(dict, name))
+        result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+
 SWIGINTERN std::string Exiv2_Metadatum___str__(Exiv2::Metadatum *self){
         return self->key() + ": " + self->print();
     }
@@ -6565,6 +6610,12 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
   {
     resultobj = SWIG_NewPointerObj(result, get_swig_type(result), 0);
   }
+  
+  if (resultobj != Py_None)
+  if (private_store_set(resultobj, "refers_to", self)) {
+    SWIG_fail;
+  }
+  
   return resultobj;
 fail:
   return NULL;

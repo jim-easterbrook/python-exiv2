@@ -61,6 +61,8 @@ WINDOWS_PATH_OUT(extension)
 
 // Declare metadatum wrapper classes
 DECLARE_METADATUM_WRAPPERS(ExifData, Exifdatum)
+DECLARE_METADATUM_WRAPPERS(IptcData, Iptcdatum)
+DECLARE_METADATUM_WRAPPERS(XmpData, Xmpdatum)
 
 // Convert getPreviewProperties result to a Python tuple
 %template() std::vector<Exiv2::PreviewProperties>;
