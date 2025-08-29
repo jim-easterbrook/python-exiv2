@@ -152,19 +152,17 @@ RETURN_VIEW(Exiv2::byte* mmap, $1 ? _global_self->size() : 0,
     release_views(self);
 }
 
-// Most methods of BasicIo release any existing memoryview
+// Some methods of BasicIo release any existing memoryview
 %{
-#define NO_RELEASE_delete_BasicIo
-#define NO_RELEASE_BasicIo_eof
-#define NO_RELEASE_BasicIo_error
-#define NO_RELEASE_BasicIo_ioType
-#define NO_RELEASE_BasicIo_isopen
-#define NO_RELEASE_BasicIo_path
-#define NO_RELEASE_BasicIo_size
-#define NO_RELEASE_BasicIo__view_deleted_cb
+#define RELEASE_VIEWS_BasicIo_close
+#define RELEASE_VIEWS_BasicIo_munmap
+#define RELEASE_VIEWS_BasicIo_open
+#define RELEASE_VIEWS_BasicIo_putb
+#define RELEASE_VIEWS_BasicIo_transfer
+#define RELEASE_VIEWS_BasicIo_write
 %}
 %typemap(check, fragment="memoryview_funcs") Exiv2::BasicIo* self {
-%#ifndef NO_RELEASE_$symname
+%#ifdef RELEASE_VIEWS_$symname
     release_views(self);
 %#endif
 }
