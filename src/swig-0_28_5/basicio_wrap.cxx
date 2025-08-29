@@ -4347,6 +4347,14 @@ typedef Exiv2::ErrorCode ErrorCode;
 #define NO_RELEASE_BasicIo__view_deleted_cb
 
 
+static void release_ptr(Exiv2::BasicIo* self) {
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    self->munmap();
+    self->close();
+    SWIG_PYTHON_THREAD_END_ALLOW;
+};
+
+
 static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
                          Exiv2::byte*& ptr, Py_ssize_t& size) {
     if (self->open())
@@ -4387,14 +4395,6 @@ fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
-};
-
-
-static void release_ptr(Exiv2::BasicIo* self) {
-    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-    self->munmap();
-    self->close();
-    SWIG_PYTHON_THREAD_END_ALLOW;
 };
 
 
@@ -4982,10 +4982,7 @@ SWIGINTERN Exiv2::byte *Exiv2_BasicIo_data(Exiv2::BasicIo *self,bool isWriteable
         self->open();
         return self->mmap(isWriteable);
     }
-SWIGINTERN void Exiv2_BasicIo__view_deleted_cb(Exiv2::BasicIo *self,PyObject *ref){
-        self->munmap();
-        self->close();
-    }
+SWIGINTERN void Exiv2_BasicIo__view_deleted_cb(Exiv2::BasicIo *self,PyObject *ref){release_ptr(self);}
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6192,11 +6189,7 @@ SWIGINTERN PyObject *_wrap_BasicIo__view_deleted_cb(PyObject *self, PyObject *ar
   }
   {
     try {
-      {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        Exiv2_BasicIo__view_deleted_cb(arg1,arg2);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-      }
+      Exiv2_BasicIo__view_deleted_cb(arg1,arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();

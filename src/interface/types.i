@@ -239,10 +239,7 @@ RETURN_VIEW(Exiv2::byte* pData_, arg1->DATABUF_SIZE, PyBUF_WRITE,
             Exiv2::DataBuf::pData_)
 RETURN_VIEW(Exiv2::byte* data, arg1->DATABUF_SIZE, PyBUF_WRITE,
             Exiv2::DataBuf::data)
-%noexception Exiv2::DataBuf::_view_deleted_cb;
-%extend Exiv2::DataBuf {
-    void _view_deleted_cb(PyObject* ref) {};
-}
+DEFINE_VIEW_CALLBACK(Exiv2::DataBuf,)
 
 // Release memoryview when other functions are called
 %typemap(ret, fragment="memoryview_funcs")

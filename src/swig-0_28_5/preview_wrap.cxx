@@ -5738,9 +5738,7 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
 SWIGINTERN size_t Exiv2_PreviewImage___len__(Exiv2::PreviewImage *self){
         return self->size();
     }
-SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_data(Exiv2::PreviewImage *self){
-        return self->pData();
-    }
+SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_data(Exiv2::PreviewImage *self){ return self->pData(); }
 
 static PyObject* _get_store(PyObject* py_self, bool create) {
     // Return a new reference

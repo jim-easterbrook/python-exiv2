@@ -132,3 +132,12 @@ static int release_views(PyObject* py_self) {
 :rtype: memoryview"
 #endif
 %enddef // RETURN_VIEW
+
+%define DEFINE_VIEW_CALLBACK(data_owner, contents)
+#if #contents == ""
+%noexception data_owner::_view_deleted_cb;
+#endif
+%extend data_owner {
+    void _view_deleted_cb(PyObject* ref) {contents};
+}
+%enddef // DEFINE_VIEW_CALLBACK

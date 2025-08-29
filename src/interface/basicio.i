@@ -50,7 +50,6 @@ UNIQUE_PTR(Exiv2::BasicIo);
 %thread Exiv2::BasicIo::seek;
 %thread Exiv2::BasicIo::transfer;
 %thread Exiv2::BasicIo::write;
-%thread Exiv2::BasicIo::_view_deleted_cb;
 
 // Some calls don't raise exceptions
 %noexception Exiv2::BasicIo::eof;
@@ -189,11 +188,17 @@ munmap() and close() are called when the memoryview object is deleted.
         self->open();
         return self->mmap(isWriteable);
     };
-    void _view_deleted_cb(PyObject* ref) {
-        self->munmap();
-        self->close();
-    };
 }
+%fragment("release_ptr"{Exiv2::BasicIo}, "header") {
+static void release_ptr(Exiv2::BasicIo* self) {
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    self->munmap();
+    self->close();
+    SWIG_PYTHON_THREAD_END_ALLOW;
+};
+}
+%fragment("release_ptr"{Exiv2::BasicIo});
+DEFINE_VIEW_CALLBACK(Exiv2::BasicIo, release_ptr(self);)
 
 // Enable len(Exiv2::BasicIo)
 %feature("python:slot", "sq_length", functype="lenfunc")
@@ -217,14 +222,6 @@ static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
     }
     size = self->size();
     return true;
-};
-}
-%fragment("release_ptr"{Exiv2::BasicIo}, "header") {
-static void release_ptr(Exiv2::BasicIo* self) {
-    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-    self->munmap();
-    self->close();
-    SWIG_PYTHON_THREAD_END_ALLOW;
 };
 }
 EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo, true, true)
