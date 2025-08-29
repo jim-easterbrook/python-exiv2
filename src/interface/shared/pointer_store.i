@@ -26,7 +26,7 @@
 #if SWIG_VERSION >= 0x040400
 // Functions to store weak references to pointers (swig >= v4.4)
 %fragment("pointer_store", "header", fragment="private_data") {
-static void _process_list(PyObject* list, bool invalidate_all,
+static void _process_list(PyObject* list, bool purge_only,
                           Exiv2::container_type::iterator* beg,
                           Exiv2::container_type::iterator* end) {
     PyObject* py_ptr = NULL;
@@ -35,11 +35,11 @@ static void _process_list(PyObject* list, bool invalidate_all,
         py_ptr = PyWeakref_GetObject(PyList_GetItem(list, idx-1));
         if (py_ptr == Py_None)
             goto forget;
-        if (!(invalidate_all || beg))
+        if (purge_only)
             continue;
         if (SWIG_IsOK(SWIG_ConvertPtr(py_ptr, (void**)&cpp_ptr,
                 $descriptor(datum_type##_pointer*), 0))) {
-            if (invalidate_all) {
+            if (!beg) {
                 cpp_ptr->_invalidate();
                 goto forget;
             }
@@ -54,12 +54,12 @@ forget:
     }
 };
 static void purge_pointers(PyObject* list) {
-    _process_list(list, false, NULL, NULL);
+    _process_list(list, true, NULL, NULL);
 };
 static void invalidate_pointers(PyObject* py_self) {
     PyObject* list = private_store_get(py_self, "pointers");
     if (list)
-        _process_list(list, true, NULL, NULL);
+        _process_list(list, false, NULL, NULL);
 };
 static void invalidate_pointers(PyObject* py_self,
                                 Exiv2::container_type::iterator pos) {
