@@ -18,6 +18,7 @@ along with this program.  If not, see
 
 Changes in v0.17.4:
   1/ Binary wheels incorporate libexiv2 v0.28.6.
+  2/ Windows binary wheels do not have localisation.
 
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.

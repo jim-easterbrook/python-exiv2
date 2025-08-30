@@ -1,0 +1,39 @@
+name: Build Windows wheels exiv2 0.28 (precompiled)
+on: workflow_dispatch
+
+jobs:
+  compile:
+    runs-on: windows-2022
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Fetch Exiv2 (compiled)
+        run: c:\msys64\usr\bin\wget.exe -nv
+          https://exiv2.org/builds/exiv2-0.28.6-2022msvc.zip
+          -O exiv2.zip
+
+      - name: Extract Exiv2
+        run: unzip exiv2.zip
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.22.0
+        env:
+          CIBW_ARCHS: auto64
+          CIBW_SKIP: pp3*
+          CIBW_ENVIRONMENT: |
+            EXIV2_ROOT=exiv2-0.28.6-2022msvc-AMD64
+          CIBW_TEST_COMMAND: >
+            python -m exiv2 -v &&
+            python -m unittest discover {project}/tests -v
+
+      - name: Store results
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-28-wheels
+          path: wheelhouse/*.whl
