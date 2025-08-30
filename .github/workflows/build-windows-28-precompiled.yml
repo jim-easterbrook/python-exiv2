@@ -1,5 +1,5 @@
 name: Build Windows wheels exiv2 0.28 (precompiled)
-on: workflow_dispatch
+on: [push, workflow_dispatch]
 
 jobs:
   compile:
