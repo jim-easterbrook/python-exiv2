@@ -33,7 +33,7 @@ class Exiv2Conan(ConanFile):
             self.requires('libcurl/8.10.1')
 
         if os_info.is_windows and self.options.iconv:
-            self.requires('libiconv/1.18')
+            self.requires('libiconv/1.17')
 
         if self.options.unitTests:
             self.requires('gtest/1.15.0')
