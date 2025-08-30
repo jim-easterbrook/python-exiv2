@@ -21,22 +21,22 @@ class Exiv2Conan(ConanFile):
         self.options['gtest'].shared = False
 
     def requirements(self):
-        self.requires('zlib/1.2.13')
+        self.requires('zlib/1.3.1')
 
         self.requires('brotli/1.1.0')
 
-        self.requires('inih/55')
+        self.requires('inih/58')
 
         self.requires('libgettext/0.21')
 
         if self.options.webready:
-            self.requires('libcurl/7.85.0')
+            self.requires('libcurl/8.10.1')
 
         if os_info.is_windows and self.options.iconv:
-            self.requires('libiconv/1.17')
+            self.requires('libiconv/1.18')
 
         if self.options.unitTests:
-            self.requires('gtest/1.12.1')
+            self.requires('gtest/1.15.0')
 
         if self.options.xmp:
             self.requires('XmpSdk/2016.7@piponazo/stable') # from conan-piponazo
