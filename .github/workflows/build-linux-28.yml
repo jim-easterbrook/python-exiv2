@@ -11,13 +11,13 @@ jobs:
       - name: Fetch Exiv2 source
         run: >
           wget -nv
-          https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.5.tar.gz
+          https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.6.tar.gz
           -O exiv2.tar.gz
 
       - name: Extract Exiv2 source
         run: |
           tar -xzf exiv2.tar.gz
-          mv exiv2-0.28.5 libexiv2
+          mv exiv2-0.28.6 libexiv2
 
       - name: Download inih
         run: >
