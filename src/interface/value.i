@@ -78,14 +78,14 @@ KEEP_REFERENCE(const Exiv2::Value&)
 }
 
 // for indexing multi-value values, assumes arg1 points to self
-%typemap(check) long idx %{
-    if ($1 < 0 || $1 >= static_cast< long >(arg1->count())) {
+%typemap(check) size_t idx %{
+    if ($1 < 0 || $1 >= static_cast< size_t >(arg1->count())) {
         PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
         SWIG_fail;
     }
 %}
 // for indexing single-value values, assumes arg1 points to self
-%typemap(check) long single_idx %{
+%typemap(check) size_t single_idx %{
     if ($1 < 0 || $1 >= (arg1->count() ? 1 : 0)) {
         PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
         SWIG_fail;
@@ -318,10 +318,10 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         result->value_ = value;
         return result;
     }
-    item_type __getitem__(long idx) {
+    item_type __getitem__(size_t idx) {
         return $self->value_[idx];
     }
-    void __setitem__(long idx, const item_type* INPUT) {
+    void __setitem__(size_t idx, const item_type* INPUT) {
         if (INPUT)
             $self->value_[idx] = *INPUT;
         else
