@@ -58,8 +58,12 @@ class TestErrorModule(unittest.TestCase):
         # get exiv2 to raise an exception
         with self.assertRaises(exiv2.Exiv2Error) as cm:
             image = exiv2.ImageFactory.open(bytes())
-        self.assertEqual(cm.exception.code,
-                         exiv2.ErrorCode.kerInputDataReadFailed)
+        if exiv2.testVersion(0, 27, 1):
+            self.assertEqual(cm.exception.code,
+                             exiv2.ErrorCode.kerInputDataReadFailed)
+        else:
+            self.assertEqual(cm.exception.code,
+                             exiv2.ErrorCode.kerMemoryContainsUnknownImageType)
 
 
 if __name__ == '__main__':
