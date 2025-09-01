@@ -8722,8 +8722,6 @@ SWIGINTERN PyObject *_wrap_DataValue_copy(PyObject *self, PyObject *args) {
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::DataValue::copy", 1);
     try {
       result = (long)((Exiv2::DataValue const *)arg1)->copy(arg2,arg3);
     }

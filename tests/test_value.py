@@ -42,9 +42,13 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(result, type(value))
         self.assertEqual(str(result), str(value))
         result = bytearray(len(data))
-        with self.assertWarns(DeprecationWarning):
-            self.assertEqual(
-                value.copy(result, exiv2.ByteOrder.littleEndian), len(result))
+        if type_id in (exiv2.TypeId.undefined, exiv2.TypeId.unsignedByte):
+            self.assertEqual(value.copy(
+                result, exiv2.ByteOrder.littleEndian), len(result))
+        else:
+            with self.assertWarns(DeprecationWarning):
+                self.assertEqual(value.copy(
+                    result, exiv2.ByteOrder.littleEndian), len(result))
         self.assertEqual(result, data)
         if sequence:
             self.check_result(value.count(), int, len(sequence))
@@ -322,8 +326,7 @@ class TestValueModule(unittest.TestCase):
     def test_DataValue(self):
         def check_data(value, data):
             copy = bytearray(len(data))
-            with self.assertWarns(DeprecationWarning):
-                self.assertEqual(value.copy(copy), len(data))
+            self.assertEqual(value.copy(copy), len(data))
             self.assertEqual(copy, data)
 
         data = bytes(random.choices(range(256), k=128))

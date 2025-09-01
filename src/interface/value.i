@@ -495,6 +495,9 @@ VALUE_SUBCLASS(Exiv2::LangAltValue, LangAltValue)
 VALUE_SUBCLASS(Exiv2::XmpArrayValue, XmpArrayValue)
 VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
 
+// Undeprecate DataValue::copy - it's the only way to get the data
+EXCEPTION(Exiv2::DataValue::copy)
+
 // Allow access to Exiv2::StringValueBase and Exiv2::XmpTextValue raw data
 %define RAW_STRING_DATA(class)
 RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ, class##::data)
