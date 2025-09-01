@@ -4961,7 +4961,6 @@ static PyObject* py_from_enum_Exiv2_ImageType(long value) {
     return result;
 };
 
-SWIGINTERN bool Exiv2_Image_iccProfileDefined(Exiv2::Image *self){return self->iccProfileDefined();}
 
 #if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
 #  define SWIG_LONG_LONG_AVAILABLE
@@ -5597,6 +5596,35 @@ SWIGINTERN PyObject *_wrap_Image_clearIccProfile(PyObject *self, PyObject *args)
     }
   }
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Image_iccProfileDefined(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Image_iccProfileDefined", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_iccProfileDefined" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+    try {
+      result = (bool)(arg1)->iccProfileDefined();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
   return NULL;
@@ -6364,35 +6392,6 @@ SWIGINTERN PyObject *_wrap_Image_imageType(PyObject *self, PyObject *args) {
     if (!resultobj)
     SWIG_fail;
   }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Image_iccProfileDefined(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Image_iccProfileDefined", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_iccProfileDefined" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  {
-    try {
-      result = (bool)Exiv2_Image_iccProfileDefined(arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
   return NULL;
@@ -7350,6 +7349,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
 		"Erase iccProfile. the profile is not removed from\n"
 		"    the actual image until the writeMetadata() method is called.\n"
 		"" },
+  { "iccProfileDefined", _wrap_Image_iccProfileDefined, METH_NOARGS, "Returns the status of the ICC profile in the image instance" },
   { "iccProfile", _wrap_Image_iccProfile, METH_NOARGS, "return iccProfile" },
   { "setMetadata", _wrap_Image_setMetadata, METH_O, "\n"
 		"Copy all existing metadata from source Image. The data is\n"
@@ -7480,7 +7480,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
 		"" },
   { "setTypeSupported", _wrap_Image_setTypeSupported, METH_VARARGS, "set type support for this image format" },
   { "imageType", _wrap_Image_imageType, METH_NOARGS, "set type support for this image format" },
-  { "iccProfileDefined", _wrap_Image_iccProfileDefined, METH_NOARGS, "Returns the status of the ICC profile in the image instance" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
