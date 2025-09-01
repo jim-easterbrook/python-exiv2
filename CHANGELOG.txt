@@ -37,6 +37,13 @@ Changes in v0.18.0:
   9/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
  10/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
 
+Changes in v0.17.5:
+  1/ Binary wheels incorporate libexiv2 v0.28.7.
+
+Changes in v0.17.4: (yanked)
+  1/ Binary wheels incorporate libexiv2 v0.28.6.
+  2/ Windows binary wheels do not have localisation.
+
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.
 
