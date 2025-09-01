@@ -115,8 +115,10 @@ class TestImageModule(unittest.TestCase):
         image.clearXmpData()
         self.assertEqual(len(image.xmpData()), 0)
         self.assertEqual(len(image.iccProfile()), 672)
+        self.check_result(image.iccProfileDefined(), bool, True)
         image.clearIccProfile()
         self.assertEqual(len(image.iccProfile()), 0)
+        self.check_result(image.iccProfileDefined(), bool, False)
         # test other methods
         image.readMetadata()
         self.check_result(image.byteOrder(),
