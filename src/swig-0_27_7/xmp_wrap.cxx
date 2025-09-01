@@ -4406,6 +4406,17 @@ public:
             return 0;
         return ptr->size();
     }
+#if 0x001b0700 < 0x001c0000
+    // Provide count() C++ method for index bounds check
+    long count() {
+        if (invalidated)
+            return 0;
+        Exiv2::Xmpdatum* ptr = **this;
+        if (!ptr)
+            return 0;
+        return ptr->count();
+    }
+#endif
     // Invalidate iterator unilaterally
     void _invalidate() { invalidated = true; }
     // Invalidate iterator if what it points to has been deleted
@@ -6313,6 +6324,12 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toLong(PyObject *self, PyObject *arg
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)(*arg1)->toLong(arg2);
@@ -6356,6 +6373,12 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toFloat(PyObject *self, PyObject *ar
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)(*arg1)->toFloat(arg2);
@@ -6399,6 +6422,12 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toRational(PyObject *self, PyObject 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (*arg1)->toRational(arg2);
@@ -7741,6 +7770,12 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::Xmpdatum const *)arg1)->toLong(arg2);
@@ -7784,6 +7819,12 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::Xmpdatum const *)arg1)->toFloat(arg2);
@@ -7827,6 +7868,12 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_toRational(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::Xmpdatum const *)arg1)->toRational(arg2);

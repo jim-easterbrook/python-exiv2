@@ -7951,6 +7951,12 @@ SWIGINTERN PyObject *_wrap_Value_toString(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::Value const *)arg1)->toString(arg2);
@@ -7994,6 +8000,12 @@ SWIGINTERN PyObject *_wrap_Value_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::Value const *)arg1)->toLong(arg2);
@@ -8037,6 +8049,12 @@ SWIGINTERN PyObject *_wrap_Value_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::Value const *)arg1)->toFloat(arg2);
@@ -8080,6 +8098,12 @@ SWIGINTERN PyObject *_wrap_Value_toRational(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::Value const *)arg1)->toRational(arg2);
@@ -8841,6 +8865,12 @@ SWIGINTERN PyObject *_wrap_DataValue_toString(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::DataValue const *)arg1)->toString(arg2);
@@ -8884,6 +8914,12 @@ SWIGINTERN PyObject *_wrap_DataValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::DataValue const *)arg1)->toLong(arg2);
@@ -8927,6 +8963,12 @@ SWIGINTERN PyObject *_wrap_DataValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::DataValue const *)arg1)->toFloat(arg2);
@@ -8970,6 +9012,12 @@ SWIGINTERN PyObject *_wrap_DataValue_toRational(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::DataValue const *)arg1)->toRational(arg2);
@@ -9337,6 +9385,12 @@ SWIGINTERN PyObject *_wrap_StringValueBase_toLong(PyObject *self, PyObject *args
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::StringValueBase const *)arg1)->toLong(arg2);
@@ -9380,6 +9434,12 @@ SWIGINTERN PyObject *_wrap_StringValueBase_toFloat(PyObject *self, PyObject *arg
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::StringValueBase const *)arg1)->toFloat(arg2);
@@ -9423,6 +9483,12 @@ SWIGINTERN PyObject *_wrap_StringValueBase_toRational(PyObject *self, PyObject *
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::StringValueBase const *)arg1)->toRational(arg2);
@@ -11519,6 +11585,12 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::XmpTextValue const *)arg1)->toLong(arg2);
@@ -11562,6 +11634,12 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_toFloat(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::XmpTextValue const *)arg1)->toFloat(arg2);
@@ -11605,6 +11683,12 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_toRational(PyObject *self, PyObject *arg
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::XmpTextValue const *)arg1)->toRational(arg2);
@@ -11984,6 +12068,12 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_toString(PyObject *self, PyObject *args
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::XmpArrayValue const *)arg1)->toString(arg2);
@@ -12027,6 +12117,12 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_toLong(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::XmpArrayValue const *)arg1)->toLong(arg2);
@@ -12070,6 +12166,12 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_toFloat(PyObject *self, PyObject *args)
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::XmpArrayValue const *)arg1)->toFloat(arg2);
@@ -12113,6 +12215,12 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_toRational(PyObject *self, PyObject *ar
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::XmpArrayValue const *)arg1)->toRational(arg2);
@@ -12673,6 +12781,12 @@ SWIGINTERN PyObject *_wrap_LangAltValue_toString__SWIG_0(PyObject *self, PyObjec
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::LangAltValue const *)arg1)->toString(arg2);
@@ -12806,6 +12920,12 @@ SWIGINTERN PyObject *_wrap_LangAltValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::LangAltValue const *)arg1)->toLong(arg2);
@@ -12849,6 +12969,12 @@ SWIGINTERN PyObject *_wrap_LangAltValue_toFloat(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::LangAltValue const *)arg1)->toFloat(arg2);
@@ -12892,6 +13018,12 @@ SWIGINTERN PyObject *_wrap_LangAltValue_toRational(PyObject *self, PyObject *arg
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::LangAltValue const *)arg1)->toRational(arg2);
@@ -13824,6 +13956,12 @@ SWIGINTERN PyObject *_wrap_DateValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::DateValue const *)arg1)->toLong(arg2);
@@ -13867,6 +14005,12 @@ SWIGINTERN PyObject *_wrap_DateValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::DateValue const *)arg1)->toFloat(arg2);
@@ -13910,6 +14054,12 @@ SWIGINTERN PyObject *_wrap_DateValue_toRational(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::DateValue const *)arg1)->toRational(arg2);
@@ -15095,6 +15245,12 @@ SWIGINTERN PyObject *_wrap_TimeValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::TimeValue const *)arg1)->toLong(arg2);
@@ -15138,6 +15294,12 @@ SWIGINTERN PyObject *_wrap_TimeValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::TimeValue const *)arg1)->toFloat(arg2);
@@ -15181,6 +15343,12 @@ SWIGINTERN PyObject *_wrap_TimeValue_toRational(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::TimeValue const *)arg1)->toRational(arg2);
@@ -16598,6 +16766,12 @@ SWIGINTERN PyObject *_wrap_UShortValue_toString(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< uint16_t > const *)arg1)->toString(arg2);
@@ -16641,6 +16815,12 @@ SWIGINTERN PyObject *_wrap_UShortValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::ValueType< uint16_t > const *)arg1)->toLong(arg2);
@@ -16684,6 +16864,12 @@ SWIGINTERN PyObject *_wrap_UShortValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::ValueType< uint16_t > const *)arg1)->toFloat(arg2);
@@ -16727,6 +16913,12 @@ SWIGINTERN PyObject *_wrap_UShortValue_toRational(PyObject *self, PyObject *args
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< uint16_t > const *)arg1)->toRational(arg2);
@@ -17708,6 +17900,12 @@ SWIGINTERN PyObject *_wrap_ULongValue_toString(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< uint32_t > const *)arg1)->toString(arg2);
@@ -17751,6 +17949,12 @@ SWIGINTERN PyObject *_wrap_ULongValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::ValueType< uint32_t > const *)arg1)->toLong(arg2);
@@ -17794,6 +17998,12 @@ SWIGINTERN PyObject *_wrap_ULongValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::ValueType< uint32_t > const *)arg1)->toFloat(arg2);
@@ -17837,6 +18047,12 @@ SWIGINTERN PyObject *_wrap_ULongValue_toRational(PyObject *self, PyObject *args)
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< uint32_t > const *)arg1)->toRational(arg2);
@@ -18823,6 +19039,12 @@ SWIGINTERN PyObject *_wrap_URationalValue_toString(PyObject *self, PyObject *arg
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< Exiv2::URational > const *)arg1)->toString(arg2);
@@ -18866,6 +19088,12 @@ SWIGINTERN PyObject *_wrap_URationalValue_toLong(PyObject *self, PyObject *args)
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::ValueType< Exiv2::URational > const *)arg1)->toLong(arg2);
@@ -18909,6 +19137,12 @@ SWIGINTERN PyObject *_wrap_URationalValue_toFloat(PyObject *self, PyObject *args
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::ValueType< Exiv2::URational > const *)arg1)->toFloat(arg2);
@@ -18952,6 +19186,12 @@ SWIGINTERN PyObject *_wrap_URationalValue_toRational(PyObject *self, PyObject *a
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< Exiv2::URational > const *)arg1)->toRational(arg2);
@@ -19927,6 +20167,12 @@ SWIGINTERN PyObject *_wrap_ShortValue_toString(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< int16_t > const *)arg1)->toString(arg2);
@@ -19970,6 +20216,12 @@ SWIGINTERN PyObject *_wrap_ShortValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::ValueType< int16_t > const *)arg1)->toLong(arg2);
@@ -20013,6 +20265,12 @@ SWIGINTERN PyObject *_wrap_ShortValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::ValueType< int16_t > const *)arg1)->toFloat(arg2);
@@ -20056,6 +20314,12 @@ SWIGINTERN PyObject *_wrap_ShortValue_toRational(PyObject *self, PyObject *args)
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< int16_t > const *)arg1)->toRational(arg2);
@@ -21037,6 +21301,12 @@ SWIGINTERN PyObject *_wrap_LongValue_toString(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< int32_t > const *)arg1)->toString(arg2);
@@ -21080,6 +21350,12 @@ SWIGINTERN PyObject *_wrap_LongValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::ValueType< int32_t > const *)arg1)->toLong(arg2);
@@ -21123,6 +21399,12 @@ SWIGINTERN PyObject *_wrap_LongValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::ValueType< int32_t > const *)arg1)->toFloat(arg2);
@@ -21166,6 +21448,12 @@ SWIGINTERN PyObject *_wrap_LongValue_toRational(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< int32_t > const *)arg1)->toRational(arg2);
@@ -22152,6 +22440,12 @@ SWIGINTERN PyObject *_wrap_RationalValue_toString(PyObject *self, PyObject *args
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->toString(arg2);
@@ -22195,6 +22489,12 @@ SWIGINTERN PyObject *_wrap_RationalValue_toLong(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->toLong(arg2);
@@ -22238,6 +22538,12 @@ SWIGINTERN PyObject *_wrap_RationalValue_toFloat(PyObject *self, PyObject *args)
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->toFloat(arg2);
@@ -22281,6 +22587,12 @@ SWIGINTERN PyObject *_wrap_RationalValue_toRational(PyObject *self, PyObject *ar
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->toRational(arg2);
@@ -23256,6 +23568,12 @@ SWIGINTERN PyObject *_wrap_FloatValue_toString(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< float > const *)arg1)->toString(arg2);
@@ -23299,6 +23617,12 @@ SWIGINTERN PyObject *_wrap_FloatValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::ValueType< float > const *)arg1)->toLong(arg2);
@@ -23342,6 +23666,12 @@ SWIGINTERN PyObject *_wrap_FloatValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::ValueType< float > const *)arg1)->toFloat(arg2);
@@ -23385,6 +23715,12 @@ SWIGINTERN PyObject *_wrap_FloatValue_toRational(PyObject *self, PyObject *args)
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< float > const *)arg1)->toRational(arg2);
@@ -24366,6 +24702,12 @@ SWIGINTERN PyObject *_wrap_DoubleValue_toString(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< double > const *)arg1)->toString(arg2);
@@ -24409,6 +24751,12 @@ SWIGINTERN PyObject *_wrap_DoubleValue_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::ValueType< double > const *)arg1)->toLong(arg2);
@@ -24452,6 +24800,12 @@ SWIGINTERN PyObject *_wrap_DoubleValue_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::ValueType< double > const *)arg1)->toFloat(arg2);
@@ -24495,6 +24849,12 @@ SWIGINTERN PyObject *_wrap_DoubleValue_toRational(PyObject *self, PyObject *args
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::ValueType< double > const *)arg1)->toRational(arg2);

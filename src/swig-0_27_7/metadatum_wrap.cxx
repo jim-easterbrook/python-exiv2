@@ -6187,6 +6187,12 @@ SWIGINTERN PyObject *_wrap_Metadatum_toLong(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (long)((Exiv2::Metadatum const *)arg1)->toLong(arg2);
@@ -6230,6 +6236,12 @@ SWIGINTERN PyObject *_wrap_Metadatum_toFloat(PyObject *self, PyObject *args) {
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = (float)((Exiv2::Metadatum const *)arg1)->toFloat(arg2);
@@ -6273,6 +6285,12 @@ SWIGINTERN PyObject *_wrap_Metadatum_toRational(PyObject *self, PyObject *args) 
     } 
     arg2 = static_cast< long >(val2);
   }
+  
+  if (arg2 < 0 || arg2 >= static_cast< long >(arg1->count())) {
+    PyErr_Format(PyExc_IndexError, "index %d out of range", arg2);
+    SWIG_fail;
+  }
+  
   {
     try {
       result = ((Exiv2::Metadatum const *)arg1)->toRational(arg2);

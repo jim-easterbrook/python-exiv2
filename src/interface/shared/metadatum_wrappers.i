@@ -48,6 +48,7 @@ POINTER_STORE(container_type, datum_type)
 %ignore datum_type##_pointer::~datum_type##_pointer;
 %ignore datum_type##_pointer::operator*;
 %ignore datum_type##_pointer::size;
+%ignore datum_type##_pointer::count;
 %ignore datum_type##_pointer::_invalidate;
 %feature("docstring") datum_type##_pointer "
 Base class for pointers to :class:`"#datum_type"` objects.
@@ -92,6 +93,17 @@ public:
             return 0;
         return ptr->size();
     }
+#if EXIV2_VERSION_HEX < 0x001c0000
+    // Provide count() C++ method for index bounds check
+    long count() {
+        if (invalidated)
+            return 0;
+        Exiv2::datum_type* ptr = **this;
+        if (!ptr)
+            return 0;
+        return ptr->count();
+    }
+#endif
     // Invalidate iterator unilaterally
     void _invalidate() { invalidated = true; }
     // Invalidate iterator if what it points to has been deleted

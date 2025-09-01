@@ -4404,6 +4404,17 @@ public:
             return 0;
         return ptr->size();
     }
+#if 0x001c0500 < 0x001c0000
+    // Provide count() C++ method for index bounds check
+    long count() {
+        if (invalidated)
+            return 0;
+        Exiv2::Iptcdatum* ptr = **this;
+        if (!ptr)
+            return 0;
+        return ptr->count();
+    }
+#endif
     // Invalidate iterator unilaterally
     void _invalidate() { invalidated = true; }
     // Invalidate iterator if what it points to has been deleted

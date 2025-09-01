@@ -78,8 +78,8 @@ KEEP_REFERENCE(const Exiv2::Value&)
 }
 
 // for indexing multi-value values, assumes arg1 points to self
-%typemap(check) size_t idx %{
-    if ($1 < 0 || $1 >= static_cast< size_t >(arg1->count())) {
+%typemap(check) (size_t idx), (long n) %{
+    if ($1 < 0 || $1 >= static_cast< $1_ltype >(arg1->count())) {
         PyErr_Format(PyExc_IndexError, "index %d out of range", $1);
         SWIG_fail;
     }
