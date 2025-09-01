@@ -16,6 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.17.5:
+  1/ Binary wheels incorporate libexiv2 v0.28.7.
+
+Changes in v0.17.4: (yanked)
+  1/ Binary wheels incorporate libexiv2 v0.28.6.
+  2/ Windows binary wheels do not have localisation.
+
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.
 
