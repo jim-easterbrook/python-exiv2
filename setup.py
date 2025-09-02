@@ -17,6 +17,8 @@
 
 from setuptools import setup, Extension
 from setuptools import __version__ as setuptools_version
+import distutils.command.build
+import setuptools.command.egg_info
 import os
 import re
 import subprocess
@@ -190,7 +192,23 @@ for file_name in os.listdir(mod_src_dir):
         extra_link_args = extra_link_args,
         ))
 
+build_arch = 'build-py{}.{}-exv{}.{}.{}'.format(
+    *sys.version_info[:2], *exiv2_version[:3])
+
+class Exiv2Build(distutils.command.build.build):
+    def initialize_options(self):
+        distutils.command.build.build.initialize_options(self)
+        self.build_base = build_arch
+        os.makedirs(self.build_base, exist_ok=True)
+
+class Exiv2EggInfo(setuptools.command.egg_info.egg_info):
+    def initialize_options(self):
+        setuptools.command.egg_info.egg_info.initialize_options(self)
+        self.egg_base = build_arch
+        os.makedirs(self.egg_base, exist_ok=True)
+
 setup_kwds = {
+    'cmdclass': {'build': Exiv2Build, 'egg_info': Exiv2EggInfo},
     'ext_package': 'exiv2',
     'ext_modules': ext_modules,
     'packages': packages,
