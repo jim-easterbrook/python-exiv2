@@ -1,0 +1,71 @@
+name: Build python-exiv2 wheels (prebuilt libexiv2)
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - ubuntu-22.04-arm
+          - macos-13
+          - macos-14
+          - windows-2022
+        include:
+          - os: ubuntu-22.04
+            arch: Linux-x86_64
+          - os: ubuntu-22.04-arm
+            arch: Linux-aarch64
+          - os: macos-13
+            arch: Darwin-x86_64
+            target: 13.7
+          - os: macos-14
+            arch: Darwin-arm64
+            target: 14.0
+          - os: windows-2022
+            arch: 2022msvc-AMD64
+    defaults:
+      run:
+        shell: bash
+    env:
+      EXIV2_VSN: 0.28.7
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Download exiv2.tar.gz
+        if: ${{ runner.os != 'Windows' }}
+        run: |
+          wget -nv https://github.com/Exiv2/exiv2/releases/download/v${{ env.EXIV2_VSN }}/exiv2-${{ env.EXIV2_VSN }}-${{ matrix.arch }}.tar.gz -O - |
+          tar zxf -
+
+      - name: Download exiv2.zip
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          c:/msys64/usr/bin/wget.exe -nv https://github.com/Exiv2/exiv2/releases/download/v${{ env.EXIV2_VSN }}/exiv2-${{ env.EXIV2_VSN }}-${{ matrix.arch }}.zip -O exiv2.zip
+          unzip exiv2.zip
+
+      - name: Build wheels
+        # cibuildwheel@v3.x omits Python 3.6 & 3.7
+        uses: pypa/cibuildwheel@v3.1.4
+        env:
+          CIBW_ARCHS: auto64
+          CIBW_ENVIRONMENT: >
+            EXIV2_ROOT=exiv2-${{ env.EXIV2_VSN }}-${{ matrix.arch }}
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_34
+          CIBW_MANYLINUX_AARCH64_IMAGE: manylinux_2_34
+          CIBW_BUILD: "cp*"
+          CIBW_SKIP: "*musllinux* cp314*"
+          CIBW_BEFORE_ALL_MACOS: brew install inih
+          CIBW_TEST_COMMAND: >
+            python -m exiv2 -v &&
+            python -m unittest discover {project}/tests -v
+          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.target }}
+
+      - name: Store results
+        uses: actions/upload-artifact@v4
+        with:
+          name: exiv2-wheels-${{ runner.os }}-${{ runner.arch }}
+          path: wheelhouse/*.whl
