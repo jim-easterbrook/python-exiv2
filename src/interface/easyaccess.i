@@ -72,4 +72,9 @@ EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::subjectArea)
             SWIG_as_voidptr(&(*$1)), $descriptor(Exiv2::Exifdatum*), 0);
 %}
 
+// Development version of exiv2 removes class declaration inside namespace
+#if EXIV2_VERSION_HEX >= 0x001d0000
+#define ExifData Exiv2::ExifData
+#endif
+
 %include "exiv2/easyaccess.hpp"

@@ -50,10 +50,13 @@ static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
 DATA_CONTAINER(XmpData, Xmpdatum, XmpKey)
 
 // Ignore const overloads of some methods
-%ignore Exiv2::XmpData::operator[];
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;
 %ignore Exiv2::XmpData::findKey(XmpKey const &) const;
+
+// Ignore other stuff Python doesn't need or can't use
+%ignore Exiv2::operatorHelper;
+%ignore Exiv2::XmpData::operator[];
 %ignore Exiv2::XmpParser::decode;
 %ignore Exiv2::XmpParser::encode;
 

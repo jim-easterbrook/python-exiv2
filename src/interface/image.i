@@ -86,7 +86,7 @@ DECLARE_METADATUM_WRAPPERS(XmpData, Xmpdatum)
 
 // In exiv2 v 0.28.6 iccProfileDefined expects Image to be const,
 // use old non-const version for compatibility with all exiv2 0.28.x
-#if EXIV2_VERSION_HEX >= 0x001c0600
+#if EXIV2_VERSION_HEX >= 0x001c0600 && EXIV2_VERSION_HEX < 0x001d0000
 %feature("docstring") Exiv2::Image::iccProfileDefined
     "Returns the status of the ICC profile in the image instance"
 %extend Exiv2::Image {
