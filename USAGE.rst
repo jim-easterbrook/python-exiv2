@@ -225,14 +225,16 @@ If you don't want to use the data numerically then you can just use strings for 
     value = str(datum.value())
     exifData['Exif.GPSInfo.GPSLatitude'] = '47/1 49/1 31822/1000'
 
-Iterators
----------
+Iterators & references
+----------------------
 
 The ``Exiv2::ExifData``, ``Exiv2::IptcData``, and ``Exiv2::XmpData`` classes use C++ iterators to expose private data, for example the ``ExifData`` class has a private member of ``std::list<Exifdatum>`` type.
 The classes have public ``begin()``, ``end()``, and ``findKey()`` methods that return ``std::list`` iterators.
-In C++ you can dereference one of these iterators to access the ``Exifdatum`` object, but Python doesn't have a dereference operator.
+They also have ``[key]`` operators that return a pointer to an ``Exifdatum`` object.
 
-This Python interface converts the ``std::list`` iterator to a Python object that has access to all the ``Exifdatum`` object's methods without dereferencing.
+In C++ you can dereference one of these pointers to access the ``Exifdatum`` object, but Python doesn't have a dereference operator.
+
+In python-exiv2 the iterators (and references since v0.18.0) are wrapped in a Python object that has access to all the ``Exifdatum`` object's methods without dereferencing.
 For example:
 
 .. code:: python
@@ -305,31 +307,11 @@ This allows them to be used in a very Pythonic style:
 Warning: segmentation faults
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
-Just as in C++, there is no way to detect that an iterator has become invalid.
+If a pointer is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid pointer.
+Just as in C++, there is no way to detect that a pointer has become invalid.
 
-Since v0.18.0 python-exiv2 can invalidate iterators if the data container is resized, but you should not expect this to work in all circumstances.
-
-Segmentation faults
--------------------
-
-There are many places in the libexiv2 C++ API where objects hold references to data in other objects.
-This is more efficient than copying the data, but can cause segmentation faults if an object is deleted while another objects refers to its data.
-
-The Python interface tries to protect the user from this but in some cases this is not possible.
-For example, an `Exiv2::Metadatum`_ object holds a reference to data that can easily be invalidated:
-
-.. code:: python
-
-    exifData = image.exifData()
-    datum = exifData['Exif.GPSInfo.GPSLatitude']
-    print(str(datum.value()))                       # no problem
-    del exifData['Exif.GPSInfo.GPSLatitude']
-    print(str(datum.value()))                       # segfault!
-
-Segmentation faults are also easily caused by careless use of iterators or memory blocks, as discussed below.
-There may be other cases where the Python interface doesn't prevent segfaults.
-Please let me know if you find any.
+Since v0.18.0 python-exiv2 (if built with swig >= 4.4) tries to invalidate pointers if the data they point to is deleted.
+Please let me know if you encounter any problems with segmentation faults.
 
 Binary data input
 -----------------
