@@ -16,6 +16,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+// Import directory depends on exiv2 version being swigged
+%include "enum_members.i"
+
 // Macros to make enums more Pythonic
 
 // Import exiv2 package
@@ -34,32 +37,6 @@ static PyObject* exiv2_module = NULL;
 // static variable to hold Python enum object
 %fragment("_declare_enum_object"{pattern}, "header") {
 static PyObject* PyEnum_%mangle(pattern) = NULL;
-}
-
-// Function to initialise Python enum
-%fragment("_create_enum_object"{pattern}, "header",
-          fragment="_import_py_enum",
-          fragment="_declare_enum_object"{pattern}) {
-static PyObject* _create_enum_%mangle(pattern)(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_%mangle(pattern) = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_%mangle(pattern))
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_%mangle(pattern), "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_%mangle(pattern), "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_%mangle(pattern));
-    return PyEnum_%mangle(pattern);
-};
 }
 
 // typemap to disambiguate enum from int
@@ -107,28 +84,40 @@ static PyObject* py_from_enum_%mangle(pattern)(long value) {
 }
 %enddef // _ENUM_COMMON
 
-%fragment("get_enum_list", "header") {
-// Function to append a name, value pair to a list of enum members
-static void extend_enum_list(PyObject* list, const char* label, int value) {
-    PyObject* py_obj = Py_BuildValue("(si)", label, value);
-    PyList_Append(list, py_obj);
-    Py_DECREF(py_obj);
-};
-// Function to return enum members as Python list
+// Import exiv2._create_enum module
+%fragment("import_create_enum", "init") {
+exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
+if (!exiv2_create_enum)
+    return INIT_ERROR_RETURN;
+}
+
+// Call Python function to get enum
+%fragment("_get_enum_data", "header", fragment="import_create_enum") {
 #include <cstdarg>
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
+
+static PyObject* exiv2_create_enum = NULL;
+
+// Convert enum names & values to a Python list
+static PyObject* _get_enum_data(const char* name, ...) {
     PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
+    PyObject* members = PyList_New(0);
+    va_list args;
+    va_start(args, name);
+    char* label = va_arg(args, char*);
     while (label) {
-        extend_enum_list(result, label, va_arg(args, int));
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(members, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
-    return result;
+    return members;
+};
+// Call Python to create an enum from list of names & values
+static PyObject* _create_enum(const char* name, const char* alias_strip,
+                              PyObject* members) {
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
+                               name, alias_strip, members);
 };
 }
 
@@ -166,61 +155,35 @@ static PyObject* get_enum_typeobject_%mangle(Exiv2::name)() {
 }
 %enddef // IMPORT_ENUM
 
-%define DEFINE_ENUM_FROM_FUNC(name, doc, func)
-IMPORT_ENUM(name)
-// Add enum to module during init
-%fragment("_create_enum_object"{Exiv2::name});
-%fragment("get_enum_list");
-%constant PyObject* name = _create_enum_%mangle(Exiv2::name)(
-    "name", doc, func());
-%ignore Exiv2::name;
-%enddef // DEFINE_ENUM_FROM_FUNC
-
-%define DEFINE_ENUM(name, doc, contents...)
-IMPORT_ENUM(name)
-// Add enum to module during init
-%fragment("_create_enum_object"{Exiv2::name});
-%fragment("get_enum_list");
-%constant PyObject* name = _create_enum_%mangle(Exiv2::name)(
-    "name", doc, _get_enum_list(0, contents, NULL));
-%ignore Exiv2::name;
-%enddef // DEFINE_ENUM
-
-%define DEPRECATED_ENUM(moved_to, enum_name, doc, contents...)
-// typemap to disambiguate enum from int
-%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
-         fragment="_import_py_enum") Exiv2::moved_to::enum_name {
-    $1 = PyObject_IsInstance($input, Py_IntEnum);
+%define _GET_ENUM_FROM_DATA(full_name, alias_strip)
+%fragment("_store_enum_object"{full_name}, "init",
+          fragment="_declare_enum_object"{full_name},
+          fragment="_get_enum_data"{full_name}) {
+PyEnum_%mangle(full_name) = _create_enum(
+    #full_name, #alias_strip, _get_enum_data_%mangle(full_name)());
+if (!PyEnum_%mangle(full_name))
+    return INIT_ERROR_RETURN;
 }
+%fragment("_store_enum_object"{full_name});
+%enddef // _GET_ENUM_FROM_DATA
 
-%fragment("get_enum_list");
-%noexception _enum_list_##enum_name;
-%inline %{
-PyObject* _enum_list_##enum_name() {
-    return _get_enum_list(0, contents, NULL);
-};
-%}
+%define NEW_DEFINE_ENUM(name, alias_strip)
+IMPORT_ENUM(name)
+_GET_ENUM_FROM_DATA(Exiv2::name, alias_strip)
+// Add enum to module during init
+%constant PyObject* name = PyEnum_%mangle(Exiv2::name);
+%ignore Exiv2::name;
+%enddef // NEW_DEFINE_ENUM
+
+
+%define DEPRECATED_ENUM(moved_to, name, alias_strip)
 %pythoncode %{
-import enum
+from exiv2._create_enum import _deprecated_enum
 
-class enum_name##Meta(enum.EnumMeta):
-    def __getattribute__(cls, name):
-        obj = super().__getattribute__(name)
-        if isinstance(obj, enum.Enum):
-            import warnings
-            warnings.warn(
-                "Use 'moved_to.enum_name' instead of 'enum_name'",
-                DeprecationWarning)
-        return obj
-
-class Deprecated##enum_name(enum.IntEnum, metaclass=enum_name##Meta):
-    pass
-
-enum_name = Deprecated##enum_name('enum_name', _enum_list_##enum_name())
-enum_name.__doc__ = doc
+name = _deprecated_enum(#name, #moved_to, moved_to.name)
 %}
-%ignore Exiv2::enum_name;
 %enddef // DEPRECATED_ENUM
+
 
 %define IMPORT_CLASS_ENUM(klass, name)
 _ENUM_COMMON(Exiv2::klass::name);
@@ -244,14 +207,12 @@ static PyObject* get_enum_typeobject_%mangle(Exiv2::klass::name)() {
 }
 %enddef // IMPORT_CLASS_ENUM
 
-%define DEFINE_CLASS_ENUM(class, name, doc, contents...)
+%define NEW_DEFINE_CLASS_ENUM(class, name, alias_strip)
 IMPORT_CLASS_ENUM(class, name)
+_GET_ENUM_FROM_DATA(Exiv2::class::name, alias_strip)
 // Add enum as static class member during module init
 %extend Exiv2::class {
-%fragment("_create_enum_object"{Exiv2::class::name});
-%fragment("get_enum_list");
-%constant PyObject* name = _create_enum_%mangle(Exiv2::class::name)(
-    "name", doc, _get_enum_list(0, contents, NULL));
+%constant PyObject* name = PyEnum_%mangle(Exiv2::class::name);
 }
 %ignore Exiv2::class::name;
-%enddef // DEFINE_CLASS_ENUM
+%enddef // NEW_DEFINE_CLASS_ENUM

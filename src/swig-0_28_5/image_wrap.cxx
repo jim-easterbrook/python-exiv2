@@ -4570,55 +4570,72 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-static PyObject* Py_IntEnum = NULL;
-
-
 static PyObject* PyEnum_Exiv2_ImageType = NULL;
 
 
-static PyObject* _create_enum_Exiv2_ImageType(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_ImageType = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_ImageType)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_ImageType, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_ImageType, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_ImageType);
-    return PyEnum_Exiv2_ImageType;
-};
 
 
-// Function to append a name, value pair to a list of enum members
-static void extend_enum_list(PyObject* list, const char* label, int value) {
-    PyObject* py_obj = Py_BuildValue("(si)", label, value);
-    PyList_Append(list, py_obj);
-    Py_DECREF(py_obj);
-};
-// Function to return enum members as Python list
+static PyObject* exiv2_create_enum = NULL;
 
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
+// Convert enum names & values to a Python list
+static PyObject* _get_enum_data(const char* name, ...) {
     PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
+    PyObject* members = PyList_New(0);
+    va_list args;
+    va_start(args, name);
+    char* label = va_arg(args, char*);
     while (label) {
-        extend_enum_list(result, label, va_arg(args, int));
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(members, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
-    return result;
+    return members;
+};
+// Call Python to create an enum from list of names & values
+static PyObject* _create_enum(const char* name, const char* alias_strip,
+                              PyObject* members) {
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
+                               name, alias_strip, members);
+};
+
+
+static PyObject* _get_enum_data_Exiv2_ImageType() {
+    return _get_enum_data("Exiv2::ImageType",
+        "none", Exiv2::ImageType::none,
+        "arw", Exiv2::ImageType::arw,
+        "asf", Exiv2::ImageType::asf,
+        "bigtiff", Exiv2::ImageType::bigtiff,
+        "bmff", Exiv2::ImageType::bmff,
+        "bmp", Exiv2::ImageType::bmp,
+        "cr2", Exiv2::ImageType::cr2,
+        "crw", Exiv2::ImageType::crw,
+        "dng", Exiv2::ImageType::dng,
+        "eps", Exiv2::ImageType::eps,
+        "exv", Exiv2::ImageType::exv,
+        "gif", Exiv2::ImageType::gif,
+        "jp2", Exiv2::ImageType::jp2,
+        "jpeg", Exiv2::ImageType::jpeg,
+        "mrw", Exiv2::ImageType::mrw,
+        "nef", Exiv2::ImageType::nef,
+        "orf", Exiv2::ImageType::orf,
+        "pef", Exiv2::ImageType::pef,
+        "png", Exiv2::ImageType::png,
+        "pgf", Exiv2::ImageType::pgf,
+        "psd", Exiv2::ImageType::psd,
+        "raf", Exiv2::ImageType::raf,
+        "rw2", Exiv2::ImageType::rw2,
+        "sr2", Exiv2::ImageType::sr2,
+        "srw", Exiv2::ImageType::srw,
+        "tga", Exiv2::ImageType::tga,
+        "tiff", Exiv2::ImageType::tiff,
+        "webp", Exiv2::ImageType::webp,
+        "xmp", Exiv2::ImageType::xmp,
+        "qtime", Exiv2::ImageType::qtime,
+        "riff", Exiv2::ImageType::riff,
+        "mkv", Exiv2::ImageType::mkv,
+        NULL);
 };
 
 
@@ -4797,6 +4814,9 @@ static PyObject* get_enum_typeobject_Exiv2_ByteOrder() {
             exiv2_module, "ByteOrder");
     return PyEnum_Exiv2_ByteOrder;
 };
+
+
+static PyObject* Py_IntEnum = NULL;
 
 
 static PyObject* py_from_enum_Exiv2_ByteOrder(long value) {
@@ -9293,6 +9313,21 @@ SWIG_init(void) {
 #endif
   
   
+  exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
+  if (!exiv2_create_enum)
+  return INIT_ERROR_RETURN;
+  
+  
+  PyEnum_Exiv2_ImageType = _create_enum(
+    "Exiv2::ImageType","", _get_enum_data_Exiv2_ImageType());
+  if (!PyEnum_Exiv2_ImageType)
+  return INIT_ERROR_RETURN;
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ImageType",PyEnum_Exiv2_ImageType);
+  
+  /* type 'Exiv2::Image' */
+  d = PyDict_New();
+  
   {
     PyObject* module = PyImport_ImportModule("enum");
     if (!module)
@@ -9305,14 +9340,6 @@ SWIG_init(void) {
     }
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ImageType",_create_enum_Exiv2_ImageType(
-      "ImageType", "Supported image formats.", _get_enum_list(0, "arw",Exiv2::ImageType::arw,"bmff", Exiv2::ImageType::bmff,
-        "bmp",Exiv2::ImageType::bmp,"cr2",Exiv2::ImageType::cr2,"crw",Exiv2::ImageType::crw,"dng",Exiv2::ImageType::dng,"eps",Exiv2::ImageType::eps,"exv",Exiv2::ImageType::exv,"gif",Exiv2::ImageType::gif,"jp2",Exiv2::ImageType::jp2,"jpeg",Exiv2::ImageType::jpeg,"mrw",Exiv2::ImageType::mrw,"nef",Exiv2::ImageType::nef,"none",Exiv2::ImageType::none,"orf",Exiv2::ImageType::orf,"pgf",Exiv2::ImageType::pgf,"png",Exiv2::ImageType::png,"psd",Exiv2::ImageType::psd,"raf",Exiv2::ImageType::raf,"rw2",Exiv2::ImageType::rw2,"sr2",Exiv2::ImageType::sr2,"srw",Exiv2::ImageType::srw,"tga",Exiv2::ImageType::tga,"tiff",Exiv2::ImageType::tiff,     "asf",   Exiv2::ImageType::asf,      "mkv",   Exiv2::ImageType::mkv,      "qtime", Exiv2::ImageType::qtime,      "riff",  Exiv2::ImageType::riff,
-        "webp", Exiv2::ImageType::webp,
-        "xmp",Exiv2::ImageType::xmp, NULL)));
-  
-  /* type 'Exiv2::Image' */
-  d = PyDict_New();
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);

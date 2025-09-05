@@ -207,42 +207,16 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %ignore Exiv2::Value::toUint32() const;
 
 // Make enums more Pythonic
-DEFINE_CLASS_ENUM(CommentValue, CharsetId,
-    "Character set identifiers for the character sets defined by Exif.",
-    "ascii",            Exiv2::CommentValue::ascii,
-    "jis",              Exiv2::CommentValue::jis,
-    "unicode",          Exiv2::CommentValue::unicode,
-    "undefined",        Exiv2::CommentValue::undefined,
-    "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
-    "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
-DEFINE_CLASS_ENUM(XmpValue, XmpArrayType, "XMP array types.",
-    "xaNone",   Exiv2::XmpValue::xaNone,
-    "xaAlt",    Exiv2::XmpValue::xaAlt,
-    "xaBag",    Exiv2::XmpValue::xaBag,
-    "xaSeq",    Exiv2::XmpValue::xaSeq);
-DEFINE_CLASS_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
-    "xsNone",   Exiv2::XmpValue::xsNone,
-    "xsStruct", Exiv2::XmpValue::xsStruct);
+NEW_DEFINE_CLASS_ENUM(CommentValue, CharsetId,)
+NEW_DEFINE_CLASS_ENUM(XmpValue, XmpArrayType,)
+NEW_DEFINE_CLASS_ENUM(XmpValue, XmpStruct,)
 
 // deprecated since 2023-12-01
-DEPRECATED_ENUM(CommentValue, CharsetId,
-    "Character set identifiers for the character sets defined by Exif.",
-        "ascii",            Exiv2::CommentValue::ascii,
-        "jis",              Exiv2::CommentValue::jis,
-        "unicode",          Exiv2::CommentValue::unicode,
-        "undefined",        Exiv2::CommentValue::undefined,
-        "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
-        "lastCharsetId",    Exiv2::CommentValue::lastCharsetId);
+DEPRECATED_ENUM(CommentValue, CharsetId,)
 // deprecated since 2023-12-01
-DEPRECATED_ENUM(XmpValue, XmpArrayType, "XMP array types.",
-        "xaNone",   Exiv2::XmpValue::xaNone,
-        "xaAlt",    Exiv2::XmpValue::xaAlt,
-        "xaBag",    Exiv2::XmpValue::xaBag,
-        "xaSeq",    Exiv2::XmpValue::xaSeq);
+DEPRECATED_ENUM(XmpValue, XmpArrayType,)
 // deprecated since 2023-12-01
-DEPRECATED_ENUM(XmpValue, XmpStruct, "XMP structure indicator.",
-        "xsNone",   Exiv2::XmpValue::xsNone,
-        "xsStruct", Exiv2::XmpValue::xsStruct);
+DEPRECATED_ENUM(XmpValue, XmpStruct,)
 
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value

@@ -191,54 +191,23 @@ KEEP_REFERENCE(Exiv2::DataBuf&)
 // so treat it as a non-modifiable std::string
 %apply const std::string& {std::string& xmpPacket};
 
-// Make image types available
-#if (EXIV2_VERSION_HEX >= 0x001c0000)
-#define _BMFF "bmff", Exiv2::ImageType::bmff,
-#define _WEBP "webp", Exiv2::ImageType::webp,
-#define _VIDEO \
-    "asf",   Exiv2::ImageType::asf, \
-    "mkv",   Exiv2::ImageType::mkv, \
-    "qtime", Exiv2::ImageType::qtime, \
-    "riff",  Exiv2::ImageType::riff,
-#else
-#define _BMFF "bmff", int(19),
-#define _WEBP "webp", int(23),
-#define _VIDEO \
-    "asf",   int(24), \
-    "mkv",   int(21), \
-    "qtime", int(22), \
-    "riff",  int(20),
+#if EXIV2_VERSION_HEX < 0x001c0000
+// Extend ImageType namespace with ones that don't get picked up by swig
+%{
+namespace Exiv2::ImageType {
+    const int asf = 24;
+#if !EXIV2_TEST_VERSION(0,27,4)
+    const int bmff = 19;
+#endif
+    const int mkv = 21;
+    const int qtime = 22;
+    const int riff = 20;
+    const int webp = 23;
+}
+%}
 #endif
 
-DEFINE_ENUM(ImageType, "Supported image formats.",
-        "arw",  Exiv2::ImageType::arw,
-        _BMFF
-        "bmp",  Exiv2::ImageType::bmp,
-        "cr2",  Exiv2::ImageType::cr2,
-        "crw",  Exiv2::ImageType::crw,
-        "dng",  Exiv2::ImageType::dng,
-        "eps",  Exiv2::ImageType::eps,
-        "exv",  Exiv2::ImageType::exv,
-        "gif",  Exiv2::ImageType::gif,
-        "jp2",  Exiv2::ImageType::jp2,
-        "jpeg", Exiv2::ImageType::jpeg,
-        "mrw",  Exiv2::ImageType::mrw,
-        "nef",  Exiv2::ImageType::nef,
-        "none", Exiv2::ImageType::none,
-        "orf",  Exiv2::ImageType::orf,
-        "pgf",  Exiv2::ImageType::pgf,
-        "png",  Exiv2::ImageType::png,
-        "psd",  Exiv2::ImageType::psd,
-        "raf",  Exiv2::ImageType::raf,
-        "rw2",  Exiv2::ImageType::rw2,
-        "sr2",  Exiv2::ImageType::sr2,
-        "srw",  Exiv2::ImageType::srw,
-        "tga",  Exiv2::ImageType::tga,
-        "tiff", Exiv2::ImageType::tiff,
-        _VIDEO
-        _WEBP
-        "xmp",  Exiv2::ImageType::xmp);
-%ignore Exiv2::ImageType::none;
+NEW_DEFINE_ENUM(ImageType,)
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Convert ImageType results and parameters from int

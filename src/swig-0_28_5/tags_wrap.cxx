@@ -4355,80 +4355,213 @@ fail:
 };
 
 
-static PyObject* Py_IntEnum = NULL;
-
-
 static PyObject* PyEnum_Exiv2_IfdId = NULL;
 
 
-static PyObject* _create_enum_Exiv2_IfdId(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_IfdId = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_IfdId)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_IfdId, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_IfdId, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_IfdId);
-    return PyEnum_Exiv2_IfdId;
-};
 
 
-// Function to append a name, value pair to a list of enum members
-static void extend_enum_list(PyObject* list, const char* label, int value) {
-    PyObject* py_obj = Py_BuildValue("(si)", label, value);
-    PyList_Append(list, py_obj);
-    Py_DECREF(py_obj);
-};
-// Function to return enum members as Python list
+static PyObject* exiv2_create_enum = NULL;
 
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
+// Convert enum names & values to a Python list
+static PyObject* _get_enum_data(const char* name, ...) {
     PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
+    PyObject* members = PyList_New(0);
+    va_list args;
+    va_start(args, name);
+    char* label = va_arg(args, char*);
     while (label) {
-        extend_enum_list(result, label, va_arg(args, int));
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(members, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
-    return result;
+    return members;
+};
+// Call Python to create an enum from list of names & values
+static PyObject* _create_enum(const char* name, const char* alias_strip,
+                              PyObject* members) {
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
+                               name, alias_strip, members);
+};
+
+
+static PyObject* _get_enum_data_Exiv2_IfdId() {
+    return _get_enum_data("Exiv2::IfdId",
+        "ifdIdNotSet", Exiv2::IfdId::ifdIdNotSet,
+        "ifd0Id", Exiv2::IfdId::ifd0Id,
+        "ifd1Id", Exiv2::IfdId::ifd1Id,
+        "ifd2Id", Exiv2::IfdId::ifd2Id,
+        "ifd3Id", Exiv2::IfdId::ifd3Id,
+        "exifId", Exiv2::IfdId::exifId,
+        "gpsId", Exiv2::IfdId::gpsId,
+        "iopId", Exiv2::IfdId::iopId,
+        "mpfId", Exiv2::IfdId::mpfId,
+        "subImage1Id", Exiv2::IfdId::subImage1Id,
+        "subImage2Id", Exiv2::IfdId::subImage2Id,
+        "subImage3Id", Exiv2::IfdId::subImage3Id,
+        "subImage4Id", Exiv2::IfdId::subImage4Id,
+        "subImage5Id", Exiv2::IfdId::subImage5Id,
+        "subImage6Id", Exiv2::IfdId::subImage6Id,
+        "subImage7Id", Exiv2::IfdId::subImage7Id,
+        "subImage8Id", Exiv2::IfdId::subImage8Id,
+        "subImage9Id", Exiv2::IfdId::subImage9Id,
+        "subThumb1Id", Exiv2::IfdId::subThumb1Id,
+        "panaRawId", Exiv2::IfdId::panaRawId,
+        "mnId", Exiv2::IfdId::mnId,
+        "canonId", Exiv2::IfdId::canonId,
+        "canonAfCId", Exiv2::IfdId::canonAfCId,
+        "canonAfMiAdjId", Exiv2::IfdId::canonAfMiAdjId,
+        "canonAmId", Exiv2::IfdId::canonAmId,
+        "canonAsId", Exiv2::IfdId::canonAsId,
+        "canonCbId", Exiv2::IfdId::canonCbId,
+        "canonCiId", Exiv2::IfdId::canonCiId,
+        "canonCsId", Exiv2::IfdId::canonCsId,
+        "canonFilId", Exiv2::IfdId::canonFilId,
+        "canonFlId", Exiv2::IfdId::canonFlId,
+        "canonHdrId", Exiv2::IfdId::canonHdrId,
+        "canonLeId", Exiv2::IfdId::canonLeId,
+        "canonMeId", Exiv2::IfdId::canonMeId,
+        "canonMoID", Exiv2::IfdId::canonMoID,
+        "canonMvId", Exiv2::IfdId::canonMvId,
+        "canonRawBId", Exiv2::IfdId::canonRawBId,
+        "canonSiId", Exiv2::IfdId::canonSiId,
+        "canonCfId", Exiv2::IfdId::canonCfId,
+        "canonContrastId", Exiv2::IfdId::canonContrastId,
+        "canonFcd1Id", Exiv2::IfdId::canonFcd1Id,
+        "canonFcd2Id", Exiv2::IfdId::canonFcd2Id,
+        "canonFcd3Id", Exiv2::IfdId::canonFcd3Id,
+        "canonLiOpId", Exiv2::IfdId::canonLiOpId,
+        "canonMyColorID", Exiv2::IfdId::canonMyColorID,
+        "canonPiId", Exiv2::IfdId::canonPiId,
+        "canonPaId", Exiv2::IfdId::canonPaId,
+        "canonTiId", Exiv2::IfdId::canonTiId,
+        "canonFiId", Exiv2::IfdId::canonFiId,
+        "canonPrId", Exiv2::IfdId::canonPrId,
+        "canonPreID", Exiv2::IfdId::canonPreID,
+        "canonVigCorId", Exiv2::IfdId::canonVigCorId,
+        "canonVigCor2Id", Exiv2::IfdId::canonVigCor2Id,
+        "canonWbId", Exiv2::IfdId::canonWbId,
+        "casioId", Exiv2::IfdId::casioId,
+        "casio2Id", Exiv2::IfdId::casio2Id,
+        "fujiId", Exiv2::IfdId::fujiId,
+        "minoltaId", Exiv2::IfdId::minoltaId,
+        "minoltaCs5DId", Exiv2::IfdId::minoltaCs5DId,
+        "minoltaCs7DId", Exiv2::IfdId::minoltaCs7DId,
+        "minoltaCsOldId", Exiv2::IfdId::minoltaCsOldId,
+        "minoltaCsNewId", Exiv2::IfdId::minoltaCsNewId,
+        "nikon1Id", Exiv2::IfdId::nikon1Id,
+        "nikon2Id", Exiv2::IfdId::nikon2Id,
+        "nikon3Id", Exiv2::IfdId::nikon3Id,
+        "nikonPvId", Exiv2::IfdId::nikonPvId,
+        "nikonVrId", Exiv2::IfdId::nikonVrId,
+        "nikonPcId", Exiv2::IfdId::nikonPcId,
+        "nikonWtId", Exiv2::IfdId::nikonWtId,
+        "nikonIiId", Exiv2::IfdId::nikonIiId,
+        "nikonAfId", Exiv2::IfdId::nikonAfId,
+        "nikonAf21Id", Exiv2::IfdId::nikonAf21Id,
+        "nikonAf22Id", Exiv2::IfdId::nikonAf22Id,
+        "nikonAFTId", Exiv2::IfdId::nikonAFTId,
+        "nikonFiId", Exiv2::IfdId::nikonFiId,
+        "nikonMeId", Exiv2::IfdId::nikonMeId,
+        "nikonFl1Id", Exiv2::IfdId::nikonFl1Id,
+        "nikonFl2Id", Exiv2::IfdId::nikonFl2Id,
+        "nikonFl3Id", Exiv2::IfdId::nikonFl3Id,
+        "nikonFl6Id", Exiv2::IfdId::nikonFl6Id,
+        "nikonFl7Id", Exiv2::IfdId::nikonFl7Id,
+        "nikonSi1Id", Exiv2::IfdId::nikonSi1Id,
+        "nikonSi2Id", Exiv2::IfdId::nikonSi2Id,
+        "nikonSi3Id", Exiv2::IfdId::nikonSi3Id,
+        "nikonSi4Id", Exiv2::IfdId::nikonSi4Id,
+        "nikonSi5Id", Exiv2::IfdId::nikonSi5Id,
+        "nikonSi6Id", Exiv2::IfdId::nikonSi6Id,
+        "nikonLd1Id", Exiv2::IfdId::nikonLd1Id,
+        "nikonLd2Id", Exiv2::IfdId::nikonLd2Id,
+        "nikonLd3Id", Exiv2::IfdId::nikonLd3Id,
+        "nikonLd4Id", Exiv2::IfdId::nikonLd4Id,
+        "nikonCb1Id", Exiv2::IfdId::nikonCb1Id,
+        "nikonCb2Id", Exiv2::IfdId::nikonCb2Id,
+        "nikonCb2aId", Exiv2::IfdId::nikonCb2aId,
+        "nikonCb2bId", Exiv2::IfdId::nikonCb2bId,
+        "nikonCb3Id", Exiv2::IfdId::nikonCb3Id,
+        "nikonCb4Id", Exiv2::IfdId::nikonCb4Id,
+        "olympusId", Exiv2::IfdId::olympusId,
+        "olympus2Id", Exiv2::IfdId::olympus2Id,
+        "olympusCsId", Exiv2::IfdId::olympusCsId,
+        "olympusEqId", Exiv2::IfdId::olympusEqId,
+        "olympusRdId", Exiv2::IfdId::olympusRdId,
+        "olympusRd2Id", Exiv2::IfdId::olympusRd2Id,
+        "olympusIpId", Exiv2::IfdId::olympusIpId,
+        "olympusFiId", Exiv2::IfdId::olympusFiId,
+        "olympusFe1Id", Exiv2::IfdId::olympusFe1Id,
+        "olympusFe2Id", Exiv2::IfdId::olympusFe2Id,
+        "olympusFe3Id", Exiv2::IfdId::olympusFe3Id,
+        "olympusFe4Id", Exiv2::IfdId::olympusFe4Id,
+        "olympusFe5Id", Exiv2::IfdId::olympusFe5Id,
+        "olympusFe6Id", Exiv2::IfdId::olympusFe6Id,
+        "olympusFe7Id", Exiv2::IfdId::olympusFe7Id,
+        "olympusFe8Id", Exiv2::IfdId::olympusFe8Id,
+        "olympusFe9Id", Exiv2::IfdId::olympusFe9Id,
+        "olympusRiId", Exiv2::IfdId::olympusRiId,
+        "panasonicId", Exiv2::IfdId::panasonicId,
+        "pentaxId", Exiv2::IfdId::pentaxId,
+        "pentaxDngId", Exiv2::IfdId::pentaxDngId,
+        "samsung2Id", Exiv2::IfdId::samsung2Id,
+        "samsungPvId", Exiv2::IfdId::samsungPvId,
+        "samsungPwId", Exiv2::IfdId::samsungPwId,
+        "sigmaId", Exiv2::IfdId::sigmaId,
+        "sony1Id", Exiv2::IfdId::sony1Id,
+        "sony2Id", Exiv2::IfdId::sony2Id,
+        "sonyMltId", Exiv2::IfdId::sonyMltId,
+        "sony1CsId", Exiv2::IfdId::sony1CsId,
+        "sony1Cs2Id", Exiv2::IfdId::sony1Cs2Id,
+        "sony2CsId", Exiv2::IfdId::sony2CsId,
+        "sony2Cs2Id", Exiv2::IfdId::sony2Cs2Id,
+        "sony2FpId", Exiv2::IfdId::sony2FpId,
+        "sonyMisc1Id", Exiv2::IfdId::sonyMisc1Id,
+        "sonyMisc2bId", Exiv2::IfdId::sonyMisc2bId,
+        "sonyMisc3cId", Exiv2::IfdId::sonyMisc3cId,
+        "sonySInfo1Id", Exiv2::IfdId::sonySInfo1Id,
+        "sony2010eId", Exiv2::IfdId::sony2010eId,
+        "sony1MltCs7DId", Exiv2::IfdId::sony1MltCs7DId,
+        "sony1MltCsOldId", Exiv2::IfdId::sony1MltCsOldId,
+        "sony1MltCsNewId", Exiv2::IfdId::sony1MltCsNewId,
+        "sony1MltCsA100Id", Exiv2::IfdId::sony1MltCsA100Id,
+        "tagInfoMvId", Exiv2::IfdId::tagInfoMvId,
+        "lastId", Exiv2::IfdId::lastId,
+        "ignoreId", Exiv2::IfdId::ignoreId,
+        NULL);
 };
 
 
 static PyObject* PyEnum_Exiv2_SectionId = NULL;
 
 
-static PyObject* _create_enum_Exiv2_SectionId(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_SectionId = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_SectionId)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_SectionId, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_SectionId, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_SectionId);
-    return PyEnum_Exiv2_SectionId;
+static PyObject* _get_enum_data_Exiv2_SectionId() {
+    return _get_enum_data("Exiv2::SectionId",
+        "sectionIdNotSet", Exiv2::SectionId::sectionIdNotSet,
+        "imgStruct", Exiv2::SectionId::imgStruct,
+        "recOffset", Exiv2::SectionId::recOffset,
+        "imgCharacter", Exiv2::SectionId::imgCharacter,
+        "otherTags", Exiv2::SectionId::otherTags,
+        "exifFormat", Exiv2::SectionId::exifFormat,
+        "exifVersion", Exiv2::SectionId::exifVersion,
+        "imgConfig", Exiv2::SectionId::imgConfig,
+        "userInfo", Exiv2::SectionId::userInfo,
+        "relatedFile", Exiv2::SectionId::relatedFile,
+        "dateTime", Exiv2::SectionId::dateTime,
+        "captureCond", Exiv2::SectionId::captureCond,
+        "gpsTags", Exiv2::SectionId::gpsTags,
+        "iopTags", Exiv2::SectionId::iopTags,
+        "mpfTags", Exiv2::SectionId::mpfTags,
+        "makerTags", Exiv2::SectionId::makerTags,
+        "dngTags", Exiv2::SectionId::dngTags,
+        "panaRaw", Exiv2::SectionId::panaRaw,
+        "tiffEp", Exiv2::SectionId::tiffEp,
+        "tiffPm6", Exiv2::SectionId::tiffPm6,
+        "adobeOpi", Exiv2::SectionId::adobeOpi,
+        "lastSectionId", Exiv2::SectionId::lastSectionId,
+        NULL);
 };
 
 
@@ -8944,25 +9077,24 @@ SWIG_init(void) {
   }
   
   
-  {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-    return INIT_ERROR_RETURN;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum) {
-      PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return INIT_ERROR_RETURN;
-    }
-  }
+  exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
+  if (!exiv2_create_enum)
+  return INIT_ERROR_RETURN;
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId",_create_enum_Exiv2_IfdId(
-      "IfdId", "Type to specify the IFD to which a metadata belongs.\n"
-      "\nMaker note IFDs have been omitted from this enum.", _get_enum_list(0, "ifdIdNotSet",Exiv2::IfdId::ifdIdNotSet,"ifd0Id",Exiv2::IfdId::ifd0Id,"ifd1Id",Exiv2::IfdId::ifd1Id,"ifd2Id",Exiv2::IfdId::ifd2Id,"ifd3Id",Exiv2::IfdId::ifd3Id,"exifId",Exiv2::IfdId::exifId,"gpsId",Exiv2::IfdId::gpsId,"iopId",Exiv2::IfdId::iopId,"mpfId",Exiv2::IfdId::mpfId,"subImage1Id",Exiv2::IfdId::subImage1Id,"subImage2Id",Exiv2::IfdId::subImage2Id,"subImage3Id",Exiv2::IfdId::subImage3Id,"subImage4Id",Exiv2::IfdId::subImage4Id,"subImage5Id",Exiv2::IfdId::subImage5Id,"subImage6Id",Exiv2::IfdId::subImage6Id,"subImage7Id",Exiv2::IfdId::subImage7Id,"subImage8Id",Exiv2::IfdId::subImage8Id,"subImage9Id",Exiv2::IfdId::subImage9Id,"subThumb1Id",Exiv2::IfdId::subThumb1Id,"lastId",Exiv2::IfdId::lastId,"ignoreId",Exiv2::IfdId::ignoreId, NULL)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId",_create_enum_Exiv2_SectionId(
-      "SectionId", "Section identifiers to logically group tags.\n"
-      "\nA section consists of nothing more than a name, based on the"
-      "\nExif standard.", _get_enum_list(0, "sectionIfNotSet",Exiv2::SectionId::sectionIdNotSet,"imgStruct",Exiv2::SectionId::imgStruct,"recOffset",Exiv2::SectionId::recOffset,"imgCharacter",Exiv2::SectionId::imgCharacter,"otherTags",Exiv2::SectionId::otherTags,"exifFormat",Exiv2::SectionId::exifFormat,"exifVersion",Exiv2::SectionId::exifVersion,"imgConfig",Exiv2::SectionId::imgConfig,"userInfo",Exiv2::SectionId::userInfo,"relatedFile",Exiv2::SectionId::relatedFile,"dateTime",Exiv2::SectionId::dateTime,"captureCond",Exiv2::SectionId::captureCond,"gpsTags",Exiv2::SectionId::gpsTags,"iopTags",Exiv2::SectionId::iopTags,"mpfTags",Exiv2::SectionId::mpfTags,"makerTags",Exiv2::SectionId::makerTags,"dngTags",Exiv2::SectionId::dngTags,"panaRaw",Exiv2::SectionId::panaRaw,"tiffEp",Exiv2::SectionId::tiffEp,"tiffPm6",Exiv2::SectionId::tiffPm6,"adobeOpi",Exiv2::SectionId::adobeOpi,"lastSectionId",Exiv2::SectionId::lastSectionId, NULL)));
+  
+  PyEnum_Exiv2_IfdId = _create_enum(
+    "Exiv2::IfdId","", _get_enum_data_Exiv2_IfdId());
+  if (!PyEnum_Exiv2_IfdId)
+  return INIT_ERROR_RETURN;
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId",PyEnum_Exiv2_IfdId);
+  
+  PyEnum_Exiv2_SectionId = _create_enum(
+    "Exiv2::SectionId","", _get_enum_data_Exiv2_SectionId());
+  if (!PyEnum_Exiv2_SectionId)
+  return INIT_ERROR_RETURN;
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId",PyEnum_Exiv2_SectionId);
   
   /* type '::_TagListFct' */
   d = PyDict_New();

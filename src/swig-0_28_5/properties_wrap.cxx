@@ -4355,55 +4355,42 @@ fail:
 };
 
 
-static PyObject* Py_IntEnum = NULL;
-
-
 static PyObject* PyEnum_Exiv2_XmpCategory = NULL;
 
 
-static PyObject* _create_enum_Exiv2_XmpCategory(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_XmpCategory = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_XmpCategory)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpCategory, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpCategory, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_XmpCategory);
-    return PyEnum_Exiv2_XmpCategory;
-};
 
 
-// Function to append a name, value pair to a list of enum members
-static void extend_enum_list(PyObject* list, const char* label, int value) {
-    PyObject* py_obj = Py_BuildValue("(si)", label, value);
-    PyList_Append(list, py_obj);
-    Py_DECREF(py_obj);
-};
-// Function to return enum members as Python list
+static PyObject* exiv2_create_enum = NULL;
 
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
+// Convert enum names & values to a Python list
+static PyObject* _get_enum_data(const char* name, ...) {
     PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
+    PyObject* members = PyList_New(0);
+    va_list args;
+    va_start(args, name);
+    char* label = va_arg(args, char*);
     while (label) {
-        extend_enum_list(result, label, va_arg(args, int));
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(members, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
-    return result;
+    return members;
+};
+// Call Python to create an enum from list of names & values
+static PyObject* _create_enum(const char* name, const char* alias_strip,
+                              PyObject* members) {
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
+                               name, alias_strip, members);
+};
+
+
+static PyObject* _get_enum_data_Exiv2_XmpCategory() {
+    return _get_enum_data("Exiv2::XmpCategory",
+        "xmpInternal", Exiv2::xmpInternal,
+        "xmpExternal", Exiv2::xmpExternal,
+        NULL);
 };
 
 
@@ -8576,20 +8563,17 @@ SWIG_init(void) {
   }
   
   
-  {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-    return INIT_ERROR_RETURN;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum) {
-      PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return INIT_ERROR_RETURN;
-    }
-  }
+  exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
+  if (!exiv2_create_enum)
+  return INIT_ERROR_RETURN;
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",_create_enum_Exiv2_XmpCategory(
-      "XmpCategory", "Category of an XMP property.", _get_enum_list(0, "xmpInternal",Exiv2::xmpInternal,"xmpExternal",Exiv2::xmpExternal,"Internal",Exiv2::xmpInternal,"External",Exiv2::xmpExternal, NULL)));
+  
+  PyEnum_Exiv2_XmpCategory = _create_enum(
+    "Exiv2::XmpCategory","3", _get_enum_data_Exiv2_XmpCategory());
+  if (!PyEnum_Exiv2_XmpCategory)
+  return INIT_ERROR_RETURN;
+  
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",PyEnum_Exiv2_XmpCategory);
   
   /* type 'Exiv2::XmpPropertyInfo' */
   d = PyDict_New();

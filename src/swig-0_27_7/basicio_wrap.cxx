@@ -4407,60 +4407,43 @@ static void releasebuffer_Exiv2_BasicIo(
 };
 
 
-// Function to append a name, value pair to a list of enum members
-static void extend_enum_list(PyObject* list, const char* label, int value) {
-    PyObject* py_obj = Py_BuildValue("(si)", label, value);
-    PyList_Append(list, py_obj);
-    Py_DECREF(py_obj);
-};
-// Function to return enum members as Python list
-
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
-    PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
-    while (label) {
-        extend_enum_list(result, label, va_arg(args, int));
-        label = va_arg(args, char*);
-    }
-    va_end(args);
-    return result;
-};
-
-
-PyObject* _enum_list_Position() {
-    return _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL);
-};
-
-
-static PyObject* Py_IntEnum = NULL;
-
-
 static PyObject* PyEnum_Exiv2_BasicIo_Position = NULL;
 
 
-static PyObject* _create_enum_Exiv2_BasicIo_Position(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_BasicIo_Position = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_BasicIo_Position)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_BasicIo_Position, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_BasicIo_Position, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
-    return PyEnum_Exiv2_BasicIo_Position;
+
+
+static PyObject* exiv2_create_enum = NULL;
+
+// Convert enum names & values to a Python list
+static PyObject* _get_enum_data(const char* name, ...) {
+    PyObject* py_obj = NULL;
+    PyObject* members = PyList_New(0);
+    va_list args;
+    va_start(args, name);
+    char* label = va_arg(args, char*);
+    while (label) {
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(members, py_obj);
+        Py_DECREF(py_obj);
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    return members;
+};
+// Call Python to create an enum from list of names & values
+static PyObject* _create_enum(const char* name, const char* alias_strip,
+                              PyObject* members) {
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
+                               name, alias_strip, members);
+};
+
+
+static PyObject* _get_enum_data_Exiv2_BasicIo_Position() {
+    return _get_enum_data("Exiv2::BasicIo::Position",
+        "beg", Exiv2::BasicIo::beg,
+        "cur", Exiv2::BasicIo::cur,
+        "end", Exiv2::BasicIo::end,
+        NULL);
 };
 
 
@@ -4782,6 +4765,9 @@ static PyObject* get_enum_typeobject_Exiv2_BasicIo_Position() {
 };
 
 
+static PyObject* Py_IntEnum = NULL;
+
+
 SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
@@ -4881,19 +4867,6 @@ SWIGINTERN void Exiv2_BasicIo__view_deleted_cb(Exiv2::BasicIo *self,PyObject *re
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap__enum_list_Position(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *result = 0 ;
-  
-  if (!PyArg_UnpackTuple(args, "_enum_list_Position", 0, 0)) SWIG_fail;
-  result = (PyObject *)_enum_list_Position();
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_BasicIo(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::BasicIo *arg1 = (Exiv2::BasicIo *) 0 ;
@@ -5938,13 +5911,12 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_BasicIo) /* defines _wrap_delete_BasicIo_
 SWIGPY_LENFUNC_CLOSURE(_wrap_BasicIo_size) /* defines _wrap_BasicIo_size_lenfunc_closure */
 
 static PyMethodDef SwigMethods[] = {
-	 { "_enum_list_Position", _wrap__enum_list_Position, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
 static SwigPyGetSet BasicIo___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__BasicIo_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &BasicIo___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"Destructor", &BasicIo___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -6994,6 +6966,17 @@ SWIG_init(void) {
   }
   
   
+  exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
+  if (!exiv2_create_enum)
+  return INIT_ERROR_RETURN;
+  
+  
+  PyEnum_Exiv2_BasicIo_Position = _create_enum(
+    "Exiv2::BasicIo::Position","", _get_enum_data_Exiv2_BasicIo_Position());
+  if (!PyEnum_Exiv2_BasicIo_Position)
+  return INIT_ERROR_RETURN;
+  
+  
   /* type 'Exiv2::BasicIo' */
   d = PyDict_New();
   
@@ -7009,8 +6992,7 @@ SWIG_init(void) {
     }
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",_create_enum_Exiv2_BasicIo_Position(
-      "Position", "Seek starting positions.", _get_enum_list(0, "beg",Exiv2::BasicIo::beg,"cur",Exiv2::BasicIo::cur,"end",Exiv2::BasicIo::end, NULL)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",PyEnum_Exiv2_BasicIo_Position);
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);

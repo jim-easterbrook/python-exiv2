@@ -82,3 +82,4 @@
 %typemap(doctype) bool "bool"
 %typemap(doctype) Exiv2::byte "int"
 %typemap(doctype) std::string "str"
+

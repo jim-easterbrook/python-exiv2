@@ -14,60 +14,18 @@ else:
     from _value import *
 
 
-import enum
+from exiv2._create_enum import _deprecated_enum
 
-class CharsetIdMeta(enum.EnumMeta):
-    def __getattribute__(cls, name):
-        obj = super().__getattribute__(name)
-        if isinstance(obj, enum.Enum):
-            import warnings
-            warnings.warn(
-                "Use 'CommentValue.CharsetId' instead of 'CharsetId'",
-                DeprecationWarning)
-        return obj
-
-class DeprecatedCharsetId(enum.IntEnum, metaclass=CharsetIdMeta):
-    pass
-
-CharsetId = DeprecatedCharsetId('CharsetId', _enum_list_CharsetId())
-CharsetId.__doc__ = "Character set identifiers for the character sets defined by Exif."
+CharsetId = _deprecated_enum("CharsetId","CommentValue", CommentValue.CharsetId)
 
 
-import enum
+from exiv2._create_enum import _deprecated_enum
 
-class XmpArrayTypeMeta(enum.EnumMeta):
-    def __getattribute__(cls, name):
-        obj = super().__getattribute__(name)
-        if isinstance(obj, enum.Enum):
-            import warnings
-            warnings.warn(
-                "Use 'XmpValue.XmpArrayType' instead of 'XmpArrayType'",
-                DeprecationWarning)
-        return obj
-
-class DeprecatedXmpArrayType(enum.IntEnum, metaclass=XmpArrayTypeMeta):
-    pass
-
-XmpArrayType = DeprecatedXmpArrayType('XmpArrayType', _enum_list_XmpArrayType())
-XmpArrayType.__doc__ = "XMP array types."
+XmpArrayType = _deprecated_enum("XmpArrayType","XmpValue", XmpValue.XmpArrayType)
 
 
-import enum
+from exiv2._create_enum import _deprecated_enum
 
-class XmpStructMeta(enum.EnumMeta):
-    def __getattribute__(cls, name):
-        obj = super().__getattribute__(name)
-        if isinstance(obj, enum.Enum):
-            import warnings
-            warnings.warn(
-                "Use 'XmpValue.XmpStruct' instead of 'XmpStruct'",
-                DeprecationWarning)
-        return obj
-
-class DeprecatedXmpStruct(enum.IntEnum, metaclass=XmpStructMeta):
-    pass
-
-XmpStruct = DeprecatedXmpStruct('XmpStruct', _enum_list_XmpStruct())
-XmpStruct.__doc__ = "XMP structure indicator."
+XmpStruct = _deprecated_enum("XmpStruct","XmpValue", XmpValue.XmpStruct)
 
 

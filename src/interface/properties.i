@@ -49,11 +49,7 @@ EXCEPTION()
 EXTEND_KEY(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
-DEFINE_ENUM(XmpCategory, "Category of an XMP property.",
-        "xmpInternal", Exiv2::xmpInternal,
-        "xmpExternal", Exiv2::xmpExternal,
-        "Internal", Exiv2::xmpInternal,
-        "External", Exiv2::xmpExternal);
+NEW_DEFINE_ENUM(XmpCategory, 3)
 
 // Get registeredNamespaces to return a Python dict
 %typemap(in, numinputs=0) Exiv2::Dictionary &nsDict (Exiv2::Dictionary temp) %{

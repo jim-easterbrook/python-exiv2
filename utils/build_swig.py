@@ -113,6 +113,7 @@ def main():
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
                      '-Isrc/interface', '-I-', '-I' + copy_dir,
+                     '-Isrc/interface/{}_{}_{}'.format(*exiv2_version),
                      '-I' + os.path.dirname(incl_dir), '-outdir', output_dir,
                      '-DEXIV2_VERSION_HEX=' + exiv2_version_hex]
         # do each swig module
@@ -160,8 +161,6 @@ __version_tuple__ = tuple(({', '.join(re.split(r'[-.]', py_exiv2_version))}))
 __all__ = ["Exiv2Error"]
 ''')
         for name in ext_names:
-            if name == 'utilities':
-                continue
             im.write(f'from exiv2.{name} import *\n')
             im.write(f'__all__ += exiv2._{name}.__all__\n')
         im.write("""

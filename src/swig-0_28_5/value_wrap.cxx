@@ -4517,42 +4517,70 @@ fail:
 };
 
 
-// Function to append a name, value pair to a list of enum members
-static void extend_enum_list(PyObject* list, const char* label, int value) {
-    PyObject* py_obj = Py_BuildValue("(si)", label, value);
-    PyList_Append(list, py_obj);
-    Py_DECREF(py_obj);
-};
-// Function to return enum members as Python list
+static PyObject* PyEnum_Exiv2_CommentValue_CharsetId = NULL;
 
-static PyObject* _get_enum_list(int dummy, ...) {
-    va_list args;
-    va_start(args, dummy);
-    char* label;
+
+
+
+static PyObject* exiv2_create_enum = NULL;
+
+// Convert enum names & values to a Python list
+static PyObject* _get_enum_data(const char* name, ...) {
     PyObject* py_obj = NULL;
-    PyObject* result = PyList_New(0);
-    label = va_arg(args, char*);
+    PyObject* members = PyList_New(0);
+    va_list args;
+    va_start(args, name);
+    char* label = va_arg(args, char*);
     while (label) {
-        extend_enum_list(result, label, va_arg(args, int));
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(members, py_obj);
+        Py_DECREF(py_obj);
         label = va_arg(args, char*);
     }
     va_end(args);
-    return result;
+    return members;
+};
+// Call Python to create an enum from list of names & values
+static PyObject* _create_enum(const char* name, const char* alias_strip,
+                              PyObject* members) {
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
+                               name, alias_strip, members);
 };
 
 
-PyObject* _enum_list_CharsetId() {
-    return _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL);
+static PyObject* _get_enum_data_Exiv2_CommentValue_CharsetId() {
+    return _get_enum_data("Exiv2::CommentValue::CharsetId",
+        "ascii", Exiv2::CommentValue::ascii,
+        "jis", Exiv2::CommentValue::jis,
+        "unicode", Exiv2::CommentValue::unicode,
+        "undefined", Exiv2::CommentValue::undefined,
+        "invalidCharsetId", Exiv2::CommentValue::invalidCharsetId,
+        "lastCharsetId", Exiv2::CommentValue::lastCharsetId,
+        NULL);
 };
 
 
-PyObject* _enum_list_XmpArrayType() {
-    return _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL);
+static PyObject* PyEnum_Exiv2_XmpValue_XmpArrayType = NULL;
+
+
+static PyObject* _get_enum_data_Exiv2_XmpValue_XmpArrayType() {
+    return _get_enum_data("Exiv2::XmpValue::XmpArrayType",
+        "xaNone", Exiv2::XmpValue::xaNone,
+        "xaAlt", Exiv2::XmpValue::xaAlt,
+        "xaBag", Exiv2::XmpValue::xaBag,
+        "xaSeq", Exiv2::XmpValue::xaSeq,
+        NULL);
 };
 
 
-PyObject* _enum_list_XmpStruct() {
-    return _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL);
+static PyObject* PyEnum_Exiv2_XmpValue_XmpStruct = NULL;
+
+
+static PyObject* _get_enum_data_Exiv2_XmpValue_XmpStruct() {
+    return _get_enum_data("Exiv2::XmpValue::XmpStruct",
+        "xsNone", Exiv2::XmpValue::xsNone,
+        "xsStruct", Exiv2::XmpValue::xsStruct,
+        NULL);
 };
 
 
@@ -6356,31 +6384,6 @@ SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_1(std::string const &bu
         return self;
     }
 
-static PyObject* PyEnum_Exiv2_CommentValue_CharsetId = NULL;
-
-
-static PyObject* _create_enum_Exiv2_CommentValue_CharsetId(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_CommentValue_CharsetId = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_CommentValue_CharsetId)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_CommentValue_CharsetId, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_CommentValue_CharsetId, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_CommentValue_CharsetId);
-    return PyEnum_Exiv2_CommentValue_CharsetId;
-};
-
-
 
 
 
@@ -6427,56 +6430,6 @@ static PyObject* py_from_enum_Exiv2_ByteOrder(long value) {
         }
     Py_DECREF(py_int);
     return result;
-};
-
-
-static PyObject* PyEnum_Exiv2_XmpValue_XmpArrayType = NULL;
-
-
-static PyObject* _create_enum_Exiv2_XmpValue_XmpArrayType(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_XmpValue_XmpArrayType = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_XmpValue_XmpArrayType)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpValue_XmpArrayType, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpValue_XmpArrayType, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_XmpValue_XmpArrayType);
-    return PyEnum_Exiv2_XmpValue_XmpArrayType;
-};
-
-
-static PyObject* PyEnum_Exiv2_XmpValue_XmpStruct = NULL;
-
-
-static PyObject* _create_enum_Exiv2_XmpValue_XmpStruct(
-        const char* name, const char* doc, PyObject* enum_list) {
-    if (!enum_list)
-        return NULL;
-    PyEnum_Exiv2_XmpValue_XmpStruct = PyObject_CallFunction(
-            Py_IntEnum, "sN", name, enum_list);
-    if (!PyEnum_Exiv2_XmpValue_XmpStruct)
-        return NULL;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpValue_XmpStruct, "__doc__",
-            PyUnicode_FromString(doc)))
-        return NULL;
-    std::string mod_name = "exiv2.";
-    mod_name += SWIG_name + 1;
-    if (PyObject_SetAttrString(PyEnum_Exiv2_XmpValue_XmpStruct, "__module__",
-            PyUnicode_FromString(mod_name.c_str())))
-        return NULL;
-    // SWIG_Python_SetConstant will decref PyEnum object
-    Py_INCREF(PyEnum_Exiv2_XmpValue_XmpStruct);
-    return PyEnum_Exiv2_XmpValue_XmpStruct;
 };
 
 
@@ -7474,45 +7427,6 @@ SWIGINTERN void Exiv2_ValueType_Sl_double_Sg__append(Exiv2::ValueType< double > 
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap__enum_list_CharsetId(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *result = 0 ;
-  
-  if (!PyArg_UnpackTuple(args, "_enum_list_CharsetId", 0, 0)) SWIG_fail;
-  result = (PyObject *)_enum_list_CharsetId();
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap__enum_list_XmpArrayType(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *result = 0 ;
-  
-  if (!PyArg_UnpackTuple(args, "_enum_list_XmpArrayType", 0, 0)) SWIG_fail;
-  result = (PyObject *)_enum_list_XmpArrayType();
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap__enum_list_XmpStruct(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *result = 0 ;
-  
-  if (!PyArg_UnpackTuple(args, "_enum_list_XmpStruct", 0, 0)) SWIG_fail;
-  result = (PyObject *)_enum_list_XmpStruct();
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Value_read__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::Value *arg1 = (Exiv2::Value *) 0 ;
@@ -25302,15 +25216,38 @@ SWIGPY_SSIZEARGFUNC_CLOSURE(_wrap_DoubleValue___getitem__) /* defines _wrap_Doub
 SWIGPY_SSIZEOBJARGPROC_CLOSURE(_wrap_DoubleValue___setitem__) /* defines _wrap_DoubleValue___setitem___ssizeobjargproc_closure */
 
 static PyMethodDef SwigMethods[] = {
-	 { "_enum_list_CharsetId", _wrap__enum_list_CharsetId, METH_VARARGS, NULL},
-	 { "_enum_list_XmpArrayType", _wrap__enum_list_XmpArrayType, METH_VARARGS, NULL},
-	 { "_enum_list_XmpStruct", _wrap__enum_list_XmpStruct, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
 static SwigPyGetSet Value___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Value_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &Value___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"\n"
+		"*Overload 1:*\n"
+		"Read the value from a character buffer.\n"
+		":type buf: :py:term:`bytes-like object`\n"
+		":param buf: Pointer to the data buffer to read from\n"
+		":type len: int\n"
+		":param len: Number of bytes in the data buffer\n"
+		":type byteOrder: :py:class:`ByteOrder`\n"
+		":param byteOrder: Applicable byte order (little or big endian).\n"
+		":rtype: int\n"
+		":return: 0 if successful.\n"
+		"\n"
+		"|\n"
+		"\n"
+		"*Overload 2:*\n"
+		"\n"
+		"   Set the value from a string buffer. The format of the string\n"
+		"          corresponds to that of the write() method, i.e., a string\n"
+		"          obtained through the write() method can be read by this\n"
+		"          function.\n"
+		"\n"
+		"   :type buf: str\n"
+		"   :param buf: The string to read from.\n"
+		"\n"
+		"   :rtype: int\n"
+		"   :return: 0 if successful.\n"
+		"", &Value___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -35109,6 +35046,29 @@ SWIG_init(void) {
   }
   
   
+  exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
+  if (!exiv2_create_enum)
+  return INIT_ERROR_RETURN;
+  
+  
+  PyEnum_Exiv2_CommentValue_CharsetId = _create_enum(
+    "Exiv2::CommentValue::CharsetId","", _get_enum_data_Exiv2_CommentValue_CharsetId());
+  if (!PyEnum_Exiv2_CommentValue_CharsetId)
+  return INIT_ERROR_RETURN;
+  
+  
+  PyEnum_Exiv2_XmpValue_XmpArrayType = _create_enum(
+    "Exiv2::XmpValue::XmpArrayType","", _get_enum_data_Exiv2_XmpValue_XmpArrayType());
+  if (!PyEnum_Exiv2_XmpValue_XmpArrayType)
+  return INIT_ERROR_RETURN;
+  
+  
+  PyEnum_Exiv2_XmpValue_XmpStruct = _create_enum(
+    "Exiv2::XmpValue::XmpStruct","", _get_enum_data_Exiv2_XmpValue_XmpStruct());
+  if (!PyEnum_Exiv2_XmpValue_XmpStruct)
+  return INIT_ERROR_RETURN;
+  
+  
   /* type 'Exiv2::Value' */
   d = PyDict_New();
   
@@ -35268,8 +35228,7 @@ SWIG_init(void) {
   
   /* type 'Exiv2::CommentValue' */
   d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "CharsetId",_create_enum_Exiv2_CommentValue_CharsetId(
-      "CharsetId", "Character set identifiers for the character sets defined by Exif.", _get_enum_list(0, "ascii",Exiv2::CommentValue::ascii,"jis",Exiv2::CommentValue::jis,"unicode",Exiv2::CommentValue::unicode,"undefined",Exiv2::CommentValue::undefined,"invalidCharsetId",Exiv2::CommentValue::invalidCharsetId,"lastCharsetId",Exiv2::CommentValue::lastCharsetId, NULL)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "CharsetId",PyEnum_Exiv2_CommentValue_CharsetId);
   builtin_base_count = 0;
   builtin_basetype = SWIG_MangledTypeQuery("_p_Exiv2__StringValueBase");
   if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
@@ -35301,10 +35260,8 @@ SWIG_init(void) {
   
   /* type 'Exiv2::XmpValue' */
   d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpArrayType",_create_enum_Exiv2_XmpValue_XmpArrayType(
-      "XmpArrayType", "XMP array types.", _get_enum_list(0, "xaNone",Exiv2::XmpValue::xaNone,"xaAlt",Exiv2::XmpValue::xaAlt,"xaBag",Exiv2::XmpValue::xaBag,"xaSeq",Exiv2::XmpValue::xaSeq, NULL)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpStruct",_create_enum_Exiv2_XmpValue_XmpStruct(
-      "XmpStruct", "XMP structure indicator.", _get_enum_list(0, "xsNone",Exiv2::XmpValue::xsNone,"xsStruct",Exiv2::XmpValue::xsStruct, NULL)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpArrayType",PyEnum_Exiv2_XmpValue_XmpArrayType);
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpStruct",PyEnum_Exiv2_XmpValue_XmpStruct);
   builtin_base_count = 0;
   builtin_basetype = SWIG_MangledTypeQuery("_p_Exiv2__Value");
   if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
