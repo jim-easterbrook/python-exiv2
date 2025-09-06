@@ -4543,8 +4543,8 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
-                               name, alias_strip, members);
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(sssN)",
+                               SWIG_name, name, alias_strip, members);
 };
 
 
@@ -35055,18 +35055,24 @@ SWIG_init(void) {
     "Exiv2::CommentValue::CharsetId","", _get_enum_data_Exiv2_CommentValue_CharsetId());
   if (!PyEnum_Exiv2_CommentValue_CharsetId)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_CommentValue_CharsetId);
   
   
   PyEnum_Exiv2_XmpValue_XmpArrayType = _create_enum(
     "Exiv2::XmpValue::XmpArrayType","", _get_enum_data_Exiv2_XmpValue_XmpArrayType());
   if (!PyEnum_Exiv2_XmpValue_XmpArrayType)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_XmpValue_XmpArrayType);
   
   
   PyEnum_Exiv2_XmpValue_XmpStruct = _create_enum(
     "Exiv2::XmpValue::XmpStruct","", _get_enum_data_Exiv2_XmpValue_XmpStruct());
   if (!PyEnum_Exiv2_XmpValue_XmpStruct)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_XmpValue_XmpStruct);
   
   
   /* type 'Exiv2::Value' */

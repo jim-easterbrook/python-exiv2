@@ -4381,8 +4381,8 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
-                               name, alias_strip, members);
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(sssN)",
+                               SWIG_name, name, alias_strip, members);
 };
 
 
@@ -9086,6 +9086,8 @@ SWIG_init(void) {
     "Exiv2::IfdId","", _get_enum_data_Exiv2_IfdId());
   if (!PyEnum_Exiv2_IfdId)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_IfdId);
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "IfdId",PyEnum_Exiv2_IfdId);
   
@@ -9093,6 +9095,8 @@ SWIG_init(void) {
     "Exiv2::SectionId","", _get_enum_data_Exiv2_SectionId());
   if (!PyEnum_Exiv2_SectionId)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_SectionId);
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "SectionId",PyEnum_Exiv2_SectionId);
   

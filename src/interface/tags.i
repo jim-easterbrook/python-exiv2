@@ -38,8 +38,8 @@ EXTEND_KEY(Exiv2::ExifKey);
 
 // Add Exif specific enums
 #if EXIV2_VERSION_HEX >= 0x001c0000
-NEW_DEFINE_ENUM(IfdId,)
-NEW_DEFINE_ENUM(SectionId,)
+DEFINE_ENUM(IfdId,)
+DEFINE_ENUM(SectionId,)
 #endif // EXIV2_VERSION_HEX
 
 // Convert ExifTags::groupList() result to a Python list of GroupInfo objects

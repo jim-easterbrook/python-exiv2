@@ -37,12 +37,13 @@ def _deprecated_enum(name, moved_to, new_enum):
     result._msg = f"Use '{moved_to}.{name}' instead of '{name}'"
     return result
 
-def _create_enum(name, alias_strip, members):
+def _create_enum(module, name, alias_strip, members):
     data = enum_data[name]
     if alias_strip:
         alias_strip = int(alias_strip)
         members += [(k[alias_strip:], v) for (k, v) in members]
-    result = enum.IntEnum(name, members)
+    result = enum.IntEnum(name.split('::')[-1], members)
+    result.__module__ = 'exiv2.' + module[1:]
     if data['doc']:
         result.__doc__ = data['doc']
     for key, value in data['values'].items():

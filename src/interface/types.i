@@ -91,13 +91,13 @@ if os.path.isdir(_dir):
 #endif
 
 // Make various enums more Pythonic
-NEW_DEFINE_ENUM(AccessMode, 2)
+DEFINE_ENUM(AccessMode, 2)
 
-NEW_DEFINE_ENUM(ByteOrder,)
+DEFINE_ENUM(ByteOrder,)
 
-NEW_DEFINE_ENUM(MetadataId, 2)
+DEFINE_ENUM(MetadataId, 2)
 
-NEW_DEFINE_ENUM(TypeId,)
+DEFINE_ENUM(TypeId,)
 
 // Make Exiv2::DataBuf behave more like a tuple of ints
 %feature("python:slot", "sq_length", functype="lenfunc")

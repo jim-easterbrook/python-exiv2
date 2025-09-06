@@ -207,7 +207,7 @@ namespace Exiv2::ImageType {
 %}
 #endif
 
-NEW_DEFINE_ENUM(ImageType,)
+DEFINE_ENUM(ImageType,)
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Convert ImageType results and parameters from int

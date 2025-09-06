@@ -4433,8 +4433,8 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
-                               name, alias_strip, members);
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(sssN)",
+                               SWIG_name, name, alias_strip, members);
 };
 
 
@@ -6975,6 +6975,8 @@ SWIG_init(void) {
     "Exiv2::BasicIo::Position","", _get_enum_data_Exiv2_BasicIo_Position());
   if (!PyEnum_Exiv2_BasicIo_Position)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
   
   
   /* type 'Exiv2::BasicIo' */

@@ -4488,8 +4488,8 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
-                               name, alias_strip, members);
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(sssN)",
+                               SWIG_name, name, alias_strip, members);
 };
 
 
@@ -8974,6 +8974,8 @@ SWIG_init(void) {
     "Exiv2::AccessMode","2", _get_enum_data_Exiv2_AccessMode());
   if (!PyEnum_Exiv2_AccessMode)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_AccessMode);
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AccessMode",PyEnum_Exiv2_AccessMode);
   
@@ -8981,6 +8983,8 @@ SWIG_init(void) {
     "Exiv2::ByteOrder","", _get_enum_data_Exiv2_ByteOrder());
   if (!PyEnum_Exiv2_ByteOrder)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_ByteOrder);
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ByteOrder",PyEnum_Exiv2_ByteOrder);
   
@@ -8988,6 +8992,8 @@ SWIG_init(void) {
     "Exiv2::MetadataId","2", _get_enum_data_Exiv2_MetadataId());
   if (!PyEnum_Exiv2_MetadataId)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_MetadataId);
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "MetadataId",PyEnum_Exiv2_MetadataId);
   
@@ -8995,6 +9001,8 @@ SWIG_init(void) {
     "Exiv2::TypeId","", _get_enum_data_Exiv2_TypeId());
   if (!PyEnum_Exiv2_TypeId)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_TypeId);
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "TypeId",PyEnum_Exiv2_TypeId);
   

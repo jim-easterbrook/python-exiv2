@@ -225,10 +225,10 @@ static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
 EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo, true, true)
 
 // Make enum more Pythonic
-NEW_DEFINE_CLASS_ENUM(BasicIo, Position,)
+DEFINE_CLASS_ENUM(BasicIo, Position,)
 
 // deprecated since 2023-12-01
-DEPRECATED_ENUM(BasicIo, Position,)
+DEPRECATED_ENUM(BasicIo, Position)
 
 %ignore Exiv2::BasicIo::bigBlock_;
 %ignore Exiv2::BasicIo::operator=;

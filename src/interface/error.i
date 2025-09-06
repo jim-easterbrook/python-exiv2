@@ -84,7 +84,7 @@ static void log_to_python(int level, const char* msg) {
 %ignore Exiv2::LogMsg::defaultHandler;
 %ignore Exiv2::operator<<;
 
-NEW_DEFINE_CLASS_ENUM(LogMsg, Level,)
+DEFINE_CLASS_ENUM(LogMsg, Level,)
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 %{
@@ -101,6 +101,6 @@ NEW_DEFINE_CLASS_ENUM(LogMsg, Level,)
 #endif // EXIV2_TEST_VERSION
 %}
 #endif
-NEW_DEFINE_ENUM(ErrorCode,)
+DEFINE_ENUM(ErrorCode,)
 
 %include "exiv2/error.hpp"

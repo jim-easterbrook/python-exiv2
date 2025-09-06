@@ -4610,8 +4610,8 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(ssN)",
-                               name, alias_strip, members);
+    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(sssN)",
+                               SWIG_name, name, alias_strip, members);
 };
 
 
@@ -9265,6 +9265,8 @@ SWIG_init(void) {
     "Exiv2::ImageType","", _get_enum_data_Exiv2_ImageType());
   if (!PyEnum_Exiv2_ImageType)
   return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(PyEnum_Exiv2_ImageType);
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ImageType",PyEnum_Exiv2_ImageType);
   

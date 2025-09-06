@@ -207,16 +207,16 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %ignore Exiv2::Value::toUint32() const;
 
 // Make enums more Pythonic
-NEW_DEFINE_CLASS_ENUM(CommentValue, CharsetId,)
-NEW_DEFINE_CLASS_ENUM(XmpValue, XmpArrayType,)
-NEW_DEFINE_CLASS_ENUM(XmpValue, XmpStruct,)
+DEFINE_CLASS_ENUM(CommentValue, CharsetId,)
+DEFINE_CLASS_ENUM(XmpValue, XmpArrayType,)
+DEFINE_CLASS_ENUM(XmpValue, XmpStruct,)
 
 // deprecated since 2023-12-01
-DEPRECATED_ENUM(CommentValue, CharsetId,)
+DEPRECATED_ENUM(CommentValue, CharsetId)
 // deprecated since 2023-12-01
-DEPRECATED_ENUM(XmpValue, XmpArrayType,)
+DEPRECATED_ENUM(XmpValue, XmpArrayType)
 // deprecated since 2023-12-01
-DEPRECATED_ENUM(XmpValue, XmpStruct,)
+DEPRECATED_ENUM(XmpValue, XmpStruct)
 
 // ---- Macros ----
 // Macro for all subclasses of Exiv2::Value
