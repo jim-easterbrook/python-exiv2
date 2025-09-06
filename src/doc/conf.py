@@ -57,6 +57,7 @@ extensions = ['sphinx.ext.autodoc',
               'enum_tools.autoenum']
 
 autosummary_imported_members = True
+autosummary_ignore_module_all = False
 autodoc_class_signature = 'separated'
 autodoc_docstring_signature = False
 autodoc_default_options = {
@@ -67,7 +68,7 @@ autodoc_default_options = {
         'this', 'thisown', '__dict__', '__eq__', '__format__',
         '__getattribute__', '__ge__', '__gt__', '__hash__', '__init__',
         '__le__', '__lt__', '__module__ ', '__new__', '__ne__', '__repr__',
-        '__str__')),
+        '__str__', '__weakref__')),
     'show-inheritance': True,
     }
 
