@@ -17,10 +17,27 @@
 # You should have received a copy of the GNU General Public License
 # along with python-exiv2.  If not, see <http://www.gnu.org/licenses/>.
 
+"""Pure Python extra classes and functions.
+"""
+
+__all__ = ['Exiv2Error']
+
 import enum
 import warnings
 
 from exiv2._enum_data import enum_data
+
+
+class Exiv2Error(Exception):
+    """Python exception raised by exiv2 library errors.
+
+    :ivar ErrorCode code: The Exiv2 error code that caused the exception.
+    :ivar str message: The message associated with the exception.
+    """
+    def __init__(self, code, message):
+        self.code= code
+        self.message = message
+
 
 class DeprecatedEnumMeta(enum.EnumMeta):
     def __getattribute__(cls, name):
@@ -29,13 +46,16 @@ class DeprecatedEnumMeta(enum.EnumMeta):
             warnings.warn(cls._msg, DeprecationWarning, 2)
         return obj
 
+
 class DeprecatedEnum(enum.IntEnum, metaclass=DeprecatedEnumMeta):
     pass
+
 
 def _deprecated_enum(name, moved_to, new_enum):
     result = DeprecatedEnum(name, new_enum.__members__)
     result._msg = f"Use '{moved_to}.{name}' instead of '{name}'"
     return result
+
 
 def _create_enum(module, name, alias_strip, members):
     data = enum_data[name]
