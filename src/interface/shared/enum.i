@@ -183,7 +183,7 @@ _GET_ENUM_FROM_DATA(Exiv2::name, alias_strip)
 %pythoncode %{
 from exiv2.extras import _deprecated_enum
 
-name = _deprecated_enum(#name, #moved_to, moved_to.name)
+name = _deprecated_enum(#moved_to, moved_to.name)
 %}
 %enddef // DEPRECATED_ENUM
 

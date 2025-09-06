@@ -16,6 +16,6 @@ else:
 
 from exiv2.extras import _deprecated_enum
 
-Position = _deprecated_enum("Position","BasicIo", BasicIo.Position)
+Position = _deprecated_enum("BasicIo", BasicIo.Position)
 
 

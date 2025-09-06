@@ -51,7 +51,8 @@ class DeprecatedEnum(enum.IntEnum, metaclass=DeprecatedEnumMeta):
     pass
 
 
-def _deprecated_enum(name, moved_to, new_enum):
+def _deprecated_enum(moved_to, new_enum):
+    name = new_enum.__name__
     result = DeprecatedEnum(name, new_enum.__members__)
     result._msg = f"Use '{moved_to}.{name}' instead of '{name}'"
     return result

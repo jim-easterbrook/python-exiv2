@@ -16,16 +16,16 @@ else:
 
 from exiv2.extras import _deprecated_enum
 
-CharsetId = _deprecated_enum("CharsetId","CommentValue", CommentValue.CharsetId)
+CharsetId = _deprecated_enum("CommentValue", CommentValue.CharsetId)
 
 
 from exiv2.extras import _deprecated_enum
 
-XmpArrayType = _deprecated_enum("XmpArrayType","XmpValue", XmpValue.XmpArrayType)
+XmpArrayType = _deprecated_enum("XmpValue", XmpValue.XmpArrayType)
 
 
 from exiv2.extras import _deprecated_enum
 
-XmpStruct = _deprecated_enum("XmpStruct","XmpValue", XmpValue.XmpStruct)
+XmpStruct = _deprecated_enum("XmpValue", XmpValue.XmpStruct)
 
 
