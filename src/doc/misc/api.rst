@@ -18,22 +18,22 @@ See :ref:`genindex` for a full index to all classes, attributes, functions and m
    :recursive:
    :template: module.rst
 
-   exiv2._image
-   exiv2._exif
-   exiv2._iptc
-   exiv2._xmp
-   exiv2._preview
-   exiv2._value
-   exiv2._types
-   exiv2._tags
-   exiv2._datasets
-   exiv2._properties
-   exiv2._version
-   exiv2._error
-   exiv2._easyaccess
-   exiv2._basicio
-   exiv2._metadatum
-   exiv2._create_enum
+   exiv2.image
+   exiv2.exif
+   exiv2.iptc
+   exiv2.xmp
+   exiv2.preview
+   exiv2.value
+   exiv2.types
+   exiv2.tags
+   exiv2.datasets
+   exiv2.properties
+   exiv2.version
+   exiv2.error
+   exiv2.easyaccess
+   exiv2.basicio
+   exiv2.metadatum
+   exiv2.extras
 
 .. _Doxygen: https://www.doxygen.nl/
 .. _Exiv2 C++ API: https://exiv2.org/doc/index.html

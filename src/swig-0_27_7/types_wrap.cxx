@@ -4465,9 +4465,10 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char **cptr, size_t *psize, int *alloc)
 static PyObject* PyEnum_Exiv2_AccessMode = NULL;
 
 
+static PyObject* exiv2_extras = NULL;
 
 
-static PyObject* exiv2_create_enum = NULL;
+
 
 // Convert enum names & values to a Python list
 static PyObject* _get_enum_data(const char* name, ...) {
@@ -4488,7 +4489,7 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(sssN)",
+    return PyObject_CallMethod(exiv2_extras, "_create_enum", "(sssN)",
                                SWIG_name, name, alias_strip, members);
 };
 
@@ -8946,18 +8947,16 @@ SWIG_init(void) {
   }
   
   
-  {
-    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error) {
-      PyErr_SetString(PyExc_RuntimeError,
-        "Import error: exiv2.Exiv2Error not found.");
-      return INIT_ERROR_RETURN;
-    }
+  PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
+  if (!PyExc_Exiv2Error) {
+    PyErr_SetString(PyExc_RuntimeError,
+      "Import error: exiv2.Exiv2Error not found.");
+    return INIT_ERROR_RETURN;
   }
   
   
-  exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
-  if (!exiv2_create_enum)
+  exiv2_extras = PyImport_ImportModule("exiv2.extras");
+  if (!exiv2_extras)
   return INIT_ERROR_RETURN;
   
   

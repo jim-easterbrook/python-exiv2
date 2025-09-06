@@ -23,24 +23,22 @@
 IMPORT_ENUM(ErrorCode)
 
 // Import PyExc_Exiv2Error exception
-%fragment("_import_exception_decl", "header") {
+%fragment("_PyExc_Exiv2Error_decl", "header") {
 static PyObject* PyExc_Exiv2Error = NULL;
 }
-%fragment("_import_exception", "init", fragment="_import_exception_decl",
+%fragment("_import_Exiv2Error", "init", fragment="_PyExc_Exiv2Error_decl",
           fragment="import_exiv2") {
-{
-    PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-    if (!PyExc_Exiv2Error) {
-        PyErr_SetString(PyExc_RuntimeError,
-                        "Import error: exiv2.Exiv2Error not found.");
-        return INIT_ERROR_RETURN;
-    }
+PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
+if (!PyExc_Exiv2Error) {
+    PyErr_SetString(PyExc_RuntimeError,
+                    "Import error: exiv2.Exiv2Error not found.");
+    return INIT_ERROR_RETURN;
 }
 }
 
 // Function that re-raises an exception to handle different types
 %fragment("_set_python_exception", "header",
-          fragment="_import_exception",
+          fragment="_import_Exiv2Error",
           fragment="py_from_enum"{Exiv2::ErrorCode},
           fragment="utf8_to_wcp") {
 static void _set_python_exception() {

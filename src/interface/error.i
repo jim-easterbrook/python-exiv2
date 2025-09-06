@@ -26,11 +26,6 @@
 %include "std_except.i"
 
 
-// Import Exiv2Error from exiv2 module
-%fragment("import_exiv2");
-%constant PyObject* Exiv2Error = PyObject_GetAttrString(
-    exiv2_module, "Exiv2Error");
-
 // Set Python logger as Exiv2 log handler
 %fragment("utf8_to_wcp");
 %{

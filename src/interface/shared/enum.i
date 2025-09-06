@@ -84,18 +84,19 @@ static PyObject* py_from_enum_%mangle(pattern)(long value) {
 }
 %enddef // _ENUM_COMMON
 
-// Import exiv2._create_enum module
-%fragment("import_create_enum", "init") {
-exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
-if (!exiv2_create_enum)
+// Import exiv2.extras module
+%fragment("_extras_decl", "header") {
+static PyObject* exiv2_extras = NULL;
+}
+%fragment("import_extras", "init", fragment="_extras_decl") {
+exiv2_extras = PyImport_ImportModule("exiv2.extras");
+if (!exiv2_extras)
     return INIT_ERROR_RETURN;
 }
 
 // Call Python function to get enum
-%fragment("_get_enum_data", "header", fragment="import_create_enum") {
+%fragment("_get_enum_data", "header", fragment="import_extras") {
 #include <cstdarg>
-
-static PyObject* exiv2_create_enum = NULL;
 
 // Convert enum names & values to a Python list
 static PyObject* _get_enum_data(const char* name, ...) {
@@ -116,7 +117,7 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(sssN)",
+    return PyObject_CallMethod(exiv2_extras, "_create_enum", "(sssN)",
                                SWIG_name, name, alias_strip, members);
 };
 }
@@ -180,7 +181,7 @@ _GET_ENUM_FROM_DATA(Exiv2::name, alias_strip)
 
 %define DEPRECATED_ENUM(moved_to, name)
 %pythoncode %{
-from exiv2._create_enum import _deprecated_enum
+from exiv2.extras import _deprecated_enum
 
 name = _deprecated_enum(#name, #moved_to, moved_to.name)
 %}

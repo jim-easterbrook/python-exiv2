@@ -4198,9 +4198,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include <stdexcept>
 
 
-static PyObject* exiv2_module = NULL;
-
-
 #ifdef _WIN32
 #include <windows.h>
 
@@ -4264,9 +4261,10 @@ static void log_to_python(int level, const char* msg) {
 static PyObject* PyEnum_Exiv2_LogMsg_Level = NULL;
 
 
+static PyObject* exiv2_extras = NULL;
 
 
-static PyObject* exiv2_create_enum = NULL;
+
 
 // Convert enum names & values to a Python list
 static PyObject* _get_enum_data(const char* name, ...) {
@@ -4287,7 +4285,7 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_create_enum, "_create_enum", "(sssN)",
+    return PyObject_CallMethod(exiv2_extras, "_create_enum", "(sssN)",
                                SWIG_name, name, alias_strip, members);
 };
 
@@ -4379,6 +4377,9 @@ static PyObject* _get_enum_data_Exiv2_ErrorCode() {
         "kerMallocFailed", Exiv2::kerMallocFailed,
         NULL);
 };
+
+
+static PyObject* exiv2_module = NULL;
 
 
 static PyObject* get_enum_typeobject_Exiv2_LogMsg_Level() {
@@ -5426,15 +5427,6 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 error codes and log messages."));
   
   {
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-    return INIT_ERROR_RETURN;
-  }
-  
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Exiv2Error",PyObject_GetAttrString(
-      exiv2_module, "Exiv2Error"));
-  
-  {
     PyObject *module = PyImport_ImportModule("logging");
     if (!module)
     return INIT_ERROR_RETURN;
@@ -5448,8 +5440,8 @@ SWIG_init(void) {
   }
   
   
-  exiv2_create_enum = PyImport_ImportModule("exiv2._create_enum");
-  if (!exiv2_create_enum)
+  exiv2_extras = PyImport_ImportModule("exiv2.extras");
+  if (!exiv2_extras)
   return INIT_ERROR_RETURN;
   
   
@@ -5472,6 +5464,13 @@ SWIG_init(void) {
   
   /* type 'Exiv2::LogMsg' */
   d = PyDict_New();
+  
+  {
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
+    return INIT_ERROR_RETURN;
+  }
+  
   
   {
     PyObject* module = PyImport_ImportModule("enum");

@@ -22,6 +22,18 @@ import warnings
 
 from exiv2._enum_data import enum_data
 
+
+class Exiv2Error(Exception):
+    """Python exception raised by exiv2 library errors.
+
+    :ivar ErrorCode code: The Exiv2 error code that caused the exception.
+    :ivar str message: The message associated with the exception.
+    """
+    def __init__(self, code, message):
+        self.code= code
+        self.message = message
+
+
 class DeprecatedEnumMeta(enum.EnumMeta):
     def __getattribute__(cls, name):
         obj = super().__getattribute__(name)

@@ -14,17 +14,17 @@ else:
     from _value import *
 
 
-from exiv2._create_enum import _deprecated_enum
+from exiv2.extras import _deprecated_enum
 
 CharsetId = _deprecated_enum("CharsetId","CommentValue", CommentValue.CharsetId)
 
 
-from exiv2._create_enum import _deprecated_enum
+from exiv2.extras import _deprecated_enum
 
 XmpArrayType = _deprecated_enum("XmpArrayType","XmpValue", XmpValue.XmpArrayType)
 
 
-from exiv2._create_enum import _deprecated_enum
+from exiv2.extras import _deprecated_enum
 
 XmpStruct = _deprecated_enum("XmpStruct","XmpValue", XmpValue.XmpStruct)
 

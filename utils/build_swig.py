@@ -143,21 +143,12 @@ if sys.platform == 'win32':
             os.add_dll_directory(_dir)
         os.environ['PATH'] = _dir + ';' + os.environ['PATH']
 
-class Exiv2Error(Exception):
-    """Python exception raised by exiv2 library errors.
-
-    :ivar ErrorCode code: The Exiv2 error code that caused the exception.
-    :ivar str message: The message associated with the exception.
-    """
-    def __init__(self, code, message):
-        self.code= code
-        self.message = message
-
 #: python-exiv2 version as a string
 __version__ = "{py_exiv2_version}"
 #: python-exiv2 version as a tuple of ints
 __version_tuple__ = tuple(({', '.join(re.split(r'[-.]', py_exiv2_version))}))
 
+from exiv2.extras import Exiv2Error
 __all__ = ["Exiv2Error"]
 ''')
         for name in ext_names:
