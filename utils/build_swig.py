@@ -167,11 +167,12 @@ __all__ = ["Exiv2Error"]
 __all__ = [x for x in __all__ if x[0] != '_']
 __all__.sort()
 """)
-    # update ReadTheDocs config
+    # update Sphinx config
     with open('src/doc/requirements.txt', 'w') as f:
-        f.write(f'''exiv2 <= {py_exiv2_version}
+        f.write(f'''exiv2 == {py_exiv2_version}
 sphinx == 7.2.6
 sphinx-rtd-theme == 2.0.0
+enum_tools[sphinx] >= 0.12
 ''')
     return 0
 

@@ -36,7 +36,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'python-exiv2'
-copyright = '2004-2024 Exiv2 authors'
+copyright = '2004-2025 Exiv2 authors'
 author = 'Jim Easterbrook'
 
 import exiv2
@@ -53,7 +53,8 @@ version = exiv2.__version__
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.autosummary',
               'sphinx.ext.inheritance_diagram',
-              'sphinx.ext.intersphinx']
+              'sphinx.ext.intersphinx',
+              'enum_tools.autoenum']
 
 autosummary_imported_members = True
 autodoc_class_signature = 'separated'

@@ -1,5 +1,5 @@
 .. This is part of the python-exiv2 documentation.
-   Copyright (C)  2024  Jim Easterbrook.
+   Copyright (C)  2024-25  Jim Easterbrook.
 
 Detailed API
 ============
@@ -33,6 +33,7 @@ See :ref:`genindex` for a full index to all classes, attributes, functions and m
    exiv2._easyaccess
    exiv2._basicio
    exiv2._metadatum
+   exiv2._create_enum
 
 .. _Doxygen: https://www.doxygen.nl/
 .. _Exiv2 C++ API: https://exiv2.org/doc/index.html
