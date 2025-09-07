@@ -202,27 +202,30 @@ DEFINE_VIEW_CALLBACK(Exiv2::BasicIo, release_ptr(self);)
 %feature("python:slot", "sq_length", functype="lenfunc")
     Exiv2::BasicIo::size;
 // Expose Exiv2::BasicIo contents as a Python buffer
-%fragment("get_ptr_size"{Exiv2::BasicIo}, "header") {
-static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
-                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+%fragment("buffer_fill_info"{Exiv2::BasicIo}, "header") {
+static int buffer_fill_info(Exiv2::BasicIo* self, Py_buffer* view,
+                            PyObject* exporter, int flags) {
+    Exiv2::byte* ptr;
+    bool writeable = (flags && PyBUF_WRITABLE);
     if (self->open())
-        return false;
+        return -1;
     try {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        ptr = self->mmap(is_writeable);
+        ptr = self->mmap(writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
 #if EXIV2_VERSION_HEX < 0x001c0000
     } catch(Exiv2::AnyError const& e) {
 #else
     } catch(Exiv2::Error const& e) {
 #endif
-        return false;
+        return -1;
     }
-    size = self->size();
-    return true;
+    return PyBuffer_FillInfo(view, exporter, ptr, ptr ? self->size() : 0,
+                             writeable ? 0 : 1, flags);
 };
 }
-EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo, true, true)
+EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo)
+RELEASE_OBJECT_BUFFER(Exiv2::BasicIo)
 
 // Make enum more Pythonic
 DEFINE_CLASS_ENUM(BasicIo, Position,)

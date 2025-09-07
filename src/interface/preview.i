@@ -80,15 +80,14 @@ KEEP_REFERENCE_EX(Exiv2::PreviewManager*, args)
 }
 
 // Expose Exiv2::PreviewImage contents as a Python buffer
-%fragment("get_ptr_size"{Exiv2::PreviewImage}, "header") {
-static bool get_ptr_size(Exiv2::PreviewImage* self, bool is_writeable,
-                         Exiv2::byte*& ptr, Py_ssize_t& size) {
-    ptr = (Exiv2::byte*)self->pData();
-    size = self->size();
-    return true;
+%fragment("buffer_fill_info"{Exiv2::PreviewImage}, "header") {
+static int buffer_fill_info(Exiv2::PreviewImage* self, Py_buffer* view,
+                            PyObject* exporter, int flags) {
+    return PyBuffer_FillInfo(view, exporter, (void*)self->pData(),
+                             self->size(), 1, flags);
 };
 }
-EXPOSE_OBJECT_BUFFER(Exiv2::PreviewImage, false, false)
+EXPOSE_OBJECT_BUFFER(Exiv2::PreviewImage)
 
 // Convert pData result to a Python memoryview
 RETURN_VIEW(Exiv2::byte* pData, arg1->size(), PyBUF_READ,

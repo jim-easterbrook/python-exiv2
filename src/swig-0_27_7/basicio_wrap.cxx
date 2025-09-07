@@ -4354,23 +4354,25 @@ static void release_ptr(Exiv2::BasicIo* self) {
 };
 
 
-static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
-                         Exiv2::byte*& ptr, Py_ssize_t& size) {
+static int buffer_fill_info(Exiv2::BasicIo* self, Py_buffer* view,
+                            PyObject* exporter, int flags) {
+    Exiv2::byte* ptr;
+    bool writeable = (flags && PyBUF_WRITABLE);
     if (self->open())
-        return false;
+        return -1;
     try {
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        ptr = self->mmap(is_writeable);
+        ptr = self->mmap(writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
 
     } catch(Exiv2::AnyError const& e) {
 
 
 
-        return false;
+        return -1;
     }
-    size = self->size();
-    return true;
+    return PyBuffer_FillInfo(view, exporter, ptr, ptr ? self->size() : 0,
+                             writeable ? 0 : 1, flags);
 };
 
 
@@ -4380,16 +4382,12 @@ static int getbuffer_Exiv2_BasicIo(
     PyErr_WarnEx(PyExc_DeprecationWarning, "Please use 'data()' to get a"
                  " memoryview of Exiv2::BasicIo", 1);
     Exiv2::BasicIo* self = 0;
-    Exiv2::byte* ptr = 0;
-    Py_ssize_t size = 0;
-    bool is_writeable = true && (flags && PyBUF_WRITABLE);
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, SWIGTYPE_p_Exiv2__BasicIo, 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, ptr, size))
+    if (buffer_fill_info(self, view, exporter, flags))
         goto fail;
-    return PyBuffer_FillInfo(view, exporter, ptr,
-        ptr ? size : 0, is_writeable ? 0 : 1, flags);
+    return 0;
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;

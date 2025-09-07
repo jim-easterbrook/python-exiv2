@@ -4568,11 +4568,10 @@ static PyObject* _get_enum_data_Exiv2_TypeId() {
 };
 
 
-static bool get_ptr_size(Exiv2::DataBuf* self, bool is_writeable,
-                         Exiv2::byte*& ptr, Py_ssize_t& size) {
-    ptr = self->DATABUF_DATA;
-    size = self->DATABUF_SIZE;
-    return true;
+static int buffer_fill_info(Exiv2::DataBuf* self, Py_buffer* view,
+                            PyObject* exporter, int flags) {
+    return PyBuffer_FillInfo(view, exporter, self->DATABUF_DATA,
+                             self->DATABUF_SIZE, 0, flags);
 };
 
 
@@ -4582,16 +4581,12 @@ static int getbuffer_Exiv2_DataBuf(
     PyErr_WarnEx(PyExc_DeprecationWarning, "Please use 'data()' to get a"
                  " memoryview of Exiv2::DataBuf", 1);
     Exiv2::DataBuf* self = 0;
-    Exiv2::byte* ptr = 0;
-    Py_ssize_t size = 0;
-    bool is_writeable = true && (flags && PyBUF_WRITABLE);
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, ptr, size))
+    if (buffer_fill_info(self, view, exporter, flags))
         goto fail;
-    return PyBuffer_FillInfo(view, exporter, ptr,
-        ptr ? size : 0, is_writeable ? 0 : 1, flags);
+    return 0;
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;

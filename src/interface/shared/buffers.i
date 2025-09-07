@@ -117,25 +117,23 @@ _HOLD_BUFFER(hold_funcs)
 
 
 // Macros to expose object data with a buffer interface
-%define _BF_GETBUFFER(object_type, writeable, get_func)
+
+// Add getbuffer slot to an object type
+%define EXPOSE_OBJECT_BUFFER(object_type)
 %fragment("getbuffer"{object_type}, "header",
-          fragment="get_ptr_size"{object_type}) {
+          fragment="buffer_fill_info"{object_type}) {
 static int getbuffer_%mangle(object_type)(
         PyObject* exporter, Py_buffer* view, int flags) {
     // Deprecated since 2025-07-09
     PyErr_WarnEx(PyExc_DeprecationWarning, "Please use 'data()' to get a"
                  " memoryview of object_type", 1);
     object_type* self = 0;
-    Exiv2::byte* ptr = 0;
-    Py_ssize_t size = 0;
-    bool is_writeable = writeable && (flags && PyBUF_WRITABLE);
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, $descriptor(object_type*), 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, ptr, size))
+    if (buffer_fill_info(self, view, exporter, flags))
         goto fail;
-    return PyBuffer_FillInfo(view, exporter, ptr,
-        ptr ? size : 0, is_writeable ? 0 : 1, flags);
+    return 0;
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
@@ -143,11 +141,16 @@ fail:
 };
 }
 %fragment("getbuffer"{object_type});
+_SET_BF_GETBUFFER(object_type, getbuffer_%mangle(object_type))
+%enddef // EXPOSE_OBJECT_BUFFER
+%define _SET_BF_GETBUFFER(object_type, func)
 %feature("python:bf_getbuffer", functype="getbufferproc")
-    object_type "get_func";
-%enddef // _BF_GETBUFFER
+    object_type "func";
+%enddef // _SET_BF_GETBUFFER
 
-%define _BF_RELEASEBUFFER(object_type, release_func)
+
+// Add releasebuffer slot to an object type (not often needed)
+%define RELEASE_OBJECT_BUFFER(object_type)
 %fragment("releasebuffer"{object_type}, "header",
           fragment="release_ptr"{object_type}) {
 static void releasebuffer_%mangle(object_type)(
@@ -160,15 +163,9 @@ static void releasebuffer_%mangle(object_type)(
 };
 }
 %fragment("releasebuffer"{object_type});
+_SET_BF_RELEASEBUFFER(object_type, releasebuffer_%mangle(object_type))
+%enddef // RELEASE_OBJECT_BUFFER
+%define _SET_BF_RELEASEBUFFER(object_type, func)
 %feature("python:bf_releasebuffer", functype="releasebufferproc")
-    object_type "release_func";
-%enddef // _BF_RELEASEBUFFER
-
-%define EXPOSE_OBJECT_BUFFER(object_type, writeable, with_release)
-// Add getbuffer slot to an object type
-_BF_GETBUFFER(object_type, writeable, getbuffer_%mangle(object_type))
-#if #with_release == "true"
-// Add releasebuffer slot to an object type (not often needed)
-_BF_RELEASEBUFFER(object_type, releasebuffer_%mangle(object_type))
-#endif
-%enddef // EXPOSE_OBJECT_BUFFER
+    object_type "func";
+%enddef // _SET_BF_RELEASEBUFFER

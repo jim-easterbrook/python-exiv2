@@ -173,15 +173,14 @@ DEFINE_ENUM(TypeId,)
 INPUT_BUFFER_RO(const Exiv2::byte *pData, BUFLEN_T size)
 
 // Expose Exiv2::DataBuf contents as a Python buffer
-%fragment("get_ptr_size"{Exiv2::DataBuf}, "header") {
-static bool get_ptr_size(Exiv2::DataBuf* self, bool is_writeable,
-                         Exiv2::byte*& ptr, Py_ssize_t& size) {
-    ptr = self->DATABUF_DATA;
-    size = self->DATABUF_SIZE;
-    return true;
+%fragment("buffer_fill_info"{Exiv2::DataBuf}, "header") {
+static int buffer_fill_info(Exiv2::DataBuf* self, Py_buffer* view,
+                            PyObject* exporter, int flags) {
+    return PyBuffer_FillInfo(view, exporter, self->DATABUF_DATA,
+                             self->DATABUF_SIZE, 0, flags);
 };
 }
-EXPOSE_OBJECT_BUFFER(Exiv2::DataBuf, true, false)
+EXPOSE_OBJECT_BUFFER(Exiv2::DataBuf)
 
 // Convert pData_ and data() result to a memoryview
 RETURN_VIEW(Exiv2::byte* pData_, arg1->DATABUF_SIZE, PyBUF_WRITE,
