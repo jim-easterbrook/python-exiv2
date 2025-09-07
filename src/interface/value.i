@@ -99,49 +99,44 @@ OUTPUT_BUFFER_RW(Exiv2::byte* buf,)
 
 // Downcast base class pointers to derived class
 // Convert exiv2 type id to the appropriate value class type info
-%fragment("get_type_object", "header") {
-static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
-    switch(type_id) {
-        case Exiv2::asciiString:
-            return $descriptor(Exiv2::AsciiValue*);
-        case Exiv2::unsignedShort:
-            return $descriptor(Exiv2::ValueType<uint16_t>*);
-        case Exiv2::unsignedLong:
-        case Exiv2::tiffIfd:
-            return $descriptor(Exiv2::ValueType<uint32_t>*);
-        case Exiv2::unsignedRational:
-            return $descriptor(Exiv2::ValueType<Exiv2::URational>*);
-        case Exiv2::signedShort:
-            return $descriptor(Exiv2::ValueType<int16_t>*);
-        case Exiv2::signedLong:
-            return $descriptor(Exiv2::ValueType<int32_t>*);
-        case Exiv2::signedRational:
-            return $descriptor(Exiv2::ValueType<Exiv2::Rational>*);
-        case Exiv2::tiffFloat:
-            return $descriptor(Exiv2::ValueType<float>*);
-        case Exiv2::tiffDouble:
-            return $descriptor(Exiv2::ValueType<double>*);
-        case Exiv2::string:
-            return $descriptor(Exiv2::StringValue*);
-        case Exiv2::date:
-            return $descriptor(Exiv2::DateValue*);
-        case Exiv2::time:
-            return $descriptor(Exiv2::TimeValue*);
-        case Exiv2::comment:
-            return $descriptor(Exiv2::CommentValue*);
-        case Exiv2::xmpText:
-            return $descriptor(Exiv2::XmpTextValue*);
-        case Exiv2::xmpAlt:
-        case Exiv2::xmpBag:
-        case Exiv2::xmpSeq:
-            return $descriptor(Exiv2::XmpArrayValue*);
-        case Exiv2::langAlt:
-            return $descriptor(Exiv2::LangAltValue*);
-        default:
-            return $descriptor(Exiv2::DataValue*);
-    }
+%fragment("_type_map_decl", "header") {
+#include <map>
+static std::map< Exiv2::TypeId, swig_type_info* > get_type_object;
+}
+%fragment("get_type_object", "init", fragment="_type_map_decl") {
+get_type_object = {
+    {Exiv2::unsignedByte,   $descriptor(Exiv2::DataValue*)},
+    {Exiv2::asciiString,    $descriptor(Exiv2::AsciiValue*)},
+    {Exiv2::unsignedShort,  $descriptor(Exiv2::ValueType<uint16_t>*)},
+    {Exiv2::unsignedLong,   $descriptor(Exiv2::ValueType<uint32_t>*)},
+    {Exiv2::unsignedRational,
+        $descriptor(Exiv2::ValueType<Exiv2::URational>*)},
+    {Exiv2::signedByte,     $descriptor(Exiv2::DataValue*)},
+    {Exiv2::undefined,      $descriptor(Exiv2::DataValue*)},
+    {Exiv2::signedShort,    $descriptor(Exiv2::ValueType<int16_t>*)},
+    {Exiv2::signedLong,     $descriptor(Exiv2::ValueType<int32_t>*)},
+    {Exiv2::signedRational, $descriptor(Exiv2::ValueType<Exiv2::Rational>*)},
+    {Exiv2::tiffFloat,      $descriptor(Exiv2::ValueType<float>*)},
+    {Exiv2::tiffDouble,     $descriptor(Exiv2::ValueType<double>*)},
+    {Exiv2::tiffIfd,        $descriptor(Exiv2::ValueType<uint32_t>*)},
+    {Exiv2::unsignedLongLong,
+        $descriptor(Exiv2::DataValue*)},
+    {Exiv2::signedLongLong, $descriptor(Exiv2::DataValue*)},
+    {Exiv2::tiffIfd8,       $descriptor(Exiv2::DataValue*)},
+    {Exiv2::string,         $descriptor(Exiv2::StringValue*)},
+    {Exiv2::date,           $descriptor(Exiv2::DateValue*)},
+    {Exiv2::time,           $descriptor(Exiv2::TimeValue*)},
+    {Exiv2::comment,        $descriptor(Exiv2::CommentValue*)},
+    {Exiv2::directory,      $descriptor(Exiv2::DataValue*)},
+    {Exiv2::xmpText,        $descriptor(Exiv2::XmpTextValue*)},
+    {Exiv2::xmpAlt,         $descriptor(Exiv2::XmpArrayValue*)},
+    {Exiv2::xmpBag,         $descriptor(Exiv2::XmpArrayValue*)},
+    {Exiv2::xmpSeq,         $descriptor(Exiv2::XmpArrayValue*)},
+    {Exiv2::langAlt,        $descriptor(Exiv2::LangAltValue*)},
+    {Exiv2::invalidTypeId,  $descriptor(Exiv2::DataValue*)}
 };
 }
+
 // Function to get swig type for an Exiv2 type id
 %fragment("get_swig_type", "header", fragment="get_type_object") {
 static swig_type_info* get_swig_type(Exiv2::Value* value) {
@@ -151,7 +146,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
         if (dynamic_cast<Exiv2::CommentValue*>(value))
             return $descriptor(Exiv2::CommentValue*);
     }
-    return get_type_object(type_id);
+    return get_type_object.at(type_id);
 };
 
 }

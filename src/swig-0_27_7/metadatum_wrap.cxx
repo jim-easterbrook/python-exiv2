@@ -5178,47 +5178,8 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
       }
     
 
-static swig_type_info* get_type_object(Exiv2::TypeId type_id) {
-    switch(type_id) {
-        case Exiv2::asciiString:
-            return SWIGTYPE_p_Exiv2__AsciiValue;
-        case Exiv2::unsignedShort:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t;
-        case Exiv2::unsignedLong:
-        case Exiv2::tiffIfd:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t;
-        case Exiv2::unsignedRational:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t;
-        case Exiv2::signedShort:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t;
-        case Exiv2::signedLong:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t;
-        case Exiv2::signedRational:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t;
-        case Exiv2::tiffFloat:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_float_t;
-        case Exiv2::tiffDouble:
-            return SWIGTYPE_p_Exiv2__ValueTypeT_double_t;
-        case Exiv2::string:
-            return SWIGTYPE_p_Exiv2__StringValue;
-        case Exiv2::date:
-            return SWIGTYPE_p_Exiv2__DateValue;
-        case Exiv2::time:
-            return SWIGTYPE_p_Exiv2__TimeValue;
-        case Exiv2::comment:
-            return SWIGTYPE_p_Exiv2__CommentValue;
-        case Exiv2::xmpText:
-            return SWIGTYPE_p_Exiv2__XmpTextValue;
-        case Exiv2::xmpAlt:
-        case Exiv2::xmpBag:
-        case Exiv2::xmpSeq:
-            return SWIGTYPE_p_Exiv2__XmpArrayValue;
-        case Exiv2::langAlt:
-            return SWIGTYPE_p_Exiv2__LangAltValue;
-        default:
-            return SWIGTYPE_p_Exiv2__DataValue;
-    }
-};
+
+static std::map< Exiv2::TypeId, swig_type_info* > get_type_object;
 
 
 static swig_type_info* get_swig_type(Exiv2::Value* value) {
@@ -5228,7 +5189,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
         if (dynamic_cast<Exiv2::CommentValue*>(value))
             return SWIGTYPE_p_Exiv2__CommentValue;
     }
-    return get_type_object(type_id);
+    return get_type_object.at(type_id);
 };
 
 
@@ -8090,6 +8051,93 @@ SWIG_init(void) {
       return INIT_ERROR_RETURN;
     }
   }
+  
+  
+  get_type_object = {
+    {
+      Exiv2::unsignedByte,   SWIGTYPE_p_Exiv2__DataValue
+    },
+    {
+      Exiv2::asciiString,    SWIGTYPE_p_Exiv2__AsciiValue
+    },
+    {
+      Exiv2::unsignedShort,  SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t
+    },
+    {
+      Exiv2::unsignedLong,   SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t
+    },
+    {
+      Exiv2::unsignedRational,
+      SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t
+    },
+    {
+      Exiv2::signedByte,     SWIGTYPE_p_Exiv2__DataValue
+    },
+    {
+      Exiv2::undefined,      SWIGTYPE_p_Exiv2__DataValue
+    },
+    {
+      Exiv2::signedShort,    SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t
+    },
+    {
+      Exiv2::signedLong,     SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t
+    },
+    {
+      Exiv2::signedRational, SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t
+    },
+    {
+      Exiv2::tiffFloat,      SWIGTYPE_p_Exiv2__ValueTypeT_float_t
+    },
+    {
+      Exiv2::tiffDouble,     SWIGTYPE_p_Exiv2__ValueTypeT_double_t
+    },
+    {
+      Exiv2::tiffIfd,        SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t
+    },
+    {
+      Exiv2::unsignedLongLong,
+      SWIGTYPE_p_Exiv2__DataValue
+    },
+    {
+      Exiv2::signedLongLong, SWIGTYPE_p_Exiv2__DataValue
+    },
+    {
+      Exiv2::tiffIfd8,       SWIGTYPE_p_Exiv2__DataValue
+    },
+    {
+      Exiv2::string,         SWIGTYPE_p_Exiv2__StringValue
+    },
+    {
+      Exiv2::date,           SWIGTYPE_p_Exiv2__DateValue
+    },
+    {
+      Exiv2::time,           SWIGTYPE_p_Exiv2__TimeValue
+    },
+    {
+      Exiv2::comment,        SWIGTYPE_p_Exiv2__CommentValue
+    },
+    {
+      Exiv2::directory,      SWIGTYPE_p_Exiv2__DataValue
+    },
+    {
+      Exiv2::xmpText,        SWIGTYPE_p_Exiv2__XmpTextValue
+    },
+    {
+      Exiv2::xmpAlt,         SWIGTYPE_p_Exiv2__XmpArrayValue
+    },
+    {
+      Exiv2::xmpBag,         SWIGTYPE_p_Exiv2__XmpArrayValue
+    },
+    {
+      Exiv2::xmpSeq,         SWIGTYPE_p_Exiv2__XmpArrayValue
+    },
+    {
+      Exiv2::langAlt,        SWIGTYPE_p_Exiv2__LangAltValue
+    },
+    {
+      Exiv2::invalidTypeId,  SWIGTYPE_p_Exiv2__DataValue
+    }
+  };
   
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;

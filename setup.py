@@ -166,7 +166,7 @@ if platform in ('linux', 'darwin', 'mingw'):
     if exiv2_version >= [0, 28]:
         extra_compile_args.append('-std=gnu++17')
     else:
-        extra_compile_args.append('-std=c++98')
+        extra_compile_args.append('-std=c++11')
 if platform == 'win32':
     extra_compile_args = ['/wd4101', '/wd4290']
 if platform == 'darwin':
