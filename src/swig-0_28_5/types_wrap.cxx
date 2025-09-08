@@ -4230,6 +4230,22 @@ static PyObject* PyExc_Exiv2Error = NULL;
 static PyObject* exiv2_module = NULL;
 
 
+static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        enum_typeobject, py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
+};
+
+
 static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
 
 
@@ -4238,22 +4254,6 @@ static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
         PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
             exiv2_module, "ErrorCode");
     return PyEnum_Exiv2_ErrorCode;
-};
-
-
-static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_ErrorCode(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
 };
 
 
@@ -4314,8 +4314,9 @@ static void _set_python_exception() {
         if (wcp_to_utf8(&msg))
             msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum_Exiv2_ErrorCode
-            (static_cast<long>(e.code())), msg.c_str());
+            "Ns",
+            py_from_enum(get_enum_typeobject_Exiv2_ErrorCode(),
+                         static_cast<long>(e.code())), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
@@ -4630,22 +4631,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   }
   return SWIG_ERROR;
 }
-
-
-static PyObject* py_from_enum_Exiv2_TypeId(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
-};
 
 
   #define SWIG_From_long   PyInt_FromLong 
@@ -5691,7 +5676,8 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeId(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = py_from_enum_Exiv2_TypeId(static_cast<long>(result));
+    resultobj = py_from_enum(get_enum_typeobject_Exiv2_TypeId(),
+      static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }

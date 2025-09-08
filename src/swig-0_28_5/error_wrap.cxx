@@ -4402,12 +4402,12 @@ static PyObject* get_enum_typeobject_Exiv2_LogMsg_Level() {
 static PyObject* Py_IntEnum = NULL;
 
 
-static PyObject* py_from_enum_Exiv2_LogMsg_Level(long value) {
+static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
     PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_LogMsg_Level(), py_int, NULL);
+        enum_typeobject, py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -4476,7 +4476,8 @@ SWIGINTERN PyObject *_wrap_LogMsg_level(PyObject *self, PyObject *args) {
   if (!SWIG_Python_UnpackTuple(args, "LogMsg_level", 0, 0, 0)) SWIG_fail;
   result = (Exiv2::LogMsg::Level)Exiv2::LogMsg::level();
   {
-    resultobj = py_from_enum_Exiv2_LogMsg_Level(static_cast<long>(result));
+    resultobj = py_from_enum(get_enum_typeobject_Exiv2_LogMsg_Level(),
+      static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }

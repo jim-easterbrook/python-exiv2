@@ -4406,6 +4406,22 @@ static PyObject* PyExc_Exiv2Error = NULL;
 static PyObject* exiv2_module = NULL;
 
 
+static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
+    PyObject* py_int = PyLong_FromLong(value);
+    if (!py_int)
+        return NULL;
+    PyObject* result = PyObject_CallFunctionObjArgs(
+        enum_typeobject, py_int, NULL);
+    if (!result) {
+        // Assume value is not currently in enum, so return int
+        PyErr_Clear();
+        return py_int;
+        }
+    Py_DECREF(py_int);
+    return result;
+};
+
+
 static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
 
 
@@ -4414,22 +4430,6 @@ static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
         PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
             exiv2_module, "ErrorCode");
     return PyEnum_Exiv2_ErrorCode;
-};
-
-
-static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_ErrorCode(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
 };
 
 
@@ -4490,8 +4490,9 @@ static void _set_python_exception() {
         if (wcp_to_utf8(&msg))
             msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum_Exiv2_ErrorCode
-            (static_cast<long>(e.code())), msg.c_str());
+            "Ns",
+            py_from_enum(get_enum_typeobject_Exiv2_ErrorCode(),
+                         static_cast<long>(e.code())), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
@@ -5890,22 +5891,6 @@ static PyObject* get_enum_typeobject_Exiv2_TypeId() {
 };
 
 
-static PyObject* py_from_enum_Exiv2_TypeId(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
-};
-
-
 
 static std::map< Exiv2::TypeId, swig_type_info* > get_type_object;
 
@@ -6363,38 +6348,6 @@ static PyObject* get_enum_typeobject_Exiv2_CommentValue_CharsetId() {
 };
 
 
-static PyObject* py_from_enum_Exiv2_CommentValue_CharsetId(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_CommentValue_CharsetId(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
-};
-
-
-static PyObject* py_from_enum_Exiv2_ByteOrder(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_ByteOrder(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
-};
-
-
 static PyObject* get_enum_typeobject_Exiv2_XmpValue_XmpArrayType() {
     if (!PyEnum_Exiv2_XmpValue_XmpArrayType) {
         PyObject* parent_class = PyObject_GetAttrString(
@@ -6409,22 +6362,6 @@ static PyObject* get_enum_typeobject_Exiv2_XmpValue_XmpArrayType() {
 };
 
 
-static PyObject* py_from_enum_Exiv2_XmpValue_XmpArrayType(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_XmpValue_XmpArrayType(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
-};
-
-
 static PyObject* get_enum_typeobject_Exiv2_XmpValue_XmpStruct() {
     if (!PyEnum_Exiv2_XmpValue_XmpStruct) {
         PyObject* parent_class = PyObject_GetAttrString(
@@ -6436,22 +6373,6 @@ static PyObject* get_enum_typeobject_Exiv2_XmpValue_XmpStruct() {
         }
     }
     return PyEnum_Exiv2_XmpValue_XmpStruct;
-};
-
-
-static PyObject* py_from_enum_Exiv2_XmpValue_XmpStruct(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_XmpValue_XmpStruct(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
 };
 
 SWIGINTERN char const *Exiv2_XmpTextValue_data(Exiv2::XmpTextValue *self){
@@ -7620,7 +7541,8 @@ SWIGINTERN PyObject *_wrap_Value_typeId(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
   result = (Exiv2::TypeId)((Exiv2::Value const *)arg1)->typeId();
   {
-    resultobj = py_from_enum_Exiv2_TypeId(static_cast<long>(result));
+    resultobj = py_from_enum(get_enum_typeobject_Exiv2_TypeId(),
+      static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -10667,7 +10589,8 @@ SWIGINTERN PyObject *_wrap_CommentValue_charsetId(PyObject *self, PyObject *args
     }
   }
   {
-    resultobj = py_from_enum_Exiv2_CommentValue_CharsetId(static_cast<long>(result));
+    resultobj = py_from_enum(get_enum_typeobject_Exiv2_CommentValue_CharsetId(),
+      static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -10727,7 +10650,8 @@ SWIGINTERN PyObject *_wrap_CommentValue_byteOrder__get(PyObject *self, PyObject 
   arg1 = reinterpret_cast< Exiv2::CommentValue * >(argp1);
   result = (Exiv2::ByteOrder) ((arg1)->byteOrder_);
   {
-    resultobj = py_from_enum_Exiv2_ByteOrder(static_cast<long>(result));
+    resultobj = py_from_enum(get_enum_typeobject_Exiv2_ByteOrder(),
+      static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -10774,7 +10698,8 @@ SWIGINTERN PyObject *_wrap_XmpValue_xmpArrayType(PyObject *self, PyObject *args)
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   result = (Exiv2::XmpValue::XmpArrayType)((Exiv2::XmpValue const *)arg1)->xmpArrayType();
   {
-    resultobj = py_from_enum_Exiv2_XmpValue_XmpArrayType(static_cast<long>(result));
+    resultobj = py_from_enum(get_enum_typeobject_Exiv2_XmpValue_XmpArrayType(),
+      static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -10799,7 +10724,8 @@ SWIGINTERN PyObject *_wrap_XmpValue_xmpStruct(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::XmpValue * >(argp1);
   result = (Exiv2::XmpValue::XmpStruct)((Exiv2::XmpValue const *)arg1)->xmpStruct();
   {
-    resultobj = py_from_enum_Exiv2_XmpValue_XmpStruct(static_cast<long>(result));
+    resultobj = py_from_enum(get_enum_typeobject_Exiv2_XmpValue_XmpStruct(),
+      static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
