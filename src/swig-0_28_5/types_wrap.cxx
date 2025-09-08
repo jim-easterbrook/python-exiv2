@@ -4201,6 +4201,9 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+static PyObject* Python_Exiv2_ErrorCode = NULL;
+
+
 #define INIT_ERROR_RETURN NULL
 
 
@@ -4243,17 +4246,6 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
         }
     Py_DECREF(py_int);
     return result;
-};
-
-
-static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
-
-
-static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
-    if (!PyEnum_Exiv2_ErrorCode)
-        PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
-            exiv2_module, "ErrorCode");
-    return PyEnum_Exiv2_ErrorCode;
 };
 
 
@@ -4314,9 +4306,8 @@ static void _set_python_exception() {
         if (wcp_to_utf8(&msg))
             msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns",
-            py_from_enum(get_enum_typeobject_Exiv2_ErrorCode(),
-                         static_cast<long>(e.code())), msg.c_str());
+            "Ns", py_from_enum(Python_Exiv2_ErrorCode,
+            static_cast<long>(e.code())), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
@@ -4463,7 +4454,7 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char **cptr, size_t *psize, int *alloc)
 #define DATABUF_SIZE size()
 
 
-static PyObject* PyEnum_Exiv2_AccessMode = NULL;
+static PyObject* Python_Exiv2_AccessMode = NULL;
 
 
 static PyObject* exiv2_extras = NULL;
@@ -4505,7 +4496,7 @@ static PyObject* _get_enum_data_Exiv2_AccessMode() {
 };
 
 
-static PyObject* PyEnum_Exiv2_ByteOrder = NULL;
+static PyObject* Python_Exiv2_ByteOrder = NULL;
 
 
 static PyObject* _get_enum_data_Exiv2_ByteOrder() {
@@ -4517,7 +4508,7 @@ static PyObject* _get_enum_data_Exiv2_ByteOrder() {
 };
 
 
-static PyObject* PyEnum_Exiv2_MetadataId = NULL;
+static PyObject* Python_Exiv2_MetadataId = NULL;
 
 
 static PyObject* _get_enum_data_Exiv2_MetadataId() {
@@ -4532,7 +4523,7 @@ static PyObject* _get_enum_data_Exiv2_MetadataId() {
 };
 
 
-static PyObject* PyEnum_Exiv2_TypeId = NULL;
+static PyObject* Python_Exiv2_TypeId = NULL;
 
 
 static PyObject* _get_enum_data_Exiv2_TypeId() {
@@ -4592,14 +4583,6 @@ fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
     return -1;
-};
-
-
-static PyObject* get_enum_typeobject_Exiv2_TypeId() {
-    if (!PyEnum_Exiv2_TypeId)
-        PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
-            exiv2_module, "TypeId");
-    return PyEnum_Exiv2_TypeId;
 };
 
 
@@ -5618,8 +5601,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeName(PyObject *self, PyObject *args) {
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   {
-    if (!PyObject_IsInstance(swig_obj[0],
-        get_enum_typeobject_Exiv2_TypeId())) {
+    if (!PyObject_IsInstance(swig_obj[0], Python_Exiv2_TypeId)) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "TypeInfo_typeName argument 1 type should be 'Exiv2::TypeId'.", 1);
@@ -5676,8 +5658,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeId(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = py_from_enum(get_enum_typeobject_Exiv2_TypeId(),
-      static_cast<long>(result));
+    resultobj = py_from_enum(Python_Exiv2_TypeId, static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -5698,8 +5679,7 @@ SWIGINTERN PyObject *_wrap_TypeInfo_typeSize(PyObject *self, PyObject *args) {
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   {
-    if (!PyObject_IsInstance(swig_obj[0],
-        get_enum_typeobject_Exiv2_TypeId())) {
+    if (!PyObject_IsInstance(swig_obj[0], Python_Exiv2_TypeId)) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "TypeInfo_typeSize argument 1 type should be 'Exiv2::TypeId'.", 1);
@@ -8931,6 +8911,19 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 metadata data types and utility classes."));
   
   {
+    if (strcmp(SWIG_name,"_error")) {
+      PyObject* mod = PyImport_ImportModule("exiv2.""_error");
+      if (!mod)
+      return INIT_ERROR_RETURN;
+      Python_Exiv2_ErrorCode = PyObject_GetAttrString(mod,"ErrorCode");
+      Py_DECREF(mod);
+      if (!Python_Exiv2_ErrorCode)
+      return INIT_ERROR_RETURN;
+    }
+  }
+  
+  
+  {
     exiv2_module = PyImport_ImportModule("exiv2");
     if (!exiv2_module)
     return INIT_ERROR_RETURN;
@@ -8950,41 +8943,41 @@ SWIG_init(void) {
   return INIT_ERROR_RETURN;
   
   
-  PyEnum_Exiv2_AccessMode = _create_enum(
+  Python_Exiv2_AccessMode = _create_enum(
     "Exiv2::AccessMode","2", _get_enum_data_Exiv2_AccessMode());
-  if (!PyEnum_Exiv2_AccessMode)
+  if (!Python_Exiv2_AccessMode)
   return INIT_ERROR_RETURN;
   // SWIG_Python_SetConstant will decref PyEnum object
-  Py_INCREF(PyEnum_Exiv2_AccessMode);
+  Py_INCREF(Python_Exiv2_AccessMode);
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AccessMode",PyEnum_Exiv2_AccessMode);
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AccessMode",Python_Exiv2_AccessMode);
   
-  PyEnum_Exiv2_ByteOrder = _create_enum(
+  Python_Exiv2_ByteOrder = _create_enum(
     "Exiv2::ByteOrder","", _get_enum_data_Exiv2_ByteOrder());
-  if (!PyEnum_Exiv2_ByteOrder)
+  if (!Python_Exiv2_ByteOrder)
   return INIT_ERROR_RETURN;
   // SWIG_Python_SetConstant will decref PyEnum object
-  Py_INCREF(PyEnum_Exiv2_ByteOrder);
+  Py_INCREF(Python_Exiv2_ByteOrder);
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ByteOrder",PyEnum_Exiv2_ByteOrder);
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "ByteOrder",Python_Exiv2_ByteOrder);
   
-  PyEnum_Exiv2_MetadataId = _create_enum(
+  Python_Exiv2_MetadataId = _create_enum(
     "Exiv2::MetadataId","2", _get_enum_data_Exiv2_MetadataId());
-  if (!PyEnum_Exiv2_MetadataId)
+  if (!Python_Exiv2_MetadataId)
   return INIT_ERROR_RETURN;
   // SWIG_Python_SetConstant will decref PyEnum object
-  Py_INCREF(PyEnum_Exiv2_MetadataId);
+  Py_INCREF(Python_Exiv2_MetadataId);
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "MetadataId",PyEnum_Exiv2_MetadataId);
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "MetadataId",Python_Exiv2_MetadataId);
   
-  PyEnum_Exiv2_TypeId = _create_enum(
+  Python_Exiv2_TypeId = _create_enum(
     "Exiv2::TypeId","", _get_enum_data_Exiv2_TypeId());
-  if (!PyEnum_Exiv2_TypeId)
+  if (!Python_Exiv2_TypeId)
   return INIT_ERROR_RETURN;
   // SWIG_Python_SetConstant will decref PyEnum object
-  Py_INCREF(PyEnum_Exiv2_TypeId);
+  Py_INCREF(Python_Exiv2_TypeId);
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "TypeId",PyEnum_Exiv2_TypeId);
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "TypeId",Python_Exiv2_TypeId);
   
   /* type 'Exiv2::TypeInfo' */
   d = PyDict_New();

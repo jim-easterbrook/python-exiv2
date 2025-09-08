@@ -27,7 +27,7 @@
 
 %import "metadatum.i"
 
-IMPORT_ENUM(TypeId)
+IMPORT_ENUM(types, TypeId)
 
 // Catch all C++ exceptions...
 EXCEPTION()

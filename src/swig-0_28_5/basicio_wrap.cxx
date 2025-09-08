@@ -4206,6 +4206,9 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+static PyObject* Python_Exiv2_ErrorCode = NULL;
+
+
 #define INIT_ERROR_RETURN NULL
 
 
@@ -4231,17 +4234,6 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
         }
     Py_DECREF(py_int);
     return result;
-};
-
-
-static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
-
-
-static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
-    if (!PyEnum_Exiv2_ErrorCode)
-        PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
-            exiv2_module, "ErrorCode");
-    return PyEnum_Exiv2_ErrorCode;
 };
 
 
@@ -4302,9 +4294,8 @@ static void _set_python_exception() {
         if (wcp_to_utf8(&msg))
             msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns",
-            py_from_enum(get_enum_typeobject_Exiv2_ErrorCode(),
-                         static_cast<long>(e.code())), msg.c_str());
+            "Ns", py_from_enum(Python_Exiv2_ErrorCode,
+            static_cast<long>(e.code())), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
@@ -4405,7 +4396,7 @@ static void releasebuffer_Exiv2_BasicIo(
 };
 
 
-static PyObject* PyEnum_Exiv2_BasicIo_Position = NULL;
+static PyObject* Python_Exiv2_BasicIo_Position = NULL;
 
 
 static PyObject* exiv2_extras = NULL;
@@ -4891,20 +4882,6 @@ SWIG_AsVal_long_SS_long (PyObject *obj, long long *val)
   return res;
 }
 #endif
-
-
-static PyObject* get_enum_typeobject_Exiv2_BasicIo_Position() {
-    if (!PyEnum_Exiv2_BasicIo_Position) {
-        PyObject* parent_class = PyObject_GetAttrString(
-            exiv2_module, "BasicIo");
-        if (parent_class) {
-            PyEnum_Exiv2_BasicIo_Position = PyObject_GetAttrString(
-                parent_class, "Position");
-            Py_DECREF(parent_class);
-        }
-    }
-    return PyEnum_Exiv2_BasicIo_Position;
-};
 
 
 static PyObject* Py_IntEnum = NULL;
@@ -5637,8 +5614,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< int64_t >(val2);
   {
-    if (!PyObject_IsInstance(obj2,
-        get_enum_typeobject_Exiv2_BasicIo_Position())) {
+    if (!PyObject_IsInstance(obj2, Python_Exiv2_BasicIo_Position)) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "BasicIo_seek argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
@@ -5707,8 +5683,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_seekOrThrow(PyObject *self, PyObject *args) {
   } 
   arg2 = static_cast< int64_t >(val2);
   {
-    if (!PyObject_IsInstance(obj2,
-        get_enum_typeobject_Exiv2_BasicIo_Position())) {
+    if (!PyObject_IsInstance(obj2, Python_Exiv2_BasicIo_Position)) {
       // deprecated since 2024-01-09
       PyErr_WarnEx(PyExc_DeprecationWarning,
         "BasicIo_seekOrThrow argument 3 type should be 'Exiv2::BasicIo::Position'.", 1);
@@ -7207,6 +7182,19 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Class interface to access files, memory and remote data."));
   
   {
+    if (strcmp(SWIG_name,"_error")) {
+      PyObject* mod = PyImport_ImportModule("exiv2.""_error");
+      if (!mod)
+      return INIT_ERROR_RETURN;
+      Python_Exiv2_ErrorCode = PyObject_GetAttrString(mod,"ErrorCode");
+      Py_DECREF(mod);
+      if (!Python_Exiv2_ErrorCode)
+      return INIT_ERROR_RETURN;
+    }
+  }
+  
+  
+  {
     exiv2_module = PyImport_ImportModule("exiv2");
     if (!exiv2_module)
     return INIT_ERROR_RETURN;
@@ -7226,12 +7214,12 @@ SWIG_init(void) {
   return INIT_ERROR_RETURN;
   
   
-  PyEnum_Exiv2_BasicIo_Position = _create_enum(
+  Python_Exiv2_BasicIo_Position = _create_enum(
     "Exiv2::BasicIo::Position","", _get_enum_data_Exiv2_BasicIo_Position());
-  if (!PyEnum_Exiv2_BasicIo_Position)
+  if (!Python_Exiv2_BasicIo_Position)
   return INIT_ERROR_RETURN;
   // SWIG_Python_SetConstant will decref PyEnum object
-  Py_INCREF(PyEnum_Exiv2_BasicIo_Position);
+  Py_INCREF(Python_Exiv2_BasicIo_Position);
   
   
   /* type 'Exiv2::BasicIo' */
@@ -7249,7 +7237,7 @@ SWIG_init(void) {
     }
   }
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",PyEnum_Exiv2_BasicIo_Position);
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",Python_Exiv2_BasicIo_Position);
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);

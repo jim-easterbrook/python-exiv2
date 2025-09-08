@@ -31,8 +31,8 @@
 
 %import "datasets.i"
 
-IMPORT_ENUM(ByteOrder)
-IMPORT_ENUM(TypeId)
+IMPORT_ENUM(types, ByteOrder)
+IMPORT_ENUM(types, TypeId)
 
 // Catch all C++ exceptions
 EXCEPTION()

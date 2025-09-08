@@ -4235,7 +4235,13 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+static PyObject* Python_Exiv2_ErrorCode = NULL;
+
+
 #define INIT_ERROR_RETURN NULL
+
+
+static PyObject* Python_Exiv2_TypeId = NULL;
 
 
 static PyObject* PyExc_Exiv2Error = NULL;
@@ -4244,23 +4250,12 @@ static PyObject* PyExc_Exiv2Error = NULL;
 static PyObject* exiv2_module = NULL;
 
 
-static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
-
-
-static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
-    if (!PyEnum_Exiv2_ErrorCode)
-        PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
-            exiv2_module, "ErrorCode");
-    return PyEnum_Exiv2_ErrorCode;
-};
-
-
-static PyObject* py_from_enum_Exiv2_ErrorCode(long value) {
+static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
     PyObject* py_int = PyLong_FromLong(value);
     if (!py_int)
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_ErrorCode(), py_int, NULL);
+        enum_typeobject, py_int, NULL);
     if (!result) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
@@ -4328,8 +4323,8 @@ static void _set_python_exception() {
         if (wcp_to_utf8(&msg))
             msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns", py_from_enum_Exiv2_ErrorCode
-            (static_cast<long>(e.code())), msg.c_str());
+            "Ns", py_from_enum(Python_Exiv2_ErrorCode,
+            static_cast<long>(e.code())), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
@@ -4355,7 +4350,7 @@ fail:
 };
 
 
-static PyObject* PyEnum_Exiv2_XmpCategory = NULL;
+static PyObject* Python_Exiv2_XmpCategory = NULL;
 
 
 static PyObject* exiv2_extras = NULL;
@@ -4481,57 +4476,6 @@ static PyObject* get_attr_strip(PyObject* obj, PyObject* name) {
     if (getset)
         return getset_to_value(obj, getset);
     return PyObject_GenericGetAttr(obj, name);
-};
-
-
-static PyObject* PyEnum_Exiv2_TypeId = NULL;
-
-
-static PyObject* get_enum_typeobject_Exiv2_TypeId() {
-    if (!PyEnum_Exiv2_TypeId)
-        PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
-            exiv2_module, "TypeId");
-    return PyEnum_Exiv2_TypeId;
-};
-
-
-static PyObject* py_from_enum_Exiv2_TypeId(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_TypeId(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
-};
-
-
-static PyObject* get_enum_typeobject_Exiv2_XmpCategory() {
-    if (!PyEnum_Exiv2_XmpCategory)
-        PyEnum_Exiv2_XmpCategory = PyObject_GetAttrString(
-            exiv2_module, "XmpCategory");
-    return PyEnum_Exiv2_XmpCategory;
-};
-
-
-static PyObject* py_from_enum_Exiv2_XmpCategory(long value) {
-    PyObject* py_int = PyLong_FromLong(value);
-    if (!py_int)
-        return NULL;
-    PyObject* result = PyObject_CallFunctionObjArgs(
-        get_enum_typeobject_Exiv2_XmpCategory(), py_int, NULL);
-    if (!result) {
-        // Assume value is not currently in enum, so return int
-        PyErr_Clear();
-        return py_int;
-        }
-    Py_DECREF(py_int);
-    return result;
 };
 
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_items(Exiv2::XmpPropertyInfo *self,PyObject *py_self){
@@ -4816,7 +4760,7 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo_typeId__get(PyObject *self, PyObject 
   arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
   result = (Exiv2::TypeId) ((arg1)->typeId_);
   {
-    resultobj = py_from_enum_Exiv2_TypeId(static_cast<long>(result));
+    resultobj = py_from_enum(Python_Exiv2_TypeId, static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -4841,7 +4785,7 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo_xmpCategory__get(PyObject *self, PyOb
   arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
   result = (Exiv2::XmpCategory) ((arg1)->xmpCategory_);
   {
-    resultobj = py_from_enum_Exiv2_XmpCategory(static_cast<long>(result));
+    resultobj = py_from_enum(Python_Exiv2_XmpCategory, static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -5375,7 +5319,7 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyType(PyObject *self, PyObject *
   arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
   result = (Exiv2::TypeId)Exiv2::XmpProperties::propertyType((Exiv2::XmpKey const &)*arg1);
   {
-    resultobj = py_from_enum_Exiv2_TypeId(static_cast<long>(result));
+    resultobj = py_from_enum(Python_Exiv2_TypeId, static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -8518,6 +8462,32 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("XMP key class and data attributes."));
   
   {
+    if (strcmp(SWIG_name,"_error")) {
+      PyObject* mod = PyImport_ImportModule("exiv2.""_error");
+      if (!mod)
+      return INIT_ERROR_RETURN;
+      Python_Exiv2_ErrorCode = PyObject_GetAttrString(mod,"ErrorCode");
+      Py_DECREF(mod);
+      if (!Python_Exiv2_ErrorCode)
+      return INIT_ERROR_RETURN;
+    }
+  }
+  
+  
+  {
+    if (strcmp(SWIG_name,"types")) {
+      PyObject* mod = PyImport_ImportModule("exiv2.""types");
+      if (!mod)
+      return INIT_ERROR_RETURN;
+      Python_Exiv2_TypeId = PyObject_GetAttrString(mod,"TypeId");
+      Py_DECREF(mod);
+      if (!Python_Exiv2_TypeId)
+      return INIT_ERROR_RETURN;
+    }
+  }
+  
+  
+  {
     exiv2_module = PyImport_ImportModule("exiv2");
     if (!exiv2_module)
     return INIT_ERROR_RETURN;
@@ -8537,14 +8507,14 @@ SWIG_init(void) {
   return INIT_ERROR_RETURN;
   
   
-  PyEnum_Exiv2_XmpCategory = _create_enum(
+  Python_Exiv2_XmpCategory = _create_enum(
     "Exiv2::XmpCategory","3", _get_enum_data_Exiv2_XmpCategory());
-  if (!PyEnum_Exiv2_XmpCategory)
+  if (!Python_Exiv2_XmpCategory)
   return INIT_ERROR_RETURN;
   // SWIG_Python_SetConstant will decref PyEnum object
-  Py_INCREF(PyEnum_Exiv2_XmpCategory);
+  Py_INCREF(Python_Exiv2_XmpCategory);
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",PyEnum_Exiv2_XmpCategory);
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpCategory",Python_Exiv2_XmpCategory);
   
   /* type 'Exiv2::XmpPropertyInfo' */
   d = PyDict_New();

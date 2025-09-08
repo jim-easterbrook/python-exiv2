@@ -37,9 +37,9 @@
 %import "iptc.i";
 %import "xmp.i";
 
-IMPORT_ENUM(AccessMode)
-IMPORT_ENUM(ByteOrder)
-IMPORT_ENUM(MetadataId)
+IMPORT_ENUM(types, AccessMode)
+IMPORT_ENUM(types, ByteOrder)
+IMPORT_ENUM(types, MetadataId)
 
 // Catch all C++ exceptions
 EXCEPTION()

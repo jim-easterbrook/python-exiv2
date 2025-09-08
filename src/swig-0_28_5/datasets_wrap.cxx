@@ -4233,7 +4233,13 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+static PyObject* Python_Exiv2_ErrorCode = NULL;
+
+
 #define INIT_ERROR_RETURN NULL
+
+
+static PyObject* Python_Exiv2_TypeId = NULL;
 
 
 static PyObject* PyExc_Exiv2Error = NULL;
@@ -4255,17 +4261,6 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
         }
     Py_DECREF(py_int);
     return result;
-};
-
-
-static PyObject* PyEnum_Exiv2_ErrorCode = NULL;
-
-
-static PyObject* get_enum_typeobject_Exiv2_ErrorCode() {
-    if (!PyEnum_Exiv2_ErrorCode)
-        PyEnum_Exiv2_ErrorCode = PyObject_GetAttrString(
-            exiv2_module, "ErrorCode");
-    return PyEnum_Exiv2_ErrorCode;
 };
 
 
@@ -4326,9 +4321,8 @@ static void _set_python_exception() {
         if (wcp_to_utf8(&msg))
             msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns",
-            py_from_enum(get_enum_typeobject_Exiv2_ErrorCode(),
-                         static_cast<long>(e.code())), msg.c_str());
+            "Ns", py_from_enum(Python_Exiv2_ErrorCode,
+            static_cast<long>(e.code())), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
@@ -4473,17 +4467,6 @@ SWIGINTERNINLINE PyObject*
 {
   return PyInt_FromSize_t((size_t) value);
 }
-
-
-static PyObject* PyEnum_Exiv2_TypeId = NULL;
-
-
-static PyObject* get_enum_typeobject_Exiv2_TypeId() {
-    if (!PyEnum_Exiv2_TypeId)
-        PyEnum_Exiv2_TypeId = PyObject_GetAttrString(
-            exiv2_module, "TypeId");
-    return PyEnum_Exiv2_TypeId;
-};
 
 SWIGINTERN PyObject *Exiv2_DataSet_items(Exiv2::DataSet *self,PyObject *py_self){
         return list_getset(py_self, getset_to_item_strip);
@@ -4993,8 +4976,7 @@ SWIGINTERN PyObject *_wrap_DataSet_type__get(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::DataSet * >(argp1);
   result = (Exiv2::TypeId) ((arg1)->type_);
   {
-    resultobj = py_from_enum(get_enum_typeobject_Exiv2_TypeId(),
-      static_cast<long>(result));
+    resultobj = py_from_enum(Python_Exiv2_TypeId, static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -5396,8 +5378,7 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_dataSetType(PyObject *self, PyObject *ar
   arg2 = static_cast< uint16_t >(val2);
   result = (Exiv2::TypeId)Exiv2::IptcDataSets::dataSetType(arg1,arg2);
   {
-    resultobj = py_from_enum(get_enum_typeobject_Exiv2_TypeId(),
-      static_cast<long>(result));
+    resultobj = py_from_enum(Python_Exiv2_TypeId, static_cast<long>(result));
     if (!resultobj)
     SWIG_fail;
   }
@@ -7827,6 +7808,32 @@ SWIG_init(void) {
   SWIG_InstallConstants(d,swig_const_table);
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("IPTC key class and data attributes."));
+  
+  {
+    if (strcmp(SWIG_name,"_error")) {
+      PyObject* mod = PyImport_ImportModule("exiv2.""_error");
+      if (!mod)
+      return INIT_ERROR_RETURN;
+      Python_Exiv2_ErrorCode = PyObject_GetAttrString(mod,"ErrorCode");
+      Py_DECREF(mod);
+      if (!Python_Exiv2_ErrorCode)
+      return INIT_ERROR_RETURN;
+    }
+  }
+  
+  
+  {
+    if (strcmp(SWIG_name,"types")) {
+      PyObject* mod = PyImport_ImportModule("exiv2.""types");
+      if (!mod)
+      return INIT_ERROR_RETURN;
+      Python_Exiv2_TypeId = PyObject_GetAttrString(mod,"TypeId");
+      Py_DECREF(mod);
+      if (!Python_Exiv2_TypeId)
+      return INIT_ERROR_RETURN;
+    }
+  }
+  
   
   {
     exiv2_module = PyImport_ImportModule("exiv2");

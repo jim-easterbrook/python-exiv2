@@ -20,7 +20,7 @@
 
 %include "exception.i"
 
-IMPORT_ENUM(ErrorCode)
+IMPORT_ENUM(_error, ErrorCode)
 
 // Import PyExc_Exiv2Error exception
 %fragment("_PyExc_Exiv2Error_decl", "header") {
@@ -40,7 +40,7 @@ if (!PyExc_Exiv2Error) {
 %fragment("_set_python_exception", "header",
           fragment="_import_Exiv2Error",
           fragment="py_from_enum",
-          fragment="get_enum_typeobject"{Exiv2::ErrorCode},
+          fragment="declare_import"{Exiv2::ErrorCode},
           fragment="utf8_to_wcp") {
 static void _set_python_exception() {
     try {
@@ -55,9 +55,8 @@ static void _set_python_exception() {
         if (wcp_to_utf8(&msg))
             msg = e.what();
         PyObject* args = Py_BuildValue(
-            "Ns",
-            py_from_enum(get_enum_typeobject_%mangle(Exiv2::ErrorCode)(),
-                         static_cast<long>(e.code())), msg.c_str());
+            "Ns", py_from_enum(Python_%mangle(Exiv2::ErrorCode),
+            static_cast<long>(e.code())), msg.c_str());
         PyErr_SetObject(PyExc_Exiv2Error, args);
         Py_DECREF(args);
     }
