@@ -1,3 +1,24 @@
+{% if fullname == "exiv2._error" %}
+   {% set classes = classes + ['ErrorCode'] %}
+{% endif %}
+
+{% if fullname == "exiv2._image" %}
+   {% set classes = classes + ['ImageType'] %}
+{% endif %}
+
+{% if fullname == "exiv2._properties" %}
+   {% set classes = classes + ['XmpCategory'] %}
+{% endif %}
+
+{% if fullname == "exiv2._tags" %}
+   {% set classes = classes + ['IfdId', 'SectionId'] %}
+{% endif %}
+
+{% if fullname == "exiv2._types" %}
+   {% set classes = classes + ['AccessMode', 'ByteOrder', 'MetadataId',
+                               'TypeId'] %}
+{% endif %}
+
 {% extends "!autosummary/module.rst" %}
 
    {% block classes %}
