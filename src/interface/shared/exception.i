@@ -16,29 +16,17 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 %include "shared/enum.i"
+%include "shared/python_import.i"
 %include "shared/windows.i"
 
 %include "exception.i"
 
 IMPORT_ENUM(_error, ErrorCode)
-
-// Import PyExc_Exiv2Error exception
-%fragment("_PyExc_Exiv2Error_decl", "header") {
-static PyObject* PyExc_Exiv2Error = NULL;
-}
-%fragment("_import_Exiv2Error", "init", fragment="_PyExc_Exiv2Error_decl",
-          fragment="import_exiv2") {
-PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-if (!PyExc_Exiv2Error) {
-    PyErr_SetString(PyExc_RuntimeError,
-                    "Import error: exiv2.Exiv2Error not found.");
-    return INIT_ERROR_RETURN;
-}
-}
+IMPORT_MODULE_OBJECT(extras, Exiv2Error)
 
 // Function that re-raises an exception to handle different types
 %fragment("_set_python_exception", "header",
-          fragment="_import_Exiv2Error",
+          fragment="import_module_object"{Exiv2::Exiv2Error},
           fragment="py_from_enum",
           fragment="declare_import"{Exiv2::ErrorCode},
           fragment="utf8_to_wcp") {
@@ -57,7 +45,7 @@ static void _set_python_exception() {
         PyObject* args = Py_BuildValue(
             "Ns", py_from_enum(Python_%mangle(Exiv2::ErrorCode),
             static_cast<long>(e.code())), msg.c_str());
-        PyErr_SetObject(PyExc_Exiv2Error, args);
+        PyErr_SetObject(Python_%mangle(Exiv2::Exiv2Error), args);
         Py_DECREF(args);
     }
     SWIG_CATCH_STDEXCEPT

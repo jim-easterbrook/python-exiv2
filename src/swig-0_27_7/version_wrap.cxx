@@ -4207,10 +4207,7 @@ static PyObject* Python_Exiv2_ErrorCode = NULL;
 #include <string>
 
 
-static PyObject* PyExc_Exiv2Error = NULL;
-
-
-static PyObject* exiv2_module = NULL;
+static PyObject* Python_Exiv2_Exiv2Error = NULL;
 
 
 static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
@@ -4288,7 +4285,7 @@ static void _set_python_exception() {
         PyObject* args = Py_BuildValue(
             "Ns", py_from_enum(Python_Exiv2_ErrorCode,
             static_cast<long>(e.code())), msg.c_str());
-        PyErr_SetObject(PyExc_Exiv2Error, args);
+        PyErr_SetObject(Python_Exiv2_Exiv2Error, args);
         Py_DECREF(args);
     }
     /*@SWIG:/usr/local/share/swig/4.3.1/typemaps/exception.swg,59,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
@@ -4311,6 +4308,9 @@ static void _set_python_exception() {
 fail:
     return;
 };
+
+
+static PyObject* exiv2_module = NULL;
 
 
 #if !EXIV2_TEST_VERSION(0, 28, 3)
@@ -5235,16 +5235,21 @@ SWIG_init(void) {
   
   
   {
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-    return INIT_ERROR_RETURN;
+    if (strcmp(SWIG_name,"extras")) {
+      PyObject* mod = PyImport_ImportModule("exiv2.""extras");
+      if (!mod)
+      return INIT_ERROR_RETURN;
+      Python_Exiv2_Exiv2Error = PyObject_GetAttrString(mod,"Exiv2Error");
+      Py_DECREF(mod);
+      if (!Python_Exiv2_Exiv2Error)
+      return INIT_ERROR_RETURN;
+    }
   }
   
   
-  PyExc_Exiv2Error = PyObject_GetAttrString(exiv2_module, "Exiv2Error");
-  if (!PyExc_Exiv2Error) {
-    PyErr_SetString(PyExc_RuntimeError,
-      "Import error: exiv2.Exiv2Error not found.");
+  {
+    exiv2_module = PyImport_ImportModule("exiv2");
+    if (!exiv2_module)
     return INIT_ERROR_RETURN;
   }
   

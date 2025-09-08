@@ -141,6 +141,7 @@ static PyObject* Py_IntEnum = NULL;
 %typemap(doctype) Exiv2::name ":py:class:`" #name "`"
 _ENUM_COMMON(Exiv2::name)
 IMPORT_MODULE_OBJECT(module, name)
+%fragment("import_module_object"{Exiv2::name});
 %enddef // IMPORT_ENUM
 
 %define _GET_ENUM_FROM_DATA(full_name, alias_strip)

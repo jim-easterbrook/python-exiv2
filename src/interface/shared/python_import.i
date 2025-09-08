@@ -44,7 +44,6 @@ DECLARE_IMPORT(Exiv2::name)
     }
 }
 }
-%fragment("import_module_object"{Exiv2::name});
 %enddef // IMPORT_MODULE_OBJECT
 
 // Macro to import an object defined in a python-exiv2 class
