@@ -1,9 +1,3 @@
-{% if fullname == "exiv2.version" %}
-    {% set functions = ['testVersion', 'version', 'versionInfo',
-                        'versionNumber', 'versionNumberHexString',
-                        'versionString'] %}
-{% endif %}
-
 {% extends "!autosummary/module.rst" %}
 
    {% block classes %}
