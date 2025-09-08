@@ -1,5 +1,7 @@
-{% if fullname == "exiv2._version" %}
-    {% set attributes = ['__version__', '__version_tuple__'] %}
+{% if fullname == "exiv2.version" %}
+    {% set functions = ['testVersion', 'version', 'versionInfo',
+                        'versionNumber', 'versionNumberHexString',
+                        'versionString'] %}
 {% endif %}
 
 {% extends "!autosummary/module.rst" %}

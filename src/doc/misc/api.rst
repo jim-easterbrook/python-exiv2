@@ -13,6 +13,15 @@ Do not use the module names in your Python scripts: always use ``exiv2.name`` ra
 
 See :ref:`genindex` for a full index to all classes, attributes, functions and methods.
 
+.. rubric:: Package Attributes
+
+.. autosummary::
+
+   exiv2.__version__
+   exiv2.__version_tuple__
+
+.. rubric:: Package Modules
+
 .. autosummary::
    :toctree: ../api
    :recursive:
