@@ -27,6 +27,25 @@ static PyObject* Python_%mangle(full_name) = NULL;
 %enddef // DECLARE_IMPORT
 
 
+// Macro to import an object defined in a general Python (sub)package
+%define IMPORT_PYTHON_OBJECT(package, name)
+DECLARE_IMPORT(package::name)
+%fragment("import_python_object"{package::name}, "init",
+          fragment="declare_import"{package::name}) {
+{
+    PyObject* mod = PyImport_ImportModule(#package);
+    if (!mod)
+        return INIT_ERROR_RETURN;
+    Python_%mangle(package::name) = PyObject_GetAttrString(
+        mod, "name");
+    Py_DECREF(mod);
+    if (!Python_%mangle(package::name))
+        return INIT_ERROR_RETURN;
+}
+}
+%enddef // IMPORT_PYTHON_OBJECT
+
+
 // Macro to import an object defined in a python-exiv2 module
 %define IMPORT_MODULE_OBJECT(module, name)
 DECLARE_IMPORT(Exiv2::name)
@@ -45,6 +64,7 @@ DECLARE_IMPORT(Exiv2::name)
 }
 }
 %enddef // IMPORT_MODULE_OBJECT
+
 
 // Macro to import an object defined in a python-exiv2 class
 %define IMPORT_CLASS_OBJECT(module, class, name)

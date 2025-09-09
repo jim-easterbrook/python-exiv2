@@ -25,10 +25,11 @@
 // Macros to make enums more Pythonic
 %define _ENUM_COMMON(pattern)
 DECLARE_IMPORT(pattern)
+IMPORT_PYTHON_OBJECT(enum, IntEnum)
 // typemap to disambiguate enum from int
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
-         fragment="_import_py_enum") pattern {
-    $1 = PyObject_IsInstance($input, Py_IntEnum);
+         fragment="import_python_object"{enum::IntEnum}) pattern {
+    $1 = PyObject_IsInstance($input, Python_enum_IntEnum);
 }
 
 // deprecate passing integers where an enum is expected
@@ -105,24 +106,6 @@ static PyObject* _create_enum(const char* name, const char* alias_strip,
     return PyObject_CallMethod(exiv2_extras, "_create_enum", "(sssN)",
                                SWIG_name, name, alias_strip, members);
 };
-}
-
-// Import Python enum.IntEnum
-%fragment("_declare_py_enum", "header") {
-static PyObject* Py_IntEnum = NULL;
-}
-%fragment("_import_py_enum", "init", fragment="_declare_py_enum") {
-{
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
-        return INIT_ERROR_RETURN;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum) {
-        PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-        return INIT_ERROR_RETURN;
-    }
-}
 }
 
 %define IMPORT_ENUM(module, name)

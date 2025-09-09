@@ -4721,7 +4721,7 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
 }
 
 
-static PyObject* Py_IntEnum = NULL;
+static PyObject* Python_enum_IntEnum = NULL;
 
 
   #define SWIG_From_double   PyFloat_FromDouble 
@@ -14316,15 +14316,14 @@ SWIG_init(void) {
   d = PyDict_New();
   
   {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
+    PyObject* mod = PyImport_ImportModule("enum");
+    if (!mod)
     return INIT_ERROR_RETURN;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum) {
-      PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return INIT_ERROR_RETURN;
-    }
+    Python_enum_IntEnum = PyObject_GetAttrString(
+      mod, "IntEnum");
+    Py_DECREF(mod);
+    if (!Python_enum_IntEnum)
+    return INIT_ERROR_RETURN;
   }
   
   

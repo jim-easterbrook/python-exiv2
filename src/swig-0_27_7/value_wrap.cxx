@@ -5658,7 +5658,7 @@ SWIG_AsVal_long (PyObject *obj, long* val)
 }
 
 
-static PyObject* Py_IntEnum = NULL;
+static PyObject* Python_enum_IntEnum = NULL;
 
 
 SWIGINTERNINLINE PyObject*
@@ -8154,7 +8154,7 @@ SWIGINTERN int _wrap_new_DataValue(PyObject *self, PyObject *args, PyObject *kwa
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -12101,7 +12101,7 @@ SWIGINTERN int _wrap_new_XmpArrayValue(PyObject *self, PyObject *args, PyObject 
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -16740,7 +16740,7 @@ SWIGINTERN int _wrap_new_UShortValue(PyObject *self, PyObject *args, PyObject *k
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -17868,7 +17868,7 @@ SWIGINTERN int _wrap_new_ULongValue(PyObject *self, PyObject *args, PyObject *kw
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -19001,7 +19001,7 @@ SWIGINTERN int _wrap_new_URationalValue(PyObject *self, PyObject *args, PyObject
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -20123,7 +20123,7 @@ SWIGINTERN int _wrap_new_ShortValue(PyObject *self, PyObject *args, PyObject *kw
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -21251,7 +21251,7 @@ SWIGINTERN int _wrap_new_LongValue(PyObject *self, PyObject *args, PyObject *kwa
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -22384,7 +22384,7 @@ SWIGINTERN int _wrap_new_RationalValue(PyObject *self, PyObject *args, PyObject 
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -23506,7 +23506,7 @@ SWIGINTERN int _wrap_new_FloatValue(PyObject *self, PyObject *args, PyObject *kw
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -24634,7 +24634,7 @@ SWIGINTERN int _wrap_new_DoubleValue(PyObject *self, PyObject *args, PyObject *k
     if (argc > 0) {
       {
         {
-          _v = PyObject_IsInstance(argv[0], Py_IntEnum);
+          _v = PyObject_IsInstance(argv[0], Python_enum_IntEnum);
         }
       }
       if (!_v) goto check_1;
@@ -34903,15 +34903,14 @@ SWIG_init(void) {
   d = PyDict_New();
   
   {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
+    PyObject* mod = PyImport_ImportModule("enum");
+    if (!mod)
     return INIT_ERROR_RETURN;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum) {
-      PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return INIT_ERROR_RETURN;
-    }
+    Python_enum_IntEnum = PyObject_GetAttrString(
+      mod, "IntEnum");
+    Py_DECREF(mod);
+    if (!Python_enum_IntEnum)
+    return INIT_ERROR_RETURN;
   }
   
   

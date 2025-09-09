@@ -4817,7 +4817,7 @@ SWIG_From_std_string  (const std::string& s)
 }
 
 
-static PyObject* Py_IntEnum = NULL;
+static PyObject* Python_enum_IntEnum = NULL;
 
 
 SWIGINTERNINLINE PyObject*
@@ -9223,15 +9223,14 @@ SWIG_init(void) {
   d = PyDict_New();
   
   {
-    PyObject* module = PyImport_ImportModule("enum");
-    if (!module)
+    PyObject* mod = PyImport_ImportModule("enum");
+    if (!mod)
     return INIT_ERROR_RETURN;
-    Py_IntEnum = PyObject_GetAttrString(module, "IntEnum");
-    Py_DECREF(module);
-    if (!Py_IntEnum) {
-      PyErr_SetString(PyExc_RuntimeError, "Import error: enum.IntEnum.");
-      return INIT_ERROR_RETURN;
-    }
+    Python_enum_IntEnum = PyObject_GetAttrString(
+      mod, "IntEnum");
+    Py_DECREF(mod);
+    if (!Python_enum_IntEnum)
+    return INIT_ERROR_RETURN;
   }
   
   builtin_base_count = 0;
