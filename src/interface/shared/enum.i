@@ -24,6 +24,7 @@
 
 // Macros to make enums more Pythonic
 %define _ENUM_COMMON(pattern)
+DECLARE_IMPORT(pattern)
 // typemap to disambiguate enum from int
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
          fragment="_import_py_enum") pattern {
@@ -132,6 +133,7 @@ IMPORT_MODULE_OBJECT(module, name)
 %enddef // IMPORT_ENUM
 
 %define _GET_ENUM_FROM_DATA(full_name, alias_strip)
+DECLARE_IMPORT(full_name)
 %fragment("_store_enum_object"{full_name}, "init",
           fragment="declare_import"{full_name},
           fragment="_get_enum_data"{full_name}) {
@@ -148,7 +150,6 @@ Py_INCREF(Python_%mangle(full_name));
 %define DEFINE_ENUM(name, alias_strip)
 %typemap(doctype) Exiv2::name ":py:class:`" #name "`"
 _ENUM_COMMON(Exiv2::name)
-DECLARE_IMPORT(Exiv2::name)
 _GET_ENUM_FROM_DATA(Exiv2::name, alias_strip)
 // Add enum to module during init
 %constant PyObject* name = Python_%mangle(Exiv2::name);
@@ -168,7 +169,6 @@ name = _deprecated_enum(#moved_to, moved_to.name)
 %define DEFINE_CLASS_ENUM(class, name, alias_strip)
 %typemap(doctype) Exiv2::class::name ":py:class:`" #class "." #name "`"
 _ENUM_COMMON(Exiv2::class::name)
-DECLARE_IMPORT(Exiv2::class::name)
 _GET_ENUM_FROM_DATA(Exiv2::class::name, alias_strip)
 // Add enum as static class member during module init
 %extend Exiv2::class {
