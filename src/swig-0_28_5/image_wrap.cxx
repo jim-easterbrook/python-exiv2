@@ -4571,7 +4571,7 @@ SWIGINTERNINLINE PyObject*
 static PyObject* Python_Exiv2_ImageType = NULL;
 
 
-static PyObject* exiv2_extras = NULL;
+static PyObject* Python_Exiv2_extras_create_enum = NULL;
 
 
 
@@ -4595,8 +4595,9 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_extras, "_create_enum", "(sssN)",
-                               SWIG_name, name, alias_strip, members);
+    return PyObject_CallFunction(
+        Python_Exiv2_extras_create_enum, "(sssN)",
+        SWIG_name, name, alias_strip, members);
 };
 
 
@@ -9262,9 +9263,15 @@ SWIG_init(void) {
 #endif
   
   
-  exiv2_extras = PyImport_ImportModule("exiv2.extras");
-  if (!exiv2_extras)
-  return INIT_ERROR_RETURN;
+  {
+    PyObject* mod = PyImport_ImportModule("exiv2.extras");
+    if (!mod)
+    return INIT_ERROR_RETURN;
+    Python_Exiv2_extras_create_enum = PyObject_GetAttrString(mod,"_create_enum");
+    Py_DECREF(mod);
+    if (!Python_Exiv2_extras_create_enum)
+    return INIT_ERROR_RETURN;
+  }
   
   
   Python_Exiv2_ImageType = _create_enum(
@@ -9283,8 +9290,7 @@ SWIG_init(void) {
     PyObject* mod = PyImport_ImportModule("enum");
     if (!mod)
     return INIT_ERROR_RETURN;
-    Python_enum_IntEnum = PyObject_GetAttrString(
-      mod, "IntEnum");
+    Python_enum_IntEnum = PyObject_GetAttrString(mod,"IntEnum");
     Py_DECREF(mod);
     if (!Python_enum_IntEnum)
     return INIT_ERROR_RETURN;

@@ -28,18 +28,17 @@ static PyObject* Python_%mangle(full_name) = NULL;
 
 
 // Macro to import an object defined in a general Python (sub)package
-%define IMPORT_PYTHON_OBJECT(package, name)
-DECLARE_IMPORT(package::name)
-%fragment("import_python_object"{package::name}, "init",
-          fragment="declare_import"{package::name}) {
+%define IMPORT_PYTHON_OBJECT(package, name, cpp_name)
+DECLARE_IMPORT(cpp_name)
+%fragment("import_python_object"{cpp_name}, "init",
+          fragment="declare_import"{cpp_name}) {
 {
     PyObject* mod = PyImport_ImportModule(#package);
     if (!mod)
         return INIT_ERROR_RETURN;
-    Python_%mangle(package::name) = PyObject_GetAttrString(
-        mod, "name");
+    Python_%mangle(cpp_name) = PyObject_GetAttrString(mod, #name);
     Py_DECREF(mod);
-    if (!Python_%mangle(package::name))
+    if (!Python_%mangle(cpp_name))
         return INIT_ERROR_RETURN;
 }
 }

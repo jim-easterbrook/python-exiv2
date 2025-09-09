@@ -25,7 +25,7 @@
 // Macros to make enums more Pythonic
 %define _ENUM_COMMON(pattern)
 DECLARE_IMPORT(pattern)
-IMPORT_PYTHON_OBJECT(enum, IntEnum)
+IMPORT_PYTHON_OBJECT(enum, IntEnum, enum::IntEnum)
 // typemap to disambiguate enum from int
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,
          fragment="import_python_object"{enum::IntEnum}) pattern {
@@ -70,18 +70,10 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
 }
 %enddef // _ENUM_COMMON
 
-// Import exiv2.extras module
-%fragment("_extras_decl", "header") {
-static PyObject* exiv2_extras = NULL;
-}
-%fragment("import_extras", "init", fragment="_extras_decl") {
-exiv2_extras = PyImport_ImportModule("exiv2.extras");
-if (!exiv2_extras)
-    return INIT_ERROR_RETURN;
-}
-
 // Call Python function to get enum
-%fragment("_get_enum_data", "header", fragment="import_extras") {
+IMPORT_PYTHON_OBJECT(exiv2.extras, _create_enum, Exiv2::extras::create_enum)
+%fragment("_get_enum_data", "header",
+          fragment="import_python_object"{Exiv2::extras::create_enum}) {
 #include <cstdarg>
 
 // Convert enum names & values to a Python list
@@ -103,8 +95,9 @@ static PyObject* _get_enum_data(const char* name, ...) {
 // Call Python to create an enum from list of names & values
 static PyObject* _create_enum(const char* name, const char* alias_strip,
                               PyObject* members) {
-    return PyObject_CallMethod(exiv2_extras, "_create_enum", "(sssN)",
-                               SWIG_name, name, alias_strip, members);
+    return PyObject_CallFunction(
+        Python_%mangle(Exiv2::extras::create_enum), "(sssN)",
+        SWIG_name, name, alias_strip, members);
 };
 }
 

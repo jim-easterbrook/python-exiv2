@@ -12732,8 +12732,7 @@ SWIG_init(void) {
     PyObject* mod = PyImport_ImportModule("enum");
     if (!mod)
     return INIT_ERROR_RETURN;
-    Python_enum_IntEnum = PyObject_GetAttrString(
-      mod, "IntEnum");
+    Python_enum_IntEnum = PyObject_GetAttrString(mod,"IntEnum");
     Py_DECREF(mod);
     if (!Python_enum_IntEnum)
     return INIT_ERROR_RETURN;
