@@ -27,20 +27,27 @@ static PyObject* Python_%mangle(full_name) = NULL;
 %enddef // DECLARE_IMPORT
 
 
+%fragment("import_from_python", "header") {
+static PyObject* import_from_python(const char* package, const char* name) {
+    PyObject* mod = PyImport_ImportModule(package);
+    if (!mod)
+        return NULL;
+    PyObject* result = PyObject_GetAttrString(mod, name);
+    Py_DECREF(mod);
+    return result;
+};
+}
+
+
 // Macro to import an object defined in a general Python (sub)package
 %define IMPORT_PYTHON_OBJECT(package, name, cpp_name)
 DECLARE_IMPORT(cpp_name)
 %fragment("import_python_object"{cpp_name}, "init",
+          fragment="import_from_python",
           fragment="declare_import"{cpp_name}) {
-{
-    PyObject* mod = PyImport_ImportModule(#package);
-    if (!mod)
-        return INIT_ERROR_RETURN;
-    Python_%mangle(cpp_name) = PyObject_GetAttrString(mod, #name);
-    Py_DECREF(mod);
-    if (!Python_%mangle(cpp_name))
-        return INIT_ERROR_RETURN;
-}
+Python_%mangle(cpp_name) = import_from_python(#package, #name);
+if (!Python_%mangle(cpp_name))
+    return INIT_ERROR_RETURN;
 }
 %enddef // IMPORT_PYTHON_OBJECT
 
@@ -49,17 +56,12 @@ DECLARE_IMPORT(cpp_name)
 %define IMPORT_MODULE_OBJECT(module, name)
 DECLARE_IMPORT(Exiv2::name)
 %fragment("import_module_object"{Exiv2::name}, "init",
+          fragment="import_from_python",
           fragment="declare_import"{Exiv2::name}) {
-{
-    if (strcmp(SWIG_name, #module)) {
-        PyObject* mod = PyImport_ImportModule("exiv2." #module);
-        if (!mod)
-            return INIT_ERROR_RETURN;
-        Python_%mangle(Exiv2::name) = PyObject_GetAttrString(mod, #name);
-        Py_DECREF(mod);
-        if (!Python_%mangle(Exiv2::name))
-            return INIT_ERROR_RETURN;
-    }
+if (strcmp(SWIG_name, #module)) {
+    Python_%mangle(Exiv2::name) = import_from_python("exiv2."#module, #name);
+    if (!Python_%mangle(Exiv2::name))
+        return INIT_ERROR_RETURN;
 }
 }
 %enddef // IMPORT_MODULE_OBJECT

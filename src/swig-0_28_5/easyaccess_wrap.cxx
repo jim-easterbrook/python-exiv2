@@ -4189,6 +4189,16 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+static PyObject* import_from_python(const char* package, const char* name) {
+    PyObject* mod = PyImport_ImportModule(package);
+    if (!mod)
+        return NULL;
+    PyObject* result = PyObject_GetAttrString(mod, name);
+    Py_DECREF(mod);
+    return result;
+};
+
+
 static PyObject* Python_Exiv2_ErrorCode = NULL;
 
 
@@ -6375,29 +6385,17 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Simplified reading of Exif metadata."));
   
-  {
-    if (strcmp(SWIG_name,"_error")) {
-      PyObject* mod = PyImport_ImportModule("exiv2.""_error");
-      if (!mod)
-      return INIT_ERROR_RETURN;
-      Python_Exiv2_ErrorCode = PyObject_GetAttrString(mod,"ErrorCode");
-      Py_DECREF(mod);
-      if (!Python_Exiv2_ErrorCode)
-      return INIT_ERROR_RETURN;
-    }
+  if (strcmp(SWIG_name,"_error")) {
+    Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
+    if (!Python_Exiv2_ErrorCode)
+    return INIT_ERROR_RETURN;
   }
   
   
-  {
-    if (strcmp(SWIG_name,"extras")) {
-      PyObject* mod = PyImport_ImportModule("exiv2.""extras");
-      if (!mod)
-      return INIT_ERROR_RETURN;
-      Python_Exiv2_Exiv2Error = PyObject_GetAttrString(mod,"Exiv2Error");
-      Py_DECREF(mod);
-      if (!Python_Exiv2_Exiv2Error)
-      return INIT_ERROR_RETURN;
-    }
+  if (strcmp(SWIG_name,"extras")) {
+    Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
+    if (!Python_Exiv2_Exiv2Error)
+    return INIT_ERROR_RETURN;
   }
   
 #if PY_VERSION_HEX >= 0x03000000

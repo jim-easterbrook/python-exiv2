@@ -4244,6 +4244,16 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+static PyObject* import_from_python(const char* package, const char* name) {
+    PyObject* mod = PyImport_ImportModule(package);
+    if (!mod)
+        return NULL;
+    PyObject* result = PyObject_GetAttrString(mod, name);
+    Py_DECREF(mod);
+    return result;
+};
+
+
 static PyObject* Python_Exiv2_ErrorCode = NULL;
 
 
@@ -13163,70 +13173,40 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("XMP metadatum, container and iterators."));
   
-  {
-    if (strcmp(SWIG_name,"_error")) {
-      PyObject* mod = PyImport_ImportModule("exiv2.""_error");
-      if (!mod)
-      return INIT_ERROR_RETURN;
-      Python_Exiv2_ErrorCode = PyObject_GetAttrString(mod,"ErrorCode");
-      Py_DECREF(mod);
-      if (!Python_Exiv2_ErrorCode)
-      return INIT_ERROR_RETURN;
-    }
+  if (strcmp(SWIG_name,"_error")) {
+    Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
+    if (!Python_Exiv2_ErrorCode)
+    return INIT_ERROR_RETURN;
   }
   
   
-  {
-    if (strcmp(SWIG_name,"types")) {
-      PyObject* mod = PyImport_ImportModule("exiv2.""types");
-      if (!mod)
-      return INIT_ERROR_RETURN;
-      Python_Exiv2_ByteOrder = PyObject_GetAttrString(mod,"ByteOrder");
-      Py_DECREF(mod);
-      if (!Python_Exiv2_ByteOrder)
-      return INIT_ERROR_RETURN;
-    }
+  if (strcmp(SWIG_name,"types")) {
+    Python_Exiv2_ByteOrder = import_from_python("exiv2.""types","ByteOrder");
+    if (!Python_Exiv2_ByteOrder)
+    return INIT_ERROR_RETURN;
   }
   
   
-  {
-    if (strcmp(SWIG_name,"types")) {
-      PyObject* mod = PyImport_ImportModule("exiv2.""types");
-      if (!mod)
-      return INIT_ERROR_RETURN;
-      Python_Exiv2_TypeId = PyObject_GetAttrString(mod,"TypeId");
-      Py_DECREF(mod);
-      if (!Python_Exiv2_TypeId)
-      return INIT_ERROR_RETURN;
-    }
+  if (strcmp(SWIG_name,"types")) {
+    Python_Exiv2_TypeId = import_from_python("exiv2.""types","TypeId");
+    if (!Python_Exiv2_TypeId)
+    return INIT_ERROR_RETURN;
   }
   
   
-  {
-    if (strcmp(SWIG_name,"extras")) {
-      PyObject* mod = PyImport_ImportModule("exiv2.""extras");
-      if (!mod)
-      return INIT_ERROR_RETURN;
-      Python_Exiv2_Exiv2Error = PyObject_GetAttrString(mod,"Exiv2Error");
-      Py_DECREF(mod);
-      if (!Python_Exiv2_Exiv2Error)
-      return INIT_ERROR_RETURN;
-    }
+  if (strcmp(SWIG_name,"extras")) {
+    Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
+    if (!Python_Exiv2_Exiv2Error)
+    return INIT_ERROR_RETURN;
   }
   
   
   /* type '::Xmpdatum_pointer' */
   d = PyDict_New();
   
-  {
-    PyObject* mod = PyImport_ImportModule("enum");
-    if (!mod)
-    return INIT_ERROR_RETURN;
-    Python_enum_IntEnum = PyObject_GetAttrString(mod,"IntEnum");
-    Py_DECREF(mod);
-    if (!Python_enum_IntEnum)
-    return INIT_ERROR_RETURN;
-  }
+  Python_enum_IntEnum = import_from_python("enum","IntEnum");
+  if (!Python_enum_IntEnum)
+  return INIT_ERROR_RETURN;
   
   
   get_type_object = {
