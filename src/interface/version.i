@@ -29,13 +29,6 @@
 // Catch all C++ exceptions
 EXCEPTION()
 
-// Import __version__ and __version_tuple__ from exiv2 module
-%fragment("import_exiv2");
-%constant PyObject* __version__ = PyObject_GetAttrString(
-    exiv2_module, "__version__");
-%constant PyObject* __version_tuple__ = PyObject_GetAttrString(
-    exiv2_module, "__version_tuple__");
-
 // Function to report build options used
 %feature("docstring") versionInfo "Return a dict of libexiv2 build options."
 %fragment("set_EXV_ENABLE_FILESYSTEM");

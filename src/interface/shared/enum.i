@@ -23,19 +23,6 @@
 
 
 // Macros to make enums more Pythonic
-
-// Import exiv2 package
-%fragment("_import_exiv2_decl", "header") {
-static PyObject* exiv2_module = NULL;
-}
-%fragment("import_exiv2", "init", fragment="_import_exiv2_decl") {
-{
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-        return INIT_ERROR_RETURN;
-}
-}
-
 %define _ENUM_COMMON(pattern)
 // typemap to disambiguate enum from int
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER,

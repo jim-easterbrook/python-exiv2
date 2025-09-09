@@ -4310,9 +4310,6 @@ fail:
 };
 
 
-static PyObject* exiv2_module = NULL;
-
-
 #if !EXIV2_TEST_VERSION(0, 28, 3)
 #define EXV_ENABLE_FILESYSTEM
 #endif
@@ -5246,17 +5243,6 @@ SWIG_init(void) {
     }
   }
   
-  
-  {
-    exiv2_module = PyImport_ImportModule("exiv2");
-    if (!exiv2_module)
-    return INIT_ERROR_RETURN;
-  }
-  
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__version__",PyObject_GetAttrString(
-      exiv2_module, "__version__"));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__version_tuple__",PyObject_GetAttrString(
-      exiv2_module, "__version_tuple__"));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

@@ -68,5 +68,4 @@ DECLARE_IMPORT(Exiv2::class::name)
     }
 }
 }
-%fragment("import_class_object"{Exiv2::class::name});
 %enddef // IMPORT_CLASS_OBJECT
