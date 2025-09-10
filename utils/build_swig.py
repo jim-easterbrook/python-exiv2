@@ -96,6 +96,10 @@ def main():
         'image.hpp': [('/*! @brief', '/*!\n    @brief')],
         'preview.hpp': [('_{};', '_;')],
         }
+    # iccProfileDefined became const in exiv2 v0.28.6
+    if exiv2_version >= (0, 28) and exiv2_version < (0, 29):
+        subst['image.hpp'].append(
+            ('iccProfileDefined() const', 'iccProfileDefined()'))
     if swig_version < (4, 2, 0):
         subst['basicio.hpp'] = [('static constexpr auto', 'static const char*')]
     with tempfile.TemporaryDirectory() as copy_dir:

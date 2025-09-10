@@ -84,17 +84,6 @@ DECLARE_METADATUM_WRAPPERS(XmpData, Xmpdatum)
 %typemap(default) bool enable {$1 = true;}
 %ignore Exiv2::enableBMFF();
 
-// In exiv2 v 0.28.6 iccProfileDefined expects Image to be const,
-// use old non-const version for compatibility with all exiv2 0.28.x
-#if EXIV2_VERSION_HEX >= 0x001c0600 && EXIV2_VERSION_HEX < 0x001d0000
-%feature("docstring") Exiv2::Image::iccProfileDefined
-    "Returns the status of the ICC profile in the image instance"
-%extend Exiv2::Image {
-    bool iccProfileDefined() {return self->iccProfileDefined();}
-}
-%ignore Exiv2::Image::iccProfileDefined() const;
-#endif
-
 // Extend ImageFactory to allow creation of a MemIo from a buffer
 %feature("docstring") Exiv2::ImageFactory::createIo "
 *Overload 1:*
@@ -172,12 +161,10 @@ static bool enableBMFF(bool enable) {
 
 // In v0.28.x Image::setIccProfile takes ownership of its DataBuf input
 // so we make a copy for it to own.
-#if EXIV2_VERSION_HEX >= 0x001c0000
 %typemap(in) Exiv2::DataBuf&& {
     $typemap(in, Exiv2::DataBuf*)
     $1 = new Exiv2::DataBuf($1->c_data(), $1->size());
 }
-#endif
 
 // exifData(), iptcData(), xmpData(), and iccProfile() return values need to
 // keep a reference to Image.

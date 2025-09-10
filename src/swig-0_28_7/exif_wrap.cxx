@@ -4416,7 +4416,7 @@ public:
             return 0;
         return ptr->size();
     }
-#if 0x001c0500 < 0x001c0000
+#if 0x001c0700 < 0x001c0000
     // Provide count() C++ method for index bounds check
     long count() {
         if (invalidated)
