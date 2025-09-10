@@ -99,6 +99,7 @@ Installation
 
 Python "binary wheels" are available for Windows, Linux, and MacOS.
 These include the libexiv2 library and should not need any other software to be installed.
+(Although on Windows you might need to update your `MSVC redistributable`_.)
 They can be installed with Python's pip_ package.
 For example, on Windows::
 
@@ -121,6 +122,8 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _gexiv2:            https://wiki.gnome.org/Projects/gexiv2
 .. _GitHub:            https://github.com/jim-easterbrook/python-exiv2
 .. _libexiv2:          https://www.exiv2.org/doc/index.html
+.. _MSVC redistributable:
+    https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version
 .. _pip:               https://pip.pypa.io/
 .. _pyexiv2 (new):     https://github.com/LeoHsiao1/pyexiv2
 .. _pyexiv2 (old):     https://launchpad.net/pyexiv2
