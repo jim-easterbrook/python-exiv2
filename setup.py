@@ -54,15 +54,16 @@ for name in os.listdir('src'):
 def get_mod_src_dir(exiv2_version):
     if len(exiv2_version) < 3:
         exiv2_version += [0]
-    swigged_versions.sort()
     for v in swigged_versions:
         if v >= exiv2_version and v[:2] == exiv2_version[:2]:
-            return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
-    swigged_versions.sort(reverse=True)
-    for v in swigged_versions:
-        if v[:2] == exiv2_version[:2]:
-            return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
-    return None
+            break
+    else:
+        for v in reversed(swigged_versions):
+            if v <= exiv2_version:
+                break
+        else:
+            return None
+    return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
 
 mod_src_dir = None
 platform = sys.platform
