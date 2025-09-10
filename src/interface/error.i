@@ -22,14 +22,18 @@
 #endif
 
 %include "shared/preamble.i"
+%include "shared/python_import.i"
 
 %include "std_except.i"
 
 
+// Import logger from extras.py
+IMPORT_PYTHON_OBJECT(exiv2.extras, logger, logger)
+%fragment("import_python_object"{logger});
+
 // Set Python logger as Exiv2 log handler
 %fragment("utf8_to_wcp");
 %{
-static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     std::string copy = msg;
     if (wcp_to_utf8(&copy))
@@ -39,24 +43,13 @@ static void log_to_python(int level, const char* msg) {
         len--;
     PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject* res = PyObject_CallMethod(
-        logger, "log", "(is#)", (level + 1) * 10, copy.data(), len);
+        Python_logger, "log", "(is#)", (level + 1) * 10, copy.data(), len);
     Py_XDECREF(res);
     PyGILState_Release(gstate);
 };
 %}
 %init %{
-{
-    PyObject *module = PyImport_ImportModule("logging");
-    if (!module)
-        return INIT_ERROR_RETURN;
-    logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
-    Py_DECREF(module);
-    if (!logger) {
-        PyErr_SetString(PyExc_RuntimeError, "logging.getLogger failed.");
-        return INIT_ERROR_RETURN;
-    }
-    Exiv2::LogMsg::setHandler(&log_to_python);
-}
+Exiv2::LogMsg::setHandler(&log_to_python);
 %}
 
 // Provide Python logger and default logger as attributes of LogMsg

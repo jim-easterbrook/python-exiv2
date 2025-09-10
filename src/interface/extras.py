@@ -23,6 +23,7 @@
 __all__ = ['Exiv2Error']
 
 import enum
+import logging
 import warnings
 
 from exiv2._enum_data import enum_data
@@ -37,6 +38,9 @@ class Exiv2Error(Exception):
     def __init__(self, code, message):
         self.code= code
         self.message = message
+
+
+logger = logging.getLogger('exiv2')
 
 
 class DeprecatedEnumMeta(enum.EnumMeta):

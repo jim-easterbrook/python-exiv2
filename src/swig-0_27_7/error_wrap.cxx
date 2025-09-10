@@ -4211,6 +4211,9 @@ static PyObject* Python_Exiv2_ErrorCode = NULL;
 #include <stdexcept>
 
 
+static PyObject* Python_logger = NULL;
+
+
 #ifdef _WIN32
 #include <windows.h>
 
@@ -4255,7 +4258,6 @@ static int wcp_to_utf8(std::string *str) {
 };
 
 
-static PyObject* logger = NULL;
 static void log_to_python(int level, const char* msg) {
     std::string copy = msg;
     if (wcp_to_utf8(&copy))
@@ -4265,7 +4267,7 @@ static void log_to_python(int level, const char* msg) {
         len--;
     PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject* res = PyObject_CallMethod(
-        logger, "log", "(is#)", (level + 1) * 10, copy.data(), len);
+        Python_logger, "log", "(is#)", (level + 1) * 10, copy.data(), len);
     Py_XDECREF(res);
     PyGILState_Release(gstate);
 };
@@ -5426,18 +5428,12 @@ SWIG_init(void) {
   }
   
   
-  {
-    PyObject *module = PyImport_ImportModule("logging");
-    if (!module)
-    return INIT_ERROR_RETURN;
-    logger = PyObject_CallMethod(module, "getLogger", "(s)", "exiv2");
-    Py_DECREF(module);
-    if (!logger) {
-      PyErr_SetString(PyExc_RuntimeError, "logging.getLogger failed.");
-      return INIT_ERROR_RETURN;
-    }
-    Exiv2::LogMsg::setHandler(&log_to_python);
-  }
+  Python_logger = import_from_python("exiv2.extras","logger");
+  if (!Python_logger)
+  return INIT_ERROR_RETURN;
+  
+  
+  Exiv2::LogMsg::setHandler(&log_to_python);
   
   
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
