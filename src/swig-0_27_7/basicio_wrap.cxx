@@ -4293,11 +4293,7 @@ static void _set_python_exception() {
     try {
         throw;
     }
-
     catch(Exiv2::AnyError const& e) {
-
-
-
         std::string msg = e.what();
         if (wcp_to_utf8(&msg))
             msg = e.what();
@@ -4363,11 +4359,7 @@ static int buffer_fill_info(Exiv2::BasicIo* self, Py_buffer* view,
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
         ptr = self->mmap(writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
-
     } catch(Exiv2::AnyError const& e) {
-
-
-
         return -1;
     }
     return PyBuffer_FillInfo(view, exporter, ptr, ptr ? self->size() : 0,

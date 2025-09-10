@@ -213,11 +213,7 @@ static int buffer_fill_info(Exiv2::BasicIo* self, Py_buffer* view,
         SWIG_PYTHON_THREAD_BEGIN_ALLOW;
         ptr = self->mmap(writeable);
         SWIG_PYTHON_THREAD_END_ALLOW;
-#if EXIV2_VERSION_HEX < 0x001c0000
-    } catch(Exiv2::AnyError const& e) {
-#else
-    } catch(Exiv2::Error const& e) {
-#endif
+    } catch(EXV_EXCEPTION const& e) {
         return -1;
     }
     return PyBuffer_FillInfo(view, exporter, ptr, ptr ? self->size() : 0,

@@ -24,6 +24,13 @@
 IMPORT_ENUM(_error, ErrorCode)
 IMPORT_MODULE_OBJECT(extras, Exiv2Error)
 
+// Exiv2 throws different exception in v0.27
+#if EXIV2_VERSION_HEX < 0x001c0000
+#define EXV_EXCEPTION Exiv2::AnyError
+#else
+#define EXV_EXCEPTION Exiv2::Error
+#endif
+
 // Function that re-raises an exception to handle different types
 %fragment("_set_python_exception", "header",
           fragment="import_module_object"{Exiv2::Exiv2Error},
@@ -34,11 +41,7 @@ static void _set_python_exception() {
     try {
         throw;
     }
-#if EXIV2_VERSION_HEX < 0x001c0000
-    catch(Exiv2::AnyError const& e) {
-#else
-    catch(Exiv2::Error const& e) {
-#endif
+    catch(EXV_EXCEPTION const& e) {
         std::string msg = e.what();
         if (wcp_to_utf8(&msg))
             msg = e.what();

@@ -4321,11 +4321,7 @@ static void _set_python_exception() {
     try {
         throw;
     }
-
     catch(Exiv2::AnyError const& e) {
-
-
-
         std::string msg = e.what();
         if (wcp_to_utf8(&msg))
             msg = e.what();
