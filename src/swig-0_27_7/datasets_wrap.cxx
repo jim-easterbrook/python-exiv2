@@ -4353,10 +4353,10 @@ fail:
 };
 
 
-typedef std::vector< std::string > string_list;
 typedef struct {
-    string_list members;
-    string_list aliases;
+    bool aliased = false;
+    std::vector< std::string > members;
+    std::vector< std::string > aliases;
 } struct_info;
 
 
@@ -4372,8 +4372,9 @@ static void init_struct_info(struct_info& info, swig_type_info* type) {
             std::string alias = getset->name;
             if (alias.back() == '_') {
                 alias.pop_back();
-                info.aliases.push_back(alias);
+                info.aliased = true;
             }
+            info.aliases.push_back(alias);
         }
         getset++;
     }
@@ -4389,12 +4390,10 @@ static void init_info_Exiv2_DataSet() {
 static PyObject* get_attr_struct(struct_info& info, bool as_item,
                                  PyObject* obj, PyObject* name) {
     std::string c_name = PyUnicode_AsUTF8(name);
-    string_list list = info.aliases;
-    if (as_item && list.empty())
-        list = info.members;
-    for (size_t i = 0; i < list.size(); i++)
-        if (list[i] == c_name)
-            return PyObject_GetAttrString(obj, info.members[i].c_str());
+    if (as_item || info.aliased)
+        for (size_t i = 0; i < info.members.size(); i++)
+            if (info.aliases[i] == c_name)
+                return PyObject_GetAttrString(obj, info.members[i].c_str());
     if (as_item)
         return PyErr_Format(PyExc_KeyError, "'%s'", c_name.c_str());
     return PyObject_GenericGetAttr(obj, name);
@@ -4416,18 +4415,17 @@ static PyObject* get_attr_Exiv2_DataSet(PyObject* obj,
 
 
 static PyObject* keys_struct(struct_info& info) {
-    string_list list = info.aliases.empty() ? info.members : info.aliases;
-    PyObject* result = PyTuple_New(list.size());
-    for (size_t i = 0; i < list.size(); i++)
-        PyTuple_SET_ITEM(result, i, PyUnicode_FromString(list[i].c_str()));
+    PyObject* result = PyTuple_New(info.members.size());
+    for (size_t i = 0; i < info.members.size(); i++)
+        PyTuple_SET_ITEM(
+            result, i, PyUnicode_FromString(info.aliases[i].c_str()));
     return result;
 };
 
 
 static PyObject* values_struct(struct_info& info, PyObject* obj) {
-    string_list list = info.aliases.empty() ? info.members : info.aliases;
-    PyObject* result = PyTuple_New(list.size());
-    for (size_t i = 0; i < list.size(); i++)
+    PyObject* result = PyTuple_New(info.members.size());
+    for (size_t i = 0; i < info.members.size(); i++)
         PyTuple_SET_ITEM(
             result, i, PyObject_GetAttrString(obj, info.members[i].c_str()));
     return result;
@@ -4435,11 +4433,10 @@ static PyObject* values_struct(struct_info& info, PyObject* obj) {
 
 
 static PyObject* items_struct(struct_info& info, PyObject* obj) {
-    string_list list = info.aliases.empty() ? info.members : info.aliases;
-    PyObject* result = PyTuple_New(list.size());
-    for (size_t i = 0; i < list.size(); i++)
+    PyObject* result = PyTuple_New(info.members.size());
+    for (size_t i = 0; i < info.members.size(); i++)
         PyTuple_SET_ITEM(result, i, Py_BuildValue(
-            "(sN)", list[i].c_str(),
+            "(sN)", info.aliases[i].c_str(),
             PyObject_GetAttrString(obj, info.members[i].c_str())));
     return result;
 };
@@ -5854,18 +5851,18 @@ SwigPyBuiltin__Exiv2__DataSet_richcompare(PyObject *self, PyObject *other, int o
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataSet_methods[] = {
   { "keys", (PyCFunction)(void(*)(void))_wrap_DataSet_keys, METH_STATIC|METH_NOARGS, "\n"
 		"Get structure member names.\n"
-		":rtype: list of str\n"
+		":rtype: tuple of str\n"
 		":return: structure member names (with any trailing underscores\n"
 		"    removed).\n"
 		"" },
   { "values", _wrap_DataSet_values, METH_NOARGS, "\n"
 		"Get structure member values.\n"
-		":rtype: list of value\n"
+		":rtype: tuple of value\n"
 		":return: structure member values.\n"
 		"" },
   { "items", _wrap_DataSet_items, METH_NOARGS, "\n"
 		"Get structure members.\n"
-		":rtype: list of (str, value) tuple\n"
+		":rtype: tuple of (str, value) tuple\n"
 		":return: structure member (name, value) pairs (with any trailing\n"
 		"    underscores removed from names).\n"
 		"" },
