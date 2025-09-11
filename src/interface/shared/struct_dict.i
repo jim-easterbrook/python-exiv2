@@ -124,6 +124,12 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 // Type slots
 %feature("python:slot", "tp_iter", functype="getiterfunc")
     struct_type::__iter__;
+// These functions don't throw exceptions
+%noexception struct_type::__members__;
+%noexception struct_type::__iter__;
+%noexception struct_type::keys;
+%noexception struct_type::values;
+%noexception struct_type::items;
 // Typemaps for slot functions
 %typemap(default) PyObject* value {$1 = NULL;}
 // Document functions
@@ -138,15 +144,37 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 %feature("docstring") struct_type::values "Get structure member values.
 :rtype: tuple of value
 :return: structure member values."
+%feature("docstring") struct_type::__members__ "Structure member names.
+
+:type: tuple of str
+
+List of names used to access members as attributes (``object.name``) or
+with dict-like indexing (``object['name']``). Attribute access is
+preferred as it is more efficient."
+#if #strip_underscore == "true"
+"
+
+Although the actual structure member names end with underscores, the
+Python interface uses names without underscores, as listed in
+``__members__``."
+#endif
+// Getter function for __members__
+%fragment("members_get"{struct_type}, "header",
+          fragment="struct_info"{struct_type}, fragment="keys_struct") {
+static PyObject* %mangle(struct_type)___members___get(struct_type*) {
+    init_info_%mangle(struct_type)();
+    return keys_struct(info_%mangle(struct_type));
+};
+}
 // Add functions
 %extend struct_type {
     %fragment("struct_info"{struct_type});
-    %fragment("keys_struct");
+    %fragment("members_get"{struct_type});
     %fragment("values_struct");
     %fragment("items_struct");
-    static PyObject* keys() {
-        init_info_%mangle(struct_type)();
-        return keys_struct(info_%mangle(struct_type));
+    PyObject* __members__ const;
+    PyObject* keys() {
+        return %mangle(struct_type)___members___get(self);
     }
     PyObject* values(PyObject* py_self) {
         init_info_%mangle(struct_type)();

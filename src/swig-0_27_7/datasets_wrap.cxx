@@ -4423,6 +4423,12 @@ static PyObject* keys_struct(struct_info& info) {
 };
 
 
+static PyObject* Exiv2_DataSet___members___get(Exiv2::DataSet*) {
+    init_info_Exiv2_DataSet();
+    return keys_struct(info_Exiv2_DataSet);
+};
+
+
 static PyObject* values_struct(struct_info& info, PyObject* obj) {
     PyObject* result = PyTuple_New(info.members.size());
     for (size_t i = 0; i < info.members.size(); i++)
@@ -4473,9 +4479,8 @@ SWIGINTERNINLINE PyObject*
   return PyInt_FromSize_t((size_t) value);
 }
 
-SWIGINTERN PyObject *Exiv2_DataSet_keys(){
-        init_info_Exiv2_DataSet();
-        return keys_struct(info_Exiv2_DataSet);
+SWIGINTERN PyObject *Exiv2_DataSet_keys(Exiv2::DataSet *self){
+        return Exiv2_DataSet___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_DataSet_values(Exiv2::DataSet *self,PyObject *py_self){
         init_info_Exiv2_DataSet();
@@ -5029,12 +5034,41 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataSet___members___get(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataSet *arg1 = (Exiv2::DataSet *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DataSet___members___get", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataSet___members___get" "', argument " "1"" of type '" "Exiv2::DataSet *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataSet * >(argp1);
+  result = (PyObject *)Exiv2_DataSet___members___get(arg1);
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataSet_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
+  Exiv2::DataSet *arg1 = (Exiv2::DataSet *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "DataSet_keys", 0, 0, 0)) SWIG_fail;
-  result = (PyObject *)Exiv2_DataSet_keys();
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataSet_keys" "', argument " "1"" of type '" "Exiv2::DataSet *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataSet * >(argp1);
+  result = (PyObject *)Exiv2_DataSet_keys(arg1);
   resultobj = result;
   return resultobj;
 fail:
@@ -5810,6 +5844,7 @@ static SwigPyGetSet DataSet_title__getset = { _wrap_DataSet_title__get, 0 };
 static SwigPyGetSet DataSet_photoshop__getset = { _wrap_DataSet_photoshop__get, 0 };
 static SwigPyGetSet DataSet_desc__getset = { _wrap_DataSet_desc__get, 0 };
 static SwigPyGetSet DataSet_repeatable__getset = { _wrap_DataSet_repeatable__get, 0 };
+static SwigPyGetSet DataSet___members___getset = { _wrap_DataSet___members___get, 0 };
 static SwigPyGetSet DataSet_number__getset = { _wrap_DataSet_number__get, 0 };
 static SwigPyGetSet DataSet_maxbytes__getset = { _wrap_DataSet_maxbytes__get, 0 };
 static SwigPyGetSet DataSet___dict___getset = { SwigPyObject_get___dict__, 0 };
@@ -5823,6 +5858,19 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__DataSet_getset[] = {
     { (char *)"photoshop_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Photoshop string", &DataSet_photoshop__getset },
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Dataset description", &DataSet_desc__getset },
     { (char *)"repeatable_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"True if dataset is repeatable", &DataSet_repeatable__getset },
+    { (char *)"__members__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"Structure member names.\n"
+		"\n"
+		":type: tuple of str\n"
+		"\n"
+		"List of names used to access members as attributes (``object.name``) or\n"
+		"with dict-like indexing (``object['name']``). Attribute access is\n"
+		"preferred as it is more efficient.\n"
+		"\n"
+		"Although the actual structure member names end with underscores, the\n"
+		"Python interface uses names without underscores, as listed in\n"
+		"``__members__``.\n"
+		"", &DataSet___members___getset },
     { (char *)"number_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Dataset number", &DataSet_number__getset },
     { (char *)"maxbytes_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Maximum number of bytes", &DataSet_maxbytes__getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Dataset number", &DataSet___dict___getset },
@@ -5849,7 +5897,7 @@ SwigPyBuiltin__Exiv2__DataSet_richcompare(PyObject *self, PyObject *other, int o
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataSet_methods[] = {
-  { "keys", (PyCFunction)(void(*)(void))_wrap_DataSet_keys, METH_STATIC|METH_NOARGS, "\n"
+  { "keys", _wrap_DataSet_keys, METH_NOARGS, "\n"
 		"Get structure member names.\n"
 		":rtype: tuple of str\n"
 		":return: structure member names (with any trailing underscores\n"

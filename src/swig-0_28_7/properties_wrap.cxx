@@ -4486,6 +4486,12 @@ static PyObject* keys_struct(struct_info& info) {
 };
 
 
+static PyObject* Exiv2_XmpPropertyInfo___members___get(Exiv2::XmpPropertyInfo*) {
+    init_info_Exiv2_XmpPropertyInfo();
+    return keys_struct(info_Exiv2_XmpPropertyInfo);
+};
+
+
 static PyObject* values_struct(struct_info& info, PyObject* obj) {
     PyObject* result = PyTuple_New(info.members.size());
     for (size_t i = 0; i < info.members.size(); i++)
@@ -4504,9 +4510,8 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
     return result;
 };
 
-SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_keys(){
-        init_info_Exiv2_XmpPropertyInfo();
-        return keys_struct(info_Exiv2_XmpPropertyInfo);
+SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_keys(Exiv2::XmpPropertyInfo *self){
+        return Exiv2_XmpPropertyInfo___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_values(Exiv2::XmpPropertyInfo *self,PyObject *py_self){
         init_info_Exiv2_XmpPropertyInfo();
@@ -4524,6 +4529,12 @@ SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___iter__(){
         return result;
     }
 
+static PyObject* Exiv2_XmpNsInfo___members___get(Exiv2::XmpNsInfo*) {
+    init_info_Exiv2_XmpNsInfo();
+    return keys_struct(info_Exiv2_XmpNsInfo);
+};
+
+
 static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
     PyObject* list = PyList_New(0);
     if (!ptr)
@@ -4539,9 +4550,8 @@ static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
     return list;
 };
 
-SWIGINTERN PyObject *Exiv2_XmpNsInfo_keys(){
-        init_info_Exiv2_XmpNsInfo();
-        return keys_struct(info_Exiv2_XmpNsInfo);
+SWIGINTERN PyObject *Exiv2_XmpNsInfo_keys(Exiv2::XmpNsInfo *self){
+        return Exiv2_XmpNsInfo___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_XmpNsInfo_values(Exiv2::XmpNsInfo *self,PyObject *py_self){
         init_info_Exiv2_XmpNsInfo();
@@ -4834,20 +4844,41 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_XmpPropertyInfo___members___get(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpPropertyInfo *arg1 = (Exiv2::XmpPropertyInfo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpPropertyInfo___members___get", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpPropertyInfo___members___get" "', argument " "1"" of type '" "Exiv2::XmpPropertyInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
+  result = (PyObject *)Exiv2_XmpPropertyInfo___members___get(arg1);
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_XmpPropertyInfo_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
+  Exiv2::XmpPropertyInfo *arg1 = (Exiv2::XmpPropertyInfo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "XmpPropertyInfo_keys", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpPropertyInfo_keys();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpPropertyInfo_keys" "', argument " "1"" of type '" "Exiv2::XmpPropertyInfo *""'"); 
   }
+  arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
+  result = (PyObject *)Exiv2_XmpPropertyInfo_keys(arg1);
   resultobj = result;
   return resultobj;
 fail:
@@ -4872,15 +4903,7 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo_values(PyObject *self, PyObject *args
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpPropertyInfo_values" "', argument " "1"" of type '" "Exiv2::XmpPropertyInfo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpPropertyInfo_values(arg1,arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_XmpPropertyInfo_values(arg1,arg2);
   resultobj = result;
   return resultobj;
 fail:
@@ -4905,15 +4928,7 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo_items(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpPropertyInfo_items" "', argument " "1"" of type '" "Exiv2::XmpPropertyInfo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpPropertyInfo * >(argp1);
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpPropertyInfo_items(arg1,arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_XmpPropertyInfo_items(arg1,arg2);
   resultobj = result;
   return resultobj;
 fail:
@@ -4926,15 +4941,7 @@ SWIGINTERN PyObject *_wrap_XmpPropertyInfo___iter__(PyObject *self, PyObject *ar
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "XmpPropertyInfo___iter__", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpPropertyInfo___iter__();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_XmpPropertyInfo___iter__();
   resultobj = result;
   return resultobj;
 fail:
@@ -5033,20 +5040,41 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_XmpNsInfo___members___get(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpNsInfo *arg1 = (Exiv2::XmpNsInfo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "XmpNsInfo___members___get", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpNsInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpNsInfo___members___get" "', argument " "1"" of type '" "Exiv2::XmpNsInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
+  result = (PyObject *)Exiv2_XmpNsInfo___members___get(arg1);
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_XmpNsInfo_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
+  Exiv2::XmpNsInfo *arg1 = (Exiv2::XmpNsInfo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "XmpNsInfo_keys", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpNsInfo_keys();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpNsInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpNsInfo_keys" "', argument " "1"" of type '" "Exiv2::XmpNsInfo *""'"); 
   }
+  arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
+  result = (PyObject *)Exiv2_XmpNsInfo_keys(arg1);
   resultobj = result;
   return resultobj;
 fail:
@@ -5071,15 +5099,7 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo_values(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpNsInfo_values" "', argument " "1"" of type '" "Exiv2::XmpNsInfo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpNsInfo_values(arg1,arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_XmpNsInfo_values(arg1,arg2);
   resultobj = result;
   return resultobj;
 fail:
@@ -5104,15 +5124,7 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo_items(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpNsInfo_items" "', argument " "1"" of type '" "Exiv2::XmpNsInfo *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpNsInfo_items(arg1,arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_XmpNsInfo_items(arg1,arg2);
   resultobj = result;
   return resultobj;
 fail:
@@ -5125,15 +5137,7 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo___iter__(PyObject *self, PyObject *args) {
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "XmpNsInfo___iter__", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (PyObject *)Exiv2_XmpNsInfo___iter__();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
+  result = (PyObject *)Exiv2_XmpNsInfo___iter__();
   resultobj = result;
   return resultobj;
 fail:
@@ -6016,6 +6020,7 @@ static PyMethodDef SwigMethods[] = {
 static SwigPyGetSet XmpPropertyInfo_title__getset = { _wrap_XmpPropertyInfo_title__get, 0 };
 static SwigPyGetSet XmpPropertyInfo_typeId__getset = { _wrap_XmpPropertyInfo_typeId__get, 0 };
 static SwigPyGetSet XmpPropertyInfo_desc__getset = { _wrap_XmpPropertyInfo_desc__get, 0 };
+static SwigPyGetSet XmpPropertyInfo___members___getset = { _wrap_XmpPropertyInfo___members___get, 0 };
 static SwigPyGetSet XmpPropertyInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
 static SwigPyGetSet XmpPropertyInfo_name__getset = { _wrap_XmpPropertyInfo_name__get, 0 };
 static SwigPyGetSet XmpPropertyInfo_xmpValueType__getset = { _wrap_XmpPropertyInfo_xmpValueType__get, 0 };
@@ -6024,6 +6029,19 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpPropertyInfo_getset[] = {
     { (char *)"title_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Property title or label", &XmpPropertyInfo_title__getset },
     { (char *)"typeId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Exiv2 default type for the property", &XmpPropertyInfo_typeId__getset },
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Property description", &XmpPropertyInfo_desc__getset },
+    { (char *)"__members__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"Structure member names.\n"
+		"\n"
+		":type: tuple of str\n"
+		"\n"
+		"List of names used to access members as attributes (``object.name``) or\n"
+		"with dict-like indexing (``object['name']``). Attribute access is\n"
+		"preferred as it is more efficient.\n"
+		"\n"
+		"Although the actual structure member names end with underscores, the\n"
+		"Python interface uses names without underscores, as listed in\n"
+		"``__members__``.\n"
+		"", &XmpPropertyInfo___members___getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Property name", &XmpPropertyInfo___dict___getset },
     { (char *)"name_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Property name", &XmpPropertyInfo_name__getset },
     { (char *)"xmpValueType_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"XMP value type (for info only)", &XmpPropertyInfo_xmpValueType__getset },
@@ -6046,7 +6064,7 @@ SwigPyBuiltin__Exiv2__XmpPropertyInfo_richcompare(PyObject *self, PyObject *othe
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpPropertyInfo_methods[] = {
-  { "keys", (PyCFunction)(void(*)(void))_wrap_XmpPropertyInfo_keys, METH_STATIC|METH_NOARGS, "\n"
+  { "keys", _wrap_XmpPropertyInfo_keys, METH_NOARGS, "\n"
 		"Get structure member names.\n"
 		":rtype: tuple of str\n"
 		":return: structure member names (with any trailing underscores\n"
@@ -6395,12 +6413,26 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__XmpPropertyInfo_clientdata = {
 
 static SwigPyGetSet XmpNsInfo_xmpPropertyInfo__getset = { _wrap_XmpNsInfo_xmpPropertyInfo__get, 0 };
 static SwigPyGetSet XmpNsInfo_desc__getset = { _wrap_XmpNsInfo_desc__get, 0 };
+static SwigPyGetSet XmpNsInfo___members___getset = { _wrap_XmpNsInfo___members___get, 0 };
 static SwigPyGetSet XmpNsInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
 static SwigPyGetSet XmpNsInfo_ns__getset = { _wrap_XmpNsInfo_ns__get, 0 };
 static SwigPyGetSet XmpNsInfo_prefix__getset = { _wrap_XmpNsInfo_prefix__get, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__XmpNsInfo_getset[] = {
     { (char *)"xmpPropertyInfo_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"List of known properties", &XmpNsInfo_xmpPropertyInfo__getset },
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Brief description of the namespace", &XmpNsInfo_desc__getset },
+    { (char *)"__members__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
+		"Structure member names.\n"
+		"\n"
+		":type: tuple of str\n"
+		"\n"
+		"List of names used to access members as attributes (``object.name``) or\n"
+		"with dict-like indexing (``object['name']``). Attribute access is\n"
+		"preferred as it is more efficient.\n"
+		"\n"
+		"Although the actual structure member names end with underscores, the\n"
+		"Python interface uses names without underscores, as listed in\n"
+		"``__members__``.\n"
+		"", &XmpNsInfo___members___getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Namespace", &XmpNsInfo___dict___getset },
     { (char *)"ns_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Namespace", &XmpNsInfo_ns__getset },
     { (char *)"prefix_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"(Preferred) prefix", &XmpNsInfo_prefix__getset },
@@ -6422,7 +6454,7 @@ SwigPyBuiltin__Exiv2__XmpNsInfo_richcompare(PyObject *self, PyObject *other, int
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpNsInfo_methods[] = {
-  { "keys", (PyCFunction)(void(*)(void))_wrap_XmpNsInfo_keys, METH_STATIC|METH_NOARGS, "\n"
+  { "keys", _wrap_XmpNsInfo_keys, METH_NOARGS, "\n"
 		"Get structure member names.\n"
 		":rtype: tuple of str\n"
 		":return: structure member names (with any trailing underscores\n"

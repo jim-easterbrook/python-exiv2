@@ -96,13 +96,14 @@ class TestPreviewModule(unittest.TestCase):
         keys = properties.keys()
         self.assertIsInstance(keys, tuple)
         self.assertEqual(len(keys), 6)
+        self.assertEqual(keys, properties.__members__)
         values = properties.values()
         self.assertIsInstance(values, tuple)
         self.assertEqual(len(values), 6)
         items = properties.items()
         self.assertIsInstance(items, tuple)
         self.assertEqual(len(items), 6)
-        for k in properties:
+        for k in properties.__members__:
             v = getattr(properties, k)
             self.assertIn(k, keys)
             self.assertIn(v, values)
