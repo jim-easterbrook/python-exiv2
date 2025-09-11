@@ -94,16 +94,16 @@ class TestPreviewModule(unittest.TestCase):
         self.check_result(properties.size_, int, 2532)
         self.check_result(properties.width_, int, 160)
         keys = properties.keys()
-        self.assertIsInstance(keys, list)
+        self.assertIsInstance(keys, tuple)
         self.assertEqual(len(keys), 6)
         values = properties.values()
-        self.assertIsInstance(values, list)
+        self.assertIsInstance(values, tuple)
         self.assertEqual(len(values), 6)
         items = properties.items()
-        self.assertIsInstance(items, list)
+        self.assertIsInstance(items, tuple)
         self.assertEqual(len(items), 6)
         for k in properties:
-            v = properties[k]
+            v = getattr(properties, k)
             self.assertIn(k, keys)
             self.assertIn(v, values)
             self.assertIn((k, v), items)
@@ -111,7 +111,7 @@ class TestPreviewModule(unittest.TestCase):
                 properties[k] = 123
             with self.assertRaises(TypeError):
                 del properties[k]
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(KeyError):
             a = properties['fred']
         with self.assertRaises(TypeError):
             properties['fred'] = 123
