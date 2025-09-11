@@ -174,17 +174,31 @@ static PyObject* %mangle(struct_type)___members___get(struct_type*) {
     %fragment("items_struct");
     PyObject* __members__ const;
     PyObject* keys() {
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names", 1);
         return %mangle(struct_type)___members___get(self);
     }
     PyObject* values(PyObject* py_self) {
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_%mangle(struct_type)();
         return values_struct(info_%mangle(struct_type), py_self);
     }
     PyObject* items(PyObject* py_self) {
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_%mangle(struct_type)();
         return items_struct(info_%mangle(struct_type), py_self);
     }
     static PyObject* __iter__() {
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please iterate over the __members__ attribute", 1);
         init_info_%mangle(struct_type)();
         PyObject* seq = keys_struct(info_%mangle(struct_type));
         PyObject* result = PySeqIter_New(seq);

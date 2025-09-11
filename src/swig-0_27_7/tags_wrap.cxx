@@ -4510,17 +4510,31 @@ SWIGINTERNINLINE PyObject*
     }
 
 SWIGINTERN PyObject *Exiv2_GroupInfo_keys(Exiv2::GroupInfo *self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names", 1);
         return Exiv2_GroupInfo___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_GroupInfo_values(Exiv2::GroupInfo *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_GroupInfo();
         return values_struct(info_Exiv2_GroupInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_GroupInfo_items(Exiv2::GroupInfo *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_GroupInfo();
         return items_struct(info_Exiv2_GroupInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_GroupInfo___iter__(){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please iterate over the __members__ attribute", 1);
         init_info_Exiv2_GroupInfo();
         PyObject* seq = keys_struct(info_Exiv2_GroupInfo);
         PyObject* result = PySeqIter_New(seq);
@@ -4559,17 +4573,31 @@ SWIG_From_short  (short value)
 }
 
 SWIGINTERN PyObject *Exiv2_TagInfo_keys(Exiv2::TagInfo *self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names", 1);
         return Exiv2_TagInfo___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_TagInfo_values(Exiv2::TagInfo *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_TagInfo();
         return values_struct(info_Exiv2_TagInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_TagInfo_items(Exiv2::TagInfo *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_TagInfo();
         return items_struct(info_Exiv2_TagInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_TagInfo___iter__(){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please iterate over the __members__ attribute", 1);
         init_info_Exiv2_TagInfo();
         PyObject* seq = keys_struct(info_Exiv2_TagInfo);
         PyObject* result = PySeqIter_New(seq);

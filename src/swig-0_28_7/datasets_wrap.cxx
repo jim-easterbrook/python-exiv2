@@ -4480,17 +4480,31 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN PyObject *Exiv2_DataSet_keys(Exiv2::DataSet *self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names", 1);
         return Exiv2_DataSet___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_DataSet_values(Exiv2::DataSet *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_DataSet();
         return values_struct(info_Exiv2_DataSet, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DataSet_items(Exiv2::DataSet *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_DataSet();
         return items_struct(info_Exiv2_DataSet, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DataSet___iter__(){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please iterate over the __members__ attribute", 1);
         init_info_Exiv2_DataSet();
         PyObject* seq = keys_struct(info_Exiv2_DataSet);
         PyObject* result = PySeqIter_New(seq);

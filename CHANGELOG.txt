@@ -36,6 +36,9 @@ Changes in v0.18.0:
   8/ Add data() method to exiv2.PreviewImage, deprecate pData() method.
   9/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
  10/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
+ 11/ Add __members__ attribute to exiv2 "data" structure types.
+ 12/ Deprecated keys(), values(), and items() methods and iterator of exiv2
+     "data" structure types.
 
 Changes in v0.17.5:
   1/ Binary wheels incorporate libexiv2 v0.28.7.

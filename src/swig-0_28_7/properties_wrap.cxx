@@ -4511,17 +4511,31 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 };
 
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_keys(Exiv2::XmpPropertyInfo *self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names", 1);
         return Exiv2_XmpPropertyInfo___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_values(Exiv2::XmpPropertyInfo *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_XmpPropertyInfo();
         return values_struct(info_Exiv2_XmpPropertyInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_items(Exiv2::XmpPropertyInfo *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_XmpPropertyInfo();
         return items_struct(info_Exiv2_XmpPropertyInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___iter__(){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please iterate over the __members__ attribute", 1);
         init_info_Exiv2_XmpPropertyInfo();
         PyObject* seq = keys_struct(info_Exiv2_XmpPropertyInfo);
         PyObject* result = PySeqIter_New(seq);
@@ -4551,17 +4565,31 @@ static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
 };
 
 SWIGINTERN PyObject *Exiv2_XmpNsInfo_keys(Exiv2::XmpNsInfo *self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names", 1);
         return Exiv2_XmpNsInfo___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_XmpNsInfo_values(Exiv2::XmpNsInfo *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_XmpNsInfo();
         return values_struct(info_Exiv2_XmpNsInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_XmpNsInfo_items(Exiv2::XmpNsInfo *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_XmpNsInfo();
         return items_struct(info_Exiv2_XmpNsInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_XmpNsInfo___iter__(){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please iterate over the __members__ attribute", 1);
         init_info_Exiv2_XmpNsInfo();
         PyObject* seq = keys_struct(info_Exiv2_XmpNsInfo);
         PyObject* result = PySeqIter_New(seq);

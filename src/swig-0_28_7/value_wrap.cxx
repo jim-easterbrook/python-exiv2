@@ -6798,17 +6798,31 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 };
 
 SWIGINTERN PyObject *Exiv2_DateValue_Date_keys(Exiv2::DateValue::Date *self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names", 1);
         return Exiv2_DateValue_Date___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date_values(Exiv2::DateValue::Date *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_DateValue_Date();
         return values_struct(info_Exiv2_DateValue_Date, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date_items(Exiv2::DateValue::Date *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_DateValue_Date();
         return items_struct(info_Exiv2_DateValue_Date, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date___iter__(){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please iterate over the __members__ attribute", 1);
         init_info_Exiv2_DateValue_Date();
         PyObject* seq = keys_struct(info_Exiv2_DateValue_Date);
         PyObject* result = PySeqIter_New(seq);
@@ -6836,17 +6850,31 @@ static PyObject* Exiv2_TimeValue_Time___members___get(Exiv2::TimeValue::Time*) {
 };
 
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_keys(Exiv2::TimeValue::Time *self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names", 1);
         return Exiv2_TimeValue_Time___members___get(self);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_values(Exiv2::TimeValue::Time *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_TimeValue_Time();
         return values_struct(info_Exiv2_TimeValue_Time, py_self);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_items(Exiv2::TimeValue::Time *self,PyObject *py_self){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please use __members__ to get the struct member names"
+             " and getattr to get values from names", 1);
         init_info_Exiv2_TimeValue_Time();
         return items_struct(info_Exiv2_TimeValue_Time, py_self);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(){
+        // Deprecated since 2025-09-11
+        PyErr_WarnEx(PyExc_DeprecationWarning,
+             "Please iterate over the __members__ attribute", 1);
         init_info_Exiv2_TimeValue_Time();
         PyObject* seq = keys_struct(info_Exiv2_TimeValue_Time);
         PyObject* result = PySeqIter_New(seq);
