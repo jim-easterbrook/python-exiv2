@@ -27,7 +27,7 @@ class TestVersionModule(unittest.TestCase):
         result = exiv2.testVersion(0, 27, 0)
         self.assertIsInstance(result, bool)
         self.assertEqual(result, True)
-        version = exiv2.version()
+        version = exiv2.versionFull()
         self.assertIsInstance(version, str)
         self.assertGreaterEqual(version, '0.27.0')
         version_tuple = tuple(int(x) for x in version.split('.')[:3])

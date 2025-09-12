@@ -40,6 +40,7 @@ Changes in v0.18.0:
  12/ Deprecated keys(), values(), and items() methods and iterator of exiv2
      "data" structure types.
  13/ API CHANGE: exiv2.LogMsg.pythonHandler is replaced by exiv2.pythonHandler
+ 14/ API CHANGE: exiv2.version function renamed to exiv2.versionFull
 
 Changes in v0.17.5:
   1/ Binary wheels incorporate libexiv2 v0.28.7.

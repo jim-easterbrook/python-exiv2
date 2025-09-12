@@ -4624,11 +4624,11 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_version(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_versionFull(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   char *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "version", 0, 0, 0)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "versionFull", 0, 0, 0)) SWIG_fail;
   {
     try {
       result = (char *)Exiv2::version();
@@ -4696,7 +4696,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "versionNumber", _wrap_versionNumber, METH_NOARGS, "Return the version of %Exiv2 available at runtime as an integer."},
 	 { "versionString", _wrap_versionString, METH_NOARGS, "Return the version string Example: \"0.25.0\" (major.minor.patch)"},
 	 { "versionNumberHexString", _wrap_versionNumberHexString, METH_NOARGS, "Return the version of %Exiv2 as hex string of fixed length 6."},
-	 { "version", _wrap_version, METH_NOARGS, "Return the version of %Exiv2 as \"C\" string eg \"0.27.0.2\"."},
+	 { "versionFull", _wrap_versionFull, METH_NOARGS, "Return the version of %Exiv2 as \"C\" string eg \"0.27.0.2\"."},
 	 { "testVersion", _wrap_testVersion, METH_VARARGS, "\n"
 		"Test the version of the available %Exiv2 library at runtime. Return\n"
 		"       true if it is the same as or newer than the passed-in version.\n"

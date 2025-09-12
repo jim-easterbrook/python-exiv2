@@ -29,6 +29,9 @@
 // Catch all C++ exceptions
 EXCEPTION()
 
+// Rename version function to avoid name clash with version module
+%rename (versionFull) version;
+
 // Function to report build options used
 %feature("docstring") versionInfo "Return a dict of libexiv2 build options."
 %fragment("set_EXV_ENABLE_FILESYSTEM");
