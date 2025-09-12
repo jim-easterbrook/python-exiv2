@@ -27,7 +27,7 @@
 
 %import "metadatum.i";
 
-// Add inheritance diagram to Sphinx docs
+// Add inheritance diagram and enum table to Sphinx docs
 %pythoncode %{
 import sys
 if 'sphinx' in sys.modules:
@@ -37,6 +37,13 @@ if 'sphinx' in sys.modules:
     :top-classes: exiv2.metadatum.Key
     :parts: 1
     :include-subclasses:
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    IfdId
+    SectionId
 '''
 %}
 

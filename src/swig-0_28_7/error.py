@@ -12,6 +12,24 @@ else:
     from _error import *
 
 
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    ErrorCode
+
+.. rubric:: Module Attributes
+
+.. autosummary::
+
+    pythonHandler
+'''
+
+
 if __package__ or "." in __name__:
     from ._error import __all__
 else:

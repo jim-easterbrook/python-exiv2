@@ -24,6 +24,12 @@ if 'sphinx' in sys.modules:
     :top-classes: exiv2.metadatum.Key
     :parts: 1
     :include-subclasses:
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    XmpCategory
 '''
 
 

@@ -29,6 +29,23 @@
 %include "std_pair.i"
 %include "std_string.i"
 
+// Add enum table to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    AccessMode
+    ByteOrder
+    MetadataId
+    TypeId
+'''
+%}
+
 // Catch all C++ exceptions
 EXCEPTION()
 

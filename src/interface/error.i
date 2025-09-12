@@ -27,6 +27,26 @@
 %include "std_except.i"
 
 
+// Add enum table to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    ErrorCode
+
+.. rubric:: Module Attributes
+
+.. autosummary::
+
+    pythonHandler
+'''
+%}
+
 // Import logger from extras.py
 IMPORT_PYTHON_OBJECT(exiv2.extras, logger, logger)
 %fragment("import_python_object"{logger});

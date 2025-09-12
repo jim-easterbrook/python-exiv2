@@ -25,7 +25,6 @@ See :ref:`genindex` for a full index to all classes, attributes, functions and m
 .. autosummary::
    :toctree: ../api
    :recursive:
-   :template: module.rst
 
    exiv2.image
    exiv2.exif

@@ -37,6 +37,20 @@
 %import "iptc.i";
 %import "xmp.i";
 
+// Add enum table to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    ImageType
+'''
+%}
+
 IMPORT_ENUM(types, AccessMode)
 IMPORT_ENUM(types, ByteOrder)
 IMPORT_ENUM(types, MetadataId)

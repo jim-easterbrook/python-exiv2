@@ -12,6 +12,21 @@ else:
     from _types import *
 
 
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    AccessMode
+    ByteOrder
+    MetadataId
+    TypeId
+'''
+
+
 import os
 _dir = os.path.join(os.path.dirname(__file__), 'locale')
 if os.path.isdir(_dir):

@@ -21,3 +21,17 @@ if __package__ or "." in __name__:
     from ._image import *
 else:
     from _image import *
+
+
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    ImageType
+'''
+
+
