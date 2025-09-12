@@ -165,9 +165,9 @@ __all__.sort()
     # update Sphinx config
     with open('src/doc/requirements.txt', 'w') as f:
         f.write(f'''exiv2 == {py_exiv2_version}
-sphinx == 7.2.6
-sphinx-rtd-theme == 2.0.0
-enum_tools[sphinx] >= 0.12
+sphinx == 8.2.3
+sphinx-rtd-theme == 3.0.2
+enum_tools[sphinx] >= 0.13
 ''')
     return 0
 
