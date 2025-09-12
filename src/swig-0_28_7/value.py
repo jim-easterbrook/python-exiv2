@@ -14,6 +14,17 @@ else:
     from _value import *
 
 
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.value.Value
+    :top-classes: exiv2.value.Value
+    :parts: 1
+    :include-subclasses:
+'''
+
+
 from exiv2.extras import _deprecated_enum
 
 CharsetId = _deprecated_enum("CommentValue", CommentValue.CharsetId)

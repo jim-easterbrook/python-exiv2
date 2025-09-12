@@ -39,6 +39,19 @@
 
 %import "types.i"
 
+// Add inheritance diagrams to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.value.Value
+    :top-classes: exiv2.value.Value
+    :parts: 1
+    :include-subclasses:
+'''
+%}
+
 IMPORT_ENUM(types, ByteOrder)
 IMPORT_ENUM(types, TypeId)
 

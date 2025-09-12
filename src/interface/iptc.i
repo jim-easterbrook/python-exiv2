@@ -31,6 +31,24 @@
 
 %import "datasets.i"
 
+// Add inheritance diagrams to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.metadatum.Metadatum
+    :top-classes: exiv2.metadatum.Metadatum
+    :parts: 1
+    :include-subclasses:
+
+.. inheritance-diagram:: exiv2.iptc.Iptcdatum_pointer
+    :top-classes: exiv2.iptc.Iptcdatum_pointer
+    :parts: 1
+    :include-subclasses:
+'''
+%}
+
 IMPORT_ENUM(types, ByteOrder)
 IMPORT_ENUM(types, TypeId)
 

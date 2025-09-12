@@ -14,3 +14,16 @@ if __package__ or "." in __name__:
     from ._properties import *
 else:
     from _properties import *
+
+
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.metadatum.Key
+    :top-classes: exiv2.metadatum.Key
+    :parts: 1
+    :include-subclasses:
+'''
+
+

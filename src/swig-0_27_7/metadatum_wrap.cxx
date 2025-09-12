@@ -7972,7 +7972,7 @@ SWIG_init(void) {
   
   SWIG_InstallConstants(d,swig_const_table);
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 metadatum base class."));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 metadatum and key base classes."));
   
   if (strcmp(SWIG_name,"_error")) {
     Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
