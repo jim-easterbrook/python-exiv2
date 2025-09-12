@@ -10,3 +10,13 @@ if __package__ or "." in __name__:
     from ._error import *
 else:
     from _error import *
+
+
+if __package__ or "." in __name__:
+    from ._error import __all__
+else:
+    from _error import __all__
+__all__.remove('LogMsg_defaultHandler_get')
+__all__.remove('cvar')
+
+

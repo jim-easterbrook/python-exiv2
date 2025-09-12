@@ -1,5 +1,6 @@
 {% if fullname == "exiv2._error" %}
    {% set classes = classes + ['ErrorCode'] %}
+   {% set attributes = attributes + ['pythonHandler'] %}
 {% endif %}
 
 {% if fullname == "exiv2._image" %}

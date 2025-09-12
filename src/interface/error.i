@@ -18,7 +18,7 @@
 %module(package="exiv2") error
 
 #ifndef SWIGIMPORTED
-%constant char* __doc__ = "Exiv2 error codes and log messages.";
+%constant char* __doc__ = "Exiv2 error codes and message logging.";
 #endif
 
 %include "shared/preamble.i"
@@ -52,14 +52,38 @@ static void log_to_python(int level, const char* msg) {
 Exiv2::LogMsg::setHandler(&log_to_python);
 %}
 
-// Provide Python logger and default logger as attributes of LogMsg
+// Replace LogMsg docs with something more relevant to Python
+%feature("docstring") Exiv2::LogMsg
+"Static class to control logging.
+
+Applications can set the log level and change the log message handler.
+
+The default handler :attr:`pythonHandler` sends messages to Python's
+:mod:`logging` system. Exiv2's handler :attr:`defaultHandler` sends
+messages to standard error. To change handler pass
+:attr:`exiv2.pythonHandler<pythonHandler>` or
+:attr:`exiv2.LogMsg.defaultHandler<defaultHandler>` to
+:meth:`setHandler`.
+
+To disable logging entirely pass :obj:`None` to :meth:`setHandler`."
+
+// Provide Python logger as attribute of module
+%constant Exiv2::LogMsg::Handler pythonHandler = &log_to_python;
+
+// Provide default logger as attribute of LogMsg
 %extend Exiv2::LogMsg {
-%constant PyObject* pythonHandler = SWIG_NewFunctionPtrObj(
-    (void*)log_to_python, SWIGTYPE_p_f_int_p_q_const__char__void);
-%constant PyObject* defaultHandler = SWIG_NewFunctionPtrObj(
-    (void*)Exiv2::LogMsg::defaultHandler,
-    SWIGTYPE_p_f_int_p_q_const__char__void);
+    static const Exiv2::LogMsg::Handler defaultHandler;
 }
+// Adding static class attribute creates cvar and a getter function.
+// Hide them from the user interface.
+%pythoncode %{
+if __package__ or "." in __name__:
+    from ._error import __all__
+else:
+    from _error import __all__
+__all__.remove('LogMsg_defaultHandler_get')
+__all__.remove('cvar')
+%}
 
 // Ignore anything that's unusable from Python
 %ignore Exiv2::AnyError;

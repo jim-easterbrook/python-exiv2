@@ -4491,10 +4491,34 @@ fail:
 }
 
 
+SWIGINTERN int Swig_var_LogMsg_defaultHandler_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable LogMsg_defaultHandler is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_LogMsg_defaultHandler_get(void) {
+  PyObject *pyobj = 0;
+  PyObject *self = 0;
+  
+  (void)self;
+  pyobj = SWIG_NewFunctionPtrObj((void *)(Exiv2::LogMsg::defaultHandler), SWIGTYPE_p_f_int_p_q_const__char__void);
+  return pyobj;
+}
+
+
+SWIGINTERN PyObject *_wrap_LogMsg_defaultHandler_get(PyObject *SWIGUNUSEDPARM(self), PyObject *SWIGUNUSEDPARM(args)) {
+  return Swig_var_LogMsg_defaultHandler_get();
+}
+
+
 static PyMethodDef SwigMethods[] = {
+	 { "LogMsg_defaultHandler_get", _wrap_LogMsg_defaultHandler_get, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
+static SwigPyGetSet LogMsg_defaultHandler_getset = { _wrap_LogMsg_defaultHandler_get, 0 };
+static PyGetSetDef LogMsg_defaultHandler_getset_def = { (char *)"defaultHandler", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Exiv2::LogMsg.defaultHandler", &LogMsg_defaultHandler_getset };
 static SwigPyGetSet LogMsg___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__LogMsg_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
@@ -4578,31 +4602,18 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LogMsg_type = {
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
     "\n"
-		"Class for a log message, used by the library. Applications can set\n"
-		"       the log level and provide a customer log message handler (callback\n"
-		"       function).\n"
+		"Static class to control logging.\n"
 		"\n"
-		"       This class is meant to be used as a temporary object with the\n"
-		"       related macro-magic like this:\n"
+		"Applications can set the log level and change the log message handler.\n"
 		"\n"
-		"       ``\n"
-		"       EXV_WARNING << \"Warning! Something looks fishy.\\n\";\n"
-		"       ``\n"
+		"The default handler :attr:`pythonHandler` sends messages to Python's\n"
+		":mod:`logging` system. Exiv2's handler :attr:`defaultHandler` sends\n"
+		"messages to standard error. To change handler pass\n"
+		":attr:`exiv2.pythonHandler<pythonHandler>` or\n"
+		":attr:`exiv2.LogMsg.defaultHandler<defaultHandler>` to\n"
+		":meth:`setHandler`.\n"
 		"\n"
-		"       which translates to\n"
-		"\n"
-		"       ``\n"
-		"       if (LogMsg::warn >= LogMsg::level() && LogMsg::handler())\n"
-		"           LogMsg(LogMsg::warn).os() << \"Warning! Something looks fishy.\\n\";\n"
-		"       ``\n"
-		"\n"
-		"       The macros EXV_DEBUG, EXV_INFO, EXV_WARNING and EXV_ERROR are\n"
-		"       shorthands and ensure efficient use of the logging facility: If a\n"
-		"       log message doesn't need to be generated because of the log level\n"
-		"       setting, the temp object is not even created.\n"
-		"\n"
-		"       Caveat: The entire log message is not processed in this case. So don't\n"
-		"       make that call any logic that always needs to be executed.\n"
+		"To disable logging entirely pass :obj:`None` to :meth:`setHandler`.\n"
 		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
@@ -4809,31 +4820,18 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__LogMsg_type_create(PyTypeObject *type
     { Py_tp_is_gc,                      (void *)(inquiry) 0 },
     { Py_tp_del,                        (void *)(destructor) 0 },
     { Py_tp_doc,                        (void *)"\n"
-		"Class for a log message, used by the library. Applications can set\n"
-		"       the log level and provide a customer log message handler (callback\n"
-		"       function).\n"
+		"Static class to control logging.\n"
 		"\n"
-		"       This class is meant to be used as a temporary object with the\n"
-		"       related macro-magic like this:\n"
+		"Applications can set the log level and change the log message handler.\n"
 		"\n"
-		"       ``\n"
-		"       EXV_WARNING << \"Warning! Something looks fishy.\\n\";\n"
-		"       ``\n"
+		"The default handler :attr:`pythonHandler` sends messages to Python's\n"
+		":mod:`logging` system. Exiv2's handler :attr:`defaultHandler` sends\n"
+		"messages to standard error. To change handler pass\n"
+		":attr:`exiv2.pythonHandler<pythonHandler>` or\n"
+		":attr:`exiv2.LogMsg.defaultHandler<defaultHandler>` to\n"
+		":meth:`setHandler`.\n"
 		"\n"
-		"       which translates to\n"
-		"\n"
-		"       ``\n"
-		"       if (LogMsg::warn >= LogMsg::level() && LogMsg::handler())\n"
-		"           LogMsg(LogMsg::warn).os() << \"Warning! Something looks fishy.\\n\";\n"
-		"       ``\n"
-		"\n"
-		"       The macros EXV_DEBUG, EXV_INFO, EXV_WARNING and EXV_ERROR are\n"
-		"       shorthands and ensure efficient use of the logging facility: If a\n"
-		"       log message doesn't need to be generated because of the log level\n"
-		"       setting, the temp object is not even created.\n"
-		"\n"
-		"       Caveat: The entire log message is not processed in this case. So don't\n"
-		"       make that call any logic that always needs to be executed.\n"
+		"To disable logging entirely pass :obj:`None` to :meth:`setHandler`.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },
@@ -4957,6 +4955,7 @@ static swig_cast_info *swig_cast_initial[] = {
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (END) -------- */
 
 static swig_const_info swig_const_table[] = {
+{ SWIG_PY_POINTER, "pythonHandler", 0, 0, (void *)(&log_to_python), &SWIGTYPE_p_f_int_p_q_const__char__void },
 {0, 0, 0, 0.0, 0, 0}};
 
 #ifdef __cplusplus
@@ -5419,7 +5418,7 @@ SWIG_init(void) {
   
   SWIG_InstallConstants(d,swig_const_table);
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 error codes and log messages."));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 error codes and message logging."));
   
   if (strcmp(SWIG_name,"_error")) {
     Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
@@ -5434,6 +5433,7 @@ SWIG_init(void) {
   
   
   Exiv2::LogMsg::setHandler(&log_to_python);
+  
   
   
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
@@ -5465,16 +5465,25 @@ SWIG_init(void) {
   if (!Python_enum_IntEnum)
   return INIT_ERROR_RETURN;
   
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "pythonHandler",SWIG_NewFunctionPtrObj(
-      (void*)log_to_python, SWIGTYPE_p_f_int_p_q_const__char__void));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "defaultHandler",SWIG_NewFunctionPtrObj(
-      (void*)Exiv2::LogMsg::defaultHandler,
-      SWIGTYPE_p_f_int_p_q_const__char__void));
+  globals = SWIG_globals();
+  if (!globals) {
+    PyErr_SetString(PyExc_TypeError, "Failure to create SWIG globals.");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
+  PyDict_SetItemString(md, "cvar", globals);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "cvar");
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Level",Python_Exiv2_LogMsg_Level);
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
+  static_getset = SwigPyStaticVar_new_getset(metatype, &LogMsg_defaultHandler_getset_def);
+  PyDict_SetItemString(d, static_getset->d_getset->name, (PyObject *)static_getset);
+  SWIG_Py_DECREF((PyObject *)static_getset);
   builtin_pytype = SwigPyBuiltin__Exiv2__LogMsg_type_create(metatype, builtin_bases, d);
   if(!builtin_pytype) {
 #if PY_VERSION_HEX >= 0x03000000
@@ -5488,6 +5497,7 @@ SWIG_init(void) {
   PyModule_AddObject(m, "LogMsg", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "LogMsg");
   d = md;
+  SWIG_addvarlink(globals, "LogMsg_defaultHandler", Swig_var_LogMsg_defaultHandler_get, Swig_var_LogMsg_defaultHandler_set);
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

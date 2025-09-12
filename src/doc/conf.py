@@ -97,7 +97,7 @@ def process_docstring(app, what, name, obj, options, lines):
             'Data_iterator', 'datum'), parts[3]), '']
         return
     # fixes for particular problems
-    if name.endswith('error.LogMsg') or name.endswith('iptc.Iptcdatum'):
+    if name.endswith('iptc.Iptcdatum'):
         # first line is not indented
         lines[0] = '       ' + lines[0]
     if name.endswith('XmpParser.initialize'):
