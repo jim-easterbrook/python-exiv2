@@ -42,7 +42,7 @@ author = 'Jim Easterbrook'
 import exiv2
 
 # The full version, including alpha/beta/rc tags
-release = '{} (exiv2 {})'.format(exiv2.__version__, exiv2.version())
+release = '{} (exiv2 {})'.format(exiv2.__version__, exiv2.versionFull())
 version = exiv2.__version__
 
 # -- General configuration ---------------------------------------------------
