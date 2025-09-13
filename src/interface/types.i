@@ -24,6 +24,7 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/private_data.i"
+%include "shared/slots.i"
 
 %include "stdint.i"
 %include "std_pair.i"
@@ -53,7 +54,6 @@ EXCEPTION()
 %noexception Exiv2::DataBuf::data;
 %noexception Exiv2::DataBuf::reset;
 %noexception Exiv2::DataBuf::size;
-%noexception Exiv2::DataBuf::__len__;
 #if EXIV2_VERSION_HEX < 0x001c0000
 %noexception Exiv2::DataBuf::free;
 #endif
@@ -117,14 +117,9 @@ DEFINE_ENUM(MetadataId, 2)
 DEFINE_ENUM(TypeId,)
 
 // Make Exiv2::DataBuf behave more like a tuple of ints
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::DataBuf::__len__;
 %feature("python:slot", "mp_subscript", functype="binaryfunc")
     Exiv2::DataBuf::__getitem__;
 %extend Exiv2::DataBuf {
-    size_t __len__() {
-        return $self->DATABUF_SIZE;
-    }
 #if EXIV2_VERSION_HEX >= 0x001c0000
     bool __eq__(const Exiv2::byte *pData, size_t size) {
         if ($self->size() != size)
@@ -179,6 +174,7 @@ DEFINE_ENUM(TypeId,)
     }
 #endif
 }
+SQ_LENGTH(Exiv2::DataBuf, self->DATABUF_SIZE)
 
 // Memory efficient conversion of Exiv2::DataBuf return values
 %typemap(out) Exiv2::DataBuf %{

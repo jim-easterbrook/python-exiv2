@@ -4564,6 +4564,13 @@ static PyObject* _get_enum_data_Exiv2_TypeId() {
 };
 
 
+static Py_ssize_t __len__Exiv2_DataBuf(PyObject* py_self) {
+    Exiv2::DataBuf* self;
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
+    return self->DATABUF_SIZE;
+};
+
+
 static int buffer_fill_info(Exiv2::DataBuf* self, Py_buffer* view,
                             PyObject* exporter, int flags) {
     return PyBuffer_FillInfo(view, exporter, self->DATABUF_DATA,
@@ -4838,58 +4845,6 @@ static int release_views(PyObject* py_self) {
     return 0;
 };
 
-SWIGINTERN size_t Exiv2_DataBuf___len__(Exiv2::DataBuf *self){
-        return self->DATABUF_SIZE;
-    }
-
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-
-
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
-#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
-#  define SWIG_LONG_LONG_AVAILABLE
-#endif
-
-
-#ifdef SWIG_LONG_LONG_AVAILABLE
-SWIGINTERNINLINE PyObject* 
-SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
-{
-  return (value > LONG_MAX) ?
-    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
-}
-#endif
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_size_t  (size_t value)
-{    
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  if (sizeof(size_t) <= sizeof(unsigned long)) {
-#endif
-    return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
-#ifdef SWIG_LONG_LONG_AVAILABLE
-  } else {
-    /* assume sizeof(size_t) <= sizeof(unsigned long long) */
-    return SWIG_From_unsigned_SS_long_SS_long  (static_cast< unsigned long long >(value));
-  }
-#endif
-}
-
 SWIGINTERN bool Exiv2_DataBuf___eq__(Exiv2::DataBuf *self,Exiv2::byte const *pData,long size){
         if (self->size_ != size)
             return false;
@@ -4940,6 +4895,55 @@ SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *id
 SWIGINTERN void Exiv2_DataBuf__view_deleted_cb(Exiv2::DataBuf *self,PyObject *ref){}
 SWIGINTERN Exiv2::byte *Exiv2_DataBuf_data(Exiv2::DataBuf const *self){ return self->pData_; }
 SWIGINTERN size_t Exiv2_DataBuf_size(Exiv2::DataBuf const *self){ return self->size_; }
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+
+
+#include <limits.h>
+#if !defined(SWIG_NO_LLONG_MAX)
+# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
+#   define LLONG_MAX __LONG_LONG_MAX__
+#   define LLONG_MIN (-LLONG_MAX - 1LL)
+#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# endif
+#endif
+
+
+#if defined(LLONG_MAX) && !defined(SWIG_LONG_LONG_AVAILABLE)
+#  define SWIG_LONG_LONG_AVAILABLE
+#endif
+
+
+#ifdef SWIG_LONG_LONG_AVAILABLE
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long_SS_long  (unsigned long long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLongLong(value) : PyInt_FromLong(static_cast< long >(value));
+}
+#endif
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_size_t  (size_t value)
+{    
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  if (sizeof(size_t) <= sizeof(unsigned long)) {
+#endif
+    return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
+#ifdef SWIG_LONG_LONG_AVAILABLE
+  } else {
+    /* assume sizeof(size_t) <= sizeof(unsigned long long) */
+    return SWIG_From_unsigned_SS_long_SS_long  (static_cast< unsigned long long >(value));
+  }
+#endif
+}
+
 
 SWIGINTERN int
 SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
@@ -6068,27 +6072,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DataBuf___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "DataBuf___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf___len__" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
-  result = Exiv2_DataBuf___len__(arg1);
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_DataBuf___eq__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
@@ -6316,8 +6299,6 @@ fail:
 
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DataBuf) /* defines _wrap_delete_DataBuf_destructor_closure */
-
-SWIGPY_LENFUNC_CLOSURE(_wrap_DataBuf___len__) /* defines _wrap_DataBuf___len___lenfunc_closure */
 
 SWIGINTERN PyObject *_wrap_exvGettext(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -7301,7 +7282,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
 		"" },
   { "free", _wrap_DataBuf_free, METH_NOARGS, "Free the internal buffer and reset the size to 0." },
   { "reset", _wrap_DataBuf_reset, METH_NOARGS, "Reset value" },
-  { "__len__", _wrap_DataBuf___len__, METH_NOARGS, "" },
   { "__eq__", _wrap_DataBuf___eq__, METH_O, "" },
   { "__ne__", _wrap_DataBuf___ne__, METH_O, "" },
   { "__getitem__", _wrap_DataBuf___getitem__, METH_O, "" },
@@ -7483,7 +7463,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataBuf_type = {
     (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
-    _wrap_DataBuf___len___lenfunc_closure,  /* sq_length */
+    __len__Exiv2_DataBuf,                   /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
     (ssizeargfunc) 0,                       /* sq_item */
@@ -7622,7 +7602,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__DataBuf_type_create(PyTypeObject *typ
     { Py_nb_inplace_floor_divide,       (void *)(binaryfunc) 0 },
     { Py_nb_inplace_true_divide,        (void *)(binaryfunc) 0 },
     { Py_nb_index,                      (void *)(unaryfunc) 0 },
-    { Py_sq_length,                     (void *)_wrap_DataBuf___len___lenfunc_closure },
+    { Py_sq_length,                     (void *)__len__Exiv2_DataBuf },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },

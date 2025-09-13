@@ -25,6 +25,7 @@
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
+%include "shared/slots.i"
 
 %import "value.i"
 
@@ -81,18 +82,8 @@ static std::string metadatum_str(Exiv2::Metadatum* datum) {
     return datum->key() + ": " + datum->print();
 };
 }
-%fragment("__str__"{Exiv2::Metadatum}, "header", fragment="metadatum_str") {
-static PyObject* __str__%mangle(Exiv2::Metadatum)(PyObject* py_self) {
-    Exiv2::Metadatum* self;
-    SWIG_ConvertPtr(
-        py_self, (void**)&self, $descriptor(Exiv2::Metadatum*), 0);
-    std::string result = metadatum_str(self);
-    return SWIG_FromCharPtrAndSize(result.data(), result.size());
-};
-}
-%fragment("__str__"{Exiv2::Metadatum});
-%feature("python:tp_str") Exiv2::Metadatum
-    QUOTE(__str__%mangle(Exiv2::Metadatum));
+%fragment("metadatum_str");
+TP_STR(Exiv2::Metadatum, metadatum_str(self))
 
 %ignore Exiv2::Key::~Key;
 %ignore Exiv2::Key::operator=;

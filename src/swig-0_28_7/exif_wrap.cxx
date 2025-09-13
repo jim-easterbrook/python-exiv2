@@ -5455,8 +5455,7 @@ SWIGINTERNINLINE PyObject*
 
 static PyObject* __str__Exifdatum_pointer(PyObject* py_self) {
     Exifdatum_pointer* self;
-    SWIG_ConvertPtr(
-        py_self, (void**)&self, SWIGTYPE_p_Exifdatum_pointer, 0);
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exifdatum_pointer, 0);
     std::string result = self->__str__();
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
 };

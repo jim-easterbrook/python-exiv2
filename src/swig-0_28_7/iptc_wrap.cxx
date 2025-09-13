@@ -5448,8 +5448,7 @@ SWIGINTERNINLINE PyObject*
 
 static PyObject* __str__Iptcdatum_pointer(PyObject* py_self) {
     Iptcdatum_pointer* self;
-    SWIG_ConvertPtr(
-        py_self, (void**)&self, SWIGTYPE_p_Iptcdatum_pointer, 0);
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Iptcdatum_pointer, 0);
     std::string result = self->__str__();
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
 };

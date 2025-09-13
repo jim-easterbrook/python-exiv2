@@ -21,6 +21,7 @@
 
 %include "shared/keep_reference.i"
 %include "shared/pointer_store.i"
+%include "shared/slots.i"
 
 
 // Macro to declare metadatum iterators and pointer wrappers
@@ -122,18 +123,7 @@ public:
 };
 %}
 // Add __str__ slot
-%fragment("__str__"{datum_type##_pointer}, "header") {
-static PyObject* __str__%mangle(datum_type##_pointer)(PyObject* py_self) {
-    datum_type##_pointer* self;
-    SWIG_ConvertPtr(
-        py_self, (void**)&self, $descriptor(datum_type##_pointer*), 0);
-    std::string result = self->__str__();
-    return SWIG_FromCharPtrAndSize(result.data(), result.size());
-};
-}
-%fragment("__str__"{datum_type##_pointer});
-%feature("python:tp_str") datum_type##_pointer
-    QUOTE(__str__%mangle(datum_type##_pointer));
+TP_STR(datum_type##_pointer, self->__str__())
 
 // Metadatum iterator wrapper
 %feature("python:slot", "tp_iter", functype="getiterfunc")

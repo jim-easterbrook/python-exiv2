@@ -5289,8 +5289,7 @@ static int private_store_del(PyObject* py_self, const char* name) {
 
 static PyObject* __str__Xmpdatum_pointer(PyObject* py_self) {
     Xmpdatum_pointer* self;
-    SWIG_ConvertPtr(
-        py_self, (void**)&self, SWIGTYPE_p_Xmpdatum_pointer, 0);
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Xmpdatum_pointer, 0);
     std::string result = self->__str__();
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
 };

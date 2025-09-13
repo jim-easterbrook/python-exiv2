@@ -30,6 +30,7 @@ For Exif thumbnail images see the :py:class:`ExifThumb` class.";
 %include "shared/buffers.i"
 %include "shared/keep_reference.i"
 %include "shared/private_data.i"
+%include "shared/slots.i"
 %include "shared/struct_dict.i"
 %include "shared/windows.i"
 
@@ -44,7 +45,6 @@ EXCEPTION()
 EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::PreviewImage::writeFile)
 
 // Some calls don't raise exceptions
-%noexception Exiv2::PreviewImage::__len__;
 %noexception Exiv2::PreviewImage::data;
 %noexception Exiv2::PreviewImage::extension;
 %noexception Exiv2::PreviewImage::height;
@@ -71,13 +71,7 @@ DECLARE_METADATUM_WRAPPERS(XmpData, Xmpdatum)
 KEEP_REFERENCE_EX(Exiv2::PreviewManager*, args)
 
 // Enable len(PreviewImage)
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::PreviewImage::__len__;
-%extend Exiv2::PreviewImage {
-    size_t __len__() {
-        return $self->size();
-    }
-}
+SQ_LENGTH(Exiv2::PreviewImage, self->size())
 
 // Expose Exiv2::PreviewImage contents as a Python buffer
 %fragment("buffer_fill_info"{Exiv2::PreviewImage}, "header") {

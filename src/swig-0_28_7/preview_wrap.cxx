@@ -5408,6 +5408,13 @@ namespace swig {
 }
 
 
+static Py_ssize_t __len__Exiv2_PreviewImage(PyObject* py_self) {
+    Exiv2::PreviewImage* self;
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__PreviewImage, 0);
+    return self->size();
+};
+
+
 static int buffer_fill_info(Exiv2::PreviewImage* self, Py_buffer* view,
                             PyObject* exporter, int flags) {
     return PyBuffer_FillInfo(view, exporter, (void*)self->pData(),
@@ -5747,9 +5754,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   return SWIG_ERROR;
 }
 
-SWIGINTERN size_t Exiv2_PreviewImage___len__(Exiv2::PreviewImage *self){
-        return self->size();
-    }
 SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_data(Exiv2::PreviewImage *self){ return self->pData(); }
 
 static PyObject* _get_store(PyObject* py_self, bool create) {
@@ -6539,27 +6543,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_PreviewImage___len__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "PreviewImage___len__", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewImage, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage___len__" "', argument " "1"" of type '" "Exiv2::PreviewImage *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  result = Exiv2_PreviewImage___len__(arg1);
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_PreviewImage_data(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
@@ -6641,8 +6624,6 @@ fail:
 
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_PreviewImage) /* defines _wrap_delete_PreviewImage_destructor_closure */
-
-SWIGPY_LENFUNC_CLOSURE(_wrap_PreviewImage___len__) /* defines _wrap_PreviewImage___len___lenfunc_closure */
 
 SWIGINTERN int _wrap_new_PreviewManager(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -7232,7 +7213,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
   { "width", _wrap_PreviewImage_width, METH_NOARGS, "Return the width of the preview image in pixels." },
   { "height", _wrap_PreviewImage_height, METH_NOARGS, "Return the height of the preview image in pixels." },
   { "id", _wrap_PreviewImage_id, METH_NOARGS, "Return the preview image type identifier." },
-  { "__len__", _wrap_PreviewImage___len__, METH_NOARGS, "" },
   { "data", _wrap_PreviewImage_data, METH_NOARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
 		"\n"
@@ -7410,7 +7390,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__PreviewImage_type = {
     (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
-    _wrap_PreviewImage___len___lenfunc_closure, /* sq_length */
+    __len__Exiv2_PreviewImage,              /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
     (ssizeargfunc) 0,                       /* sq_item */
@@ -7544,7 +7524,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__PreviewImage_type_create(PyTypeObject
     { Py_nb_inplace_floor_divide,       (void *)(binaryfunc) 0 },
     { Py_nb_inplace_true_divide,        (void *)(binaryfunc) 0 },
     { Py_nb_index,                      (void *)(unaryfunc) 0 },
-    { Py_sq_length,                     (void *)_wrap_PreviewImage___len___lenfunc_closure },
+    { Py_sq_length,                     (void *)__len__Exiv2_PreviewImage },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },

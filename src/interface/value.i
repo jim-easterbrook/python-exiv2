@@ -29,6 +29,7 @@
 %include "shared/buffers.i"
 %include "shared/keep_reference.i"
 %include "shared/private_data.i"
+%include "shared/slots.i"
 %include "shared/struct_dict.i"
 
 %include "stdint.i"
@@ -460,16 +461,7 @@ components."
 // Add Python slots to Exiv2::Value base class
 %feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::count;
 // Overloaded toString() means we need our own function
-%fragment("__str__"{Exiv2::Value}, "header") {
-static PyObject* __str__%mangle(Exiv2::Value)(PyObject* py_self) {
-    Exiv2::Value* self;
-    SWIG_ConvertPtr(py_self, (void**)&self, $descriptor(Exiv2::Value*), 0);
-    std::string result = self->toString();
-    return SWIG_FromCharPtrAndSize(result.data(), result.size());
-};
-}
-%fragment("__str__"{Exiv2::Value});
-%feature("python:tp_str") Exiv2::Value QUOTE(__str__%mangle(Exiv2::Value));
+TP_STR(Exiv2::Value, self->toString())
 
 VALUE_SUBCLASS(Exiv2::DataValue, DataValue)
 VALUE_SUBCLASS(Exiv2::DateValue, DateValue)
