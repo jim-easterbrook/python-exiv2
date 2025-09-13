@@ -19,6 +19,33 @@
  */
 
 
+// Macro to add mp_subscript slot and functions
+%define MP_SUBSCRIPT(type, item_type, func)
+// Use %inline so SWIG generates a wrapper with type conversions.
+// Name starts with '_' so it's invisible in normal use.
+%noexception __getitem__%mangle(type);
+%inline %{
+static item_type __getitem__%mangle(type)(type* self, char* key) {
+    return func;
+};
+%}
+%fragment("__getitem__"{type}, "header") {
+extern "C" {
+static PyObject* _wrap___getitem__%mangle(type)(PyObject*, PyObject*);
+}
+static PyObject* __getitem__%mangle(type)(PyObject* self,
+                                          PyObject* key) {
+    PyObject* args = Py_BuildValue("(OO)", self, key);
+    PyObject* result = _wrap___getitem__%mangle(type)(self, args);
+    Py_DECREF(args);
+    return result;
+};
+}
+%fragment("__getitem__"{type});
+%feature("python:mp_subscript") type QUOTE(__getitem__%mangle(type));
+%enddef // SQ_ITEM
+
+
 // Macro to add sq_length slot and function
 %define SQ_LENGTH(type, func)
 %fragment("__len__"{type}, "header") {
@@ -31,6 +58,33 @@ static Py_ssize_t __len__%mangle(type)(PyObject* py_self) {
 %fragment("__len__"{type});
 %feature("python:sq_length") type QUOTE(__len__%mangle(type));
 %enddef // SQ_LENGTH
+
+
+// Macro to add sq_item slot and functions
+%define SQ_ITEM(type, item_type, func)
+// Use %inline so SWIG generates a wrapper with type conversions.
+// Name starts with '_' so it's invisible in normal use.
+%noexception __getitem__%mangle(type);
+%inline %{
+static item_type __getitem__%mangle(type)(type* self, size_t idx) {
+    return func;
+};
+%}
+%fragment("__getitem__"{type}, "header") {
+extern "C" {
+static PyObject* _wrap___getitem__%mangle(type)(PyObject*, PyObject*);
+}
+static PyObject* __getitem__%mangle(type)(PyObject* self,
+                                          Py_ssize_t idx) {
+    PyObject* args = Py_BuildValue("(On)", self, idx);
+    PyObject* result = _wrap___getitem__%mangle(type)(self, args);
+    Py_DECREF(args);
+    return result;
+};
+}
+%fragment("__getitem__"{type});
+%feature("python:sq_item") type QUOTE(__getitem__%mangle(type));
+%enddef // SQ_ITEM
 
 
 // Macro to add tp_str slot and function

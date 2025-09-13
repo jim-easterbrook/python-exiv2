@@ -5504,35 +5504,23 @@ public:
 };
 
 
-static PyObject* to_python_Exiv2_Xmpdatum_SA_(
-        PyObject* self, Exiv2::Xmpdatum& value) {
-    PyObject* result = SWIG_NewPointerObj(
-        SWIG_as_voidptr(new Xmpdatum_reference(&value)),
-        SWIGTYPE_p_Xmpdatum_reference, SWIG_POINTER_OWN);
-
-
-
-
-
-
-
-    if (private_store_set(result, "refers_to", self)) {
-        Py_DECREF(result);
-        return NULL;
-    }
-    return result;
+static Exiv2::Xmpdatum& __getitem__Exiv2_XmpData(Exiv2::XmpData* self, char* key) {
+    return (*self)[key];
 };
 
 
-static PyObject* __getitem__Exiv2_XmpData(PyObject* py_self,
-                                                       PyObject* py_key) {
-    Exiv2::XmpData* self;
-    SWIG_ConvertPtr(
-        py_self, (void**)&self, SWIGTYPE_p_Exiv2__XmpData, 0);
-    const char* key = PyUnicode_AsUTF8(py_key);
-    if (!key)
-        return NULL;
-    return to_python_Exiv2_Xmpdatum_SA_(py_self, (*self)[key]);
+
+
+
+extern "C" {
+static PyObject* _wrap___getitem__Exiv2_XmpData(PyObject*, PyObject*);
+}
+static PyObject* __getitem__Exiv2_XmpData(PyObject* self,
+                                          PyObject* key) {
+    PyObject* args = Py_BuildValue("(OO)", self, key);
+    PyObject* result = _wrap___getitem__Exiv2_XmpData(self, args);
+    Py_DECREF(args);
+    return result;
 };
 
 
@@ -7155,6 +7143,56 @@ fail:
 
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Xmpdatum_reference) /* defines _wrap_delete_Xmpdatum_reference_destructor_closure */
+
+SWIGINTERN PyObject *_wrap___getitem__Exiv2_XmpData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Exiv2::Xmpdatum *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "__getitem__Exiv2_XmpData", 2, 2, &obj0, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__getitem__Exiv2_XmpData" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__getitem__Exiv2_XmpData" "', argument " "2"" of type '" "char *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  result = (Exiv2::Xmpdatum *) &__getitem__Exiv2_XmpData(arg1,arg2);
+  {
+    resultobj = SWIG_NewPointerObj(
+      SWIG_as_voidptr(new Xmpdatum_reference(result)),
+      SWIGTYPE_p_Xmpdatum_reference, SWIG_POINTER_OWN);
+    
+    
+    
+    
+    
+    
+  }
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  
+  if (resultobj != Py_None)
+  if (private_store_set(resultobj, "refers_to", self)) {
+    SWIG_fail;
+  }
+  
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
 
 SWIGINTERN int _wrap_new_Xmpdatum__SWIG_0(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -9854,6 +9892,7 @@ fail:
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpParser) /* defines _wrap_delete_XmpParser_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
+	 { "__getitem__Exiv2_XmpData", _wrap___getitem__Exiv2_XmpData, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -11010,27 +11049,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Xmpdatum_reference_clientdata = {0, 0
 
 static SwigPyGetSet Xmpdatum___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Xmpdatum_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"\n"
-		"   Constructor for new tags created by an application. The\n"
-		"          %Xmpdatum is created from a key / value pair. %Xmpdatum\n"
-		"          copies (clones) the value if one is provided. Alternatively, a\n"
-		"          program can create an 'empty' %Xmpdatum with only a key and\n"
-		"          set the value using setValue().\n"
-		"\n"
-		"   :type key: :py:class:`XmpKey`\n"
-		"   :param key: The key of the %Xmpdatum.\n"
-		"   :type pValue: :py:class:`Value`, optional\n"
-		"   :param pValue: Pointer to a %Xmpdatum value.\n"
-		"   :raises: Error if the key cannot be parsed and converted\n"
-		"              to a known schema namespace prefix and property name.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Copy constructor\n"
-		"", &Xmpdatum___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &Xmpdatum___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 

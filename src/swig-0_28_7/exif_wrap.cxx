@@ -5508,35 +5508,23 @@ public:
 };
 
 
-static PyObject* to_python_Exiv2_Exifdatum_SA_(
-        PyObject* self, Exiv2::Exifdatum& value) {
-    PyObject* result = SWIG_NewPointerObj(
-        SWIG_as_voidptr(new Exifdatum_reference(&value)),
-        SWIGTYPE_p_Exifdatum_reference, SWIG_POINTER_OWN);
-
-
-
-
-
-
-
-    if (private_store_set(result, "refers_to", self)) {
-        Py_DECREF(result);
-        return NULL;
-    }
-    return result;
+static Exiv2::Exifdatum& __getitem__Exiv2_ExifData(Exiv2::ExifData* self, char* key) {
+    return (*self)[key];
 };
 
 
-static PyObject* __getitem__Exiv2_ExifData(PyObject* py_self,
-                                                       PyObject* py_key) {
-    Exiv2::ExifData* self;
-    SWIG_ConvertPtr(
-        py_self, (void**)&self, SWIGTYPE_p_Exiv2__ExifData, 0);
-    const char* key = PyUnicode_AsUTF8(py_key);
-    if (!key)
-        return NULL;
-    return to_python_Exiv2_Exifdatum_SA_(py_self, (*self)[key]);
+
+
+
+extern "C" {
+static PyObject* _wrap___getitem__Exiv2_ExifData(PyObject*, PyObject*);
+}
+static PyObject* __getitem__Exiv2_ExifData(PyObject* self,
+                                          PyObject* key) {
+    PyObject* args = Py_BuildValue("(OO)", self, key);
+    PyObject* result = _wrap___getitem__Exiv2_ExifData(self, args);
+    Py_DECREF(args);
+    return result;
 };
 
 
@@ -7380,6 +7368,56 @@ fail:
 
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Exifdatum_reference) /* defines _wrap_delete_Exifdatum_reference_destructor_closure */
+
+SWIGINTERN PyObject *_wrap___getitem__Exiv2_ExifData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ExifData *arg1 = (Exiv2::ExifData *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Exiv2::Exifdatum *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "__getitem__Exiv2_ExifData", 2, 2, &obj0, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__getitem__Exiv2_ExifData" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__getitem__Exiv2_ExifData" "', argument " "2"" of type '" "char *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  result = (Exiv2::Exifdatum *) &__getitem__Exiv2_ExifData(arg1,arg2);
+  {
+    resultobj = SWIG_NewPointerObj(
+      SWIG_as_voidptr(new Exifdatum_reference(result)),
+      SWIGTYPE_p_Exifdatum_reference, SWIG_POINTER_OWN);
+    
+    
+    
+    
+    
+    
+  }
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  
+  if (resultobj != Py_None)
+  if (private_store_set(resultobj, "refers_to", self)) {
+    SWIG_fail;
+  }
+  
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
 
 SWIGINTERN int _wrap_new_Exifdatum__SWIG_0(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -10635,6 +10673,7 @@ SWIGPY_OBJOBJPROC_CLOSURE(_wrap_ExifData___contains__) /* defines _wrap_ExifData
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifData) /* defines _wrap_delete_ExifData_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
+	 { "__getitem__Exiv2_ExifData", _wrap___getitem__Exiv2_ExifData, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -11831,26 +11870,7 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exifdatum_reference_clientdata = {0, 
 
 static SwigPyGetSet Exifdatum___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Exifdatum_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"\n"
-		"*Overload 1:*\n"
-		"\n"
-		"   Constructor for new tags created by an application. The\n"
-		"          %Exifdatum is created from a *key* / value pair. %Exifdatum copies\n"
-		"          (clones) the *key* and value if one is provided. Alternatively,\n"
-		"          a program can create an 'empty' %Exifdatum with only a key\n"
-		"          and set the value using setValue().\n"
-		"\n"
-		"   :type key: :py:class:`ExifKey`\n"
-		"   :param key: %ExifKey.\n"
-		"   :type pValue: :py:class:`Value`, optional\n"
-		"   :param pValue: Pointer to an %Exifdatum value.\n"
-		"   :raises: Error if the key cannot be parsed and converted.\n"
-		"\n"
-		"|\n"
-		"\n"
-		"*Overload 2:*\n"
-		"Copy constructor\n"
-		"", &Exifdatum___dict___getset },
+    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &Exifdatum___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 

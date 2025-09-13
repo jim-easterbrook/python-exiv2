@@ -236,7 +236,6 @@ DEPRECATED_ENUM(XmpValue, XmpStruct)
 %ignore type_name::copy(byte *) const;
 %ignore type_name::read(byte const *, BUFLEN_T);
 %noexception type_name::~part_name;
-%noexception type_name::__getitem__;
 %noexception type_name::__setitem__;
 %noexception type_name::append;
 %noexception type_name::count;
@@ -276,8 +275,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 %ignore Exiv2::ValueType<item_type>::ValueType(
     std::pair< unsigned int,unsigned int > const &);
 // Access values as a list
-%feature("python:slot", "sq_item", functype="ssizeargfunc")
-    Exiv2::ValueType<item_type>::__getitem__;
+SQ_ITEM(Exiv2::ValueType<item_type>, item_type, self->value_[idx])
 #if SWIG_VERSION >= 0x040201
 %feature("python:slot", "sq_ass_item", functype="ssizeobjargproc")
     Exiv2::ValueType<item_type>::__setitem__;
@@ -301,9 +299,6 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
         result->value_ = value;
         return result;
     }
-    item_type __getitem__(size_t idx) {
-        return $self->value_[idx];
-    }
     void __setitem__(size_t idx, const item_type* INPUT) {
         if (INPUT)
             $self->value_[idx] = *INPUT;
@@ -316,6 +311,7 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
 }
 %template(type_name) Exiv2::ValueType<item_type>;
 %enddef // VALUETYPE
+
 
 // Give Date and Time structs some dict-like behaviour
 STRUCT_DICT(Exiv2::DateValue::Date, true, false)
@@ -377,8 +373,7 @@ STRUCT_DICT(Exiv2::TimeValue::Time, true, false)
     Exiv2::LangAltValue::__iter__;
 %feature("python:slot", "mp_length", functype="lenfunc")
     Exiv2::LangAltValue::count;
-%feature("python:slot", "mp_subscript", functype="binaryfunc")
-    Exiv2::LangAltValue::__getitem__;
+MP_SUBSCRIPT(Exiv2::LangAltValue, std::string, self->value_.at(key))
 %feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
     Exiv2::LangAltValue::__setitem__;
 %feature("python:slot", "sq_contains", functype="objobjproc")
@@ -391,7 +386,6 @@ STRUCT_DICT(Exiv2::TimeValue::Time, true, false)
 "Get key, value pairs (i.e. language, text) of the LangAltValue
 components."
 %noexception Exiv2::LangAltValue::__contains__;
-%noexception Exiv2::LangAltValue::__getitem__;
 %noexception Exiv2::LangAltValue::__iter__;
 %noexception Exiv2::LangAltValue::__setitem__;
 %noexception Exiv2::LangAltValue::keys;
@@ -430,14 +424,6 @@ components."
         PyObject* result = PySeqIter_New(keys);
         Py_DECREF(keys);
         return result;
-    }
-    PyObject* __getitem__(const std::string& key) {
-        try {
-            return SWIG_From_std_string($self->value_.at(key));
-        } catch(std::out_of_range const&) {
-            PyErr_SetString(PyExc_KeyError, key.c_str());
-        }
-        return NULL;
     }
     PyObject* __setitem__(const std::string& key, const std::string* INPUT) {
         if (INPUT)

@@ -36,6 +36,7 @@ METADATUM_WRAPPERS(base_class, datum_type)
     Exiv2::base_class::begin;
 %feature("python:slot", "mp_length", functype="lenfunc")
     Exiv2::base_class::count;
+MP_SUBSCRIPT(Exiv2::base_class, Exiv2::datum_type&, (*self)[key])
 %feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
     Exiv2::base_class::__setitem__;
 %feature("python:slot", "sq_contains", functype="objobjproc")
@@ -78,22 +79,6 @@ METADATUM_WRAPPERS(base_class, datum_type)
         return $self->findKey(Exiv2::key_type(key)) != $self->end();
     }
 }
-%fragment("__getitem__"{Exiv2::base_class}, "header",
-          fragment="to_python"{Exiv2::datum_type&}) {
-static PyObject* __getitem__%mangle(Exiv2::base_class)(PyObject* py_self,
-                                                       PyObject* py_key) {
-    Exiv2::base_class* self;
-    SWIG_ConvertPtr(
-        py_self, (void**)&self, $descriptor(Exiv2::base_class*), 0);
-    const char* key = PyUnicode_AsUTF8(py_key);
-    if (!key)
-        return NULL;
-    return to_python_%mangle(Exiv2::datum_type&)(py_self, (*self)[key]);
-};
-}
-%fragment("__getitem__"{Exiv2::base_class});
-%feature("python:mp_subscript") Exiv2::base_class
-    QUOTE(__getitem__%mangle(Exiv2::base_class));
 
 // Set the datum's value from a Python object. The datum's current or default
 // type is used to create an Exiv2::Value object (via Python) from the Python
