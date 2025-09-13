@@ -4447,13 +4447,6 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-SWIGINTERNINLINE PyObject *
-SWIG_From_std_string  (const std::string& s)
-{
-  return SWIG_FromCharPtrAndSize(s.data(), s.size());
-}
-
-
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
 SWIGINTERN int
@@ -4579,6 +4572,13 @@ static PyObject* Python_enum_IntEnum = NULL;
 
 
   #define SWIG_From_long   PyInt_FromLong 
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_std_string  (const std::string& s)
+{
+  return SWIG_FromCharPtrAndSize(s.data(), s.size());
+}
 
 
 SWIGINTERNINLINE PyObject* 
@@ -5287,6 +5287,15 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 
+static PyObject* __str__Xmpdatum_pointer(PyObject* py_self) {
+    Xmpdatum_pointer* self;
+    SWIG_ConvertPtr(
+        py_self, (void**)&self, SWIGTYPE_p_Xmpdatum_pointer, 0);
+    std::string result = self->__str__();
+    return SWIG_FromCharPtrAndSize(result.data(), result.size());
+};
+
+
 class XmpData_iterator: public Xmpdatum_pointer {
 private:
     Exiv2::XmpData::iterator ptr;
@@ -5537,35 +5546,6 @@ fail:
   PyErr_Clear();
   SWIG_Py_INCREF(Py_NotImplemented);
   return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___str__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer___str__ takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___str__" "', argument " "1"" of type '" "Xmpdatum_pointer *""'"); 
-  }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
-  {
-    try {
-      result = (arg1)->__str__();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -6805,8 +6785,6 @@ fail:
   return NULL;
 }
 
-
-SWIGPY_REPRFUNC_CLOSURE(_wrap_Xmpdatum_pointer___str__) /* defines _wrap_Xmpdatum_pointer___str___reprfunc_closure */
 
 SWIGINTERN PyObject *_wrap_XmpData_iterator___iter__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -9725,7 +9703,6 @@ SwigPyBuiltin__Xmpdatum_pointer_richcompare(PyObject *self, PyObject *other, int
 SWIGINTERN PyMethodDef SwigPyBuiltin__Xmpdatum_pointer_methods[] = {
   { "__eq__", _wrap_Xmpdatum_pointer___eq__, METH_VARARGS, "" },
   { "__ne__", _wrap_Xmpdatum_pointer___ne__, METH_VARARGS, "" },
-  { "__str__", _wrap_Xmpdatum_pointer___str__, METH_VARARGS, "" },
   { "__deref__", _wrap_Xmpdatum_pointer___deref__, METH_VARARGS, "\n"
 		"\n"
 		"Return the :class:`Xmpdatum` object being pointed to.\n"
@@ -9795,7 +9772,7 @@ static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_pointer_type = {
     &SwigPyBuiltin__Xmpdatum_pointer_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
-    _wrap_Xmpdatum_pointer___str___reprfunc_closure, /* tp_str */
+    (reprfunc) 0,                           /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Xmpdatum_pointer_type.as_buffer, /* tp_as_buffer */
@@ -10029,7 +10006,7 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_pointer_type_create(PyTypeObject *t
 		"is expected.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
-    { Py_tp_str,                        (void *)_wrap_Xmpdatum_pointer___str___reprfunc_closure },
+    { Py_tp_str,                        (void *)(reprfunc) 0 },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
     { Py_tp_clear,                      (void *)(inquiry) 0 },
     { Py_tp_richcompare,                (void *)SwigPyBuiltin__Xmpdatum_pointer_richcompare },

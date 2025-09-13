@@ -458,12 +458,18 @@ components."
 }
 
 // Add Python slots to Exiv2::Value base class
-%feature("python:slot", "tp_str", functype="reprfunc") Exiv2::Value::__str__;
 %feature("python:slot", "sq_length", functype="lenfunc") Exiv2::Value::count;
-%extend Exiv2::Value {
-    // Overloaded toString() means we need our own __str__
-    std::string __str__() {return $self->toString();}
+// Overloaded toString() means we need our own function
+%fragment("__str__"{Exiv2::Value}, "header") {
+static PyObject* __str__%mangle(Exiv2::Value)(PyObject* py_self) {
+    Exiv2::Value* self;
+    SWIG_ConvertPtr(py_self, (void**)&self, $descriptor(Exiv2::Value*), 0);
+    std::string result = self->toString();
+    return SWIG_FromCharPtrAndSize(result.data(), result.size());
+};
 }
+%fragment("__str__"{Exiv2::Value});
+%feature("python:tp_str") Exiv2::Value QUOTE(__str__%mangle(Exiv2::Value));
 
 VALUE_SUBCLASS(Exiv2::DataValue, DataValue)
 VALUE_SUBCLASS(Exiv2::DateValue, DateValue)

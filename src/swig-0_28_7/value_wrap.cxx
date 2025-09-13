@@ -5255,6 +5255,14 @@ namespace swig {
 }
 
 
+static PyObject* __str__Exiv2_Value(PyObject* py_self) {
+    Exiv2::Value* self;
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__Value, 0);
+    std::string result = self->toString();
+    return SWIG_FromCharPtrAndSize(result.data(), result.size());
+};
+
+
 #include <functional>
 
 namespace std {
@@ -6245,7 +6253,6 @@ SWIGINTERNINLINE PyObject*
   return PyBool_FromLong(value ? 1 : 0);
 }
 
-SWIGINTERN std::string Exiv2_Value___str__(Exiv2::Value *self){return self->toString();}
 
 static PyObject* _get_store(PyObject* py_self, bool create) {
     // Return a new reference
@@ -8119,38 +8126,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Value___str__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::Value *arg1 = (Exiv2::Value *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Value___str__ takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Value, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value___str__" "', argument " "1"" of type '" "Exiv2::Value *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::Value * >(argp1);
-  {
-    try {
-      result = Exiv2_Value___str__(arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGPY_LENFUNC_CLOSURE(_wrap_Value_count) /* defines _wrap_Value_count_lenfunc_closure */
-
-SWIGPY_REPRFUNC_CLOSURE(_wrap_Value___str__) /* defines _wrap_Value___str___reprfunc_closure */
 
 SWIGINTERN int _wrap_new_DataValue__SWIG_0(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -25048,7 +25024,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Value_methods[] = {
 		":return: Auto-pointer to the newly created Value. The caller owns this\n"
 		"            copy and the auto-pointer ensures that it will be deleted.\n"
 		"" },
-  { "__str__", _wrap_Value___str__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -25083,7 +25058,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__Value_type = {
     &SwigPyBuiltin__Exiv2__Value_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
-    _wrap_Value___str___reprfunc_closure,   /* tp_str */
+    __str__Exiv2_Value,                     /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Exiv2__Value_type.as_buffer, /* tp_as_buffer */
@@ -25313,7 +25288,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__Value_type_create(PyTypeObject *type,
 		"need to downcast it to a specific subclass to access its interface.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
-    { Py_tp_str,                        (void *)_wrap_Value___str___reprfunc_closure },
+    { Py_tp_str,                        (void *)__str__Exiv2_Value },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
     { Py_tp_clear,                      (void *)(inquiry) 0 },
     { Py_tp_richcompare,                (void *)SwigPyBuiltin__Exiv2__Value_richcompare },

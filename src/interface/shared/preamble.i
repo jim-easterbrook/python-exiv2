@@ -82,3 +82,8 @@
 %typemap(doctype) bool "bool"
 %typemap(doctype) Exiv2::byte "int"
 %typemap(doctype) std::string "str"
+
+// Useful when defining Python slots
+%define QUOTE(text)
+"text"
+%enddef

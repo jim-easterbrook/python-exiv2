@@ -115,10 +115,6 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 };
 }
 
-%define QUOTE(name)
-"name"
-%enddef
-
 
 %define STRUCT_DICT(struct_type, mutable, strip_underscore)
 // Type slots

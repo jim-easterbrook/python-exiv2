@@ -75,21 +75,24 @@ EXTEND_KEY(Exiv2::Key);
 DEPRECATE_FUNCTION(Exiv2::Metadatum::copy, true)
 DEPRECATE_FUNCTION(Exiv2::Metadatum::write, true)
 
+// Add __str__ slot to base type
 %fragment("metadatum_str", "header") {
 static std::string metadatum_str(Exiv2::Metadatum* datum) {
     return datum->key() + ": " + datum->print();
 };
 }
-
-// Extend base type
-%feature("python:slot", "tp_str", functype="reprfunc")
-    Exiv2::Metadatum::__str__;
-%extend Exiv2::Metadatum {
-    %fragment("metadatum_str");
-    std::string __str__() {
-        return metadatum_str(self);
-    }
+%fragment("__str__"{Exiv2::Metadatum}, "header", fragment="metadatum_str") {
+static PyObject* __str__%mangle(Exiv2::Metadatum)(PyObject* py_self) {
+    Exiv2::Metadatum* self;
+    SWIG_ConvertPtr(
+        py_self, (void**)&self, $descriptor(Exiv2::Metadatum*), 0);
+    std::string result = metadatum_str(self);
+    return SWIG_FromCharPtrAndSize(result.data(), result.size());
+};
 }
+%fragment("__str__"{Exiv2::Metadatum});
+%feature("python:tp_str") Exiv2::Metadatum
+    QUOTE(__str__%mangle(Exiv2::Metadatum));
 
 %ignore Exiv2::Key::~Key;
 %ignore Exiv2::Key::operator=;

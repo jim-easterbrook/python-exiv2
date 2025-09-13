@@ -42,14 +42,13 @@ KEEP_REFERENCE(Exiv2::datum_type&)
 POINTER_STORE(container_type, datum_type)
 
 // Base class of pointer wrappers
-%feature("python:slot", "tp_str", functype="reprfunc")
-    datum_type##_pointer::__str__;
 %ignore datum_type##_pointer::datum_type##_pointer;
 %ignore datum_type##_pointer::~datum_type##_pointer;
 %ignore datum_type##_pointer::operator*;
 %ignore datum_type##_pointer::size;
 %ignore datum_type##_pointer::count;
 %ignore datum_type##_pointer::_invalidate;
+%ignore datum_type##_pointer::__str__;
 %feature("docstring") datum_type##_pointer "
 Base class for pointers to :class:`"#datum_type"` objects.
 
@@ -122,6 +121,19 @@ public:
     }
 };
 %}
+// Add __str__ slot
+%fragment("__str__"{datum_type##_pointer}, "header") {
+static PyObject* __str__%mangle(datum_type##_pointer)(PyObject* py_self) {
+    datum_type##_pointer* self;
+    SWIG_ConvertPtr(
+        py_self, (void**)&self, $descriptor(datum_type##_pointer*), 0);
+    std::string result = self->__str__();
+    return SWIG_FromCharPtrAndSize(result.data(), result.size());
+};
+}
+%fragment("__str__"{datum_type##_pointer});
+%feature("python:tp_str") datum_type##_pointer
+    QUOTE(__str__%mangle(datum_type##_pointer));
 
 // Metadatum iterator wrapper
 %feature("python:slot", "tp_iter", functype="getiterfunc")
