@@ -252,16 +252,32 @@ public:
     }
 #endif // SWIG_VERSION
 }
-%typemap(out) Exiv2::datum_type& {
-    $result = SWIG_NewPointerObj(
-        SWIG_as_voidptr(new datum_type##_reference($1)),
+%fragment("to_python"{Exiv2::datum_type&}, "header",
+          fragment="private_data") {
+static PyObject* to_python_%mangle(Exiv2::datum_type&)(
+        PyObject* self, Exiv2::datum_type& value) {
+    PyObject* result = SWIG_NewPointerObj(
+        SWIG_as_voidptr(new datum_type##_reference(&value)),
         $descriptor(datum_type##_reference*), SWIG_POINTER_OWN);
 #if SWIG_VERSION >= 0x040400
     // Keep weak reference to the Python result
-    if (store_pointer(self, $result)) {
-        SWIG_fail;
+    if (store_pointer(self, result)) {
+        Py_DECREF(result);
+        return NULL;
     }
 #endif // SWIG_VERSION
+    if (private_store_set(result, "refers_to", self)) {
+        Py_DECREF(result);
+        return NULL;
+    }
+    return result;
+};
+}
+%typemap(out, fragment="to_python"{Exiv2::datum_type&}) Exiv2::datum_type& {
+    $result = to_python_%mangle(Exiv2::datum_type&)(self, $1);
+    if (!$result) {
+        SWIG_fail;
+    }
 }
 
 // Deprecate some methods since 2025-08-25

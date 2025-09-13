@@ -5339,6 +5339,38 @@ public:
 };
 
 
+static PyObject* to_python_Exiv2_Iptcdatum_SA_(
+        PyObject* self, Exiv2::Iptcdatum& value) {
+    PyObject* result = SWIG_NewPointerObj(
+        SWIG_as_voidptr(new Iptcdatum_reference(&value)),
+        SWIGTYPE_p_Iptcdatum_reference, SWIG_POINTER_OWN);
+
+
+
+
+
+
+
+    if (private_store_set(result, "refers_to", self)) {
+        Py_DECREF(result);
+        return NULL;
+    }
+    return result;
+};
+
+
+static PyObject* __getitem__Exiv2_IptcData(PyObject* py_self,
+                                                       PyObject* py_key) {
+    Exiv2::IptcData* self;
+    SWIG_ConvertPtr(
+        py_self, (void**)&self, SWIGTYPE_p_Exiv2__IptcData, 0);
+    const char* key = PyUnicode_AsUTF8(py_key);
+    if (!key)
+        return NULL;
+    return to_python_Exiv2_Iptcdatum_SA_(py_self, (*self)[key]);
+};
+
+
 static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
     Exiv2::TypeId type_id = datum->typeId();
     if (type_id != Exiv2::invalidTypeId)
@@ -5465,9 +5497,6 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
-SWIGINTERN Exiv2::Iptcdatum &Exiv2_IptcData___getitem__(Exiv2::IptcData *self,std::string const &key){
-        return (*self)[key];
-    }
 SWIGINTERN PyObject *Exiv2_IptcData___setitem____SWIG_0(Exiv2::IptcData *self,std::string const &key,Exiv2::Value *value){
         Exiv2::Iptcdatum* datum = &(*self)[key];
         datum->setValue(value);
@@ -9208,67 +9237,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IptcData___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj1 = 0 ;
-  Exiv2::Iptcdatum *result = 0 ;
-  
-  if (!PyArg_UnpackTuple(args, "IptcData___getitem__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IptcData___getitem__" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IptcData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "IptcData___getitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (Exiv2::Iptcdatum *) &Exiv2_IptcData___getitem__(arg1,(std::string const &)*arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  {
-    resultobj = SWIG_NewPointerObj(
-      SWIG_as_voidptr(new Iptcdatum_reference(result)),
-      SWIGTYPE_p_Iptcdatum_reference, SWIG_POINTER_OWN);
-    
-    
-    
-    
-    
-    
-  }
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  
-  if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
-    SWIG_fail;
-  }
-  
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IptcData___setitem____SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
@@ -9635,8 +9603,6 @@ fail:
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_IptcData_begin) /* defines _wrap_IptcData_begin_getiterfunc_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_IptcData_count) /* defines _wrap_IptcData_count_lenfunc_closure */
-
-SWIGPY_BINARYFUNC_CLOSURE(_wrap_IptcData___getitem__) /* defines _wrap_IptcData___getitem___binaryfunc_closure */
 
 SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_IptcData___setitem__) /* defines _wrap_IptcData___setitem___objobjargproc_closure */
 
@@ -11331,7 +11297,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__IptcData_methods[] = {
   { "count", _wrap_IptcData_count, METH_VARARGS, "Get the number of metadata entries" },
   { "size", _wrap_IptcData_size, METH_VARARGS, "Return the exact size of all contained IPTC metadata" },
   { "detectCharset", _wrap_IptcData_detectCharset, METH_VARARGS, "Return the metadata charset name or 0" },
-  { "__getitem__", _wrap_IptcData___getitem__, METH_VARARGS, "" },
   { "__setitem__", _wrap_IptcData___setitem__, METH_VARARGS, "" },
   { "__contains__", _wrap_IptcData___contains__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
@@ -11506,7 +11471,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__IptcData_type = {
   },
   {
     _wrap_IptcData_count_lenfunc_closure,   /* mp_length */
-    _wrap_IptcData___getitem___binaryfunc_closure, /* mp_subscript */
+    __getitem__Exiv2_IptcData,              /* mp_subscript */
     _wrap_IptcData___setitem___objobjargproc_closure, /* mp_ass_subscript */
   },
   {
@@ -11617,7 +11582,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__IptcData_type_create(PyTypeObject *ty
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)_wrap_IptcData_count_lenfunc_closure },
-    { Py_mp_subscript,                  (void *)_wrap_IptcData___getitem___binaryfunc_closure },
+    { Py_mp_subscript,                  (void *)__getitem__Exiv2_IptcData },
     { Py_mp_ass_subscript,              (void *)_wrap_IptcData___setitem___objobjargproc_closure },
     { Py_tp_iter,                       (void *)_wrap_IptcData_begin_getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
