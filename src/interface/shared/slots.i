@@ -46,6 +46,50 @@ static PyObject* __getitem__%mangle(type)_closure(
 %enddef // SQ_ITEM
 
 
+// Macro to add sq_ass_item slot and functions
+%define SQ_ASS_ITEM(type, item_type, setfunc, delfunc)
+// Use %inline so SWIG generates wrappers with type conversions.
+// Names start with '_' so it's invisible in normal use.
+%noexception __setitem__%mangle(Exiv2::ValueType<item_type>);
+%noexception __delitem__%mangle(Exiv2::ValueType<item_type>);
+%inline %{
+static void __setitem__%mangle(Exiv2::ValueType<item_type>)(
+        Exiv2::ValueType<item_type>* self, size_t idx, item_type value) {
+    setfunc;
+};
+static void __delitem__%mangle(Exiv2::ValueType<item_type>)(
+        Exiv2::ValueType<item_type>* self, size_t idx) {
+    delfunc;
+};
+%}
+%fragment("__setitem__"{type}, "header") {
+extern "C" {
+static PyObject* _wrap___setitem__%mangle(type)(PyObject*, PyObject*);
+static PyObject* _wrap___delitem__%mangle(type)(PyObject*, PyObject*);
+}
+static int __setitem__%mangle(type)_closure(
+        PyObject* self, Py_ssize_t idx, PyObject* value) {
+    PyObject* args;
+    PyObject* result;
+    if (value) {
+        args = Py_BuildValue("(OnO)", self, idx, value);
+        result = _wrap___setitem__%mangle(type)(self, args);
+    } else {
+        args = Py_BuildValue("(On)", self, idx);
+        result = _wrap___delitem__%mangle(type)(self, args);
+    }
+    Py_DECREF(args);
+    if (!result)
+        return -1;
+    Py_DECREF(result);
+    return 0;
+};
+}
+%fragment("__setitem__"{type});
+%feature("python:sq_ass_item") type QUOTE(__setitem__%mangle(type)_closure);
+%enddef // SQ_ASS_ITEM
+
+
 // Macro to add sq_length slot and function
 %define SQ_LENGTH(type, func)
 %fragment("__len__"{type}, "header") {

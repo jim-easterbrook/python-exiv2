@@ -236,7 +236,6 @@ DEPRECATED_ENUM(XmpValue, XmpStruct)
 %ignore type_name::copy(byte *) const;
 %ignore type_name::read(byte const *, BUFLEN_T);
 %noexception type_name::~part_name;
-%noexception type_name::__setitem__;
 %noexception type_name::append;
 %noexception type_name::count;
 %noexception type_name::size;
@@ -276,15 +275,9 @@ VALUE_SUBCLASS(Exiv2::ValueType<item_type>, type_name)
     std::pair< unsigned int,unsigned int > const &);
 // Access values as a list
 SQ_ITEM(Exiv2::ValueType<item_type>, item_type, self->value_[idx])
-#if SWIG_VERSION >= 0x040201
-%feature("python:slot", "sq_ass_item", functype="ssizeobjargproc")
-    Exiv2::ValueType<item_type>::__setitem__;
-#else
-// sq_ass_item segfaults when used to delete element
-// See https://github.com/swig/swig/pull/2771
-%feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
-    Exiv2::ValueType<item_type>::__setitem__;
-#endif // SWIG_VERSION
+SQ_ASS_ITEM(Exiv2::ValueType<item_type>, item_type,
+            self->value_[idx] = value,
+            self->value_.erase(self->value_.begin() + idx))
 %feature("docstring") Exiv2::ValueType<item_type>
 "Sequence of " #item_type " values.\n"
 "The data components can be accessed like a Python list."
@@ -298,12 +291,6 @@ SQ_ITEM(Exiv2::ValueType<item_type>, item_type, self->value_[idx])
         Exiv2::ValueType<item_type>* result = new Exiv2::ValueType<item_type>();
         result->value_ = value;
         return result;
-    }
-    void __setitem__(size_t idx, const item_type* INPUT) {
-        if (INPUT)
-            $self->value_[idx] = *INPUT;
-        else
-            $self->value_.erase($self->value_.begin() + idx);
     }
     void append(item_type value) {
         $self->value_.push_back(value);
