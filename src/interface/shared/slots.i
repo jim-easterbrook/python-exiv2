@@ -19,6 +19,51 @@
  */
 
 
+// Macro to add mp_ass_subscript slot and functions
+%define MP_ASS_SUBSCRIPT(type, item_type, setfunc, delfunc)
+// Use %inline so SWIG generates wrappers with type conversions.
+// Names start with '_' so it's invisible in normal use.
+%noexception __setitem__%mangle(type);
+%noexception __delitem__%mangle(type);
+%inline %{
+static PyObject* __setitem__%mangle(type)(
+        type* self, char* key, item_type value) {
+    setfunc;
+    return SWIG_Py_Void();
+};
+static PyObject* __delitem__%mangle(type)(type* self, char* key) {
+    delfunc;
+    return SWIG_Py_Void();
+};
+%}
+%fragment("__setitem__"{type}, "header") {
+extern "C" {
+static PyObject* _wrap___setitem__%mangle(type)(PyObject*, PyObject*);
+static PyObject* _wrap___delitem__%mangle(type)(PyObject*, PyObject*);
+}
+static int __setitem__%mangle(type)_closure(
+        PyObject* self, PyObject* key, PyObject* value) {
+    PyObject* args;
+    PyObject* result;
+    if (value) {
+        args = Py_BuildValue("(OOO)", self, key, value);
+        result = _wrap___setitem__%mangle(type)(self, args);
+    } else {
+        args = Py_BuildValue("(OO)", self, key);
+        result = _wrap___delitem__%mangle(type)(self, args);
+    }
+    Py_DECREF(args);
+    if (!result)
+        return -1;
+    Py_DECREF(result);
+    return 0;
+};
+}
+%fragment("__setitem__"{type});
+%feature("python:mp_ass_subscript") type QUOTE(__setitem__%mangle(type)_closure);
+%enddef // MP_ASS_SUBSCRIPT
+
+
 // Macro to add mp_subscript slot and functions
 %define MP_SUBSCRIPT(type, item_type, func)
 // Use %inline so SWIG generates a wrapper with type conversions.
@@ -50,16 +95,17 @@ static PyObject* __getitem__%mangle(type)_closure(
 %define SQ_ASS_ITEM(type, item_type, setfunc, delfunc)
 // Use %inline so SWIG generates wrappers with type conversions.
 // Names start with '_' so it's invisible in normal use.
-%noexception __setitem__%mangle(Exiv2::ValueType<item_type>);
-%noexception __delitem__%mangle(Exiv2::ValueType<item_type>);
+%noexception __setitem__%mangle(type);
+%noexception __delitem__%mangle(type);
 %inline %{
-static void __setitem__%mangle(Exiv2::ValueType<item_type>)(
-        Exiv2::ValueType<item_type>* self, size_t idx, item_type value) {
+static PyObject* __setitem__%mangle(type)(
+        type* self, size_t idx, item_type value) {
     setfunc;
+    return SWIG_Py_Void();
 };
-static void __delitem__%mangle(Exiv2::ValueType<item_type>)(
-        Exiv2::ValueType<item_type>* self, size_t idx) {
+static PyObject* __delitem__%mangle(type)(type* self, size_t idx) {
     delfunc;
+    return SWIG_Py_Void();
 };
 %}
 %fragment("__setitem__"{type}, "header") {

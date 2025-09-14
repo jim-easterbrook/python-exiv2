@@ -361,8 +361,13 @@ STRUCT_DICT(Exiv2::TimeValue::Time, true, false)
 %feature("python:slot", "mp_length", functype="lenfunc")
     Exiv2::LangAltValue::count;
 MP_SUBSCRIPT(Exiv2::LangAltValue, std::string, self->value_.at(key))
-%feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
-    Exiv2::LangAltValue::__setitem__;
+MP_ASS_SUBSCRIPT(Exiv2::LangAltValue, std::string, self->value_[key] = value,
+{
+    auto pos = self->value_.find(key);
+    if (pos == self->value_.end())
+        return PyErr_Format(PyExc_KeyError, "'%s'", key);
+    self->value_.erase(pos);
+})
 %feature("python:slot", "sq_contains", functype="objobjproc")
     Exiv2::LangAltValue::__contains__;
 %feature("docstring") Exiv2::LangAltValue::keys
@@ -374,7 +379,6 @@ MP_SUBSCRIPT(Exiv2::LangAltValue, std::string, self->value_.at(key))
 components."
 %noexception Exiv2::LangAltValue::__contains__;
 %noexception Exiv2::LangAltValue::__iter__;
-%noexception Exiv2::LangAltValue::__setitem__;
 %noexception Exiv2::LangAltValue::keys;
 %noexception Exiv2::LangAltValue::items;
 %noexception Exiv2::LangAltValue::values;
@@ -411,20 +415,6 @@ components."
         PyObject* result = PySeqIter_New(keys);
         Py_DECREF(keys);
         return result;
-    }
-    PyObject* __setitem__(const std::string& key, const std::string* INPUT) {
-        if (INPUT)
-            $self->value_[key] = *INPUT;
-        else {
-            typedef Exiv2::LangAltValue::ValueType::iterator iter;
-            iter pos = $self->value_.find(key);
-            if (pos == $self->value_.end()) {
-                PyErr_SetString(PyExc_KeyError, key.c_str());
-                return NULL;
-            }
-            $self->value_.erase(pos);
-        }
-        return SWIG_Py_Void();
     }
     bool __contains__(const std::string& key) {
         return $self->value_.find(key) != $self->value_.end();

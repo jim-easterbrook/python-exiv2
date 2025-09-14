@@ -4821,6 +4821,72 @@ static PyObject* __getitem__Exiv2_LangAltValue_closure(
 };
 
 
+static PyObject* __setitem__Exiv2_LangAltValue(
+        Exiv2::LangAltValue* self, char* key, std::string value) {
+    self->value_[key] = value;
+    return SWIG_Py_Void();
+};
+static PyObject* __delitem__Exiv2_LangAltValue(Exiv2::LangAltValue* self, char* key) {
+    {
+    auto pos = self->value_.find(key);
+    if (pos == self->value_.end())
+        return PyErr_Format(PyExc_KeyError, "'%s'", key);
+    self->value_.erase(pos);
+};
+    return SWIG_Py_Void();
+};
+
+
+SWIGINTERN int
+SWIG_AsPtr_std_string (PyObject * obj, std::string **val) 
+{
+  char* buf = 0 ; size_t size = 0; int alloc = SWIG_OLDOBJ;
+  if (SWIG_IsOK((SWIG_AsCharPtrAndSize(obj, &buf, &size, &alloc)))) {
+    if (buf) {
+      if (val) *val = new std::string(buf, size - 1);
+      if (alloc == SWIG_NEWOBJ) delete[] buf;
+      return SWIG_NEWOBJ;
+    } else {
+      if (val) *val = 0;
+      return SWIG_OLDOBJ;
+    }
+  } else {
+    PyErr_Clear();
+    static swig_type_info *descriptor = SWIG_TypeQuery("std::string" " *");
+    if (descriptor) {
+      std::string *vptr;
+      int res = SWIG_ConvertPtr(obj, (void**)&vptr, descriptor, 0);
+      if (SWIG_IsOK(res) && val) *val = vptr;
+      return res;
+    }
+  }
+  return SWIG_ERROR;
+}
+
+
+extern "C" {
+static PyObject* _wrap___setitem__Exiv2_LangAltValue(PyObject*, PyObject*);
+static PyObject* _wrap___delitem__Exiv2_LangAltValue(PyObject*, PyObject*);
+}
+static int __setitem__Exiv2_LangAltValue_closure(
+        PyObject* self, PyObject* key, PyObject* value) {
+    PyObject* args;
+    PyObject* result;
+    if (value) {
+        args = Py_BuildValue("(OOO)", self, key, value);
+        result = _wrap___setitem__Exiv2_LangAltValue(self, args);
+    } else {
+        args = Py_BuildValue("(OO)", self, key);
+        result = _wrap___delitem__Exiv2_LangAltValue(self, args);
+    }
+    Py_DECREF(args);
+    if (!result)
+        return -1;
+    Py_DECREF(result);
+    return 0;
+};
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {
@@ -5909,33 +5975,6 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-SWIGINTERN int
-SWIG_AsPtr_std_string (PyObject * obj, std::string **val) 
-{
-  char* buf = 0 ; size_t size = 0; int alloc = SWIG_OLDOBJ;
-  if (SWIG_IsOK((SWIG_AsCharPtrAndSize(obj, &buf, &size, &alloc)))) {
-    if (buf) {
-      if (val) *val = new std::string(buf, size - 1);
-      if (alloc == SWIG_NEWOBJ) delete[] buf;
-      return SWIG_NEWOBJ;
-    } else {
-      if (val) *val = 0;
-      return SWIG_OLDOBJ;
-    }
-  } else {
-    PyErr_Clear();
-    static swig_type_info *descriptor = SWIG_TypeQuery("std::string" " *");
-    if (descriptor) {
-      std::string *vptr;
-      int res = SWIG_ConvertPtr(obj, (void**)&vptr, descriptor, 0);
-      if (SWIG_IsOK(res) && val) *val = vptr;
-      return res;
-    }
-  }
-  return SWIG_ERROR;
-}
-
-
 
 static std::map< Exiv2::TypeId, swig_type_info* > get_type_object;
 
@@ -6748,20 +6787,6 @@ SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
         Py_DECREF(keys);
         return result;
     }
-SWIGINTERN PyObject *Exiv2_LangAltValue___setitem__(Exiv2::LangAltValue *self,std::string const &key,std::string const *INPUT){
-        if (INPUT)
-            self->value_[key] = *INPUT;
-        else {
-            typedef Exiv2::LangAltValue::ValueType::iterator iter;
-            iter pos = self->value_.find(key);
-            if (pos == self->value_.end()) {
-                PyErr_SetString(PyExc_KeyError, key.c_str());
-                return NULL;
-            }
-            self->value_.erase(pos);
-        }
-        return SWIG_Py_Void();
-    }
 SWIGINTERN bool Exiv2_LangAltValue___contains__(Exiv2::LangAltValue *self,std::string const &key){
         return self->value_.find(key) != self->value_.end();
     }
@@ -6920,13 +6945,14 @@ static PyObject* __getitem__Exiv2_ValueType_Sl_uint16_t_Sg__closure(
 };
 
 
-static void __setitem__Exiv2_ValueType_Sl_uint16_t_Sg_(
+static PyObject* __setitem__Exiv2_ValueType_Sl_uint16_t_Sg_(
         Exiv2::ValueType<uint16_t>* self, size_t idx, uint16_t value) {
     self->value_[idx] = value;
+    return SWIG_Py_Void();
 };
-static void __delitem__Exiv2_ValueType_Sl_uint16_t_Sg_(
-        Exiv2::ValueType<uint16_t>* self, size_t idx) {
+static PyObject* __delitem__Exiv2_ValueType_Sl_uint16_t_Sg_(Exiv2::ValueType<uint16_t>* self, size_t idx) {
     self->value_.erase(self->value_.begin() + idx);
+    return SWIG_Py_Void();
 };
 
 
@@ -7024,13 +7050,14 @@ static PyObject* __getitem__Exiv2_ValueType_Sl_uint32_t_Sg__closure(
 };
 
 
-static void __setitem__Exiv2_ValueType_Sl_uint32_t_Sg_(
+static PyObject* __setitem__Exiv2_ValueType_Sl_uint32_t_Sg_(
         Exiv2::ValueType<uint32_t>* self, size_t idx, uint32_t value) {
     self->value_[idx] = value;
+    return SWIG_Py_Void();
 };
-static void __delitem__Exiv2_ValueType_Sl_uint32_t_Sg_(
-        Exiv2::ValueType<uint32_t>* self, size_t idx) {
+static PyObject* __delitem__Exiv2_ValueType_Sl_uint32_t_Sg_(Exiv2::ValueType<uint32_t>* self, size_t idx) {
     self->value_.erase(self->value_.begin() + idx);
+    return SWIG_Py_Void();
 };
 
 
@@ -7138,13 +7165,14 @@ static PyObject* __getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg__closure(
 };
 
 
-static void __setitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(
+static PyObject* __setitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(
         Exiv2::ValueType<Exiv2::URational>* self, size_t idx, Exiv2::URational value) {
     self->value_[idx] = value;
+    return SWIG_Py_Void();
 };
-static void __delitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(
-        Exiv2::ValueType<Exiv2::URational>* self, size_t idx) {
+static PyObject* __delitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(Exiv2::ValueType<Exiv2::URational>* self, size_t idx) {
     self->value_.erase(self->value_.begin() + idx);
+    return SWIG_Py_Void();
 };
 
 
@@ -7213,13 +7241,14 @@ static PyObject* __getitem__Exiv2_ValueType_Sl_int16_t_Sg__closure(
 };
 
 
-static void __setitem__Exiv2_ValueType_Sl_int16_t_Sg_(
+static PyObject* __setitem__Exiv2_ValueType_Sl_int16_t_Sg_(
         Exiv2::ValueType<int16_t>* self, size_t idx, int16_t value) {
     self->value_[idx] = value;
+    return SWIG_Py_Void();
 };
-static void __delitem__Exiv2_ValueType_Sl_int16_t_Sg_(
-        Exiv2::ValueType<int16_t>* self, size_t idx) {
+static PyObject* __delitem__Exiv2_ValueType_Sl_int16_t_Sg_(Exiv2::ValueType<int16_t>* self, size_t idx) {
     self->value_.erase(self->value_.begin() + idx);
+    return SWIG_Py_Void();
 };
 
 
@@ -7317,13 +7346,14 @@ static PyObject* __getitem__Exiv2_ValueType_Sl_int32_t_Sg__closure(
 };
 
 
-static void __setitem__Exiv2_ValueType_Sl_int32_t_Sg_(
+static PyObject* __setitem__Exiv2_ValueType_Sl_int32_t_Sg_(
         Exiv2::ValueType<int32_t>* self, size_t idx, int32_t value) {
     self->value_[idx] = value;
+    return SWIG_Py_Void();
 };
-static void __delitem__Exiv2_ValueType_Sl_int32_t_Sg_(
-        Exiv2::ValueType<int32_t>* self, size_t idx) {
+static PyObject* __delitem__Exiv2_ValueType_Sl_int32_t_Sg_(Exiv2::ValueType<int32_t>* self, size_t idx) {
     self->value_.erase(self->value_.begin() + idx);
+    return SWIG_Py_Void();
 };
 
 
@@ -7385,13 +7415,14 @@ static PyObject* __getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg__closure(
 };
 
 
-static void __setitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(
+static PyObject* __setitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(
         Exiv2::ValueType<Exiv2::Rational>* self, size_t idx, Exiv2::Rational value) {
     self->value_[idx] = value;
+    return SWIG_Py_Void();
 };
-static void __delitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(
-        Exiv2::ValueType<Exiv2::Rational>* self, size_t idx) {
+static PyObject* __delitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(Exiv2::ValueType<Exiv2::Rational>* self, size_t idx) {
     self->value_.erase(self->value_.begin() + idx);
+    return SWIG_Py_Void();
 };
 
 
@@ -7453,13 +7484,14 @@ static PyObject* __getitem__Exiv2_ValueType_Sl_float_Sg__closure(
 };
 
 
-static void __setitem__Exiv2_ValueType_Sl_float_Sg_(
+static PyObject* __setitem__Exiv2_ValueType_Sl_float_Sg_(
         Exiv2::ValueType<float>* self, size_t idx, float value) {
     self->value_[idx] = value;
+    return SWIG_Py_Void();
 };
-static void __delitem__Exiv2_ValueType_Sl_float_Sg_(
-        Exiv2::ValueType<float>* self, size_t idx) {
+static PyObject* __delitem__Exiv2_ValueType_Sl_float_Sg_(Exiv2::ValueType<float>* self, size_t idx) {
     self->value_.erase(self->value_.begin() + idx);
+    return SWIG_Py_Void();
 };
 
 
@@ -7597,13 +7629,14 @@ static PyObject* __getitem__Exiv2_ValueType_Sl_double_Sg__closure(
 };
 
 
-static void __setitem__Exiv2_ValueType_Sl_double_Sg_(
+static PyObject* __setitem__Exiv2_ValueType_Sl_double_Sg_(
         Exiv2::ValueType<double>* self, size_t idx, double value) {
     self->value_[idx] = value;
+    return SWIG_Py_Void();
 };
-static void __delitem__Exiv2_ValueType_Sl_double_Sg_(
-        Exiv2::ValueType<double>* self, size_t idx) {
+static PyObject* __delitem__Exiv2_ValueType_Sl_double_Sg_(Exiv2::ValueType<double>* self, size_t idx) {
     self->value_.erase(self->value_.begin() + idx);
+    return SWIG_Py_Void();
 };
 
 
@@ -7696,6 +7729,85 @@ SWIGINTERN PyObject *_wrap___getitem__Exiv2_LangAltValue(PyObject *self, PyObjec
   arg2 = reinterpret_cast< char * >(buf2);
   result = __getitem__Exiv2_LangAltValue(arg1,arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap___setitem__Exiv2_LangAltValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  char *arg2 = (char *) 0 ;
+  std::string arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_LangAltValue", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__setitem__Exiv2_LangAltValue" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__setitem__Exiv2_LangAltValue" "', argument " "2"" of type '" "char *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj2, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "__setitem__Exiv2_LangAltValue" "', argument " "3"" of type '" "std::string""'"); 
+    }
+    arg3 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (PyObject *)__setitem__Exiv2_LangAltValue(arg1,arg2,SWIG_STD_MOVE(arg3));
+  resultobj = result;
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap___delitem__Exiv2_LangAltValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
+  
+  if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_LangAltValue", 2, 2, &obj0, &obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__delitem__Exiv2_LangAltValue" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__delitem__Exiv2_LangAltValue" "', argument " "2"" of type '" "char *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  result = (PyObject *)__delitem__Exiv2_LangAltValue(arg1,arg2);
+  resultobj = result;
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;
 fail:
@@ -13547,58 +13659,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_LangAltValue___setitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = (std::string *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject *result = 0 ;
-  
-  {
-    arg3 = NULL;
-  }
-  if (!PyArg_UnpackTuple(args, "LangAltValue___setitem__", 1, 2, &obj1, &obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___setitem__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValue___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "LangAltValue___setitem__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  if (obj2) {
-    res3 = SWIG_AsPtr_std_string(obj2, &arg3);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "LangAltValue___setitem__" "', argument " "3"" of type '" "std::string const *""'");
-    }
-    res3 = SWIG_AddTmpMask(res3);
-  }
-  result = (PyObject *)Exiv2_LangAltValue___setitem__(arg1,(std::string const &)*arg2,(std::string const *)arg3);
-  resultobj = result;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_LangAltValue___contains__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
@@ -13659,8 +13719,6 @@ fail:
 SWIGPY_LENFUNC_CLOSURE(_wrap_LangAltValue_count) /* defines _wrap_LangAltValue_count_lenfunc_closure */
 
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_LangAltValue___iter__) /* defines _wrap_LangAltValue___iter___getiterfunc_closure */
-
-SWIGPY_OBJOBJARGPROC_CLOSURE(_wrap_LangAltValue___setitem__) /* defines _wrap_LangAltValue___setitem___objobjargproc_closure */
 
 SWIGPY_OBJOBJPROC_CLOSURE(_wrap_LangAltValue___contains__) /* defines _wrap_LangAltValue___contains___objobjproc_closure */
 
@@ -16234,6 +16292,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_uint16_t_Sg_(PyObject *
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_ValueType_Sl_uint16_t_Sg_", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t, 0 |  0 );
@@ -16257,8 +16316,8 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_uint16_t_Sg_(PyObject *
     SWIG_fail;
   }
   
-  __setitem__Exiv2_ValueType_Sl_uint16_t_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__setitem__Exiv2_ValueType_Sl_uint16_t_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -16275,6 +16334,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_uint16_t_Sg_(PyObject *
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_ValueType_Sl_uint16_t_Sg_", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t, 0 |  0 );
@@ -16293,8 +16353,8 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_uint16_t_Sg_(PyObject *
     SWIG_fail;
   }
   
-  __delitem__Exiv2_ValueType_Sl_uint16_t_Sg_(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__delitem__Exiv2_ValueType_Sl_uint16_t_Sg_(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -17375,6 +17435,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_uint32_t_Sg_(PyObject *
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_ValueType_Sl_uint32_t_Sg_", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t, 0 |  0 );
@@ -17398,8 +17459,8 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_uint32_t_Sg_(PyObject *
     SWIG_fail;
   }
   
-  __setitem__Exiv2_ValueType_Sl_uint32_t_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__setitem__Exiv2_ValueType_Sl_uint32_t_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -17416,6 +17477,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_uint32_t_Sg_(PyObject *
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_ValueType_Sl_uint32_t_Sg_", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t, 0 |  0 );
@@ -17434,8 +17496,8 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_uint32_t_Sg_(PyObject *
     SWIG_fail;
   }
   
-  __delitem__Exiv2_ValueType_Sl_uint32_t_Sg_(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__delitem__Exiv2_ValueType_Sl_uint32_t_Sg_(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -18514,6 +18576,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(PyO
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, 0 |  0 );
@@ -18541,8 +18604,8 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(PyO
     SWIG_fail;
   }
   
-  __setitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__setitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -18559,6 +18622,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(PyO
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, 0 |  0 );
@@ -18577,8 +18641,8 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(PyO
     SWIG_fail;
   }
   
-  __delitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__delitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -19664,6 +19728,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_int16_t_Sg_(PyObject *s
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_ValueType_Sl_int16_t_Sg_", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t, 0 |  0 );
@@ -19687,8 +19752,8 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_int16_t_Sg_(PyObject *s
     SWIG_fail;
   }
   
-  __setitem__Exiv2_ValueType_Sl_int16_t_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__setitem__Exiv2_ValueType_Sl_int16_t_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -19705,6 +19770,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_int16_t_Sg_(PyObject *s
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_ValueType_Sl_int16_t_Sg_", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t, 0 |  0 );
@@ -19723,8 +19789,8 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_int16_t_Sg_(PyObject *s
     SWIG_fail;
   }
   
-  __delitem__Exiv2_ValueType_Sl_int16_t_Sg_(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__delitem__Exiv2_ValueType_Sl_int16_t_Sg_(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -20805,6 +20871,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_int32_t_Sg_(PyObject *s
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_ValueType_Sl_int32_t_Sg_", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, 0 |  0 );
@@ -20828,8 +20895,8 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_int32_t_Sg_(PyObject *s
     SWIG_fail;
   }
   
-  __setitem__Exiv2_ValueType_Sl_int32_t_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__setitem__Exiv2_ValueType_Sl_int32_t_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -20846,6 +20913,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_int32_t_Sg_(PyObject *s
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_ValueType_Sl_int32_t_Sg_", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, 0 |  0 );
@@ -20864,8 +20932,8 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_int32_t_Sg_(PyObject *s
     SWIG_fail;
   }
   
-  __delitem__Exiv2_ValueType_Sl_int32_t_Sg_(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__delitem__Exiv2_ValueType_Sl_int32_t_Sg_(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -21944,6 +22012,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(PyOb
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, 0 |  0 );
@@ -21971,8 +22040,8 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(PyOb
     SWIG_fail;
   }
   
-  __setitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__setitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -21989,6 +22058,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(PyOb
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, 0 |  0 );
@@ -22007,8 +22077,8 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(PyOb
     SWIG_fail;
   }
   
-  __delitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__delitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -23094,6 +23164,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_float_Sg_(PyObject *sel
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_ValueType_Sl_float_Sg_", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_float_t, 0 |  0 );
@@ -23117,8 +23188,8 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_float_Sg_(PyObject *sel
     SWIG_fail;
   }
   
-  __setitem__Exiv2_ValueType_Sl_float_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__setitem__Exiv2_ValueType_Sl_float_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -23135,6 +23206,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_float_Sg_(PyObject *sel
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_ValueType_Sl_float_Sg_", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_float_t, 0 |  0 );
@@ -23153,8 +23225,8 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_float_Sg_(PyObject *sel
     SWIG_fail;
   }
   
-  __delitem__Exiv2_ValueType_Sl_float_Sg_(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__delitem__Exiv2_ValueType_Sl_float_Sg_(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -24235,6 +24307,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_double_Sg_(PyObject *se
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_ValueType_Sl_double_Sg_", 3, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_double_t, 0 |  0 );
@@ -24258,8 +24331,8 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_ValueType_Sl_double_Sg_(PyObject *se
     SWIG_fail;
   }
   
-  __setitem__Exiv2_ValueType_Sl_double_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__setitem__Exiv2_ValueType_Sl_double_Sg_(arg1,SWIG_STD_MOVE(arg2),arg3);
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -24276,6 +24349,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_double_Sg_(PyObject *se
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_ValueType_Sl_double_Sg_", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_double_t, 0 |  0 );
@@ -24294,8 +24368,8 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_ValueType_Sl_double_Sg_(PyObject *se
     SWIG_fail;
   }
   
-  __delitem__Exiv2_ValueType_Sl_double_Sg_(arg1,SWIG_STD_MOVE(arg2));
-  resultobj = SWIG_Py_Void();
+  result = (PyObject *)__delitem__Exiv2_ValueType_Sl_double_Sg_(arg1,SWIG_STD_MOVE(arg2));
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -25327,6 +25401,8 @@ SWIGPY_LENFUNC_CLOSURE(_wrap_DoubleValue_count) /* defines _wrap_DoubleValue_cou
 
 static PyMethodDef SwigMethods[] = {
 	 { "__getitem__Exiv2_LangAltValue", _wrap___getitem__Exiv2_LangAltValue, METH_VARARGS, NULL},
+	 { "__setitem__Exiv2_LangAltValue", _wrap___setitem__Exiv2_LangAltValue, METH_VARARGS, NULL},
+	 { "__delitem__Exiv2_LangAltValue", _wrap___delitem__Exiv2_LangAltValue, METH_VARARGS, NULL},
 	 { "__getitem__Exiv2_ValueType_Sl_uint16_t_Sg_", _wrap___getitem__Exiv2_ValueType_Sl_uint16_t_Sg_, METH_VARARGS, NULL},
 	 { "__setitem__Exiv2_ValueType_Sl_uint16_t_Sg_", _wrap___setitem__Exiv2_ValueType_Sl_uint16_t_Sg_, METH_VARARGS, NULL},
 	 { "__delitem__Exiv2_ValueType_Sl_uint16_t_Sg_", _wrap___delitem__Exiv2_ValueType_Sl_uint16_t_Sg_, METH_VARARGS, NULL},
@@ -29179,7 +29255,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValue_methods[] = {
 		"components.\n"
 		"" },
   { "__iter__", _wrap_LangAltValue___iter__, METH_VARARGS, "" },
-  { "__setitem__", _wrap_LangAltValue___setitem__, METH_VARARGS, "" },
   { "__contains__", _wrap_LangAltValue___contains__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
@@ -29349,7 +29424,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
   {
     (lenfunc) 0,                            /* mp_length */
     __getitem__Exiv2_LangAltValue_closure,  /* mp_subscript */
-    _wrap_LangAltValue___setitem___objobjargproc_closure, /* mp_ass_subscript */
+    __setitem__Exiv2_LangAltValue_closure,  /* mp_ass_subscript */
   },
   {
     _wrap_LangAltValue_count_lenfunc_closure, /* sq_length */
@@ -29455,7 +29530,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__LangAltValue_type_create(PyTypeObject
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)(lenfunc) 0 },
     { Py_mp_subscript,                  (void *)__getitem__Exiv2_LangAltValue_closure },
-    { Py_mp_ass_subscript,              (void *)_wrap_LangAltValue___setitem___objobjargproc_closure },
+    { Py_mp_ass_subscript,              (void *)__setitem__Exiv2_LangAltValue_closure },
     { Py_tp_iter,                       (void *)_wrap_LangAltValue___iter___getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
     { Py_nb_add,                        (void *)(binaryfunc) 0 },
