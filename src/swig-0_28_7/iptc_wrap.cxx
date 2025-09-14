@@ -5512,8 +5512,8 @@ static Exiv2::Iptcdatum& __getitem__Exiv2_IptcData(Exiv2::IptcData* self, char* 
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_IptcData(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_IptcData(PyObject* self,
-                                          PyObject* key) {
+static PyObject* __getitem__Exiv2_IptcData_closure(
+        PyObject* self, PyObject* key) {
     PyObject* args = Py_BuildValue("(OO)", self, key);
     PyObject* result = _wrap___getitem__Exiv2_IptcData(self, args);
     Py_DECREF(args);
@@ -11671,7 +11671,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__IptcData_type = {
   },
   {
     _wrap_IptcData_count_lenfunc_closure,   /* mp_length */
-    __getitem__Exiv2_IptcData,              /* mp_subscript */
+    __getitem__Exiv2_IptcData_closure,      /* mp_subscript */
     _wrap_IptcData___setitem___objobjargproc_closure, /* mp_ass_subscript */
   },
   {
@@ -11781,7 +11781,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__IptcData_type_create(PyTypeObject *ty
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)_wrap_IptcData_count_lenfunc_closure },
-    { Py_mp_subscript,                  (void *)__getitem__Exiv2_IptcData },
+    { Py_mp_subscript,                  (void *)__getitem__Exiv2_IptcData_closure },
     { Py_mp_ass_subscript,              (void *)_wrap_IptcData___setitem___objobjargproc_closure },
     { Py_tp_iter,                       (void *)_wrap_IptcData_begin_getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },

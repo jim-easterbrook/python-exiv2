@@ -5515,8 +5515,8 @@ static Exiv2::Xmpdatum& __getitem__Exiv2_XmpData(Exiv2::XmpData* self, char* key
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_XmpData(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_XmpData(PyObject* self,
-                                          PyObject* key) {
+static PyObject* __getitem__Exiv2_XmpData_closure(
+        PyObject* self, PyObject* key) {
     PyObject* args = Py_BuildValue("(OO)", self, key);
     PyObject* result = _wrap___getitem__Exiv2_XmpData(self, args);
     Py_DECREF(args);
@@ -11684,7 +11684,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpData_type = {
   },
   {
     _wrap_XmpData_count_lenfunc_closure,    /* mp_length */
-    __getitem__Exiv2_XmpData,               /* mp_subscript */
+    __getitem__Exiv2_XmpData_closure,       /* mp_subscript */
     _wrap_XmpData___setitem___objobjargproc_closure, /* mp_ass_subscript */
   },
   {
@@ -11794,7 +11794,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__XmpData_type_create(PyTypeObject *typ
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)_wrap_XmpData_count_lenfunc_closure },
-    { Py_mp_subscript,                  (void *)__getitem__Exiv2_XmpData },
+    { Py_mp_subscript,                  (void *)__getitem__Exiv2_XmpData_closure },
     { Py_mp_ass_subscript,              (void *)_wrap_XmpData___setitem___objobjargproc_closure },
     { Py_tp_iter,                       (void *)_wrap_XmpData_begin_getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },

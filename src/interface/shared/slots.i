@@ -33,8 +33,8 @@ static item_type __getitem__%mangle(type)(type* self, char* key) {
 extern "C" {
 static PyObject* _wrap___getitem__%mangle(type)(PyObject*, PyObject*);
 }
-static PyObject* __getitem__%mangle(type)(PyObject* self,
-                                          PyObject* key) {
+static PyObject* __getitem__%mangle(type)_closure(
+        PyObject* self, PyObject* key) {
     PyObject* args = Py_BuildValue("(OO)", self, key);
     PyObject* result = _wrap___getitem__%mangle(type)(self, args);
     Py_DECREF(args);
@@ -42,7 +42,7 @@ static PyObject* __getitem__%mangle(type)(PyObject* self,
 };
 }
 %fragment("__getitem__"{type});
-%feature("python:mp_subscript") type QUOTE(__getitem__%mangle(type));
+%feature("python:mp_subscript") type QUOTE(__getitem__%mangle(type)_closure);
 %enddef // SQ_ITEM
 
 
@@ -74,8 +74,8 @@ static item_type __getitem__%mangle(type)(type* self, size_t idx) {
 extern "C" {
 static PyObject* _wrap___getitem__%mangle(type)(PyObject*, PyObject*);
 }
-static PyObject* __getitem__%mangle(type)(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__%mangle(type)_closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__%mangle(type)(self, args);
     Py_DECREF(args);
@@ -83,7 +83,7 @@ static PyObject* __getitem__%mangle(type)(PyObject* self,
 };
 }
 %fragment("__getitem__"{type});
-%feature("python:sq_item") type QUOTE(__getitem__%mangle(type));
+%feature("python:sq_item") type QUOTE(__getitem__%mangle(type)_closure);
 %enddef // SQ_ITEM
 
 

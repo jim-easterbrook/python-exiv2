@@ -4814,8 +4814,8 @@ SWIG_From_std_string  (const std::string& s)
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_LangAltValue(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_LangAltValue(PyObject* self,
-                                          PyObject* key) {
+static PyObject* __getitem__Exiv2_LangAltValue_closure(
+        PyObject* self, PyObject* key) {
     PyObject* args = Py_BuildValue("(OO)", self, key);
     PyObject* result = _wrap___getitem__Exiv2_LangAltValue(self, args);
     Py_DECREF(args);
@@ -6870,8 +6870,8 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ValueType_Sl_uint16_t_Sg_(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ValueType_Sl_uint16_t_Sg_(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__Exiv2_ValueType_Sl_uint16_t_Sg__closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__Exiv2_ValueType_Sl_uint16_t_Sg_(self, args);
     Py_DECREF(args);
@@ -6954,8 +6954,8 @@ SWIGINTERNINLINE PyObject*
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ValueType_Sl_uint32_t_Sg_(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ValueType_Sl_uint32_t_Sg_(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__Exiv2_ValueType_Sl_uint32_t_Sg__closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__Exiv2_ValueType_Sl_uint32_t_Sg_(self, args);
     Py_DECREF(args);
@@ -7041,8 +7041,8 @@ static Exiv2::URational __getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(Exiv2:
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg__closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_(self, args);
     Py_DECREF(args);
@@ -7089,8 +7089,8 @@ SWIG_From_short  (short value)
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ValueType_Sl_int16_t_Sg_(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ValueType_Sl_int16_t_Sg_(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__Exiv2_ValueType_Sl_int16_t_Sg__closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__Exiv2_ValueType_Sl_int16_t_Sg_(self, args);
     Py_DECREF(args);
@@ -7166,8 +7166,8 @@ static int32_t __getitem__Exiv2_ValueType_Sl_int32_t_Sg_(Exiv2::ValueType<int32_
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ValueType_Sl_int32_t_Sg_(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ValueType_Sl_int32_t_Sg_(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__Exiv2_ValueType_Sl_int32_t_Sg__closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__Exiv2_ValueType_Sl_int32_t_Sg_(self, args);
     Py_DECREF(args);
@@ -7207,8 +7207,8 @@ static Exiv2::Rational __getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(Exiv2::V
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg__closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(self, args);
     Py_DECREF(args);
@@ -7248,8 +7248,8 @@ static float __getitem__Exiv2_ValueType_Sl_float_Sg_(Exiv2::ValueType<float>* se
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ValueType_Sl_float_Sg_(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ValueType_Sl_float_Sg_(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__Exiv2_ValueType_Sl_float_Sg__closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__Exiv2_ValueType_Sl_float_Sg_(self, args);
     Py_DECREF(args);
@@ -7365,8 +7365,8 @@ static double __getitem__Exiv2_ValueType_Sl_double_Sg_(Exiv2::ValueType<double>*
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ValueType_Sl_double_Sg_(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ValueType_Sl_double_Sg_(PyObject* self,
-                                          Py_ssize_t idx) {
+static PyObject* __getitem__Exiv2_ValueType_Sl_double_Sg__closure(
+        PyObject* self, Py_ssize_t idx) {
     PyObject* args = Py_BuildValue("(On)", self, idx);
     PyObject* result = _wrap___getitem__Exiv2_ValueType_Sl_double_Sg_(self, args);
     Py_DECREF(args);
@@ -28942,7 +28942,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
   },
   {
     (lenfunc) 0,                            /* mp_length */
-    __getitem__Exiv2_LangAltValue,          /* mp_subscript */
+    __getitem__Exiv2_LangAltValue_closure,  /* mp_subscript */
     _wrap_LangAltValue___setitem___objobjargproc_closure, /* mp_ass_subscript */
   },
   {
@@ -29048,7 +29048,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__LangAltValue_type_create(PyTypeObject
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)(lenfunc) 0 },
-    { Py_mp_subscript,                  (void *)__getitem__Exiv2_LangAltValue },
+    { Py_mp_subscript,                  (void *)__getitem__Exiv2_LangAltValue_closure },
     { Py_mp_ass_subscript,              (void *)_wrap_LangAltValue___setitem___objobjargproc_closure },
     { Py_tp_iter,                       (void *)_wrap_LangAltValue___iter___getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
@@ -30988,7 +30988,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type = {
     _wrap_UShortValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    __getitem__Exiv2_ValueType_Sl_uint16_t_Sg_, /* sq_item */
+    __getitem__Exiv2_ValueType_Sl_uint16_t_Sg__closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -31125,7 +31125,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ValueTypeT_uint16_t_t_type_create(PyT
     { Py_sq_length,                     (void *)_wrap_UShortValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_uint16_t_Sg_ },
+    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_uint16_t_Sg__closure },
     { Py_sq_ass_item,                   (void *)_wrap_UShortValue___setitem___ssizeobjargproc_closure },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -31375,7 +31375,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_type = {
     _wrap_ULongValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    __getitem__Exiv2_ValueType_Sl_uint32_t_Sg_, /* sq_item */
+    __getitem__Exiv2_ValueType_Sl_uint32_t_Sg__closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -31512,7 +31512,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ValueTypeT_uint32_t_t_type_create(PyT
     { Py_sq_length,                     (void *)_wrap_ULongValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_uint32_t_Sg_ },
+    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_uint32_t_Sg__closure },
     { Py_sq_ass_item,                   (void *)_wrap_ULongValue___setitem___ssizeobjargproc_closure },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -31762,7 +31762,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_type
     _wrap_URationalValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    __getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_, /* sq_item */
+    __getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg__closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -31899,7 +31899,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__URational_t_type_cr
     { Py_sq_length,                     (void *)_wrap_URationalValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg_ },
+    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_Exiv2_URational_Sg__closure },
     { Py_sq_ass_item,                   (void *)_wrap_URationalValue___setitem___ssizeobjargproc_closure },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -32149,7 +32149,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_type = {
     _wrap_ShortValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    __getitem__Exiv2_ValueType_Sl_int16_t_Sg_, /* sq_item */
+    __getitem__Exiv2_ValueType_Sl_int16_t_Sg__closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -32286,7 +32286,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ValueTypeT_int16_t_t_type_create(PyTy
     { Py_sq_length,                     (void *)_wrap_ShortValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_int16_t_Sg_ },
+    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_int16_t_Sg__closure },
     { Py_sq_ass_item,                   (void *)_wrap_ShortValue___setitem___ssizeobjargproc_closure },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -32536,7 +32536,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_type = {
     _wrap_LongValue_count_lenfunc_closure,  /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    __getitem__Exiv2_ValueType_Sl_int32_t_Sg_, /* sq_item */
+    __getitem__Exiv2_ValueType_Sl_int32_t_Sg__closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -32673,7 +32673,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ValueTypeT_int32_t_t_type_create(PyTy
     { Py_sq_length,                     (void *)_wrap_LongValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_int32_t_Sg_ },
+    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_int32_t_Sg__closure },
     { Py_sq_ass_item,                   (void *)_wrap_LongValue___setitem___ssizeobjargproc_closure },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -32923,7 +32923,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_type 
     _wrap_RationalValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    __getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_, /* sq_item */
+    __getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg__closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -33060,7 +33060,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ValueTypeT_Exiv2__Rational_t_type_cre
     { Py_sq_length,                     (void *)_wrap_RationalValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg_ },
+    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_Exiv2_Rational_Sg__closure },
     { Py_sq_ass_item,                   (void *)_wrap_RationalValue___setitem___ssizeobjargproc_closure },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -33310,7 +33310,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_float_t_type = {
     _wrap_FloatValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    __getitem__Exiv2_ValueType_Sl_float_Sg_, /* sq_item */
+    __getitem__Exiv2_ValueType_Sl_float_Sg__closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -33447,7 +33447,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ValueTypeT_float_t_type_create(PyType
     { Py_sq_length,                     (void *)_wrap_FloatValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_float_Sg_ },
+    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_float_Sg__closure },
     { Py_sq_ass_item,                   (void *)_wrap_FloatValue___setitem___ssizeobjargproc_closure },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
@@ -33697,7 +33697,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ValueTypeT_double_t_type = {
     _wrap_DoubleValue_count_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
-    __getitem__Exiv2_ValueType_Sl_double_Sg_, /* sq_item */
+    __getitem__Exiv2_ValueType_Sl_double_Sg__closure, /* sq_item */
 #if PY_VERSION_HEX >= 0x03000000
     (void *) 0,                             /* was_sq_slice */
 #else
@@ -33834,7 +33834,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ValueTypeT_double_t_type_create(PyTyp
     { Py_sq_length,                     (void *)_wrap_DoubleValue_count_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
-    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_double_Sg_ },
+    { Py_sq_item,                       (void *)__getitem__Exiv2_ValueType_Sl_double_Sg__closure },
     { Py_sq_ass_item,                   (void *)_wrap_DoubleValue___setitem___ssizeobjargproc_closure },
     { Py_sq_contains,                   (void *)(objobjproc) 0 },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },

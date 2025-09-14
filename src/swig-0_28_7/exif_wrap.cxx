@@ -5519,8 +5519,8 @@ static Exiv2::Exifdatum& __getitem__Exiv2_ExifData(Exiv2::ExifData* self, char* 
 extern "C" {
 static PyObject* _wrap___getitem__Exiv2_ExifData(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_ExifData(PyObject* self,
-                                          PyObject* key) {
+static PyObject* __getitem__Exiv2_ExifData_closure(
+        PyObject* self, PyObject* key) {
     PyObject* args = Py_BuildValue("(OO)", self, key);
     PyObject* result = _wrap___getitem__Exiv2_ExifData(self, args);
     Py_DECREF(args);
@@ -13417,7 +13417,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ExifData_type = {
   },
   {
     _wrap_ExifData_count_lenfunc_closure,   /* mp_length */
-    __getitem__Exiv2_ExifData,              /* mp_subscript */
+    __getitem__Exiv2_ExifData_closure,      /* mp_subscript */
     _wrap_ExifData___setitem___objobjargproc_closure, /* mp_ass_subscript */
   },
   {
@@ -13529,7 +13529,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ExifData_type_create(PyTypeObject *ty
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)_wrap_ExifData_count_lenfunc_closure },
-    { Py_mp_subscript,                  (void *)__getitem__Exiv2_ExifData },
+    { Py_mp_subscript,                  (void *)__getitem__Exiv2_ExifData_closure },
     { Py_mp_ass_subscript,              (void *)_wrap_ExifData___setitem___objobjargproc_closure },
     { Py_tp_iter,                       (void *)_wrap_ExifData_begin_getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
