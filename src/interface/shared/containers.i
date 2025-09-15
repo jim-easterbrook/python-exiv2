@@ -25,31 +25,20 @@
 
 METADATUM_WRAPPERS(base_class, datum_type)
 
-// Turn off exception checking for methods that are guaranteed not to throw
-%noexception Exiv2::base_class::begin;
-%noexception Exiv2::base_class::end;
-%noexception Exiv2::base_class::clear;
-%noexception Exiv2::base_class::count;
-%noexception Exiv2::base_class::empty;
-// Add dict-like behaviour
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    Exiv2::base_class::begin;
-%feature("python:slot", "mp_length", functype="lenfunc")
-    Exiv2::base_class::count;
-MP_SUBSCRIPT(Exiv2::base_class, Exiv2::datum_type&, (*self)[key])
-%feature("python:slot", "mp_ass_subscript", functype="objobjargproc")
-    Exiv2::base_class::__setitem__;
-%feature("python:slot", "sq_contains", functype="objobjproc")
-    Exiv2::base_class::__contains__;
-%extend Exiv2::base_class {
-    %fragment("get_type_id"{Exiv2::datum_type});
-    PyObject* __setitem__(const std::string& key, Exiv2::Value* value) {
-        Exiv2::datum_type* datum = &(*$self)[key];
-        datum->setValue(value);
-        return SWIG_Py_Void();
-    }
-    PyObject* __setitem__(const std::string& key, const std::string& value) {
-        Exiv2::datum_type* datum = &(*$self)[key];
+/* Set a datum's value from a Python object. String or Exiv2::Value objects
+ * are used directly. Other objects are used in the constructor of a Python
+ * Exiv2::Value using the datum's current or default type.
+ */
+%ignore Exiv2::datum_type::setValue(const Value*);
+%ignore Exiv2::datum_type::setValue(const std::string&);
+%fragment("set_value_from_py"{Exiv2::datum_type}, "header",
+          fragment="get_type_object",
+          fragment="get_type_id"{Exiv2::datum_type}) {
+static PyObject* set_value_from_py(Exiv2::datum_type* datum,
+                                   PyObject* py_value) {
+    // Try std::string value
+    if (PyUnicode_Check(py_value)) {
+        std::string value = PyUnicode_AsUTF8(py_value);
         Exiv2::TypeId old_type = get_type_id(datum);
         if (datum->setValue(value) != 0)
             return PyErr_Format(PyExc_ValueError,
@@ -58,36 +47,14 @@ MP_SUBSCRIPT(Exiv2::base_class, Exiv2::datum_type&, (*self)[key])
                 value.c_str());
         return SWIG_Py_Void();
     }
-#if SWIG_VERSION >= 0x040400
-    PyObject* __setitem__(PyObject* py_self, const std::string& key) {
-#else
-    PyObject* __setitem__(const std::string& key) {
-#endif
-        Exiv2::base_class::iterator pos = $self->findKey(
-            Exiv2::key_type(key));
-        if (pos == $self->end()) {
-            PyErr_SetString(PyExc_KeyError, key.c_str());
-            return NULL;
-        }
-#if SWIG_VERSION >= 0x040400
-        invalidate_pointers(py_self, pos);
-#endif
-        $self->erase(pos);
+    // Try Exiv2::Value value
+    Exiv2::Value* value = NULL;
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+            py_value, (void**)&value, $descriptor(Exiv2::Value*), 0))) {
+        datum->setValue(value);
         return SWIG_Py_Void();
     }
-    bool __contains__(const std::string& key) {
-        return $self->findKey(Exiv2::key_type(key)) != $self->end();
-    }
-}
-
-// Set the datum's value from a Python object. The datum's current or default
-// type is used to create an Exiv2::Value object (via Python) from the Python
-// object.
-%fragment("set_value_from_py"{Exiv2::datum_type}, "header",
-          fragment="get_type_object",
-          fragment="get_type_id"{Exiv2::datum_type}) {
-static PyObject* set_value_from_py(Exiv2::datum_type* datum,
-                                   PyObject* py_value) {
+    // Try converting Python object to a value
     swig_type_info* ty_info = get_type_object.at(get_type_id(datum));
     SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
     // Call type object to invoke constructor
@@ -96,7 +63,6 @@ static PyObject* set_value_from_py(Exiv2::datum_type* datum,
     if (!swig_obj)
         return NULL;
     // Convert constructed object to Exiv2::Value
-    Exiv2::Value* value = 0;
     if (!SWIG_IsOK(SWIG_ConvertPtr(swig_obj, (void**)&value, ty_info, 0))) {
         PyErr_SetString(
             PyExc_RuntimeError, "set_value_from_py: invalid conversion");
@@ -109,17 +75,41 @@ static PyObject* set_value_from_py(Exiv2::datum_type* datum,
     return SWIG_Py_Void();
 };
 }
+
+// Turn off exception checking for methods that are guaranteed not to throw
+%noexception Exiv2::base_class::begin;
+%noexception Exiv2::base_class::end;
+%noexception Exiv2::base_class::clear;
+%noexception Exiv2::base_class::count;
+%noexception Exiv2::base_class::empty;
+// Add dict-like behaviour
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    Exiv2::base_class::begin;
+%feature("python:slot", "mp_length", functype="lenfunc")
+    Exiv2::base_class::count;
+MP_SUBSCRIPT(Exiv2::base_class, Exiv2::datum_type&, (*self)[key])
+%fragment("set_value_from_py"{Exiv2::datum_type});
+MP_ASS_SUBSCRIPT(Exiv2::base_class, PyObject*,
+// setfunc
+    return set_value_from_py(&(*self)[key], value),
+// delfunc
+    auto pos = self->findKey(Exiv2::key_type(key));
+    if (pos == self->end())
+        return PyErr_Format(PyExc_KeyError, "'%s'", key);
+    self->erase(pos))
+%feature("python:slot", "sq_contains", functype="objobjproc")
+    Exiv2::base_class::__contains__;
+%extend Exiv2::base_class {
+    %fragment("get_type_id"{Exiv2::datum_type});
+    bool __contains__(const std::string& key) {
+        return $self->findKey(Exiv2::key_type(key)) != $self->end();
+    }
+}
+
 %extend Exiv2::datum_type {
     %fragment("set_value_from_py"{Exiv2::datum_type});
     PyObject* setValue(PyObject* py_value) {
         return set_value_from_py($self, py_value);
-    }
-}
-%extend Exiv2::base_class {
-    %fragment("set_value_from_py"{Exiv2::datum_type});
-    PyObject* __setitem__(const std::string& key, PyObject* py_value) {
-        Exiv2::datum_type* datum = &(*$self)[key];
-        return set_value_from_py(datum, py_value);
     }
 }
 %enddef // DATA_CONTAINER
