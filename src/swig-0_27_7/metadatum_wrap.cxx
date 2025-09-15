@@ -4356,7 +4356,7 @@ static std::string metadatum_str(Exiv2::Metadatum* datum) {
 
 
 static PyObject* __str__Exiv2_Metadatum(PyObject* py_self) {
-    Exiv2::Metadatum* self;
+    Exiv2::Metadatum* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__Metadatum, 0);
     std::string result = metadatum_str(self);
     return SWIG_FromCharPtrAndSize(result.data(), result.size());

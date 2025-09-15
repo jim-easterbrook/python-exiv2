@@ -5171,7 +5171,7 @@ static int private_store_del(PyObject* py_self, const char* name) {
 
 
 static PyObject* __str__Iptcdatum_pointer(PyObject* py_self) {
-    Iptcdatum_pointer* self;
+    Iptcdatum_pointer* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Iptcdatum_pointer, 0);
     std::string result = self->__str__();
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
@@ -5392,6 +5392,9 @@ static PyObject* __delitem__Exiv2_IptcData(
         auto pos = self->findKey(Exiv2::IptcKey(key));
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
+#if 0x040301 >= 0x040400
+    invalidate_pointers(py_self, pos);
+#endif
     self->erase(pos);
     return SWIG_Py_Void();
 };
@@ -5421,7 +5424,7 @@ static int __setitem__Exiv2_IptcData_closure(
 
 
 static int __contains__Exiv2_IptcData(PyObject* py_self, PyObject* py_key) {
-    Exiv2::IptcData* self;
+    Exiv2::IptcData* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__IptcData, 0);
     const char* key = PyUnicode_AsUTF8(py_key);
     if (!key)

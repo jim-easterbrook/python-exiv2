@@ -4565,7 +4565,7 @@ static PyObject* _get_enum_data_Exiv2_TypeId() {
 
 
 static Py_ssize_t __len__Exiv2_DataBuf(PyObject* py_self) {
-    Exiv2::DataBuf* self;
+    Exiv2::DataBuf* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
     return self->DATABUF_SIZE;
 };

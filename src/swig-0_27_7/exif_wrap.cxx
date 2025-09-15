@@ -5178,7 +5178,7 @@ static int private_store_del(PyObject* py_self, const char* name) {
 
 
 static PyObject* __str__Exifdatum_pointer(PyObject* py_self) {
-    Exifdatum_pointer* self;
+    Exifdatum_pointer* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exifdatum_pointer, 0);
     std::string result = self->__str__();
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
@@ -5399,6 +5399,9 @@ static PyObject* __delitem__Exiv2_ExifData(
         auto pos = self->findKey(Exiv2::ExifKey(key));
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
+#if 0x040301 >= 0x040400
+    invalidate_pointers(py_self, pos);
+#endif
     self->erase(pos);
     return SWIG_Py_Void();
 };
@@ -5428,7 +5431,7 @@ static int __setitem__Exiv2_ExifData_closure(
 
 
 static int __contains__Exiv2_ExifData(PyObject* py_self, PyObject* py_key) {
-    Exiv2::ExifData* self;
+    Exiv2::ExifData* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__ExifData, 0);
     const char* key = PyUnicode_AsUTF8(py_key);
     if (!key)

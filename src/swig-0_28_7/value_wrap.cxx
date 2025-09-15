@@ -4889,7 +4889,7 @@ static int __setitem__Exiv2_LangAltValue_closure(
 
 
 static int __contains__Exiv2_LangAltValue(PyObject* py_self, PyObject* py_key) {
-    Exiv2::LangAltValue* self;
+    Exiv2::LangAltValue* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__LangAltValue, 0);
     const char* key = PyUnicode_AsUTF8(py_key);
     if (!key)
@@ -5445,7 +5445,7 @@ namespace swig {
 
 
 static PyObject* __str__Exiv2_Value(PyObject* py_self) {
-    Exiv2::Value* self;
+    Exiv2::Value* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__Value, 0);
     std::string result = self->toString();
     return SWIG_FromCharPtrAndSize(result.data(), result.size());

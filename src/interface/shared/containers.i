@@ -89,6 +89,9 @@ static PyObject* set_value_from_py(Exiv2::datum_type* datum,
     Exiv2::base_class::count;
 MP_SUBSCRIPT(Exiv2::base_class, Exiv2::datum_type&, (*self)[key])
 %fragment("set_value_from_py"{Exiv2::datum_type});
+#if SWIG_VERSION >= 0x040400
+%fragment("pointer_store");
+#endif
 MP_ASS_SUBSCRIPT(Exiv2::base_class, PyObject*,
 // setfunc
     return set_value_from_py(&(*self)[key], value),
@@ -96,6 +99,9 @@ MP_ASS_SUBSCRIPT(Exiv2::base_class, PyObject*,
     auto pos = self->findKey(Exiv2::key_type(key));
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
+#if SWIG_VERSION >= 0x040400
+    invalidate_pointers(py_self, pos);
+#endif
     self->erase(pos))
 SQ_CONTAINS(
     Exiv2::base_class, self->findKey(Exiv2::key_type(key)) != self->end())

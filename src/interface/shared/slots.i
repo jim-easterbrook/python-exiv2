@@ -142,7 +142,7 @@ static int __setitem__%mangle(type)_closure(
 %define SQ_CONTAINS(type, func)
 %fragment("__contains__"{type}, "header") {
 static int __contains__%mangle(type)(PyObject* py_self, PyObject* py_key) {
-    type* self;
+    type* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, $descriptor(type*), 0);
     const char* key = PyUnicode_AsUTF8(py_key);
     if (!key)
@@ -159,7 +159,7 @@ static int __contains__%mangle(type)(PyObject* py_self, PyObject* py_key) {
 %define SQ_LENGTH(type, func)
 %fragment("__len__"{type}, "header") {
 static Py_ssize_t __len__%mangle(type)(PyObject* py_self) {
-    type* self;
+    type* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, $descriptor(type*), 0);
     return func;
 };
@@ -200,7 +200,7 @@ static PyObject* __getitem__%mangle(type)_closure(
 %define TP_STR(type, func)
 %fragment("__str__"{type}, "header") {
 static PyObject* __str__%mangle(type)(PyObject* py_self) {
-    type* self;
+    type* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, $descriptor(type*), 0);
     std::string result = func;
     return SWIG_FromCharPtrAndSize(result.data(), result.size());

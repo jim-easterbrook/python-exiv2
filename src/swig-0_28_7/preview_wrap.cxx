@@ -5412,7 +5412,7 @@ namespace swig {
 
 
 static Py_ssize_t __len__Exiv2_PreviewImage(PyObject* py_self) {
-    Exiv2::PreviewImage* self;
+    Exiv2::PreviewImage* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__PreviewImage, 0);
     return self->size();
 };
