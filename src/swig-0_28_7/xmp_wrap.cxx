@@ -5548,11 +5548,12 @@ static PyObject* set_value_from_py(Exiv2::Xmpdatum* datum,
 
 
 static PyObject* __setitem__Exiv2_XmpData(
-        Exiv2::XmpData* self, char* key, PyObject* value) {
+        Exiv2::XmpData* self, char* key, PyObject* value, PyObject* py_self) {
         return set_value_from_py(&(*self)[key], value);
     return SWIG_Py_Void();
 };
-static PyObject* __delitem__Exiv2_XmpData(Exiv2::XmpData* self, char* key) {
+static PyObject* __delitem__Exiv2_XmpData(
+        Exiv2::XmpData* self, char* key, PyObject* py_self) {
         auto pos = self->findKey(Exiv2::XmpKey(key));
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
@@ -7092,6 +7093,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_XmpData(PyObject *self, PyObject *ar
   Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
   char *arg2 = (char *) 0 ;
   PyObject *arg3 = (PyObject *) 0 ;
+  PyObject *arg4 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 ;
@@ -7104,6 +7106,9 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_XmpData(PyObject *self, PyObject *ar
   
   {
     arg3 = NULL;
+  }
+  {
+    arg4 = self;
   }
   if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_XmpData", 2, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
@@ -7119,7 +7124,7 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_XmpData(PyObject *self, PyObject *ar
   if (obj2) {
     arg3 = obj2;
   }
-  result = (PyObject *)__setitem__Exiv2_XmpData(arg1,arg2,arg3);
+  result = (PyObject *)__setitem__Exiv2_XmpData(arg1,arg2,arg3,arg4);
   resultobj = result;
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;
@@ -7133,6 +7138,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_XmpData(PyObject *self, PyObject *ar
   PyObject *resultobj = 0;
   Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
   char *arg2 = (char *) 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 ;
@@ -7142,6 +7148,9 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_XmpData(PyObject *self, PyObject *ar
   PyObject * obj1 = 0 ;
   PyObject *result = 0 ;
   
+  {
+    arg3 = self;
+  }
   if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_XmpData", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
@@ -7153,7 +7162,7 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_XmpData(PyObject *self, PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__delitem__Exiv2_XmpData" "', argument " "2"" of type '" "char *""'");
   }
   arg2 = reinterpret_cast< char * >(buf2);
-  result = (PyObject *)__delitem__Exiv2_XmpData(arg1,arg2);
+  result = (PyObject *)__delitem__Exiv2_XmpData(arg1,arg2,arg3);
   resultobj = result;
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;

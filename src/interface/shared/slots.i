@@ -27,11 +27,12 @@
 %noexception __delitem__%mangle(type);
 %inline %{
 static PyObject* __setitem__%mangle(type)(
-        type* self, char* key, item_type value) {
+        type* self, char* key, item_type value, PyObject* py_self) {
     setfunc;
     return SWIG_Py_Void();
 };
-static PyObject* __delitem__%mangle(type)(type* self, char* key) {
+static PyObject* __delitem__%mangle(type)(
+        type* self, char* key, PyObject* py_self) {
     delfunc;
     return SWIG_Py_Void();
 };
@@ -99,11 +100,12 @@ static PyObject* __getitem__%mangle(type)_closure(
 %noexception __delitem__%mangle(type);
 %inline %{
 static PyObject* __setitem__%mangle(type)(
-        type* self, size_t idx, item_type value) {
+        type* self, size_t idx, item_type value, PyObject* py_self) {
     setfunc;
     return SWIG_Py_Void();
 };
-static PyObject* __delitem__%mangle(type)(type* self, size_t idx) {
+static PyObject* __delitem__%mangle(type)(
+        type* self, size_t idx, PyObject* py_self) {
     delfunc;
     return SWIG_Py_Void();
 };
