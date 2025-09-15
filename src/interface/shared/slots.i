@@ -136,6 +136,23 @@ static int __setitem__%mangle(type)_closure(
 %enddef // SQ_ASS_ITEM
 
 
+// Macro to add sq_contains slot and function
+%define SQ_CONTAINS(type, func)
+%fragment("__contains__"{type}, "header") {
+static int __contains__%mangle(type)(PyObject* py_self, PyObject* py_key) {
+    type* self;
+    SWIG_ConvertPtr(py_self, (void**)&self, $descriptor(type*), 0);
+    const char* key = PyUnicode_AsUTF8(py_key);
+    if (!key)
+        return -1;
+    return func ? 1 : 0;
+};
+}
+%fragment("__contains__"{type});
+%feature("python:sq_contains") type QUOTE(__contains__%mangle(type));
+%enddef // SQ_CONTAINS
+
+
 // Macro to add sq_length slot and function
 %define SQ_LENGTH(type, func)
 %fragment("__len__"{type}, "header") {

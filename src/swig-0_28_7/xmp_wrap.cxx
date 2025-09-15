@@ -5583,6 +5583,16 @@ static int __setitem__Exiv2_XmpData_closure(
     return 0;
 };
 
+
+static int __contains__Exiv2_XmpData(PyObject* py_self, PyObject* py_key) {
+    Exiv2::XmpData* self;
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__XmpData, 0);
+    const char* key = PyUnicode_AsUTF8(py_key);
+    if (!key)
+        return -1;
+    return self->findKey(Exiv2::XmpKey(key)) != self->end() ? 1 : 0;
+};
+
 SWIGINTERN bool Exiv2_Xmpdatum_operator_Se__Se_(Exiv2::Xmpdatum const *self,Exiv2::Xmpdatum const &other){
         return &other == self;
     }
@@ -5651,9 +5661,6 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   return SWIG_ERROR;
 }
 
-SWIGINTERN bool Exiv2_XmpData___contains__(Exiv2::XmpData *self,std::string const &key){
-        return self->findKey(Exiv2::XmpKey(key)) != self->end();
-    }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -9169,51 +9176,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpData___contains__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_UnpackTuple(args, "XmpData___contains__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData___contains__" "', argument " "1"" of type '" "Exiv2::XmpData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::XmpData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (bool)Exiv2_XmpData___contains__(arg1,(std::string const &)*arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_XmpData(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::XmpData *arg1 = (Exiv2::XmpData *) 0 ;
@@ -9245,8 +9207,6 @@ fail:
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_XmpData_begin) /* defines _wrap_XmpData_begin_getiterfunc_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_XmpData_count) /* defines _wrap_XmpData_count_lenfunc_closure */
-
-SWIGPY_OBJOBJPROC_CLOSURE(_wrap_XmpData___contains__) /* defines _wrap_XmpData___contains___objobjproc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpData) /* defines _wrap_delete_XmpData_destructor_closure */
 
@@ -11069,7 +11029,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpData_methods[] = {
 		"" },
   { "setPacket", _wrap_XmpData_setPacket, METH_VARARGS, "setPacket" },
   { "xmpPacket", _wrap_XmpData_xmpPacket, METH_VARARGS, "" },
-  { "__contains__", _wrap_XmpData___contains__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -11260,7 +11219,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__XmpData_type = {
 #else
     (ssizessizeobjargproc) 0,               /* sq_ass_slice */
 #endif
-    _wrap_XmpData___contains___objobjproc_closure, /* sq_contains */
+    __contains__Exiv2_XmpData,              /* sq_contains */
     (binaryfunc) 0,                         /* sq_inplace_concat */
     (ssizeargfunc) 0,                       /* sq_inplace_repeat */
   },
@@ -11393,7 +11352,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__XmpData_type_create(PyTypeObject *typ
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
-    { Py_sq_contains,                   (void *)_wrap_XmpData___contains___objobjproc_closure },
+    { Py_sq_contains,                   (void *)__contains__Exiv2_XmpData },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
     { Py_sq_inplace_repeat,             (void *)(ssizeargfunc) 0 },
     { Py_tp_members, members },

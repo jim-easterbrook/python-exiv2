@@ -368,8 +368,8 @@ MP_ASS_SUBSCRIPT(Exiv2::LangAltValue, std::string, self->value_[key] = value,
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
     self->value_.erase(pos);
 })
-%feature("python:slot", "sq_contains", functype="objobjproc")
-    Exiv2::LangAltValue::__contains__;
+SQ_CONTAINS(
+    Exiv2::LangAltValue, self->value_.find(key) != self->value_.end())
 %feature("docstring") Exiv2::LangAltValue::keys
 "Get keys (i.e. languages) of the LangAltValue components."
 %feature("docstring") Exiv2::LangAltValue::values
@@ -377,7 +377,6 @@ MP_ASS_SUBSCRIPT(Exiv2::LangAltValue, std::string, self->value_[key] = value,
 %feature("docstring") Exiv2::LangAltValue::items
 "Get key, value pairs (i.e. language, text) of the LangAltValue
 components."
-%noexception Exiv2::LangAltValue::__contains__;
 %noexception Exiv2::LangAltValue::__iter__;
 %noexception Exiv2::LangAltValue::keys;
 %noexception Exiv2::LangAltValue::items;
@@ -415,9 +414,6 @@ components."
         PyObject* result = PySeqIter_New(keys);
         Py_DECREF(keys);
         return result;
-    }
-    bool __contains__(const std::string& key) {
-        return $self->value_.find(key) != $self->value_.end();
     }
 }
 

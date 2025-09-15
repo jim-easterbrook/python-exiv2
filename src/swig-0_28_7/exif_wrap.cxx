@@ -5587,6 +5587,16 @@ static int __setitem__Exiv2_ExifData_closure(
     return 0;
 };
 
+
+static int __contains__Exiv2_ExifData(PyObject* py_self, PyObject* py_key) {
+    Exiv2::ExifData* self;
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__ExifData, 0);
+    const char* key = PyUnicode_AsUTF8(py_key);
+    if (!key)
+        return -1;
+    return self->findKey(Exiv2::ExifKey(key)) != self->end() ? 1 : 0;
+};
+
 SWIGINTERN bool Exiv2_Exifdatum_operator_Se__Se_(Exiv2::Exifdatum const *self,Exiv2::Exifdatum const &other){
         return &other == self;
     }
@@ -5703,9 +5713,6 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
-SWIGINTERN bool Exiv2_ExifData___contains__(Exiv2::ExifData *self,std::string const &key){
-        return self->findKey(Exiv2::ExifKey(key)) != self->end();
-    }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -10125,51 +10132,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ExifData___contains__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ExifData *arg1 = (Exiv2::ExifData *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_UnpackTuple(args, "ExifData___contains__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExifData___contains__" "', argument " "1"" of type '" "Exiv2::ExifData *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExifData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "ExifData___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    try {
-      result = (bool)Exiv2_ExifData___contains__(arg1,(std::string const &)*arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
 SWIGINTERN int _wrap_new_ExifData(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   Exiv2::ExifData *result = 0 ;
@@ -10223,8 +10185,6 @@ fail:
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_ExifData_begin) /* defines _wrap_ExifData_begin_getiterfunc_closure */
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_ExifData_count) /* defines _wrap_ExifData_count_lenfunc_closure */
-
-SWIGPY_OBJOBJPROC_CLOSURE(_wrap_ExifData___contains__) /* defines _wrap_ExifData___contains___objobjproc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ExifData) /* defines _wrap_delete_ExifData_destructor_closure */
 
@@ -12800,7 +12760,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__ExifData_methods[] = {
 		"" },
   { "empty", _wrap_ExifData_empty, METH_VARARGS, "Return true if there is no Exif metadata" },
   { "count", _wrap_ExifData_count, METH_VARARGS, "Get the number of metadata entries" },
-  { "__contains__", _wrap_ExifData___contains__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -12993,7 +12952,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ExifData_type = {
 #else
     (ssizessizeobjargproc) 0,               /* sq_ass_slice */
 #endif
-    _wrap_ExifData___contains___objobjproc_closure, /* sq_contains */
+    __contains__Exiv2_ExifData,             /* sq_contains */
     (binaryfunc) 0,                         /* sq_inplace_concat */
     (ssizeargfunc) 0,                       /* sq_inplace_repeat */
   },
@@ -13128,7 +13087,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ExifData_type_create(PyTypeObject *ty
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
-    { Py_sq_contains,                   (void *)_wrap_ExifData___contains___objobjproc_closure },
+    { Py_sq_contains,                   (void *)__contains__Exiv2_ExifData },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
     { Py_sq_inplace_repeat,             (void *)(ssizeargfunc) 0 },
     { Py_tp_members, members },

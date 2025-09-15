@@ -97,14 +97,8 @@ MP_ASS_SUBSCRIPT(Exiv2::base_class, PyObject*,
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
     self->erase(pos))
-%feature("python:slot", "sq_contains", functype="objobjproc")
-    Exiv2::base_class::__contains__;
-%extend Exiv2::base_class {
-    %fragment("get_type_id"{Exiv2::datum_type});
-    bool __contains__(const std::string& key) {
-        return $self->findKey(Exiv2::key_type(key)) != $self->end();
-    }
-}
+SQ_CONTAINS(
+    Exiv2::base_class, self->findKey(Exiv2::key_type(key)) != self->end())
 
 %extend Exiv2::datum_type {
     %fragment("set_value_from_py"{Exiv2::datum_type});

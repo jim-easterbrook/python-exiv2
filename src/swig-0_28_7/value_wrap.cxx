@@ -4887,6 +4887,16 @@ static int __setitem__Exiv2_LangAltValue_closure(
 };
 
 
+static int __contains__Exiv2_LangAltValue(PyObject* py_self, PyObject* py_key) {
+    Exiv2::LangAltValue* self;
+    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__LangAltValue, 0);
+    const char* key = PyUnicode_AsUTF8(py_key);
+    if (!key)
+        return -1;
+    return self->value_.find(key) != self->value_.end() ? 1 : 0;
+};
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {
@@ -6786,9 +6796,6 @@ SWIGINTERN PyObject *Exiv2_LangAltValue___iter__(Exiv2::LangAltValue *self){
         PyObject* result = PySeqIter_New(keys);
         Py_DECREF(keys);
         return result;
-    }
-SWIGINTERN bool Exiv2_LangAltValue___contains__(Exiv2::LangAltValue *self,std::string const &key){
-        return self->value_.find(key) != self->value_.end();
     }
 SWIGINTERN Exiv2::DateValue *new_Exiv2_DateValue__SWIG_2(Exiv2::DateValue::Date &src){
         Exiv2::DateValue* self = new Exiv2::DateValue;
@@ -13659,43 +13666,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_LangAltValue___contains__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_UnpackTuple(args, "LangAltValue___contains__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__LangAltValue, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LangAltValue___contains__" "', argument " "1"" of type '" "Exiv2::LangAltValue *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::LangAltValue * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LangAltValue___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "LangAltValue___contains__" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  result = (bool)Exiv2_LangAltValue___contains__(arg1,(std::string const &)*arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_LangAltValue(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::LangAltValue *arg1 = (Exiv2::LangAltValue *) 0 ;
@@ -13719,8 +13689,6 @@ fail:
 SWIGPY_LENFUNC_CLOSURE(_wrap_LangAltValue_count) /* defines _wrap_LangAltValue_count_lenfunc_closure */
 
 SWIGPY_GETITERFUNC_CLOSURE(_wrap_LangAltValue___iter__) /* defines _wrap_LangAltValue___iter___getiterfunc_closure */
-
-SWIGPY_OBJOBJPROC_CLOSURE(_wrap_LangAltValue___contains__) /* defines _wrap_LangAltValue___contains___objobjproc_closure */
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_LangAltValue) /* defines _wrap_delete_LangAltValue_destructor_closure */
 
@@ -29255,7 +29223,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__LangAltValue_methods[] = {
 		"components.\n"
 		"" },
   { "__iter__", _wrap_LangAltValue___iter__, METH_VARARGS, "" },
-  { "__contains__", _wrap_LangAltValue___contains__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -29442,7 +29409,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__LangAltValue_type = {
 #else
     (ssizessizeobjargproc) 0,               /* sq_ass_slice */
 #endif
-    _wrap_LangAltValue___contains___objobjproc_closure, /* sq_contains */
+    __contains__Exiv2_LangAltValue,         /* sq_contains */
     (binaryfunc) 0,                         /* sq_inplace_concat */
     (ssizeargfunc) 0,                       /* sq_inplace_repeat */
   },
@@ -29571,7 +29538,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__LangAltValue_type_create(PyTypeObject
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
-    { Py_sq_contains,                   (void *)_wrap_LangAltValue___contains___objobjproc_closure },
+    { Py_sq_contains,                   (void *)__contains__Exiv2_LangAltValue },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
     { Py_sq_inplace_repeat,             (void *)(ssizeargfunc) 0 },
     { Py_tp_members, members },
