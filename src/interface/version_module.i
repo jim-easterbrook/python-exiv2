@@ -15,7 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%module(package="exiv2") version
+
+// Module is not called "version" as there is a function "version"
+%module(package="exiv2") version_module
 
 #ifndef SWIGIMPORTED
 %constant char* __doc__ = "Exiv2 library version information.";
@@ -28,9 +30,6 @@
 
 // Catch all C++ exceptions
 EXCEPTION()
-
-// Rename version function to avoid name clash with version module
-%rename (versionFull) version;
 
 // Function to report build options used
 %feature("docstring") versionInfo "Return a dict of libexiv2 build options."

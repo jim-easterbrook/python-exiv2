@@ -42,8 +42,8 @@ from exiv2.types import *
 __all__ += exiv2._types.__all__
 from exiv2.value import *
 __all__ += exiv2._value.__all__
-from exiv2.version import *
-__all__ += exiv2._version.__all__
+from exiv2.version_module import *
+__all__ += exiv2._version_module.__all__
 from exiv2.xmp import *
 __all__ += exiv2._xmp.__all__
 

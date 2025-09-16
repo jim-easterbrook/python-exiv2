@@ -36,7 +36,7 @@ See :ref:`genindex` for a full index to all classes, attributes, functions and m
    exiv2.tags
    exiv2.datasets
    exiv2.properties
-   exiv2.version
+   exiv2.version_module
    exiv2.error
    exiv2.easyaccess
    exiv2.basicio

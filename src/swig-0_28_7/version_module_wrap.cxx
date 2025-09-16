@@ -13,7 +13,7 @@
 #define SWIGPYTHON_BUILTIN
 #define SWIGPYTHON_FASTPROXY
 
-#define SWIG_name    "_version"
+#define SWIG_name    "_version_module"
 /* -----------------------------------------------------------------------------
  *  This section contains generic SWIG labels for method/variable
  *  declarations/attributes, and other compiler dependent labels.
@@ -4011,13 +4011,13 @@ static swig_module_info swig_module = {swig_types, 10, 0, 0, 0, 0};
 #define SWIG_TypeQuery SWIG_Python_TypeQuery
 
 /*-----------------------------------------------
-              @(target):= _version.so
+              @(target):= _version_module.so
   ------------------------------------------------*/
 #if PY_VERSION_HEX >= 0x03000000
-#  define SWIG_init    PyInit__version
+#  define SWIG_init    PyInit__version_module
 
 #else
-#  define SWIG_init    init_version
+#  define SWIG_init    init_version_module
 
 #endif
 
@@ -4284,7 +4284,7 @@ static void _set_python_exception() {
     try {
         throw;
     }
-    catch(Exiv2::AnyError const& e) {
+    catch(Exiv2::Error const& e) {
         std::string msg = e.what();
         if (wcp_to_utf8(&msg))
             msg = e.what();
@@ -4360,9 +4360,9 @@ static PyObject* versionInfo() {
 
 
 SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
+  SWIG_From_unsigned_SS_int  (unsigned int value)
 {
-  return PyInt_FromLong((long) value);
+  return PyInt_FromSize_t((size_t) value);
 }
 
 
@@ -4468,16 +4468,21 @@ SWIG_CanCastAsInteger(double *d, double min, double max) {
 
 
 SWIGINTERN int
-SWIG_AsVal_long (PyObject *obj, long* val)
+SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
 {
 #if PY_VERSION_HEX < 0x03000000
   if (PyInt_Check(obj)) {
-    if (val) *val = PyInt_AsLong(obj);
-    return SWIG_OK;
+    long v = PyInt_AsLong(obj);
+    if (v >= 0) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      return SWIG_OverflowError;
+    }
   } else
 #endif
   if (PyLong_Check(obj)) {
-    long v = PyLong_AsLong(obj);
+    unsigned long v = PyLong_AsUnsignedLong(obj);
     if (!PyErr_Occurred()) {
       if (val) *val = v;
       return SWIG_OK;
@@ -4489,7 +4494,7 @@ SWIG_AsVal_long (PyObject *obj, long* val)
 #ifdef SWIG_PYTHON_CAST_MODE
   {
     int dispatch = 0;
-    long v = PyInt_AsLong(obj);
+    unsigned long v = PyLong_AsUnsignedLong(obj);
     if (!PyErr_Occurred()) {
       if (val) *val = v;
       return SWIG_AddCast(SWIG_OK);
@@ -4499,13 +4504,12 @@ SWIG_AsVal_long (PyObject *obj, long* val)
     if (!dispatch) {
       double d;
       int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      // Largest double not larger than LONG_MAX (not portably calculated easily)
-      // Note that double(LONG_MAX) is stored in a double rounded up by one (for 64-bit long)
-      // 0x7ffffffffffffc00LL == (int64_t)std::nextafter(double(__uint128_t(LONG_MAX)+1), double(0))
-      const double long_max = sizeof(long) == 8 ? 0x7ffffffffffffc00LL : LONG_MAX;
-      // No equivalent needed for 64-bit double(LONG_MIN) is exactly LONG_MIN
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, long_max)) {
-	if (val) *val = (long)(d);
+      // Largest double not larger than ULONG_MAX (not portably calculated easily)
+      // Note that double(ULONG_MAX) is stored in a double rounded up by one (for 64-bit unsigned long)
+      // 0xfffffffffffff800ULL == (uint64_t)std::nextafter(double(__uint128_t(ULONG_MAX)+1), double(0))
+      const double ulong_max = sizeof(unsigned long) == 8 ? 0xfffffffffffff800ULL : ULONG_MAX;
+      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, ulong_max)) {
+	if (val) *val = (unsigned long)(d);
 	return res;
       }
     }
@@ -4516,15 +4520,15 @@ SWIG_AsVal_long (PyObject *obj, long* val)
 
 
 SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
+SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
 {
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
   if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
+    if ((v > UINT_MAX)) {
       return SWIG_OverflowError;
     } else {
-      if (val) *val = static_cast< int >(v);
+      if (val) *val = static_cast< unsigned int >(v);
     }
   }  
   return res;
@@ -4563,19 +4567,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_versionNumber(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  int result;
+  uint32_t result;
   
   if (!SWIG_Python_UnpackTuple(args, "versionNumber", 0, 0, 0)) SWIG_fail;
   {
     try {
-      result = (int)Exiv2::versionNumber();
+      result = (uint32_t)Exiv2::versionNumber();
     }
     catch(std::exception const& e) {
       _set_python_exception();
       SWIG_fail;
     }
   }
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
   return resultobj;
 fail:
   return NULL;
@@ -4624,11 +4628,11 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_versionFull(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_version(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   char *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "versionFull", 0, 0, 0)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "version", 0, 0, 0)) SWIG_fail;
   {
     try {
       result = (char *)Exiv2::version();
@@ -4647,34 +4651,34 @@ fail:
 
 SWIGINTERN PyObject *_wrap_testVersion(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  int arg1 ;
-  int arg2 ;
-  int arg3 ;
-  int val1 ;
+  uint32_t arg1 ;
+  uint32_t arg2 ;
+  uint32_t arg3 ;
+  unsigned int val1 ;
   int ecode1 = 0 ;
-  int val2 ;
+  unsigned int val2 ;
   int ecode2 = 0 ;
-  int val3 ;
+  unsigned int val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
   bool result;
   
   if (!SWIG_Python_UnpackTuple(args, "testVersion", 3, 3, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  ecode1 = SWIG_AsVal_unsigned_SS_int(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "testVersion" "', argument " "1"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "testVersion" "', argument " "1"" of type '" "uint32_t""'");
   } 
-  arg1 = static_cast< int >(val1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  arg1 = static_cast< uint32_t >(val1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "testVersion" "', argument " "2"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "testVersion" "', argument " "2"" of type '" "uint32_t""'");
   } 
-  arg2 = static_cast< int >(val2);
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  arg2 = static_cast< uint32_t >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "testVersion" "', argument " "3"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "testVersion" "', argument " "3"" of type '" "uint32_t""'");
   } 
-  arg3 = static_cast< int >(val3);
+  arg3 = static_cast< uint32_t >(val3);
   {
     try {
       result = (bool)Exiv2::testVersion(arg1,arg2,arg3);
@@ -4693,10 +4697,10 @@ fail:
 
 static PyMethodDef SwigMethods[] = {
 	 { "versionInfo", _wrap_versionInfo, METH_NOARGS, "Return a dict of libexiv2 build options."},
-	 { "versionNumber", _wrap_versionNumber, METH_NOARGS, "Return the version of %Exiv2 available at runtime as an integer."},
+	 { "versionNumber", _wrap_versionNumber, METH_NOARGS, "Return the version of %Exiv2 available at runtime as a uint32_t."},
 	 { "versionString", _wrap_versionString, METH_NOARGS, "Return the version string Example: \"0.25.0\" (major.minor.patch)"},
 	 { "versionNumberHexString", _wrap_versionNumberHexString, METH_NOARGS, "Return the version of %Exiv2 as hex string of fixed length 6."},
-	 { "versionFull", _wrap_versionFull, METH_NOARGS, "Return the version of %Exiv2 as \"C\" string eg \"0.27.0.2\"."},
+	 { "version", _wrap_version, METH_NOARGS, "Return the version of %Exiv2 as \"C\" string eg \"0.27.0.2\"."},
 	 { "testVersion", _wrap_testVersion, METH_VARARGS, "\n"
 		"Test the version of the available %Exiv2 library at runtime. Return\n"
 		"       true if it is the same as or newer than the passed-in version.\n"
