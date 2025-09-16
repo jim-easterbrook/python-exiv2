@@ -89,7 +89,7 @@ static PyObject* __getitem__%mangle(type)_closure(
 }
 %fragment("__getitem__"{type});
 %feature("python:mp_subscript") type QUOTE(__getitem__%mangle(type)_closure);
-%enddef // SQ_ITEM
+%enddef // MP_SUBSCRIPT
 
 
 // Macro to add sq_ass_item slot and functions

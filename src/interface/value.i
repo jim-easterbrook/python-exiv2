@@ -284,7 +284,6 @@ SQ_ASS_ITEM(Exiv2::ValueType<item_type>, item_type,
 %feature("docstring") Exiv2::ValueType<item_type>::append
 "Append a " #item_type " component to the value."
 %template() std::vector<item_type>;
-%typemap(default) const item_type* INPUT {$1 = NULL;}
 %extend Exiv2::ValueType<item_type> {
     // Constructor, reads values from a Python list
     ValueType<item_type>(Exiv2::ValueType<item_type>::ValueList value) {
@@ -383,7 +382,6 @@ components."
 %noexception Exiv2::LangAltValue::values;
 %template() std::map<
     std::string, std::string, Exiv2::LangAltValueComparator>;
-%typemap(default) const std::string* INPUT {$1 = NULL;}
 %extend Exiv2::LangAltValue {
     // Constructor, reads values from a Python dict
     LangAltValue(Exiv2::LangAltValue::ValueType value) {
