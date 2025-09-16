@@ -91,17 +91,12 @@ public:
     }
 };
 %}
-%fragment("new_TagListFct", "header") {
-    static PyObject* new_TagListFct(Exiv2::TagListFct func) {
-        return SWIG_Python_NewPointerObj(NULL, new _TagListFct(func),
-            $descriptor(_TagListFct*), SWIG_POINTER_OWN);
-    }
-}
 #endif // SWIGIMPORTED
 
 // Wrap TagListFct return values
-%typemap(out, fragment="new_TagListFct") Exiv2::TagListFct {
-    $result = new_TagListFct($1);
+%typemap(out) Exiv2::TagListFct {
+    $result = SWIG_Python_NewPointerObj(NULL, new _TagListFct($1),
+        $descriptor(_TagListFct*), SWIG_POINTER_OWN);
 }
 
 // Structs are all static data

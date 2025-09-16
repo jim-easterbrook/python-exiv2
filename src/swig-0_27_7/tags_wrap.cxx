@@ -4504,12 +4504,6 @@ SWIGINTERNINLINE PyObject*
   return PyInt_FromLong((long) value);
 }
 
-
-    static PyObject* new_TagListFct(Exiv2::TagListFct func) {
-        return SWIG_Python_NewPointerObj(NULL, new _TagListFct(func),
-            SWIGTYPE_p__TagListFct, SWIG_POINTER_OWN);
-    }
-
 SWIGINTERN PyObject *Exiv2_GroupInfo_keys(Exiv2::GroupInfo *self){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -5106,7 +5100,8 @@ SWIGINTERN PyObject *_wrap_GroupInfo_tagList__get(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
   result = (Exiv2::TagListFct) ((arg1)->tagList_);
   {
-    resultobj = new_TagListFct(result);
+    resultobj = SWIG_Python_NewPointerObj(NULL, new _TagListFct(result),
+      SWIGTYPE_p__TagListFct, SWIG_POINTER_OWN);
   }
   return resultobj;
 fail:
