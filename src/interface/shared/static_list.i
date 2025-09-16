@@ -26,18 +26,14 @@ static PyObject* pointer_to_list(item_type* ptr) {
     PyObject* py_tmp = NULL;
     while (ptr->valid_test) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, ptr, $descriptor(item_type*), 0);
+            NULL, ptr++, $descriptor(item_type*), 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++ptr;
     }
     return list;
 };
 }
 %typemap(out, fragment="pointer_to_list"{item_type}) pattern {
-    PyObject* list = pointer_to_list($1);
-    if (!list)
-        SWIG_fail;
-    $result = SWIG_AppendOutput($result, list);
+    $result = pointer_to_list($1);
 }
 %enddef // LIST_POINTER

@@ -74,7 +74,6 @@ STRUCT_DICT(Exiv2::GroupInfo, false, true)
 STRUCT_DICT(Exiv2::TagInfo, false, true)
 
 // Wrapper class for TagListFct function pointer
-#ifndef SWIGIMPORTED
 %ignore _TagListFct::_TagListFct;
 %feature("python:slot", "tp_call", functype="ternarycallfunc")
     _TagListFct::__call__;
@@ -91,7 +90,6 @@ public:
     }
 };
 %}
-#endif // SWIGIMPORTED
 
 // Wrap TagListFct return values
 %typemap(out) Exiv2::TagListFct {

@@ -4557,10 +4557,9 @@ static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
     PyObject* py_tmp = NULL;
     while (ptr->name_) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, ptr, SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0);
+            NULL, ptr++, SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++ptr;
     }
     return list;
 };
@@ -5037,10 +5036,7 @@ SWIGINTERN PyObject *_wrap_XmpNsInfo_xmpPropertyInfo__get(PyObject *self, PyObje
   arg1 = reinterpret_cast< Exiv2::XmpNsInfo * >(argp1);
   result = (Exiv2::XmpPropertyInfo *) ((arg1)->xmpPropertyInfo_);
   {
-    PyObject* list = pointer_to_list(result);
-    if (!list)
-    SWIG_fail;
-    resultobj = SWIG_Python_AppendOutput(resultobj, list, 0);
+    resultobj = pointer_to_list(result);
   }
   return resultobj;
 fail:
@@ -5390,10 +5386,7 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyList(PyObject *self, PyObject *
     }
   }
   {
-    PyObject* list = pointer_to_list(result);
-    if (!list)
-    SWIG_fail;
-    resultobj = SWIG_Python_AppendOutput(resultobj, list, 0);
+    resultobj = pointer_to_list(result);
   }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;

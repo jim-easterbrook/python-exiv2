@@ -4803,10 +4803,9 @@ static PyObject* pointer_to_list(Exiv2::DataSet* ptr) {
     PyObject* py_tmp = NULL;
     while (ptr->number_ != 0xffff) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, ptr, SWIGTYPE_p_Exiv2__DataSet, 0);
+            NULL, ptr++, SWIGTYPE_p_Exiv2__DataSet, 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++ptr;
     }
     return list;
 };
@@ -5476,10 +5475,7 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_envelopeRecordList(PyObject *self, PyObj
   if (!SWIG_Python_UnpackTuple(args, "IptcDataSets_envelopeRecordList", 0, 0, 0)) SWIG_fail;
   result = (Exiv2::DataSet *)Exiv2::IptcDataSets::envelopeRecordList();
   {
-    PyObject* list = pointer_to_list(result);
-    if (!list)
-    SWIG_fail;
-    resultobj = SWIG_Python_AppendOutput(resultobj, list, 0);
+    resultobj = pointer_to_list(result);
   }
   return resultobj;
 fail:
@@ -5494,10 +5490,7 @@ SWIGINTERN PyObject *_wrap_IptcDataSets_application2RecordList(PyObject *self, P
   if (!SWIG_Python_UnpackTuple(args, "IptcDataSets_application2RecordList", 0, 0, 0)) SWIG_fail;
   result = (Exiv2::DataSet *)Exiv2::IptcDataSets::application2RecordList();
   {
-    PyObject* list = pointer_to_list(result);
-    if (!list)
-    SWIG_fail;
-    resultobj = SWIG_Python_AppendOutput(resultobj, list, 0);
+    resultobj = pointer_to_list(result);
   }
   return resultobj;
 fail:

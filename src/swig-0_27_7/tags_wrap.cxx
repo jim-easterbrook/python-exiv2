@@ -4455,10 +4455,9 @@ static PyObject* pointer_to_list(Exiv2::TagInfo* ptr) {
     PyObject* py_tmp = NULL;
     while (ptr->tag_ != 0xFFFF) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, ptr, SWIGTYPE_p_Exiv2__TagInfo, 0);
+            NULL, ptr++, SWIGTYPE_p_Exiv2__TagInfo, 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++ptr;
     }
     return list;
 };
@@ -4607,10 +4606,9 @@ static PyObject* pointer_to_list(Exiv2::GroupInfo* ptr) {
     PyObject* py_tmp = NULL;
     while (ptr->tagList_) {
         py_tmp = SWIG_Python_NewPointerObj(
-            NULL, ptr, SWIGTYPE_p_Exiv2__GroupInfo, 0);
+            NULL, ptr++, SWIGTYPE_p_Exiv2__GroupInfo, 0);
         PyList_Append(list, py_tmp);
         Py_DECREF(py_tmp);
-        ++ptr;
     }
     return list;
 };
@@ -4987,10 +4985,7 @@ SWIGINTERN PyObject *_wrap__TagListFct___call__(PyObject *self, PyObject *args) 
   arg1 = reinterpret_cast< _TagListFct * >(argp1);
   result = (Exiv2::TagInfo *)(arg1)->__call__();
   {
-    PyObject* list = pointer_to_list(result);
-    if (!list)
-    SWIG_fail;
-    resultobj = SWIG_Python_AppendOutput(resultobj, list, 0);
+    resultobj = pointer_to_list(result);
   }
   return resultobj;
 fail:
@@ -5502,10 +5497,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_groupList(PyObject *self, PyObject *args) {
   if (!SWIG_Python_UnpackTuple(args, "ExifTags_groupList", 0, 0, 0)) SWIG_fail;
   result = (Exiv2::GroupInfo *)Exiv2::ExifTags::groupList();
   {
-    PyObject* list = pointer_to_list(result);
-    if (!list)
-    SWIG_fail;
-    resultobj = SWIG_Python_AppendOutput(resultobj, list, 0);
+    resultobj = pointer_to_list(result);
   }
   return resultobj;
 fail:
@@ -5535,10 +5527,7 @@ SWIGINTERN PyObject *_wrap_ExifTags_tagList(PyObject *self, PyObject *args) {
   }
   result = (Exiv2::TagInfo *)Exiv2::ExifTags::tagList((std::string const &)*arg1);
   {
-    PyObject* list = pointer_to_list(result);
-    if (!list)
-    SWIG_fail;
-    resultobj = SWIG_Python_AppendOutput(resultobj, list, 0);
+    resultobj = pointer_to_list(result);
   }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
