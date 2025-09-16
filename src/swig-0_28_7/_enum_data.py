@@ -3,423 +3,107 @@
 
 enum_data = {'Exiv2::AccessMode': {'doc': 'An identifier for each mode of metadata '
                               'support. ',
-                       'strong': False,
-                       'values': {'amNone': {'doc': ''},
-                                  'amRead': {'doc': ''},
-                                  'amReadWrite': {'doc': ''},
-                                  'amWrite': {'doc': ''}}},
+                       'values': {}},
  'Exiv2::BasicIo::Position': {'doc': 'Seek starting positions. ',
-                              'strong': False,
-                              'values': {'beg': {'doc': ''},
-                                         'cur': {'doc': ''},
-                                         'end': {'doc': ''}}},
+                              'values': {}},
  'Exiv2::ByteOrder': {'doc': 'Type to express the byte order (little or '
                              'big endian) ',
-                      'strong': False,
-                      'values': {'bigEndian': {'doc': ''},
-                                 'invalidByteOrder': {'doc': ''},
-                                 'littleEndian': {'doc': ''}}},
+                      'values': {}},
  'Exiv2::CommentValue::CharsetId': {'doc': 'Character set identifiers for '
                                            'the character sets defined by '
                                            'Exif. ',
-                                    'strong': False,
-                                    'values': {'ascii': {'doc': ''},
-                                               'invalidCharsetId': {'doc': ''},
-                                               'jis': {'doc': ''},
-                                               'lastCharsetId': {'doc': ''},
-                                               'undefined': {'doc': ''},
-                                               'unicode': {'doc': ''}}},
+                                    'values': {}},
  'Exiv2::ErrorCode': {'doc': 'Complete list of all Exiv2 error codes. ',
-                      'strong': True,
-                      'values': {'kerAliasesNotSupported': {'doc': ''},
-                                 'kerArithmeticOverflow': {'doc': ''},
-                                 'kerCallFailed': {'doc': ''},
-                                 'kerCorruptedMetadata': {'doc': ''},
-                                 'kerDataAreaValueTooLarge': {'doc': ''},
-                                 'kerDataSourceOpenFailed': {'doc': ''},
-                                 'kerDecodeLangAltPropertyFailed': {'doc': ''},
-                                 'kerDecodeLangAltQualifierFailed': {'doc': ''},
-                                 'kerEncodeLangAltPropertyFailed': {'doc': ''},
-                                 'kerErrorCount': {'doc': ''},
-                                 'kerErrorMessage': {'doc': ''},
-                                 'kerFailedToMapFileForReadWrite': {'doc': ''},
-                                 'kerFailedToReadImageData': {'doc': ''},
-                                 'kerFileAccessDisabled': {'doc': ''},
-                                 'kerFileContainsUnknownImageType': {'doc': ''},
-                                 'kerFileOpenFailed': {'doc': ''},
-                                 'kerFileRenameFailed': {'doc': ''},
-                                 'kerFunctionNotSupported': {'doc': ''},
-                                 'kerGeneralError': {'doc': ''},
-                                 'kerImageWriteFailed': {'doc': ''},
-                                 'kerInputDataReadFailed': {'doc': ''},
-                                 'kerInvalidCharset': {'doc': ''},
-                                 'kerInvalidDataset': {'doc': ''},
-                                 'kerInvalidIccProfile': {'doc': ''},
-                                 'kerInvalidIconvEncoding': {'doc': ''},
-                                 'kerInvalidIfdId': {'doc': ''},
-                                 'kerInvalidKey': {'doc': ''},
-                                 'kerInvalidKeyXmpValue': {'doc': ''},
-                                 'kerInvalidLangAltValue': {'doc': ''},
-                                 'kerInvalidMalloc': {'doc': ''},
-                                 'kerInvalidRecord': {'doc': ''},
-                                 'kerInvalidSettingForImage': {'doc': ''},
-                                 'kerInvalidTag': {'doc': ''},
-                                 'kerInvalidTypeValue': {'doc': ''},
-                                 'kerInvalidXMP': {'doc': ''},
-                                 'kerInvalidXmpText': {'doc': ''},
-                                 'kerMallocFailed': {'doc': ''},
-                                 'kerMemoryContainsUnknownImageType': {'doc': ''},
-                                 'kerMemoryTransferFailed': {'doc': ''},
-                                 'kerMultipleTiffArrayElementTagsInDirectory': {'doc': ''},
-                                 'kerNoImageInInputData': {'doc': ''},
-                                 'kerNoNamespaceForPrefix': {'doc': ''},
-                                 'kerNoNamespaceInfoForXmpPrefix': {'doc': ''},
-                                 'kerNoPrefixForNamespace': {'doc': ''},
-                                 'kerNotACrwImage': {'doc': ''},
-                                 'kerNotAJpeg': {'doc': ''},
-                                 'kerNotAnImage': {'doc': ''},
-                                 'kerOffsetOutOfRange': {'doc': ''},
-                                 'kerPropertyNameIdentificationFailed': {'doc': ''},
-                                 'kerSchemaNamespaceNotRegistered': {'doc': ''},
-                                 'kerSuccess': {'doc': ''},
-                                 'kerTiffDirectoryTooLarge': {'doc': ''},
-                                 'kerTooLargeJpegSegment': {'doc': ''},
-                                 'kerTooManyTiffDirectoryEntries': {'doc': ''},
-                                 'kerTransferFailed': {'doc': ''},
-                                 'kerUnhandledXmpNode': {'doc': ''},
-                                 'kerUnhandledXmpdatum': {'doc': ''},
-                                 'kerUnsupportedDataAreaOffsetType': {'doc': ''},
-                                 'kerUnsupportedDateFormat': {'doc': ''},
-                                 'kerUnsupportedImageType': {'doc': ''},
-                                 'kerUnsupportedTimeFormat': {'doc': ''},
-                                 'kerValueNotSet': {'doc': ''},
-                                 'kerValueTooLarge': {'doc': ''},
-                                 'kerWritingImageFormatUnsupported': {'doc': ''},
-                                 'kerWrongTiffArrayElementTagType': {'doc': ''},
-                                 'kerXMPToolkitError': {'doc': ''}}},
+                      'values': {}},
  'Exiv2::IfdId': {'doc': 'Type to specify the IFD to which a metadata '
                          'belongs. ',
-                  'strong': True,
-                  'values': {'canonAfCId': {'doc': ''},
-                             'canonAfMiAdjId': {'doc': ''},
-                             'canonAmId': {'doc': ''},
-                             'canonAsId': {'doc': ''},
-                             'canonCbId': {'doc': ''},
-                             'canonCfId': {'doc': ''},
-                             'canonCiId': {'doc': ''},
-                             'canonContrastId': {'doc': ''},
-                             'canonCsId': {'doc': ''},
-                             'canonFcd1Id': {'doc': ''},
-                             'canonFcd2Id': {'doc': ''},
-                             'canonFcd3Id': {'doc': ''},
-                             'canonFiId': {'doc': ''},
-                             'canonFilId': {'doc': ''},
-                             'canonFlId': {'doc': ''},
-                             'canonHdrId': {'doc': ''},
-                             'canonId': {'doc': ''},
-                             'canonLeId': {'doc': ''},
-                             'canonLiOpId': {'doc': ''},
-                             'canonMeId': {'doc': ''},
-                             'canonMoID': {'doc': ''},
-                             'canonMvId': {'doc': ''},
-                             'canonMyColorID': {'doc': ''},
-                             'canonPaId': {'doc': ''},
-                             'canonPiId': {'doc': ''},
-                             'canonPrId': {'doc': ''},
-                             'canonPreID': {'doc': ''},
-                             'canonRawBId': {'doc': ''},
-                             'canonSiId': {'doc': ''},
-                             'canonTiId': {'doc': ''},
-                             'canonVigCor2Id': {'doc': ''},
-                             'canonVigCorId': {'doc': ''},
-                             'canonWbId': {'doc': ''},
-                             'casio2Id': {'doc': ''},
-                             'casioId': {'doc': ''},
-                             'exifId': {'doc': ''},
-                             'fujiId': {'doc': ''},
-                             'gpsId': {'doc': ''},
-                             'ifd0Id': {'doc': ''},
-                             'ifd1Id': {'doc': ''},
-                             'ifd2Id': {'doc': ''},
-                             'ifd3Id': {'doc': ''},
-                             'ifdIdNotSet': {'doc': ''},
-                             'ignoreId': {'doc': ''},
-                             'iopId': {'doc': ''},
-                             'lastId': {'doc': ''},
-                             'minoltaCs5DId': {'doc': ''},
-                             'minoltaCs7DId': {'doc': ''},
-                             'minoltaCsNewId': {'doc': ''},
-                             'minoltaCsOldId': {'doc': ''},
-                             'minoltaId': {'doc': ''},
-                             'mnId': {'doc': ''},
-                             'mpfId': {'doc': ''},
-                             'nikon1Id': {'doc': ''},
-                             'nikon2Id': {'doc': ''},
-                             'nikon3Id': {'doc': ''},
-                             'nikonAFTId': {'doc': ''},
-                             'nikonAf21Id': {'doc': ''},
-                             'nikonAf22Id': {'doc': ''},
-                             'nikonAfId': {'doc': ''},
-                             'nikonCb1Id': {'doc': ''},
-                             'nikonCb2Id': {'doc': ''},
-                             'nikonCb2aId': {'doc': ''},
-                             'nikonCb2bId': {'doc': ''},
-                             'nikonCb3Id': {'doc': ''},
-                             'nikonCb4Id': {'doc': ''},
-                             'nikonFiId': {'doc': ''},
-                             'nikonFl1Id': {'doc': ''},
-                             'nikonFl2Id': {'doc': ''},
-                             'nikonFl3Id': {'doc': ''},
-                             'nikonFl6Id': {'doc': ''},
-                             'nikonFl7Id': {'doc': ''},
-                             'nikonIiId': {'doc': ''},
-                             'nikonLd1Id': {'doc': ''},
-                             'nikonLd2Id': {'doc': ''},
-                             'nikonLd3Id': {'doc': ''},
-                             'nikonLd4Id': {'doc': ''},
-                             'nikonMeId': {'doc': ''},
-                             'nikonPcId': {'doc': ''},
-                             'nikonPvId': {'doc': ''},
-                             'nikonSi1Id': {'doc': ''},
-                             'nikonSi2Id': {'doc': ''},
-                             'nikonSi3Id': {'doc': ''},
-                             'nikonSi4Id': {'doc': ''},
-                             'nikonSi5Id': {'doc': ''},
-                             'nikonSi6Id': {'doc': ''},
-                             'nikonVrId': {'doc': ''},
-                             'nikonWtId': {'doc': ''},
-                             'olympus2Id': {'doc': ''},
-                             'olympusCsId': {'doc': ''},
-                             'olympusEqId': {'doc': ''},
-                             'olympusFe1Id': {'doc': ''},
-                             'olympusFe2Id': {'doc': ''},
-                             'olympusFe3Id': {'doc': ''},
-                             'olympusFe4Id': {'doc': ''},
-                             'olympusFe5Id': {'doc': ''},
-                             'olympusFe6Id': {'doc': ''},
-                             'olympusFe7Id': {'doc': ''},
-                             'olympusFe8Id': {'doc': ''},
-                             'olympusFe9Id': {'doc': ''},
-                             'olympusFiId': {'doc': ''},
-                             'olympusId': {'doc': ''},
-                             'olympusIpId': {'doc': ''},
-                             'olympusRd2Id': {'doc': ''},
-                             'olympusRdId': {'doc': ''},
-                             'olympusRiId': {'doc': ''},
-                             'panaRawId': {'doc': ''},
-                             'panasonicId': {'doc': ''},
-                             'pentaxDngId': {'doc': ''},
-                             'pentaxId': {'doc': ''},
-                             'samsung2Id': {'doc': ''},
-                             'samsungPvId': {'doc': ''},
-                             'samsungPwId': {'doc': ''},
-                             'sigmaId': {'doc': ''},
-                             'sony1Cs2Id': {'doc': ''},
-                             'sony1CsId': {'doc': ''},
-                             'sony1Id': {'doc': ''},
-                             'sony1MltCs7DId': {'doc': ''},
-                             'sony1MltCsA100Id': {'doc': ''},
-                             'sony1MltCsNewId': {'doc': ''},
-                             'sony1MltCsOldId': {'doc': ''},
-                             'sony2010eId': {'doc': ''},
-                             'sony2Cs2Id': {'doc': ''},
-                             'sony2CsId': {'doc': ''},
-                             'sony2FpId': {'doc': ''},
-                             'sony2Id': {'doc': ''},
-                             'sonyMisc1Id': {'doc': ''},
-                             'sonyMisc2bId': {'doc': ''},
-                             'sonyMisc3cId': {'doc': ''},
-                             'sonyMltId': {'doc': ''},
-                             'sonySInfo1Id': {'doc': ''},
-                             'subImage1Id': {'doc': ''},
-                             'subImage2Id': {'doc': ''},
-                             'subImage3Id': {'doc': ''},
-                             'subImage4Id': {'doc': ''},
-                             'subImage5Id': {'doc': ''},
-                             'subImage6Id': {'doc': ''},
-                             'subImage7Id': {'doc': ''},
-                             'subImage8Id': {'doc': ''},
-                             'subImage9Id': {'doc': ''},
-                             'subThumb1Id': {'doc': ''},
-                             'tagInfoMvId': {'doc': ''}}},
+                  'values': {}},
  'Exiv2::ImageType': {'doc': 'Supported Image Formats. ',
-                      'strong': True,
-                      'values': {'arw': {'doc': ''},
-                                 'asf': {'doc': ''},
-                                 'bigtiff': {'doc': ''},
-                                 'bmff': {'doc': ''},
-                                 'bmp': {'doc': 'Windows bitmap. '},
-                                 'cr2': {'doc': ''},
-                                 'crw': {'doc': ''},
-                                 'dng': {'doc': ''},
-                                 'eps': {'doc': ''},
-                                 'exv': {'doc': ''},
-                                 'gif': {'doc': 'GIF. '},
-                                 'jp2': {'doc': 'JPEG-2000. '},
-                                 'jpeg': {'doc': ''},
-                                 'mkv': {'doc': ''},
-                                 'mrw': {'doc': ''},
-                                 'nef': {'doc': ''},
-                                 'none': {'doc': ''},
-                                 'orf': {'doc': ''},
-                                 'pef': {'doc': ''},
-                                 'pgf': {'doc': ''},
-                                 'png': {'doc': ''},
-                                 'psd': {'doc': 'Photoshop (PSD) '},
-                                 'qtime': {'doc': ''},
-                                 'raf': {'doc': ''},
-                                 'riff': {'doc': ''},
-                                 'rw2': {'doc': ''},
-                                 'sr2': {'doc': ''},
-                                 'srw': {'doc': ''},
-                                 'tga': {'doc': ''},
-                                 'tiff': {'doc': ''},
-                                 'webp': {'doc': ''},
-                                 'xmp': {'doc': 'XMP sidecar files. '}}},
+                      'values': {'bmp': 'Windows bitmap. ',
+                                 'gif': 'GIF. ',
+                                 'jp2': 'JPEG-2000. ',
+                                 'psd': 'Photoshop (PSD) ',
+                                 'xmp': 'XMP sidecar files. '}},
  'Exiv2::LogMsg::Level': {'doc': 'Defined log levels. To suppress all log '
                                  'messages, either set the log level to '
                                  'mute or set the log message handler to '
                                  '0. ',
-                          'strong': False,
-                          'values': {'debug': {'doc': ''},
-                                     'error': {'doc': ''},
-                                     'info': {'doc': ''},
-                                     'mute': {'doc': ''},
-                                     'warn': {'doc': ''}}},
+                          'values': {}},
  'Exiv2::MetadataId': {'doc': 'An identifier for each type of metadata. ',
-                       'strong': False,
-                       'values': {'mdComment': {'doc': ''},
-                                  'mdExif': {'doc': ''},
-                                  'mdIccProfile': {'doc': ''},
-                                  'mdIptc': {'doc': ''},
-                                  'mdNone': {'doc': ''},
-                                  'mdXmp': {'doc': ''}}},
+                       'values': {}},
  'Exiv2::SectionId': {'doc': 'Section identifiers to logically group '
                              'tags. A section consists of nothing more '
                              'than a name, based on the Exif standard. ',
-                      'strong': True,
-                      'values': {'adobeOpi': {'doc': ''},
-                                 'captureCond': {'doc': ''},
-                                 'dateTime': {'doc': ''},
-                                 'dngTags': {'doc': ''},
-                                 'exifFormat': {'doc': ''},
-                                 'exifVersion': {'doc': ''},
-                                 'gpsTags': {'doc': ''},
-                                 'imgCharacter': {'doc': ''},
-                                 'imgConfig': {'doc': ''},
-                                 'imgStruct': {'doc': ''},
-                                 'iopTags': {'doc': ''},
-                                 'lastSectionId': {'doc': ''},
-                                 'makerTags': {'doc': ''},
-                                 'mpfTags': {'doc': ''},
-                                 'otherTags': {'doc': ''},
-                                 'panaRaw': {'doc': ''},
-                                 'recOffset': {'doc': ''},
-                                 'relatedFile': {'doc': ''},
-                                 'sectionIdNotSet': {'doc': ''},
-                                 'tiffEp': {'doc': ''},
-                                 'tiffPm6': {'doc': ''},
-                                 'userInfo': {'doc': ''}}},
+                      'values': {}},
  'Exiv2::TypeId': {'doc': 'Exiv2 value type identifiers. \n'
                           '\n'
                           'Used primarily as identifiers when creating '
                           'Exiv2 Value instances. See Value::create. '
                           '0x0000 to 0xffff are reserved for TIFF (Exif) '
                           'types. ',
-                   'strong': False,
-                   'values': {'asciiString': {'doc': 'Exif ASCII type, '
-                                                     '8-bit byte. '},
-                              'comment': {'doc': 'Exiv2 type for the Exif '
-                                                 'user comment. '},
-                              'date': {'doc': 'IPTC date type. '},
-                              'directory': {'doc': 'Exiv2 type for a CIFF '
-                                                   'directory. '},
-                              'invalidTypeId': {'doc': 'Invalid type '
-                                                       'id. '},
-                              'langAlt': {'doc': 'XMP language '
-                                                 'alternative type. '},
-                              'lastTypeId': {'doc': 'Last type id. '},
-                              'signedByte': {'doc': 'Exif SBYTE type, an '
-                                                    '8-bit signed '
-                                                    '(twos-complement) '
-                                                    'integer. '},
-                              'signedLong': {'doc': 'Exif SLONG type, a '
-                                                    '32-bit (4-byte) '
-                                                    'signed '
-                                                    '(twos-complement) '
-                                                    'integer. '},
-                              'signedLongLong': {'doc': 'Exif LONG LONG '
-                                                        'type, 64-bit '
-                                                        '(8-byte) signed '
-                                                        'integer. '},
-                              'signedRational': {'doc': 'Exif SRATIONAL '
-                                                        'type, two '
-                                                        'SLONGs: '
-                                                        'numerator and '
-                                                        'denominator of a '
-                                                        'fraction. '},
-                              'signedShort': {'doc': 'Exif SSHORT type, a '
-                                                     '16-bit (2-byte) '
-                                                     'signed '
-                                                     '(twos-complement) '
-                                                     'integer. '},
-                              'string': {'doc': 'IPTC string type. '},
-                              'tiffDouble': {'doc': 'TIFF DOUBLE type, '
-                                                    'double precision '
-                                                    '(8-byte) IEEE '
-                                                    'format. '},
-                              'tiffFloat': {'doc': 'TIFF FLOAT type, '
-                                                   'single precision '
-                                                   '(4-byte) IEEE '
-                                                   'format. '},
-                              'tiffIfd': {'doc': 'TIFF IFD type, 32-bit '
-                                                 '(4-byte) unsigned '
-                                                 'integer. '},
-                              'tiffIfd8': {'doc': 'TIFF IFD type, 64-bit '
-                                                  '(8-byte) unsigned '
-                                                  'integer. '},
-                              'time': {'doc': 'IPTC time type. '},
-                              'undefined': {'doc': 'Exif UNDEFINED type, '
-                                                   'an 8-bit byte that '
-                                                   'may contain '
-                                                   'anything. '},
-                              'unsignedByte': {'doc': 'Exif BYTE type, '
-                                                      '8-bit unsigned '
-                                                      'integer. '},
-                              'unsignedLong': {'doc': 'Exif LONG type, '
-                                                      '32-bit (4-byte) '
-                                                      'unsigned '
-                                                      'integer. '},
-                              'unsignedLongLong': {'doc': 'Exif LONG LONG '
-                                                          'type, 64-bit '
-                                                          '(8-byte) '
-                                                          'unsigned '
-                                                          'integer. '},
-                              'unsignedRational': {'doc': 'Exif RATIONAL '
-                                                          'type, two '
-                                                          'LONGs: '
-                                                          'numerator and '
-                                                          'denominator of '
-                                                          'a fraction. '},
-                              'unsignedShort': {'doc': 'Exif SHORT type, '
-                                                       '16-bit (2-byte) '
-                                                       'unsigned '
-                                                       'integer. '},
-                              'xmpAlt': {'doc': 'XMP alternative type. '},
-                              'xmpBag': {'doc': 'XMP bag type. '},
-                              'xmpSeq': {'doc': 'XMP sequence type. '},
-                              'xmpText': {'doc': 'XMP text type. '}}},
+                   'values': {'asciiString': 'Exif ASCII type, 8-bit '
+                                             'byte. ',
+                              'comment': 'Exiv2 type for the Exif user '
+                                         'comment. ',
+                              'date': 'IPTC date type. ',
+                              'directory': 'Exiv2 type for a CIFF '
+                                           'directory. ',
+                              'invalidTypeId': 'Invalid type id. ',
+                              'langAlt': 'XMP language alternative type. ',
+                              'lastTypeId': 'Last type id. ',
+                              'signedByte': 'Exif SBYTE type, an 8-bit '
+                                            'signed (twos-complement) '
+                                            'integer. ',
+                              'signedLong': 'Exif SLONG type, a 32-bit '
+                                            '(4-byte) signed '
+                                            '(twos-complement) integer. ',
+                              'signedLongLong': 'Exif LONG LONG type, '
+                                                '64-bit (8-byte) signed '
+                                                'integer. ',
+                              'signedRational': 'Exif SRATIONAL type, two '
+                                                'SLONGs: numerator and '
+                                                'denominator of a '
+                                                'fraction. ',
+                              'signedShort': 'Exif SSHORT type, a 16-bit '
+                                             '(2-byte) signed '
+                                             '(twos-complement) integer. ',
+                              'string': 'IPTC string type. ',
+                              'tiffDouble': 'TIFF DOUBLE type, double '
+                                            'precision (8-byte) IEEE '
+                                            'format. ',
+                              'tiffFloat': 'TIFF FLOAT type, single '
+                                           'precision (4-byte) IEEE '
+                                           'format. ',
+                              'tiffIfd': 'TIFF IFD type, 32-bit (4-byte) '
+                                         'unsigned integer. ',
+                              'tiffIfd8': 'TIFF IFD type, 64-bit (8-byte) '
+                                          'unsigned integer. ',
+                              'time': 'IPTC time type. ',
+                              'undefined': 'Exif UNDEFINED type, an 8-bit '
+                                           'byte that may contain '
+                                           'anything. ',
+                              'unsignedByte': 'Exif BYTE type, 8-bit '
+                                              'unsigned integer. ',
+                              'unsignedLong': 'Exif LONG type, 32-bit '
+                                              '(4-byte) unsigned '
+                                              'integer. ',
+                              'unsignedLongLong': 'Exif LONG LONG type, '
+                                                  '64-bit (8-byte) '
+                                                  'unsigned integer. ',
+                              'unsignedRational': 'Exif RATIONAL type, '
+                                                  'two LONGs: numerator '
+                                                  'and denominator of a '
+                                                  'fraction. ',
+                              'unsignedShort': 'Exif SHORT type, 16-bit '
+                                               '(2-byte) unsigned '
+                                               'integer. ',
+                              'xmpAlt': 'XMP alternative type. ',
+                              'xmpBag': 'XMP bag type. ',
+                              'xmpSeq': 'XMP sequence type. ',
+                              'xmpText': 'XMP text type. '}},
  'Exiv2::XmpCategory': {'doc': 'Category of an XMP property. ',
-                        'strong': False,
-                        'values': {'xmpExternal': {'doc': ''},
-                                   'xmpInternal': {'doc': ''}}},
+                        'values': {}},
  'Exiv2::XmpValue::XmpArrayType': {'doc': 'XMP array types. ',
-                                   'strong': False,
-                                   'values': {'xaAlt': {'doc': ''},
-                                              'xaBag': {'doc': ''},
-                                              'xaNone': {'doc': ''},
-                                              'xaSeq': {'doc': ''}}},
+                                   'values': {}},
  'Exiv2::XmpValue::XmpStruct': {'doc': 'XMP structure indicator. ',
-                                'strong': False,
-                                'values': {'xsNone': {'doc': ''},
-                                           'xsStruct': {'doc': ''}}}}
+                                'values': {}}}

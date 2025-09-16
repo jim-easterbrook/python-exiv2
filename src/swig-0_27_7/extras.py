@@ -63,16 +63,15 @@ def _deprecated_enum(moved_to, new_enum):
 
 
 def _create_enum(module, name, alias_strip, members):
-    data = enum_data[name]
     if alias_strip:
         alias_strip = int(alias_strip)
         members += [(k[alias_strip:], v) for (k, v) in members]
     result = enum.IntEnum(name.split('::')[-1], members)
     result.__module__ = 'exiv2.' + module[1:]
+    data = enum_data[name]
     if data['doc']:
         result.__doc__ = data['doc']
     for key, value in data['values'].items():
-        if value['doc']:
-            result[key].__doc__ = value['doc']
+        result[key].__doc__ = value
     return result
 
