@@ -141,7 +141,8 @@ class TestIptcModule(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(datum._print(), datum.print())
         self.assertEqual(datum.record(), exiv2.IptcDataSets.application2)
-        self.assertEqual(datum.recordName(), 'Application2')
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(datum.recordName(), 'Application2')
         self.assertEqual(datum.size(), 28)
         self.assertEqual(datum.tag(), exiv2.IptcDataSets.Caption)
         self.assertEqual(datum.tagLabel(), 'Caption')
