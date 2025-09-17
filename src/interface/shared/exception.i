@@ -71,15 +71,11 @@ fail:
 }
 %enddef // EXCEPTION
 
-// Macro to deprecate a function
-%define DEPRECATE_FUNCTION(method, preserve_doc)
+// Macros to deprecate a function
+%define _DEPRECATE(method, message)
 %fragment("_set_python_exception");
-#if #preserve_doc == "" 
-%feature("docstring") method "Deprecated."
-#endif
 %exception method {
-PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Python scripts should not need to call " #method, 1);
+PyErr_WarnEx(PyExc_DeprecationWarning, message, 1);
     try {
         $action
     }
@@ -88,7 +84,18 @@ PyErr_WarnEx(PyExc_DeprecationWarning,
         SWIG_fail;
     }
 }
+%enddef // _DEPRECATE
+
+%define DEPRECATE_FUNCTION(method, preserve_doc)
+_DEPRECATE(method, "Python scripts should not need to call " #method)
+#if #preserve_doc == "" 
+%feature("docstring") method "Deprecated."
+#endif
 %enddef // DEPRECATE_FUNCTION
+
+%define EXIV2_DEPRECATED(method)
+_DEPRECATE(method, #method " is deprecated in libexiv2")
+%enddef // EXIV2_DEPRECATED
 
 // Macro to not call a function if EXV_ENABLE_FILESYSTEM is OFF
 %define EXV_ENABLE_FILESYSTEM_FUNCTION(signature)

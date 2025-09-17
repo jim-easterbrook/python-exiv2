@@ -217,6 +217,10 @@ DEFINE_ENUM(ImageType,)
 %apply Exiv2::ImageType {int imageType};
 #endif  // EXIV2_VERSION_HEX
 
+// Exiv2 have deprecated supportsMetadata()
+// deprecated in python-exiv2 2025-09-17
+EXIV2_DEPRECATED(Exiv2::Image::supportsMetadata)
+
 // Ignore const versions of methods
 %ignore Exiv2::Image::exifData() const;
 %ignore Exiv2::Image::iptcData() const;

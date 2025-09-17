@@ -67,6 +67,10 @@ static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
 
 DATA_CONTAINER(IptcData, Iptcdatum, IptcKey)
 
+// Exiv2 have deprecated recordName()
+// deprecated in python-exiv2 2025-09-17
+EXIV2_DEPRECATED(Exiv2::Iptcdatum::recordName)
+
 // Ignore const overloads of some methods
 %ignore Exiv2::IptcData::operator[];
 %ignore Exiv2::IptcData::begin() const;

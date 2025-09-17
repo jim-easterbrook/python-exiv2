@@ -7856,8 +7856,7 @@ SWIGINTERN PyObject *_wrap_Value_read__SWIG_0(PyObject *self, PyObject *args) {
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Value::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Value::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -8133,8 +8132,7 @@ SWIGINTERN PyObject *_wrap_Value_copy(PyObject *self, PyObject *args) {
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Value::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Value::copy", 1);
     try {
       result = (long)((Exiv2::Value const *)arg1)->copy(arg2,arg3);
     }
@@ -8224,8 +8222,7 @@ SWIGINTERN PyObject *_wrap_Value_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Value::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Value::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::Value const *)arg1)->write(*arg2);
     }
@@ -8819,8 +8816,7 @@ SWIGINTERN PyObject *_wrap_DataValue_read__SWIG_0(PyObject *self, PyObject *args
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::DataValue::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::DataValue::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -9099,8 +9095,7 @@ SWIGINTERN PyObject *_wrap_DataValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::DataValue::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::DataValue::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::DataValue const *)arg1)->write(*arg2);
     }
@@ -9424,8 +9419,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_read__SWIG_1(PyObject *self, PyObject
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::StringValueBase::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::StringValueBase::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -9573,8 +9567,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_copy(PyObject *self, PyObject *args) 
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::StringValueBase::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::StringValueBase::copy", 1);
     try {
       result = (long)((Exiv2::StringValueBase const *)arg1)->copy(arg2,arg3);
     }
@@ -9811,8 +9804,7 @@ SWIGINTERN PyObject *_wrap_StringValueBase_write(PyObject *self, PyObject *args)
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::StringValueBase::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::StringValueBase::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::StringValueBase const *)arg1)->write(*arg2);
     }
@@ -10130,8 +10122,7 @@ SWIGINTERN PyObject *_wrap_AsciiValue_read__SWIG_0(PyObject *self, PyObject *arg
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::StringValueBase::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::StringValueBase::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -10292,8 +10283,7 @@ SWIGINTERN PyObject *_wrap_AsciiValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::AsciiValue::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::AsciiValue::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::AsciiValue const *)arg1)->write(*arg2);
     }
@@ -10602,8 +10592,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_read__SWIG_1(PyObject *self, PyObject *a
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::CommentValue::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::CommentValue::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -10748,8 +10737,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_copy(PyObject *self, PyObject *args) {
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::CommentValue::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::CommentValue::copy", 1);
     try {
       result = (long)((Exiv2::CommentValue const *)arg1)->copy(arg2,arg3);
     }
@@ -10797,8 +10785,7 @@ SWIGINTERN PyObject *_wrap_CommentValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::CommentValue::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::CommentValue::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::CommentValue const *)arg1)->write(*arg2);
     }
@@ -11188,8 +11175,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_copy(PyObject *self, PyObject *args) {
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::XmpValue::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::XmpValue::copy", 1);
     try {
       result = (long)((Exiv2::XmpValue const *)arg1)->copy(arg2,arg3);
     }
@@ -11390,8 +11376,7 @@ SWIGINTERN PyObject *_wrap_XmpValue_read__SWIG_0(PyObject *self, PyObject *args)
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::XmpValue::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::XmpValue::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -11645,8 +11630,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_read__SWIG_0(PyObject *self, PyObject *a
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::XmpValue::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::XmpValue::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -12002,8 +11986,7 @@ SWIGINTERN PyObject *_wrap_XmpTextValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::XmpTextValue::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::XmpTextValue::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::XmpTextValue const *)arg1)->write(*arg2);
     }
@@ -12154,8 +12137,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_read__SWIG_0(PyObject *self, PyObject *
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::XmpValue::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::XmpValue::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -12533,8 +12515,7 @@ SWIGINTERN PyObject *_wrap_XmpArrayValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::XmpArrayValue::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::XmpArrayValue::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::XmpArrayValue const *)arg1)->write(*arg2);
     }
@@ -12864,8 +12845,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_read__SWIG_0(PyObject *self, PyObject *a
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::XmpValue::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::XmpValue::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -13333,8 +13313,7 @@ SWIGINTERN PyObject *_wrap_LangAltValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::LangAltValue::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::LangAltValue::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::LangAltValue const *)arg1)->write(*arg2);
     }
@@ -13690,8 +13669,7 @@ SWIGINTERN PyObject *_wrap_DateValue_read__SWIG_0(PyObject *self, PyObject *args
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::DateValue::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::DateValue::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -13921,8 +13899,7 @@ SWIGINTERN PyObject *_wrap_DateValue_copy(PyObject *self, PyObject *args) {
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::DateValue::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::DateValue::copy", 1);
     try {
       result = (long)((Exiv2::DateValue const *)arg1)->copy(arg2,arg3);
     }
@@ -14041,8 +14018,7 @@ SWIGINTERN PyObject *_wrap_DateValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::DateValue::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::DateValue::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::DateValue const *)arg1)->write(*arg2);
     }
@@ -14866,8 +14842,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_read__SWIG_0(PyObject *self, PyObject *args
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::TimeValue::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::TimeValue::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -15097,8 +15072,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_copy(PyObject *self, PyObject *args) {
     }
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::TimeValue::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::TimeValue::copy", 1);
     try {
       result = (long)((Exiv2::TimeValue const *)arg1)->copy(arg2,arg3);
     }
@@ -15217,8 +15191,7 @@ SWIGINTERN PyObject *_wrap_TimeValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::TimeValue::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::TimeValue::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::TimeValue const *)arg1)->write(*arg2);
     }
@@ -16424,8 +16397,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_read__SWIG_0(PyObject *self, PyObject *ar
     arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<uint16_t>::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<uint16_t>::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -16658,8 +16630,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<uint16_t>::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<uint16_t>::copy", 1);
     try {
       result = (long)((Exiv2::ValueType< uint16_t > const *)arg1)->copy(arg2,arg3);
     }
@@ -16749,8 +16720,7 @@ SWIGINTERN PyObject *_wrap_UShortValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<uint16_t>::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<uint16_t>::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::ValueType< uint16_t > const *)arg1)->write(*arg2);
     }
@@ -17584,8 +17554,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_read__SWIG_0(PyObject *self, PyObject *arg
     arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<uint32_t>::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<uint32_t>::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -17818,8 +17787,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<uint32_t>::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<uint32_t>::copy", 1);
     try {
       result = (long)((Exiv2::ValueType< uint32_t > const *)arg1)->copy(arg2,arg3);
     }
@@ -17909,8 +17877,7 @@ SWIGINTERN PyObject *_wrap_ULongValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<uint32_t>::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<uint32_t>::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::ValueType< uint32_t > const *)arg1)->write(*arg2);
     }
@@ -18751,8 +18718,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_read__SWIG_0(PyObject *self, PyObject 
     arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::URational>::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::URational>::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -18985,8 +18951,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::URational>::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::URational>::copy", 1);
     try {
       result = (long)((Exiv2::ValueType< Exiv2::URational > const *)arg1)->copy(arg2,arg3);
     }
@@ -19076,8 +19041,7 @@ SWIGINTERN PyObject *_wrap_URationalValue_write(PyObject *self, PyObject *args) 
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::URational>::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::URational>::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::ValueType< Exiv2::URational > const *)arg1)->write(*arg2);
     }
@@ -19911,8 +19875,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_read__SWIG_0(PyObject *self, PyObject *arg
     arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<int16_t>::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<int16_t>::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -20145,8 +20108,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<int16_t>::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<int16_t>::copy", 1);
     try {
       result = (long)((Exiv2::ValueType< int16_t > const *)arg1)->copy(arg2,arg3);
     }
@@ -20236,8 +20198,7 @@ SWIGINTERN PyObject *_wrap_ShortValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<int16_t>::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<int16_t>::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::ValueType< int16_t > const *)arg1)->write(*arg2);
     }
@@ -21071,8 +21032,7 @@ SWIGINTERN PyObject *_wrap_LongValue_read__SWIG_0(PyObject *self, PyObject *args
     arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<int32_t>::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<int32_t>::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -21305,8 +21265,7 @@ SWIGINTERN PyObject *_wrap_LongValue_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<int32_t>::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<int32_t>::copy", 1);
     try {
       result = (long)((Exiv2::ValueType< int32_t > const *)arg1)->copy(arg2,arg3);
     }
@@ -21396,8 +21355,7 @@ SWIGINTERN PyObject *_wrap_LongValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<int32_t>::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<int32_t>::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::ValueType< int32_t > const *)arg1)->write(*arg2);
     }
@@ -22238,8 +22196,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_read__SWIG_0(PyObject *self, PyObject *
     arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::Rational>::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::Rational>::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -22472,8 +22429,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::Rational>::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::Rational>::copy", 1);
     try {
       result = (long)((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->copy(arg2,arg3);
     }
@@ -22563,8 +22519,7 @@ SWIGINTERN PyObject *_wrap_RationalValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::Rational>::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<Exiv2::Rational>::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::ValueType< Exiv2::Rational > const *)arg1)->write(*arg2);
     }
@@ -23398,8 +23353,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_read__SWIG_0(PyObject *self, PyObject *arg
     arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<float>::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<float>::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -23632,8 +23586,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<float>::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<float>::copy", 1);
     try {
       result = (long)((Exiv2::ValueType< float > const *)arg1)->copy(arg2,arg3);
     }
@@ -23723,8 +23676,7 @@ SWIGINTERN PyObject *_wrap_FloatValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<float>::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<float>::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::ValueType< float > const *)arg1)->write(*arg2);
     }
@@ -24558,8 +24510,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_read__SWIG_0(PyObject *self, PyObject *ar
     arg4 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<double>::read(const byte*, long, ByteOrder)", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<double>::read(const byte*, long, ByteOrder)", 1);
     try {
       result = (int)(arg1)->read((Exiv2::byte const *)arg2,arg3,arg4);
     }
@@ -24792,8 +24743,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<double>::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<double>::copy", 1);
     try {
       result = (long)((Exiv2::ValueType< double > const *)arg1)->copy(arg2,arg3);
     }
@@ -24883,8 +24833,7 @@ SWIGINTERN PyObject *_wrap_DoubleValue_write(PyObject *self, PyObject *args) {
     _global_io = obj1;
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::ValueType<double>::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ValueType<double>::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::ValueType< double > const *)arg1)->write(*arg2);
     }

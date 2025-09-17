@@ -6203,8 +6203,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_pointer_copy(PyObject *self, PyObject *args
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Exifdatum::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Exifdatum::copy", 1);
     try {
       result = (*arg1)->copy(arg2,arg3);
     }
@@ -6266,8 +6265,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_pointer_write(PyObject *self, PyObject *arg
     arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Exifdatum::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Exifdatum::write", 1);
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
     }
@@ -7955,8 +7953,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Exifdatum::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Exifdatum::copy", 1);
     try {
       result = ((Exiv2::Exifdatum const *)arg1)->copy(arg2,arg3);
     }
@@ -8018,8 +8015,7 @@ SWIGINTERN PyObject *_wrap_Exifdatum_write(PyObject *self, PyObject *args) {
     arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Exifdatum::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Exifdatum::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::Exifdatum const *)arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
     }

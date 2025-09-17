@@ -6129,6 +6129,7 @@ SWIGINTERN PyObject *_wrap_Image_supportsMetadata(PyObject *self, PyObject *args
     arg2 = static_cast< Exiv2::MetadataId >(PyLong_AsLong(swig_obj[0]));
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Exiv2::Image::supportsMetadata" " is deprecated in libexiv2", 1);
     try {
       result = (bool)((Exiv2::Image const *)arg1)->supportsMetadata(arg2);
     }

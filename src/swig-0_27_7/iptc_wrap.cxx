@@ -5697,8 +5697,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_pointer_copy(PyObject *self, PyObject *args
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Iptcdatum::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Iptcdatum::copy", 1);
     try {
       result = (long)(*arg1)->copy(arg2,arg3);
     }
@@ -5760,8 +5759,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_pointer_write(PyObject *self, PyObject *arg
     arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Iptcdatum::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Iptcdatum::write", 1);
     try {
       result = (std::ostream *) &(*arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
     }
@@ -5828,6 +5826,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_pointer_recordName(PyObject *self, PyObject
   }
   arg1 = reinterpret_cast< Iptcdatum_pointer * >(argp1);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Exiv2::Iptcdatum::recordName" " is deprecated in libexiv2", 1);
     try {
       result = (*arg1)->recordName();
     }
@@ -7280,8 +7279,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_copy(PyObject *self, PyObject *args) {
     arg3 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(obj2));
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Iptcdatum::copy", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Iptcdatum::copy", 1);
     try {
       result = (long)((Exiv2::Iptcdatum const *)arg1)->copy(arg2,arg3);
     }
@@ -7343,8 +7341,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_write(PyObject *self, PyObject *args) {
     arg3 = reinterpret_cast< Exiv2::ExifData * >(argp3);
   }
   {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-      "Python scripts should not need to call ""Exiv2::Iptcdatum::write", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Iptcdatum::write", 1);
     try {
       result = (std::ostream *) &((Exiv2::Iptcdatum const *)arg1)->write(*arg2,(Exiv2::ExifData const *)arg3);
     }
@@ -7411,6 +7408,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_recordName(PyObject *self, PyObject *args) 
   }
   arg1 = reinterpret_cast< Exiv2::Iptcdatum * >(argp1);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Exiv2::Iptcdatum::recordName" " is deprecated in libexiv2", 1);
     try {
       result = ((Exiv2::Iptcdatum const *)arg1)->recordName();
     }
