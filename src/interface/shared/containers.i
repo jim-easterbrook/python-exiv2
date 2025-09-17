@@ -55,7 +55,7 @@ static PyObject* set_value_from_py(Exiv2::datum_type* datum,
         return SWIG_Py_Void();
     }
     // Try converting Python object to a value
-    swig_type_info* ty_info = get_type_object.at(get_type_id(datum));
+    swig_type_info* ty_info = get_type_object(get_type_id(datum));
     SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
     // Call type object to invoke constructor
     PyObject* swig_obj = PyObject_CallFunctionObjArgs(

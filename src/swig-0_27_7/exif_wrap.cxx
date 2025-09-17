@@ -5118,7 +5118,14 @@ SwigPython_std_pair_setitem (PyObject *a, Py_ssize_t b, PyObject *c)
     
 
 
-static std::map< Exiv2::TypeId, swig_type_info* > get_type_object;
+static std::map<Exiv2::TypeId, swig_type_info*> _type_object;
+// Function to get swig type for an Exiv2 type id
+static swig_type_info* get_type_object(const Exiv2::TypeId type_id) {
+    auto ptr = _type_object.find(type_id);
+    if (ptr == _type_object.end())
+        return SWIGTYPE_p_Exiv2__DataValue;
+    return ptr->second;
+};
 
 
 static swig_type_info* get_swig_type(Exiv2::Value* value) {
@@ -5128,7 +5135,7 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
         if (dynamic_cast<Exiv2::CommentValue*>(value))
             return SWIGTYPE_p_Exiv2__CommentValue;
     }
-    return get_type_object.at(type_id);
+    return get_type_object(type_id);
 };
 
 
@@ -5369,7 +5376,7 @@ static PyObject* set_value_from_py(Exiv2::Exifdatum* datum,
         return SWIG_Py_Void();
     }
     // Try converting Python object to a value
-    swig_type_info* ty_info = get_type_object.at(get_type_id(datum));
+    swig_type_info* ty_info = get_type_object(get_type_id(datum));
     SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
     // Call type object to invoke constructor
     PyObject* swig_obj = PyObject_CallFunctionObjArgs(
@@ -13802,10 +13809,7 @@ SWIG_init(void) {
   return INIT_ERROR_RETURN;
   
   
-  get_type_object = {
-    {
-      Exiv2::unsignedByte,   SWIGTYPE_p_Exiv2__DataValue
-    },
+  _type_object = {
     {
       Exiv2::asciiString,    SWIGTYPE_p_Exiv2__AsciiValue
     },
@@ -13818,12 +13822,6 @@ SWIG_init(void) {
     {
       Exiv2::unsignedRational,
       SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t
-    },
-    {
-      Exiv2::signedByte,     SWIGTYPE_p_Exiv2__DataValue
-    },
-    {
-      Exiv2::undefined,      SWIGTYPE_p_Exiv2__DataValue
     },
     {
       Exiv2::signedShort,    SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t
@@ -13844,16 +13842,6 @@ SWIG_init(void) {
       Exiv2::tiffIfd,        SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t
     },
     {
-      Exiv2::unsignedLongLong,
-      SWIGTYPE_p_Exiv2__DataValue
-    },
-    {
-      Exiv2::signedLongLong, SWIGTYPE_p_Exiv2__DataValue
-    },
-    {
-      Exiv2::tiffIfd8,       SWIGTYPE_p_Exiv2__DataValue
-    },
-    {
       Exiv2::string,         SWIGTYPE_p_Exiv2__StringValue
     },
     {
@@ -13864,9 +13852,6 @@ SWIG_init(void) {
     },
     {
       Exiv2::comment,        SWIGTYPE_p_Exiv2__CommentValue
-    },
-    {
-      Exiv2::directory,      SWIGTYPE_p_Exiv2__DataValue
     },
     {
       Exiv2::xmpText,        SWIGTYPE_p_Exiv2__XmpTextValue
@@ -13882,9 +13867,6 @@ SWIG_init(void) {
     },
     {
       Exiv2::langAlt,        SWIGTYPE_p_Exiv2__LangAltValue
-    },
-    {
-      Exiv2::invalidTypeId,  SWIGTYPE_p_Exiv2__DataValue
     }
   };
   
