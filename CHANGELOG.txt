@@ -20,6 +20,7 @@ Changes in v0.18.0:
   1/ Removed features deprecated in v0.13.0:
      Value (and derived types) copy constructors
      Single value (such as DateValue) index methods
+     DataBuf indexing.
   2/ Deprecated many BasicIo methods (read, write, seek, etc.) that should not
      be needed in Python scripts. Please let me know if this is a problem.
   3/ Deprecated copy, write, and read(buffer) methods of Value (and

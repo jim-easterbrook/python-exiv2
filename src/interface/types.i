@@ -109,16 +109,11 @@ if os.path.isdir(_dir):
 
 // Make various enums more Pythonic
 DEFINE_ENUM(AccessMode, 2)
-
 DEFINE_ENUM(ByteOrder,)
-
 DEFINE_ENUM(MetadataId, 2)
-
 DEFINE_ENUM(TypeId,)
 
 // Make Exiv2::DataBuf behave more like a tuple of ints
-%feature("python:slot", "mp_subscript", functype="binaryfunc")
-    Exiv2::DataBuf::__getitem__;
 %extend Exiv2::DataBuf {
 #if EXIV2_VERSION_HEX >= 0x001c0000
     bool __eq__(const Exiv2::byte *pData, size_t size) {
@@ -141,36 +136,6 @@ DEFINE_ENUM(TypeId,)
         if ($self->size_ != size)
             return true;
         return std::memcmp($self->pData_, pData, size) != 0;
-    }
-    PyObject* __getitem__(PyObject* idx) {
-        // deprecated since 2022-12-20
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use 'DataBuf.data()' to get a memoryview", 1);
-        if (PySlice_Check(idx)) {
-            Py_ssize_t i1, i2, di, sl;
-            if (PySlice_GetIndicesEx(idx, $self->size_, &i1, &i2, &di, &sl))
-                return NULL;
-            PyObject* result = PyTuple_New(sl);
-            Exiv2::byte* ptr = $self->pData_ + i1;
-            for (Py_ssize_t i = 0; i < sl; ++i) {
-                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
-                ptr += di;
-            }
-            return result;
-        }
-        if (PyLong_Check(idx)) {
-            long i = PyLong_AsLong(idx);
-            if (i < 0)
-                i += $self->size_;
-            if ((i < 0) || (i >= $self->size_)) {
-                PyErr_SetString(PyExc_IndexError, "index out of range");
-                return NULL;
-            }
-            return PyLong_FromLong((long)*($self->pData_ + i));
-        }
-        return PyErr_Format(PyExc_TypeError,
-            "indices must be integers or slices, not %s",
-            Py_TYPE(idx)->tp_name);
     }
 #endif
 }

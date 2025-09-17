@@ -67,8 +67,6 @@ class TestTypesModule(unittest.TestCase):
             self.assertEqual(buf.empty(), True)
         else:
             with self.assertWarns(DeprecationWarning):
-                result = buf[23]
-            with self.assertWarns(DeprecationWarning):
                 self.check_result(buf.pData_, memoryview, data)
             with self.assertWarns(DeprecationWarning):
                 self.check_result(buf.size_, int, len(data))

@@ -4862,36 +4862,6 @@ SWIGINTERN bool Exiv2_DataBuf___ne__(Exiv2::DataBuf *self,Exiv2::byte const *pDa
             return true;
         return std::memcmp(self->pData_, pData, size) != 0;
     }
-SWIGINTERN PyObject *Exiv2_DataBuf___getitem__(Exiv2::DataBuf *self,PyObject *idx){
-        // deprecated since 2022-12-20
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use 'DataBuf.data()' to get a memoryview", 1);
-        if (PySlice_Check(idx)) {
-            Py_ssize_t i1, i2, di, sl;
-            if (PySlice_GetIndicesEx(idx, self->size_, &i1, &i2, &di, &sl))
-                return NULL;
-            PyObject* result = PyTuple_New(sl);
-            Exiv2::byte* ptr = self->pData_ + i1;
-            for (Py_ssize_t i = 0; i < sl; ++i) {
-                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
-                ptr += di;
-            }
-            return result;
-        }
-        if (PyLong_Check(idx)) {
-            long i = PyLong_AsLong(idx);
-            if (i < 0)
-                i += self->size_;
-            if ((i < 0) || (i >= self->size_)) {
-                PyErr_SetString(PyExc_IndexError, "index out of range");
-                return NULL;
-            }
-            return PyLong_FromLong((long)*(self->pData_ + i));
-        }
-        return PyErr_Format(PyExc_TypeError,
-            "indices must be integers or slices, not %s",
-            Py_TYPE(idx)->tp_name);
-    }
 SWIGINTERN void Exiv2_DataBuf__view_deleted_cb(Exiv2::DataBuf *self,PyObject *ref){}
 SWIGINTERN Exiv2::byte *Exiv2_DataBuf_data(Exiv2::DataBuf const *self){ return self->pData_; }
 SWIGINTERN size_t Exiv2_DataBuf_size(Exiv2::DataBuf const *self){ return self->size_; }
@@ -6192,39 +6162,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DataBuf___getitem__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[2] ;
-  PyObject *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataBuf___getitem__" "', argument " "1"" of type '" "Exiv2::DataBuf *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DataBuf * >(argp1);
-  arg2 = swig_obj[0];
-  {
-    try {
-      result = (PyObject *)Exiv2_DataBuf___getitem__(arg1,arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_DataBuf__view_deleted_cb(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::DataBuf *arg1 = (Exiv2::DataBuf *) 0 ;
@@ -7284,7 +7221,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataBuf_methods[] = {
   { "reset", _wrap_DataBuf_reset, METH_NOARGS, "Reset value" },
   { "__eq__", _wrap_DataBuf___eq__, METH_O, "" },
   { "__ne__", _wrap_DataBuf___ne__, METH_O, "" },
-  { "__getitem__", _wrap_DataBuf___getitem__, METH_O, "" },
   { "_view_deleted_cb", _wrap_DataBuf__view_deleted_cb, METH_O, "" },
   { "data", _wrap_DataBuf_data, METH_NOARGS, "\n"
 		"Returns a temporary Python memoryview of the object's data.\n"
@@ -7459,7 +7395,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataBuf_type = {
   },
   {
     (lenfunc) 0,                            /* mp_length */
-    _wrap_DataBuf___getitem__,              /* mp_subscript */
+    (binaryfunc) 0,                         /* mp_subscript */
     (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
@@ -7565,7 +7501,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__DataBuf_type_create(PyTypeObject *typ
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)(lenfunc) 0 },
-    { Py_mp_subscript,                  (void *)_wrap_DataBuf___getitem__ },
+    { Py_mp_subscript,                  (void *)(binaryfunc) 0 },
     { Py_mp_ass_subscript,              (void *)(objobjargproc) 0 },
     { Py_tp_iter,                       (void *)(getiterfunc) 0 },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
