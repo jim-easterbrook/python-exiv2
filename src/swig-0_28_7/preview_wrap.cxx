@@ -5515,12 +5515,6 @@ static PyObject* keys_struct(struct_info& info) {
 };
 
 
-static PyObject* Exiv2_PreviewProperties___members___get(Exiv2::PreviewProperties*) {
-    init_info_Exiv2_PreviewProperties();
-    return keys_struct(info_Exiv2_PreviewProperties);
-};
-
-
 static PyObject* values_struct(struct_info& info, PyObject* obj) {
     PyObject* result = PyTuple_New(info.members.size());
     for (size_t i = 0; i < info.members.size(); i++)
@@ -5606,31 +5600,21 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN PyObject *Exiv2_PreviewProperties_keys(Exiv2::PreviewProperties *self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names", 1);
-        return Exiv2_PreviewProperties___members___get(self);
+        init_info_Exiv2_PreviewProperties();
+        return keys_struct(info_Exiv2_PreviewProperties);
     }
 SWIGINTERN PyObject *Exiv2_PreviewProperties_values(Exiv2::PreviewProperties *self,PyObject *py_self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_Exiv2_PreviewProperties();
         return values_struct(info_Exiv2_PreviewProperties, py_self);
     }
 SWIGINTERN PyObject *Exiv2_PreviewProperties_items(Exiv2::PreviewProperties *self,PyObject *py_self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_Exiv2_PreviewProperties();
         return items_struct(info_Exiv2_PreviewProperties, py_self);
     }
 SWIGINTERN PyObject *Exiv2_PreviewProperties___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please iterate over the __members__ attribute", 1);
+             "Please iterate over keys() function output", 1);
         init_info_Exiv2_PreviewProperties();
         PyObject* seq = keys_struct(info_Exiv2_PreviewProperties);
         PyObject* result = PySeqIter_New(seq);
@@ -6116,27 +6100,6 @@ SWIGINTERN PyObject *_wrap_PreviewProperties_id__get(PyObject *self, PyObject *a
   arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
   result = (Exiv2::PreviewId) ((arg1)->id_);
   resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_PreviewProperties___members___get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "PreviewProperties___members___get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties___members___get" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
-  result = (PyObject *)Exiv2_PreviewProperties___members___get(arg1);
-  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -6776,7 +6739,6 @@ static PyMethodDef SwigMethods[] = {
 
 static SwigPyGetSet PreviewProperties_height__getset = { _wrap_PreviewProperties_height__get, 0 };
 static SwigPyGetSet PreviewProperties_id__getset = { _wrap_PreviewProperties_id__get, 0 };
-static SwigPyGetSet PreviewProperties___members___getset = { _wrap_PreviewProperties___members___get, 0 };
 static SwigPyGetSet PreviewProperties_mimeType__getset = { _wrap_PreviewProperties_mimeType__get, 0 };
 static SwigPyGetSet PreviewProperties_size__getset = { _wrap_PreviewProperties_size__get, 0 };
 static SwigPyGetSet PreviewProperties_width__getset = { _wrap_PreviewProperties_width__get, 0 };
@@ -6785,19 +6747,6 @@ static SwigPyGetSet PreviewProperties_extension__getset = { _wrap_PreviewPropert
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__PreviewProperties_getset[] = {
     { (char *)"height_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Preview image height in pixels or 0 for unknown height.", &PreviewProperties_height__getset },
     { (char *)"id_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Identifies type of preview image.", &PreviewProperties_id__getset },
-    { (char *)"__members__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"Structure member names.\n"
-		"\n"
-		":type: tuple of str\n"
-		"\n"
-		"List of names used to access members as attributes (``object.name``) or\n"
-		"with dict-like indexing (``object['name']``). Attribute access is\n"
-		"preferred as it is more efficient.\n"
-		"\n"
-		"Although the actual structure member names end with underscores, the\n"
-		"Python interface uses names without underscores, as listed in\n"
-		"``__members__``.\n"
-		"", &PreviewProperties___members___getset },
     { (char *)"mimeType_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Preview image mime type.", &PreviewProperties_mimeType__getset },
     { (char *)"size_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Preview image size in bytes.", &PreviewProperties_size__getset },
     { (char *)"width_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Preview image width in pixels or 0 for unknown width.", &PreviewProperties_width__getset },
@@ -6823,9 +6772,16 @@ SwigPyBuiltin__Exiv2__PreviewProperties_richcompare(PyObject *self, PyObject *ot
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewProperties_methods[] = {
   { "keys", _wrap_PreviewProperties_keys, METH_NOARGS, "\n"
 		"Get structure member names.\n"
+		"\n"
+		"Return the names used to access members as attributes (``object.name``)\n"
+		"or with dict-like indexing (``object['name']``). Attribute access is\n"
+		"preferred as it is more efficient.\n"
+		"\n"
+		"Although the exiv2 C++ structure member names end with underscores, the\n"
+		"Python interface uses names without underscores.\n"
 		":rtype: tuple of str\n"
-		":return: structure member names (with any trailing underscores\n"
-		"    removed).\n"
+		":return: structure member names.\n"
+		"\n"
 		"" },
   { "values", _wrap_PreviewProperties_values, METH_NOARGS, "\n"
 		"Get structure member values.\n"
@@ -6835,8 +6791,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewProperties_methods[] = {
   { "items", _wrap_PreviewProperties_items, METH_NOARGS, "\n"
 		"Get structure members.\n"
 		":rtype: tuple of (str, value) tuple\n"
-		":return: structure member (name, value) pairs (with any trailing\n"
-		"    underscores removed from names).\n"
+		":return: structure member (name, value) pairs.\n"
 		"" },
   { "__iter__", (PyCFunction)(void(*)(void))_wrap_PreviewProperties___iter__, METH_STATIC|METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */

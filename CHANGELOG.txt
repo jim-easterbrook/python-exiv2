@@ -38,8 +38,7 @@ Changes in v0.18.0:
   9/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
  10/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
  11/ Add __members__ attribute to exiv2 "data" structure types.
- 12/ Deprecated keys(), values(), and items() methods and iterator of exiv2
-     "data" structure types.
+ 12/ Deprecated iteration of exiv2 "data" structure types.
  13/ API CHANGE: exiv2.LogMsg.pythonHandler is replaced by exiv2.pythonHandler
 
 Changes in v0.17.5:

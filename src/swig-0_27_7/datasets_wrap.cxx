@@ -4424,12 +4424,6 @@ static PyObject* keys_struct(struct_info& info) {
 };
 
 
-static PyObject* Exiv2_DataSet___members___get(Exiv2::DataSet*) {
-    init_info_Exiv2_DataSet();
-    return keys_struct(info_Exiv2_DataSet);
-};
-
-
 static PyObject* values_struct(struct_info& info, PyObject* obj) {
     PyObject* result = PyTuple_New(info.members.size());
     for (size_t i = 0; i < info.members.size(); i++)
@@ -4481,31 +4475,21 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN PyObject *Exiv2_DataSet_keys(Exiv2::DataSet *self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names", 1);
-        return Exiv2_DataSet___members___get(self);
+        init_info_Exiv2_DataSet();
+        return keys_struct(info_Exiv2_DataSet);
     }
 SWIGINTERN PyObject *Exiv2_DataSet_values(Exiv2::DataSet *self,PyObject *py_self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_Exiv2_DataSet();
         return values_struct(info_Exiv2_DataSet, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DataSet_items(Exiv2::DataSet *self,PyObject *py_self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_Exiv2_DataSet();
         return items_struct(info_Exiv2_DataSet, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DataSet___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please iterate over the __members__ attribute", 1);
+             "Please iterate over keys() function output", 1);
         init_info_Exiv2_DataSet();
         PyObject* seq = keys_struct(info_Exiv2_DataSet);
         PyObject* result = PySeqIter_New(seq);
@@ -5042,27 +5026,6 @@ SWIGINTERN PyObject *_wrap_DataSet_photoshop__get(PyObject *self, PyObject *args
   arg1 = reinterpret_cast< Exiv2::DataSet * >(argp1);
   result = (char *) ((arg1)->photoshop_);
   resultobj = SWIG_FromCharPtr((const char *)result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_DataSet___members___get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::DataSet *arg1 = (Exiv2::DataSet *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "DataSet___members___get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataSet, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataSet___members___get" "', argument " "1"" of type '" "Exiv2::DataSet *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DataSet * >(argp1);
-  result = (PyObject *)Exiv2_DataSet___members___get(arg1);
-  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -5852,7 +5815,6 @@ static SwigPyGetSet DataSet_title__getset = { _wrap_DataSet_title__get, 0 };
 static SwigPyGetSet DataSet_photoshop__getset = { _wrap_DataSet_photoshop__get, 0 };
 static SwigPyGetSet DataSet_desc__getset = { _wrap_DataSet_desc__get, 0 };
 static SwigPyGetSet DataSet_repeatable__getset = { _wrap_DataSet_repeatable__get, 0 };
-static SwigPyGetSet DataSet___members___getset = { _wrap_DataSet___members___get, 0 };
 static SwigPyGetSet DataSet_number__getset = { _wrap_DataSet_number__get, 0 };
 static SwigPyGetSet DataSet_maxbytes__getset = { _wrap_DataSet_maxbytes__get, 0 };
 static SwigPyGetSet DataSet___dict___getset = { SwigPyObject_get___dict__, 0 };
@@ -5866,19 +5828,6 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__DataSet_getset[] = {
     { (char *)"photoshop_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Photoshop string", &DataSet_photoshop__getset },
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Dataset description", &DataSet_desc__getset },
     { (char *)"repeatable_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"True if dataset is repeatable", &DataSet_repeatable__getset },
-    { (char *)"__members__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"Structure member names.\n"
-		"\n"
-		":type: tuple of str\n"
-		"\n"
-		"List of names used to access members as attributes (``object.name``) or\n"
-		"with dict-like indexing (``object['name']``). Attribute access is\n"
-		"preferred as it is more efficient.\n"
-		"\n"
-		"Although the actual structure member names end with underscores, the\n"
-		"Python interface uses names without underscores, as listed in\n"
-		"``__members__``.\n"
-		"", &DataSet___members___getset },
     { (char *)"number_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Dataset number", &DataSet_number__getset },
     { (char *)"maxbytes_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Maximum number of bytes", &DataSet_maxbytes__getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Dataset number", &DataSet___dict___getset },
@@ -5907,9 +5856,16 @@ SwigPyBuiltin__Exiv2__DataSet_richcompare(PyObject *self, PyObject *other, int o
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataSet_methods[] = {
   { "keys", _wrap_DataSet_keys, METH_NOARGS, "\n"
 		"Get structure member names.\n"
+		"\n"
+		"Return the names used to access members as attributes (``object.name``)\n"
+		"or with dict-like indexing (``object['name']``). Attribute access is\n"
+		"preferred as it is more efficient.\n"
+		"\n"
+		"Although the exiv2 C++ structure member names end with underscores, the\n"
+		"Python interface uses names without underscores.\n"
 		":rtype: tuple of str\n"
-		":return: structure member names (with any trailing underscores\n"
-		"    removed).\n"
+		":return: structure member names.\n"
+		"\n"
 		"" },
   { "values", _wrap_DataSet_values, METH_NOARGS, "\n"
 		"Get structure member values.\n"
@@ -5919,8 +5875,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataSet_methods[] = {
   { "items", _wrap_DataSet_items, METH_NOARGS, "\n"
 		"Get structure members.\n"
 		":rtype: tuple of (str, value) tuple\n"
-		":return: structure member (name, value) pairs (with any trailing\n"
-		"    underscores removed from names).\n"
+		":return: structure member (name, value) pairs.\n"
 		"" },
   { "__iter__", (PyCFunction)(void(*)(void))_wrap_DataSet___iter__, METH_STATIC|METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */

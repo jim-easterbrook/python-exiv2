@@ -369,9 +369,8 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.month, today.month)
         self.assertIsInstance(value.day, int)
         self.assertEqual(value.day, today.day)
-        with self.assertWarns(DeprecationWarning):
-            self.assertEqual(dict(value), {
-                'year': today.year, 'month': today.month, 'day': today.day})
+        self.assertEqual(dict(value), {
+            'year': today.year, 'month': today.month, 'day': today.day})
         value['day'] = 1
         with self.assertRaises((AttributeError, TypeError)):
             del value['day']
@@ -396,8 +395,7 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.DateValue)
         self.assertEqual(str(value), py_date.isoformat())
         # other methods
-        with self.assertWarns(DeprecationWarning):
-            self.check_result(dict(value.getDate()), dict, date_dict)
+        self.check_result(dict(value.getDate()), dict, date_dict)
         value.setDate(exiv_date)
         self.assertEqual(str(value), py_date.isoformat())
         value.setDate(py_date.year, py_date.month, py_date.day)
@@ -436,10 +434,9 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.tzHour, 1)
         self.assertIsInstance(value.tzMinute, int)
         self.assertEqual(value.tzMinute, 30)
-        with self.assertWarns(DeprecationWarning):
-            self.assertEqual(dict(value), {
-                'hour': now.hour, 'minute': now.minute, 'second': now.second,
-                'tzHour': 1, 'tzMinute': 30})
+        self.assertEqual(dict(value), {
+            'hour': now.hour, 'minute': now.minute, 'second': now.second,
+            'tzHour': 1, 'tzMinute': 30})
         value['second'] = 1
         with self.assertRaises((AttributeError, TypeError)):
             del value['second']
@@ -472,8 +469,7 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.TimeValue)
         self.assertEqual(str(value), py_time.isoformat())
         # other methods
-        with self.assertWarns(DeprecationWarning):
-            self.check_result(dict(value.getTime()), dict, time_dict)
+        self.check_result(dict(value.getTime()), dict, time_dict)
         value.setTime(exiv_time)
         self.assertEqual(str(value), py_time.isoformat())
         value.setTime(py_time.hour, py_time.minute)

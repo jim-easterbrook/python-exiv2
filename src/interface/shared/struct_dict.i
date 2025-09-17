@@ -121,7 +121,6 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 %feature("python:slot", "tp_iter", functype="getiterfunc")
     struct_type::__iter__;
 // These functions don't throw exceptions
-%noexception struct_type::__members__;
 %noexception struct_type::__iter__;
 %noexception struct_type::keys;
 %noexception struct_type::values;
@@ -131,70 +130,47 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 // Document functions
 %feature("docstring") struct_type::items "Get structure members.
 :rtype: tuple of (str, value) tuple
-:return: structure member (name, value) pairs (with any trailing
-    underscores removed from names)."
+:return: structure member (name, value) pairs."
 %feature("docstring") struct_type::keys "Get structure member names.
-:rtype: tuple of str
-:return: structure member names (with any trailing underscores
-    removed)."
-%feature("docstring") struct_type::values "Get structure member values.
-:rtype: tuple of value
-:return: structure member values."
-%feature("docstring") struct_type::__members__ "Structure member names.
 
-:type: tuple of str
-
-List of names used to access members as attributes (``object.name``) or
-with dict-like indexing (``object['name']``). Attribute access is
+Return the names used to access members as attributes (``object.name``)
+or with dict-like indexing (``object['name']``). Attribute access is
 preferred as it is more efficient."
 #if #strip_underscore == "true"
 "
 
-Although the actual structure member names end with underscores, the
-Python interface uses names without underscores, as listed in
-``__members__``."
+Although the exiv2 C++ structure member names end with underscores, the
+Python interface uses names without underscores."
 #endif
-// Getter function for __members__
-%fragment("members_get"{struct_type}, "header",
-          fragment="struct_info"{struct_type}, fragment="keys_struct") {
-static PyObject* %mangle(struct_type)___members___get(struct_type*) {
-    init_info_%mangle(struct_type)();
-    return keys_struct(info_%mangle(struct_type));
-};
-}
+"
+:rtype: tuple of str
+:return: structure member names.
+"
+%feature("docstring") struct_type::values "Get structure member values.
+:rtype: tuple of value
+:return: structure member values."
 // Add functions
 %extend struct_type {
     %fragment("struct_info"{struct_type});
-    %fragment("members_get"{struct_type});
+    %fragment("keys_struct");
     %fragment("values_struct");
     %fragment("items_struct");
-    PyObject* __members__ const;
     PyObject* keys() {
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names", 1);
-        return %mangle(struct_type)___members___get(self);
+        init_info_%mangle(struct_type)();
+        return keys_struct(info_%mangle(struct_type));
     }
     PyObject* values(PyObject* py_self) {
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_%mangle(struct_type)();
         return values_struct(info_%mangle(struct_type), py_self);
     }
     PyObject* items(PyObject* py_self) {
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_%mangle(struct_type)();
         return items_struct(info_%mangle(struct_type), py_self);
     }
     static PyObject* __iter__() {
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please iterate over the __members__ attribute", 1);
+             "Please iterate over keys() function output", 1);
         init_info_%mangle(struct_type)();
         PyObject* seq = keys_struct(info_%mangle(struct_type));
         PyObject* result = PySeqIter_New(seq);

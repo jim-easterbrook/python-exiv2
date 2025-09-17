@@ -93,20 +93,16 @@ class TestPreviewModule(unittest.TestCase):
         self.check_result(properties.mimeType_, str, 'image/jpeg')
         self.check_result(properties.size_, int, 2532)
         self.check_result(properties.width_, int, 160)
-        with self.assertWarns(DeprecationWarning):
-            keys = properties.keys()
+        keys = properties.keys()
         self.assertIsInstance(keys, tuple)
         self.assertEqual(len(keys), 6)
-        self.assertEqual(keys, properties.__members__)
-        with self.assertWarns(DeprecationWarning):
-            values = properties.values()
+        values = properties.values()
         self.assertIsInstance(values, tuple)
         self.assertEqual(len(values), 6)
-        with self.assertWarns(DeprecationWarning):
-            items = properties.items()
+        items = properties.items()
         self.assertIsInstance(items, tuple)
         self.assertEqual(len(items), 6)
-        for k in properties.__members__:
+        for k in properties.keys():
             v = getattr(properties, k)
             self.assertIn(k, keys)
             self.assertIn(v, values)

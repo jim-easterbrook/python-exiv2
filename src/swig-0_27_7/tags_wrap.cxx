@@ -4472,12 +4472,6 @@ static PyObject* keys_struct(struct_info& info) {
 };
 
 
-static PyObject* Exiv2_GroupInfo___members___get(Exiv2::GroupInfo*) {
-    init_info_Exiv2_GroupInfo();
-    return keys_struct(info_Exiv2_GroupInfo);
-};
-
-
 static PyObject* values_struct(struct_info& info, PyObject* obj) {
     PyObject* result = PyTuple_New(info.members.size());
     for (size_t i = 0; i < info.members.size(); i++)
@@ -4504,43 +4498,27 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN PyObject *Exiv2_GroupInfo_keys(Exiv2::GroupInfo *self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names", 1);
-        return Exiv2_GroupInfo___members___get(self);
+        init_info_Exiv2_GroupInfo();
+        return keys_struct(info_Exiv2_GroupInfo);
     }
 SWIGINTERN PyObject *Exiv2_GroupInfo_values(Exiv2::GroupInfo *self,PyObject *py_self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_Exiv2_GroupInfo();
         return values_struct(info_Exiv2_GroupInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_GroupInfo_items(Exiv2::GroupInfo *self,PyObject *py_self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_Exiv2_GroupInfo();
         return items_struct(info_Exiv2_GroupInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_GroupInfo___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please iterate over the __members__ attribute", 1);
+             "Please iterate over keys() function output", 1);
         init_info_Exiv2_GroupInfo();
         PyObject* seq = keys_struct(info_Exiv2_GroupInfo);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
         return result;
     }
-
-static PyObject* Exiv2_TagInfo___members___get(Exiv2::TagInfo*) {
-    init_info_Exiv2_TagInfo();
-    return keys_struct(info_Exiv2_TagInfo);
-};
-
 
   #define SWIG_From_long   PyInt_FromLong 
 
@@ -4567,31 +4545,21 @@ SWIG_From_short  (short value)
 }
 
 SWIGINTERN PyObject *Exiv2_TagInfo_keys(Exiv2::TagInfo *self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names", 1);
-        return Exiv2_TagInfo___members___get(self);
+        init_info_Exiv2_TagInfo();
+        return keys_struct(info_Exiv2_TagInfo);
     }
 SWIGINTERN PyObject *Exiv2_TagInfo_values(Exiv2::TagInfo *self,PyObject *py_self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_Exiv2_TagInfo();
         return values_struct(info_Exiv2_TagInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_TagInfo_items(Exiv2::TagInfo *self,PyObject *py_self){
-        // Deprecated since 2025-09-11
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please use __members__ to get the struct member names"
-             " and getattr to get values from names", 1);
         init_info_Exiv2_TagInfo();
         return items_struct(info_Exiv2_TagInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_TagInfo___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
-             "Please iterate over the __members__ attribute", 1);
+             "Please iterate over keys() function output", 1);
         init_info_Exiv2_TagInfo();
         PyObject* seq = keys_struct(info_Exiv2_TagInfo);
         PyObject* result = PySeqIter_New(seq);
@@ -5104,27 +5072,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_GroupInfo___members___get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "GroupInfo___members___get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo___members___get" "', argument " "1"" of type '" "Exiv2::GroupInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  result = (PyObject *)Exiv2_GroupInfo___members___get(arg1);
-  resultobj = result;
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_GroupInfo_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
@@ -5377,27 +5324,6 @@ SWIGINTERN PyObject *_wrap_TagInfo_count__get(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
   result = (int16_t) ((arg1)->count_);
   resultobj = SWIG_From_short(static_cast< short >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TagInfo___members___get(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "TagInfo___members___get", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo___members___get" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (PyObject *)Exiv2_TagInfo___members___get(arg1);
-  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -6466,26 +6392,12 @@ static PyTypeObject *SwigPyBuiltin___TagListFct_type_create(PyTypeObject *type, 
 #endif
 SWIGINTERN SwigPyClientData SwigPyBuiltin___TagListFct_clientdata = {0, 0, 0, 0, 0, 0, 0};
 
-static SwigPyGetSet GroupInfo___members___getset = { _wrap_GroupInfo___members___get, 0 };
 static SwigPyGetSet GroupInfo_ifdId__getset = { _wrap_GroupInfo_ifdId__get, 0 };
 static SwigPyGetSet GroupInfo_groupName__getset = { _wrap_GroupInfo_groupName__get, 0 };
 static SwigPyGetSet GroupInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
 static SwigPyGetSet GroupInfo_ifdName__getset = { _wrap_GroupInfo_ifdName__get, 0 };
 static SwigPyGetSet GroupInfo_tagList__getset = { _wrap_GroupInfo_tagList__get, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__GroupInfo_getset[] = {
-    { (char *)"__members__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"Structure member names.\n"
-		"\n"
-		":type: tuple of str\n"
-		"\n"
-		"List of names used to access members as attributes (``object.name``) or\n"
-		"with dict-like indexing (``object['name']``). Attribute access is\n"
-		"preferred as it is more efficient.\n"
-		"\n"
-		"Although the actual structure member names end with underscores, the\n"
-		"Python interface uses names without underscores, as listed in\n"
-		"``__members__``.\n"
-		"", &GroupInfo___members___getset },
     { (char *)"ifdId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"IFD id", &GroupInfo_ifdId__getset },
     { (char *)"groupName_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Group name, unique for each group.", &GroupInfo_groupName__getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"IFD id", &GroupInfo___dict___getset },
@@ -6511,9 +6423,16 @@ SwigPyBuiltin__Exiv2__GroupInfo_richcompare(PyObject *self, PyObject *other, int
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__GroupInfo_methods[] = {
   { "keys", _wrap_GroupInfo_keys, METH_NOARGS, "\n"
 		"Get structure member names.\n"
+		"\n"
+		"Return the names used to access members as attributes (``object.name``)\n"
+		"or with dict-like indexing (``object['name']``). Attribute access is\n"
+		"preferred as it is more efficient.\n"
+		"\n"
+		"Although the exiv2 C++ structure member names end with underscores, the\n"
+		"Python interface uses names without underscores.\n"
 		":rtype: tuple of str\n"
-		":return: structure member names (with any trailing underscores\n"
-		"    removed).\n"
+		":return: structure member names.\n"
+		"\n"
 		"" },
   { "values", _wrap_GroupInfo_values, METH_NOARGS, "\n"
 		"Get structure member values.\n"
@@ -6523,8 +6442,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__GroupInfo_methods[] = {
   { "items", _wrap_GroupInfo_items, METH_NOARGS, "\n"
 		"Get structure members.\n"
 		":rtype: tuple of (str, value) tuple\n"
-		":return: structure member (name, value) pairs (with any trailing\n"
-		"    underscores removed from names).\n"
+		":return: structure member (name, value) pairs.\n"
 		"" },
   { "__iter__", (PyCFunction)(void(*)(void))_wrap_GroupInfo___iter__, METH_STATIC|METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
@@ -6861,7 +6779,6 @@ static SwigPyGetSet TagInfo_title__getset = { _wrap_TagInfo_title__get, 0 };
 static SwigPyGetSet TagInfo_sectionId__getset = { _wrap_TagInfo_sectionId__get, 0 };
 static SwigPyGetSet TagInfo_desc__getset = { _wrap_TagInfo_desc__get, 0 };
 static SwigPyGetSet TagInfo_typeId__getset = { _wrap_TagInfo_typeId__get, 0 };
-static SwigPyGetSet TagInfo___members___getset = { _wrap_TagInfo___members___get, 0 };
 static SwigPyGetSet TagInfo_ifdId__getset = { _wrap_TagInfo_ifdId__get, 0 };
 static SwigPyGetSet TagInfo___dict___getset = { SwigPyObject_get___dict__, 0 };
 static SwigPyGetSet TagInfo_count__getset = { _wrap_TagInfo_count__get, 0 };
@@ -6872,19 +6789,6 @@ SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__TagInfo_getset[] = {
     { (char *)"sectionId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Section id", &TagInfo_sectionId__getset },
     { (char *)"desc_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Short tag description", &TagInfo_desc__getset },
     { (char *)"typeId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Type id", &TagInfo_typeId__getset },
-    { (char *)"__members__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"\n"
-		"Structure member names.\n"
-		"\n"
-		":type: tuple of str\n"
-		"\n"
-		"List of names used to access members as attributes (``object.name``) or\n"
-		"with dict-like indexing (``object['name']``). Attribute access is\n"
-		"preferred as it is more efficient.\n"
-		"\n"
-		"Although the actual structure member names end with underscores, the\n"
-		"Python interface uses names without underscores, as listed in\n"
-		"``__members__``.\n"
-		"", &TagInfo___members___getset },
     { (char *)"ifdId_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Link to the (preferred) IFD", &TagInfo_ifdId__getset },
     { (char *)"__dict__", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"Tag", &TagInfo___dict___getset },
     { (char *)"count_", SwigPyBuiltin_FunpackGetterClosure, 0, (char *)"The number of values (not bytes!), 0=any, -1=count not known.", &TagInfo_count__getset },
@@ -6909,9 +6813,16 @@ SwigPyBuiltin__Exiv2__TagInfo_richcompare(PyObject *self, PyObject *other, int o
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TagInfo_methods[] = {
   { "keys", _wrap_TagInfo_keys, METH_NOARGS, "\n"
 		"Get structure member names.\n"
+		"\n"
+		"Return the names used to access members as attributes (``object.name``)\n"
+		"or with dict-like indexing (``object['name']``). Attribute access is\n"
+		"preferred as it is more efficient.\n"
+		"\n"
+		"Although the exiv2 C++ structure member names end with underscores, the\n"
+		"Python interface uses names without underscores.\n"
 		":rtype: tuple of str\n"
-		":return: structure member names (with any trailing underscores\n"
-		"    removed).\n"
+		":return: structure member names.\n"
+		"\n"
 		"" },
   { "values", _wrap_TagInfo_values, METH_NOARGS, "\n"
 		"Get structure member values.\n"
@@ -6921,8 +6832,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TagInfo_methods[] = {
   { "items", _wrap_TagInfo_items, METH_NOARGS, "\n"
 		"Get structure members.\n"
 		":rtype: tuple of (str, value) tuple\n"
-		":return: structure member (name, value) pairs (with any trailing\n"
-		"    underscores removed from names).\n"
+		":return: structure member (name, value) pairs.\n"
 		"" },
   { "__iter__", (PyCFunction)(void(*)(void))_wrap_TagInfo___iter__, METH_STATIC|METH_NOARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
