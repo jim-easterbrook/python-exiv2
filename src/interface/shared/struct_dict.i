@@ -155,7 +155,7 @@ Python interface uses names without underscores."
     %fragment("keys_struct");
     %fragment("values_struct");
     %fragment("items_struct");
-    PyObject* keys() {
+    static PyObject* keys() {
         init_info_%mangle(struct_type)();
         return keys_struct(info_%mangle(struct_type));
     }

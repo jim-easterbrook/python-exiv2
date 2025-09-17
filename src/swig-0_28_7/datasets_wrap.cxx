@@ -4474,7 +4474,7 @@ SWIGINTERNINLINE PyObject*
   return PyInt_FromSize_t((size_t) value);
 }
 
-SWIGINTERN PyObject *Exiv2_DataSet_keys(Exiv2::DataSet *self){
+SWIGINTERN PyObject *Exiv2_DataSet_keys(){
         init_info_Exiv2_DataSet();
         return keys_struct(info_Exiv2_DataSet);
     }
@@ -5034,18 +5034,10 @@ fail:
 
 SWIGINTERN PyObject *_wrap_DataSet_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::DataSet *arg1 = (Exiv2::DataSet *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "DataSet_keys", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataSet, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataSet_keys" "', argument " "1"" of type '" "Exiv2::DataSet *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DataSet * >(argp1);
-  result = (PyObject *)Exiv2_DataSet_keys(arg1);
+  result = (PyObject *)Exiv2_DataSet_keys();
   resultobj = result;
   return resultobj;
 fail:
@@ -5834,7 +5826,7 @@ SwigPyBuiltin__Exiv2__DataSet_richcompare(PyObject *self, PyObject *other, int o
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataSet_methods[] = {
-  { "keys", _wrap_DataSet_keys, METH_NOARGS, "\n"
+  { "keys", (PyCFunction)(void(*)(void))_wrap_DataSet_keys, METH_STATIC|METH_NOARGS, "\n"
 		"Get structure member names.\n"
 		"\n"
 		"Return the names used to access members as attributes (``object.name``)\n"

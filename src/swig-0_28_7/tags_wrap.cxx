@@ -4702,7 +4702,7 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
     return result;
 };
 
-SWIGINTERN PyObject *Exiv2_GroupInfo_keys(Exiv2::GroupInfo *self){
+SWIGINTERN PyObject *Exiv2_GroupInfo_keys(){
         init_info_Exiv2_GroupInfo();
         return keys_struct(info_Exiv2_GroupInfo);
     }
@@ -4749,7 +4749,7 @@ SWIG_From_short  (short value)
   return SWIG_From_long  (value);
 }
 
-SWIGINTERN PyObject *Exiv2_TagInfo_keys(Exiv2::TagInfo *self){
+SWIGINTERN PyObject *Exiv2_TagInfo_keys(){
         init_info_Exiv2_TagInfo();
         return keys_struct(info_Exiv2_TagInfo);
     }
@@ -5290,18 +5290,10 @@ fail:
 
 SWIGINTERN PyObject *_wrap_GroupInfo_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::GroupInfo *arg1 = (Exiv2::GroupInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "GroupInfo_keys", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__GroupInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GroupInfo_keys" "', argument " "1"" of type '" "Exiv2::GroupInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::GroupInfo * >(argp1);
-  result = (PyObject *)Exiv2_GroupInfo_keys(arg1);
+  result = (PyObject *)Exiv2_GroupInfo_keys();
   resultobj = result;
   return resultobj;
 fail:
@@ -5556,18 +5548,10 @@ fail:
 
 SWIGINTERN PyObject *_wrap_TagInfo_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::TagInfo *arg1 = (Exiv2::TagInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "TagInfo_keys", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TagInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TagInfo_keys" "', argument " "1"" of type '" "Exiv2::TagInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TagInfo * >(argp1);
-  result = (PyObject *)Exiv2_TagInfo_keys(arg1);
+  result = (PyObject *)Exiv2_TagInfo_keys();
   resultobj = result;
   return resultobj;
 fail:
@@ -6659,7 +6643,7 @@ SwigPyBuiltin__Exiv2__GroupInfo_richcompare(PyObject *self, PyObject *other, int
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__GroupInfo_methods[] = {
-  { "keys", _wrap_GroupInfo_keys, METH_NOARGS, "\n"
+  { "keys", (PyCFunction)(void(*)(void))_wrap_GroupInfo_keys, METH_STATIC|METH_NOARGS, "\n"
 		"Get structure member names.\n"
 		"\n"
 		"Return the names used to access members as attributes (``object.name``)\n"
@@ -7049,7 +7033,7 @@ SwigPyBuiltin__Exiv2__TagInfo_richcompare(PyObject *self, PyObject *other, int o
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TagInfo_methods[] = {
-  { "keys", _wrap_TagInfo_keys, METH_NOARGS, "\n"
+  { "keys", (PyCFunction)(void(*)(void))_wrap_TagInfo_keys, METH_STATIC|METH_NOARGS, "\n"
 		"Get structure member names.\n"
 		"\n"
 		"Return the names used to access members as attributes (``object.name``)\n"

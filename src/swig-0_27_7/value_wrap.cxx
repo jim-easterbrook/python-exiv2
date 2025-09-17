@@ -6675,7 +6675,7 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
     return result;
 };
 
-SWIGINTERN PyObject *Exiv2_DateValue_Date_keys(Exiv2::DateValue::Date *self){
+SWIGINTERN PyObject *Exiv2_DateValue_Date_keys(){
         init_info_Exiv2_DateValue_Date();
         return keys_struct(info_Exiv2_DateValue_Date);
     }
@@ -6711,7 +6711,7 @@ SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int32_t h
         time.tzMinute = tzMinute;
         self->setTime(time);
     }
-SWIGINTERN PyObject *Exiv2_TimeValue_Time_keys(Exiv2::TimeValue::Time *self){
+SWIGINTERN PyObject *Exiv2_TimeValue_Time_keys(){
         init_info_Exiv2_TimeValue_Time();
         return keys_struct(info_Exiv2_TimeValue_Time);
     }
@@ -14506,18 +14506,10 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Date_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::DateValue::Date *arg1 = (Exiv2::DateValue::Date *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Date_keys takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DateValue__Date, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Date_keys" "', argument " "1"" of type '" "Exiv2::DateValue::Date *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::DateValue::Date * >(argp1);
-  result = (PyObject *)Exiv2_DateValue_Date_keys(arg1);
+  result = (PyObject *)Exiv2_DateValue_Date_keys();
   resultobj = result;
   return resultobj;
 fail:
@@ -15806,18 +15798,10 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Time_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::TimeValue::Time *arg1 = (Exiv2::TimeValue::Time *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Time_keys takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__TimeValue__Time, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Time_keys" "', argument " "1"" of type '" "Exiv2::TimeValue::Time *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::TimeValue::Time * >(argp1);
-  result = (PyObject *)Exiv2_TimeValue_Time_keys(arg1);
+  result = (PyObject *)Exiv2_TimeValue_Time_keys();
   resultobj = result;
   return resultobj;
 fail:
@@ -30013,7 +29997,7 @@ SwigPyBuiltin__Exiv2__DateValue__Date_richcompare(PyObject *self, PyObject *othe
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DateValue__Date_methods[] = {
-  { "keys", _wrap_Date_keys, METH_VARARGS, "\n"
+  { "keys", (PyCFunction)(void(*)(void))_wrap_Date_keys, METH_STATIC|METH_VARARGS, "\n"
 		"Get structure member names.\n"
 		"\n"
 		"Return the names used to access members as attributes (``object.name``)\n"
@@ -30835,7 +30819,7 @@ SwigPyBuiltin__Exiv2__TimeValue__Time_richcompare(PyObject *self, PyObject *othe
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__TimeValue__Time_methods[] = {
-  { "keys", _wrap_Time_keys, METH_VARARGS, "\n"
+  { "keys", (PyCFunction)(void(*)(void))_wrap_Time_keys, METH_STATIC|METH_VARARGS, "\n"
 		"Get structure member names.\n"
 		"\n"
 		"Return the names used to access members as attributes (``object.name``)\n"

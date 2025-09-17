@@ -5599,7 +5599,7 @@ SWIGINTERNINLINE PyObject*
   return PyInt_FromLong((long) value);
 }
 
-SWIGINTERN PyObject *Exiv2_PreviewProperties_keys(Exiv2::PreviewProperties *self){
+SWIGINTERN PyObject *Exiv2_PreviewProperties_keys(){
         init_info_Exiv2_PreviewProperties();
         return keys_struct(info_Exiv2_PreviewProperties);
     }
@@ -6108,18 +6108,10 @@ fail:
 
 SWIGINTERN PyObject *_wrap_PreviewProperties_keys(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Exiv2::PreviewProperties *arg1 = (Exiv2::PreviewProperties *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "PreviewProperties_keys", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewProperties, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewProperties_keys" "', argument " "1"" of type '" "Exiv2::PreviewProperties *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::PreviewProperties * >(argp1);
-  result = (PyObject *)Exiv2_PreviewProperties_keys(arg1);
+  result = (PyObject *)Exiv2_PreviewProperties_keys();
   resultobj = result;
   return resultobj;
 fail:
@@ -6770,7 +6762,7 @@ SwigPyBuiltin__Exiv2__PreviewProperties_richcompare(PyObject *self, PyObject *ot
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewProperties_methods[] = {
-  { "keys", _wrap_PreviewProperties_keys, METH_NOARGS, "\n"
+  { "keys", (PyCFunction)(void(*)(void))_wrap_PreviewProperties_keys, METH_STATIC|METH_NOARGS, "\n"
 		"Get structure member names.\n"
 		"\n"
 		"Return the names used to access members as attributes (``object.name``)\n"
