@@ -111,13 +111,13 @@ are handled by CurlIo. Ssh, sftp paths are handled by SshIo. Others are
 handled by FileIo.
 
 :type path: str
-:param path: %Image file.
+:param path: Image file.
 :type useCurl: bool, optional
 :param useCurl: Indicate whether the libcurl is used or not.
           If it's true, http is handled by CurlIo. Otherwise it is
           handled by HttpIo.
 :rtype: :py:class:`BasicIo`
-:return: An auto-pointer that owns a BasicIo instance.
+:return: A BasicIo object.
 :raises: Error If the file is not found or it is unable to connect to
           the server to read the remote file.
 
@@ -154,7 +154,7 @@ Exiv2::enableBMFF(true);
 %feature("docstring") enableBMFF "Enable BMFF support.
 
 If libexiv2 has been built with BMFF support it is already enabled
-and this fubction does nothing.
+and this function does nothing.
 :type enable: bool, optional
 :param enable: Set to True to enable BMFF file access.
 :rtype: bool
