@@ -23,6 +23,17 @@
     "Class interface to access files, memory and remote data.";
 #endif
 
+%feature("docstring") Exiv2::BasicIo "An interface for simple binary IO.
+
+This appears to be mainly for use internally by libexiv2, apart from
+accessing data with the mmap() and munmap() methods. Since v0.18.0
+python-exiv2 has an Image.data() method to provide data access without
+going via a Python BasicIo object.
+
+It is planned to remove BasicIo from the Python interface in a future
+release. Please let me (jim@jim-easterbrook.me.uk) know if that wiould
+be a problem for you.";
+
 #pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"

@@ -6034,9 +6034,14 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
     "\n"
 		"An interface for simple binary IO.\n"
 		"\n"
-		"Designed to have semantics and names similar to those of C style FILE*\n"
-		"operations. Subclasses should all behave the same so that they can be\n"
-		"interchanged.\n"
+		"This appears to be mainly for use internally by libexiv2, apart from\n"
+		"accessing data with the mmap() and munmap() methods. Since v0.18.0\n"
+		"python-exiv2 has an Image.data() method to provide data access without\n"
+		"going via a Python BasicIo object.\n"
+		"\n"
+		"It is planned to remove BasicIo from the Python interface in a future\n"
+		"release. Please let me (jim@jim-easterbrook.me.uk) know if that wiould\n"
+		"be a problem for you.\n"
 		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
@@ -6245,9 +6250,14 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *typ
     { Py_tp_doc,                        (void *)"\n"
 		"An interface for simple binary IO.\n"
 		"\n"
-		"Designed to have semantics and names similar to those of C style FILE*\n"
-		"operations. Subclasses should all behave the same so that they can be\n"
-		"interchanged.\n"
+		"This appears to be mainly for use internally by libexiv2, apart from\n"
+		"accessing data with the mmap() and munmap() methods. Since v0.18.0\n"
+		"python-exiv2 has an Image.data() method to provide data access without\n"
+		"going via a Python BasicIo object.\n"
+		"\n"
+		"It is planned to remove BasicIo from the Python interface in a future\n"
+		"release. Please let me (jim@jim-easterbrook.me.uk) know if that wiould\n"
+		"be a problem for you.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },
