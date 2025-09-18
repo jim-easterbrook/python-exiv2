@@ -245,6 +245,8 @@ EXIV2_DEPRECATED(Exiv2::Image::supportsMetadata)
 %ignore Exiv2::NativePreview;
 %ignore Exiv2::NativePreviewList;
 %ignore Exiv2::Image::nativePreviews;
+%ignore Exiv2::ImageFactory::ImageFactory;
+%ignore Exiv2::ImageFactory::~ImageFactory;
 %ignore isBigEndianPlatform;
 %ignore isLittleEndianPlatform;
 %ignore isStringType;

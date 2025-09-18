@@ -7078,58 +7078,6 @@ fail:
 }
 
 
-SWIGINTERN int _wrap_new_ImageFactory(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  Exiv2::ImageFactory *result = 0 ;
-  
-  if (!SWIG_Python_CheckNoKeywords(kwargs, "new_ImageFactory")) SWIG_fail;
-  if (!SWIG_Python_UnpackTuple(args, "new_ImageFactory", 0, 0, 0)) SWIG_fail;
-  {
-    try {
-      result = (Exiv2::ImageFactory *)new Exiv2::ImageFactory();
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ImageFactory, SWIG_BUILTIN_INIT |  0 );
-  return resultobj == Py_None ? -1 : 0;
-fail:
-  return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_ImageFactory(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ImageFactory *arg1 = (Exiv2::ImageFactory *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_ImageFactory", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ImageFactory, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ImageFactory" "', argument " "1"" of type '" "Exiv2::ImageFactory *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ImageFactory * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ImageFactory) /* defines _wrap_delete_ImageFactory_destructor_closure */
-
 static PyMethodDef SwigMethods[] = {
 	 { "enableBMFF", _wrap_enableBMFF, METH_VARARGS, "\n"
 		"Enable BMFF support.\n"
@@ -8004,7 +7952,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ImageFactory_type = {
     "exiv2.image.ImageFactory",             /* tp_name */
     sizeof(SwigPyObject),                   /* tp_basicsize */
     0,                                      /* tp_itemsize */
-    _wrap_delete_ImageFactory_destructor_closure, /* tp_dealloc */
+    SwigPyBuiltin_BadDealloc,               /* tp_dealloc */
 #if PY_VERSION_HEX < 0x030800b4
     (printfunc) 0,                          /* tp_print */
 #else
@@ -8051,7 +7999,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__ImageFactory_type = {
     (descrgetfunc) 0,                       /* tp_descr_get */
     (descrsetfunc) 0,                       /* tp_descr_set */
     offsetof(SwigPyObject, dict),           /* tp_dictoffset */
-    _wrap_new_ImageFactory,                 /* tp_init */
+    SwigPyBuiltin_BadInit,                  /* tp_init */
     (allocfunc) 0,                          /* tp_alloc */
     (newfunc) 0,                            /* tp_new */
     (freefunc) 0,                           /* tp_free */
@@ -8235,8 +8183,8 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__ImageFactory_type_create(PyTypeObject
     { NULL, 0, 0, 0, NULL }
   };
   PyType_Slot slots[] = {
-    { Py_tp_init,                       (void *)_wrap_new_ImageFactory },
-    { Py_tp_dealloc,                    (void *)_wrap_delete_ImageFactory_destructor_closure },
+    { Py_tp_init,                       (void *)SwigPyBuiltin_BadInit },
+    { Py_tp_dealloc,                    (void *)SwigPyBuiltin_BadDealloc },
     { Py_tp_alloc,                      (void *)(allocfunc) 0 },
     { Py_tp_free,                       (void *)(freefunc) 0 },
     { Py_tp_is_gc,                      (void *)(inquiry) 0 },
