@@ -119,6 +119,19 @@ class TestImageModule(unittest.TestCase):
         image.clearIccProfile()
         self.assertEqual(len(image.iccProfile()), 0)
         self.check_result(image.iccProfileDefined(), bool, False)
+        # test data access
+        image.readMetadata()
+        self.assertEqual(sys.getrefcount(image), 2)
+        view = image.data()
+        self.assertEqual(sys.getrefcount(image), 3)
+        self.check_result(view, memoryview, self.image_data)
+        self.assertEqual(view.readonly, True)
+        image.writeMetadata()
+        self.assertEqual(sys.getrefcount(image), 2)
+        with self.assertRaises(ValueError):
+            view[0]
+        del view
+        self.assertEqual(sys.getrefcount(image), 2)
         # test other methods
         image.readMetadata()
         self.check_result(image.byteOrder(),
@@ -192,6 +205,8 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(sys.getrefcount(image), 6)
         data.append(image.io())
         self.assertEqual(sys.getrefcount(image), 7)
+        data.append(image.data())
+        self.assertEqual(sys.getrefcount(image), 8)
         del data
         self.assertEqual(sys.getrefcount(image), 2)
 

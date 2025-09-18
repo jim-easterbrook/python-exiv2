@@ -76,6 +76,46 @@ INPUT_BUFFER_RO(const Exiv2::byte* data, BUFLEN_T size,
 // Release memory buffer after writeMetadata, as it creates its own copy
 RELEASE_BUFFER(void writeMetadata)
 
+// Add Image::data() method for easy data access to image data
+%feature("docstring") Exiv2::Image::data
+"Easy access to the image data.
+
+Calls io().open() & io().mmap() and returns a Python memoryview of the
+data. io().munmap() & io().close() are called when the memoryview object
+is deleted.
+
+This is intended to replace using Image.io() to get a BasicIo object,
+then accessing its data. BasicIo will eventually be removed from the
+Python interface.
+
+:rtype: memoryview"
+%extend Exiv2::Image {
+    %fragment("memoryview_funcs");
+    PyObject* data(PyObject* py_self) {
+        Exiv2::BasicIo& io = self->io();
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        io.open();
+        Exiv2::byte* ptr = io.mmap(false);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+        PyObject* result = PyMemoryView_FromMemory(
+            (char*)ptr, io.size(), PyBUF_READ);
+        if (store_view(py_self, result))
+            return NULL;
+        return result;
+    }
+}
+%fragment("release_ptr"{Exiv2::BasicIo});
+DEFINE_VIEW_CALLBACK(Exiv2::Image, release_ptr(&self->io());)
+%{
+#define RELEASE_VIEWS_Image_readMetadata
+#define RELEASE_VIEWS_Image_writeMetadata
+%}
+%typemap(check, fragment="memoryview_funcs") Exiv2::Image* self {
+%#ifdef RELEASE_VIEWS_$symname
+    release_views(self);
+%#endif
+}
+
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
 

@@ -401,28 +401,19 @@ The buffered data isn't actually read until ``Image::readMetadata`` is called, s
 When ``Image::writeMetadata`` is called exiv2 allocates a new block of memory to store the modified data.
 The ``Image::io`` method returns an `Exiv2::BasicIo`_ object that provides access to this data.
 
-The ``BasicIo::mmap`` and ``BasicIo::munmap`` methods allows access to the image file data without unnecessary copying.
+The ``BasicIo::mmap`` and ``BasicIo::munmap`` methods allow access to the image file data without unnecessary copying.
 However they are rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.
-Since python-exiv2 v0.18.0 it is much easier to use the ``data()`` method:
+
+Since python-exiv2 v0.18.0 it is much easier to use the image's ``data()`` method:
 
 .. code:: python
 
     # after setting some metadata
     image.writeMetadata()
-    exiv_io = image.io()
-    rsp = requests.post(url, files={'file': io.BytesIO(exiv_io.data())})
+    rsp = requests.post(url, files={'file': io.BytesIO(image.data())})
 
-The ``data()`` method can also return a writeable memoryview_:
-
-.. code:: python
-
-    exiv_io = image.io()
-    data = exiv_io.data(True)
-    data[23] = 157          # modifies data buffer
-    del data                # writes modified data to the buffer
-    image.readMetadata()    # reads modified buffer data
-
-The modified data is written back to the file or memory buffer when the memoryview_ is deleted.
+The ``data()`` method returns a Python memoryview_ that can be used in most places where a `bytes-like object`_ is expected.
+This allows copy free access to the image data.
 
 .. _bytearray:
     https://docs.python.org/3/library/stdtypes.html#bytearray

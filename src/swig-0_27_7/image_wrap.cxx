@@ -4403,6 +4403,18 @@ fail:
 #define KEEPREF_VIEW_ImageFactory_open
 #define KEEPREF_VIEW_ImageFactory_createIo
 
+static void release_ptr(Exiv2::BasicIo* self) {
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    self->munmap();
+    self->close();
+    SWIG_PYTHON_THREAD_END_ALLOW;
+};
+
+
+#define RELEASE_VIEWS_Image_readMetadata
+#define RELEASE_VIEWS_Image_writeMetadata
+
+
 class Exifdatum_pointer;
 class ExifData_iterator;
 class Exifdatum_reference;
@@ -4711,6 +4723,45 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 
+static int store_view(PyObject* py_self, PyObject* view) {
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list) {
+        view_list = PyList_New(0);
+        if (!view_list)
+            return -1;
+        int error = private_store_set(py_self, "view_list", view_list);
+        Py_DECREF(view_list);
+        if (error)
+            return -1;
+    }
+    PyObject* callback = PyObject_GetAttrString(py_self, "_view_deleted_cb");
+    if (!callback)
+        return -1;
+    PyObject* view_ref = PyWeakref_NewRef(view, callback);
+    Py_DECREF(callback);
+    if (!view_ref)
+        return -1;
+    int result = PyList_Append(view_list, view_ref);
+    Py_DECREF(view_ref);
+    return result;
+};
+static int release_views(PyObject* py_self) {
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list)
+        return 0;
+    PyObject* view_ref = NULL;
+    PyObject* view = NULL;
+    for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
+        view_ref = PyList_GetItem(view_list, idx - 1);
+        view = PyWeakref_GetObject(view_ref);
+        if (view != Py_None)
+            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+        PyList_SetSlice(view_list, idx - 1, idx, NULL);
+    }
+    return 0;
+};
+
+
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
 SWIGINTERN int
@@ -4919,6 +4970,19 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
   return res;
 }
 
+SWIGINTERN PyObject *Exiv2_Image_data(Exiv2::Image *self,PyObject *py_self){
+        Exiv2::BasicIo& io = self->io();
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        io.open();
+        Exiv2::byte* ptr = io.mmap(false);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+        PyObject* result = PyMemoryView_FromMemory(
+            (char*)ptr, io.size(), PyBUF_READ);
+        if (store_view(py_self, result))
+            return NULL;
+        return result;
+    }
+SWIGINTERN void Exiv2_Image__view_deleted_cb(Exiv2::Image *self,PyObject *ref){release_ptr(&self->io());}
 SWIGINTERN Exiv2::BasicIo::AutoPtr Exiv2_ImageFactory_createIo__SWIG_1(Exiv2::byte const *data,long size){
 
         return Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(data, size));
@@ -4977,6 +5041,11 @@ SWIGINTERN PyObject *_wrap_delete_Image(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
+#ifdef RELEASE_VIEWS_delete_Image
+    release_views(self);
+#endif
+  }
+  {
     try {
       delete arg1;
     }
@@ -5004,6 +5073,11 @@ SWIGINTERN PyObject *_wrap_Image_readMetadata(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_readMetadata" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_readMetadata
+    release_views(self);
+#endif
+  }
   {
     try {
       {
@@ -5036,6 +5110,11 @@ SWIGINTERN PyObject *_wrap_Image_writeMetadata(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_writeMetadata" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_writeMetadata
+    release_views(self);
+#endif
+  }
   {
     try {
       {
@@ -5085,6 +5164,11 @@ SWIGINTERN PyObject *_wrap_Image_setExifData(PyObject *self, PyObject *args) {
   }
   arg2 = reinterpret_cast< Exiv2::ExifData * >(argp2);
   {
+#ifdef RELEASE_VIEWS_Image_setExifData
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setExifData((Exiv2::ExifData const &)*arg2);
     }
@@ -5112,6 +5196,11 @@ SWIGINTERN PyObject *_wrap_Image_clearExifData(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_clearExifData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_clearExifData
+    release_views(self);
+#endif
+  }
   {
     try {
       (arg1)->clearExifData();
@@ -5154,6 +5243,11 @@ SWIGINTERN PyObject *_wrap_Image_setIptcData(PyObject *self, PyObject *args) {
   }
   arg2 = reinterpret_cast< Exiv2::IptcData * >(argp2);
   {
+#ifdef RELEASE_VIEWS_Image_setIptcData
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setIptcData((Exiv2::IptcData const &)*arg2);
     }
@@ -5181,6 +5275,11 @@ SWIGINTERN PyObject *_wrap_Image_clearIptcData(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_clearIptcData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_clearIptcData
+    release_views(self);
+#endif
+  }
   {
     try {
       (arg1)->clearIptcData();
@@ -5225,6 +5324,11 @@ SWIGINTERN PyObject *_wrap_Image_setXmpPacket(PyObject *self, PyObject *args) {
     arg2 = ptr;
   }
   {
+#ifdef RELEASE_VIEWS_Image_setXmpPacket
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setXmpPacket((std::string const &)*arg2);
     }
@@ -5254,6 +5358,11 @@ SWIGINTERN PyObject *_wrap_Image_clearXmpPacket(PyObject *self, PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_clearXmpPacket" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_clearXmpPacket
+    release_views(self);
+#endif
+  }
   {
     try {
       (arg1)->clearXmpPacket();
@@ -5296,6 +5405,11 @@ SWIGINTERN PyObject *_wrap_Image_setXmpData(PyObject *self, PyObject *args) {
   }
   arg2 = reinterpret_cast< Exiv2::XmpData * >(argp2);
   {
+#ifdef RELEASE_VIEWS_Image_setXmpData
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setXmpData((Exiv2::XmpData const &)*arg2);
     }
@@ -5323,6 +5437,11 @@ SWIGINTERN PyObject *_wrap_Image_clearXmpData(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_clearXmpData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_clearXmpData
+    release_views(self);
+#endif
+  }
   {
     try {
       (arg1)->clearXmpData();
@@ -5367,6 +5486,11 @@ SWIGINTERN PyObject *_wrap_Image_setComment(PyObject *self, PyObject *args) {
     arg2 = ptr;
   }
   {
+#ifdef RELEASE_VIEWS_Image_setComment
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setComment((std::string const &)*arg2);
     }
@@ -5396,6 +5520,11 @@ SWIGINTERN PyObject *_wrap_Image_clearComment(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_clearComment" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_clearComment
+    release_views(self);
+#endif
+  }
   {
     try {
       (arg1)->clearComment();
@@ -5450,6 +5579,11 @@ SWIGINTERN PyObject *_wrap_Image_setIccProfile(PyObject *self, PyObject *args) {
     arg3 = static_cast< bool >(val3);
   }
   {
+#ifdef RELEASE_VIEWS_Image_setIccProfile
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setIccProfile(*arg2,arg3);
     }
@@ -5477,6 +5611,11 @@ SWIGINTERN PyObject *_wrap_Image_clearIccProfile(PyObject *self, PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_clearIccProfile" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_clearIccProfile
+    release_views(self);
+#endif
+  }
   {
     try {
       (arg1)->clearIccProfile();
@@ -5507,6 +5646,11 @@ SWIGINTERN PyObject *_wrap_Image_iccProfileDefined(PyObject *self, PyObject *arg
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
+#ifdef RELEASE_VIEWS_Image_iccProfileDefined
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = (bool)(arg1)->iccProfileDefined();
     }
@@ -5535,6 +5679,11 @@ SWIGINTERN PyObject *_wrap_Image_iccProfile(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_iccProfile" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_iccProfile
+    release_views(self);
+#endif
+  }
   {
     try {
       result = (Exiv2::DataBuf *)(arg1)->iccProfile();
@@ -5583,6 +5732,11 @@ SWIGINTERN PyObject *_wrap_Image_setMetadata(PyObject *self, PyObject *args) {
   }
   arg2 = reinterpret_cast< Exiv2::Image * >(argp2);
   {
+#ifdef RELEASE_VIEWS_Image_setMetadata
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setMetadata((Exiv2::Image const &)*arg2);
     }
@@ -5610,6 +5764,11 @@ SWIGINTERN PyObject *_wrap_Image_clearMetadata(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_clearMetadata" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_clearMetadata
+    release_views(self);
+#endif
+  }
   {
     try {
       (arg1)->clearMetadata();
@@ -5639,6 +5798,11 @@ SWIGINTERN PyObject *_wrap_Image_exifData(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_exifData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_exifData
+    release_views(self);
+#endif
+  }
   {
     try {
       result = (Exiv2::ExifData *) &(arg1)->exifData();
@@ -5675,6 +5839,11 @@ SWIGINTERN PyObject *_wrap_Image_iptcData(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
+#ifdef RELEASE_VIEWS_Image_iptcData
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = (Exiv2::IptcData *) &(arg1)->iptcData();
     }
@@ -5709,6 +5878,11 @@ SWIGINTERN PyObject *_wrap_Image_xmpData(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_xmpData" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_xmpData
+    release_views(self);
+#endif
+  }
   {
     try {
       result = (Exiv2::XmpData *) &(arg1)->xmpData();
@@ -5745,6 +5919,11 @@ SWIGINTERN PyObject *_wrap_Image_xmpPacket(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
+#ifdef RELEASE_VIEWS_Image_xmpPacket
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = (std::string *) &(arg1)->xmpPacket();
     }
@@ -5780,6 +5959,11 @@ SWIGINTERN PyObject *_wrap_Image_writeXmpFromPacket__SWIG_0(PyObject *self, Py_s
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Image_writeXmpFromPacket" "', argument " "2"" of type '" "bool""'");
   } 
   arg2 = static_cast< bool >(val2);
+  {
+#ifdef RELEASE_VIEWS_Image_writeXmpFromPacket
+    release_views(self);
+#endif
+  }
   {
     try {
       (arg1)->writeXmpFromPacket(arg2);
@@ -5824,6 +6008,11 @@ SWIGINTERN PyObject *_wrap_Image_setByteOrder(PyObject *self, PyObject *args) {
     arg2 = static_cast< Exiv2::ByteOrder >(PyLong_AsLong(swig_obj[0]));
   }
   {
+#ifdef RELEASE_VIEWS_Image_setByteOrder
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setByteOrder(arg2);
     }
@@ -5852,6 +6041,11 @@ SWIGINTERN PyObject *_wrap_Image_byteOrder(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_byteOrder" "', argument " "1"" of type '" "Exiv2::Image const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_byteOrder
+    release_views(self);
+#endif
+  }
   {
     try {
       result = (Exiv2::ByteOrder)((Exiv2::Image const *)arg1)->byteOrder();
@@ -5886,6 +6080,11 @@ SWIGINTERN PyObject *_wrap_Image_good(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
+#ifdef RELEASE_VIEWS_Image_good
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = (bool)((Exiv2::Image const *)arg1)->good();
     }
@@ -5914,6 +6113,11 @@ SWIGINTERN PyObject *_wrap_Image_mimeType(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_mimeType" "', argument " "1"" of type '" "Exiv2::Image const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_mimeType
+    release_views(self);
+#endif
+  }
   {
     try {
       result = ((Exiv2::Image const *)arg1)->mimeType();
@@ -5944,6 +6148,11 @@ SWIGINTERN PyObject *_wrap_Image_pixelWidth(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
+#ifdef RELEASE_VIEWS_Image_pixelWidth
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = (int)((Exiv2::Image const *)arg1)->pixelWidth();
     }
@@ -5972,6 +6181,11 @@ SWIGINTERN PyObject *_wrap_Image_pixelHeight(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_pixelHeight" "', argument " "1"" of type '" "Exiv2::Image const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_pixelHeight
+    release_views(self);
+#endif
+  }
   {
     try {
       result = (int)((Exiv2::Image const *)arg1)->pixelHeight();
@@ -6002,6 +6216,11 @@ SWIGINTERN PyObject *_wrap_Image_comment(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
+#ifdef RELEASE_VIEWS_Image_comment
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = ((Exiv2::Image const *)arg1)->comment();
     }
@@ -6030,6 +6249,11 @@ SWIGINTERN PyObject *_wrap_Image_io(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_io" "', argument " "1"" of type '" "Exiv2::Image const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_io
+    release_views(self);
+#endif
+  }
   {
     try {
       result = (Exiv2::BasicIo *) &((Exiv2::Image const *)arg1)->io();
@@ -6081,6 +6305,11 @@ SWIGINTERN PyObject *_wrap_Image_checkMode(PyObject *self, PyObject *args) {
     arg2 = static_cast< Exiv2::MetadataId >(PyLong_AsLong(swig_obj[0]));
   }
   {
+#ifdef RELEASE_VIEWS_Image_checkMode
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = (Exiv2::AccessMode)((Exiv2::Image const *)arg1)->checkMode(arg2);
     }
@@ -6129,6 +6358,11 @@ SWIGINTERN PyObject *_wrap_Image_supportsMetadata(PyObject *self, PyObject *args
     arg2 = static_cast< Exiv2::MetadataId >(PyLong_AsLong(swig_obj[0]));
   }
   {
+#ifdef RELEASE_VIEWS_Image_supportsMetadata
+    release_views(self);
+#endif
+  }
+  {
     PyErr_WarnEx(PyExc_DeprecationWarning, "Exiv2::Image::supportsMetadata" " is deprecated in libexiv2", 1);
     try {
       result = (bool)((Exiv2::Image const *)arg1)->supportsMetadata(arg2);
@@ -6158,6 +6392,11 @@ SWIGINTERN PyObject *_wrap_Image_writeXmpFromPacket__SWIG_1(PyObject *self, Py_s
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_writeXmpFromPacket" "', argument " "1"" of type '" "Exiv2::Image const *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_writeXmpFromPacket
+    release_views(self);
+#endif
+  }
   {
     try {
       result = (bool)((Exiv2::Image const *)arg1)->writeXmpFromPacket();
@@ -6238,6 +6477,11 @@ SWIGINTERN PyObject *_wrap_Image_setTypeSupported(PyObject *self, PyObject *args
   } 
   arg3 = static_cast< uint16_t >(val3);
   {
+#ifdef RELEASE_VIEWS_Image_setTypeSupported
+    release_views(self);
+#endif
+  }
+  {
     try {
       (arg1)->setTypeSupported(arg2,arg3);
     }
@@ -6267,6 +6511,11 @@ SWIGINTERN PyObject *_wrap_Image_imageType(PyObject *self, PyObject *args) {
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
   {
+#ifdef RELEASE_VIEWS_Image_imageType
+    release_views(self);
+#endif
+  }
+  {
     try {
       result = (int)((Exiv2::Image const *)arg1)->imageType();
     }
@@ -6280,6 +6529,81 @@ SWIGINTERN PyObject *_wrap_Image_imageType(PyObject *self, PyObject *args) {
     if (!resultobj)
     SWIG_fail;
   }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Image_data(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    arg2 = self;
+  }
+  if (!SWIG_Python_UnpackTuple(args, "Image_data", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_data" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  {
+#ifdef RELEASE_VIEWS_Image_data
+    release_views(self);
+#endif
+  }
+  {
+    try {
+      result = (PyObject *)Exiv2_Image_data(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Image__view_deleted_cb(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::Image *arg1 = (Exiv2::Image *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__Image, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image__view_deleted_cb" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
+  arg2 = swig_obj[0];
+  {
+#ifdef RELEASE_VIEWS_Image__view_deleted_cb
+    release_views(self);
+#endif
+  }
+  {
+    try {
+      Exiv2_Image__view_deleted_cb(arg1,arg2);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -7316,6 +7640,20 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__Image_methods[] = {
 		"" },
   { "setTypeSupported", _wrap_Image_setTypeSupported, METH_VARARGS, "set type support for this image format" },
   { "imageType", _wrap_Image_imageType, METH_NOARGS, "set type support for this image format" },
+  { "data", _wrap_Image_data, METH_NOARGS, "\n"
+		"Easy access to the image data.\n"
+		"\n"
+		"Calls io().open() & io().mmap() and returns a Python memoryview of the\n"
+		"data. io().munmap() & io().close() are called when the memoryview object\n"
+		"is deleted.\n"
+		"\n"
+		"This is intended to replace using Image.io() to get a BasicIo object,\n"
+		"then accessing its data. BasicIo will eventually be removed from the\n"
+		"Python interface.\n"
+		"\n"
+		":rtype: memoryview\n"
+		"" },
+  { "_view_deleted_cb", _wrap_Image__view_deleted_cb, METH_O, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
