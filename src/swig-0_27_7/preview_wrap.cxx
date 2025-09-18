@@ -5414,13 +5414,6 @@ namespace swig {
 }
 
 
-static Py_ssize_t __len__Exiv2_PreviewImage(PyObject* py_self) {
-    Exiv2::PreviewImage* self = NULL;
-    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__PreviewImage, 0);
-    return self->size();
-};
-
-
 static int buffer_fill_info(Exiv2::PreviewImage* self, Py_buffer* view,
                             PyObject* exporter, int flags) {
     return PyBuffer_FillInfo(view, exporter, (void*)self->pData(),
@@ -5579,6 +5572,90 @@ SWIGINTERN PyObject *Exiv2_PreviewProperties___iter__(){
         return result;
     }
 
+static PyObject* _get_store(PyObject* py_self, bool create) {
+    // Return a new reference
+    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
+        if (!create)
+            return NULL;
+        PyObject* dict = PyDict_New();
+        if (!dict)
+            return NULL;
+        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
+        Py_DECREF(dict);
+        if (error)
+            return NULL;
+    }
+    return PyObject_GetAttrString(py_self, "_private_data_");
+};
+static int private_store_set(PyObject* py_self, const char* name,
+                             PyObject* val) {
+    PyObject* dict = _get_store(py_self, true);
+    if (!dict)
+        return -1;
+    int result = PyDict_SetItemString(dict, name, val);
+    Py_DECREF(dict);
+    return result;
+};
+static PyObject* private_store_get(PyObject* py_self, const char* name) {
+    // Return a borrowed reference
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return NULL;
+    PyObject* result = PyDict_GetItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+static int private_store_del(PyObject* py_self, const char* name) {
+    PyObject* dict = _get_store(py_self, false);
+    if (!dict)
+        return 0;
+    int result = 0;
+    if (PyDict_GetItemString(dict, name))
+        result = PyDict_DelItemString(dict, name);
+    Py_DECREF(dict);
+    return result;
+};
+
+
+static int store_view(PyObject* py_self, PyObject* view) {
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list) {
+        view_list = PyList_New(0);
+        if (!view_list)
+            return -1;
+        int error = private_store_set(py_self, "view_list", view_list);
+        Py_DECREF(view_list);
+        if (error)
+            return -1;
+    }
+    PyObject* callback = PyObject_GetAttrString(py_self, "_view_deleted_cb");
+    if (!callback)
+        return -1;
+    PyObject* view_ref = PyWeakref_NewRef(view, callback);
+    Py_DECREF(callback);
+    if (!view_ref)
+        return -1;
+    int result = PyList_Append(view_list, view_ref);
+    Py_DECREF(view_ref);
+    return result;
+};
+static int release_views(PyObject* py_self) {
+    PyObject* view_list = private_store_get(py_self, "view_list");
+    if (!view_list)
+        return 0;
+    PyObject* view_ref = NULL;
+    PyObject* view = NULL;
+    for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
+        view_ref = PyList_GetItem(view_list, idx - 1);
+        view = PyWeakref_GetObject(view_ref);
+        if (view != Py_None)
+            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+        PyList_SetSlice(view_list, idx - 1, idx, NULL);
+    }
+    return 0;
+};
+
+
 /* Return string from Python obj. NOTE: obj must remain in scope in order
    to use the returned cptr (but only when alloc is set to SWIG_OLDOBJ) */
 SWIGINTERN int
@@ -5696,96 +5773,7 @@ SWIG_AsPtr_std_string (PyObject * obj, std::string **val)
   #define SWIG_From_long   PyInt_FromLong 
 
 SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_data(Exiv2::PreviewImage *self){ return self->pData(); }
-
-static PyObject* _get_store(PyObject* py_self, bool create) {
-    // Return a new reference
-    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
-        if (!create)
-            return NULL;
-        PyObject* dict = PyDict_New();
-        if (!dict)
-            return NULL;
-        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
-        Py_DECREF(dict);
-        if (error)
-            return NULL;
-    }
-    return PyObject_GetAttrString(py_self, "_private_data_");
-};
-static int private_store_set(PyObject* py_self, const char* name,
-                             PyObject* val) {
-    PyObject* dict = _get_store(py_self, true);
-    if (!dict)
-        return -1;
-    int result = PyDict_SetItemString(dict, name, val);
-    Py_DECREF(dict);
-    return result;
-};
-static PyObject* private_store_get(PyObject* py_self, const char* name) {
-    // Return a borrowed reference
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return NULL;
-    PyObject* result = PyDict_GetItemString(dict, name);
-    Py_DECREF(dict);
-    return result;
-};
-static int private_store_del(PyObject* py_self, const char* name) {
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return 0;
-    int result = 0;
-    if (PyDict_GetItemString(dict, name))
-        result = PyDict_DelItemString(dict, name);
-    Py_DECREF(dict);
-    return result;
-};
-
-
-static int store_view(PyObject* py_self, PyObject* view) {
-    PyObject* view_list = private_store_get(py_self, "view_list");
-    if (!view_list) {
-        view_list = PyList_New(0);
-        if (!view_list)
-            return -1;
-        int error = private_store_set(py_self, "view_list", view_list);
-        Py_DECREF(view_list);
-        if (error)
-            return -1;
-    }
-    PyObject* callback = PyObject_GetAttrString(py_self, "_view_deleted_cb");
-    if (!callback)
-        return -1;
-    PyObject* view_ref = PyWeakref_NewRef(view, callback);
-    Py_DECREF(callback);
-    if (!view_ref)
-        return -1;
-    int result = PyList_Append(view_list, view_ref);
-    Py_DECREF(view_ref);
-    return result;
-};
-static int release_views(PyObject* py_self) {
-    PyObject* view_list = private_store_get(py_self, "view_list");
-    if (!view_list)
-        return 0;
-    PyObject* view_ref = NULL;
-    PyObject* view = NULL;
-    for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
-        view_ref = PyList_GetItem(view_list, idx - 1);
-        view = PyWeakref_GetObject(view_ref);
-        if (view != Py_None)
-            Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
-        PyList_SetSlice(view_list, idx - 1, idx, NULL);
-    }
-    return 0;
-};
-
 SWIGINTERN void Exiv2_PreviewImage__view_deleted_cb(Exiv2::PreviewImage *self,PyObject *ref){}
-SWIGINTERN Exiv2::byte const *Exiv2_PreviewImage_pData(Exiv2::PreviewImage *self){
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-                 "Please use data() instead of pData().", 1);
-    return self->pData();
-}
 
   namespace swig {
     template <>  struct traits< Exiv2::PreviewProperties > {
@@ -6261,6 +6249,43 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Exiv2::byte *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "PreviewImage_pData", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewImage, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_pData" "', argument " "1"" of type '" "Exiv2::PreviewImage const *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
+  {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Please use data() instead of pData().", 1);
+    try {
+      result = (Exiv2::byte *)((Exiv2::PreviewImage const *)arg1)->pData();
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  {
+    resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
+    if (!resultobj)
+    SWIG_fail;
+    // Store a weak ref to the new memoryview
+    if (store_view(self, resultobj))
+    SWIG_fail;
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_PreviewImage_size(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
@@ -6507,35 +6532,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_PreviewImage_pData(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::PreviewImage *arg1 = (Exiv2::PreviewImage *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Exiv2::byte *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "PreviewImage_pData", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__PreviewImage, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PreviewImage_pData" "', argument " "1"" of type '" "Exiv2::PreviewImage *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::PreviewImage * >(argp1);
-  result = (Exiv2::byte *)Exiv2_PreviewImage_pData(arg1);
-  {
-    resultobj = PyMemoryView_FromMemory((char*)result, arg1->size(), PyBUF_READ);
-    if (!resultobj)
-    SWIG_fail;
-    // Store a weak ref to the new memoryview
-    if (store_view(self, resultobj))
-    SWIG_fail;
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_PreviewImage) /* defines _wrap_delete_PreviewImage_destructor_closure */
+
+SWIGPY_LENFUNC_CLOSURE(_wrap_PreviewImage_size) /* defines _wrap_PreviewImage_size_lenfunc_closure */
 
 SWIGINTERN int _wrap_new_PreviewManager(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
@@ -7093,6 +7092,11 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
 		"Return a copy of the preview image data. The caller owns\n"
 		"       this copy and %DataBuf ensures that it will be deleted.\n"
 		"" },
+  { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "\n"
+		"Returns a temporary Python memoryview of the object's data.\n"
+		"\n"
+		":rtype: memoryview\n"
+		"" },
   { "size", _wrap_PreviewImage_size, METH_NOARGS, "Return the size of the preview image in bytes." },
   { "writeFile", _wrap_PreviewImage_writeFile, METH_O, "\n"
 		"Write the thumbnail image to a file.\n"
@@ -7123,11 +7127,6 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__PreviewImage_methods[] = {
 		":rtype: memoryview\n"
 		"" },
   { "_view_deleted_cb", _wrap_PreviewImage__view_deleted_cb, METH_O, "" },
-  { "pData", _wrap_PreviewImage_pData, METH_NOARGS, "\n"
-		"Returns a temporary Python memoryview of the object's data.\n"
-		"\n"
-		":rtype: memoryview\n"
-		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
@@ -7294,7 +7293,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__PreviewImage_type = {
     (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
-    __len__Exiv2_PreviewImage,              /* sq_length */
+    _wrap_PreviewImage_size_lenfunc_closure, /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
     (ssizeargfunc) 0,                       /* sq_item */
@@ -7428,7 +7427,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__PreviewImage_type_create(PyTypeObject
     { Py_nb_inplace_floor_divide,       (void *)(binaryfunc) 0 },
     { Py_nb_inplace_true_divide,        (void *)(binaryfunc) 0 },
     { Py_nb_index,                      (void *)(unaryfunc) 0 },
-    { Py_sq_length,                     (void *)__len__Exiv2_PreviewImage },
+    { Py_sq_length,                     (void *)_wrap_PreviewImage_size_lenfunc_closure },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },

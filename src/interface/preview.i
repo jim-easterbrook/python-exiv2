@@ -71,7 +71,8 @@ DECLARE_METADATUM_WRAPPERS(XmpData, Xmpdatum)
 KEEP_REFERENCE_EX(Exiv2::PreviewManager*, args)
 
 // Enable len(PreviewImage)
-SQ_LENGTH(Exiv2::PreviewImage, self->size())
+%feature("python:slot", "sq_length", functype="lenfunc")
+    Exiv2::PreviewImage::size;
 
 // Expose Exiv2::PreviewImage contents as a Python buffer
 %fragment("buffer_fill_info"{Exiv2::PreviewImage}, "header") {
@@ -96,29 +97,17 @@ RETURN_VIEW(Exiv2::byte* data, arg1->size(), PyBUF_READ,
 DEFINE_VIEW_CALLBACK(Exiv2::PreviewImage,)
 
 // Deprecate pData() in favour of data() since 2025-07-02
-%extend Exiv2::PreviewImage {
-const Exiv2::byte* pData() {
-    PyErr_WarnEx(PyExc_DeprecationWarning,
-                 "Please use data() instead of pData().", 1);
-    return $self->pData();
-};
-}
-%ignore Exiv2::PreviewImage::pData;
+DEPRECATE(Exiv2::PreviewImage::pData,
+          "Please use data() instead of pData().")
 
 // Give Exiv2::PreviewProperties dict-like behaviour
 STRUCT_DICT(Exiv2::PreviewProperties, false, true)
-
-%immutable Exiv2::PreviewProperties::mimeType_;
-%immutable Exiv2::PreviewProperties::extension_;
-%immutable Exiv2::PreviewProperties::wextension_;
-%immutable Exiv2::PreviewProperties::size_;
-%immutable Exiv2::PreviewProperties::width_;
-%immutable Exiv2::PreviewProperties::height_;
-%immutable Exiv2::PreviewProperties::id_;
 
 %ignore Exiv2::PreviewImage::operator=;
 %ignore Exiv2::PreviewProperties::PreviewProperties;
 
 #define EXV_ENABLE_FILESYSTEM
+%immutable;
 %include "exiv2/preview.hpp"
+%mutable;
 #undef EXV_ENABLE_FILESYSTEM
