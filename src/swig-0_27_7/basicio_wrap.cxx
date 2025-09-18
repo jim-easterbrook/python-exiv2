@@ -4334,6 +4334,8 @@ typedef Exiv2::ErrorCode ErrorCode;
 
 
 #define RELEASE_VIEWS_BasicIo_close
+#define RELEASE_VIEWS_BasicIo_data
+#define RELEASE_VIEWS_BasicIo_mmap
 #define RELEASE_VIEWS_BasicIo_munmap
 #define RELEASE_VIEWS_BasicIo_open
 #define RELEASE_VIEWS_BasicIo_putb
@@ -5467,8 +5469,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   bool val2 ;
   int ecode2 = 0 ;
-  Exiv2::BasicIo *_global_self ;
-  bool _global_writeable ;
   PyObject * obj1 = 0 ;
   Exiv2::byte *result = 0 ;
   
@@ -5489,9 +5489,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
     arg2 = static_cast< bool >(val2);
   }
   {
-    _global_self = arg1;
-    _global_writeable = arg2;
+#ifdef RELEASE_VIEWS_BasicIo_mmap
     release_views(self);
+#endif
   }
   {
     try {
@@ -5507,7 +5507,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = PyMemoryView_FromMemory((char*)result, result ? _global_self->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+    resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
     if (!resultobj)
     SWIG_fail;
     // Store a weak ref to the new memoryview
@@ -5783,8 +5783,6 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
   int res1 = 0 ;
   bool val2 ;
   int ecode2 = 0 ;
-  Exiv2::BasicIo *_global_self ;
-  bool _global_writeable ;
   PyObject * obj1 = 0 ;
   Exiv2::byte *result = 0 ;
   
@@ -5805,9 +5803,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
     arg2 = static_cast< bool >(val2);
   }
   {
-    _global_self = arg1;
-    _global_writeable = arg2;
+#ifdef RELEASE_VIEWS_BasicIo_data
     release_views(self);
+#endif
   }
   {
     try {
@@ -5823,7 +5821,7 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
     }
   }
   {
-    resultobj = PyMemoryView_FromMemory((char*)result, result ? _global_self->size() : 0, _global_writeable ? PyBUF_WRITE : PyBUF_READ);
+    resultobj = PyMemoryView_FromMemory((char*)result, result ? arg1->size() : 0, arg2 ? PyBUF_WRITE : PyBUF_READ);
     if (!resultobj)
     SWIG_fail;
     // Store a weak ref to the new memoryview
