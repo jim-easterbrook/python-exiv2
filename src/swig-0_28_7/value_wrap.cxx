@@ -6328,6 +6328,22 @@ SWIGINTERNINLINE PyObject*
   return PyBool_FromLong(value ? 1 : 0);
 }
 
+SWIGINTERN PyObject *Exiv2_DataValue_data(Exiv2::DataValue *self){
+    PyObject* result = PyByteArray_FromStringAndSize(NULL, 0);
+    if (!result)
+        return NULL;
+    if (PyByteArray_Resize(result, self->size()))
+        return NULL;
+    PyObject* view = PyMemoryView_FromObject(result);
+    if (!view) {
+        Py_DECREF(result);
+        return NULL;
+    }
+    Py_buffer* buffer = PyMemoryView_GET_BUFFER(view);
+    self->copy((Exiv2::byte*)buffer->buf);
+    Py_DECREF(view);
+    return result;
+}
 
 static PyObject* _get_store(PyObject* py_self, bool create) {
     // Return a new reference
@@ -6413,7 +6429,7 @@ static int release_views(PyObject* py_self) {
 };
 
 SWIGINTERN char const *Exiv2_StringValueBase_data(Exiv2::StringValueBase *self){
-        return self->value_.data();
+        return (char*)self->value_.data();
     }
 SWIGINTERN void Exiv2_StringValueBase__view_deleted_cb(Exiv2::StringValueBase *self,PyObject *ref){}
 SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_1(std::string const &buf){
@@ -6425,7 +6441,7 @@ SWIGINTERN Exiv2::AsciiValue *new_Exiv2_AsciiValue__SWIG_1(std::string const &bu
         return self;
     }
 SWIGINTERN char const *Exiv2_XmpTextValue_data(Exiv2::XmpTextValue *self){
-        return self->value_.data();
+        return (char*)self->value_.data();
     }
 SWIGINTERN void Exiv2_XmpTextValue__view_deleted_cb(Exiv2::XmpTextValue *self,PyObject *ref){}
 
@@ -9016,6 +9032,7 @@ SWIGINTERN PyObject *_wrap_DataValue_copy(PyObject *self, PyObject *args) {
     }
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::DataValue::copy", 1);
     try {
       result = ((Exiv2::DataValue const *)arg1)->copy(arg2,arg3);
     }
@@ -9338,6 +9355,35 @@ SWIGINTERN PyObject *_wrap_DataValue_toRational(PyObject *self, PyObject *args) 
     }
   }
   resultobj = swig::from(static_cast< std::pair< int,int > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataValue_data(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::DataValue *arg1 = (Exiv2::DataValue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *result = 0 ;
+  
+  if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "DataValue_data takes no arguments");
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__DataValue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataValue_data" "', argument " "1"" of type '" "Exiv2::DataValue *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::DataValue * >(argp1);
+  {
+    try {
+      result = (PyObject *)Exiv2_DataValue_data(arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = result;
   return resultobj;
 fail:
   return NULL;
@@ -25935,6 +25981,14 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__DataValue_methods[] = {
   { "toUint32", _wrap_DataValue_toUint32, METH_VARARGS, "" },
   { "toFloat", _wrap_DataValue_toFloat, METH_VARARGS, "" },
   { "toRational", _wrap_DataValue_toRational, METH_VARARGS, "" },
+  { "data", _wrap_DataValue_data, METH_VARARGS, "\n"
+		"Return a copy of the raw data.\n"
+		"\n"
+		"Allocates a :obj:`bytearray` of the correct size and copies the value's\n"
+		"data into it.\n"
+		"\n"
+		":rtype: bytearray\n"
+		"" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

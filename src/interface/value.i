@@ -430,16 +430,13 @@ VALUE_SUBCLASS(Exiv2::LangAltValue, LangAltValue)
 VALUE_SUBCLASS(Exiv2::XmpArrayValue, XmpArrayValue)
 VALUE_SUBCLASS(Exiv2::XmpTextValue, XmpTextValue)
 
-// Undeprecate DataValue::copy - it's the only way to get the data
-EXCEPTION(Exiv2::DataValue::copy)
-
 // Allow access to Exiv2::StringValueBase and Exiv2::XmpTextValue raw data
 %define RAW_STRING_DATA(class)
 RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ, class##::data)
 %noexception class::data;
 %extend class {
     const char* data() {
-        return $self->value_.data();
+        return (char*)self->value_.data();
     };
 }
 DEFINE_VIEW_CALLBACK(class,)
@@ -450,6 +447,36 @@ DEFINE_VIEW_CALLBACK(class,)
 %enddef // RAW_STRING_DATA
 RAW_STRING_DATA(Exiv2::StringValueBase)
 RAW_STRING_DATA(Exiv2::XmpTextValue)
+
+// Add data() method to DataValue
+#if EXIV2_VERSION_HEX >= 0x001c0800
+RAW_STRING_DATA(Exiv2::DataValue)
+#else
+%feature("docstring") Exiv2::DataValue::data "Return a copy of the raw data.
+
+Allocates a :obj:`bytearray` of the correct size and copies the value's
+data into it.
+
+:rtype: bytearray"
+%extend Exiv2::DataValue {
+PyObject* data() {
+    PyObject* result = PyByteArray_FromStringAndSize(NULL, 0);
+    if (!result)
+        return NULL;
+    if (PyByteArray_Resize(result, self->size()))
+        return NULL;
+    PyObject* view = PyMemoryView_FromObject(result);
+    if (!view) {
+        Py_DECREF(result);
+        return NULL;
+    }
+    Py_buffer* buffer = PyMemoryView_GET_BUFFER(view);
+    self->copy((Exiv2::byte*)buffer->buf);
+    Py_DECREF(view);
+    return result;
+}
+}
+#endif
 
 // XmpArrayValue holds multiple values but they're not assignable
 %feature("python:slot", "sq_length", functype="lenfunc")

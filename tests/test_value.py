@@ -42,13 +42,9 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(result, type(value))
         self.assertEqual(str(result), str(value))
         result = bytearray(len(data))
-        if type_id in (exiv2.TypeId.undefined, exiv2.TypeId.unsignedByte):
+        with self.assertWarns(DeprecationWarning):
             self.assertEqual(value.copy(
                 result, exiv2.ByteOrder.littleEndian), len(result))
-        else:
-            with self.assertWarns(DeprecationWarning):
-                self.assertEqual(value.copy(
-                    result, exiv2.ByteOrder.littleEndian), len(result))
         self.assertEqual(result, data)
         if sequence:
             self.check_result(value.count(), int, len(sequence))
@@ -326,7 +322,8 @@ class TestValueModule(unittest.TestCase):
     def test_DataValue(self):
         def check_data(value, data):
             copy = bytearray(len(data))
-            self.assertEqual(value.copy(copy), len(data))
+            with self.assertWarns(DeprecationWarning):
+                self.assertEqual(value.copy(copy), len(data))
             self.assertEqual(copy, data)
 
         data = bytes(random.choices(range(256), k=128))
@@ -352,6 +349,19 @@ class TestValueModule(unittest.TestCase):
             value.typeId(), exiv2.TypeId, exiv2.TypeId.unsignedByte)
         check_data(value, data)
         # other methods
+        if exiv2.testVersion(0, 28, 8):
+            with value.data() as view:
+                self.assertIsInstance(view, memoryview)
+                self.assertEqual(view, data)
+            with self.assertRaises(ValueError):
+                self.assertEqual(view[0], data[0])
+            self.assertEqual(sys.getrefcount(value), 3)
+            del view
+            self.assertEqual(sys.getrefcount(value), 2)
+        else:
+            copy = value.data()
+            self.assertIsInstance(copy, bytearray)
+            self.assertEqual(copy, data)
         self.do_common_tests(value, exiv2.TypeId.unsignedByte, string, data)
         self.do_conversion_tests(value, str(data[0]), data[0])
         self.do_dataarea_tests(value)

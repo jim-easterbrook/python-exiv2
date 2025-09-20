@@ -36,10 +36,11 @@ Changes in v0.18.0:
      aliases without the underscore.
   8/ Add data() method to exiv2.PreviewImage, deprecate pData() method.
   9/ Add data() method to exiv2.Image. This will replace using Image.io().
- 10/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
- 11/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
- 12/ Deprecated iteration of exiv2 "data" structure types.
- 13/ API CHANGE: exiv2.LogMsg.pythonHandler is replaced by exiv2.pythonHandler
+ 10/ Add data() method to exiv2.DataValue.
+ 11/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
+ 12/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
+ 13/ Deprecated iteration of exiv2 "data" structure types.
+ 14/ API CHANGE: exiv2.LogMsg.pythonHandler is replaced by exiv2.pythonHandler
 
 Changes in v0.17.5:
   1/ Binary wheels incorporate libexiv2 v0.28.7.
