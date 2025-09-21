@@ -460,10 +460,8 @@ data into it.
 :rtype: bytearray"
 %extend Exiv2::DataValue {
 PyObject* data() {
-    PyObject* result = PyByteArray_FromStringAndSize(NULL, 0);
+    PyObject* result = PyByteArray_FromStringAndSize(NULL, self->size());
     if (!result)
-        return NULL;
-    if (PyByteArray_Resize(result, self->size()))
         return NULL;
     PyObject* view = PyMemoryView_FromObject(result);
     if (!view) {

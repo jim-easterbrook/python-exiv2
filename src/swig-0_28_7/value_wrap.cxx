@@ -6329,10 +6329,8 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN PyObject *Exiv2_DataValue_data(Exiv2::DataValue *self){
-    PyObject* result = PyByteArray_FromStringAndSize(NULL, 0);
+    PyObject* result = PyByteArray_FromStringAndSize(NULL, self->size());
     if (!result)
-        return NULL;
-    if (PyByteArray_Resize(result, self->size()))
         return NULL;
     PyObject* view = PyMemoryView_FromObject(result);
     if (!view) {
