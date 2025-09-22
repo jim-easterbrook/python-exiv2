@@ -69,17 +69,8 @@ KEEP_REFERENCE_EX(Exiv2::ExifThumb*, args)
 
 INPUT_BUFFER_RO(const Exiv2::byte* buf, BUFLEN_T size)
 
-// Get the current (or default if not set) type id of a datum
-%fragment("get_type_id"{Exiv2::Exifdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::ExifKey(datum->key()).defaultTypeId();
-};
-}
-
-DATA_CONTAINER(ExifData, Exifdatum, ExifKey)
+DATA_CONTAINER(ExifData, Exifdatum, ExifKey,
+    Exiv2::ExifKey(datum->key()).defaultTypeId())
 
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)

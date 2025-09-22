@@ -55,17 +55,8 @@ IMPORT_ENUM(types, TypeId)
 // Catch all C++ exceptions
 EXCEPTION()
 
-// Get the current (or default if not set) type id of a datum
-%fragment("get_type_id"{Exiv2::Iptcdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
-};
-}
-
-DATA_CONTAINER(IptcData, Iptcdatum, IptcKey)
+DATA_CONTAINER(IptcData, Iptcdatum, IptcKey,
+    Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
 
 // Exiv2 have deprecated recordName()
 // deprecated in python-exiv2 2025-09-17

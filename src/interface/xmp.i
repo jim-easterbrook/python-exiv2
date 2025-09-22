@@ -55,17 +55,8 @@ IMPORT_ENUM(types, TypeId)
 // Catch all C++ exceptions
 EXCEPTION()
 
-// Get the current (or default if not set) type id of a datum
-%fragment("get_type_id"{Exiv2::Xmpdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
-};
-}
-
-DATA_CONTAINER(XmpData, Xmpdatum, XmpKey)
+DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
+    Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
 
 // Ignore const overloads of some methods
 %ignore Exiv2::XmpData::begin() const;

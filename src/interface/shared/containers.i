@@ -21,7 +21,7 @@
 
 
 // Macro to wrap data containers.
-%define DATA_CONTAINER(base_class, datum_type, key_type)
+%define DATA_CONTAINER(base_class, datum_type, key_type, default_type_func)
 
 METADATUM_WRAPPERS(base_class, datum_type)
 
@@ -32,18 +32,20 @@ METADATUM_WRAPPERS(base_class, datum_type)
 %ignore Exiv2::datum_type::setValue(const Value*);
 %ignore Exiv2::datum_type::setValue(const std::string&);
 %fragment("set_value_from_py"{Exiv2::datum_type}, "header",
-          fragment="get_type_object",
-          fragment="get_type_id"{Exiv2::datum_type}) {
+          fragment="get_type_object") {
 static PyObject* set_value_from_py(Exiv2::datum_type* datum,
                                    PyObject* py_value) {
+    // Get the current (or default if not set) type id of the datum
+    Exiv2::TypeId type_id = datum->typeId();
+    if (type_id == Exiv2::invalidTypeId)
+        type_id = default_type_func;
     // Try std::string value
     if (PyUnicode_Check(py_value)) {
         std::string value = PyUnicode_AsUTF8(py_value);
-        Exiv2::TypeId old_type = get_type_id(datum);
         if (datum->setValue(value) != 0)
             return PyErr_Format(PyExc_ValueError,
                 "%s: cannot set type '%s' to value '%s'",
-                datum->key().c_str(), Exiv2::TypeInfo::typeName(old_type),
+                datum->key().c_str(), Exiv2::TypeInfo::typeName(type_id),
                 value.c_str());
         return SWIG_Py_Void();
     }
@@ -55,7 +57,7 @@ static PyObject* set_value_from_py(Exiv2::datum_type* datum,
         return SWIG_Py_Void();
     }
     // Try converting Python object to a value
-    swig_type_info* ty_info = get_type_object(get_type_id(datum));
+    swig_type_info* ty_info = get_type_object(type_id);
     SwigPyClientData *cl_data = (SwigPyClientData*)ty_info->clientdata;
     // Call type object to invoke constructor
     PyObject* swig_obj = PyObject_CallFunctionObjArgs(
