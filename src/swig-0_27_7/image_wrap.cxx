@@ -9507,22 +9507,22 @@ SWIG_init(void) {
   }
   
   
-  if (strcmp(SWIG_name,"types")) {
-    Python_Exiv2_AccessMode = import_from_python("exiv2.""types","AccessMode");
+  if (strcmp(SWIG_name,"_types")) {
+    Python_Exiv2_AccessMode = import_from_python("exiv2.""_types","AccessMode");
     if (!Python_Exiv2_AccessMode)
     return INIT_ERROR_RETURN;
   }
   
   
-  if (strcmp(SWIG_name,"types")) {
-    Python_Exiv2_ByteOrder = import_from_python("exiv2.""types","ByteOrder");
+  if (strcmp(SWIG_name,"_types")) {
+    Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
     if (!Python_Exiv2_ByteOrder)
     return INIT_ERROR_RETURN;
   }
   
   
-  if (strcmp(SWIG_name,"types")) {
-    Python_Exiv2_MetadataId = import_from_python("exiv2.""types","MetadataId");
+  if (strcmp(SWIG_name,"_types")) {
+    Python_Exiv2_MetadataId = import_from_python("exiv2.""_types","MetadataId");
     if (!Python_Exiv2_MetadataId)
     return INIT_ERROR_RETURN;
   }
