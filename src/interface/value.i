@@ -53,8 +53,8 @@ if 'sphinx' in sys.modules:
 '''
 %}
 
-IMPORT_ENUM(types, ByteOrder)
-IMPORT_ENUM(types, TypeId)
+IMPORT_ENUM(_types, ByteOrder)
+IMPORT_ENUM(_types, TypeId)
 
 // Catch all C++ exceptions
 EXCEPTION()

@@ -8913,8 +8913,8 @@ SWIG_init(void) {
   }
   
   
-  if (strcmp(SWIG_name,"types")) {
-    Python_Exiv2_TypeId = import_from_python("exiv2.""types","TypeId");
+  if (strcmp(SWIG_name,"_types")) {
+    Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
     if (!Python_Exiv2_TypeId)
     return INIT_ERROR_RETURN;
   }
