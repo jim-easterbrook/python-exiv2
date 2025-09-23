@@ -4251,6 +4251,12 @@ static PyObject* Python_Exiv2_ErrorCode = NULL;
 #define INIT_ERROR_RETURN NULL
 
 
+static PyObject* Python_Exiv2_ByteOrder = NULL;
+
+
+static PyObject* Python_Exiv2_TypeId = NULL;
+
+
 static PyObject* Python_Exiv2_Exiv2Error = NULL;
 
 
@@ -4509,13 +4515,7 @@ SWIGINTERNINLINE PyObject*
 }
 
 
-static PyObject* Python_Exiv2_ByteOrder = NULL;
-
-
 static PyObject* Python_enum_IntEnum = NULL;
-
-
-static PyObject* Python_Exiv2_TypeId = NULL;
 
 
 SWIGINTERN int
@@ -7955,6 +7955,20 @@ SWIG_init(void) {
   if (strcmp(SWIG_name,"_error")) {
     Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
     if (!Python_Exiv2_ErrorCode)
+    return INIT_ERROR_RETURN;
+  }
+  
+  
+  if (strcmp(SWIG_name,"_types")) {
+    Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
+    if (!Python_Exiv2_ByteOrder)
+    return INIT_ERROR_RETURN;
+  }
+  
+  
+  if (strcmp(SWIG_name,"_types")) {
+    Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
+    if (!Python_Exiv2_TypeId)
     return INIT_ERROR_RETURN;
   }
   
