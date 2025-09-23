@@ -24,7 +24,6 @@
 %namewarn("") "print"; // don't rename print methods
 
 %include "shared/preamble.i"
-%include "shared/containers.i"
 %include "shared/slots.i"
 
 %import "value.i"

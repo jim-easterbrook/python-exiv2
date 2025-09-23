@@ -4355,7 +4355,7 @@ static std::string metadatum_str(Exiv2::Metadatum* datum) {
 };
 
 
-static PyObject* __str__Exiv2_Metadatum(PyObject* py_self) {
+static PyObject* _str_Exiv2_Metadatum(PyObject* py_self) {
     Exiv2::Metadatum* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__Metadatum, 0);
     std::string result = metadatum_str(self);
@@ -6897,7 +6897,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__Metadatum_type = {
     &SwigPyBuiltin__Exiv2__Metadatum_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
-    __str__Exiv2_Metadatum,                 /* tp_str */
+    _str_Exiv2_Metadatum,                   /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Exiv2__Metadatum_type.as_buffer, /* tp_as_buffer */
@@ -7119,7 +7119,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__Metadatum_type_create(PyTypeObject *t
 		"       related to one metadata tag.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
-    { Py_tp_str,                        (void *)__str__Exiv2_Metadatum },
+    { Py_tp_str,                        (void *)_str_Exiv2_Metadatum },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
     { Py_tp_clear,                      (void *)(inquiry) 0 },
     { Py_tp_richcompare,                (void *)SwigPyBuiltin__Exiv2__Metadatum_richcompare },

@@ -5177,7 +5177,7 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 
-static PyObject* __str__Iptcdatum_pointer(PyObject* py_self) {
+static PyObject* _str_Iptcdatum_pointer(PyObject* py_self) {
     Iptcdatum_pointer* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Iptcdatum_pointer, 0);
     std::string result = self->__str__();
@@ -5232,7 +5232,7 @@ public:
 };
 
 
-static Exiv2::Iptcdatum& __getitem__Exiv2_IptcData(Exiv2::IptcData* self, char* key) {
+static Exiv2::Iptcdatum& _getitem_Exiv2_IptcData(Exiv2::IptcData* self, char* key) {
     return (*self)[key];
 };
 
@@ -5328,12 +5328,12 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char **cptr, size_t *psize, int *alloc)
 
 
 extern "C" {
-static PyObject* _wrap___getitem__Exiv2_IptcData(PyObject*, PyObject*);
+static PyObject* _wrap__getitem_Exiv2_IptcData(PyObject*, PyObject*);
 }
-static PyObject* __getitem__Exiv2_IptcData_closure(
+static PyObject* _getitem_Exiv2_IptcData_closure(
         PyObject* self, PyObject* key) {
     PyObject* args = Py_BuildValue("(OO)", self, key);
-    PyObject* result = _wrap___getitem__Exiv2_IptcData(self, args);
+    PyObject* result = _wrap__getitem_Exiv2_IptcData(self, args);
     Py_DECREF(args);
     return result;
 };
@@ -5384,12 +5384,12 @@ static PyObject* set_value_from_py(Exiv2::Iptcdatum* datum,
 };
 
 
-static PyObject* __setitem__Exiv2_IptcData(
+static PyObject* _setitem_Exiv2_IptcData(
         Exiv2::IptcData* self, char* key, PyObject* value, PyObject* py_self) {
         return set_value_from_py(&(*self)[key], value);
     return SWIG_Py_Void();
 };
-static PyObject* __delitem__Exiv2_IptcData(
+static PyObject* _delitem_Exiv2_IptcData(
         Exiv2::IptcData* self, char* key, PyObject* py_self) {
         auto pos = self->findKey(Exiv2::IptcKey(key));
     if (pos == self->end())
@@ -5403,19 +5403,19 @@ static PyObject* __delitem__Exiv2_IptcData(
 
 
 extern "C" {
-static PyObject* _wrap___setitem__Exiv2_IptcData(PyObject*, PyObject*);
-static PyObject* _wrap___delitem__Exiv2_IptcData(PyObject*, PyObject*);
+static PyObject* _wrap__setitem_Exiv2_IptcData(PyObject*, PyObject*);
+static PyObject* _wrap__delitem_Exiv2_IptcData(PyObject*, PyObject*);
 }
-static int __setitem__Exiv2_IptcData_closure(
+static int _setitem_Exiv2_IptcData_closure(
         PyObject* self, PyObject* key, PyObject* value) {
     PyObject* args;
     PyObject* result;
     if (value) {
         args = Py_BuildValue("(OOO)", self, key, value);
-        result = _wrap___setitem__Exiv2_IptcData(self, args);
+        result = _wrap__setitem_Exiv2_IptcData(self, args);
     } else {
         args = Py_BuildValue("(OO)", self, key);
-        result = _wrap___delitem__Exiv2_IptcData(self, args);
+        result = _wrap__delitem_Exiv2_IptcData(self, args);
     }
     Py_DECREF(args);
     if (!result)
@@ -5425,7 +5425,7 @@ static int __setitem__Exiv2_IptcData_closure(
 };
 
 
-static int __contains__Exiv2_IptcData(PyObject* py_self, PyObject* py_key) {
+static int _contains_Exiv2_IptcData(PyObject* py_self, PyObject* py_key) {
     Exiv2::IptcData* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__IptcData, 0);
     const char* key = PyUnicode_AsUTF8(py_key);
@@ -6908,7 +6908,7 @@ fail:
 
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_Iptcdatum_reference) /* defines _wrap_delete_Iptcdatum_reference_destructor_closure */
 
-SWIGINTERN PyObject *_wrap___getitem__Exiv2_IptcData(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap__getitem_Exiv2_IptcData(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -6921,18 +6921,18 @@ SWIGINTERN PyObject *_wrap___getitem__Exiv2_IptcData(PyObject *self, PyObject *a
   PyObject * obj1 = 0 ;
   Exiv2::Iptcdatum *result = 0 ;
   
-  if (!PyArg_UnpackTuple(args, "__getitem__Exiv2_IptcData", 2, 2, &obj0, &obj1)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "_getitem_Exiv2_IptcData", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__getitem__Exiv2_IptcData" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_getitem_Exiv2_IptcData" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
   res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__getitem__Exiv2_IptcData" "', argument " "2"" of type '" "char *""'");
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_getitem_Exiv2_IptcData" "', argument " "2"" of type '" "char *""'");
   }
   arg2 = reinterpret_cast< char * >(buf2);
-  result = (Exiv2::Iptcdatum *) &__getitem__Exiv2_IptcData(arg1,arg2);
+  result = (Exiv2::Iptcdatum *) &_getitem_Exiv2_IptcData(arg1,arg2);
   {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new Iptcdatum_reference(result)),
@@ -6958,7 +6958,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap___setitem__Exiv2_IptcData(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap__setitem_Exiv2_IptcData(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -6980,21 +6980,21 @@ SWIGINTERN PyObject *_wrap___setitem__Exiv2_IptcData(PyObject *self, PyObject *a
   {
     arg4 = self;
   }
-  if (!PyArg_UnpackTuple(args, "__setitem__Exiv2_IptcData", 2, 3, &obj0, &obj1, &obj2)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "_setitem_Exiv2_IptcData", 2, 3, &obj0, &obj1, &obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__setitem__Exiv2_IptcData" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_setitem_Exiv2_IptcData" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
   res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__setitem__Exiv2_IptcData" "', argument " "2"" of type '" "char *""'");
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_setitem_Exiv2_IptcData" "', argument " "2"" of type '" "char *""'");
   }
   arg2 = reinterpret_cast< char * >(buf2);
   if (obj2) {
     arg3 = obj2;
   }
-  result = (PyObject *)__setitem__Exiv2_IptcData(arg1,arg2,arg3,arg4);
+  result = (PyObject *)_setitem_Exiv2_IptcData(arg1,arg2,arg3,arg4);
   resultobj = result;
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;
@@ -7004,7 +7004,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap___delitem__Exiv2_IptcData(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap__delitem_Exiv2_IptcData(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   Exiv2::IptcData *arg1 = (Exiv2::IptcData *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -7021,18 +7021,18 @@ SWIGINTERN PyObject *_wrap___delitem__Exiv2_IptcData(PyObject *self, PyObject *a
   {
     arg3 = self;
   }
-  if (!PyArg_UnpackTuple(args, "__delitem__Exiv2_IptcData", 2, 2, &obj0, &obj1)) SWIG_fail;
+  if (!PyArg_UnpackTuple(args, "_delitem_Exiv2_IptcData", 2, 2, &obj0, &obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__delitem__Exiv2_IptcData" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "_delitem_Exiv2_IptcData" "', argument " "1"" of type '" "Exiv2::IptcData *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::IptcData * >(argp1);
   res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__delitem__Exiv2_IptcData" "', argument " "2"" of type '" "char *""'");
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_delitem_Exiv2_IptcData" "', argument " "2"" of type '" "char *""'");
   }
   arg2 = reinterpret_cast< char * >(buf2);
-  result = (PyObject *)__delitem__Exiv2_IptcData(arg1,arg2,arg3);
+  result = (PyObject *)_delitem_Exiv2_IptcData(arg1,arg2,arg3);
   resultobj = result;
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;
@@ -9150,9 +9150,9 @@ SWIGPY_LENFUNC_CLOSURE(_wrap_IptcData_count) /* defines _wrap_IptcData_count_len
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_IptcData) /* defines _wrap_delete_IptcData_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
-	 { "__getitem__Exiv2_IptcData", _wrap___getitem__Exiv2_IptcData, METH_VARARGS, NULL},
-	 { "__setitem__Exiv2_IptcData", _wrap___setitem__Exiv2_IptcData, METH_VARARGS, NULL},
-	 { "__delitem__Exiv2_IptcData", _wrap___delitem__Exiv2_IptcData, METH_VARARGS, NULL},
+	 { "_getitem_Exiv2_IptcData", _wrap__getitem_Exiv2_IptcData, METH_VARARGS, NULL},
+	 { "_setitem_Exiv2_IptcData", _wrap__setitem_Exiv2_IptcData, METH_VARARGS, NULL},
+	 { "_delitem_Exiv2_IptcData", _wrap__delitem_Exiv2_IptcData, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -10991,8 +10991,8 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__IptcData_type = {
   },
   {
     _wrap_IptcData_count_lenfunc_closure,   /* mp_length */
-    __getitem__Exiv2_IptcData_closure,      /* mp_subscript */
-    __setitem__Exiv2_IptcData_closure,      /* mp_ass_subscript */
+    _getitem_Exiv2_IptcData_closure,        /* mp_subscript */
+    _setitem_Exiv2_IptcData_closure,        /* mp_ass_subscript */
   },
   {
     (lenfunc) 0,                            /* sq_length */
@@ -11010,7 +11010,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__IptcData_type = {
 #else
     (ssizessizeobjargproc) 0,               /* sq_ass_slice */
 #endif
-    __contains__Exiv2_IptcData,             /* sq_contains */
+    _contains_Exiv2_IptcData,               /* sq_contains */
     (binaryfunc) 0,                         /* sq_inplace_concat */
     (ssizeargfunc) 0,                       /* sq_inplace_repeat */
   },
@@ -11102,8 +11102,8 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__IptcData_type_create(PyTypeObject *ty
     { Py_tp_descr_get,                  (void *)(descrgetfunc) 0 },
     { Py_tp_descr_set,                  (void *)(descrsetfunc) 0 },
     { Py_mp_length,                     (void *)_wrap_IptcData_count_lenfunc_closure },
-    { Py_mp_subscript,                  (void *)__getitem__Exiv2_IptcData_closure },
-    { Py_mp_ass_subscript,              (void *)__setitem__Exiv2_IptcData_closure },
+    { Py_mp_subscript,                  (void *)_getitem_Exiv2_IptcData_closure },
+    { Py_mp_ass_subscript,              (void *)_setitem_Exiv2_IptcData_closure },
     { Py_tp_iter,                       (void *)_wrap_IptcData_begin_getiterfunc_closure },
     { Py_tp_iternext,                   (void *)(iternextfunc) 0 },
     { Py_nb_add,                        (void *)(binaryfunc) 0 },
@@ -11144,7 +11144,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__IptcData_type_create(PyTypeObject *ty
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
     { Py_sq_ass_item,                   (void *)(ssizeobjargproc) 0 },
-    { Py_sq_contains,                   (void *)__contains__Exiv2_IptcData },
+    { Py_sq_contains,                   (void *)_contains_Exiv2_IptcData },
     { Py_sq_inplace_concat,             (void *)(binaryfunc) 0 },
     { Py_sq_inplace_repeat,             (void *)(ssizeargfunc) 0 },
     { Py_tp_members, members },

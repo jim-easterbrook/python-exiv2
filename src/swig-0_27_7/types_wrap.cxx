@@ -4564,7 +4564,7 @@ static PyObject* _get_enum_data_Exiv2_TypeId() {
 };
 
 
-static Py_ssize_t __len__Exiv2_DataBuf(PyObject* py_self) {
+static Py_ssize_t _len_Exiv2_DataBuf(PyObject* py_self) {
     Exiv2::DataBuf* self = NULL;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__DataBuf, 0);
     return self->DATABUF_SIZE;
@@ -7399,7 +7399,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__DataBuf_type = {
     (objobjargproc) 0,                      /* mp_ass_subscript */
   },
   {
-    __len__Exiv2_DataBuf,                   /* sq_length */
+    _len_Exiv2_DataBuf,                     /* sq_length */
     (binaryfunc) 0,                         /* sq_concat */
     (ssizeargfunc) 0,                       /* sq_repeat */
     (ssizeargfunc) 0,                       /* sq_item */
@@ -7538,7 +7538,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__DataBuf_type_create(PyTypeObject *typ
     { Py_nb_inplace_floor_divide,       (void *)(binaryfunc) 0 },
     { Py_nb_inplace_true_divide,        (void *)(binaryfunc) 0 },
     { Py_nb_index,                      (void *)(unaryfunc) 0 },
-    { Py_sq_length,                     (void *)__len__Exiv2_DataBuf },
+    { Py_sq_length,                     (void *)_len_Exiv2_DataBuf },
     { Py_sq_concat,                     (void *)(binaryfunc) 0 },
     { Py_sq_repeat,                     (void *)(ssizeargfunc) 0 },
     { Py_sq_item,                       (void *)(ssizeargfunc) 0 },
