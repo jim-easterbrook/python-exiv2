@@ -108,10 +108,12 @@ if os.path.isdir(_dir):
 #endif
 
 // Make various enums more Pythonic
+#ifndef SWIGIMPORTED
 DEFINE_ENUM(AccessMode, 2)
 DEFINE_ENUM(ByteOrder,)
 DEFINE_ENUM(MetadataId, 2)
 DEFINE_ENUM(TypeId,)
+#endif
 
 // Make Exiv2::DataBuf behave more like a tuple of ints
 %extend Exiv2::DataBuf {

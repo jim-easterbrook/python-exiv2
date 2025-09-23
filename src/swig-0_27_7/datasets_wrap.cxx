@@ -4236,6 +4236,9 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+#define INIT_ERROR_RETURN NULL
+
+
 static PyObject* import_from_python(const char* package, const char* name) {
     PyObject* mod = PyImport_ImportModule(package);
     if (!mod)
@@ -4244,15 +4247,6 @@ static PyObject* import_from_python(const char* package, const char* name) {
     Py_DECREF(mod);
     return result;
 };
-
-
-static PyObject* Python_Exiv2_ErrorCode = NULL;
-
-
-#define INIT_ERROR_RETURN NULL
-
-
-static PyObject* Python_Exiv2_TypeId = NULL;
 
 
 static PyObject* Python_Exiv2_Exiv2Error = NULL;
@@ -4272,6 +4266,9 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
     Py_DECREF(py_int);
     return result;
 };
+
+
+static PyObject* Python_Exiv2_ErrorCode = NULL;
 
 
 #ifdef _WIN32
@@ -4473,6 +4470,9 @@ SWIGINTERNINLINE PyObject*
 {
   return PyInt_FromSize_t((size_t) value);
 }
+
+
+static PyObject* Python_Exiv2_TypeId = NULL;
 
 SWIGINTERN PyObject *Exiv2_DataSet_keys(){
         init_info_Exiv2_DataSet();
@@ -7795,20 +7795,6 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("IPTC key class and data attributes."));
   
-  if (strcmp(SWIG_name,"_error")) {
-    Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
-    if (!Python_Exiv2_ErrorCode)
-    return INIT_ERROR_RETURN;
-  }
-  
-  
-  if (strcmp(SWIG_name,"_types")) {
-    Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
-    if (!Python_Exiv2_TypeId)
-    return INIT_ERROR_RETURN;
-  }
-  
-  
   if (strcmp(SWIG_name,"extras")) {
     Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
     if (!Python_Exiv2_Exiv2Error)
@@ -7816,8 +7802,18 @@ SWIG_init(void) {
   }
   
   
+  Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
+  if (!Python_Exiv2_ErrorCode)
+  return INIT_ERROR_RETURN;
+  
+  
   /* type 'Exiv2::DataSet' */
   d = PyDict_New();
+  
+  Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
+  if (!Python_Exiv2_TypeId)
+  return INIT_ERROR_RETURN;
+  
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);

@@ -35,7 +35,7 @@ IMPORT_MODULE_OBJECT(extras, Exiv2Error)
 %fragment("_set_python_exception", "header",
           fragment="import_module_object"{Exiv2::Exiv2Error},
           fragment="py_from_enum",
-          fragment="declare_import"{Exiv2::ErrorCode},
+          fragment="use_enum"{Exiv2::ErrorCode},
           fragment="utf8_to_wcp") {
 static void _set_python_exception() {
     try {

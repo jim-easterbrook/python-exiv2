@@ -33,7 +33,7 @@ IMPORT_PYTHON_OBJECT(enum, IntEnum, enum::IntEnum)
 }
 
 // deprecate passing integers where an enum is expected
-%typemap(in, fragment="declare_import"{pattern}) pattern {
+%typemap(in, fragment="use_enum"{pattern}) pattern {
     if (!PyObject_IsInstance($input, Python_%mangle(pattern))) {
         // deprecated since 2024-01-09
         PyErr_WarnEx(PyExc_DeprecationWarning,
@@ -63,7 +63,7 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
 };
 }
 %typemap(out, fragment="py_from_enum",
-         fragment="declare_import"{pattern}) pattern {
+         fragment="use_enum"{pattern}) pattern {
     $result = py_from_enum(Python_%mangle(pattern), static_cast<long>($1));
     if (!$result)
         SWIG_fail;
@@ -104,8 +104,13 @@ static PyObject* _create_enum(const char* name, const char* alias_strip,
 %define IMPORT_ENUM(module, name)
 %typemap(doctype) Exiv2::name ":py:class:`" #name "`"
 _ENUM_COMMON(Exiv2::name)
-IMPORT_MODULE_OBJECT(module, name)
-%fragment("import_module_object"{Exiv2::name});
+%fragment("use_enum"{Exiv2::name}, "init",
+          fragment="import_from_python",
+          fragment="declare_import"{Exiv2::name}) {
+Python_%mangle(Exiv2::name) = import_from_python("exiv2."#module, #name);
+if (!Python_%mangle(Exiv2::name))
+    return INIT_ERROR_RETURN;
+}
 %enddef // IMPORT_ENUM
 
 %define _GET_ENUM_FROM_DATA(full_name, alias_strip)
@@ -130,6 +135,7 @@ _GET_ENUM_FROM_DATA(Exiv2::name, alias_strip)
 // Add enum to module during init
 %constant PyObject* name = Python_%mangle(Exiv2::name);
 %ignore Exiv2::name;
+%fragment("use_enum"{Exiv2::name}, "init") {}
 %enddef // DEFINE_ENUM
 
 
@@ -151,4 +157,5 @@ _GET_ENUM_FROM_DATA(Exiv2::class::name, alias_strip)
 %constant PyObject* name = Python_%mangle(Exiv2::class::name);
 }
 %ignore Exiv2::class::name;
+%fragment("use_enum"{Exiv2::class::name}, "init") {}
 %enddef // DEFINE_CLASS_ENUM

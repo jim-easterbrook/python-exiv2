@@ -4191,6 +4191,13 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+#define INIT_ERROR_RETURN NULL
+
+
+#include <typeinfo>
+#include <stdexcept>
+
+
 static PyObject* import_from_python(const char* package, const char* name) {
     PyObject* mod = PyImport_ImportModule(package);
     if (!mod)
@@ -4199,16 +4206,6 @@ static PyObject* import_from_python(const char* package, const char* name) {
     Py_DECREF(mod);
     return result;
 };
-
-
-static PyObject* Python_Exiv2_ErrorCode = NULL;
-
-
-#define INIT_ERROR_RETURN NULL
-
-
-#include <typeinfo>
-#include <stdexcept>
 
 
 static PyObject* Python_logger = NULL;
@@ -4321,6 +4318,9 @@ static PyObject* _get_enum_data_Exiv2_LogMsg_Level() {
 #if !EXIV2_TEST_VERSION(0,27,4)
 #define kerInvalidLangAltValue kerGeneralError
 #endif // EXIV2_TEST_VERSION
+
+
+static PyObject* Python_Exiv2_ErrorCode = NULL;
 
 
 static PyObject* _get_enum_data_Exiv2_ErrorCode() {
@@ -5420,13 +5420,6 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 error codes and message logging."));
   
-  if (strcmp(SWIG_name,"_error")) {
-    Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
-    if (!Python_Exiv2_ErrorCode)
-    return INIT_ERROR_RETURN;
-  }
-  
-  
   Python_logger = import_from_python("exiv2.extras","logger");
   if (!Python_logger)
   return INIT_ERROR_RETURN;
@@ -5460,6 +5453,7 @@ SWIG_init(void) {
   
   /* type 'Exiv2::LogMsg' */
   d = PyDict_New();
+  
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)

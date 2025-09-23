@@ -4235,6 +4235,9 @@ SWIG_FromCharPtr(const char *cptr)
 #include "exiv2/exiv2.hpp"
 
 
+#define INIT_ERROR_RETURN NULL
+
+
 static PyObject* import_from_python(const char* package, const char* name) {
     PyObject* mod = PyImport_ImportModule(package);
     if (!mod)
@@ -4243,18 +4246,6 @@ static PyObject* import_from_python(const char* package, const char* name) {
     Py_DECREF(mod);
     return result;
 };
-
-
-static PyObject* Python_Exiv2_ErrorCode = NULL;
-
-
-#define INIT_ERROR_RETURN NULL
-
-
-static PyObject* Python_Exiv2_ByteOrder = NULL;
-
-
-static PyObject* Python_Exiv2_TypeId = NULL;
 
 
 static PyObject* Python_Exiv2_Exiv2Error = NULL;
@@ -4274,6 +4265,9 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
     Py_DECREF(py_int);
     return result;
 };
+
+
+static PyObject* Python_Exiv2_ErrorCode = NULL;
 
 
 #ifdef _WIN32
@@ -4515,6 +4509,9 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+static PyObject* Python_Exiv2_ByteOrder = NULL;
+
+
 static PyObject* Python_enum_IntEnum = NULL;
 
 
@@ -4557,6 +4554,9 @@ SWIG_From_size_t  (size_t value)
   }
 #endif
 }
+
+
+static PyObject* Python_Exiv2_TypeId = NULL;
 
 
 SWIGINTERN int
@@ -8200,32 +8200,16 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("Exiv2 metadatum and key base classes."));
   
-  if (strcmp(SWIG_name,"_error")) {
-    Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
-    if (!Python_Exiv2_ErrorCode)
-    return INIT_ERROR_RETURN;
-  }
-  
-  
-  if (strcmp(SWIG_name,"_types")) {
-    Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
-    if (!Python_Exiv2_ByteOrder)
-    return INIT_ERROR_RETURN;
-  }
-  
-  
-  if (strcmp(SWIG_name,"_types")) {
-    Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
-    if (!Python_Exiv2_TypeId)
-    return INIT_ERROR_RETURN;
-  }
-  
-  
   if (strcmp(SWIG_name,"extras")) {
     Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
     if (!Python_Exiv2_Exiv2Error)
     return INIT_ERROR_RETURN;
   }
+  
+  
+  Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
+  if (!Python_Exiv2_ErrorCode)
+  return INIT_ERROR_RETURN;
   
   
   /* type 'Exiv2::Key' */
@@ -8251,8 +8235,18 @@ SWIG_init(void) {
   /* type 'Exiv2::Metadatum' */
   d = PyDict_New();
   
+  Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
+  if (!Python_Exiv2_ByteOrder)
+  return INIT_ERROR_RETURN;
+  
+  
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
+  return INIT_ERROR_RETURN;
+  
+  
+  Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
+  if (!Python_Exiv2_TypeId)
   return INIT_ERROR_RETURN;
   
   
