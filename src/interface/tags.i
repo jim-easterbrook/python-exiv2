@@ -122,3 +122,6 @@ public:
 %immutable;
 %include "exiv2/tags.hpp"
 %mutable;
+
+INIT_STRUCT_DICT(Exiv2::GroupInfo)
+INIT_STRUCT_DICT(Exiv2::TagInfo)

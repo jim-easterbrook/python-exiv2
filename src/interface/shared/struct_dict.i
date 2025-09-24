@@ -29,8 +29,6 @@ typedef struct {
 }
 %fragment("init_struct_info", "header", fragment="struct_info_type") {
 static void init_struct_info(struct_info& info, swig_type_info* type) {
-    if (!info.members.empty())
-        return;
     PyGetSetDef* getset =
         ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
     while (getset->name) {
@@ -156,22 +154,18 @@ Python interface uses names without underscores."
     %fragment("values_struct");
     %fragment("items_struct");
     static PyObject* keys() {
-        init_info_%mangle(struct_type)();
         return keys_struct(info_%mangle(struct_type));
     }
     PyObject* values(PyObject* py_self) {
-        init_info_%mangle(struct_type)();
         return values_struct(info_%mangle(struct_type), py_self);
     }
     PyObject* items(PyObject* py_self) {
-        init_info_%mangle(struct_type)();
         return items_struct(info_%mangle(struct_type), py_self);
     }
     static PyObject* __iter__() {
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
              "Please iterate over keys() function output", 1);
-        init_info_%mangle(struct_type)();
         PyObject* seq = keys_struct(info_%mangle(struct_type));
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
@@ -179,17 +173,13 @@ Python interface uses names without underscores."
     }
 }
 %fragment("struct_info"{struct_type}, "header",
-          fragment="init_struct_info") {
+          fragment="struct_info_type") {
 static struct_info info_%mangle(struct_type);
-static void init_info_%mangle(struct_type)() {
-    init_struct_info(info_%mangle(struct_type), $descriptor(struct_type*));
-};
 }
 %fragment("get_item"{struct_type}, "header",
           fragment="struct_info"{struct_type}, fragment="get_attr_struct") {
 static PyObject* get_item_%mangle(struct_type)(PyObject* obj,
                                                PyObject* key) {
-    init_info_%mangle(struct_type)();
     return get_attr_struct(info_%mangle(struct_type), true, obj, key);
 };
 }
@@ -197,7 +187,6 @@ static PyObject* get_item_%mangle(struct_type)(PyObject* obj,
           fragment="struct_info"{struct_type}, fragment="get_attr_struct") {
 static PyObject* get_attr_%mangle(struct_type)(PyObject* obj,
                                                PyObject* name) {
-    init_info_%mangle(struct_type)();
     return get_attr_struct(info_%mangle(struct_type), false, obj, name);
 };
 }
@@ -205,7 +194,6 @@ static PyObject* get_attr_%mangle(struct_type)(PyObject* obj,
           fragment="struct_info"{struct_type}, fragment="set_attr_struct") {
 static int set_item_%mangle(struct_type)(
         PyObject* obj, PyObject* key, PyObject* value) {
-    init_info_%mangle(struct_type)();
     return set_attr_struct(info_%mangle(struct_type), true, obj, key, value);
 };
 }
@@ -213,7 +201,6 @@ static int set_item_%mangle(struct_type)(
           fragment="struct_info"{struct_type}, fragment="set_attr_struct") {
 static int set_attr_%mangle(struct_type)(
         PyObject* obj, PyObject* name, PyObject* value) {
-    init_info_%mangle(struct_type)();
     return set_attr_struct(
         info_%mangle(struct_type), false, obj, name, value);
 };
@@ -237,3 +224,20 @@ static int set_attr_%mangle(struct_type)(
 #endif
 #endif // mutable
 %enddef // STRUCT_DICT
+
+
+// Put this at the end of a .i file, after the struct_type type object
+// has been initialised.
+%define INIT_STRUCT_DICT(struct_type)
+%fragment("init_struct_dict"{struct_type}, "init",
+          fragment="struct_info"{struct_type},
+          fragment="init_struct_info") {
+init_struct_info(info_%mangle(struct_type), $descriptor(struct_type*));
+if (info_%mangle(struct_type).aliases.empty()) {
+    PyErr_SetString(
+        PyExc_RuntimeError, "Failed to initialise struct_type info");
+    return INIT_ERROR_RETURN;
+}
+}
+%fragment("init_struct_dict"{struct_type});
+%enddef // INIT_STRUCT_DICT

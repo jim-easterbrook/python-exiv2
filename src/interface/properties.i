@@ -128,3 +128,6 @@ STRUCT_DICT(Exiv2::XmpNsInfo, false, true)
 %immutable;
 %include "exiv2/properties.hpp"
 %mutable;
+
+INIT_STRUCT_DICT(Exiv2::XmpPropertyInfo)
+INIT_STRUCT_DICT(Exiv2::XmpNsInfo)

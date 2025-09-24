@@ -5447,31 +5447,7 @@ typedef struct {
 } struct_info;
 
 
-static void init_struct_info(struct_info& info, swig_type_info* type) {
-    if (!info.members.empty())
-        return;
-    PyGetSetDef* getset =
-        ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
-    while (getset->name) {
-        // __dict__ is also in the getset list
-        if (getset->name[0] != '_') {
-            info.members.push_back(getset->name);
-            std::string alias = getset->name;
-            if (alias.back() == '_') {
-                alias.pop_back();
-                info.aliased = true;
-            }
-            info.aliases.push_back(alias);
-        }
-        getset++;
-    }
-};
-
-
 static struct_info info_Exiv2_PreviewProperties;
-static void init_info_Exiv2_PreviewProperties() {
-    init_struct_info(info_Exiv2_PreviewProperties, SWIGTYPE_p_Exiv2__PreviewProperties);
-};
 
 
 static PyObject* get_attr_struct(struct_info& info, bool as_item,
@@ -5489,14 +5465,12 @@ static PyObject* get_attr_struct(struct_info& info, bool as_item,
 
 static PyObject* get_item_Exiv2_PreviewProperties(PyObject* obj,
                                                PyObject* key) {
-    init_info_Exiv2_PreviewProperties();
     return get_attr_struct(info_Exiv2_PreviewProperties, true, obj, key);
 };
 
 
 static PyObject* get_attr_Exiv2_PreviewProperties(PyObject* obj,
                                                PyObject* name) {
-    init_info_Exiv2_PreviewProperties();
     return get_attr_struct(info_Exiv2_PreviewProperties, false, obj, name);
 };
 
@@ -5550,22 +5524,18 @@ SWIGINTERNINLINE PyObject*
 }
 
 SWIGINTERN PyObject *Exiv2_PreviewProperties_keys(){
-        init_info_Exiv2_PreviewProperties();
         return keys_struct(info_Exiv2_PreviewProperties);
     }
 SWIGINTERN PyObject *Exiv2_PreviewProperties_values(Exiv2::PreviewProperties *self,PyObject *py_self){
-        init_info_Exiv2_PreviewProperties();
         return values_struct(info_Exiv2_PreviewProperties, py_self);
     }
 SWIGINTERN PyObject *Exiv2_PreviewProperties_items(Exiv2::PreviewProperties *self,PyObject *py_self){
-        init_info_Exiv2_PreviewProperties();
         return items_struct(info_Exiv2_PreviewProperties, py_self);
     }
 SWIGINTERN PyObject *Exiv2_PreviewProperties___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
              "Please iterate over keys() function output", 1);
-        init_info_Exiv2_PreviewProperties();
         PyObject* seq = keys_struct(info_Exiv2_PreviewProperties);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
@@ -5918,6 +5888,25 @@ namespace swig {
 	};
       }
     
+
+static void init_struct_info(struct_info& info, swig_type_info* type) {
+    PyGetSetDef* getset =
+        ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
+    while (getset->name) {
+        // __dict__ is also in the getset list
+        if (getset->name[0] != '_') {
+            info.members.push_back(getset->name);
+            std::string alias = getset->name;
+            if (alias.back() == '_') {
+                alias.pop_back();
+                info.aliased = true;
+            }
+            info.aliases.push_back(alias);
+        }
+        getset++;
+    }
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -8831,6 +8820,14 @@ SWIG_init(void) {
   PyModule_AddObject(m, "PreviewManager", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "PreviewManager");
   d = md;
+  
+  init_struct_info(info_Exiv2_PreviewProperties, SWIGTYPE_p_Exiv2__PreviewProperties);
+  if (info_Exiv2_PreviewProperties.aliases.empty()) {
+    PyErr_SetString(
+      PyExc_RuntimeError, "Failed to initialise Exiv2::PreviewProperties info");
+    return INIT_ERROR_RETURN;
+  }
+  
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

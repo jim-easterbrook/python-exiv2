@@ -4586,31 +4586,7 @@ typedef struct {
 } struct_info;
 
 
-static void init_struct_info(struct_info& info, swig_type_info* type) {
-    if (!info.members.empty())
-        return;
-    PyGetSetDef* getset =
-        ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
-    while (getset->name) {
-        // __dict__ is also in the getset list
-        if (getset->name[0] != '_') {
-            info.members.push_back(getset->name);
-            std::string alias = getset->name;
-            if (alias.back() == '_') {
-                alias.pop_back();
-                info.aliased = true;
-            }
-            info.aliases.push_back(alias);
-        }
-        getset++;
-    }
-};
-
-
 static struct_info info_Exiv2_DateValue_Date;
-static void init_info_Exiv2_DateValue_Date() {
-    init_struct_info(info_Exiv2_DateValue_Date, SWIGTYPE_p_Exiv2__DateValue__Date);
-};
 
 
 static PyObject* get_attr_struct(struct_info& info, bool as_item,
@@ -4628,7 +4604,6 @@ static PyObject* get_attr_struct(struct_info& info, bool as_item,
 
 static PyObject* get_item_Exiv2_DateValue_Date(PyObject* obj,
                                                PyObject* key) {
-    init_info_Exiv2_DateValue_Date();
     return get_attr_struct(info_Exiv2_DateValue_Date, true, obj, key);
 };
 
@@ -4660,42 +4635,34 @@ static int set_attr_struct(struct_info& info, bool as_item,
 
 static int set_item_Exiv2_DateValue_Date(
         PyObject* obj, PyObject* key, PyObject* value) {
-    init_info_Exiv2_DateValue_Date();
     return set_attr_struct(info_Exiv2_DateValue_Date, true, obj, key, value);
 };
 
 
 static int set_attr_Exiv2_DateValue_Date(
         PyObject* obj, PyObject* name, PyObject* value) {
-    init_info_Exiv2_DateValue_Date();
     return set_attr_struct(
         info_Exiv2_DateValue_Date, false, obj, name, value);
 };
 
 
 static struct_info info_Exiv2_TimeValue_Time;
-static void init_info_Exiv2_TimeValue_Time() {
-    init_struct_info(info_Exiv2_TimeValue_Time, SWIGTYPE_p_Exiv2__TimeValue__Time);
-};
 
 
 static PyObject* get_item_Exiv2_TimeValue_Time(PyObject* obj,
                                                PyObject* key) {
-    init_info_Exiv2_TimeValue_Time();
     return get_attr_struct(info_Exiv2_TimeValue_Time, true, obj, key);
 };
 
 
 static int set_item_Exiv2_TimeValue_Time(
         PyObject* obj, PyObject* key, PyObject* value) {
-    init_info_Exiv2_TimeValue_Time();
     return set_attr_struct(info_Exiv2_TimeValue_Time, true, obj, key, value);
 };
 
 
 static int set_attr_Exiv2_TimeValue_Time(
         PyObject* obj, PyObject* name, PyObject* value) {
-    init_info_Exiv2_TimeValue_Time();
     return set_attr_struct(
         info_Exiv2_TimeValue_Time, false, obj, name, value);
 };
@@ -6860,22 +6827,18 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 };
 
 SWIGINTERN PyObject *Exiv2_DateValue_Date_keys(){
-        init_info_Exiv2_DateValue_Date();
         return keys_struct(info_Exiv2_DateValue_Date);
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date_values(Exiv2::DateValue::Date *self,PyObject *py_self){
-        init_info_Exiv2_DateValue_Date();
         return values_struct(info_Exiv2_DateValue_Date, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date_items(Exiv2::DateValue::Date *self,PyObject *py_self){
-        init_info_Exiv2_DateValue_Date();
         return items_struct(info_Exiv2_DateValue_Date, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DateValue_Date___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
              "Please iterate over keys() function output", 1);
-        init_info_Exiv2_DateValue_Date();
         PyObject* seq = keys_struct(info_Exiv2_DateValue_Date);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
@@ -6896,22 +6859,18 @@ SWIGINTERN void Exiv2_TimeValue_setTime__SWIG_1(Exiv2::TimeValue *self,int32_t h
         self->setTime(time);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_keys(){
-        init_info_Exiv2_TimeValue_Time();
         return keys_struct(info_Exiv2_TimeValue_Time);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_values(Exiv2::TimeValue::Time *self,PyObject *py_self){
-        init_info_Exiv2_TimeValue_Time();
         return values_struct(info_Exiv2_TimeValue_Time, py_self);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time_items(Exiv2::TimeValue::Time *self,PyObject *py_self){
-        init_info_Exiv2_TimeValue_Time();
         return items_struct(info_Exiv2_TimeValue_Time, py_self);
     }
 SWIGINTERN PyObject *Exiv2_TimeValue_Time___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
              "Please iterate over keys() function output", 1);
-        init_info_Exiv2_TimeValue_Time();
         PyObject* seq = keys_struct(info_Exiv2_TimeValue_Time);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
@@ -7705,6 +7664,25 @@ SWIGINTERN Exiv2::ValueType< double > *new_Exiv2_ValueType_Sl_double_Sg___SWIG_4
 SWIGINTERN void Exiv2_ValueType_Sl_double_Sg__append(Exiv2::ValueType< double > *self,double value){
         self->value_.push_back(value);
     }
+
+static void init_struct_info(struct_info& info, swig_type_info* type) {
+    PyGetSetDef* getset =
+        ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
+    while (getset->name) {
+        // __dict__ is also in the getset list
+        if (getset->name[0] != '_') {
+            info.members.push_back(getset->name);
+            std::string alias = getset->name;
+            if (alias.back() == '_') {
+                alias.pop_back();
+                info.aliased = true;
+            }
+            info.aliases.push_back(alias);
+        }
+        getset++;
+    }
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -35784,6 +35762,22 @@ SWIG_init(void) {
   PyModule_AddObject(m, "DoubleValue", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "DoubleValue");
   d = md;
+  
+  init_struct_info(info_Exiv2_DateValue_Date, SWIGTYPE_p_Exiv2__DateValue__Date);
+  if (info_Exiv2_DateValue_Date.aliases.empty()) {
+    PyErr_SetString(
+      PyExc_RuntimeError, "Failed to initialise Exiv2::DateValue::Date info");
+    return INIT_ERROR_RETURN;
+  }
+  
+  
+  init_struct_info(info_Exiv2_TimeValue_Time, SWIGTYPE_p_Exiv2__TimeValue__Time);
+  if (info_Exiv2_TimeValue_Time.aliases.empty()) {
+    PyErr_SetString(
+      PyExc_RuntimeError, "Failed to initialise Exiv2::TimeValue::Time info");
+    return INIT_ERROR_RETURN;
+  }
+  
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

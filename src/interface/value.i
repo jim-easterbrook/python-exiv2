@@ -553,3 +553,6 @@ VALUETYPE(LongValue, int32_t, Exiv2::signedLong)
 VALUETYPE(RationalValue, Exiv2::Rational, Exiv2::signedRational)
 VALUETYPE(FloatValue, float, Exiv2::tiffFloat)
 VALUETYPE(DoubleValue, double, Exiv2::tiffDouble)
+
+INIT_STRUCT_DICT(Exiv2::DateValue::Date)
+INIT_STRUCT_DICT(Exiv2::TimeValue::Time)

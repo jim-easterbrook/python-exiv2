@@ -111,3 +111,5 @@ STRUCT_DICT(Exiv2::PreviewProperties, false, true)
 %include "exiv2/preview.hpp"
 %mutable;
 #undef EXV_ENABLE_FILESYSTEM
+
+INIT_STRUCT_DICT(Exiv2::PreviewProperties)

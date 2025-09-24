@@ -4401,31 +4401,7 @@ typedef struct {
 } struct_info;
 
 
-static void init_struct_info(struct_info& info, swig_type_info* type) {
-    if (!info.members.empty())
-        return;
-    PyGetSetDef* getset =
-        ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
-    while (getset->name) {
-        // __dict__ is also in the getset list
-        if (getset->name[0] != '_') {
-            info.members.push_back(getset->name);
-            std::string alias = getset->name;
-            if (alias.back() == '_') {
-                alias.pop_back();
-                info.aliased = true;
-            }
-            info.aliases.push_back(alias);
-        }
-        getset++;
-    }
-};
-
-
 static struct_info info_Exiv2_XmpPropertyInfo;
-static void init_info_Exiv2_XmpPropertyInfo() {
-    init_struct_info(info_Exiv2_XmpPropertyInfo, SWIGTYPE_p_Exiv2__XmpPropertyInfo);
-};
 
 
 static PyObject* get_attr_struct(struct_info& info, bool as_item,
@@ -4443,34 +4419,27 @@ static PyObject* get_attr_struct(struct_info& info, bool as_item,
 
 static PyObject* get_item_Exiv2_XmpPropertyInfo(PyObject* obj,
                                                PyObject* key) {
-    init_info_Exiv2_XmpPropertyInfo();
     return get_attr_struct(info_Exiv2_XmpPropertyInfo, true, obj, key);
 };
 
 
 static PyObject* get_attr_Exiv2_XmpPropertyInfo(PyObject* obj,
                                                PyObject* name) {
-    init_info_Exiv2_XmpPropertyInfo();
     return get_attr_struct(info_Exiv2_XmpPropertyInfo, false, obj, name);
 };
 
 
 static struct_info info_Exiv2_XmpNsInfo;
-static void init_info_Exiv2_XmpNsInfo() {
-    init_struct_info(info_Exiv2_XmpNsInfo, SWIGTYPE_p_Exiv2__XmpNsInfo);
-};
 
 
 static PyObject* get_item_Exiv2_XmpNsInfo(PyObject* obj,
                                                PyObject* key) {
-    init_info_Exiv2_XmpNsInfo();
     return get_attr_struct(info_Exiv2_XmpNsInfo, true, obj, key);
 };
 
 
 static PyObject* get_attr_Exiv2_XmpNsInfo(PyObject* obj,
                                                PyObject* name) {
-    init_info_Exiv2_XmpNsInfo();
     return get_attr_struct(info_Exiv2_XmpNsInfo, false, obj, name);
 };
 
@@ -4506,22 +4475,18 @@ static PyObject* items_struct(struct_info& info, PyObject* obj) {
 static PyObject* Python_Exiv2_TypeId = NULL;
 
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_keys(){
-        init_info_Exiv2_XmpPropertyInfo();
         return keys_struct(info_Exiv2_XmpPropertyInfo);
     }
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_values(Exiv2::XmpPropertyInfo *self,PyObject *py_self){
-        init_info_Exiv2_XmpPropertyInfo();
         return values_struct(info_Exiv2_XmpPropertyInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo_items(Exiv2::XmpPropertyInfo *self,PyObject *py_self){
-        init_info_Exiv2_XmpPropertyInfo();
         return items_struct(info_Exiv2_XmpPropertyInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_XmpPropertyInfo___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
              "Please iterate over keys() function output", 1);
-        init_info_Exiv2_XmpPropertyInfo();
         PyObject* seq = keys_struct(info_Exiv2_XmpPropertyInfo);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
@@ -4543,22 +4508,18 @@ static PyObject* pointer_to_list(Exiv2::XmpPropertyInfo* ptr) {
 };
 
 SWIGINTERN PyObject *Exiv2_XmpNsInfo_keys(){
-        init_info_Exiv2_XmpNsInfo();
         return keys_struct(info_Exiv2_XmpNsInfo);
     }
 SWIGINTERN PyObject *Exiv2_XmpNsInfo_values(Exiv2::XmpNsInfo *self,PyObject *py_self){
-        init_info_Exiv2_XmpNsInfo();
         return values_struct(info_Exiv2_XmpNsInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_XmpNsInfo_items(Exiv2::XmpNsInfo *self,PyObject *py_self){
-        init_info_Exiv2_XmpNsInfo();
         return items_struct(info_Exiv2_XmpNsInfo, py_self);
     }
 SWIGINTERN PyObject *Exiv2_XmpNsInfo___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
              "Please iterate over keys() function output", 1);
-        init_info_Exiv2_XmpNsInfo();
         PyObject* seq = keys_struct(info_Exiv2_XmpNsInfo);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
@@ -4702,6 +4663,25 @@ SWIG_From_unsigned_SS_short  (unsigned short value)
 {    
   return SWIG_From_unsigned_SS_long  (value);
 }
+
+
+static void init_struct_info(struct_info& info, swig_type_info* type) {
+    PyGetSetDef* getset =
+        ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
+    while (getset->name) {
+        // __dict__ is also in the getset list
+        if (getset->name[0] != '_') {
+            info.members.push_back(getset->name);
+            std::string alias = getset->name;
+            if (alias.back() == '_') {
+                alias.pop_back();
+                info.aliased = true;
+            }
+            info.aliases.push_back(alias);
+        }
+        getset++;
+    }
+};
 
 #ifdef __cplusplus
 extern "C" {
@@ -8467,6 +8447,22 @@ SWIG_init(void) {
   PyModule_AddObject(m, "XmpKey", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpKey");
   d = md;
+  
+  init_struct_info(info_Exiv2_XmpPropertyInfo, SWIGTYPE_p_Exiv2__XmpPropertyInfo);
+  if (info_Exiv2_XmpPropertyInfo.aliases.empty()) {
+    PyErr_SetString(
+      PyExc_RuntimeError, "Failed to initialise Exiv2::XmpPropertyInfo info");
+    return INIT_ERROR_RETURN;
+  }
+  
+  
+  init_struct_info(info_Exiv2_XmpNsInfo, SWIGTYPE_p_Exiv2__XmpNsInfo);
+  if (info_Exiv2_XmpNsInfo.aliases.empty()) {
+    PyErr_SetString(
+      PyExc_RuntimeError, "Failed to initialise Exiv2::XmpNsInfo info");
+    return INIT_ERROR_RETURN;
+  }
+  
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

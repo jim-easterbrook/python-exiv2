@@ -4358,31 +4358,7 @@ typedef struct {
 } struct_info;
 
 
-static void init_struct_info(struct_info& info, swig_type_info* type) {
-    if (!info.members.empty())
-        return;
-    PyGetSetDef* getset =
-        ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
-    while (getset->name) {
-        // __dict__ is also in the getset list
-        if (getset->name[0] != '_') {
-            info.members.push_back(getset->name);
-            std::string alias = getset->name;
-            if (alias.back() == '_') {
-                alias.pop_back();
-                info.aliased = true;
-            }
-            info.aliases.push_back(alias);
-        }
-        getset++;
-    }
-};
-
-
 static struct_info info_Exiv2_DataSet;
-static void init_info_Exiv2_DataSet() {
-    init_struct_info(info_Exiv2_DataSet, SWIGTYPE_p_Exiv2__DataSet);
-};
 
 
 static PyObject* get_attr_struct(struct_info& info, bool as_item,
@@ -4400,14 +4376,12 @@ static PyObject* get_attr_struct(struct_info& info, bool as_item,
 
 static PyObject* get_item_Exiv2_DataSet(PyObject* obj,
                                                PyObject* key) {
-    init_info_Exiv2_DataSet();
     return get_attr_struct(info_Exiv2_DataSet, true, obj, key);
 };
 
 
 static PyObject* get_attr_Exiv2_DataSet(PyObject* obj,
                                                PyObject* name) {
-    init_info_Exiv2_DataSet();
     return get_attr_struct(info_Exiv2_DataSet, false, obj, name);
 };
 
@@ -4475,22 +4449,18 @@ SWIGINTERNINLINE PyObject*
 static PyObject* Python_Exiv2_TypeId = NULL;
 
 SWIGINTERN PyObject *Exiv2_DataSet_keys(){
-        init_info_Exiv2_DataSet();
         return keys_struct(info_Exiv2_DataSet);
     }
 SWIGINTERN PyObject *Exiv2_DataSet_values(Exiv2::DataSet *self,PyObject *py_self){
-        init_info_Exiv2_DataSet();
         return values_struct(info_Exiv2_DataSet, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DataSet_items(Exiv2::DataSet *self,PyObject *py_self){
-        init_info_Exiv2_DataSet();
         return items_struct(info_Exiv2_DataSet, py_self);
     }
 SWIGINTERN PyObject *Exiv2_DataSet___iter__(){
         // Deprecated since 2025-09-11
         PyErr_WarnEx(PyExc_DeprecationWarning,
              "Please iterate over keys() function output", 1);
-        init_info_Exiv2_DataSet();
         PyObject* seq = keys_struct(info_Exiv2_DataSet);
         PyObject* result = PySeqIter_New(seq);
         Py_DECREF(seq);
@@ -4792,6 +4762,25 @@ static PyObject* pointer_to_list(Exiv2::DataSet* ptr) {
         Py_DECREF(py_tmp);
     }
     return list;
+};
+
+
+static void init_struct_info(struct_info& info, swig_type_info* type) {
+    PyGetSetDef* getset =
+        ((SwigPyClientData*)type->clientdata)->pytype->tp_getset;
+    while (getset->name) {
+        // __dict__ is also in the getset list
+        if (getset->name[0] != '_') {
+            info.members.push_back(getset->name);
+            std::string alias = getset->name;
+            if (alias.back() == '_') {
+                alias.pop_back();
+                info.aliased = true;
+            }
+            info.aliases.push_back(alias);
+        }
+        getset++;
+    }
 };
 
 #ifdef __cplusplus
@@ -7932,6 +7921,14 @@ SWIG_init(void) {
   PyModule_AddObject(m, "IptcKey", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "IptcKey");
   d = md;
+  
+  init_struct_info(info_Exiv2_DataSet, SWIGTYPE_p_Exiv2__DataSet);
+  if (info_Exiv2_DataSet.aliases.empty()) {
+    PyErr_SetString(
+      PyExc_RuntimeError, "Failed to initialise Exiv2::DataSet info");
+    return INIT_ERROR_RETURN;
+  }
+  
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

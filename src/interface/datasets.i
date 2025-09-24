@@ -77,3 +77,5 @@ STRUCT_DICT(Exiv2::DataSet, false, true)
 %immutable;
 %include "exiv2/datasets.hpp"
 %mutable;
+
+INIT_STRUCT_DICT(Exiv2::DataSet)
