@@ -53,9 +53,6 @@ if 'sphinx' in sys.modules:
 '''
 %}
 
-IMPORT_ENUM(_types, ByteOrder)
-IMPORT_ENUM(_types, TypeId)
-
 // Catch all C++ exceptions
 EXCEPTION()
 
@@ -214,9 +211,15 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 %ignore Exiv2::Value::toUint32() const;
 
 // Make enums more Pythonic
+#ifndef SWIGIMPORTED
 DEFINE_CLASS_ENUM(CommentValue, CharsetId,)
 DEFINE_CLASS_ENUM(XmpValue, XmpArrayType,)
 DEFINE_CLASS_ENUM(XmpValue, XmpStruct,)
+#else
+IMPORT_CLASS_ENUM(_value, CommentValue, CharsetId)
+IMPORT_CLASS_ENUM(_value, CommentValue, XmpArrayType)
+IMPORT_CLASS_ENUM(_value, CommentValue, XmpStruct)
+#endif
 
 // deprecated since 2023-12-01
 DEPRECATED_ENUM(CommentValue, CharsetId)

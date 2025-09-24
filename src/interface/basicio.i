@@ -227,7 +227,11 @@ EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo)
 RELEASE_OBJECT_BUFFER(Exiv2::BasicIo)
 
 // Make enum more Pythonic
+#ifndef SWIGIMPORTED
 DEFINE_CLASS_ENUM(BasicIo, Position,)
+#else
+IMPORT_CLASS_ENUM(_basicio, BasicIo, Position)
+#endif
 
 // deprecated since 2023-12-01
 DEPRECATED_ENUM(BasicIo, Position)

@@ -40,8 +40,6 @@ if 'sphinx' in sys.modules:
 '''
 %}
 
-IMPORT_ENUM(_types, TypeId)
-
 // Catch some C++ exceptions
 %exception;
 EXCEPTION(Exiv2::IptcDataSets::dataSet)

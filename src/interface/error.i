@@ -116,7 +116,11 @@ __all__.remove('cvar')
 %ignore Exiv2::LogMsg::defaultHandler;
 %ignore Exiv2::operator<<;
 
+#ifndef SWIGIMPORTED
 DEFINE_CLASS_ENUM(LogMsg, Level,)
+#else
+IMPORT_CLASS_ENUM(_error, LogMsg, Level)
+#endif
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 %{
@@ -133,6 +137,10 @@ DEFINE_CLASS_ENUM(LogMsg, Level,)
 #endif // EXIV2_TEST_VERSION
 %}
 #endif
+#ifndef SWIGIMPORTED
 DEFINE_ENUM(ErrorCode,)
+#else
+IMPORT_ENUM(_error, ErrorCode)
+#endif
 
 %include "exiv2/error.hpp"

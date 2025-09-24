@@ -47,8 +47,6 @@ if 'sphinx' in sys.modules:
 '''
 %}
 
-IMPORT_ENUM(_types, TypeId)
-
 // Catch some C++ exceptions
 %exception;
 EXCEPTION(Exiv2::ExifKey::ExifKey)
@@ -58,8 +56,13 @@ EXTEND_KEY(Exiv2::ExifKey);
 
 // Add Exif specific enums
 #if EXIV2_VERSION_HEX >= 0x001c0000
+#ifndef SWIGIMPORTED
 DEFINE_ENUM(IfdId,)
 DEFINE_ENUM(SectionId,)
+#else
+IMPORT_ENUM(_tags, IfdId)
+IMPORT_ENUM(_tags, SectionId)
+#endif
 #endif // EXIV2_VERSION_HEX
 
 // Convert ExifTags::groupList() result to a Python list of GroupInfo objects

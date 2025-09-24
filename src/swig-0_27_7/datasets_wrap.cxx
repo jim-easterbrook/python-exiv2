@@ -4258,11 +4258,11 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
         enum_typeobject, py_int, NULL);
-    if (!result) {
+    if (!result && PyErr_ExceptionMatches(PyExc_ValueError)) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
         return py_int;
-        }
+    }
     Py_DECREF(py_int);
     return result;
 };
@@ -7795,16 +7795,15 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "__doc__",SWIG_FromCharPtr("IPTC key class and data attributes."));
   
-  if (strcmp(SWIG_name,"extras")) {
-    Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
-    if (!Python_Exiv2_Exiv2Error)
-    return INIT_ERROR_RETURN;
-  }
+  Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
+  if (!Python_Exiv2_Exiv2Error)
+  return INIT_ERROR_RETURN;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
   return INIT_ERROR_RETURN;
+  
   
   
   /* type 'Exiv2::DataSet' */
@@ -7813,6 +7812,7 @@ SWIG_init(void) {
   Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
   if (!Python_Exiv2_TypeId)
   return INIT_ERROR_RETURN;
+  
   
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;

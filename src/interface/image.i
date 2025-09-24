@@ -51,10 +51,6 @@ if 'sphinx' in sys.modules:
 '''
 %}
 
-IMPORT_ENUM(_types, AccessMode)
-IMPORT_ENUM(_types, ByteOrder)
-IMPORT_ENUM(_types, MetadataId)
-
 // Catch all C++ exceptions
 EXCEPTION()
 
@@ -248,7 +244,11 @@ namespace Exiv2::ImageType {
 %}
 #endif
 
+#ifndef SWIGIMPORTED
 DEFINE_ENUM(ImageType,)
+#else
+IMPORT_ENUM(_image, ImageType)
+#endif
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Convert ImageType results and parameters from int

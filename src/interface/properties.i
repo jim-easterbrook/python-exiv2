@@ -46,8 +46,6 @@ if 'sphinx' in sys.modules:
 '''
 %}
 
-IMPORT_ENUM(_types, TypeId)
-
 // Catch all C++ exceptions...
 EXCEPTION()
 
@@ -68,7 +66,11 @@ EXCEPTION()
 EXTEND_KEY(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
+#ifndef SWIGIMPORTED
 DEFINE_ENUM(XmpCategory, 3)
+#else
+IMPORT_ENUM(_properties, XmpCategory)
+#endif
 
 // Get registeredNamespaces to return a Python dict
 %typemap(in, numinputs=0) Exiv2::Dictionary &nsDict (Exiv2::Dictionary temp) %{

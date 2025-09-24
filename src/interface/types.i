@@ -113,6 +113,11 @@ DEFINE_ENUM(AccessMode, 2)
 DEFINE_ENUM(ByteOrder,)
 DEFINE_ENUM(MetadataId, 2)
 DEFINE_ENUM(TypeId,)
+#else
+IMPORT_ENUM(_types, AccessMode)
+IMPORT_ENUM(_types, ByteOrder)
+IMPORT_ENUM(_types, MetadataId)
+IMPORT_ENUM(_types, TypeId)
 #endif
 
 // Make Exiv2::DataBuf behave more like a tuple of ints

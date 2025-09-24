@@ -58,11 +58,9 @@ DECLARE_IMPORT(Exiv2::name)
 %fragment("import_module_object"{Exiv2::name}, "init",
           fragment="import_from_python",
           fragment="declare_import"{Exiv2::name}) {
-if (strcmp(SWIG_name, #module)) {
-    Python_%mangle(Exiv2::name) = import_from_python("exiv2."#module, #name);
-    if (!Python_%mangle(Exiv2::name))
-        return INIT_ERROR_RETURN;
-}
+Python_%mangle(Exiv2::name) = import_from_python("exiv2."#module, #name);
+if (!Python_%mangle(Exiv2::name))
+    return INIT_ERROR_RETURN;
 }
 %enddef // IMPORT_MODULE_OBJECT
 
@@ -73,20 +71,18 @@ DECLARE_IMPORT(Exiv2::class::name)
 %fragment("import_class_object"{Exiv2::class::name}, "init",
           fragment="declare_import"{Exiv2::class::name}) {
 {
-    if (strcmp(SWIG_name, #module)) {
-        PyObject* mod = PyImport_ImportModule("exiv2.module");
-        if (!mod)
-            return INIT_ERROR_RETURN;
-        PyObject* parent = PyObject_GetAttrString(mod, "class");
-        Py_DECREF(mod);
-        if (!parent)
-            return INIT_ERROR_RETURN;
-        Python_%mangle(Exiv2::class::name) = PyObject_GetAttrString(
-            parent, "name");
-        Py_DECREF(parent);
-        if (!Python_%mangle(Exiv2::class::name))
-            return INIT_ERROR_RETURN;
-    }
+    PyObject* mod = PyImport_ImportModule("exiv2.module");
+    if (!mod)
+        return INIT_ERROR_RETURN;
+    PyObject* parent = PyObject_GetAttrString(mod, "class");
+    Py_DECREF(mod);
+    if (!parent)
+        return INIT_ERROR_RETURN;
+    Python_%mangle(Exiv2::class::name) = PyObject_GetAttrString(
+        parent, "name");
+    Py_DECREF(parent);
+    if (!Python_%mangle(Exiv2::class::name))
+        return INIT_ERROR_RETURN;
 }
 }
 %enddef // IMPORT_CLASS_OBJECT

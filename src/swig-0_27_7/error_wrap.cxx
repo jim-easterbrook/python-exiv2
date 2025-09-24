@@ -4401,11 +4401,11 @@ static PyObject* py_from_enum(PyObject* enum_typeobject, long value) {
         return NULL;
     PyObject* result = PyObject_CallFunctionObjArgs(
         enum_typeobject, py_int, NULL);
-    if (!result) {
+    if (!result && PyErr_ExceptionMatches(PyExc_ValueError)) {
         // Assume value is not currently in enum, so return int
         PyErr_Clear();
         return py_int;
-        }
+    }
     Py_DECREF(py_int);
     return result;
 };
