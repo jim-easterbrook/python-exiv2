@@ -4311,7 +4311,6 @@ SWIGINTERN PyObject *_wrap_orientation(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4325,9 +4324,6 @@ SWIGINTERN PyObject *_wrap_orientation(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "orientation" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::orientation((Exiv2::ExifData const &)*arg1);
@@ -4338,7 +4334,7 @@ SWIGINTERN PyObject *_wrap_orientation(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4355,7 +4351,6 @@ SWIGINTERN PyObject *_wrap_isoSpeed(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4369,9 +4364,6 @@ SWIGINTERN PyObject *_wrap_isoSpeed(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "isoSpeed" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::isoSpeed((Exiv2::ExifData const &)*arg1);
@@ -4382,7 +4374,7 @@ SWIGINTERN PyObject *_wrap_isoSpeed(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4399,7 +4391,6 @@ SWIGINTERN PyObject *_wrap_dateTimeOriginal(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4413,9 +4404,6 @@ SWIGINTERN PyObject *_wrap_dateTimeOriginal(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "dateTimeOriginal" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -4430,7 +4418,7 @@ SWIGINTERN PyObject *_wrap_dateTimeOriginal(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4447,7 +4435,6 @@ SWIGINTERN PyObject *_wrap_flashBias(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4461,9 +4448,6 @@ SWIGINTERN PyObject *_wrap_flashBias(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "flashBias" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::flashBias((Exiv2::ExifData const &)*arg1);
@@ -4474,7 +4458,7 @@ SWIGINTERN PyObject *_wrap_flashBias(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4491,7 +4475,6 @@ SWIGINTERN PyObject *_wrap_exposureMode(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4505,9 +4488,6 @@ SWIGINTERN PyObject *_wrap_exposureMode(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "exposureMode" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::exposureMode((Exiv2::ExifData const &)*arg1);
@@ -4518,7 +4498,7 @@ SWIGINTERN PyObject *_wrap_exposureMode(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4535,7 +4515,6 @@ SWIGINTERN PyObject *_wrap_sceneMode(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4549,9 +4528,6 @@ SWIGINTERN PyObject *_wrap_sceneMode(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "sceneMode" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::sceneMode((Exiv2::ExifData const &)*arg1);
@@ -4562,7 +4538,7 @@ SWIGINTERN PyObject *_wrap_sceneMode(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4579,7 +4555,6 @@ SWIGINTERN PyObject *_wrap_macroMode(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4593,9 +4568,6 @@ SWIGINTERN PyObject *_wrap_macroMode(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "macroMode" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::macroMode((Exiv2::ExifData const &)*arg1);
@@ -4606,7 +4578,7 @@ SWIGINTERN PyObject *_wrap_macroMode(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4623,7 +4595,6 @@ SWIGINTERN PyObject *_wrap_imageQuality(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4637,9 +4608,6 @@ SWIGINTERN PyObject *_wrap_imageQuality(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "imageQuality" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::imageQuality((Exiv2::ExifData const &)*arg1);
@@ -4650,7 +4618,7 @@ SWIGINTERN PyObject *_wrap_imageQuality(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4667,7 +4635,6 @@ SWIGINTERN PyObject *_wrap_whiteBalance(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4681,9 +4648,6 @@ SWIGINTERN PyObject *_wrap_whiteBalance(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "whiteBalance" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::whiteBalance((Exiv2::ExifData const &)*arg1);
@@ -4694,7 +4658,7 @@ SWIGINTERN PyObject *_wrap_whiteBalance(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4711,7 +4675,6 @@ SWIGINTERN PyObject *_wrap_lensName(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4725,9 +4688,6 @@ SWIGINTERN PyObject *_wrap_lensName(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "lensName" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::lensName((Exiv2::ExifData const &)*arg1);
@@ -4738,7 +4698,7 @@ SWIGINTERN PyObject *_wrap_lensName(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4755,7 +4715,6 @@ SWIGINTERN PyObject *_wrap_saturation(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4769,9 +4728,6 @@ SWIGINTERN PyObject *_wrap_saturation(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "saturation" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::saturation((Exiv2::ExifData const &)*arg1);
@@ -4782,7 +4738,7 @@ SWIGINTERN PyObject *_wrap_saturation(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4799,7 +4755,6 @@ SWIGINTERN PyObject *_wrap_sharpness(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4813,9 +4768,6 @@ SWIGINTERN PyObject *_wrap_sharpness(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "sharpness" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::sharpness((Exiv2::ExifData const &)*arg1);
@@ -4826,7 +4778,7 @@ SWIGINTERN PyObject *_wrap_sharpness(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4843,7 +4795,6 @@ SWIGINTERN PyObject *_wrap_contrast(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4857,9 +4808,6 @@ SWIGINTERN PyObject *_wrap_contrast(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "contrast" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::contrast((Exiv2::ExifData const &)*arg1);
@@ -4870,7 +4818,7 @@ SWIGINTERN PyObject *_wrap_contrast(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4887,7 +4835,6 @@ SWIGINTERN PyObject *_wrap_sceneCaptureType(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4901,9 +4848,6 @@ SWIGINTERN PyObject *_wrap_sceneCaptureType(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "sceneCaptureType" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::sceneCaptureType((Exiv2::ExifData const &)*arg1);
@@ -4914,7 +4858,7 @@ SWIGINTERN PyObject *_wrap_sceneCaptureType(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4931,7 +4875,6 @@ SWIGINTERN PyObject *_wrap_meteringMode(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4945,9 +4888,6 @@ SWIGINTERN PyObject *_wrap_meteringMode(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "meteringMode" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::meteringMode((Exiv2::ExifData const &)*arg1);
@@ -4958,7 +4898,7 @@ SWIGINTERN PyObject *_wrap_meteringMode(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -4975,7 +4915,6 @@ SWIGINTERN PyObject *_wrap_make(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -4989,9 +4928,6 @@ SWIGINTERN PyObject *_wrap_make(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "make" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::make((Exiv2::ExifData const &)*arg1);
@@ -5002,7 +4938,7 @@ SWIGINTERN PyObject *_wrap_make(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5019,7 +4955,6 @@ SWIGINTERN PyObject *_wrap_model(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5033,9 +4968,6 @@ SWIGINTERN PyObject *_wrap_model(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "model" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::model((Exiv2::ExifData const &)*arg1);
@@ -5046,7 +4978,7 @@ SWIGINTERN PyObject *_wrap_model(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5063,7 +4995,6 @@ SWIGINTERN PyObject *_wrap_exposureTime(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5077,9 +5008,6 @@ SWIGINTERN PyObject *_wrap_exposureTime(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "exposureTime" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::exposureTime((Exiv2::ExifData const &)*arg1);
@@ -5090,7 +5018,7 @@ SWIGINTERN PyObject *_wrap_exposureTime(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5107,7 +5035,6 @@ SWIGINTERN PyObject *_wrap_fNumber(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5121,9 +5048,6 @@ SWIGINTERN PyObject *_wrap_fNumber(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "fNumber" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::fNumber((Exiv2::ExifData const &)*arg1);
@@ -5134,7 +5058,7 @@ SWIGINTERN PyObject *_wrap_fNumber(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5151,7 +5075,6 @@ SWIGINTERN PyObject *_wrap_shutterSpeedValue(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5165,9 +5088,6 @@ SWIGINTERN PyObject *_wrap_shutterSpeedValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "shutterSpeedValue" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5182,7 +5102,7 @@ SWIGINTERN PyObject *_wrap_shutterSpeedValue(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5199,7 +5119,6 @@ SWIGINTERN PyObject *_wrap_apertureValue(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5213,9 +5132,6 @@ SWIGINTERN PyObject *_wrap_apertureValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "apertureValue" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5230,7 +5146,7 @@ SWIGINTERN PyObject *_wrap_apertureValue(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5247,7 +5163,6 @@ SWIGINTERN PyObject *_wrap_brightnessValue(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5261,9 +5176,6 @@ SWIGINTERN PyObject *_wrap_brightnessValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "brightnessValue" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5278,7 +5190,7 @@ SWIGINTERN PyObject *_wrap_brightnessValue(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5295,7 +5207,6 @@ SWIGINTERN PyObject *_wrap_exposureBiasValue(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5309,9 +5220,6 @@ SWIGINTERN PyObject *_wrap_exposureBiasValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "exposureBiasValue" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5326,7 +5234,7 @@ SWIGINTERN PyObject *_wrap_exposureBiasValue(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5343,7 +5251,6 @@ SWIGINTERN PyObject *_wrap_maxApertureValue(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5357,9 +5264,6 @@ SWIGINTERN PyObject *_wrap_maxApertureValue(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "maxApertureValue" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5374,7 +5278,7 @@ SWIGINTERN PyObject *_wrap_maxApertureValue(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5391,7 +5295,6 @@ SWIGINTERN PyObject *_wrap_subjectDistance(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5405,9 +5308,6 @@ SWIGINTERN PyObject *_wrap_subjectDistance(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "subjectDistance" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::subjectDistance((Exiv2::ExifData const &)*arg1);
@@ -5418,7 +5318,7 @@ SWIGINTERN PyObject *_wrap_subjectDistance(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5435,7 +5335,6 @@ SWIGINTERN PyObject *_wrap_lightSource(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5449,9 +5348,6 @@ SWIGINTERN PyObject *_wrap_lightSource(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "lightSource" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5466,7 +5362,7 @@ SWIGINTERN PyObject *_wrap_lightSource(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5483,7 +5379,6 @@ SWIGINTERN PyObject *_wrap_flash(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5497,9 +5392,6 @@ SWIGINTERN PyObject *_wrap_flash(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "flash" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5514,7 +5406,7 @@ SWIGINTERN PyObject *_wrap_flash(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5531,7 +5423,6 @@ SWIGINTERN PyObject *_wrap_serialNumber(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5545,9 +5436,6 @@ SWIGINTERN PyObject *_wrap_serialNumber(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "serialNumber" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::serialNumber((Exiv2::ExifData const &)*arg1);
@@ -5558,7 +5446,7 @@ SWIGINTERN PyObject *_wrap_serialNumber(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5575,7 +5463,6 @@ SWIGINTERN PyObject *_wrap_focalLength(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5589,9 +5476,6 @@ SWIGINTERN PyObject *_wrap_focalLength(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "focalLength" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::focalLength((Exiv2::ExifData const &)*arg1);
@@ -5602,7 +5486,7 @@ SWIGINTERN PyObject *_wrap_focalLength(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5619,7 +5503,6 @@ SWIGINTERN PyObject *_wrap_subjectArea(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5633,9 +5516,6 @@ SWIGINTERN PyObject *_wrap_subjectArea(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "subjectArea" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5650,7 +5530,7 @@ SWIGINTERN PyObject *_wrap_subjectArea(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5667,7 +5547,6 @@ SWIGINTERN PyObject *_wrap_flashEnergy(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5681,9 +5560,6 @@ SWIGINTERN PyObject *_wrap_flashEnergy(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "flashEnergy" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5698,7 +5574,7 @@ SWIGINTERN PyObject *_wrap_flashEnergy(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5715,7 +5591,6 @@ SWIGINTERN PyObject *_wrap_exposureIndex(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5729,9 +5604,6 @@ SWIGINTERN PyObject *_wrap_exposureIndex(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "exposureIndex" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5746,7 +5618,7 @@ SWIGINTERN PyObject *_wrap_exposureIndex(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5763,7 +5635,6 @@ SWIGINTERN PyObject *_wrap_sensingMethod(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5777,9 +5648,6 @@ SWIGINTERN PyObject *_wrap_sensingMethod(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "sensingMethod" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
 #if EXIV2_TEST_VERSION(0, 27, 4)
@@ -5794,7 +5662,7 @@ SWIGINTERN PyObject *_wrap_sensingMethod(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(
@@ -5811,7 +5679,6 @@ SWIGINTERN PyObject *_wrap_afPoint(PyObject *self, PyObject *args) {
   Exiv2::ExifData *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Exiv2::ExifData::const_iterator _global_end ;
   PyObject *swig_obj[1] ;
   Exiv2::ExifData::const_iterator result;
   
@@ -5825,9 +5692,6 @@ SWIGINTERN PyObject *_wrap_afPoint(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "afPoint" "', argument " "1"" of type '" "Exiv2::ExifData const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::ExifData * >(argp1);
-  
-  _global_end = arg1->end();
-  
   {
     try {
       result = Exiv2::afPoint((Exiv2::ExifData const &)*arg1);
@@ -5838,7 +5702,7 @@ SWIGINTERN PyObject *_wrap_afPoint(PyObject *self, PyObject *args) {
     }
   }
   
-  if (result == _global_end)
+  if (result == arg1->end())
   resultobj = SWIG_Py_Void();
   else
   resultobj = SWIG_NewPointerObj(

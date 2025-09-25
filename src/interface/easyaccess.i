@@ -57,15 +57,9 @@ EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::sensingMethod)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::shutterSpeedValue)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::subjectArea)
 
-// Store data->end() after converting input
-%typemap(check) Exiv2::ExifData&
-        (Exiv2::ExifData::const_iterator _global_end) %{
-    _global_end = $1->end();
-%}
-
 // Convert result from iterator to datum or None
 %typemap(out) Exiv2::ExifData::const_iterator %{
-    if ($1 == _global_end)
+    if ($1 == arg1->end())
         $result = SWIG_Py_Void();
     else
         $result = SWIG_NewPointerObj(
