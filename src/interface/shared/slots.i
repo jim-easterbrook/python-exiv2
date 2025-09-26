@@ -196,8 +196,8 @@ static PyObject* _getitem_%mangle(type)_closure(
 %enddef // SQ_ITEM
 
 
-// Macro to add tp_str slot and function
-%define TP_STR(type, func)
+// Macros to add tp_str slot and function
+%define TP_STR_FUNC(type, func)
 %fragment("str"{type}, "header") {
 static PyObject* _str_%mangle(type)(PyObject* py_self) {
     type* self = NULL;
@@ -207,5 +207,11 @@ static PyObject* _str_%mangle(type)(PyObject* py_self) {
 };
 }
 %fragment("str"{type});
+%enddef
+%define TP_STR_SLOT(type, func)
 %feature("python:tp_str") type QUOTE(_str_%mangle(type));
+%enddef
+%define TP_STR(type, func)
+TP_STR_FUNC(type, func)
+TP_STR_SLOT(type, func)
 %enddef // TP_STR

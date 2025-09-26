@@ -78,7 +78,10 @@ class TestExifModule(unittest.TestCase):
         b = data.begin()
         e = data.end()
         self.assertIsInstance(str(b), str)
+        self.assertEqual(str(b), 'iterator<Exif.Image.ProcessingSoftware:'
+                         ' Photini editor v2022.12.0.3>')
         self.assertIsInstance(str(e), str)
+        self.assertEqual(str(e), 'iterator<data end>')
         count = 0
         while b != e:
             next(b)
@@ -148,6 +151,8 @@ class TestExifModule(unittest.TestCase):
 
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
+        self.assertEqual(str(datum.__deref__()), 'Exif.Image.ImageDescription:'
+                         ' Good view of the lighthouse.')
         buf = bytearray(datum.count())
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(

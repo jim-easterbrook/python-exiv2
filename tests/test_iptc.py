@@ -81,7 +81,9 @@ class TestIptcModule(unittest.TestCase):
         b = data.begin()
         e = data.end()
         self.assertIsInstance(str(b), str)
+        self.assertEqual(str(b), 'iterator<Iptc.Envelope.CharacterSet: \x1b%G>')
         self.assertIsInstance(str(e), str)
+        self.assertEqual(str(e), 'iterator<data end>')
         count = 0
         while b != e:
             next(b)
@@ -124,6 +126,8 @@ class TestIptcModule(unittest.TestCase):
 
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
+        self.assertEqual(str(datum.__deref__()), 'Iptc.Application2.Caption:'
+                         ' Good view of the lighthouse.')
         buf = bytearray(datum.count())
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(

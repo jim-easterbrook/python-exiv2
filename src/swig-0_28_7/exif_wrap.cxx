@@ -10347,7 +10347,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exifdatum_pointer_type = {
     &SwigPyBuiltin__Exifdatum_pointer_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
-    (reprfunc) 0,                           /* tp_str */
+    _str_Exifdatum_pointer,                 /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
     &SwigPyBuiltin__Exifdatum_pointer_type.as_buffer, /* tp_as_buffer */
@@ -10581,7 +10581,7 @@ static PyTypeObject *SwigPyBuiltin__Exifdatum_pointer_type_create(PyTypeObject *
 		"is expected.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
-    { Py_tp_str,                        (void *)(reprfunc) 0 },
+    { Py_tp_str,                        (void *)_str_Exifdatum_pointer },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
     { Py_tp_clear,                      (void *)(inquiry) 0 },
     { Py_tp_richcompare,                (void *)SwigPyBuiltin__Exifdatum_pointer_richcompare },

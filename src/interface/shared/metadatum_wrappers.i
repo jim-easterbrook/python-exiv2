@@ -61,6 +61,8 @@ is expected."
 %feature("docstring") datum_type##_pointer::operator-> "
 Return the :class:`"#datum_type"` object being pointed to."
 %fragment("metadatum_str");
+// Define __str__ slot before defining class
+TP_STR_SLOT(datum_type##_pointer, self->__str__())
 %inline %{
 class datum_type##_pointer {
 protected:
@@ -122,8 +124,8 @@ public:
     }
 };
 %}
-// Add __str__ slot
-TP_STR(datum_type##_pointer, self->__str__())
+// Define __str__ function after defining class
+TP_STR_FUNC(datum_type##_pointer, self->__str__())
 
 // Metadatum iterator wrapper
 %feature("python:slot", "tp_iter", functype="getiterfunc")

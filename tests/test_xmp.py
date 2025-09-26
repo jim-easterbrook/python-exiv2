@@ -95,7 +95,9 @@ class TestXmpModule(unittest.TestCase):
         b = data.begin()
         e = data.end()
         self.assertIsInstance(str(b), str)
+        self.assertEqual(str(b), 'iterator<Xmp.iptc.CountryCode: GBR>')
         self.assertIsInstance(str(e), str)
+        self.assertEqual(str(e), 'iterator<data end>')
         count = 0
         while b != e:
             next(b)
@@ -126,6 +128,10 @@ class TestXmpModule(unittest.TestCase):
 
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
+        self.assertEqual(
+            str(datum.__deref__()), 'Xmp.dc.description: lang="x-default"'
+            ' Good view of the lighthouse., lang="en-GB" Good view of the'
+            ' lighthouse., lang="de" Gute Sicht auf den Leuchtturm.')
         buf = bytearray(datum.size())
         with self.assertRaises(exiv2.Exiv2Error) as cm:
             with self.assertWarns(DeprecationWarning):
