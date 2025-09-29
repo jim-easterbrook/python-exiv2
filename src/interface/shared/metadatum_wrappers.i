@@ -24,186 +24,37 @@
 %include "shared/slots.i"
 
 
-// Macro to declare metadatum iterators and pointer wrappers
-%define DECLARE_METADATUM_WRAPPERS(container_type, datum_type)
-%{
-class datum_type##_pointer;
-class container_type##_iterator;
-class datum_type##_reference;
-%}
-%enddef // DECLARE_METADATUM_WRAPPERS
-
 // Macro to wrap metadatum iterators and pointers
 %define METADATUM_WRAPPERS(container_type, datum_type)
 
 // Keep a reference to any object that returns a reference to a datum.
 KEEP_REFERENCE(Exiv2::datum_type&)
+// Keep a reference to data being iterated
+KEEP_REFERENCE(Exiv2::container_type::iterator)
+// Creating a new iterator keeps a reference to the current one
+KEEP_REFERENCE(container_type##_iterator*)
 
 // Invalidate pointers when data is deleted
 POINTER_STORE(container_type, datum_type)
 
-// Base class of pointer wrappers
-%ignore datum_type##_pointer::datum_type##_pointer;
-%ignore datum_type##_pointer::~datum_type##_pointer;
-%ignore datum_type##_pointer::operator*;
-%ignore datum_type##_pointer::size;
-%ignore datum_type##_pointer::count;
-%ignore datum_type##_pointer::_invalidate;
-%ignore datum_type##_pointer::__str__;
-%feature("docstring") datum_type##_pointer "
-Base class for pointers to :class:`"#datum_type"` objects.
+%feature("docstring") MetadatumPointer<Exiv2::datum_type>
+"Base class for pointers to :class:`"#datum_type"` objects.
 
 :class:`"#container_type"_iterator` objects and :class:`"#datum_type"_reference`
 objects both store references to an :class:`"#datum_type"`. This base class
 gives them access to most of the ``"#datum_type"`` methods.
 ``"#datum_type"_pointer`` objects can be used anywhere an ``"#datum_type"`` object
 is expected."
-%feature("docstring") datum_type##_pointer::operator-> "
+
+%feature("docstring") MetadatumPointer<Exiv2::datum_type>::operator-> "
 Return the :class:`"#datum_type"` object being pointed to."
-%fragment("metadatum_str");
-// Define __str__ slot before defining class
-TP_STR_SLOT(datum_type##_pointer, self->__str__())
-%inline %{
-class datum_type##_pointer {
-protected:
-    bool invalidated;
-    std::string name;
-public:
-    virtual ~datum_type##_pointer() {}
-    virtual Exiv2::datum_type* operator*() const = 0;
-    datum_type##_pointer(): invalidated(false) {}
-    bool operator==(const datum_type##_pointer &other) const {
-        return *other == **this;
-    }
-    bool operator!=(const datum_type##_pointer &other) const {
-        return *other != **this;
-    }
-    std::string __str__() {
-        if (invalidated)
-            return name + "<deleted data>";
-        Exiv2::datum_type* ptr = **this;
-        if (!ptr)
-            return name + "<data end>";
-        return name + "<" + metadatum_str(ptr) + ">";
-    }
-    // Provide size() C++ method for buffer size check
-    size_t size() {
-        if (invalidated)
-            return 0;
-        Exiv2::datum_type* ptr = **this;
-        if (!ptr)
-            return 0;
-        return ptr->size();
-    }
-#if EXIV2_VERSION_HEX < 0x001c0000
-    // Provide count() C++ method for index bounds check
-    long count() {
-        if (invalidated)
-            return 0;
-        Exiv2::datum_type* ptr = **this;
-        if (!ptr)
-            return 0;
-        return ptr->count();
-    }
-#endif
-    // Invalidate iterator unilaterally
-    void _invalidate() { invalidated = true; }
-    // Invalidate iterator if what it points to has been deleted
-    bool _invalidate(Exiv2::datum_type& deleted) {
-        if (&deleted == **this)
-            invalidated = true;
-        return invalidated;
-    }
-    // Dereference operator gives access to all datum methods
-    Exiv2::datum_type* operator->() const {
-        Exiv2::datum_type* ptr = **this;
-        if (!ptr)
-            throw std::runtime_error(
-                "container_type iterator is at end of data");
-        return ptr;
-    }
-};
-%}
-// Define __str__ function after defining class
-TP_STR_FUNC(datum_type##_pointer, self->__str__())
 
-// Metadatum iterator wrapper
-%feature("python:slot", "tp_iter", functype="getiterfunc")
-    container_type##_iterator::__iter__;
-%feature("python:slot", "tp_iternext", functype="iternextfunc")
-    container_type##_iterator::__next__;
-%noexception container_type##_iterator::__iter__;
-%ignore container_type##_iterator::##container_type##_iterator;
-%ignore container_type##_iterator::operator*;
-%ignore container_type##_iterator::_invalidated;
-%ignore container_type##_iterator::_ptr;
-%feature("docstring") container_type##_iterator "
-Python wrapper for an :class:`" #container_type "` iterator."
-// Detect end of iteration
-%typemap(out) Exiv2::datum_type* __next__ {
-    if (!$1) {
-        PyErr_SetNone(PyExc_StopIteration);
-        SWIG_fail;
-    }
-    $typemap(out, Exiv2::datum_type*)
-}
-// Keep a reference to the data being iterated
-KEEP_REFERENCE(Exiv2::container_type::iterator)
-// Creating a new iterator keeps a reference to the current one
-KEEP_REFERENCE(container_type##_iterator*)
-%inline %{
-class container_type##_iterator: public datum_type##_pointer {
-private:
-    Exiv2::container_type::iterator ptr;
-    Exiv2::container_type::iterator end;
-public:
-    container_type##_iterator(
-            Exiv2::container_type::iterator ptr,
-            Exiv2::container_type::iterator end): ptr(ptr), end(end) {
-        name = "iterator";
-    }
-    container_type##_iterator* __iter__() { return this; }
-    Exiv2::datum_type* __next__() {
-        if (invalidated)
-            throw std::runtime_error(
-                "container_type changed size during iteration");
-        if (ptr == end)
-            return NULL;
-        return &(*ptr++);
-    }
-    Exiv2::datum_type* operator*() const {
-        if (invalidated)
-            throw std::runtime_error("datum_type reference is invalid");
-        if (ptr == end)
-            return NULL;
-        return &(*ptr);
-    }
-    // Direct access to ptr and invalidated, for use in input typemaps
-    bool _invalidated() const { return invalidated; }
-    Exiv2::container_type::iterator _ptr() const { return ptr; }
-};
-%}
+%feature("docstring") MetadataIterator<
+    Exiv2::container_type::iterator, Exiv2::datum_type>
+"Python wrapper for an :class:`" #container_type "` iterator."
 
-// Metadata reference wrapper
-%ignore datum_type##_reference::##datum_type##_reference;
-%ignore datum_type##_reference::operator*;
-%feature("docstring") datum_type##_reference "
-Python wrapper for an :class:`" #datum_type "` reference."
-%inline %{
-class datum_type##_reference: public datum_type##_pointer {
-private:
-    Exiv2::datum_type* ptr;
-public:
-    datum_type##_reference(Exiv2::datum_type* ptr): ptr(ptr) {
-        name = "pointer";
-    }
-    Exiv2::datum_type* operator*() const {
-        if (invalidated)
-            throw std::runtime_error("datum_type reference is invalid");
-        return ptr;
-    }
-};
-%}
+%feature("docstring") MetadatumReference<Exiv2::datum_type>
+"Python wrapper for an :class:`" #datum_type "` reference."
 
 // typemaps
 %typemap(in) Exiv2::container_type::iterator
@@ -265,6 +116,19 @@ public:
     }
 #endif // SWIG_VERSION
 }
+// Detect end of iteration
+%typemap(out) Exiv2::datum_type* __next__ {
+    if (!$1) {
+        PyErr_SetNone(PyExc_StopIteration);
+        SWIG_fail;
+    }
+    $typemap(out, Exiv2::datum_type*)
+}
+
+%template(datum_type ## _pointer) MetadatumPointer<Exiv2::datum_type>;
+%template(container_type ## _iterator) MetadataIterator<
+    Exiv2::container_type::iterator, Exiv2::datum_type>;
+%template(datum_type ## _reference) MetadatumReference<Exiv2::datum_type>;
 
 // Deprecate some methods since 2025-08-25
 DEPRECATE_FUNCTION(Exiv2::datum_type::copy, true)

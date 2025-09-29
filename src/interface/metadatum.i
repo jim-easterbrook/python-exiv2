@@ -76,13 +76,43 @@ DEPRECATE_FUNCTION(Exiv2::Metadatum::copy, true)
 DEPRECATE_FUNCTION(Exiv2::Metadatum::write, true)
 
 // Add __str__ slot to base type
-%fragment("metadatum_str", "header") {
-static std::string metadatum_str(Exiv2::Metadatum* datum) {
-    return datum->key() + ": " + datum->print();
-};
-}
-%fragment("metadatum_str");
 TP_STR(Exiv2::Metadatum, metadatum_str(self))
+
+// Metadatum pointer template classes from metadatum_pointer.hpp
+%feature("docstring") MetadatumPointerBase
+"Base class for pointers to :class:`Metadatum` objects."
+
+TP_STR(MetadatumPointerBase, self->__str__())
+%ignore MetadatumPointerBase::MetadatumPointerBase;
+%ignore MetadatumPointerBase::~MetadatumPointerBase;
+%ignore MetadatumPointerBase::operator*;
+%ignore MetadatumPointerBase::size;
+%ignore MetadatumPointerBase::count;
+%ignore MetadatumPointerBase::_invalidate;
+%ignore MetadatumPointerBase::__str__;
+
+%ignore MetadatumPointer::MetadatumPointer;
+%ignore MetadatumPointer::~MetadatumPointer;
+%ignore MetadatumPointer::operator*;
+%ignore MetadatumPointer::size;
+%ignore MetadatumPointer::count;
+%ignore MetadatumPointer::_invalidate;
+%ignore MetadatumPointer::__str__;
+
+%feature("python:slot", "tp_iter", functype="getiterfunc")
+    MetadataIterator::__iter__;
+%feature("python:slot", "tp_iternext", functype="iternextfunc")
+    MetadataIterator::__next__;
+%noexception MetadataIterator::__iter__;
+%ignore MetadataIterator::MetadataIterator;
+%ignore MetadataIterator::_invalidated;
+%ignore MetadataIterator::_ptr;
+KEEP_REFERENCE(MetadataIterator*)
+
+%ignore MetadatumReference::MetadatumReference;
+
+%ignore metadatum_str;
+
 
 %ignore Exiv2::Key::~Key;
 %ignore Exiv2::Key::operator=;
@@ -92,3 +122,4 @@ TP_STR(Exiv2::Metadatum, metadatum_str(self))
 %ignore Exiv2::cmpMetadataByTag;
 
 %include "exiv2/metadatum.hpp"
+%include "metadatum_pointer.hpp"

@@ -50,10 +50,10 @@ class TestXmpModule(unittest.TestCase):
             exiv2.XmpKey('Xmp.xmp.CreatorTool'), exiv2.AsciiValue('Acme')))
         self.assertEqual('Xmp.xmp.CreatorTool' in data, True)
         self.assertIsInstance(data['Xmp.xmp.CreatorTool'],
-                              exiv2.Xmpdatum_pointer)
+                              exiv2.Xmpdatum_reference)
         data.add(exiv2.XmpKey('Xmp.xmp.Nickname'), exiv2.AsciiValue('Pic'))
         self.assertEqual('Xmp.xmp.Nickname' in data, True)
-        self.assertIsInstance(data['Xmp.xmp.Nickname'], exiv2.Xmpdatum_pointer)
+        self.assertIsInstance(data['Xmp.xmp.Nickname'], exiv2.Xmpdatum_reference)
         # iterators
         b = iter(data)
         self.assertIsInstance(b, exiv2.XmpData_iterator)
@@ -82,12 +82,12 @@ class TestXmpModule(unittest.TestCase):
         # access by key
         self.image.readMetadata()
         self.assertEqual('Xmp.dc.creator' in data, True)
-        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_pointer)
+        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_reference)
         del data['Xmp.dc.creator']
         self.assertEqual('Xmp.dc.creator' in data, False)
         data['Xmp.dc.creator'] = 'Fred'
         self.assertEqual('Xmp.dc.creator' in data, True)
-        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_pointer)
+        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_reference)
         with self.assertRaises(TypeError):
             data['Xmp.tiff.Orientation'] = 4
         data['Xmp.tiff.Orientation'] = exiv2.UShortValue(4)
@@ -200,7 +200,7 @@ class TestXmpModule(unittest.TestCase):
         self.image.readMetadata()
         data = self.image.xmpData()
         datum = data['Xmp.dc.description']
-        self.assertIsInstance(datum, exiv2.Xmpdatum_pointer)
+        self.assertIsInstance(datum, exiv2.Xmpdatum_reference)
         self.assertEqual(datum.__deref__(), datum)
         self.assertEqual(datum, datum.__deref__())
         datum2 = exiv2.Xmpdatum(datum)
@@ -216,7 +216,7 @@ class TestXmpModule(unittest.TestCase):
         datum_iter = data.begin()
         self.assertIsInstance(datum_iter, exiv2.XmpData_iterator)
         datum_pointer = data[datum_iter.key()]
-        self.assertIsInstance(datum_pointer, exiv2.Xmpdatum_pointer)
+        self.assertIsInstance(datum_pointer, exiv2.Xmpdatum_reference)
         # __deref__ operator
         datum = datum_iter.__deref__()
         self.assertIsInstance(datum, exiv2.Xmpdatum)

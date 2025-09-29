@@ -3988,94 +3988,95 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_ExifData_iterator swig_types[0]
-#define SWIGTYPE_p_Exifdatum_pointer swig_types[1]
-#define SWIGTYPE_p_Exifdatum_reference swig_types[2]
-#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[3]
-#define SWIGTYPE_p_Exiv2__BasicIo swig_types[4]
-#define SWIGTYPE_p_Exiv2__CommentValue swig_types[5]
-#define SWIGTYPE_p_Exiv2__DataBuf swig_types[6]
-#define SWIGTYPE_p_Exiv2__DataSet swig_types[7]
-#define SWIGTYPE_p_Exiv2__DataValue swig_types[8]
-#define SWIGTYPE_p_Exiv2__DateValue swig_types[9]
-#define SWIGTYPE_p_Exiv2__DateValue__Date swig_types[10]
-#define SWIGTYPE_p_Exiv2__ExifData swig_types[11]
-#define SWIGTYPE_p_Exiv2__ExifKey swig_types[12]
-#define SWIGTYPE_p_Exiv2__Exifdatum swig_types[13]
-#define SWIGTYPE_p_Exiv2__FileIo swig_types[14]
-#define SWIGTYPE_p_Exiv2__GroupInfo swig_types[15]
-#define SWIGTYPE_p_Exiv2__HttpIo swig_types[16]
-#define SWIGTYPE_p_Exiv2__Image swig_types[17]
-#define SWIGTYPE_p_Exiv2__IptcData swig_types[18]
-#define SWIGTYPE_p_Exiv2__IptcKey swig_types[19]
-#define SWIGTYPE_p_Exiv2__Iptcdatum swig_types[20]
-#define SWIGTYPE_p_Exiv2__Key swig_types[21]
-#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[22]
-#define SWIGTYPE_p_Exiv2__MemIo swig_types[23]
-#define SWIGTYPE_p_Exiv2__Metadatum swig_types[24]
-#define SWIGTYPE_p_Exiv2__PreviewImage swig_types[25]
-#define SWIGTYPE_p_Exiv2__PreviewManager swig_types[26]
-#define SWIGTYPE_p_Exiv2__PreviewProperties swig_types[27]
-#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[28]
-#define SWIGTYPE_p_Exiv2__StringValue swig_types[29]
-#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[30]
-#define SWIGTYPE_p_Exiv2__TagInfo swig_types[31]
-#define SWIGTYPE_p_Exiv2__TimeValue swig_types[32]
-#define SWIGTYPE_p_Exiv2__TimeValue__Time swig_types[33]
-#define SWIGTYPE_p_Exiv2__Value swig_types[34]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[35]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[36]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[37]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[38]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[39]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[40]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[41]
-#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[42]
-#define SWIGTYPE_p_Exiv2__XPathIo swig_types[43]
-#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[44]
-#define SWIGTYPE_p_Exiv2__XmpData swig_types[45]
-#define SWIGTYPE_p_Exiv2__XmpKey swig_types[46]
-#define SWIGTYPE_p_Exiv2__XmpNsInfo swig_types[47]
-#define SWIGTYPE_p_Exiv2__XmpPropertyInfo swig_types[48]
-#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[49]
-#define SWIGTYPE_p_Exiv2__XmpValue swig_types[50]
-#define SWIGTYPE_p_Exiv2__Xmpdatum swig_types[51]
-#define SWIGTYPE_p_IptcData_iterator swig_types[52]
-#define SWIGTYPE_p_Iptcdatum_pointer swig_types[53]
-#define SWIGTYPE_p_Iptcdatum_reference swig_types[54]
-#define SWIGTYPE_p_SwigPyObject swig_types[55]
-#define SWIGTYPE_p_ValueType swig_types[56]
-#define SWIGTYPE_p_XmpData_iterator swig_types[57]
-#define SWIGTYPE_p_Xmpdatum_pointer swig_types[58]
-#define SWIGTYPE_p_Xmpdatum_reference swig_types[59]
-#define SWIGTYPE_p__TagListFct swig_types[60]
-#define SWIGTYPE_p_allocator_type swig_types[61]
-#define SWIGTYPE_p_char swig_types[62]
-#define SWIGTYPE_p_const_iterator swig_types[63]
-#define SWIGTYPE_p_difference_type swig_types[64]
-#define SWIGTYPE_p_first_type swig_types[65]
-#define SWIGTYPE_p_int swig_types[66]
-#define SWIGTYPE_p_iterator swig_types[67]
-#define SWIGTYPE_p_key_type swig_types[68]
-#define SWIGTYPE_p_long_long swig_types[69]
-#define SWIGTYPE_p_mapped_type swig_types[70]
-#define SWIGTYPE_p_second_type swig_types[71]
-#define SWIGTYPE_p_short swig_types[72]
-#define SWIGTYPE_p_signed_char swig_types[73]
-#define SWIGTYPE_p_size_type swig_types[74]
-#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[75]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[76]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[77]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[78]
-#define SWIGTYPE_p_std__vectorT_Exiv2__PreviewProperties_t swig_types[79]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[80]
-#define SWIGTYPE_p_unsigned_char swig_types[81]
-#define SWIGTYPE_p_unsigned_int swig_types[82]
-#define SWIGTYPE_p_unsigned_long_long swig_types[83]
-#define SWIGTYPE_p_unsigned_short swig_types[84]
-#define SWIGTYPE_p_value_type swig_types[85]
-static swig_type_info *swig_types[87];
-static swig_module_info swig_module = {swig_types, 86, 0, 0, 0, 0};
+#define SWIGTYPE_p_Exiv2__AsciiValue swig_types[0]
+#define SWIGTYPE_p_Exiv2__BasicIo swig_types[1]
+#define SWIGTYPE_p_Exiv2__CommentValue swig_types[2]
+#define SWIGTYPE_p_Exiv2__DataBuf swig_types[3]
+#define SWIGTYPE_p_Exiv2__DataSet swig_types[4]
+#define SWIGTYPE_p_Exiv2__DataValue swig_types[5]
+#define SWIGTYPE_p_Exiv2__DateValue swig_types[6]
+#define SWIGTYPE_p_Exiv2__DateValue__Date swig_types[7]
+#define SWIGTYPE_p_Exiv2__ExifData swig_types[8]
+#define SWIGTYPE_p_Exiv2__ExifKey swig_types[9]
+#define SWIGTYPE_p_Exiv2__Exifdatum swig_types[10]
+#define SWIGTYPE_p_Exiv2__FileIo swig_types[11]
+#define SWIGTYPE_p_Exiv2__GroupInfo swig_types[12]
+#define SWIGTYPE_p_Exiv2__HttpIo swig_types[13]
+#define SWIGTYPE_p_Exiv2__Image swig_types[14]
+#define SWIGTYPE_p_Exiv2__IptcData swig_types[15]
+#define SWIGTYPE_p_Exiv2__IptcKey swig_types[16]
+#define SWIGTYPE_p_Exiv2__Iptcdatum swig_types[17]
+#define SWIGTYPE_p_Exiv2__Key swig_types[18]
+#define SWIGTYPE_p_Exiv2__LangAltValue swig_types[19]
+#define SWIGTYPE_p_Exiv2__MemIo swig_types[20]
+#define SWIGTYPE_p_Exiv2__Metadatum swig_types[21]
+#define SWIGTYPE_p_Exiv2__PreviewImage swig_types[22]
+#define SWIGTYPE_p_Exiv2__PreviewManager swig_types[23]
+#define SWIGTYPE_p_Exiv2__PreviewProperties swig_types[24]
+#define SWIGTYPE_p_Exiv2__RemoteIo swig_types[25]
+#define SWIGTYPE_p_Exiv2__StringValue swig_types[26]
+#define SWIGTYPE_p_Exiv2__StringValueBase swig_types[27]
+#define SWIGTYPE_p_Exiv2__TagInfo swig_types[28]
+#define SWIGTYPE_p_Exiv2__TimeValue swig_types[29]
+#define SWIGTYPE_p_Exiv2__TimeValue__Time swig_types[30]
+#define SWIGTYPE_p_Exiv2__Value swig_types[31]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_double_t swig_types[32]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_float_t swig_types[33]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t swig_types[34]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t swig_types[35]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t swig_types[36]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t swig_types[37]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t swig_types[38]
+#define SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t swig_types[39]
+#define SWIGTYPE_p_Exiv2__XPathIo swig_types[40]
+#define SWIGTYPE_p_Exiv2__XmpArrayValue swig_types[41]
+#define SWIGTYPE_p_Exiv2__XmpData swig_types[42]
+#define SWIGTYPE_p_Exiv2__XmpKey swig_types[43]
+#define SWIGTYPE_p_Exiv2__XmpNsInfo swig_types[44]
+#define SWIGTYPE_p_Exiv2__XmpPropertyInfo swig_types[45]
+#define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[46]
+#define SWIGTYPE_p_Exiv2__XmpValue swig_types[47]
+#define SWIGTYPE_p_Exiv2__Xmpdatum swig_types[48]
+#define SWIGTYPE_p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t swig_types[49]
+#define SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t swig_types[50]
+#define SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t swig_types[51]
+#define SWIGTYPE_p_MetadatumPointerBase swig_types[52]
+#define SWIGTYPE_p_MetadatumPointerT_Exiv2__Exifdatum_t swig_types[53]
+#define SWIGTYPE_p_MetadatumPointerT_Exiv2__Iptcdatum_t swig_types[54]
+#define SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t swig_types[55]
+#define SWIGTYPE_p_MetadatumReferenceT_Exiv2__Exifdatum_t swig_types[56]
+#define SWIGTYPE_p_MetadatumReferenceT_Exiv2__Iptcdatum_t swig_types[57]
+#define SWIGTYPE_p_MetadatumReferenceT_Exiv2__Xmpdatum_t swig_types[58]
+#define SWIGTYPE_p_SwigPyObject swig_types[59]
+#define SWIGTYPE_p_ValueType swig_types[60]
+#define SWIGTYPE_p__TagListFct swig_types[61]
+#define SWIGTYPE_p_allocator_type swig_types[62]
+#define SWIGTYPE_p_char swig_types[63]
+#define SWIGTYPE_p_const_iterator swig_types[64]
+#define SWIGTYPE_p_difference_type swig_types[65]
+#define SWIGTYPE_p_first_type swig_types[66]
+#define SWIGTYPE_p_int swig_types[67]
+#define SWIGTYPE_p_iterator swig_types[68]
+#define SWIGTYPE_p_key_type swig_types[69]
+#define SWIGTYPE_p_long_long swig_types[70]
+#define SWIGTYPE_p_mapped_type swig_types[71]
+#define SWIGTYPE_p_second_type swig_types[72]
+#define SWIGTYPE_p_short swig_types[73]
+#define SWIGTYPE_p_signed_char swig_types[74]
+#define SWIGTYPE_p_size_type swig_types[75]
+#define SWIGTYPE_p_std__listT_Exiv2__Exifdatum_t swig_types[76]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[77]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[78]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Iptcdatum_std__allocatorT_Exiv2__Iptcdatum_t_t swig_types[79]
+#define SWIGTYPE_p_std__vectorT_Exiv2__PreviewProperties_t swig_types[80]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[81]
+#define SWIGTYPE_p_unsigned_char swig_types[82]
+#define SWIGTYPE_p_unsigned_int swig_types[83]
+#define SWIGTYPE_p_unsigned_long_long swig_types[84]
+#define SWIGTYPE_p_unsigned_short swig_types[85]
+#define SWIGTYPE_p_value_type swig_types[86]
+static swig_type_info *swig_types[88];
+static swig_module_info swig_module = {swig_types, 87, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4269,6 +4270,7 @@ SWIG_FromCharPtr(const char *cptr)
 
 
 #include "exiv2/exiv2.hpp"
+#include "metadatum_pointer.hpp"
 
 
 #define INIT_ERROR_RETURN NULL
@@ -4540,21 +4542,6 @@ fail:
 #if !EXIV2_TEST_VERSION(0, 28, 3)
 #define EXV_ENABLE_FILESYSTEM
 #endif
-
-
-class Exifdatum_pointer;
-class ExifData_iterator;
-class Exifdatum_reference;
-
-
-class Iptcdatum_pointer;
-class IptcData_iterator;
-class Iptcdatum_reference;
-
-
-class Xmpdatum_pointer;
-class XmpData_iterator;
-class Xmpdatum_reference;
 
 
 namespace swig {
@@ -7801,12 +7788,6 @@ SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__PreviewManager_clientdata = {0
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static void *_p_ExifData_iteratorTo_p_Exifdatum_pointer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exifdatum_pointer *)  ((ExifData_iterator *) x));
-}
-static void *_p_Exifdatum_referenceTo_p_Exifdatum_pointer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Exifdatum_pointer *)  ((Exifdatum_reference *) x));
-}
 static void *_p_Exiv2__FileIoTo_p_Exiv2__BasicIo(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::BasicIo *)  ((Exiv2::FileIo *) x));
 }
@@ -7915,21 +7896,51 @@ static void *_p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSE
 static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
 }
-static void *_p_IptcData_iteratorTo_p_Iptcdatum_pointer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Iptcdatum_pointer *)  ((IptcData_iterator *) x));
+static void *_p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_tTo_p_MetadatumPointerT_Exiv2__Exifdatum_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointer< Exiv2::Exifdatum > *)  ((MetadataIterator< Exiv2::ExifData::iterator,Exiv2::Exifdatum > *) x));
 }
-static void *_p_Iptcdatum_referenceTo_p_Iptcdatum_pointer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Iptcdatum_pointer *)  ((Iptcdatum_reference *) x));
+static void *_p_MetadatumReferenceT_Exiv2__Exifdatum_tTo_p_MetadatumPointerT_Exiv2__Exifdatum_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointer< Exiv2::Exifdatum > *)  ((MetadatumReference< Exiv2::Exifdatum > *) x));
 }
-static void *_p_XmpData_iteratorTo_p_Xmpdatum_pointer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Xmpdatum_pointer *)  ((XmpData_iterator *) x));
+static void *_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_tTo_p_MetadatumPointerT_Exiv2__Iptcdatum_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointer< Exiv2::Iptcdatum > *)  ((MetadataIterator< Exiv2::IptcData::iterator,Exiv2::Iptcdatum > *) x));
 }
-static void *_p_Xmpdatum_referenceTo_p_Xmpdatum_pointer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Xmpdatum_pointer *)  ((Xmpdatum_reference *) x));
+static void *_p_MetadatumReferenceT_Exiv2__Iptcdatum_tTo_p_MetadatumPointerT_Exiv2__Iptcdatum_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointer< Exiv2::Iptcdatum > *)  ((MetadatumReference< Exiv2::Iptcdatum > *) x));
 }
-static swig_type_info _swigt__p_ExifData_iterator = {"_p_ExifData_iterator", "ExifData_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exifdatum_pointer = {"_p_Exifdatum_pointer", "Exifdatum_pointer *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Exifdatum_reference = {"_p_Exifdatum_reference", "Exifdatum_reference *", 0, 0, (void*)0, 0};
+static void *_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_tTo_p_MetadatumPointerT_Exiv2__Xmpdatum_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointer< Exiv2::Xmpdatum > *)  ((MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *) x));
+}
+static void *_p_MetadatumReferenceT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerT_Exiv2__Xmpdatum_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointer< Exiv2::Xmpdatum > *)  ((MetadatumReference< Exiv2::Xmpdatum > *) x));
+}
+static void *_p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *) (MetadatumPointer< Exiv2::Exifdatum > *) ((MetadataIterator< Exiv2::ExifData::iterator,Exiv2::Exifdatum > *) x));
+}
+static void *_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *) (MetadatumPointer< Exiv2::Iptcdatum > *) ((MetadataIterator< Exiv2::IptcData::iterator,Exiv2::Iptcdatum > *) x));
+}
+static void *_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *) (MetadatumPointer< Exiv2::Xmpdatum > *) ((MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *) x));
+}
+static void *_p_MetadatumPointerT_Exiv2__Exifdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *)  ((MetadatumPointer< Exiv2::Exifdatum > *) x));
+}
+static void *_p_MetadatumPointerT_Exiv2__Iptcdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *)  ((MetadatumPointer< Exiv2::Iptcdatum > *) x));
+}
+static void *_p_MetadatumPointerT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *)  ((MetadatumPointer< Exiv2::Xmpdatum > *) x));
+}
+static void *_p_MetadatumReferenceT_Exiv2__Exifdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *) (MetadatumPointer< Exiv2::Exifdatum > *) ((MetadatumReference< Exiv2::Exifdatum > *) x));
+}
+static void *_p_MetadatumReferenceT_Exiv2__Iptcdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *) (MetadatumPointer< Exiv2::Iptcdatum > *) ((MetadatumReference< Exiv2::Iptcdatum > *) x));
+}
+static void *_p_MetadatumReferenceT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *) (MetadatumPointer< Exiv2::Xmpdatum > *) ((MetadatumReference< Exiv2::Xmpdatum > *) x));
+}
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__BasicIo = {"_p_Exiv2__BasicIo", "Exiv2::BasicIo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__FileIo = {"_p_Exiv2__FileIo", 0, 0, 0, 0, 0};
@@ -7979,14 +7990,18 @@ static swig_type_info _swigt__p_Exiv2__XmpNsInfo = {"_p_Exiv2__XmpNsInfo", "Exiv
 static swig_type_info _swigt__p_Exiv2__XmpPropertyInfo = {"_p_Exiv2__XmpPropertyInfo", "Exiv2::XmpPropertyInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IptcData_iterator = {"_p_IptcData_iterator", "IptcData_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Iptcdatum_pointer = {"_p_Iptcdatum_pointer", "Iptcdatum_pointer *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Iptcdatum_reference = {"_p_Iptcdatum_reference", "Iptcdatum_reference *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t = {"_p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t", "ExifData_iterator *|MetadataIterator< Exiv2::ExifData::iterator,Exiv2::Exifdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t = {"_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t", "IptcData_iterator *|MetadataIterator< Exiv2::IptcData::iterator,Exiv2::Iptcdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t = {"_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t", "XmpData_iterator *|MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumPointerBase = {"_p_MetadatumPointerBase", "MetadatumPointerBase *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumPointerT_Exiv2__Exifdatum_t = {"_p_MetadatumPointerT_Exiv2__Exifdatum_t", "Exifdatum_pointer *|MetadatumPointer< Exiv2::Exifdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumPointerT_Exiv2__Iptcdatum_t = {"_p_MetadatumPointerT_Exiv2__Iptcdatum_t", "Iptcdatum_pointer *|MetadatumPointer< Exiv2::Iptcdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumPointerT_Exiv2__Xmpdatum_t = {"_p_MetadatumPointerT_Exiv2__Xmpdatum_t", "Xmpdatum_pointer *|MetadatumPointer< Exiv2::Xmpdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumReferenceT_Exiv2__Exifdatum_t = {"_p_MetadatumReferenceT_Exiv2__Exifdatum_t", "Exifdatum_reference *|MetadatumReference< Exiv2::Exifdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumReferenceT_Exiv2__Iptcdatum_t = {"_p_MetadatumReferenceT_Exiv2__Iptcdatum_t", "Iptcdatum_reference *|MetadatumReference< Exiv2::Iptcdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t = {"_p_MetadatumReferenceT_Exiv2__Xmpdatum_t", "Xmpdatum_reference *|MetadatumReference< Exiv2::Xmpdatum > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_XmpData_iterator = {"_p_XmpData_iterator", "XmpData_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Xmpdatum_pointer = {"_p_Xmpdatum_pointer", "Xmpdatum_pointer *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Xmpdatum_reference = {"_p_Xmpdatum_reference", "Xmpdatum_reference *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p__TagListFct = {"_p__TagListFct", "_TagListFct *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -8015,9 +8030,6 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "uint16_t
 static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_ExifData_iterator,
-  &_swigt__p_Exifdatum_pointer,
-  &_swigt__p_Exifdatum_reference,
   &_swigt__p_Exiv2__AsciiValue,
   &_swigt__p_Exiv2__BasicIo,
   &_swigt__p_Exiv2__CommentValue,
@@ -8067,14 +8079,18 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
   &_swigt__p_Exiv2__Xmpdatum,
-  &_swigt__p_IptcData_iterator,
-  &_swigt__p_Iptcdatum_pointer,
-  &_swigt__p_Iptcdatum_reference,
+  &_swigt__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t,
+  &_swigt__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t,
+  &_swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t,
+  &_swigt__p_MetadatumPointerBase,
+  &_swigt__p_MetadatumPointerT_Exiv2__Exifdatum_t,
+  &_swigt__p_MetadatumPointerT_Exiv2__Iptcdatum_t,
+  &_swigt__p_MetadatumPointerT_Exiv2__Xmpdatum_t,
+  &_swigt__p_MetadatumReferenceT_Exiv2__Exifdatum_t,
+  &_swigt__p_MetadatumReferenceT_Exiv2__Iptcdatum_t,
+  &_swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t,
   &_swigt__p_SwigPyObject,
   &_swigt__p_ValueType,
-  &_swigt__p_XmpData_iterator,
-  &_swigt__p_Xmpdatum_pointer,
-  &_swigt__p_Xmpdatum_reference,
   &_swigt__p__TagListFct,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
@@ -8103,9 +8119,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_value_type,
 };
 
-static swig_cast_info _swigc__p_ExifData_iterator[] = {  {&_swigt__p_ExifData_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exifdatum_pointer[] = {  {&_swigt__p_Exifdatum_pointer, 0, 0, 0},  {&_swigt__p_ExifData_iterator, _p_ExifData_iteratorTo_p_Exifdatum_pointer, 0, 0},  {&_swigt__p_Exifdatum_reference, _p_Exifdatum_referenceTo_p_Exifdatum_pointer, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Exifdatum_reference[] = {  {&_swigt__p_Exifdatum_reference, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__AsciiValue[] = {  {&_swigt__p_Exiv2__AsciiValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__FileIo[] = {{&_swigt__p_Exiv2__FileIo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__HttpIo[] = {{&_swigt__p_Exiv2__HttpIo, 0, 0, 0},{0, 0, 0, 0}};
@@ -8155,14 +8168,18 @@ static swig_cast_info _swigc__p_Exiv2__XmpNsInfo[] = {  {&_swigt__p_Exiv2__XmpNs
 static swig_cast_info _swigc__p_Exiv2__XmpPropertyInfo[] = {  {&_swigt__p_Exiv2__XmpPropertyInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IptcData_iterator[] = {  {&_swigt__p_IptcData_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Iptcdatum_pointer[] = {  {&_swigt__p_Iptcdatum_pointer, 0, 0, 0},  {&_swigt__p_IptcData_iterator, _p_IptcData_iteratorTo_p_Iptcdatum_pointer, 0, 0},  {&_swigt__p_Iptcdatum_reference, _p_Iptcdatum_referenceTo_p_Iptcdatum_pointer, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Iptcdatum_reference[] = {  {&_swigt__p_Iptcdatum_reference, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t[] = {  {&_swigt__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t[] = {  {&_swigt__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t[] = {  {&_swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumPointerBase[] = {  {&_swigt__p_MetadatumPointerBase, 0, 0, 0},  {&_swigt__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t, _p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, _p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, _p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadatumPointerT_Exiv2__Exifdatum_t, _p_MetadatumPointerT_Exiv2__Exifdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadatumPointerT_Exiv2__Iptcdatum_t, _p_MetadatumPointerT_Exiv2__Iptcdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadatumPointerT_Exiv2__Xmpdatum_t, _p_MetadatumPointerT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadatumReferenceT_Exiv2__Exifdatum_t, _p_MetadatumReferenceT_Exiv2__Exifdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadatumReferenceT_Exiv2__Iptcdatum_t, _p_MetadatumReferenceT_Exiv2__Iptcdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t, _p_MetadatumReferenceT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumPointerT_Exiv2__Exifdatum_t[] = {  {&_swigt__p_MetadatumPointerT_Exiv2__Exifdatum_t, 0, 0, 0},  {&_swigt__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t, _p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_tTo_p_MetadatumPointerT_Exiv2__Exifdatum_t, 0, 0},  {&_swigt__p_MetadatumReferenceT_Exiv2__Exifdatum_t, _p_MetadatumReferenceT_Exiv2__Exifdatum_tTo_p_MetadatumPointerT_Exiv2__Exifdatum_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumPointerT_Exiv2__Iptcdatum_t[] = {  {&_swigt__p_MetadatumPointerT_Exiv2__Iptcdatum_t, 0, 0, 0},  {&_swigt__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, _p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_tTo_p_MetadatumPointerT_Exiv2__Iptcdatum_t, 0, 0},  {&_swigt__p_MetadatumReferenceT_Exiv2__Iptcdatum_t, _p_MetadatumReferenceT_Exiv2__Iptcdatum_tTo_p_MetadatumPointerT_Exiv2__Iptcdatum_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumPointerT_Exiv2__Xmpdatum_t[] = {  {&_swigt__p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0, 0, 0},  {&_swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, _p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_tTo_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0, 0},  {&_swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t, _p_MetadatumReferenceT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumReferenceT_Exiv2__Exifdatum_t[] = {  {&_swigt__p_MetadatumReferenceT_Exiv2__Exifdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumReferenceT_Exiv2__Iptcdatum_t[] = {  {&_swigt__p_MetadatumReferenceT_Exiv2__Iptcdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumReferenceT_Exiv2__Xmpdatum_t[] = {  {&_swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_XmpData_iterator[] = {  {&_swigt__p_XmpData_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Xmpdatum_pointer[] = {  {&_swigt__p_Xmpdatum_pointer, 0, 0, 0},  {&_swigt__p_XmpData_iterator, _p_XmpData_iteratorTo_p_Xmpdatum_pointer, 0, 0},  {&_swigt__p_Xmpdatum_reference, _p_Xmpdatum_referenceTo_p_Xmpdatum_pointer, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Xmpdatum_reference[] = {  {&_swigt__p_Xmpdatum_reference, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p__TagListFct[] = {  {&_swigt__p__TagListFct, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -8191,9 +8208,6 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_ExifData_iterator,
-  _swigc__p_Exifdatum_pointer,
-  _swigc__p_Exifdatum_reference,
   _swigc__p_Exiv2__AsciiValue,
   _swigc__p_Exiv2__BasicIo,
   _swigc__p_Exiv2__CommentValue,
@@ -8243,14 +8257,18 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
   _swigc__p_Exiv2__Xmpdatum,
-  _swigc__p_IptcData_iterator,
-  _swigc__p_Iptcdatum_pointer,
-  _swigc__p_Iptcdatum_reference,
+  _swigc__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t,
+  _swigc__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t,
+  _swigc__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t,
+  _swigc__p_MetadatumPointerBase,
+  _swigc__p_MetadatumPointerT_Exiv2__Exifdatum_t,
+  _swigc__p_MetadatumPointerT_Exiv2__Iptcdatum_t,
+  _swigc__p_MetadatumPointerT_Exiv2__Xmpdatum_t,
+  _swigc__p_MetadatumReferenceT_Exiv2__Exifdatum_t,
+  _swigc__p_MetadatumReferenceT_Exiv2__Iptcdatum_t,
+  _swigc__p_MetadatumReferenceT_Exiv2__Xmpdatum_t,
   _swigc__p_SwigPyObject,
   _swigc__p_ValueType,
-  _swigc__p_XmpData_iterator,
-  _swigc__p_Xmpdatum_pointer,
-  _swigc__p_Xmpdatum_reference,
   _swigc__p__TagListFct,
   _swigc__p_allocator_type,
   _swigc__p_char,

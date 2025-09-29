@@ -4193,6 +4193,7 @@ SWIG_FromCharPtr(const char *cptr)
 
 
 #include "exiv2/exiv2.hpp"
+#include "metadatum_pointer.hpp"
 
 
 #define INIT_ERROR_RETURN NULL

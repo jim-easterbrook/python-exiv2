@@ -4020,38 +4020,45 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_Exiv2__XmpTextValue swig_types[29]
 #define SWIGTYPE_p_Exiv2__XmpValue swig_types[30]
 #define SWIGTYPE_p_Exiv2__Xmpdatum swig_types[31]
-#define SWIGTYPE_p_SwigPyObject swig_types[32]
-#define SWIGTYPE_p_ValueType swig_types[33]
-#define SWIGTYPE_p_XmpData_iterator swig_types[34]
-#define SWIGTYPE_p_Xmpdatum_pointer swig_types[35]
-#define SWIGTYPE_p_Xmpdatum_reference swig_types[36]
-#define SWIGTYPE_p_allocator_type swig_types[37]
-#define SWIGTYPE_p_char swig_types[38]
-#define SWIGTYPE_p_const_iterator swig_types[39]
-#define SWIGTYPE_p_difference_type swig_types[40]
-#define SWIGTYPE_p_f_p_void_bool__void swig_types[41]
-#define SWIGTYPE_p_first_type swig_types[42]
-#define SWIGTYPE_p_int swig_types[43]
-#define SWIGTYPE_p_iterator swig_types[44]
-#define SWIGTYPE_p_key_type swig_types[45]
-#define SWIGTYPE_p_long_long swig_types[46]
-#define SWIGTYPE_p_mapped_type swig_types[47]
-#define SWIGTYPE_p_second_type swig_types[48]
-#define SWIGTYPE_p_short swig_types[49]
-#define SWIGTYPE_p_signed_char swig_types[50]
-#define SWIGTYPE_p_size_type swig_types[51]
-#define SWIGTYPE_p_std__ostream swig_types[52]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[53]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[54]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[55]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[56]
-#define SWIGTYPE_p_unsigned_char swig_types[57]
-#define SWIGTYPE_p_unsigned_int swig_types[58]
-#define SWIGTYPE_p_unsigned_long_long swig_types[59]
-#define SWIGTYPE_p_unsigned_short swig_types[60]
-#define SWIGTYPE_p_value_type swig_types[61]
-static swig_type_info *swig_types[63];
-static swig_module_info swig_module = {swig_types, 62, 0, 0, 0, 0};
+#define SWIGTYPE_p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t swig_types[32]
+#define SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t swig_types[33]
+#define SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t swig_types[34]
+#define SWIGTYPE_p_MetadatumPointerBase swig_types[35]
+#define SWIGTYPE_p_MetadatumPointerT_Exiv2__Exifdatum_t swig_types[36]
+#define SWIGTYPE_p_MetadatumPointerT_Exiv2__Iptcdatum_t swig_types[37]
+#define SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t swig_types[38]
+#define SWIGTYPE_p_MetadatumReferenceT_Exiv2__Exifdatum_t swig_types[39]
+#define SWIGTYPE_p_MetadatumReferenceT_Exiv2__Iptcdatum_t swig_types[40]
+#define SWIGTYPE_p_MetadatumReferenceT_Exiv2__Xmpdatum_t swig_types[41]
+#define SWIGTYPE_p_SwigPyObject swig_types[42]
+#define SWIGTYPE_p_ValueType swig_types[43]
+#define SWIGTYPE_p_allocator_type swig_types[44]
+#define SWIGTYPE_p_char swig_types[45]
+#define SWIGTYPE_p_const_iterator swig_types[46]
+#define SWIGTYPE_p_difference_type swig_types[47]
+#define SWIGTYPE_p_f_p_void_bool__void swig_types[48]
+#define SWIGTYPE_p_first_type swig_types[49]
+#define SWIGTYPE_p_int swig_types[50]
+#define SWIGTYPE_p_iterator swig_types[51]
+#define SWIGTYPE_p_key_type swig_types[52]
+#define SWIGTYPE_p_long_long swig_types[53]
+#define SWIGTYPE_p_mapped_type swig_types[54]
+#define SWIGTYPE_p_second_type swig_types[55]
+#define SWIGTYPE_p_short swig_types[56]
+#define SWIGTYPE_p_signed_char swig_types[57]
+#define SWIGTYPE_p_size_type swig_types[58]
+#define SWIGTYPE_p_std__ostream swig_types[59]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[60]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[61]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[62]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[63]
+#define SWIGTYPE_p_unsigned_char swig_types[64]
+#define SWIGTYPE_p_unsigned_int swig_types[65]
+#define SWIGTYPE_p_unsigned_long_long swig_types[66]
+#define SWIGTYPE_p_unsigned_short swig_types[67]
+#define SWIGTYPE_p_value_type swig_types[68]
+static swig_type_info *swig_types[70];
+static swig_module_info swig_module = {swig_types, 69, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4245,6 +4252,7 @@ SWIG_FromCharPtr(const char *cptr)
 
 
 #include "exiv2/exiv2.hpp"
+#include "metadatum_pointer.hpp"
 
 
 #define INIT_ERROR_RETURN NULL
@@ -4365,72 +4373,6 @@ static void _set_python_exception() {
 /*@SWIG@*/
 fail:
     return;
-};
-
-
-static std::string metadatum_str(Exiv2::Metadatum* datum) {
-    return datum->key() + ": " + datum->print();
-};
-
-
-class Xmpdatum_pointer {
-protected:
-    bool invalidated;
-    std::string name;
-public:
-    virtual ~Xmpdatum_pointer() {}
-    virtual Exiv2::Xmpdatum* operator*() const = 0;
-    Xmpdatum_pointer(): invalidated(false) {}
-    bool operator==(const Xmpdatum_pointer &other) const {
-        return *other == **this;
-    }
-    bool operator!=(const Xmpdatum_pointer &other) const {
-        return *other != **this;
-    }
-    std::string __str__() {
-        if (invalidated)
-            return name + "<deleted data>";
-        Exiv2::Xmpdatum* ptr = **this;
-        if (!ptr)
-            return name + "<data end>";
-        return name + "<" + metadatum_str(ptr) + ">";
-    }
-    // Provide size() C++ method for buffer size check
-    size_t size() {
-        if (invalidated)
-            return 0;
-        Exiv2::Xmpdatum* ptr = **this;
-        if (!ptr)
-            return 0;
-        return ptr->size();
-    }
-#if 0x001b0700 < 0x001c0000
-    // Provide count() C++ method for index bounds check
-    long count() {
-        if (invalidated)
-            return 0;
-        Exiv2::Xmpdatum* ptr = **this;
-        if (!ptr)
-            return 0;
-        return ptr->count();
-    }
-#endif
-    // Invalidate iterator unilaterally
-    void _invalidate() { invalidated = true; }
-    // Invalidate iterator if what it points to has been deleted
-    bool _invalidate(Exiv2::Xmpdatum& deleted) {
-        if (&deleted == **this)
-            invalidated = true;
-        return invalidated;
-    }
-    // Dereference operator gives access to all datum methods
-    Exiv2::Xmpdatum* operator->() const {
-        Exiv2::Xmpdatum* ptr = **this;
-        if (!ptr)
-            throw std::runtime_error(
-                "XmpData iterator is at end of data");
-        return ptr;
-    }
 };
 
 
@@ -5177,61 +5119,6 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 
-static PyObject* _str_Xmpdatum_pointer(PyObject* py_self) {
-    Xmpdatum_pointer* self = NULL;
-    SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Xmpdatum_pointer, 0);
-    std::string result = self->__str__();
-    return SWIG_FromCharPtrAndSize(result.data(), result.size());
-};
-
-
-class XmpData_iterator: public Xmpdatum_pointer {
-private:
-    Exiv2::XmpData::iterator ptr;
-    Exiv2::XmpData::iterator end;
-public:
-    XmpData_iterator(
-            Exiv2::XmpData::iterator ptr,
-            Exiv2::XmpData::iterator end): ptr(ptr), end(end) {
-        name = "iterator";
-    }
-    XmpData_iterator* __iter__() { return this; }
-    Exiv2::Xmpdatum* __next__() {
-        if (invalidated)
-            throw std::runtime_error(
-                "XmpData changed size during iteration");
-        if (ptr == end)
-            return NULL;
-        return &(*ptr++);
-    }
-    Exiv2::Xmpdatum* operator*() const {
-        if (invalidated)
-            throw std::runtime_error("Xmpdatum reference is invalid");
-        if (ptr == end)
-            return NULL;
-        return &(*ptr);
-    }
-    // Direct access to ptr and invalidated, for use in input typemaps
-    bool _invalidated() const { return invalidated; }
-    Exiv2::XmpData::iterator _ptr() const { return ptr; }
-};
-
-
-class Xmpdatum_reference: public Xmpdatum_pointer {
-private:
-    Exiv2::Xmpdatum* ptr;
-public:
-    Xmpdatum_reference(Exiv2::Xmpdatum* ptr): ptr(ptr) {
-        name = "pointer";
-    }
-    Exiv2::Xmpdatum* operator*() const {
-        if (invalidated)
-            throw std::runtime_error("Xmpdatum reference is invalid");
-        return ptr;
-    }
-};
-
-
 static Exiv2::Xmpdatum& _getitem_Exiv2_XmpData(Exiv2::XmpData* self, char* key) {
     return (*self)[key];
 };
@@ -5507,8 +5394,8 @@ extern "C" {
 #endif
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___eq__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
-  Xmpdatum_pointer *arg2 = 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
+  MetadatumPointerBase *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -5517,22 +5404,22 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___eq__(PyObject *self, PyObject *arg
   bool result;
   
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer___eq__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___eq__" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___eq__" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Xmpdatum_pointer,  0  | 0);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MetadatumPointerBase,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Xmpdatum_pointer___eq__" "', argument " "2"" of type '" "Xmpdatum_pointer const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Xmpdatum_pointer___eq__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Xmpdatum_pointer___eq__" "', argument " "2"" of type '" "Xmpdatum_pointer const &""'"); 
+    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Xmpdatum_pointer___eq__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
   }
-  arg2 = reinterpret_cast< Xmpdatum_pointer * >(argp2);
+  arg2 = reinterpret_cast< MetadatumPointerBase * >(argp2);
   {
     try {
-      result = (bool)((Xmpdatum_pointer const *)arg1)->operator ==((Xmpdatum_pointer const &)*arg2);
+      result = (bool)((MetadatumPointer< Exiv2::Xmpdatum > const *)arg1)->operator ==((MetadatumPointerBase const &)*arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5553,8 +5440,8 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___ne__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
-  Xmpdatum_pointer *arg2 = 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
+  MetadatumPointerBase *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -5563,22 +5450,22 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___ne__(PyObject *self, PyObject *arg
   bool result;
   
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer___ne__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___ne__" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___ne__" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Xmpdatum_pointer,  0  | 0);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MetadatumPointerBase,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Xmpdatum_pointer___ne__" "', argument " "2"" of type '" "Xmpdatum_pointer const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Xmpdatum_pointer___ne__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Xmpdatum_pointer___ne__" "', argument " "2"" of type '" "Xmpdatum_pointer const &""'"); 
+    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Xmpdatum_pointer___ne__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
   }
-  arg2 = reinterpret_cast< Xmpdatum_pointer * >(argp2);
+  arg2 = reinterpret_cast< MetadatumPointerBase * >(argp2);
   {
     try {
-      result = (bool)((Xmpdatum_pointer const *)arg1)->operator !=((Xmpdatum_pointer const &)*arg2);
+      result = (bool)((MetadatumPointer< Exiv2::Xmpdatum > const *)arg1)->operator !=((MetadatumPointerBase const &)*arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5599,20 +5486,20 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___deref__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Xmpdatum *result = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer___deref__ takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___deref__" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___deref__" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
-      result = (Exiv2::Xmpdatum *)((Xmpdatum_pointer const *)arg1)->operator ->();
+      result = (Exiv2::Xmpdatum *)((MetadatumPointer< Exiv2::Xmpdatum > const *)arg1)->operator ->();
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5628,7 +5515,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_copy(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   Exiv2::byte *arg2 = (Exiv2::byte *) 0 ;
   Exiv2::ByteOrder arg3 ;
   void *argp1 = 0 ;
@@ -5639,11 +5526,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_copy(PyObject *self, PyObject *args)
   long result;
   
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_copy", 2, 2, &obj1, &obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_copy" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_copy" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     _global_buff.obj = NULL;
     if (PyObject_GetBuffer(
@@ -5700,7 +5587,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_write(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   std::ostream *arg2 = 0 ;
   Exiv2::ExifData *arg3 = (Exiv2::ExifData *) 0 ;
   void *argp1 = 0 ;
@@ -5717,11 +5604,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_write(PyObject *self, PyObject *args
     arg3 = NULL;
   }
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_write", 1, 2, &obj1, &obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_write" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_write" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     arg2 = &temp2;
     _global_io = obj1;
@@ -5760,17 +5647,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_key(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_key takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_key" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_key" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (*arg1)->key();
@@ -5789,17 +5676,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_familyName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   char *result = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_familyName takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_familyName" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_familyName" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (char *)(*arg1)->familyName();
@@ -5818,17 +5705,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_groupName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_groupName takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_groupName" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_groupName" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (*arg1)->groupName();
@@ -5847,17 +5734,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_tagName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_tagName takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_tagName" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_tagName" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (*arg1)->tagName();
@@ -5876,17 +5763,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_tagLabel(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_tagLabel takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_tagLabel" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_tagLabel" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (*arg1)->tagLabel();
@@ -5905,17 +5792,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_tag(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   uint16_t result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_tag takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_tag" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_tag" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (uint16_t)(*arg1)->tag();
@@ -5934,17 +5821,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_typeId(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::TypeId result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_typeId takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_typeId" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_typeId" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (Exiv2::TypeId)(*arg1)->typeId();
@@ -5967,17 +5854,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_typeName(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   char *result = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_typeName takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_typeName" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_typeName" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (char *)(*arg1)->typeName();
@@ -5996,17 +5883,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_typeSize(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_typeSize takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_typeSize" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_typeSize" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (long)(*arg1)->typeSize();
@@ -6025,17 +5912,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_count(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_count takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_count" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_count" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (long)(*arg1)->count();
@@ -6054,17 +5941,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_size(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_size takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_size" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_size" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (long)(*arg1)->size();
@@ -6083,7 +5970,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toLong(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6096,11 +5983,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toLong(PyObject *self, PyObject *arg
     arg2 = 0;
   }
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_toLong", 0, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toLong" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toLong" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   if (obj1) {
     ecode2 = SWIG_AsVal_long(obj1, &val2);
     if (!SWIG_IsOK(ecode2)) {
@@ -6132,7 +6019,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toFloat(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6145,11 +6032,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toFloat(PyObject *self, PyObject *ar
     arg2 = 0;
   }
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_toFloat", 0, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toFloat" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toFloat" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   if (obj1) {
     ecode2 = SWIG_AsVal_long(obj1, &val2);
     if (!SWIG_IsOK(ecode2)) {
@@ -6181,7 +6068,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toRational(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6194,11 +6081,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toRational(PyObject *self, PyObject 
     arg2 = 0;
   }
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_toRational", 0, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toRational" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toRational" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   if (obj1) {
     ecode2 = SWIG_AsVal_long(obj1, &val2);
     if (!SWIG_IsOK(ecode2)) {
@@ -6230,17 +6117,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_getValue__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Value::AutoPtr result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_getValue takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_getValue" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_getValue" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (*arg1)->getValue();
@@ -6268,7 +6155,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_getValue__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   Exiv2::TypeId arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6276,11 +6163,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_getValue__SWIG_1(PyObject *self, PyO
   Exiv2::Value::AutoPtr result;
   
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_getValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_getValue" "', argument " "1"" of type '" "Xmpdatum_pointer *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_getValue" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     if (!PyObject_IsInstance(obj1, Python_Exiv2_TypeId)) {
       // deprecated since 2024-01-09
@@ -6355,17 +6242,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_value__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Value *result = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_value takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_value" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_value" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (Exiv2::Value *) &(*arg1)->value();
@@ -6392,7 +6279,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_value__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   Exiv2::TypeId arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6400,11 +6287,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_value__SWIG_1(PyObject *self, PyObje
   Exiv2::Value *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_value", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_value" "', argument " "1"" of type '" "Xmpdatum_pointer *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_value" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     if (!PyObject_IsInstance(obj1, Python_Exiv2_TypeId)) {
       // deprecated since 2024-01-09
@@ -6478,7 +6365,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer__print(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6491,11 +6378,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer__print(PyObject *self, PyObject *arg
     arg2 = NULL;
   }
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer__print", 0, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer__print" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer__print" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   if (obj1) {
     res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
     if (!SWIG_IsOK(res2)) {
@@ -6521,17 +6408,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toString__SWIG_0(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   std::string result;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "Xmpdatum_pointer_toString takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toString" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toString" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = Exiv2_Xmpdatum_toString__SWIG_0((Exiv2::Xmpdatum*)(arg1)->operator ->());
@@ -6550,7 +6437,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toString__SWIG_1(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   long arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6560,11 +6447,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_toString__SWIG_1(PyObject *self, PyO
   std::string result;
   
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_toString", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toString" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_toString" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Xmpdatum_pointer_toString" "', argument " "2"" of type '" "long""'");
@@ -6623,7 +6510,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_setValue(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6631,11 +6518,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_setValue(PyObject *self, PyObject *a
   PyObject *result = 0 ;
   
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_setValue", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_setValue" "', argument " "1"" of type '" "Xmpdatum_pointer *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_setValue" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   arg2 = obj1;
   {
     try {
@@ -6655,7 +6542,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_print(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_pointer *arg1 = (Xmpdatum_pointer *) 0 ;
+  MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
   Exiv2::ExifData *arg2 = (Exiv2::ExifData *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6668,11 +6555,11 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_print(PyObject *self, PyObject *args
     arg2 = NULL;
   }
   if (!PyArg_UnpackTuple(args, "Xmpdatum_pointer_print", 0, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_pointer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_print" "', argument " "1"" of type '" "Xmpdatum_pointer const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer_print" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_pointer * >(argp1);
+  arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
   if (obj1) {
     res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
     if (!SWIG_IsOK(res2)) {
@@ -6698,19 +6585,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_XmpData_iterator___iter__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
+  MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *arg1 = (MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  XmpData_iterator *result = 0 ;
+  MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *result = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "XmpData_iterator___iter__ takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator___iter__" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator___iter__" "', argument " "1"" of type '" "MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *""'"); 
   }
-  arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
-  result = (XmpData_iterator *)(arg1)->__iter__();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_XmpData_iterator, 0 |  0 );
+  arg1 = reinterpret_cast< MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > * >(argp1);
+  result = (MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *)(arg1)->__iter__();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, 0 |  0 );
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
@@ -6725,17 +6612,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_XmpData_iterator___next__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
+  MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *arg1 = (MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   Exiv2::Xmpdatum *result = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "XmpData_iterator___next__ takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator___next__" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "XmpData_iterator___next__" "', argument " "1"" of type '" "MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *""'"); 
   }
-  arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  arg1 = reinterpret_cast< MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       result = (Exiv2::Xmpdatum *)(arg1)->__next__();
@@ -6760,16 +6647,16 @@ fail:
 
 SWIGINTERN PyObject *_wrap_delete_XmpData_iterator(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  XmpData_iterator *arg1 = (XmpData_iterator *) 0 ;
+  MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *arg1 = (MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_XmpData_iterator takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_DISOWN |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpData_iterator" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_XmpData_iterator" "', argument " "1"" of type '" "MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *""'"); 
   }
-  arg1 = reinterpret_cast< XmpData_iterator * >(argp1);
+  arg1 = reinterpret_cast< MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       delete arg1;
@@ -6794,16 +6681,16 @@ SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_XmpData_iterator) /* defines _wrap_delete
 
 SWIGINTERN PyObject *_wrap_delete_Xmpdatum_reference(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
-  Xmpdatum_reference *arg1 = (Xmpdatum_reference *) 0 ;
+  MetadatumReference< Exiv2::Xmpdatum > *arg1 = (MetadatumReference< Exiv2::Xmpdatum > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   
   if (args && PyTuple_Check(args) && PyTuple_GET_SIZE(args) > 0) SWIG_exception_fail(SWIG_TypeError, "delete_Xmpdatum_reference takes no arguments");
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Xmpdatum_reference, SWIG_POINTER_DISOWN |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumReferenceT_Exiv2__Xmpdatum_t, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Xmpdatum_reference" "', argument " "1"" of type '" "Xmpdatum_reference *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Xmpdatum_reference" "', argument " "1"" of type '" "MetadatumReference< Exiv2::Xmpdatum > *""'"); 
   }
-  arg1 = reinterpret_cast< Xmpdatum_reference * >(argp1);
+  arg1 = reinterpret_cast< MetadatumReference< Exiv2::Xmpdatum > * >(argp1);
   {
     try {
       delete arg1;
@@ -6850,7 +6737,7 @@ SWIGINTERN PyObject *_wrap__getitem_Exiv2_XmpData(PyObject *self, PyObject *args
   {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new Xmpdatum_reference(result)),
-      SWIGTYPE_p_Xmpdatum_reference, SWIG_POINTER_OWN);
+      SWIGTYPE_p_MetadatumReferenceT_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
     
     
     
@@ -7046,7 +6933,7 @@ SWIGINTERN int _wrap_new_Xmpdatum__SWIG_2(PyObject *self, PyObject *args, PyObje
   {
     Xmpdatum_pointer* tmp = NULL;
     if (SWIG_IsOK(SWIG_ConvertPtr(
-          obj1, (void**)&tmp, SWIGTYPE_p_Xmpdatum_pointer, 0)))
+          obj1, (void**)&tmp, SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0)))
     arg1 = **tmp;
     else {
       res1 = SWIG_ConvertPtr(obj1, &argp1, SWIGTYPE_p_Exiv2__Xmpdatum,  0 );
@@ -7846,7 +7733,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum___eq__(PyObject *self, PyObject *args) {
   {
     Xmpdatum_pointer* tmp = NULL;
     if (SWIG_IsOK(SWIG_ConvertPtr(
-          obj1, (void**)&tmp, SWIGTYPE_p_Xmpdatum_pointer, 0)))
+          obj1, (void**)&tmp, SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0)))
     arg2 = **tmp;
     else {
       res10 = SWIG_ConvertPtr(obj1, &argp10, SWIGTYPE_p_Exiv2__Xmpdatum,  0 );
@@ -7900,7 +7787,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum___ne__(PyObject *self, PyObject *args) {
   {
     Xmpdatum_pointer* tmp = NULL;
     if (SWIG_IsOK(SWIG_ConvertPtr(
-          obj1, (void**)&tmp, SWIGTYPE_p_Xmpdatum_pointer, 0)))
+          obj1, (void**)&tmp, SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0)))
     arg2 = **tmp;
     else {
       res10 = SWIG_ConvertPtr(obj1, &argp10, SWIGTYPE_p_Exiv2__Xmpdatum,  0 );
@@ -8378,7 +8265,7 @@ SWIGINTERN PyObject *_wrap_XmpData_add__SWIG_1(PyObject *self, PyObject *args) {
   {
     Xmpdatum_pointer* tmp = NULL;
     if (SWIG_IsOK(SWIG_ConvertPtr(
-          obj1, (void**)&tmp, SWIGTYPE_p_Xmpdatum_pointer, 0)))
+          obj1, (void**)&tmp, SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0)))
     arg2 = **tmp;
     else {
       res10 = SWIG_ConvertPtr(obj1, &argp10, SWIGTYPE_p_Exiv2__Xmpdatum,  0 );
@@ -8463,7 +8350,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   
   {
     XmpData_iterator* arg2 = NULL;
-    res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
+    res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, 0 |  0 );
     if (!SWIG_IsOK(res10)) {
       SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "XmpData_erase" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
     }
@@ -8491,7 +8378,7 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new XmpData_iterator(result, arg1->end())),
-      SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+      SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
     
     
     
@@ -8532,7 +8419,7 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
   {
     {
       XmpData_iterator* arg2 = NULL;
-      res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_XmpData_iterator, 0 |  0 );
+      res10 = SWIG_ConvertPtr(obj1, &argp10,SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, 0 |  0 );
       if (!SWIG_IsOK(res10)) {
         SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "XmpData_eraseFamily" "', argument " "1"" of type '" "XmpData_iterator *""'"); 
       }
@@ -8630,7 +8517,7 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
   {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new XmpData_iterator(result, arg1->end())),
-      SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+      SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
     
     
     
@@ -8667,7 +8554,7 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
   {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new XmpData_iterator(result, arg1->end())),
-      SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+      SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
     
     
     
@@ -8724,7 +8611,7 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
   {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new XmpData_iterator(result, arg1->end())),
-      SWIGTYPE_p_XmpData_iterator, SWIG_POINTER_OWN);
+      SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
     
     
     
@@ -9200,13 +9087,13 @@ static PyMethodDef SwigMethods[] = {
 };
 
 static SwigPyGetSet Xmpdatum_pointer___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__Xmpdatum_pointer_getset[] = {
+SWIGINTERN PyGetSetDef SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &Xmpdatum_pointer___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
-SwigPyBuiltin__Xmpdatum_pointer_richcompare(PyObject *self, PyObject *other, int op) {
+SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
   PyObject *tuple = PyTuple_New(1);
   assert(tuple);
@@ -9229,7 +9116,7 @@ SwigPyBuiltin__Xmpdatum_pointer_richcompare(PyObject *self, PyObject *other, int
   return result;
 }
 
-SWIGINTERN PyMethodDef SwigPyBuiltin__Xmpdatum_pointer_methods[] = {
+SWIGINTERN PyMethodDef SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_methods[] = {
   { "__eq__", _wrap_Xmpdatum_pointer___eq__, METH_VARARGS, "" },
   { "__ne__", _wrap_Xmpdatum_pointer___ne__, METH_VARARGS, "" },
   { "__deref__", _wrap_Xmpdatum_pointer___deref__, METH_VARARGS, "\n"
@@ -9271,7 +9158,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Xmpdatum_pointer_methods[] = {
 };
 
 #ifndef SWIG_HEAPTYPES
-static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_pointer_type = {
+static PyHeapTypeObject SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type = {
   {
 #if PY_VERSION_HEX >= 0x03000000
     PyVarObject_HEAD_INIT(NULL, 0)
@@ -9296,22 +9183,21 @@ static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_pointer_type = {
     (cmpfunc) 0,                            /* tp_compare */
 #endif
     (reprfunc) 0,                           /* tp_repr */
-    &SwigPyBuiltin__Xmpdatum_pointer_type.as_number, /* tp_as_number */
-    &SwigPyBuiltin__Xmpdatum_pointer_type.as_sequence, /* tp_as_sequence */
-    &SwigPyBuiltin__Xmpdatum_pointer_type.as_mapping, /* tp_as_mapping */
+    &SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type.as_number, /* tp_as_number */
+    &SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type.as_sequence, /* tp_as_sequence */
+    &SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
-    _str_Xmpdatum_pointer,                  /* tp_str */
+    (reprfunc) 0,                           /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
-    &SwigPyBuiltin__Xmpdatum_pointer_type.as_buffer, /* tp_as_buffer */
+    &SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE, /* tp_flags */
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
     "\n"
-		"\n"
 		"Base class for pointers to :class:`Xmpdatum` objects.\n"
 		"\n"
 		":class:`XmpData_iterator` objects and :class:`Xmpdatum_reference`\n"
@@ -9322,13 +9208,13 @@ static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_pointer_type = {
 		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
-    SwigPyBuiltin__Xmpdatum_pointer_richcompare, /* tp_richcompare */
+    SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_richcompare, /* tp_richcompare */
     0,                                      /* tp_weaklistoffset */
     (getiterfunc) 0,                        /* tp_iter */
     (iternextfunc) 0,                       /* tp_iternext */
-    SwigPyBuiltin__Xmpdatum_pointer_methods, /* tp_methods */
+    SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_methods, /* tp_methods */
     0,                                      /* tp_members */
-    SwigPyBuiltin__Xmpdatum_pointer_getset, /* tp_getset */
+    SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_getset, /* tp_getset */
     0,                                      /* tp_base */
     0,                                      /* tp_dict */
     (descrgetfunc) 0,                       /* tp_descr_get */
@@ -9494,9 +9380,9 @@ static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_pointer_type = {
 #endif
 };
 
-static PyTypeObject *SwigPyBuiltin__Xmpdatum_pointer_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
+static PyTypeObject *SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
   PyObject *tuple_bases;
-  PyTypeObject *pytype = (PyTypeObject *)&SwigPyBuiltin__Xmpdatum_pointer_type;
+  PyTypeObject *pytype = (PyTypeObject *)&SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type;
   pytype->tp_dict = dict;
   SwigPyBuiltin_SetMetaType(pytype, type);
   pytype->tp_new = PyType_GenericNew;
@@ -9512,7 +9398,7 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_pointer_type_create(PyTypeObject *t
 }
 
 #else
-static PyTypeObject *SwigPyBuiltin__Xmpdatum_pointer_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
+static PyTypeObject *SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
   PyMemberDef members[] = {
     { (char *)"__dictoffset__", Py_T_PYSSIZET, offsetof(SwigPyObject, dict), Py_READONLY, NULL },
     { NULL, 0, 0, 0, NULL }
@@ -9525,7 +9411,6 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_pointer_type_create(PyTypeObject *t
     { Py_tp_is_gc,                      (void *)(inquiry) 0 },
     { Py_tp_del,                        (void *)(destructor) 0 },
     { Py_tp_doc,                        (void *)"\n"
-		"\n"
 		"Base class for pointers to :class:`Xmpdatum` objects.\n"
 		"\n"
 		":class:`XmpData_iterator` objects and :class:`Xmpdatum_reference`\n"
@@ -9535,12 +9420,12 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_pointer_type_create(PyTypeObject *t
 		"is expected.\n"
 		"" },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
-    { Py_tp_str,                        (void *)_str_Xmpdatum_pointer },
+    { Py_tp_str,                        (void *)(reprfunc) 0 },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
     { Py_tp_clear,                      (void *)(inquiry) 0 },
-    { Py_tp_richcompare,                (void *)SwigPyBuiltin__Xmpdatum_pointer_richcompare },
-    { Py_tp_methods,                    (void *)SwigPyBuiltin__Xmpdatum_pointer_methods },
-    { Py_tp_getset,                     (void *)SwigPyBuiltin__Xmpdatum_pointer_getset },
+    { Py_tp_richcompare,                (void *)SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_richcompare },
+    { Py_tp_methods,                    (void *)SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_methods },
+    { Py_tp_getset,                     (void *)SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
     { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
@@ -9612,16 +9497,16 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_pointer_type_create(PyTypeObject *t
   return pytype;
 }
 #endif
-SWIGINTERN SwigPyClientData SwigPyBuiltin__Xmpdatum_pointer_clientdata = {0, 0, 0, 0, 0, 0, 0};
+SWIGINTERN SwigPyClientData SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_clientdata = {0, 0, 0, 0, 0, 0, 0};
 
 static SwigPyGetSet XmpData_iterator___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__XmpData_iterator_getset[] = {
+SWIGINTERN PyGetSetDef SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &XmpData_iterator___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
-SwigPyBuiltin__XmpData_iterator_richcompare(PyObject *self, PyObject *other, int op) {
+SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
   PyObject *tuple = PyTuple_New(1);
   assert(tuple);
@@ -9644,14 +9529,14 @@ SwigPyBuiltin__XmpData_iterator_richcompare(PyObject *self, PyObject *other, int
   return result;
 }
 
-SWIGINTERN PyMethodDef SwigPyBuiltin__XmpData_iterator_methods[] = {
+SWIGINTERN PyMethodDef SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_methods[] = {
   { "__iter__", _wrap_XmpData_iterator___iter__, METH_VARARGS, "" },
   { "__next__", _wrap_XmpData_iterator___next__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
 #ifndef SWIG_HEAPTYPES
-static PyHeapTypeObject SwigPyBuiltin__XmpData_iterator_type = {
+static PyHeapTypeObject SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type = {
   {
 #if PY_VERSION_HEX >= 0x03000000
     PyVarObject_HEAD_INIT(NULL, 0)
@@ -9676,33 +9561,30 @@ static PyHeapTypeObject SwigPyBuiltin__XmpData_iterator_type = {
     (cmpfunc) 0,                            /* tp_compare */
 #endif
     (reprfunc) 0,                           /* tp_repr */
-    &SwigPyBuiltin__XmpData_iterator_type.as_number, /* tp_as_number */
-    &SwigPyBuiltin__XmpData_iterator_type.as_sequence, /* tp_as_sequence */
-    &SwigPyBuiltin__XmpData_iterator_type.as_mapping, /* tp_as_mapping */
+    &SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type.as_number, /* tp_as_number */
+    &SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type.as_sequence, /* tp_as_sequence */
+    &SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
-    &SwigPyBuiltin__XmpData_iterator_type.as_buffer, /* tp_as_buffer */
+    &SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE, /* tp_flags */
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"\n"
-		"Python wrapper for an :class:`XmpData` iterator.\n"
-		"", /* tp_doc */
+    "Python wrapper for an :class:`XmpData` iterator.", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
-    SwigPyBuiltin__XmpData_iterator_richcompare, /* tp_richcompare */
+    SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_richcompare, /* tp_richcompare */
     0,                                      /* tp_weaklistoffset */
     _wrap_XmpData_iterator___iter___getiterfunc_closure, /* tp_iter */
     _wrap_XmpData_iterator___next___iternextfunc_closure, /* tp_iternext */
-    SwigPyBuiltin__XmpData_iterator_methods, /* tp_methods */
+    SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_methods, /* tp_methods */
     0,                                      /* tp_members */
-    SwigPyBuiltin__XmpData_iterator_getset, /* tp_getset */
+    SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_getset, /* tp_getset */
     0,                                      /* tp_base */
     0,                                      /* tp_dict */
     (descrgetfunc) 0,                       /* tp_descr_get */
@@ -9868,9 +9750,9 @@ static PyHeapTypeObject SwigPyBuiltin__XmpData_iterator_type = {
 #endif
 };
 
-static PyTypeObject *SwigPyBuiltin__XmpData_iterator_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
+static PyTypeObject *SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
   PyObject *tuple_bases;
-  PyTypeObject *pytype = (PyTypeObject *)&SwigPyBuiltin__XmpData_iterator_type;
+  PyTypeObject *pytype = (PyTypeObject *)&SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type;
   pytype->tp_dict = dict;
   SwigPyBuiltin_SetMetaType(pytype, type);
   pytype->tp_new = PyType_GenericNew;
@@ -9886,7 +9768,7 @@ static PyTypeObject *SwigPyBuiltin__XmpData_iterator_type_create(PyTypeObject *t
 }
 
 #else
-static PyTypeObject *SwigPyBuiltin__XmpData_iterator_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
+static PyTypeObject *SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
   PyMemberDef members[] = {
     { (char *)"__dictoffset__", Py_T_PYSSIZET, offsetof(SwigPyObject, dict), Py_READONLY, NULL },
     { NULL, 0, 0, 0, NULL }
@@ -9898,17 +9780,14 @@ static PyTypeObject *SwigPyBuiltin__XmpData_iterator_type_create(PyTypeObject *t
     { Py_tp_free,                       (void *)(freefunc) 0 },
     { Py_tp_is_gc,                      (void *)(inquiry) 0 },
     { Py_tp_del,                        (void *)(destructor) 0 },
-    { Py_tp_doc,                        (void *)"\n"
-		"\n"
-		"Python wrapper for an :class:`XmpData` iterator.\n"
-		"" },
+    { Py_tp_doc,                        (void *)"Python wrapper for an :class:`XmpData` iterator." },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
     { Py_tp_clear,                      (void *)(inquiry) 0 },
-    { Py_tp_richcompare,                (void *)SwigPyBuiltin__XmpData_iterator_richcompare },
-    { Py_tp_methods,                    (void *)SwigPyBuiltin__XmpData_iterator_methods },
-    { Py_tp_getset,                     (void *)SwigPyBuiltin__XmpData_iterator_getset },
+    { Py_tp_richcompare,                (void *)SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_richcompare },
+    { Py_tp_methods,                    (void *)SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_methods },
+    { Py_tp_getset,                     (void *)SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
     { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
@@ -9980,16 +9859,16 @@ static PyTypeObject *SwigPyBuiltin__XmpData_iterator_type_create(PyTypeObject *t
   return pytype;
 }
 #endif
-SWIGINTERN SwigPyClientData SwigPyBuiltin__XmpData_iterator_clientdata = {0, 0, 0, 0, 0, 0, 0};
+SWIGINTERN SwigPyClientData SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_clientdata = {0, 0, 0, 0, 0, 0, 0};
 
 static SwigPyGetSet Xmpdatum_reference___dict___getset = { SwigPyObject_get___dict__, 0 };
-SWIGINTERN PyGetSetDef SwigPyBuiltin__Xmpdatum_reference_getset[] = {
+SWIGINTERN PyGetSetDef SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_getset[] = {
     { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &Xmpdatum_reference___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
 SWIGINTERN PyObject *
-SwigPyBuiltin__Xmpdatum_reference_richcompare(PyObject *self, PyObject *other, int op) {
+SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_richcompare(PyObject *self, PyObject *other, int op) {
   PyObject *result = NULL;
   PyObject *tuple = PyTuple_New(1);
   assert(tuple);
@@ -10012,12 +9891,12 @@ SwigPyBuiltin__Xmpdatum_reference_richcompare(PyObject *self, PyObject *other, i
   return result;
 }
 
-SWIGINTERN PyMethodDef SwigPyBuiltin__Xmpdatum_reference_methods[] = {
+SWIGINTERN PyMethodDef SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_methods[] = {
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 
 #ifndef SWIG_HEAPTYPES
-static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_reference_type = {
+static PyHeapTypeObject SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type = {
   {
 #if PY_VERSION_HEX >= 0x03000000
     PyVarObject_HEAD_INIT(NULL, 0)
@@ -10042,33 +9921,30 @@ static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_reference_type = {
     (cmpfunc) 0,                            /* tp_compare */
 #endif
     (reprfunc) 0,                           /* tp_repr */
-    &SwigPyBuiltin__Xmpdatum_reference_type.as_number, /* tp_as_number */
-    &SwigPyBuiltin__Xmpdatum_reference_type.as_sequence, /* tp_as_sequence */
-    &SwigPyBuiltin__Xmpdatum_reference_type.as_mapping, /* tp_as_mapping */
+    &SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type.as_number, /* tp_as_number */
+    &SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type.as_sequence, /* tp_as_sequence */
+    &SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type.as_mapping, /* tp_as_mapping */
     SwigPyObject_hash,                      /* tp_hash */
     (ternaryfunc) 0,                        /* tp_call */
     (reprfunc) 0,                           /* tp_str */
     (getattrofunc) 0,                       /* tp_getattro */
     (setattrofunc) 0,                       /* tp_setattro */
-    &SwigPyBuiltin__Xmpdatum_reference_type.as_buffer, /* tp_as_buffer */
+    &SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type.as_buffer, /* tp_as_buffer */
 #if PY_VERSION_HEX >= 0x03000000
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE, /* tp_flags */
 #else
     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_CHECKTYPES, /* tp_flags */
 #endif
-    "\n"
-		"\n"
-		"Python wrapper for an :class:`Xmpdatum` reference.\n"
-		"", /* tp_doc */
+    "Python wrapper for an :class:`Xmpdatum` reference.", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
     (inquiry) 0,                            /* tp_clear */
-    SwigPyBuiltin__Xmpdatum_reference_richcompare, /* tp_richcompare */
+    SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_richcompare, /* tp_richcompare */
     0,                                      /* tp_weaklistoffset */
     (getiterfunc) 0,                        /* tp_iter */
     (iternextfunc) 0,                       /* tp_iternext */
-    SwigPyBuiltin__Xmpdatum_reference_methods, /* tp_methods */
+    SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_methods, /* tp_methods */
     0,                                      /* tp_members */
-    SwigPyBuiltin__Xmpdatum_reference_getset, /* tp_getset */
+    SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_getset, /* tp_getset */
     0,                                      /* tp_base */
     0,                                      /* tp_dict */
     (descrgetfunc) 0,                       /* tp_descr_get */
@@ -10234,9 +10110,9 @@ static PyHeapTypeObject SwigPyBuiltin__Xmpdatum_reference_type = {
 #endif
 };
 
-static PyTypeObject *SwigPyBuiltin__Xmpdatum_reference_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
+static PyTypeObject *SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
   PyObject *tuple_bases;
-  PyTypeObject *pytype = (PyTypeObject *)&SwigPyBuiltin__Xmpdatum_reference_type;
+  PyTypeObject *pytype = (PyTypeObject *)&SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type;
   pytype->tp_dict = dict;
   SwigPyBuiltin_SetMetaType(pytype, type);
   pytype->tp_new = PyType_GenericNew;
@@ -10252,7 +10128,7 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_reference_type_create(PyTypeObject 
 }
 
 #else
-static PyTypeObject *SwigPyBuiltin__Xmpdatum_reference_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
+static PyTypeObject *SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type_create(PyTypeObject *type, PyTypeObject **bases, PyObject *dict) {
   PyMemberDef members[] = {
     { (char *)"__dictoffset__", Py_T_PYSSIZET, offsetof(SwigPyObject, dict), Py_READONLY, NULL },
     { NULL, 0, 0, 0, NULL }
@@ -10264,17 +10140,14 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_reference_type_create(PyTypeObject 
     { Py_tp_free,                       (void *)(freefunc) 0 },
     { Py_tp_is_gc,                      (void *)(inquiry) 0 },
     { Py_tp_del,                        (void *)(destructor) 0 },
-    { Py_tp_doc,                        (void *)"\n"
-		"\n"
-		"Python wrapper for an :class:`Xmpdatum` reference.\n"
-		"" },
+    { Py_tp_doc,                        (void *)"Python wrapper for an :class:`Xmpdatum` reference." },
     { Py_tp_repr,                       (void *)(reprfunc) 0 },
     { Py_tp_str,                        (void *)(reprfunc) 0 },
     { Py_tp_traverse,                   (void *)(traverseproc) 0 },
     { Py_tp_clear,                      (void *)(inquiry) 0 },
-    { Py_tp_richcompare,                (void *)SwigPyBuiltin__Xmpdatum_reference_richcompare },
-    { Py_tp_methods,                    (void *)SwigPyBuiltin__Xmpdatum_reference_methods },
-    { Py_tp_getset,                     (void *)SwigPyBuiltin__Xmpdatum_reference_getset },
+    { Py_tp_richcompare,                (void *)SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_richcompare },
+    { Py_tp_methods,                    (void *)SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_methods },
+    { Py_tp_getset,                     (void *)SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_getset },
     { Py_tp_hash,                       (void *)SwigPyObject_hash },
     { Py_tp_call,                       (void *)(ternaryfunc) 0 },
     { Py_tp_getattro,                   (void *)(getattrofunc) 0 },
@@ -10346,7 +10219,7 @@ static PyTypeObject *SwigPyBuiltin__Xmpdatum_reference_type_create(PyTypeObject 
   return pytype;
 }
 #endif
-SWIGINTERN SwigPyClientData SwigPyBuiltin__Xmpdatum_reference_clientdata = {0, 0, 0, 0, 0, 0, 0};
+SWIGINTERN SwigPyClientData SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_clientdata = {0, 0, 0, 0, 0, 0, 0};
 
 static SwigPyGetSet Xmpdatum___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__Exiv2__Xmpdatum_getset[] = {
@@ -11712,11 +11585,20 @@ static void *_p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSE
 static void *_p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Exiv2::XmpValue *)  ((Exiv2::XmpTextValue *) x));
 }
-static void *_p_XmpData_iteratorTo_p_Xmpdatum_pointer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Xmpdatum_pointer *)  ((XmpData_iterator *) x));
+static void *_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_tTo_p_MetadatumPointerT_Exiv2__Xmpdatum_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointer< Exiv2::Xmpdatum > *)  ((MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *) x));
 }
-static void *_p_Xmpdatum_referenceTo_p_Xmpdatum_pointer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Xmpdatum_pointer *)  ((Xmpdatum_reference *) x));
+static void *_p_MetadatumReferenceT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerT_Exiv2__Xmpdatum_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointer< Exiv2::Xmpdatum > *)  ((MetadatumReference< Exiv2::Xmpdatum > *) x));
+}
+static void *_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *) (MetadatumPointer< Exiv2::Xmpdatum > *) ((MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *) x));
+}
+static void *_p_MetadatumPointerT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *)  ((MetadatumPointer< Exiv2::Xmpdatum > *) x));
+}
+static void *_p_MetadatumReferenceT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((MetadatumPointerBase *) (MetadatumPointer< Exiv2::Xmpdatum > *) ((MetadatumReference< Exiv2::Xmpdatum > *) x));
 }
 static swig_type_info _swigt__p_Exiv2__AsciiValue = {"_p_Exiv2__AsciiValue", "Exiv2::AsciiValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__CommentValue = {"_p_Exiv2__CommentValue", "Exiv2::CommentValue *", 0, 0, (void*)0, 0};
@@ -11750,11 +11632,18 @@ static swig_type_info _swigt__p_Exiv2__XmpPropertyInfo = {"_p_Exiv2__XmpProperty
 static swig_type_info _swigt__p_Exiv2__XmpTextValue = {"_p_Exiv2__XmpTextValue", "Exiv2::XmpTextValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__XmpValue = {"_p_Exiv2__XmpValue", "Exiv2::XmpValue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Exiv2__Xmpdatum = {"_p_Exiv2__Xmpdatum", "Exiv2::Xmpdatum *", 0, 0, (void*)&SwigPyBuiltin__Exiv2__Xmpdatum_clientdata, 0};
+static swig_type_info _swigt__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t = {"_p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t", "ExifData_iterator *|MetadataIterator< Exiv2::ExifData::iterator,Exiv2::Exifdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t = {"_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t", "IptcData_iterator *|MetadataIterator< Exiv2::IptcData::iterator,Exiv2::Iptcdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t = {"_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t", "XmpData_iterator *|MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum > *", 0, 0, (void*)&SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_clientdata, 0};
+static swig_type_info _swigt__p_MetadatumPointerBase = {"_p_MetadatumPointerBase", "MetadatumPointerBase *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumPointerT_Exiv2__Exifdatum_t = {"_p_MetadatumPointerT_Exiv2__Exifdatum_t", "Exifdatum_pointer *|MetadatumPointer< Exiv2::Exifdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumPointerT_Exiv2__Iptcdatum_t = {"_p_MetadatumPointerT_Exiv2__Iptcdatum_t", "Iptcdatum_pointer *|MetadatumPointer< Exiv2::Iptcdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumPointerT_Exiv2__Xmpdatum_t = {"_p_MetadatumPointerT_Exiv2__Xmpdatum_t", "Xmpdatum_pointer *|MetadatumPointer< Exiv2::Xmpdatum > *", 0, 0, (void*)&SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_clientdata, 0};
+static swig_type_info _swigt__p_MetadatumReferenceT_Exiv2__Exifdatum_t = {"_p_MetadatumReferenceT_Exiv2__Exifdatum_t", "Exifdatum_reference *|MetadatumReference< Exiv2::Exifdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumReferenceT_Exiv2__Iptcdatum_t = {"_p_MetadatumReferenceT_Exiv2__Iptcdatum_t", "Iptcdatum_reference *|MetadatumReference< Exiv2::Iptcdatum > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t = {"_p_MetadatumReferenceT_Exiv2__Xmpdatum_t", "Xmpdatum_reference *|MetadatumReference< Exiv2::Xmpdatum > *", 0, 0, (void*)&SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_clientdata, 0};
 static swig_type_info _swigt__p_SwigPyObject = {"_p_SwigPyObject", "SwigPyObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ValueType = {"_p_ValueType", "ValueType *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_XmpData_iterator = {"_p_XmpData_iterator", "XmpData_iterator *", 0, 0, (void*)&SwigPyBuiltin__XmpData_iterator_clientdata, 0};
-static swig_type_info _swigt__p_Xmpdatum_pointer = {"_p_Xmpdatum_pointer", "Xmpdatum_pointer *", 0, 0, (void*)&SwigPyBuiltin__Xmpdatum_pointer_clientdata, 0};
-static swig_type_info _swigt__p_Xmpdatum_reference = {"_p_Xmpdatum_reference", "Xmpdatum_reference *", 0, 0, (void*)&SwigPyBuiltin__Xmpdatum_reference_clientdata, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -11814,11 +11703,18 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Exiv2__XmpTextValue,
   &_swigt__p_Exiv2__XmpValue,
   &_swigt__p_Exiv2__Xmpdatum,
+  &_swigt__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t,
+  &_swigt__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t,
+  &_swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t,
+  &_swigt__p_MetadatumPointerBase,
+  &_swigt__p_MetadatumPointerT_Exiv2__Exifdatum_t,
+  &_swigt__p_MetadatumPointerT_Exiv2__Iptcdatum_t,
+  &_swigt__p_MetadatumPointerT_Exiv2__Xmpdatum_t,
+  &_swigt__p_MetadatumReferenceT_Exiv2__Exifdatum_t,
+  &_swigt__p_MetadatumReferenceT_Exiv2__Iptcdatum_t,
+  &_swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t,
   &_swigt__p_SwigPyObject,
   &_swigt__p_ValueType,
-  &_swigt__p_XmpData_iterator,
-  &_swigt__p_Xmpdatum_pointer,
-  &_swigt__p_Xmpdatum_reference,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
@@ -11878,11 +11774,18 @@ static swig_cast_info _swigc__p_Exiv2__XmpPropertyInfo[] = {  {&_swigt__p_Exiv2_
 static swig_cast_info _swigc__p_Exiv2__XmpTextValue[] = {  {&_swigt__p_Exiv2__XmpTextValue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__XmpValue[] = {  {&_swigt__p_Exiv2__XmpValue, 0, 0, 0},  {&_swigt__p_Exiv2__LangAltValue, _p_Exiv2__LangAltValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpArrayValue, _p_Exiv2__XmpArrayValueTo_p_Exiv2__XmpValue, 0, 0},  {&_swigt__p_Exiv2__XmpTextValue, _p_Exiv2__XmpTextValueTo_p_Exiv2__XmpValue, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Exiv2__Xmpdatum[] = {  {&_swigt__p_Exiv2__Xmpdatum, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t[] = {  {&_swigt__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t[] = {  {&_swigt__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t[] = {  {&_swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumPointerBase[] = {  {&_swigt__p_MetadatumPointerBase, 0, 0, 0},  {&_swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, _p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadatumPointerT_Exiv2__Xmpdatum_t, _p_MetadatumPointerT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase, 0, 0},  {&_swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t, _p_MetadatumReferenceT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerBase, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumPointerT_Exiv2__Exifdatum_t[] = {  {&_swigt__p_MetadatumPointerT_Exiv2__Exifdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumPointerT_Exiv2__Iptcdatum_t[] = {  {&_swigt__p_MetadatumPointerT_Exiv2__Iptcdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumPointerT_Exiv2__Xmpdatum_t[] = {  {&_swigt__p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0, 0, 0},  {&_swigt__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, _p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_tTo_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0, 0},  {&_swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t, _p_MetadatumReferenceT_Exiv2__Xmpdatum_tTo_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumReferenceT_Exiv2__Exifdatum_t[] = {  {&_swigt__p_MetadatumReferenceT_Exiv2__Exifdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumReferenceT_Exiv2__Iptcdatum_t[] = {  {&_swigt__p_MetadatumReferenceT_Exiv2__Iptcdatum_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MetadatumReferenceT_Exiv2__Xmpdatum_t[] = {  {&_swigt__p_MetadatumReferenceT_Exiv2__Xmpdatum_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SwigPyObject[] = {  {&_swigt__p_SwigPyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ValueType[] = {  {&_swigt__p_ValueType, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_XmpData_iterator[] = {  {&_swigt__p_XmpData_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Xmpdatum_pointer[] = {  {&_swigt__p_Xmpdatum_pointer, 0, 0, 0},  {&_swigt__p_XmpData_iterator, _p_XmpData_iteratorTo_p_Xmpdatum_pointer, 0, 0},  {&_swigt__p_Xmpdatum_reference, _p_Xmpdatum_referenceTo_p_Xmpdatum_pointer, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Xmpdatum_reference[] = {  {&_swigt__p_Xmpdatum_reference, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -11942,11 +11845,18 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Exiv2__XmpTextValue,
   _swigc__p_Exiv2__XmpValue,
   _swigc__p_Exiv2__Xmpdatum,
+  _swigc__p_MetadataIteratorT_Exiv2__ExifData__iterator_Exiv2__Exifdatum_t,
+  _swigc__p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t,
+  _swigc__p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t,
+  _swigc__p_MetadatumPointerBase,
+  _swigc__p_MetadatumPointerT_Exiv2__Exifdatum_t,
+  _swigc__p_MetadatumPointerT_Exiv2__Iptcdatum_t,
+  _swigc__p_MetadatumPointerT_Exiv2__Xmpdatum_t,
+  _swigc__p_MetadatumReferenceT_Exiv2__Exifdatum_t,
+  _swigc__p_MetadatumReferenceT_Exiv2__Iptcdatum_t,
+  _swigc__p_MetadatumReferenceT_Exiv2__Xmpdatum_t,
   _swigc__p_SwigPyObject,
   _swigc__p_ValueType,
-  _swigc__p_XmpData_iterator,
-  _swigc__p_Xmpdatum_pointer,
-  _swigc__p_Xmpdatum_reference,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,
@@ -12453,7 +12363,7 @@ SWIG_init(void) {
   
   
   
-  /* type '::Xmpdatum_pointer' */
+  /* type 'MetadatumPointer< Exiv2::Xmpdatum >' */
   d = PyDict_New();
   
   Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
@@ -12535,10 +12445,21 @@ SWIG_init(void) {
   };
   
   builtin_base_count = 0;
+  builtin_basetype = SWIG_MangledTypeQuery("_p_MetadatumPointerBase");
+  if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
+    builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
+  } else {
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'Xmpdatum_pointer' as base 'MetadatumPointerBase' has not been initialized.\n");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
-  builtin_pytype = SwigPyBuiltin__Xmpdatum_pointer_type_create(metatype, builtin_bases, d);
+  builtin_pytype = SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_type_create(metatype, builtin_bases, d);
   if(!builtin_pytype) {
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
@@ -12546,20 +12467,20 @@ SWIG_init(void) {
     return;
 #endif
   }
-  SwigPyBuiltin__Xmpdatum_pointer_clientdata.pytype = builtin_pytype;
+  SwigPyBuiltin__MetadatumPointerT_Exiv2__Xmpdatum_t_clientdata.pytype = builtin_pytype;
   SWIG_Py_INCREF((PyObject *)builtin_pytype);
   PyModule_AddObject(m, "Xmpdatum_pointer", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Xmpdatum_pointer");
   d = md;
   
-  /* type '::XmpData_iterator' */
+  /* type 'MetadataIterator< Exiv2::XmpData::iterator,Exiv2::Xmpdatum >' */
   d = PyDict_New();
   builtin_base_count = 0;
-  builtin_basetype = SWIG_MangledTypeQuery("_p_Xmpdatum_pointer");
+  builtin_basetype = SWIG_MangledTypeQuery("_p_MetadatumPointerT_Exiv2__Xmpdatum_t");
   if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
     builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
   } else {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'XmpData_iterator' as base 'Xmpdatum_pointer' has not been initialized.\n");
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'XmpData_iterator' as base 'MetadatumPointer<(Exiv2::Xmpdatum)>' has not been initialized.\n");
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
 #else
@@ -12569,7 +12490,7 @@ SWIG_init(void) {
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
-  builtin_pytype = SwigPyBuiltin__XmpData_iterator_type_create(metatype, builtin_bases, d);
+  builtin_pytype = SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_type_create(metatype, builtin_bases, d);
   if(!builtin_pytype) {
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
@@ -12577,20 +12498,20 @@ SWIG_init(void) {
     return;
 #endif
   }
-  SwigPyBuiltin__XmpData_iterator_clientdata.pytype = builtin_pytype;
+  SwigPyBuiltin__MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t_clientdata.pytype = builtin_pytype;
   SWIG_Py_INCREF((PyObject *)builtin_pytype);
   PyModule_AddObject(m, "XmpData_iterator", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "XmpData_iterator");
   d = md;
   
-  /* type '::Xmpdatum_reference' */
+  /* type 'MetadatumReference< Exiv2::Xmpdatum >' */
   d = PyDict_New();
   builtin_base_count = 0;
-  builtin_basetype = SWIG_MangledTypeQuery("_p_Xmpdatum_pointer");
+  builtin_basetype = SWIG_MangledTypeQuery("_p_MetadatumPointerT_Exiv2__Xmpdatum_t");
   if (builtin_basetype && builtin_basetype->clientdata && ((SwigPyClientData *) builtin_basetype->clientdata)->pytype) {
     builtin_bases[builtin_base_count++] = ((SwigPyClientData *) builtin_basetype->clientdata)->pytype;
   } else {
-    PyErr_SetString(PyExc_TypeError, "Could not create type 'Xmpdatum_reference' as base 'Xmpdatum_pointer' has not been initialized.\n");
+    PyErr_SetString(PyExc_TypeError, "Could not create type 'Xmpdatum_reference' as base 'MetadatumPointer<(Exiv2::Xmpdatum)>' has not been initialized.\n");
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
 #else
@@ -12600,7 +12521,7 @@ SWIG_init(void) {
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);
   PyDict_SetItemString(d, "thisown", thisown_descr);
-  builtin_pytype = SwigPyBuiltin__Xmpdatum_reference_type_create(metatype, builtin_bases, d);
+  builtin_pytype = SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_type_create(metatype, builtin_bases, d);
   if(!builtin_pytype) {
 #if PY_VERSION_HEX >= 0x03000000
     return NULL;
@@ -12608,7 +12529,7 @@ SWIG_init(void) {
     return;
 #endif
   }
-  SwigPyBuiltin__Xmpdatum_reference_clientdata.pytype = builtin_pytype;
+  SwigPyBuiltin__MetadatumReferenceT_Exiv2__Xmpdatum_t_clientdata.pytype = builtin_pytype;
   SWIG_Py_INCREF((PyObject *)builtin_pytype);
   PyModule_AddObject(m, "Xmpdatum_reference", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Xmpdatum_reference");

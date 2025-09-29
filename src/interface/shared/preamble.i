@@ -17,6 +17,7 @@
 
 %{
 #include "exiv2/exiv2.hpp"
+#include "metadatum_pointer.hpp"
 %}
 
 %include "shared/enum.i"

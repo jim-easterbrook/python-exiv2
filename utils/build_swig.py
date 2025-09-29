@@ -79,7 +79,7 @@ def main():
     file_names = os.listdir(interface_dir)
     file_names.sort()
     file_names = [os.path.splitext(x) for x in file_names]
-    mod_names = [x[0] + x[1] for x in file_names if x[1] == '.py']
+    mod_names = [x[0] + x[1] for x in file_names if x[1] in ('.hpp', '.py')]
     ext_names = [x[0] for x in file_names if x[1] == '.i']
     # convert exiv2 version to hex
     exiv2_version_hex = '0x{:02x}{:02x}{:02x}{:02x}'.format(*exiv2_version)

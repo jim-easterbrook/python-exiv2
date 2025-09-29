@@ -115,11 +115,6 @@ DEFINE_VIEW_CALLBACK(Exiv2::Image, release_ptr(&self->io());)
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
 
-// Declare metadatum wrapper classes
-DECLARE_METADATUM_WRAPPERS(ExifData, Exifdatum)
-DECLARE_METADATUM_WRAPPERS(IptcData, Iptcdatum)
-DECLARE_METADATUM_WRAPPERS(XmpData, Xmpdatum)
-
 // Simplify handling of default parameters
 %typemap(default) bool useCurl {$1 = true;}
 %ignore Exiv2::ImageFactory::createIo(std::string const &);

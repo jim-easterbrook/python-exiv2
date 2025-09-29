@@ -46,12 +46,12 @@ class TestIptcModule(unittest.TestCase):
             exiv2.AsciiValue('XYZ')))
         self.assertEqual('Iptc.Application2.LocationCode' in data, True)
         self.assertIsInstance(
-            data['Iptc.Application2.LocationCode'], exiv2.Iptcdatum_pointer)
+            data['Iptc.Application2.LocationCode'], exiv2.Iptcdatum_reference)
         data.add(exiv2.IptcKey('Iptc.Application2.LocationName'),
                  exiv2.AsciiValue('Erewhon'))
         self.assertEqual('Iptc.Application2.LocationName' in data, True)
         self.assertIsInstance(
-            data['Iptc.Application2.LocationName'], exiv2.Iptcdatum_pointer)
+            data['Iptc.Application2.LocationName'], exiv2.Iptcdatum_reference)
         # iterators
         b = iter(data)
         self.assertIsInstance(b, exiv2.IptcData_iterator)
@@ -98,13 +98,13 @@ class TestIptcModule(unittest.TestCase):
         # access by key
         self.assertEqual('Iptc.Application2.Byline' in data, True)
         self.assertIsInstance(data['Iptc.Application2.Byline'],
-                              exiv2.Iptcdatum_pointer)
+                              exiv2.Iptcdatum_reference)
         del data['Iptc.Application2.Byline']
         self.assertEqual('Iptc.Application2.Byline' in data, False)
         data['Iptc.Application2.Byline'] = 'Fred'
         self.assertEqual('Iptc.Application2.Byline' in data, True)
         self.assertIsInstance(data['Iptc.Application2.Byline'],
-                              exiv2.Iptcdatum_pointer)
+                              exiv2.Iptcdatum_reference)
         with self.assertRaises(TypeError):
             data['Iptc.Envelope.FileFormat'] = 2.5
         data['Iptc.Envelope.FileFormat'] = 4
@@ -194,7 +194,7 @@ class TestIptcModule(unittest.TestCase):
         self.image.readMetadata()
         data = self.image.iptcData()
         datum = data['Iptc.Application2.Caption']
-        self.assertIsInstance(datum, exiv2.Iptcdatum_pointer)
+        self.assertIsInstance(datum, exiv2.Iptcdatum_reference)
         self.assertEqual(datum.__deref__(), datum)
         self.assertEqual(datum, datum.__deref__())
         datum2 = exiv2.Iptcdatum(datum)

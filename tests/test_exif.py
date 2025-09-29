@@ -50,10 +50,10 @@ class TestExifModule(unittest.TestCase):
         data.add(exiv2.Exifdatum(
             exiv2.ExifKey('Exif.Image.Make'), exiv2.AsciiValue('Acme')))
         self.assertEqual('Exif.Image.Make' in data, True)
-        self.assertIsInstance(data['Exif.Image.Make'], exiv2.Exifdatum_pointer)
+        self.assertIsInstance(data['Exif.Image.Make'], exiv2.Exifdatum_reference)
         data.add(exiv2.ExifKey('Exif.Image.Model'), exiv2.AsciiValue('Camera'))
         self.assertEqual('Exif.Image.Model' in data, True)
-        self.assertIsInstance(data['Exif.Image.Model'], exiv2.Exifdatum_pointer)
+        self.assertIsInstance(data['Exif.Image.Model'], exiv2.Exifdatum_reference)
         # iterators
         b = iter(data)
         self.assertIsInstance(b, exiv2.ExifData_iterator)
@@ -107,7 +107,7 @@ class TestExifModule(unittest.TestCase):
         # access by key
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'],
-                              exiv2.Exifdatum_pointer)
+                              exiv2.Exifdatum_reference)
         k = data.findKey(exiv2.ExifKey('Exif.Image.Artist'))
         d = data['Exif.Image.Artist']
         del data['Exif.Image.Artist']
@@ -121,14 +121,14 @@ class TestExifModule(unittest.TestCase):
         data['Exif.Image.Artist'] = 'Fred'
         self.assertEqual('Exif.Image.Artist' in data, True)
         self.assertIsInstance(data['Exif.Image.Artist'],
-                              exiv2.Exifdatum_pointer)
+                              exiv2.Exifdatum_reference)
         with self.assertRaises(TypeError):
             data['Exif.Image.Orientation'] = 2.5
         data['Exif.Image.Orientation'] = 4
         data['Exif.Image.Orientation'] = exiv2.UShortValue(4)
         self.assertEqual('Exif.Image.Orientation' in data, True)
         self.assertIsInstance(data['Exif.Image.Orientation'],
-                              exiv2.Exifdatum_pointer)
+                              exiv2.Exifdatum_reference)
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Exif.Image.Artist')
@@ -222,7 +222,7 @@ class TestExifModule(unittest.TestCase):
         self.image.readMetadata()
         data = self.image.exifData()
         datum = data['Exif.Image.ImageDescription']
-        self.assertIsInstance(datum, exiv2.Exifdatum_pointer)
+        self.assertIsInstance(datum, exiv2.Exifdatum_reference)
         self.assertEqual(datum.__deref__(), datum)
         self.assertEqual(datum, datum.__deref__())
         datum2 = exiv2.Exifdatum(datum)
@@ -282,7 +282,7 @@ class TestExifModule(unittest.TestCase):
         datum_iter = data.begin()
         self.assertIsInstance(datum_iter, exiv2.ExifData_iterator)
         datum_pointer = data[datum_iter.key()]
-        self.assertIsInstance(datum_pointer, exiv2.Exifdatum_pointer)
+        self.assertIsInstance(datum_pointer, exiv2.Exifdatum_reference)
         # __deref__ operator
         datum = datum_iter.__deref__()
         self.assertIsInstance(datum, exiv2.Exifdatum)
