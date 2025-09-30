@@ -84,11 +84,11 @@ public:
     bool operator!=(const T &other) const {
         return &other != **this;
     }
-    // Dereference operator gives access to all datum methods
+    // Dereference operator gives Python access to all datum methods
     T* operator->() const {
         T* ptr = **this;
         if (!ptr)
-            throw std::runtime_error(name + " iterator is at end of data");
+            throw std::runtime_error("iterator is at end of data");
         return ptr;
     }
 };
