@@ -5229,13 +5229,6 @@ static int private_store_del(PyObject* py_self, const char* name) {
     return 0;
 };
 
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
-{
-  return PyBool_FromLong(value ? 1 : 0);
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6335,98 +6328,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MetadatumPointerBase___eq__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  MetadatumPointerBase *arg1 = (MetadatumPointerBase *) 0 ;
-  MetadatumPointerBase *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_UnpackTuple(args, "MetadatumPointerBase___eq__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerBase, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MetadatumPointerBase___eq__" "', argument " "1"" of type '" "MetadatumPointerBase const *""'"); 
-  }
-  arg1 = reinterpret_cast< MetadatumPointerBase * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MetadatumPointerBase,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MetadatumPointerBase___eq__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "MetadatumPointerBase___eq__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
-  }
-  arg2 = reinterpret_cast< MetadatumPointerBase * >(argp2);
-  {
-    try {
-      result = (bool)((MetadatumPointerBase const *)arg1)->operator ==((MetadatumPointerBase const &)*arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_TypeError)) {
-    return NULL;
-  }
-  PyErr_Clear();
-  SWIG_Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
-SWIGINTERN PyObject *_wrap_MetadatumPointerBase___ne__(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  MetadatumPointerBase *arg1 = (MetadatumPointerBase *) 0 ;
-  MetadatumPointerBase *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_UnpackTuple(args, "MetadatumPointerBase___ne__", 1, 1, &obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_MetadatumPointerBase, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MetadatumPointerBase___ne__" "', argument " "1"" of type '" "MetadatumPointerBase const *""'"); 
-  }
-  arg1 = reinterpret_cast< MetadatumPointerBase * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MetadatumPointerBase,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MetadatumPointerBase___ne__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "MetadatumPointerBase___ne__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
-  }
-  arg2 = reinterpret_cast< MetadatumPointerBase * >(argp2);
-  {
-    try {
-      result = (bool)((MetadatumPointerBase const *)arg1)->operator !=((MetadatumPointerBase const &)*arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_TypeError)) {
-    return NULL;
-  }
-  PyErr_Clear();
-  SWIG_Py_INCREF(Py_NotImplemented);
-  return Py_NotImplemented;
-}
-
-
 static PyMethodDef SwigMethods[] = {
 	 { NULL, NULL, 0, NULL }
 };
@@ -7308,9 +7209,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__Metadatum_type_create(PyTypeObject *t
 #endif
 SWIGINTERN SwigPyClientData SwigPyBuiltin__Exiv2__Metadatum_clientdata = {0, 0, 0, 0, 0, 0, 0};
 
-static SwigPyGetSet MetadatumPointerBase___dict___getset = { SwigPyObject_get___dict__, 0 };
 SWIGINTERN PyGetSetDef SwigPyBuiltin__MetadatumPointerBase_getset[] = {
-    { (char *)"__dict__", SwigPyBuiltin_GetterClosure, 0, (char *)"", &MetadatumPointerBase___dict___getset },
     { NULL, NULL, NULL, NULL, NULL } /* Sentinel */
 };
 
@@ -7321,11 +7220,6 @@ SwigPyBuiltin__MetadatumPointerBase_richcompare(PyObject *self, PyObject *other,
   assert(tuple);
   PyTuple_SET_ITEM(tuple, 0, other);
   SWIG_Py_XINCREF(other);
-  switch (op) {
-    case Py_EQ : result = _wrap_MetadatumPointerBase___eq__(self, tuple); break;
-    case Py_NE : result = _wrap_MetadatumPointerBase___ne__(self, tuple); break;
-    default : break;
-  }
   if (!result && !PyErr_Occurred()) {
     if (SwigPyObject_Check(self) && SwigPyObject_Check(other)) {
       result = SwigPyObject_richcompare((SwigPyObject *)self, (SwigPyObject *)other, op);
@@ -7339,8 +7233,6 @@ SwigPyBuiltin__MetadatumPointerBase_richcompare(PyObject *self, PyObject *other,
 }
 
 SWIGINTERN PyMethodDef SwigPyBuiltin__MetadatumPointerBase_methods[] = {
-  { "__eq__", _wrap_MetadatumPointerBase___eq__, METH_VARARGS, "" },
-  { "__ne__", _wrap_MetadatumPointerBase___ne__, METH_VARARGS, "" },
   { NULL, NULL, 0, NULL } /* Sentinel */
 };
 

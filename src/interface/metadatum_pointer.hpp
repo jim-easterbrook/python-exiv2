@@ -35,12 +35,6 @@ public:
     MetadatumPointerBase(): invalidated(false) {}
     virtual ~MetadatumPointerBase() {}
     virtual Exiv2::Metadatum* operator*() const = 0;
-    bool operator==(const MetadatumPointerBase &other) const {
-        return *other == **this;
-    }
-    bool operator!=(const MetadatumPointerBase &other) const {
-        return *other != **this;
-    }
     std::string __str__() {
         if (invalidated)
             return name + "<deleted data>";
@@ -84,10 +78,12 @@ template <typename T>
 class MetadatumPointer: public MetadatumPointerBase {
 public:
     virtual T* operator*() const = 0;
-    // SWIG picks up comparison operators from parent class, but not
-    // from grandparent (non-specialised) class
-    using MetadatumPointerBase::operator==;
-    using MetadatumPointerBase::operator!=;
+    bool operator==(const T &other) const {
+        return &other == **this;
+    }
+    bool operator!=(const T &other) const {
+        return &other != **this;
+    }
     // Dereference operator gives access to all datum methods
     T* operator->() const {
         T* ptr = **this;

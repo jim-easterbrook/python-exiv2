@@ -5395,11 +5395,11 @@ extern "C" {
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___eq__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
-  MetadatumPointerBase *arg2 = 0 ;
+  Exiv2::Xmpdatum *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
+  void *argp10 = 0 ;
+  int res10 = 0 ;
   PyObject * obj1 = 0 ;
   bool result;
   
@@ -5409,17 +5409,25 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___eq__(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___eq__" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
   arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MetadatumPointerBase,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Xmpdatum_pointer___eq__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
+  {
+    Xmpdatum_pointer* tmp = NULL;
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+          obj1, (void**)&tmp, SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0)))
+    arg2 = **tmp;
+    else {
+      res10 = SWIG_ConvertPtr(obj1, &argp10, SWIGTYPE_p_Exiv2__Xmpdatum,  0 );
+      if (!SWIG_IsOK(res10)) {
+        SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "Xmpdatum_pointer___eq__" "', argument " "1"" of type '" "Exiv2::Xmpdatum &""'"); 
+      }
+      if (!argp10) {
+        SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Xmpdatum_pointer___eq__" "', argument " "1"" of type '" "Exiv2::Xmpdatum &""'"); 
+      }
+      arg2 = reinterpret_cast< Exiv2::Xmpdatum * >(argp10);
+    }
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Xmpdatum_pointer___eq__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
-  }
-  arg2 = reinterpret_cast< MetadatumPointerBase * >(argp2);
   {
     try {
-      result = (bool)((MetadatumPointer< Exiv2::Xmpdatum > const *)arg1)->operator ==((MetadatumPointerBase const &)*arg2);
+      result = (bool)((MetadatumPointer< Exiv2::Xmpdatum > const *)arg1)->operator ==((Exiv2::Xmpdatum const &)*arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
@@ -5441,11 +5449,11 @@ fail:
 SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___ne__(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   MetadatumPointer< Exiv2::Xmpdatum > *arg1 = (MetadatumPointer< Exiv2::Xmpdatum > *) 0 ;
-  MetadatumPointerBase *arg2 = 0 ;
+  Exiv2::Xmpdatum *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
+  void *argp10 = 0 ;
+  int res10 = 0 ;
   PyObject * obj1 = 0 ;
   bool result;
   
@@ -5455,17 +5463,25 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer___ne__(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Xmpdatum_pointer___ne__" "', argument " "1"" of type '" "MetadatumPointer< Exiv2::Xmpdatum > const *""'"); 
   }
   arg1 = reinterpret_cast< MetadatumPointer< Exiv2::Xmpdatum > * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MetadatumPointerBase,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Xmpdatum_pointer___ne__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
+  {
+    Xmpdatum_pointer* tmp = NULL;
+    if (SWIG_IsOK(SWIG_ConvertPtr(
+          obj1, (void**)&tmp, SWIGTYPE_p_MetadatumPointerT_Exiv2__Xmpdatum_t, 0)))
+    arg2 = **tmp;
+    else {
+      res10 = SWIG_ConvertPtr(obj1, &argp10, SWIGTYPE_p_Exiv2__Xmpdatum,  0 );
+      if (!SWIG_IsOK(res10)) {
+        SWIG_exception_fail(SWIG_ArgError(res10), "in method '" "Xmpdatum_pointer___ne__" "', argument " "1"" of type '" "Exiv2::Xmpdatum &""'"); 
+      }
+      if (!argp10) {
+        SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Xmpdatum_pointer___ne__" "', argument " "1"" of type '" "Exiv2::Xmpdatum &""'"); 
+      }
+      arg2 = reinterpret_cast< Exiv2::Xmpdatum * >(argp10);
+    }
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Xmpdatum_pointer___ne__" "', argument " "2"" of type '" "MetadatumPointerBase const &""'"); 
-  }
-  arg2 = reinterpret_cast< MetadatumPointerBase * >(argp2);
   {
     try {
-      result = (bool)((MetadatumPointer< Exiv2::Xmpdatum > const *)arg1)->operator !=((MetadatumPointerBase const &)*arg2);
+      result = (bool)((MetadatumPointer< Exiv2::Xmpdatum > const *)arg1)->operator !=((Exiv2::Xmpdatum const &)*arg2);
     }
     catch(std::exception const& e) {
       _set_python_exception();
