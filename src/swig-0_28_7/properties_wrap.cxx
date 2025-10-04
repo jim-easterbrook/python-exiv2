@@ -5091,7 +5091,15 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyTitle(PyObject *self, PyObject 
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpProperties_propertyTitle" "', argument " "1"" of type '" "Exiv2::XmpKey const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
-  result = (char *)Exiv2::XmpProperties::propertyTitle((Exiv2::XmpKey const &)*arg1);
+  {
+    try {
+      result = (char *)Exiv2::XmpProperties::propertyTitle((Exiv2::XmpKey const &)*arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_FromCharPtr((const char *)result);
   return resultobj;
 fail:
@@ -5117,7 +5125,15 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyDesc(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpProperties_propertyDesc" "', argument " "1"" of type '" "Exiv2::XmpKey const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
-  result = (char *)Exiv2::XmpProperties::propertyDesc((Exiv2::XmpKey const &)*arg1);
+  {
+    try {
+      result = (char *)Exiv2::XmpProperties::propertyDesc((Exiv2::XmpKey const &)*arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_FromCharPtr((const char *)result);
   return resultobj;
 fail:
@@ -5143,7 +5159,15 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyType(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpProperties_propertyType" "', argument " "1"" of type '" "Exiv2::XmpKey const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
-  result = (Exiv2::TypeId)Exiv2::XmpProperties::propertyType((Exiv2::XmpKey const &)*arg1);
+  {
+    try {
+      result = (Exiv2::TypeId)Exiv2::XmpProperties::propertyType((Exiv2::XmpKey const &)*arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   {
     resultobj = py_from_enum(Python_Exiv2_TypeId, static_cast<long>(result));
     if (!resultobj)
@@ -5173,7 +5197,15 @@ SWIGINTERN PyObject *_wrap_XmpProperties_propertyInfo(PyObject *self, PyObject *
     SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "XmpProperties_propertyInfo" "', argument " "1"" of type '" "Exiv2::XmpKey const &""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::XmpKey * >(argp1);
-  result = (Exiv2::XmpPropertyInfo *)Exiv2::XmpProperties::propertyInfo((Exiv2::XmpKey const &)*arg1);
+  {
+    try {
+      result = (Exiv2::XmpPropertyInfo *)Exiv2::XmpProperties::propertyInfo((Exiv2::XmpKey const &)*arg1);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpPropertyInfo, 0 |  0 );
   return resultobj;
 fail:

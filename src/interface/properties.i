@@ -58,10 +58,6 @@ EXCEPTION()
 %noexception Exiv2::XmpKey::tagLabel;
 %noexception Exiv2::XmpKey::tagName;
 %noexception Exiv2::XmpProperties::prefix;
-%noexception Exiv2::XmpProperties::propertyDesc;
-%noexception Exiv2::XmpProperties::propertyInfo;
-%noexception Exiv2::XmpProperties::propertyTitle;
-%noexception Exiv2::XmpProperties::propertyType;
 
 EXTEND_KEY(Exiv2::XmpKey);
 

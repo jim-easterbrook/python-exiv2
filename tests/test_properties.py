@@ -74,6 +74,15 @@ class TestPropertiesModule(unittest.TestCase):
                           exiv2.TypeId, exiv2.TypeId.langAlt)
         self.check_result(properties.propertyType(key2),
                           exiv2.TypeId, exiv2.TypeId.xmpText)
+        key = exiv2.XmpKey('Xmp.iptcExt.ImageRegion[1]/invalid-ns:Value')
+        with self.assertRaises(exiv2.Exiv2Error):
+            properties.propertyDesc(key)
+        with self.assertRaises(exiv2.Exiv2Error):
+            properties.propertyInfo(key)
+        with self.assertRaises(exiv2.Exiv2Error):
+            properties.propertyTitle(key)
+        with self.assertRaises(exiv2.Exiv2Error):
+            properties.propertyType(key)
         namespaces = properties.registeredNamespaces()
         self.assertIsInstance(namespaces, dict)
         self.assertGreater(len(namespaces), 0)
