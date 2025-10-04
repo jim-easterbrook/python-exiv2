@@ -109,6 +109,8 @@ class TestXmpModule(unittest.TestCase):
         self.assertEqual(count, 26)
         count = len(list(data))
         self.assertEqual(count, 26)
+        with self.assertRaises(exiv2.Exiv2Error):
+            data['Xmp.invalid-ns.value'] = 'Text'
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Xmp.dc.creator')

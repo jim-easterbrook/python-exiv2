@@ -110,6 +110,8 @@ class TestIptcModule(unittest.TestCase):
         data['Iptc.Envelope.FileFormat'] = 4
         data['Iptc.Envelope.FileFormat'] = exiv2.UShortValue(4)
         del data['Iptc.Envelope.FileFormat']
+        with self.assertRaises(exiv2.Exiv2Error):
+            data['Iptc.Application2.NotAKey'] = 'Text'
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Iptc.Application2.Byline')

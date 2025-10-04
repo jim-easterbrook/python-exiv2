@@ -20,11 +20,13 @@
 
 
 // Macro to add mp_ass_subscript slot and functions
-%define MP_ASS_SUBSCRIPT(type, item_type, setfunc, delfunc)
+%define MP_ASS_SUBSCRIPT(type, item_type, setfunc, delfunc, canfail)
 // Use %inline so SWIG generates wrappers with type conversions.
 // Names start with '_' so it's invisible in normal use.
+#if #canfail != "false"
 %noexception _setitem_%mangle(type);
 %noexception _delitem_%mangle(type);
+#endif
 %inline %{
 static PyObject* _setitem_%mangle(type)(
         type* self, char* key, item_type value, PyObject* py_self) {

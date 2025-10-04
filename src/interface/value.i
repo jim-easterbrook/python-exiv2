@@ -367,7 +367,7 @@ MP_ASS_SUBSCRIPT(Exiv2::LangAltValue, std::string, self->value_[key] = value,
     if (pos == self->value_.end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
     self->value_.erase(pos);
-})
+},)
 SQ_CONTAINS(
     Exiv2::LangAltValue, self->value_.find(key) != self->value_.end())
 %feature("docstring") Exiv2::LangAltValue::keys

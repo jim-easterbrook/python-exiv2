@@ -129,6 +129,8 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual('Exif.Image.Orientation' in data, True)
         self.assertIsInstance(data['Exif.Image.Orientation'],
                               exiv2.Exifdatum_reference)
+        with self.assertRaises(exiv2.Exiv2Error):
+            data['Exif.Image.NotAKey'] = 'Text'
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Exif.Image.Artist')

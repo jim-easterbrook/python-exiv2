@@ -7253,7 +7253,15 @@ SWIGINTERN PyObject *_wrap__setitem_Exiv2_ExifData(PyObject *self, PyObject *arg
   if (obj2) {
     arg3 = obj2;
   }
-  result = (PyObject *)_setitem_Exiv2_ExifData(arg1,arg2,arg3,arg4);
+  {
+    try {
+      result = (PyObject *)_setitem_Exiv2_ExifData(arg1,arg2,arg3,arg4);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = result;
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;
@@ -7291,7 +7299,15 @@ SWIGINTERN PyObject *_wrap__delitem_Exiv2_ExifData(PyObject *self, PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "_delitem_Exiv2_ExifData" "', argument " "2"" of type '" "char *""'");
   }
   arg2 = reinterpret_cast< char * >(buf2);
-  result = (PyObject *)_delitem_Exiv2_ExifData(arg1,arg2,arg3);
+  {
+    try {
+      result = (PyObject *)_delitem_Exiv2_ExifData(arg1,arg2,arg3);
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
   resultobj = result;
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;

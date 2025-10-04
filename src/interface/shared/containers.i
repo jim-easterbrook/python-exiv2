@@ -104,7 +104,7 @@ MP_ASS_SUBSCRIPT(Exiv2::base_class, PyObject*,
 #if SWIG_VERSION >= 0x040400
     invalidate_pointers(py_self, pos);
 #endif
-    self->erase(pos))
+    self->erase(pos), false)
 SQ_CONTAINS(
     Exiv2::base_class, self->findKey(Exiv2::key_type(key)) != self->end())
 
