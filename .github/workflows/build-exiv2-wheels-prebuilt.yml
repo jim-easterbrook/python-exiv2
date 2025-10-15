@@ -57,7 +57,7 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_34
           CIBW_MANYLINUX_AARCH64_IMAGE: manylinux_2_34
           CIBW_BUILD: "cp*"
-          CIBW_SKIP: "*musllinux* cp314*"
+          CIBW_SKIP: "*musllinux*"
           CIBW_BEFORE_ALL_MACOS: brew install inih
           CIBW_TEST_COMMAND: >
             python -m exiv2 -v &&
