@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -42,8 +42,9 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(result, type(value))
         self.assertEqual(str(result), str(value))
         result = bytearray(len(data))
-        self.assertEqual(
-            value.copy(result, exiv2.ByteOrder.littleEndian), len(result))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(value.copy(
+                result, exiv2.ByteOrder.littleEndian), len(result))
         self.assertEqual(result, data)
         if sequence:
             self.check_result(value.count(), int, len(sequence))
@@ -59,7 +60,8 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(result.read(string), 0)
         self.assertEqual(str(result), string)
         result = exiv2.Value.create(type_id)
-        self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(result.read(data, exiv2.ByteOrder.littleEndian), 0)
         self.assertEqual(str(result), string)
         self.check_result(value.size(), int, len(data))
         # Exiv2::CommentValue::typeId returns undefined
@@ -69,7 +71,8 @@ class TestValueModule(unittest.TestCase):
         else:
             self.check_result(value.typeId(), exiv2.TypeId, type_id)
         buf = io.StringIO()
-        buf = value.write(buf)
+        with self.assertWarns(DeprecationWarning):
+            buf = value.write(buf)
         self.assertEqual(buf.getvalue(), string)
 
     def do_conversion_tests(self, value, text, number):
@@ -119,11 +122,18 @@ class TestValueModule(unittest.TestCase):
             self.assertEqual(value.setDataArea(b'fred'), -1)
 
     def do_common_string_tests(self, value, data):
-        with self.assertWarns(DeprecationWarning):
-            char = value[0]
         with value.data() as view:
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, data)
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], data[0])
+        copy = type(value)(str(value))
+        view = copy.data()
+        self.assertIsInstance(view, memoryview)
+        self.assertEqual(view[0], data[0])
+        self.assertEqual(sys.getrefcount(copy), 3)
+        del view
+        self.assertEqual(sys.getrefcount(copy), 2)
 
     def do_common_xmp_tests(self, value):
         with self.assertWarns(DeprecationWarning):
@@ -275,7 +285,8 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value[2], str)
         value = exiv2.XmpArrayValue(text)
         # read() appends to value
-        self.assertEqual(value.read(b'dave'), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(value.read(b'dave'), 0)
         self.assertEqual(len(value), 3)
         self.assertEqual(value[2], 'dave')
         value = exiv2.XmpArrayValue(text)
@@ -311,7 +322,8 @@ class TestValueModule(unittest.TestCase):
     def test_DataValue(self):
         def check_data(value, data):
             copy = bytearray(len(data))
-            self.assertEqual(value.copy(copy), len(data))
+            with self.assertWarns(DeprecationWarning):
+                self.assertEqual(value.copy(copy), len(data))
             self.assertEqual(copy, data)
 
         data = bytes(random.choices(range(256), k=128))
@@ -337,6 +349,19 @@ class TestValueModule(unittest.TestCase):
             value.typeId(), exiv2.TypeId, exiv2.TypeId.unsignedByte)
         check_data(value, data)
         # other methods
+        if exiv2.testVersion(0, 28, 8):
+            with value.data() as view:
+                self.assertIsInstance(view, memoryview)
+                self.assertEqual(view, data)
+            with self.assertRaises(ValueError):
+                self.assertEqual(view[0], data[0])
+            self.assertEqual(sys.getrefcount(value), 3)
+            del view
+            self.assertEqual(sys.getrefcount(value), 2)
+        else:
+            copy = value.data()
+            self.assertIsInstance(copy, bytearray)
+            self.assertEqual(copy, data)
         self.do_common_tests(value, exiv2.TypeId.unsignedByte, string, data)
         self.do_conversion_tests(value, str(data[0]), data[0])
         self.do_dataarea_tests(value)
@@ -356,6 +381,11 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(value.day, today.day)
         self.assertEqual(dict(value), {
             'year': today.year, 'month': today.month, 'day': today.day})
+        value['day'] = 1
+        with self.assertRaises((AttributeError, TypeError)):
+            del value['day']
+        with self.assertRaises((AttributeError, TypeError)):
+            del value.day
 
     def do_test_DateValue(self, py_date):
         data = bytes(py_date.strftime('%Y%m%d'), 'ascii')
@@ -375,8 +405,6 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.DateValue)
         self.assertEqual(str(value), py_date.isoformat())
         # other methods
-        with self.assertWarns(DeprecationWarning):
-            result = value[0]
         self.check_result(dict(value.getDate()), dict, date_dict)
         value.setDate(exiv_date)
         self.assertEqual(str(value), py_date.isoformat())
@@ -419,6 +447,11 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(dict(value), {
             'hour': now.hour, 'minute': now.minute, 'second': now.second,
             'tzHour': 1, 'tzMinute': 30})
+        value['second'] = 1
+        with self.assertRaises((AttributeError, TypeError)):
+            del value['second']
+        with self.assertRaises((AttributeError, TypeError)):
+            del value.second
 
     def do_test_TimeValue(self, py_time):
         exiv_time = exiv2.Time()
@@ -446,8 +479,6 @@ class TestValueModule(unittest.TestCase):
         self.assertIsInstance(value, exiv2.TimeValue)
         self.assertEqual(str(value), py_time.isoformat())
         # other methods
-        with self.assertWarns(DeprecationWarning):
-            result = value[0]
         self.check_result(dict(value.getTime()), dict, time_dict)
         value.setTime(exiv_time)
         self.assertEqual(str(value), py_time.isoformat())
@@ -462,7 +493,7 @@ class TestValueModule(unittest.TestCase):
         if seconds < 0:
             seconds += 24 * 3600
         value = exiv2.TimeValue()
-        value.read(py_time.isoformat())
+        self.assertEqual(value.read(py_time.isoformat()), 0)
         self.do_common_tests(value, exiv2.TypeId.time, py_time.isoformat(), data)
         self.do_conversion_tests(value, py_time.isoformat(), seconds)
         self.do_dataarea_tests(value)

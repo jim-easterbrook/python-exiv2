@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +17,8 @@
 
 from setuptools import setup, Extension
 from setuptools import __version__ as setuptools_version
+import distutils.command.build
+import setuptools.command.egg_info
 import os
 import re
 import subprocess
@@ -52,15 +54,16 @@ for name in os.listdir('src'):
 def get_mod_src_dir(exiv2_version):
     if len(exiv2_version) < 3:
         exiv2_version += [0]
-    swigged_versions.sort()
     for v in swigged_versions:
         if v >= exiv2_version and v[:2] == exiv2_version[:2]:
-            return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
-    swigged_versions.sort(reverse=True)
-    for v in swigged_versions:
-        if v[:2] == exiv2_version[:2]:
-            return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
-    return None
+            break
+    else:
+        for v in reversed(swigged_versions):
+            if v <= exiv2_version:
+                break
+        else:
+            return None
+    return os.path.join('src', 'swig-{}_{}_{}'.format(*v))
 
 mod_src_dir = None
 platform = sys.platform
@@ -164,7 +167,7 @@ if platform in ('linux', 'darwin', 'mingw'):
     if exiv2_version >= [0, 28]:
         extra_compile_args.append('-std=gnu++17')
     else:
-        extra_compile_args.append('-std=c++98')
+        extra_compile_args.append('-std=c++11')
 if platform == 'win32':
     extra_compile_args = ['/wd4101', '/wd4290']
 if platform == 'darwin':
@@ -190,7 +193,23 @@ for file_name in os.listdir(mod_src_dir):
         extra_link_args = extra_link_args,
         ))
 
+build_arch = 'build-py{}.{}-exv{}.{}.{}'.format(
+    *sys.version_info[:2], *exiv2_version[:3])
+
+class Exiv2Build(distutils.command.build.build):
+    def initialize_options(self):
+        distutils.command.build.build.initialize_options(self)
+        self.build_base = build_arch
+        os.makedirs(self.build_base, exist_ok=True)
+
+class Exiv2EggInfo(setuptools.command.egg_info.egg_info):
+    def initialize_options(self):
+        setuptools.command.egg_info.egg_info.initialize_options(self)
+        self.egg_base = build_arch
+        os.makedirs(self.egg_base, exist_ok=True)
+
 setup_kwds = {
+    'cmdclass': {'build': Exiv2Build, 'egg_info': Exiv2EggInfo},
     'ext_package': 'exiv2',
     'ext_modules': ext_modules,
     'packages': packages,

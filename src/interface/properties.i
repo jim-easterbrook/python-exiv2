@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,15 +22,29 @@
 #endif
 
 %include "shared/preamble.i"
-%include "shared/exception.i"
-%include "shared/enum.i"
 %include "shared/static_list.i"
 %include "shared/struct_dict.i"
-%include "shared/unique_ptr.i"
 
 %import "metadatum.i"
 
-IMPORT_ENUM(TypeId)
+// Add inheritance diagram and enum table to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.metadatum.Key
+    :top-classes: exiv2.metadatum.Key
+    :parts: 1
+    :include-subclasses:
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    XmpCategory
+'''
+%}
 
 // Catch all C++ exceptions...
 EXCEPTION()
@@ -44,19 +58,15 @@ EXCEPTION()
 %noexception Exiv2::XmpKey::tagLabel;
 %noexception Exiv2::XmpKey::tagName;
 %noexception Exiv2::XmpProperties::prefix;
-%noexception Exiv2::XmpProperties::propertyDesc;
-%noexception Exiv2::XmpProperties::propertyInfo;
-%noexception Exiv2::XmpProperties::propertyTitle;
-%noexception Exiv2::XmpProperties::propertyType;
 
 EXTEND_KEY(Exiv2::XmpKey);
 
 // Make Xmp category more Pythonic
-DEFINE_ENUM(XmpCategory, "Category of an XMP property.",
-        "xmpInternal", Exiv2::xmpInternal,
-        "xmpExternal", Exiv2::xmpExternal,
-        "Internal", Exiv2::xmpInternal,
-        "External", Exiv2::xmpExternal);
+#ifndef SWIGIMPORTED
+DEFINE_ENUM(XmpCategory, 3)
+#else
+IMPORT_ENUM(_properties, XmpCategory)
+#endif
 
 // Get registeredNamespaces to return a Python dict
 %typemap(in, numinputs=0) Exiv2::Dictionary &nsDict (Exiv2::Dictionary temp) %{
@@ -83,10 +93,10 @@ LIST_POINTER(const Exiv2::XmpPropertyInfo* xmpPropertyInfo_,
              Exiv2::XmpPropertyInfo, name_)
 
 // Give Exiv2::XmpPropertyInfo dict-like behaviour
-STRUCT_DICT(Exiv2::XmpPropertyInfo)
+STRUCT_DICT(Exiv2::XmpPropertyInfo, false, true)
 
 // Give Exiv2::XmpNsInfo dict-like behaviour
-STRUCT_DICT(Exiv2::XmpNsInfo)
+STRUCT_DICT(Exiv2::XmpNsInfo, false, true)
 
 // Structs are all static data
 %ignore Exiv2::XmpPropertyInfo::XmpPropertyInfo;
@@ -114,3 +124,6 @@ STRUCT_DICT(Exiv2::XmpNsInfo)
 %immutable;
 %include "exiv2/properties.hpp"
 %mutable;
+
+INIT_STRUCT_DICT(Exiv2::XmpPropertyInfo)
+INIT_STRUCT_DICT(Exiv2::XmpNsInfo)

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,22 +23,40 @@
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
+%include "shared/private_data.i"
+%include "shared/slots.i"
 
 %include "stdint.i"
 %include "std_pair.i"
 %include "std_string.i"
+
+// Add enum table to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. rubric:: Enums
+
+.. autosummary::
+
+    AccessMode
+    ByteOrder
+    MetadataId
+    TypeId
+'''
+%}
 
 // Catch all C++ exceptions
 EXCEPTION()
 
 // Some calls don't raise exceptions
 %noexception Exiv2::DataBuf::data;
-%noexception Exiv2::DataBuf::free;
 %noexception Exiv2::DataBuf::reset;
 %noexception Exiv2::DataBuf::size;
-%noexception Exiv2::DataBuf::__len__;
+#if EXIV2_VERSION_HEX < 0x001c0000
+%noexception Exiv2::DataBuf::free;
+#endif
 
 // Function to set location of localisation files
 // (types.hpp includes exiv2's localisation stuff)
@@ -90,74 +108,20 @@ if os.path.isdir(_dir):
 #endif
 
 // Make various enums more Pythonic
-DEFINE_ENUM(AccessMode, "An identifier for each mode of metadata support.",
-        "amNone",      Exiv2::amNone,
-        "amRead",      Exiv2::amRead,
-        "amWrite",     Exiv2::amWrite,
-        "amReadWrite", Exiv2::amReadWrite,
-        "none",      Exiv2::amNone,
-        "Read",      Exiv2::amRead,
-        "Write",     Exiv2::amWrite,
-        "ReadWrite", Exiv2::amReadWrite);
-
-DEFINE_ENUM(ByteOrder,
-    "Type to express the byte order (little or big endian).",
-        "invalidByteOrder", Exiv2::invalidByteOrder,
-        "littleEndian",     Exiv2::littleEndian,
-        "bigEndian",        Exiv2::bigEndian);
-
-DEFINE_ENUM(MetadataId, "An identifier for each type of metadata.",
-        "mdNone",       Exiv2::mdNone,
-        "mdExif",       Exiv2::mdExif,
-        "mdIptc",       Exiv2::mdIptc,
-        "mdComment",    Exiv2::mdComment,
-        "mdXmp",        Exiv2::mdXmp,
-        "mdIccProfile", Exiv2::mdIccProfile,
-        "none",       Exiv2::mdNone,
-        "Exif",       Exiv2::mdExif,
-        "Iptc",       Exiv2::mdIptc,
-        "Comment",    Exiv2::mdComment,
-        "Xmp",        Exiv2::mdXmp,
-        "IccProfile", Exiv2::mdIccProfile);
-
-DEFINE_ENUM(TypeId, "Exiv2 value type identifiers.\n"
-"\nUsed primarily as identifiers when creating Exiv2 Value instances. See"
-"\nexiv2.Value.create(). 0x0000 to 0xffff are reserved for TIFF (Exif) types.",
-        "unsignedByte",     Exiv2::unsignedByte,
-        "asciiString",      Exiv2::asciiString,
-        "unsignedShort",    Exiv2::unsignedShort,
-        "unsignedLong",     Exiv2::unsignedLong,
-        "unsignedRational", Exiv2::unsignedRational,
-        "signedByte",       Exiv2::signedByte,
-        "undefined",        Exiv2::undefined,
-        "signedShort",      Exiv2::signedShort,
-        "signedLong",       Exiv2::signedLong,
-        "signedRational",   Exiv2::signedRational,
-        "tiffFloat",        Exiv2::tiffFloat,
-        "tiffDouble",       Exiv2::tiffDouble,
-        "tiffIfd",          Exiv2::tiffIfd,
-        "string",           Exiv2::string,
-        "date",             Exiv2::date,
-        "time",             Exiv2::time,
-        "comment",          Exiv2::comment,
-        "directory",        Exiv2::directory,
-        "xmpText",          Exiv2::xmpText,
-        "xmpAlt",           Exiv2::xmpAlt,
-        "xmpBag",           Exiv2::xmpBag,
-        "xmpSeq",           Exiv2::xmpSeq,
-        "langAlt",          Exiv2::langAlt,
-        "invalidTypeId",    Exiv2::invalidTypeId,
-        "lastTypeId",       Exiv2::lastTypeId);
+#ifndef SWIGIMPORTED
+DEFINE_ENUM(AccessMode, 2)
+DEFINE_ENUM(ByteOrder,)
+DEFINE_ENUM(MetadataId, 2)
+DEFINE_ENUM(TypeId,)
+#else
+IMPORT_ENUM(_types, AccessMode)
+IMPORT_ENUM(_types, ByteOrder)
+IMPORT_ENUM(_types, MetadataId)
+IMPORT_ENUM(_types, TypeId)
+#endif
 
 // Make Exiv2::DataBuf behave more like a tuple of ints
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::DataBuf::__len__;
-%feature("python:slot", "mp_subscript", functype="binaryfunc")
-    Exiv2::DataBuf::__getitem__;
 %extend Exiv2::DataBuf {
-    size_t __len__() {
-        return $self->DATABUF_SIZE;
-    }
 #if EXIV2_VERSION_HEX >= 0x001c0000
     bool __eq__(const Exiv2::byte *pData, size_t size) {
         if ($self->size() != size)
@@ -180,38 +144,9 @@ DEFINE_ENUM(TypeId, "Exiv2 value type identifiers.\n"
             return true;
         return std::memcmp($self->pData_, pData, size) != 0;
     }
-    PyObject* __getitem__(PyObject* idx) {
-        // deprecated since 2022-12-20
-        PyErr_WarnEx(PyExc_DeprecationWarning,
-            "use 'DataBuf.data()' to get a memoryview", 1);
-        if (PySlice_Check(idx)) {
-            Py_ssize_t i1, i2, di, sl;
-            if (PySlice_GetIndicesEx(idx, $self->size_, &i1, &i2, &di, &sl))
-                return NULL;
-            PyObject* result = PyTuple_New(sl);
-            Exiv2::byte* ptr = $self->pData_ + i1;
-            for (Py_ssize_t i = 0; i < sl; ++i) {
-                PyTuple_SetItem(result, i, PyLong_FromLong((long)*ptr));
-                ptr += di;
-            }
-            return result;
-        }
-        if (PyLong_Check(idx)) {
-            long i = PyLong_AsLong(idx);
-            if (i < 0)
-                i += $self->size_;
-            if ((i < 0) || (i >= $self->size_)) {
-                PyErr_SetString(PyExc_IndexError, "index out of range");
-                return NULL;
-            }
-            return PyLong_FromLong((long)*($self->pData_ + i));
-        }
-        return PyErr_Format(PyExc_TypeError,
-            "indices must be integers or slices, not %s",
-            Py_TYPE(idx)->tp_name);
-    }
 #endif
 }
+SQ_LENGTH(Exiv2::DataBuf, self->DATABUF_SIZE)
 
 // Memory efficient conversion of Exiv2::DataBuf return values
 %typemap(out) Exiv2::DataBuf %{
@@ -220,28 +155,36 @@ DEFINE_ENUM(TypeId, "Exiv2 value type identifiers.\n"
 %}
 
 // Allow Exiv2::DataBuf to be initialised from a Python buffer
-#if EXIV2_VERSION_HEX < 0x001c0000
-INPUT_BUFFER_RO(const Exiv2::byte *pData, long size)
-#else
-INPUT_BUFFER_RO(const Exiv2::byte *pData, size_t size)
-#endif
+INPUT_BUFFER_RO(const Exiv2::byte *pData, BUFLEN_T size)
 
 // Expose Exiv2::DataBuf contents as a Python buffer
-%fragment("get_ptr_size"{Exiv2::DataBuf}, "header") {
-static bool get_ptr_size(Exiv2::DataBuf* self, bool is_writeable,
-                         Exiv2::byte*& ptr, Py_ssize_t& size) {
-    ptr = self->DATABUF_DATA;
-    size = self->DATABUF_SIZE;
-    return true;
+%fragment("buffer_fill_info"{Exiv2::DataBuf}, "header") {
+static int buffer_fill_info(Exiv2::DataBuf* self, Py_buffer* view,
+                            PyObject* exporter, int flags) {
+    return PyBuffer_FillInfo(view, exporter, self->DATABUF_DATA,
+                             self->DATABUF_SIZE, 0, flags);
 };
 }
-EXPOSE_OBJECT_BUFFER(Exiv2::DataBuf, true, false)
+EXPOSE_OBJECT_BUFFER(Exiv2::DataBuf)
 
 // Convert pData_ and data() result to a memoryview
 RETURN_VIEW(Exiv2::byte* pData_, arg1->DATABUF_SIZE, PyBUF_WRITE,
             Exiv2::DataBuf::pData_)
 RETURN_VIEW(Exiv2::byte* data, arg1->DATABUF_SIZE, PyBUF_WRITE,
             Exiv2::DataBuf::data)
+DEFINE_VIEW_CALLBACK(Exiv2::DataBuf,)
+
+// Release memoryview when other functions are called
+%typemap(ret, fragment="memoryview_funcs")
+        (void alloc), (void reset), (void resize) %{
+    release_views(self);
+%}
+#if EXIV2_VERSION_HEX < 0x001c0000
+%typemap(ret, fragment="memoryview_funcs")
+        (void free) %{
+    release_views(self);
+%}
+#endif
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Backport Exiv2 v0.28.0 methods

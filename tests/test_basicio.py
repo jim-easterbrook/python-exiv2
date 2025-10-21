@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -82,6 +82,8 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(view.readonly, True)
             with self.assertRaises(TypeError):
                 view[0] = 0
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], 0)
         self.assertEqual(io.munmap(), 0)
         with io.mmap(True) as view:
             self.assertIsInstance(view, memoryview)
@@ -89,9 +91,25 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertEqual(view.readonly, False)
             with self.assertRaises(IndexError):
                 view[0] = 0
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], 0)
         self.assertEqual(io.munmap(), 0)
         # Python buffer interface
-        with memoryview(io) as view:
+        with self.assertWarns(DeprecationWarning):
+            with memoryview(io) as view:
+                self.assertIsInstance(view, memoryview)
+                self.assertEqual(view, b'')
+                self.assertEqual(view.readonly, False)
+                with self.assertRaises(IndexError):
+                    view[0] = 0
+        # data() easy access
+        with io.data(False) as view:
+            self.assertIsInstance(view, memoryview)
+            self.assertEqual(view, b'')
+            self.assertEqual(view.readonly, True)
+            with self.assertRaises(TypeError):
+                view[0] = 0
+        with io.data(True) as view:
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, b'')
             self.assertEqual(view.readonly, False)
@@ -116,63 +134,103 @@ class TestBasicIoModule(unittest.TestCase):
             self.assertIsInstance(view, memoryview)
             self.assertEqual(view, self.data)
         self.assertEqual(io.munmap(), 0)
+        view = io.mmap()
+        self.assertEqual(view[0], self.data[0])
+        self.assertEqual(io.munmap(), 0)
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], self.data[0])
+        view1 = io.mmap()
+        view2 = io.mmap()
+        with self.assertRaises(ValueError):
+            self.assertEqual(view1[0], self.data[0])
         # Python buffer interface
-        with memoryview(io) as view:
+        with self.assertWarns(DeprecationWarning):
+            with memoryview(io) as view:
+                self.assertEqual(view, self.data)
+                self.assertEqual(view.readonly, False)
+        # data() easy access
+        with io.data() as view:
+            self.assertIsInstance(view, memoryview)
             self.assertEqual(view, self.data)
-            self.assertEqual(view.readonly, False)
         # seek & tell
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(io.seek(0, exiv2.Position.beg), 0)
-        self.assertEqual(io.tell(), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), 0)
         if exiv2.testVersion(0, 28, 0):
-            self.assertEqual(
-                io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
-                exiv2.ErrorCode.kerGeneralError)
-            with self.assertRaises(exiv2.Exiv2Error) as cm:
-                io.seekOrThrow(len(self.data) + 10, exiv2.BasicIo.Position.beg)
+            with self.assertWarns(DeprecationWarning):
+                self.assertEqual(
+                    io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
+                    exiv2.ErrorCode.kerGeneralError)
+            with self.assertWarns(DeprecationWarning):
+                with self.assertRaises(exiv2.Exiv2Error) as cm:
+                    io.seekOrThrow(len(self.data) + 10, exiv2.BasicIo.Position.beg)
             self.assertEqual(cm.exception.code,
                              exiv2.ErrorCode.kerCorruptedMetadata)
         else:
-            self.assertEqual(
-                io.seek(len(self.data) + 10, exiv2.BasicIo.Position.beg),
-                exiv2.ErrorCode.kerErrorMessage)
-        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.end), 0)
-        self.assertEqual(io.tell(), len(self.data))
+            with self.assertWarns(DeprecationWarning):
+                if exiv2.testVersion(0, 27, 2):
+                    self.assertEqual(io.seek(len(self.data) + 10,
+                                             exiv2.BasicIo.Position.beg),
+                                     exiv2.ErrorCode.kerErrorMessage)
+                else:
+                    self.assertEqual(io.seek(len(self.data) + 10,
+                                             exiv2.BasicIo.Position.beg), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.seek(0, exiv2.BasicIo.Position.end), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), len(self.data))
         # reading data
-        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
-        self.assertEqual(io.getb(), self.data[0])
-        self.assertEqual(io.tell(), 1)
-        self.assertEqual(memoryview(io.read(10000)), self.data[1:])
-        self.assertEqual(io.tell(), len(self.data))
-        self.assertEqual(io.eof(), True)
-        self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.getb(), self.data[0])
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), 1)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(memoryview(io.read(10000)), self.data[1:])
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), len(self.data))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.eof(), True)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.seek(0, exiv2.BasicIo.Position.beg), 0)
         buf = bytearray(len(self.data))
-        self.assertEqual(io.read(buf, len(self.data)), len(self.data))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.read(buf), len(self.data))
         self.assertEqual(buf, self.data)
         if exiv2.testVersion(0, 28, 0):
-            with self.assertRaises(exiv2.Exiv2Error) as cm:
-                io.readOrThrow(buf, len(self.data))
-            self.assertEqual(cm.exception.code,
-                             exiv2.ErrorCode.kerCorruptedMetadata)
-        self.assertEqual(io.tell(), len(self.data))
-        self.assertEqual(io.getb(), -1)
+            with self.assertWarns(DeprecationWarning):
+                with self.assertRaises(exiv2.Exiv2Error) as cm:
+                    io.readOrThrow(buf)
+                self.assertEqual(cm.exception.code,
+                                 exiv2.ErrorCode.kerCorruptedMetadata)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.tell(), len(self.data))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.getb(), -1)
         # writing data
-        self.assertEqual(io.putb(ord('+')), ord('+'))
-        self.assertEqual(io.eof(), True)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.putb(ord('+')), ord('+'))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.eof(), True)
         self.assertEqual(len(io), len(self.data) + 1)
-        self.assertEqual(io.write(exiv2.ImageFactory.createIo(b'fred')), 4)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.write(exiv2.ImageFactory.createIo(b'fred')), 4)
         self.assertEqual(len(io), len(self.data) + 5)
-        self.assertEqual(io.write(b'+jim'), 4)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(io.write(b'+jim'), 4)
         self.assertEqual(len(io), len(self.data) + 9)
-        self.assertEqual(memoryview(io), self.data + b'+fred+jim')
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(memoryview(io), self.data + b'+fred+jim')
 
     def test_ref_counts(self):
         # MemIo keeps a reference to the data buffer
-        self.assertEqual(sys.getrefcount(self.data), 3)
+        count = sys.getrefcount(self.data)
         io = exiv2.ImageFactory.createIo(self.data)
-        self.assertEqual(sys.getrefcount(self.data), 4)
+        self.assertEqual(sys.getrefcount(self.data), count + 1)
         del io
-        self.assertEqual(sys.getrefcount(self.data), 3)
+        self.assertEqual(sys.getrefcount(self.data), count)
 
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM'],
                          'EXV_ENABLE_FILESYSTEM is off')

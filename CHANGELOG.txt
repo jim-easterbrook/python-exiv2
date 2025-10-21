@@ -16,6 +16,39 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.18.0:
+  1/ Removed features deprecated in v0.13.0:
+     Value (and derived types) copy constructors
+     Single value (such as DateValue) index methods
+     DataBuf indexing.
+  2/ Deprecated many BasicIo methods (read, write, seek, etc.) that should not
+     be needed in Python scripts. Please let me know if this is a problem.
+  3/ Deprecated copy, write, and read(buffer) methods of Value (and
+     subclasses) that should not be needed in Python scripts. Please let me
+     know if this is a problem.
+  4/ Deprecated copy and write methods of Metadatum (and subclasses) that
+     should not be needed in Python scripts. Please let me know if this is a
+     problem.
+  5/ Deprecated 'buffer interface' to BasicIo, DataBuf, and PreviewImage. They
+     all have 'data()' to get their contents.
+  6/ Added binary wheels for Linux on arm64.
+  7/ Exiv2 struct member names with a trailing underscore have more Pythonic
+     aliases without the underscore.
+  8/ Add data() method to exiv2.PreviewImage, deprecate pData() method.
+  9/ Add data() method to exiv2.Image. This will replace using Image.io().
+ 10/ Add data() method to exiv2.DataValue.
+ 11/ BasicIo.read (& readOrThrow) now extract count from the buffer size.
+ 12/ Invalidate data iterators if data is deleted. (Requires swig >= 4.4)
+ 13/ Deprecated iteration of exiv2 "data" structure types.
+ 14/ API CHANGE: exiv2.LogMsg.pythonHandler is replaced by exiv2.pythonHandler
+
+Changes in v0.17.5:
+  1/ Binary wheels incorporate libexiv2 v0.28.7.
+
+Changes in v0.17.4: (yanked)
+  1/ Binary wheels incorporate libexiv2 v0.28.6.
+  2/ Windows binary wheels do not have localisation.
+
 Changes in v0.17.3:
   1/ Binary wheels incorporate libexiv2 v0.28.5.
 

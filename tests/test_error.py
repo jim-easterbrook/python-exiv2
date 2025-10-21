@@ -48,18 +48,22 @@ class TestErrorModule(unittest.TestCase):
         with self.assertLogs(level=logging.WARNING):
             comment = exiv2.CommentValue('charset=invalid Fred')
         # test setting and clearing handler
-        self.assertEqual(exiv2.LogMsg.handler(), exiv2.LogMsg.pythonHandler)
+        self.assertEqual(exiv2.LogMsg.handler(), exiv2.pythonHandler)
         exiv2.LogMsg.setHandler(None)
         self.assertEqual(exiv2.LogMsg.handler(), None)
         exiv2.LogMsg.setHandler(exiv2.LogMsg.defaultHandler)
         self.assertEqual(exiv2.LogMsg.handler(), exiv2.LogMsg.defaultHandler)
-        exiv2.LogMsg.setHandler(exiv2.LogMsg.pythonHandler)
-        self.assertEqual(exiv2.LogMsg.handler(), exiv2.LogMsg.pythonHandler)
+        exiv2.LogMsg.setHandler(exiv2.pythonHandler)
+        self.assertEqual(exiv2.LogMsg.handler(), exiv2.pythonHandler)
         # get exiv2 to raise an exception
         with self.assertRaises(exiv2.Exiv2Error) as cm:
             image = exiv2.ImageFactory.open(bytes())
-        self.assertEqual(cm.exception.code,
-                         exiv2.ErrorCode.kerInputDataReadFailed)
+        if exiv2.testVersion(0, 27, 1):
+            self.assertEqual(cm.exception.code,
+                             exiv2.ErrorCode.kerInputDataReadFailed)
+        else:
+            self.assertEqual(cm.exception.code,
+                             exiv2.ErrorCode.kerMemoryContainsUnknownImageType)
 
 
 if __name__ == '__main__':

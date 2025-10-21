@@ -13,7 +13,7 @@ libexiv2 library version
 ------------------------
 
 Python-exiv2 can be used with any version of libexiv2 from 0.27.0 onwards.
-The "binary wheels" available from PyPI_ currently include a copy of libexiv2 v0.27.7, but if you install from source then python-exiv2 will use whichever version of libexiv2 is installed on your computer.
+The "binary wheels" available from PyPI_ currently include a copy of libexiv2 v0.28.5, but if you install from source then python-exiv2 will use whichever version of libexiv2 is installed on your computer.
 
 There are some differences in the API of libexiv2 v0.28.x and v0.27.y.
 Some of these have been "backported" in the Python interface so you can start using the v0.28 methods, e.g. the ``exiv2.DataBuf.data()`` function replaces the ``exiv2.DataBuf.pData_`` attribute.
@@ -51,27 +51,20 @@ Some parts of the interface are deprecated and will eventually be removed.
 Please use Python's ``-Wd`` flag when testing your software to ensure it isn't using deprecated features.
 (Do let me know if I've deprecated a feature you need and can't replace with an alternative.)
 
-Enums
------
-
-The C++ libexiv2 library often uses ``enum`` classes to list related data, such as the value type identifiers stored in `Exiv2::TypeId`_.
-SWIG's default processing of such enums is to add all the values as named constants to the top level of the module, e.g. ``exiv2.asciiString``.
-In python-exiv2 most of the C++ enums are represented by Python enum_ classes, e.g. ``exiv2.TypeId.asciiString`` is a member of ``exiv2.TypeId``.
-
-Unfortunately there is no easy way to deprecate the SWIG generated top level constants, but they will eventually be removed from python-exiv2.
-Please ensure you only use the enum classes in your use of python-exiv2.
-
 Data structures
 ---------------
 
 Some parts of the Exiv2 API use structures to hold several related data items.
 For example, the `Exiv2::ExifTags`_ class has a ``tagList()`` method that returns a list of `Exiv2::TagInfo`_ structs.
-In python-exiv2 (since v0.16.2) these structs have dict_ like behaviour, so the members can be accessed more easily:
+Since python-exiv2 v0.18.0 struct member names ending with an underscore ``_`` have aliases without the underscore.
+Since v0.16.2 these structs also have dict_ like behaviour, so the members can be accessed more easily:
 
 .. code:: python
 
     >>> import exiv2
     >>> info = exiv2.ExifTags.tagList('Image')[0]
+    >>> print(info.title)
+    Processing Software
     >>> print(info.title_)
     Processing Software
     >>> print(info['title'])
@@ -90,7 +83,8 @@ In python-exiv2 (since v0.16.2) these structs have dict_ like behaviour, so the 
      'title': 'Processing Software',
      'typeId': <TypeId.asciiString: 2>}
 
-Note that struct member names ending with an underscore have the underscore removed in the dict_ like interface.
+In general it's more efficient to use attribute access (``info.title``) than dict_ access (``info['title']``).
+It is sometimes useful to be able to iterate over the members though, as shown above.
 
 Reading data values
 -------------------
@@ -107,7 +101,7 @@ The Python interface uses the value's ``typeId()`` method to determine its type 
 Recasting data values
 ^^^^^^^^^^^^^^^^^^^^^
 
-In earlier versions of python-gphoto2 you could set the type of value returned by ``value()`` or ``getValue()`` by passing an ``exiv2.TypeId`` parameter:
+In old versions of python-gphoto2 you could set the type of value returned by ``value()`` or ``getValue()`` by passing an ``exiv2.TypeId`` parameter:
 
 .. code:: python
 
@@ -231,14 +225,16 @@ If you don't want to use the data numerically then you can just use strings for 
     value = str(datum.value())
     exifData['Exif.GPSInfo.GPSLatitude'] = '47/1 49/1 31822/1000'
 
-Iterators
----------
+Iterators & references
+----------------------
 
 The ``Exiv2::ExifData``, ``Exiv2::IptcData``, and ``Exiv2::XmpData`` classes use C++ iterators to expose private data, for example the ``ExifData`` class has a private member of ``std::list<Exifdatum>`` type.
 The classes have public ``begin()``, ``end()``, and ``findKey()`` methods that return ``std::list`` iterators.
-In C++ you can dereference one of these iterators to access the ``Exifdatum`` object, but Python doesn't have a dereference operator.
+They also have ``[key]`` operators that return a pointer to an ``Exifdatum`` object.
 
-This Python interface converts the ``std::list`` iterator to a Python object that has access to all the ``Exifdatum`` object's methods without dereferencing.
+In C++ you can dereference one of these pointers to access the ``Exifdatum`` object, but Python doesn't have a dereference operator.
+
+In python-exiv2 the iterators (and references since v0.18.0) are wrapped in a Python object that has access to all the ``Exifdatum`` object's methods without dereferencing.
 For example:
 
 .. code:: python
@@ -311,29 +307,11 @@ This allows them to be used in a very Pythonic style:
 Warning: segmentation faults
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If an iterator is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid iterator.
-Just as in C++, there is no way to detect that an iterator has become invalid.
+If a pointer is invalidated, e.g. by deleting the datum it points to, then your Python program may crash with a segmentation fault if you try to use the invalid pointer.
+Just as in C++, there is no way to detect that a pointer has become invalid.
 
-Segmentation faults
--------------------
-
-There are many places in the libexiv2 C++ API where objects hold references to data in other objects.
-This is more efficient than copying the data, but can cause segmentation faults if an object is deleted while another objects refers to its data.
-
-The Python interface tries to protect the user from this but in some cases this is not possible.
-For example, an `Exiv2::Metadatum`_ object holds a reference to data that can easily be invalidated:
-
-.. code:: python
-
-    exifData = image.exifData()
-    datum = exifData['Exif.GPSInfo.GPSLatitude']
-    print(str(datum.value()))                       # no problem
-    del exifData['Exif.GPSInfo.GPSLatitude']
-    print(str(datum.value()))                       # segfault!
-
-Segmentation faults are also easily caused by careless use of iterators or memory blocks, as discussed below.
-There may be other cases where the Python interface doesn't prevent segfaults.
-Please let me know if you find any.
+Since v0.18.0 python-exiv2 (if built with swig >= 4.4) tries to invalidate pointers if the data they point to is deleted.
+Please let me know if you encounter any problems with segmentation faults.
 
 Binary data input
 -----------------
@@ -366,23 +344,36 @@ In some cases this includes writing to the data.
     buf = thumb.copy()
     thumb_im = PIL.Image.open(io.BytesIO(buf.data()))
 
-In python-exiv2 before v0.15.0 the memory block is converted to an object with a buffer interface.
-A Python memoryview_ can be used to access the data without copying.
-(Converting to bytes_ would make a copy of the data, which we don't usually want.)
-
-Warning: segmentation faults
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Note that the memory block must not be deleted or resized while the memoryview exists.
-Doing so will invalidate the memoryview and may cause a segmentation fault:
+Since version 0.18.0 python-exiv2 releases the memoryview_ if the memory is invalidated (e.g. if the memory block is resized) to prevent problems such as segmentation faults:
 
 .. code:: python
 
-    buf = exiv2.DataBuf(b'fred')
-    data = buf.data()
-    print(bytes(data))              # Prints b'fred'
-    buf.alloc(128)
-    print(bytes(data))              # Prints random values, may segfault
+    >>> buf = exiv2.DataBuf(b'fred')
+    >>> data = buf.data()
+    >>> print(bytes(data))
+    b'fred'
+    >>> buf.resize(128)
+    >>> print(bytes(data))
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    ValueError: operation forbidden on released memoryview object
+    >>>
+
+Although memoryview_ objects can be used in a with_ statement this has no benefit with python-exiv2.
+The memory view's ``release`` method does nothing.
+Releasing any associated resources only happens when the memory view is deleted:
+
+.. code:: python
+
+    with buf.data() as data:
+        file.write(data)
+    del data
+
+is equivalent to
+
+.. code:: python
+
+    file.write(buf.data())
 
 Buffer interface
 ----------------
@@ -398,6 +389,8 @@ For example, you could save a photograph's thumbnail in a separate file like thi
     with open('thumbnail.jpg', 'wb') as out_file:
         out_file.write(thumb.copy())
 
+Use of this buffer interface is deprecated (since python-exiv2 v0.18.0) and the ``data()`` methods described above should be used instead.
+
 Image data in memory
 --------------------
 
@@ -408,51 +401,19 @@ The buffered data isn't actually read until ``Image::readMetadata`` is called, s
 When ``Image::writeMetadata`` is called exiv2 allocates a new block of memory to store the modified data.
 The ``Image::io`` method returns an `Exiv2::BasicIo`_ object that provides access to this data.
 
-The ``BasicIo::mmap`` method allows access to the image file data without unnecessary copying.
-However it is rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.
+The ``BasicIo::mmap`` and ``BasicIo::munmap`` methods allow access to the image file data without unnecessary copying.
+However they are rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.
 
-The ``Exiv2::BasicIo`` object must be opened before calling ``mmap()``.
-A Python `context manager`_ can be used to ensure that the ``open()`` and ``mmap()`` calls are paired with ``munmap()`` and ``close()`` calls:
-
-.. code:: python
-
-    from contextlib import contextmanager
-
-    @contextmanager
-    def get_file_data(image):
-        exiv_io = image.io()
-        exiv_io.open()
-        try:
-            yield exiv_io.mmap()
-        finally:
-            exiv_io.munmap()
-            exiv_io.close()
-
-    # after setting some metadata
-    image.writeMetadata()
-    with get_file_data(image) as data:
-        rsp = requests.post(url, files={'file': io.BytesIO(data)})
-
-The ``exiv2.BasicIo`` Python type exposes a `buffer interface`_ which is a lot easier to use.
-It allows the ``exiv2.BasicIo`` object to be used anywhere that a `bytes-like object`_ is expected:
+Since python-exiv2 v0.18.0 it is much easier to use the image's ``data()`` method:
 
 .. code:: python
 
     # after setting some metadata
     image.writeMetadata()
-    exiv_io = image.io()
-    rsp = requests.post(url, files={'file': io.BytesIO(exiv_io)})
+    rsp = requests.post(url, files={'file': io.BytesIO(image.data())})
 
-Since python-exiv2 v0.15.0 this buffer can be writeable:
-
-.. code:: python
-
-    exiv_io = image.io()
-    with memoryview(exiv_io) as data:
-        data[23] = 157      # modifies data buffer
-    image.readMetadata()    # reads modified buffer data
-
-The modified data is written back to the file or memory buffer when the memoryview_ is released.
+The ``data()`` method returns a Python memoryview_ that can be used in most places where a `bytes-like object`_ is expected.
+This allows copy free access to the image data.
 
 .. _bytearray:
     https://docs.python.org/3/library/stdtypes.html#bytearray
@@ -502,3 +463,5 @@ The modified data is written back to the file or memory buffer when the memoryvi
     https://docs.python.org/3/library/stdtypes.html#memoryview
 .. _PyPI:
     https://pypi.org/project/exiv2/
+.. _with:
+    https://docs.python.org/3/reference/compound_stmts.html#with

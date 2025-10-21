@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,17 +16,31 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+// Recursive macro to output #define statements for list of functions
+%define _HOLD_BUFFER(hold_func, remainder...)
+%{#define KEEPREF_VIEW_##hold_func%}
+#if #remainder != ""
+_HOLD_BUFFER(remainder)
+#endif
+%enddef
+
 // Macro for input read only byte buffer
-%define INPUT_BUFFER_RO(buf_type, len_type)
+// hold_funcs is a list of functions that don't read the input data
+// immediately, so keep a reference to the Python object
+%define INPUT_BUFFER_RO(buf_type, len_type, hold_funcs...)
 %typemap(doctype) buf_type ":py:term:`bytes-like object`";
 %typemap(in) (buf_type, len_type) (PyObject* _global_view = NULL) {
-    _global_view = PyMemoryView_GetContiguous($input, PyBUF_READ, 'A');
-    if (!_global_view) {
+    Py_buffer* buff = NULL;
+    _global_view = PyMemoryView_FromObject($input);
+    if (_global_view)
+        buff = PyMemoryView_GET_BUFFER(_global_view);
+    else
         PyErr_Clear();
+    if (!_global_view || !PyBuffer_IsContiguous(buff, 'A')
+        || (buff->shape && buff->itemsize != 1)) {
         %argument_fail(
             SWIG_TypeError, "bytes-like object", $symname, $argnum);
     }
-    Py_buffer* buff = PyMemoryView_GET_BUFFER(_global_view);
     $1 = ($1_ltype) buff->buf;
     $2 = ($2_ltype) buff->len;
 }
@@ -36,82 +50,90 @@
 %typemap(typecheck, precedence=SWIG_TYPECHECK_CHAR_PTR) buf_type %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}
+
+#if #hold_funcs != ""
+_HOLD_BUFFER(hold_funcs)
+%typemap(argout, fragment="private_data") (buf_type, len_type) {
+%#ifdef KEEPREF_VIEW_$symname
+    private_store_set(resultobj, "using_view", _global_view);
+%#endif
+}
+#endif
 %enddef // INPUT_BUFFER_RO
 
-
-// Macro for input read only byte buffer, result keeps reference to input
-%define INPUT_BUFFER_RO_EX(buf_type, len_type)
-INPUT_BUFFER_RO(buf_type, len_type)
-%typemap(argout) (buf_type, len_type) %{
-    PyObject_SetAttrString(resultobj, "_refers_to", _global_view);
+// Macro for functions to release the held reference
+%define RELEASE_BUFFER(signature)
+%typemap(ret, fragment="private_data") signature %{
+    private_store_del(self, "using_view");
 %}
-%enddef // INPUT_BUFFER_RO_EX
-
+%enddef
 
 // Macro for output writeable byte buffer
 %define OUTPUT_BUFFER_RW(buf_type, count_type)
 %typemap(doctype) buf_type "writeable :py:term:`bytes-like object`";
-%typemap(in) (buf_type) (Py_buffer _global_view) {
-    _global_view.obj = NULL;
+#if #count_type != ""
+%typemap(in) (buf_type, count_type) (Py_buffer _global_buff) {
+    _global_buff.obj = NULL;
     if (PyObject_GetBuffer(
-            $input, &_global_view, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+            $input, &_global_buff, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
         PyErr_Clear();
         %argument_fail(SWIG_TypeError, "writable bytes-like object",
                        $symname, $argnum);
     }
-    $1 = ($1_ltype) _global_view.buf;
+    $1 = ($1_ltype) _global_buff.buf;
+    $2 = ($2_ltype) _global_buff.len;
 }
-%typemap(check) (buf_type, count_type) {
-    if ($2 > ($2_ltype) _global_view.len) {
+%typemap(freearg) (buf_type, count_type) %{
+    if (_global_buff.obj) {
+        PyBuffer_Release(&_global_buff);
+    }
+%}
+#else
+%typemap(in) (buf_type) (Py_buffer _global_buff) {
+    _global_buff.obj = NULL;
+    if (PyObject_GetBuffer(
+            $input, &_global_buff, PyBUF_CONTIG | PyBUF_WRITABLE) < 0) {
+        PyErr_Clear();
+        %argument_fail(SWIG_TypeError, "writable bytes-like object",
+                       $symname, $argnum);
+    }
+    // check buffer is large enough, assumes arg1 points to self
+    if ((Py_ssize_t) arg1->size() > _global_buff.len) {
         %argument_fail(SWIG_ValueError, "buffer too small",
                        $symname, $argnum);
     }
+    $1 = ($1_ltype) _global_buff.buf;
 }
 %typemap(freearg) (buf_type) %{
-    if (_global_view.obj) {
-        PyBuffer_Release(&_global_view);
+    if (_global_buff.obj) {
+        PyBuffer_Release(&_global_buff);
     }
 %}
+#endif
 %typemap(typecheck, precedence=SWIG_TYPECHECK_CHAR_PTR) buf_type %{
     $1 = PyObject_CheckBuffer($input) ? 1 : 0;
 %}
 %enddef // OUTPUT_BUFFER_RW
 
-// Macro to convert byte* return value to memoryview
-// WARNING: return value does not keep a reference to the data it points to
-%define RETURN_VIEW(signature, size_func, flags, doc_method)
-%typemap(doctype) signature "memoryview";
-%typemap(out) (signature) %{
-    $result = PyMemoryView_FromMemory((char*)$1, size_func, flags);
-%}
-#if #doc_method != ""
-%feature("docstring") doc_method
-"Returns a temporary Python memoryview of the object's data.
-
-WARNING: do not resize or delete the object while using the view.
-
-:rtype: memoryview"
-#endif
-%enddef // RETURN_VIEW
-
 
 // Macros to expose object data with a buffer interface
-%define _BF_GETBUFFER(object_type, writeable, get_func)
+
+// Add getbuffer slot to an object type
+%define EXPOSE_OBJECT_BUFFER(object_type)
 %fragment("getbuffer"{object_type}, "header",
-          fragment="get_ptr_size"{object_type}) {
+          fragment="buffer_fill_info"{object_type}) {
 static int getbuffer_%mangle(object_type)(
         PyObject* exporter, Py_buffer* view, int flags) {
+    // Deprecated since 2025-07-09
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Please use 'data()' to get a"
+                 " memoryview of object_type", 1);
     object_type* self = 0;
-    Exiv2::byte* ptr = 0;
-    Py_ssize_t size = 0;
-    bool is_writeable = writeable && (flags && PyBUF_WRITABLE);
     if (!SWIG_IsOK(SWIG_ConvertPtr(
             exporter, (void**)&self, $descriptor(object_type*), 0)))
         goto fail;
-    if (!get_ptr_size(self, is_writeable, ptr, size))
+    if (buffer_fill_info(self, view, exporter, flags))
         goto fail;
-    return PyBuffer_FillInfo(view, exporter, ptr,
-        ptr ? size : 0, is_writeable ? 0 : 1, flags);
+    return 0;
 fail:
     PyErr_SetNone(PyExc_BufferError);
     view->obj = NULL;
@@ -119,11 +141,16 @@ fail:
 };
 }
 %fragment("getbuffer"{object_type});
+_SET_BF_GETBUFFER(object_type, getbuffer_%mangle(object_type))
+%enddef // EXPOSE_OBJECT_BUFFER
+%define _SET_BF_GETBUFFER(object_type, func)
 %feature("python:bf_getbuffer", functype="getbufferproc")
-    object_type "get_func";
-%enddef // _BF_GETBUFFER
+    object_type "func";
+%enddef // _SET_BF_GETBUFFER
 
-%define _BF_RELEASEBUFFER(object_type, release_func)
+
+// Add releasebuffer slot to an object type (not often needed)
+%define RELEASE_OBJECT_BUFFER(object_type)
 %fragment("releasebuffer"{object_type}, "header",
           fragment="release_ptr"{object_type}) {
 static void releasebuffer_%mangle(object_type)(
@@ -136,15 +163,9 @@ static void releasebuffer_%mangle(object_type)(
 };
 }
 %fragment("releasebuffer"{object_type});
+_SET_BF_RELEASEBUFFER(object_type, releasebuffer_%mangle(object_type))
+%enddef // RELEASE_OBJECT_BUFFER
+%define _SET_BF_RELEASEBUFFER(object_type, func)
 %feature("python:bf_releasebuffer", functype="releasebufferproc")
-    object_type "release_func";
-%enddef // _BF_RELEASEBUFFER
-
-%define EXPOSE_OBJECT_BUFFER(object_type, writeable, with_release)
-// Add getbuffer slot to an object type
-_BF_GETBUFFER(object_type, writeable, getbuffer_%mangle(object_type))
-#if #with_release == "true"
-// Add releasebuffer slot to an object type (not often needed)
-_BF_RELEASEBUFFER(object_type, releasebuffer_%mangle(object_type))
-#endif
-%enddef // EXPOSE_OBJECT_BUFFER
+    object_type "func";
+%enddef // _SET_BF_RELEASEBUFFER

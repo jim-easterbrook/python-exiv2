@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,11 +22,27 @@
 #endif
 
 %include "shared/preamble.i"
-%include "shared/exception.i"
-%include "shared/exv_options.i"
 
 // Catch all C++ exceptions
 EXCEPTION()
+
+// Macro to not call a function if libexiv2 version is <= 0.27.3
+%define EXV_ENABLE_EASYACCESS_FUNCTION(signature)
+%fragment("_set_python_exception");
+%exception signature {
+    try {
+%#if EXIV2_TEST_VERSION(0, 27, 4)
+        $action
+%#else
+        throw Exiv2::Error(Exiv2::kerFunctionNotSupported);
+%#endif
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        SWIG_fail;
+    }
+}
+%enddef // EXV_ENABLE_EASYACCESS_FUNCTION
 
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::apertureValue)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::brightnessValue)
@@ -41,18 +57,18 @@ EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::sensingMethod)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::shutterSpeedValue)
 EXV_ENABLE_EASYACCESS_FUNCTION(Exiv2::subjectArea)
 
-// Store data.end() after converting input
-%typemap(check) Exiv2::ExifData& (Exiv2::ExifData::const_iterator _global_end) %{
-    _global_end = $1->end();
-%}
-
 // Convert result from iterator to datum or None
 %typemap(out) Exiv2::ExifData::const_iterator %{
-    if ($1 == _global_end)
+    if ($1 == arg1->end())
         $result = SWIG_Py_Void();
     else
         $result = SWIG_NewPointerObj(
             SWIG_as_voidptr(&(*$1)), $descriptor(Exiv2::Exifdatum*), 0);
 %}
+
+// Development version of exiv2 removes class declaration inside namespace
+#if EXIV2_VERSION_HEX >= 0x001d0000
+#define ExifData Exiv2::ExifData
+#endif
 
 %include "exiv2/easyaccess.hpp"

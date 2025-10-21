@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -49,6 +49,8 @@ class TestTypesModule(unittest.TestCase):
             self.check_result(view[23], int, data[23])
             view[49] = 99
             self.check_result(view[49], int, 99)
+        with self.assertRaises(ValueError):
+            self.assertEqual(view[0], data[0])
         buf = exiv2.DataBuf(data)
         self.assertEqual(buf, data)
         self.assertEqual(data, buf)
@@ -65,8 +67,6 @@ class TestTypesModule(unittest.TestCase):
             self.assertEqual(buf.empty(), True)
         else:
             with self.assertWarns(DeprecationWarning):
-                result = buf[23]
-            with self.assertWarns(DeprecationWarning):
                 self.check_result(buf.pData_, memoryview, data)
             with self.assertWarns(DeprecationWarning):
                 self.check_result(buf.size_, int, len(data))
@@ -78,6 +78,15 @@ class TestTypesModule(unittest.TestCase):
         buf = exiv2.DataBuf()
         buf.alloc(6)
         self.assertEqual(len(buf), 6)
+        # memoryview invalidation
+        view = buf.data()
+        buf.alloc(8)
+        with self.assertRaises(ValueError):
+            view[0]
+        view = buf.data()
+        self.assertEqual(sys.getrefcount(buf), 3)
+        del view
+        self.assertEqual(sys.getrefcount(buf), 2)
 
     def test_Rational(self):
         for type_ in (exiv2.Rational, exiv2.URational):
@@ -138,9 +147,9 @@ class TestTypesModule(unittest.TestCase):
             self.assertEqual(cm.output, [
                 'WARNING:exiv2:Ungültiger Zeichensatz: "invalid"'])
             with self.assertRaises(exiv2.Exiv2Error) as cm:
-                key = exiv2.ExifKey('not.a.tag')
+                key = exiv2.ExifKey(999, 'Invalid')
             self.assertEqual(cm.exception.message.replace('"', "'"),
-                             "Ungültiger Schlüssel 'not.a.tag'")
+                             "Ungültige IFD-ID 0")
         # clear locale
         name = 'en_US.UTF-8'
         os.environ['LC_ALL'] = name

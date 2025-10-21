@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,15 +22,23 @@
 #endif
 
 %include "shared/preamble.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
 %include "shared/static_list.i"
 %include "shared/struct_dict.i"
-%include "shared/unique_ptr.i"
 
 %import "metadatum.i"
 
-IMPORT_ENUM(TypeId)
+// Add inheritance diagram to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.metadatum.Key
+    :top-classes: exiv2.metadatum.Key
+    :parts: 1
+    :include-subclasses:
+'''
+%}
 
 // Catch some C++ exceptions
 %exception;
@@ -46,7 +54,7 @@ EXTEND_KEY(Exiv2::IptcKey);
 LIST_POINTER(const Exiv2::DataSet*, Exiv2::DataSet, number_ != 0xffff)
 
 // Give Exiv2::DataSet dict-like behaviour
-STRUCT_DICT(Exiv2::DataSet)
+STRUCT_DICT(Exiv2::DataSet, false, true)
 
 // Structs are all static data
 %ignore Exiv2::IptcDataSets::IptcDataSets;
@@ -69,3 +77,5 @@ STRUCT_DICT(Exiv2::DataSet)
 %immutable;
 %include "exiv2/datasets.hpp"
 %mutable;
+
+INIT_STRUCT_DICT(Exiv2::DataSet)

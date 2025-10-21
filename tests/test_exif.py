@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -50,10 +50,10 @@ class TestExifModule(unittest.TestCase):
         data.add(exiv2.Exifdatum(
             exiv2.ExifKey('Exif.Image.Make'), exiv2.AsciiValue('Acme')))
         self.assertEqual('Exif.Image.Make' in data, True)
-        self.assertIsInstance(data['Exif.Image.Make'], exiv2.Exifdatum)
+        self.assertIsInstance(data['Exif.Image.Make'], exiv2.Exifdatum_reference)
         data.add(exiv2.ExifKey('Exif.Image.Model'), exiv2.AsciiValue('Camera'))
         self.assertEqual('Exif.Image.Model' in data, True)
-        self.assertIsInstance(data['Exif.Image.Model'], exiv2.Exifdatum)
+        self.assertIsInstance(data['Exif.Image.Model'], exiv2.Exifdatum_reference)
         # iterators
         b = iter(data)
         self.assertIsInstance(b, exiv2.ExifData_iterator)
@@ -64,19 +64,24 @@ class TestExifModule(unittest.TestCase):
         next(b)
         self.assertEqual(b.key(), 'Exif.Image.ImageDescription')
         e = data.end()
-        self.assertIsInstance(e, exiv2.ExifData_iterator_base)
+        self.assertIsInstance(e, exiv2.ExifData_iterator)
         k = data.findKey(exiv2.ExifKey('Exif.Photo.FocalLength'))
         self.assertIsInstance(k, exiv2.ExifData_iterator)
         self.assertEqual(k.key(), 'Exif.Photo.FocalLength')
-        k = data.erase(k)
+        k1 = data.erase(k)
+        with self.assertRaises(RuntimeError):
+            k.key()
+        self.assertIsInstance(k1, exiv2.ExifData_iterator)
+        self.assertEqual(k1.key(), 'Exif.Photo.SubSecTime')
+        k = data.erase(k1, e)
         self.assertIsInstance(k, exiv2.ExifData_iterator)
-        self.assertEqual(k.key(), 'Exif.Photo.SubSecTime')
-        k = data.erase(k, e)
-        self.assertIsInstance(k, exiv2.ExifData_iterator_base)
         b = data.begin()
         e = data.end()
         self.assertIsInstance(str(b), str)
+        self.assertEqual(str(b), 'iterator<Exif.Image.ProcessingSoftware:'
+                         ' Photini editor v2022.12.0.3>')
         self.assertIsInstance(str(e), str)
+        self.assertEqual(str(e), 'iterator<data end>')
         count = 0
         while b != e:
             next(b)
@@ -88,37 +93,72 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(count, 11)
         count = len(list(data))
         self.assertEqual(count, 11)
+        k1 = data.begin()
+        self.assertEqual(k1.key(), 'Exif.Image.ProcessingSoftware')
+        k2 = data.begin()
+        next(k2)
+        self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
+        k3 = data.erase(k1, k2)
+        with self.assertRaises(RuntimeError):
+            k1.key()
+        self.assertEqual(k2.key(), 'Exif.Image.ImageDescription')
+        self.assertEqual(k3.key(), 'Exif.Image.ImageDescription')
+        self.assertEqual(len(data), 10)
         # access by key
         self.assertEqual('Exif.Image.Artist' in data, True)
-        self.assertIsInstance(data['Exif.Image.Artist'], exiv2.Exifdatum)
+        self.assertIsInstance(data['Exif.Image.Artist'],
+                              exiv2.Exifdatum_reference)
+        k = data.findKey(exiv2.ExifKey('Exif.Image.Artist'))
+        d = data['Exif.Image.Artist']
         del data['Exif.Image.Artist']
         self.assertEqual('Exif.Image.Artist' in data, False)
+        if 'pointers' in data._private_data_:
+            # swig >= 4.4
+            with self.assertRaises(RuntimeError):
+                k.key()
+            with self.assertRaises(RuntimeError):
+                d.key()
         data['Exif.Image.Artist'] = 'Fred'
         self.assertEqual('Exif.Image.Artist' in data, True)
-        self.assertIsInstance(data['Exif.Image.Artist'], exiv2.Exifdatum)
+        self.assertIsInstance(data['Exif.Image.Artist'],
+                              exiv2.Exifdatum_reference)
         with self.assertRaises(TypeError):
             data['Exif.Image.Orientation'] = 2.5
         data['Exif.Image.Orientation'] = 4
         data['Exif.Image.Orientation'] = exiv2.UShortValue(4)
         self.assertEqual('Exif.Image.Orientation' in data, True)
-        self.assertIsInstance(data['Exif.Image.Orientation'], exiv2.Exifdatum)
+        self.assertIsInstance(data['Exif.Image.Orientation'],
+                              exiv2.Exifdatum_reference)
+        with self.assertRaises(exiv2.Exiv2Error):
+            data['Exif.Image.NotAKey'] = 'Text'
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Exif.Image.Artist')
         data.sortByTag()
-        self.assertEqual(data.begin().key(), 'Exif.Image.ProcessingSoftware')
+        self.assertEqual(data.begin().key(), 'Exif.Image.ImageDescription')
         # other methods
-        self.assertEqual(data.count(), 11)
+        self.assertEqual(data.count(), 10)
         self.assertEqual(data.empty(), False)
+        b = data.begin()
+        d = data[b.key()]
         data.clear()
+        if 'pointers' in data._private_data_:
+            # swig >= 4.4
+            with self.assertRaises(RuntimeError):
+                b.key()
+            with self.assertRaises(RuntimeError):
+                d.key()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)
 
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
+        self.assertEqual(str(datum.__deref__()), 'Exif.Image.ImageDescription:'
+                         ' Good view of the lighthouse.')
         buf = bytearray(datum.count())
-        self.assertEqual(
-            datum.copy(buf, exiv2.ByteOrder.littleEndian), len(buf))
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(
+                datum.copy(buf, exiv2.ByteOrder.littleEndian), len(buf))
         self.assertEqual(buf, bytes(datum.toString(), 'ascii'))
         self.assertEqual(datum.count(), 28)
         data_area = datum.dataArea()
@@ -158,7 +198,8 @@ class TestExifModule(unittest.TestCase):
             self.assertIsInstance(
                 datum.value(exiv2.TypeId.asciiString), exiv2.AsciiValue)
         buf = io.StringIO()
-        buf = datum.write(buf)
+        with self.assertWarns(DeprecationWarning):
+            buf = datum.write(buf)
         self.assertEqual(buf.getvalue(), 'Good view of the lighthouse.')
         datum.setValue('fred')
         datum.setValue(exiv2.AsciiValue('Acme'))
@@ -183,7 +224,12 @@ class TestExifModule(unittest.TestCase):
         self.image.readMetadata()
         data = self.image.exifData()
         datum = data['Exif.Image.ImageDescription']
-        self.assertIsInstance(datum, exiv2.Exifdatum)
+        self.assertIsInstance(datum, exiv2.Exifdatum_reference)
+        self.assertEqual(datum.__deref__(), datum)
+        self.assertEqual(datum, datum.__deref__())
+        datum2 = exiv2.Exifdatum(datum)
+        self.assertIsInstance(datum2, exiv2.Exifdatum)
+        del datum2
         self._test_datum(datum)
 
     def test_ExifThumb(self):
@@ -199,28 +245,70 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(len(thumb.copy()), 0)
         exif_data = exiv2.ExifData()
         thumb = exiv2.ExifThumb(exif_data)
-        thumb.setJpegThumbnail(data)
+        with self.assertWarns(DeprecationWarning):
+            thumb.setJpegThumbnail(data)
         self.assertEqual(len(thumb.copy()), 2532)
         thumb.erase()
         self.assertEqual(len(thumb.copy()), 0)
-        thumb.setJpegThumbnail(
-            data, exiv2.URational((160, 1)), exiv2.URational((120, 1)), 1)
+        with self.assertWarns(DeprecationWarning):
+            thumb.setJpegThumbnail(
+                data, exiv2.URational((160, 1)), exiv2.URational((120, 1)), 1)
         self.assertEqual(len(thumb.copy()), 2532)
-        if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
-            self.skipTest('EXV_ENABLE_FILESYSTEM is off')
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'thumb')
-            self.assertEqual(thumb.writeFile(temp_file), 2532)
+            if exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+                self.assertEqual(thumb.writeFile(temp_file), 2532)
+            else:
+                with self.assertRaises(exiv2.Exiv2Error):
+                    thumb.writeFile(temp_file)
             temp_file += thumb.extension()
             thumb.erase()
             self.assertEqual(len(thumb.copy()), 0)
-            thumb.setJpegThumbnail(temp_file)
-            self.assertEqual(len(thumb.copy()), 2532)
-            thumb.erase()
-            self.assertEqual(len(thumb.copy()), 0)
-            thumb.setJpegThumbnail(temp_file, exiv2.URational((160, 1)),
-                                   exiv2.URational((120, 1)), 1)
-            self.assertEqual(len(thumb.copy()), 2532)
+            if exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+                thumb.setJpegThumbnail(temp_file)
+                self.assertEqual(len(thumb.copy()), 2532)
+                thumb.erase()
+                self.assertEqual(len(thumb.copy()), 0)
+                thumb.setJpegThumbnail(temp_file, exiv2.URational((160, 1)),
+                                       exiv2.URational((120, 1)), 1)
+                self.assertEqual(len(thumb.copy()), 2532)
+            else:
+                with self.assertRaises(exiv2.Exiv2Error):
+                    thumb.setJpegThumbnail(temp_file)
+
+    def test_pointers(self):
+        data = exiv2.ExifData()
+        data.add(exiv2.Exifdatum(
+            exiv2.ExifKey('Exif.Image.Make'), exiv2.AsciiValue('Acme')))
+        # output typemaps
+        datum_iter = data.begin()
+        self.assertIsInstance(datum_iter, exiv2.ExifData_iterator)
+        datum_pointer = data[datum_iter.key()]
+        self.assertIsInstance(datum_pointer, exiv2.Exifdatum_reference)
+        # __deref__ operator
+        datum = datum_iter.__deref__()
+        self.assertIsInstance(datum, exiv2.Exifdatum)
+        datum = datum_pointer.__deref__()
+        self.assertIsInstance(datum, exiv2.Exifdatum)
+        # input typemaps
+        datum2 = exiv2.Exifdatum(datum)
+        datum2 = exiv2.Exifdatum(datum_iter)
+        datum2 = exiv2.Exifdatum(datum_pointer)
+        data2 = exiv2.ExifData()
+        data2.add(datum)
+        data2.add(datum_iter)
+        data2.add(datum_pointer)
+        datum_iter2 = data2.begin()
+        data2.erase(datum_iter2)
+        with self.assertRaises(ValueError):
+            data2.erase(datum_iter2)
+        # __eq__ operator
+        self.assertEqual(datum, datum_iter)
+        self.assertEqual(datum, datum_pointer)
+        self.assertEqual(datum_iter, datum)
+        self.assertEqual(datum_iter, datum_pointer)
+        self.assertEqual(datum_pointer, datum)
+        self.assertEqual(datum_pointer, datum_iter)
 
     def test_ref_counts(self):
         self.image.readMetadata()
@@ -245,6 +333,8 @@ class TestExifModule(unittest.TestCase):
         k = data.findKey(exiv2.ExifKey('Exif.Photo.FocalLength'))
         self.assertEqual(sys.getrefcount(data), 6)
         k2 = data.erase(k)
+        with self.assertRaises(RuntimeError):
+            k.key()
         self.assertEqual(sys.getrefcount(data), 7)
         del b, e, i, k, k2
         self.assertEqual(sys.getrefcount(data), 2)

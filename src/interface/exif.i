@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,20 +26,31 @@
 %include "shared/preamble.i"
 %include "shared/buffers.i"
 %include "shared/containers.i"
-%include "shared/data_iterator.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
-%include "shared/exv_options.i"
 %include "shared/keep_reference.i"
-%include "shared/windows_path.i"
+%include "shared/windows.i"
 
 %include "stdint.i"
 %include "std_string.i"
 
 %import "tags.i"
 
-IMPORT_ENUM(ByteOrder)
-IMPORT_ENUM(TypeId)
+// Add inheritance diagrams to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.metadatum.Metadatum
+    :top-classes: exiv2.metadatum.Metadatum
+    :parts: 1
+    :include-subclasses:
+
+.. inheritance-diagram:: exiv2.exif.Exifdatum_pointer
+    :top-classes: exiv2.exif.Exifdatum_pointer
+    :parts: 1
+    :include-subclasses:
+'''
+%}
 
 // Catch all C++ exceptions
 EXCEPTION()
@@ -53,30 +64,10 @@ EXV_ENABLE_FILESYSTEM_FUNCTION(Exiv2::ExifThumbC::writeFile)
 // ExifThumb keeps a reference to the ExifData it uses
 KEEP_REFERENCE_EX(Exiv2::ExifThumb*, args)
 
-#if EXIV2_VERSION_HEX < 0x001c0000
-INPUT_BUFFER_RO(const Exiv2::byte* buf, long size)
-#else
-INPUT_BUFFER_RO(const Exiv2::byte* buf, size_t size)
-#endif
+INPUT_BUFFER_RO(const Exiv2::byte* buf, BUFLEN_T size)
 
-EXTEND_METADATUM(Exiv2::Exifdatum)
-
-DATA_ITERATOR_TYPEMAPS(ExifData)
-#ifndef SWIGIMPORTED
-DATA_ITERATOR_CLASSES(ExifData, Exifdatum)
-#endif
-
-// Get the current (or default if not set) type id of a datum
-%fragment("get_type_id"{Exiv2::Exifdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Exifdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::ExifKey(datum->key()).defaultTypeId();
-};
-}
-
-DATA_CONTAINER(Exiv2::ExifData, Exiv2::Exifdatum, Exiv2::ExifKey)
+DATA_CONTAINER(ExifData, Exifdatum, ExifKey,
+    Exiv2::ExifKey(datum->key()).defaultTypeId())
 
 // Convert path encoding on Windows
 WINDOWS_PATH(const std::string& path)
@@ -91,4 +82,6 @@ WINDOWS_PATH(const std::string& path)
 // Exifdatum::ifdId is documented as internal use only
 %ignore Exiv2::Exifdatum::ifdId;
 
+#define EXV_ENABLE_FILESYSTEM
 %include "exiv2/exif.hpp"
+#undef EXV_ENABLE_FILESYSTEM

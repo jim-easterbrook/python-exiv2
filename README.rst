@@ -1,4 +1,4 @@
-python-exiv2 v\ 0.17.3
+python-exiv2 v\ 0.18.0
 ======================
 
 python-exiv2 is a low level interface (or binding) to the exiv2_ C++ library.
@@ -47,15 +47,17 @@ Please see `USAGE.rst`_ for more help with using the Python interface to libexiv
 Transition to libexiv2 v0.28.x
 ------------------------------
 
-Before python-exiv2 v0.16 the "binary wheels" available from PyPI_ incorporated libexiv2 v0.27.7 or earlier.
-Binary wheels for python-exiv2 v0.16.3 incorporate libexiv2 v0.28.2, and those for python-exiv2 v0.16.2 incorporate libexiv2 v0.27.7.
-Binary wheels for python-exiv2 v0.17.0 incorporate libexiv2 v0.28.3.
-If your software is currently incompatible with libexiv2 v0.28.x you can use the older version of libexiv2 by explicitly installing python-exiv2 v0.16.2::
+Since python-exiv2 v0.16.3 the "binary wheels" available from PyPI_ incorporate libexiv2 v0.28.2 or later.
+If your software is currently incompatible with libexiv2 v0.28.x you can use an older version of libexiv2 by explicitly installing python-exiv2 v0.16.2::
 
-    $ pip install --user exiv2==0.16.2
+    $ pip install --user exiv2==0.16.2 --only-binary :all:
+
+Alternatively, if you have libexiv2 v0.27.x and its "development headers" installed on your computer, you can install python-exiv2 from source using your system libexiv2::
+
+    $ pip install --user exiv2 --no-binary :all:
 
 There are some changes in the libexiv2 API between v0.27.7 and v0.28.x.
-Future versions of python-exiv2 will all incorporate libexiv2 v0.28.x, so please update your software to use the changed API.
+Eventually python-exiv2 will no longer support libexiv2 v0.27.x, so please update your software to use the changed API.
 
 Documentation
 -------------
@@ -97,6 +99,7 @@ Installation
 
 Python "binary wheels" are available for Windows, Linux, and MacOS.
 These include the libexiv2 library and should not need any other software to be installed.
+(Although on Windows you might need to update your `MSVC redistributable`_.)
 They can be installed with Python's pip_ package.
 For example, on Windows::
 
@@ -119,6 +122,8 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _gexiv2:            https://wiki.gnome.org/Projects/gexiv2
 .. _GitHub:            https://github.com/jim-easterbrook/python-exiv2
 .. _libexiv2:          https://www.exiv2.org/doc/index.html
+.. _MSVC redistributable:
+    https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version
 .. _pip:               https://pip.pypa.io/
 .. _pyexiv2 (new):     https://github.com/LeoHsiao1/pyexiv2
 .. _pyexiv2 (old):     https://launchpad.net/pyexiv2

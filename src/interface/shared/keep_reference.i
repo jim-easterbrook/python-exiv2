@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,11 +16,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+%include "shared/private_data.i"
+
 // Macro to keep a reference to any object when returning a particular type.
 %define KEEP_REFERENCE_EX(return_type, target)
-%typemap(ret) return_type %{
+%typemap(ret, fragment="private_data") return_type %{
     if ($result != Py_None)
-        if (PyObject_SetAttrString($result, "_refers_to", target)) {
+        if (private_store_set($result, "refers_to", target)) {
             SWIG_fail;
         }
 %}

@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,39 +25,39 @@
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
-%include "shared/data_iterator.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
 
 %include "stdint.i"
 %include "std_string.i"
 
 %import "datasets.i"
 
-IMPORT_ENUM(ByteOrder)
-IMPORT_ENUM(TypeId)
+// Add inheritance diagrams to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.metadatum.Metadatum
+    :top-classes: exiv2.metadatum.Metadatum
+    :parts: 1
+    :include-subclasses:
+
+.. inheritance-diagram:: exiv2.iptc.Iptcdatum_pointer
+    :top-classes: exiv2.iptc.Iptcdatum_pointer
+    :parts: 1
+    :include-subclasses:
+'''
+%}
 
 // Catch all C++ exceptions
 EXCEPTION()
 
-EXTEND_METADATUM(Exiv2::Iptcdatum)
+DATA_CONTAINER(IptcData, Iptcdatum, IptcKey,
+    Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record()))
 
-DATA_ITERATOR_TYPEMAPS(IptcData)
-#ifndef SWIGIMPORTED
-DATA_ITERATOR_CLASSES(IptcData, Iptcdatum)
-#endif
-
-// Get the current (or default if not set) type id of a datum
-%fragment("get_type_id"{Exiv2::Iptcdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Iptcdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::IptcDataSets::dataSetType(datum->tag(), datum->record());
-};
-}
-
-DATA_CONTAINER(Exiv2::IptcData, Exiv2::Iptcdatum, Exiv2::IptcKey)
+// Exiv2 have deprecated recordName()
+// deprecated in python-exiv2 2025-09-17
+EXIV2_DEPRECATED(Exiv2::Iptcdatum::recordName)
 
 // Ignore const overloads of some methods
 %ignore Exiv2::IptcData::operator[];

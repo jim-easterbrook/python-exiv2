@@ -21,7 +21,7 @@ Use installed libexiv2
 
 In the example above, pip_ installs a "binary wheel_".
 This is pre-compiled and includes a copy of the libexiv2_ library, which makes installation quick and easy.
-Wheels for `python-exiv2`_ are available for Windows, Linux, and MacOS with Python versions from 3.6 to 3.12.
+Wheels for `python-exiv2`_ are available for Windows, Linux, and MacOS with Python versions from 3.6 to 3.13.
 
 If your computer already has libexiv2_ installed (typically by your operating system's "package manager") then pip_ might be able to compile `python-exiv2`_ to use it.
 First you need to check what version of python-exiv2 you have::

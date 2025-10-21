@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2024  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2024-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'python-exiv2'
-copyright = '2004-2024 Exiv2 authors'
+copyright = '2004-2025 Exiv2 authors'
 author = 'Jim Easterbrook'
 
 import exiv2
@@ -53,15 +53,22 @@ version = exiv2.__version__
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.autosummary',
               'sphinx.ext.inheritance_diagram',
-              'sphinx.ext.intersphinx']
+              'sphinx.ext.intersphinx',
+              'enum_tools.autoenum']
 
 autosummary_imported_members = True
+autosummary_ignore_module_all = False
 autodoc_class_signature = 'separated'
 autodoc_docstring_signature = False
 autodoc_default_options = {
     'members': True,
     'undoc-members': True,
-    'exclude-members': 'this, thisown, __init__, __new__',
+    'special-members': True,
+    'exclude-members': ','.join((
+        'this', 'thisown', '__dict__', '__eq__', '__format__',
+        '__getattribute__', '__ge__', '__gt__', '__hash__', '__init__',
+        '__le__', '__lt__', '__module__ ', '__new__', '__ne__', '__repr__',
+        '__str__', '__weakref__')),
     'show-inheritance': True,
     }
 
@@ -90,7 +97,7 @@ def process_docstring(app, what, name, obj, options, lines):
             'Data_iterator', 'datum'), parts[3]), '']
         return
     # fixes for particular problems
-    if name.endswith('error.LogMsg') or name.endswith('iptc.Iptcdatum'):
+    if name.endswith('iptc.Iptcdatum'):
         # first line is not indented
         lines[0] = '       ' + lines[0]
     if name.endswith('XmpParser.initialize'):
@@ -198,7 +205,7 @@ def process_docstring(app, what, name, obj, options, lines):
                 header = ['"{}"'.format(x.strip('*')) for x in parts[1:-1]]
                 lines[idx:idx+1] = [
                     parts[0] + '.. csv-table::', parts[0] + '    :delim: |',
-                    parts[0] + '    :header: ' + ', '.join(header), '']
+                    parts[0] + '    :header: ' + '|'.join(header), '']
                 idx += 3
                 while lines[idx+1]:
                     idx += 1
@@ -257,3 +264,5 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+html_css_files = ['custom.css']

@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -49,10 +49,11 @@ class TestXmpModule(unittest.TestCase):
         data.add(exiv2.Xmpdatum(
             exiv2.XmpKey('Xmp.xmp.CreatorTool'), exiv2.AsciiValue('Acme')))
         self.assertEqual('Xmp.xmp.CreatorTool' in data, True)
-        self.assertIsInstance(data['Xmp.xmp.CreatorTool'], exiv2.Xmpdatum)
+        self.assertIsInstance(data['Xmp.xmp.CreatorTool'],
+                              exiv2.Xmpdatum_reference)
         data.add(exiv2.XmpKey('Xmp.xmp.Nickname'), exiv2.AsciiValue('Pic'))
         self.assertEqual('Xmp.xmp.Nickname' in data, True)
-        self.assertIsInstance(data['Xmp.xmp.Nickname'], exiv2.Xmpdatum)
+        self.assertIsInstance(data['Xmp.xmp.Nickname'], exiv2.Xmpdatum_reference)
         # iterators
         b = iter(data)
         self.assertIsInstance(b, exiv2.XmpData_iterator)
@@ -63,26 +64,30 @@ class TestXmpModule(unittest.TestCase):
         next(b)
         self.assertEqual(b.key(), 'Xmp.iptc.CreatorContactInfo')
         e = data.end()
-        self.assertIsInstance(e, exiv2.XmpData_iterator_base)
+        self.assertIsInstance(e, exiv2.XmpData_iterator)
         k = data.findKey(exiv2.XmpKey('Xmp.xmp.CreateDate'))
         self.assertIsInstance(k, exiv2.XmpData_iterator)
         self.assertEqual(k.key(), 'Xmp.xmp.CreateDate')
-        k = data.erase(k)
-        self.assertIsInstance(k, exiv2.XmpData_iterator)
-        self.assertEqual(k.key(), 'Xmp.xmp.ModifyDate')
+        k1 = data.erase(k)
+        with self.assertRaises(RuntimeError):
+            k.key()
+        self.assertIsInstance(k1, exiv2.XmpData_iterator)
+        self.assertEqual(k1.key(), 'Xmp.xmp.ModifyDate')
         self.assertEqual(len(data), 27)
         k = data.findKey(exiv2.XmpKey('Xmp.iptcExt.LocationCreated'))
         data.eraseFamily(k)
+        with self.assertRaises(RuntimeError):
+            k.key()
         self.assertEqual(len(data), 21)
         # access by key
         self.image.readMetadata()
         self.assertEqual('Xmp.dc.creator' in data, True)
-        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum)
+        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_reference)
         del data['Xmp.dc.creator']
         self.assertEqual('Xmp.dc.creator' in data, False)
         data['Xmp.dc.creator'] = 'Fred'
         self.assertEqual('Xmp.dc.creator' in data, True)
-        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum)
+        self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_reference)
         with self.assertRaises(TypeError):
             data['Xmp.tiff.Orientation'] = 4
         data['Xmp.tiff.Orientation'] = exiv2.UShortValue(4)
@@ -90,7 +95,9 @@ class TestXmpModule(unittest.TestCase):
         b = data.begin()
         e = data.end()
         self.assertIsInstance(str(b), str)
+        self.assertEqual(str(b), 'iterator<Xmp.iptc.CountryCode: GBR>')
         self.assertIsInstance(str(e), str)
+        self.assertEqual(str(e), 'iterator<data end>')
         count = 0
         while b != e:
             next(b)
@@ -102,6 +109,8 @@ class TestXmpModule(unittest.TestCase):
         self.assertEqual(count, 26)
         count = len(list(data))
         self.assertEqual(count, 26)
+        with self.assertRaises(exiv2.Exiv2Error):
+            data['Xmp.invalid-ns.value'] = 'Text'
         # sorting
         data.sortByKey()
         self.assertEqual(data.begin().key(), 'Xmp.dc.creator')
@@ -121,9 +130,14 @@ class TestXmpModule(unittest.TestCase):
 
     def _test_datum(self, datum):
         self.assertIsInstance(str(datum), str)
+        self.assertEqual(
+            str(datum.__deref__()), 'Xmp.dc.description: lang="x-default"'
+            ' Good view of the lighthouse., lang="en-GB" Good view of the'
+            ' lighthouse., lang="de" Gute Sicht auf den Leuchtturm.')
         buf = bytearray(datum.size())
         with self.assertRaises(exiv2.Exiv2Error) as cm:
-            datum.copy(buf, exiv2.ByteOrder.littleEndian)
+            with self.assertWarns(DeprecationWarning):
+                datum.copy(buf, exiv2.ByteOrder.littleEndian)
         self.assertEqual(cm.exception.code,
                          exiv2.ErrorCode.kerFunctionNotSupported)
         self.assertEqual(datum.count(), 3)
@@ -162,7 +176,8 @@ class TestXmpModule(unittest.TestCase):
             self.assertIsInstance(
                 datum.value(exiv2.TypeId.langAlt), exiv2.LangAltValue)
         buf = io.StringIO()
-        buf = datum.write(buf)
+        with self.assertWarns(DeprecationWarning):
+            buf = datum.write(buf)
         self.assertEqual(buf.getvalue(), datum.toString())
         datum.setValue('fred')
         datum.setValue(exiv2.XmpTextValue('Acme'))
@@ -187,8 +202,49 @@ class TestXmpModule(unittest.TestCase):
         self.image.readMetadata()
         data = self.image.xmpData()
         datum = data['Xmp.dc.description']
-        self.assertIsInstance(datum, exiv2.Xmpdatum)
+        self.assertIsInstance(datum, exiv2.Xmpdatum_reference)
+        self.assertEqual(datum.__deref__(), datum)
+        self.assertEqual(datum, datum.__deref__())
+        datum2 = exiv2.Xmpdatum(datum)
+        self.assertIsInstance(datum2, exiv2.Xmpdatum)
+        del datum2
         self._test_datum(datum)
+
+    def test_pointers(self):
+        data = exiv2.XmpData()
+        data.add(exiv2.Xmpdatum(
+            exiv2.XmpKey('Xmp.xmp.CreatorTool'), exiv2.AsciiValue('Acme')))
+        # output typemaps
+        datum_iter = data.begin()
+        self.assertIsInstance(datum_iter, exiv2.XmpData_iterator)
+        datum_pointer = data[datum_iter.key()]
+        self.assertIsInstance(datum_pointer, exiv2.Xmpdatum_reference)
+        # __deref__ operator
+        datum = datum_iter.__deref__()
+        self.assertIsInstance(datum, exiv2.Xmpdatum)
+        datum = datum_pointer.__deref__()
+        self.assertIsInstance(datum, exiv2.Xmpdatum)
+        # input typemaps
+        datum2 = exiv2.Xmpdatum(datum)
+        datum2 = exiv2.Xmpdatum(datum_iter)
+        datum2 = exiv2.Xmpdatum(datum_pointer)
+        data2 = exiv2.XmpData()
+        data2.add(datum)
+        data2.add(datum_iter)
+        data2.add(datum_pointer)
+        datum_iter2 = data2.begin()
+        data2.erase(datum_iter2)
+        with self.assertRaises(ValueError):
+            data2.erase(datum_iter2)
+        with self.assertRaises(ValueError):
+            data2.eraseFamily(datum_iter2)
+        # __eq__ operator
+        self.assertEqual(datum, datum_iter)
+        self.assertEqual(datum, datum_pointer)
+        self.assertEqual(datum_iter, datum)
+        self.assertEqual(datum_iter, datum_pointer)
+        self.assertEqual(datum_pointer, datum)
+        self.assertEqual(datum_pointer, datum_iter)
 
     def test_ref_counts(self):
         self.image.readMetadata()
@@ -207,6 +263,8 @@ class TestXmpModule(unittest.TestCase):
         k = data.findKey(exiv2.XmpKey('Xmp.xmp.Rating'))
         self.assertEqual(sys.getrefcount(data), 6)
         k2 = data.erase(k)
+        with self.assertRaises(RuntimeError):
+            k.key()
         self.assertEqual(sys.getrefcount(data), 7)
         del b, e, i, k, k2
         self.assertEqual(sys.getrefcount(data), 2)

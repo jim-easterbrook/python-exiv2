@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2022-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2022-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -44,26 +44,34 @@ class TestPreviewModule(unittest.TestCase):
         props = manager.getPreviewProperties()
         preview = manager.getPreviewImage(props[0])
         self.assertIsInstance(preview, exiv2.PreviewImage)
-        preview2 = exiv2.PreviewImage(preview)
-        self.assertIsInstance(preview2, exiv2.PreviewImage)
         self.assertEqual(len(preview), preview.size())
         copy = preview.copy()
         self.assertIsInstance(copy, exiv2.DataBuf)
-        with preview.pData() as data:
-            self.check_result(data, memoryview, copy)
+        with self.assertWarns(DeprecationWarning):
+            with preview.pData() as data:
+                self.check_result(data, memoryview, copy.data())
+                self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
+        with preview.data() as data:
+            self.check_result(data, memoryview, copy.data())
             self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
-        self.assertEqual(memoryview(preview), copy)
+        self.assertEqual(sys.getrefcount(preview), 3)
+        del data
+        self.assertEqual(sys.getrefcount(preview), 2)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(memoryview(preview), copy.data())
         self.check_result(preview.extension(), str, '.jpg')
         self.check_result(preview.height(), int, 120)
         self.check_result(preview.id(), int, 4)
         self.check_result(preview.mimeType(), str, 'image/jpeg')
         self.check_result(preview.size(), int, 2532)
         self.check_result(preview.width(), int, 160)
-        if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
-            self.skipTest('EXV_ENABLE_FILESYSTEM is off')
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_file = os.path.join(tmp_dir, 'image.jpg')
-            self.assertEqual(preview.writeFile(temp_file), 2532)
+            if exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
+                self.assertEqual(preview.writeFile(temp_file), 2532)
+            else:
+                with self.assertRaises(exiv2.Exiv2Error):
+                    preview.writeFile(temp_file)
 
     def test_PreviewManager(self):
         manager = exiv2.PreviewManager(self.image)
@@ -86,16 +94,16 @@ class TestPreviewModule(unittest.TestCase):
         self.check_result(properties.size_, int, 2532)
         self.check_result(properties.width_, int, 160)
         keys = properties.keys()
-        self.assertIsInstance(keys, list)
+        self.assertIsInstance(keys, tuple)
         self.assertEqual(len(keys), 6)
         values = properties.values()
-        self.assertIsInstance(values, list)
+        self.assertIsInstance(values, tuple)
         self.assertEqual(len(values), 6)
         items = properties.items()
-        self.assertIsInstance(items, list)
+        self.assertIsInstance(items, tuple)
         self.assertEqual(len(items), 6)
-        for k in properties:
-            v = properties[k]
+        for k in properties.keys():
+            v = getattr(properties, k)
             self.assertIn(k, keys)
             self.assertIn(v, values)
             self.assertIn((k, v), items)
@@ -105,7 +113,7 @@ class TestPreviewModule(unittest.TestCase):
                 del properties[k]
         with self.assertRaises(KeyError):
             a = properties['fred']
-        with self.assertRaises(KeyError):
+        with self.assertRaises(TypeError):
             properties['fred'] = 123
 
     def test_ref_counts(self):

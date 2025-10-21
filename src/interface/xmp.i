@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,45 +25,44 @@
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
-%include "shared/data_iterator.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
 
 %include "stdint.i"
 %include "std_string.i"
 
 %import "properties.i"
 
-IMPORT_ENUM(ByteOrder)
-IMPORT_ENUM(TypeId)
+// Add inheritance diagrams to Sphinx docs
+%pythoncode %{
+import sys
+if 'sphinx' in sys.modules:
+    __doc__ += '''
+
+.. inheritance-diagram:: exiv2.metadatum.Metadatum
+    :top-classes: exiv2.metadatum.Metadatum
+    :parts: 1
+    :include-subclasses:
+
+.. inheritance-diagram:: exiv2.xmp.Xmpdatum_pointer
+    :top-classes: exiv2.xmp.Xmpdatum_pointer
+    :parts: 1
+    :include-subclasses:
+'''
+%}
 
 // Catch all C++ exceptions
 EXCEPTION()
 
-EXTEND_METADATUM(Exiv2::Xmpdatum)
-
-DATA_ITERATOR_TYPEMAPS(XmpData)
-#ifndef SWIGIMPORTED
-DATA_ITERATOR_CLASSES(XmpData, Xmpdatum)
-#endif
-
-// Get the current (or default if not set) type id of a datum
-%fragment("get_type_id"{Exiv2::Xmpdatum}, "header") {
-static Exiv2::TypeId get_type_id(Exiv2::Xmpdatum* datum) {
-    Exiv2::TypeId type_id = datum->typeId();
-    if (type_id != Exiv2::invalidTypeId)
-        return type_id;
-    return Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key()));
-};
-}
-
-DATA_CONTAINER(Exiv2::XmpData, Exiv2::Xmpdatum, Exiv2::XmpKey)
+DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
+    Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
 
 // Ignore const overloads of some methods
-%ignore Exiv2::XmpData::operator[];
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;
 %ignore Exiv2::XmpData::findKey(XmpKey const &) const;
+
+// Ignore other stuff Python doesn't need or can't use
+%ignore Exiv2::operatorHelper;
+%ignore Exiv2::XmpData::operator[];
 %ignore Exiv2::XmpParser::decode;
 %ignore Exiv2::XmpParser::encode;
 

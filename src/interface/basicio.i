@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2022-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2022-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,16 +23,24 @@
     "Class interface to access files, memory and remote data.";
 #endif
 
+%feature("docstring") Exiv2::BasicIo "An interface for simple binary IO.
+
+This appears to be mainly for use internally by libexiv2, apart from
+accessing data with the mmap() and munmap() methods. Since v0.18.0
+python-exiv2 has an Image.data() method to provide data access without
+going via a Python BasicIo object.
+
+It is planned to remove BasicIo from the Python interface in a future
+release. Please let me (jim@jim-easterbrook.me.uk) know if that wiould
+be a problem for you.";
+
 #pragma SWIG nowarn=321 // 'open' conflicts with a built-in name in python
 
 %include "shared/preamble.i"
 %include "shared/buffers.i"
-%include "shared/enum.i"
-%include "shared/exception.i"
-%include "shared/exv_options.i"
 %include "shared/keep_reference.i"
-%include "shared/unique_ptr.i"
-%include "shared/windows_path.i"
+%include "shared/private_data.i"
+%include "shared/windows.i"
 
 %include "std_string.i"
 
@@ -41,14 +49,11 @@
 // Catch all C++ exceptions
 EXCEPTION()
 
-%fragment("EXV_USE_CURL");
-%fragment("EXV_USE_SSH");
-%fragment("EXV_ENABLE_FILESYSTEM");
-
 UNIQUE_PTR(Exiv2::BasicIo);
 
 // Potentially blocking calls allow Python threads
 %thread Exiv2::BasicIo::close;
+%thread Exiv2::BasicIo::data;
 %thread Exiv2::BasicIo::open;
 %thread Exiv2::BasicIo::mmap;
 %thread Exiv2::BasicIo::munmap;
@@ -60,6 +65,7 @@ UNIQUE_PTR(Exiv2::BasicIo);
 // Some calls don't raise exceptions
 %noexception Exiv2::BasicIo::eof;
 %noexception Exiv2::BasicIo::error;
+%noexception Exiv2::BasicIo::ioType;
 %noexception Exiv2::BasicIo::isopen;
 %noexception Exiv2::BasicIo::path;
 
@@ -69,6 +75,19 @@ WINDOWS_PATH(const std::string& orgPath)
 WINDOWS_PATH(const std::string& url)
 WINDOWS_PATH_OUT(path)
 
+// Deprecate methods that Python should not be calling
+// Deprecated since 2025-07-09
+DEPRECATE_FUNCTION(Exiv2::BasicIo::eof,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::getb,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::putb,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::read,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::readOrThrow,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::seek,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::seekOrThrow,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::tell,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::transfer,)
+DEPRECATE_FUNCTION(Exiv2::BasicIo::write,)
+
 // Add method to get the subclass type
 %feature("docstring") Exiv2::BasicIo::ioType "Return the derived class type.
 
@@ -76,15 +95,18 @@ You shouldn't usually need to know the type of IO as they all have
 the same interface.
 :rtype: str
 :return: A class name such as \"FileIo\"."
+%fragment("set_EXV_ENABLE_FILESYSTEM");
 %extend Exiv2::BasicIo {
     const char* ioType() {
         if (dynamic_cast<Exiv2::MemIo*>($self))
             return "MemIo";
+%#ifdef EXV_ENABLE_FILESYSTEM
         else if (dynamic_cast<Exiv2::FileIo*>($self)) {
             if (dynamic_cast<Exiv2::XPathIo*>($self))
                 return "XPathIo";
             return "FileIo";
         }
+%#endif
         else if (dynamic_cast<Exiv2::RemoteIo*>($self)) {
             if (dynamic_cast<Exiv2::HttpIo*>($self))
                 return "HttpIo";
@@ -118,44 +140,55 @@ typedef Exiv2::ErrorCode ErrorCode;
 KEEP_REFERENCE(Exiv2::BasicIo&)
 
 // Allow BasicIo::write to take any Python buffer
-INPUT_BUFFER_RO(const Exiv2::byte* data, long wcount)
-INPUT_BUFFER_RO(const Exiv2::byte* data, size_t wcount)
+INPUT_BUFFER_RO(const Exiv2::byte* data, BUFLEN_T wcount)
 
 // BasicIo::read can write to a Python buffer
-OUTPUT_BUFFER_RW(Exiv2::byte* buf, long rcount)
-OUTPUT_BUFFER_RW(Exiv2::byte* buf, size_t rcount)
+OUTPUT_BUFFER_RW(Exiv2::byte* buf, BUFLEN_T rcount)
 
 // Use default typemap for isWriteable parameter.
 %typemap(default) bool isWriteable {$1 = false;}
 %ignore Exiv2::BasicIo::mmap();
 
-// Convert mmap() result to a Python memoryview, assumes arg2 = isWriteable
+// Convert mmap() result to a Python memoryview
 RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
             arg2 ? PyBUF_WRITE : PyBUF_READ,)
 
-// Enable len(Exiv2::BasicIo)
-%feature("python:slot", "sq_length", functype="lenfunc")
-    Exiv2::BasicIo::size;
-// Expose Exiv2::BasicIo contents as a Python buffer
-%fragment("get_ptr_size"{Exiv2::BasicIo}, "header") {
-static bool get_ptr_size(Exiv2::BasicIo* self, bool is_writeable,
-                         Exiv2::byte*& ptr, Py_ssize_t& size) {
-    if (self->open())
-        return false;
-    try {
-        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-        ptr = self->mmap(is_writeable);
-        SWIG_PYTHON_THREAD_END_ALLOW;
-#if EXIV2_VERSION_HEX < 0x001c0000
-    } catch(Exiv2::AnyError const& e) {
-#else
-    } catch(Exiv2::Error const& e) {
-#endif
-        return false;
-    }
-    size = self->size();
-    return true;
-};
+// Some methods of BasicIo release any existing memoryview
+%{
+#define RELEASE_VIEWS_BasicIo_close
+#define RELEASE_VIEWS_BasicIo_data
+#define RELEASE_VIEWS_BasicIo_mmap
+#define RELEASE_VIEWS_BasicIo_munmap
+#define RELEASE_VIEWS_BasicIo_open
+#define RELEASE_VIEWS_BasicIo_putb
+#define RELEASE_VIEWS_BasicIo_transfer
+#define RELEASE_VIEWS_BasicIo_write
+%}
+%typemap(check, fragment="memoryview_funcs") Exiv2::BasicIo* self {
+%#ifdef RELEASE_VIEWS_$symname
+    release_views(self);
+%#endif
+}
+
+// Add data() method for easy access
+// The callback is used to call munmap when the memoryview is deleted
+RETURN_VIEW(Exiv2::byte* data, $1 ? arg1->size() : 0,
+            arg2 ? PyBUF_WRITE : PyBUF_READ,)
+%feature("docstring") Exiv2::BasicIo::data
+"Easy access to the IO data.
+
+Calls open() and mmap() and returns a Python memoryview of the data.
+munmap() and close() are called when the memoryview object is deleted.
+
+:type isWriteable: bool, optional
+:param isWriteable: Set to true if the mapped area should be writeable
+    (default is false).
+:rtype: memoryview"
+%extend Exiv2::BasicIo {
+    Exiv2::byte* data(bool isWriteable) {
+        self->open();
+        return self->mmap(isWriteable);
+    };
 }
 %fragment("release_ptr"{Exiv2::BasicIo}, "header") {
 static void release_ptr(Exiv2::BasicIo* self) {
@@ -165,19 +198,43 @@ static void release_ptr(Exiv2::BasicIo* self) {
     SWIG_PYTHON_THREAD_END_ALLOW;
 };
 }
-EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo, true, true)
+%fragment("release_ptr"{Exiv2::BasicIo});
+DEFINE_VIEW_CALLBACK(Exiv2::BasicIo, release_ptr(self);)
+
+// Enable len(Exiv2::BasicIo)
+%feature("python:slot", "sq_length", functype="lenfunc")
+    Exiv2::BasicIo::size;
+// Expose Exiv2::BasicIo contents as a Python buffer
+%fragment("buffer_fill_info"{Exiv2::BasicIo}, "header") {
+static int buffer_fill_info(Exiv2::BasicIo* self, Py_buffer* view,
+                            PyObject* exporter, int flags) {
+    Exiv2::byte* ptr;
+    bool writeable = (flags && PyBUF_WRITABLE);
+    if (self->open())
+        return -1;
+    try {
+        SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+        ptr = self->mmap(writeable);
+        SWIG_PYTHON_THREAD_END_ALLOW;
+    } catch(EXV_EXCEPTION const& e) {
+        return -1;
+    }
+    return PyBuffer_FillInfo(view, exporter, ptr, ptr ? self->size() : 0,
+                             writeable ? 0 : 1, flags);
+};
+}
+EXPOSE_OBJECT_BUFFER(Exiv2::BasicIo)
+RELEASE_OBJECT_BUFFER(Exiv2::BasicIo)
 
 // Make enum more Pythonic
-DEFINE_CLASS_ENUM(BasicIo, Position, "Seek starting positions.",
-    "beg", Exiv2::BasicIo::beg,
-    "cur", Exiv2::BasicIo::cur,
-    "end", Exiv2::BasicIo::end);
+#ifndef SWIGIMPORTED
+DEFINE_CLASS_ENUM(BasicIo, Position,)
+#else
+IMPORT_CLASS_ENUM(_basicio, BasicIo, Position)
+#endif
 
 // deprecated since 2023-12-01
-DEPRECATED_ENUM(BasicIo, Position, "Seek starting positions.",
-        "beg", Exiv2::BasicIo::beg,
-        "cur", Exiv2::BasicIo::cur,
-        "end", Exiv2::BasicIo::end);
+DEPRECATED_ENUM(BasicIo, Position)
 
 %ignore Exiv2::BasicIo::bigBlock_;
 %ignore Exiv2::BasicIo::operator=;
