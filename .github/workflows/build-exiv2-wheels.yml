@@ -139,11 +139,10 @@ jobs:
             EXIV2_ROOT=libexiv2/build-win-release/install
           CIBW_ENVIRONMENT_PASS_LINUX: EXIV2_OPTIONS
           CIBW_BUILD: "cp*"
-          CIBW_SKIP: "*musllinux* cp36* cp37*"
+          CIBW_SKIP: "*musllinux*"
           CIBW_TEST_COMMAND: >
             python -m exiv2 -v &&
             python -m unittest discover {project}/tests -v
-          CIBW_TEST_SKIP: cp36-macosx_x86_64 cp37-macosx_x86_64
           CIBW_BEFORE_ALL_LINUX: >
             yum install -y --nogpgcheck zlib-devel expat-devel gettext-devel
             libcurl-devel brotli-devel meson &&
