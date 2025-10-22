@@ -116,6 +116,8 @@ class TestPreviewModule(unittest.TestCase):
         with self.assertRaises(TypeError):
             properties['fred'] = 123
 
+    @unittest.skipIf(sys.version_info >= (3, 14),
+                     'cannot test optimised ref counts')
     def test_ref_counts(self):
         # manager keeps reference to image
         self.assertEqual(sys.getrefcount(self.image), 2)

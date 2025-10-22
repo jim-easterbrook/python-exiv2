@@ -204,6 +204,8 @@ class TestIptcModule(unittest.TestCase):
         del datum2
         self._test_datum(datum)
 
+    @unittest.skipIf(sys.version_info >= (3, 14),
+                     'cannot test optimised ref counts')
     def test_ref_counts(self):
         self.image.readMetadata()
         # iptcData keeps a reference to image

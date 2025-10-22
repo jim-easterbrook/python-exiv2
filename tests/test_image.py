@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -183,6 +183,8 @@ class TestImageModule(unittest.TestCase):
                           exiv2.ImageType, exiv2.ImageType.jpeg)
         self.assertIsInstance(factory.open(self.image_path), exiv2.Image)
 
+    @unittest.skipIf(sys.version_info >= (3, 14),
+                     'cannot test optimised ref counts')
     def test_ref_counts(self):
         # opening from data keeps reference to buffer
         self.assertEqual(sys.getrefcount(self.image_data), 2)
