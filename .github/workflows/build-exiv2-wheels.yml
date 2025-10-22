@@ -90,7 +90,8 @@ jobs:
           cmake --build build-base_mac --config Release &&
           cmake --install build-base_mac --config Release
 
-      - name: Build wheels
+      - name: Build wheels (Python 3.6 & 3.7)
+        if: ${{ matrix.os != 'macos-14' }}
         # cibuildwheel@v3.x omits Python 3.6 & 3.7
         uses: pypa/cibuildwheel@v2.23.3
         env:
@@ -104,8 +105,41 @@ jobs:
           CIBW_ENVIRONMENT_WINDOWS: >
             EXIV2_ROOT=libexiv2/build-win-release/install
           CIBW_ENVIRONMENT_PASS_LINUX: EXIV2_OPTIONS
-          CIBW_BUILD: "cp*"
+          CIBW_BUILD: "cp36* cp37*"
           CIBW_SKIP: "*musllinux*"
+          CIBW_TEST_COMMAND: >
+            python -m exiv2 -v &&
+            python -m unittest discover {project}/tests -v
+          CIBW_TEST_SKIP: cp36-macosx_x86_64 cp37-macosx_x86_64
+          CIBW_BEFORE_ALL_LINUX: >
+            yum install -y --nogpgcheck zlib-devel expat-devel gettext-devel
+            libcurl-devel brotli-devel meson &&
+            localedef -c -i de_DE -f UTF-8 de_DE.UTF-8 &&
+            pip install ninja &&
+            cd inih && mkdir build && cd build &&
+            meson setup --prefix=/usr --buildtype=release .. &&
+            ninja && ninja install &&
+            cd ../../libexiv2 &&
+            cmake --preset linux-release $EXIV2_OPTIONS
+            -D CONAN_AUTO_INSTALL=OFF &&
+            cmake --build build-linux-release --config Release &&
+            cmake --install build-linux-release --config Release
+
+      - name: Build wheels (Python 3.8+)
+        uses: pypa/cibuildwheel@v3.2.1
+        env:
+          CIBW_ARCHS: auto64
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
+          CIBW_MANYLINUX_AARCH64_IMAGE: manylinux_2_28
+          CIBW_ENVIRONMENT_LINUX: >
+            EXIV2_ROOT=libexiv2/build-linux-release/install
+          CIBW_ENVIRONMENT_MACOS: >
+            EXIV2_ROOT=libexiv2/build-base_mac/install
+          CIBW_ENVIRONMENT_WINDOWS: >
+            EXIV2_ROOT=libexiv2/build-win-release/install
+          CIBW_ENVIRONMENT_PASS_LINUX: EXIV2_OPTIONS
+          CIBW_BUILD: "cp*"
+          CIBW_SKIP: "*musllinux* cp36* cp37*"
           CIBW_TEST_COMMAND: >
             python -m exiv2 -v &&
             python -m unittest discover {project}/tests -v
