@@ -121,17 +121,21 @@ class TestImageModule(unittest.TestCase):
         self.check_result(image.iccProfileDefined(), bool, False)
         # test data access
         image.readMetadata()
-        self.assertEqual(sys.getrefcount(image), 2)
+        if sys.version_info < (3, 14):
+            self.assertEqual(sys.getrefcount(image), 2)
         view = image.data()
-        self.assertEqual(sys.getrefcount(image), 3)
+        if sys.version_info < (3, 14):
+            self.assertEqual(sys.getrefcount(image), 3)
         self.check_result(view, memoryview, self.image_data)
         self.assertEqual(view.readonly, True)
         image.writeMetadata()
-        self.assertEqual(sys.getrefcount(image), 2)
+        if sys.version_info < (3, 14):
+            self.assertEqual(sys.getrefcount(image), 2)
         with self.assertRaises(ValueError):
             view[0]
         del view
-        self.assertEqual(sys.getrefcount(image), 2)
+        if sys.version_info < (3, 14):
+            self.assertEqual(sys.getrefcount(image), 2)
         # test other methods
         image.readMetadata()
         self.check_result(image.byteOrder(),

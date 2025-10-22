@@ -54,9 +54,11 @@ class TestPreviewModule(unittest.TestCase):
         with preview.data() as data:
             self.check_result(data, memoryview, copy.data())
             self.assertEqual(data[:10], b'\xff\xd8\xff\xe0\x00\x10JFIF')
-        self.assertEqual(sys.getrefcount(preview), 3)
+        if sys.version_info < (3, 14):
+            self.assertEqual(sys.getrefcount(preview), 3)
         del data
-        self.assertEqual(sys.getrefcount(preview), 2)
+        if sys.version_info < (3, 14):
+            self.assertEqual(sys.getrefcount(preview), 2)
         with self.assertWarns(DeprecationWarning):
             self.assertEqual(memoryview(preview), copy.data())
         self.check_result(preview.extension(), str, '.jpg')
