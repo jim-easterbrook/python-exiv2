@@ -310,6 +310,8 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(datum_pointer, datum)
         self.assertEqual(datum_pointer, datum_iter)
 
+    @unittest.skipIf(sys.version_info >= (3, 14),
+                     'cannot test optimised ref counts')
     def test_ref_counts(self):
         self.image.readMetadata()
         # exifData keeps a reference to image
