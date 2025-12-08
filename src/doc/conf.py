@@ -91,10 +91,10 @@ def process_docstring(app, what, name, obj, options, lines):
     if name == 'exiv2._version.__version_tuple__':
         lines[:] = ['python-exiv2 version as a tuple of ints', '']
         return
-    if 'iterator' in name and not lines:
+    if 'pointer' in name and not lines:
         parts = name.split('.')
         lines[:] = ['See :meth:`{}.{}`.'.format(parts[2].replace(
-            'Data_iterator', 'datum'), parts[3]), '']
+            'datum_pointer', 'datum'), parts[3]), '']
         return
     # fixes for particular problems
     if name.endswith('iptc.Iptcdatum'):
@@ -120,14 +120,10 @@ def process_docstring(app, what, name, obj, options, lines):
         for idx in range(len(lines)):
             lines[idx] = lines[idx].replace(
                 'Exif.%Thumbnail.*', '``Exif.Thumbnail.*``')
-    if name.endswith('Io.read'):
-        # fix size_ member
-        for idx in range(len(lines)):
-            lines[idx] = lines[idx].replace('DataBuf::size_', 'DataBuf.size\_')
     if name.endswith('XmpData.usePacket'):
         # fix usepacket_ member
         for idx in range(len(lines)):
-            lines[idx] = lines[idx].replace('usePacket_', 'usePacket\_')
+            lines[idx] = lines[idx].replace('usePacket_', r'usePacket\_')
     # other substitutions
     for idx in range(len(lines)):
         line = lines[idx]
