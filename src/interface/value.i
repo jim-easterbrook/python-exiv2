@@ -159,7 +159,8 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 };
 
 }
-%typemap(out, fragment="get_swig_type") Exiv2::Value::SMART_PTR {
+%typemap(out, fragment="get_swig_type")
+        (Exiv2::Value::SMART_PTR), (std::unique_ptr<Exiv2::Value>) {
     if ($1.get()) {
         Exiv2::Value* value = $1.release();
         $result = SWIG_NewPointerObj(
