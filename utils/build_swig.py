@@ -92,27 +92,30 @@ def main():
         shutil.copy2(os.path.join('src', 'interface', mod_name),
                      os.path.join(output_dir, mod_name))
     # pre-process some include files to a temporary directory
-    subst = {
-        'image.hpp': [('/*! @brief', '/*!\n    @brief')],
-        'preview.hpp': [('_{};', '_;')],
-        }
-    # iccProfileDefined became const in exiv2 v0.28.6
-    if exiv2_version >= (0, 28) and exiv2_version < (0, 29):
-        subst['image.hpp'].append(
-            ('iccProfileDefined() const', 'iccProfileDefined()'))
+    subst = {}
+    if exiv2_version >= (0, 28):
+        # SWIG doxygen parser has a problem with {} initialisers
+        # https://github.com/swig/swig/issues/2797
+        subst['preview.hpp'] = [('_{};', '_;')]
+        # Fix indentation of 'good()' method return type
+        subst['image.hpp'] = [('/*! @brief', '/*!\n    @brief')]
+        # iccProfileDefined became const in exiv2 v0.28.6, so needs to be not
+        # const to work with swig 0.28.0 to 0.28.5
+        if exiv2_version < (0, 29):
+            subst['image.hpp'].append(
+                ('iccProfileDefined() const', 'iccProfileDefined()'))
     if swig_version < (4, 2, 0):
         subst['basicio.hpp'] = [('static constexpr auto', 'static const char*')]
     with tempfile.TemporaryDirectory() as copy_dir:
         dest = os.path.join(copy_dir, 'exiv2')
         os.makedirs(dest)
-        for file in os.listdir(incl_dir):
-            if file in subst:
-                with open(os.path.join(incl_dir, file), 'r') as in_file:
-                    with open(os.path.join(dest, file), 'w') as out_file:
-                        for line in in_file.readlines():
-                            for from_to in subst[file]:
-                                line = line.replace(*from_to)
-                            out_file.write(line)
+        for file in subst:
+            with open(os.path.join(incl_dir, file), 'r') as in_file:
+                with open(os.path.join(dest, file), 'w') as out_file:
+                    for line in in_file.readlines():
+                        for from_to in subst[file]:
+                            line = line.replace(*from_to)
+                        out_file.write(line)
         # make options list
         swig_opts = ['-c++', '-python', '-builtin', '-doxygen',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',

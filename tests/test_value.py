@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -23,6 +23,7 @@ import os
 import random
 import struct
 import sys
+import time
 import unittest
 
 import exiv2
@@ -414,8 +415,8 @@ class TestValueModule(unittest.TestCase):
         self.assertEqual(str(value), py_date.isoformat())
         value.setDate(py_date.year, py_date.month, py_date.day)
         self.assertEqual(str(value), py_date.isoformat())
-        seconds = int(datetime.datetime.combine(
-            py_date, datetime.time(), datetime.timezone.utc).timestamp())
+        seconds = time.mktime(time.struct_time(
+            (py_date.year, py_date.month, py_date.day, 0, 0, 0, 0, 0, 0)))
         self.do_common_tests(value, exiv2.TypeId.date, py_date.isoformat(), data)
         self.do_conversion_tests(value, py_date.isoformat(), seconds)
         self.do_dataarea_tests(value)
@@ -491,9 +492,9 @@ class TestValueModule(unittest.TestCase):
         value.setTime(py_time.hour, py_time.minute, py_time.second, 1)
         value.setTime(py_time.hour, py_time.minute, py_time.second, 1, 30)
         self.assertEqual(str(value), py_time.isoformat())
-        seconds = (py_time.hour * 3600) + (py_time.minute * 60) + py_time.second
-        seconds -= py_time.tzinfo.utcoffset(
-            datetime.datetime.now()).total_seconds()
+        seconds = (((exiv_time.hour - exiv_time.tzHour) * 3600) +
+                   ((exiv_time.minute - exiv_time.tzMinute) * 60) +
+                   exiv_time.second)
         if seconds < 0:
             seconds += 24 * 3600
         value = exiv2.TimeValue()

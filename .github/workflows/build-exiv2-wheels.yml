@@ -25,7 +25,7 @@ jobs:
             wget: c:/msys64/usr/bin/wget.exe
     env:
       EXIV2_SRC: >
-        https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.7.tar.gz
+        https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.8.tar.gz
       EXIV2_OPTIONS: >
         -D EXIV2_BUILD_EXIV2_COMMAND=OFF
         -D EXIV2_BUILD_SAMPLES=OFF
