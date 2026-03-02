@@ -1,4 +1,4 @@
-exiv2 == 0.18.0
+exiv2 == 0.18.1
 sphinx == 8.2.3
 sphinx-rtd-theme == 3.0.2
 enum_tools[sphinx] >= 0.13

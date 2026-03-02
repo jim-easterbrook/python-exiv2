@@ -10,9 +10,9 @@ if sys.platform == 'win32':
         os.environ['PATH'] = _dir + ';' + os.environ['PATH']
 
 #: python-exiv2 version as a string
-__version__ = "0.18.0"
+__version__ = "0.18.1"
 #: python-exiv2 version as a tuple of ints
-__version_tuple__ = tuple((0, 18, 0))
+__version_tuple__ = tuple((0, 18, 1))
 
 from exiv2.extras import Exiv2Error
 __all__ = ["Exiv2Error"]
