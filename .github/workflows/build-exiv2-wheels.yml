@@ -3,25 +3,32 @@ on: workflow_dispatch
 
 jobs:
   build:
-    name: build on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: build ${{ matrix.build }}
+    runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - ubuntu-22.04-arm
-          - macos-13
-          - macos-14
-          - windows-2022
         include:
-          - wget: wget
-          - os: macos-13
+          - build: Linux-x64
+            runner: ubuntu-22.04
             arch: x86_64
-            target: 13.0
-          - os: macos-14
-            arch: arm64
+            wget: wget
+          - build: Linux-arm64
+            runner: ubuntu-22.04-arm
+            arch: aarch64
+            wget: wget
+          - build: MacOS-x64
+            runner: macos-15-intel
             target: 14.0
-          - os: windows-2022
+            arch: x86_64
+            wget: wget
+          - build: MacOS-arm64
+            runner: macos-14
+            target: 14.0
+            arch: arm64
+            wget: wget
+          - build: Windows-x64
+            runner: windows-2022
+            arch: AMD64
             wget: c:/msys64/usr/bin/wget.exe
     env:
       EXIV2_SRC: >
@@ -70,7 +77,7 @@ jobs:
       - name: Build exiv2 (Windows)
         if: ${{ runner.os == 'Windows' }}
         run: >
-          pip install conan==1.59.0 &&
+          pip install conan==1.66.0 &&
           cd libexiv2 &&
           echo -e "24a25\n>         self.requires('libgettext/0.21')" |
           patch conanfile.py &&
@@ -91,11 +98,11 @@ jobs:
           cmake --install build-base_mac --config Release
 
       - name: Build wheels (Python 3.6 & 3.7)
-        if: ${{ matrix.os != 'macos-14' }}
+        if: ${{ runner.os != 'macOS' }}
         # cibuildwheel@v3.x omits Python 3.6 & 3.7
         uses: pypa/cibuildwheel@v2.23.3
         env:
-          CIBW_ARCHS: auto64
+          CIBW_ARCHS: ${{ matrix.arch }}
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
           CIBW_MANYLINUX_AARCH64_IMAGE: manylinux_2_28
           CIBW_ENVIRONMENT_LINUX: >
@@ -128,7 +135,7 @@ jobs:
       - name: Build wheels (Python 3.8+)
         uses: pypa/cibuildwheel@v3.2.1
         env:
-          CIBW_ARCHS: auto64
+          CIBW_ARCHS: ${{ matrix.arch }}
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
           CIBW_MANYLINUX_AARCH64_IMAGE: manylinux_2_28
           CIBW_ENVIRONMENT_LINUX: >
@@ -160,5 +167,5 @@ jobs:
       - name: Store results
         uses: actions/upload-artifact@v4
         with:
-          name: exiv2-wheels-${{ runner.os }}-${{ runner.arch }}
+          name: exiv2-wheels-${{ matrix.build }}
           path: wheelhouse/*.whl
