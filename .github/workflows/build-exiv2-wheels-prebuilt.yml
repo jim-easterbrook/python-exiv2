@@ -30,7 +30,7 @@ jobs:
       run:
         shell: bash
     env:
-      EXIV2_VSN: 0.28.7
+      EXIV2_VSN: 0.28.8
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
