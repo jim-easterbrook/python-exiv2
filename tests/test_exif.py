@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -310,61 +310,58 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(datum_pointer, datum)
         self.assertEqual(datum_pointer, datum_iter)
 
-    @unittest.skipIf(sys.version_info >= (3, 14),
-                     'cannot test optimised ref counts')
     def test_ref_counts(self):
         self.image.readMetadata()
         # exifData keeps a reference to image
-        self.assertEqual(sys.getrefcount(self.image), 2)
+        rc_1 = sys.getrefcount(self.image)
         data = self.image.exifData()
-        self.assertEqual(sys.getrefcount(self.image), 3)
+        self.assertEqual(sys.getrefcount(self.image), rc_1 + 1)
         # thumbnail keeps a reference to exifData
-        self.assertEqual(sys.getrefcount(data), 2)
+        rc_2 = sys.getrefcount(data)
         thumb = exiv2.ExifThumb(data)
-        self.assertEqual(sys.getrefcount(data), 3)
+        self.assertEqual(sys.getrefcount(data), rc_2 + 1)
         del thumb
-        self.assertEqual(sys.getrefcount(data), 2)
+        self.assertEqual(sys.getrefcount(data), rc_2)
         # iterator keeps a reference to data
-        self.assertEqual(sys.getrefcount(data), 2)
         b = data.begin()
-        self.assertEqual(sys.getrefcount(data), 3)
+        self.assertEqual(sys.getrefcount(data), rc_2 + 1)
         e = data.end()
-        self.assertEqual(sys.getrefcount(data), 4)
+        self.assertEqual(sys.getrefcount(data), rc_2 + 2)
         i = iter(data)
-        self.assertEqual(sys.getrefcount(data), 5)
+        self.assertEqual(sys.getrefcount(data), rc_2 + 3)
         k = data.findKey(exiv2.ExifKey('Exif.Photo.FocalLength'))
-        self.assertEqual(sys.getrefcount(data), 6)
+        self.assertEqual(sys.getrefcount(data), rc_2 + 4)
         k2 = data.erase(k)
         with self.assertRaises(RuntimeError):
             k.key()
-        self.assertEqual(sys.getrefcount(data), 7)
+        self.assertEqual(sys.getrefcount(data), rc_2 + 5)
         del b, e, i, k, k2
-        self.assertEqual(sys.getrefcount(data), 2)
+        self.assertEqual(sys.getrefcount(data), rc_2)
         # iterator of an iterator keeps a reference to iterator
         b = data.begin()
-        self.assertEqual(sys.getrefcount(b), 2)
+        rc_2 = sys.getrefcount(b)
         i = iter(b)
-        self.assertEqual(sys.getrefcount(b), 3)
+        self.assertEqual(sys.getrefcount(b), rc_2 + 1)
         del i
-        self.assertEqual(sys.getrefcount(b), 2)
+        self.assertEqual(sys.getrefcount(b), rc_2)
         # iterator value keeps a reference to iterator
         v = b.value()
-        self.assertEqual(sys.getrefcount(b), 3)
+        self.assertEqual(sys.getrefcount(b), rc_2 + 1)
         del v
-        self.assertEqual(sys.getrefcount(b), 2)
+        self.assertEqual(sys.getrefcount(b), rc_2)
         del b
         # datum keeps a reference to data
-        self.assertEqual(sys.getrefcount(data), 2)
+        rc_2 = sys.getrefcount(data)
         datum = data['Exif.Image.ImageDescription']
-        self.assertEqual(sys.getrefcount(data), 3)
+        self.assertEqual(sys.getrefcount(data), rc_2 + 1)
         # value keeps a reference to datum
-        self.assertEqual(sys.getrefcount(datum), 2)
+        rc_3 = sys.getrefcount(datum)
         v = datum.value()
-        self.assertEqual(sys.getrefcount(datum), 3)
+        self.assertEqual(sys.getrefcount(datum), rc_3 + 1)
         del v
-        self.assertEqual(sys.getrefcount(datum), 2)
+        self.assertEqual(sys.getrefcount(datum), rc_3)
         del datum
-        self.assertEqual(sys.getrefcount(data), 2)
+        self.assertEqual(sys.getrefcount(data), rc_2)
         del data
         self.assertEqual(sys.getrefcount(self.image), 2)
 
