@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2022-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2022-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -118,13 +118,13 @@ class TestPreviewModule(unittest.TestCase):
         with self.assertRaises(TypeError):
             properties['fred'] = 123
 
-    @unittest.skipIf(sys.version_info >= (3, 14),
-                     'cannot test optimised ref counts')
     def test_ref_counts(self):
         # manager keeps reference to image
-        self.assertEqual(sys.getrefcount(self.image), 2)
+        count = sys.getrefcount(self.image)
         manager = exiv2.PreviewManager(self.image)
-        self.assertEqual(sys.getrefcount(self.image), 3)
+        self.assertEqual(sys.getrefcount(self.image), count + 1)
+        del manager
+        self.assertEqual(sys.getrefcount(self.image), count)
 
 
 if __name__ == '__main__':

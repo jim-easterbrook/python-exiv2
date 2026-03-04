@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -187,34 +187,32 @@ class TestImageModule(unittest.TestCase):
                           exiv2.ImageType, exiv2.ImageType.jpeg)
         self.assertIsInstance(factory.open(self.image_path), exiv2.Image)
 
-    @unittest.skipIf(sys.version_info >= (3, 14),
-                     'cannot test optimised ref counts')
     def test_ref_counts(self):
         # opening from data keeps reference to buffer
-        self.assertEqual(sys.getrefcount(self.image_data), 2)
+        count = sys.getrefcount(self.image_data)
         image = exiv2.ImageFactory.open(self.image_data)
-        self.assertEqual(sys.getrefcount(self.image_data), 3)
+        self.assertEqual(sys.getrefcount(self.image_data), count + 1)
         # writeMetadata releases buffer
         image.writeMetadata()
-        self.assertEqual(sys.getrefcount(self.image_data), 2)
+        self.assertEqual(sys.getrefcount(self.image_data), count)
         # getting metadata and buffers keeps reference to image
         image = exiv2.ImageFactory.open(self.image_data)
         image.readMetadata()
-        self.assertEqual(sys.getrefcount(image), 2)
+        count = sys.getrefcount(image)
         data = [image.exifData()]
-        self.assertEqual(sys.getrefcount(image), 3)
+        self.assertEqual(sys.getrefcount(image), count + 1)
         data.append(image.iptcData())
-        self.assertEqual(sys.getrefcount(image), 4)
+        self.assertEqual(sys.getrefcount(image), count + 2)
         data.append(image.xmpData())
-        self.assertEqual(sys.getrefcount(image), 5)
+        self.assertEqual(sys.getrefcount(image), count + 3)
         data.append(image.iccProfile())
-        self.assertEqual(sys.getrefcount(image), 6)
+        self.assertEqual(sys.getrefcount(image), count + 4)
         data.append(image.io())
-        self.assertEqual(sys.getrefcount(image), 7)
+        self.assertEqual(sys.getrefcount(image), count + 5)
         data.append(image.data())
-        self.assertEqual(sys.getrefcount(image), 8)
+        self.assertEqual(sys.getrefcount(image), count + 6)
         del data
-        self.assertEqual(sys.getrefcount(image), 2)
+        self.assertEqual(sys.getrefcount(image), count)
 
 
 if __name__ == '__main__':
