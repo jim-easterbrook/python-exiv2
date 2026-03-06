@@ -1,19 +1,22 @@
 [build-system]
-requires = ["setuptools >= 59.6", "toml"]
+requires = [
+    "setuptools >= 59.6, < 61.0; python_version < '3.9'",
+    "setuptools >= 77.0; python_version >= '3.9'",
+    "toml"
+]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "exiv2"
 description = "Python interface to libexiv2"
 readme = "README.rst"
-license = {text = "GNU GPL"}
+license = "GPL-3.0-or-later"
 authors = [
     {name = "Jim Easterbrook", email = "jim@jim-easterbrook.me.uk"}
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: MacOS",
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: POSIX",
