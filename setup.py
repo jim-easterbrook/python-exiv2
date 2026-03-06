@@ -227,6 +227,10 @@ if tuple(map(int, setuptools_version.split('.')[:2])) < (61, 0):
         long_description = ldf.read()
     py_exiv2_version = long_description.splitlines()[0].split()[-1]
 
+    classifiers = metadata['project']['classifiers']
+    classifiers.append('License :: OSI Approved :: GNU General Public License'
+                       ' v3 or later (GPLv3+)')
+
     setup_kwds.update(
         name = metadata['project']['name'],
         version = py_exiv2_version,
@@ -235,9 +239,9 @@ if tuple(map(int, setuptools_version.split('.')[:2])) < (61, 0):
         author = metadata['project']['authors'][0]['name'],
         author_email = metadata['project']['authors'][0]['email'],
         url = metadata['project']['urls']['Homepage'],
-        classifiers = metadata['project']['classifiers'],
+        classifiers = classifiers,
         platforms = metadata['tool']['setuptools']['platforms'],
-        license = metadata['project']['license']['text'],
+        license = 'GNU GPL',
         zip_safe = metadata['tool']['setuptools']['zip-safe'],
         )
 
