@@ -46,7 +46,7 @@ jobs:
         shell: bash
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download exiv2
         run: |
@@ -133,7 +133,7 @@ jobs:
             cmake --install build-linux-release --config Release
 
       - name: Build wheels (Python 3.8+)
-        uses: pypa/cibuildwheel@v3.2.1
+        uses: pypa/cibuildwheel@v3.4.0
         env:
           CIBW_ARCHS: ${{ matrix.arch }}
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
@@ -165,7 +165,7 @@ jobs:
             cmake --install build-linux-release --config Release
 
       - name: Store results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: exiv2-wheels-${{ matrix.build }}
           path: wheelhouse/*.whl
