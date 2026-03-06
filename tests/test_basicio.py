@@ -227,6 +227,9 @@ class TestBasicIoModule(unittest.TestCase):
     def test_ref_counts(self):
         # MemIo keeps a reference to the data buffer
         count = sys.getrefcount(self.data)
+        if count > 1000000:
+            # self.data is "immortal"
+            return
         io = exiv2.ImageFactory.createIo(self.data)
         self.assertEqual(sys.getrefcount(self.data), count + 1)
         del io
