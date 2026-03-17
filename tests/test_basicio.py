@@ -16,6 +16,7 @@
 ##  along with this program.  If not, see
 ##  <http://www.gnu.org/licenses/>.
 
+import http.client
 import locale
 import os
 import shutil
@@ -26,6 +27,21 @@ import unittest
 import exiv2
 
 
+# Source - https://stackoverflow.com/a/29854274
+# Posted by Ivelin, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-03-16, License - CC BY-SA 4.0
+
+def have_internet():
+    conn = http.client.HTTPSConnection("dns.google", timeout=5)
+    try:
+        conn.request("HEAD", "/")
+        return True
+    except Exception:
+        return False
+    finally:
+        conn.close()
+
+
 class TestBasicIoModule(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -33,6 +49,7 @@ class TestBasicIoModule(unittest.TestCase):
         cls.image_path = os.path.join(test_dir, 'image_02.jpg')
         cls.data = b'The quick brown fox jumps over the lazy dog'
 
+    @unittest.skipUnless(have_internet(), 'Requires Internet access')
     @unittest.skipUnless(exiv2.versionInfo()['EXV_USE_CURL'],
                          'CurlIo not included')
     def test_CurlIo(self):
