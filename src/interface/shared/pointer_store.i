@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,15 +25,17 @@
 
 #if SWIG_VERSION >= 0x040400
 // Functions to store weak references to pointers (swig >= v4.4)
-%fragment("pointer_store", "header", fragment="private_data") {
+%fragment("pointer_store", "header", fragment="private_data",
+          fragment="weakref_getref") {
 static void _process_list(PyObject* list, bool purge_only,
                           Exiv2::container_type::iterator* beg,
                           Exiv2::container_type::iterator* end) {
     PyObject* py_ptr = NULL;
     datum_type##_pointer* cpp_ptr = NULL;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        py_ptr = PyWeakref_GetObject(PyList_GetItem(list, idx-1));
-        if (py_ptr == Py_None)
+        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) == 1)
+            Py_DECREF(py_ptr);
+        else
             goto forget;
         if (purge_only)
             continue;

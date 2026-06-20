@@ -5626,14 +5626,28 @@ static PyObject* set_value_from_py(Exiv2::Xmpdatum* datum,
 };
 
 
+#if PY_VERSION_HEX < 0x030d0000
+static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
+    *pobj = PyWeakref_GetObject(ref);
+    if (*pobj == Py_None) {
+        *pobj = NULL;
+        return 0;
+    }
+    Py_INCREF(*pobj);
+    return 1;
+};
+#endif
+
+
 static void _process_list(PyObject* list, bool purge_only,
                           Exiv2::XmpData::iterator* beg,
                           Exiv2::XmpData::iterator* end) {
     PyObject* py_ptr = NULL;
     Xmpdatum_pointer* cpp_ptr = NULL;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        py_ptr = PyWeakref_GetObject(PyList_GetItem(list, idx-1));
-        if (py_ptr == Py_None)
+        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) == 1)
+            Py_DECREF(py_ptr);
+        else
             goto forget;
         if (purge_only)
             continue;
