@@ -5983,7 +5983,9 @@ static int release_views(PyObject* py_self) {
     PyObject* view = NULL;
     for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
         view_ref = PyList_GetItem(view_list, idx - 1);
-        if (PyWeakref_GetRef(view_ref, &view) == 1) {
+        if (PyWeakref_GetRef(view_ref, &view) < 0)
+            return -1;
+        if (view) {
             Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
             Py_DECREF(view);
         }

@@ -5206,7 +5206,9 @@ static int release_views(PyObject* py_self) {
     PyObject* view = NULL;
     for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
         view_ref = PyList_GetItem(view_list, idx - 1);
-        if (PyWeakref_GetRef(view_ref, &view) == 1) {
+        if (PyWeakref_GetRef(view_ref, &view) < 0)
+            return -1;
+        if (view) {
             Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
             Py_DECREF(view);
         }
@@ -6299,7 +6301,10 @@ SWIGINTERN PyObject *_wrap_DataBuf_alloc(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_Py_Void();
   
-  release_views(self);
+  if (release_views(self) < 0) {
+    Py_DECREF(resultobj);
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:
@@ -6322,7 +6327,10 @@ SWIGINTERN PyObject *_wrap_DataBuf_free(PyObject *self, PyObject *args) {
   (arg1)->free();
   resultobj = SWIG_Py_Void();
   
-  release_views(self);
+  if (release_views(self) < 0) {
+    Py_DECREF(resultobj);
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:
@@ -6345,7 +6353,10 @@ SWIGINTERN PyObject *_wrap_DataBuf_reset(PyObject *self, PyObject *args) {
   (arg1)->reset();
   resultobj = SWIG_Py_Void();
   
-  release_views(self);
+  if (release_views(self) < 0) {
+    Py_DECREF(resultobj);
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:
