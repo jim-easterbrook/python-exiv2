@@ -27,13 +27,15 @@
 // Functions to store weak references to pointers (swig >= v4.4)
 %fragment("pointer_store", "header", fragment="private_data",
           fragment="weakref_getref") {
-static void _process_list(PyObject* list, bool purge_only,
-                          Exiv2::container_type::iterator* beg,
-                          Exiv2::container_type::iterator* end) {
+static int _process_list(PyObject* list, bool purge_only,
+                         Exiv2::container_type::iterator* beg,
+                         Exiv2::container_type::iterator* end) {
     PyObject* py_ptr = NULL;
     datum_type##_pointer* cpp_ptr = NULL;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) == 1)
+        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) < 0)
+            return -1;
+        if (py_ptr)
             Py_DECREF(py_ptr);
         else
             goto forget;
@@ -54,35 +56,41 @@ forget:
         PyList_SetSlice(list, idx-1, idx, NULL);
         continue;
     }
+    return 0;
 };
-static void purge_pointers(PyObject* list) {
-    _process_list(list, true, NULL, NULL);
+static int purge_pointers(PyObject* list) {
+    return _process_list(list, true, NULL, NULL);
 };
-static void invalidate_pointers(PyObject* py_self) {
+static int invalidate_pointers(PyObject* py_self) {
     PyObject* list = private_store_get(py_self, "pointers");
     if (list)
-        _process_list(list, false, NULL, NULL);
+        return _process_list(list, false, NULL, NULL);
+    return 0;
 };
-static void invalidate_pointers(PyObject* py_self,
-                                Exiv2::container_type::iterator pos) {
+static int invalidate_pointers(PyObject* py_self,
+                               Exiv2::container_type::iterator pos) {
     PyObject* list = private_store_get(py_self, "pointers");
     if (list) {
         Exiv2::container_type::iterator end = pos;
         end++;
-        _process_list(list, false, &pos, &end);
+        return _process_list(list, false, &pos, &end);
     }
+    return 0;
 };
-static void invalidate_pointers(PyObject* py_self,
-                                Exiv2::container_type::iterator beg,
-                                Exiv2::container_type::iterator end) {
+static int invalidate_pointers(PyObject* py_self,
+                               Exiv2::container_type::iterator beg,
+                               Exiv2::container_type::iterator end) {
     PyObject* list = private_store_get(py_self, "pointers");
     if (list)
-        _process_list(list, false, &beg, &end);
+        return _process_list(list, false, &beg, &end);
+    return 0;
 };
 static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
     PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        purge_pointers(list);
+    if (list) {
+        if (purge_pointers(list) < 0)
+            return -1;
+    }
     else {
         list = PyList_New(0);
         if (!list)
@@ -116,21 +124,30 @@ static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
 #if SWIG_VERSION >= 0x040400
 // clear() invalidates all pointers
 %typemap(ret, fragment="pointer_store") void clear {
-    invalidate_pointers(self);
+    if (invalidate_pointers(self) < 0) {
+        Py_DECREF($result);
+        SWIG_fail;
+    }
 }
 // erase() and eraseFamily() invalidate some pointers
 %typemap(check, fragment="pointer_store")
         Exiv2::container_type::iterator pos {
-    invalidate_pointers(self, $1);
+    if (invalidate_pointers(self, $1) < 0) {
+        SWIG_fail;
+    }
 }
 %typemap(check, fragment="pointer_store")
         (Exiv2::container_type::iterator beg,
          Exiv2::container_type::iterator end) {
-    invalidate_pointers(self, $1, $2);
+    if (invalidate_pointers(self, $1, $2) < 0) {
+        SWIG_fail;
+    }
 }
 %typemap(check, fragment="pointer_store")
         Exiv2::container_type::iterator& pos {
-    invalidate_pointers(self, *$1, arg1->end());
+    if (invalidate_pointers(self, *$1, arg1->end()) < 0) {
+        SWIG_fail;
+    }
 }
 #endif // SWIG_VERSION
 

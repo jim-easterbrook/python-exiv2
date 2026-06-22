@@ -5801,13 +5801,15 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 #endif
 
 
-static void _process_list(PyObject* list, bool purge_only,
-                          Exiv2::XmpData::iterator* beg,
-                          Exiv2::XmpData::iterator* end) {
+static int _process_list(PyObject* list, bool purge_only,
+                         Exiv2::XmpData::iterator* beg,
+                         Exiv2::XmpData::iterator* end) {
     PyObject* py_ptr = NULL;
     Xmpdatum_pointer* cpp_ptr = NULL;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) == 1)
+        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) < 0)
+            return -1;
+        if (py_ptr)
             Py_DECREF(py_ptr);
         else
             goto forget;
@@ -5828,35 +5830,41 @@ forget:
         PyList_SetSlice(list, idx-1, idx, NULL);
         continue;
     }
+    return 0;
 };
-static void purge_pointers(PyObject* list) {
-    _process_list(list, true, NULL, NULL);
+static int purge_pointers(PyObject* list) {
+    return _process_list(list, true, NULL, NULL);
 };
-static void invalidate_pointers(PyObject* py_self) {
+static int invalidate_pointers(PyObject* py_self) {
     PyObject* list = private_store_get(py_self, "pointers");
     if (list)
-        _process_list(list, false, NULL, NULL);
+        return _process_list(list, false, NULL, NULL);
+    return 0;
 };
-static void invalidate_pointers(PyObject* py_self,
-                                Exiv2::XmpData::iterator pos) {
+static int invalidate_pointers(PyObject* py_self,
+                               Exiv2::XmpData::iterator pos) {
     PyObject* list = private_store_get(py_self, "pointers");
     if (list) {
         Exiv2::XmpData::iterator end = pos;
         end++;
-        _process_list(list, false, &pos, &end);
+        return _process_list(list, false, &pos, &end);
     }
+    return 0;
 };
-static void invalidate_pointers(PyObject* py_self,
-                                Exiv2::XmpData::iterator beg,
-                                Exiv2::XmpData::iterator end) {
+static int invalidate_pointers(PyObject* py_self,
+                               Exiv2::XmpData::iterator beg,
+                               Exiv2::XmpData::iterator end) {
     PyObject* list = private_store_get(py_self, "pointers");
     if (list)
-        _process_list(list, false, &beg, &end);
+        return _process_list(list, false, &beg, &end);
+    return 0;
 };
 static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
     PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        purge_pointers(list);
+    if (list) {
+        if (purge_pointers(list) < 0)
+            return -1;
+    }
     else {
         list = PyList_New(0);
         if (!list)
@@ -5886,7 +5894,8 @@ static PyObject* _delitem_Exiv2_XmpData(
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
 #if 0x040401 >= 0x040400
-    invalidate_pointers(py_self, pos);
+    if (invalidate_pointers(py_self, pos) < 0)
+        return NULL;
 #endif
     self->erase(pos);
     return SWIG_Py_Void();
@@ -9006,7 +9015,9 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
   arg2 = argp2->_ptr();
   
   {
-    invalidate_pointers(self, arg2);
+    if (invalidate_pointers(self, arg2) < 0) {
+      SWIG_fail;
+    }
   }
   {
     try {
@@ -9077,7 +9088,9 @@ SWIGINTERN PyObject *_wrap_XmpData_eraseFamily(PyObject *self, PyObject *args) {
     arg2 = &it2;
   }
   {
-    invalidate_pointers(self, *arg2, arg1->end());
+    if (invalidate_pointers(self, *arg2, arg1->end()) < 0) {
+      SWIG_fail;
+    }
   }
   {
     try {
@@ -9110,7 +9123,10 @@ SWIGINTERN PyObject *_wrap_XmpData_clear(PyObject *self, PyObject *args) {
   (arg1)->clear();
   resultobj = SWIG_Py_Void();
   {
-    invalidate_pointers(self);
+    if (invalidate_pointers(self) < 0) {
+      Py_DECREF(resultobj);
+      SWIG_fail;
+    }
   }
   return resultobj;
 fail:
