@@ -6811,6 +6811,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_pointer_value__SWIG_0(PyObject *self, Py_ss
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -6861,6 +6862,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_pointer_value__SWIG_1(PyObject *self, Py_ss
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -7132,6 +7134,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___iter__(PyObject *self, PyObject *
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -7279,6 +7282,7 @@ SWIGINTERN PyObject *_wrap__getitem_Exiv2_IptcData(PyObject *self, PyObject *arg
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -8295,6 +8299,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_0(PyObject *self, Py_ssize_t no
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -8535,6 +8540,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -8935,6 +8941,7 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -9054,6 +9061,7 @@ SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -9091,6 +9099,7 @@ SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -9149,6 +9158,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -9210,6 +9220,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, Py_ssize_t no
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
@@ -9263,6 +9274,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, Py_ssize_t no
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   

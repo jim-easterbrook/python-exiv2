@@ -6929,6 +6929,7 @@ SWIGINTERN int _wrap_new_PreviewManager(PyObject *self, PyObject *args, PyObject
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", args)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   
