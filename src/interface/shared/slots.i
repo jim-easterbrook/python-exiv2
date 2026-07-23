@@ -1,6 +1,6 @@
 /* python-exiv2 - Python interface to libexiv2
  * http://github.com/jim-easterbrook/python-exiv2
- * Copyright (C) 2025  Jim Easterbrook  jim@jim-easterbrook.me.uk
+ * Copyright (C) 2025-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
  *
  * This file is part of python-exiv2.
  *
@@ -18,6 +18,8 @@
  * along with python-exiv2.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+%include "shared/exception.i"
 
 // Macro to add mp_ass_subscript slot and functions
 %define MP_ASS_SUBSCRIPT(type, item_type, setfunc, delfunc, canfail)
@@ -200,11 +202,18 @@ static PyObject* _getitem_%mangle(type)_closure(
 
 // Macro to add tp_str slot and function
 %define TP_STR(type, func)
-%fragment("str"{type}, "header") {
+%fragment("str"{type}, "header", fragment="_set_python_exception") {
 static PyObject* _str_%mangle(type)(PyObject* py_self) {
     type* self = NULL;
+    std::string result;
     SWIG_ConvertPtr(py_self, (void**)&self, $descriptor(type*), 0);
-    std::string result = func;
+    try {
+        result = func;
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        return NULL;
+    }
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
 };
 }

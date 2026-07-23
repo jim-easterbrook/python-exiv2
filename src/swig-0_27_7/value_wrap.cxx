@@ -5763,8 +5763,15 @@ namespace swig {
 
 static PyObject* _str_Exiv2_Value(PyObject* py_self) {
     Exiv2::Value* self = NULL;
+    std::string result;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__Value, 0);
-    std::string result = self->toString();
+    try {
+        result = self->toString();
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        return NULL;
+    }
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
 };
 
