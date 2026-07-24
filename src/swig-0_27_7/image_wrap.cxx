@@ -5671,7 +5671,7 @@ SWIGINTERN PyObject *_wrap_Image_setXmpPacket(PyObject *self, PyObject *args) {
   std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
+  int res2 = 0 ;
   PyObject *swig_obj[2] ;
   
   if (!args) SWIG_fail;
@@ -5681,17 +5681,14 @@ SWIGINTERN PyObject *_wrap_Image_setXmpPacket(PyObject *self, PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Image_setXmpPacket" "', argument " "1"" of type '" "Exiv2::Image *""'"); 
   }
   arg1 = reinterpret_cast< Exiv2::Image * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setXmpPacket" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Image_setXmpPacket" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
+  res2 = SWIG_AsPtr_std_string(swig_obj[0], &arg2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Image_setXmpPacket" "', argument " "2"" of type '" "std::string const &""'");
   }
+  if (!arg2) {
+    SWIG_exception_fail(SWIG_NullReferenceError, "invalid null reference " "in method '" "Image_setXmpPacket" "', argument " "2"" of type '" "std::string const &""'");
+  }
+  res2 = SWIG_AddTmpMask(res2);
   {
 #ifdef RELEASE_VIEWS_Image_setXmpPacket
     if (release_views(self) < 0) {
@@ -5709,6 +5706,7 @@ SWIGINTERN PyObject *_wrap_Image_setXmpPacket(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_Py_Void();
+  
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:

@@ -221,10 +221,6 @@ KEEP_REFERENCE(Exiv2::XmpData&)
 KEEP_REFERENCE(Exiv2::DataBuf*)
 KEEP_REFERENCE(Exiv2::DataBuf&)
 
-// xmpPacket() returns a modifiable std::string, Python strings are immutable
-// so treat it as a non-modifiable std::string
-%apply const std::string& {std::string& xmpPacket};
-
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Extend ImageType namespace with ones that don't get picked up by swig
 %{
