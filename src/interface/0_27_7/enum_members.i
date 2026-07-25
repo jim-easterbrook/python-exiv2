@@ -36,6 +36,20 @@ static PyObject* _get_enum_data_%mangle(Exiv2::LogMsg::Level)() {
         NULL);
 };
 }
+%fragment("_get_enum_data"{Exiv2::XmpParser::XmpFormatFlags}, "header",
+    fragment="_get_enum_data") {
+static PyObject* _get_enum_data_%mangle(Exiv2::XmpParser::XmpFormatFlags)() {
+    return _get_enum_data("Exiv2::XmpParser::XmpFormatFlags",
+        "omitPacketWrapper", Exiv2::XmpParser::omitPacketWrapper,
+        "readOnlyPacket", Exiv2::XmpParser::readOnlyPacket,
+        "useCompactFormat", Exiv2::XmpParser::useCompactFormat,
+        "includeThumbnailPad", Exiv2::XmpParser::includeThumbnailPad,
+        "exactPacketLength", Exiv2::XmpParser::exactPacketLength,
+        "writeAliasComments", Exiv2::XmpParser::writeAliasComments,
+        "omitAllFormatting", Exiv2::XmpParser::omitAllFormatting,
+        NULL);
+};
+}
 %fragment("_get_enum_data"{Exiv2::XmpValue::XmpArrayType}, "header",
     fragment="_get_enum_data") {
 static PyObject* _get_enum_data_%mangle(Exiv2::XmpValue::XmpArrayType)() {

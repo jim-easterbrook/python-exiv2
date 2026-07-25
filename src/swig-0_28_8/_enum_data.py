@@ -103,6 +103,49 @@ enum_data = {'Exiv2::AccessMode': {'doc': 'An identifier for each mode of metada
                               'xmpText': 'XMP text type. '}},
  'Exiv2::XmpCategory': {'doc': 'Category of an XMP property. ',
                         'values': {}},
+ 'Exiv2::XmpParser::XmpFormatFlags': {'doc': 'Options to control the '
+                                             'format of the serialized '
+                                             'XMP packet. ',
+                                      'values': {'exactPacketLength': 'The '
+                                                                      'padding '
+                                                                      'parameter '
+                                                                      'is '
+                                                                      'the '
+                                                                      'overall '
+                                                                      'packet '
+                                                                      'length. ',
+                                                 'includeThumbnailPad': 'Include '
+                                                                        'a '
+                                                                        'padding '
+                                                                        'allowance '
+                                                                        'for '
+                                                                        'a '
+                                                                        'thumbnail '
+                                                                        'image. ',
+                                                 'omitAllFormatting': 'Omit '
+                                                                      'all '
+                                                                      'formatting '
+                                                                      'whitespace. ',
+                                                 'omitPacketWrapper': 'Omit '
+                                                                      'the '
+                                                                      'XML '
+                                                                      'packet '
+                                                                      'wrapper. ',
+                                                 'readOnlyPacket': 'Default '
+                                                                   'is a '
+                                                                   'writeable '
+                                                                   'packet. ',
+                                                 'useCompactFormat': 'Use '
+                                                                     'a '
+                                                                     'compact '
+                                                                     'form '
+                                                                     'of '
+                                                                     'RDF. ',
+                                                 'writeAliasComments': 'Show '
+                                                                       'aliases '
+                                                                       'as '
+                                                                       'XML '
+                                                                       'comments. '}},
  'Exiv2::XmpValue::XmpArrayType': {'doc': 'XMP array types. ',
                                    'values': {}},
  'Exiv2::XmpValue::XmpStruct': {'doc': 'XMP structure indicator. ',

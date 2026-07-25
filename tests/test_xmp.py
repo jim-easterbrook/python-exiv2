@@ -47,7 +47,8 @@ class TestXmpModule(unittest.TestCase):
                          ' id="W5M0MpCehiHzreSzNTczkc9d"?>')
         self.assertEqual(lines[-1], '<?xpacket end="w"?>')
         res, packet = parser.encode(
-            data, parser.useCompactFormat | parser.omitPacketWrapper)
+            data, parser.XmpFormatFlags.useCompactFormat |
+            parser.XmpFormatFlags.omitPacketWrapper)
         lines = packet.splitlines()
         self.assertEqual(res, 0)
         self.assertEqual(lines[0], '<x:xmpmeta xmlns:x="adobe:ns:meta/"'

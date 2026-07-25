@@ -5773,6 +5773,52 @@ static int _contains_Exiv2_XmpData(PyObject* py_self, PyObject* py_key) {
     return self->findKey(Exiv2::XmpKey(key)) != self->end() ? 1 : 0;
 };
 
+
+static PyObject* Python_Exiv2_XmpParser_XmpFormatFlags = NULL;
+
+
+static PyObject* Python_Exiv2_extras_create_enum = NULL;
+
+
+
+
+// Convert enum names & values to a Python list
+static PyObject* _get_enum_data(const char* name, ...) {
+    PyObject* py_obj = NULL;
+    PyObject* members = PyList_New(0);
+    va_list args;
+    va_start(args, name);
+    char* label = va_arg(args, char*);
+    while (label) {
+        py_obj = Py_BuildValue("(si)", label, va_arg(args, int));
+        PyList_Append(members, py_obj);
+        Py_DECREF(py_obj);
+        label = va_arg(args, char*);
+    }
+    va_end(args);
+    return members;
+};
+// Call Python to create an enum from list of names & values
+static PyObject* _create_enum(const char* name, const char* alias_strip,
+                              PyObject* members) {
+    return PyObject_CallFunction(
+        Python_Exiv2_extras_create_enum, "(sssN)",
+        SWIG_name, name, alias_strip, members);
+};
+
+
+static PyObject* _get_enum_data_Exiv2_XmpParser_XmpFormatFlags() {
+    return _get_enum_data("Exiv2::XmpParser::XmpFormatFlags",
+        "omitPacketWrapper", Exiv2::XmpParser::omitPacketWrapper,
+        "readOnlyPacket", Exiv2::XmpParser::readOnlyPacket,
+        "useCompactFormat", Exiv2::XmpParser::useCompactFormat,
+        "includeThumbnailPad", Exiv2::XmpParser::includeThumbnailPad,
+        "exactPacketLength", Exiv2::XmpParser::exactPacketLength,
+        "writeAliasComments", Exiv2::XmpParser::writeAliasComments,
+        "omitAllFormatting", Exiv2::XmpParser::omitAllFormatting,
+        NULL);
+};
+
 SWIGINTERN bool Exiv2_Xmpdatum_operator_Se__Se_(Exiv2::Xmpdatum const *self,Exiv2::Xmpdatum const &other){
         return &other == self;
     }
@@ -12908,6 +12954,19 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Xmpdatum_reference");
   d = md;
   
+  Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
+  if (!Python_Exiv2_extras_create_enum)
+  return INIT_ERROR_RETURN;
+  
+  
+  Python_Exiv2_XmpParser_XmpFormatFlags = _create_enum(
+    "Exiv2::XmpParser::XmpFormatFlags","", _get_enum_data_Exiv2_XmpParser_XmpFormatFlags());
+  if (!Python_Exiv2_XmpParser_XmpFormatFlags)
+  return INIT_ERROR_RETURN;
+  // SWIG_Python_SetConstant will decref PyEnum object
+  Py_INCREF(Python_Exiv2_XmpParser_XmpFormatFlags);
+  
+  
   /* type 'Exiv2::Xmpdatum' */
   d = PyDict_New();
   builtin_base_count = 0;
@@ -12955,13 +13014,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   /* type 'Exiv2::XmpParser' */
   d = PyDict_New();
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "omitPacketWrapper",SWIG_From_int(static_cast< int >(Exiv2::XmpParser::omitPacketWrapper)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "readOnlyPacket",SWIG_From_int(static_cast< int >(Exiv2::XmpParser::readOnlyPacket)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "useCompactFormat",SWIG_From_int(static_cast< int >(Exiv2::XmpParser::useCompactFormat)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "includeThumbnailPad",SWIG_From_int(static_cast< int >(Exiv2::XmpParser::includeThumbnailPad)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "exactPacketLength",SWIG_From_int(static_cast< int >(Exiv2::XmpParser::exactPacketLength)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "writeAliasComments",SWIG_From_int(static_cast< int >(Exiv2::XmpParser::writeAliasComments)));
-  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "omitAllFormatting",SWIG_From_int(static_cast< int >(Exiv2::XmpParser::omitAllFormatting)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "XmpFormatFlags",Python_Exiv2_XmpParser_XmpFormatFlags);
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;
   PyDict_SetItemString(d, "this", this_descr);

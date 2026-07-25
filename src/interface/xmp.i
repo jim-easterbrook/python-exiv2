@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -76,6 +76,13 @@ DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
 %typemap(default) uint32_t padding %{ $1 = 0; %}
 %ignore Exiv2::XmpParser::encode(std::string &, const XmpData &);
 %ignore Exiv2::XmpParser::encode(std::string &, const XmpData &, uint16_t);
+
+// Make enums more Pythonic
+#ifndef SWIGIMPORTED
+DEFINE_CLASS_ENUM(XmpParser, XmpFormatFlags,)
+#else
+IMPORT_CLASS_ENUM(_xmp, XmpParser, XmpFormatFlags)
+#endif
 
 // Ignore const overloads of some methods
 %ignore Exiv2::XmpData::begin() const;

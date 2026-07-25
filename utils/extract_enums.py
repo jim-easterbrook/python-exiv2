@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2025  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2025-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This file is part of python-exiv2.
 #
@@ -109,7 +109,8 @@ GENERATE_LATEX = NO
                 if name not in ('AccessMode', 'ByteOrder', 'CharsetId',
                                 'ErrorCode', 'IfdId', 'ImageType', 'Level',
                                 'MetadataId', 'Position', 'SectionId', 'TypeId',
-                                'XmpArrayType', 'XmpCategory', 'XmpStruct'):
+                                'XmpArrayType', 'XmpCategory', 'XmpFormatFlags',
+                                'XmpStruct'):
                     continue
                 parent = parent_map[parent_map[child]]
                 name = root_name + '::' + name
