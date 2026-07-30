@@ -207,7 +207,8 @@ class TestValueModule(unittest.TestCase):
             return
         value = exiv2.CommentValue()
         # read some invalid data (odd length UTF-16)
-        value.read(data[:-1])
+        with self.assertWarns(DeprecationWarning):
+            value.read(data[:-1])
         with self.assertRaises(exiv2.Exiv2Error) as cm:
             str(value)
         self.assertEqual(cm.exception.code,
