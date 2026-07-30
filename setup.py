@@ -92,13 +92,13 @@ if 'EXIV2_ROOT' in os.environ:
         library_dirs = [path]
         package_dir['exiv2.lib'] = path
         package_data['exiv2.lib'] = [x for x in os.listdir(path)
-                                     if re.fullmatch('libexiv2\.so\.\d+', x)]
+                                     if re.fullmatch(r'libexiv2\.so\.\d+', x)]
     elif platform == 'darwin':
         path = os.path.join(exiv2_root, 'lib')
         library_dirs = [path]
         package_dir['exiv2.lib'] = path
         package_data['exiv2.lib'] = [x for x in os.listdir(path)
-                                     if re.fullmatch('libexiv2\.\d+\.dylib', x)]
+                                     if re.fullmatch(r'libexiv2\.\d+\.dylib', x)]
     elif platform in ('win32', 'mingw'):
         library_dirs = [os.path.join(exiv2_root, 'lib')]
         package_dir['exiv2.lib'] = os.path.join(exiv2_root, 'bin')

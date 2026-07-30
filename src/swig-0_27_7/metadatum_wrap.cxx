@@ -4715,16 +4715,30 @@ fail:
 
 static PyObject* _str_Exiv2_Metadatum(PyObject* py_self) {
     Exiv2::Metadatum* self = NULL;
+    std::string result;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_Exiv2__Metadatum, 0);
-    std::string result = metadatum_str(self);
+    try {
+        result = metadatum_str(self);
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        return NULL;
+    }
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
 };
 
 
 static PyObject* _str_MetadatumPointerBase(PyObject* py_self) {
     MetadatumPointerBase* self = NULL;
+    std::string result;
     SWIG_ConvertPtr(py_self, (void**)&self, SWIGTYPE_p_MetadatumPointerBase, 0);
-    std::string result = self->__str__();
+    try {
+        result = self->__str__();
+    }
+    catch(std::exception const& e) {
+        _set_python_exception();
+        return NULL;
+    }
     return SWIG_FromCharPtrAndSize(result.data(), result.size());
 };
 
@@ -6665,6 +6679,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
   
   if (resultobj != Py_None)
   if (private_store_set(resultobj, "refers_to", self)) {
+    Py_DECREF(resultobj);
     SWIG_fail;
   }
   

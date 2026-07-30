@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -102,7 +102,8 @@ MP_ASS_SUBSCRIPT(Exiv2::base_class, PyObject*,
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
 #if SWIG_VERSION >= 0x040400
-    invalidate_pointers(py_self, pos);
+    if (invalidate_pointers(py_self, pos) < 0)
+        return NULL;
 #endif
     self->erase(pos), false)
 SQ_CONTAINS(

@@ -202,6 +202,21 @@ class TestValueModule(unittest.TestCase):
         self.do_common_string_tests(value, data)
         self.do_conversion_tests(value, text, data[0])
         self.do_dataarea_tests(value)
+        # test bug #65
+        if not exiv2.testVersion(0, 28, 0):
+            return
+        value = exiv2.CommentValue()
+        # read some invalid data (odd length UTF-16)
+        with self.assertWarns(DeprecationWarning):
+            value.read(data[:-1])
+        with self.assertRaises(exiv2.Exiv2Error) as cm:
+            str(value)
+        self.assertEqual(cm.exception.code,
+                         exiv2.ErrorCode.kerInvalidIconvEncoding)
+        with self.assertRaises(exiv2.Exiv2Error) as cm:
+            value.toString()
+        self.assertEqual(cm.exception.code,
+                         exiv2.ErrorCode.kerInvalidIconvEncoding)
 
     def test_StringValue(self):
         text = 'The quick brown fox jumps over the lazy dog. àéīöûç'

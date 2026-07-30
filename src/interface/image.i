@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -108,7 +108,9 @@ DEFINE_VIEW_CALLBACK(Exiv2::Image, release_ptr(&self->io());)
 %}
 %typemap(check, fragment="memoryview_funcs") Exiv2::Image* self {
 %#ifdef RELEASE_VIEWS_$symname
-    release_views(self);
+    if (release_views(self) < 0) {
+        SWIG_fail;
+    }
 %#endif
 }
 
@@ -218,10 +220,6 @@ KEEP_REFERENCE(Exiv2::IptcData&)
 KEEP_REFERENCE(Exiv2::XmpData&)
 KEEP_REFERENCE(Exiv2::DataBuf*)
 KEEP_REFERENCE(Exiv2::DataBuf&)
-
-// xmpPacket() returns a modifiable std::string, Python strings are immutable
-// so treat it as a non-modifiable std::string
-%apply const std::string& {std::string& xmpPacket};
 
 #if EXIV2_VERSION_HEX < 0x001c0000
 // Extend ImageType namespace with ones that don't get picked up by swig

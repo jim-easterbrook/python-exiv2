@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2022-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2022-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -166,7 +166,9 @@ RETURN_VIEW(Exiv2::byte* mmap, $1 ? arg1->size() : 0,
 %}
 %typemap(check, fragment="memoryview_funcs") Exiv2::BasicIo* self {
 %#ifdef RELEASE_VIEWS_$symname
-    release_views(self);
+    if (release_views(self) < 0) {
+        SWIG_fail;
+    }
 %#endif
 }
 

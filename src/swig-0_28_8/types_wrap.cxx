@@ -5278,6 +5278,19 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 
+#if PY_VERSION_HEX < 0x030d0000
+static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
+    *pobj = PyWeakref_GetObject(ref);
+    if (*pobj == Py_None) {
+        *pobj = NULL;
+        return 0;
+    }
+    Py_INCREF(*pobj);
+    return 1;
+};
+#endif
+
+
 static int store_view(PyObject* py_self, PyObject* view) {
     PyObject* view_list = private_store_get(py_self, "view_list");
     if (!view_list) {
@@ -5308,9 +5321,12 @@ static int release_views(PyObject* py_self) {
     PyObject* view = NULL;
     for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
         view_ref = PyList_GetItem(view_list, idx - 1);
-        view = PyWeakref_GetObject(view_ref);
-        if (view != Py_None)
+        if (PyWeakref_GetRef(view_ref, &view) < 0)
+            return -1;
+        if (view) {
             Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+            Py_DECREF(view);
+        }
         PyList_SetSlice(view_list, idx - 1, idx, NULL);
     }
     return 0;
@@ -6294,7 +6310,10 @@ SWIGINTERN PyObject *_wrap_DataBuf_alloc(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_Py_Void();
   
-  release_views(self);
+  if (release_views(self) < 0) {
+    Py_DECREF(resultobj);
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:
@@ -6335,7 +6354,10 @@ SWIGINTERN PyObject *_wrap_DataBuf_resize(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_Py_Void();
   
-  release_views(self);
+  if (release_views(self) < 0) {
+    Py_DECREF(resultobj);
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:
@@ -6358,7 +6380,10 @@ SWIGINTERN PyObject *_wrap_DataBuf_reset(PyObject *self, PyObject *args) {
   (arg1)->reset();
   resultobj = SWIG_Py_Void();
   
-  release_views(self);
+  if (release_views(self) < 0) {
+    Py_DECREF(resultobj);
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:

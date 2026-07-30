@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -446,7 +446,10 @@ RETURN_VIEW(const char* data, arg1->value_.size(), PyBUF_READ, class##::data)
 DEFINE_VIEW_CALLBACK(class,)
 // Release memoryviews when new data is read
 %typemap(ret, fragment="memoryview_funcs") (int class::read) %{
-    release_views(self);
+    if (release_views(self) < 0) {
+        Py_DECREF($result);
+        SWIG_fail;
+    }
 %}
 %enddef // RAW_STRING_DATA
 RAW_STRING_DATA(Exiv2::StringValueBase)

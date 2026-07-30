@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 %typemap(ret, fragment="private_data") return_type %{
     if ($result != Py_None)
         if (private_store_set($result, "refers_to", target)) {
+            Py_DECREF($result);
             SWIG_fail;
         }
 %}

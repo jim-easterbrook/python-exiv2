@@ -4835,6 +4835,19 @@ static int private_store_del(PyObject* py_self, const char* name) {
 };
 
 
+#if PY_VERSION_HEX < 0x030d0000
+static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
+    *pobj = PyWeakref_GetObject(ref);
+    if (*pobj == Py_None) {
+        *pobj = NULL;
+        return 0;
+    }
+    Py_INCREF(*pobj);
+    return 1;
+};
+#endif
+
+
 static int store_view(PyObject* py_self, PyObject* view) {
     PyObject* view_list = private_store_get(py_self, "view_list");
     if (!view_list) {
@@ -4865,9 +4878,12 @@ static int release_views(PyObject* py_self) {
     PyObject* view = NULL;
     for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
         view_ref = PyList_GetItem(view_list, idx - 1);
-        view = PyWeakref_GetObject(view_ref);
-        if (view != Py_None)
+        if (PyWeakref_GetRef(view_ref, &view) < 0)
+            return -1;
+        if (view) {
             Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
+            Py_DECREF(view);
+        }
         PyList_SetSlice(view_list, idx - 1, idx, NULL);
     }
     return 0;
@@ -5213,7 +5229,9 @@ SWIGINTERN PyObject *_wrap_delete_BasicIo(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_delete_BasicIo
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5247,7 +5265,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_open(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_open
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5285,7 +5305,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_close(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_close
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5341,7 +5363,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_0(PyObject *self, Py_ssize_t nobj
   }
   {
 #ifdef RELEASE_VIEWS_BasicIo_write
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5397,7 +5421,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_write__SWIG_1(PyObject *self, Py_ssize_t nobj
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
 #ifdef RELEASE_VIEWS_BasicIo_write
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5482,7 +5508,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_putb(PyObject *self, PyObject *args) {
   arg2 = static_cast< Exiv2::byte >(val2);
   {
 #ifdef RELEASE_VIEWS_BasicIo_putb
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5525,7 +5553,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_0(PyObject *self, Py_ssize_t nobjs
   arg2 = static_cast< long >(val2);
   {
 #ifdef RELEASE_VIEWS_BasicIo_read
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5581,7 +5611,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_read__SWIG_1(PyObject *self, Py_ssize_t nobjs
   }
   {
 #ifdef RELEASE_VIEWS_BasicIo_read
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5667,7 +5699,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_getb(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_getb
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5714,7 +5748,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_transfer(PyObject *self, PyObject *args) {
   arg2 = reinterpret_cast< Exiv2::BasicIo * >(argp2);
   {
 #ifdef RELEASE_VIEWS_BasicIo_transfer
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5775,7 +5811,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_seek(PyObject *self, PyObject *args) {
   }
   {
 #ifdef RELEASE_VIEWS_BasicIo_seek
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5828,7 +5866,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_mmap(PyObject *self, PyObject *args) {
   }
   {
 #ifdef RELEASE_VIEWS_BasicIo_mmap
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5873,7 +5913,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_munmap(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_munmap
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5911,7 +5953,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_tell(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_tell
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5946,7 +5990,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_size(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_size
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -5980,7 +6026,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_isopen(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_isopen
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   result = (bool)((Exiv2::BasicIo const *)arg1)->isopen();
@@ -6006,7 +6054,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_error(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_error
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   result = (int)((Exiv2::BasicIo const *)arg1)->error();
@@ -6032,7 +6082,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_eof(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_eof
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -6067,7 +6119,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_path(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_path
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   result = ((Exiv2::BasicIo const *)arg1)->path();
@@ -6102,7 +6156,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_ioType(PyObject *self, PyObject *args) {
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
 #ifdef RELEASE_VIEWS_BasicIo_ioType
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   result = (char *)Exiv2_BasicIo_ioType(arg1);
@@ -6142,7 +6198,9 @@ SWIGINTERN PyObject *_wrap_BasicIo_data(PyObject *self, PyObject *args) {
   }
   {
 #ifdef RELEASE_VIEWS_BasicIo_data
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {
@@ -6190,7 +6248,9 @@ SWIGINTERN PyObject *_wrap_BasicIo__view_deleted_cb(PyObject *self, PyObject *ar
   arg2 = swig_obj[0];
   {
 #ifdef RELEASE_VIEWS_BasicIo__view_deleted_cb
-    release_views(self);
+    if (release_views(self) < 0) {
+      SWIG_fail;
+    }
 #endif
   }
   {

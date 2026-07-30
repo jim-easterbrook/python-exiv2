@@ -37,6 +37,24 @@ class TestXmpModule(unittest.TestCase):
         os.environ['LANG'] = name
         os.environ['LANGUAGE'] = name
 
+    def test_XmpParser(self):
+        parser = exiv2.XmpParser
+        data = self.image.xmpData()
+        res, packet = parser.encode(data)
+        lines = packet.splitlines()
+        self.assertEqual(res, 0)
+        self.assertEqual(lines[0], '<?xpacket begin="\ufeff"'
+                         ' id="W5M0MpCehiHzreSzNTczkc9d"?>')
+        self.assertEqual(lines[-1], '<?xpacket end="w"?>')
+        res, packet = parser.encode(
+            data, parser.XmpFormatFlags.useCompactFormat |
+            parser.XmpFormatFlags.omitPacketWrapper)
+        lines = packet.splitlines()
+        self.assertEqual(res, 0)
+        self.assertEqual(lines[0], '<x:xmpmeta xmlns:x="adobe:ns:meta/"'
+                         ' x:xmptk="XMP Core 4.4.0-Exiv2">')
+        self.assertEqual(lines[-1], '</x:xmpmeta>')
+
     def test_XmpData(self):
         # empty container
         data = exiv2.XmpData()

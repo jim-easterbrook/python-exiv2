@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2021-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 #endif
 
 #pragma SWIG nowarn=508 // Declaration of '__str__' shadows declaration accessible via operator->()
+// #pragma SWIG nowarn=509 // Overloaded method effectively ignored
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
@@ -55,6 +56,34 @@ EXCEPTION()
 DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
     Exiv2::XmpProperties::propertyType(Exiv2::XmpKey(datum->key())))
 
+// Typemaps for different uses of xmpPacket.
+// Exiv2::Image::xmpPacket return value
+%apply const std::string & {std::string &xmpPacket()};
+
+// Exiv2::Image::setXmpPacket input value
+%typemap(in) const std::string &xmpPacket = std::string &INPUT;
+%typemap(argout) const std::string &xmpPacket ""
+
+// Exiv2::XmpParser::encode output value
+%typemap(in, numinputs=0) std::string &xmpPacket = std::string &OUTPUT;
+%typemap(argout) std::string &xmpPacket = std::string &OUTPUT;
+%typemap(freearg) std::string &xmpPacket "";
+
+// Default typemaps for Exiv2::XmpParser::encode
+%typemap(default) uint16_t formatFlags %{
+    $1 = Exiv2::XmpParser::XmpFormatFlags::useCompactFormat;
+%}
+%typemap(default) uint32_t padding %{ $1 = 0; %}
+%ignore Exiv2::XmpParser::encode(std::string &, const XmpData &);
+%ignore Exiv2::XmpParser::encode(std::string &, const XmpData &, uint16_t);
+
+// Make enums more Pythonic
+#ifndef SWIGIMPORTED
+DEFINE_CLASS_ENUM(XmpParser, XmpFormatFlags,)
+#else
+IMPORT_CLASS_ENUM(_xmp, XmpParser, XmpFormatFlags)
+#endif
+
 // Ignore const overloads of some methods
 %ignore Exiv2::XmpData::begin() const;
 %ignore Exiv2::XmpData::end() const;
@@ -64,6 +93,5 @@ DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
 %ignore Exiv2::operatorHelper;
 %ignore Exiv2::XmpData::operator[];
 %ignore Exiv2::XmpParser::decode;
-%ignore Exiv2::XmpParser::encode;
 
 %include "exiv2/xmp_exiv2.hpp"
