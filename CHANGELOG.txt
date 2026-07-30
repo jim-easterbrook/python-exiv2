@@ -16,6 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.19.0:
+  1/ Add exiv2.XmpParser.encode() to Python interface.
+  2/ Fix crash when getting strings of malformed values.
+  3/ Python 3.15 compatibility.
+
 Changes in v0.18.1:
   1/ Binary wheels incorporate libexiv2 v0.28.8
 
