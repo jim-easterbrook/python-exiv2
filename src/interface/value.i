@@ -489,6 +489,13 @@ PyObject* data() {
 %feature("python:slot", "sq_item", functype="ssizeargfunc")
     Exiv2::XmpArrayValue::toString;
 %typemap(default) Exiv2::TypeId typeId_xmpBag {$1 = Exiv2::xmpBag;}
+%typemap(check) Exiv2::TypeId typeId_xmpBag {
+    if (($1 != Exiv2::xmpBag) && ($1 != Exiv2::xmpSeq) &&
+        ($1 != Exiv2::xmpAlt)) {
+        SWIG_exception_fail(
+            SWIG_ValueError, "Invalid typeId for XmpArrayValue.");
+    }
+}
 %template() std::vector<std::string>;
 %extend Exiv2::XmpArrayValue {
     // Constructor, reads values from a Python list

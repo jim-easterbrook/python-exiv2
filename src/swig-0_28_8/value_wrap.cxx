@@ -12665,6 +12665,13 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_0(PyObject *self, Py_ssize_t nobjs,
     }
   }
   {
+    if ((arg2 != Exiv2::xmpBag) && (arg2 != Exiv2::xmpSeq) &&
+      (arg2 != Exiv2::xmpAlt)) {
+      SWIG_exception_fail(
+        SWIG_ValueError, "Invalid typeId for XmpArrayValue.");
+    }
+  }
+  {
     try {
       result = (Exiv2::XmpArrayValue *)new_Exiv2_XmpArrayValue__SWIG_0(SWIG_STD_MOVE(*(&arg1)),arg2);
     }
@@ -12701,6 +12708,13 @@ SWIGINTERN int _wrap_new_XmpArrayValue__SWIG_1(PyObject *self, Py_ssize_t nobjs,
         ;
       }
       arg1 = static_cast< Exiv2::TypeId >(PyLong_AsLong(swig_obj[0]));
+    }
+  }
+  {
+    if ((arg1 != Exiv2::xmpBag) && (arg1 != Exiv2::xmpSeq) &&
+      (arg1 != Exiv2::xmpAlt)) {
+      SWIG_exception_fail(
+        SWIG_ValueError, "Invalid typeId for XmpArrayValue.");
     }
   }
   {
