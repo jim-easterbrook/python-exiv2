@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to libexiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -121,12 +121,12 @@ if 'EXIV2_ROOT' in os.environ:
     # get exiv2 version from include files
     exiv2_version = get_version(include_dirs[0])
     mod_src_dir = get_mod_src_dir(exiv2_version)
+    extra_link_args = []
     if platform == 'linux':
-        extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
+        if 'CIBUILDWHEEL' not in os.environ:
+            extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
     elif platform == 'darwin':
         extra_link_args = ['-Wl,-rpath,@loader_path/lib']
-    else:
-        extra_link_args = []
 else:
     # use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
