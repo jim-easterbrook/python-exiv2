@@ -73,39 +73,50 @@ if platform == 'win32' and 'GCC' in sys.version:
 packages = ['exiv2', 'exiv2.examples']
 package_dir = {'exiv2.examples': 'examples'}
 package_data = {'exiv2.examples': ['*.py', '*.rst']}
+extra_link_args = []
 
 if 'EXIV2_ROOT' in os.environ:
     # use local copy of libexiv2
-    exiv2_root = os.path.normpath(os.environ['EXIV2_ROOT'])
+    exiv2_root = os.path.abspath(os.environ['EXIV2_ROOT'])
     # header files
     path = os.path.join(exiv2_root, 'include')
     if not os.path.isfile(os.path.join(path, 'exiv2', 'exiv2.hpp')):
         print('ERROR: Include files not found')
         sys.exit(1)
     include_dirs = [path]
-    # library files
-    packages.append('exiv2.lib')
+    # find library files
     if platform == 'linux':
         path = os.path.join(exiv2_root, 'lib64')
         if not os.path.exists(path):
             path = os.path.join(exiv2_root, 'lib')
-        library_dirs = [path]
-        package_dir['exiv2.lib'] = path
-        package_data['exiv2.lib'] = [x for x in os.listdir(path)
-                                     if re.fullmatch(r'libexiv2\.so\.\d+', x)]
+        files = [x for x in os.listdir(path)
+                 if re.fullmatch(r'libexiv2\.so\.\d+', x)]
     elif platform == 'darwin':
         path = os.path.join(exiv2_root, 'lib')
-        library_dirs = [path]
-        package_dir['exiv2.lib'] = path
-        package_data['exiv2.lib'] = [x for x in os.listdir(path)
-                                     if re.fullmatch(r'libexiv2\.\d+\.dylib', x)]
+        files = [x for x in os.listdir(path)
+                 if re.fullmatch(r'libexiv2\.\d+\.dylib', x)]
     elif platform in ('win32', 'mingw'):
-        library_dirs = [os.path.join(exiv2_root, 'lib')]
-        package_dir['exiv2.lib'] = os.path.join(exiv2_root, 'bin')
-        package_data['exiv2.lib'] = ['*.dll']
-    if not os.path.isdir(package_dir['exiv2.lib']):
+        path = os.path.join(exiv2_root, 'lib')
+        files = '*.dll'
+    if not os.path.isdir(path):
         print('ERROR: Library files not found')
         sys.exit(1)
+    library_dirs = [path]
+    if 'CIBUILDWHEEL' in os.environ:
+        # include library files in "system" libraries to be renamed
+        if platform in ('linux', 'darwin'):
+            extra_link_args = ['-Wl,-rpath,{}'.format(path)]
+    else:
+        # add library files to package data
+        packages.append('exiv2.lib')
+        package_dir['exiv2.lib'] = path
+        package_data['exiv2.lib'] = files
+        if platform == 'linux':
+            extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
+        elif platform == 'darwin':
+            extra_link_args = ['-Wl,-rpath,@loader_path/lib']
+        elif platform in ('win32', 'mingw'):
+            package_dir['exiv2.lib'] = os.path.join(exiv2_root, 'bin')
     # locale files
     path = os.path.join(exiv2_root, 'share', 'locale')
     if not os.path.isdir(path):
@@ -121,12 +132,6 @@ if 'EXIV2_ROOT' in os.environ:
     # get exiv2 version from include files
     exiv2_version = get_version(include_dirs[0])
     mod_src_dir = get_mod_src_dir(exiv2_version)
-    extra_link_args = []
-    if platform == 'linux':
-        if 'CIBUILDWHEEL' not in os.environ:
-            extra_link_args = ['-Wl,-rpath,$ORIGIN/lib']
-    elif platform == 'darwin':
-        extra_link_args = ['-Wl,-rpath,@loader_path/lib']
 else:
     # use installed libexiv2
     exiv2_version = pkg_config('exiv2', 'modversion')
