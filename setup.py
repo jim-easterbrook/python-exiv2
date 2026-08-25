@@ -77,7 +77,7 @@ extra_link_args = []
 
 if 'EXIV2_ROOT' in os.environ:
     # use local copy of libexiv2
-    exiv2_root = os.path.abspath(os.environ['EXIV2_ROOT'])
+    exiv2_root = os.path.normpath(os.environ['EXIV2_ROOT'])
     # header files
     path = os.path.join(exiv2_root, 'include')
     if not os.path.isfile(os.path.join(path, 'exiv2', 'exiv2.hpp')):
@@ -105,7 +105,7 @@ if 'EXIV2_ROOT' in os.environ:
     if 'CIBUILDWHEEL' in os.environ:
         # include library files in "system" libraries to be renamed
         if platform in ('linux', 'darwin'):
-            extra_link_args = ['-Wl,-rpath,{}'.format(path)]
+            extra_link_args = ['-Wl,-rpath,{}'.format(os.path.abspath(path))]
     else:
         # add library files to package data
         packages.append('exiv2.lib')
