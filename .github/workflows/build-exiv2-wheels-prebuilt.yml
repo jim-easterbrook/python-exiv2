@@ -30,11 +30,12 @@ jobs:
             runner: windows-2022
             exiv2_build: 2022msvc-AMD64
             arch: AMD64
+    env:
+      EXIV2_VSN: 0.28.8
+      EXIV2_ROOT: exiv2-0.28.8-${{ matrix.exiv2_build }}
     defaults:
       run:
         shell: bash
-    env:
-      EXIV2_VSN: 0.28.8
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
@@ -42,24 +43,24 @@ jobs:
       - name: Download exiv2.tar.gz
         if: ${{ runner.os != 'Windows' }}
         run: |
-          wget -nv https://github.com/Exiv2/exiv2/releases/download/v${{ env.EXIV2_VSN }}/exiv2-${{ env.EXIV2_VSN }}-${{ matrix.exiv2_build }}.tar.gz -O - |
+          wget -nv https://github.com/Exiv2/exiv2/releases/download/v${{ env.EXIV2_VSN }}/${{ env.EXIV2_ROOT }}.tar.gz -O - |
           tar zxf -
 
       - name: Download exiv2.zip
         if: ${{ runner.os == 'Windows' }}
         run: |
-          c:/msys64/usr/bin/wget.exe -nv https://github.com/Exiv2/exiv2/releases/download/v${{ env.EXIV2_VSN }}/exiv2-${{ env.EXIV2_VSN }}-${{ matrix.exiv2_build }}.zip -O exiv2.zip
+          c:/msys64/usr/bin/wget.exe -nv https://github.com/Exiv2/exiv2/releases/download/v${{ env.EXIV2_VSN }}/${{ env.EXIV2_ROOT }}.zip -O exiv2.zip
           unzip exiv2.zip
 
       - name: Build wheels
-        # cibuildwheel@v3.x omits Python 3.6 & 3.7
-        uses: pypa/cibuildwheel@v3.4.0
+        # cibuildwheel@v4.x does Python 3.9+
+        uses: pypa/cibuildwheel@v4.2.0
         env:
           CIBW_ARCHS: ${{ matrix.arch }}
-          CIBW_ENVIRONMENT: >
-            EXIV2_ROOT=exiv2-${{ env.EXIV2_VSN }}-${{ matrix.exiv2_build }}
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_34
           CIBW_MANYLINUX_AARCH64_IMAGE: manylinux_2_34
+          CIBW_ENVIRONMENT_WINDOWS: PATH="$EXIV2_ROOT/bin;$PATH"
+          CIBW_ENVIRONMENT_PASS_LINUX: EXIV2_ROOT
           CIBW_BUILD: "cp*"
           CIBW_SKIP: "*musllinux*"
           CIBW_BEFORE_ALL_MACOS: brew install inih
