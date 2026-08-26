@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.19.1:
+  1/ Reduce chance of "DLL hell" with Windows binary wheel.
+  2/ XmpValueArray constructor checks typeId value.
+
 Changes in v0.19.0:
   1/ Add exiv2.XmpParser.encode() to Python interface.
   2/ Fix crash when getting strings of malformed values.
