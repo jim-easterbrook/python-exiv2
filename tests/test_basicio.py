@@ -67,7 +67,10 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.size(), 15125)
         self.assertEqual(io.isopen(), True)
         self.assertEqual(io.close(), 0)
-        self.assertEqual(io.isopen(), True)
+        if exiv2.testVersion(1, 0, 0):
+            self.assertEqual(io.isopen(), False)
+        else:
+            self.assertEqual(io.isopen(), True)
 
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM'],
                          'EXV_ENABLE_FILESYSTEM is off')
