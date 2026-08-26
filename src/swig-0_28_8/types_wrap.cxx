@@ -4963,6 +4963,17 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 #endif
 
 
+#if PY_VERSION_HEX < 0x030d0000
+static PyObject* PyList_GetItemRef(PyObject *list, Py_ssize_t index) {
+    PyObject* result = PyList_GetItem(list, index);
+    if (result) {
+        Py_INCREF(result);
+    }
+    return result;
+};
+#endif
+
+
 static int store_view(PyObject* py_self, PyObject* view) {
     PyObject* view_list = private_store_get(py_self, "view_list");
     if (!view_list) {
@@ -4986,22 +4997,25 @@ static int store_view(PyObject* py_self, PyObject* view) {
     return result;
 };
 static int release_views(PyObject* py_self) {
+    int result = 0;
     PyObject* view_list = private_store_get(py_self, "view_list");
     if (!view_list)
-        return 0;
+        return result;
     PyObject* view_ref = NULL;
     PyObject* view = NULL;
     for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
-        view_ref = PyList_GetItem(view_list, idx - 1);
-        if (PyWeakref_GetRef(view_ref, &view) < 0)
-            return -1;
+        view_ref = PyList_GetItemRef(view_list, idx - 1);
+        result = PyWeakref_GetRef(view_ref, &view);
+        Py_DECREF(view_ref);
+        if (result < 0)
+            return result;
         if (view) {
             Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
             Py_DECREF(view);
         }
         PyList_SetSlice(view_list, idx - 1, idx, NULL);
     }
-    return 0;
+    return result;
 };
 
 

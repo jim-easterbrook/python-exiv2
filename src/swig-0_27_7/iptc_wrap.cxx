@@ -5313,14 +5313,30 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 #endif
 
 
+#if PY_VERSION_HEX < 0x030d0000
+static PyObject* PyList_GetItemRef(PyObject *list, Py_ssize_t index) {
+    PyObject* result = PyList_GetItem(list, index);
+    if (result) {
+        Py_INCREF(result);
+    }
+    return result;
+};
+#endif
+
+
 static int _process_list(PyObject* list, bool purge_only,
                          Exiv2::IptcData::iterator* beg,
                          Exiv2::IptcData::iterator* end) {
     PyObject* py_ptr = NULL;
     Iptcdatum_pointer* cpp_ptr = NULL;
+    PyObject* list_item = NULL;
+    int result = 0;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) < 0)
-            return -1;
+        list_item = PyList_GetItemRef(list, idx-1);
+        result = PyWeakref_GetRef(list_item, &py_ptr);
+        Py_DECREF(list_item);
+        if (result < 0)
+            return result;
         if (py_ptr)
             Py_DECREF(py_ptr);
         else
@@ -5342,7 +5358,7 @@ forget:
         PyList_SetSlice(list, idx-1, idx, NULL);
         continue;
     }
-    return 0;
+    return result;
 };
 static int purge_pointers(PyObject* list) {
     return _process_list(list, true, NULL, NULL);

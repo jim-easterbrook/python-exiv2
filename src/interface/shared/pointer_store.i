@@ -26,15 +26,20 @@
 #if SWIG_VERSION >= 0x040400
 // Functions to store weak references to pointers (swig >= v4.4)
 %fragment("pointer_store", "header", fragment="private_data",
-          fragment="weakref_getref") {
+          fragment="weakref_getref", fragment="PyList_GetItemRef") {
 static int _process_list(PyObject* list, bool purge_only,
                          Exiv2::container_type::iterator* beg,
                          Exiv2::container_type::iterator* end) {
     PyObject* py_ptr = NULL;
     datum_type##_pointer* cpp_ptr = NULL;
+    PyObject* list_item = NULL;
+    int result = 0;
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) < 0)
-            return -1;
+        list_item = PyList_GetItemRef(list, idx-1);
+        result = PyWeakref_GetRef(list_item, &py_ptr);
+        Py_DECREF(list_item);
+        if (result < 0)
+            return result;
         if (py_ptr)
             Py_DECREF(py_ptr);
         else
@@ -56,7 +61,7 @@ forget:
         PyList_SetSlice(list, idx-1, idx, NULL);
         continue;
     }
-    return 0;
+    return result;
 };
 static int purge_pointers(PyObject* list) {
     return _process_list(list, true, NULL, NULL);
