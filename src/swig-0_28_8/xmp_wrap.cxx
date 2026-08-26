@@ -5601,6 +5601,21 @@ static int _contains_Exiv2_XmpData(PyObject* py_self, PyObject* py_key) {
 };
 
 
+#include <mutex>
+class XmpLock {
+private:
+    std::mutex lock;
+public:
+    static void LockUnlock(void* pLockData, bool lockUnlock) {
+        XmpLock* self = reinterpret_cast<XmpLock*>(pLockData);
+        if (self) {
+            lockUnlock ? self->lock.lock() : self->lock.unlock();
+        }
+    }
+};
+static XmpLock xmp_lock;
+
+
 static PyObject* Python_Exiv2_XmpParser_XmpFormatFlags = NULL;
 
 
@@ -12414,7 +12429,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Xmpdatum_reference");
   d = md;
   
-  if (!Exiv2::XmpParser::initialize()) {
+  if (!Exiv2::XmpParser::initialize(xmp_lock.LockUnlock, &xmp_lock)) {
     PyErr_SetString(
       PyExc_RuntimeError, "XMP Toolkit initialisation failed");
     return INIT_ERROR_RETURN;
