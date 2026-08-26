@@ -85,6 +85,9 @@ DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
     }
 %}
 
+// Deprecated since 2026-08-26
+DEPRECATE(Exiv2::XmpParser::initialize, "XMP Toolkit is already initialised")
+
 // Ignore XmpLockFct - Python can't use it anyway
 %ignore Exiv2::XmpParser::initialize(XmpParser::XmpLockFct, void*);
 %ignore Exiv2::XmpParser::initialize(XmpParser::XmpLockFct);

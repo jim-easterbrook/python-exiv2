@@ -9361,6 +9361,7 @@ SWIGINTERN PyObject *_wrap_XmpParser_initialize(PyObject *self, PyObject *args) 
   
   if (!SWIG_Python_UnpackTuple(args, "XmpParser_initialize", 0, 0, 0)) SWIG_fail;
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "XMP Toolkit is already initialised", 1);
     try {
       result = (bool)Exiv2::XmpParser::initialize();
     }
