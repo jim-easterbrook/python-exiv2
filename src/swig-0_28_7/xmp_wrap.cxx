@@ -12515,6 +12515,13 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Xmpdatum_reference");
   d = md;
   
+  if (!Exiv2::XmpParser::initialize()) {
+    PyErr_SetString(
+      PyExc_RuntimeError, "XMP Toolkit initialisation failed");
+    return INIT_ERROR_RETURN;
+  }
+  
+  
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
   if (!Python_Exiv2_extras_create_enum)
   return INIT_ERROR_RETURN;

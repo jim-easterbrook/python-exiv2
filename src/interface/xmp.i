@@ -22,7 +22,6 @@
 #endif
 
 #pragma SWIG nowarn=508 // Declaration of '__str__' shadows declaration accessible via operator->()
-// #pragma SWIG nowarn=509 // Overloaded method effectively ignored
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
@@ -76,6 +75,15 @@ DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
 %typemap(default) uint32_t padding %{ $1 = 0; %}
 %ignore Exiv2::XmpParser::encode(std::string &, const XmpData &);
 %ignore Exiv2::XmpParser::encode(std::string &, const XmpData &, uint16_t);
+
+// Initialise XMP parser during module initialisation
+%init %{
+    if (!Exiv2::XmpParser::initialize()) {
+        PyErr_SetString(
+            PyExc_RuntimeError, "XMP Toolkit initialisation failed");
+        return INIT_ERROR_RETURN;
+    }
+%}
 
 // Make enums more Pythonic
 #ifndef SWIGIMPORTED
