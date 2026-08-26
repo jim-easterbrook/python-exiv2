@@ -85,6 +85,10 @@ DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
     }
 %}
 
+// Ignore XmpLockFct - Python can't use it anyway
+%ignore Exiv2::XmpParser::initialize(XmpParser::XmpLockFct, void*);
+%ignore Exiv2::XmpParser::initialize(XmpParser::XmpLockFct);
+
 // Make enums more Pythonic
 #ifndef SWIGIMPORTED
 DEFINE_CLASS_ENUM(XmpParser, XmpFormatFlags,)
