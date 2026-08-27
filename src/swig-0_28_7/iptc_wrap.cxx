@@ -5267,6 +5267,26 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 
+#if PY_VERSION_HEX < 0x030d0000
+static int PyDict_GetItemStringRef(
+        PyObject *p, const char *key, PyObject **result) {
+    *result = PyDict_GetItemString(p, key);
+    if (*result) {
+        Py_INCREF(*result);
+        return 1;
+    }
+    return 0;
+};
+#endif
+
+
+#if PY_VERSION_HEX < 0x030d0000
+static int PyDict_ContainsString(PyObject *p, const char *key) {
+    return (PyDict_GetItemString(p, key)) ? 1 : 0;
+};
+#endif
+
+
 static PyObject* _get_store(PyObject* py_self, bool create) {
     // Return a borrowed reference
     PyObject* dict = NULL;
@@ -5292,18 +5312,19 @@ static int private_store_set(PyObject* py_self, const char* name,
         return -1;
     return PyDict_SetItemString(dict, name, val);
 };
-static PyObject* private_store_get(PyObject* py_self, const char* name) {
-    // Return a borrowed reference
+static int private_store_get(
+        PyObject* py_self, const char* name, PyObject** result) {
+    *result = NULL;
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
-        return NULL;
-    return PyDict_GetItemString(dict, name);
+        return 0;
+    return PyDict_GetItemStringRef(dict, name, result);
 };
 static int private_store_del(PyObject* py_self, const char* name) {
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
         return 0;
-    if (PyDict_GetItemString(dict, name))
+    if (PyDict_ContainsString(dict, name))
         return PyDict_DelItemString(dict, name);
     return 0;
 };
@@ -5515,48 +5536,64 @@ static int purge_pointers(PyObject* list) {
     return _process_list(list, true, NULL, NULL);
 };
 static int invalidate_pointers(PyObject* py_self) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        return _process_list(list, false, NULL, NULL);
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
+    if (list) {
+        result = _process_list(list, false, NULL, NULL);
+        Py_DECREF(list);
+        return result;
+    }
     return 0;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::IptcData::iterator pos) {
-    PyObject* list = private_store_get(py_self, "pointers");
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
     if (list) {
         Exiv2::IptcData::iterator end = pos;
         end++;
-        return _process_list(list, false, &pos, &end);
+        result = _process_list(list, false, &pos, &end);
+        Py_DECREF(list);
+        return result;
     }
     return 0;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::IptcData::iterator beg,
                                Exiv2::IptcData::iterator end) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        return _process_list(list, false, &beg, &end);
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
+    if (list) {
+        result = _process_list(list, false, &beg, &end);
+        Py_DECREF(list);
+        return result;
+    }
     return 0;
 };
 static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
-    PyObject* list = private_store_get(py_self, "pointers");
+    PyObject* ref = PyWeakref_NewRef(py_ptr, NULL);
+    if (!ref)
+        return -1;
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
     if (list) {
-        if (purge_pointers(list) < 0)
+        if (purge_pointers(list) < 0) {
+            Py_DECREF(list);
             return -1;
+        }
     }
     else {
         list = PyList_New(0);
         if (!list)
             return -1;
         int error = private_store_set(py_self, "pointers", list);
-        Py_DECREF(list);
-        if (error)
+        if (error) {
+            Py_DECREF(list);
             return -1;
+        }
     }
-    PyObject* ref = PyWeakref_NewRef(py_ptr, NULL);
-    if (!ref)
-        return -1;
-    int result = PyList_Append(list, ref);
+    result = PyList_Append(list, ref);
+    Py_DECREF(list);
     Py_DECREF(ref);
     return result;
 };

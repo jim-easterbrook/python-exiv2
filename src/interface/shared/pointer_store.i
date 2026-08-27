@@ -67,48 +67,64 @@ static int purge_pointers(PyObject* list) {
     return _process_list(list, true, NULL, NULL);
 };
 static int invalidate_pointers(PyObject* py_self) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        return _process_list(list, false, NULL, NULL);
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
+    if (list) {
+        result = _process_list(list, false, NULL, NULL);
+        Py_DECREF(list);
+        return result;
+    }
     return 0;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::container_type::iterator pos) {
-    PyObject* list = private_store_get(py_self, "pointers");
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
     if (list) {
         Exiv2::container_type::iterator end = pos;
         end++;
-        return _process_list(list, false, &pos, &end);
+        result = _process_list(list, false, &pos, &end);
+        Py_DECREF(list);
+        return result;
     }
     return 0;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::container_type::iterator beg,
                                Exiv2::container_type::iterator end) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        return _process_list(list, false, &beg, &end);
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
+    if (list) {
+        result = _process_list(list, false, &beg, &end);
+        Py_DECREF(list);
+        return result;
+    }
     return 0;
 };
 static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
-    PyObject* list = private_store_get(py_self, "pointers");
+    PyObject* ref = PyWeakref_NewRef(py_ptr, NULL);
+    if (!ref)
+        return -1;
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
     if (list) {
-        if (purge_pointers(list) < 0)
+        if (purge_pointers(list) < 0) {
+            Py_DECREF(list);
             return -1;
+        }
     }
     else {
         list = PyList_New(0);
         if (!list)
             return -1;
         int error = private_store_set(py_self, "pointers", list);
-        Py_DECREF(list);
-        if (error)
+        if (error) {
+            Py_DECREF(list);
             return -1;
+        }
     }
-    PyObject* ref = PyWeakref_NewRef(py_ptr, NULL);
-    if (!ref)
-        return -1;
-    int result = PyList_Append(list, ref);
+    result = PyList_Append(list, ref);
+    Py_DECREF(list);
     Py_DECREF(ref);
     return result;
 };

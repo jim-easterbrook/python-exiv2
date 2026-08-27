@@ -5385,6 +5385,26 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 
+#if PY_VERSION_HEX < 0x030d0000
+static int PyDict_GetItemStringRef(
+        PyObject *p, const char *key, PyObject **result) {
+    *result = PyDict_GetItemString(p, key);
+    if (*result) {
+        Py_INCREF(*result);
+        return 1;
+    }
+    return 0;
+};
+#endif
+
+
+#if PY_VERSION_HEX < 0x030d0000
+static int PyDict_ContainsString(PyObject *p, const char *key) {
+    return (PyDict_GetItemString(p, key)) ? 1 : 0;
+};
+#endif
+
+
 static PyObject* _get_store(PyObject* py_self, bool create) {
     // Return a borrowed reference
     PyObject* dict = NULL;
@@ -5410,18 +5430,19 @@ static int private_store_set(PyObject* py_self, const char* name,
         return -1;
     return PyDict_SetItemString(dict, name, val);
 };
-static PyObject* private_store_get(PyObject* py_self, const char* name) {
-    // Return a borrowed reference
+static int private_store_get(
+        PyObject* py_self, const char* name, PyObject** result) {
+    *result = NULL;
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
-        return NULL;
-    return PyDict_GetItemString(dict, name);
+        return 0;
+    return PyDict_GetItemStringRef(dict, name, result);
 };
 static int private_store_del(PyObject* py_self, const char* name) {
     PyObject* dict = _get_store(py_self, false);
     if (!dict)
         return 0;
-    if (PyDict_GetItemString(dict, name))
+    if (PyDict_ContainsString(dict, name))
         return PyDict_DelItemString(dict, name);
     return 0;
 };
