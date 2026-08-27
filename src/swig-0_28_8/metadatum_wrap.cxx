@@ -4303,9 +4303,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 static PyObject* import_from_python(const char* package, const char* name) {
     PyObject* mod = PyImport_ImportModule(package);
     if (!mod)
@@ -8530,12 +8527,12 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
@@ -8563,18 +8560,18 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
   if (!Python_Exiv2_ByteOrder)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
   if (!Python_Exiv2_TypeId)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   

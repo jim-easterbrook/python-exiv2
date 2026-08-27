@@ -1,6 +1,6 @@
 # python-exiv2 - Python interface to exiv2
 # http://github.com/jim-easterbrook/python-exiv2
-# Copyright (C) 2021-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+# Copyright (C) 2021-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -49,8 +49,8 @@ def main():
         if 'Version' in line:
             swig_version = tuple(map(int, line.split()[-1].split('.')))
             break
-    if swig_version < (4, 1, 0):
-        print('SWIG version 4.1.0 or later required')
+    if swig_version < (4, 4, 0):
+        print('SWIG version 4.4.0 or later required')
         return 1
     # get source to SWIG
     if len(sys.argv) != 2:
@@ -104,8 +104,6 @@ def main():
         if exiv2_version < (0, 29):
             subst['image.hpp'].append(
                 ('iccProfileDefined() const', 'iccProfileDefined()'))
-    if swig_version < (4, 2, 0):
-        subst['basicio.hpp'] = [('static constexpr auto', 'static const char*')]
     with tempfile.TemporaryDirectory() as copy_dir:
         dest = os.path.join(copy_dir, 'exiv2')
         os.makedirs(dest)
@@ -126,12 +124,6 @@ def main():
         # do each swig module
         for ext_name in ext_names:
             cmd = ['swig'] + swig_opts
-            # Functions with just one parameter and a default value don't
-            # work with fastunpack.
-            # See https://github.com/swig/swig/issues/2786
-            if swig_version < (4, 4, 0) and ext_name in (
-                    'basicio', 'exif', 'iptc', 'metadatum', 'value', 'xmp'):
-                cmd.append('-nofastunpack')
             cmd += ['-o', os.path.join(output_dir, ext_name + '_wrap.cxx')]
             cmd += [os.path.join(interface_dir, ext_name + '.i')]
             print(' '.join(cmd))

@@ -1,6 +1,6 @@
 /* python-exiv2 - Python interface to libexiv2
  * http://github.com/jim-easterbrook/python-exiv2
- * Copyright (C) 2025  Jim Easterbrook  jim@jim-easterbrook.me.uk
+ * Copyright (C) 2025-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
  *
  * This file is part of python-exiv2.
  *
@@ -98,23 +98,19 @@ Return the :class:`"#datum_type"` object being pointed to."
     $result = SWIG_NewPointerObj(
         SWIG_as_voidptr(new container_type##_iterator($1, arg1->end())),
         $descriptor(container_type##_iterator*), SWIG_POINTER_OWN);
-#if SWIG_VERSION >= 0x040400
     // Keep weak reference to the Python iterator
     if (store_pointer(self, $result)) {
         SWIG_fail;
     }
-#endif // SWIG_VERSION
 }
 %typemap(out) Exiv2::datum_type& {
     $result = SWIG_NewPointerObj(
         SWIG_as_voidptr(new datum_type##_reference($1)),
         $descriptor(datum_type##_reference*), SWIG_POINTER_OWN);
-#if SWIG_VERSION >= 0x040400
     // Keep weak reference to the Python result
     if (store_pointer(self, $result)) {
         SWIG_fail;
     }
-#endif // SWIG_VERSION
 }
 // Detect end of iteration
 %typemap(out) Exiv2::datum_type* __next__ {

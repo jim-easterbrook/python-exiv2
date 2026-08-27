@@ -23,7 +23,6 @@
 // pointers when data is deleted
 %define POINTER_STORE(container_type, datum_type)
 
-#if SWIG_VERSION >= 0x040400
 // Functions to store weak references to pointers (swig >= v4.4)
 %fragment("pointer_store", "header", fragment="private_data",
           fragment="Python_313_functions") {
@@ -116,20 +115,7 @@ static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
     return result;
 };
 }
-#endif
 
-#if SWIG_VERSION < 0x040400
-// erase() and eraseFamily() invalidate the iterator passed to them
-%typemap(check) (Exiv2::container_type::iterator pos),
-                (Exiv2::container_type::iterator beg) {
-    argp$argnum->_invalidate();
-}
-%typemap(check) Exiv2::container_type::iterator& {
-    argp$argnum->_invalidate();
-}
-#endif
-
-#if SWIG_VERSION >= 0x040400
 // clear() invalidates all pointers
 %typemap(ret, fragment="pointer_store") void clear {
     if (invalidate_pointers(self) < 0) {
@@ -157,6 +143,5 @@ static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
         SWIG_fail;
     }
 }
-#endif // SWIG_VERSION
 
 %enddef // POINTER_STORE

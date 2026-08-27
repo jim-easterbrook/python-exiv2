@@ -4309,9 +4309,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 #include <stdint.h>		// Use the C99 official header
 
 
@@ -5470,10 +5467,8 @@ static PyObject* _delitem_Exiv2_IptcData(
         auto pos = self->findKey(Exiv2::IptcKey(key));
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
-#if 0x040500 >= 0x040400
     if (invalidate_pointers(py_self, pos) < 0)
         return NULL;
-#endif
     self->erase(pos);
     return SWIG_Py_Void();
 };
@@ -7002,12 +6997,10 @@ SWIGINTERN PyObject *_wrap__getitem_Exiv2_IptcData(PyObject *self, PyObject *arg
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new Iptcdatum_reference(result)),
       SWIGTYPE_p_MetadatumReferenceT_Exiv2__Iptcdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python result
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   
@@ -8662,12 +8655,10 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new IptcData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
@@ -8782,12 +8773,10 @@ SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new IptcData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
@@ -8820,12 +8809,10 @@ SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new IptcData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
@@ -8879,12 +8866,10 @@ SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new IptcData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
@@ -8941,12 +8926,10 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, Py_ssize_t no
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new IptcData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
@@ -8995,12 +8978,10 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, Py_ssize_t no
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new IptcData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
@@ -11676,12 +11657,12 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
@@ -11690,18 +11671,18 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
   if (!Python_Exiv2_ByteOrder)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
   if (!Python_Exiv2_TypeId)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   

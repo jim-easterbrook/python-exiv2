@@ -4306,9 +4306,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 static PyObject* import_from_python(const char* package, const char* name) {
     PyObject* mod = PyImport_ImportModule(package);
     if (!mod)
@@ -8186,24 +8183,24 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
   if (!Python_Exiv2_extras_create_enum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_XmpCategory = _create_enum(
     "Exiv2::XmpCategory","3", _get_enum_data_Exiv2_XmpCategory());
   if (!Python_Exiv2_XmpCategory)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_XmpCategory);
   
@@ -8214,7 +8211,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
   if (!Python_Exiv2_TypeId)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
@@ -8313,7 +8310,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   if (info_Exiv2_XmpPropertyInfo.aliases.empty()) {
     PyErr_SetString(
       PyExc_RuntimeError, "Failed to initialise Exiv2::XmpPropertyInfo info");
-    return INIT_ERROR_RETURN;
+    return -1;
   }
   
   
@@ -8321,7 +8318,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   if (info_Exiv2_XmpNsInfo.aliases.empty()) {
     PyErr_SetString(
       PyExc_RuntimeError, "Failed to initialise Exiv2::XmpNsInfo info");
-    return INIT_ERROR_RETURN;
+    return -1;
   }
   
   return 0;

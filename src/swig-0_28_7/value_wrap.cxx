@@ -4290,9 +4290,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 #include <stdint.h>		// Use the C99 official header
 
 
@@ -4680,15 +4677,6 @@ static int set_attr_struct(struct_info& info, bool as_item,
         PyErr_Format(PyExc_KeyError, "'%s'", c_name.c_str());
         return -1;
     }
-
-
-
-
-
-
-
-
-
     return PyObject_GenericSetAttr(obj, name, value);
 };
 
@@ -32697,24 +32685,24 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
   if (!Python_Exiv2_extras_create_enum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_CommentValue_CharsetId = _create_enum(
     "Exiv2::CommentValue::CharsetId","", _get_enum_data_Exiv2_CommentValue_CharsetId());
   if (!Python_Exiv2_CommentValue_CharsetId)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_CommentValue_CharsetId);
   
@@ -32722,7 +32710,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   Python_Exiv2_XmpValue_XmpArrayType = _create_enum(
     "Exiv2::XmpValue::XmpArrayType","", _get_enum_data_Exiv2_XmpValue_XmpArrayType());
   if (!Python_Exiv2_XmpValue_XmpArrayType)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_XmpValue_XmpArrayType);
   
@@ -32730,7 +32718,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   Python_Exiv2_XmpValue_XmpStruct = _create_enum(
     "Exiv2::XmpValue::XmpStruct","", _get_enum_data_Exiv2_XmpValue_XmpStruct());
   if (!Python_Exiv2_XmpValue_XmpStruct)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_XmpValue_XmpStruct);
   
@@ -32740,18 +32728,18 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
   if (!Python_Exiv2_ByteOrder)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
   if (!Python_Exiv2_TypeId)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
@@ -33525,7 +33513,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   if (info_Exiv2_DateValue_Date.aliases.empty()) {
     PyErr_SetString(
       PyExc_RuntimeError, "Failed to initialise Exiv2::DateValue::Date info");
-    return INIT_ERROR_RETURN;
+    return -1;
   }
   
   
@@ -33533,7 +33521,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   if (info_Exiv2_TimeValue_Time.aliases.empty()) {
     PyErr_SetString(
       PyExc_RuntimeError, "Failed to initialise Exiv2::TimeValue::Time info");
-    return INIT_ERROR_RETURN;
+    return -1;
   }
   
   return 0;

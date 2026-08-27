@@ -4264,9 +4264,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 #include <string>
 
 
@@ -7404,24 +7401,24 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
   if (!Python_Exiv2_extras_create_enum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_BasicIo_Position = _create_enum(
     "Exiv2::BasicIo::Position","", _get_enum_data_Exiv2_BasicIo_Position());
   if (!Python_Exiv2_BasicIo_Position)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_BasicIo_Position);
   
@@ -7432,7 +7429,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "Position",Python_Exiv2_BasicIo_Position);
   builtin_base_count = 0;

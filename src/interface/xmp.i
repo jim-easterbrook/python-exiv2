@@ -98,7 +98,7 @@ static XmpLock xmp_lock;
     if (!Exiv2::XmpParser::initialize(xmp_lock.LockUnlock, &xmp_lock)) {
         PyErr_SetString(
             PyExc_RuntimeError, "XMP Toolkit initialisation failed");
-        return INIT_ERROR_RETURN;
+        return -1;
     }
 %}
 

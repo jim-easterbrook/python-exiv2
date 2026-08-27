@@ -4249,9 +4249,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 #include <typeinfo>
 #include <stdexcept>
 
@@ -5551,7 +5548,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_logger = import_from_python("exiv2.extras","logger");
   if (!Python_logger)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Exiv2::LogMsg::setHandler(&log_to_python);
@@ -5560,13 +5557,13 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
   if (!Python_Exiv2_extras_create_enum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_LogMsg_Level = _create_enum(
     "Exiv2::LogMsg::Level","", _get_enum_data_Exiv2_LogMsg_Level());
   if (!Python_Exiv2_LogMsg_Level)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_LogMsg_Level);
   
@@ -5574,7 +5571,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   Python_Exiv2_ErrorCode = _create_enum(
     "Exiv2::ErrorCode","", _get_enum_data_Exiv2_ErrorCode());
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_ErrorCode);
   
@@ -5586,7 +5583,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   globals = SWIG_globals();
   if (!globals) {

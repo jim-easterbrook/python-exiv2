@@ -4259,9 +4259,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 #include <stdint.h>		// Use the C99 official header
 
 
@@ -8702,24 +8699,24 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
   if (!Python_Exiv2_extras_create_enum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_AccessMode = _create_enum(
     "Exiv2::AccessMode","2", _get_enum_data_Exiv2_AccessMode());
   if (!Python_Exiv2_AccessMode)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_AccessMode);
   
@@ -8728,7 +8725,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   Python_Exiv2_ByteOrder = _create_enum(
     "Exiv2::ByteOrder","", _get_enum_data_Exiv2_ByteOrder());
   if (!Python_Exiv2_ByteOrder)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_ByteOrder);
   
@@ -8737,7 +8734,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   Python_Exiv2_MetadataId = _create_enum(
     "Exiv2::MetadataId","2", _get_enum_data_Exiv2_MetadataId());
   if (!Python_Exiv2_MetadataId)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_MetadataId);
   
@@ -8746,7 +8743,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   Python_Exiv2_TypeId = _create_enum(
     "Exiv2::TypeId","", _get_enum_data_Exiv2_TypeId());
   if (!Python_Exiv2_TypeId)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_TypeId);
   
@@ -8758,7 +8755,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   builtin_base_count = 0;
   builtin_bases[builtin_base_count] = NULL;

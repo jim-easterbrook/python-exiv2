@@ -1,6 +1,6 @@
 /* python-exiv2 - Python interface to libexiv2
  * http://github.com/jim-easterbrook/python-exiv2
- * Copyright (C) 2025  Jim Easterbrook  jim@jim-easterbrook.me.uk
+ * Copyright (C) 2025-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
  *
  * This file is part of python-exiv2.
  *
@@ -47,7 +47,7 @@ DECLARE_IMPORT(cpp_name)
           fragment="declare_import"{cpp_name}) {
 Python_%mangle(cpp_name) = import_from_python(#package, #name);
 if (!Python_%mangle(cpp_name))
-    return INIT_ERROR_RETURN;
+    return -1;
 }
 %enddef // IMPORT_PYTHON_OBJECT
 
@@ -60,7 +60,7 @@ DECLARE_IMPORT(Exiv2::name)
           fragment="declare_import"{Exiv2::name}) {
 Python_%mangle(Exiv2::name) = import_from_python("exiv2."#module, #name);
 if (!Python_%mangle(Exiv2::name))
-    return INIT_ERROR_RETURN;
+    return -1;
 }
 %enddef // IMPORT_MODULE_OBJECT
 
@@ -73,16 +73,16 @@ DECLARE_IMPORT(Exiv2::class::name)
 {
     PyObject* mod = PyImport_ImportModule("exiv2.module");
     if (!mod)
-        return INIT_ERROR_RETURN;
+        return -1;
     PyObject* parent = PyObject_GetAttrString(mod, "class");
     Py_DECREF(mod);
     if (!parent)
-        return INIT_ERROR_RETURN;
+        return -1;
     Python_%mangle(Exiv2::class::name) = PyObject_GetAttrString(
         parent, "name");
     Py_DECREF(parent);
     if (!Python_%mangle(Exiv2::class::name))
-        return INIT_ERROR_RETURN;
+        return -1;
 }
 }
 %enddef // IMPORT_CLASS_OBJECT
