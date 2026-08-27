@@ -16,9 +16,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-// Implementation of PyDict_GetItemStringRef for Python < 3.13
-%fragment("PyDict_GetItemStringRef", "header") {
+// Implementation of functions added in Python 3.13
+%fragment("Python_313_functions", "header") {
 %#if PY_VERSION_HEX < 0x030d0000
+static int PyDict_ContainsString(PyObject *p, const char *key) {
+    return (PyDict_GetItemString(p, key)) ? 1 : 0;
+};
 static int PyDict_GetItemStringRef(
         PyObject *p, const char *key, PyObject **result) {
     *result = PyDict_GetItemString(p, key);
@@ -28,67 +31,24 @@ static int PyDict_GetItemStringRef(
     }
     return 0;
 };
-%#endif
-}
-
-// Implementation of PyDict_ContainsString for Python < 3.13
-%fragment("PyDict_ContainsString", "header") {
-%#if PY_VERSION_HEX < 0x030d0000
-static int PyDict_ContainsString(PyObject *p, const char *key) {
-    return (PyDict_GetItemString(p, key)) ? 1 : 0;
-};
-%#endif
-}
-
-// Functions to store and retrieve "private" data attached to Pyhon object
-%fragment("private_data", "header", fragment="PyDict_GetItemStringRef",
-          fragment="PyDict_ContainsString") {
-static PyObject* _get_store(PyObject* py_self, bool create) {
-    // Return a borrowed reference
-    PyObject* dict = NULL;
-    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
-        if (!create)
-            return NULL;
-        dict = PyDict_New();
-        if (!dict)
-            return NULL;
-        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
-        Py_DECREF(dict);
-        if (error)
-            return NULL;
+static PyObject* PyList_GetItemRef(PyObject *list, Py_ssize_t index) {
+    PyObject* result = PyList_GetItem(list, index);
+    if (result) {
+        Py_INCREF(result);
     }
-    dict = PyObject_GetAttrString(py_self, "_private_data_");
-    Py_DECREF(dict);
-    return dict;
+    return result;
 };
-static int private_store_set(PyObject* py_self, const char* name,
-                             PyObject* val) {
-    PyObject* dict = _get_store(py_self, true);
-    if (!dict)
-        return -1;
-    return PyDict_SetItemString(dict, name, val);
-};
-static int private_store_get(
-        PyObject* py_self, const char* name, PyObject** result) {
-    *result = NULL;
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
+static int PyObject_GetOptionalAttrString(
+        PyObject *obj, const char *attr_name, PyObject **result) {
+    if (PyObject_HasAttrString(obj, attr_name) == 0) {
+        *result = NULL;
         return 0;
-    return PyDict_GetItemStringRef(dict, name, result);
+    }
+    *result = PyObject_GetAttrString(obj, attr_name);
+    if (*result)
+        return 1;
+    return -1;
 };
-static int private_store_del(PyObject* py_self, const char* name) {
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return 0;
-    if (PyDict_ContainsString(dict, name))
-        return PyDict_DelItemString(dict, name);
-    return 0;
-};
-}
-
-// Implementation of PyWeakref_GetRef for Python < 3.13
-%fragment("weakref_getref", "header") {
-%#if PY_VERSION_HEX < 0x030d0000
 static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
     *pobj = PyWeakref_GetObject(ref);
     if (*pobj == Py_None) {
@@ -101,22 +61,59 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 %#endif
 }
 
-// Implementation of PyList_GetItemRef for Python < 3.13
-%fragment("PyList_GetItemRef", "header") {
-%#if PY_VERSION_HEX < 0x030d0000
-static PyObject* PyList_GetItemRef(PyObject *list, Py_ssize_t index) {
-    PyObject* result = PyList_GetItem(list, index);
-    if (result) {
-        Py_INCREF(result);
+// Functions to store and retrieve "private" data attached to Pyhon object
+%fragment("private_data", "header", fragment="Python_313_functions") {
+static int _get_store(PyObject* py_self, bool create, PyObject** dict) {
+    int result = PyObject_GetOptionalAttrString(
+        py_self, "_private_data_", dict);
+    if ((result > 0) || !create)
+        return result;
+    *dict = PyDict_New();
+    if (*dict) {
+        result = PyObject_SetAttrString(py_self, "_private_data_", *dict);
+        if (result < 0) {
+            Py_DECREF(*dict);
+            *dict = NULL;
+        }
     }
     return result;
 };
-%#endif
+static int private_store_set(PyObject* py_self, const char* name,
+                             PyObject* value) {
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, true, &dict);
+    if (dict) {
+        result = PyDict_SetItemString(dict, name, value);
+        Py_DECREF(dict);
+    }
+    return result;
+};
+static int private_store_get(
+        PyObject* py_self, const char* name, PyObject** value) {
+    *value = NULL;
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, false, &dict);
+    if (dict) {
+        result = PyDict_GetItemStringRef(dict, name, value);
+        Py_DECREF(dict);
+    }
+    return result;
+};
+static int private_store_del(PyObject* py_self, const char* name) {
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, false, &dict);
+    if (dict) {
+        if (PyDict_ContainsString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_DECREF(dict);
+    }
+    return result;
+};
 }
 
 // Functions to store references to memoryview objects and release them
 %fragment("memoryview_funcs", "header", fragment="private_data",
-          fragment="weakref_getref", fragment="PyList_GetItemRef") {
+          fragment="Python_313_functions") {
 static int store_view(PyObject* py_self, PyObject* view) {
     PyObject* callback = PyObject_GetAttrString(py_self, "_view_deleted_cb");
     if (!callback)

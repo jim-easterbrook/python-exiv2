@@ -4799,6 +4799,9 @@ SWIG_AsVal_long (PyObject *obj, long* val)
 
 
 #if PY_VERSION_HEX < 0x030d0000
+static int PyDict_ContainsString(PyObject *p, const char *key) {
+    return (PyDict_GetItemString(p, key)) ? 1 : 0;
+};
 static int PyDict_GetItemStringRef(
         PyObject *p, const char *key, PyObject **result) {
     *result = PyDict_GetItemString(p, key);
@@ -4808,60 +4811,24 @@ static int PyDict_GetItemStringRef(
     }
     return 0;
 };
-#endif
-
-
-#if PY_VERSION_HEX < 0x030d0000
-static int PyDict_ContainsString(PyObject *p, const char *key) {
-    return (PyDict_GetItemString(p, key)) ? 1 : 0;
-};
-#endif
-
-
-static PyObject* _get_store(PyObject* py_self, bool create) {
-    // Return a borrowed reference
-    PyObject* dict = NULL;
-    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
-        if (!create)
-            return NULL;
-        dict = PyDict_New();
-        if (!dict)
-            return NULL;
-        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
-        Py_DECREF(dict);
-        if (error)
-            return NULL;
+static PyObject* PyList_GetItemRef(PyObject *list, Py_ssize_t index) {
+    PyObject* result = PyList_GetItem(list, index);
+    if (result) {
+        Py_INCREF(result);
     }
-    dict = PyObject_GetAttrString(py_self, "_private_data_");
-    Py_DECREF(dict);
-    return dict;
+    return result;
 };
-static int private_store_set(PyObject* py_self, const char* name,
-                             PyObject* val) {
-    PyObject* dict = _get_store(py_self, true);
-    if (!dict)
-        return -1;
-    return PyDict_SetItemString(dict, name, val);
-};
-static int private_store_get(
-        PyObject* py_self, const char* name, PyObject** result) {
-    *result = NULL;
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
+static int PyObject_GetOptionalAttrString(
+        PyObject *obj, const char *attr_name, PyObject **result) {
+    if (PyObject_HasAttrString(obj, attr_name) == 0) {
+        *result = NULL;
         return 0;
-    return PyDict_GetItemStringRef(dict, name, result);
+    }
+    *result = PyObject_GetAttrString(obj, attr_name);
+    if (*result)
+        return 1;
+    return -1;
 };
-static int private_store_del(PyObject* py_self, const char* name) {
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return 0;
-    if (PyDict_ContainsString(dict, name))
-        return PyDict_DelItemString(dict, name);
-    return 0;
-};
-
-
-#if PY_VERSION_HEX < 0x030d0000
 static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
     *pobj = PyWeakref_GetObject(ref);
     if (*pobj == Py_None) {
@@ -4874,15 +4841,52 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 #endif
 
 
-#if PY_VERSION_HEX < 0x030d0000
-static PyObject* PyList_GetItemRef(PyObject *list, Py_ssize_t index) {
-    PyObject* result = PyList_GetItem(list, index);
-    if (result) {
-        Py_INCREF(result);
+static int _get_store(PyObject* py_self, bool create, PyObject** dict) {
+    int result = PyObject_GetOptionalAttrString(
+        py_self, "_private_data_", dict);
+    if ((result > 0) || !create)
+        return result;
+    *dict = PyDict_New();
+    if (*dict) {
+        result = PyObject_SetAttrString(py_self, "_private_data_", *dict);
+        if (result < 0) {
+            Py_DECREF(*dict);
+            *dict = NULL;
+        }
     }
     return result;
 };
-#endif
+static int private_store_set(PyObject* py_self, const char* name,
+                             PyObject* value) {
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, true, &dict);
+    if (dict) {
+        result = PyDict_SetItemString(dict, name, value);
+        Py_DECREF(dict);
+    }
+    return result;
+};
+static int private_store_get(
+        PyObject* py_self, const char* name, PyObject** value) {
+    *value = NULL;
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, false, &dict);
+    if (dict) {
+        result = PyDict_GetItemStringRef(dict, name, value);
+        Py_DECREF(dict);
+    }
+    return result;
+};
+static int private_store_del(PyObject* py_self, const char* name) {
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, false, &dict);
+    if (dict) {
+        if (PyDict_ContainsString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_DECREF(dict);
+    }
+    return result;
+};
 
 
 static int store_view(PyObject* py_self, PyObject* view) {

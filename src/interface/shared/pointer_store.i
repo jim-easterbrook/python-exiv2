@@ -26,7 +26,7 @@
 #if SWIG_VERSION >= 0x040400
 // Functions to store weak references to pointers (swig >= v4.4)
 %fragment("pointer_store", "header", fragment="private_data",
-          fragment="weakref_getref", fragment="PyList_GetItemRef") {
+          fragment="Python_313_functions") {
 static int _process_list(PyObject* list, bool purge_only,
                          Exiv2::container_type::iterator* beg,
                          Exiv2::container_type::iterator* end) {
