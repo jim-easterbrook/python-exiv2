@@ -22,7 +22,7 @@
 %define KEEP_REFERENCE_EX(return_type, target)
 %typemap(ret, fragment="private_data") return_type %{
     if ($result != Py_None)
-        if (private_store_set($result, "refers_to", target)) {
+        if (private_store_set($result, "refers_to", target) < 0) {
             Py_DECREF($result);
             SWIG_fail;
         }

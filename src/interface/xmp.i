@@ -22,7 +22,6 @@
 #endif
 
 #pragma SWIG nowarn=508 // Declaration of '__str__' shadows declaration accessible via operator->()
-// #pragma SWIG nowarn=509 // Overloaded method effectively ignored
 
 %include "shared/preamble.i"
 %include "shared/containers.i"
@@ -76,6 +75,39 @@ DATA_CONTAINER(XmpData, Xmpdatum, XmpKey,
 %typemap(default) uint32_t padding %{ $1 = 0; %}
 %ignore Exiv2::XmpParser::encode(std::string &, const XmpData &);
 %ignore Exiv2::XmpParser::encode(std::string &, const XmpData &, uint16_t);
+
+// Initialise XMP parser during module initialisation
+// A lock function is used to make NS registration thread safe
+// See https://dev.exiv2.org/projects/exiv2/wiki/Thread_safety
+%{
+#include <mutex>
+class XmpLock {
+private:
+    std::mutex lock;
+public:
+    static void LockUnlock(void* pLockData, bool lockUnlock) {
+        XmpLock* self = reinterpret_cast<XmpLock*>(pLockData);
+        if (self) {
+            lockUnlock ? self->lock.lock() : self->lock.unlock();
+        }
+    }
+};
+static XmpLock xmp_lock;
+%}
+%init %{
+    if (!Exiv2::XmpParser::initialize(xmp_lock.LockUnlock, &xmp_lock)) {
+        PyErr_SetString(
+            PyExc_RuntimeError, "XMP Toolkit initialisation failed");
+        return -1;
+    }
+%}
+
+// Deprecated since 2026-08-26
+DEPRECATE(Exiv2::XmpParser::initialize, "XMP Toolkit is already initialised")
+
+// Ignore XmpLockFct - Python can't use it anyway
+%ignore Exiv2::XmpParser::initialize(XmpParser::XmpLockFct, void*);
+%ignore Exiv2::XmpParser::initialize(XmpParser::XmpLockFct);
 
 // Make enums more Pythonic
 #ifndef SWIGIMPORTED

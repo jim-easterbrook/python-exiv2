@@ -1,6 +1,6 @@
 // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2024-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2024-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -72,15 +72,6 @@ static int set_attr_struct(struct_info& info, bool as_item,
         PyErr_Format(PyExc_KeyError, "'%s'", c_name.c_str());
         return -1;
     }
-#if SWIG_VERSION < 0x040400
-    if (!value)
-        for (size_t i = 0; i < info.members.size(); i++)
-            if (info.members[i] == c_name) {
-                PyErr_Format(PyExc_TypeError, "%s.%s can not be deleted",
-                             Py_TYPE(obj)->tp_name, c_name.c_str());
-                return -1;
-            }
-#endif
     return PyObject_GenericSetAttr(obj, name, value);
 };
 }
@@ -217,7 +208,7 @@ static int set_attr_%mangle(struct_type)(
 %fragment("set_item"{struct_type});
 %feature("python:mp_ass_subscript") struct_type
     QUOTE(set_item_%mangle(struct_type));
-#if #strip_underscore == "true" || SWIG_VERSION < 0x040400
+#if #strip_underscore == "true"
 %fragment("set_attr"{struct_type});
 %feature("python:tp_setattro") struct_type
     QUOTE(set_attr_%mangle(struct_type));
@@ -236,7 +227,7 @@ init_struct_info(info_%mangle(struct_type), $descriptor(struct_type*));
 if (info_%mangle(struct_type).aliases.empty()) {
     PyErr_SetString(
         PyExc_RuntimeError, "Failed to initialise struct_type info");
-    return INIT_ERROR_RETURN;
+    return -1;
 }
 }
 %fragment("init_struct_dict"{struct_type});

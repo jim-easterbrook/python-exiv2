@@ -12,6 +12,7 @@
 #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
 #define SWIGPYTHON_BUILTIN
 #define SWIGPYTHON_FASTPROXY
+#define SWIGPYTHON_NOGIL
 
 #define SWIG_name    "_tags"
 /* -----------------------------------------------------------------------------
@@ -4306,9 +4307,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 static PyObject* import_from_python(const char* package, const char* name) {
     PyObject* mod = PyImport_ImportModule(package);
     if (!mod)
@@ -8387,12 +8385,12 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
@@ -8439,7 +8437,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
   if (!Python_Exiv2_TypeId)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   builtin_base_count = 0;
@@ -8518,7 +8516,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   if (info_Exiv2_GroupInfo.aliases.empty()) {
     PyErr_SetString(
       PyExc_RuntimeError, "Failed to initialise Exiv2::GroupInfo info");
-    return INIT_ERROR_RETURN;
+    return -1;
   }
   
   
@@ -8526,7 +8524,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   if (info_Exiv2_TagInfo.aliases.empty()) {
     PyErr_SetString(
       PyExc_RuntimeError, "Failed to initialise Exiv2::TagInfo info");
-    return INIT_ERROR_RETURN;
+    return -1;
   }
   
   return 0;

@@ -12,6 +12,7 @@
 #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
 #define SWIGPYTHON_BUILTIN
 #define SWIGPYTHON_FASTPROXY
+#define SWIGPYTHON_NOGIL
 
 #define SWIG_name    "_metadatum"
 /* -----------------------------------------------------------------------------
@@ -4303,9 +4304,6 @@ SWIG_FromCharPtr(const char *cptr)
 #include "metadatum_pointer.hpp"
 
 
-#define INIT_ERROR_RETURN -1
-
-
 static PyObject* import_from_python(const char* package, const char* name) {
     PyObject* mod = PyImport_ImportModule(package);
     if (!mod)
@@ -5385,45 +5383,115 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 
-static PyObject* _get_store(PyObject* py_self, bool create) {
-    // Return a borrowed reference
-    PyObject* dict = NULL;
-    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
-        if (!create)
-            return NULL;
-        dict = PyDict_New();
-        if (!dict)
-            return NULL;
-        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
-        Py_DECREF(dict);
-        if (error)
-            return NULL;
+#if PY_VERSION_HEX < 0x030d0000
+#define Py_BEGIN_CRITICAL_SECTION(op) {
+#define Py_END_CRITICAL_SECTION() }
+static int PyDict_ContainsString(PyObject *p, const char *key) {
+    return (PyDict_GetItemString(p, key)) ? 1 : 0;
+};
+static int PyDict_GetItemStringRef(
+        PyObject *p, const char *key, PyObject **result) {
+    *result = PyDict_GetItemString(p, key);
+    if (*result) {
+        Py_INCREF(*result);
+        return 1;
     }
-    dict = PyObject_GetAttrString(py_self, "_private_data_");
-    Py_DECREF(dict);
-    return dict;
+    return 0;
+};
+static PyObject* PyList_GetItemRef(PyObject *list, Py_ssize_t index) {
+    PyObject* result = PyList_GetItem(list, index);
+    if (result) {
+        Py_INCREF(result);
+    }
+    return result;
+};
+static int PyObject_GetOptionalAttrString(
+        PyObject *obj, const char *attr_name, PyObject **result) {
+    if (PyObject_HasAttrString(obj, attr_name) == 0) {
+        *result = NULL;
+        return 0;
+    }
+    *result = PyObject_GetAttrString(obj, attr_name);
+    if (*result)
+        return 1;
+    return -1;
+};
+static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
+    *pobj = PyWeakref_GetObject(ref);
+    if (*pobj == Py_None) {
+        *pobj = NULL;
+        return 0;
+    }
+    Py_INCREF(*pobj);
+    return 1;
+};
+#endif
+
+
+static int _get_store(PyObject* py_self, bool create, PyObject** dict) {
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = PyObject_GetOptionalAttrString(py_self, "_private_data_", dict);
+    if ((result == 0) && create) {
+        *dict = PyDict_New();
+        if (*dict) {
+            result = PyObject_SetAttrString(
+                py_self, "_private_data_", *dict);
+            if (result < 0) {
+                Py_DECREF(*dict);
+                *dict = NULL;
+            }
+        }
+    }
+    Py_END_CRITICAL_SECTION();
+    return result;
 };
 static int private_store_set(PyObject* py_self, const char* name,
-                             PyObject* val) {
-    PyObject* dict = _get_store(py_self, true);
-    if (!dict)
-        return -1;
-    return PyDict_SetItemString(dict, name, val);
+                             PyObject* value) {
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, true, &dict);
+    if (dict) {
+        result = PyDict_SetItemString(dict, name, value);
+        Py_DECREF(dict);
+    }
+    return result;
 };
-static PyObject* private_store_get(PyObject* py_self, const char* name) {
-    // Return a borrowed reference
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return NULL;
-    return PyDict_GetItemString(dict, name);
+typedef PyObject*(*ps_value_factory)();
+static PyObject* list_factory() {
+    return PyList_New(0);
+}
+static int private_store_get(
+        PyObject* py_self, const char* name, PyObject** value,
+        ps_value_factory factory=NULL) {
+    *value = NULL;
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, factory, &dict);
+    if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
+        result = PyDict_GetItemStringRef(dict, name, value);
+        if (factory && result == 0) {
+            *value = factory();
+            if (*value)
+                result = PyDict_SetItemString(dict, name, *value);
+            else
+                result = -1;
+        }
+        Py_END_CRITICAL_SECTION();
+        Py_DECREF(dict);
+    }
+    return result;
 };
 static int private_store_del(PyObject* py_self, const char* name) {
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return 0;
-    if (PyDict_GetItemString(dict, name))
-        return PyDict_DelItemString(dict, name);
-    return 0;
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, false, &dict);
+    if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
+        if (PyDict_ContainsString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_END_CRITICAL_SECTION();
+        Py_DECREF(dict);
+    }
+    return result;
 };
 
 #ifdef __cplusplus
@@ -6589,7 +6657,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8460,12 +8528,12 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
@@ -8493,18 +8561,18 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
   if (!Python_Exiv2_ByteOrder)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
   if (!Python_Exiv2_TypeId)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   

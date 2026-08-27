@@ -12,6 +12,7 @@
 #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
 #define SWIGPYTHON_BUILTIN
 #define SWIGPYTHON_FASTPROXY
+#define SWIGPYTHON_NOGIL
 
 #define SWIG_name    "_xmp"
 /* -----------------------------------------------------------------------------
@@ -4096,30 +4097,29 @@ SwigPyBuiltin_iternextfunc_closure(SwigPyWrapperFunction wrapper, PyObject *a) {
 #define SWIGTYPE_p_char swig_types[45]
 #define SWIGTYPE_p_const_iterator swig_types[46]
 #define SWIGTYPE_p_difference_type swig_types[47]
-#define SWIGTYPE_p_f_p_void_bool__void swig_types[48]
-#define SWIGTYPE_p_first_type swig_types[49]
-#define SWIGTYPE_p_int swig_types[50]
-#define SWIGTYPE_p_iterator swig_types[51]
-#define SWIGTYPE_p_key_type swig_types[52]
-#define SWIGTYPE_p_long_long swig_types[53]
-#define SWIGTYPE_p_mapped_type swig_types[54]
-#define SWIGTYPE_p_second_type swig_types[55]
-#define SWIGTYPE_p_short swig_types[56]
-#define SWIGTYPE_p_signed_char swig_types[57]
-#define SWIGTYPE_p_size_type swig_types[58]
-#define SWIGTYPE_p_std__ostream swig_types[59]
-#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[60]
-#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[61]
-#define SWIGTYPE_p_std__string swig_types[62]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[63]
-#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[64]
-#define SWIGTYPE_p_unsigned_char swig_types[65]
-#define SWIGTYPE_p_unsigned_int swig_types[66]
-#define SWIGTYPE_p_unsigned_long_long swig_types[67]
-#define SWIGTYPE_p_unsigned_short swig_types[68]
-#define SWIGTYPE_p_value_type swig_types[69]
-static swig_type_info *swig_types[71];
-static swig_module_info swig_module = {swig_types, 70, 0, 0, 0, 0};
+#define SWIGTYPE_p_first_type swig_types[48]
+#define SWIGTYPE_p_int swig_types[49]
+#define SWIGTYPE_p_iterator swig_types[50]
+#define SWIGTYPE_p_key_type swig_types[51]
+#define SWIGTYPE_p_long_long swig_types[52]
+#define SWIGTYPE_p_mapped_type swig_types[53]
+#define SWIGTYPE_p_second_type swig_types[54]
+#define SWIGTYPE_p_short swig_types[55]
+#define SWIGTYPE_p_signed_char swig_types[56]
+#define SWIGTYPE_p_size_type swig_types[57]
+#define SWIGTYPE_p_std__ostream swig_types[58]
+#define SWIGTYPE_p_std__pairT_int32_t_int32_t_t swig_types[59]
+#define SWIGTYPE_p_std__pairT_uint32_t_uint32_t_t swig_types[60]
+#define SWIGTYPE_p_std__string swig_types[61]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t swig_types[62]
+#define SWIGTYPE_p_std__vectorT_Exiv2__Xmpdatum_std__allocatorT_Exiv2__Xmpdatum_t_t__iterator swig_types[63]
+#define SWIGTYPE_p_unsigned_char swig_types[64]
+#define SWIGTYPE_p_unsigned_int swig_types[65]
+#define SWIGTYPE_p_unsigned_long_long swig_types[66]
+#define SWIGTYPE_p_unsigned_short swig_types[67]
+#define SWIGTYPE_p_value_type swig_types[68]
+static swig_type_info *swig_types[70];
+static swig_module_info swig_module = {swig_types, 69, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4311,9 +4311,6 @@ SWIG_FromCharPtr(const char *cptr)
 
 #include "exiv2/exiv2.hpp"
 #include "metadatum_pointer.hpp"
-
-
-#define INIT_ERROR_RETURN -1
 
 
 #include <stdint.h>		// Use the C99 official header
@@ -5127,45 +5124,115 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 
-static PyObject* _get_store(PyObject* py_self, bool create) {
-    // Return a borrowed reference
-    PyObject* dict = NULL;
-    if (!PyObject_HasAttrString(py_self, "_private_data_")) {
-        if (!create)
-            return NULL;
-        dict = PyDict_New();
-        if (!dict)
-            return NULL;
-        int error = PyObject_SetAttrString(py_self, "_private_data_", dict);
-        Py_DECREF(dict);
-        if (error)
-            return NULL;
+#if PY_VERSION_HEX < 0x030d0000
+#define Py_BEGIN_CRITICAL_SECTION(op) {
+#define Py_END_CRITICAL_SECTION() }
+static int PyDict_ContainsString(PyObject *p, const char *key) {
+    return (PyDict_GetItemString(p, key)) ? 1 : 0;
+};
+static int PyDict_GetItemStringRef(
+        PyObject *p, const char *key, PyObject **result) {
+    *result = PyDict_GetItemString(p, key);
+    if (*result) {
+        Py_INCREF(*result);
+        return 1;
     }
-    dict = PyObject_GetAttrString(py_self, "_private_data_");
-    Py_DECREF(dict);
-    return dict;
+    return 0;
+};
+static PyObject* PyList_GetItemRef(PyObject *list, Py_ssize_t index) {
+    PyObject* result = PyList_GetItem(list, index);
+    if (result) {
+        Py_INCREF(result);
+    }
+    return result;
+};
+static int PyObject_GetOptionalAttrString(
+        PyObject *obj, const char *attr_name, PyObject **result) {
+    if (PyObject_HasAttrString(obj, attr_name) == 0) {
+        *result = NULL;
+        return 0;
+    }
+    *result = PyObject_GetAttrString(obj, attr_name);
+    if (*result)
+        return 1;
+    return -1;
+};
+static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
+    *pobj = PyWeakref_GetObject(ref);
+    if (*pobj == Py_None) {
+        *pobj = NULL;
+        return 0;
+    }
+    Py_INCREF(*pobj);
+    return 1;
+};
+#endif
+
+
+static int _get_store(PyObject* py_self, bool create, PyObject** dict) {
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = PyObject_GetOptionalAttrString(py_self, "_private_data_", dict);
+    if ((result == 0) && create) {
+        *dict = PyDict_New();
+        if (*dict) {
+            result = PyObject_SetAttrString(
+                py_self, "_private_data_", *dict);
+            if (result < 0) {
+                Py_DECREF(*dict);
+                *dict = NULL;
+            }
+        }
+    }
+    Py_END_CRITICAL_SECTION();
+    return result;
 };
 static int private_store_set(PyObject* py_self, const char* name,
-                             PyObject* val) {
-    PyObject* dict = _get_store(py_self, true);
-    if (!dict)
-        return -1;
-    return PyDict_SetItemString(dict, name, val);
+                             PyObject* value) {
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, true, &dict);
+    if (dict) {
+        result = PyDict_SetItemString(dict, name, value);
+        Py_DECREF(dict);
+    }
+    return result;
 };
-static PyObject* private_store_get(PyObject* py_self, const char* name) {
-    // Return a borrowed reference
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return NULL;
-    return PyDict_GetItemString(dict, name);
+typedef PyObject*(*ps_value_factory)();
+static PyObject* list_factory() {
+    return PyList_New(0);
+}
+static int private_store_get(
+        PyObject* py_self, const char* name, PyObject** value,
+        ps_value_factory factory=NULL) {
+    *value = NULL;
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, factory, &dict);
+    if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
+        result = PyDict_GetItemStringRef(dict, name, value);
+        if (factory && result == 0) {
+            *value = factory();
+            if (*value)
+                result = PyDict_SetItemString(dict, name, *value);
+            else
+                result = -1;
+        }
+        Py_END_CRITICAL_SECTION();
+        Py_DECREF(dict);
+    }
+    return result;
 };
 static int private_store_del(PyObject* py_self, const char* name) {
-    PyObject* dict = _get_store(py_self, false);
-    if (!dict)
-        return 0;
-    if (PyDict_GetItemString(dict, name))
-        return PyDict_DelItemString(dict, name);
-    return 0;
+    PyObject* dict = NULL;
+    int result = _get_store(py_self, false, &dict);
+    if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
+        if (PyDict_ContainsString(dict, name))
+            result = PyDict_DelItemString(dict, name);
+        Py_END_CRITICAL_SECTION();
+        Py_DECREF(dict);
+    }
+    return result;
 };
 
 
@@ -5304,27 +5371,20 @@ static PyObject* set_value_from_py(Exiv2::Xmpdatum* datum,
 };
 
 
-#if PY_VERSION_HEX < 0x030d0000
-static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
-    *pobj = PyWeakref_GetObject(ref);
-    if (*pobj == Py_None) {
-        *pobj = NULL;
-        return 0;
-    }
-    Py_INCREF(*pobj);
-    return 1;
-};
-#endif
-
-
 static int _process_list(PyObject* list, bool purge_only,
                          Exiv2::XmpData::iterator* beg,
                          Exiv2::XmpData::iterator* end) {
     PyObject* py_ptr = NULL;
     Xmpdatum_pointer* cpp_ptr = NULL;
+    PyObject* list_item = NULL;
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(list);
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) < 0)
-            return -1;
+        list_item = PyList_GetItemRef(list, idx-1);
+        result = PyWeakref_GetRef(list_item, &py_ptr);
+        Py_DECREF(list_item);
+        if (result < 0)
+            break;
         if (py_ptr)
             Py_DECREF(py_ptr);
         else
@@ -5343,57 +5403,59 @@ static int _process_list(PyObject* list, bool purge_only,
         }
         continue;
 forget:
-        PyList_SetSlice(list, idx-1, idx, NULL);
+        result = PyList_SetSlice(list, idx-1, idx, NULL);
+        if (result < 0)
+            break;
         continue;
     }
-    return 0;
-};
-static int purge_pointers(PyObject* list) {
-    return _process_list(list, true, NULL, NULL);
+    Py_END_CRITICAL_SECTION();
+    return result;
 };
 static int invalidate_pointers(PyObject* py_self) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        return _process_list(list, false, NULL, NULL);
-    return 0;
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
+    if (list) {
+        result = _process_list(list, false, NULL, NULL);
+        Py_DECREF(list);
+    }
+    return result;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::XmpData::iterator pos) {
-    PyObject* list = private_store_get(py_self, "pointers");
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
     if (list) {
         Exiv2::XmpData::iterator end = pos;
         end++;
-        return _process_list(list, false, &pos, &end);
+        result = _process_list(list, false, &pos, &end);
+        Py_DECREF(list);
     }
-    return 0;
+    return result;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::XmpData::iterator beg,
                                Exiv2::XmpData::iterator end) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        return _process_list(list, false, &beg, &end);
-    return 0;
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
+    if (list) {
+        result = _process_list(list, false, &beg, &end);
+        Py_DECREF(list);
+    }
+    return result;
 };
 static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list) {
-        if (purge_pointers(list) < 0)
-            return -1;
-    }
-    else {
-        list = PyList_New(0);
-        if (!list)
-            return -1;
-        int error = private_store_set(py_self, "pointers", list);
-        Py_DECREF(list);
-        if (error)
-            return -1;
-    }
     PyObject* ref = PyWeakref_NewRef(py_ptr, NULL);
     if (!ref)
         return -1;
-    int result = PyList_Append(list, ref);
+    PyObject* list = NULL;
+    int result = 0;
+    result = private_store_get(py_self, "pointers", &list, list_factory);
+    if (list) {
+        result = _process_list(list, true, NULL, NULL);
+        if (result >= 0)
+            result = PyList_Append(list, ref);
+        Py_DECREF(list);
+    }
     Py_DECREF(ref);
     return result;
 };
@@ -5409,10 +5471,8 @@ static PyObject* _delitem_Exiv2_XmpData(
         auto pos = self->findKey(Exiv2::XmpKey(key));
     if (pos == self->end())
         return PyErr_Format(PyExc_KeyError, "'%s'", key);
-#if 0x040500 >= 0x040400
     if (invalidate_pointers(py_self, pos) < 0)
         return NULL;
-#endif
     self->erase(pos);
     return SWIG_Py_Void();
 };
@@ -5449,6 +5509,21 @@ static int _contains_Exiv2_XmpData(PyObject* py_self, PyObject* py_key) {
         return -1;
     return self->findKey(Exiv2::XmpKey(key)) != self->end() ? 1 : 0;
 };
+
+
+#include <mutex>
+class XmpLock {
+private:
+    std::mutex lock;
+public:
+    static void LockUnlock(void* pLockData, bool lockUnlock) {
+        XmpLock* self = reinterpret_cast<XmpLock*>(pLockData);
+        if (self) {
+            lockUnlock ? self->lock.lock() : self->lock.unlock();
+        }
+    }
+};
+static XmpLock xmp_lock;
 
 
 static PyObject* Python_Exiv2_XmpParser_XmpFormatFlags = NULL;
@@ -6524,7 +6599,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_value__SWIG_0(PyObject *self, Py_ssi
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6575,7 +6650,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_pointer_value__SWIG_1(PyObject *self, Py_ssi
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6847,7 +6922,7 @@ SWIGINTERN PyObject *_wrap_XmpData_iterator___iter__(PyObject *self, PyObject *a
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6985,17 +7060,15 @@ SWIGINTERN PyObject *_wrap__getitem_Exiv2_XmpData(PyObject *self, PyObject *args
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new Xmpdatum_reference(result)),
       SWIGTYPE_p_MetadatumReferenceT_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python result
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -7953,7 +8026,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_0(PyObject *self, Py_ssize_t nob
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8194,7 +8267,7 @@ SWIGINTERN PyObject *_wrap_Xmpdatum_value__SWIG_1(PyObject *self, Py_ssize_t nob
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8608,16 +8681,14 @@ SWIGINTERN PyObject *_wrap_XmpData_erase(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new XmpData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8757,16 +8828,14 @@ SWIGINTERN PyObject *_wrap_XmpData_begin(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new XmpData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8795,16 +8864,14 @@ SWIGINTERN PyObject *_wrap_XmpData_end(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new XmpData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8854,16 +8921,14 @@ SWIGINTERN PyObject *_wrap_XmpData_findKey(PyObject *self, PyObject *args) {
     resultobj = SWIG_NewPointerObj(
       SWIG_as_voidptr(new XmpData_iterator(result, arg1->end())),
       SWIGTYPE_p_MetadataIteratorT_Exiv2__XmpData__iterator_Exiv2__Xmpdatum_t, SWIG_POINTER_OWN);
-    
     // Keep weak reference to the Python iterator
     if (store_pointer(self, resultobj)) {
       SWIG_fail;
     }
-    
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -9184,74 +9249,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpParser::XmpLockFct arg1 = 0 ;
-  void *arg2 = 0 ;
-  int res2 ;
-  bool result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  {
-    int res = SWIG_ConvertFunctionPtr(swig_obj[0], (void**)(&arg1), SWIGTYPE_p_f_p_void_bool__void);
-    if (!SWIG_IsOK(res)) {
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpParser_initialize" "', argument " "1"" of type '" "Exiv2::XmpParser::XmpLockFct""'"); 
-    }
-  }
-  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "XmpParser_initialize" "', argument " "2"" of type '" "void *""'"); 
-  }
-  {
-    try {
-      result = (bool)Exiv2::XmpParser::initialize(arg1,arg2);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Exiv2::XmpParser::XmpLockFct arg1 = 0 ;
-  bool result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    int res = SWIG_ConvertFunctionPtr(swig_obj[0], (void**)(&arg1), SWIGTYPE_p_f_p_void_bool__void);
-    if (!SWIG_IsOK(res)) {
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "XmpParser_initialize" "', argument " "1"" of type '" "Exiv2::XmpParser::XmpLockFct""'"); 
-    }
-  }
-  {
-    try {
-      result = (bool)Exiv2::XmpParser::initialize(arg1);
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_XmpParser_initialize(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   bool result;
   
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "XmpParser_initialize", 0, 0, 0)) SWIG_fail;
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "XMP Toolkit is already initialised", 1);
     try {
       result = (bool)Exiv2::XmpParser::initialize();
     }
@@ -9264,41 +9268,6 @@ SWIGINTERN PyObject *_wrap_XmpParser_initialize__SWIG_2(PyObject *self, Py_ssize
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_XmpParser_initialize(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  (void)self;
-  if (!(argc = SWIG_Python_UnpackTuple(args, "XmpParser_initialize", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 0) {
-    PyObject *retobj = _wrap_XmpParser_initialize__SWIG_2(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 1) {
-    PyObject *retobj = _wrap_XmpParser_initialize__SWIG_1(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  if (argc == 2) {
-    PyObject *retobj = _wrap_XmpParser_initialize__SWIG_0(self, argc, argv);
-    if (!SWIG_Python_TypeErrorOccurred(retobj)) return retobj;
-    SWIG_fail;
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'XmpParser_initialize'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Exiv2::XmpParser::initialize(Exiv2::XmpParser::XmpLockFct,void *)\n"
-    "    Exiv2::XmpParser::initialize(Exiv2::XmpParser::XmpLockFct)\n"
-    "    Exiv2::XmpParser::initialize()\n");
-  return 0;
 }
 
 
@@ -10847,7 +10816,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__Exiv2__XmpParser_methods[] = {
 		"\n"
 		"            3 if the XMP toolkit failed and raised an XMP_Error\n"
 		"" },
-  { "initialize", (PyCFunction)(void(*)(void))_wrap_XmpParser_initialize, METH_STATIC|METH_VARARGS, "\n"
+  { "initialize", (PyCFunction)(void(*)(void))_wrap_XmpParser_initialize, METH_STATIC|METH_NOARGS, "\n"
 		"      Initialize the XMP Toolkit.\n"
 		"\n"
 		"      Calling this method is usually not needed, as encode() and\n"
@@ -11279,7 +11248,6 @@ static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocato
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_f_p_void_bool__void = {"_p_f_p_void_bool__void", "Exiv2::XmpParser::XmpLockFct|void (*)(void *,bool)", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "int32_t *|int_fast16_t *|int_fast32_t *|int_least32_t *|intptr_t *|int *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_iterator = {"_p_iterator", "iterator *", 0, 0, (void*)0, 0};
@@ -11351,7 +11319,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_char,
   &_swigt__p_const_iterator,
   &_swigt__p_difference_type,
-  &_swigt__p_f_p_void_bool__void,
   &_swigt__p_first_type,
   &_swigt__p_int,
   &_swigt__p_iterator,
@@ -11423,7 +11390,6 @@ static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_f_p_void_bool__void[] = {  {&_swigt__p_f_p_void_bool__void, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_iterator[] = {  {&_swigt__p_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -11495,7 +11461,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_char,
   _swigc__p_const_iterator,
   _swigc__p_difference_type,
-  _swigc__p_f_p_void_bool__void,
   _swigc__p_first_type,
   _swigc__p_int,
   _swigc__p_iterator,
@@ -12174,12 +12139,12 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_Exiv2Error = import_from_python("exiv2.""extras","Exiv2Error");
   if (!Python_Exiv2_Exiv2Error)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_ErrorCode = import_from_python("exiv2.""_error","ErrorCode");
   if (!Python_Exiv2_ErrorCode)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
@@ -12188,18 +12153,18 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   
   Python_Exiv2_ByteOrder = import_from_python("exiv2.""_types","ByteOrder");
   if (!Python_Exiv2_ByteOrder)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
   Python_enum_IntEnum = import_from_python("enum","IntEnum");
   if (!Python_enum_IntEnum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_TypeId = import_from_python("exiv2.""_types","TypeId");
   if (!Python_Exiv2_TypeId)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   
@@ -12340,15 +12305,22 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   SwigPyBuiltin_AddPublicSymbol(public_interface, "Xmpdatum_reference");
   d = md;
   
+  if (!Exiv2::XmpParser::initialize(xmp_lock.LockUnlock, &xmp_lock)) {
+    PyErr_SetString(
+      PyExc_RuntimeError, "XMP Toolkit initialisation failed");
+    return -1;
+  }
+  
+  
   Python_Exiv2_extras_create_enum = import_from_python("exiv2.extras","_create_enum");
   if (!Python_Exiv2_extras_create_enum)
-  return INIT_ERROR_RETURN;
+  return -1;
   
   
   Python_Exiv2_XmpParser_XmpFormatFlags = _create_enum(
     "Exiv2::XmpParser::XmpFormatFlags","", _get_enum_data_Exiv2_XmpParser_XmpFormatFlags());
   if (!Python_Exiv2_XmpParser_XmpFormatFlags)
-  return INIT_ERROR_RETURN;
+  return -1;
   // SWIG_Python_SetConstant will decref PyEnum object
   Py_INCREF(Python_Exiv2_XmpParser_XmpFormatFlags);
   

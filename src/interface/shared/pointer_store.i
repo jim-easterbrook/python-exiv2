@@ -23,18 +23,23 @@
 // pointers when data is deleted
 %define POINTER_STORE(container_type, datum_type)
 
-#if SWIG_VERSION >= 0x040400
 // Functions to store weak references to pointers (swig >= v4.4)
 %fragment("pointer_store", "header", fragment="private_data",
-          fragment="weakref_getref") {
+          fragment="Python_313_functions") {
 static int _process_list(PyObject* list, bool purge_only,
                          Exiv2::container_type::iterator* beg,
                          Exiv2::container_type::iterator* end) {
     PyObject* py_ptr = NULL;
     datum_type##_pointer* cpp_ptr = NULL;
+    PyObject* list_item = NULL;
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(list);
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
-        if (PyWeakref_GetRef(PyList_GetItem(list, idx-1), &py_ptr) < 0)
-            return -1;
+        list_item = PyList_GetItemRef(list, idx-1);
+        result = PyWeakref_GetRef(list_item, &py_ptr);
+        Py_DECREF(list_item);
+        if (result < 0)
+            break;
         if (py_ptr)
             Py_DECREF(py_ptr);
         else
@@ -53,75 +58,64 @@ static int _process_list(PyObject* list, bool purge_only,
         }
         continue;
 forget:
-        PyList_SetSlice(list, idx-1, idx, NULL);
+        result = PyList_SetSlice(list, idx-1, idx, NULL);
+        if (result < 0)
+            break;
         continue;
     }
-    return 0;
-};
-static int purge_pointers(PyObject* list) {
-    return _process_list(list, true, NULL, NULL);
+    Py_END_CRITICAL_SECTION();
+    return result;
 };
 static int invalidate_pointers(PyObject* py_self) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        return _process_list(list, false, NULL, NULL);
-    return 0;
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
+    if (list) {
+        result = _process_list(list, false, NULL, NULL);
+        Py_DECREF(list);
+    }
+    return result;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::container_type::iterator pos) {
-    PyObject* list = private_store_get(py_self, "pointers");
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
     if (list) {
         Exiv2::container_type::iterator end = pos;
         end++;
-        return _process_list(list, false, &pos, &end);
+        result = _process_list(list, false, &pos, &end);
+        Py_DECREF(list);
     }
-    return 0;
+    return result;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::container_type::iterator beg,
                                Exiv2::container_type::iterator end) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list)
-        return _process_list(list, false, &beg, &end);
-    return 0;
+    PyObject* list = NULL;
+    int result = private_store_get(py_self, "pointers", &list);
+    if (list) {
+        result = _process_list(list, false, &beg, &end);
+        Py_DECREF(list);
+    }
+    return result;
 };
 static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
-    PyObject* list = private_store_get(py_self, "pointers");
-    if (list) {
-        if (purge_pointers(list) < 0)
-            return -1;
-    }
-    else {
-        list = PyList_New(0);
-        if (!list)
-            return -1;
-        int error = private_store_set(py_self, "pointers", list);
-        Py_DECREF(list);
-        if (error)
-            return -1;
-    }
     PyObject* ref = PyWeakref_NewRef(py_ptr, NULL);
     if (!ref)
         return -1;
-    int result = PyList_Append(list, ref);
+    PyObject* list = NULL;
+    int result = 0;
+    result = private_store_get(py_self, "pointers", &list, list_factory);
+    if (list) {
+        result = _process_list(list, true, NULL, NULL);
+        if (result >= 0)
+            result = PyList_Append(list, ref);
+        Py_DECREF(list);
+    }
     Py_DECREF(ref);
     return result;
 };
 }
-#endif
 
-#if SWIG_VERSION < 0x040400
-// erase() and eraseFamily() invalidate the iterator passed to them
-%typemap(check) (Exiv2::container_type::iterator pos),
-                (Exiv2::container_type::iterator beg) {
-    argp$argnum->_invalidate();
-}
-%typemap(check) Exiv2::container_type::iterator& {
-    argp$argnum->_invalidate();
-}
-#endif
-
-#if SWIG_VERSION >= 0x040400
 // clear() invalidates all pointers
 %typemap(ret, fragment="pointer_store") void clear {
     if (invalidate_pointers(self) < 0) {
@@ -149,6 +143,5 @@ static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
         SWIG_fail;
     }
 }
-#endif // SWIG_VERSION
 
 %enddef // POINTER_STORE

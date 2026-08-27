@@ -1,4 +1,4 @@
-python-exiv2 v\ 0.19.1
+python-exiv2 v\ 0.20.0
 ======================
 
 python-exiv2 is a low level interface (or binding) to the exiv2_ C++ library.
@@ -58,6 +58,20 @@ Alternatively, if you have libexiv2 v0.27.x and its "development headers" instal
 
 There are some changes in the libexiv2 API between v0.27.7 and v0.28.x.
 Eventually python-exiv2 will no longer support libexiv2 v0.27.x, so please update your software to use the changed API.
+
+Thread safety
+-------------
+
+.. versionadded:: 0.20.0
+
+Work has begun on support for `free threaded Python`_.
+As with the libexiv2_ C++ library, your application must serialise all writing to exiv2 objects, perhaps with a Python `threading.lock`_.
+See the `exiv2 note on thread safety`_ for more information.
+You shouldn't need to worry about XMP SDK initialisation though.
+python-exiv2 calls `Exiv2::XmpParser::initialize`_ during startup, and passes it a mutex object for it to serialise calls to `Exiv2::XmpProperties::registerNs`_.
+
+Free threading support is still at an experimental stage.
+If you run into any problems with it please let me know.
 
 Documentation
 -------------
@@ -119,6 +133,14 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 
 .. _Doxygen:           https://www.doxygen.nl/
 .. _exiv2:             https://www.exiv2.org/getting-started.html
+.. _exiv2 note on thread safety:
+    https://github.com/exiv2/exiv2#ThreadSafety
+.. _Exiv2::XmpProperties::registerNs:
+    https://exiv2.org/doc/classExiv2_1_1XmpProperties.html#ae58ee081625b7924563e93a1ba184fec
+.. _Exiv2::XmpParser::initialize:
+    https://exiv2.org/doc/classExiv2_1_1XmpParser.html#afe08760a1a594e66566cb59a0f87d36e
+.. _free threaded Python:
+    https://docs.python.org/3/howto/free-threading-python.html
 .. _gexiv2:            https://wiki.gnome.org/Projects/gexiv2
 .. _GitHub:            https://github.com/jim-easterbrook/python-exiv2
 .. _libexiv2:          https://www.exiv2.org/doc/index.html
@@ -135,6 +157,8 @@ Please email jim@jim-easterbrook.me.uk if you find any problems (or solutions!).
 .. _ReadTheDocs:       https://python-exiv2.readthedocs.io/
 .. _Sphinx:            https://www.sphinx-doc.org/
 .. _statement on BMFF: https://github.com/exiv2/exiv2#BMFF
+.. _threading.lock:
+    https://docs.python.org/3/library/threading.html#lock-objects
 .. _Visual C++:        https://wiki.python.org/moin/WindowsCompilers
 .. _INSTALL.rst:       INSTALL.rst
 .. _USAGE.rst:         USAGE.rst

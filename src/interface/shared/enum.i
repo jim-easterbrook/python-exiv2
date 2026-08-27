@@ -1,6 +1,6 @@
 // // python-exiv2 - Python interface to libexiv2
 // http://github.com/jim-easterbrook/python-exiv2
-// Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+// Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -120,7 +120,7 @@ DECLARE_IMPORT(full_name)
 Python_%mangle(full_name) = _create_enum(
     #full_name, #alias_strip, _get_enum_data_%mangle(full_name)());
 if (!Python_%mangle(full_name))
-    return INIT_ERROR_RETURN;
+    return -1;
 // SWIG_Python_SetConstant will decref PyEnum object
 Py_INCREF(Python_%mangle(full_name));
 }
