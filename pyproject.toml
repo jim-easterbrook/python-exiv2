@@ -27,7 +27,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "exiv2"
-description = "Python interface to libexiv2"
+description = "Python interface to libexiv2, an Exif/IPTC/XMP metadata manager"
 readme = "README.rst"
 license = "GPL-3.0-or-later"
 authors = [
@@ -43,6 +43,7 @@ classifiers = [
     "Operating System :: Microsoft",
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: Free Threading :: 1 - Unstable",
     "Topic :: Multimedia",
     "Topic :: Multimedia :: Graphics",
 ]

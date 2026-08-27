@@ -115,7 +115,7 @@ def main():
                             line = line.replace(*from_to)
                         out_file.write(line)
         # make options list
-        swig_opts = ['-c++', '-python', '-builtin', '-doxygen',
+        swig_opts = ['-c++', '-python', '-builtin', '-doxygen', '-nogil',
                      '-fastdispatch', '-fastproxy', '-Wextra', '-Werror',
                      '-Isrc/interface', '-I-', '-I' + copy_dir,
                      '-Isrc/interface/{}_{}_{}'.format(*exiv2_version),
