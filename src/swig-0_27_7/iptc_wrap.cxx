@@ -5124,6 +5124,8 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 #if PY_VERSION_HEX < 0x030d0000
+#define Py_BEGIN_CRITICAL_SECTION(op) {
+#define Py_END_CRITICAL_SECTION() }
 static int PyDict_ContainsString(PyObject *p, const char *key) {
     return (PyDict_GetItemString(p, key)) ? 1 : 0;
 };
@@ -5167,18 +5169,21 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 
 
 static int _get_store(PyObject* py_self, bool create, PyObject** dict) {
-    int result = PyObject_GetOptionalAttrString(
-        py_self, "_private_data_", dict);
-    if ((result > 0) || !create)
-        return result;
-    *dict = PyDict_New();
-    if (*dict) {
-        result = PyObject_SetAttrString(py_self, "_private_data_", *dict);
-        if (result < 0) {
-            Py_DECREF(*dict);
-            *dict = NULL;
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = PyObject_GetOptionalAttrString(py_self, "_private_data_", dict);
+    if ((result == 0) && create) {
+        *dict = PyDict_New();
+        if (*dict) {
+            result = PyObject_SetAttrString(
+                py_self, "_private_data_", *dict);
+            if (result < 0) {
+                Py_DECREF(*dict);
+                *dict = NULL;
+            }
         }
     }
+    Py_END_CRITICAL_SECTION();
     return result;
 };
 static int private_store_set(PyObject* py_self, const char* name,
@@ -5206,8 +5211,10 @@ static int private_store_del(PyObject* py_self, const char* name) {
     PyObject* dict = NULL;
     int result = _get_store(py_self, false, &dict);
     if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
         if (PyDict_ContainsString(dict, name))
             result = PyDict_DelItemString(dict, name);
+        Py_END_CRITICAL_SECTION();
         Py_DECREF(dict);
     }
     return result;
@@ -5356,12 +5363,13 @@ static int _process_list(PyObject* list, bool purge_only,
     Iptcdatum_pointer* cpp_ptr = NULL;
     PyObject* list_item = NULL;
     int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(list);
     for (Py_ssize_t idx = PyList_Size(list); idx > 0; idx--) {
         list_item = PyList_GetItemRef(list, idx-1);
         result = PyWeakref_GetRef(list_item, &py_ptr);
         Py_DECREF(list_item);
         if (result < 0)
-            return result;
+            break;
         if (py_ptr)
             Py_DECREF(py_ptr);
         else
@@ -5380,13 +5388,13 @@ static int _process_list(PyObject* list, bool purge_only,
         }
         continue;
 forget:
-        PyList_SetSlice(list, idx-1, idx, NULL);
+        result = PyList_SetSlice(list, idx-1, idx, NULL);
+        if (result < 0)
+            break;
         continue;
     }
+    Py_END_CRITICAL_SECTION();
     return result;
-};
-static int purge_pointers(PyObject* list) {
-    return _process_list(list, true, NULL, NULL);
 };
 static int invalidate_pointers(PyObject* py_self) {
     PyObject* list = NULL;
@@ -5394,9 +5402,8 @@ static int invalidate_pointers(PyObject* py_self) {
     if (list) {
         result = _process_list(list, false, NULL, NULL);
         Py_DECREF(list);
-        return result;
     }
-    return 0;
+    return result;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::IptcData::iterator pos) {
@@ -5407,9 +5414,8 @@ static int invalidate_pointers(PyObject* py_self,
         end++;
         result = _process_list(list, false, &pos, &end);
         Py_DECREF(list);
-        return result;
     }
-    return 0;
+    return result;
 };
 static int invalidate_pointers(PyObject* py_self,
                                Exiv2::IptcData::iterator beg,
@@ -5419,34 +5425,31 @@ static int invalidate_pointers(PyObject* py_self,
     if (list) {
         result = _process_list(list, false, &beg, &end);
         Py_DECREF(list);
-        return result;
     }
-    return 0;
+    return result;
 };
 static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
     PyObject* ref = PyWeakref_NewRef(py_ptr, NULL);
     if (!ref)
         return -1;
     PyObject* list = NULL;
-    int result = private_store_get(py_self, "pointers", &list);
-    if (list) {
-        if (purge_pointers(list) < 0) {
-            Py_DECREF(list);
-            return -1;
-        }
-    }
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = private_store_get(py_self, "pointers", &list);
+    if (list)
+        result = _process_list(list, true, NULL, NULL);
     else {
         list = PyList_New(0);
-        if (!list)
-            return -1;
-        int error = private_store_set(py_self, "pointers", list);
-        if (error) {
-            Py_DECREF(list);
-            return -1;
-        }
+        if (list)
+            result = private_store_set(py_self, "pointers", list);
+        else
+            result = -1;
     }
-    result = PyList_Append(list, ref);
-    Py_DECREF(list);
+    Py_END_CRITICAL_SECTION();
+    if (list) {
+        result = PyList_Append(list, ref);
+        Py_DECREF(list);
+    }
     Py_DECREF(ref);
     return result;
 };
@@ -6533,7 +6536,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_pointer_value__SWIG_0(PyObject *self, Py_ss
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6584,7 +6587,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_pointer_value__SWIG_1(PyObject *self, Py_ss
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6856,7 +6859,7 @@ SWIGINTERN PyObject *_wrap_IptcData_iterator___iter__(PyObject *self, PyObject *
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MetadataIteratorT_Exiv2__IptcData__iterator_Exiv2__Iptcdatum_t, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -7004,7 +7007,7 @@ SWIGINTERN PyObject *_wrap__getitem_Exiv2_IptcData(PyObject *self, PyObject *arg
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8021,7 +8024,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_0(PyObject *self, Py_ssize_t no
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8262,7 +8265,7 @@ SWIGINTERN PyObject *_wrap_Iptcdatum_value__SWIG_1(PyObject *self, Py_ssize_t no
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8663,7 +8666,7 @@ SWIGINTERN PyObject *_wrap_IptcData_erase(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8783,7 +8786,7 @@ SWIGINTERN PyObject *_wrap_IptcData_begin(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8821,7 +8824,7 @@ SWIGINTERN PyObject *_wrap_IptcData_end(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8880,7 +8883,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findKey(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8942,7 +8945,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_0(PyObject *self, Py_ssize_t no
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -8996,7 +8999,7 @@ SWIGINTERN PyObject *_wrap_IptcData_findId__SWIG_1(PyObject *self, Py_ssize_t no
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }

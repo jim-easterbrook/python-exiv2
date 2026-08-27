@@ -55,7 +55,10 @@ _HOLD_BUFFER(remainder)
 _HOLD_BUFFER(hold_funcs)
 %typemap(argout, fragment="private_data") (buf_type, len_type) {
 %#ifdef KEEPREF_VIEW_$symname
-    private_store_set(resultobj, "using_view", _global_view);
+    if (private_store_set($result, "using_view", _global_view) < 0) {
+        Py_DECREF($result);
+        SWIG_fail;
+    }
 %#endif
 }
 #endif
@@ -64,7 +67,10 @@ _HOLD_BUFFER(hold_funcs)
 // Macro for functions to release the held reference
 %define RELEASE_BUFFER(signature)
 %typemap(ret, fragment="private_data") signature %{
-    private_store_del(self, "using_view");
+    if (private_store_del(self, "using_view") < 0) {
+        Py_DECREF($result);
+        SWIG_fail;
+    }
 %}
 %enddef
 

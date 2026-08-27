@@ -19,6 +19,8 @@
 // Implementation of functions added in Python 3.13
 %fragment("Python_313_functions", "header") {
 %#if PY_VERSION_HEX < 0x030d0000
+%#define Py_BEGIN_CRITICAL_SECTION(op) {
+%#define Py_END_CRITICAL_SECTION() }
 static int PyDict_ContainsString(PyObject *p, const char *key) {
     return (PyDict_GetItemString(p, key)) ? 1 : 0;
 };
@@ -64,18 +66,21 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 // Functions to store and retrieve "private" data attached to Pyhon object
 %fragment("private_data", "header", fragment="Python_313_functions") {
 static int _get_store(PyObject* py_self, bool create, PyObject** dict) {
-    int result = PyObject_GetOptionalAttrString(
-        py_self, "_private_data_", dict);
-    if ((result > 0) || !create)
-        return result;
-    *dict = PyDict_New();
-    if (*dict) {
-        result = PyObject_SetAttrString(py_self, "_private_data_", *dict);
-        if (result < 0) {
-            Py_DECREF(*dict);
-            *dict = NULL;
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = PyObject_GetOptionalAttrString(py_self, "_private_data_", dict);
+    if ((result == 0) && create) {
+        *dict = PyDict_New();
+        if (*dict) {
+            result = PyObject_SetAttrString(
+                py_self, "_private_data_", *dict);
+            if (result < 0) {
+                Py_DECREF(*dict);
+                *dict = NULL;
+            }
         }
     }
+    Py_END_CRITICAL_SECTION();
     return result;
 };
 static int private_store_set(PyObject* py_self, const char* name,
@@ -103,8 +108,10 @@ static int private_store_del(PyObject* py_self, const char* name) {
     PyObject* dict = NULL;
     int result = _get_store(py_self, false, &dict);
     if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
         if (PyDict_ContainsString(dict, name))
             result = PyDict_DelItemString(dict, name);
+        Py_END_CRITICAL_SECTION();
         Py_DECREF(dict);
     }
     return result;
@@ -123,22 +130,21 @@ static int store_view(PyObject* py_self, PyObject* view) {
     if (!view_ref)
         return -1;
     PyObject* view_list = NULL;
-    int result = private_store_get(py_self, "view_list", &view_list);
-    if (!view_list) {
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = private_store_get(py_self, "view_list", &view_list);
+    if (result == 0) {
         view_list = PyList_New(0);
-        if (!view_list) {
-            Py_DECREF(view_ref);
-            return -1;
-        }
-        int error = private_store_set(py_self, "view_list", view_list);
-        if (error) {
-            Py_DECREF(view_list);
-            Py_DECREF(view_ref);
-            return -1;
-        }
+        if (view_list)
+            result = private_store_set(py_self, "view_list", view_list);
+        else
+            result = -1;
     }
-    result = PyList_Append(view_list, view_ref);
-    Py_DECREF(view_list);
+    Py_END_CRITICAL_SECTION();
+    if (result >= 0) {
+        result = PyList_Append(view_list, view_ref);
+        Py_DECREF(view_list);
+        }
     Py_DECREF(view_ref);
     return result;
 };
@@ -149,20 +155,20 @@ static int release_views(PyObject* py_self) {
         return result;
     PyObject* view_ref = NULL;
     PyObject* view = NULL;
+    Py_BEGIN_CRITICAL_SECTION(view_list);
     for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
         view_ref = PyList_GetItemRef(view_list, idx - 1);
         result = PyWeakref_GetRef(view_ref, &view);
         Py_DECREF(view_ref);
-        if (result < 0) {
-            Py_DECREF(view_list);
-            return result;
-        }
+        if (result < 0)
+            break;
         if (view) {
             Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
             Py_DECREF(view);
         }
         PyList_SetSlice(view_list, idx - 1, idx, NULL);
     }
+    Py_END_CRITICAL_SECTION();
     Py_DECREF(view_list);
     return result;
 };

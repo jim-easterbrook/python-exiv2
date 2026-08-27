@@ -4693,6 +4693,8 @@ static PyObject* _get_enum_data_Exiv2_ImageType() {
 
 
 #if PY_VERSION_HEX < 0x030d0000
+#define Py_BEGIN_CRITICAL_SECTION(op) {
+#define Py_END_CRITICAL_SECTION() }
 static int PyDict_ContainsString(PyObject *p, const char *key) {
     return (PyDict_GetItemString(p, key)) ? 1 : 0;
 };
@@ -4736,18 +4738,21 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 
 
 static int _get_store(PyObject* py_self, bool create, PyObject** dict) {
-    int result = PyObject_GetOptionalAttrString(
-        py_self, "_private_data_", dict);
-    if ((result > 0) || !create)
-        return result;
-    *dict = PyDict_New();
-    if (*dict) {
-        result = PyObject_SetAttrString(py_self, "_private_data_", *dict);
-        if (result < 0) {
-            Py_DECREF(*dict);
-            *dict = NULL;
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = PyObject_GetOptionalAttrString(py_self, "_private_data_", dict);
+    if ((result == 0) && create) {
+        *dict = PyDict_New();
+        if (*dict) {
+            result = PyObject_SetAttrString(
+                py_self, "_private_data_", *dict);
+            if (result < 0) {
+                Py_DECREF(*dict);
+                *dict = NULL;
+            }
         }
     }
+    Py_END_CRITICAL_SECTION();
     return result;
 };
 static int private_store_set(PyObject* py_self, const char* name,
@@ -4775,8 +4780,10 @@ static int private_store_del(PyObject* py_self, const char* name) {
     PyObject* dict = NULL;
     int result = _get_store(py_self, false, &dict);
     if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
         if (PyDict_ContainsString(dict, name))
             result = PyDict_DelItemString(dict, name);
+        Py_END_CRITICAL_SECTION();
         Py_DECREF(dict);
     }
     return result;
@@ -4792,22 +4799,21 @@ static int store_view(PyObject* py_self, PyObject* view) {
     if (!view_ref)
         return -1;
     PyObject* view_list = NULL;
-    int result = private_store_get(py_self, "view_list", &view_list);
-    if (!view_list) {
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = private_store_get(py_self, "view_list", &view_list);
+    if (result == 0) {
         view_list = PyList_New(0);
-        if (!view_list) {
-            Py_DECREF(view_ref);
-            return -1;
-        }
-        int error = private_store_set(py_self, "view_list", view_list);
-        if (error) {
-            Py_DECREF(view_list);
-            Py_DECREF(view_ref);
-            return -1;
-        }
+        if (view_list)
+            result = private_store_set(py_self, "view_list", view_list);
+        else
+            result = -1;
     }
-    result = PyList_Append(view_list, view_ref);
-    Py_DECREF(view_list);
+    Py_END_CRITICAL_SECTION();
+    if (result >= 0) {
+        result = PyList_Append(view_list, view_ref);
+        Py_DECREF(view_list);
+        }
     Py_DECREF(view_ref);
     return result;
 };
@@ -4818,20 +4824,20 @@ static int release_views(PyObject* py_self) {
         return result;
     PyObject* view_ref = NULL;
     PyObject* view = NULL;
+    Py_BEGIN_CRITICAL_SECTION(view_list);
     for (Py_ssize_t idx = PyList_Size(view_list); idx > 0; idx--) {
         view_ref = PyList_GetItemRef(view_list, idx - 1);
         result = PyWeakref_GetRef(view_ref, &view);
         Py_DECREF(view_ref);
-        if (result < 0) {
-            Py_DECREF(view_list);
-            return result;
-        }
+        if (result < 0)
+            break;
         if (view) {
             Py_XDECREF(PyObject_CallMethod(view, "release", NULL));
             Py_DECREF(view);
         }
         PyList_SetSlice(view_list, idx - 1, idx, NULL);
     }
+    Py_END_CRITICAL_SECTION();
     Py_DECREF(view_list);
     return result;
 };
@@ -5259,7 +5265,10 @@ SWIGINTERN PyObject *_wrap_Image_writeMetadata(PyObject *self, PyObject *args) {
   }
   resultobj = SWIG_Py_Void();
   
-  private_store_del(self, "using_view");
+  if (private_store_del(self, "using_view") < 0) {
+    Py_DECREF(resultobj);
+    SWIG_fail;
+  }
   
   return resultobj;
 fail:
@@ -5851,7 +5860,7 @@ SWIGINTERN PyObject *_wrap_Image_iccProfile(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__DataBuf, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -5977,7 +5986,7 @@ SWIGINTERN PyObject *_wrap_Image_exifData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__ExifData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6020,7 +6029,7 @@ SWIGINTERN PyObject *_wrap_Image_iptcData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__IptcData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6063,7 +6072,7 @@ SWIGINTERN PyObject *_wrap_Image_xmpData(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__XmpData, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6455,7 +6464,7 @@ SWIGINTERN PyObject *_wrap_Image_io(PyObject *self, PyObject *args) {
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Exiv2__BasicIo, 0 |  0 );
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
@@ -6982,7 +6991,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_open__SWIG_1(PyObject *self, Py_ssize_t 
   
   {
 #ifdef KEEPREF_VIEW_ImageFactory_open
-    private_store_set(resultobj, "using_view", _global_view);
+    if (private_store_set(resultobj, "using_view", _global_view) < 0) {
+      Py_DECREF(resultobj);
+      SWIG_fail;
+    }
 #endif
   }
   
@@ -7259,7 +7271,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_1(PyObject *self, Py_ssize
   }
   {
 #ifdef KEEPREF_VIEW_ImageFactory_getType
-    private_store_set(resultobj, "using_view", _global_view);
+    if (private_store_set(resultobj, "using_view", _global_view) < 0) {
+      Py_DECREF(resultobj);
+      SWIG_fail;
+    }
 #endif
   }
   
@@ -7501,7 +7516,10 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
   
   {
 #ifdef KEEPREF_VIEW_ImageFactory_createIo
-    private_store_set(resultobj, "using_view", _global_view);
+    if (private_store_set(resultobj, "using_view", _global_view) < 0) {
+      Py_DECREF(resultobj);
+      SWIG_fail;
+    }
 #endif
   }
   

@@ -5235,6 +5235,8 @@ static swig_type_info* get_swig_type(Exiv2::Value* value) {
 
 
 #if PY_VERSION_HEX < 0x030d0000
+#define Py_BEGIN_CRITICAL_SECTION(op) {
+#define Py_END_CRITICAL_SECTION() }
 static int PyDict_ContainsString(PyObject *p, const char *key) {
     return (PyDict_GetItemString(p, key)) ? 1 : 0;
 };
@@ -5278,18 +5280,21 @@ static int PyWeakref_GetRef(PyObject *ref, PyObject **pobj) {
 
 
 static int _get_store(PyObject* py_self, bool create, PyObject** dict) {
-    int result = PyObject_GetOptionalAttrString(
-        py_self, "_private_data_", dict);
-    if ((result > 0) || !create)
-        return result;
-    *dict = PyDict_New();
-    if (*dict) {
-        result = PyObject_SetAttrString(py_self, "_private_data_", *dict);
-        if (result < 0) {
-            Py_DECREF(*dict);
-            *dict = NULL;
+    int result = 0;
+    Py_BEGIN_CRITICAL_SECTION(py_self);
+    result = PyObject_GetOptionalAttrString(py_self, "_private_data_", dict);
+    if ((result == 0) && create) {
+        *dict = PyDict_New();
+        if (*dict) {
+            result = PyObject_SetAttrString(
+                py_self, "_private_data_", *dict);
+            if (result < 0) {
+                Py_DECREF(*dict);
+                *dict = NULL;
+            }
         }
     }
+    Py_END_CRITICAL_SECTION();
     return result;
 };
 static int private_store_set(PyObject* py_self, const char* name,
@@ -5317,8 +5322,10 @@ static int private_store_del(PyObject* py_self, const char* name) {
     PyObject* dict = NULL;
     int result = _get_store(py_self, false, &dict);
     if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
         if (PyDict_ContainsString(dict, name))
             result = PyDict_DelItemString(dict, name);
+        Py_END_CRITICAL_SECTION();
         Py_DECREF(dict);
     }
     return result;
@@ -6404,7 +6411,7 @@ SWIGINTERN PyObject *_wrap_Metadatum_value(PyObject *self, PyObject *args) {
   }
   
   if (resultobj != Py_None)
-  if (private_store_set(resultobj, "refers_to", self)) {
+  if (private_store_set(resultobj, "refers_to", self) < 0) {
     Py_DECREF(resultobj);
     SWIG_fail;
   }
