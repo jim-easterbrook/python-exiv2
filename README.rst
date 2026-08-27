@@ -71,6 +71,7 @@ You shouldn't need to worry about XMP SDK initialisation though.
 python-exiv2 calls `Exiv2::XmpParser::initialize`_ during startup, and passes it a mutex object for it to serialise calls to `Exiv2::XmpProperties::registerNs`_.
 
 Free threading support is still at an experimental stage.
+To enable it you need to run a free threading build of Python (e.g. ``python3.14t``) with an environment variable ``PYTHON_GIL=0`` or command line option ``-Xgil=0``.
 If you run into any problems with it please let me know.
 
 Documentation
