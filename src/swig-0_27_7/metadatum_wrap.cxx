@@ -5307,13 +5307,27 @@ static int private_store_set(PyObject* py_self, const char* name,
     }
     return result;
 };
+typedef PyObject*(*ps_value_factory)();
+static PyObject* list_factory() {
+    return PyList_New(0);
+}
 static int private_store_get(
-        PyObject* py_self, const char* name, PyObject** value) {
+        PyObject* py_self, const char* name, PyObject** value,
+        ps_value_factory factory=NULL) {
     *value = NULL;
     PyObject* dict = NULL;
-    int result = _get_store(py_self, false, &dict);
+    int result = _get_store(py_self, factory, &dict);
     if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
         result = PyDict_GetItemStringRef(dict, name, value);
+        if (factory && result == 0) {
+            *value = factory();
+            if (*value)
+                result = PyDict_SetItemString(dict, name, *value);
+            else
+                result = -1;
+        }
+        Py_END_CRITICAL_SECTION();
         Py_DECREF(dict);
     }
     return result;

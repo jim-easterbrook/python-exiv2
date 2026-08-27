@@ -5709,13 +5709,27 @@ static int private_store_set(PyObject* py_self, const char* name,
     }
     return result;
 };
+typedef PyObject*(*ps_value_factory)();
+static PyObject* list_factory() {
+    return PyList_New(0);
+}
 static int private_store_get(
-        PyObject* py_self, const char* name, PyObject** value) {
+        PyObject* py_self, const char* name, PyObject** value,
+        ps_value_factory factory=NULL) {
     *value = NULL;
     PyObject* dict = NULL;
-    int result = _get_store(py_self, false, &dict);
+    int result = _get_store(py_self, factory, &dict);
     if (dict) {
+        Py_BEGIN_CRITICAL_SECTION(dict);
         result = PyDict_GetItemStringRef(dict, name, value);
+        if (factory && result == 0) {
+            *value = factory();
+            if (*value)
+                result = PyDict_SetItemString(dict, name, *value);
+            else
+                result = -1;
+        }
+        Py_END_CRITICAL_SECTION();
         Py_DECREF(dict);
     }
     return result;
@@ -5744,16 +5758,8 @@ static int store_view(PyObject* py_self, PyObject* view) {
         return -1;
     PyObject* view_list = NULL;
     int result = 0;
-    Py_BEGIN_CRITICAL_SECTION(py_self);
-    result = private_store_get(py_self, "view_list", &view_list);
-    if (result == 0) {
-        view_list = PyList_New(0);
-        if (view_list)
-            result = private_store_set(py_self, "view_list", view_list);
-        else
-            result = -1;
-    }
-    Py_END_CRITICAL_SECTION();
+    result = private_store_get(
+        py_self, "view_list", &view_list, list_factory);
     if (result >= 0) {
         result = PyList_Append(view_list, view_ref);
         Py_DECREF(view_list);

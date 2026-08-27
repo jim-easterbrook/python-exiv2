@@ -105,20 +105,11 @@ static int store_pointer(PyObject* py_self, PyObject* py_ptr) {
         return -1;
     PyObject* list = NULL;
     int result = 0;
-    Py_BEGIN_CRITICAL_SECTION(py_self);
-    result = private_store_get(py_self, "pointers", &list);
-    if (list)
-        result = _process_list(list, true, NULL, NULL);
-    else {
-        list = PyList_New(0);
-        if (list)
-            result = private_store_set(py_self, "pointers", list);
-        else
-            result = -1;
-    }
-    Py_END_CRITICAL_SECTION();
+    result = private_store_get(py_self, "pointers", &list, list_factory);
     if (list) {
-        result = PyList_Append(list, ref);
+        result = _process_list(list, true, NULL, NULL);
+        if (result >= 0)
+            result = PyList_Append(list, ref);
         Py_DECREF(list);
     }
     Py_DECREF(ref);
