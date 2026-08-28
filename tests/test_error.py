@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-24  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -25,14 +25,6 @@ import exiv2
 
 
 class TestErrorModule(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        # clear locale
-        name = 'en_US.UTF-8'
-        os.environ['LC_ALL'] = name
-        os.environ['LANG'] = name
-        os.environ['LANGUAGE'] = name
-
     def check_result(self, result, expected_type, expected_value):
         self.assertIsInstance(result, expected_type)
         self.assertEqual(result, expected_value)

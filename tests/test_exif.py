@@ -24,6 +24,8 @@ import unittest
 
 import exiv2
 
+from test_types import language_lock, set_language
+
 
 class TestExifModule(unittest.TestCase):
     @classmethod
@@ -32,11 +34,6 @@ class TestExifModule(unittest.TestCase):
         # open image in memory so we don't corrupt the file
         with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
             cls.image_data = f.read()
-        # clear locale
-        name = 'en_US.UTF-8'
-        os.environ['LC_ALL'] = name
-        os.environ['LANG'] = name
-        os.environ['LANGUAGE'] = name
 
     def test_ExifData(self):
         # empty container
@@ -181,7 +178,9 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(datum.size(), 28)
         self.assertEqual(datum.sizeDataArea(), 0)
         self.assertEqual(datum.tag(), 270)
-        self.assertEqual(datum.tagLabel(), 'Image Description')
+        with language_lock:
+            set_language()
+            self.assertEqual(datum.tagLabel(), 'Image Description')
         self.assertEqual(datum.tagName(), 'ImageDescription')
         self.assertEqual(datum.toFloat(0), 71.0)
         if exiv2.testVersion(0, 28, 0):
