@@ -31,7 +31,7 @@ class TestExifModule(unittest.TestCase):
         test_dir = os.path.dirname(__file__)
         # open image in memory so we don't corrupt the file
         with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
-            cls.image = exiv2.ImageFactory.open(f.read())
+            cls.image_data = f.read()
         # clear locale
         name = 'en_US.UTF-8'
         os.environ['LC_ALL'] = name
@@ -43,8 +43,9 @@ class TestExifModule(unittest.TestCase):
         data = exiv2.ExifData()
         self.assertEqual(len(data), 0)
         # actual data
-        self.image.readMetadata()
-        data = self.image.exifData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.exifData()
         self.assertEqual(len(data), 29)
         # add data
         data.add(exiv2.Exifdatum(
@@ -207,8 +208,9 @@ class TestExifModule(unittest.TestCase):
             datum.setValue(123)
 
     def test_ExifData_iterator(self):
-        self.image.readMetadata()
-        data = self.image.exifData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.exifData()
         datum_iter = data.findKey(exiv2.ExifKey('Exif.Image.ImageDescription'))
         self.assertIsInstance(datum_iter, exiv2.ExifData_iterator)
         self.assertIsInstance(iter(datum_iter), exiv2.ExifData_iterator)
@@ -221,8 +223,9 @@ class TestExifModule(unittest.TestCase):
         datum2 = exiv2.Exifdatum(datum)
         self.assertIsInstance(datum2, exiv2.Exifdatum)
         del datum2
-        self.image.readMetadata()
-        data = self.image.exifData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.exifData()
         datum = data['Exif.Image.ImageDescription']
         self.assertIsInstance(datum, exiv2.Exifdatum_reference)
         self.assertEqual(datum.__deref__(), datum)
@@ -233,8 +236,9 @@ class TestExifModule(unittest.TestCase):
         self._test_datum(datum)
 
     def test_ExifThumb(self):
-        self.image.readMetadata()
-        thumb = exiv2.ExifThumb(self.image.exifData())
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        thumb = exiv2.ExifThumb(image.exifData())
         self.assertIsInstance(thumb, exiv2.ExifThumb)
         data = thumb.copy()
         self.assertIsInstance(data, exiv2.DataBuf)
@@ -311,11 +315,12 @@ class TestExifModule(unittest.TestCase):
         self.assertEqual(datum_pointer, datum_iter)
 
     def test_ref_counts(self):
-        self.image.readMetadata()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
         # exifData keeps a reference to image
-        rc_1 = sys.getrefcount(self.image)
-        data = self.image.exifData()
-        self.assertEqual(sys.getrefcount(self.image), rc_1 + 1)
+        rc_1 = sys.getrefcount(image)
+        data = image.exifData()
+        self.assertEqual(sys.getrefcount(image), rc_1 + 1)
         # thumbnail keeps a reference to exifData
         rc_2 = sys.getrefcount(data)
         thumb = exiv2.ExifThumb(data)
@@ -363,7 +368,7 @@ class TestExifModule(unittest.TestCase):
         del datum
         self.assertEqual(sys.getrefcount(data), rc_2)
         del data
-        self.assertEqual(sys.getrefcount(self.image), 2)
+        self.assertEqual(sys.getrefcount(image), rc_1)
 
 
 if __name__ == '__main__':

@@ -30,7 +30,7 @@ class TestXmpModule(unittest.TestCase):
         test_dir = os.path.dirname(__file__)
         # open image in memory so we don't corrupt the file
         with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
-            cls.image = exiv2.ImageFactory.open(f.read())
+            cls.image_data = f.read()
         # clear locale
         name = 'en_US.UTF-8'
         os.environ['LC_ALL'] = name
@@ -38,9 +38,11 @@ class TestXmpModule(unittest.TestCase):
         os.environ['LANGUAGE'] = name
 
     def test_XmpParser(self):
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
         parser = exiv2.XmpParser
-        data = self.image.xmpData()
-        res, packet = parser.encode(data)
+        data = image.xmpData()
+        res, packet = exiv2.XmpParser.encode(data)
         lines = packet.splitlines()
         self.assertEqual(res, 0)
         self.assertEqual(lines[0], '<?xpacket begin="\ufeff"'
@@ -60,8 +62,9 @@ class TestXmpModule(unittest.TestCase):
         data = exiv2.XmpData()
         self.assertEqual(len(data), 0)
         # actual data
-        self.image.readMetadata()
-        data = self.image.xmpData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.xmpData()
         self.assertEqual(len(data), 26)
         # add data
         data.add(exiv2.Xmpdatum(
@@ -98,7 +101,7 @@ class TestXmpModule(unittest.TestCase):
             k.key()
         self.assertEqual(len(data), 21)
         # access by key
-        self.image.readMetadata()
+        image.readMetadata()
         self.assertEqual('Xmp.dc.creator' in data, True)
         self.assertIsInstance(data['Xmp.dc.creator'], exiv2.Xmpdatum_reference)
         del data['Xmp.dc.creator']
@@ -138,7 +141,7 @@ class TestXmpModule(unittest.TestCase):
         data.clear()
         self.assertEqual(len(data), 0)
         self.assertEqual(data.empty(), True)
-        self.image.readMetadata()
+        image.readMetadata()
         self.assertEqual(len(data), 26)
         self.assertIsInstance(data.xmpPacket(), str)
         data.setPacket('')
@@ -203,8 +206,9 @@ class TestXmpModule(unittest.TestCase):
             datum.setValue(123)
 
     def test_XmpData_iterator(self):
-        self.image.readMetadata()
-        data = self.image.xmpData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.xmpData()
         datum_iter = data.findKey(exiv2.XmpKey('Xmp.dc.description'))
         self.assertIsInstance(datum_iter, exiv2.XmpData_iterator)
         self.assertIsInstance(iter(datum_iter), exiv2.XmpData_iterator)
@@ -217,8 +221,9 @@ class TestXmpModule(unittest.TestCase):
         datum2 = exiv2.Xmpdatum(datum)
         self.assertIsInstance(datum2, exiv2.Xmpdatum)
         del datum2
-        self.image.readMetadata()
-        data = self.image.xmpData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.xmpData()
         datum = data['Xmp.dc.description']
         self.assertIsInstance(datum, exiv2.Xmpdatum_reference)
         self.assertEqual(datum.__deref__(), datum)
@@ -265,11 +270,12 @@ class TestXmpModule(unittest.TestCase):
         self.assertEqual(datum_pointer, datum_iter)
 
     def test_ref_counts(self):
-        self.image.readMetadata()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
         # xmpData keeps a reference to image
-        rc_1 = sys.getrefcount(self.image)
-        data = self.image.xmpData()
-        self.assertEqual(sys.getrefcount(self.image), rc_1 + 1)
+        rc_1 = sys.getrefcount(image)
+        data = image.xmpData()
+        self.assertEqual(sys.getrefcount(image), rc_1 + 1)
         # iterator keeps a reference to data
         rc_2 = sys.getrefcount(data)
         b = data.begin()
@@ -312,7 +318,7 @@ class TestXmpModule(unittest.TestCase):
         del datum
         self.assertEqual(sys.getrefcount(data), rc_2)
         del data
-        self.assertEqual(sys.getrefcount(self.image), rc_1)
+        self.assertEqual(sys.getrefcount(image), rc_1)
 
 
 if __name__ == '__main__':
