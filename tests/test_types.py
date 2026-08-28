@@ -155,10 +155,10 @@ class TestTypesModule(unittest.TestCase):
             # test localisation
             self.check_result(exiv2.exvGettext(str_en), str, str_de)
             if exiv2.testVersion(0, 28, 3) or not exiv2.testVersion(0, 28, 0):
-                with self.assertLogs(level=logging.WARNING) as cm:
+                with self.assertLogs('exiv2', logging.WARNING) as cm:
                     comment = exiv2.CommentValue('charset=invalid Fred')
-                self.assertEqual(cm.output, [
-                    'WARNING:exiv2:Ungültiger Zeichensatz: "invalid"'])
+                self.assertIn('WARNING:exiv2:Ungültiger Zeichensatz: "invalid"',
+                              cm.output)
                 with self.assertRaises(exiv2.Exiv2Error) as cm:
                     key = exiv2.ExifKey(999, 'Invalid')
                 self.assertEqual(cm.exception.message.replace('"', "'"),

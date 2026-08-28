@@ -37,7 +37,7 @@ class TestErrorModule(unittest.TestCase):
         self.check_result(
             exiv2.LogMsg.level(), exiv2.LogMsg.Level, exiv2.LogMsg.Level.debug)
         # get exiv2 to log a message
-        with self.assertLogs(level=logging.WARNING):
+        with self.assertLogs('exiv2', logging.WARNING):
             comment = exiv2.CommentValue('charset=invalid Fred')
         # test setting and clearing handler
         self.assertEqual(exiv2.LogMsg.handler(), exiv2.pythonHandler)
