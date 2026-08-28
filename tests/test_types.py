@@ -26,6 +26,8 @@ import unittest
 
 import exiv2
 
+from test_error import LogMsg_lock
+
 
 language_lock = threading.Lock()
 
@@ -140,11 +142,8 @@ class TestTypesModule(unittest.TestCase):
     def test_localisation(self):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
-        # clear current locale
-        locale.setlocale(locale.LC_ALL, 'C')
-        self.check_result(exiv2.exvGettext(str_en), str, str_en)
-        # set German locale
         with language_lock:
+            # set German locale
             if not set_language('German'):
                 self.skipTest("failed to set locale")
                 return
@@ -155,15 +154,18 @@ class TestTypesModule(unittest.TestCase):
             # test localisation
             self.check_result(exiv2.exvGettext(str_en), str, str_de)
             if exiv2.testVersion(0, 28, 3) or not exiv2.testVersion(0, 28, 0):
-                with self.assertLogs('exiv2', logging.WARNING) as cm:
-                    comment = exiv2.CommentValue('charset=invalid Fred')
+                with LogMsg_lock:
+                    with self.assertLogs('exiv2', logging.WARNING) as cm:
+                        comment = exiv2.CommentValue('charset=invalid Fred')
                 self.assertIn('WARNING:exiv2:Ungültiger Zeichensatz: "invalid"',
                               cm.output)
                 with self.assertRaises(exiv2.Exiv2Error) as cm:
                     key = exiv2.ExifKey(999, 'Invalid')
                 self.assertEqual(cm.exception.message.replace('"', "'"),
                                  "Ungültige IFD-ID 0")
+            # set English locale
             set_language()
+            self.check_result(exiv2.exvGettext(str_en), str, str_en)
 
 
 if __name__ == '__main__':
