@@ -26,8 +26,6 @@ import unittest
 
 import exiv2
 
-from test_types import language_lock
-
 
 # Source - https://stackoverflow.com/a/29854274
 # Posted by Ivelin, modified by community. See post 'Timeline' for change history
@@ -260,26 +258,24 @@ class TestBasicIoModule(unittest.TestCase):
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM'],
                          'EXV_ENABLE_FILESYSTEM is off')
     def test_unicode_paths(self):
-        with language_lock:
-            cp = locale.getpreferredencoding()
-            with tempfile.TemporaryDirectory() as tmp_dir:
-                for file_name, codes in (
-                        ('Lâtín.jpg', ('UTF-8', 'cp65001', 'cp1252', 'cp850')),
-                        ('Русский.jpg', ('UTF-8', 'cp65001', 'cp20866',
-                                         'cp20880', 'cp866', 'cp855')),
-                        ('中国人.jpg', ('UTF-8', 'cp65001', 'cp54936',
-                                     'cp936'))):
-                    with self.subTest(file_name=file_name, codes=codes):
-                        tmp_path = os.path.normcase(
-                            os.path.join(tmp_dir, file_name))
-                        shutil.copyfile(self.image_path, tmp_path)
-                        io = exiv2.ImageFactory.createIo(tmp_path)
-                        if cp in codes:
-                            self.assertEqual(io.path(), tmp_path)
-                        else:
-                            self.skipTest(
-                                "code page '{}' not suitable for file name "
-                                "'{}'".format(cp, file_name))
+        cp = locale.getpreferredencoding()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            for file_name, codes in (
+                    ('Lâtín.jpg', ('UTF-8', 'cp65001', 'cp1252', 'cp850')),
+                    ('Русский.jpg', ('UTF-8', 'cp65001', 'cp20866',
+                                     'cp20880', 'cp866', 'cp855')),
+                    ('中国人.jpg', ('UTF-8', 'cp65001', 'cp54936', 'cp936'))):
+                with self.subTest(file_name=file_name, codes=codes):
+                    tmp_path = os.path.normcase(
+                        os.path.join(tmp_dir, file_name))
+                    shutil.copyfile(self.image_path, tmp_path)
+                    io = exiv2.ImageFactory.createIo(tmp_path)
+                    if cp in codes:
+                        self.assertEqual(io.path(), tmp_path)
+                    else:
+                        self.skipTest(
+                            "code page '{}' not suitable for file name "
+                            "'{}'".format(cp, file_name))
 
 
 if __name__ == '__main__':

@@ -22,8 +22,6 @@ import unittest
 
 import exiv2
 
-from test_types import language_lock, set_language
-
 
 class TestTagsModule(unittest.TestCase):
     key_name = 'Exif.Image.ImageDescription'
@@ -124,11 +122,9 @@ class TestTagsModule(unittest.TestCase):
         key.setIdx(123)
         self.check_result(key.idx(), int, 123)
         self.check_result(key.tag(), int, self.tag)
-        with language_lock:
-            set_language()
-            self.check_result(
-                key.tagDesc()[:35], str, 'A character string giving the title')
-            self.check_result(key.tagLabel(), str, 'Image Description')
+        self.check_result(
+            key.tagDesc()[:35], str, 'A character string giving the title')
+        self.check_result(key.tagLabel(), str, 'Image Description')
         self.check_result(key.tagName(), str, self.key_name.split('.')[2])
         buf = io.StringIO()
         buf = key.write(buf)

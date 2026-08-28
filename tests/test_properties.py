@@ -83,13 +83,20 @@ class TestPropertiesModule(unittest.TestCase):
             properties.propertyTitle(key)
         with self.assertRaises(exiv2.Exiv2Error):
             properties.propertyType(key)
+        if 'unittest-ft' in sys.argv[0]:
+            self.skipTest("don't test writing to global XMP namespaces")
         namespaces = properties.registeredNamespaces()
         self.assertIsInstance(namespaces, dict)
         self.assertGreater(len(namespaces), 0)
         self.assertEqual(namespaces[self.prefix_name], self.namespace)
-        # these don't seem to have any effect
-        properties.registerNs('http://example.com/', 'exmpl')
-        properties.unregisterNs('http://example.com/')
+        # these don't seem to have any effect on properties.registeredNamespaces
+        prefix = 'exmpl'
+        namespace = 'http://example.com/'
+        properties.registerNs(namespace, prefix)
+        self.assertEqual(properties.ns(prefix), namespace)
+        properties.unregisterNs(namespace)
+        with self.assertRaises(exiv2.Exiv2Error):
+            properties.ns(prefix)
         properties.unregisterNs()
 
     def test_XmpPropertyInfo(self):

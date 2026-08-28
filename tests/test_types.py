@@ -21,15 +21,10 @@ import logging
 import os
 import random
 import sys
-import threading
 import unittest
 
 import exiv2
 
-from test_error import LogMsg_lock
-
-
-language_lock = threading.Lock()
 
 def set_language(language='English'):
     if language == 'German':
@@ -139,33 +134,33 @@ class TestTypesModule(unittest.TestCase):
 
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_NLS'],
                          'no localisation available')
+    @unittest.skipIf('unittest-ft' in sys.argv[0],
+                     "don't test writing to global environment")
     def test_localisation(self):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
-        with language_lock:
-            # set German locale
-            if not set_language('German'):
-                self.skipTest("failed to set locale")
-                return
-            locale.setlocale(locale.LC_ALL, '')
-            name, encoding = locale.getlocale()
-            if name != 'de_DE' and sys.platform != 'win32':
-                self.skipTest("locale environment ignored")
-            # test localisation
-            self.check_result(exiv2.exvGettext(str_en), str, str_de)
-            if exiv2.testVersion(0, 28, 3) or not exiv2.testVersion(0, 28, 0):
-                with LogMsg_lock:
-                    with self.assertLogs('exiv2', logging.WARNING) as cm:
-                        comment = exiv2.CommentValue('charset=invalid Fred')
-                self.assertIn('WARNING:exiv2:Ungültiger Zeichensatz: "invalid"',
-                              cm.output)
-                with self.assertRaises(exiv2.Exiv2Error) as cm:
-                    key = exiv2.ExifKey(999, 'Invalid')
-                self.assertEqual(cm.exception.message.replace('"', "'"),
-                                 "Ungültige IFD-ID 0")
-            # set English locale
-            set_language()
-            self.check_result(exiv2.exvGettext(str_en), str, str_en)
+        # set German locale
+        if not set_language('German'):
+            self.skipTest("failed to set locale")
+            return
+        locale.setlocale(locale.LC_ALL, '')
+        name, encoding = locale.getlocale()
+        if name != 'de_DE' and sys.platform != 'win32':
+            self.skipTest("locale environment ignored")
+        # test localisation
+        self.check_result(exiv2.exvGettext(str_en), str, str_de)
+        if exiv2.testVersion(0, 28, 3) or not exiv2.testVersion(0, 28, 0):
+            with self.assertLogs('exiv2', logging.WARNING) as cm:
+                comment = exiv2.CommentValue('charset=invalid Fred')
+            self.assertIn('WARNING:exiv2:Ungültiger Zeichensatz: "invalid"',
+                          cm.output)
+            with self.assertRaises(exiv2.Exiv2Error) as cm:
+                key = exiv2.ExifKey(999, 'Invalid')
+            self.assertEqual(cm.exception.message.replace('"', "'"),
+                             "Ungültige IFD-ID 0")
+        # set English locale
+        set_language()
+        self.check_result(exiv2.exvGettext(str_en), str, str_en)
 
 
 if __name__ == '__main__':
