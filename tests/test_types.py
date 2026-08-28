@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -163,6 +163,7 @@ class TestTypesModule(unittest.TestCase):
                     key = exiv2.ExifKey(999, 'Invalid')
                 self.assertEqual(cm.exception.message.replace('"', "'"),
                                  "Ungültige IFD-ID 0")
+            set_language()
 
 
 if __name__ == '__main__':
