@@ -189,14 +189,15 @@ class TestImageModule(unittest.TestCase):
 
     def test_ref_counts(self):
         # opening from data keeps reference to buffer
-        count = sys.getrefcount(self.image_data)
-        image = exiv2.ImageFactory.open(self.image_data)
-        self.assertEqual(sys.getrefcount(self.image_data), count + 1)
+        image_data = bytearray(self.image_data)
+        count = sys.getrefcount(image_data)
+        image = exiv2.ImageFactory.open(image_data)
+        self.assertEqual(sys.getrefcount(image_data), count + 1)
         # writeMetadata releases buffer
         image.writeMetadata()
-        self.assertEqual(sys.getrefcount(self.image_data), count)
+        self.assertEqual(sys.getrefcount(image_data), count)
         # getting metadata and buffers keeps reference to image
-        image = exiv2.ImageFactory.open(self.image_data)
+        image = exiv2.ImageFactory.open(image_data)
         image.readMetadata()
         count = sys.getrefcount(image)
         data = [image.exifData()]
