@@ -88,13 +88,15 @@ class TestImageModule(unittest.TestCase):
         image.setIptcData(image2.iptcData())
         self.assertEqual(len(image.iptcData()), 19)
         image.setXmpPacket(image2.xmpPacket())
-        self.assertEqual(len(image.xmpPacket()), 4234)
+        packet_len = (4234, 4283)[exiv2.testVersion(0, 28, 9)]
+        self.assertEqual(len(image.xmpPacket()), packet_len)
         image.setXmpData(image2.xmpData())
         self.assertEqual(len(image.xmpData()), 26)
         image.setIccProfile(image2.iccProfile())
         self.assertEqual(len(image.iccProfile()), 672)
         image.writeMetadata()
-        self.assertEqual(len(image.io()), 15125)
+        data_len = (15125, 15174)[exiv2.testVersion(0, 28, 9)]
+        self.assertEqual(len(image.io()), data_len)
         del image2
         # test clearing individual parts
         image = exiv2.ImageFactory.open(self.image_data)
@@ -108,7 +110,7 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(len(image.iptcData()), 19)
         image.clearIptcData()
         self.assertEqual(len(image.iptcData()), 0)
-        self.assertEqual(len(image.xmpPacket()), 4234)
+        self.assertEqual(len(image.xmpPacket()), packet_len)
         image.clearXmpPacket()
         self.check_result(image.xmpPacket(), str, '')
         self.assertEqual(len(image.xmpData()), 26)
