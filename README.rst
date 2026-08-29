@@ -74,6 +74,10 @@ Free threading support is still at an experimental stage.
 To enable it you need to run a free threading build of Python (e.g. ``python3.14t``) with an environment variable ``PYTHON_GIL=0`` or command line option ``-Xgil=0``.
 If you run into any problems with it please let me know.
 
+Known problems include:
+
+* ``XmpProperties.registeredNamespaces`` is not thread safe in libexiv2 < 0.29
+
 Documentation
 -------------
 
