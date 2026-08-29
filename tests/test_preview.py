@@ -32,15 +32,15 @@ class TestPreviewModule(unittest.TestCase):
         # read image file data into memory
         with open(cls.image_path, 'rb') as f:
             cls.image_data = f.read()
-        cls.image = exiv2.ImageFactory.open(cls.image_data)
-        cls.image.readMetadata()
 
     def check_result(self, result, expected_type, expected_value):
         self.assertIsInstance(result, expected_type)
         self.assertEqual(result, expected_value)
 
     def test_PreviewImage(self):
-        manager = exiv2.PreviewManager(self.image)
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        manager = exiv2.PreviewManager(image)
         props = manager.getPreviewProperties()
         preview = manager.getPreviewImage(props[0])
         self.assertIsInstance(preview, exiv2.PreviewImage)
@@ -76,7 +76,9 @@ class TestPreviewModule(unittest.TestCase):
                     preview.writeFile(temp_file)
 
     def test_PreviewManager(self):
-        manager = exiv2.PreviewManager(self.image)
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        manager = exiv2.PreviewManager(image)
         self.assertIsInstance(manager, exiv2.PreviewManager)
         props = manager.getPreviewProperties()
         self.assertIsInstance(props, tuple)
@@ -87,7 +89,9 @@ class TestPreviewModule(unittest.TestCase):
         self.assertIsInstance(preview, exiv2.PreviewImage)
 
     def test_PreviewProperties(self):
-        properties = exiv2.PreviewManager(self.image).getPreviewProperties()[0]
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        properties = exiv2.PreviewManager(image).getPreviewProperties()[0]
         self.assertIsInstance(properties, exiv2.PreviewProperties)
         self.check_result(properties.extension_, str, '.jpg')
         self.check_result(properties.height_, int, 120)
@@ -120,11 +124,13 @@ class TestPreviewModule(unittest.TestCase):
 
     def test_ref_counts(self):
         # manager keeps reference to image
-        count = sys.getrefcount(self.image)
-        manager = exiv2.PreviewManager(self.image)
-        self.assertEqual(sys.getrefcount(self.image), count + 1)
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        count = sys.getrefcount(image)
+        manager = exiv2.PreviewManager(image)
+        self.assertEqual(sys.getrefcount(image), count + 1)
         del manager
-        self.assertEqual(sys.getrefcount(self.image), count)
+        self.assertEqual(sys.getrefcount(image), count)
 
 
 if __name__ == '__main__':

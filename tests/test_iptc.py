@@ -30,15 +30,16 @@ class TestIptcModule(unittest.TestCase):
         test_dir = os.path.dirname(__file__)
         # open image in memory so we don't corrupt the file
         with open(os.path.join(test_dir, 'image_02.jpg'), 'rb') as f:
-            cls.image = exiv2.ImageFactory.open(f.read())
+            cls.image_data = f.read()
 
     def test_IptcData(self):
         # empty container
         data = exiv2.IptcData()
         self.assertEqual(len(data), 0)
         # actual data
-        self.image.readMetadata()
-        data = self.image.iptcData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.iptcData()
         self.assertEqual(len(data), 19)
         # add data
         data.add(exiv2.Iptcdatum(
@@ -178,8 +179,9 @@ class TestIptcModule(unittest.TestCase):
             datum.setValue(123)
 
     def test_IptcData_iterator(self):
-        self.image.readMetadata()
-        data = self.image.iptcData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.iptcData()
         datum_iter = data.findKey(exiv2.IptcKey('Iptc.Application2.Caption'))
         self.assertIsInstance(datum_iter, exiv2.IptcData_iterator)
         self.assertIsInstance(iter(datum_iter), exiv2.IptcData_iterator)
@@ -193,8 +195,9 @@ class TestIptcModule(unittest.TestCase):
         datum2 = exiv2.Iptcdatum(datum)
         self.assertIsInstance(datum2, exiv2.Iptcdatum)
         del datum2
-        self.image.readMetadata()
-        data = self.image.iptcData()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
+        data = image.iptcData()
         datum = data['Iptc.Application2.Caption']
         self.assertIsInstance(datum, exiv2.Iptcdatum_reference)
         self.assertEqual(datum.__deref__(), datum)
@@ -205,11 +208,12 @@ class TestIptcModule(unittest.TestCase):
         self._test_datum(datum)
 
     def test_ref_counts(self):
-        self.image.readMetadata()
+        image = exiv2.ImageFactory.open(self.image_data)
+        image.readMetadata()
         # iptcData keeps a reference to image
-        rc_1 = sys.getrefcount(self.image)
-        data = self.image.iptcData()
-        self.assertEqual(sys.getrefcount(self.image), rc_1 + 1)
+        rc_1 = sys.getrefcount(image)
+        data = image.iptcData()
+        self.assertEqual(sys.getrefcount(image), rc_1 + 1)
         # iterator keeps a reference to data
         rc_2 = sys.getrefcount(data)
         b = data.begin()
@@ -252,7 +256,7 @@ class TestIptcModule(unittest.TestCase):
         del datum
         self.assertEqual(sys.getrefcount(data), rc_2)
         del data
-        self.assertEqual(sys.getrefcount(self.image), rc_1)
+        self.assertEqual(sys.getrefcount(image), rc_1)
 
 
 if __name__ == '__main__':

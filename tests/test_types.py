@@ -1,6 +1,6 @@
 ##  python-exiv2 - Python interface to libexiv2
 ##  http://github.com/jim-easterbrook/python-exiv2
-##  Copyright (C) 2023-25  Jim Easterbrook  jim@jim-easterbrook.me.uk
+##  Copyright (C) 2023-26  Jim Easterbrook  jim@jim-easterbrook.me.uk
 ##
 ##  This program is free software: you can redistribute it and/or
 ##  modify it under the terms of the GNU General Public License as
@@ -24,6 +24,23 @@ import sys
 import unittest
 
 import exiv2
+
+
+def set_language(language='English'):
+    if language == 'German':
+        name = 'de_DE.UTF-8'
+    else:
+        name = 'en_US.UTF-8'
+    os.environ['LC_ALL'] = name
+    os.environ['LANG'] = name
+    os.environ['LANGUAGE'] = name
+    if sys.platform == 'win32':
+        name = language
+    try:
+        locale.setlocale(locale.LC_ALL, name)
+    except locale.Error:
+        return False
+    return True
 
 
 class TestTypesModule(unittest.TestCase):
@@ -117,26 +134,15 @@ class TestTypesModule(unittest.TestCase):
 
     @unittest.skipUnless(exiv2.versionInfo()['EXV_ENABLE_NLS'],
                          'no localisation available')
+    @unittest.skipIf('unittest-ft' in sys.argv[0],
+                     "don't test writing to global environment")
     def test_localisation(self):
         str_en = 'Failed to read input data'
         str_de = 'Die Eingabedaten konnten nicht gelesen werden.'
-        # clear current locale
-        locale.setlocale(locale.LC_ALL, 'C')
-        self.check_result(exiv2.exvGettext(str_en), str, str_en)
         # set German locale
-        if sys.platform == 'win32':
-            name = 'German'
-        else:
-            name = 'de_DE.UTF-8'
-        try:
-            locale.setlocale(locale.LC_ALL, name)
-        except locale.Error:
+        if not set_language('German'):
             self.skipTest("failed to set locale")
             return
-        name = 'de_DE.UTF-8'
-        os.environ['LC_ALL'] = name
-        os.environ['LANG'] = name
-        os.environ['LANGUAGE'] = name
         locale.setlocale(locale.LC_ALL, '')
         name, encoding = locale.getlocale()
         if name != 'de_DE' and sys.platform != 'win32':
@@ -144,19 +150,17 @@ class TestTypesModule(unittest.TestCase):
         # test localisation
         self.check_result(exiv2.exvGettext(str_en), str, str_de)
         if exiv2.testVersion(0, 28, 3) or not exiv2.testVersion(0, 28, 0):
-            with self.assertLogs(level=logging.WARNING) as cm:
+            with self.assertLogs('exiv2', logging.WARNING) as cm:
                 comment = exiv2.CommentValue('charset=invalid Fred')
-            self.assertEqual(cm.output, [
-                'WARNING:exiv2:Ungültiger Zeichensatz: "invalid"'])
+            self.assertIn('WARNING:exiv2:Ungültiger Zeichensatz: "invalid"',
+                          cm.output)
             with self.assertRaises(exiv2.Exiv2Error) as cm:
                 key = exiv2.ExifKey(999, 'Invalid')
             self.assertEqual(cm.exception.message.replace('"', "'"),
                              "Ungültige IFD-ID 0")
-        # clear locale
-        name = 'en_US.UTF-8'
-        os.environ['LC_ALL'] = name
-        os.environ['LANG'] = name
-        os.environ['LANGUAGE'] = name
+        # set English locale
+        set_language()
+        self.check_result(exiv2.exvGettext(str_en), str, str_en)
 
 
 if __name__ == '__main__':

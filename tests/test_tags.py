@@ -28,14 +28,6 @@ class TestTagsModule(unittest.TestCase):
     group_name = 'Image'
     tag = 270
 
-    @classmethod
-    def setUpClass(cls):
-        # clear locale
-        name = 'en_US.UTF-8'
-        os.environ['LC_ALL'] = name
-        os.environ['LANG'] = name
-        os.environ['LANGUAGE'] = name
-
     def check_result(self, result, expected_type, expected_value):
         self.assertIsInstance(result, expected_type)
         self.assertEqual(result, expected_value)
@@ -130,9 +122,8 @@ class TestTagsModule(unittest.TestCase):
         key.setIdx(123)
         self.check_result(key.idx(), int, 123)
         self.check_result(key.tag(), int, self.tag)
-        desc = key.tagDesc()
-        self.assertIsInstance(desc, str)
-        self.assertTrue(desc.startswith('A character string giving the title'))
+        self.check_result(
+            key.tagDesc()[:35], str, 'A character string giving the title')
         self.check_result(key.tagLabel(), str, 'Image Description')
         self.check_result(key.tagName(), str, self.key_name.split('.')[2])
         buf = io.StringIO()

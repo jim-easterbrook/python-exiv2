@@ -12,7 +12,6 @@
 #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
 #define SWIGPYTHON_BUILTIN
 #define SWIGPYTHON_FASTPROXY
-#define SWIGPYTHON_NOGIL
 
 #define SWIG_name    "_datasets"
 /* -----------------------------------------------------------------------------
