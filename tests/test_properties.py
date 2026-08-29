@@ -20,9 +20,12 @@ import io
 import os
 import sys
 import tempfile
+import threading
 import unittest
 
 import exiv2
+
+properties_lock = threading.Lock()
 
 
 class TestPropertiesModule(unittest.TestCase):
@@ -83,21 +86,22 @@ class TestPropertiesModule(unittest.TestCase):
             properties.propertyTitle(key)
         with self.assertRaises(exiv2.Exiv2Error):
             properties.propertyType(key)
-        if 'unittest-ft' in sys.argv[0]:
-            self.skipTest("don't test writing to global XMP namespaces")
-        namespaces = properties.registeredNamespaces()
-        self.assertIsInstance(namespaces, dict)
-        self.assertGreater(len(namespaces), 0)
-        self.assertEqual(namespaces[self.prefix_name], self.namespace)
+        # registeredNamespaces is not thread safe in exiv2 <= 0.28.x
+        if exiv2.testVersion(0, 29, 0) or 'unittest-ft' not in sys.argv[0]:
+            namespaces = properties.registeredNamespaces()
+            self.assertIsInstance(namespaces, dict)
+            self.assertGreater(len(namespaces), 0)
+            self.assertEqual(namespaces[self.prefix_name], self.namespace)
         # these don't seem to have any effect on properties.registeredNamespaces
         prefix = 'exmpl'
         namespace = 'http://example.com/'
-        properties.registerNs(namespace, prefix)
-        self.assertEqual(properties.ns(prefix), namespace)
-        properties.unregisterNs(namespace)
-        with self.assertRaises(exiv2.Exiv2Error):
-            properties.ns(prefix)
-        properties.unregisterNs()
+        with properties_lock:
+            properties.registerNs(namespace, prefix)
+            self.assertEqual(properties.ns(prefix), namespace)
+            properties.unregisterNs(namespace)
+            with self.assertRaises(exiv2.Exiv2Error):
+                properties.ns(prefix)
+            properties.unregisterNs()
 
     def test_XmpPropertyInfo(self):
         key = exiv2.XmpKey(self.key_name)
