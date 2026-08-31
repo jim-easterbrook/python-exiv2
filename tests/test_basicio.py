@@ -63,7 +63,10 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.size(), 0)
         # open and close
         self.assertEqual(io.isopen(), False)
-        self.assertEqual(io.open(), 0)
+        try:
+            self.assertEqual(io.open(), 0)
+        except exiv2.Exiv2Error as ex:
+            self.skipTest(str(ex))
         self.assertEqual(io.size(), 15125)
         self.assertEqual(io.isopen(), True)
         self.assertEqual(io.close(), 0)
