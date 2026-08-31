@@ -16,11 +16,6 @@ jobs:
             runner: ubuntu-22.04-arm
             exiv2_build: Linux-aarch64
             arch: aarch64
-          - build: MacOS-x64
-            runner: macos-15-intel
-            exiv2_build: Darwin-x86_64
-            target: 15.0
-            arch: x86_64
           - build: MacOS-arm64
             runner: macos-14
             exiv2_build: Darwin-arm64
@@ -31,8 +26,8 @@ jobs:
             exiv2_build: 2022msvc-AMD64
             arch: AMD64
     env:
-      EXIV2_VSN: 0.28.8
-      EXIV2_ROOT: exiv2-0.28.8-${{ matrix.exiv2_build }}
+      EXIV2_VSN: 0.28.9
+      EXIV2_ROOT: exiv2-0.28.9-${{ matrix.exiv2_build }}
     defaults:
       run:
         shell: bash

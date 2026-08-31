@@ -16377,34 +16377,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_UShortValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ValueType< uint16_t > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_UShortValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_UShortValue" "', argument " "1"" of type '" "Exiv2::ValueType< uint16_t > *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_UShortValue_read__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Exiv2::ValueType< uint16_t > *arg1 = 0 ;
@@ -17192,9 +17164,37 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_UShortValue) /* defines _wrap_delete_UShortValue_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_UShortValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< uint16_t > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_UShortValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint16_t_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_UShortValue" "', argument " "1"" of type '" "Exiv2::ValueType< uint16_t > *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< uint16_t > * >(argp1);
+  {
+    try {
+      delete arg1;
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_UShortValue_count) /* defines _wrap_UShortValue_count_lenfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_UShortValue) /* defines _wrap_delete_UShortValue_destructor_closure */
 
 SWIGINTERN PyObject *_wrap__getitem_Exiv2_ValueType_Sl_uint32_t_Sg_(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -17497,34 +17497,6 @@ SWIGINTERN int _wrap_new_ULongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
   return resultobj == Py_None ? -1 : 0;
 fail:
   return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_ULongValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ValueType< uint32_t > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_ULongValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ULongValue" "', argument " "1"" of type '" "Exiv2::ValueType< uint32_t > *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -18315,9 +18287,37 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ULongValue) /* defines _wrap_delete_ULongValue_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_ULongValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< uint32_t > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_ULongValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_uint32_t_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ULongValue" "', argument " "1"" of type '" "Exiv2::ValueType< uint32_t > *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< uint32_t > * >(argp1);
+  {
+    try {
+      delete arg1;
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_ULongValue_count) /* defines _wrap_ULongValue_count_lenfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ULongValue) /* defines _wrap_delete_ULongValue_destructor_closure */
 
 SWIGINTERN PyObject *_wrap__getitem_Exiv2_ValueType_Sl_Exiv2_URational_Sg_(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -18627,34 +18627,6 @@ SWIGINTERN int _wrap_new_URationalValue__SWIG_3(PyObject *self, Py_ssize_t nobjs
   return resultobj == Py_None ? -1 : 0;
 fail:
   return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_URationalValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ValueType< Exiv2::URational > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_URationalValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_URationalValue" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::URational > *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -19445,9 +19417,37 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_URationalValue) /* defines _wrap_delete_URationalValue_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_URationalValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< Exiv2::URational > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_URationalValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_uint32_t_uint32_t_t_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_URationalValue" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::URational > *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::URational > * >(argp1);
+  {
+    try {
+      delete arg1;
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_URationalValue_count) /* defines _wrap_URationalValue_count_lenfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_URationalValue) /* defines _wrap_delete_URationalValue_destructor_closure */
 
 SWIGINTERN PyObject *_wrap__getitem_Exiv2_ValueType_Sl_int16_t_Sg_(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -19750,34 +19750,6 @@ SWIGINTERN int _wrap_new_ShortValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
   return resultobj == Py_None ? -1 : 0;
 fail:
   return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_ShortValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ValueType< int16_t > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_ShortValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ShortValue" "', argument " "1"" of type '" "Exiv2::ValueType< int16_t > *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -20568,9 +20540,37 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ShortValue) /* defines _wrap_delete_ShortValue_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_ShortValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< int16_t > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_ShortValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int16_t_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ShortValue" "', argument " "1"" of type '" "Exiv2::ValueType< int16_t > *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< int16_t > * >(argp1);
+  {
+    try {
+      delete arg1;
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_ShortValue_count) /* defines _wrap_ShortValue_count_lenfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_ShortValue) /* defines _wrap_delete_ShortValue_destructor_closure */
 
 SWIGINTERN PyObject *_wrap__getitem_Exiv2_ValueType_Sl_int32_t_Sg_(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -20873,34 +20873,6 @@ SWIGINTERN int _wrap_new_LongValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, PyO
   return resultobj == Py_None ? -1 : 0;
 fail:
   return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_LongValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ValueType< int32_t > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_LongValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_LongValue" "', argument " "1"" of type '" "Exiv2::ValueType< int32_t > *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -21691,9 +21663,37 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_LongValue) /* defines _wrap_delete_LongValue_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_LongValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< int32_t > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_LongValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_int32_t_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_LongValue" "', argument " "1"" of type '" "Exiv2::ValueType< int32_t > *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< int32_t > * >(argp1);
+  {
+    try {
+      delete arg1;
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_LongValue_count) /* defines _wrap_LongValue_count_lenfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_LongValue) /* defines _wrap_delete_LongValue_destructor_closure */
 
 SWIGINTERN PyObject *_wrap__getitem_Exiv2_ValueType_Sl_Exiv2_Rational_Sg_(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -22003,34 +22003,6 @@ SWIGINTERN int _wrap_new_RationalValue__SWIG_3(PyObject *self, Py_ssize_t nobjs,
   return resultobj == Py_None ? -1 : 0;
 fail:
   return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_RationalValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ValueType< Exiv2::Rational > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_RationalValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RationalValue" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::Rational > *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -22821,9 +22793,37 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_RationalValue) /* defines _wrap_delete_RationalValue_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_RationalValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< Exiv2::Rational > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_RationalValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_std__pairT_int32_t_int32_t_t_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RationalValue" "', argument " "1"" of type '" "Exiv2::ValueType< Exiv2::Rational > *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< Exiv2::Rational > * >(argp1);
+  {
+    try {
+      delete arg1;
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_RationalValue_count) /* defines _wrap_RationalValue_count_lenfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_RationalValue) /* defines _wrap_delete_RationalValue_destructor_closure */
 
 SWIGINTERN PyObject *_wrap__getitem_Exiv2_ValueType_Sl_float_Sg_(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -23126,34 +23126,6 @@ SWIGINTERN int _wrap_new_FloatValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, Py
   return resultobj == Py_None ? -1 : 0;
 fail:
   return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_FloatValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ValueType< float > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_FloatValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_FloatValue" "', argument " "1"" of type '" "Exiv2::ValueType< float > *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -23944,9 +23916,37 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_FloatValue) /* defines _wrap_delete_FloatValue_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_FloatValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< float > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_FloatValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_float_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_FloatValue" "', argument " "1"" of type '" "Exiv2::ValueType< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< float > * >(argp1);
+  {
+    try {
+      delete arg1;
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_FloatValue_count) /* defines _wrap_FloatValue_count_lenfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_FloatValue) /* defines _wrap_delete_FloatValue_destructor_closure */
 
 SWIGINTERN PyObject *_wrap__getitem_Exiv2_ValueType_Sl_double_Sg_(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
@@ -24249,34 +24249,6 @@ SWIGINTERN int _wrap_new_DoubleValue__SWIG_3(PyObject *self, Py_ssize_t nobjs, P
   return resultobj == Py_None ? -1 : 0;
 fail:
   return -1;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_DoubleValue(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  Exiv2::ValueType< double > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "delete_DoubleValue", 0, 0, 0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DoubleValue" "', argument " "1"" of type '" "Exiv2::ValueType< double > *""'"); 
-  }
-  arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
-  {
-    try {
-      delete arg1;
-    }
-    catch(std::exception const& e) {
-      _set_python_exception();
-      SWIG_fail;
-    }
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -25067,9 +25039,37 @@ fail:
 }
 
 
-SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DoubleValue) /* defines _wrap_delete_DoubleValue_destructor_closure */
+SWIGINTERN PyObject *_wrap_delete_DoubleValue(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  Exiv2::ValueType< double > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "delete_DoubleValue", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Exiv2__ValueTypeT_double_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DoubleValue" "', argument " "1"" of type '" "Exiv2::ValueType< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< Exiv2::ValueType< double > * >(argp1);
+  {
+    try {
+      delete arg1;
+    }
+    catch(std::exception const& e) {
+      _set_python_exception();
+      SWIG_fail;
+    }
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGPY_LENFUNC_CLOSURE(_wrap_DoubleValue_count) /* defines _wrap_DoubleValue_count_lenfunc_closure */
+
+SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_DoubleValue) /* defines _wrap_delete_DoubleValue_destructor_closure */
 
 static PyMethodDef SwigMethods[] = {
 	 { "_getitem_Exiv2_LangAltValue", _wrap__getitem_Exiv2_LangAltValue, METH_VARARGS, NULL},
