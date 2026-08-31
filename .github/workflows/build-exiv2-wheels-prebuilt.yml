@@ -16,11 +16,6 @@ jobs:
             runner: ubuntu-22.04-arm
             exiv2_build: Linux-aarch64
             arch: aarch64
-          - build: MacOS-x64
-            runner: macos-15-intel
-            exiv2_build: Darwin-x86_64
-            target: 15.0
-            arch: x86_64
           - build: MacOS-arm64
             runner: macos-14
             exiv2_build: Darwin-arm64
