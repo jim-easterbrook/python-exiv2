@@ -67,7 +67,7 @@ class TestBasicIoModule(unittest.TestCase):
         self.assertEqual(io.size(), 15125)
         self.assertEqual(io.isopen(), True)
         self.assertEqual(io.close(), 0)
-        if exiv2.testVersion(1, 0, 0):
+        if exiv2.testVersion(0, 28, 9):
             self.assertEqual(io.isopen(), False)
         else:
             self.assertEqual(io.isopen(), True)
