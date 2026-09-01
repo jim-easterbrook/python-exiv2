@@ -6161,7 +6161,7 @@ static PyHeapTypeObject SwigPyBuiltin__Exiv2__BasicIo_type = {
 		"going via a Python BasicIo object.\n"
 		"\n"
 		"It is planned to remove BasicIo from the Python interface in a future\n"
-		"release. Please let me (jim@jim-easterbrook.me.uk) know if that wiould\n"
+		"release. Please let me (jim@jim-easterbrook.me.uk) know if that would\n"
 		"be a problem for you.\n"
 		"", /* tp_doc */
     (traverseproc) 0,                       /* tp_traverse */
@@ -6332,7 +6332,7 @@ static PyTypeObject *SwigPyBuiltin__Exiv2__BasicIo_type_create(PyTypeObject *typ
 		"going via a Python BasicIo object.\n"
 		"\n"
 		"It is planned to remove BasicIo from the Python interface in a future\n"
-		"release. Please let me (jim@jim-easterbrook.me.uk) know if that wiould\n"
+		"release. Please let me (jim@jim-easterbrook.me.uk) know if that would\n"
 		"be a problem for you.\n"
 		"" },
     { Py_tp_richcompare,                (void *)(richcmpfunc) SwigPyBuiltin__Exiv2__BasicIo_richcompare },
