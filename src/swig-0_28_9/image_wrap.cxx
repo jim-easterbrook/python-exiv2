@@ -6456,6 +6456,7 @@ SWIGINTERN PyObject *_wrap_Image_io(PyObject *self, PyObject *args) {
 #endif
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::Image::io", 1);
     try {
       result = (Exiv2::BasicIo *) &((Exiv2::Image const *)arg1)->io();
     }
@@ -6870,6 +6871,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_0(PyObject *self, Py_ssiz
 #endif
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ImageFactory::createIo", 1);
     try {
       result = Exiv2::ImageFactory::createIo((std::string const &)*arg1,arg2);
     }
@@ -7309,6 +7311,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_getType__SWIG_2(PyObject *self, Py_ssize
   }
   arg1 = reinterpret_cast< Exiv2::BasicIo * >(argp1);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ImageFactory::getType(BasicIo&)", 1);
     try {
       result = (Exiv2::ImageType)Exiv2::ImageFactory::getType(*arg1);
     }
@@ -7467,6 +7470,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_checkType(PyObject *self, PyObject *args
   } 
   arg3 = static_cast< bool >(val3);
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ImageFactory::checkType", 1);
     try {
       result = (bool)Exiv2::ImageFactory::checkType(arg1,*arg2,arg3);
     }
@@ -7506,6 +7510,7 @@ SWIGINTERN PyObject *_wrap_ImageFactory_createIo__SWIG_1(PyObject *self, Py_ssiz
     arg2 = (size_t) buff->len;
   }
   {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Python scripts should not need to call ""Exiv2::ImageFactory::createIo", 1);
     try {
       result = Exiv2_ImageFactory_createIo__SWIG_1((unsigned char const *)arg1,SWIG_STD_MOVE(*(&arg2)));
     }

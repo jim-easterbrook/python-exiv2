@@ -131,6 +131,13 @@ WINDOWS_PATH(const std::string& path)
 %typemap(default) bool enable {$1 = true;}
 %ignore Exiv2::enableBMFF();
 
+// Deprecate methods that return a BasicIo object
+// Deprecated since 2026-09-01
+DEPRECATE_FUNCTION(Exiv2::Image::io, true)
+DEPRECATE_FUNCTION(Exiv2::ImageFactory::checkType, true)
+DEPRECATE_FUNCTION(Exiv2::ImageFactory::createIo, true)
+DEPRECATE_FUNCTION(Exiv2::ImageFactory::getType(BasicIo&), true)
+
 // Extend ImageFactory to allow creation of a MemIo from a buffer
 %feature("docstring") Exiv2::ImageFactory::createIo "
 *Overload 1:*

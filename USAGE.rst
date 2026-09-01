@@ -399,7 +399,7 @@ In python-exiv2 the ``data`` and ``size`` parameters are replaced with a single 
 The buffered data isn't actually read until ``Image::readMetadata`` is called, so python-exiv2 stores a reference to the buffer to stop the user accidentally deleting it.
 
 When ``Image::writeMetadata`` is called exiv2 allocates a new block of memory to store the modified data.
-The ``Image::io`` method returns an `Exiv2::BasicIo`_ object that provides access to this data.
+The deprecated ``Image::io`` method returns an `Exiv2::BasicIo`_ object that provides access to this data.
 
 The ``BasicIo::mmap`` and ``BasicIo::munmap`` methods allow access to the image file data without unnecessary copying.
 However they are rather error prone, crashing your Python program with a segmentation fault if anything goes wrong.

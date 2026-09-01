@@ -16,6 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+Changes in v0.20.0:
+  1/ Deprecate all use of BasicIo objects. Please let me know if this is a
+     problem.
+  2/ Initialise XMP toolkit on startup and deprecate XmpParser.initialize
+  3/ Improved thread safety.
+
 Changes in v0.19.2:
   1/ Binary wheels incorporate libexiv2 v0.28.9
 

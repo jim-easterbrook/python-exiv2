@@ -55,7 +55,8 @@ class TestBasicIoModule(unittest.TestCase):
     def test_CurlIo(self):
         https_image = ('https://raw.githubusercontent.com/jim-easterbrook'
                        '/python-exiv2/main/tests/image_02.jpg')
-        io = exiv2.ImageFactory.createIo(https_image)
+        with self.assertWarns(DeprecationWarning):
+            io = exiv2.ImageFactory.createIo(https_image)
         self.assertIsInstance(io, exiv2.BasicIo)
         self.assertEqual(io.ioType(), 'CurlIo')
         self.assertEqual(io.error(), False)
@@ -79,7 +80,8 @@ class TestBasicIoModule(unittest.TestCase):
                          'EXV_ENABLE_FILESYSTEM is off')
     def test_FileIo(self):
         # most functions are tested in test_MemIo
-        io = exiv2.ImageFactory.createIo(self.image_path)
+        with self.assertWarns(DeprecationWarning):
+            io = exiv2.ImageFactory.createIo(self.image_path)
         self.assertIsInstance(io, exiv2.BasicIo)
         self.assertEqual(io.ioType(), 'FileIo')
         self.assertEqual(io.error(), False)
@@ -94,7 +96,8 @@ class TestBasicIoModule(unittest.TestCase):
 
     def test_MemIo(self):
         # empty buffer
-        io = exiv2.ImageFactory.createIo(b'')
+        with self.assertWarns(DeprecationWarning):
+            io = exiv2.ImageFactory.createIo(b'')
         self.assertIsInstance(io, exiv2.BasicIo)
         self.assertEqual(io.ioType(), 'MemIo')
         self.assertEqual(io.size(), 0)
@@ -139,7 +142,8 @@ class TestBasicIoModule(unittest.TestCase):
             with self.assertRaises(IndexError):
                 view[0] = 0
         # non-empty buffer
-        io = exiv2.ImageFactory.createIo(self.data)
+        with self.assertWarns(DeprecationWarning):
+            io = exiv2.ImageFactory.createIo(self.data)
         self.assertIsInstance(io, exiv2.BasicIo)
         self.assertEqual(io.ioType(), 'MemIo')
         self.assertEqual(io.error(), False)
@@ -253,7 +257,8 @@ class TestBasicIoModule(unittest.TestCase):
         if count > 1000000:
             # self.data is "immortal"
             return
-        io = exiv2.ImageFactory.createIo(self.data)
+        with self.assertWarns(DeprecationWarning):
+            io = exiv2.ImageFactory.createIo(self.data)
         self.assertEqual(sys.getrefcount(self.data), count + 1)
         del io
         self.assertEqual(sys.getrefcount(self.data), count)
@@ -272,7 +277,8 @@ class TestBasicIoModule(unittest.TestCase):
                     tmp_path = os.path.normcase(
                         os.path.join(tmp_dir, file_name))
                     shutil.copyfile(self.image_path, tmp_path)
-                    io = exiv2.ImageFactory.createIo(tmp_path)
+                    with self.assertWarns(DeprecationWarning):
+                        io = exiv2.ImageFactory.createIo(tmp_path)
                     if cp in codes:
                         self.assertEqual(io.path(), tmp_path)
                     else:

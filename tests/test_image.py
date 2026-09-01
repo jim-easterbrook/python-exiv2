@@ -62,7 +62,8 @@ class TestImageModule(unittest.TestCase):
     def test_Image(self):
         # open image in memory so we don't corrupt the file
         image = exiv2.ImageFactory.open(self.image_data)
-        self.assertEqual(len(image.io()), 15125)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(len(image.io()), 15125)
         # test clearMetadata
         image.readMetadata()
         self.check_result(image.comment(), str, 'Created with GIMP')
@@ -77,7 +78,8 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(len(image.xmpData()), 0)
         self.assertEqual(len(image.iccProfile()), 0)
         image.writeMetadata()
-        self.assertEqual(len(image.io()), 6371)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(len(image.io()), 6371)
         # test setting individual parts
         image2 = exiv2.ImageFactory.open(self.image_data)
         image2.readMetadata()
@@ -96,7 +98,8 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(len(image.iccProfile()), 672)
         image.writeMetadata()
         data_len = (15125, 15174)[exiv2.testVersion(0, 28, 9)]
-        self.assertEqual(len(image.io()), data_len)
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(len(image.io()), data_len)
         del image2
         # test clearing individual parts
         image = exiv2.ImageFactory.open(self.image_data)
@@ -148,7 +151,8 @@ class TestImageModule(unittest.TestCase):
         self.check_result(image.iccProfileDefined(), bool, True)
         self.check_result(image.imageType(),
                           exiv2.ImageType, exiv2.ImageType.jpeg)
-        self.assertIsInstance(image.io(), exiv2.BasicIo)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(image.io(), exiv2.BasicIo)
         self.check_result(image.mimeType(), str, 'image/jpeg')
         self.check_result(image.pixelHeight(), int, 200)
         self.check_result(image.pixelWidth(), int, 200)
@@ -163,20 +167,25 @@ class TestImageModule(unittest.TestCase):
         self.check_result(
             factory.checkMode(exiv2.ImageType.jpeg, exiv2.MetadataId.Exif),
             exiv2.AccessMode, exiv2.AccessMode.ReadWrite)
-        io = factory.createIo(self.image_data)
+        with self.assertWarns(DeprecationWarning):
+            io = factory.createIo(self.image_data)
         with self.assertWarns(DeprecationWarning):
             factory.checkType(int(exiv2.ImageType.jpeg), io, False)
-        self.check_result(
-            factory.checkType(exiv2.ImageType.jpeg, io, False), bool, True)
+        with self.assertWarns(DeprecationWarning):
+            self.check_result(
+                factory.checkType(exiv2.ImageType.jpeg, io, False), bool, True)
         with self.assertWarns(DeprecationWarning):
             factory.create(int(exiv2.ImageType.jpeg))
         self.assertIsInstance(
             factory.create(exiv2.ImageType.jpeg), exiv2.Image)
-        self.assertIsInstance(factory.createIo(self.image_data), exiv2.BasicIo)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                factory.createIo(self.image_data), exiv2.BasicIo)
         self.check_result(factory.getType(self.image_data),
                           exiv2.ImageType, exiv2.ImageType.jpeg)
-        self.check_result(factory.getType(io),
-                          exiv2.ImageType, exiv2.ImageType.jpeg)
+        with self.assertWarns(DeprecationWarning):
+            self.check_result(factory.getType(io),
+                              exiv2.ImageType, exiv2.ImageType.jpeg)
         self.assertIsInstance(factory.open(self.image_data), exiv2.Image)
         if not exiv2.versionInfo()['EXV_ENABLE_FILESYSTEM']:
             self.skipTest('EXV_ENABLE_FILESYSTEM is off')
@@ -184,7 +193,9 @@ class TestImageModule(unittest.TestCase):
             temp_file = os.path.join(tmp_dir, 'image.jpg')
             self.assertIsInstance(
                 factory.create(exiv2.ImageType.jpeg, temp_file), exiv2.Image)
-        self.assertIsInstance(factory.createIo(self.image_path), exiv2.BasicIo)
+        with self.assertWarns(DeprecationWarning):
+            self.assertIsInstance(
+                factory.createIo(self.image_path), exiv2.BasicIo)
         self.check_result(factory.getType(self.image_path),
                           exiv2.ImageType, exiv2.ImageType.jpeg)
         self.assertIsInstance(factory.open(self.image_path), exiv2.Image)
@@ -210,7 +221,8 @@ class TestImageModule(unittest.TestCase):
         self.assertEqual(sys.getrefcount(image), count + 3)
         data.append(image.iccProfile())
         self.assertEqual(sys.getrefcount(image), count + 4)
-        data.append(image.io())
+        with self.assertWarns(DeprecationWarning):
+            data.append(image.io())
         self.assertEqual(sys.getrefcount(image), count + 5)
         data.append(image.data())
         self.assertEqual(sys.getrefcount(image), count + 6)
